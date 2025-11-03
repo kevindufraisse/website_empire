@@ -45,9 +45,7 @@ export function InlineCTA({
         {description && <p className="text-neutral-300 mb-4">{description}</p>}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <a
-            href="https://www.join.empire-internet.com/bdc-empire"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/order"
             className="px-6 py-3 bg-empire text-black font-bold rounded-lg hover:scale-105 transition-all"
           >
             {primaryText}
@@ -69,9 +67,7 @@ export function InlineCTA({
       {description && <p className="text-neutral-300 mb-6">{description}</p>}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-md mx-auto">
         <a
-          href="https://www.join.empire-internet.com/bdc-empire"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/order"
           className="px-6 py-3 bg-empire text-black font-bold rounded-lg hover:scale-105 transition-all"
         >
           {primaryText}

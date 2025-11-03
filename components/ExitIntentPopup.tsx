@@ -88,9 +88,7 @@ export function ExitIntentPopup() {
                     <p className="text-xs opacity-80">Tue/Thu 1PM CET</p>
             </a>
             <a
-              href="https://www.join.empire-internet.com/bdc-empire"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/order"
               className="p-4 rounded-lg border-2 border-empire/30 text-white font-semibold hover:bg-empire/10 transition-all text-center"
               onClick={() => setDismissed(true)}
             >

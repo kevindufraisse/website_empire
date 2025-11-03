@@ -302,7 +302,7 @@ export const en = {
   faqItems: [
     {
       question: 'How do I get started?',
-      answer: 'Two ways: 1) Join our live Q&A session (Tuesday 1PM or Thursday 1PM CET) to see everything and ask questions, OR 2) Skip the demo and start immediately at join.empire-internet.com/bdc-empire. Either way, your first content is ready in 7 days.',
+      answer: 'Two ways: 1) Join our live Q&A session (Tuesday 1PM or Thursday 1PM CET) to see everything and ask questions, OR 2) Go directly to our order page and choose your plan. Either way, your first content is ready within 24 hours of your interview.',
     },
     {
       question: 'How much time do I need to invest?',

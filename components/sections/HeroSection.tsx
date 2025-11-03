@@ -53,9 +53,7 @@ export default function HeroSection() {
           >
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
-                href="https://www.join.empire-internet.com/bdc-empire"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/order"
                 className="px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)]"
               >
                 {t.hero.cta1}

@@ -304,7 +304,7 @@ export const fr: Translations = {
   faqItems: [
     {
       question: 'Comment je commence ?',
-      answer: 'Deux façons : 1) Rejoignez notre session Q&A live (Mardi 13h ou Jeudi 13h CET) pour tout voir et poser vos questions, OU 2) Passez la démo et commencez immédiatement sur join.empire-internet.com/bdc-empire. Dans tous les cas, votre premier contenu est prêt en 7 jours.',
+      answer: 'Deux façons : 1) Rejoignez notre session Q&A live (Mardi 13h ou Jeudi 13h CET) pour tout voir et poser vos questions, OU 2) Allez directement sur notre page de commande et choisissez votre plan. Dans tous les cas, votre premier contenu est prêt 24h après votre interview.',
     },
     {
       question: 'Combien de temps dois-je investir ?',

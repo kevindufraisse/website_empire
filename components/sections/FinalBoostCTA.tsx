@@ -48,9 +48,7 @@ export default function FinalBoostCTA() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <a
-                    href="https://www.join.empire-internet.com/bdc-empire"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="/order"
                     className="px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)] text-center"
                   >
                     {t.finalCTA.startNow}

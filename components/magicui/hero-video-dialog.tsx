@@ -117,9 +117,7 @@ export function HeroVideoDialog({
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
                   <a
-                    href="https://www.join.empire-internet.com/bdc-empire"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="/order"
                     className="py-3 px-4 rounded-lg bg-empire text-black font-bold hover:scale-105 transition-all text-center text-sm"
                   >
                     {t.videoDialog.startNow}

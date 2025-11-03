@@ -47,9 +47,7 @@ export default function Header() {
                   {t.header.spots}
                 </div>
                 <a
-                  href="https://www.join.empire-internet.com/bdc-empire"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/order"
                   className="px-5 py-2.5 rounded-lg bg-empire text-black font-semibold hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.2)]"
                 >
                   {t.header.getAccess}
