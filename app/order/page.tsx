@@ -126,7 +126,7 @@ export default function OrderPage() {
   const selectedPlanData = pricingPlans.find(p => p.id === selectedPlan)
 
   return (
-    <main className="relative min-h-screen bg-gradient-to-b from-black via-[#0f0f0f] to-black">
+    <main className="relative min-h-screen bg-gradient-to-b from-black via-[#0f0f0f] to-black pt-8">
       {/* Background Effects */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgba(218,252,104,0.1),transparent)]" />
       
@@ -308,8 +308,8 @@ export default function OrderPage() {
                 </h4>
                 <p className="text-sm text-neutral-400">
                   {lang === 'fr' 
-                    ? 'Email avec lien vers votre document d\'onboarding complet'
-                    : 'Email with link to your complete onboarding document'
+                    ? 'Email instantané avec votre document d\'onboarding complet'
+                    : 'Instant email with your complete onboarding document'
                   }
                 </p>
               </div>
@@ -336,12 +336,12 @@ export default function OrderPage() {
                 </div>
                 <div className="text-2xl font-bold text-empire mb-2">3</div>
                 <h4 className="font-bold text-white mb-2">
-                  {lang === 'fr' ? 'Bot Activé' : 'Bot Activated'}
+                  {lang === 'fr' ? 'Bot LinkedIn Activé' : 'LinkedIn Bot Activated'}
                 </h4>
                 <p className="text-sm text-neutral-400">
                   {lang === 'fr'
-                    ? 'Lancez votre AI bot LinkedIn immédiatement après l\'interview'
-                    : 'Launch your AI LinkedIn bot immediately after the interview'
+                    ? 'Lancez votre bot IA LinkedIn dès la fin de l\'interview'
+                    : 'Launch your AI LinkedIn bot right after the interview'
                   }
                 </p>
               </div>
@@ -350,8 +350,8 @@ export default function OrderPage() {
             <div className="mt-8 p-4 rounded-lg bg-empire/10 border border-empire/30 text-center">
               <p className="text-sm text-empire font-semibold">
                 {lang === 'fr'
-                  ? '⚡ Premier contenu prêt en 7 jours · Bot actif en 30 minutes'
-                  : '⚡ First content ready in 7 days · Bot active in 30 minutes'
+                  ? '⚡ Premier contenu prêt 24h après votre interview · Bot actif en 30 minutes'
+                  : '⚡ First content ready 24h after your interview · Bot active in 30 minutes'
                 }
               </p>
             </div>
@@ -371,14 +371,16 @@ export default function OrderPage() {
                       <Check className="text-empire flex-shrink-0" size={16} />
                       <span className="text-sm text-neutral-300">{item.item}</span>
                     </div>
-                    <span className="text-xs text-neutral-500">(€{item.value.toLocaleString()})</span>
+                    <span className="text-xs text-neutral-500">
+                      (€{item.value.toLocaleString(lang === 'fr' ? 'fr-FR' : 'en-US')})
+                    </span>
                   </div>
                 ))}
               </div>
               <div className="mt-4 pt-4 border-t border-white/10">
                 <p className="text-sm font-semibold text-neutral-400">
                   {lang === 'fr' ? 'Valeur totale contenu :' : 'Total content value:'}{' '}
-                  <span className="text-empire text-lg">€21,560/mois</span>
+                  <span className="text-empire text-lg">€21,560/{lang === 'fr' ? 'mois' : 'month'}</span>
                 </p>
               </div>
             </div>
@@ -399,7 +401,7 @@ export default function OrderPage() {
               <div className="mt-4 pt-4 border-t border-empire/30">
                 <p className="text-sm font-semibold text-neutral-400">
                   {lang === 'fr' ? 'Valeur bonus :' : 'Bonus value:'}{' '}
-                  <span className="text-empire text-lg">€233,560/an</span>
+                  <span className="text-empire text-lg">€233,560/{lang === 'fr' ? 'an' : 'year'}</span>
                 </p>
               </div>
             </div>
@@ -417,7 +419,7 @@ export default function OrderPage() {
                   {lang === 'fr' ? 'Annulation Possible' : 'Cancel Anytime'}
                 </p>
                 <p className="text-xs text-neutral-400">
-                  {lang === 'fr' ? 'Préavis 30 jours' : '30 days notice'}
+                  {lang === 'fr' ? 'Préavis de 30 jours' : '30 days notice'}
                 </p>
               </div>
               <div className="p-6 rounded-lg bg-white/5 border border-white/10 text-center">
@@ -426,7 +428,7 @@ export default function OrderPage() {
                   {lang === 'fr' ? 'Démarrage Immédiat' : 'Instant Start'}
                 </p>
                 <p className="text-xs text-neutral-400">
-                  {lang === 'fr' ? 'Premier contenu en 7 jours' : 'First content in 7 days'}
+                  {lang === 'fr' ? 'Contenu prêt en 24h' : 'Content ready in 24h'}
                 </p>
               </div>
               <div className="p-6 rounded-lg bg-white/5 border border-white/10 text-center">
@@ -553,32 +555,17 @@ export default function OrderPage() {
             </div>
           </div>
 
-          {/* Testimonials Preview - Just 3 Best */}
+          {/* Testimonials - Senja Widget */}
           <div className="mb-12">
             <h3 className="text-2xl font-bold text-white mb-6 text-center">
               {lang === 'fr' ? 'Ce que disent nos clients' : 'What our clients say'}
             </h3>
-            <div className="grid md:grid-cols-3 gap-4">
-              {/* Add your top 3 testimonials here */}
-              <div className="p-4 rounded-lg bg-white/5 border border-white/10">
-                <p className="text-sm text-neutral-300 mb-3">
-                  "Kevin est un ovni qui anticipe. J'attends une présence en ligne sharp, régulière et authentique."
-                </p>
-                <p className="text-xs text-empire font-semibold">— A. C. Bourgau</p>
-              </div>
-              <div className="p-4 rounded-lg bg-white/5 border border-white/10">
-                <p className="text-sm text-neutral-300 mb-3">
-                  "La multicréation avec un temps réduit, c'est exactement ce qu'il me fallait."
-                </p>
-                <p className="text-xs text-empire font-semibold">— Aldric Morin</p>
-              </div>
-              <div className="p-4 rounded-lg bg-white/5 border border-white/10">
-                <p className="text-sm text-neutral-300 mb-3">
-                  "Le jour où j'ai vu mon calendrier se remplir tout seul, j'ai compris le potentiel."
-                </p>
-                <p className="text-xs text-empire font-semibold">— Emmanuelle</p>
-              </div>
-            </div>
+            <div 
+              className="senja-embed" 
+              data-id="9f0da066-1eac-4c00-9d72-9c47d95d094a" 
+              data-mode="shadow" 
+              data-lazyload="false"
+            ></div>
           </div>
 
         </div>

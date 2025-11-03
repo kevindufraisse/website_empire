@@ -16,6 +16,9 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
+      <head>
+        <script async type="text/javascript" src="https://widget.senja.io/widget/9f0da066-1eac-4c00-9d72-9c47d95d094a/platform.js"></script>
+      </head>
       <body className={inter.className}>
         <LanguageProvider>
           <Header />
