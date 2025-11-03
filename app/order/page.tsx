@@ -116,9 +116,9 @@ export default function OrderPage() {
   const selectedPlanData = pricingPlans.find(p => p.id === selectedPlan)
 
   return (
-    <main className="relative min-h-screen bg-gradient-to-b from-black via-[#0f0f0f] to-black pt-8">
+    <main className="relative min-h-screen bg-gradient-to-b from-black via-[#0f0f0f] to-black pt-8 pb-32">
       {/* Background Effects */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgba(218,252,104,0.1),transparent)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgba(218,252,104,0.1),transparent)] -z-10" />
       
       <div className="container py-20 relative z-10">
         <div className="max-w-6xl mx-auto">
@@ -522,14 +522,28 @@ export default function OrderPage() {
             </div>
           </div>
 
-          {/* Testimonials - Use existing component */}
-          <TestimonialsSection />
+          {/* Testimonials */}
+          <div className="mb-12">
+            <h3 className="text-2xl font-bold text-white mb-6 text-center">
+              {lang === 'fr' ? 'Ce que disent nos clients' : 'What our clients say'}
+            </h3>
+            <p className="text-center text-neutral-300 mb-8">
+              {lang === 'fr' ? 'Résultats réels de créateurs qui ont rejoint Empire' : 'Real results from creators who joined Empire'}
+            </p>
+            <div 
+              className="senja-embed" 
+              data-id="a7bf7e4a-0f3b-4751-8190-849f83d16306" 
+              data-mode="shadow" 
+              data-lazyload="false"
+              style={{ display: 'block', width: '100%' }}
+            />
+          </div>
 
         </div>
       </div>
 
       {/* Sticky Bottom CTA */}
-      <div className="fixed bottom-0 left-0 right-0 p-4 md:p-6 bg-black/95 backdrop-blur-md border-t-2 border-empire z-50">
+      <div className="fixed bottom-0 left-0 right-0 p-4 md:p-6 bg-black/95 backdrop-blur-md border-t-2 border-empire z-[100]">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="text-center md:text-left">
             <p className="text-xs text-neutral-400">
