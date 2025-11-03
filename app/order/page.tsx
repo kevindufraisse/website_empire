@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Check, Crown, Zap, Shield, Users, ArrowRight, Lock, CreditCard, FileText, Mic, Bot } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { CostCalculator } from '@/components/ui/cost-calculator'
 
 const pricingPlans = [
   {
@@ -140,6 +141,11 @@ export default function OrderPage() {
                 : 'Choose your plan and start within the next 30 minutes'
               }
             </p>
+          </div>
+
+          {/* Cost Calculator */}
+          <div className="mb-16">
+            <CostCalculator />
           </div>
 
           {/* Pricing Cards Grid */}
