@@ -12,59 +12,36 @@ export function CostCalculator() {
   const [postsPerWeek, setPostsPerWeek] = useState(7) // 30 posts/month = ~7/week
   const [platforms, setPlatforms] = useState(6)
   
-  // Calculation constants
-  const HOURLY_RATES = {
-    copywriter: 50, // €/hour
-    videoEditor: 60, // €/hour
-    designer: 55, // €/hour
-    socialManager: 45, // €/hour
-  }
+  // Simplified calculation - Much clearer!
+  // Average time per post (writing + editing + scheduling + posting)
+  const hoursPerPost = 2 // Realistic: 1h writing, 30min editing, 30min scheduling/posting
   
-  const TIME_PER_CONTENT = {
-    linkedinPost: 1, // hours
-    newsletter: 2,
-    reel: 3,
-    carousel: 2,
-    thread: 1.5,
-    podcast: 4,
-  }
+  // For video content (reels/shorts)
+  const hoursPerVideo = 4 // Realistic: filming, editing, captions, thumbnail
   
-  // Calculate DIY costs
-  const linkedinPosts = postsPerWeek
-  const newsletters = postsPerWeek
-  const reels = postsPerWeek
-  const carousels = Math.ceil(postsPerWeek / 7)
-  const threads = postsPerWeek
-  const podcasts = 1 // per week
+  // Calculate monthly totals
+  const postsPerMonth = postsPerWeek * 4
+  const videosPerMonth = Math.round(postsPerMonth * 0.3) // 30% are videos
+  const textPostsPerMonth = postsPerMonth - videosPerMonth
   
-  // Time calculation (hours per week)
-  const timePerWeek = 
-    linkedinPosts * TIME_PER_CONTENT.linkedinPost +
-    newsletters * TIME_PER_CONTENT.newsletter +
-    reels * TIME_PER_CONTENT.reel +
-    carousels * TIME_PER_CONTENT.carousel +
-    threads * TIME_PER_CONTENT.thread +
-    podcasts * TIME_PER_CONTENT.podcast
+  // Time calculation (simplified and clear)
+  const timeForTextPosts = textPostsPerMonth * hoursPerPost
+  const timeForVideos = videosPerMonth * hoursPerVideo
+  const timePerMonth = Math.round(timeForTextPosts + timeForVideos)
   
-  // Cost calculation (per week)
-  const costPerWeek = 
-    linkedinPosts * TIME_PER_CONTENT.linkedinPost * HOURLY_RATES.copywriter +
-    newsletters * TIME_PER_CONTENT.newsletter * HOURLY_RATES.copywriter +
-    reels * TIME_PER_CONTENT.reel * HOURLY_RATES.videoEditor +
-    carousels * TIME_PER_CONTENT.carousel * HOURLY_RATES.designer +
-    threads * TIME_PER_CONTENT.thread * HOURLY_RATES.copywriter +
-    podcasts * TIME_PER_CONTENT.podcast * HOURLY_RATES.videoEditor
+  // Cost calculation - Hiring freelancers
+  const freelancerCopywriterCost = textPostsPerMonth * 100 // €100 per post (ghostwriting)
+  const freelancerVideoEditorCost = videosPerMonth * 200 // €200 per video (editing)
+  const platformManagementCost = platforms * 150 // €150/platform/month for scheduling/posting
   
-  // Monthly values
-  const timePerMonth = Math.round(timePerWeek * 4.3)
-  const costPerMonth = Math.round(costPerWeek * 4.3)
+  const costPerMonth = Math.round(freelancerCopywriterCost + freelancerVideoEditorCost + platformManagementCost)
   const costPerYear = Math.round(costPerMonth * 12)
   
   // Empire savings
   const empireCost = 1000
   const savingsPerMonth = costPerMonth - empireCost
   const savingsPerYear = costPerYear - (empireCost * 12)
-  const roiPercentage = Math.round((savingsPerMonth / empireCost) * 100)
+  const roiPercentage = savingsPerMonth > 0 ? Math.round((savingsPerMonth / empireCost) * 100) : 0
 
   return (
     <div className="relative p-8 rounded-2xl bg-gradient-to-br from-empire/10 via-transparent to-purple-500/10 border-2 border-empire/30 overflow-hidden">
@@ -222,27 +199,35 @@ export function CostCalculator() {
           </div>
         </div>
 
-        {/* Breakdown */}
+        {/* Breakdown - Clear and simple */}
         <div className="mt-6 p-4 rounded-lg bg-black/40 border border-white/10">
           <p className="text-xs text-neutral-400 mb-3 text-center">
-            {lang === 'fr' ? 'Détail des coûts si vous le faites :' : 'Cost breakdown if you do it:'}
+            {lang === 'fr' ? 'Détail des coûts avec freelances :' : 'Cost breakdown with freelancers:'}
           </p>
-          <div className="grid grid-cols-2 gap-3 text-xs">
-            <div className="flex justify-between">
-              <span className="text-neutral-400">Copywriter (€50/h)</span>
-              <span className="text-neutral-300">~{Math.round(timePerWeek * 0.5 * HOURLY_RATES.copywriter * 4.3)}/mo</span>
+          <div className="space-y-2 text-sm">
+            <div className="flex justify-between items-center">
+              <span className="text-neutral-400">
+                {textPostsPerMonth} {lang === 'fr' ? 'posts écrits' : 'written posts'} × €100
+              </span>
+              <span className="text-white font-semibold">€{freelancerCopywriterCost.toLocaleString()}</span>
             </div>
-            <div className="flex justify-between">
-              <span className="text-neutral-400">Video editor (€60/h)</span>
-              <span className="text-neutral-300">~{Math.round(timePerWeek * 0.3 * HOURLY_RATES.videoEditor * 4.3)}/mo</span>
+            <div className="flex justify-between items-center">
+              <span className="text-neutral-400">
+                {videosPerMonth} {lang === 'fr' ? 'vidéos montées' : 'edited videos'} × €200
+              </span>
+              <span className="text-white font-semibold">€{freelancerVideoEditorCost.toLocaleString()}</span>
             </div>
-            <div className="flex justify-between">
-              <span className="text-neutral-400">Designer (€55/h)</span>
-              <span className="text-neutral-300">~{Math.round(timePerWeek * 0.1 * HOURLY_RATES.designer * 4.3)}/mo</span>
+            <div className="flex justify-between items-center">
+              <span className="text-neutral-400">
+                {platforms} {lang === 'fr' ? 'plateformes gérées' : 'platforms managed'} × €150
+              </span>
+              <span className="text-white font-semibold">€{platformManagementCost.toLocaleString()}</span>
             </div>
-            <div className="flex justify-between">
-              <span className="text-neutral-400">Social manager (€45/h)</span>
-              <span className="text-neutral-300">~{Math.round(timePerWeek * 0.1 * HOURLY_RATES.socialManager * 4.3)}/mo</span>
+            <div className="pt-2 border-t border-white/20 flex justify-between items-center">
+              <span className="text-neutral-300 font-semibold">
+                {lang === 'fr' ? 'Total/mois' : 'Total/month'}
+              </span>
+              <span className="text-red-400 font-bold text-lg">€{costPerMonth.toLocaleString()}</span>
             </div>
           </div>
         </div>

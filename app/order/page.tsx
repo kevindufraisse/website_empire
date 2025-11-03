@@ -143,11 +143,6 @@ export default function OrderPage() {
             </p>
           </div>
 
-          {/* Cost Calculator */}
-          <div className="mb-16">
-            <CostCalculator />
-          </div>
-
           {/* Pricing Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
             {pricingPlans.map((plan) => (
