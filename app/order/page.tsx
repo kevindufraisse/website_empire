@@ -194,7 +194,7 @@ export default function OrderPage() {
                 {plan.savings && (
                   <div className="mb-4 px-3 py-2 rounded-lg bg-green-500/10 border border-green-500/30">
                     <p className="text-sm font-semibold text-green-400">
-                      💰 {lang === 'fr' ? plan.savingsFr : plan.savings}
+                      {lang === 'fr' ? plan.savingsFr : plan.savings}
                     </p>
                   </div>
                 )}
@@ -316,8 +316,8 @@ export default function OrderPage() {
             <div className="mt-8 p-4 rounded-lg bg-empire/10 border border-empire/30 text-center">
               <p className="text-sm text-empire font-semibold">
                 {lang === 'fr'
-                  ? '⚡ Premier contenu prêt 24h après votre interview · Bot actif en 30 minutes'
-                  : '⚡ First content ready 24h after your interview · Bot active in 30 minutes'
+                  ? 'Premier contenu prêt 24h après votre interview · Bot actif en 30 minutes'
+                  : 'First content ready 24h after your interview · Bot active in 30 minutes'
                 }
               </p>
             </div>
@@ -328,7 +328,7 @@ export default function OrderPage() {
             {/* Deliverables */}
             <div className="p-6 rounded-xl bg-white/5 border border-white/10">
               <h3 className="text-xl font-bold text-white mb-4">
-                📦 {lang === 'fr' ? 'Ce que vous recevez chaque mois' : 'What you get every month'}
+                {lang === 'fr' ? 'Ce que vous recevez chaque mois' : 'What you get every month'}
               </h3>
               <div className="space-y-3">
                 {deliverables.map((item, i) => (
@@ -354,7 +354,7 @@ export default function OrderPage() {
             {/* Bonuses */}
             <div className="p-6 rounded-xl bg-gradient-to-br from-empire/10 to-transparent border border-empire/30">
               <h3 className="text-xl font-bold text-white mb-4">
-                🎁 {lang === 'fr' ? 'Bonus Inclus' : 'Bonuses Included'}
+                {lang === 'fr' ? 'Bonus Inclus' : 'Bonuses Included'}
               </h3>
               <div className="space-y-2">
                 {bonuses.map((bonus, i) => (
@@ -376,7 +376,7 @@ export default function OrderPage() {
           {/* Guarantees */}
           <div className="mb-12">
             <h3 className="text-2xl font-bold text-white mb-6 text-center">
-              🛡️ {lang === 'fr' ? 'Vos Garanties' : 'Your Guarantees'}
+              {lang === 'fr' ? 'Vos Garanties' : 'Your Guarantees'}
             </h3>
             <div className="grid md:grid-cols-3 gap-4">
               <div className="p-6 rounded-lg bg-white/5 border border-white/10 text-center">
@@ -463,7 +463,7 @@ export default function OrderPage() {
           {/* Urgency Section */}
           <div className="mb-12 p-6 rounded-xl bg-gradient-to-r from-red-500/10 to-orange-500/10 border-2 border-red-500/30">
             <h3 className="text-xl font-bold text-white mb-4 text-center">
-              🔥 {lang === 'fr' ? 'Pourquoi rejoindre maintenant ?' : 'Why join now?'}
+              {lang === 'fr' ? 'Pourquoi rejoindre maintenant ?' : 'Why join now?'}
             </h3>
             <div className="grid md:grid-cols-2 gap-4">
               <div className="flex items-start gap-3">
