@@ -20,7 +20,7 @@ const pricingPlans = [
     badge: null,
     savings: null,
     savingsFr: null,
-    stripe_link: 'https://buy.stripe.com/test_00000000001', // Replace with real link
+    stripe_link: 'https://www.join.empire-internet.com/semaine-empire',
   },
   {
     id: 'monthly',
@@ -38,7 +38,7 @@ const pricingPlans = [
     badge: null,
     savings: 'Save €120/month vs Weekly',
     savingsFr: 'Économisez €120/mois vs Hebdo',
-    stripe_link: 'https://buy.stripe.com/test_00000000002',
+    stripe_link: 'https://www.join.empire-internet.com/mois-empire',
   },
   {
     id: 'quarterly',
@@ -58,7 +58,7 @@ const pricingPlans = [
     badgeFr: '70% CHOISISSENT',
     savings: 'Save €600 vs Monthly',
     savingsFr: 'Économisez €600 vs Mensuel',
-    stripe_link: 'https://buy.stripe.com/test_00000000003',
+    stripe_link: 'https://www.join.empire-internet.com/trimestre-empire',
   },
   {
     id: 'yearly',
@@ -78,7 +78,7 @@ const pricingPlans = [
     badgeFr: 'MEILLEURE VALEUR',
     savings: 'Save €2,000 vs Monthly',
     savingsFr: 'Économisez €2,000 vs Mensuel',
-    stripe_link: 'https://buy.stripe.com/test_00000000004',
+    stripe_link: 'https://www.join.empire-internet.com/an-empire',
   },
 ]
 
