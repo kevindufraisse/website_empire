@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Calculator, TrendingUp, Clock, DollarSign, Users, Zap } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
@@ -7,6 +7,12 @@ import NumberTicker from '@/components/magicui/number-ticker'
 
 export function CostCalculator() {
   const { lang } = useLanguage()
+  const [mounted, setMounted] = useState(false)
+  
+  // Fix hydration error
+  useEffect(() => {
+    setMounted(true)
+  }, [])
   
   // User inputs
   const [postsPerWeek, setPostsPerWeek] = useState(7) // 30 posts/month = ~7/week
@@ -70,6 +76,51 @@ export function CostCalculator() {
           </p>
         </div>
 
+        {/* Explanation - What we calculate */}
+        <div className="mb-8 p-6 rounded-xl bg-black/40 border border-white/10">
+          <p className="text-sm text-neutral-300 mb-4">
+            {lang === 'fr' 
+              ? 'Nous calculons combien ça coûterait de créer le même contenu que Empire avec des freelances :'
+              : 'We calculate how much it would cost to create the same content as Empire with freelancers:'
+            }
+          </p>
+          <div className="grid md:grid-cols-3 gap-4 text-xs">
+            <div className="p-3 rounded-lg bg-white/5">
+              <p className="text-empire font-semibold mb-1">
+                {lang === 'fr' ? 'Posts texte' : 'Text posts'}
+              </p>
+              <p className="text-neutral-400">
+                {lang === 'fr' 
+                  ? 'LinkedIn, Twitter, Threads, Newsletter'
+                  : 'LinkedIn, Twitter, Threads, Newsletter'
+                }
+              </p>
+            </div>
+            <div className="p-3 rounded-lg bg-white/5">
+              <p className="text-empire font-semibold mb-1">
+                {lang === 'fr' ? 'Vidéos' : 'Videos'}
+              </p>
+              <p className="text-neutral-400">
+                {lang === 'fr' 
+                  ? 'Reels Instagram, YouTube Shorts'
+                  : 'Instagram Reels, YouTube Shorts'
+                }
+              </p>
+            </div>
+            <div className="p-3 rounded-lg bg-white/5">
+              <p className="text-empire font-semibold mb-1">
+                {lang === 'fr' ? 'Gestion' : 'Management'}
+              </p>
+              <p className="text-neutral-400">
+                {lang === 'fr' 
+                  ? 'Planning, publication, analytics'
+                  : 'Scheduling, posting, analytics'
+                }
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* Inputs */}
         <div className="grid md:grid-cols-2 gap-6 mb-8">
           <div>
@@ -124,11 +175,11 @@ export function CostCalculator() {
             <p className="text-xs text-neutral-400 mb-1">
               {lang === 'fr' ? 'Votre temps/mois' : 'Your time/month'}
             </p>
-            <p className="text-4xl font-bold text-red-400 mb-1">
-              <NumberTicker value={timePerMonth} />h
+            <p className="text-4xl font-bold text-red-400 mb-1" suppressHydrationWarning>
+              {mounted ? <NumberTicker value={timePerMonth} /> : timePerMonth}h
             </p>
             <p className="text-xs text-neutral-500">
-              {lang === 'fr' ? 'À créer le contenu' : 'Creating content'}
+              {lang === 'fr' ? 'À écrire, filmer et publier' : 'Writing, filming and posting'}
             </p>
           </motion.div>
 
@@ -141,10 +192,10 @@ export function CostCalculator() {
           >
             <DollarSign className="text-red-400 mx-auto mb-3" size={32} />
             <p className="text-xs text-neutral-400 mb-1">
-              {lang === 'fr' ? 'Coût si vous le faites' : 'Cost if you do it'}
+              {lang === 'fr' ? 'Coût avec freelances' : 'Cost with freelancers'}
             </p>
-            <p className="text-4xl font-bold text-red-400 mb-1">
-              €<NumberTicker value={costPerMonth} />
+            <p className="text-4xl font-bold text-red-400 mb-1" suppressHydrationWarning>
+              €{mounted ? <NumberTicker value={costPerMonth} /> : costPerMonth}
             </p>
             <p className="text-xs text-neutral-500">/month</p>
           </motion.div>
@@ -158,12 +209,12 @@ export function CostCalculator() {
           >
             <TrendingUp className="text-empire mx-auto mb-3" size={32} />
             <p className="text-xs text-neutral-400 mb-1">
-              {lang === 'fr' ? 'Économies avec Empire' : 'Savings with Empire'}
+              {lang === 'fr' ? 'Vous économisez' : 'You save'}
             </p>
-            <p className="text-4xl font-bold text-empire mb-1">
-              €<NumberTicker value={savingsPerMonth} />
+            <p className="text-4xl font-bold text-empire mb-1" suppressHydrationWarning>
+              €{mounted ? <NumberTicker value={savingsPerMonth} /> : savingsPerMonth}
             </p>
-            <p className="text-xs text-neutral-300">{lang === 'fr' ? 'économisés/mois' : 'saved/month'}</p>
+            <p className="text-xs text-neutral-300">/month</p>
           </motion.div>
         </div>
 
@@ -177,8 +228,8 @@ export function CostCalculator() {
           <p className="text-sm text-neutral-400 mb-2">
             {lang === 'fr' ? 'ÉCONOMIES ANNUELLES TOTALES' : 'TOTAL ANNUAL SAVINGS'}
           </p>
-          <p className="text-5xl md:text-6xl font-bold text-green-400 mb-2">
-            €<NumberTicker value={savingsPerYear} />
+          <p className="text-5xl md:text-6xl font-bold text-green-400 mb-2" suppressHydrationWarning>
+            €{mounted ? <NumberTicker value={savingsPerYear} /> : savingsPerYear.toLocaleString()}
           </p>
           <p className="text-neutral-300">
             {lang === 'fr' 
@@ -202,32 +253,59 @@ export function CostCalculator() {
         {/* Breakdown - Clear and simple */}
         <div className="mt-6 p-4 rounded-lg bg-black/40 border border-white/10">
           <p className="text-xs text-neutral-400 mb-3 text-center">
-            {lang === 'fr' ? 'Détail des coûts avec freelances :' : 'Cost breakdown with freelancers:'}
+            {lang === 'fr' ? 'Détail des coûts si vous engagez des freelances :' : 'Cost breakdown if you hire freelancers:'}
           </p>
-          <div className="space-y-2 text-sm">
-            <div className="flex justify-between items-center">
-              <span className="text-neutral-400">
-                {textPostsPerMonth} {lang === 'fr' ? 'posts écrits' : 'written posts'} × €100
-              </span>
-              <span className="text-white font-semibold">€{freelancerCopywriterCost.toLocaleString()}</span>
+          <div className="space-y-3 text-sm">
+            <div>
+              <div className="flex justify-between items-center mb-1">
+                <span className="text-neutral-400">
+                  {textPostsPerMonth} {lang === 'fr' ? 'posts texte/mois' : 'text posts/month'}
+                </span>
+                <span className="text-white font-semibold">€{freelancerCopywriterCost.toLocaleString()}</span>
+              </div>
+              <p className="text-xs text-neutral-500 pl-4">
+                {lang === 'fr' 
+                  ? '→ LinkedIn, Twitter, Newsletter (€100/post pour ghostwriting)'
+                  : '→ LinkedIn, Twitter, Newsletter (€100/post for ghostwriting)'
+                }
+              </p>
             </div>
-            <div className="flex justify-between items-center">
-              <span className="text-neutral-400">
-                {videosPerMonth} {lang === 'fr' ? 'vidéos montées' : 'edited videos'} × €200
-              </span>
-              <span className="text-white font-semibold">€{freelancerVideoEditorCost.toLocaleString()}</span>
+
+            <div>
+              <div className="flex justify-between items-center mb-1">
+                <span className="text-neutral-400">
+                  {videosPerMonth} {lang === 'fr' ? 'vidéos/mois' : 'videos/month'}
+                </span>
+                <span className="text-white font-semibold">€{freelancerVideoEditorCost.toLocaleString()}</span>
+              </div>
+              <p className="text-xs text-neutral-500 pl-4">
+                {lang === 'fr' 
+                  ? '→ Reels Instagram, Shorts YouTube (€200/vidéo pour montage)'
+                  : '→ Instagram Reels, YouTube Shorts (€200/video for editing)'
+                }
+              </p>
             </div>
-            <div className="flex justify-between items-center">
-              <span className="text-neutral-400">
-                {platforms} {lang === 'fr' ? 'plateformes gérées' : 'platforms managed'} × €150
-              </span>
-              <span className="text-white font-semibold">€{platformManagementCost.toLocaleString()}</span>
+
+            <div>
+              <div className="flex justify-between items-center mb-1">
+                <span className="text-neutral-400">
+                  {platforms} {lang === 'fr' ? 'plateformes' : 'platforms'}
+                </span>
+                <span className="text-white font-semibold">€{platformManagementCost.toLocaleString()}</span>
+              </div>
+              <p className="text-xs text-neutral-500 pl-4">
+                {lang === 'fr' 
+                  ? '→ Social media manager (€150/plateforme pour planning + publication)'
+                  : '→ Social media manager (€150/platform for scheduling + posting)'
+                }
+              </p>
             </div>
-            <div className="pt-2 border-t border-white/20 flex justify-between items-center">
+
+            <div className="pt-3 mt-3 border-t border-white/20 flex justify-between items-center">
               <span className="text-neutral-300 font-semibold">
-                {lang === 'fr' ? 'Total/mois' : 'Total/month'}
+                {lang === 'fr' ? 'Coût Total/Mois' : 'Total Cost/Month'}
               </span>
-              <span className="text-red-400 font-bold text-lg">€{costPerMonth.toLocaleString()}</span>
+              <span className="text-red-400 font-bold text-xl">€{costPerMonth.toLocaleString()}</span>
             </div>
           </div>
         </div>
