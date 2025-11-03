@@ -1,8 +1,9 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Check, Crown, Zap, Shield, Clock, Users, ArrowRight, Lock, CreditCard, FileText, Mic, Bot } from 'lucide-react'
+import { Check, Crown, Zap, Shield, Users, ArrowRight, Lock, CreditCard, FileText, Mic, Bot } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
+import TestimonialsSection from '@/components/sections/TestimonialsSection'
 
 const pricingPlans = [
   {
@@ -110,18 +111,7 @@ const bonuses = [
 
 export default function OrderPage() {
   const [selectedPlan, setSelectedPlan] = useState('quarterly')
-  const [timeLeft, setTimeLeft] = useState(48 * 60 * 60) // 48h in seconds
   const { lang } = useLanguage()
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(prev => prev > 0 ? prev - 1 : 0)
-    }, 1000)
-    return () => clearInterval(timer)
-  }, [])
-
-  const hours = Math.floor(timeLeft / 3600)
-  const minutes = Math.floor((timeLeft % 3600) / 60)
 
   const selectedPlanData = pricingPlans.find(p => p.id === selectedPlan)
 
@@ -145,35 +135,12 @@ export default function OrderPage() {
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
               {lang === 'fr' ? 'Rejoignez Empire Internet' : 'Join Empire Internet'}
             </h1>
-            <p className="text-xl text-neutral-300 max-w-2xl mx-auto mb-6">
+            <p className="text-xl text-neutral-300 max-w-2xl mx-auto">
               {lang === 'fr' 
                 ? 'Choisissez votre plan et commencez dans les 30 prochaines minutes'
                 : 'Choose your plan and start within the next 30 minutes'
               }
             </p>
-
-            {/* Countdown Timer */}
-            <div className="inline-block p-4 rounded-xl bg-empire/10 border border-empire/30">
-              <p className="text-xs text-neutral-400 mb-2">
-                {lang === 'fr' ? 'Bonus Early Bird expire dans :' : 'Early Bird Bonus expires in:'}
-              </p>
-              <div className="flex items-center justify-center gap-2">
-                <div className="px-3 py-2 rounded-lg bg-empire/20 border border-empire">
-                  <span className="text-xl font-bold text-empire">{hours}h</span>
-                </div>
-                <div className="px-3 py-2 rounded-lg bg-empire/20 border border-empire">
-                  <span className="text-xl font-bold text-empire">{minutes}m</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Live Activity */}
-          <div className="text-sm text-neutral-400 text-center mb-8">
-            <span className="inline-flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
-              {lang === 'fr' ? '3 personnes regardent cette page' : '3 people viewing this page'}
-            </span>
           </div>
 
           {/* Pricing Cards Grid */}
@@ -555,18 +522,8 @@ export default function OrderPage() {
             </div>
           </div>
 
-          {/* Testimonials - Senja Widget */}
-          <div className="mb-12">
-            <h3 className="text-2xl font-bold text-white mb-6 text-center">
-              {lang === 'fr' ? 'Ce que disent nos clients' : 'What our clients say'}
-            </h3>
-            <div 
-              className="senja-embed" 
-              data-id="9f0da066-1eac-4c00-9d72-9c47d95d094a" 
-              data-mode="shadow" 
-              data-lazyload="false"
-            ></div>
-          </div>
+          {/* Testimonials - Use existing component */}
+          <TestimonialsSection />
 
         </div>
       </div>
