@@ -1,9 +1,8 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Check, Crown, Zap, Shield, Users, ArrowRight, Lock, CreditCard, FileText, Mic, Bot } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
-import TestimonialsSection from '@/components/sections/TestimonialsSection'
 
 const pricingPlans = [
   {
