@@ -539,6 +539,11 @@ export default function OrderPage() {
             />
           </div>
 
+          {/* Cost Calculator - At the end before CTA */}
+          <div className="mb-16">
+            <CostCalculator />
+          </div>
+
         </div>
       </div>
 
