@@ -37,7 +37,7 @@ export const fr: Translations = {
     platformsTitle: 'On publie sur toutes vos plateformes',
     stat1: 'Votre investissement temps par semaine',
     stat2: 'Contenus créés',
-    stat3: 'Plateformes couvertes',
+    stat3: 'Réseaux sociaux',
   },
   howItWorks: {
     title: 'Comment Ça Marche',

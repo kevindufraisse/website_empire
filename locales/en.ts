@@ -35,7 +35,7 @@ export const en = {
     platformsTitle: 'We post to all your platforms',
     stat1: 'Your time investment per week',
     stat2: 'Pieces of content created',
-    stat3: 'Platforms covered',
+    stat3: 'Social platforms',
   },
   howItWorks: {
     title: 'How It Works',

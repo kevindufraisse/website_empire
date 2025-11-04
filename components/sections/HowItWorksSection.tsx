@@ -5,7 +5,8 @@ import { useRef } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { AnimatedBeam } from '@/components/magicui/animated-beam'
 import Marquee from '@/components/magicui/marquee'
-import { Mic, Brain, Wand2, Rocket, Linkedin, Youtube, Instagram, Mail, Video } from 'lucide-react'
+import { Mic, Brain, Wand2, Rocket, Linkedin, Youtube, Instagram, Mail } from 'lucide-react'
+import { SocialIcons } from '@/components/ui/social-icons'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -27,9 +28,9 @@ const platforms = [
   { icon: Linkedin, name: 'LinkedIn', color: '#0A66C2' },
   { icon: Youtube, name: 'YouTube', color: '#FF0000' },
   { icon: Instagram, name: 'Instagram', color: '#E4405F' },
+  { icon: () => <SocialIcons.twitter />, name: 'Twitter/X', color: '#1DA1F2' },
+  { icon: () => <SocialIcons.threads />, name: 'Threads', color: '#FFFFFF' },
   { icon: Mail, name: 'Newsletter', color: '#DAFC68' },
-  { icon: Video, name: 'TikTok', color: '#000000' },
-  { icon: Video, name: 'Reels', color: '#E4405F' },
 ]
 
 export default function HowItWorksSection() {
@@ -186,12 +187,17 @@ export default function HowItWorksSection() {
             <Marquee className="py-4" pauseOnHover>
               {platforms.map((platform, i) => {
                 const Icon = platform.icon
+                const isReactComponent = typeof Icon === 'function' && Icon.length === 0
                 return (
                   <div
                     key={i}
                     className="flex items-center gap-3 px-6 py-4 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all min-w-[180px]"
                   >
-                    <Icon className="text-empire" size={24} />
+                    {isReactComponent ? (
+                      <div className="text-empire"><Icon /></div>
+                    ) : (
+                      <Icon className="text-empire" size={24} />
+                    )}
                     <span className="font-semibold">{platform.name}</span>
                   </div>
                 )
