@@ -41,10 +41,32 @@ export function HeroVideoDialog({
   // Si pas de thumbnailSrc fourni, on rend juste le dialog (pour usage global)
   const showThumbnail = thumbnailSrc && thumbnailSrc.length > 0
   
-  // Détecter fullscreen
+  // Détecter fullscreen et masquer le reste du site
   useEffect(() => {
     const handleFullscreenChange = () => {
-      setIsFullscreen(!!document.fullscreenElement)
+      const isNowFullscreen = !!document.fullscreenElement
+      setIsFullscreen(isNowFullscreen)
+      
+      // Masquer/afficher le reste du site
+      if (isNowFullscreen) {
+        document.body.style.overflow = 'hidden'
+        // Masquer tous les éléments sauf le player vidéo
+        const mainContent = document.querySelector('main')
+        const header = document.querySelector('header')
+        const footer = document.querySelector('footer')
+        if (mainContent) mainContent.style.visibility = 'hidden'
+        if (header) header.style.visibility = 'hidden'
+        if (footer) footer.style.visibility = 'hidden'
+      } else {
+        document.body.style.overflow = ''
+        // Réafficher tout
+        const mainContent = document.querySelector('main')
+        const header = document.querySelector('header')
+        const footer = document.querySelector('footer')
+        if (mainContent) mainContent.style.visibility = 'visible'
+        if (header) header.style.visibility = 'visible'
+        if (footer) footer.style.visibility = 'visible'
+      }
     }
     
     document.addEventListener('fullscreenchange', handleFullscreenChange)
@@ -57,6 +79,15 @@ export function HeroVideoDialog({
       document.removeEventListener('webkitfullscreenchange', handleFullscreenChange)
       document.removeEventListener('mozfullscreenchange', handleFullscreenChange)
       document.removeEventListener('MSFullscreenChange', handleFullscreenChange)
+      
+      // Cleanup: s'assurer que tout est visible au unmount
+      document.body.style.overflow = ''
+      const mainContent = document.querySelector('main')
+      const header = document.querySelector('header')
+      const footer = document.querySelector('footer')
+      if (mainContent) mainContent.style.visibility = 'visible'
+      if (header) header.style.visibility = 'visible'
+      if (footer) footer.style.visibility = 'visible'
     }
   }, [])
 
