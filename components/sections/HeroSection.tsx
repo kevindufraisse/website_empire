@@ -78,8 +78,11 @@ export default function HeroSection() {
             className="mt-12"
           >
             <div className="text-center mb-6">
-              <p className="text-sm text-neutral-400 mb-3">
+              <p className="text-sm text-neutral-400 mb-2">
                 {t.hero?.creatorsTitle || 'Finally access to the systems of the world\'s top creators'}
+              </p>
+              <p className="text-xs text-empire/70 mb-3">
+                {t.hero?.creatorsSubtitle || 'Using Empire\'s system'}
               </p>
               <div className="flex flex-wrap items-center justify-center gap-6">
                 {/* Grant Cardone */}

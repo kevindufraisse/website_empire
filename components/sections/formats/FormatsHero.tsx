@@ -38,11 +38,18 @@ export default function FormatsHero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-6"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-4"
           >
-            {t.formats?.hero?.title || 'Speak How'}{' '}
-            <span className="text-empire">{t.formats?.hero?.titleHighlight || 'You Want'}</span>
+            {t.formats?.hero?.title || 'Choose Your Recording Format:'}
           </motion.h1>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-empire mb-6"
+          >
+            {t.formats?.hero?.titleHighlight || 'Interview, Bulletpoints, Screen Recording, or AI Scripts'}
+          </motion.h2>
 
           <motion.p
             initial={{ opacity: 0 }}

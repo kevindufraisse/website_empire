@@ -13,13 +13,14 @@ export const fr: Translations = {
     faq: 'FAQ',
   },
   hero: {
-    title: 'Obtenez <span class="text-empire">30+ Posts sur 6 Plateformes</span>',
-    subtitle: 'À partir d\'une Conversation de 15 Minutes.',
-    description: 'Pas d\'écriture. Pas de montage. Pas de planification. Parlez juste 15 minutes — nous transformons ça en un mois de contenu omnipresent.',
-    cta1: 'Commencer (83 places)',
+    title: 'Parlez 15 Minutes. Obtenez <span class="text-empire">30+ Posts, 30 Vidéos, 30 Newsletters</span>.',
+    subtitle: 'Publiés Automatiquement.',
+    description: 'Vous parlez 15 minutes. Vous obtenez 30+ posts, 30 vidéos, 30 newsletters. Publiés partout automatiquement. Pas d\'écriture. Pas de montage. Pas de planification.',
+    cta1: 'Obtenez Vos 30 Premiers Posts',
     cta2: 'Voir la Démo (20 min)',
     rating: 'Basé sur 20 avis',
     creatorsTitle: 'Enfin accès aux systèmes des meilleurs créateurs du monde',
+    creatorsSubtitle: 'Utilisant le système Empire',
   },
   howItWorksPage: {
     title: 'Comment Fonctionne Empire',
@@ -135,13 +136,51 @@ export const fr: Translations = {
     limited: 'LIMITÉ À 100 CLIENTS',
     title: 'Prêt à Rejoindre ?',
     subtitle: 'Choisissez votre chemin ci-dessous',
-    startNow: 'Commencer (83 places)',
+    startNow: 'Commencer (83 places ce mois-ci)',
     watchDemo: 'Voir la Démo (20 min)',
     details: 'Paiement hebdomadaire (€250) · Annulation possible · Démarrage en 7 jours',
+    seeContentPlan: 'Voir Votre Plan de Contenu',
+    startThisWeek: 'Commencer Cette Semaine',
   },
   faq: {
     title: 'Questions Fréquentes',
     subtitle: 'Tout ce que vous devez savoir sur Empire',
+    specific: {
+      howManyPosts: {
+        question: 'Combien de posts j\'obtiens exactement ?',
+        answer: 'Vous obtenez exactement 30 posts LinkedIn, 30 newsletters, 30 Reels/Shorts, 30 posts Instagram, 7 threads Twitter, 4 carrousels, et 1 podcast MP3 — par interview. C\'est 132 contenus par mois si vous faites une interview par semaine.',
+      },
+      whatIfDontLike: {
+        question: 'Et si je n\'aime pas le contenu ?',
+        answer: 'Vous pouvez demander des modifications à tout moment. On révise jusqu\'à ce que ce soit parfait. De plus, un vrai humain révise chaque pièce avant publication. Si quelque chose ne sonne pas comme vous, on le corrige immédiatement.',
+      },
+      canRequestChanges: {
+        question: 'Puis-je demander des modifications au contenu ?',
+        answer: 'Tous les contenus sont révisés et validés par notre équipe avant publication. Vous recevez tout dans votre calendrier pour révision. Si vous avez besoin de modifications, vous pouvez les demander et on révise en conséquence.',
+      },
+    },
+  },
+  objections: {
+    title: 'Préoccupations Courantes',
+    subtitle: 'On comprend. Voici ce que vous pensez probablement :',
+    concerns: [
+      {
+        concern: 'Est-ce que ça sonnera comme moi ?',
+        answer: 'Oui. On entraîne des prompts IA personnalisés sur votre ton, voix et style uniques dès votre première interview. De plus, un vrai éditeur humain révise et peaufine chaque pièce. Si ça ne sonne pas comme vous, on révise jusqu\'à ce que ce soit le cas.',
+      },
+      {
+        concern: 'Et si je n\'ai pas le temps pour l\'interview ?',
+        answer: 'Vous n\'avez besoin que de 15 minutes par semaine. C\'est moins de temps que vous passez à scroller sur votre téléphone. On planifie selon votre disponibilité. Pas d\'excuses — si vous pouvez parler, vous pouvez créer du contenu.',
+      },
+      {
+        concern: 'Est-ce vraiment mieux que d\'embaucher quelqu\'un ?',
+        answer: 'Oui. Embaucher quelqu\'un coûte €12K+/mois, prend des semaines à intégrer, et vous devez encore les gérer. On livre 30+ pièces en 7 jours pour €1K/mois, avec zéro gestion. Vous obtenez les mêmes (ou meilleurs) résultats pour 92% moins.',
+      },
+      {
+        concern: 'Et si le contenu ne performe pas ?',
+        answer: 'On utilise des frameworks prouvés des meilleurs créateurs (Justin Welsh, Ali Abdaal, Iman Gadzhi). Notre contenu performe car il est basé sur ce qui fonctionne vraiment. De plus, vous pouvez demander du contenu axé performance à tout moment.',
+      },
+    ],
   },
   footer: {
     tagline: 'Votre machine à contenu. 15 minutes pour être omnipresent.',
@@ -153,7 +192,7 @@ export const fr: Translations = {
   },
   videoDialog: {
     readyToJoin: 'Prêt à rejoindre ?',
-    startNow: 'Commencer (83 places)',
+    startNow: 'Obtenez Vos 30 Premiers Posts',
     joinQA: 'Rejoindre Q&A (Mar/Jeu 13h)',
   },
   stickyBar: {
@@ -335,9 +374,9 @@ export const fr: Translations = {
   formats: {
     hero: {
       badge: '6 Façons de Créer',
-      title: 'Parlez Comme',
-      titleHighlight: 'Vous Voulez',
-      subtitle: 'Pas de scripts. Pas de stress. Choisissez votre format et on gère le reste.',
+      title: 'Choisissez Votre Format d\'Enregistrement :',
+      titleHighlight: 'Interview, Points Clés, Enregistrement Écran, ou Scripts IA',
+      subtitle: 'Vous choisissez comment enregistrer. On transforme ça en 30+ contenus sur toutes les plateformes. Pas de scripts nécessaires. Pas de stress.',
     },
     formats: [
       {

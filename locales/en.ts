@@ -11,13 +11,14 @@ export const en = {
     faq: 'FAQ',
   },
   hero: {
-    title: 'Get <span class="text-empire">30+ Posts Across 6 Platforms</span>',
-    subtitle: 'From a 15-Minute Conversation.',
-    description: 'No writing. No editing. No scheduling. Just talk for 15 minutes — we turn it into a month of omnipresent content.',
-    cta1: 'Start Now (83 left)',
+    title: 'Speak 15 Minutes. Get <span class="text-empire">30+ Posts, 30 Videos, 30 Newsletters</span>.',
+    subtitle: 'Posted Automatically.',
+    description: 'You talk for 15 minutes. You get 30+ posts, 30 videos, 30 newsletters. Posted everywhere automatically. No writing. No editing. No scheduling.',
+    cta1: 'Get Your First 30 Posts',
     cta2: 'Watch Demo (20 min)',
     rating: 'Based on 20 reviews',
     creatorsTitle: 'Finally access to the systems of the world\'s top creators',
+    creatorsSubtitle: 'Using Empire\'s system',
   },
   howItWorksPage: {
     title: 'How Empire Works',
@@ -133,13 +134,51 @@ export const en = {
     limited: 'LIMITED TO 100 CLIENTS',
     title: 'Ready to Join?',
     subtitle: 'Choose your path below',
-    startNow: 'Start Now (83 left)',
+    startNow: 'Start Now (83 spots left this month)',
     watchDemo: 'Watch Demo (20 min)',
     details: 'Pay weekly (€250) · Cancel anytime · Start in 7 days',
+    seeContentPlan: 'See Your Content Plan',
+    startThisWeek: 'Start This Week',
   },
   faq: {
     title: 'Frequently Asked Questions',
     subtitle: 'Everything you need to know about Empire',
+    specific: {
+      howManyPosts: {
+        question: 'How many posts do I get exactly?',
+        answer: 'You get exactly 30 LinkedIn posts, 30 newsletters, 30 Reels/Shorts, 30 Instagram posts, 7 Twitter threads, 4 carousels, and 1 MP3 podcast — per interview. That\'s 132 pieces of content per month if you do one interview per week.',
+      },
+      whatIfDontLike: {
+        question: 'What if I don\'t like the content?',
+        answer: 'You can request changes anytime. We revise until it\'s perfect. Plus, a real human reviews every piece before it goes live. If something doesn\'t sound like you, we fix it immediately.',
+      },
+      canRequestChanges: {
+        question: 'Can I request changes to the content?',
+        answer: 'All content is reviewed and validated by our team before publication. You receive everything in your calendar for review. If you need changes, you can request them, and we\'ll revise accordingly.',
+      },
+    },
+  },
+  objections: {
+    title: 'Common Concerns',
+    subtitle: 'We get it. Here\'s what you\'re probably thinking:',
+    concerns: [
+      {
+        concern: 'Will it sound like me?',
+        answer: 'Yes. We train custom AI prompts on your unique tone, voice, and style from your first interview. Plus, a real human editor reviews and polishes every piece. If it doesn\'t sound like you, we revise it until it does.',
+      },
+      {
+        concern: 'What if I don\'t have time for the interview?',
+        answer: 'You only need 15 minutes per week. That\'s less time than you spend scrolling on your phone. We schedule around your availability. No excuses — if you can talk, you can create content.',
+      },
+      {
+        concern: 'Is this really better than hiring someone?',
+        answer: 'Yes. Hiring someone costs €12K+/month, takes weeks to onboard, and you still manage them. We deliver 30+ pieces in 7 days for €1K/month, with zero management. You get the same (or better) results for 92% less.',
+      },
+      {
+        concern: 'What if the content doesn\'t perform?',
+        answer: 'We use proven frameworks from top creators (Justin Welsh, Ali Abdaal, Iman Gadzhi). Our content performs because it\'s based on what actually works. Plus, you can request performance-focused content anytime.',
+      },
+    ],
   },
   footer: {
     tagline: 'Your content machine. 15 minutes to omnipresent.',
@@ -151,7 +190,7 @@ export const en = {
   },
   videoDialog: {
     readyToJoin: 'Ready to join?',
-    startNow: 'Start Now (83 left)',
+    startNow: 'Get Your First 30 Posts',
     joinQA: 'Join Q&A (Tue/Thu 1PM)',
   },
   stickyBar: {
@@ -333,9 +372,9 @@ export const en = {
   formats: {
     hero: {
       badge: '6 Ways to Create',
-      title: 'Speak How',
-      titleHighlight: 'You Want',
-      subtitle: 'No scripts. No stress. Just choose your format and we handle the rest.',
+      title: 'Choose Your Recording Format:',
+      titleHighlight: 'Interview, Bulletpoints, Screen Recording, or AI Scripts',
+      subtitle: 'You choose how you want to record. We transform it into 30+ pieces of content across all platforms. No scripts needed. No stress.',
     },
     formats: [
       {
