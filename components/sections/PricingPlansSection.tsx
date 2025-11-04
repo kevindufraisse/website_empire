@@ -213,8 +213,8 @@ export default function PricingPlansSection() {
           <div className="mt-12 text-center">
             <p className="text-sm text-neutral-400">
               {lang === 'fr' 
-                ? '✓ Premier contenu en 7 jours · ✓ 15 min/semaine de votre temps · ✓ Aucun contrat long terme'
-                : '✓ First content in 7 days · ✓ 15 min/week of your time · ✓ No long-term contract'}
+                ? '✓ Premier contenu en 24-48h · ✓ 15 min/semaine de votre temps · ✓ Aucun contrat long terme'
+                : '✓ First content in 24-48h · ✓ 15 min/week of your time · ✓ No long-term contract'}
             </p>
           </div>
         </FadeInBlock>

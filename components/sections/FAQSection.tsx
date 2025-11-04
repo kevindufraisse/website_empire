@@ -98,7 +98,7 @@ const getFAQsOld = (t: any) => t.faqItems || [
   },
   {
     question: 'How quickly will I see results?',
-    answer: 'Your first batch of content is ready within 7 days of your first interview. Most clients see their first engagement spike within 2 weeks, and significant growth by month 2-3.',
+    answer: 'Your first batch of content is ready within 24-48 hours of your first interview. Most clients see their first engagement spike within 2 weeks, and significant growth by month 2-3.',
   },
   {
     question: 'What makes this different from hiring a content agency?',

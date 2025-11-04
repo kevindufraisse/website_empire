@@ -152,7 +152,7 @@ export default function PriceComparisonSection() {
                 <p className="text-5xl font-bold text-empire mb-1">€1,000</p>
                 <p className="text-sm text-neutral-300 mb-4">/month</p>
                 <div className="space-y-2 text-sm text-white mb-4">
-                  <p>✓ Content in 7 days</p>
+                  <p>✓ Content in 24-48h</p>
                   <p>✓ Sounds like you</p>
                   <p>✓ 30+ pieces/month</p>
                   <p>✓ Cancel anytime</p>

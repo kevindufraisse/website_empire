@@ -125,7 +125,7 @@ export const fr: Translations = {
     inHouseQuality: 'Inconstant',
     empire: 'Empire Internet',
     empirePrice: '€1K/mois',
-    empireTimeline: '7 jours',
+    empireTimeline: '24-48h',
     empireQuality: 'Sonne comme vous',
     price: 'Prix',
     timeline: 'Délai',
@@ -504,7 +504,7 @@ export const fr: Translations = {
     },
     {
       question: 'Combien de temps avant de voir des résultats ?',
-      answer: 'Votre premier lot de contenu est prêt dans les 7 jours suivant votre première interview. La plupart des clients voient leur premier pic d\'engagement en 2 semaines, et une croissance significative au bout de 2-3 mois.',
+      answer: 'Votre premier lot de contenu est prêt en 24-48h après votre première interview. La plupart des clients voient leur premier pic d\'engagement en 2 semaines, et une croissance significative au bout de 2-3 mois.',
     },
     {
       question: 'Qu\'est-ce qui rend ceci différent d\'une agence de contenu ?',

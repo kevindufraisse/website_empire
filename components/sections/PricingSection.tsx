@@ -78,7 +78,7 @@ export default function PricingSection() {
                     <Zap className="text-empire flex-shrink-0 mt-1" size={20} />
                     <div>
                       <p className="font-semibold text-sm">Quick Start</p>
-                      <p className="text-xs text-neutral-400">First content in 7 days</p>
+                      <p className="text-xs text-neutral-400">First content in 24-48h</p>
                     </div>
                   </div>
 

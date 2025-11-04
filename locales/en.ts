@@ -123,7 +123,7 @@ export const en = {
     inHouseQuality: 'Inconsistent',
     empire: 'Empire Internet',
     empirePrice: '€1K/mo',
-    empireTimeline: '7 days',
+    empireTimeline: '24-48h',
     empireQuality: 'Sounds like you',
     price: 'Price',
     timeline: 'Timeline',
@@ -502,7 +502,7 @@ export const en = {
     },
     {
       question: 'How quickly will I see results?',
-      answer: 'Your first batch of content is ready within 7 days of your first interview. Most clients see their first engagement spike within 2 weeks, and significant growth by month 2-3.',
+      answer: 'Your first batch of content is ready within 24-48 hours of your first interview. Most clients see their first engagement spike within 2 weeks, and significant growth by month 2-3.',
     },
     {
       question: 'What makes this different from hiring a content agency?',
