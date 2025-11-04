@@ -55,7 +55,7 @@ export const fr: Translations = {
     step2: {
       title: 'IA + Humain Créent',
       summary: 'L\'IA génère 30+ pièces, puis un humain peaufine tout.',
-      description: 'L\'IA génère le contenu, puis un vrai éditeur révise et peaufine chaque pièce avant qu\'elle ne vous parvienne.',
+      description: 'L\'IA génère le contenu, puis un vrai éditeur révise et peaufine chaque pièce avant publication.',
       perInterview: 'Par interview, vous obtenez :',
       humanQA: 'Contrôle Qualité Humain',
       humanQASub: 'Chaque pièce vérifiée par un humain',
@@ -67,7 +67,7 @@ export const fr: Translations = {
     step3: {
       title: 'Vous Publiez (1 clic)',
       summary: 'Tout est dans votre calendrier. Relisez et publiez.',
-      description: 'Tout est pré-planifié dans votre calendrier. Vous recevez des notifications quand c\'est prêt. Relisez (ou pas), puis publiez. C\'est tout.',
+      description: 'Tout est pré-planifié dans votre calendrier. Notifications quand prêt. Relisez (ou pas), puis publiez. C\'est tout.',
       badge1: 'Pré-planifié',
       badge1Sub: 'Horaires optimaux',
       badge2: 'Relisez quand vous voulez',
@@ -416,7 +416,7 @@ export const fr: Translations = {
       {
         badge: 'Écran',
         title: 'Format Screen Recording',
-        description: 'Montrez et expliquez. Enregistrez votre écran pendant que vous présentez.',
+        description: 'Montrez et expliquez. Enregistrez votre écran en présentant.',
         benefits: [
           'Démonstrations visuelles',
           'Walk-throughs en direct',
