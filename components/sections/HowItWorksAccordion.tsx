@@ -50,16 +50,20 @@ export default function HowItWorksAccordion() {
           <p className="text-neutral-300">
             {t.howItWorks.step1.description}
           </p>
-          <div className="grid grid-cols-2 gap-3">
-            <div className="p-3 rounded-lg bg-white/5 border border-white/10">
-              <CheckCircle2 className="text-empire mb-2" size={20} />
-              <p className="text-sm font-semibold text-white">{t.howItWorks.step1.badge1}</p>
-              <p className="text-xs text-neutral-500">{t.howItWorks.step1.badge1Sub}</p>
+            <div className="grid grid-cols-2 gap-4">
+            <div className="p-4 rounded-xl bg-gradient-to-br from-empire/10 to-transparent border border-empire/30 hover:border-empire/50 transition-all group">
+              <div className="w-10 h-10 rounded-full bg-empire/20 border border-empire/50 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                <CheckCircle2 className="text-empire" size={20} />
+              </div>
+              <p className="text-sm font-bold text-white mb-1">{t.howItWorks.step1.badge1}</p>
+              <p className="text-xs text-neutral-400">{t.howItWorks.step1.badge1Sub}</p>
             </div>
-            <div className="p-3 rounded-lg bg-white/5 border border-white/10">
-              <CheckCircle2 className="text-empire mb-2" size={20} />
-              <p className="text-sm font-semibold text-white">{t.howItWorks.step1.badge2}</p>
-              <p className="text-xs text-neutral-500">{t.howItWorks.step1.badge2Sub}</p>
+            <div className="p-4 rounded-xl bg-gradient-to-br from-empire/10 to-transparent border border-empire/30 hover:border-empire/50 transition-all group">
+              <div className="w-10 h-10 rounded-full bg-empire/20 border border-empire/50 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                <CheckCircle2 className="text-empire" size={20} />
+              </div>
+              <p className="text-sm font-bold text-white mb-1">{t.howItWorks.step1.badge2}</p>
+              <p className="text-xs text-neutral-400">{t.howItWorks.step1.badge2Sub}</p>
             </div>
           </div>
         </div>
@@ -140,20 +144,26 @@ export default function HowItWorksAccordion() {
             {t.howItWorks.step3.description}
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-4 rounded-lg bg-white/5 border border-white/10">
-              <CheckCircle2 className="text-empire mb-2" size={20} />
-              <p className="text-sm font-semibold text-white">{t.howItWorks.step3.badge1}</p>
-              <p className="text-xs text-neutral-500">{t.howItWorks.step3.badge1Sub}</p>
+            <div className="p-4 rounded-xl bg-gradient-to-br from-empire/10 to-transparent border border-empire/30 hover:border-empire/50 transition-all group">
+              <div className="w-10 h-10 rounded-full bg-empire/20 border border-empire/50 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                <CheckCircle2 className="text-empire" size={20} />
+              </div>
+              <p className="text-sm font-bold text-white mb-1">{t.howItWorks.step3.badge1}</p>
+              <p className="text-xs text-neutral-400">{t.howItWorks.step3.badge1Sub}</p>
             </div>
-            <div className="p-4 rounded-lg bg-white/5 border border-white/10">
-              <CheckCircle2 className="text-empire mb-2" size={20} />
-              <p className="text-sm font-semibold text-white">{t.howItWorks.step3.badge2}</p>
-              <p className="text-xs text-neutral-500">{t.howItWorks.step3.badge2Sub}</p>
+            <div className="p-4 rounded-xl bg-gradient-to-br from-empire/10 to-transparent border border-empire/30 hover:border-empire/50 transition-all group">
+              <div className="w-10 h-10 rounded-full bg-empire/20 border border-empire/50 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                <CheckCircle2 className="text-empire" size={20} />
+              </div>
+              <p className="text-sm font-bold text-white mb-1">{t.howItWorks.step3.badge2}</p>
+              <p className="text-xs text-neutral-400">{t.howItWorks.step3.badge2Sub}</p>
             </div>
-            <div className="p-4 rounded-lg bg-white/5 border border-white/10">
-              <CheckCircle2 className="text-empire mb-2" size={20} />
-              <p className="text-sm font-semibold text-white">{t.howItWorks.step3.badge3}</p>
-              <p className="text-xs text-neutral-500">{t.howItWorks.step3.badge3Sub}</p>
+            <div className="p-4 rounded-xl bg-gradient-to-br from-empire/10 to-transparent border border-empire/30 hover:border-empire/50 transition-all group">
+              <div className="w-10 h-10 rounded-full bg-empire/20 border border-empire/50 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                <CheckCircle2 className="text-empire" size={20} />
+              </div>
+              <p className="text-sm font-bold text-white mb-1">{t.howItWorks.step3.badge3}</p>
+              <p className="text-xs text-neutral-400">{t.howItWorks.step3.badge3Sub}</p>
             </div>
           </div>
         </div>
@@ -195,40 +205,72 @@ export default function HowItWorksAccordion() {
                   {/* Header */}
                   <button
                     onClick={() => setOpenStep(isOpen ? null : step.number)}
-                    className="w-full p-6 flex items-center justify-between text-left group"
+                    className="w-full p-6 md:p-8 flex items-center justify-between text-left group hover:bg-white/5 transition-all"
                   >
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-start gap-5 md:gap-6 flex-1">
+                      {/* Large Icon Circle */}
                       <div
                         className={cn(
-                          'flex items-center justify-center rounded-full transition-all',
+                          'flex items-center justify-center rounded-2xl transition-all shrink-0',
                           isOpen
-                            ? 'w-14 h-14 bg-empire/20 border-2 border-empire'
-                            : 'w-12 h-12 bg-white/5 border border-white/10 group-hover:border-empire/30'
+                            ? 'w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-empire/30 to-empire/10 border-2 border-empire shadow-[0_0_20px_rgba(218,252,104,0.3)]'
+                            : 'w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-white/10 to-white/5 border-2 border-white/20 group-hover:border-empire/50 group-hover:bg-empire/10'
                         )}
                       >
-                        <Icon className={isOpen ? 'text-empire' : 'text-neutral-400'} size={24} />
+                        <Icon className={cn(
+                          'transition-colors',
+                          isOpen ? 'text-empire' : 'text-neutral-400 group-hover:text-empire/70'
+                        )} size={isOpen ? 32 : 28} />
                       </div>
-                      <div>
-                        <div className="flex items-center gap-2 mb-1">
+                      
+                      {/* Content */}
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-3 mb-2 flex-wrap">
                           <span
                             className={cn(
-                              'text-xs font-bold px-2 py-0.5 rounded-full',
-                              isOpen ? 'bg-empire text-black' : 'bg-white/10 text-neutral-500'
+                              'text-xs font-bold px-3 py-1 rounded-full transition-all',
+                              isOpen 
+                                ? 'bg-empire text-black shadow-[0_0_10px_rgba(218,252,104,0.5)]' 
+                                : 'bg-white/10 text-neutral-400 group-hover:bg-white/20'
                             )}
                           >
                             {t.howItWorks.stepLabel} {step.number}
                           </span>
+                          {step.number === 2 && (
+                            <span className={cn(
+                              'text-xs px-3 py-1 rounded-full font-semibold transition-all',
+                              isOpen
+                                ? 'bg-gradient-to-r from-empire/30 to-empire/10 text-empire border border-empire/50'
+                                : 'bg-empire/10 text-empire/70 border border-empire/20'
+                            )}>
+                              ⭐ Human QA
+                            </span>
+                          )}
                         </div>
-                        <h3 className="text-xl md:text-2xl font-bold text-white">{step.title}</h3>
-                        <p className="text-sm text-neutral-400 mt-1">{step.summary}</p>
+                        <h3 className={cn(
+                          'font-bold transition-colors mb-2',
+                          isOpen 
+                            ? 'text-2xl md:text-3xl text-white' 
+                            : 'text-xl md:text-2xl text-white group-hover:text-empire'
+                        )}>
+                          {step.title}
+                        </h3>
+                        <p className={cn(
+                          'transition-colors',
+                          isOpen ? 'text-base text-neutral-300' : 'text-sm text-neutral-400 group-hover:text-neutral-300'
+                        )}>
+                          {step.summary}
+                        </p>
                       </div>
                     </div>
+                    
+                    {/* Chevron */}
                     <ChevronDown
                       className={cn(
-                        'text-neutral-400 transition-transform duration-300',
-                        isOpen ? 'rotate-180 text-empire' : ''
+                        'text-neutral-400 transition-all duration-300 shrink-0 ml-4',
+                        isOpen ? 'rotate-180 text-empire scale-110' : 'group-hover:text-empire/70'
                       )}
-                      size={24}
+                      size={28}
                     />
                   </button>
 
@@ -239,11 +281,20 @@ export default function HowItWorksAccordion() {
                       height: isOpen ? 'auto' : 0,
                       opacity: isOpen ? 1 : 0,
                     }}
-                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    transition={{ duration: 0.4, ease: 'easeInOut' }}
                     className="overflow-hidden"
                   >
-                    <div className="px-6 pb-6 border-t border-white/10">
-                      <div className="pt-6">{step.details}</div>
+                    <div className="px-6 md:px-8 pb-6 md:pb-8 border-t border-white/10">
+                      <motion.div 
+                        initial={false}
+                        animate={{
+                          y: isOpen ? 0 : -10,
+                        }}
+                        transition={{ duration: 0.4, delay: 0.1 }}
+                        className="pt-6"
+                      >
+                        {step.details}
+                      </motion.div>
                     </div>
                   </motion.div>
                 </div>
