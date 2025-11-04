@@ -36,14 +36,16 @@ export default function HeroSection() {
             {t.hero.subtitle}
           </motion.p>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="mt-6 text-lg md:text-xl text-neutral-300 max-w-2xl mx-auto"
-          >
-            {t.hero.description}
-          </motion.p>
+          {t.hero.description && (
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+              className="mt-6 text-lg md:text-xl text-neutral-300 max-w-2xl mx-auto"
+            >
+              {t.hero.description}
+            </motion.p>
+          )}
 
           <motion.div
             initial={{ opacity: 0, y: 10 }}
