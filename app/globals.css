@@ -249,3 +249,29 @@ a {
 .animate-meteor {
   animation: meteor linear infinite;
 }
+
+/* Force black background in fullscreen mode for Vidalytics */
+:fullscreen {
+  background-color: #000 !important;
+}
+
+:-webkit-full-screen {
+  background-color: #000 !important;
+}
+
+:-moz-full-screen {
+  background-color: #000 !important;
+}
+
+:-ms-fullscreen {
+  background-color: #000 !important;
+}
+
+/* Hide everything except fullscreen element */
+:fullscreen::backdrop {
+  background-color: #000 !important;
+}
+
+:-webkit-full-screen::backdrop {
+  background-color: #000 !important;
+}
