@@ -13,9 +13,9 @@ export const fr: Translations = {
     faq: 'FAQ',
   },
   hero: {
-    title: 'Parlez 15 Minutes. Obtenez <span class="text-empire">30+ Posts, 30 Vidéos, 30 Newsletters</span>.',
+    title: 'Parlez 15 Minutes. Obtenez <span class="text-empire">30+ Posts, 30 Vidéos, 30 Newsletters</span>.<br/>',
     subtitle: 'Prêts à Publier.',
-    description: 'Tout est prêt dans votre calendrier. Vous relisez et publiez. Pas d\'écriture. Pas de montage. Pas de planification.',
+    description: 'Vous relisez et publiez. Pas d\'écriture. Pas de montage.',
     cta1: 'Vos 30 Premiers Posts',
     cta2: 'Voir la Démo (20 min)',
     rating: 'Basé sur 20 avis',

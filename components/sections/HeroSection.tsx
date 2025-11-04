@@ -25,40 +25,31 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight"
-            dangerouslySetInnerHTML={{ __html: t.hero.title }}
+            dangerouslySetInnerHTML={{ __html: t.hero.title.replace(/<br\/>/g, '<br>') }}
           />
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.1, duration: 0.6 }}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mt-6"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mt-4"
           >
             {t.hero.subtitle}
           </motion.p>
 
-          <motion.div
+          <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="mt-8 text-lg md:text-xl text-neutral-300 max-w-2xl mx-auto"
+            className="mt-6 text-lg md:text-xl text-neutral-300 max-w-2xl mx-auto"
           >
-            {t.hero.description.split('. ').map((sentence, index, array) => {
-              const trimmed = sentence.trim()
-              if (!trimmed) return null
-              const isLast = index === array.length - 1
-              return (
-                <p key={index} className={isLast ? '' : 'mb-2'}>
-                  {trimmed}{isLast ? '' : '.'}
-                </p>
-              )
-            })}
-          </motion.div>
+            {t.hero.description}
+          </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
-            className="mt-12 flex flex-col items-center justify-center gap-4"
+            className="mt-8 flex flex-col items-center justify-center gap-4"
           >
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
@@ -74,17 +65,14 @@ export default function HeroSection() {
                 {t.hero.cta2}
               </button>
             </div>
-            
-            {/* Star Rating */}
-            <StarRating className="mt-4" />
           </motion.div>
 
-          {/* Platform Logos - Compact below rating */}
+          {/* Platform Logos - Moved up, right after CTAs */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.6 }}
-            className="mt-8"
+            transition={{ delay: 0.45, duration: 0.6 }}
+            className="mt-4"
           >
             <p className="text-xs text-neutral-400 mb-2 text-center">
               {t.hero.publishedOn || 'Published on'}
@@ -142,12 +130,22 @@ export default function HeroSection() {
             </div>
           </motion.div>
 
+          {/* Star Rating */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.6 }}
+            className="mt-4"
+          >
+            <StarRating className="mt-2" />
+          </motion.div>
+
           {/* Top Creators Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.8 }}
-            className="mt-16"
+            className="mt-12"
           >
             <div className="text-center mb-6">
               <p className="text-sm text-neutral-400 mb-2">
@@ -216,7 +214,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.8 }}
-            className="mt-12 hero-video"
+            className="mt-8 hero-video"
           >
             <HeroVideoDialog
               animationStyle="from-center"
