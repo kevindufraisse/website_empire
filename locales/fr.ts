@@ -13,8 +13,8 @@ export const fr: Translations = {
     faq: 'FAQ',
   },
   hero: {
-    title: 'D\'Invisible à <span class="text-empire">Omniprésent</span> en 24 Heures.',
-    subtitle: 'Parlez 15 minutes une fois par semaine. Recevez un mois de posts, reels, newsletters & vidéos — publiés sur toutes les plateformes.',
+    title: 'De <span class="text-empire">Invisible</span> à <span class="text-empire">Omniprésent</span> en 24h.',
+    subtitle: 'Parlez 15 min/semaine. Un mois de posts, reels, newsletters et vidéos — publiés partout.',
     description: '',
     cta1: 'Vos 30 Premiers Posts',
     cta2: 'Voir la Démo (20 min)',
