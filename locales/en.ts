@@ -13,7 +13,7 @@ export const en = {
   hero: {
     title: 'Speak 15 Minutes. Get <span class="text-empire">30+ Posts, 30 Videos, 30 Newsletters</span>.',
     subtitle: 'Ready to Publish.',
-    description: 'You talk for 15 minutes. You get 30+ posts, 30 videos, 30 newsletters. Everything ready in your calendar. You review and publish. No writing. No editing.',
+    description: 'Everything ready in your calendar. You review and publish. No writing. No editing. No scheduling.',
     cta1: 'Get Your First 30 Posts',
     cta2: 'Watch Demo (20 min)',
     rating: 'Based on 20 reviews',
