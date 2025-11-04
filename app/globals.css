@@ -283,14 +283,24 @@ iframe:-moz-full-screen::backdrop {
 }
 
 /* Masquer TOUT le contenu de la page quand Vidalytics est en fullscreen */
-body.vidalytics-fullscreen-active > header,
-body.vidalytics-fullscreen-active > main,
-body.vidalytics-fullscreen-active > footer,
-body.vidalytics-fullscreen-active > nav,
+/* On cible tous les enfants directs de body sauf le dialog */
+body.vidalytics-fullscreen-active > *:not(.vidalytics-dialog-container) {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Masquer aussi les éléments enfants qui pourraient être dans des wrappers */
+body.vidalytics-fullscreen-active header,
+body.vidalytics-fullscreen-active main,
+body.vidalytics-fullscreen-active footer,
+body.vidalytics-fullscreen-active nav,
 body.vidalytics-fullscreen-active > div:not(.vidalytics-dialog-container) {
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 /* S'assurer que le dialog reste visible */
@@ -298,4 +308,5 @@ body.vidalytics-fullscreen-active .vidalytics-dialog-container {
   display: flex !important;
   visibility: visible !important;
   opacity: 1 !important;
+  pointer-events: auto !important;
 }

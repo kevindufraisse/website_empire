@@ -68,12 +68,11 @@ export function HeroVideoDialog({
   // Détecter le fullscreen et masquer le reste de la page
   useEffect(() => {
     if (!isOpen) {
-      // Si le dialog se ferme, retirer la classe
       document.body.classList.remove('vidalytics-fullscreen-active')
       return
     }
 
-    const handleFullscreenChange = () => {
+    const checkFullscreen = () => {
       // Vérifier si un élément est en fullscreen (tous les navigateurs)
       const fullscreenElement = 
         document.fullscreenElement ||
@@ -81,34 +80,64 @@ export function HeroVideoDialog({
         (document as any).mozFullScreenElement ||
         (document as any).msFullscreenElement
 
-      // Si le dialog est ouvert ET qu'un élément est en fullscreen, c'est Vidalytics
-      // On masque tout le contenu de la page
-      if (fullscreenElement && isOpen) {
+      // Si un élément est en fullscreen ET le dialog est ouvert, c'est Vidalytics
+      if (fullscreenElement) {
         document.body.classList.add('vidalytics-fullscreen-active')
       } else {
         document.body.classList.remove('vidalytics-fullscreen-active')
       }
     }
 
-    // Vérifier immédiatement au cas où on est déjà en fullscreen
-    handleFullscreenChange()
+    // Vérifier immédiatement
+    checkFullscreen()
 
-    // Écouter les événements fullscreen (tous les préfixes navigateurs)
-    document.addEventListener('fullscreenchange', handleFullscreenChange)
-    document.addEventListener('webkitfullscreenchange', handleFullscreenChange)
-    document.addEventListener('mozfullscreenchange', handleFullscreenChange)
-    document.addEventListener('MSFullscreenChange', handleFullscreenChange)
+    // Écouter les événements fullscreen sur document
+    const events = ['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'MSFullscreenChange']
+    events.forEach(event => {
+      document.addEventListener(event, checkFullscreen)
+    })
 
-    // Vérifier périodiquement (fallback au cas où les événements ne se déclenchent pas)
-    const interval = setInterval(handleFullscreenChange, 100)
+    // Trouver et écouter les iframes Vidalytics
+    const findAndListenToVidalyticsIframes = () => {
+      // Chercher le conteneur Vidalytics
+      const vidalyticsContainer = document.querySelector('[id^="vidalytics_embed"]')
+      if (vidalyticsContainer) {
+        // Chercher tous les iframes dans le conteneur
+        const iframes = vidalyticsContainer.querySelectorAll('iframe')
+        iframes.forEach(iframe => {
+          // Écouter les événements fullscreen sur chaque iframe
+          events.forEach(event => {
+            iframe.contentDocument?.addEventListener(event, checkFullscreen)
+            iframe.contentWindow?.addEventListener(event, checkFullscreen)
+          })
+        })
+      }
+    }
 
-    // Nettoyer au démontage
+    // Observer les mutations pour détecter quand Vidalytics crée son iframe
+    const observer = new MutationObserver(() => {
+      findAndListenToVidalyticsIframes()
+      checkFullscreen()
+    })
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    })
+
+    // Vérifier périodiquement (fallback)
+    const interval = setInterval(() => {
+      checkFullscreen()
+      findAndListenToVidalyticsIframes()
+    }, 50)
+
+    // Nettoyer
     return () => {
       clearInterval(interval)
-      document.removeEventListener('fullscreenchange', handleFullscreenChange)
-      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange)
-      document.removeEventListener('mozfullscreenchange', handleFullscreenChange)
-      document.removeEventListener('MSFullscreenChange', handleFullscreenChange)
+      observer.disconnect()
+      events.forEach(event => {
+        document.removeEventListener(event, checkFullscreen)
+      })
       document.body.classList.remove('vidalytics-fullscreen-active')
     }
   }, [isOpen])
