@@ -49,64 +49,58 @@ export default function PricingPageHero() {
             transition={{ delay: 0.4, duration: 0.8 }}
           >
             <div className="text-center">
-              <p className="text-sm text-neutral-400 mb-2">
+              <p className="text-xs text-neutral-400 mb-3">
                 {lang === 'fr' 
                   ? 'Enfin accès aux systèmes des meilleurs créateurs du monde'
                   : 'Finally access to the systems of the world\'s top creators'}
+                <span className="text-empire/70 ml-1">
+                  · {lang === 'fr' ? 'Utilisant le système Empire' : 'Using Empire\'s system'}
+                </span>
               </p>
-              <p className="text-xs text-empire/70 mb-4">
-                {lang === 'fr' ? 'Utilisant le système Empire' : 'Using Empire\'s system'}
-              </p>
-              <div className="flex flex-wrap items-center justify-center gap-6">
+              <div className="flex flex-wrap items-center justify-center gap-3">
                 {/* Grant Cardone */}
-                <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
                   <img 
                     src="https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4295dabe20aff6b9885_Cardone.webp"
                     alt="Grant Cardone"
-                    className="w-10 h-10 rounded-full object-cover"
+                    className="w-6 h-6 rounded-full object-cover"
                   />
-                  <div className="flex items-center gap-2">
-                    <img 
-                      src="https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc429d393fce8535a5023_Tiktok.webp"
-                      alt="TikTok"
-                      className="w-4 h-4"
-                    />
-                    <p className="text-sm font-bold text-white group-hover:text-empire transition-colors">Grant Cardone</p>
-                  </div>
+                  <img 
+                    src="https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc429d393fce8535a5023_Tiktok.webp"
+                    alt="TikTok"
+                    className="w-3 h-3"
+                  />
+                  <p className="text-xs font-semibold text-white group-hover:text-empire transition-colors">Grant Cardone</p>
                 </div>
 
                 {/* Ali Abdaal */}
-                <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
                   <img 
                     src="https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4d436f96370e8ccb7c4_Abdaal.webp"
                     alt="Ali Abdaal"
-                    className="w-10 h-10 rounded-full object-cover"
+                    className="w-6 h-6 rounded-full object-cover"
                   />
-                  <div className="flex items-center gap-2">
-                    <img 
-                      src="https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4d3ced50075f19fe516_Ytb.webp"
-                      alt="YouTube"
-                      className="w-4 h-4"
-                    />
-                    <p className="text-sm font-bold text-white group-hover:text-empire transition-colors">Ali Abdaal</p>
-                  </div>
+                  <img 
+                    src="https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4d3ced50075f19fe516_Ytb.webp"
+                    alt="YouTube"
+                    className="w-3 h-3"
+                  />
+                  <p className="text-xs font-semibold text-white group-hover:text-empire transition-colors">Ali Abdaal</p>
                 </div>
 
                 {/* Chris Williamson */}
-                <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
                   <img 
                     src="https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4d4f950bcf495c7dfb2_Williamson.webp"
                     alt="Chris Williamson"
-                    className="w-10 h-10 rounded-full object-cover"
+                    className="w-6 h-6 rounded-full object-cover"
                   />
-                  <div className="flex items-center gap-2">
-                    <img 
-                      src="https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4d203d064fc4e0bfedc_Instagram.webp"
-                      alt="Instagram"
-                      className="w-4 h-4"
-                    />
-                    <p className="text-sm font-bold text-white group-hover:text-empire transition-colors">Chris Williamson</p>
-                  </div>
+                  <img 
+                    src="https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4d203d064fc4e0bfedc_Instagram.webp"
+                    alt="Instagram"
+                    className="w-3 h-3"
+                  />
+                  <p className="text-xs font-semibold text-white group-hover:text-empire transition-colors">Chris Williamson</p>
                 </div>
               </div>
             </div>
