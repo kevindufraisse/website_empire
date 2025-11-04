@@ -31,7 +31,7 @@ export default function HeroSection() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.1, duration: 0.6 }}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mt-4"
+            className="text-lg md:text-xl text-neutral-300 max-w-2xl mx-auto mt-6"
           >
             {t.hero.subtitle}
           </motion.p>
