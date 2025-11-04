@@ -218,11 +218,6 @@ export default function HowItWorksAccordion() {
                           >
                             {t.howItWorks.stepLabel} {step.number}
                           </span>
-                          {step.number === 2 && (
-                            <span className="text-xs bg-empire/20 text-empire px-2 py-0.5 rounded-full font-semibold">
-                              ⭐ Human QA
-                            </span>
-                          )}
                         </div>
                         <h3 className="text-xl md:text-2xl font-bold text-white">{step.title}</h3>
                         <p className="text-sm text-neutral-400 mt-1">{step.summary}</p>
