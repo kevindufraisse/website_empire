@@ -1,7 +1,7 @@
 import FormatsHero from '@/components/sections/formats/FormatsHero'
 import FormatsComparison from '@/components/sections/formats/FormatsComparison'
 import FormatsList from '@/components/sections/formats/FormatsList'
-import BonusFeaturesSection from '@/components/sections/BonusFeaturesSection'
+import BonusSection from '@/components/sections/BonusSection'
 import FAQSection from '@/components/sections/FAQSection'
 import FormatsCTA from '@/components/sections/formats/FormatsCTA'
 
@@ -23,7 +23,7 @@ export default function FormatsPage() {
       <FormatsList />
 
       {/* Bonus Features - LinkedIn AI Setter + API */}
-      <BonusFeaturesSection />
+      <BonusSection />
 
       {/* FAQ Formats */}
       <FAQSection variant="formats" />

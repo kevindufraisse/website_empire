@@ -4,7 +4,7 @@ import FeatureDetailsSection from '@/components/sections/FeatureDetailsSection'
 import MultiPlatformSection from '@/components/sections/MultiPlatformSection'
 import CalendarSection from '@/components/sections/CalendarSection'
 import ContentReadySection from '@/components/sections/ContentReadySection'
-import BonusFeaturesSection from '@/components/sections/BonusFeaturesSection'
+import BonusSection from '@/components/sections/BonusSection'
 import FinalBoostCTA from '@/components/sections/FinalBoostCTA'
 
 export const metadata = {
@@ -33,8 +33,8 @@ export default function HowItWorksPage() {
       {/* Content Ready - AI cloning */}
       <ContentReadySection />
 
-      {/* Bonus Features - API & AI Setter */}
-      <BonusFeaturesSection />
+      {/* Bonus Features - API & AI Setter (with Globe & conversations) */}
+      <BonusSection />
 
       {/* CTA vers pricing */}
       <FinalBoostCTA />
