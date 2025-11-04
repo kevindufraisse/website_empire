@@ -139,7 +139,7 @@ export const fr: Translations = {
     subtitle: 'Choisissez votre voie ci-dessous',
     startNow: 'Commencer (83 places ce mois)',
     watchDemo: 'Voir la Démo (20 min)',
-    details: 'Paiement hebdo (€250) · Annulez quand vous voulez · Démarrage en 7 jours',
+    details: 'Paiement hebdo (€250) · Annulez quand vous voulez · Démarrage immédiat',
     seeContentPlan: 'Voir Votre Plan de Contenu',
     startThisWeek: 'Commencer Cette Semaine',
   },

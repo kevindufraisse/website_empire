@@ -137,7 +137,7 @@ export const en = {
     subtitle: 'Choose your path below',
     startNow: 'Start Now (83 spots left this month)',
     watchDemo: 'Watch Demo (20 min)',
-    details: 'Pay weekly (€250) · Cancel anytime · Start in 7 days',
+    details: 'Pay weekly (€250) · Cancel anytime · Start immediately',
     seeContentPlan: 'See Your Content Plan',
     startThisWeek: 'Start This Week',
   },
