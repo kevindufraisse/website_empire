@@ -31,7 +31,7 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold text-white mb-4">{t.footer.product || 'Product'}</h4>
             <ul className="space-y-2 text-sm text-neutral-500">
-              <li><a href="/formats" className="hover:text-empire transition-colors">{t.header.formats || 'Formats'}</a></li>
+              <li><a href="/formats" className="hover:text-empire transition-colors">{t.header.product || 'Product'}</a></li>
               <li><a href="/how-it-works" className="hover:text-empire transition-colors">{t.header.howItWorks}</a></li>
               <li><a href="/pricing" className="hover:text-empire transition-colors">{t.header.pricing}</a></li>
             </ul>

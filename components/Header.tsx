@@ -10,8 +10,8 @@ export default function Header() {
   const { t } = useLanguage()
 
   const navLinks = [
-    { label: t.header.formats || 'Formats', href: '/formats' },
-    { label: t.header.product || 'Product', href: '/how-it-works' },
+    { label: t.header.product || 'Product', href: '/formats' },
+    { label: t.header.howItWorks, href: '/how-it-works' },
     { label: t.header.pricing, href: '/pricing' },
   ]
 

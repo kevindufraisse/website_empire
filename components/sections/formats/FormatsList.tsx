@@ -4,7 +4,8 @@ import { useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import Image from 'next/image'
-import { Mic, Target, FileText, MonitorPlay, Copy, Lightbulb, CheckCircle2 } from 'lucide-react'
+import { Mic, Target, FileText, MonitorPlay, Copy, Lightbulb, CheckCircle2, Sparkles } from 'lucide-react'
+import { SocialIcons } from '@/components/ui/social-icons'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -28,9 +29,15 @@ interface FormatCardProps {
   title: string
   description: string
   benefits: string[]
-  outputs: string[]
+  outputs: {
+    title: string
+    items: Array<{ icon: React.ReactNode; text: string }>
+  }
   extraInfo?: string
-  useCase: string
+  useCase: {
+    title: string
+    text: string
+  }
   imageSrc: string
   reverse?: boolean
 }
@@ -57,12 +64,12 @@ function FormatCard({ icon: Icon, badge, title, description, benefits, outputs, 
 
         {/* Outputs */}
         <div className="p-4 rounded-lg bg-gradient-to-br from-blue-500/10 to-transparent border border-blue-500/30 mb-4">
-          <p className="text-sm font-semibold text-blue-400 mb-3">📦 You get per session:</p>
-          <div className="grid grid-cols-2 gap-2 text-xs">
-            {outputs.map((output, i) => (
+          <p className="text-sm font-semibold text-blue-400 mb-3">📦 {outputs.title}</p>
+          <div className="grid grid-cols-2 gap-3">
+            {outputs.items.map((output: any, i: number) => (
               <div key={i} className="flex items-center gap-2">
-                <div className="w-1.5 h-1.5 rounded-full bg-empire" />
-                <span className="text-neutral-300">{output}</span>
+                {output.icon}
+                <span className="text-neutral-300 text-xs">{output.text}</span>
               </div>
             ))}
           </div>
@@ -78,8 +85,11 @@ function FormatCard({ icon: Icon, badge, title, description, benefits, outputs, 
         )}
 
         <div className="p-4 rounded-lg bg-gradient-to-br from-empire/10 to-transparent border border-empire/30">
-          <p className="text-sm font-semibold text-empire mb-1">✨ Perfect for:</p>
-          <p className="text-sm text-neutral-300">{useCase}</p>
+          <p className="text-sm font-semibold text-empire mb-1 flex items-center gap-2">
+            <Sparkles size={14} />
+            {useCase.title}
+          </p>
+          <p className="text-sm text-neutral-300">{useCase.text}</p>
         </div>
       </div>
 
@@ -101,6 +111,47 @@ function FormatCard({ icon: Icon, badge, title, description, benefits, outputs, 
 
 export default function FormatsList() {
   const { t, lang } = useLanguage()
+  
+  const getOutputs = (type: 'long' | 'short' | 'longWithVideo') => {
+    const outputsTitle = lang === 'fr' ? 'Par session vous obtenez :' : 'You get per session:'
+    
+    if (type === 'longWithVideo') {
+      return {
+        title: outputsTitle,
+        items: [
+          { icon: <SocialIcons.linkedin size={16} />, text: lang === 'fr' ? '7 posts' : '7 posts' },
+          { icon: <SocialIcons.video size={16} />, text: lang === 'fr' ? '7 reels' : '7 reels' },
+          { icon: <SocialIcons.instagram size={16} />, text: lang === 'fr' ? '7 posts' : '7 posts' },
+          { icon: <SocialIcons.newsletter size={16} />, text: lang === 'fr' ? '7 newsletters' : '7 newsletters' },
+          { icon: <CheckCircle2 className="text-empire" size={16} />, text: lang === 'fr' ? '1 carrousel' : '1 carousel' },
+          { icon: <CheckCircle2 className="text-empire" size={16} />, text: lang === 'fr' ? '1 vidéo longue' : '1 long video' },
+          { icon: <CheckCircle2 className="text-empire" size={16} />, text: lang === 'fr' ? '1 fichier MP3' : '1 MP3 file' },
+        ]
+      }
+    }
+    
+    if (type === 'long') {
+      return {
+        title: outputsTitle,
+        items: [
+          { icon: <SocialIcons.linkedin size={16} />, text: lang === 'fr' ? '7 posts' : '7 posts' },
+          { icon: <SocialIcons.video size={16} />, text: lang === 'fr' ? '7 reels' : '7 reels' },
+          { icon: <SocialIcons.instagram size={16} />, text: lang === 'fr' ? '7 posts' : '7 posts' },
+          { icon: <SocialIcons.newsletter size={16} />, text: lang === 'fr' ? '7 newsletters' : '7 newsletters' },
+          { icon: <CheckCircle2 className="text-empire" size={16} />, text: lang === 'fr' ? '1 carrousel' : '1 carousel' },
+        ]
+      }
+    }
+    
+    return {
+      title: outputsTitle,
+      items: [
+        { icon: <SocialIcons.linkedin size={16} />, text: lang === 'fr' ? '1 post' : '1 post' },
+        { icon: <SocialIcons.video size={16} />, text: lang === 'fr' ? '1 reel' : '1 reel' },
+        { icon: <SocialIcons.newsletter size={16} />, text: lang === 'fr' ? '1 newsletter' : '1 newsletter' },
+      ]
+    }
+  }
 
   const formats = [
     {
@@ -113,10 +164,11 @@ export default function FormatsList() {
         t.formats?.formats?.[0]?.benefits?.[1] || 'Natural conversation flow',
         t.formats?.formats?.[0]?.benefits?.[2] || 'AI extracts the best quotes',
       ],
-      outputs: lang === 'fr' 
-        ? ['7 posts LinkedIn', '7 reels', '7 posts Instagram', '7 newsletters', '1 carrousel']
-        : ['7 LinkedIn posts', '7 reels', '7 Instagram posts', '7 newsletters', '1 carousel'],
-      useCase: t.formats?.formats?.[0]?.useCase || 'Storytelling, sharing experience, thought leadership',
+      outputs: getOutputs('long'),
+      useCase: {
+        title: lang === 'fr' ? '✨ Parfait pour :' : '✨ Perfect for:',
+        text: t.formats?.formats?.[0]?.useCase || 'Storytelling, sharing experience, thought leadership'
+      },
       imageSrc: 'https://d1yei2z3i6k35z.cloudfront.net/3647172/6909dd17418ba_1.png',
     },
     {
@@ -129,13 +181,14 @@ export default function FormatsList() {
         t.formats?.formats?.[1]?.benefits?.[1] || 'Cover all key points',
         t.formats?.formats?.[1]?.benefits?.[2] || 'Perfect for complex topics',
       ],
-      outputs: lang === 'fr' 
-        ? ['7 posts LinkedIn', '7 reels', '7 posts Instagram', '7 newsletters', '1 carrousel']
-        : ['7 LinkedIn posts', '7 reels', '7 Instagram posts', '7 newsletters', '1 carousel'],
+      outputs: getOutputs('long'),
       extraInfo: lang === 'fr'
         ? 'Donnez-nous des transcripts YouTube ou liens Instagram viraux, l\'IA réécrit le contenu pour surfer sur les tendances'
         : 'Give us YouTube transcripts or viral Instagram links, AI rewrites the content to ride the trends',
-      useCase: t.formats?.formats?.[1]?.useCase || 'Educational content, tutorials, deep-dives',
+      useCase: {
+        title: lang === 'fr' ? 'Parfait pour :' : 'Perfect for:',
+        text: t.formats?.formats?.[1]?.useCase || 'Educational content, tutorials, deep-dives'
+      },
       imageSrc: 'https://d1yei2z3i6k35z.cloudfront.net/3647172/6909dd29b3084_2.png',
       reverse: true,
     },
@@ -149,13 +202,14 @@ export default function FormatsList() {
         t.formats?.formats?.[2]?.benefits?.[1] || 'Stay on track',
         t.formats?.formats?.[2]?.benefits?.[2] || 'Natural delivery',
       ],
-      outputs: lang === 'fr' 
-        ? ['7 posts LinkedIn', '7 reels', '7 posts Instagram', '7 newsletters', '1 carrousel', '1 vidéo longue', '1 fichier MP3']
-        : ['7 LinkedIn posts', '7 reels', '7 Instagram posts', '7 newsletters', '1 carousel', '1 long video', '1 MP3 file'],
+      outputs: getOutputs('longWithVideo'),
       extraInfo: lang === 'fr'
         ? 'Ajoutez une vidéo virale longue, l\'IA réécrit le contenu, vous le relisez. Ou faites le vôtre.'
         : 'Add a long viral video, AI rewrites the content, you read it. Or do your own.',
-      useCase: t.formats?.formats?.[2]?.useCase || 'Process explanations, frameworks, step-by-step guides',
+      useCase: {
+        title: lang === 'fr' ? 'Parfait pour :' : 'Perfect for:',
+        text: t.formats?.formats?.[2]?.useCase || 'Process explanations, frameworks, step-by-step guides'
+      },
       imageSrc: 'https://d1yei2z3i6k35z.cloudfront.net/3647172/6909dd3a34b27_3.png',
     },
     {
@@ -168,13 +222,14 @@ export default function FormatsList() {
         t.formats?.formats?.[3]?.benefits?.[1] || 'Live walk-throughs',
         t.formats?.formats?.[3]?.benefits?.[2] || 'Software/tool explanations',
       ],
-      outputs: lang === 'fr' 
-        ? ['7 posts LinkedIn', '7 reels', '7 posts Instagram', '7 newsletters', '1 carrousel', '1 vidéo longue', '1 fichier MP3']
-        : ['7 LinkedIn posts', '7 reels', '7 Instagram posts', '7 newsletters', '1 carousel', '1 long video', '1 MP3 file'],
+      outputs: getOutputs('longWithVideo'),
       extraInfo: lang === 'fr'
         ? 'Ajoutez une vidéo virale longue, l\'IA réécrit le contenu, vous le relisez. Ou faites le vôtre.'
         : 'Add a long viral video, AI rewrites the content, you read it. Or do your own.',
-      useCase: t.formats?.formats?.[3]?.useCase || 'Tutorials, software demos, case studies',
+      useCase: {
+        title: lang === 'fr' ? 'Parfait pour :' : 'Perfect for:',
+        text: t.formats?.formats?.[3]?.useCase || 'Tutorials, software demos, case studies'
+      },
       imageSrc: 'https://d1yei2z3i6k35z.cloudfront.net/3647172/6909dd49b76df_4.png',
       reverse: true,
     },
@@ -188,13 +243,14 @@ export default function FormatsList() {
         t.formats?.formats?.[4]?.benefits?.[1] || 'Adapted to your voice',
         t.formats?.formats?.[4]?.benefits?.[2] || 'Fast content creation',
       ],
-      outputs: lang === 'fr' 
-        ? ['1 post LinkedIn', '1 reel', '1 newsletter']
-        : ['1 LinkedIn post', '1 reel', '1 newsletter'],
+      outputs: getOutputs('short'),
       extraInfo: lang === 'fr'
         ? 'Donnez un lien reel/vidéo virale, l\'IA réécrit le script, vous le lisez, on monte tout automatiquement'
         : 'Give a reel/viral video link, AI rewrites the script, you read it, we edit everything automatically',
-      useCase: t.formats?.formats?.[4]?.useCase || 'Quick wins, trending content, engagement boosters',
+      useCase: {
+        title: lang === 'fr' ? 'Parfait pour :' : 'Perfect for:',
+        text: t.formats?.formats?.[4]?.useCase || 'Quick wins, trending content, engagement boosters'
+      },
       imageSrc: 'https://d1yei2z3i6k35z.cloudfront.net/3647172/6909dd5b662e5_5.png',
     },
     {
@@ -207,13 +263,14 @@ export default function FormatsList() {
         t.formats?.formats?.[5]?.benefits?.[1] || 'Scripts rewritten in your style',
         t.formats?.formats?.[5]?.benefits?.[2] || 'Fast turnaround',
       ],
-      outputs: lang === 'fr' 
-        ? ['1 post LinkedIn', '1 reel', '1 newsletter']
-        : ['1 LinkedIn post', '1 reel', '1 newsletter'],
+      outputs: getOutputs('short'),
       extraInfo: lang === 'fr'
         ? 'Donnez un lien reel/vidéo, l\'IA réécrit le script à votre façon, vous lisez, on monte'
         : 'Give a reel/video link, AI rewrites script your way, you read it, we edit',
-      useCase: t.formats?.formats?.[5]?.useCase || 'Trending content, viral formats, quick content creation',
+      useCase: {
+        title: lang === 'fr' ? 'Parfait pour :' : 'Perfect for:',
+        text: t.formats?.formats?.[5]?.useCase || 'Trending content, viral formats, quick content creation'
+      },
       imageSrc: 'https://d1yei2z3i6k35z.cloudfront.net/3647172/6909dd68e1cdd_6.png',
       reverse: true,
     },

@@ -36,7 +36,7 @@ export function HeroVideoDialog({
   
   // Exposer setIsOpen globalement
   globalSetIsOpen = setIsOpen
-  
+
   // Si pas de thumbnailSrc fourni, on rend juste le dialog (pour usage global)
   const showThumbnail = thumbnailSrc && thumbnailSrc.length > 0
 
@@ -69,25 +69,25 @@ export function HeroVideoDialog({
     <>
       {/* Thumbnail - only if thumbnailSrc provided */}
       {showThumbnail && (
-        <div className={cn('relative cursor-pointer group', className)} onClick={() => setIsOpen(true)}>
-          <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
-            <img
-              src={thumbnailSrc}
-              alt={thumbnailAlt}
-              className="w-full h-full object-cover"
-            />
-            {/* Play button overlay */}
-            <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-all flex items-center justify-center">
-              <div className="w-20 h-20 rounded-full bg-empire/90 flex items-center justify-center group-hover:scale-110 transition-transform shadow-[0_0_40px_rgba(218,252,104,0.4)]">
-                <Play className="text-black ml-1" size={32} fill="black" />
-              </div>
-            </div>
-            {/* Duration badge */}
-            <div className="absolute bottom-4 right-4 px-3 py-1 rounded-lg bg-black/80 backdrop-blur-sm">
-              <p className="text-xs font-semibold text-white">20:00</p>
+      <div className={cn('relative cursor-pointer group', className)} onClick={() => setIsOpen(true)}>
+        <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+          <img
+            src={thumbnailSrc}
+            alt={thumbnailAlt}
+            className="w-full h-full object-cover"
+          />
+          {/* Play button overlay */}
+          <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-all flex items-center justify-center">
+            <div className="w-20 h-20 rounded-full bg-empire/90 flex items-center justify-center group-hover:scale-110 transition-transform shadow-[0_0_40px_rgba(218,252,104,0.4)]">
+              <Play className="text-black ml-1" size={32} fill="black" />
             </div>
           </div>
+          {/* Duration badge */}
+          <div className="absolute bottom-4 right-4 px-3 py-1 rounded-lg bg-black/80 backdrop-blur-sm">
+            <p className="text-xs font-semibold text-white">20:00</p>
+          </div>
         </div>
+      </div>
       )}
 
       {/* Video Dialog - Using Portal to render at body level */}
