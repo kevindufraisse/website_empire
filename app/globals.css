@@ -251,27 +251,33 @@ a {
 }
 
 /* Force black background in fullscreen mode for Vidalytics */
-:fullscreen {
+div[id^="vidalytics_embed"]:fullscreen,
+div[id^="vidalytics_embed"]:-webkit-full-screen,
+div[id^="vidalytics_embed"]:-moz-full-screen,
+div[id^="vidalytics_embed"]:-ms-fullscreen {
+  background-color: #000 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Force black backdrop behind fullscreen element */
+div[id^="vidalytics_embed"]:fullscreen::backdrop,
+div[id^="vidalytics_embed"]:-webkit-full-screen::backdrop,
+div[id^="vidalytics_embed"]:-moz-full-screen::backdrop,
+div[id^="vidalytics_embed"]:-ms-fullscreen::backdrop {
   background-color: #000 !important;
 }
 
-:-webkit-full-screen {
+/* Also target any iframe that might go fullscreen */
+iframe:fullscreen,
+iframe:-webkit-full-screen,
+iframe:-moz-full-screen,
+iframe:-ms-fullscreen {
   background-color: #000 !important;
 }
 
-:-moz-full-screen {
-  background-color: #000 !important;
-}
-
-:-ms-fullscreen {
-  background-color: #000 !important;
-}
-
-/* Hide everything except fullscreen element */
-:fullscreen::backdrop {
-  background-color: #000 !important;
-}
-
-:-webkit-full-screen::backdrop {
+iframe:fullscreen::backdrop,
+iframe:-webkit-full-screen::backdrop,
+iframe:-moz-full-screen::backdrop {
   background-color: #000 !important;
 }
