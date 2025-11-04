@@ -173,7 +173,7 @@ export const en = {
       },
       {
         concern: 'Is this really better than hiring someone?',
-        answer: 'Yes. Hiring someone costs €12K+/month, takes weeks to onboard, and you still manage them. We deliver 30+ pieces in 7 days for €1K/month, with zero management. You get the same (or better) results for 92% less.',
+        answer: 'Yes. Hiring someone costs €12K+/month, takes weeks to onboard, and you still manage them. Empire delivers 132 pieces/month for €1K/month, with zero management. You get the same (or better) results for 92% less.',
       },
       {
         concern: 'What if the content doesn\'t perform?',
@@ -506,7 +506,7 @@ export const en = {
     },
     {
       question: 'What makes this different from hiring a content agency?',
-      answer: 'Speed, cost, and quality. Agencies cost €5K-15K/month, take weeks to deliver, and often miss your voice. We deliver 30+ pieces in 7 days for €1K/month, with human QA on everything.',
+      answer: 'Speed, cost, and quality. Agencies cost €5K-15K/month, take weeks to deliver, and often miss your voice. Empire delivers 132 pieces/month for €1K/month, with human QA on everything.',
     },
     {
       question: 'Can I cancel anytime?',

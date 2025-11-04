@@ -315,7 +315,7 @@ export default function MultiPlatformSection() {
             <div className="mt-12">
               <InlineCTA
                 title={t.multiPlatform.cta}
-                description={`83 ${t.multiPlatform.spotsLeftOf100} · ${t.multiPlatform.nextCohortStarts} 7 ${t.multiPlatform.days}`}
+                description={`83 ${t.multiPlatform.spotsLeftOf100}`}
                 primaryText={t.common.startNow}
                 secondaryText={t.common.watchDemo}
                 urgencyLabel={t.multiPlatform.limitedSpots}

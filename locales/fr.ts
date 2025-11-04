@@ -175,7 +175,7 @@ export const fr: Translations = {
       },
       {
         concern: 'C\'est vraiment mieux qu\'embaucher ?',
-        answer: 'Oui. Embaucher = €12K+/mois, semaines d\'intégration, et vous devez les gérer. Empire = 30+ pièces en 7 jours pour €1K/mois, zéro gestion. Même résultat, 92% moins cher.',
+        answer: 'Oui. Embaucher = €12K+/mois, semaines d\'intégration, et vous devez les gérer. Empire = 132 contenus/mois pour €1K/mois, zéro gestion. Même résultat, 92% moins cher.',
       },
       {
         concern: 'Et si ça ne performe pas ?',
@@ -508,7 +508,7 @@ export const fr: Translations = {
     },
     {
       question: 'Qu\'est-ce qui rend ceci différent d\'une agence de contenu ?',
-      answer: 'Vitesse, coût et qualité. Les agences = €5-15K/mois, semaines à livrer, et ratent votre voix. Empire = 30+ pièces en 7 jours pour €1K/mois, contrôle qualité humain sur tout.',
+      answer: 'Vitesse, coût et qualité. Les agences = €5-15K/mois, semaines à livrer, et ratent votre voix. Empire = 132 contenus/mois pour €1K/mois, contrôle qualité humain sur tout.',
     },
     {
       question: 'Puis-je annuler à tout moment ?',
