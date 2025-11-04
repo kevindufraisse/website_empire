@@ -65,6 +65,51 @@ export function HeroVideoDialog({
 
   const selectedAnimation = animationVariants[animationStyle]
 
+  // Détecter le fullscreen et masquer le reste de la page
+  useEffect(() => {
+    if (!isOpen) return
+
+    const handleFullscreenChange = () => {
+      const fullscreenElement = 
+        document.fullscreenElement ||
+        (document as any).webkitFullscreenElement ||
+        (document as any).mozFullScreenElement ||
+        (document as any).msFullscreenElement
+
+      // Vérifier si c'est un élément Vidalytics qui est en fullscreen
+      // Vidalytics peut mettre son iframe ou son conteneur en fullscreen
+      const isVidalyticsFullscreen = fullscreenElement && 
+        (fullscreenElement.id?.startsWith('vidalytics_embed') ||
+         fullscreenElement.querySelector('[id^="vidalytics_embed"]') ||
+         fullscreenElement.closest('[id^="vidalytics_embed"]') ||
+         fullscreenElement.querySelector('iframe[src*="vidalytics"]') ||
+         fullscreenElement.closest('.vidalytics-dialog-container'))
+
+      if (isVidalyticsFullscreen) {
+        // Masquer TOUT le contenu de la page sauf notre dialog
+        document.body.classList.add('vidalytics-fullscreen-active')
+      } else {
+        // Retirer le masquage
+        document.body.classList.remove('vidalytics-fullscreen-active')
+      }
+    }
+
+    // Écouter les événements fullscreen (tous les préfixes navigateurs)
+    document.addEventListener('fullscreenchange', handleFullscreenChange)
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange)
+    document.addEventListener('mozfullscreenchange', handleFullscreenChange)
+    document.addEventListener('MSFullscreenChange', handleFullscreenChange)
+
+    // Nettoyer au démontage
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange)
+      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange)
+      document.removeEventListener('mozfullscreenchange', handleFullscreenChange)
+      document.removeEventListener('MSFullscreenChange', handleFullscreenChange)
+      document.body.classList.remove('vidalytics-fullscreen-active')
+    }
+  }, [isOpen])
+
   return (
     <>
       {/* Thumbnail - only if thumbnailSrc provided */}
@@ -94,7 +139,7 @@ export function HeroVideoDialog({
       {typeof window !== 'undefined' && isOpen && createPortal(
         <AnimatePresence>
           <div
-            className="fixed inset-0 flex items-center justify-center bg-black p-4 overflow-y-auto"
+            className="vidalytics-dialog-container fixed inset-0 flex items-center justify-center bg-black p-4 overflow-y-auto"
             style={{ zIndex: 999999 }}
             onClick={() => setIsOpen(false)}
           >
