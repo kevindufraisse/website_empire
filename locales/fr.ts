@@ -67,7 +67,7 @@ export const fr: Translations = {
     step3: {
       title: 'Vous Publiez (1 clic)',
       summary: 'Tout est dans votre calendrier. Relisez et publiez.',
-      description: 'Tout est pré-planifié dans votre calendrier. Vous recevez des notifications quand c\'est prêt. Relisez (ou pas), puis cliquez pour publier. C\'est tout.',
+      description: 'Tout est pré-planifié dans votre calendrier. Vous recevez des notifications quand c\'est prêt. Relisez (ou pas), puis publiez. C\'est tout.',
       badge1: 'Pré-planifié',
       badge1Sub: 'Horaires optimaux',
       badge2: 'Relisez quand vous voulez',
@@ -109,8 +109,8 @@ export const fr: Translations = {
   pricing: {
     title: 'Pourquoi Empire ?',
     subtitle: 'Même résultat. 10x plus rapide. 90% moins cher.',
-    saved: 'Nos clients ont économisé',
-    lastMonth: 'Le mois dernier seulement',
+      saved: 'Nos clients ont économisé',
+      lastMonth: 'Le mois dernier',
     tableOption: 'Option',
     tablePrice: 'Prix',
     tableTimeline: 'Délai',
@@ -149,7 +149,7 @@ export const fr: Translations = {
     specific: {
       howManyPosts: {
         question: 'Combien de posts j\'obtiens exactement ?',
-        answer: 'Vous obtenez exactement 30 posts LinkedIn, 30 newsletters, 30 Reels/Shorts, 30 posts Instagram, 7 threads Twitter, 4 carrousels, et 1 podcast MP3 — par interview. C\'est 132 contenus par mois si vous faites une interview par semaine.',
+        answer: 'Exactement 30 posts LinkedIn, 30 newsletters, 30 Reels/Shorts, 30 posts Instagram, 7 threads Twitter, 4 carrousels, et 1 podcast MP3 — par interview. Soit 132 contenus par mois si vous faites une interview par semaine.',
       },
       whatIfDontLike: {
         question: 'Et si je n\'aime pas le contenu ?',
@@ -175,7 +175,7 @@ export const fr: Translations = {
       },
       {
         concern: 'C\'est vraiment mieux qu\'embaucher ?',
-        answer: 'Oui. Embaucher = €12K+/mois, semaines d\'intégration, et vous devez les gérer. Nous = 30+ pièces en 7 jours pour €1K/mois, zéro gestion. Même résultat, 92% moins cher.',
+        answer: 'Oui. Embaucher = €12K+/mois, semaines d\'intégration, et vous devez les gérer. Empire = 30+ pièces en 7 jours pour €1K/mois, zéro gestion. Même résultat, 92% moins cher.',
       },
       {
         concern: 'Et si ça ne performe pas ?',
@@ -184,7 +184,7 @@ export const fr: Translations = {
     ],
   },
   footer: {
-    tagline: 'Votre machine à contenu. 15 minutes pour être omnipresent.',
+    tagline: 'Votre machine à contenu. 15 minutes pour être omniprésent.',
     quickLinks: 'Liens Rapides',
     product: 'Produit',
     about: 'À Propos',
@@ -508,7 +508,7 @@ export const fr: Translations = {
     },
     {
       question: 'Qu\'est-ce qui rend ceci différent d\'une agence de contenu ?',
-      answer: 'Vitesse, coût et qualité. Les agences = €5-15K/mois, semaines à livrer, et ratent votre voix. Nous = 30+ pièces en 7 jours pour €1K/mois, contrôle qualité humain sur tout.',
+      answer: 'Vitesse, coût et qualité. Les agences = €5-15K/mois, semaines à livrer, et ratent votre voix. Empire = 30+ pièces en 7 jours pour €1K/mois, contrôle qualité humain sur tout.',
     },
     {
       question: 'Puis-je annuler à tout moment ?',
