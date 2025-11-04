@@ -11,7 +11,7 @@ export const en = {
     faq: 'FAQ',
   },
   hero: {
-    title: 'Speak 15 Minutes.<br/>Get <span class="text-empire">30+ Posts, 30 Videos,<br/>30 Newsletters</span>.<br/>',
+    title: 'Speak 15 Minutes.<br/>Get <span class="text-empire">30+ Posts,<br/>30 Videos,<br/>30 Newsletters</span>.<br/>',
     subtitle: 'Ready to Publish.',
     description: 'You review and publish. No writing. No editing.',
     cta1: 'Get Your First 30 Posts',
