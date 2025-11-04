@@ -25,11 +25,11 @@ export const fr: Translations = {
   },
   howItWorksPage: {
     title: 'Comment Fonctionne Empire',
-    subtitle: 'Une interview par semaine → 30+ contenus → publiés partout',
+    subtitle: '1 interview/semaine → 132 contenus/mois → publiés partout',
     step1Title: 'Interview',
-    step1Desc: 'Appel 30 min, vous parlez',
+    step1Desc: 'Appel 15 min, vous parlez',
     step2Title: 'Traitement IA',
-    step2Desc: 'Extraction insights & idées',
+    step2Desc: 'Extraction insights et idées',
     step3Title: 'Création Contenu',
     step3Desc: 'Posts, vidéos, newsletters',
     step4Title: 'Distribution',
@@ -82,7 +82,7 @@ export const fr: Translations = {
     items: [
       {
         title: '30 Posts LinkedIn',
-        description: 'Thought leadership qui vous positionne expert.',
+        description: 'Thought leadership qui vous positionne en expert.',
       },
       {
         title: '30 Newsletters',
@@ -90,19 +90,19 @@ export const fr: Translations = {
       },
       {
         title: '30 Reels/Shorts',
-        description: 'Vidéo qui arrête le scroll. Légendes et b-roll inclus.',
+        description: 'Vidéos qui arrêtent le scroll. Légendes et b-roll inclus.',
       },
       {
         title: '7 Threads Twitter',
-        description: 'Idées complexes en insights format tweet.',
+        description: 'Idées complexes transformées en insights format tweet.',
       },
       {
         title: '2 Carrousels',
-        description: 'Contenu visuel haute conversion pour IG et LinkedIn.',
+        description: 'Contenu visuel haute conversion pour Instagram et LinkedIn.',
       },
       {
         title: '1 Podcast MP3',
-        description: 'Audio extrait et édité pour Spotify & Apple Podcasts.',
+        description: 'Audio extrait et édité pour Spotify et Apple Podcasts.',
       },
     ],
   },
@@ -137,7 +137,7 @@ export const fr: Translations = {
     limited: 'LIMITÉ À 100 CLIENTS',
     title: 'Prêt à Rejoindre ?',
     subtitle: 'Choisissez votre voie',
-    startNow: 'Commencer (83 places ce mois)',
+    startNow: 'Commencer (83 places ce mois-ci)',
     watchDemo: 'Voir la Démo (20 min)',
     details: 'Paiement hebdo (€250) · Annulez quand vous voulez · Démarrage immédiat',
     seeContentPlan: 'Voir Votre Plan de Contenu',
@@ -220,7 +220,7 @@ export const fr: Translations = {
   },
   multiPlatform: {
     title: 'Avant Empire vs Après Empire',
-    subtitle: 'De posts éparpillés à présence multi-plateforme cohérente — en 15 minutes',
+    subtitle: 'De posts éparpillés à présence multi-plateforme cohérente — en 15 min/semaine',
     without: 'Sans Empire',
     withEmpire: 'Avec Empire',
     doingYourself: 'Vous le faites vous-même',
@@ -236,7 +236,7 @@ export const fr: Translations = {
   },
   calendar: {
     title: 'Votre Routine : 5 Min/Jour',
-    subtitle: 'Voici votre lundi. Chaque pièce vérifiée par un humain (pas l\'IA). Vous relisez et publiez.',
+    subtitle: 'Voici votre lundi. Chaque pièce vérifiée par un humain. Vous relisez et publiez.',
     humanVerified: 'Vérifié Humain',
     scheduled: 'Planifié',
     youPublish: 'Vous Publiez',
@@ -368,7 +368,7 @@ export const fr: Translations = {
     line1: 'Mais entre clients, business, et vie... le calendrier reste vide.',
     line2: 'Vous n\'êtes pas paresseux. Le système est cassé.',
     solution: 'Empire corrige ça.',
-    hook: '15 minutes de parole = 30+ posts partout.',
+    hook: '15 minutes de parole = 132 contenus/mois.',
     subtext: 'Pas d\'écriture. Pas de montage. Pas de planification. Juste des résultats.',
     readStory: 'Lire l\'histoire',
   },
@@ -377,7 +377,7 @@ export const fr: Translations = {
       badge: '6 Façons de Créer',
       title: 'Choisissez Votre Format :',
       titleHighlight: 'Interview, Points Clés, Screen Recording, ou Scripts IA',
-      subtitle: 'Vous choisissez comment enregistrer. On transforme en 30+ contenus partout. Pas de scripts. Pas de stress.',
+      subtitle: 'Vous choisissez comment enregistrer. On transforme en 132 contenus/mois partout. Pas de scripts. Pas de stress.',
     },
     formats: [
       {
