@@ -119,10 +119,10 @@ export default function FormatsList() {
       return {
         title: outputsTitle,
         items: [
-          { icon: <SocialIcons.linkedin size={16} />, text: lang === 'fr' ? '7 posts' : '7 posts' },
-          { icon: <SocialIcons.video size={16} />, text: lang === 'fr' ? '7 reels' : '7 reels' },
-          { icon: <SocialIcons.instagram size={16} />, text: lang === 'fr' ? '7 posts' : '7 posts' },
-          { icon: <SocialIcons.newsletter size={16} />, text: lang === 'fr' ? '7 newsletters' : '7 newsletters' },
+          { icon: <div className="scale-75"><SocialIcons.linkedin /></div>, text: lang === 'fr' ? '7 posts' : '7 posts' },
+          { icon: <div className="scale-75"><SocialIcons.video /></div>, text: lang === 'fr' ? '7 reels' : '7 reels' },
+          { icon: <div className="scale-75"><SocialIcons.instagram /></div>, text: lang === 'fr' ? '7 posts' : '7 posts' },
+          { icon: <div className="scale-75"><SocialIcons.newsletter /></div>, text: lang === 'fr' ? '7 newsletters' : '7 newsletters' },
           { icon: <CheckCircle2 className="text-empire" size={16} />, text: lang === 'fr' ? '1 carrousel' : '1 carousel' },
           { icon: <CheckCircle2 className="text-empire" size={16} />, text: lang === 'fr' ? '1 vidéo longue' : '1 long video' },
           { icon: <CheckCircle2 className="text-empire" size={16} />, text: lang === 'fr' ? '1 fichier MP3' : '1 MP3 file' },
@@ -134,10 +134,10 @@ export default function FormatsList() {
       return {
         title: outputsTitle,
         items: [
-          { icon: <SocialIcons.linkedin size={16} />, text: lang === 'fr' ? '7 posts' : '7 posts' },
-          { icon: <SocialIcons.video size={16} />, text: lang === 'fr' ? '7 reels' : '7 reels' },
-          { icon: <SocialIcons.instagram size={16} />, text: lang === 'fr' ? '7 posts' : '7 posts' },
-          { icon: <SocialIcons.newsletter size={16} />, text: lang === 'fr' ? '7 newsletters' : '7 newsletters' },
+          { icon: <div className="scale-75"><SocialIcons.linkedin /></div>, text: lang === 'fr' ? '7 posts' : '7 posts' },
+          { icon: <div className="scale-75"><SocialIcons.video /></div>, text: lang === 'fr' ? '7 reels' : '7 reels' },
+          { icon: <div className="scale-75"><SocialIcons.instagram /></div>, text: lang === 'fr' ? '7 posts' : '7 posts' },
+          { icon: <div className="scale-75"><SocialIcons.newsletter /></div>, text: lang === 'fr' ? '7 newsletters' : '7 newsletters' },
           { icon: <CheckCircle2 className="text-empire" size={16} />, text: lang === 'fr' ? '1 carrousel' : '1 carousel' },
         ]
       }
@@ -146,9 +146,9 @@ export default function FormatsList() {
     return {
       title: outputsTitle,
       items: [
-        { icon: <SocialIcons.linkedin size={16} />, text: lang === 'fr' ? '1 post' : '1 post' },
-        { icon: <SocialIcons.video size={16} />, text: lang === 'fr' ? '1 reel' : '1 reel' },
-        { icon: <SocialIcons.newsletter size={16} />, text: lang === 'fr' ? '1 newsletter' : '1 newsletter' },
+        { icon: <div className="scale-75"><SocialIcons.linkedin /></div>, text: lang === 'fr' ? '1 post' : '1 post' },
+        { icon: <div className="scale-75"><SocialIcons.video /></div>, text: lang === 'fr' ? '1 reel' : '1 reel' },
+        { icon: <div className="scale-75"><SocialIcons.newsletter /></div>, text: lang === 'fr' ? '1 newsletter' : '1 newsletter' },
       ]
     }
   }
