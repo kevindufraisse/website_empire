@@ -2,6 +2,7 @@ import PriceComparisonSection from '@/components/sections/PriceComparisonSection
 import PricingPlansSection from '@/components/sections/PricingPlansSection'
 import InclusionsTableSection from '@/components/sections/InclusionsTableSection'
 import GuaranteeSection from '@/components/sections/GuaranteeSection'
+import ObjectionsSection from '@/components/sections/ObjectionsSection'
 import FAQSection from '@/components/sections/FAQSection'
 import TestimonialsSection from '@/components/sections/TestimonialsSection'
 import PricingPageHero from '@/components/sections/PricingPageHero'
@@ -31,6 +32,9 @@ export default function PricingPage() {
 
       {/* Guarantee - Flexible Trial */}
       <GuaranteeSection />
+
+      {/* Objections - Address common concerns */}
+      <ObjectionsSection />
 
       {/* FAQ Pricing */}
       <FAQSection variant="pricing" />
