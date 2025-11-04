@@ -193,7 +193,7 @@ export const fr: Translations = {
   },
   videoDialog: {
     readyToJoin: 'Prêt à rejoindre ?',
-    startNow: 'Obtenez Vos 30 Premiers Posts',
+    startNow: 'Vos 30 Premiers Posts',
     joinQA: 'Rejoindre Q&A (Mar/Jeu 13h)',
   },
   stickyBar: {
