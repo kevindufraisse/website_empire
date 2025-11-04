@@ -185,9 +185,111 @@ export default function HowItWorksAccordion() {
           </div>
         </FadeInBlock>
 
-        {/* Accordion */}
+        {/* Horizontal Timeline Layout */}
         <FadeInBlock delay={0.1}>
-          <div className="space-y-4">
+          {/* Desktop: Horizontal Timeline */}
+          <div className="hidden lg:block">
+            <div className="relative">
+              {/* Connecting Line */}
+              <div className="absolute top-24 left-0 right-0 h-0.5 bg-gradient-to-r from-empire/30 via-empire/20 to-empire/30" />
+              
+              <div className="grid grid-cols-3 gap-8 relative">
+                {steps.map((step, index) => {
+                  const Icon = step.icon
+                  const isOpen = openStep === step.number
+
+                  return (
+                    <div key={step.number} className="relative">
+                      {/* Step Card */}
+                      <button
+                        onClick={() => setOpenStep(isOpen ? null : step.number)}
+                        className={cn(
+                          'w-full p-6 rounded-2xl border-2 transition-all text-left group',
+                          isOpen
+                            ? 'bg-gradient-to-br from-empire/20 to-empire/5 border-empire shadow-[0_0_30px_rgba(218,252,104,0.2)]'
+                            : 'bg-gradient-to-br from-white/10 to-white/[0.02] border-white/20 hover:border-empire/50 hover:bg-empire/10'
+                        )}
+                      >
+                        {/* Icon Circle - Above */}
+                        <div className="flex justify-center mb-6 -mt-14">
+                          <div
+                            className={cn(
+                              'flex items-center justify-center rounded-2xl transition-all',
+                              isOpen
+                                ? 'w-20 h-20 bg-gradient-to-br from-empire/40 to-empire/20 border-2 border-empire shadow-[0_0_25px_rgba(218,252,104,0.4)]'
+                                : 'w-16 h-16 bg-gradient-to-br from-white/10 to-white/5 border-2 border-white/30 group-hover:border-empire/50 group-hover:bg-empire/10'
+                            )}
+                          >
+                            <Icon className={cn(
+                              'transition-colors',
+                              isOpen ? 'text-empire' : 'text-neutral-400 group-hover:text-empire/70'
+                            )} size={isOpen ? 36 : 32} />
+                          </div>
+                        </div>
+
+                        {/* Content */}
+                        <div className="space-y-3">
+                          <div className="flex items-center gap-2 flex-wrap justify-center">
+                            <span
+                              className={cn(
+                                'text-xs font-bold px-3 py-1 rounded-full transition-all',
+                                isOpen 
+                                  ? 'bg-empire text-black shadow-[0_0_10px_rgba(218,252,104,0.5)]' 
+                                  : 'bg-white/10 text-neutral-400 group-hover:bg-white/20'
+                              )}
+                            >
+                              {t.howItWorks.stepLabel} {step.number}
+                            </span>
+                            {step.number === 2 && (
+                              <span className={cn(
+                                'text-xs px-3 py-1 rounded-full font-semibold transition-all',
+                                isOpen
+                                  ? 'bg-gradient-to-r from-empire/40 to-empire/20 text-empire border border-empire/60'
+                                  : 'bg-empire/10 text-empire/70 border border-empire/20'
+                              )}>
+                                ⭐ Human QA
+                              </span>
+                            )}
+                          </div>
+                          
+                          <h3 className={cn(
+                            'font-bold text-center transition-colors',
+                            isOpen 
+                              ? 'text-2xl text-white' 
+                              : 'text-xl text-white group-hover:text-empire'
+                          )}>
+                            {step.title}
+                          </h3>
+                          
+                          <p className={cn(
+                            'text-sm text-center transition-colors',
+                            isOpen ? 'text-neutral-300' : 'text-neutral-400 group-hover:text-neutral-300'
+                          )}>
+                            {step.summary}
+                          </p>
+                        </div>
+                      </button>
+
+                      {/* Expanded Details */}
+                      {isOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.4 }}
+                          className="mt-6 p-6 rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10"
+                        >
+                          {step.details}
+                        </motion.div>
+                      )}
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile: Vertical Accordion */}
+          <div className="lg:hidden space-y-4">
             {steps.map((step) => {
               const Icon = step.icon
               const isOpen = openStep === step.number
@@ -205,16 +307,16 @@ export default function HowItWorksAccordion() {
                   {/* Header */}
                   <button
                     onClick={() => setOpenStep(isOpen ? null : step.number)}
-                    className="w-full p-6 md:p-8 flex items-center justify-between text-left group hover:bg-white/5 transition-all"
+                    className="w-full p-6 flex items-center justify-between text-left group hover:bg-white/5 transition-all"
                   >
-                    <div className="flex items-start gap-5 md:gap-6 flex-1">
+                    <div className="flex items-start gap-5 flex-1">
                       {/* Large Icon Circle */}
                       <div
                         className={cn(
                           'flex items-center justify-center rounded-2xl transition-all shrink-0',
                           isOpen
-                            ? 'w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-empire/30 to-empire/10 border-2 border-empire shadow-[0_0_20px_rgba(218,252,104,0.3)]'
-                            : 'w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-white/10 to-white/5 border-2 border-white/20 group-hover:border-empire/50 group-hover:bg-empire/10'
+                            ? 'w-16 h-16 bg-gradient-to-br from-empire/30 to-empire/10 border-2 border-empire shadow-[0_0_20px_rgba(218,252,104,0.3)]'
+                            : 'w-14 h-14 bg-gradient-to-br from-white/10 to-white/5 border-2 border-white/20 group-hover:border-empire/50 group-hover:bg-empire/10'
                         )}
                       >
                         <Icon className={cn(
@@ -250,8 +352,8 @@ export default function HowItWorksAccordion() {
                         <h3 className={cn(
                           'font-bold transition-colors mb-2',
                           isOpen 
-                            ? 'text-2xl md:text-3xl text-white' 
-                            : 'text-xl md:text-2xl text-white group-hover:text-empire'
+                            ? 'text-2xl text-white' 
+                            : 'text-xl text-white group-hover:text-empire'
                         )}>
                           {step.title}
                         </h3>
@@ -284,7 +386,7 @@ export default function HowItWorksAccordion() {
                     transition={{ duration: 0.4, ease: 'easeInOut' }}
                     className="overflow-hidden"
                   >
-                    <div className="px-6 md:px-8 pb-6 md:pb-8 border-t border-white/10">
+                    <div className="px-6 pb-6 border-t border-white/10">
                       <motion.div 
                         initial={false}
                         animate={{
