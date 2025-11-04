@@ -464,7 +464,7 @@ export const fr: Translations = {
     cta: {
       title: 'Choisissez Votre Format',
       titleHighlight: 'On Gère le Reste',
-      subtitle: 'Peu importe comment vous créez, Empire transforme en 30+ contenus par semaine.',
+      subtitle: 'Peu importe comment vous créez, Empire transforme en 132 contenus/mois.',
     },
   },
   faqFormats: {
