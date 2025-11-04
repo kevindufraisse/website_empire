@@ -319,3 +319,24 @@ body.vidalytics-fullscreen-active .vidalytics-dialog-container {
   pointer-events: auto !important;
   z-index: 9999999 !important;
 }
+
+/* Forcer le dialog à être toujours au-dessus de tout */
+.vidalytics-dialog-container {
+  z-index: 9999999 !important;
+}
+
+/* Masquer le header quand le dialog est ouvert (même sans fullscreen) */
+body.vidalytics-dialog-open > header,
+body.vidalytics-dialog-open header {
+  z-index: 1 !important;
+}
+
+/* Masquer complètement le header quand en fullscreen */
+body.vidalytics-fullscreen-active > header,
+body.vidalytics-fullscreen-active header {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  z-index: -9999 !important;
+}

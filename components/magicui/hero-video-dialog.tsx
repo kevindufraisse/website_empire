@@ -65,6 +65,16 @@ export function HeroVideoDialog({
 
   const selectedAnimation = animationVariants[animationStyle]
 
+  // Ajouter une classe au body quand le dialog est ouvert pour masquer le header
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add('vidalytics-dialog-open')
+    } else {
+      document.body.classList.remove('vidalytics-dialog-open')
+      document.body.classList.remove('vidalytics-fullscreen-active')
+    }
+  }, [isOpen])
+
   // Détecter le fullscreen et masquer le reste de la page
   useEffect(() => {
     if (!isOpen) {
