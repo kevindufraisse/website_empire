@@ -46,7 +46,7 @@ export const fr: Translations = {
     step1: {
       title: 'Vous Parlez (15 min)',
       summary: 'L\'IA vous interviewe. Vous parlez, c\'est tout.',
-      description: 'Zéro préparation. Zéro script. Notre IA pose les bonnes questions pour extraire vos meilleures idées, histoires et expertise. Comme parler à un pote, pas à un robot.',
+      description: 'Zéro préparation. Zéro script. L\'IA pose les bonnes questions pour extraire vos meilleures idées, histoires et expertise. Comme parler à un pote, pas à un robot.',
       badge1: 'Zéro préparation',
       badge1Sub: 'Juste parlez',
       badge2: 'Questions guidées par IA',
@@ -82,11 +82,11 @@ export const fr: Translations = {
     items: [
       {
         title: '30 Posts LinkedIn',
-        description: 'Thought leadership qui vous positionne comme expert.',
+        description: 'Thought leadership qui vous positionne expert.',
       },
       {
         title: '30 Newsletters',
-        description: 'Emails que vos lecteurs veulent vraiment ouvrir.',
+        description: 'Emails que vos lecteurs veulent ouvrir.',
       },
       {
         title: '30 Reels/Shorts',
@@ -94,7 +94,7 @@ export const fr: Translations = {
       },
       {
         title: '7 Threads Twitter',
-        description: 'Idées complexes décortiquées en insights format tweet.',
+        description: 'Idées complexes en insights format tweet.',
       },
       {
         title: '2 Carrousels',
@@ -109,7 +109,7 @@ export const fr: Translations = {
   pricing: {
     title: 'Pourquoi Empire ?',
     subtitle: 'Même résultat. 10x plus rapide. 90% moins cher.',
-      saved: 'Nos clients ont économisé',
+      saved: 'Les clients ont économisé',
       lastMonth: 'Le mois dernier',
     tableOption: 'Option',
     tablePrice: 'Prix',
@@ -136,7 +136,7 @@ export const fr: Translations = {
   finalCTA: {
     limited: 'LIMITÉ À 100 CLIENTS',
     title: 'Prêt à Rejoindre ?',
-    subtitle: 'Choisissez votre voie ci-dessous',
+    subtitle: 'Choisissez votre voie',
     startNow: 'Commencer (83 places ce mois)',
     watchDemo: 'Voir la Démo (20 min)',
     details: 'Paiement hebdo (€250) · Annulez quand vous voulez · Démarrage immédiat',
@@ -157,7 +157,7 @@ export const fr: Translations = {
       },
       canRequestChanges: {
         question: 'Puis-je demander des modifications au contenu ?',
-        answer: 'Tout est révisé et validé par notre équipe avant publication. Vous recevez tout dans votre calendrier. Besoin de modifications ? Demandez, on révise.',
+        answer: 'Tout est révisé et validé par l\'équipe avant publication. Vous recevez tout dans votre calendrier. Besoin de modifications ? Demandez, on révise.',
       },
     },
   },
@@ -205,7 +205,7 @@ export const fr: Translations = {
     average: 'Moyenne :',
     viewsMonth: 'vues/mois',
     aiPrompt: 'Système de Prompts IA',
-    systemTitle: 'Notre Système de Prompts IA',
+    systemTitle: 'Le Système de Prompts IA',
     systemDescription: 'On a passé des mois à reverse-engineer les patterns, accroches et structures qui rendent les meilleurs créateurs viraux. Puis on a tout codé dans des prompts IA personnalisés.',
     cta: 'Vous voulez du contenu qui performe comme les meilleurs ?',
     ctaButton: 'Voir la Démo',
@@ -492,7 +492,7 @@ export const fr: Translations = {
   faqItems: [
     {
       question: 'Comment je commence ?',
-      answer: 'Deux façons : 1) Rejoignez notre Q&A live (Mardi/Jeudi 13h CET) pour tout voir, OU 2) Allez sur la page de commande et choisissez votre plan. Votre premier contenu est prêt 24h après votre interview.',
+      answer: 'Deux façons : 1) Rejoignez le Q&A live (Mardi/Jeudi 13h CET) pour tout voir, OU 2) Allez sur la page de commande et choisissez votre plan. Votre premier contenu est prêt 24h après votre interview.',
     },
     {
       question: 'Combien de temps dois-je investir ?',
