@@ -26,21 +26,25 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 const getFAQs = (t: any, variant: string = 'all') => {
   const allFAQs = t.faqItems || []
   
-  // FAQ HOME : Top 5-6 questions essentielles pour la conversion
+  // FAQ HOME : Top questions essentielles + nouvelles FAQs spécifiques
   const homeFAQs = [
+    t.faq?.specific?.howManyPosts, // Nouvelle FAQ spécifique
     allFAQs[0], // How do I get started?
     allFAQs[1], // How much time do I need to invest?
     allFAQs[2], // What if the content doesn't sound like me?
+    t.faq?.specific?.whatIfDontLike, // Nouvelle FAQ spécifique
     allFAQs[3], // How quickly will I see results?
     allFAQs[4], // What makes this different from hiring an agency?
     allFAQs[5], // Can I cancel anytime?
   ].filter(Boolean)
   
-  // FAQ PRICING : Questions sur prix/achat
+  // FAQ PRICING : Questions sur prix/achat + nouvelles FAQs spécifiques
   const pricingFAQs = [
+    t.faq?.specific?.howManyPosts, // Nouvelle FAQ spécifique
     allFAQs[5], // Can I cancel anytime?
     allFAQs[6], // Why no free trial or money-back guarantee?
     allFAQs[4], // What makes this different from hiring an agency?
+    t.faq?.specific?.canRequestChanges, // Nouvelle FAQ spécifique
     allFAQs[7], // What platforms do you publish to?
     allFAQs[8], // Why are there only a few testimonials?
     allFAQs[11], // Is the AI Setter included or extra?

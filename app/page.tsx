@@ -5,6 +5,7 @@ import BentoGridSection from '@/components/sections/BentoGridSection'
 import QuickWinsSection from '@/components/sections/QuickWinsSection'
 import TestimonialsSection from '@/components/sections/TestimonialsSection'
 import FAQSection from '@/components/sections/FAQSection'
+import ObjectionsSection from '@/components/sections/ObjectionsSection'
 import FinalBoostCTA from '@/components/sections/FinalBoostCTA'
 
 export default function Page() {
@@ -30,6 +31,9 @@ export default function Page() {
 
       {/* FAQ - Essential questions */}
       <FAQSection variant="home" />
+
+      {/* Objections - Address common concerns */}
+      <ObjectionsSection />
 
       {/* Final CTA */}
       <FinalBoostCTA />

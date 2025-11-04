@@ -2,6 +2,7 @@
 import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef } from 'react'
+import { useLanguage } from '@/contexts/LanguageContext'
 import BorderBeam from '@/components/magicui/border-beam'
 import { MessageSquare, Sparkles, TrendingUp } from 'lucide-react'
 
@@ -70,9 +71,15 @@ export default function StoryBreakthrough() {
                 <p className="text-2xl md:text-3xl font-bold text-white mb-4">
                   Simple. Scalable. Finally sustainable.
                 </p>
-                <p className="text-lg text-neutral-300">
+                <p className="text-lg text-neutral-300 mb-8">
                   The same system that got me to 1M+ views/month
                 </p>
+                <a
+                  href="/pricing"
+                  className="inline-block px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)]"
+                >
+                  This is how I built Empire. Want to use it?
+                </a>
               </div>
             </div>
           </div>

@@ -105,9 +105,15 @@ export default function StoryResults() {
               <p className="text-lg text-neutral-300 mb-6">
                 And now, I want to share it with you.
               </p>
-              <p className="text-empire font-semibold text-xl">
+              <p className="text-empire font-semibold text-xl mb-8">
                 Welcome to Empire Internet.
               </p>
+              <a
+                href="/pricing"
+                className="inline-block px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)]"
+              >
+                This is how I built Empire. Want to use it?
+              </a>
             </div>
           </div>
         </FadeInBlock>

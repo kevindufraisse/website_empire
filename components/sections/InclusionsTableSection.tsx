@@ -24,58 +24,54 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 export default function InclusionsTableSection() {
   const { lang } = useLanguage()
 
-  const inclusions = [
+  const contentOutputs = [
     {
       icon: FileText,
       name: lang === 'fr' ? '30 Posts LinkedIn' : '30 LinkedIn Posts',
-      included: true,
     },
     {
       icon: Mail,
       name: lang === 'fr' ? '30 Newsletters' : '30 Newsletters',
-      included: true,
     },
     {
       icon: Video,
       name: lang === 'fr' ? '30 Reels/Shorts' : '30 Reels/Shorts',
-      included: true,
     },
     {
       icon: FileText,
       name: lang === 'fr' ? '30 Posts Instagram' : '30 Instagram Posts',
-      included: true,
     },
     {
       icon: FileText,
       name: lang === 'fr' ? '7 Threads Twitter' : '7 Twitter Threads',
-      included: true,
     },
     {
       icon: ImageIcon,
       name: lang === 'fr' ? '4 Carrousels' : '4 Carousels',
-      included: true,
     },
     {
       icon: Headphones,
       name: lang === 'fr' ? '1 Podcast MP3' : '1 MP3 Podcast',
-      included: true,
     },
-    {
-      icon: CheckCircle2,
-      name: lang === 'fr' ? 'Assistant QA Humain' : 'Human QA Assistant',
-      included: true,
-    },
+  ]
+
+  const bonusFeatures = [
     {
       icon: Bot,
       name: 'LinkedIn AI Setter',
-      included: true,
       badge: lang === 'fr' ? 'Bonus' : 'Bonus',
     },
     {
       icon: Globe2,
       name: lang === 'fr' ? 'Accès API Multi-diffusion' : 'Multi-Distribution API Access',
-      included: true,
       badge: lang === 'fr' ? 'Bonus' : 'Bonus',
+    },
+  ]
+
+  const support = [
+    {
+      icon: CheckCircle2,
+      name: lang === 'fr' ? 'Assistant QA Humain' : 'Human QA Assistant',
     },
   ]
 
@@ -97,31 +93,89 @@ export default function InclusionsTableSection() {
 
         <FadeInBlock delay={0.1}>
           <div className="p-8 rounded-2xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10">
-            <div className="space-y-4">
-              {inclusions.map((item, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.2 + i * 0.05, duration: 0.5 }}
-                  className="flex items-center justify-between p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-all group"
-                >
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-lg bg-empire/10 border border-empire/30 flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <item.icon className="text-empire" size={20} />
-                    </div>
-                    <div>
+            {/* Content Outputs */}
+            <div className="mb-8">
+              <h3 className="text-xl font-bold text-white mb-4">
+                {lang === 'fr' ? 'Contenus Créés' : 'Content Outputs'}
+              </h3>
+              <div className="space-y-3">
+                {contentOutputs.map((item, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.2 + i * 0.05, duration: 0.5 }}
+                    className="flex items-center justify-between p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-all group"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="w-10 h-10 rounded-lg bg-empire/10 border border-empire/30 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <item.icon className="text-empire" size={20} />
+                      </div>
                       <p className="font-semibold text-white">{item.name}</p>
-                      {item.badge && (
-                        <span className="inline-block mt-1 px-2 py-0.5 rounded-full bg-empire/20 border border-empire/30 text-empire text-xs font-bold">
-                          {item.badge}
-                        </span>
-                      )}
                     </div>
-                  </div>
-                  <CheckCircle2 className="text-empire" size={20} />
-                </motion.div>
-              ))}
+                    <CheckCircle2 className="text-empire" size={20} />
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* Bonus Features */}
+            <div className="mb-8 pt-8 border-t border-white/10">
+              <h3 className="text-xl font-bold text-white mb-4">
+                {lang === 'fr' ? 'Fonctionnalités Bonus' : 'Bonus Features'}
+              </h3>
+              <div className="space-y-3">
+                {bonusFeatures.map((item, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.5 + i * 0.05, duration: 0.5 }}
+                    className="flex items-center justify-between p-4 rounded-lg bg-empire/5 hover:bg-empire/10 transition-all group border border-empire/20"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="w-10 h-10 rounded-lg bg-empire/20 border border-empire/40 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <item.icon className="text-empire" size={20} />
+                      </div>
+                      <div>
+                        <p className="font-semibold text-white">{item.name}</p>
+                        {item.badge && (
+                          <span className="inline-block mt-1 px-2 py-0.5 rounded-full bg-empire/20 border border-empire/30 text-empire text-xs font-bold">
+                            {item.badge}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    <CheckCircle2 className="text-empire" size={20} />
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* Support */}
+            <div className="mb-8 pt-8 border-t border-white/10">
+              <h3 className="text-xl font-bold text-white mb-4">
+                {lang === 'fr' ? 'Support' : 'Support'}
+              </h3>
+              <div className="space-y-3">
+                {support.map((item, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.7 + i * 0.05, duration: 0.5 }}
+                    className="flex items-center justify-between p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-all group"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="w-10 h-10 rounded-lg bg-empire/10 border border-empire/30 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <item.icon className="text-empire" size={20} />
+                      </div>
+                      <p className="font-semibold text-white">{item.name}</p>
+                    </div>
+                    <CheckCircle2 className="text-empire" size={20} />
+                  </motion.div>
+                ))}
+              </div>
             </div>
 
             <div className="mt-8 pt-8 border-t border-white/10 text-center">
