@@ -35,42 +35,12 @@ export default function PricingPageHero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="text-lg md:text-xl text-neutral-300 max-w-3xl mx-auto mb-8"
+            className="text-xl md:text-2xl text-neutral-300 max-w-3xl mx-auto mb-12"
           >
             {lang === 'fr' 
               ? 'Pendant que d\'autres dépensent €12,000+ pour des équipes de contenu, obtenez les mêmes résultats à partir de €280/semaine. Annulez quand vous voulez.'
               : 'While others spend €12,000+ on content teams, get the same results starting at €280/week. Cancel anytime.'}
           </motion.p>
-
-          {/* Pricing Plans Quick View */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-            className="mb-12"
-          >
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-              <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
-                <p className="text-2xl font-bold text-empire mb-1">€280</p>
-                <p className="text-xs text-neutral-400">{lang === 'fr' ? '/semaine' : '/week'}</p>
-              </div>
-              <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
-                <p className="text-2xl font-bold text-empire mb-1">€1,000</p>
-                <p className="text-xs text-neutral-400">{lang === 'fr' ? '/mois' : '/month'}</p>
-              </div>
-              <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
-                <p className="text-2xl font-bold text-empire mb-1">€933</p>
-                <p className="text-xs text-neutral-400">{lang === 'fr' ? '/mois (trim.)' : '/mo (qtr.)'}</p>
-              </div>
-              <div className="p-4 rounded-xl bg-empire/10 border-2 border-empire text-center">
-                <p className="text-2xl font-bold text-empire mb-1">€833</p>
-                <p className="text-xs text-neutral-400">{lang === 'fr' ? '/mois (ann.)' : '/mo (yr.)'}</p>
-              </div>
-            </div>
-            <p className="text-sm text-neutral-400 mt-4 text-center">
-              {lang === 'fr' ? 'Tous les plans incluent les mêmes contenus. Économisez avec les plans trimestriel ou annuel.' : 'All plans include the same content. Save with quarterly or yearly plans.'}
-            </p>
-          </motion.div>
 
           {/* Top Creators Section */}
           <motion.div
