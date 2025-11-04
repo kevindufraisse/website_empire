@@ -15,7 +15,7 @@ interface InlineCTAProps {
 export function InlineCTA({ 
   title, 
   description, 
-  primaryText = 'Join Live Demo',
+  primaryText = 'Start Now',
   secondaryText,
   urgencyLabel = 'Limited spots',
   variant = 'default' 
@@ -45,7 +45,7 @@ export function InlineCTA({
         {description && <p className="text-neutral-300 mb-4">{description}</p>}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <a
-            href="/order"
+            href="/pricing"
             className="px-6 py-3 bg-empire text-black font-bold rounded-lg hover:scale-105 transition-all"
           >
             {primaryText}
@@ -67,7 +67,7 @@ export function InlineCTA({
       {description && <p className="text-neutral-300 mb-6">{description}</p>}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-md mx-auto">
         <a
-          href="/order"
+          href="/pricing"
           className="px-6 py-3 bg-empire text-black font-bold rounded-lg hover:scale-105 transition-all"
         >
           {primaryText}
@@ -79,9 +79,6 @@ export function InlineCTA({
           {secondaryText || 'Watch Demo'}
         </button>
       </div>
-      {secondaryText && (
-        <p className="text-sm text-neutral-400 mt-4">{secondaryText}</p>
-      )}
     </div>
   )
 }

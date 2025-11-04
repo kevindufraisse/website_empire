@@ -235,12 +235,12 @@ function AnimatedBeamMultiple() {
 const getTransformations = (t: any) => t.features.items || []
 
 // Note: Ces features utilisent useLanguage dans le component parent
-const getFeaturesConfig = (t: any) => [
+const getFeaturesConfig = (t: any, useAnchors: boolean = false) => [
   {
     Icon: Mic,
     name: t.bentoGrid.voiceContent,
     description: t.bentoGrid.voiceContentDesc,
-    href: '#voice-transformation',
+    href: useAnchors ? '#voice-transformation' : '/how-it-works',
     cta: t.common.learnMore,
     className: 'col-span-3 lg:col-span-1',
     background: (
@@ -253,7 +253,7 @@ const getFeaturesConfig = (t: any) => [
     Icon: Bell,
     name: t.bentoGrid.contentReady,
     description: t.bentoGrid.contentReadyDesc,
-    href: '#content-ready',
+    href: useAnchors ? '#content-ready' : '/how-it-works',
     cta: t.common.learnMore,
     className: 'col-span-3 lg:col-span-2',
     background: (
@@ -270,7 +270,7 @@ const getFeaturesConfig = (t: any) => [
     Icon: Wand2,
     name: t.bentoGrid.multiPlatform,
     description: t.bentoGrid.multiPlatformDesc,
-    href: '#multi-platform',
+    href: useAnchors ? '#multi-platform' : '/how-it-works',
     cta: t.common.learnMore,
     className: 'col-span-3 lg:col-span-2',
     background: (
@@ -284,7 +284,7 @@ const getFeaturesConfig = (t: any) => [
     name: t.bentoGrid.calendar,
     description: t.bentoGrid.calendarDesc,
     className: 'col-span-3 lg:col-span-1',
-    href: '#calendar',
+    href: useAnchors ? '#calendar' : '/how-it-works',
     cta: t.common.learnMore,
     background: (
       <div className="flex items-start justify-center pt-16 px-4 h-full">
@@ -296,9 +296,9 @@ const getFeaturesConfig = (t: any) => [
   },
 ]
 
-export default function BentoGridSection() {
+export default function BentoGridSection({ useAnchors = false }: { useAnchors?: boolean }) {
   const { t } = useLanguage()
-  const features = getFeaturesConfig(t)
+  const features = getFeaturesConfig(t, useAnchors)
   
   return (
     <section id="features" className="relative w-full section-spacing bg-gradient-to-b from-[#0f0f0f] via-black to-black">

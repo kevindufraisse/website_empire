@@ -3,6 +3,8 @@ export const en = {
     spots: '83/100 spots',
     watchDemo: 'Watch Demo',
     getAccess: 'Get Access',
+    formats: 'Formats',
+    product: 'Product',
     howItWorks: 'How It Works',
     features: 'Features',
     pricing: 'Pricing',
@@ -15,6 +17,23 @@ export const en = {
     cta1: 'Start Now (83 left)',
     cta2: 'Watch Demo (20 min)',
     rating: 'Based on 20 reviews',
+    creatorsTitle: 'Finally access to the systems of the world\'s top creators',
+  },
+  howItWorksPage: {
+    title: 'How Empire Works',
+    subtitle: 'One interview a week → 30+ pieces of content → posted everywhere',
+    step1Title: 'Interview',
+    step1Desc: '30 min call, just talking',
+    step2Title: 'AI Processing',
+    step2Desc: 'Extract insights & ideas',
+    step3Title: 'Content Creation',
+    step3Desc: 'Posts, videos, newsletters',
+    step4Title: 'Distribution',
+    step4Desc: 'Posted everywhere',
+    platformsTitle: 'We post to all your platforms',
+    stat1: 'Your time investment per week',
+    stat2: 'Pieces of content created',
+    stat3: 'Platforms covered',
   },
   howItWorks: {
     title: 'How It Works',
@@ -125,6 +144,9 @@ export const en = {
   footer: {
     tagline: 'Your content machine. 15 minutes to omnipresent.',
     quickLinks: 'Quick Links',
+    product: 'Product',
+    about: 'About',
+    ourStory: 'Our Story',
     spotsRemaining: 'spots remaining (Limited to 100 clients)',
   },
   videoDialog: {
@@ -144,7 +166,7 @@ export const en = {
     systemTitle: 'Our AI Prompt System',
     systemDescription: 'We spent months reverse-engineering the patterns, hooks, and structures that make top creators go viral. Then we coded it all into custom AI prompts.',
     cta: 'Want content that performs like the best creators?',
-    ctaButton: 'See How It Works (Live)',
+    ctaButton: 'Watch Demo',
     frameworks: [
       { name: "Justin Welsh's Structure", pattern: '"Problem → Story → Solution → CTA"' },
       { name: "Hormozi's Video Cuts", pattern: '"Fast cuts every 3s + pattern interrupt"' },
@@ -297,6 +319,132 @@ export const en = {
       linkedinCarouselDesc: 'Professional multi-slide presentations that showcase expertise and generate leads.',
       mp3Podcast: 'MP3 Podcast',
       mp3PodcastDesc: 'Audio extracted from your interview and edited into podcast episodes ready for Spotify, Apple Podcasts, and more.',
+    },
+  },
+  quickProblem: {
+    title: 'Creating content shouldn\'t feel like a second job.',
+    line1: 'But between client work, your business, and life... the calendar stays empty.',
+    line2: 'You\'re not lazy. The system is broken.',
+    solution: 'Empire fixes that.',
+    hook: '15 minutes of talking = 30+ posts across all platforms.',
+    subtext: 'No writing. No editing. No scheduling. Just results.',
+    readStory: 'Read the full story',
+  },
+  formats: {
+    hero: {
+      badge: '6 Ways to Create',
+      title: 'Speak How',
+      titleHighlight: 'You Want',
+      subtitle: 'No scripts. No stress. Just choose your format and we handle the rest.',
+    },
+    formats: [
+      {
+        badge: 'Interview',
+        title: 'Free-Flow Interview Format',
+        description: 'Speak naturally for 15-30 minutes like you\'re on a podcast. No preparation needed.',
+        benefits: [
+          'Zero preparation required',
+          'Natural conversation flow',
+          'AI extracts the best quotes',
+        ],
+        useCase: 'Storytelling, sharing experience, thought leadership',
+      },
+      {
+        badge: 'Structured',
+        title: 'Themed Interview Format',
+        description: 'Answer pre-written questions. We guide you through specific topics.',
+        benefits: [
+          'Structured approach',
+          'Cover all key points',
+          'Perfect for complex topics',
+        ],
+        useCase: 'Educational content, tutorials, deep-dives',
+      },
+      {
+        badge: 'Notes',
+        title: 'Bulletpoint Improvisation Format',
+        description: 'Follow your notes, improvise the rest. Perfect for organized minds.',
+        benefits: [
+          'Use your existing notes',
+          'Stay on track',
+          'Natural delivery',
+        ],
+        useCase: 'Process explanations, frameworks, step-by-step guides',
+      },
+      {
+        badge: 'Screen',
+        title: 'Screenrecording Improvisation Format',
+        description: 'Show and explain. Record your screen while you walk through anything.',
+        benefits: [
+          'Visual demonstrations',
+          'Live walk-throughs',
+          'Software/tool explanations',
+        ],
+        useCase: 'Tutorials, software demos, case studies',
+      },
+      {
+        badge: 'Proven',
+        title: 'Copy Viral Reels Scripts Format',
+        description: 'Copy viral scripts that work. Adapt them to your niche. We transform them.',
+        benefits: [
+          'Proven viral formats',
+          'Adapted to your voice',
+          'Fast content creation',
+        ],
+        useCase: 'Quick wins, trending content, engagement boosters',
+      },
+      {
+        badge: 'Inspired',
+        title: 'Reels Inspiration Format',
+        description: 'Send us videos you like. We edit them for you and rewrite the scripts with your voice.',
+        benefits: [
+          'We do the editing for you',
+          'Scripts rewritten in your style',
+          'Fast turnaround',
+        ],
+        useCase: 'Trending content, viral formats, quick content creation',
+      },
+    ],
+    api: {
+      badge: 'Advanced',
+      title: 'API & Automations',
+      description: 'For power users: Connect Empire to your existing workflows. Automate everything.',
+      features: [
+        'Connect your tools (Notion, Airtable, Google Drive)',
+        'Automate content workflows',
+        'Custom integrations available',
+      ],
+      example: {
+        title: 'Example:',
+        text: 'Upload to Dropbox → Empire processes → Content published to all platforms → Notifications sent to Slack',
+      },
+    },
+    cta: {
+      title: 'Choose Your Format',
+      titleHighlight: 'We Handle Everything Else',
+      subtitle: 'No matter how you create, Empire transforms it into 30+ pieces of content per week.',
+    },
+  },
+  faqFormats: {
+    q1: {
+      question: 'Which format should I choose?',
+      answer: 'There\'s no wrong choice. Most clients start with Free-Flow Interview (easiest, no prep) or Themed Interview (more structured). You can switch formats anytime or mix them.',
+    },
+    q2: {
+      question: 'Can I mix different formats?',
+      answer: 'Absolutely! You can do a Free-Flow Interview one week, then a Screenrecording the next. Flexibility is key.',
+    },
+    q3: {
+      question: 'Do I need to prepare anything?',
+      answer: 'For Free-Flow Interview: Zero prep. For Themed Interview: We send questions beforehand. For Bulletpoint: Just your notes. For Screenrecording: Have your screen ready.',
+    },
+    q4: {
+      question: 'What if I\'m camera shy?',
+      answer: 'Perfect! Most formats don\'t require camera. We use audio-only interviews, screenrecordings, or just your voice. No face required.',
+    },
+    q5: {
+      question: 'Can I use my existing content?',
+      answer: 'Yes! With the API format, you can upload existing videos, podcasts, or documents and we\'ll transform them into multi-platform content.',
     },
   },
   faqItems: [

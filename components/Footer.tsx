@@ -7,7 +7,7 @@ export default function Footer() {
   return (
     <footer className="relative w-full border-t border-white/10 bg-black">
       <div className="container py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2 mb-4">
@@ -29,12 +29,19 @@ export default function Footer() {
 
           {/* Product */}
           <div>
-            <h4 className="font-semibold text-white mb-4">{t.footer.quickLinks}</h4>
+            <h4 className="font-semibold text-white mb-4">{t.footer.product || 'Product'}</h4>
             <ul className="space-y-2 text-sm text-neutral-500">
-              <li><a href="#how-it-works" className="hover:text-empire transition-colors">{t.header.howItWorks}</a></li>
-              <li><a href="#features" className="hover:text-empire transition-colors">{t.header.features}</a></li>
-              <li><a href="#pricing" className="hover:text-empire transition-colors">{t.header.pricing}</a></li>
-              <li><a href="#faq" className="hover:text-empire transition-colors">{t.header.faq}</a></li>
+              <li><a href="/formats" className="hover:text-empire transition-colors">{t.header.formats || 'Formats'}</a></li>
+              <li><a href="/how-it-works" className="hover:text-empire transition-colors">{t.header.howItWorks}</a></li>
+              <li><a href="/pricing" className="hover:text-empire transition-colors">{t.header.pricing}</a></li>
+            </ul>
+          </div>
+
+          {/* About */}
+          <div>
+            <h4 className="font-semibold text-white mb-4">{t.footer.about || 'About'}</h4>
+            <ul className="space-y-2 text-sm text-neutral-500">
+              <li><a href="/story" className="hover:text-empire transition-colors">{t.footer.ourStory || 'Our Story'}</a></li>
             </ul>
           </div>
         </div>

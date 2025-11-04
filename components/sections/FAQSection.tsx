@@ -22,8 +22,64 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
   )
 }
 
-// FAQ sera chargée depuis les traductions
-const getFAQs = (t: any) => t.faqItems || [
+// FAQ selon le variant (contextuelles)
+const getFAQs = (t: any, variant: string = 'all') => {
+  const allFAQs = t.faqItems || []
+  
+  // FAQ HOME : Top 5-6 questions essentielles pour la conversion
+  const homeFAQs = [
+    allFAQs[0], // How do I get started?
+    allFAQs[1], // How much time do I need to invest?
+    allFAQs[2], // What if the content doesn't sound like me?
+    allFAQs[3], // How quickly will I see results?
+    allFAQs[4], // What makes this different from hiring an agency?
+    allFAQs[5], // Can I cancel anytime?
+  ].filter(Boolean)
+  
+  // FAQ PRICING : Questions sur prix/achat
+  const pricingFAQs = [
+    allFAQs[5], // Can I cancel anytime?
+    allFAQs[6], // Why no free trial or money-back guarantee?
+    allFAQs[4], // What makes this different from hiring an agency?
+    allFAQs[7], // What platforms do you publish to?
+    allFAQs[8], // Why are there only a few testimonials?
+    allFAQs[11], // Is the AI Setter included or extra?
+  ].filter(Boolean)
+  
+  // FAQ FORMATS : Questions sur les méthodes d'enregistrement
+  const formatsFAQs = [
+    { 
+      question: t.faqFormats?.q1?.question || 'Which format should I choose?',
+      answer: t.faqFormats?.q1?.answer || 'There\'s no wrong choice. Most clients start with Free-Flow Interview (easiest, no prep) or Themed Interview (more structured). You can switch formats anytime or mix them.'
+    },
+    { 
+      question: t.faqFormats?.q2?.question || 'Can I mix different formats?',
+      answer: t.faqFormats?.q2?.answer || 'Absolutely! You can do a Free-Flow Interview one week, then a Screenrecording the next. Flexibility is key.'
+    },
+    { 
+      question: t.faqFormats?.q3?.question || 'Do I need to prepare anything?',
+      answer: t.faqFormats?.q3?.answer || 'For Free-Flow Interview: Zero prep. For Themed Interview: We send questions beforehand. For Bulletpoint: Just your notes. For Screenrecording: Have your screen ready.'
+    },
+    { 
+      question: t.faqFormats?.q4?.question || 'What if I\'m camera shy?',
+      answer: t.faqFormats?.q4?.answer || 'Perfect! Most formats don\'t require camera. We use audio-only interviews, screenrecordings, or just your voice. No face required.'
+    },
+    { 
+      question: t.faqFormats?.q5?.question || 'Can I use my existing content?',
+      answer: t.faqFormats?.q5?.answer || 'Yes! With the API format, you can upload existing videos, podcasts, or documents and we\'ll transform them into multi-platform content.'
+    },
+    allFAQs[1], // How much time do I need to invest?
+  ].filter(Boolean)
+  
+  // Retourner selon le variant
+  if (variant === 'home') return homeFAQs
+  if (variant === 'pricing') return pricingFAQs
+  if (variant === 'formats') return formatsFAQs
+  
+  return allFAQs
+}
+
+const getFAQsOld = (t: any) => t.faqItems || [
   {
     question: 'How do I get started?',
     answer: 'Two ways: 1) Join our live Q&A session (Tuesday 1PM or Thursday 1PM CET) to see everything and ask questions, OR 2) Go directly to our order page and choose your plan. Either way, your first content is ready within 24 hours of your interview.',
@@ -74,10 +130,10 @@ const getFAQs = (t: any) => t.faqItems || [
   },
 ]
 
-export default function FAQSection() {
+export default function FAQSection({ variant = 'all' }: { variant?: 'all' | 'home' | 'pricing' | 'formats' }) {
   const { t } = useLanguage()
   const [openIndex, setOpenIndex] = useState<number | null>(0)
-  const faqs = getFAQs(t)
+  const faqs = getFAQs(t, variant)
 
   return (
     <section id="faq" className="relative w-full py-20 md:py-32 bg-gradient-to-b from-black via-[#0f0f0f] to-black overflow-hidden">

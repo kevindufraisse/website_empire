@@ -10,10 +10,9 @@ export default function Header() {
   const { t } = useLanguage()
 
   const navLinks = [
-    { label: t.header.howItWorks, href: '#how-it-works' },
-    { label: t.header.features, href: '#features' },
-    { label: t.header.pricing, href: '#pricing' },
-    { label: t.header.faq, href: '#faq' },
+    { label: t.header.formats || 'Formats', href: '/formats' },
+    { label: t.header.product || 'Product', href: '/how-it-works' },
+    { label: t.header.pricing, href: '/pricing' },
   ]
 
   return (
@@ -21,7 +20,7 @@ export default function Header() {
       <nav className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2 group">
+          <a href="/" className="flex items-center gap-2 group">
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-empire to-empire/50 flex items-center justify-center font-bold text-black text-sm">
               E
             </div>
@@ -47,7 +46,7 @@ export default function Header() {
                   {t.header.spots}
                 </div>
                 <a
-                  href="/order"
+                  href="/pricing"
                   className="px-5 py-2.5 rounded-lg bg-empire text-black font-semibold hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.2)]"
                 >
                   {t.header.getAccess}

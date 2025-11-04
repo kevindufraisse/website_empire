@@ -1,12 +1,8 @@
 import HeroSection from '@/components/sections/HeroSection'
-import BentoGridSection from '@/components/sections/BentoGridSection'
+import QuickProblemSolution from '@/components/sections/QuickProblemSolution'
 import HowItWorksAccordion from '@/components/sections/HowItWorksAccordion'
-import PriceComparisonSection from '@/components/sections/PriceComparisonSection'
-import FeatureDetailsSection from '@/components/sections/FeatureDetailsSection'
-import ContentReadySection from '@/components/sections/ContentReadySection'
-import MultiPlatformSection from '@/components/sections/MultiPlatformSection'
-import CalendarSection from '@/components/sections/CalendarSection'
-import BonusSection from '@/components/sections/BonusSection'
+import BentoGridSection from '@/components/sections/BentoGridSection'
+import QuickWinsSection from '@/components/sections/QuickWinsSection'
 import TestimonialsSection from '@/components/sections/TestimonialsSection'
 import FAQSection from '@/components/sections/FAQSection'
 import FinalBoostCTA from '@/components/sections/FinalBoostCTA'
@@ -14,41 +10,29 @@ import FinalBoostCTA from '@/components/sections/FinalBoostCTA'
 export default function Page() {
   return (
     <main className="relative">
-      {/* Hero with Retro Grid background + Animated Beam */}
+      {/* Hero with VSL */}
       <HeroSection />
 
-      {/* How It Works - Process accordion */}
+      {/* Quick Problem/Solution - Conversion focused */}
+      <QuickProblemSolution />
+
+      {/* How It Works - 3 steps */}
       <HowItWorksAccordion />
 
-      {/* Bento Grid - Visual explanation */}
+      {/* Visual explanation - Bento Grid */}
       <BentoGridSection />
 
-      {/* Feature Details - Content transformation */}
-      <FeatureDetailsSection />
-
-      {/* Content Ready - AI cloning top creators */}
-      <ContentReadySection />
-
-      {/* Multi-Platform - Calendar before/after */}
-      <MultiPlatformSection />
-
-      {/* Calendar - Human verification & publishing */}
-      <CalendarSection />
-
-      {/* Bonus - API & AI Setter */}
-      <BonusSection />
-
-      {/* Price Comparison - Why Empire is the smart choice */}
-      <PriceComparisonSection />
-
-      {/* Final Boost CTA - After seeing value */}
-      <FinalBoostCTA />
+      {/* Quick Wins - Before/After */}
+      <QuickWinsSection />
 
       {/* Testimonials - Senja widget */}
       <TestimonialsSection />
 
-      {/* FAQ */}
-      <FAQSection />
+      {/* FAQ - Essential questions */}
+      <FAQSection variant="home" />
+
+      {/* Final CTA */}
+      <FinalBoostCTA />
     </main>
   )
 }

@@ -5,6 +5,8 @@ export const fr: Translations = {
     spots: '83/100 places',
     watchDemo: 'Voir la Démo',
     getAccess: 'Obtenir l\'Accès',
+    formats: 'Formats',
+    product: 'Produit',
     howItWorks: 'Comment Ça Marche',
     features: 'Fonctionnalités',
     pricing: 'Tarifs',
@@ -17,6 +19,23 @@ export const fr: Translations = {
     cta1: 'Commencer (83 places)',
     cta2: 'Voir la Démo (20 min)',
     rating: 'Basé sur 20 avis',
+    creatorsTitle: 'Enfin accès aux systèmes des meilleurs créateurs du monde',
+  },
+  howItWorksPage: {
+    title: 'Comment Fonctionne Empire',
+    subtitle: 'Une interview par semaine → 30+ contenus → publiés partout',
+    step1Title: 'Interview',
+    step1Desc: 'Appel 30 min, vous parlez',
+    step2Title: 'Traitement IA',
+    step2Desc: 'Extraction insights & idées',
+    step3Title: 'Création Contenu',
+    step3Desc: 'Posts, vidéos, newsletters',
+    step4Title: 'Distribution',
+    step4Desc: 'Publié partout',
+    platformsTitle: 'Nous publions sur toutes vos plateformes',
+    stat1: 'Votre investissement temps par semaine',
+    stat2: 'Contenus créés',
+    stat3: 'Plateformes couvertes',
   },
   howItWorks: {
     title: 'Comment Ça Marche',
@@ -127,6 +146,9 @@ export const fr: Translations = {
   footer: {
     tagline: 'Votre machine à contenu. 15 minutes pour être omnipresent.',
     quickLinks: 'Liens Rapides',
+    product: 'Produit',
+    about: 'À Propos',
+    ourStory: 'Notre Histoire',
     spotsRemaining: 'places restantes (Limité à 100 clients)',
   },
   videoDialog: {
@@ -146,7 +168,7 @@ export const fr: Translations = {
     systemTitle: 'Notre Système de Prompts IA',
     systemDescription: 'Nous avons passé des mois à reverse-engineer les patterns, accroches et structures qui rendent les meilleurs créateurs viraux. Puis on a tout codé dans des prompts IA personnalisés.',
     cta: 'Vous voulez du contenu qui performe comme les meilleurs créateurs ?',
-    ctaButton: 'Voir Comment Ça Marche (Live)',
+    ctaButton: 'Voir la Démo',
     frameworks: [
       { name: "Structure de Justin Welsh", pattern: '"Problème → Histoire → Solution → CTA"' },
       { name: "Montages Vidéo d\'Hormozi", pattern: '"Coupe rapide toutes les 3s + rupture de pattern"' },
@@ -299,6 +321,132 @@ export const fr: Translations = {
       linkedinCarouselDesc: 'Présentations multi-slides professionnelles qui showcasent votre expertise et génèrent des leads.',
       mp3Podcast: 'Podcast MP3',
       mp3PodcastDesc: 'Audio extrait de votre interview et édité en épisodes podcast prêts pour Spotify, Apple Podcasts, et plus.',
+    },
+  },
+  quickProblem: {
+    title: 'Créer du contenu ne devrait pas être un deuxième job.',
+    line1: 'Mais entre les clients, votre business, et la vie... le calendrier reste vide.',
+    line2: 'Vous n\'êtes pas paresseux. Le système est cassé.',
+    solution: 'Empire corrige ça.',
+    hook: '15 minutes de parole = 30+ posts sur toutes les plateformes.',
+    subtext: 'Pas d\'écriture. Pas de montage. Pas de planification. Juste des résultats.',
+    readStory: 'Lire l\'histoire complète',
+  },
+  formats: {
+    hero: {
+      badge: '6 Façons de Créer',
+      title: 'Parlez Comme',
+      titleHighlight: 'Vous Voulez',
+      subtitle: 'Pas de scripts. Pas de stress. Choisissez votre format et on gère le reste.',
+    },
+    formats: [
+      {
+        badge: 'Interview',
+        title: 'Format Interview Libre',
+        description: 'Parlez naturellement pendant 15-30 minutes comme si vous étiez en podcast. Aucune préparation nécessaire.',
+        benefits: [
+          'Aucune préparation requise',
+          'Flux de conversation naturel',
+          'L\'IA extrait les meilleures citations',
+        ],
+        useCase: 'Storytelling, partage d\'expérience, thought leadership',
+      },
+      {
+        badge: 'Structuré',
+        title: 'Format Interview à Thème',
+        description: 'Répondez à des questions pré-écrites. Nous vous guidons à travers des sujets spécifiques.',
+        benefits: [
+          'Approche structurée',
+          'Couvrez tous les points clés',
+          'Parfait pour les sujets complexes',
+        ],
+        useCase: 'Contenu éducatif, tutoriels, deep-dives',
+      },
+      {
+        badge: 'Notes',
+        title: 'Format Improvisation Bulletpoint',
+        description: 'Suivez vos notes, improvisez le reste. Parfait pour les esprits organisés.',
+        benefits: [
+          'Utilisez vos notes existantes',
+          'Restez sur la bonne voie',
+          'Livraison naturelle',
+        ],
+        useCase: 'Explications de processus, frameworks, guides étape par étape',
+      },
+      {
+        badge: 'Écran',
+        title: 'Format Improvisation Screenrecording',
+        description: 'Montrez et expliquez. Enregistrez votre écran pendant que vous présentez n\'importe quoi.',
+        benefits: [
+          'Démonstrations visuelles',
+          'Walk-throughs en direct',
+          'Explications d\'outils/logiciels',
+        ],
+        useCase: 'Tutoriels, démos logicielles, études de cas',
+      },
+      {
+        badge: 'Prouvé',
+        title: 'Format Copier Scripts de Reels',
+        description: 'Copiez des scripts viraux qui marchent. Adaptez-les à votre niche. On les transforme.',
+        benefits: [
+          'Formats viraux prouvés',
+          'Adaptés à votre voix',
+          'Création de contenu rapide',
+        ],
+        useCase: 'Quick wins, contenu tendance, boosteurs d\'engagement',
+      },
+      {
+        badge: 'Inspiré',
+        title: 'Format Inspirations Reels',
+        description: 'Envoyez-nous des vidéos que vous aimez. On les monte pour vous et on réécrit les scripts avec votre voix.',
+        benefits: [
+          'On fait le montage pour vous',
+          'Scripts réécrits dans votre style',
+          'Livraison rapide',
+        ],
+        useCase: 'Contenu tendance, formats viraux, création rapide de contenu',
+      },
+    ],
+    api: {
+      badge: 'Avancé',
+      title: 'API & Automations',
+      description: 'Pour les power users : Connectez Empire à vos workflows existants. Automatisez tout.',
+      features: [
+        'Connectez vos outils (Notion, Airtable, Google Drive)',
+        'Automatisez les workflows de contenu',
+        'Intégrations personnalisées disponibles',
+      ],
+      example: {
+        title: 'Exemple :',
+        text: 'Upload sur Dropbox → Empire traite → Contenu publié sur toutes les plateformes → Notifications envoyées sur Slack',
+      },
+    },
+    cta: {
+      title: 'Choisissez Votre Format',
+      titleHighlight: 'On Gère Tout le Reste',
+      subtitle: 'Peu importe comment vous créez, Empire transforme ça en 30+ pièces de contenu par semaine.',
+    },
+  },
+  faqFormats: {
+    q1: {
+      question: 'Quel format dois-je choisir ?',
+      answer: 'Il n\'y a pas de mauvais choix. La plupart des clients commencent avec Interview Libre (plus facile, pas de préparation) ou Interview à Thème (plus structuré). Vous pouvez changer de format à tout moment ou les mélanger.',
+    },
+    q2: {
+      question: 'Puis-je mélanger différents formats ?',
+      answer: 'Absolument ! Vous pouvez faire une Interview Libre une semaine, puis un Screenrecording la suivante. La flexibilité est essentielle.',
+    },
+    q3: {
+      question: 'Dois-je préparer quelque chose ?',
+      answer: 'Pour Interview Libre : Zéro préparation. Pour Interview à Thème : Nous envoyons les questions avant. Pour Bulletpoint : Juste vos notes. Pour Screenrecording : Ayez votre écran prêt.',
+    },
+    q4: {
+      question: 'Et si je suis timide devant la caméra ?',
+      answer: 'Parfait ! La plupart des formats ne nécessitent pas de caméra. Nous utilisons des interviews audio uniquement, des screenrecordings, ou juste votre voix. Pas besoin de montrer votre visage.',
+    },
+    q5: {
+      question: 'Puis-je utiliser mon contenu existant ?',
+      answer: 'Oui ! Avec le format API, vous pouvez uploader des vidéos, podcasts ou documents existants et nous les transformerons en contenu multi-plateforme.',
     },
   },
   faqItems: [

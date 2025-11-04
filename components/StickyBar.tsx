@@ -42,10 +42,10 @@ export function StickyBar() {
           
           <div className="flex items-center gap-2">
             <a 
-              href="#pricing" 
+              href="/pricing" 
               className="px-4 md:px-6 py-2 md:py-3 bg-empire text-black font-bold rounded-lg hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)] text-sm md:text-base whitespace-nowrap"
             >
-              Join Live Demo
+              Start Now
             </a>
             <button
               onClick={() => setDismissed(true)}
