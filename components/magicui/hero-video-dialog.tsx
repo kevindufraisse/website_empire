@@ -67,32 +67,31 @@ export function HeroVideoDialog({
 
   // Détecter le fullscreen et masquer le reste de la page
   useEffect(() => {
-    if (!isOpen) return
+    if (!isOpen) {
+      // Si le dialog se ferme, retirer la classe
+      document.body.classList.remove('vidalytics-fullscreen-active')
+      return
+    }
 
     const handleFullscreenChange = () => {
+      // Vérifier si un élément est en fullscreen (tous les navigateurs)
       const fullscreenElement = 
         document.fullscreenElement ||
         (document as any).webkitFullscreenElement ||
         (document as any).mozFullScreenElement ||
         (document as any).msFullscreenElement
 
-      // Vérifier si c'est un élément Vidalytics qui est en fullscreen
-      // Vidalytics peut mettre son iframe ou son conteneur en fullscreen
-      const isVidalyticsFullscreen = fullscreenElement && 
-        (fullscreenElement.id?.startsWith('vidalytics_embed') ||
-         fullscreenElement.querySelector('[id^="vidalytics_embed"]') ||
-         fullscreenElement.closest('[id^="vidalytics_embed"]') ||
-         fullscreenElement.querySelector('iframe[src*="vidalytics"]') ||
-         fullscreenElement.closest('.vidalytics-dialog-container'))
-
-      if (isVidalyticsFullscreen) {
-        // Masquer TOUT le contenu de la page sauf notre dialog
+      // Si le dialog est ouvert ET qu'un élément est en fullscreen, c'est Vidalytics
+      // On masque tout le contenu de la page
+      if (fullscreenElement && isOpen) {
         document.body.classList.add('vidalytics-fullscreen-active')
       } else {
-        // Retirer le masquage
         document.body.classList.remove('vidalytics-fullscreen-active')
       }
     }
+
+    // Vérifier immédiatement au cas où on est déjà en fullscreen
+    handleFullscreenChange()
 
     // Écouter les événements fullscreen (tous les préfixes navigateurs)
     document.addEventListener('fullscreenchange', handleFullscreenChange)
@@ -100,8 +99,12 @@ export function HeroVideoDialog({
     document.addEventListener('mozfullscreenchange', handleFullscreenChange)
     document.addEventListener('MSFullscreenChange', handleFullscreenChange)
 
+    // Vérifier périodiquement (fallback au cas où les événements ne se déclenchent pas)
+    const interval = setInterval(handleFullscreenChange, 100)
+
     // Nettoyer au démontage
     return () => {
+      clearInterval(interval)
       document.removeEventListener('fullscreenchange', handleFullscreenChange)
       document.removeEventListener('webkitfullscreenchange', handleFullscreenChange)
       document.removeEventListener('mozfullscreenchange', handleFullscreenChange)
