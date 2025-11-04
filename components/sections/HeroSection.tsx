@@ -36,45 +36,12 @@ export default function HeroSection() {
             {t.hero.subtitle}
           </motion.p>
 
-          {t.hero.description && (
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.6 }}
-              className="mt-6 text-lg md:text-xl text-neutral-300 max-w-2xl mx-auto"
-            >
-              {t.hero.description}
-            </motion.p>
-          )}
-
+          {/* Platform Logos - Right after subtitle */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-            className="mt-8 flex flex-col items-center justify-center gap-4"
-          >
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a
-                href="/pricing"
-                className="px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)]"
-              >
-                {t.hero.cta1}
-              </a>
-              <button
-                onClick={() => openVideoDialog()}
-                className="px-8 py-4 border-2 border-empire/50 text-white font-semibold rounded-xl hover:border-empire hover:bg-empire/10 transition-all"
-              >
-                {t.hero.cta2}
-              </button>
-            </div>
-          </motion.div>
-
-          {/* Platform Logos - Moved up, right after CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.45, duration: 0.6 }}
-            className="mt-4"
+            transition={{ delay: 0.2, duration: 0.6 }}
+            className="mt-6"
           >
             <p className="text-xs text-neutral-400 mb-2 text-center">
               {t.hero.publishedOn || 'Published on'}
@@ -129,6 +96,39 @@ export default function HeroSection() {
                 </svg>
                 <span className="text-xs font-medium text-white">Newsletter</span>
               </div>
+            </div>
+          </motion.div>
+
+          {t.hero.description && (
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+              className="mt-6 text-lg md:text-xl text-neutral-300 max-w-2xl mx-auto"
+            >
+              {t.hero.description}
+            </motion.p>
+          )}
+
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.6 }}
+            className="mt-8 flex flex-col items-center justify-center gap-4"
+          >
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <a
+                href="/pricing"
+                className="px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)]"
+              >
+                {t.hero.cta1}
+              </a>
+              <button
+                onClick={() => openVideoDialog()}
+                className="px-8 py-4 border-2 border-empire/50 text-white font-semibold rounded-xl hover:border-empire hover:bg-empire/10 transition-all"
+              >
+                {t.hero.cta2}
+              </button>
             </div>
           </motion.div>
             
