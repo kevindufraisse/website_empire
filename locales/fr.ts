@@ -13,7 +13,7 @@ export const fr: Translations = {
     faq: 'FAQ',
   },
   hero: {
-    title: 'Parlez 15 Minutes. Obtenez <span class="text-empire">30+ Posts, 30 Vidéos, 30 Newsletters</span>.<br/>',
+    title: 'Parlez 15 Minutes.<br/>Obtenez <span class="text-empire">30+ Posts, 30 Vidéos, 30 Newsletters</span>.<br/>',
     subtitle: 'Prêts à Publier.',
     description: 'Vous relisez et publiez. Pas d\'écriture. Pas de montage.',
     cta1: 'Vos 30 Premiers Posts',
