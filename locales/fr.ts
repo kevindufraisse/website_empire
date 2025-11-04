@@ -14,13 +14,14 @@ export const fr: Translations = {
   },
   hero: {
     title: 'Parlez 15 Minutes. Obtenez <span class="text-empire">30+ Posts, 30 Vidéos, 30 Newsletters</span>.',
-    subtitle: 'Publiés Automatiquement.',
-    description: 'Vous parlez 15 minutes. Vous obtenez 30+ posts, 30 vidéos, 30 newsletters. Publiés partout automatiquement. Pas d\'écriture. Pas de montage. Pas de planification.',
+    subtitle: 'Prêts à Publier.',
+    description: 'Vous parlez 15 minutes. Vous obtenez 30+ posts, 30 vidéos, 30 newsletters. Tout est prêt dans votre calendrier. Vous relisez et publiez. Pas d\'écriture. Pas de montage.',
     cta1: 'Obtenez Vos 30 Premiers Posts',
     cta2: 'Voir la Démo (20 min)',
     rating: 'Basé sur 20 avis',
     creatorsTitle: 'Enfin accès aux systèmes des meilleurs créateurs du monde',
     creatorsSubtitle: 'Utilisant le système Empire',
+    publishedOn: 'Publié sur',
   },
   howItWorksPage: {
     title: 'Comment Fonctionne Empire',

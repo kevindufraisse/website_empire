@@ -12,13 +12,14 @@ export const en = {
   },
   hero: {
     title: 'Speak 15 Minutes. Get <span class="text-empire">30+ Posts, 30 Videos, 30 Newsletters</span>.',
-    subtitle: 'Posted Automatically.',
-    description: 'You talk for 15 minutes. You get 30+ posts, 30 videos, 30 newsletters. Posted everywhere automatically. No writing. No editing. No scheduling.',
+    subtitle: 'Ready to Publish.',
+    description: 'You talk for 15 minutes. You get 30+ posts, 30 videos, 30 newsletters. Everything ready in your calendar. You review and publish. No writing. No editing.',
     cta1: 'Get Your First 30 Posts',
     cta2: 'Watch Demo (20 min)',
     rating: 'Based on 20 reviews',
     creatorsTitle: 'Finally access to the systems of the world\'s top creators',
     creatorsSubtitle: 'Using Empire\'s system',
+    publishedOn: 'Published on',
   },
   howItWorksPage: {
     title: 'How Empire Works',
