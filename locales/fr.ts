@@ -34,7 +34,7 @@ export const fr: Translations = {
     step3Desc: 'Posts, vidéos, newsletters',
     step4Title: 'Distribution',
     step4Desc: 'Publié partout',
-    platformsTitle: 'Nous publions sur toutes vos plateformes',
+    platformsTitle: 'On publie sur toutes vos plateformes',
     stat1: 'Votre investissement temps par semaine',
     stat2: 'Contenus créés',
     stat3: 'Plateformes couvertes',
@@ -450,7 +450,7 @@ export const fr: Translations = {
     api: {
       badge: 'Avancé',
       title: 'API & Automations',
-      description: 'Pour les power users : Connectez Empire à vos workflows existants. Automatisez tout.',
+      description: 'Pour les power users : Connectez Empire à vos workflows. Automatisez tout.',
       features: [
         'Connectez vos outils (Notion, Airtable, Google Drive)',
         'Automatisez les workflows de contenu',
@@ -458,7 +458,7 @@ export const fr: Translations = {
       ],
       example: {
         title: 'Exemple :',
-        text: 'Upload sur Dropbox → Empire traite → Contenu publié sur toutes les plateformes → Notifications envoyées sur Slack',
+        text: 'Upload Dropbox → Empire traite → Contenu publié partout → Notifications Slack',
       },
     },
     cta: {
