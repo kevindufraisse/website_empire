@@ -95,7 +95,7 @@ export function HeroVideoDialog({
         <AnimatePresence>
           <div
             className="fixed inset-0 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4 overflow-y-auto"
-            style={{ zIndex: 99999 }}
+            style={{ zIndex: 999999 }}
             onClick={() => setIsOpen(false)}
           >
             <motion.div
