@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useLanguage } from '@/contexts/LanguageContext'
@@ -32,13 +32,33 @@ export function HeroVideoDialog({
   className,
 }: HeroVideoDialogProps) {
   const [isOpen, setIsOpen] = useState(false)
+  const [isFullscreen, setIsFullscreen] = useState(false)
   const { t } = useLanguage()
   
   // Exposer setIsOpen globalement
   globalSetIsOpen = setIsOpen
-
+  
   // Si pas de thumbnailSrc fourni, on rend juste le dialog (pour usage global)
   const showThumbnail = thumbnailSrc && thumbnailSrc.length > 0
+  
+  // Détecter fullscreen
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement)
+    }
+    
+    document.addEventListener('fullscreenchange', handleFullscreenChange)
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange)
+    document.addEventListener('mozfullscreenchange', handleFullscreenChange)
+    document.addEventListener('MSFullscreenChange', handleFullscreenChange)
+    
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange)
+      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange)
+      document.removeEventListener('mozfullscreenchange', handleFullscreenChange)
+      document.removeEventListener('MSFullscreenChange', handleFullscreenChange)
+    }
+  }, [])
 
   const animationVariants = {
     'from-center': {
@@ -115,28 +135,30 @@ export function HeroVideoDialog({
                 <VidalyticsPlayer />
               </div>
 
-              {/* CTAs below video - Compact */}
-              <div className="mt-3 p-3 sm:p-4 rounded-xl bg-gradient-to-br from-empire/20 to-empire/5 border border-empire/30">
-                <p className="text-white font-semibold mb-3 text-center text-sm sm:text-base">
-                  {t.videoDialog.readyToJoin}
-                </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
-                  <a
-                    href="/pricing"
-                    className="py-3 px-4 rounded-lg bg-empire text-black font-bold hover:scale-105 transition-all text-center text-sm"
-                  >
-                    {t.videoDialog.startNow}
-                  </a>
-                  <a
-                    href="https://us06web.zoom.us/meeting/register/_MDUpE-JSJmLRdqwh-OkTg#/registration"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="py-3 px-4 rounded-lg bg-white/10 border border-white/20 text-white font-semibold hover:bg-white/20 transition-all text-center text-sm"
-                  >
-                    {t.videoDialog.joinQA}
-                  </a>
+              {/* CTAs below video - Hidden in fullscreen */}
+              {!isFullscreen && (
+                <div className="mt-3 p-3 sm:p-4 rounded-xl bg-gradient-to-br from-empire/20 to-empire/5 border border-empire/30">
+                  <p className="text-white font-semibold mb-3 text-center text-sm sm:text-base">
+                    {t.videoDialog.readyToJoin}
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
+                    <a
+                      href="/pricing"
+                      className="py-3 px-4 rounded-lg bg-empire text-black font-bold hover:scale-105 transition-all text-center text-sm"
+                    >
+                      {t.videoDialog.startNow}
+                    </a>
+                    <a
+                      href="https://us06web.zoom.us/meeting/register/_MDUpE-JSJmLRdqwh-OkTg#/registration"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="py-3 px-4 rounded-lg bg-white/10 border border-white/20 text-white font-semibold hover:bg-white/20 transition-all text-center text-sm"
+                    >
+                      {t.videoDialog.joinQA}
+                    </a>
+                  </div>
                 </div>
-              </div>
+              )}
             </motion.div>
           </div>
         </AnimatePresence>,
