@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { LanguageSwitcher } from '@/components/LanguageSwitcher'
 import { openVideoDialog } from '@/components/magicui/hero-video-dialog'
@@ -8,12 +9,15 @@ import { Menu, X } from 'lucide-react'
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const { t } = useLanguage()
+  const pathname = usePathname()
 
   const navLinks = [
     { label: t.header.product || 'Product', href: '/formats' },
     { label: t.header.howItWorks, href: '/how-it-works' },
     { label: t.header.pricing, href: '/pricing' },
   ]
+  
+  const isActive = (href: string) => pathname === href
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-black/80 backdrop-blur-md">
@@ -35,9 +39,19 @@ export default function Header() {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-sm text-neutral-300 hover:text-empire transition-colors font-medium"
+                className={`text-sm font-medium transition-all relative group ${
+                  isActive(link.href)
+                    ? 'text-empire'
+                    : 'text-neutral-300 hover:text-empire'
+                }`}
               >
                 {link.label}
+                {isActive(link.href) && (
+                  <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-empire rounded-full" />
+                )}
+                {!isActive(link.href) && (
+                  <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-empire rounded-full scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
+                )}
               </a>
             ))}
               <div className="flex items-center gap-3">
@@ -71,7 +85,11 @@ export default function Header() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="block text-sm text-neutral-300 hover:text-empire transition-colors font-medium"
+                className={`block text-sm font-medium transition-colors ${
+                  isActive(link.href)
+                    ? 'text-empire'
+                    : 'text-neutral-300 hover:text-empire'
+                }`}
               >
                 {link.label}
               </a>
