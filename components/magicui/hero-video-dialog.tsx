@@ -32,7 +32,6 @@ export function HeroVideoDialog({
   className,
 }: HeroVideoDialogProps) {
   const [isOpen, setIsOpen] = useState(false)
-  const [isFullscreen, setIsFullscreen] = useState(false)
   const { t } = useLanguage()
   
   // Exposer setIsOpen globalement
@@ -40,56 +39,6 @@ export function HeroVideoDialog({
   
   // Si pas de thumbnailSrc fourni, on rend juste le dialog (pour usage global)
   const showThumbnail = thumbnailSrc && thumbnailSrc.length > 0
-  
-  // Détecter fullscreen et masquer le reste du site
-  useEffect(() => {
-    const handleFullscreenChange = () => {
-      const isNowFullscreen = !!document.fullscreenElement
-      setIsFullscreen(isNowFullscreen)
-      
-      // Masquer/afficher le reste du site
-      if (isNowFullscreen) {
-        document.body.style.overflow = 'hidden'
-        // Masquer tous les éléments sauf le player vidéo
-        const mainContent = document.querySelector('main')
-        const header = document.querySelector('header')
-        const footer = document.querySelector('footer')
-        if (mainContent) mainContent.style.visibility = 'hidden'
-        if (header) header.style.visibility = 'hidden'
-        if (footer) footer.style.visibility = 'hidden'
-      } else {
-        document.body.style.overflow = ''
-        // Réafficher tout
-        const mainContent = document.querySelector('main')
-        const header = document.querySelector('header')
-        const footer = document.querySelector('footer')
-        if (mainContent) mainContent.style.visibility = 'visible'
-        if (header) header.style.visibility = 'visible'
-        if (footer) footer.style.visibility = 'visible'
-      }
-    }
-    
-    document.addEventListener('fullscreenchange', handleFullscreenChange)
-    document.addEventListener('webkitfullscreenchange', handleFullscreenChange)
-    document.addEventListener('mozfullscreenchange', handleFullscreenChange)
-    document.addEventListener('MSFullscreenChange', handleFullscreenChange)
-    
-    return () => {
-      document.removeEventListener('fullscreenchange', handleFullscreenChange)
-      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange)
-      document.removeEventListener('mozfullscreenchange', handleFullscreenChange)
-      document.removeEventListener('MSFullscreenChange', handleFullscreenChange)
-      
-      // Cleanup: s'assurer que tout est visible au unmount
-      document.body.style.overflow = ''
-      const mainContent = document.querySelector('main')
-      const header = document.querySelector('header')
-      const footer = document.querySelector('footer')
-      if (mainContent) mainContent.style.visibility = 'visible'
-      if (header) header.style.visibility = 'visible'
-      if (footer) footer.style.visibility = 'visible'
-    }
-  }, [])
 
   const animationVariants = {
     'from-center': {
@@ -145,7 +94,7 @@ export function HeroVideoDialog({
       {typeof window !== 'undefined' && isOpen && createPortal(
         <AnimatePresence>
           <div
-            className="fixed inset-0 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4 overflow-y-auto"
+            className="fixed inset-0 flex items-center justify-center bg-black p-4 overflow-y-auto"
             style={{ zIndex: 999999 }}
             onClick={() => setIsOpen(false)}
           >
@@ -166,30 +115,28 @@ export function HeroVideoDialog({
                 <VidalyticsPlayer />
               </div>
 
-              {/* CTAs below video - Hidden in fullscreen */}
-              {!isFullscreen && (
-                <div className="mt-3 p-3 sm:p-4 rounded-xl bg-gradient-to-br from-empire/20 to-empire/5 border border-empire/30">
-                  <p className="text-white font-semibold mb-3 text-center text-sm sm:text-base">
-                    {t.videoDialog.readyToJoin}
-                  </p>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
-                    <a
-                      href="/pricing"
-                      className="py-3 px-4 rounded-lg bg-empire text-black font-bold hover:scale-105 transition-all text-center text-sm"
-                    >
-                      {t.videoDialog.startNow}
-                    </a>
-                    <a
-                      href="https://us06web.zoom.us/meeting/register/_MDUpE-JSJmLRdqwh-OkTg#/registration"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="py-3 px-4 rounded-lg bg-white/10 border border-white/20 text-white font-semibold hover:bg-white/20 transition-all text-center text-sm"
-                    >
-                      {t.videoDialog.joinQA}
-                    </a>
-                  </div>
+              {/* CTAs below video */}
+              <div className="mt-3 p-3 sm:p-4 rounded-xl bg-gradient-to-br from-empire/20 to-empire/5 border border-empire/30">
+                <p className="text-white font-semibold mb-3 text-center text-sm sm:text-base">
+                  {t.videoDialog.readyToJoin}
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
+                  <a
+                    href="/pricing"
+                    className="py-3 px-4 rounded-lg bg-empire text-black font-bold hover:scale-105 transition-all text-center text-sm"
+                  >
+                    {t.videoDialog.startNow}
+                  </a>
+                  <a
+                    href="https://us06web.zoom.us/meeting/register/_MDUpE-JSJmLRdqwh-OkTg#/registration"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="py-3 px-4 rounded-lg bg-white/10 border border-white/20 text-white font-semibold hover:bg-white/20 transition-all text-center text-sm"
+                  >
+                    {t.videoDialog.joinQA}
+                  </a>
                 </div>
-              )}
+              </div>
             </motion.div>
           </div>
         </AnimatePresence>,
