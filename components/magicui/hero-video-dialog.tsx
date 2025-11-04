@@ -172,7 +172,7 @@ export function HeroVideoDialog({
         <AnimatePresence>
           <div
             className="vidalytics-dialog-container fixed inset-0 flex items-center justify-center bg-black p-4 overflow-y-auto"
-            style={{ zIndex: 999999 }}
+            style={{ zIndex: 9999999 }}
             onClick={() => setIsOpen(false)}
           >
             <motion.div
