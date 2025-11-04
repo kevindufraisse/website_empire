@@ -31,7 +31,7 @@ export default function HeroSection() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.1, duration: 0.6 }}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mt-4"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mt-6"
           >
             {t.hero.subtitle}
           </motion.p>
@@ -40,7 +40,7 @@ export default function HeroSection() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="mt-6 text-lg md:text-xl text-neutral-300 max-w-2xl mx-auto"
+            className="mt-8 text-lg md:text-xl text-neutral-300 max-w-2xl mx-auto"
           >
             {t.hero.description}
           </motion.p>
@@ -49,7 +49,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
-            className="mt-8 flex flex-col items-center justify-center gap-4"
+            className="mt-12 flex flex-col items-center justify-center gap-4"
           >
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
@@ -67,7 +67,7 @@ export default function HeroSection() {
             </div>
             
             {/* Star Rating */}
-            <StarRating className="mt-2" />
+            <StarRating className="mt-4" />
           </motion.div>
 
           {/* Platform Logos - Compact below rating */}
@@ -75,7 +75,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.6 }}
-            className="mt-4"
+            className="mt-8"
           >
             <p className="text-xs text-neutral-400 mb-2 text-center">
               {t.hero.publishedOn || 'Published on'}
@@ -138,7 +138,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.8 }}
-            className="mt-12"
+            className="mt-16"
           >
             <div className="text-center mb-6">
               <p className="text-sm text-neutral-400 mb-2">
@@ -207,7 +207,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.8 }}
-            className="mt-8 hero-video"
+            className="mt-12 hero-video"
           >
             <HeroVideoDialog
               animationStyle="from-center"
