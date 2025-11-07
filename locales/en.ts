@@ -540,6 +540,10 @@ export const en = {
       question: 'Why are there only 100 spots?',
       answer: 'We limit access to 100 clients to match our team capacity and keep the program under the radar. This ensures consistent quality, fast turnaround, and a discreet experience.',
     },
+    {
+      question: 'Can I get help with my personal branding strategy?',
+      answer: 'Yes. We offer optional personal branding coaching with experts who have worked with top-tier creators in France and the US. Available as an add-on after subscription, starting at €700/month.',
+    },
   ],
 }
 

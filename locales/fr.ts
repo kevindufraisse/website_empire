@@ -542,6 +542,10 @@ export const fr: Translations = {
       question: 'Pourquoi seulement 100 places ?',
       answer: 'Nous limitons l\'accès à 100 clients pour rester alignés avec la capacité de l\'équipe et garder le programme discret. Cela garantit une qualité constante et des délais rapides.',
     },
+    {
+      question: 'Puis-je être accompagné sur ma stratégie de personal branding ?',
+      answer: 'Oui. Nous proposons un coaching personal branding optionnel avec des experts qui ont accompagné les meilleurs créateurs FR et US. Disponible en supplément après souscription, à partir de 700€/mois.',
+    },
   ],
 }
 
