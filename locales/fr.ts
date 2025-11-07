@@ -93,7 +93,7 @@ export const fr: Translations = {
         description: 'Vidéos qui arrêtent le scroll. Légendes et b-roll inclus.',
       },
       {
-        title: '7 Threads Twitter',
+        title: '30 Posts Twitter',
         description: 'Idées complexes transformées en insights format tweet.',
       },
       {
@@ -101,7 +101,7 @@ export const fr: Translations = {
         description: 'Contenu visuel haute conversion pour Instagram et LinkedIn.',
       },
       {
-        title: '1 Podcast MP3',
+        title: '4 Podcasts MP3',
         description: 'Audio extrait et édité pour Spotify et Apple Podcasts.',
       },
     ],
@@ -149,7 +149,7 @@ export const fr: Translations = {
     specific: {
       howManyPosts: {
         question: 'Combien de posts j\'obtiens exactement ?',
-        answer: 'Exactement 30 posts LinkedIn, 30 newsletters, 30 Reels/Shorts, 30 posts Instagram, 7 threads Twitter, 4 carrousels, et 1 podcast MP3 — par interview. Soit 132 contenus par mois si vous faites une interview par semaine.',
+        answer: 'Exactement 30 posts LinkedIn, 30 newsletters, 30 Reels/Shorts, 30 posts Instagram, 30 posts Twitter, 4 carrousels, et 4 podcasts MP3 — par interview. Soit 132 contenus par mois si vous faites une interview par semaine.',
       },
       whatIfDontLike: {
         question: 'Et si je n\'aime pas le contenu ?',

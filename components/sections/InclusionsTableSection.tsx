@@ -43,7 +43,7 @@ export default function InclusionsTableSection() {
     },
     {
       icon: FileText,
-      name: lang === 'fr' ? '7 Threads Twitter' : '7 Twitter Threads',
+      name: lang === 'fr' ? '30 Posts Twitter' : '30 Twitter Posts',
     },
     {
       icon: ImageIcon,
@@ -51,7 +51,7 @@ export default function InclusionsTableSection() {
     },
     {
       icon: Headphones,
-      name: lang === 'fr' ? '1 Podcast MP3' : '1 MP3 Podcast',
+      name: lang === 'fr' ? '4 Podcasts MP3' : '4 MP3 Podcasts',
     },
   ]
 

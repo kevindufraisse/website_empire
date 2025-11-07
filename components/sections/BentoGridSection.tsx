@@ -147,7 +147,7 @@ const getNotifications = (t: any): AnimatedListItem[] => [
       <div className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-empire/20">
         <div className="flex-shrink-0"><SocialIcons.twitter /></div>
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium truncate">10 Twitter threads</p>
+          <p className="text-sm font-medium truncate">10 Twitter posts</p>
           <p className="text-xs text-neutral-500">{t.bentoGrid.ideasBrokenDown} · 20{t.bentoGrid.minsAgo2}</p>
         </div>
         <div className="text-xs text-empire font-bold">✓</div>

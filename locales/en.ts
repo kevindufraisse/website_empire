@@ -91,7 +91,7 @@ export const en = {
         description: 'Scroll-stopping short-form video with captions and b-roll.',
       },
       {
-        title: '7 Twitter Threads',
+        title: '30 Twitter Posts',
         description: 'Complex ideas broken down into tweet-sized insights.',
       },
       {
@@ -99,7 +99,7 @@ export const en = {
         description: 'High-converting visual content for IG and LinkedIn.',
       },
       {
-        title: '1 MP3 Podcast',
+        title: '4 MP3 Podcasts',
         description: 'Audio extracted and edited for Spotify & Apple Podcasts.',
       },
     ],
@@ -147,7 +147,7 @@ export const en = {
     specific: {
       howManyPosts: {
         question: 'How many posts do I get exactly?',
-        answer: 'You get exactly 30 LinkedIn posts, 30 newsletters, 30 Reels/Shorts, 30 Instagram posts, 7 Twitter threads, 4 carousels, and 1 MP3 podcast — per interview. That\'s 132 pieces of content per month if you do one interview per week.',
+        answer: 'You get exactly 30 LinkedIn posts, 30 newsletters, 30 Reels/Shorts, 30 Instagram posts, 30 Twitter posts, 4 carousels, and 4 MP3 podcasts — per interview. That\'s 132 pieces of content per month if you do one interview per week.',
       },
       whatIfDontLike: {
         question: 'What if I don\'t like the content?',
