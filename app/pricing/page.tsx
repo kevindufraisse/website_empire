@@ -1,7 +1,6 @@
 import PriceComparisonSection from '@/components/sections/PriceComparisonSection'
 import PricingPlansSection from '@/components/sections/PricingPlansSection'
 import InclusionsTableSection from '@/components/sections/InclusionsTableSection'
-import CoachingAddonSection from '@/components/sections/CoachingAddonSection'
 import GuaranteeSection from '@/components/sections/GuaranteeSection'
 import ObjectionsSection from '@/components/sections/ObjectionsSection'
 import FAQSection from '@/components/sections/FAQSection'
@@ -30,9 +29,6 @@ export default function PricingPage() {
 
       {/* What's Included - Simple table */}
       <InclusionsTableSection />
-
-      {/* Optional Coaching Add-on */}
-      <CoachingAddonSection />
 
       {/* Guarantee - Flexible Trial */}
       <GuaranteeSection />

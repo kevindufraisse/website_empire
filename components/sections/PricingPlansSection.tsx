@@ -185,6 +185,10 @@ export default function PricingPlansSection() {
                       </div>
                       <div className="flex items-center gap-2">
                         <Check className="text-empire flex-shrink-0" size={16} />
+                        <span className="text-neutral-300">{lang === 'fr' ? 'Coaching personal branding' : 'Personal branding coaching'} <span className="text-neutral-500 text-xs">({lang === 'fr' ? 'optionnel' : 'optional'})</span></span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Check className="text-empire flex-shrink-0" size={16} />
                         <span className="text-neutral-300">{lang === 'fr' ? 'Annulation flexible' : 'Cancel anytime'}</span>
                       </div>
                     </div>
