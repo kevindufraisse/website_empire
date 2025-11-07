@@ -13,7 +13,7 @@ export const en = {
   hero: {
     title: 'From Invisible to <span class="text-empire">Omnipresent</span> in the next 24 Hours.',
     subtitle: 'Speak once a week for 15 minutes. Get a month of posts, reels, newsletters & videos — live on every platform.',
-    description: '',
+    description: 'Limited to 100 clients',
     cta1: 'Get Your First 30 Posts',
     cta2: 'Watch Demo (20 min)',
     rating: 'Based on 20 reviews',
@@ -151,11 +151,11 @@ export const en = {
       },
       whatIfDontLike: {
         question: 'What if I don\'t like the content?',
-        answer: 'You can request changes anytime. We revise until it\'s perfect. Plus, a real human reviews every piece before it goes live. If something doesn\'t sound like you, we fix it immediately.',
+        answer: 'Content follows standardized templates and is reviewed by a real human before it goes live. You decide what to publish from your calendar, but we don\'t offer custom edits.',
       },
       canRequestChanges: {
         question: 'Can I request changes to the content?',
-        answer: 'All content is reviewed and validated by our team before publication. You receive everything in your calendar for review. If you need changes, you can request them, and we\'ll revise accordingly.',
+        answer: 'All content is standardized and quality-checked by our team before publication. You receive everything in your calendar and choose what to publish, but we don\'t offer custom edits.',
       },
     },
   },
@@ -535,6 +535,10 @@ export const en = {
     {
       question: 'Is the AI Setter included or extra?',
       answer: 'It\'s included as a bonus (€800/mo value). The AI engages with prospects on LinkedIn, qualifies leads, and hands them off to you when they\'re ready to talk.',
+    },
+    {
+      question: 'Why are there only 100 spots?',
+      answer: 'We limit access to 100 clients to match our team capacity and keep the program under the radar. This ensures consistent quality, fast turnaround, and a discreet experience.',
     },
   ],
 }

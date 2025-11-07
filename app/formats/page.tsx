@@ -1,5 +1,4 @@
 import FormatsHero from '@/components/sections/formats/FormatsHero'
-import FormatsComparison from '@/components/sections/formats/FormatsComparison'
 import FormatsList from '@/components/sections/formats/FormatsList'
 import BonusSection from '@/components/sections/BonusSection'
 import FAQSection from '@/components/sections/FAQSection'
@@ -16,8 +15,7 @@ export default function FormatsPage() {
       {/* Hero */}
       <FormatsHero />
 
-      {/* Comparison Table */}
-      <FormatsComparison />
+      {/* Comparison Table removed */}
 
       {/* The 6 Formats */}
       <FormatsList />

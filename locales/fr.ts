@@ -13,9 +13,9 @@ export const fr: Translations = {
     faq: 'FAQ',
   },
   hero: {
-    title: 'De <span class="text-empire">Invisible</span> à <span class="text-empire">Omniprésent</span> en 24h.',
+    title: 'De <span class="text-empire">Invisible</span> à <span class="text-empire">Omniprésent</span> dans les prochaines 24h.',
     subtitle: 'Parlez 15 min/semaine. Un mois de posts, reels, newsletters et vidéos — publiés partout.',
-    description: '',
+    description: 'Limité à 100 clients',
     cta1: 'Vos 30 Premiers Posts',
     cta2: 'Voir la Démo (20 min)',
     rating: 'Basé sur 20 avis',
@@ -153,11 +153,11 @@ export const fr: Translations = {
       },
       whatIfDontLike: {
         question: 'Et si je n\'aime pas le contenu ?',
-        answer: 'Demandez des modifications à tout moment. On révise jusqu\'à ce que ce soit parfait. Un humain révise chaque pièce avant publication. Si ça ne sonne pas comme vous, on corrige immédiatement.',
+        answer: 'Le contenu suit des formats standardisés et est vérifié par un humain avant publication. Vous choisissez quoi publier dans votre calendrier, mais nous ne proposons pas de modifications sur mesure.',
       },
       canRequestChanges: {
         question: 'Puis-je demander des modifications au contenu ?',
-        answer: 'Tout est révisé et validé par l\'équipe avant publication. Vous recevez tout dans votre calendrier. Besoin de modifications ? Demandez, on révise.',
+        answer: 'Tout le contenu est standardisé et vérifié par notre équipe avant publication. Vous le retrouvez dans votre calendrier et choisissez quoi publier, mais nous ne proposons pas de modifications sur mesure.',
       },
     },
   },
@@ -537,6 +537,10 @@ export const fr: Translations = {
     {
       question: 'L\'AI Setter est-il inclus ou en supplément ?',
       answer: 'Inclus en bonus (valeur €800/mois). L\'IA engage des prospects sur LinkedIn, qualifie les leads, et vous les transfère quand prêts à parler.',
+    },
+    {
+      question: 'Pourquoi seulement 100 places ?',
+      answer: 'Nous limitons l\'accès à 100 clients pour rester alignés avec la capacité de l\'équipe et garder le programme discret. Cela garantit une qualité constante et des délais rapides.',
     },
   ],
 }

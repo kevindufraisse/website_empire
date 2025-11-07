@@ -99,16 +99,7 @@ export default function HeroSection() {
             </div>
           </motion.div>
 
-          {t.hero.description && (
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.6 }}
-              className="mt-6 text-lg md:text-xl text-neutral-300 max-w-2xl mx-auto"
-            >
-              {t.hero.description}
-            </motion.p>
-          )}
+          {/* Description intentionally moved below rating */}
 
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -141,6 +132,17 @@ export default function HeroSection() {
           >
             <StarRating className="mt-2" />
           </motion.div>
+
+          {t.hero.description && (
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.55, duration: 0.6 }}
+              className="mt-2 text-xs md:text-sm text-neutral-400 max-w-md mx-auto"
+            >
+              {t.hero.description}
+            </motion.p>
+          )}
 
           {/* Top Creators Section */}
           <motion.div

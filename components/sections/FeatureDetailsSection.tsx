@@ -179,29 +179,31 @@ export default function FeatureDetailsSection() {
 
             {/* Scrolling Post Previews - Hidden on mobile */}
             <div className="hidden md:flex h-[400px] md:h-[500px] flex-col justify-center gap-4 overflow-hidden">
-              <div className="[mask-image:linear-gradient(to_right,transparent_0%,#000_5%,#000_95%,transparent_100%)]">
-                <Marquee pauseOnHover className="[--duration:25s]">
+              {/* First row: Text posts (LinkedIn, Twitter) - less blur, appear first */}
+              <div className="[mask-image:linear-gradient(to_left,transparent_0%,#000_5%,#000_95%,transparent_100%)]">
+                <Marquee reverse pauseOnHover className="[--duration:25s]">
                   <div className="flex gap-4">
-                    <div className="blur-[0.8px] hover:blur-none transition-all duration-300 scale-90">
+                    <div className="blur-[1px] hover:blur-none transition-all duration-300 scale-90">
                       <LinkedInPost />
                     </div>
-                    <div className="blur-[0.8px] hover:blur-none transition-all duration-300 scale-90">
+                    <div className="blur-[1px] hover:blur-none transition-all duration-300 scale-90">
                       <TwitterThread />
                     </div>
                   </div>
                 </Marquee>
               </div>
               
-              <div className="[mask-image:linear-gradient(to_right,transparent_0%,#000_5%,#000_95%,transparent_100%)]">
+              {/* Second row: Video content (Reels, Shorts) - more blur to show they're generated after */}
+              <div className="[mask-image:linear-gradient(to_left,transparent_0%,#000_5%,#000_95%,transparent_100%)]">
                 <Marquee reverse pauseOnHover className="[--duration:20s]">
                   <div className="flex gap-4">
-                    <div className="blur-[0.8px] hover:blur-none transition-all duration-300 scale-90">
+                    <div className="blur-[2.5px] hover:blur-none transition-all duration-300 scale-90">
                       <InstagramReel />
                     </div>
-                    <div className="blur-[0.8px] hover:blur-none transition-all duration-300 scale-90">
+                    <div className="blur-[2.5px] hover:blur-none transition-all duration-300 scale-90">
                       <InstagramCarousel />
                     </div>
-                    <div className="blur-[0.8px] hover:blur-none transition-all duration-300 scale-90">
+                    <div className="blur-[2.5px] hover:blur-none transition-all duration-300 scale-90">
                       <YouTubeShort />
                     </div>
                   </div>
