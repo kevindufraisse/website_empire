@@ -482,11 +482,11 @@ export const fr: Translations = {
     },
     q4: {
       question: 'Et si je suis timide devant la caméra ?',
-      answer: 'Parfait ! La plupart des formats ne nécessitent pas de caméra. Interviews audio, screenrecordings, ou juste votre voix. Pas besoin de montrer votre visage.',
+      answer: 'Pas de problème ! Vous pouvez faire des interviews audio ou des screenrecordings. Cependant, pour les contenus vidéo (Reels/Shorts), on utilise du b-roll et du montage pro — mais votre visage apparaîtra dans les vidéos finales car c\'est essentiel pour le personal branding.',
     },
     q5: {
       question: 'Puis-je utiliser mon contenu existant ?',
-      answer: 'Oui ! Avec le format API, uploadez vidéos, podcasts ou documents existants et on les transforme en contenu multi-plateforme.',
+      answer: 'Oui ! Vous pouvez uploader vos vidéos existantes (MP4), podcasts ou documents directement sur la plateforme. Notre équipe les monte et les publie partout. Également disponible via API pour l\'automatisation.',
     },
   },
   faqItems: [

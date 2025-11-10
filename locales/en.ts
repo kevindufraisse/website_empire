@@ -480,11 +480,11 @@ export const en = {
     },
     q4: {
       question: 'What if I\'m camera shy?',
-      answer: 'Perfect! Most formats don\'t require camera. We use audio-only interviews, screenrecordings, or just your voice. No face required.',
+      answer: 'No problem! You can do audio-only interviews or screenrecordings. However, for video content (Reels/Shorts), we use b-roll, stock footage, and professional editing — but your face will appear in the final videos as it\'s essential for personal branding.',
     },
     q5: {
       question: 'Can I use my existing content?',
-      answer: 'Yes! With the API format, you can upload existing videos, podcasts, or documents and we\'ll transform them into multi-platform content.',
+      answer: 'Yes! You can upload existing videos (MP4), podcasts, or documents directly to the platform. Our team will edit and publish them across all platforms. Also available via API for automation.',
     },
   },
   faqItems: [

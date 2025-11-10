@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coaching Personal Branding - Empire Internet</title>
+    <script>
+        // Language system
+        let currentLang = 'fr';
+        
+        const translations = {
+            fr: {
+                badge: '✨ PARTENAIRES SÉLECTIONNÉS',
+                title: 'Merci ! Vos accès sont en préparation.',
+                subtitle: 'Voulez-vous ajouter un coaching personnalisé avec des experts qui ont accompagné les meilleurs entrepreneurs européens ?',
+                intro: 'Ces coachs sont <strong>partenaires d\'Empire Internet</strong> mais ne font pas partie de notre équipe. Ils ont été sélectionnés pour leur sérieux et leurs résultats prouvés avec le top-tier des créateurs (plusieurs millions d\'abonnés cumulés). <strong>Sans engagement</strong> — vous pouvez compléter votre offre Empire avec un accompagnement personnalisé.',
+                ctaButton: 'Continuer avec le coach sélectionné',
+                refuseButton: 'Refuser',
+                refuseSubtitle: 'Continuer sans coaching personnalisé',
+                support: 'Besoin d\'aide ?',
+                contact: 'Contactez-nous',
+                perMonth: '/ mois',
+                exclusiveBadge: '🔥 OFFRE EXCLUSIVE',
+                exclusiveTitle: 'Format du Coaching',
+                exclusiveDesc: '<strong>1 heure par semaine en live</strong> avec votre coach pour établir les meilleurs sujets à traiter et optimiser votre stratégie de contenu.',
+                exclusiveNote: '⚡ Offre uniquement disponible sur cette page',
+                save: 'ÉCONOMISEZ',
+                whatYouGetTitle: 'Ce Que Vous Obtenez',
+                whatYouGetItems: [
+                    '4 sessions live par mois (1h chacune)',
+                    'Analyse de vos contenus existants',
+                    'Plan stratégique personnalisé',
+                    'Accès WhatsApp/Slack entre les sessions'
+                ],
+                // Coaches
+                arthur_title: 'Expert Personal Branding',
+                arthur_desc: 'Arthur accompagne les entrepreneurs et dirigeants dans la construction de leur marque personnelle avec une approche stratégique et des résultats mesurables.',
+                maxence_title: 'Personal Branding pour CEOs · Ex-Google & TikTok',
+                maxence_desc: 'Maxence aide les CEOs à développer leur personal branding via la vidéo. 5 ans chez Google et TikTok, créateur de 2 comptes à +100K abonnés (@max.eclaire, @armanetmax). Il capitalise sur le reach incroyable de la vidéo pour votre business.',
+                cloe_title: 'Expert Personal Branding',
+                cloe_desc: 'Cloé accompagne les entrepreneurs dans le développement de leur marque personnelle avec une expertise reconnue en communication digitale et stratégie de contenu.',
+                marc_title: 'Expert IA & Visuels Impactants',
+                marc_desc: 'En 6 mois, Marc est devenu l\'expert numéro 1 sur la thématique de l\'IA. Il a su créer une marque forte à travers des visuels impactants et une agilité à créer des contenus à plusieurs millions de vues.',
+                lise_title: 'Communication & Personal Branding Stratégique',
+                lise_desc: 'Passée par le Secrétariat Général du Gouvernement et le Parlement européen, puis spécialisée en marketing stratégique à Londres. En 4 ans, elle a accompagné +50 fondateurs à clarifier leur message, affirmer leur posture et gagner en visibilité sans trahir leur identité.'
+            },
+            en: {
+                badge: '✨ SELECTED PARTNERS',
+                title: 'Thank You! Your Access is Being Prepared.',
+                subtitle: 'Would you like to add personalized coaching with experts who have coached top European entrepreneurs?',
+                intro: 'These coaches are <strong>partners of Empire Internet</strong> but not part of our team. They have been selected for their proven track record with top-tier creators (millions of followers combined). <strong>No commitment</strong> — you can complement your Empire offer with personalized coaching.',
+                ctaButton: 'Continue with selected coach',
+                refuseButton: 'Decline',
+                refuseSubtitle: 'Continue without personalized coaching',
+                support: 'Need help?',
+                contact: 'Contact us',
+                perMonth: '/ month',
+                exclusiveBadge: '🔥 EXCLUSIVE OFFER',
+                exclusiveTitle: 'Coaching Format',
+                exclusiveDesc: '<strong>1 hour per week live</strong> with your coach to establish the best topics to cover and optimize your content strategy.',
+                exclusiveNote: '⚡ Offer only available on this page',
+                save: 'SAVE',
+                whatYouGetTitle: 'What You Get',
+                whatYouGetItems: [
+                    '4 live sessions per month (1h each)',
+                    'Analysis of your existing content',
+                    'Personalized strategic plan',
+                    'WhatsApp/Slack access between sessions'
+                ],
+                // Coaches
+                arthur_title: 'Personal Branding Expert',
+                arthur_desc: 'Arthur supports entrepreneurs and executives in building their personal brand with a strategic approach and measurable results.',
+                maxence_title: 'Personal Branding for CEOs · Ex-Google & TikTok',
+                maxence_desc: 'Maxence helps CEOs develop their personal branding through video. 5 years at Google and TikTok, creator of 2 accounts with +100K followers (@max.eclaire, @armanetmax). He leverages the incredible reach of video for your business.',
+                cloe_title: 'Personal Branding Expert',
+                cloe_desc: 'Cloé supports entrepreneurs in developing their personal brand with recognized expertise in digital communication and content strategy.',
+                marc_title: 'AI & Impactful Visuals Expert',
+                marc_desc: 'In 6 months, Marc became the #1 expert on AI topics. He built a strong brand through impactful visuals and agility in creating content with millions of views.',
+                lise_title: 'Communication & Strategic Personal Branding',
+                lise_desc: 'Former member of the French Government Secretariat and European Parliament, then specialized in strategic marketing in London. In 4 years, she has supported 50+ founders to clarify their message, assert their position and gain visibility without betraying their identity.'
+            }
+        };
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('[data-lang-key]').forEach(el => {
+                const key = el.getAttribute('data-lang-key');
+                if (translations[lang][key]) {
+                    if (el.tagName === 'INPUT' || el.tagName === 'BUTTON') {
+                        el.value = translations[lang][key];
+                    } else {
+                        el.innerHTML = translations[lang][key];
+                    }
+                }
+            });
+
+            // Translate "What You Get" items
+            const items = document.querySelectorAll('.what-you-get-item');
+            items.forEach((item, index) => {
+                if (translations[lang].whatYouGetItems && translations[lang].whatYouGetItems[index]) {
+                    item.textContent = translations[lang].whatYouGetItems[index];
+                }
+            });
+            
+            // Translate system buttons
+            translateSystemButtons(lang);
+            
+            // Update language buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-lang="${lang}"]`).classList.add('active');
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        /* Header Empire */
+        .empire-header {
+            background: rgba(10, 10, 10, 0.95);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .empire-header .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .empire-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .empire-logo-text {
+            font-size: 24px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.5px;
+        }
+
+        .empire-logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #dafc68 0%, #b8d954 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            color: #000;
+            font-size: 20px;
+        }
+
+        .empire-support {
+            color: #808080;
+            font-size: 14px;
+        }
+
+        .empire-support a {
+            color: #dafc68;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .empire-support a:hover {
+            text-decoration: underline;
+        }
+
+        .lang-switcher {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #808080;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover {
+            border-color: rgba(218, 252, 104, 0.5);
+            color: #dafc68;
+        }
+
+        .lang-btn.active {
+            background: #dafc68;
+            color: #000;
+            border-color: #dafc68;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Force visibility of our custom content */
+        body > .container,
+        .container > .header,
+        .container > .exclusive-offer,
+        .container > form.coaches-grid {
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 10px 24px;
+            background: rgba(218, 252, 104, 0.15);
+            border: 1px solid rgba(218, 252, 104, 0.4);
+            border-radius: 50px;
+            color: #dafc68;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+            box-shadow: 0 0 20px rgba(218, 252, 104, 0.2);
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: #a0a0a0;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        .intro-text {
+            font-size: 16px;
+            color: #d0d0d0;
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Exclusive Offer Box */
+        .exclusive-offer {
+            background: linear-gradient(135deg, rgba(218, 252, 104, 0.15) 0%, rgba(218, 252, 104, 0.05) 100%);
+            border: 2px solid rgba(218, 252, 104, 0.4);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 60px auto 80px;
+            max-width: 800px;
+            text-align: center;
+            position: relative;
+            overflow: visible;
+            display: block;
+        }
+
+        .exclusive-offer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #dafc68, #b8d954);
+        }
+
+        .exclusive-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: #dafc68;
+            color: #000;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .exclusive-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 12px;
+        }
+
+        .exclusive-desc {
+            font-size: 16px;
+            color: #d0d0d0;
+            line-height: 1.7;
+        }
+
+        .exclusive-desc strong {
+            color: #dafc68;
+            font-weight: 700;
+        }
+
+        .exclusive-note {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(218, 252, 104, 0.2);
+            font-size: 14px;
+            color: #dafc68;
+            font-weight: 600;
+        }
+
+        /* What You Get Section */
+        .what-you-get {
+            background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 60px auto;
+            max-width: 800px;
+        }
+
+        .what-you-get-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .what-you-get-list {
+            display: grid;
+            gap: 16px;
+        }
+
+        .what-you-get-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 16px;
+            color: #d0d0d0;
+            line-height: 1.6;
+        }
+
+        .what-you-get-item::before {
+            content: '✓';
+            color: #dafc68;
+            font-weight: 700;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+
+        .coaches-grid {
+            display: grid !important;
+            gap: 32px;
+            margin-top: 0;
+            margin-bottom: 60px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .coach-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 32px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: visible;
+            display: block;
+        }
+
+        .coach-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #dafc68, #b8d954);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .coach-card.selected::before {
+            opacity: 1;
+        }
+
+        .coach-card:hover {
+            border-color: rgba(218, 252, 104, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(218, 252, 104, 0.15);
+        }
+
+        .coach-card.selected {
+            border-color: #dafc68;
+            background: linear-gradient(135deg, rgba(218, 252, 104, 0.15) 0%, rgba(218, 252, 104, 0.05) 100%);
+            box-shadow: 0 0 40px rgba(218, 252, 104, 0.3);
+        }
+
+        .coach-card input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            pointer-events: none;
+            width: 0;
+            height: 0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .coach-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 24px;
+            margin-bottom: 20px;
+        }
+
+        .coach-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 2px solid rgba(255,255,255,0.2);
+            flex-shrink: 0;
+        }
+
+        .coach-info {
+            flex: 1;
+        }
+
+        .coach-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #fff;
+        }
+
+        .coach-languages {
+            display: inline-block;
+            padding: 4px 10px;
+            background: rgba(218, 252, 104, 0.1);
+            border: 1px solid rgba(218, 252, 104, 0.3);
+            border-radius: 6px;
+            font-size: 12px;
+            color: #dafc68;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .coach-title {
+            font-size: 15px;
+            color: #b0b0b0;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .coach-price {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .price-wrapper {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        .price-original {
+            font-size: 18px;
+            color: #808080;
+            text-decoration: line-through;
+            font-weight: 600;
+        }
+
+        .price-amount {
+            font-size: 28px;
+            font-weight: 800;
+            color: #dafc68;
+        }
+
+        .price-period {
+            font-size: 16px;
+            color: #808080;
+        }
+
+        .save-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            background: linear-gradient(135deg, #dafc68 0%, #b8d954 100%);
+            color: #000;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        .coach-description {
+            font-size: 15px;
+            color: #c0c0c0;
+            line-height: 1.7;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .check-icon {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #dafc68;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-weight: 800;
+            font-size: 16px;
+        }
+
+        .coach-card.selected .check-icon {
+            display: flex;
+        }
+
+        .cta-section {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 50px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 50px;
+            background: #dafc68;
+            color: #000;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 0 30px rgba(218, 252, 104, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(218, 252, 104, 0.6);
+        }
+
+        .cta-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* System Payment Classes - Styled for Empire */
+        
+        /* Section wrapper */
+        #section-af144b68.sc-lckuus.grLJfN {
+            background: transparent !important;
+            padding: 0 !important;
+        }
+
+        .sc-izgFkT.fJQNig,
+        .sc-ctJLYn.ebYjxH {
+            background: transparent !important;
+        }
+
+        /* Raw HTML element - This is where we inject our content */
+        #rawhtml-35211fae {
+            display: block !important;
+            width: 100% !important;
+        }
+
+        /* Price Plan List - Hide default system list */
+        .StyleWrapperUi-sc-tm5iqm-0.dodFpk {
+            display: none !important; /* Hide default system price list */
+        }
+        
+        .PricePlanListUi-sc-1pr1trc-0.eYpFrq {
+            display: none !important;
+        }
+
+        /* Make sure section is visible */
+        #section-af144b68 {
+            display: block !important;
+            visibility: visible !important;
+        }
+
+        /* Accept Button (main CTA) */
+        .sc-eaCtwC.iKuQaX {
+            margin-top: 50px !important;
+            padding-top: 50px !important;
+            border-top: 1px solid rgba(255,255,255,0.1) !important;
+            display: flex !important;
+            justify-content: center !important;
+        }
+
+        button#upsellagreebutton-ba287d39.sc-fkJXLl.ldiyhG {
+            display: inline-flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            gap: 6px !important;
+            padding: 18px 50px !important;
+            background: #dafc68 !important;
+            color: #000 !important;
+            font-size: 18px !important;
+            font-weight: 700 !important;
+            border-radius: 12px !important;
+            border: none !important;
+            cursor: pointer !important;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 0 30px rgba(218, 252, 104, 0.4) !important;
+            width: auto !important;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
+        }
+
+        button#upsellagreebutton-ba287d39:hover {
+            transform: scale(1.05) !important;
+            box-shadow: 0 0 40px rgba(218, 252, 104, 0.6) !important;
+        }
+
+        button#upsellagreebutton-ba287d39:disabled {
+            opacity: 0.5 !important;
+            cursor: not-allowed !important;
+            transform: none !important;
+        }
+
+        button#upsellagreebutton-ba287d39 .sc-egkSDF.Youst {
+            color: #000 !important;
+            font-size: 18px !important;
+            font-weight: 700 !important;
+        }
+
+        button#upsellagreebutton-ba287d39 .sc-bqvdXA.euQGlZ {
+            color: rgba(0, 0, 0, 0.7) !important;
+            font-size: 14px !important;
+            font-weight: 400 !important;
+        }
+
+        /* Refuse Button */
+        .sc-eaCtwC.hamxHe {
+            margin-top: 24px !important;
+            display: flex !important;
+            justify-content: center !important;
+        }
+
+        .sc-hRGnLy.fpihJp,
+        a#upselldisagreebutton-17bdd049 {
+            display: inline-flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            gap: 4px !important;
+            padding: 16px 32px !important;
+            background: transparent !important;
+            border: 2px solid rgba(74, 74, 74, 0.3) !important;
+            border-radius: 12px !important;
+            text-decoration: none !important;
+            transition: all 0.3s ease !important;
+            cursor: pointer !important;
+            width: auto !important;
+        }
+
+        .sc-hRGnLy.fpihJp:hover,
+        a#upselldisagreebutton-17bdd049:hover {
+            border-color: rgba(74, 74, 74, 0.6) !important;
+            background: rgba(74, 74, 74, 0.1) !important;
+            transform: translateY(-2px) !important;
+        }
+
+        a#upselldisagreebutton-17bdd049 .sc-egkSDF.Youst {
+            color: rgba(74, 74, 74, 1) !important;
+            font-size: 20px !important;
+            font-weight: 600 !important;
+        }
+
+        a#upselldisagreebutton-17bdd049 .sc-bqvdXA.cUQcmS {
+            color: rgba(141, 139, 139, 1) !important;
+            font-size: 14px !important;
+            font-weight: 400 !important;
+        }
+
+
+        @media (max-width: 768px) {
+            .empire-header .container {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+
+            .empire-header .container > div {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .empire-support {
+                font-size: 12px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            .subtitle {
+                font-size: 18px;
+            }
+
+            .coach-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .coach-photo {
+                width: 80px;
+                height: 80px;
+            }
+
+            .coach-name {
+                font-size: 20px;
+            }
+
+            .price-amount {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Empire Header -->
+    <header class="empire-header">
+        <div class="container">
+            <a href="https://empire-internet.com" class="empire-logo">
+                <div class="empire-logo-icon">E</div>
+                <span class="empire-logo-text">Empire Internet</span>
+            </a>
+            <div style="display: flex; align-items: center; gap: 24px;">
+                <div class="lang-switcher">
+                    <button class="lang-btn active" data-lang="fr" onclick="switchLanguage('fr')">FR</button>
+                    <button class="lang-btn" data-lang="en" onclick="switchLanguage('en')">EN</button>
+                </div>
+                <div class="empire-support">
+                    <span data-lang-key="support">Besoin d'aide ?</span> <a href="mailto:contact@empire-internet.com" data-lang-key="contact">Contactez-nous</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="header">
+            <div class="badge" data-lang-key="badge">✨ PARTENAIRES SÉLECTIONNÉS</div>
+            <h1 data-lang-key="title">Accélérez votre Personal Branding</h1>
+            <p class="subtitle" data-lang-key="subtitle">Travaillez avec des experts triés sur le volet qui ont accompagné les meilleurs entrepreneurs européens</p>
+            <p class="intro-text" data-lang-key="intro">
+                Ces coachs sont <strong>partenaires d'Empire Internet</strong> mais ne font pas partie de notre équipe. 
+                Ils ont été sélectionnés pour leur sérieux et leurs résultats prouvés avec le top-tier des créateurs (plusieurs millions d'abonnés cumulés). 
+                <strong>Sans engagement</strong> — vous pouvez compléter votre offre Empire avec un accompagnement personnalisé.
+            </p>
+        </div>
+
+        <!-- Exclusive Offer Box -->
+        <div class="exclusive-offer">
+            <div class="exclusive-badge" data-lang-key="exclusiveBadge">🔥 OFFRE EXCLUSIVE</div>
+            <h3 class="exclusive-title" data-lang-key="exclusiveTitle">Format du Coaching</h3>
+            <p class="exclusive-desc" data-lang-key="exclusiveDesc">
+                <strong>1 heure par semaine en live</strong> avec votre coach pour établir les meilleurs sujets à traiter et optimiser votre stratégie de contenu.
+            </p>
+            <p class="exclusive-note" data-lang-key="exclusiveNote">⚡ Offre uniquement disponible sur cette page</p>
+        </div>
+
+        <!-- What You Get Section -->
+        <div class="what-you-get">
+            <h3 class="what-you-get-title" data-lang-key="whatYouGetTitle">Ce Que Vous Obtenez</h3>
+            <div class="what-you-get-list">
+                <div class="what-you-get-item">4 sessions live par mois (1h chacune)</div>
+                <div class="what-you-get-item">Analyse de vos contenus existants</div>
+                <div class="what-you-get-item">Plan stratégique personnalisé</div>
+                <div class="what-you-get-item">Accès WhatsApp/Slack entre les sessions</div>
+            </div>
+        </div>
+
+        <form id="coaching-form" class="coaches-grid">
+            <!-- Arthur Valton - 1300€ -->
+            <label class="coach-card" for="coach-arthur">
+                <input type="radio" name="coach" id="coach-arthur" value="arthur-valton" data-price="1300">
+                <div class="check-icon">✓</div>
+                <div class="coach-header">
+                    <img src="https://media.licdn.com/dms/image/v2/D4E22AQFGt0-RNzrsoA/feedshare-shrink_800/B4EZR6jGPOG0Ag-/0/1737222811060?e=2147483647&v=beta&t=NHDy0RDrxgLNB0VCBqm-A8nxIi6XNad_f4tAbEczl9E" alt="Arthur Valton" class="coach-photo">
+                    <div class="coach-info">
+                        <h3 class="coach-name">Arthur Valton</h3>
+                        <span class="coach-languages">🇫🇷 FR</span>
+                        <p class="coach-title" data-lang-key="arthur_title">Expert Personal Branding</p>
+                        <div class="coach-price">
+                            <div class="price-wrapper">
+                                <span class="price-original">1 444€</span>
+                                <span class="price-amount">1 300€</span>
+                                <span class="price-period" data-lang-key="perMonth">/ mois</span>
+                            </div>
+                            <span class="save-badge"><span data-lang-key="save">ÉCONOMISEZ</span> 144€</span>
+                        </div>
+                    </div>
+                </div>
+                <p class="coach-description" data-lang-key="arthur_desc">
+                    Arthur accompagne les entrepreneurs et dirigeants dans la construction de leur marque personnelle avec une approche stratégique et des résultats mesurables.
+                </p>
+            </label>
+
+            <!-- Maxence Tison - 1200€ -->
+            <label class="coach-card" for="coach-maxence">
+                <input type="radio" name="coach" id="coach-maxence" value="maxence-tison" data-price="1200">
+                <div class="check-icon">✓</div>
+                <div class="coach-header">
+                    <img src="https://yt3.googleusercontent.com/K7xHpcRKrQzs3pqhSuFadmiFY8kTkFKEZ7AcM7Mb6qR2iZKiMG0ohzVfwb81i3e2JKvOGUY1=s900-c-k-c0x00ffffff-no-rj" alt="Maxence Tison" class="coach-photo">
+                    <div class="coach-info">
+                        <h3 class="coach-name">Maxence Tison</h3>
+                        <span class="coach-languages">🇫🇷 FR · 🇬🇧 EN</span>
+                        <p class="coach-title" data-lang-key="maxence_title">Personal Branding pour CEOs · Ex-Google & TikTok</p>
+                        <div class="coach-price">
+                            <div class="price-wrapper">
+                                <span class="price-original">1 333€</span>
+                                <span class="price-amount">1 200€</span>
+                                <span class="price-period" data-lang-key="perMonth">/ mois</span>
+                            </div>
+                            <span class="save-badge"><span data-lang-key="save">ÉCONOMISEZ</span> 133€</span>
+                        </div>
+                    </div>
+                </div>
+                <p class="coach-description" data-lang-key="maxence_desc">
+                    Maxence aide les CEOs à développer leur personal branding via la vidéo. 5 ans chez Google et TikTok, créateur de 2 comptes à +100K abonnés (@max.eclaire, @armanetmax). Il capitalise sur le reach incroyable de la vidéo pour votre business.
+                </p>
+            </label>
+
+            <!-- Cloé Roger - 1200€ -->
+            <label class="coach-card" for="coach-cloe">
+                <input type="radio" name="coach" id="coach-cloe" value="cloe-roger" data-price="1200">
+                <div class="check-icon">✓</div>
+                <div class="coach-header">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyQjf3O3HFXLs0TQH7vDVZ_Jt1GqhbkXyTEQ&s" alt="Cloé Roger" class="coach-photo">
+                    <div class="coach-info">
+                        <h3 class="coach-name">Cloé Roger</h3>
+                        <span class="coach-languages">🇫🇷 FR · 🇬🇧 EN</span>
+                        <p class="coach-title" data-lang-key="cloe_title">Expert Personal Branding</p>
+                        <div class="coach-price">
+                            <div class="price-wrapper">
+                                <span class="price-original">1 333€</span>
+                                <span class="price-amount">1 200€</span>
+                                <span class="price-period" data-lang-key="perMonth">/ mois</span>
+                            </div>
+                            <span class="save-badge"><span data-lang-key="save">ÉCONOMISEZ</span> 133€</span>
+                        </div>
+                    </div>
+                </div>
+                <p class="coach-description" data-lang-key="cloe_desc">
+                    Cloé accompagne les entrepreneurs dans le développement de leur marque personnelle avec une expertise reconnue en communication digitale et stratégie de contenu.
+                </p>
+            </label>
+
+            <!-- Marc Dufraisse - 1000€ -->
+            <label class="coach-card" for="coach-marc">
+                <input type="radio" name="coach" id="coach-marc" value="marc-dufraisse" data-price="1000">
+                <div class="check-icon">✓</div>
+                <div class="coach-header">
+                    <img src="https://substackcdn.com/image/fetch/w_200,h_200,c_fill,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F75e0cc26-6b5f-492b-b664-10d88bd1e87e_2934x2934.jpeg" alt="Marc Dufraisse" class="coach-photo">
+                    <div class="coach-info">
+                        <h3 class="coach-name">Marc Dufraisse</h3>
+                        <span class="coach-languages">🇫🇷 FR</span>
+                        <p class="coach-title" data-lang-key="marc_title">Expert IA & Visuels Impactants</p>
+                        <div class="coach-price">
+                            <div class="price-wrapper">
+                                <span class="price-original">1 111€</span>
+                                <span class="price-amount">1 000€</span>
+                                <span class="price-period" data-lang-key="perMonth">/ mois</span>
+                            </div>
+                            <span class="save-badge"><span data-lang-key="save">ÉCONOMISEZ</span> 111€</span>
+                        </div>
+                    </div>
+                </div>
+                <p class="coach-description" data-lang-key="marc_desc">
+                    En 6 mois, Marc est devenu l'expert numéro 1 sur la thématique de l'IA. Il a su créer une marque forte à travers des visuels impactants et une agilité à créer des contenus à plusieurs millions de vues.
+                </p>
+            </label>
+
+            <!-- Lise McKeivor - 700€ -->
+            <label class="coach-card" for="coach-lise">
+                <input type="radio" name="coach" id="coach-lise" value="lise-mckeivor" data-price="700">
+                <div class="check-icon">✓</div>
+                <div class="coach-header">
+                    <img src="https://d1yei2z3i6k35z.cloudfront.net/3647172/690e074d28b59_Capturedecran2025-11-07a15.50.21.png" alt="Lise McKeivor" class="coach-photo">
+                    <div class="coach-info">
+                        <h3 class="coach-name">Lise McKeivor</h3>
+                        <span class="coach-languages">🇫🇷 FR · 🇬🇧 EN</span>
+                        <p class="coach-title" data-lang-key="lise_title">Communication & Personal Branding Stratégique</p>
+                        <div class="coach-price">
+                            <div class="price-wrapper">
+                                <span class="price-original">778€</span>
+                                <span class="price-amount">700€</span>
+                                <span class="price-period" data-lang-key="perMonth">/ mois</span>
+                            </div>
+                            <span class="save-badge"><span data-lang-key="save">ÉCONOMISEZ</span> 78€</span>
+                        </div>
+                    </div>
+                </div>
+                <p class="coach-description" data-lang-key="lise_desc">
+                    Passée par le Secrétariat Général du Gouvernement et le Parlement européen, puis spécialisée en marketing stratégique à Londres. En 4 ans, elle a accompagné +50 fondateurs à clarifier leur message, affirmer leur posture et gagner en visibilité sans trahir leur identité.
+                </p>
+            </label>
+        </form>
+
+        <!-- System buttons will be injected here by your payment system -->
+        <!-- The CSS above will style them automatically with Empire design -->
+    </div>
+
+    <script>
+        // Mapping between our custom coach cards and system radio buttons
+        const coachMapping = {
+            'arthur-valton': 'offer-price-2916766',
+            'maxence-tison': 'offer-price-2916799',
+            'cloe-roger': 'offer-price-2916802',
+            'marc-dufraisse': 'offer-price-2916751',
+            'lise-mckeivor': 'offer-price-2916805'
+        };
+
+        function initCoachSync() {
+            const cards = document.querySelectorAll('.coach-card');
+
+            // Sync custom cards to system radios
+            cards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const customRadio = this.querySelector('input[type="radio"]');
+                    if (!customRadio) return;
+
+                    const coachValue = customRadio.value;
+                    const systemTestId = coachMapping[coachValue];
+
+                    // Check custom radio
+                    customRadio.checked = true;
+                    updateCustomSelection();
+
+                    // Also check system radio if it exists
+                    if (systemTestId) {
+                        const systemRadio = document.querySelector(`[data-test-id="${systemTestId}"] input[type="radio"]`);
+                        if (systemRadio) {
+                            systemRadio.checked = true;
+                            systemRadio.click(); // Trigger system's change event
+                        }
+                    }
+                });
+            });
+
+            // Sync system radios back to custom cards
+            function syncSystemToCustom() {
+                const systemRadios = document.querySelectorAll('[data-test-id^="offer-price-"] input[type="radio"]');
+                systemRadios.forEach(radio => {
+                    radio.addEventListener('change', function() {
+                        if (this.checked) {
+                            const testId = this.closest('[data-test-id]').getAttribute('data-test-id');
+                            // Find matching custom radio
+                            for (const [coachValue, systemId] of Object.entries(coachMapping)) {
+                                if (systemId === testId) {
+                                    const customRadio = document.querySelector(`.coach-card input[value="${coachValue}"]`);
+                                    if (customRadio) {
+                                        customRadio.checked = true;
+                                        updateCustomSelection();
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                    });
+                });
+            }
+
+            function updateCustomSelection() {
+                document.querySelectorAll('.coach-card').forEach(card => {
+                    card.classList.remove('selected');
+                });
+
+                const checkedRadio = document.querySelector('.coach-card input[type="radio"]:checked');
+                if (checkedRadio) {
+                    checkedRadio.closest('.coach-card').classList.add('selected');
+                }
+            }
+
+            // Wait for system elements to load
+            setTimeout(syncSystemToCustom, 500);
+        }
+
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initCoachSync);
+        } else {
+            initCoachSync();
+        }
+
+        // Translate system buttons when language changes
+        function translateSystemButtons(lang) {
+            // Translate Accept button
+            const acceptBtn = document.querySelector('#upsellagreebutton-ba287d39');
+            if (acceptBtn) {
+                const mainText = acceptBtn.querySelector('.sc-egkSDF.Youst');
+                const subText = acceptBtn.querySelector('.sc-bqvdXA.euQGlZ');
+                if (mainText) {
+                    mainText.textContent = translations[lang].ctaButton;
+                    console.log('Accept button translated to:', lang, translations[lang].ctaButton);
+                }
+                if (subText) {
+                    subText.textContent = translations[lang].refuseSubtitle;
+                }
+            }
+
+            // Translate Refuse button
+            const refuseBtn = document.querySelector('#upselldisagreebutton-17bdd049');
+            if (refuseBtn) {
+                const mainText = refuseBtn.querySelector('.sc-egkSDF.Youst');
+                const subText = refuseBtn.querySelector('.sc-bqvdXA.cUQcmS');
+                if (mainText) {
+                    mainText.textContent = translations[lang].refuseButton;
+                    console.log('Refuse button translated to:', lang, translations[lang].refuseButton);
+                }
+                if (subText) {
+                    subText.textContent = translations[lang].refuseSubtitle;
+                }
+            }
+        }
+
+        // Observer to detect when system buttons are injected (with disconnect)
+        let systemObserver = null;
+        let buttonsFound = false;
+
+        function setupSystemObserver() {
+            if (buttonsFound || systemObserver) return;
+
+            systemObserver = new MutationObserver(() => {
+                const acceptBtn = document.querySelector('#upsellagreebutton-ba287d39');
+                const refuseBtn = document.querySelector('#upselldisagreebutton-17bdd049');
+                
+                if ((acceptBtn || refuseBtn) && !buttonsFound) {
+                    buttonsFound = true;
+                    translateSystemButtons(currentLang);
+                    
+                    // Disconnect observer to prevent infinite loop
+                    if (systemObserver) {
+                        systemObserver.disconnect();
+                        systemObserver = null;
+                    }
+                }
+            });
+
+            systemObserver.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+
+            // Auto-disconnect after 10 seconds to prevent infinite observation
+            setTimeout(() => {
+                if (systemObserver) {
+                    systemObserver.disconnect();
+                    systemObserver = null;
+                }
+            }, 10000);
+        }
+
+        // Check immediately and setup observer if needed
+        setTimeout(() => {
+            const acceptBtn = document.querySelector('#upsellagreebutton-ba287d39');
+            const refuseBtn = document.querySelector('#upselldisagreebutton-17bdd049');
+            
+            if (acceptBtn || refuseBtn) {
+                translateSystemButtons(currentLang);
+                buttonsFound = true;
+            } else {
+                setupSystemObserver();
+            }
+        }, 100);
+
+        // Inject our content into the rawhtml element if it exists
+        function injectContentIntoSystem() {
+            const rawHtmlElement = document.querySelector('#rawhtml-35211fae');
+            const ourContainer = document.querySelector('body > .container');
+            
+            if (rawHtmlElement && ourContainer) {
+                // Move our content into the system's raw HTML element
+                rawHtmlElement.appendChild(ourContainer);
+                console.log('Content injected into system');
+            } else if (!rawHtmlElement) {
+                // System not loaded yet, try again
+                setTimeout(injectContentIntoSystem, 100);
+            }
+        }
+
+        // Try to inject content when page loads
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                setTimeout(injectContentIntoSystem, 200);
+            });
+        } else {
+            setTimeout(injectContentIntoSystem, 200);
+        }
+    </script>
+</body>
+</html>
+
