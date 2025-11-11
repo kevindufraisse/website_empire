@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { Check, Crown, Zap, Shield, Users, ArrowRight, Lock, CreditCard, FileText, Mic, Bot } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { CostCalculator } from '@/components/ui/cost-calculator'
+import { PRICING, LAUNCH_OFFER_ACTIVE } from '@/lib/pricing-config'
 
 const pricingPlans = [
   {
