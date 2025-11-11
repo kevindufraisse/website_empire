@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coaching Personal Branding - Empire Internet</title>
     <script>
+        // ========================================
+        // 🔥 LAUNCH OFFER CONTROL
+        // Set to false to disable launch pricing
+        // ========================================
+        const LAUNCH_OFFER_ACTIVE = true;
+        
         // Language system
         let currentLang = 'fr';
         
@@ -58,7 +64,7 @@
                 exclusiveBadge: '🔥 LAUNCH OFFER',
                 exclusiveTitle: 'Coaching Format',
                 exclusiveDesc: '<strong>1 hour per week live</strong> with your coach to establish the best topics to cover and optimize your content strategy.',
-                exclusiveNote: '⚡ Launch price: €1000/month for 1 month, then €1500/month',
+                exclusiveNote: '⚡ Launch price: €1000/mo for 1 month, then €1500/mo',
                 save: 'SAVE',
                 whatYouGetTitle: 'What You Get',
                 whatYouGetItems: [
@@ -333,13 +339,12 @@
         }
 
         .exclusive-note {
-            margin-top: 20px;
-            padding-top: 20px;
+            margin-top: 16px;
+            padding-top: 16px;
             border-top: 1px solid rgba(218, 252, 104, 0.2);
-            font-size: 15px;
+            font-size: 14px;
             color: #dafc68;
-            font-weight: 700;
-            text-align: center;
+            font-weight: 600;
         }
 
         /* What You Get Section */
@@ -823,9 +828,9 @@
         </div>
 
         <form id="coaching-form" class="coaches-grid">
-            <!-- Arthur Valton - 1300€ -->
+            <!-- Arthur Valton - 1300€ launch (1950€ normal) -->
             <label class="coach-card" for="coach-arthur">
-                <input type="radio" name="coach" id="coach-arthur" value="arthur-valton" data-price="1300">
+                <input type="radio" name="coach" id="coach-arthur" value="arthur-valton" data-price="1300" data-price-normal="1950">
                 <div class="check-icon">✓</div>
                 <div class="coach-header">
                     <img src="https://media.licdn.com/dms/image/v2/D4E22AQFGt0-RNzrsoA/feedshare-shrink_800/B4EZR6jGPOG0Ag-/0/1737222811060?e=2147483647&v=beta&t=NHDy0RDrxgLNB0VCBqm-A8nxIi6XNad_f4tAbEczl9E" alt="Arthur Valton" class="coach-photo">
@@ -835,11 +840,11 @@
                         <p class="coach-title" data-lang-key="arthur_title">Expert Personal Branding</p>
                         <div class="coach-price">
                             <div class="price-wrapper">
-                                <span class="price-original">1 444€</span>
+                                <span class="price-original">1 950€</span>
                                 <span class="price-amount">1 300€</span>
                                 <span class="price-period" data-lang-key="perMonth">/ mois</span>
                             </div>
-                            <span class="save-badge"><span data-lang-key="save">ÉCONOMISEZ</span> 144€</span>
+                            <span class="save-badge"><span data-lang-key="save">ÉCONOMISEZ</span> 650€</span>
                         </div>
                     </div>
                 </div>
@@ -848,9 +853,9 @@
                 </p>
             </label>
 
-            <!-- Maxence Tison - 1200€ -->
+            <!-- Maxence Tison - 1200€ launch (1800€ normal) -->
             <label class="coach-card" for="coach-maxence">
-                <input type="radio" name="coach" id="coach-maxence" value="maxence-tison" data-price="1200">
+                <input type="radio" name="coach" id="coach-maxence" value="maxence-tison" data-price="1200" data-price-normal="1800">
                 <div class="check-icon">✓</div>
                 <div class="coach-header">
                     <img src="https://yt3.googleusercontent.com/K7xHpcRKrQzs3pqhSuFadmiFY8kTkFKEZ7AcM7Mb6qR2iZKiMG0ohzVfwb81i3e2JKvOGUY1=s900-c-k-c0x00ffffff-no-rj" alt="Maxence Tison" class="coach-photo">
@@ -860,11 +865,11 @@
                         <p class="coach-title" data-lang-key="maxence_title">Personal Branding pour CEOs · Ex-Google & TikTok</p>
                         <div class="coach-price">
                             <div class="price-wrapper">
-                                <span class="price-original">1 333€</span>
+                                <span class="price-original">1 800€</span>
                                 <span class="price-amount">1 200€</span>
                                 <span class="price-period" data-lang-key="perMonth">/ mois</span>
                             </div>
-                            <span class="save-badge"><span data-lang-key="save">ÉCONOMISEZ</span> 133€</span>
+                            <span class="save-badge"><span data-lang-key="save">ÉCONOMISEZ</span> 600€</span>
                         </div>
                     </div>
                 </div>
@@ -873,9 +878,9 @@
                 </p>
             </label>
 
-            <!-- Cloé Roger - 1200€ -->
+            <!-- Cloé Roger - 1200€ launch (1800€ normal) -->
             <label class="coach-card" for="coach-cloe">
-                <input type="radio" name="coach" id="coach-cloe" value="cloe-roger" data-price="1200">
+                <input type="radio" name="coach" id="coach-cloe" value="cloe-roger" data-price="1200" data-price-normal="1800">
                 <div class="check-icon">✓</div>
                 <div class="coach-header">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyQjf3O3HFXLs0TQH7vDVZ_Jt1GqhbkXyTEQ&s" alt="Cloé Roger" class="coach-photo">
@@ -885,11 +890,11 @@
                         <p class="coach-title" data-lang-key="cloe_title">Expert Personal Branding</p>
                         <div class="coach-price">
                             <div class="price-wrapper">
-                                <span class="price-original">1 333€</span>
+                                <span class="price-original">1 800€</span>
                                 <span class="price-amount">1 200€</span>
                                 <span class="price-period" data-lang-key="perMonth">/ mois</span>
                             </div>
-                            <span class="save-badge"><span data-lang-key="save">ÉCONOMISEZ</span> 133€</span>
+                            <span class="save-badge"><span data-lang-key="save">ÉCONOMISEZ</span> 600€</span>
                         </div>
                     </div>
                 </div>
@@ -898,9 +903,9 @@
                 </p>
             </label>
 
-            <!-- Marc Dufraisse - 1000€ -->
+            <!-- Marc Dufraisse - 1000€ launch (1500€ normal) -->
             <label class="coach-card" for="coach-marc">
-                <input type="radio" name="coach" id="coach-marc" value="marc-dufraisse" data-price="1000">
+                <input type="radio" name="coach" id="coach-marc" value="marc-dufraisse" data-price="1000" data-price-normal="1500">
                 <div class="check-icon">✓</div>
                 <div class="coach-header">
                     <img src="https://substackcdn.com/image/fetch/w_200,h_200,c_fill,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F75e0cc26-6b5f-492b-b664-10d88bd1e87e_2934x2934.jpeg" alt="Marc Dufraisse" class="coach-photo">
@@ -910,11 +915,11 @@
                         <p class="coach-title" data-lang-key="marc_title">Expert IA & Visuels Impactants</p>
                         <div class="coach-price">
                             <div class="price-wrapper">
-                                <span class="price-original">1 111€</span>
+                                <span class="price-original">1 500€</span>
                                 <span class="price-amount">1 000€</span>
                                 <span class="price-period" data-lang-key="perMonth">/ mois</span>
                             </div>
-                            <span class="save-badge"><span data-lang-key="save">ÉCONOMISEZ</span> 111€</span>
+                            <span class="save-badge"><span data-lang-key="save">ÉCONOMISEZ</span> 500€</span>
                         </div>
                     </div>
                 </div>
@@ -923,9 +928,9 @@
                 </p>
             </label>
 
-            <!-- Lise McKeivor - 700€ -->
+            <!-- Lise McKeivor - 700€ launch (1050€ normal) -->
             <label class="coach-card" for="coach-lise">
-                <input type="radio" name="coach" id="coach-lise" value="lise-mckeivor" data-price="700">
+                <input type="radio" name="coach" id="coach-lise" value="lise-mckeivor" data-price="700" data-price-normal="1050">
                 <div class="check-icon">✓</div>
                 <div class="coach-header">
                     <img src="https://d1yei2z3i6k35z.cloudfront.net/3647172/690e074d28b59_Capturedecran2025-11-07a15.50.21.png" alt="Lise McKeivor" class="coach-photo">
@@ -935,11 +940,11 @@
                         <p class="coach-title" data-lang-key="lise_title">Communication & Personal Branding Stratégique</p>
                         <div class="coach-price">
                             <div class="price-wrapper">
-                                <span class="price-original">778€</span>
+                                <span class="price-original">1 050€</span>
                                 <span class="price-amount">700€</span>
                                 <span class="price-period" data-lang-key="perMonth">/ mois</span>
                             </div>
-                            <span class="save-badge"><span data-lang-key="save">ÉCONOMISEZ</span> 78€</span>
+                            <span class="save-badge"><span data-lang-key="save">ÉCONOMISEZ</span> 350€</span>
                         </div>
                     </div>
                 </div>
@@ -1135,9 +1140,43 @@
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(injectContentIntoSystem, 200);
+                applyLaunchPricing();
             });
         } else {
             setTimeout(injectContentIntoSystem, 200);
+            applyLaunchPricing();
+        }
+
+        // Apply or remove launch pricing based on LAUNCH_OFFER_ACTIVE
+        function applyLaunchPricing() {
+            if (!LAUNCH_OFFER_ACTIVE) {
+                // Show normal prices (remove strikethrough, hide save badges)
+                document.querySelectorAll('.price-original').forEach(el => {
+                    el.style.display = 'none';
+                });
+                document.querySelectorAll('.save-badge').forEach(el => {
+                    el.style.display = 'none';
+                });
+                document.querySelectorAll('.coach-card input[type="radio"]').forEach(radio => {
+                    const normalPrice = radio.getAttribute('data-price-normal');
+                    if (normalPrice) {
+                        // Update displayed price to normal price
+                        const card = radio.closest('.coach-card');
+                        const priceAmount = card.querySelector('.price-amount');
+                        if (priceAmount) {
+                            priceAmount.textContent = normalPrice + '€';
+                        }
+                        // Update data-price for system
+                        radio.setAttribute('data-price', normalPrice);
+                    }
+                });
+                
+                // Update exclusive note
+                const exclusiveNote = document.querySelector('.exclusive-note');
+                if (exclusiveNote) {
+                    exclusiveNote.style.display = 'none';
+                }
+            }
         }
     </script>
 </body>
