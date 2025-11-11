@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { HeroVideoDialog, openVideoDialog } from '@/components/magicui/hero-video-dialog'
+import { ExitIntentPopup } from '@/components/ExitIntentPopup'
+import { GlobalLumaCalendar } from '@/components/GlobalLumaCalendar'
 import { X } from 'lucide-react'
 import { PRICING } from '@/lib/pricing-config'
 
@@ -30,6 +32,12 @@ export default function ClientWrappers() {
         thumbnailSrc=""
         thumbnailAlt=""
       />
+
+      {/* Exit Intent Popup */}
+      <ExitIntentPopup />
+
+      {/* Global Luma Calendar Modal */}
+      <GlobalLumaCalendar />
 
       {/* Sticky CTA Bar */}
       {!dismissed && (

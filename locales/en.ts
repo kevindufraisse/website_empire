@@ -546,6 +546,24 @@ export const en = {
       answer: 'Yes. We offer optional personal branding coaching with experts who have worked with top-tier creators in France and the US. Available as an add-on after subscription. Launch price: €1000/month for 1 month, then €1500/month.',
     },
   ],
+  exitPopup: {
+    title: 'Wait! Special Offer',
+    subtitle: 'Join our next live Q&A in the next <strong>10 minutes</strong> and get:',
+    bonus1Title: 'Priority Onboarding',
+    bonus1Desc: 'Skip the waitlist, start next week',
+    bonus2Title: 'Free Content Audit',
+    bonus2Desc: '€500 value · We analyze your current content',
+    bonus3Title: '10 Bonus Posts First Month',
+    bonus3Desc: '40 posts instead of 30',
+    ctaButton: 'Join Live Q&A',
+    ctaSchedule: 'Tue/Thu 1PM CET',
+    ctaSecondary: 'Or start immediately',
+    footer: 'Bonuses expire when we hit 100 clients',
+  },
+  lumaModal: {
+    title: 'Book Your Live Q&A Session',
+    subtitle: 'Choose the slot that works for you',
+  },
 }
 
 export type Translations = typeof en

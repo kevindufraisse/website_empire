@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { Play, X } from 'lucide-react'
 import { VidalyticsPlayer } from '@/components/VidalyticsPlayer'
+import { openLumaCalendar } from '@/components/GlobalLumaCalendar'
 import { cn } from '@/lib/utils'
 
 interface HeroVideoDialogProps {
@@ -214,14 +215,12 @@ export function HeroVideoDialog({
                   >
                     {t.videoDialog.startNow}
                   </a>
-                  <a
-                    href="https://us06web.zoom.us/meeting/register/_MDUpE-JSJmLRdqwh-OkTg#/registration"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <button
+                    onClick={() => openLumaCalendar()}
                     className="py-3 px-4 rounded-lg bg-white/10 border border-white/20 text-white font-semibold hover:bg-white/20 transition-all text-center text-sm"
                   >
                     {t.videoDialog.joinQA}
-                  </a>
+                  </button>
                 </div>
               </div>
             </motion.div>

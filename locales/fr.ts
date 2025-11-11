@@ -1,6 +1,24 @@
 import { Translations } from './en'
 
 export const fr: Translations = {
+  exitPopup: {
+    title: 'Attends ! Offre Spéciale',
+    subtitle: 'Rejoins notre prochain Q&A live dans les prochaines <strong>10 minutes</strong> et obtiens :',
+    bonus1Title: 'Onboarding Prioritaire',
+    bonus1Desc: 'Passe la file d\'attente, commence la semaine prochaine',
+    bonus2Title: 'Audit de Contenu Gratuit',
+    bonus2Desc: 'Valeur €500 · On analyse ton contenu actuel',
+    bonus3Title: '10 Posts Bonus Premier Mois',
+    bonus3Desc: '40 posts au lieu de 30',
+    ctaButton: 'Rejoindre le Q&A Live',
+    ctaSchedule: 'Mar/Jeu 13h CET',
+    ctaSecondary: 'Ou commencer immédiatement',
+    footer: 'Les bonus expirent quand on atteint 100 clients',
+  },
+  lumaModal: {
+    title: 'Réservez votre session Q&A Live',
+    subtitle: 'Choisissez le créneau qui vous convient',
+  },
   header: {
     spots: '83/100 places',
     watchDemo: 'Voir la Démo',

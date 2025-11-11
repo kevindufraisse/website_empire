@@ -23,75 +23,79 @@ function TimelineBlock({ children, delay = 0 }: { children: React.ReactNode; del
 const timeline = [
   {
     icon: Frown,
-    color: 'from-red-500 to-orange-500',
-    title: 'The Problem',
+    color: 'from-red-600 via-red-500 to-orange-500',
+    glowColor: 'rgba(239,68,68,0.3)',
+    title: 'Le Problème',
     year: '2020-2022',
     story: [
-      'You know content could change the game for you.',
-      'But it never sticks.',
-      'You tell yourself you\'ll start next week.',
-      'Then a client project lands.',
-      'Or you get stuck on what to say.',
-      'So you push it back. Again. And again.',
+      'Tu sais que le contenu pourrait tout changer pour toi.',
+      'Mais ça ne colle jamais.',
+      'Tu te dis que tu commenceras la semaine prochaine.',
+      'Puis un projet client arrive.',
+      'Ou tu bloques sur quoi dire.',
+      'Alors tu repousses. Encore. Et encore.',
     ],
   },
   {
     icon: AlertCircle,
-    color: 'from-orange-500 to-yellow-500',
-    title: 'The Realization',
+    color: 'from-orange-500 via-amber-500 to-yellow-500',
+    glowColor: 'rgba(251,146,60,0.3)',
+    title: 'La Prise de Conscience',
     year: '2022',
     story: [
-      'You\'re not lazy. You\'re not lost.',
-      'You\'re just tired of trying to build a machine… with zero parts.',
-      'Every time you try to publish consistently, it eats your time, your energy, your brain.',
-      'The calendar stays empty.',
+      'Tu n\'es pas paresseux. Tu n\'es pas perdu.',
+      'Tu es juste fatigué d\'essayer de construire une machine… sans pièces.',
+      'À chaque fois que tu essaies de publier régulièrement, ça bouffe ton temps, ton énergie, ton cerveau.',
+      'Le calendrier reste vide.',
     ],
   },
   {
     icon: Lightbulb,
-    color: 'from-empire to-green-400',
-    title: 'The Breakthrough',
-    year: 'Mid 2022',
+    color: 'from-blue-400 via-cyan-400 to-teal-400',
+    glowColor: 'rgba(56,189,248,0.3)',
+    title: 'Le Déclic',
+    year: 'Mi 2022',
     story: [
-      'I was on a call with a client. Not a content genius. Just a regular guy who struggled to publish anything.',
-      'We talked for an hour. No script. No agenda.',
-      'And when I played it back… it hit me.',
-      'The guy had gold. Raw stories. Clear convictions. A real voice.',
-      'The problem isn\'t what people know. It\'s how they extract it.',
+      'J\'étais en call avec un client. Pas un génie du contenu. Juste un gars normal qui galère à publier.',
+      'On a parlé une heure. Sans script. Sans agenda.',
+      'Et quand j\'ai réécouté… ça m\'a frappé.',
+      'Le gars avait de l\'or. Des histoires brutes. Des convictions claires. Une vraie voix.',
+      'Le problème n\'est pas ce que les gens savent. C\'est comment l\'extraire.',
     ],
   },
   {
     icon: Rocket,
-    color: 'from-green-400 to-empire',
-    title: 'The System',
-    year: 'Late 2022 - 2024',
+    color: 'from-green-400 via-emerald-400 to-empire',
+    glowColor: 'rgba(218,252,104,0.3)',
+    title: 'Le Système',
+    year: 'Fin 2022 - 2024',
     story: [
-      'I stopped writing from scratch. I built a process.',
-      'One interview → AI writes → Humans polish → Content explodes.',
-      'At first, it sucked. I was feeding prompts into ChatGPT, and getting back garbage.',
-      'But I didn\'t stop.',
-      'I spent months refining every word, every structure, every transition.',
-      'Until it finally clicked. The content was sharp. Sounded like me — on my best day.',
-      '1 million views per month. Effortless.',
+      'J\'ai arrêté d\'écrire from scratch. J\'ai construit un processus.',
+      'Une interview → L\'IA écrit → Les humains polissent → Le contenu explose.',
+      'Au début, c\'était nul. Je balançais des prompts à ChatGPT, et je recevais de la merde.',
+      'Mais je n\'ai pas lâché.',
+      'J\'ai passé des mois à affiner chaque mot, chaque structure, chaque transition.',
+      'Jusqu\'à ce que ça clique enfin. Le contenu était tranchant. Sonnait comme moi — dans mon meilleur jour.',
+      '1 million de vues par mois. Sans effort.',
     ],
   },
 ]
 
 export default function StoryJourney() {
   return (
-    <section className="container py-20 md:py-32">
+    <section className="container py-20 md:py-32 bg-gradient-to-b from-black via-[#0a0a0a] to-black">
       <div className="max-w-4xl mx-auto">
         {/* Timeline */}
         <div className="relative">
-          {/* Vertical line */}
-          <div className="absolute left-0 md:left-12 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-empire to-transparent" />
+          {/* Vertical line - gradient rainbow */}
+          <div className="absolute left-0 md:left-12 top-0 bottom-0 w-[2px] bg-gradient-to-b from-red-500 via-blue-400 to-empire opacity-50" />
 
           <div className="space-y-16 md:space-y-24">
             {timeline.map((item, i) => (
               <TimelineBlock key={i} delay={i * 0.2}>
                 <div className="relative pl-12 md:pl-32">
-                  {/* Icon */}
-                  <div className={`absolute left-0 md:left-8 w-8 h-8 md:w-16 md:h-16 rounded-full bg-gradient-to-br ${item.color} flex items-center justify-center border-4 border-black`}>
+                  {/* Icon with glow */}
+                  <div className={`absolute left-0 md:left-8 w-8 h-8 md:w-16 md:h-16 rounded-full bg-gradient-to-br ${item.color} flex items-center justify-center border-4 border-black shadow-[0_0_30px_${item.glowColor}]`}>
                     <item.icon className="text-black" size={20} />
                   </div>
 

@@ -1,5 +1,6 @@
 import StoryHero from '@/components/sections/story/StoryHero'
 import StoryJourney from '@/components/sections/story/StoryJourney'
+import StoryCostSection from '@/components/sections/story/StoryCostSection'
 import StoryBreakthrough from '@/components/sections/story/StoryBreakthrough'
 import StoryResults from '@/components/sections/story/StoryResults'
 import FinalBoostCTA from '@/components/sections/FinalBoostCTA'
@@ -17,6 +18,9 @@ export default function StoryPage() {
 
       {/* The Journey - Visual timeline */}
       <StoryJourney />
+
+      {/* The Hidden Cost - NEW SECTION */}
+      <StoryCostSection />
 
       {/* The Breakthrough */}
       <StoryBreakthrough />
