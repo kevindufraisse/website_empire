@@ -130,7 +130,7 @@ export function isLaunchOfferActive(): boolean {
 export function getLaunchOfferBadge(lang: 'en' | 'fr' = 'en'): string {
   if (!LAUNCH_OFFER_ACTIVE) return ''
   return lang === 'fr' 
-    ? `🔥 OFFRE DE LANCEMENT : ${LAUNCH_MONTHLY_PRICE}€/mois pendant 1 mois, puis ${NORMAL_MONTHLY_PRICE}€/mois`
-    : `🔥 LAUNCH OFFER: €${LAUNCH_MONTHLY_PRICE}/mo for 1 month, then €${NORMAL_MONTHLY_PRICE}/mo`
+    ? `🔥 OFFRE DE LANCEMENT : ${LAUNCH_MONTHLY}€/mois au lieu de ${NORMAL_MONTHLY}€/mois`
+    : `🔥 LAUNCH OFFER: €${LAUNCH_MONTHLY}/mo instead of €${NORMAL_MONTHLY}/mo`
 }
 
