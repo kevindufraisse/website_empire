@@ -10,75 +10,74 @@ const pricingPlans = [
     id: 'weekly',
     name: 'Weekly Plan',
     nameFr: 'Plan Hebdomadaire',
-    price: 280,
+    price: PRICING.weekly,
+    priceNormal: PRICING.weeklyNormal,
     period: 'week',
     periodFr: 'semaine',
-    totalBilled: 280,
+    totalBilled: PRICING.weekly,
     billingCycle: 'Every week',
     billingCycleFr: 'Chaque semaine',
     recommended: false,
     popular: false,
     badge: null,
-    savings: null,
-    savingsFr: null,
+    savings: LAUNCH_OFFER_ACTIVE ? `Save €${PRICING.savingsWeekly}/week` : null,
+    savingsFr: LAUNCH_OFFER_ACTIVE ? `Économisez €${PRICING.savingsWeekly}/semaine` : null,
     stripe_link: 'https://www.join.empire-internet.com/semaine-empire',
   },
   {
     id: 'monthly',
     name: 'Monthly Plan',
     nameFr: 'Plan Mensuel',
-    price: 1000,
-    priceFuture: 1200,
+    price: PRICING.monthly,
+    priceNormal: PRICING.monthlyNormal,
     period: 'month',
     periodFr: 'mois',
-    totalBilled: 1000,
+    totalBilled: PRICING.monthly,
     billingCycle: 'Every month',
     billingCycleFr: 'Chaque mois',
     recommended: false,
     popular: false,
     badge: null,
-    savings: 'Save €120/month vs Weekly',
-    savingsFr: 'Économisez €120/mois vs Hebdo',
+    savings: LAUNCH_OFFER_ACTIVE ? `Save €${PRICING.savingsMonthly}/month` : `Save €${(PRICING.weekly * 4) - PRICING.monthly}/month vs Weekly`,
+    savingsFr: LAUNCH_OFFER_ACTIVE ? `Économisez €${PRICING.savingsMonthly}/mois` : `Économisez €${(PRICING.weekly * 4) - PRICING.monthly}/mois vs Hebdo`,
     stripe_link: 'https://www.join.empire-internet.com/mois-empire',
   },
   {
     id: 'quarterly',
     name: 'Quarterly Plan',
     nameFr: 'Plan Trimestriel',
-    price: 933,
-    priceFuture: 1000,
+    price: PRICING.quarterly,
+    priceNormal: PRICING.quarterlyNormal,
     period: 'month',
     periodFr: 'mois',
-    totalBilled: 2800,
-    totalBilledFuture: 3000,
-    billingCycle: 'Every 3 months (€2,800)',
-    billingCycleFr: 'Tous les 3 mois (€2,800)',
+    totalBilled: PRICING.quarterlyTotal,
+    billingCycle: `Every 3 months (€${PRICING.quarterlyTotal})`,
+    billingCycleFr: `Tous les 3 mois (€${PRICING.quarterlyTotal})`,
     recommended: true,
     popular: true,
     badge: '70% CHOOSE THIS',
     badgeFr: '70% CHOISISSENT',
-    savings: 'Save €600 vs Monthly',
-    savingsFr: 'Économisez €600 vs Mensuel',
+    savings: `Save €${PRICING.savingsQuarterly}`,
+    savingsFr: `Économisez €${PRICING.savingsQuarterly}`,
     stripe_link: 'https://www.join.empire-internet.com/trimestre-empire',
   },
   {
     id: 'yearly',
     name: 'Yearly Plan',
     nameFr: 'Plan Annuel',
-    price: 833,
-    priceFuture: 1000,
+    price: PRICING.yearly,
+    priceNormal: PRICING.yearlyNormal,
     period: 'month',
     periodFr: 'mois',
-    totalBilled: 10000,
-    totalBilledFuture: 12000,
-    billingCycle: 'Every year (€10,000)',
-    billingCycleFr: 'Chaque année (€10,000)',
+    totalBilled: PRICING.yearlyTotal,
+    billingCycle: `Every year (€${PRICING.yearlyTotal})`,
+    billingCycleFr: `Chaque année (€${PRICING.yearlyTotal})`,
     recommended: false,
     popular: false,
     badge: 'BEST VALUE',
     badgeFr: 'MEILLEURE VALEUR',
-    savings: 'Save €2,000 vs Monthly',
-    savingsFr: 'Économisez €2,000 vs Mensuel',
+    savings: `Save €${PRICING.savingsYearly}`,
+    savingsFr: `Économisez €${PRICING.savingsYearly}`,
     stripe_link: 'https://www.join.empire-internet.com/an-empire',
   },
 ]
@@ -177,17 +176,29 @@ export default function OrderPage() {
 
                 {/* Price */}
                 <div className="mb-4">
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-4xl font-bold text-empire">€{plan.price}</span>
-                    <span className="text-neutral-400">/{lang === 'fr' ? plan.periodFr : plan.period}</span>
-                  </div>
-                  <p className="text-xs text-neutral-500 mt-1">
-                    {lang === 'fr' ? plan.billingCycleFr : plan.billingCycle}
-                  </p>
-                  {plan.priceFuture && (
-                    <p className="text-xs text-red-400 mt-1">
-                      {lang === 'fr' ? 'puis' : 'then'} €{plan.priceFuture}/{lang === 'fr' ? plan.periodFr : plan.period} {lang === 'fr' ? 'dès 2026' : 'starting in 2026'}
-                    </p>
+                  {LAUNCH_OFFER_ACTIVE ? (
+                    <div>
+                      <div className="flex flex-col gap-1">
+                        <span className="text-xl font-bold text-neutral-500 line-through">€{plan.priceNormal}</span>
+                        <div className="flex items-baseline gap-1">
+                          <span className="text-3xl md:text-4xl font-bold text-empire">€{plan.price}</span>
+                          <span className="text-neutral-400">/{lang === 'fr' ? plan.periodFr : plan.period}</span>
+                        </div>
+                      </div>
+                      <p className="text-xs text-neutral-500 mt-1">
+                        {lang === 'fr' ? plan.billingCycleFr : plan.billingCycle}
+                      </p>
+                    </div>
+                  ) : (
+                    <div>
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-4xl font-bold text-empire">€{plan.price}</span>
+                        <span className="text-neutral-400">/{lang === 'fr' ? plan.periodFr : plan.period}</span>
+                      </div>
+                      <p className="text-xs text-neutral-500 mt-1">
+                        {lang === 'fr' ? plan.billingCycleFr : plan.billingCycle}
+                      </p>
+                    </div>
                   )}
                 </div>
 
@@ -462,27 +473,29 @@ export default function OrderPage() {
           </div>
 
           {/* Urgency Section */}
-          <div className="mb-12 p-6 rounded-xl bg-gradient-to-r from-red-500/10 to-orange-500/10 border-2 border-red-500/30">
+          <div className="mb-12 p-6 rounded-xl bg-gradient-to-r from-empire/10 to-empire/5 border-2 border-empire">
             <h3 className="text-xl font-bold text-white mb-4 text-center">
               {lang === 'fr' ? 'Pourquoi rejoindre maintenant ?' : 'Why join now?'}
             </h3>
             <div className="grid md:grid-cols-2 gap-4">
-              <div className="flex items-start gap-3">
-                <div className="w-6 h-6 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <Check className="text-red-400" size={14} />
+              {LAUNCH_OFFER_ACTIVE && (
+                <div className="flex items-start gap-3">
+                  <div className="w-6 h-6 rounded-full bg-empire/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <Check className="text-empire" size={14} />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-white">
+                      {lang === 'fr' ? '🔥 Prix de lancement' : '🔥 Launch pricing'}
+                    </p>
+                    <p className="text-xs text-neutral-400">
+                      {lang === 'fr' ? `${PRICING.monthly}€/mois au lieu de ${PRICING.monthlyNormal}€` : `€${PRICING.monthly}/mo instead of €${PRICING.monthlyNormal}`}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-sm font-semibold text-white">
-                    {lang === 'fr' ? 'Prix augmente le 1er janvier 2026' : 'Price increases January 1st, 2026'}
-                  </p>
-                  <p className="text-xs text-neutral-400">
-                    {lang === 'fr' ? 'De €1,000 à €1,200/mois (+20%)' : 'From €1,000 to €1,200/month (+20%)'}
-                  </p>
-                </div>
-              </div>
+              )}
               <div className="flex items-start gap-3">
-                <div className="w-6 h-6 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <Check className="text-red-400" size={14} />
+                <div className="w-6 h-6 rounded-full bg-empire/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <Check className="text-empire" size={14} />
                 </div>
                 <div>
                   <p className="text-sm font-semibold text-white">
@@ -558,11 +571,6 @@ export default function OrderPage() {
               {lang === 'fr' ? selectedPlanData?.nameFr : selectedPlanData?.name} - 
               <span className="text-empire"> €{selectedPlanData?.price}/{lang === 'fr' ? selectedPlanData?.periodFr : selectedPlanData?.period}</span>
             </p>
-            {selectedPlanData?.priceFuture && (
-              <p className="text-xs text-red-400">
-                {lang === 'fr' ? 'puis' : 'then'} €{selectedPlanData.priceFuture}/{lang === 'fr' ? selectedPlanData.periodFr : selectedPlanData.period} {lang === 'fr' ? 'dès 2026' : 'in 2026'}
-              </p>
-            )}
           </div>
           <a
             href={selectedPlanData?.stripe_link}

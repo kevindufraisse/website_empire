@@ -6,6 +6,7 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import BorderBeam from '@/components/magicui/border-beam'
 import NumberTicker from '@/components/magicui/number-ticker'
 import { X, CheckCircle2, Shield, Zap } from 'lucide-react'
+import { PRICING } from '@/lib/pricing-config'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -70,7 +71,7 @@ export default function PriceComparisonSection() {
                 </tr>
                 <tr className="bg-empire/5 border-2 border-empire">
                   <td className="p-4 text-empire font-bold">{t.pricing.empire}</td>
-                  <td className="p-4 text-center text-empire font-bold text-xl">{t.pricing.empirePrice}</td>
+                  <td className="p-4 text-center text-empire font-bold text-xl">€{PRICING.monthly}/mo</td>
                   <td className="p-4 text-center text-white font-semibold">{t.pricing.empireTimeline}</td>
                   <td className="p-4 text-center text-white font-semibold">{t.pricing.empireQuality}</td>
                 </tr>

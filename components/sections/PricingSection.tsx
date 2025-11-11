@@ -5,6 +5,7 @@ import { useRef } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { openVideoDialog } from '@/components/magicui/hero-video-dialog'
 import { Zap, Shield, Clock } from 'lucide-react'
+import { PRICING, LAUNCH_OFFER_ACTIVE } from '@/lib/pricing-config'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -55,7 +56,7 @@ export default function PricingSection() {
                   <div className="text-center p-6 rounded-xl bg-white/5 border border-white/10">
                     <p className="text-sm text-neutral-400 mb-2">Real Value (In-house team)</p>
                     <p className="text-4xl md:text-5xl font-bold text-neutral-500 line-through mb-2">
-                      €12,000
+                      €{PRICING.inHouse}
                     </p>
                     <p className="text-sm text-neutral-500">/month</p>
                   </div>
@@ -64,10 +65,17 @@ export default function PricingSection() {
                   <div className="relative text-center p-6 rounded-xl bg-gradient-to-br from-empire/20 to-empire/5 border-2 border-empire">
                     {/* Savings badge */}
                     <div className="absolute -top-3 -right-3 bg-empire text-black text-xs font-bold px-3 py-1 rounded-full">
-                      92% OFF
+                      {PRICING.percentOff}% OFF
                     </div>
                     <p className="text-sm text-empire mb-2">Your Investment</p>
-                    <p className="text-5xl md:text-6xl font-bold text-white mb-2">€1,000</p>
+                    {LAUNCH_OFFER_ACTIVE ? (
+                      <div>
+                        <p className="text-3xl font-bold text-neutral-400 line-through mb-1">€{PRICING.monthlyNormal}</p>
+                        <p className="text-5xl md:text-6xl font-bold text-white mb-2">€{PRICING.monthly}</p>
+                      </div>
+                    ) : (
+                      <p className="text-5xl md:text-6xl font-bold text-white mb-2">€{PRICING.monthly}</p>
+                    )}
                     <p className="text-sm text-neutral-300">/month</p>
                   </div>
                 </div>

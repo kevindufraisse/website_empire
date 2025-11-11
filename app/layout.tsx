@@ -5,6 +5,7 @@ import { LanguageProvider } from '@/contexts/LanguageContext'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import ClientWrappers from '@/components/ClientWrappers'
+import AnnouncementBanner from '@/components/AnnouncementBanner'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,9 +23,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       </head>
       <body className={inter.className}>
         <LanguageProvider>
+          <AnnouncementBanner />
           <Header />
           <ClientWrappers />
-          <div className="pt-16">
+          <div>
             {children}
           </div>
           <Footer />

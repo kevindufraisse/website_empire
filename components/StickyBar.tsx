@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { X } from 'lucide-react'
+import { PRICING } from '@/lib/pricing-config'
 
 export function StickyBar() {
   const [show, setShow] = useState(false)
@@ -35,7 +36,7 @@ export function StickyBar() {
             <div>
               <p className="font-bold text-white text-sm md:text-base">Empire Internet</p>
               <p className="text-xs text-neutral-400">
-                €1,000/mo · <span className="text-empire font-semibold">83 spots left</span> of 100
+                €{PRICING.monthly}/mo · <span className="text-empire font-semibold">83 spots left</span> of 100
               </p>
             </div>
           </div>

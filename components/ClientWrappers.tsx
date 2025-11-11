@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { HeroVideoDialog, openVideoDialog } from '@/components/magicui/hero-video-dialog'
 import { X } from 'lucide-react'
+import { PRICING } from '@/lib/pricing-config'
 
 export default function ClientWrappers() {
   const { t } = useLanguage()
@@ -46,7 +47,7 @@ export default function ClientWrappers() {
                 <div>
                   <p className="font-bold text-white text-sm md:text-base">Empire Internet</p>
                   <p className="text-xs text-empire font-semibold">
-                    83 {t.stickyBar.spotsLeft} · €1,000{t.common.perMonth}
+                    83 {t.stickyBar.spotsLeft} · €{PRICING.monthly}{t.common.perMonth}
                   </p>
                 </div>
               </div>

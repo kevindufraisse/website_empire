@@ -14,6 +14,7 @@ import {
   Zap,
   CheckCircle2,
 } from 'lucide-react'
+import { PRICING } from '@/lib/pricing-config'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -170,7 +171,7 @@ export default function OfferSection() {
               <p className="text-lg text-neutral-300 mb-4">
                 Real value if you built this in-house:
               </p>
-              <p className="text-4xl md:text-5xl font-bold text-white mb-2">€12,000/month</p>
+              <p className="text-4xl md:text-5xl font-bold text-white mb-2">€{PRICING.inHouse}/month</p>
               <p className="text-sm text-neutral-500">
                 Hiring writers, editors, video editors, schedulers…
               </p>

@@ -5,6 +5,7 @@ import { useRef } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { Crown, Check } from 'lucide-react'
 import BorderBeam from '@/components/magicui/border-beam'
+import { PRICING, LAUNCH_OFFER_ACTIVE } from '@/lib/pricing-config'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -27,46 +28,47 @@ const pricingPlans = [
     id: 'weekly',
     name: 'Weekly',
     nameFr: 'Hebdomadaire',
-    price: 280,
+    price: PRICING.weekly,
+    priceNormal: PRICING.weeklyNormal,
     period: 'week',
     periodFr: 'semaine',
     billingCycle: 'Billed weekly',
     billingCycleFr: 'Facturé chaque semaine',
     badge: null,
-    savings: null,
-    savingsFr: null,
+    savings: LAUNCH_OFFER_ACTIVE ? `Save €${PRICING.savingsWeekly}` : null,
+    savingsFr: LAUNCH_OFFER_ACTIVE ? `Économisez €${PRICING.savingsWeekly}` : null,
     link: 'https://www.join.empire-internet.com/semaine-empire',
   },
   {
     id: 'monthly',
     name: 'Monthly',
     nameFr: 'Mensuel',
-    price: 1000,
-    priceFuture: 1200,
+    price: PRICING.monthly,
+    priceNormal: PRICING.monthlyNormal,
     period: 'month',
     periodFr: 'mois',
     billingCycle: 'Billed monthly',
     billingCycleFr: 'Facturé chaque mois',
     badge: null,
-    savings: 'Save €120/mo',
-    savingsFr: 'Économisez €120/mois',
+    savings: LAUNCH_OFFER_ACTIVE ? `Save €${PRICING.savingsMonthly}` : null,
+    savingsFr: LAUNCH_OFFER_ACTIVE ? `Économisez €${PRICING.savingsMonthly}` : null,
     link: 'https://www.join.empire-internet.com/mois-empire',
   },
   {
     id: 'quarterly',
     name: 'Quarterly',
     nameFr: 'Trimestriel',
-    price: 933,
-    priceFuture: 1000,
+    price: PRICING.quarterly,
+    priceNormal: PRICING.quarterlyNormal,
     period: 'month',
     periodFr: 'mois',
-    totalBilled: 2800,
+    totalBilled: PRICING.quarterlyTotal,
     billingCycle: 'Billed every 3 months',
     billingCycleFr: 'Facturé tous les 3 mois',
     badge: '70% CHOOSE THIS',
     badgeFr: '70% CHOISISSENT',
-    savings: 'Save €600',
-    savingsFr: 'Économisez €600',
+    savings: `Save €${PRICING.savingsQuarterly}`,
+    savingsFr: `Économisez €${PRICING.savingsQuarterly}`,
     popular: true,
     link: 'https://www.join.empire-internet.com/trimestre-empire',
   },
@@ -74,17 +76,17 @@ const pricingPlans = [
     id: 'yearly',
     name: 'Yearly',
     nameFr: 'Annuel',
-    price: 833,
-    priceFuture: 1000,
+    price: PRICING.yearly,
+    priceNormal: PRICING.yearlyNormal,
     period: 'month',
     periodFr: 'mois',
-    totalBilled: 10000,
+    totalBilled: PRICING.yearlyTotal,
     billingCycle: 'Billed yearly',
     billingCycleFr: 'Facturé chaque année',
     badge: 'BEST VALUE',
     badgeFr: 'MEILLEURE VALEUR',
-    savings: 'Save €2,000',
-    savingsFr: 'Économisez €2,000',
+    savings: `Save €${PRICING.savingsYearly}`,
+    savingsFr: `Économisez €${PRICING.savingsYearly}`,
     link: 'https://www.join.empire-internet.com/an-empire',
   },
 ]
@@ -98,6 +100,13 @@ export default function PricingPlansSection() {
         {/* Title */}
         <FadeInBlock>
           <div className="text-center mb-16">
+            {LAUNCH_OFFER_ACTIVE && (
+              <div className="inline-block mb-4 px-4 py-2 rounded-full bg-empire/10 border border-empire/30">
+                <p className="text-sm font-bold text-empire">
+                  🔥 {lang === 'fr' ? `Prix de lancement : -${PRICING.monthlyNormal - PRICING.monthly}€/mois` : `Launch Pricing: Save €${PRICING.monthlyNormal - PRICING.monthly}/month`}
+                </p>
+              </div>
+            )}
             <h2 className="text-3xl md:text-5xl font-bold mb-6">
               {lang === 'fr' ? 'Choisissez Votre Plan' : 'Choose Your Plan'}
             </h2>
@@ -139,19 +148,35 @@ export default function PricingPlansSection() {
                   </div>
 
                   <div className="mb-4">
-                    <div className="flex items-baseline gap-1">
-                      <span className="text-4xl font-bold text-white">€{plan.price}</span>
-                      <span className="text-neutral-400">/{lang === 'fr' ? plan.periodFr : plan.period}</span>
-                    </div>
-                    {plan.priceFuture && (
-                      <p className="text-xs text-neutral-500 mt-1">
-                        {lang === 'fr' ? 'puis' : 'then'} €{plan.priceFuture}/{lang === 'fr' ? plan.periodFr : plan.period} {lang === 'fr' ? 'en 2026' : 'in 2026'}
-                      </p>
-                    )}
-                    {plan.totalBilled && (
-                      <p className="text-sm text-neutral-400 mt-2">
-                        €{plan.totalBilled} {lang === 'fr' ? 'facturé' : 'billed'}
-                      </p>
+                    {LAUNCH_OFFER_ACTIVE ? (
+                      // Mode lancement : prix barré + nouveau prix
+                      <div>
+                        <div className="flex flex-col gap-1">
+                          <span className="text-xl font-bold text-neutral-500 line-through">€{plan.priceNormal}</span>
+                          <div className="flex items-baseline gap-1">
+                            <span className="text-3xl md:text-4xl font-bold text-empire">€{plan.price}</span>
+                            <span className="text-neutral-400">/{lang === 'fr' ? plan.periodFr : plan.period}</span>
+                          </div>
+                        </div>
+                        {plan.totalBilled && (
+                          <p className="text-sm text-neutral-400 mt-2">
+                            €{plan.totalBilled} {lang === 'fr' ? 'facturé' : 'billed'}
+                          </p>
+                        )}
+                      </div>
+                    ) : (
+                      // Mode normal : prix simple
+                      <div>
+                        <div className="flex items-baseline gap-1">
+                          <span className="text-3xl md:text-4xl font-bold text-white">€{plan.price}</span>
+                          <span className="text-neutral-400">/{lang === 'fr' ? plan.periodFr : plan.period}</span>
+                        </div>
+                        {plan.totalBilled && (
+                          <p className="text-sm text-neutral-400 mt-2">
+                            €{plan.totalBilled} {lang === 'fr' ? 'facturé' : 'billed'}
+                          </p>
+                        )}
+                      </div>
                     )}
                   </div>
 

@@ -8,6 +8,7 @@ import { StarRating } from '@/components/ui/star-rating'
 import { RainbowButton } from '@/components/magicui/rainbow-button'
 import { HeroVideoDialog, openVideoDialog } from '@/components/magicui/hero-video-dialog'
 import { CheckCircle2 } from 'lucide-react'
+import { PRICING } from '@/lib/pricing-config'
 
 export default function HeroSection() {
   const { t } = useLanguage()
@@ -153,60 +154,74 @@ export default function HeroSection() {
           >
             <div className="text-center mb-6">
               <p className="text-sm text-neutral-400 mb-2">
-                {t.hero?.creatorsTitle || 'Finally access to the systems of the world\'s top creators'}
+                {t.hero?.creatorsTitle || 'The systems used by the world\'s top creators'}
               </p>
-              <p className="text-xs text-empire/70 mb-3">
-                {t.hero?.creatorsSubtitle || 'Using Empire\'s system'}
+              <p className="text-xs text-red-400 font-semibold mb-4">
+                {t.hero?.creatorsCost || 'They pay €50-100K/month for their content systems'}
               </p>
-              <div className="flex flex-wrap items-center justify-center gap-6">
+              <div className="flex flex-wrap items-center justify-center gap-4">
                 {/* Grant Cardone */}
-                <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
+                <div className="flex flex-col items-center gap-2 px-4 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
                   <img 
                     src="https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4295dabe20aff6b9885_Cardone.webp"
                     alt="Grant Cardone"
-                    className="w-10 h-10 rounded-full object-cover"
+                    className="w-12 h-12 rounded-full object-cover"
                   />
-                  <div className="flex items-center gap-2">
-                    <img 
-                      src="https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc429d393fce8535a5023_Tiktok.webp"
-                      alt="TikTok"
-                      className="w-4 h-4"
-                    />
-                    <p className="text-sm font-bold text-white group-hover:text-empire transition-colors">Grant Cardone</p>
+                  <div className="text-center">
+                    <p className="text-xs font-bold text-white group-hover:text-empire transition-colors">Grant Cardone</p>
+                    <p className="text-[10px] text-neutral-500">~€100K/mo</p>
+                  </div>
+                </div>
+
+                {/* Alex Hormozi */}
+                <div className="flex flex-col items-center gap-2 px-4 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
+                  <img 
+                    src="https://yt3.googleusercontent.com/29XFUn3pc3cC81yUUCFiyCKKdgi856IGMJ4EZBnf53zTfrWWUGvmYnYGx86K08f4XR03UxpWyw=s900-c-k-c0x00ffffff-no-rj"
+                    alt="Alex Hormozi"
+                    className="w-12 h-12 rounded-full object-cover"
+                  />
+                  <div className="text-center">
+                    <p className="text-xs font-bold text-white group-hover:text-empire transition-colors">Alex Hormozi</p>
+                    <p className="text-[10px] text-neutral-500">~€80K/mo</p>
                   </div>
                 </div>
 
                 {/* Ali Abdaal */}
-                <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
+                <div className="flex flex-col items-center gap-2 px-4 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
                   <img 
                     src="https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4d436f96370e8ccb7c4_Abdaal.webp"
                     alt="Ali Abdaal"
-                    className="w-10 h-10 rounded-full object-cover"
+                    className="w-12 h-12 rounded-full object-cover"
                   />
-                  <div className="flex items-center gap-2">
-                    <img 
-                      src="https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4d3ced50075f19fe516_Ytb.webp"
-                      alt="YouTube"
-                      className="w-4 h-4"
-                    />
-                    <p className="text-sm font-bold text-white group-hover:text-empire transition-colors">Ali Abdaal</p>
+                  <div className="text-center">
+                    <p className="text-xs font-bold text-white group-hover:text-empire transition-colors">Ali Abdaal</p>
+                    <p className="text-[10px] text-neutral-500">~€75K/mo</p>
+                  </div>
+                </div>
+
+                {/* Matt Gray */}
+                <div className="flex flex-col items-center gap-2 px-4 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
+                  <img 
+                    src="https://yt3.googleusercontent.com/W_GKaSoEuny3REkdSVW-AD6wcB_z5Ltr3hY_Mos94yDKlFLupVnJ6Gf8w1YfjEGps2nr62fB=s160-c-k-c0x00ffffff-no-rj"
+                    alt="Matt Gray"
+                    className="w-12 h-12 rounded-full object-cover"
+                  />
+                  <div className="text-center">
+                    <p className="text-xs font-bold text-white group-hover:text-empire transition-colors">Matt Gray</p>
+                    <p className="text-[10px] text-neutral-500">~€60K/mo</p>
                   </div>
                 </div>
 
                 {/* Chris Williamson */}
-                <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
+                <div className="flex flex-col items-center gap-2 px-4 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
                   <img 
                     src="https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4d4f950bcf495c7dfb2_Williamson.webp"
                     alt="Chris Williamson"
-                    className="w-10 h-10 rounded-full object-cover"
+                    className="w-12 h-12 rounded-full object-cover"
                   />
-                  <div className="flex items-center gap-2">
-                    <img 
-                      src="https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4d203d064fc4e0bfedc_Instagram.webp"
-                      alt="Instagram"
-                      className="w-4 h-4"
-                    />
-                    <p className="text-sm font-bold text-white group-hover:text-empire transition-colors">Chris Williamson</p>
+                  <div className="text-center">
+                    <p className="text-xs font-bold text-white group-hover:text-empire transition-colors">Chris Williamson</p>
+                    <p className="text-[10px] text-neutral-500">~€70K/mo</p>
                   </div>
                 </div>
               </div>

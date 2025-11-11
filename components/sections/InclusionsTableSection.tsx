@@ -1,4 +1,5 @@
 'use client'
+import { PRICING } from '@/lib/pricing-config'
 import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef } from 'react'
@@ -187,7 +188,7 @@ export default function InclusionsTableSection() {
               </p>
               <p className="text-neutral-300">
                 {lang === 'fr' ? 'Vous payez :' : 'You pay:'} 
-                <span className="text-white font-bold"> €280/semaine</span>
+                <span className="text-white font-bold"> €{PRICING.weekly}/semaine</span>
               </p>
             </div>
           </div>
