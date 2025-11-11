@@ -21,7 +21,7 @@
 // ========================================
 // 🔥 TOGGLE THIS TO ENABLE/DISABLE LAUNCH OFFER
 // ========================================
-export const LAUNCH_OFFER_ACTIVE = true
+export const LAUNCH_OFFER_ACTIVE = false
 
 // ========================================
 // BASE PRICES
