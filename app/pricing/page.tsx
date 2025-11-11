@@ -25,11 +25,11 @@ export default function PricingPage() {
       {/* Price Comparison Table - Agency vs In-house vs Empire */}
       <PriceComparisonSection />
 
-      {/* Launch Urgency - Why join now */}
-      <LaunchUrgencySection />
-
       {/* Pricing Plans - Weekly/Monthly/Quarterly/Yearly */}
       <PricingPlansSection />
+
+      {/* Launch Urgency - Why join now */}
+      <LaunchUrgencySection />
 
       {/* What's Included - Simple table */}
       <InclusionsTableSection />

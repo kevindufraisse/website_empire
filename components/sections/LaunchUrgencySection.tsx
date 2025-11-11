@@ -116,20 +116,6 @@ export default function LaunchUrgencySection() {
                 </div>
               </div>
 
-              {/* Bottom CTA */}
-              <div className="mt-8 text-center">
-                <a
-                  href="/pricing"
-                  className="inline-block px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(218,252,104,0.4)]"
-                >
-                  {lang === 'fr' ? 'Voir les Plans Maintenant' : 'View Plans Now'}
-                </a>
-                <p className="text-xs text-neutral-500 mt-3">
-                  {lang === 'fr' 
-                    ? 'Profitez du prix de lancement avant qu\'il n\'augmente'
-                    : 'Get launch pricing before it increases'}
-                </p>
-              </div>
             </div>
           </div>
         </FadeInBlock>
