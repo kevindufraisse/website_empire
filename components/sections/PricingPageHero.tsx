@@ -17,8 +17,13 @@ export default function PricingPageHero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
+            {LAUNCH_OFFER_ACTIVE && (
+              <div className="inline-block px-4 py-2 rounded-full bg-empire text-black text-sm font-bold mb-4">
+                🔥 {lang === 'fr' ? 'OFFRE DE LANCEMENT ACTIVE' : 'LAUNCH OFFER ACTIVE'}
+              </div>
+            )}
             <div className="inline-block px-4 py-2 rounded-full bg-empire/10 border border-empire/30 text-empire text-sm font-semibold mb-6">
-              {lang === 'fr' ? '92% MOINS CHER vs Équipe Interne' : '92% OFF vs In-house Team'}
+              {lang === 'fr' ? `${PRICING.percentOff}% MOINS CHER vs Équipe Interne` : `${PRICING.percentOff}% OFF vs In-house Team`}
             </div>
           </motion.div>
           
@@ -127,25 +132,29 @@ export default function PricingPageHero() {
                 </div>
               </div>
               
-              {/* Bottom message - Enhanced */}
-              <div className="mt-8 inline-flex flex-col items-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-br from-empire/20 to-empire/5 border-2 border-empire shadow-[0_0_30px_rgba(218,252,104,0.3)]">
-                <p className="text-xs text-neutral-400 uppercase tracking-wider">
-                  {lang === 'fr' ? 'Votre prix' : 'Your price'}
+              {/* Bottom message - Enhanced with better contrast */}
+              <div className="mt-8 inline-flex flex-col items-center gap-3 px-10 py-6 rounded-2xl bg-gradient-to-br from-empire/20 to-empire/5 border-2 border-empire shadow-[0_0_30px_rgba(218,252,104,0.3)]">
+                <p className="text-xs text-neutral-400 uppercase tracking-wider font-bold">
+                  {lang === 'fr' ? '👇 Votre prix' : '👇 Your price'}
                 </p>
-                <div className="flex items-baseline gap-2">
+                <div className="flex flex-col items-center gap-1">
                   {LAUNCH_OFFER_ACTIVE && (
-                    <span className="text-xl font-bold text-neutral-500 line-through">€{PRICING.monthlyNormal}</span>
+                    <span className="text-2xl font-bold text-neutral-400 line-through">€{PRICING.monthlyNormal}</span>
                   )}
-                  <span className="text-3xl font-bold text-empire">€{PRICING.monthly}</span>
-                  <span className="text-sm text-neutral-400">/mois</span>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-5xl font-bold text-empire">€{PRICING.monthly}</span>
+                    <span className="text-lg text-neutral-300">/mois</span>
+                  </div>
                 </div>
                 {LAUNCH_OFFER_ACTIVE && (
-                  <p className="text-xs text-empire font-semibold">
-                    {lang === 'fr' ? `Économisez ${PRICING.monthlyNormal - PRICING.monthly}€/mois` : `Save €${PRICING.monthlyNormal - PRICING.monthly}/month`}
-                  </p>
+                  <div className="px-4 py-1.5 bg-empire/20 rounded-full border border-empire">
+                    <p className="text-sm text-empire font-bold">
+                      {lang === 'fr' ? `💰 Économisez ${PRICING.monthlyNormal - PRICING.monthly}€/mois` : `💰 Save €${PRICING.monthlyNormal - PRICING.monthly}/month`}
+                    </p>
+                  </div>
                 )}
-                <p className="text-xs text-neutral-400 text-center">
-                  {lang === 'fr' ? 'Pour le même système que les meilleurs' : 'For the same system as the top creators'}
+                <p className="text-xs text-neutral-400 text-center max-w-xs">
+                  {lang === 'fr' ? 'Le même système que les top créateurs à 1% du prix' : 'The same system as top creators at 1% of the price'}
                 </p>
               </div>
             </div>

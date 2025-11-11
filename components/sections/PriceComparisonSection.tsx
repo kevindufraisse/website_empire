@@ -89,7 +89,7 @@ export default function PriceComparisonSection() {
             <div className="text-center mb-8">
               <p className="text-sm text-neutral-400 mb-2">{t.pricing.saved}</p>
               <p className="text-5xl md:text-6xl font-bold text-empire mb-2">
-                €<NumberTicker value={265} />K
+                €<NumberTicker value={265} /><span>K</span>
               </p>
               <p className="text-neutral-300">{t.pricing.lastMonth}</p>
             </div>
