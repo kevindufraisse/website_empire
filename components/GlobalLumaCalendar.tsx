@@ -92,7 +92,7 @@ export function GlobalLumaCalendar() {
           
           <div className="relative w-full h-[600px]">
             <iframe
-              src="https://luma.com/embed/calendar/cal-NLIw2Ga4dePqYoQ/events?lt=dark"
+              src="https://luma.com/embed/calendar/cal-v1m7ixKweJD6mTa/events?lt=dark"
               className="w-full h-full rounded-xl"
               frameBorder="0"
               style={{ border: '1px solid rgba(191, 203, 218, 0.13)', borderRadius: '12px' }}
