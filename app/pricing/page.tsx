@@ -6,6 +6,7 @@ import ObjectionsSection from '@/components/sections/ObjectionsSection'
 import FAQSection from '@/components/sections/FAQSection'
 import TestimonialsSection from '@/components/sections/TestimonialsSection'
 import PricingPageHero from '@/components/sections/PricingPageHero'
+import LaunchUrgencySection from '@/components/sections/LaunchUrgencySection'
 
 export const metadata = {
   title: 'Pricing — Empire Internet',
@@ -23,6 +24,9 @@ export default function PricingPage() {
 
       {/* Price Comparison Table - Agency vs In-house vs Empire */}
       <PriceComparisonSection />
+
+      {/* Launch Urgency - Why join now */}
+      <LaunchUrgencySection />
 
       {/* Pricing Plans - Weekly/Monthly/Quarterly/Yearly */}
       <PricingPlansSection />
