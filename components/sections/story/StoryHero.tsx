@@ -30,13 +30,13 @@ export default function StoryHero() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.15] mb-8"
           >
-            From{' '}
+            Du{' '}
             <span className="bg-gradient-to-r from-red-600 via-red-500 to-orange-500 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(239,68,68,0.5)]">
               Burnout
             </span>
-            {' '}to{' '}
+            {' '}à{' '}
             <span className="bg-gradient-to-r from-empire via-green-400 to-empire bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(218,252,104,0.5)]">
-              <NumberTicker value={1} />M+ Views
+              <NumberTicker value={1} />M+ Vues
             </span>
           </motion.h1>
 
