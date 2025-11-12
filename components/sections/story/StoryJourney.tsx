@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { Frown, AlertCircle, Lightbulb, Rocket } from 'lucide-react'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 function TimelineBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -20,68 +21,44 @@ function TimelineBlock({ children, delay = 0 }: { children: React.ReactNode; del
   )
 }
 
-const timeline = [
-  {
-    icon: Frown,
-    color: 'from-red-600 via-red-500 to-orange-500',
-    glowColor: 'rgba(239,68,68,0.3)',
-    title: 'Le Problème',
-    year: '2020-2022',
-    story: [
-      'Tu sais que le contenu pourrait tout changer pour toi.',
-      'Mais ça ne colle jamais.',
-      'Tu te dis que tu commenceras la semaine prochaine.',
-      'Puis un projet client arrive.',
-      'Ou tu bloques sur quoi dire.',
-      'Alors tu repousses. Encore. Et encore.',
-    ],
-  },
-  {
-    icon: AlertCircle,
-    color: 'from-orange-500 via-amber-500 to-yellow-500',
-    glowColor: 'rgba(251,146,60,0.3)',
-    title: 'La Prise de Conscience',
-    year: '2022',
-    story: [
-      'Tu n\'es pas paresseux. Tu n\'es pas perdu.',
-      'Tu es juste fatigué d\'essayer de construire une machine… sans pièces.',
-      'À chaque fois que tu essaies de publier régulièrement, ça bouffe ton temps, ton énergie, ton cerveau.',
-      'Le calendrier reste vide.',
-    ],
-  },
-  {
-    icon: Lightbulb,
-    color: 'from-blue-400 via-cyan-400 to-teal-400',
-    glowColor: 'rgba(56,189,248,0.3)',
-    title: 'Le Déclic',
-    year: 'Mi 2022',
-    story: [
-      'J\'étais en call avec un client. Pas un génie du contenu. Juste un gars normal qui galère à publier.',
-      'On a parlé une heure. Sans script. Sans agenda.',
-      'Et quand j\'ai réécouté… ça m\'a frappé.',
-      'Le gars avait de l\'or. Des histoires brutes. Des convictions claires. Une vraie voix.',
-      'Le problème n\'est pas ce que les gens savent. C\'est comment l\'extraire.',
-    ],
-  },
-  {
-    icon: Rocket,
-    color: 'from-green-400 via-emerald-400 to-empire',
-    glowColor: 'rgba(218,252,104,0.3)',
-    title: 'Le Système',
-    year: 'Fin 2022 - 2024',
-    story: [
-      'J\'ai arrêté d\'écrire de zéro. J\'ai construit un processus.',
-      'Une interview → L\'IA écrit → Les humains polissent → Le contenu explose.',
-      'Au début, c\'était nul. Je balançais des prompts à ChatGPT, et je recevais de la merde.',
-      'Mais je n\'ai pas lâché.',
-      'J\'ai passé des mois à affiner chaque mot, chaque structure, chaque transition.',
-      'Jusqu\'à ce que ça clique enfin. Le contenu était tranchant. Sonnait comme moi — dans mon meilleur jour.',
-      '1 million de vues par mois. Sans effort.',
-    ],
-  },
-]
-
 export default function StoryJourney() {
+  const { t } = useLanguage()
+
+  const timeline = [
+    {
+      icon: Frown,
+      color: 'from-red-600 via-red-500 to-orange-500',
+      glowColor: 'rgba(239,68,68,0.3)',
+      title: t.story.journey.problem.title,
+      year: t.story.journey.problem.year,
+      story: t.story.journey.problem.lines,
+    },
+    {
+      icon: AlertCircle,
+      color: 'from-orange-500 via-amber-500 to-yellow-500',
+      glowColor: 'rgba(251,146,60,0.3)',
+      title: t.story.journey.awareness.title,
+      year: t.story.journey.awareness.year,
+      story: t.story.journey.awareness.lines,
+    },
+    {
+      icon: Lightbulb,
+      color: 'from-blue-400 via-cyan-400 to-teal-400',
+      glowColor: 'rgba(56,189,248,0.3)',
+      title: t.story.journey.breakthrough.title,
+      year: t.story.journey.breakthrough.year,
+      story: t.story.journey.breakthrough.lines,
+    },
+    {
+      icon: Rocket,
+      color: 'from-green-400 via-emerald-400 to-empire',
+      glowColor: 'rgba(218,252,104,0.3)',
+      title: t.story.journey.system.title,
+      year: t.story.journey.system.year,
+      story: t.story.journey.system.lines,
+    },
+  ]
+
   return (
     <section className="container py-20 md:py-32 bg-gradient-to-b from-black via-[#0a0a0a] to-black">
       <div className="max-w-4xl mx-auto">

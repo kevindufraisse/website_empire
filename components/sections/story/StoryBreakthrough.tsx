@@ -23,16 +23,15 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 }
 
 export default function StoryBreakthrough() {
+  const { t } = useLanguage()
+  
   return (
     <section className="container py-20 md:py-32 bg-gradient-to-b from-black via-[#0a0a0a] to-black">
       <div className="max-w-6xl mx-auto">
         <FadeInBlock>
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-6xl font-bold mb-4">
-              Aujourd'hui, ce même système alimente{' '}
-              <span className="bg-gradient-to-r from-empire via-green-400 to-empire bg-clip-text text-transparent">
-                Empire
-              </span>
+              {t.story.breakthrough.title}
             </h2>
           </div>
         </FadeInBlock>
@@ -48,39 +47,39 @@ export default function StoryBreakthrough() {
                   <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-blue-500/30 to-blue-500/10 border-2 border-blue-400 flex items-center justify-center shadow-[0_0_20px_rgba(59,130,246,0.3)] group-hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] transition-all">
                     <MessageSquare className="text-blue-400" size={28} />
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-2">1. Tu Parles</h3>
-                  <p className="text-neutral-400">15 minutes. Pas de script. Juste ton expertise.</p>
+                  <h3 className="text-xl font-bold text-white mb-2">{t.story.breakthrough.step1Title}</h3>
+                  <p className="text-neutral-400">{t.story.breakthrough.step1Desc}</p>
                 </div>
 
                 <div className="text-center group">
                   <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-purple-500/30 to-purple-500/10 border-2 border-purple-400 flex items-center justify-center shadow-[0_0_20px_rgba(168,85,247,0.3)] group-hover:shadow-[0_0_30px_rgba(168,85,247,0.5)] transition-all">
                     <Sparkles className="text-purple-400" size={28} />
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-2">2. IA + Humain</h3>
-                  <p className="text-neutral-400">L'IA génère. Les humains polissent. Le mix parfait.</p>
+                  <h3 className="text-xl font-bold text-white mb-2">{t.story.breakthrough.step2Title}</h3>
+                  <p className="text-neutral-400">{t.story.breakthrough.step2Desc}</p>
                 </div>
 
                 <div className="text-center group">
                   <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-empire/30 to-green-500/10 border-2 border-empire flex items-center justify-center shadow-[0_0_20px_rgba(218,252,104,0.3)] group-hover:shadow-[0_0_30px_rgba(218,252,104,0.5)] transition-all">
                     <TrendingUp className="text-empire" size={28} />
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-2">3. Tu Grandis</h3>
-                  <p className="text-neutral-400">30+ contenus publiés. Partout.</p>
+                  <h3 className="text-xl font-bold text-white mb-2">{t.story.breakthrough.step3Title}</h3>
+                  <p className="text-neutral-400">{t.story.breakthrough.step3Desc}</p>
                 </div>
               </div>
 
               <div className="text-center">
                 <p className="text-2xl md:text-3xl font-bold text-white mb-4">
-                  Simple. Scalable. Enfin durable.
+                  {t.story.breakthrough.tagline}
                 </p>
                 <p className="text-lg text-neutral-300 mb-8">
-                  Le même système qui m'a amené à 1M+ vues/mois
+                  {t.story.breakthrough.subtitle}
                 </p>
                 <a
                   href="/pricing"
                   className="inline-block px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)]"
                 >
-                  C'est comme ça que j'ai construit Empire. Tu veux l'utiliser ?
+                  {t.story.breakthrough.cta}
                 </a>
               </div>
             </div>

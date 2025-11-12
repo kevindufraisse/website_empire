@@ -6,8 +6,8 @@ import StoryResults from '@/components/sections/story/StoryResults'
 import FinalBoostCTA from '@/components/sections/FinalBoostCTA'
 
 export const metadata = {
-  title: 'Notre Histoire — Empire Internet',
-  description: 'Comment je suis passé du burnout à 1M+ de vues par mois, et pourquoi j\'ai créé Empire pour aider les créateurs à échapper au tapis roulant du contenu.'
+  title: 'Our Story — Empire Internet',
+  description: 'How I went from burnout to 1M+ views per month, and why I built Empire to help creators escape the content treadmill.'
 }
 
 export default function StoryPage() {

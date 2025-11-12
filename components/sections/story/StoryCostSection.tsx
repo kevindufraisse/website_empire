@@ -4,6 +4,7 @@ import { useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { DollarSign, Clock, TrendingDown, Users } from 'lucide-react'
 import NumberTicker from '@/components/magicui/number-ticker'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -50,17 +51,18 @@ const topCreators = [
 ]
 
 export default function StoryCostSection() {
+  const { t } = useLanguage()
+  
   return (
     <section className="container py-20 md:py-32 bg-gradient-to-b from-black to-[#0a0a0a]">
       <div className="max-w-6xl mx-auto">
         <FadeInBlock>
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-5xl font-bold mb-4">
-              Les systèmes utilisés par les{' '}
-              <span className="text-empire">meilleurs créateurs</span> du monde
+              {t.story.cost.title}
             </h2>
             <p className="text-xl text-neutral-300 max-w-3xl mx-auto mb-12">
-              Ils paient <span className="font-bold text-white">€50-100K/mois</span> pour leurs systèmes de contenu
+              {t.story.cost.subtitle}
             </p>
           </div>
         </FadeInBlock>
@@ -99,13 +101,13 @@ export default function StoryCostSection() {
                   </div>
                   <div className="flex-1">
                     <h3 className="text-2xl font-bold text-white mb-2">
-                      €<NumberTicker value={5000} />+ / mois
+                      {t.story.cost.cost1Title}
                     </h3>
                     <p className="text-neutral-300 mb-3">
-                      Rédacteurs freelance, designers, monteurs vidéo
+                      {t.story.cost.cost1Desc}
                     </p>
                     <p className="text-sm text-neutral-400 italic">
-                      "J'ai dépensé 8K€ en 3 mois... pour du contenu que personne ne regardait"
+                      {t.story.cost.cost1Quote}
                     </p>
                   </div>
                 </div>
@@ -123,13 +125,13 @@ export default function StoryCostSection() {
                   </div>
                   <div className="flex-1">
                     <h3 className="text-2xl font-bold text-white mb-2">
-                      <NumberTicker value={20} />+ heures / semaine
+                      {t.story.cost.cost2Title}
                     </h3>
                     <p className="text-neutral-300 mb-3">
-                      Rédaction, édition, publication, planification
+                      {t.story.cost.cost2Desc}
                     </p>
                     <p className="text-sm text-neutral-400 italic">
-                      "Je passais mes soirées et week-ends... pour 3 posts par semaine"
+                      {t.story.cost.cost2Quote}
                     </p>
                   </div>
                 </div>
@@ -147,13 +149,13 @@ export default function StoryCostSection() {
                   </div>
                   <div className="flex-1">
                     <h3 className="text-2xl font-bold text-white mb-2">
-                      €<NumberTicker value={50000} />+ en opportunités
+                      {t.story.cost.cost3Title}
                     </h3>
                     <p className="text-neutral-300 mb-3">
-                      Clients perdus, deals manqués, croissance stagnante
+                      {t.story.cost.cost3Desc}
                     </p>
                     <p className="text-sm text-neutral-400 italic">
-                      "Mes concurrents explosaient pendant que je stagnais à 500 followers"
+                      {t.story.cost.cost3Quote}
                     </p>
                   </div>
                 </div>
@@ -171,13 +173,13 @@ export default function StoryCostSection() {
                   </div>
                   <div className="flex-1">
                     <h3 className="text-2xl font-bold text-white mb-2">
-                      <NumberTicker value={10} />+ employés
+                      {t.story.cost.cost4Title}
                     </h3>
                     <p className="text-neutral-300 mb-3">
-                      Community managers, gestionnaires réseaux sociaux, coordinateurs
+                      {t.story.cost.cost4Desc}
                     </p>
                     <p className="text-sm text-neutral-400 italic">
-                      "J'ai embauché une équipe entière... résultat ? Chaos et incohérence"
+                      {t.story.cost.cost4Quote}
                     </p>
                   </div>
                 </div>
@@ -190,15 +192,15 @@ export default function StoryCostSection() {
         <FadeInBlock delay={0.6}>
           <div className="text-center p-8 md:p-12 rounded-2xl bg-gradient-to-br from-red-950/30 to-black border-2 border-red-500/30">
             <p className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Total : <span className="text-red-500">€100,000+</span> par an
+              {t.story.cost.totalTitle}
             </p>
             <p className="text-xl text-neutral-300 mb-6">
-              Et pourtant, la plupart restent <span className="text-red-400 font-semibold">invisibles</span>
+              {t.story.cost.totalDesc}
             </p>
             <div className="inline-block px-6 py-3 rounded-xl bg-gradient-to-r from-red-500/10 to-orange-500/10 border border-red-500/30">
               <p className="text-lg text-white">
-                Il existe un meilleur moyen. 
-                <span className="text-empire font-semibold ml-2">€1000/mois. Tout compris.</span>
+                {t.story.cost.ctaText}
+                <span className="text-empire font-semibold ml-2">{t.story.cost.ctaPrice}</span>
               </p>
             </div>
           </div>

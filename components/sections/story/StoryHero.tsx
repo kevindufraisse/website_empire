@@ -3,8 +3,11 @@ import { motion } from 'framer-motion'
 import RetroGrid from '@/components/magicui/retro-grid'
 import { Meteors } from '@/components/magicui/meteors'
 import NumberTicker from '@/components/magicui/number-ticker'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function StoryHero() {
+  const { t } = useLanguage()
+  
   return (
     <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-black via-[#0a0a0a] to-black">
       <RetroGrid />
@@ -20,7 +23,7 @@ export default function StoryHero() {
             transition={{ duration: 0.8 }}
           >
             <div className="inline-block px-4 py-2 rounded-full bg-empire/10 border border-empire/30 text-empire text-sm font-semibold mb-8">
-              L'histoire d'origine
+              {t.story.hero.badge}
             </div>
           </motion.div>
 
@@ -30,14 +33,7 @@ export default function StoryHero() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.15] mb-8"
           >
-            Du{' '}
-            <span className="bg-gradient-to-r from-red-600 via-red-500 to-orange-500 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(239,68,68,0.5)]">
-              Burnout
-            </span>
-            {' '}à{' '}
-            <span className="bg-gradient-to-r from-empire via-green-400 to-empire bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(218,252,104,0.5)]">
-              <NumberTicker value={1} />M+ Vues
-            </span>
+            {t.story.hero.title}
           </motion.h1>
 
           <motion.p
@@ -46,7 +42,7 @@ export default function StoryHero() {
             transition={{ delay: 0.4, duration: 0.8 }}
             className="text-xl md:text-2xl text-neutral-300 max-w-3xl mx-auto mb-12"
           >
-            Pourquoi j'ai créé Empire pour aider les créateurs à échapper au tapis roulant du contenu
+            {t.story.hero.subtitle}
           </motion.p>
 
           <motion.div
@@ -59,21 +55,21 @@ export default function StoryHero() {
               <p className="text-4xl md:text-5xl font-bold text-empire mb-2">
                 <NumberTicker value={700} />K+
               </p>
-              <p className="text-sm text-neutral-400">Revenu généré</p>
+              <p className="text-sm text-neutral-400">{t.story.hero.stat1}</p>
             </div>
             <div className="w-px h-12 bg-white/10" />
             <div>
               <p className="text-4xl md:text-5xl font-bold text-empire mb-2">
                 <NumberTicker value={1} />M+
               </p>
-              <p className="text-sm text-neutral-400">Vues mensuelles</p>
+              <p className="text-sm text-neutral-400">{t.story.hero.stat2}</p>
             </div>
             <div className="w-px h-12 bg-white/10" />
             <div>
               <p className="text-4xl md:text-5xl font-bold text-empire mb-2">
                 Top <NumberTicker value={50} />
               </p>
-              <p className="text-sm text-neutral-400">LinkedIn France</p>
+              <p className="text-sm text-neutral-400">{t.story.hero.stat3}</p>
             </div>
           </motion.div>
 
@@ -86,7 +82,7 @@ export default function StoryHero() {
             <div className="inline-block p-1 rounded-full bg-gradient-to-r from-empire/50 to-empire/10">
               <div className="px-6 py-3 rounded-full bg-black">
                 <p className="text-sm text-neutral-400">
-                  Scrollez pour lire le parcours ↓
+                  {t.story.hero.scrollCta}
                 </p>
               </div>
             </div>
