@@ -102,7 +102,7 @@ export default function StoryCostSection() {
                       €<NumberTicker value={5000} />+ / mois
                     </h3>
                     <p className="text-neutral-300 mb-3">
-                      Freelance writers, designers, video editors
+                      Rédacteurs freelance, designers, monteurs vidéo
                     </p>
                     <p className="text-sm text-neutral-400 italic">
                       "J'ai dépensé 8K€ en 3 mois... pour du contenu que personne ne regardait"
@@ -126,7 +126,7 @@ export default function StoryCostSection() {
                       <NumberTicker value={20} />+ heures / semaine
                     </h3>
                     <p className="text-neutral-300 mb-3">
-                      Écriture, édition, publication, planification
+                      Rédaction, édition, publication, planification
                     </p>
                     <p className="text-sm text-neutral-400 italic">
                       "Je passais mes soirées et week-ends... pour 3 posts par semaine"
@@ -174,7 +174,7 @@ export default function StoryCostSection() {
                       <NumberTicker value={10} />+ employés
                     </h3>
                     <p className="text-neutral-300 mb-3">
-                      Community managers, social media managers, coordinateurs
+                      Community managers, gestionnaires réseaux sociaux, coordinateurs
                     </p>
                     <p className="text-sm text-neutral-400 italic">
                       "J'ai embauché une équipe entière... résultat ? Chaos et incohérence"

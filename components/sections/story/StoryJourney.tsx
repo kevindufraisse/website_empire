@@ -70,7 +70,7 @@ const timeline = [
     title: 'Le Système',
     year: 'Fin 2022 - 2024',
     story: [
-      'J\'ai arrêté d\'écrire from scratch. J\'ai construit un processus.',
+      'J\'ai arrêté d\'écrire de zéro. J\'ai construit un processus.',
       'Une interview → L\'IA écrit → Les humains polissent → Le contenu explose.',
       'Au début, c\'était nul. Je balançais des prompts à ChatGPT, et je recevais de la merde.',
       'Mais je n\'ai pas lâché.',
