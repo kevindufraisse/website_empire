@@ -581,7 +581,7 @@ export const en = {
         lines: [
           'You know content could change everything for you.',
           'But it never sticks.',
-          'You tell yourself you'll start next week.',
+          'You tell yourself you\'ll start next week.',
           'Then a client project comes up.',
           'Or you freeze on what to say.',
           'So you postpone. Again. And again.',
@@ -591,8 +591,8 @@ export const en = {
         year: '2022',
         title: 'The Awakening',
         lines: [
-          'You're not lazy. You're not lost.',
-          'You're just tired of trying to build a machine… without the parts.',
+          'You\'re not lazy. You\'re not lost.',
+          'You\'re just tired of trying to build a machine… without the parts.',
           'Every time you try to post consistently, it drains your time, your energy, your brain.',
           'The calendar stays empty.',
         ],
@@ -605,7 +605,7 @@ export const en = {
           'We talked for an hour. No script. No agenda.',
           'And when I replayed it… it hit me.',
           'The guy had gold. Raw stories. Clear convictions. A real voice.',
-          'The problem isn't what people know. It's how to extract it.',
+          'The problem isn\'t what people know. It\'s how to extract it.',
         ],
       },
       system: {
@@ -615,7 +615,7 @@ export const en = {
           'I stopped writing from scratch. I built a process.',
           'One interview → AI writes → Humans polish → Content explodes.',
           'At first, it sucked. I threw prompts at ChatGPT, and got garbage.',
-          'But I didn't quit.',
+          'But I didn\'t quit.',
           'I spent months refining every word, every structure, every transition.',
           'Until it finally clicked. The content was sharp. Sounded like me — on my best day.',
           '1 million views per month. Effortlessly.',
@@ -623,7 +623,7 @@ export const en = {
       },
     },
     cost: {
-      title: 'The systems used by the world's top creators',
+      title: 'The systems used by the world\'s top creators',
       subtitle: 'They pay €50-100K/month for their content systems',
       cost1Title: '€5,000+ / month',
       cost1Desc: 'Freelance writers, designers, video editors',
@@ -652,7 +652,7 @@ export const en = {
       step3Desc: '30+ pieces of content published. Everywhere.',
       tagline: 'Simple. Scalable. Finally sustainable.',
       subtitle: 'The same system that got me to 1M+ views/month',
-      cta: 'That's how I built Empire. Want to use it?',
+      cta: 'That\'s how I built Empire. Want to use it?',
     },
     results: {
       title: 'The Results',
@@ -661,10 +661,10 @@ export const en = {
       card1Desc: 'Influencer ranking',
       card2Title: 'Media Coverage',
       card2Desc: 'Press presence',
-      finalTitle: 'This isn't luck. It's a system.',
+      finalTitle: 'This isn\'t luck. It\'s a system.',
       finalSubtitle: 'And now, I want to share it with you.',
       finalWelcome: 'Welcome to Empire Internet.',
-      finalCta: 'That's how I built Empire. Want to use it?',
+      finalCta: 'That\'s how I built Empire. Want to use it?',
     },
   },
 }
