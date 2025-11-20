@@ -1,10 +1,11 @@
 'use client'
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { X, Zap, Gift, Clock, ArrowRight } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { openLumaCalendar } from './GlobalLumaCalendar'
 
 export function ExitIntentPopup() {
+  const router = useRouter()
   const [show, setShow] = useState(false)
   const [dismissed, setDismissed] = useState(false)
   const { t } = useLanguage()
@@ -80,7 +81,8 @@ export function ExitIntentPopup() {
           {/* Main CTA */}
           <button
             onClick={() => {
-              openLumaCalendar()
+              router.push('/demo')
+              setDismissed(true)
             }}
             className="w-full p-5 rounded-xl bg-gradient-to-r from-empire to-green-400 text-black font-bold hover:scale-[1.02] transition-all text-center mb-4 shadow-[0_0_30px_rgba(218,252,104,0.4)] group"
           >

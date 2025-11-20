@@ -1,12 +1,12 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { Play, X } from 'lucide-react'
 import { VidalyticsPlayer } from '@/components/VidalyticsPlayer'
-import { openLumaCalendar } from '@/components/GlobalLumaCalendar'
 import { cn } from '@/lib/utils'
 
 interface HeroVideoDialogProps {
@@ -32,6 +32,7 @@ export function HeroVideoDialog({
   thumbnailAlt = 'Video thumbnail',
   className,
 }: HeroVideoDialogProps) {
+  const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
   const { t } = useLanguage()
   
@@ -216,7 +217,10 @@ export function HeroVideoDialog({
                     {t.videoDialog.startNow}
                   </a>
                   <button
-                    onClick={() => openLumaCalendar()}
+                    onClick={() => {
+                      router.push('/demo')
+                      setIsOpen(false)
+                    }}
                     className="py-3 px-4 rounded-lg bg-white/10 border border-white/20 text-white font-semibold hover:bg-white/20 transition-all text-center text-sm"
                   >
                     {t.videoDialog.joinQA}

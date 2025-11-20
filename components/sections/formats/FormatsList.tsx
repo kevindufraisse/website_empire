@@ -6,6 +6,7 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import Image from 'next/image'
 import { Mic, Target, FileText, MonitorPlay, Copy, Lightbulb, CheckCircle2, Sparkles } from 'lucide-react'
 import { SocialIcons } from '@/components/ui/social-icons'
+import ImprovisationGenerator from './ImprovisationGenerator'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -193,47 +194,6 @@ export default function FormatsList() {
       reverse: true,
     },
     {
-      icon: FileText,
-      badge: t.formats?.formats?.[2]?.badge || 'Notes',
-      title: t.formats?.formats?.[2]?.title || 'Format Improvisation Bulletpoint',
-      description: t.formats?.formats?.[2]?.description || 'Follow your notes, improvise the rest. Perfect for organized minds.',
-      benefits: [
-        t.formats?.formats?.[2]?.benefits?.[0] || 'Use your existing notes',
-        t.formats?.formats?.[2]?.benefits?.[1] || 'Stay on track',
-        t.formats?.formats?.[2]?.benefits?.[2] || 'Natural delivery',
-      ],
-      outputs: getOutputs('longWithVideo'),
-      extraInfo: lang === 'fr'
-        ? 'Ajoutez une vidéo virale longue, l\'IA réécrit le contenu, vous le relisez. Ou faites le vôtre.'
-        : 'Add a long viral video, AI rewrites the content, you read it. Or do your own.',
-      useCase: {
-        title: lang === 'fr' ? 'Parfait pour :' : 'Perfect for:',
-        text: t.formats?.formats?.[2]?.useCase || 'Process explanations, frameworks, step-by-step guides'
-      },
-      imageSrc: 'https://d1yei2z3i6k35z.cloudfront.net/3647172/6909dd3a34b27_3.png',
-    },
-    {
-      icon: MonitorPlay,
-      badge: t.formats?.formats?.[3]?.badge || 'Screen',
-      title: t.formats?.formats?.[3]?.title || 'Format Improvisation Screenrecording',
-      description: t.formats?.formats?.[3]?.description || 'Show and explain. Record your screen while you walk through anything.',
-      benefits: [
-        t.formats?.formats?.[3]?.benefits?.[0] || 'Visual demonstrations',
-        t.formats?.formats?.[3]?.benefits?.[1] || 'Live walk-throughs',
-        t.formats?.formats?.[3]?.benefits?.[2] || 'Software/tool explanations',
-      ],
-      outputs: getOutputs('longWithVideo'),
-      extraInfo: lang === 'fr'
-        ? 'Ajoutez une vidéo virale longue, l\'IA réécrit le contenu, vous le relisez. Ou faites le vôtre.'
-        : 'Add a long viral video, AI rewrites the content, you read it. Or do your own.',
-      useCase: {
-        title: lang === 'fr' ? 'Parfait pour :' : 'Perfect for:',
-        text: t.formats?.formats?.[3]?.useCase || 'Tutorials, software demos, case studies'
-      },
-      imageSrc: 'https://d1yei2z3i6k35z.cloudfront.net/3647172/6909dd49b76df_4.png',
-      reverse: true,
-    },
-    {
       icon: Copy,
       badge: t.formats?.formats?.[4]?.badge || 'Proven',
       title: t.formats?.formats?.[4]?.title || 'Format Copier Scripts de Reels',
@@ -279,8 +239,19 @@ export default function FormatsList() {
   return (
     <section className="container section-spacing">
       <div className="max-w-6xl mx-auto space-y-24 md:space-y-32">
-        {formats.map((format, i) => (
+        {formats.slice(0, 2).map((format, i) => (
           <FadeInBlock key={i} delay={i * 0.1}>
+            <FormatCard {...format} />
+          </FadeInBlock>
+        ))}
+        
+        {/* Improvisation Generator - Interactive Format */}
+        <FadeInBlock delay={0.2}>
+          <ImprovisationGenerator lang={lang} />
+        </FadeInBlock>
+
+        {formats.slice(2).map((format, i) => (
+          <FadeInBlock key={i + 3} delay={(i + 3) * 0.1}>
             <FormatCard {...format} />
           </FadeInBlock>
         ))}
