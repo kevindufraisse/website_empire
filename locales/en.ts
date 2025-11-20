@@ -712,6 +712,8 @@ export const en = {
       desc: 'You\'ll receive the Zoom link + calendar invite within the next few minutes',
       validateTitle: 'Important: Validate your attendance',
       validateDesc: 'Reply "here" by email to confirm your attendance. Don\'t forget to check your spam folder if you don\'t receive the email.',
+      addCalendarTitle: 'Important: Add the event to your calendar',
+      addCalendarLink: 'Click here to add to your calendar',
     },
     prepareQuestions: {
       title: 'Prepare your questions',

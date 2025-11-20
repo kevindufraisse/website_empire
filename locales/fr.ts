@@ -714,6 +714,8 @@ export const fr: Translations = {
       desc: 'Vous recevrez le lien Zoom + l\'invitation calendrier dans les prochaines minutes',
       validateTitle: 'Important : Validez votre présence',
       validateDesc: 'Répondez "here" par email pour confirmer votre présence. Pensez à vérifier vos spams si vous ne recevez pas l\'email.',
+      addCalendarTitle: 'Important : Ajoutez l\'événement à votre calendrier',
+      addCalendarLink: 'Cliquez ici pour ajouter à votre calendrier',
     },
     prepareQuestions: {
       title: 'Préparez vos questions',

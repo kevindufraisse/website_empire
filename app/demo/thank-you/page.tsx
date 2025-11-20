@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { CheckCircle2, Calendar, Share2, Users, Rocket } from 'lucide-react'
+import { CheckCircle2, Calendar, Share2, Users, Rocket, CalendarPlus } from 'lucide-react'
 import Link from 'next/link'
 import { useLanguage } from '@/contexts/LanguageContext'
 
@@ -62,9 +62,21 @@ export default function DemoThankYouPage() {
                   <p className="text-sm text-empire font-semibold mb-1">
                     {t.demoThankYou.checkEmail.validateTitle}
                   </p>
-                  <p className="text-sm text-neutral-400">
+                  <p className="text-sm text-neutral-400 mb-3">
                     {t.demoThankYou.checkEmail.validateDesc}
                   </p>
+                  <div className="mt-3 p-3 rounded-lg bg-empire/10 border border-empire/30">
+                    <p className="text-sm text-empire font-bold mb-2">{t.demoThankYou.checkEmail.addCalendarTitle}</p>
+                    <a
+                      href="https://addcal.co/c/c5mhw9u4u6a1"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-sm text-white font-semibold hover:text-empire transition-colors"
+                    >
+                      <CalendarPlus className="text-empire" size={16} />
+                      {t.demoThankYou.checkEmail.addCalendarLink}
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
