@@ -71,7 +71,7 @@ export default function DemoThankYouPage() {
                       href="https://addcal.co/c/c5mhw9u4u6a1"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-sm text-white font-semibold hover:text-empire transition-colors"
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-empire/20 hover:bg-empire/30 text-white font-semibold hover:text-empire transition-all border border-empire/50"
                     >
                       <CalendarPlus className="text-empire" size={16} />
                       {t.demoThankYou.checkEmail.addCalendarLink}

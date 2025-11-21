@@ -42,10 +42,16 @@ function getNextAvailableDates(): Date[] {
   return dates
 }
 
-// Formatage de la date en français (pour l'affichage)
-function formatDate(date: Date): string {
-  const days = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi']
-  const months = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
+// Formatage de la date selon la langue (pour l'affichage)
+function formatDate(date: Date, lang: 'fr' | 'en'): string {
+  const daysFr = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi']
+  const monthsFr = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
+  
+  const daysEn = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+  const monthsEn = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+  
+  const days = lang === 'fr' ? daysFr : daysEn
+  const months = lang === 'fr' ? monthsFr : monthsEn
   
   const dayName = days[date.getDay()]
   const day = date.getDate()
@@ -102,7 +108,7 @@ const WEBHOOK_URL = 'https://hook.eu1.make.com/nr6udbulszt4jfwtj1y1xngkzglekjwf'
 
 export default function DemoPage() {
   const router = useRouter()
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()
   const [step, setStep] = useState(1)
   const [availableDates, setAvailableDates] = useState<Date[]>([])
   
@@ -311,7 +317,7 @@ export default function DemoPage() {
                           >
                             <div className="flex items-center justify-between">
                               <div>
-                                <p className="text-white font-semibold">{formatDate(date)}</p>
+                                <p className="text-white font-semibold">{formatDate(date, lang)}</p>
                                 <p className="text-sm text-neutral-400">{t.demo.dateTime}</p>
                               </div>
                               {selectedDate?.getTime() === date.getTime() && (
