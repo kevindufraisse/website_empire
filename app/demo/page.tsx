@@ -189,7 +189,7 @@ export default function DemoPage() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          date: selectedDate?.toISOString(),
+          date: selectedDate ? formatDateYYYYMMDD(selectedDate) : null,
           dateFormatted: selectedDate ? formatDateYYYYMMDD(selectedDate) : null,
           firstName: firstName.trim(),
           lastName: lastName.trim(),
