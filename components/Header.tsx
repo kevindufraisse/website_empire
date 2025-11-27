@@ -3,8 +3,6 @@ import { useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { LanguageSwitcher } from '@/components/LanguageSwitcher'
-import { openVideoDialog } from '@/components/magicui/hero-video-dialog'
-import { openLumaCalendar } from '@/components/GlobalLumaCalendar'
 import { Menu, X } from 'lucide-react'
 
 export default function Header() {
@@ -22,7 +20,7 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-black/80 backdrop-blur-md">
-      <nav className="container mx-auto px-4 py-4">
+      <nav className="max-w-7xl mx-auto px-4 py-2.5">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <a href="/" className="flex items-center gap-2 group">
@@ -57,19 +55,19 @@ export default function Header() {
             ))}
               <div className="flex items-center gap-3">
                 <LanguageSwitcher />
-                <div className="hidden lg:block text-xs text-empire font-semibold px-2 py-1 rounded bg-empire/10 border border-empire/30">
-                  {t.header.spots}
-                </div>
-                <button
-                  onClick={openLumaCalendar}
+                <a
+                  href="/demo"
                   className="px-4 py-2.5 rounded-lg bg-white/10 border border-white/20 text-white font-semibold hover:bg-white/20 transition-all text-sm whitespace-nowrap"
                 >
                   {t.header.joinQA}
-                </button>
+                </a>
                 <a
                   href="/pricing"
-                  className="px-5 py-2.5 rounded-lg bg-empire text-black font-semibold hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.2)]"
+                  className="px-5 py-2.5 rounded-lg bg-empire text-black font-semibold hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.2)] flex items-center gap-2"
                 >
+                  <span className="hidden lg:inline text-xs text-black/70 font-semibold px-2 py-0.5 rounded bg-black/10">
+                    {t.header.spots}
+                  </span>
                   {t.header.getAccess}
                 </a>
               </div>
@@ -104,24 +102,20 @@ export default function Header() {
             <div className="mb-4">
               <LanguageSwitcher />
             </div>
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false)
-                openLumaCalendar()
-              }}
+            <a
+              href="/demo"
+              onClick={() => setMobileMenuOpen(false)}
               className="block w-full text-center px-5 py-2.5 rounded-lg bg-white/10 border border-white/20 text-white font-semibold mb-3"
             >
               {t.header.joinQA}
-            </button>
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false)
-                openVideoDialog()
-              }}
+            </a>
+            <a
+              href="/demo"
+              onClick={() => setMobileMenuOpen(false)}
               className="block w-full text-center px-5 py-2.5 rounded-lg bg-empire text-black font-semibold"
             >
               {t.header.watchDemo}
-            </button>
+            </a>
           </div>
         )}
       </nav>
