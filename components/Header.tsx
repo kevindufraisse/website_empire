@@ -1,15 +1,13 @@
 'use client'
 import { useState } from 'react'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { LanguageSwitcher } from '@/components/LanguageSwitcher'
 import { Menu, X } from 'lucide-react'
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const { t } = useLanguage()
   const pathname = usePathname()
-  const router = useRouter()
 
   const navLinks = [
     { label: t.header.product || 'Product', href: '/formats' },
@@ -54,24 +52,6 @@ export default function Header() {
                 )}
               </a>
             ))}
-              <div className="flex items-center gap-3">
-                <LanguageSwitcher />
-                <button
-                  onClick={() => router.push('/demo')}
-                  className="px-4 py-2.5 rounded-lg bg-white/10 border border-white/20 text-white font-semibold hover:bg-white/20 transition-all text-sm whitespace-nowrap cursor-pointer"
-                >
-                  {t.header.joinQA}
-                </button>
-                <a
-                  href="/pricing"
-                  className="px-5 py-2.5 rounded-lg bg-empire text-black font-semibold hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.2)] flex items-center gap-2"
-                >
-                  <span className="hidden lg:inline text-xs text-black/70 font-semibold px-2 py-0.5 rounded bg-black/10">
-                    {t.header.spots}
-                  </span>
-                  {t.header.getAccess}
-                </a>
-              </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -100,27 +80,6 @@ export default function Header() {
                 {link.label}
               </a>
             ))}
-            <div className="mb-4">
-              <LanguageSwitcher />
-            </div>
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false)
-                router.push('/demo')
-              }}
-              className="block w-full text-center px-5 py-2.5 rounded-lg bg-white/10 border border-white/20 text-white font-semibold mb-3"
-            >
-              {t.header.joinQA}
-            </button>
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false)
-                router.push('/demo')
-              }}
-              className="block w-full text-center px-5 py-2.5 rounded-lg bg-empire text-black font-semibold"
-            >
-              {t.header.watchDemo}
-            </button>
           </div>
         )}
       </nav>
