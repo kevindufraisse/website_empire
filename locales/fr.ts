@@ -126,6 +126,7 @@ export const fr: Translations = {
     spots: '83/100 places',
     watchDemo: 'Voir la Démo',
     getAccess: 'Obtenir l\'Accès',
+    joinQA: 'Rejoindre Q&A (Mar/Jeu 13h)',
     formats: 'Formats',
     product: 'Produit',
     howItWorks: 'Comment Ça Marche',

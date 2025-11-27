@@ -3,6 +3,7 @@ export const en = {
     spots: '83/100 spots',
     watchDemo: 'Watch Demo',
     getAccess: 'Get Access',
+    joinQA: 'Join Q&A (Tue/Thu 1PM)',
     formats: 'Formats',
     product: 'Product',
     howItWorks: 'How It Works',

@@ -3,6 +3,7 @@
 import { useLanguage } from '@/contexts/LanguageContext'
 import { HeroVideoDialog } from '@/components/magicui/hero-video-dialog'
 import { ExitIntentPopup } from '@/components/ExitIntentPopup'
+import { GlobalLumaCalendar } from '@/components/GlobalLumaCalendar'
 
 export default function ClientWrappers() {
   const { t } = useLanguage()
@@ -18,6 +19,9 @@ export default function ClientWrappers() {
 
       {/* Exit Intent Popup */}
       <ExitIntentPopup />
+
+      {/* Global Luma Calendar */}
+      <GlobalLumaCalendar />
     </>
   )
 }
