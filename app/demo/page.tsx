@@ -194,7 +194,7 @@ export default function DemoPage() {
           firstName: firstName.trim(),
           lastName: lastName.trim(),
           email: email.trim(),
-          phone: `${phoneCountryCode} ${phoneNumber.trim()}`,
+          phone: `${phoneCountryCode.replace('+', '')}${phoneNumber.trim()}`,
           ca: ca,
           questions: questions.trim() || null,
         }),
