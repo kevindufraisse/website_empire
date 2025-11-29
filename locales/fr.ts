@@ -667,7 +667,7 @@ export const fr: Translations = {
     },
     {
       question: 'Puis-je être accompagné sur ma stratégie de personal branding ?',
-      answer: 'Oui. Nous proposons un coaching personal branding optionnel avec des experts qui ont accompagné les meilleurs créateurs FR et US. Disponible en supplément après souscription. Prix de lancement : 1000€/mois pendant 1 mois, puis 1500€/mois.',
+      answer: 'Oui. Nous proposons un coaching personal branding optionnel avec des experts qui ont accompagné les meilleurs créateurs FR et US. Disponible en supplément après souscription. Prix de lancement : 1000€/mois.',
     },
   ],
   demo: {

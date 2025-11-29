@@ -544,7 +544,7 @@ export const en = {
     },
     {
       question: 'Can I get help with my personal branding strategy?',
-      answer: 'Yes. We offer optional personal branding coaching with experts who have worked with top-tier creators in France and the US. Available as an add-on after subscription. Launch price: €1000/month for 1 month, then €1500/month.',
+      answer: 'Yes. We offer optional personal branding coaching with experts who have worked with top-tier creators in France and the US. Available as an add-on after subscription. Launch price: €1000/month.',
     },
   ],
   exitPopup: {

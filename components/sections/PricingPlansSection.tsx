@@ -37,6 +37,8 @@ const pricingPlans = [
     badge: null,
     savings: LAUNCH_OFFER_ACTIVE ? `Save €${PRICING.savingsWeekly} (launch)` : null,
     savingsFr: LAUNCH_OFFER_ACTIVE ? `Économisez €${PRICING.savingsWeekly} (lancement)` : null,
+    note: 'Content generated week after week. Review each week and upgrade to monthly/quarterly/yearly plans to create content for longer periods.',
+    noteFr: 'Contenu généré semaine après semaine. Regardez le rendu chaque semaine et passez à un plan mensuel/trimestriel/annuel pour créer des contenus sur plusieurs semaines.',
     link: 'https://www.join.empire-internet.com/semaine-empire',
   },
   {
@@ -52,6 +54,8 @@ const pricingPlans = [
     badge: null,
     savings: LAUNCH_OFFER_ACTIVE ? `Save €${PRICING.savingsMonthly} (launch)` : null,
     savingsFr: LAUNCH_OFFER_ACTIVE ? `Économisez €${PRICING.savingsMonthly} (lancement)` : null,
+    note: 'All content created for the month. If you cancel, all content will be deleted from Empire.',
+    noteFr: 'Tous les contenus sont créés pour le mois. Si vous annulez votre abonnement, tous les contenus seront supprimés d\'Empire.',
     link: 'https://www.join.empire-internet.com/mois-empire',
   },
   {
@@ -69,6 +73,8 @@ const pricingPlans = [
     badgeFr: '70% CHOISISSENT',
     savings: `Save €${PRICING.savingsQuarterly} (launch)`,
     savingsFr: `Économisez €${PRICING.savingsQuarterly} (lancement)`,
+    note: 'All content created for the quarter. If you cancel, all content will be deleted from Empire.',
+    noteFr: 'Tous les contenus sont créés pour le trimestre. Si vous annulez votre abonnement, tous les contenus seront supprimés d\'Empire.',
     popular: true,
     link: 'https://www.join.empire-internet.com/trimestre-empire',
   },
@@ -87,6 +93,8 @@ const pricingPlans = [
     badgeFr: 'MEILLEURE VALEUR',
     savings: `Save €${PRICING.savingsYearly} (launch)`,
     savingsFr: `Économisez €${PRICING.savingsYearly} (lancement)`,
+    note: 'RECOMMENDED: All content created for the entire year. Best value and content security.',
+    noteFr: 'RECOMMANDÉ : Tous les contenus sont créés pour toute l\'année. Meilleure valeur et sécurité des contenus.',
     link: 'https://www.join.empire-internet.com/an-empire',
   },
 ]
@@ -187,6 +195,14 @@ export default function PricingPlansSection() {
                           {lang === 'fr' ? plan.savingsFr : plan.savings}
                         </p>
                       </div>
+                    </div>
+                  )}
+
+                  {plan.note && (
+                    <div className="mb-4 p-3 rounded-lg bg-white/5 border border-white/10">
+                      <p className="text-xs text-neutral-400 leading-relaxed">
+                        {lang === 'fr' ? plan.noteFr : plan.note}
+                      </p>
                     </div>
                   )}
 

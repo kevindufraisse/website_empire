@@ -67,13 +67,13 @@ export default function LaunchUrgencySection() {
                   </h4>
                   <p className="text-sm text-neutral-400 mb-3">
                     {lang === 'fr' 
-                      ? `${PRICING.monthly}€/mois pendant 1 mois`
-                      : `€${PRICING.monthly}/month for 1 month`}
+                      ? `${PRICING.monthly}€/mois`
+                      : `€${PRICING.monthly}/month`}
                   </p>
                   <p className="text-xs text-neutral-500">
                     {lang === 'fr' 
-                      ? `Puis retour à ${PRICING.monthlyNormal}€/mois`
-                      : `Then back to €${PRICING.monthlyNormal}/month`}
+                      ? 'Prix garanti à vie'
+                      : 'Price locked for life'}
                   </p>
                 </div>
 
@@ -95,23 +95,23 @@ export default function LaunchUrgencySection() {
                   </p>
                 </div>
 
-                {/* 3. Price Increase */}
+                {/* 3. Limited Time */}
                 <div className="flex flex-col items-center text-center p-6 rounded-xl bg-white/5 border border-white/10">
                   <div className="w-14 h-14 rounded-full bg-gradient-to-br from-red-500/30 to-red-500/10 border-2 border-red-500 flex items-center justify-center mb-4">
                     <TrendingUp className="text-red-400" size={24} />
                   </div>
                   <h4 className="text-lg font-bold text-white mb-2">
-                    {lang === 'fr' ? 'Prix va augmenter' : 'Price Will Increase'}
+                    {lang === 'fr' ? 'Offre limitée' : 'Limited Time Offer'}
                   </h4>
                   <p className="text-sm text-neutral-400 mb-3">
                     {lang === 'fr' 
-                      ? `${PRICING.monthly}€ → ${PRICING.monthlyNormal}€/mois`
-                      : `€${PRICING.monthly} → €${PRICING.monthlyNormal}/month`}
+                      ? 'Prix de lancement'
+                      : 'Launch pricing'}
                   </p>
                   <p className="text-xs text-neutral-500">
                     {lang === 'fr' 
-                      ? 'Après le 1er mois'
-                      : 'After the 1st month'}
+                      ? 'Disponible maintenant uniquement'
+                      : 'Available now only'}
                   </p>
                 </div>
               </div>
