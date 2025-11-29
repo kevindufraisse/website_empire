@@ -253,9 +253,25 @@ export default function PricingPlansSection() {
           ))}
         </div>
 
+        {/* Flexible Start Date */}
+        <FadeInBlock delay={0.4}>
+          <div className="mt-12 p-6 rounded-xl bg-gradient-to-br from-empire/10 to-empire/5 border border-empire/30 text-center">
+            <p className="text-base md:text-lg text-white font-semibold mb-2">
+              {lang === 'fr' 
+                ? 'Pas prêt maintenant ?'
+                : 'Not ready now?'}
+            </p>
+            <p className="text-sm md:text-base text-neutral-300">
+              {lang === 'fr' 
+                ? 'Réservez votre place maintenant et commencez dans 40j ou 70j. Votre prix de lancement est garanti.'
+                : 'Reserve your spot now and start in 40 or 70 days. Your launch price is guaranteed.'}
+            </p>
+          </div>
+        </FadeInBlock>
+
         {/* Bottom Note */}
         <FadeInBlock delay={0.5}>
-          <div className="mt-12 text-center">
+          <div className="mt-8 text-center">
             <p className="text-sm text-neutral-400">
               {lang === 'fr' 
                 ? '✓ Premier contenu en 24-48h · ✓ 15 min/semaine de votre temps · ✓ Aucun contrat long terme'
