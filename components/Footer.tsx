@@ -21,8 +21,18 @@ export default function Footer() {
             </p>
             <div className="flex items-center gap-2 text-sm text-neutral-500">
               <Mail size={16} />
-              <a href="mailto:contact@empire-internet.com" className="hover:text-empire transition-colors">
-                contact@empire-internet.com
+              <a href="mailto:kevin@empire-internet.com" className="hover:text-empire transition-colors">
+                kevin@empire-internet.com
+              </a>
+            </div>
+            <div className="mt-4">
+              <a 
+                href="https://www.skool.com/tes-7483" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-sm text-neutral-500 hover:text-empire transition-colors"
+              >
+                {t.footer.community || 'Rejoignez la communauté gratuite →'}
               </a>
             </div>
           </div>

@@ -313,6 +313,7 @@ export const fr: Translations = {
     about: 'À Propos',
     ourStory: 'Notre Histoire',
     spotsRemaining: 'places restantes (Limité à 100 clients)',
+    community: 'Rejoignez la communauté gratuite →',
   },
   videoDialog: {
     readyToJoin: 'Prêt à rejoindre ?',

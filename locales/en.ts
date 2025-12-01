@@ -190,6 +190,7 @@ export const en = {
     about: 'About',
     ourStory: 'Our Story',
     spotsRemaining: 'spots remaining (Limited to 100 clients)',
+    community: 'Join the free community →',
   },
   videoDialog: {
     readyToJoin: 'Ready to join?',
