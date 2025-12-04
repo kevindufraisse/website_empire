@@ -17,7 +17,7 @@ export default function ThankYouPage() {
           </h1>
           
           <p className="text-xl text-neutral-300 mb-6">
-            Your spot for the live demo is reserved
+            Your meeting is booked
           </p>
 
           {/* Social Proof */}
@@ -77,7 +77,7 @@ export default function ThankYouPage() {
           </div>
 
           <p className="text-sm text-neutral-500 mt-8">
-            See you at the live demo! 👋
+            See you at the meeting! 👋
           </p>
         </div>
       </div>

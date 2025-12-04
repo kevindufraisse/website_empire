@@ -6,6 +6,7 @@ import Header from '@/components/Header'
 import HiringBanner from '@/components/HiringBanner'
 import Footer from '@/components/Footer'
 import ClientWrappers from '@/components/ClientWrappers'
+import CalFloatingButton from '@/components/CalFloatingButton'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -45,6 +46,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <LanguageProvider>
           <Header />
           <HiringBanner />
+          <CalFloatingButton />
           <ClientWrappers />
           <div>
             {children}

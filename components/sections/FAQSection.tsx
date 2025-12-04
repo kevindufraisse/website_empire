@@ -86,7 +86,7 @@ const getFAQs = (t: any, variant: string = 'all') => {
 const getFAQsOld = (t: any) => t.faqItems || [
   {
     question: 'How do I get started?',
-    answer: 'Two ways: 1) Join our live Q&A session (Tuesday 1PM or Thursday 1PM CET) to see everything and ask questions, OR 2) Go directly to our order page and choose your plan. Either way, your first content is ready within 24 hours of your interview.',
+    answer: 'Two ways: 1) Book a one-to-one meeting to discover everything, OR 2) Go directly to our order page and choose your plan. Either way, your first content is ready within 24 hours of your interview.',
   },
   {
     question: 'How much time do I need to invest?',

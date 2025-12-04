@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Masquer le bouton flottant Cal.com sur mobile */
+@media (max-width: 768px) {
+  button[data-cal-link*="empire-request"],
+  a[data-cal-link*="empire-request"],
+  [data-cal-namespace="empire-request-fr"],
+  [data-cal-namespace="empire-request"],
+  iframe[src*="cal.com"][src*="empire-request"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+  }
+}
+
 :root {
   --bg: #000;
   --fg: #f5f5f5;

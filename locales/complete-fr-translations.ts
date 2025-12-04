@@ -89,7 +89,7 @@ export const frComplete = {
   faqItems: [
     {
       question: 'Comment je commence ?',
-      answer: 'Deux façons : 1) Rejoignez notre session Q&A live (Mardi 13h ou Jeudi 13h CET) pour tout voir et poser vos questions, OU 2) Allez directement sur notre page de commande et choisissez votre plan. Dans tous les cas, votre premier contenu est prêt 24h après votre interview.',
+      answer: 'Deux façons : 1) Réservez un rendez-vous one-to-one pour tout découvrir, OU 2) Allez directement sur notre page de commande et choisissez votre plan. Dans tous les cas, votre premier contenu est prêt 24h après votre interview.',
     },
     {
       question: 'Combien de temps dois-je investir ?',
