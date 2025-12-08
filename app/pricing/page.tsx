@@ -7,6 +7,7 @@ import FAQSection from '@/components/sections/FAQSection'
 import TestimonialsSection from '@/components/sections/TestimonialsSection'
 import PricingPageHero from '@/components/sections/PricingPageHero'
 import LaunchUrgencySection from '@/components/sections/LaunchUrgencySection'
+import RolesReplacedSection from '@/components/sections/RolesReplacedSection'
 
 export const metadata = {
   title: 'Pricing — Empire Internet',
@@ -24,6 +25,9 @@ export default function PricingPage() {
 
       {/* Price Comparison Table - Agency vs In-house vs Empire */}
       <PriceComparisonSection />
+
+      {/* Roles Replaced - NEW */}
+      <RolesReplacedSection />
 
       {/* Pricing Plans - Weekly/Monthly/Quarterly/Yearly */}
       <PricingPlansSection />
@@ -45,4 +49,3 @@ export default function PricingPage() {
     </main>
   )
 }
-
