@@ -378,7 +378,7 @@ export const en = {
     hero: {
       badge: '6 Ways to Create',
       title: 'Choose Your Recording Format:',
-      titleHighlight: 'Interview, Bulletpoints, Screen Recording, or AI Scripts',
+      titleHighlight: 'Interview, Bulletpoints, Screen Recording, AI Scripts, or Word-for-Word Scripting',
       subtitle: 'You choose how you want to record. We transform it into 30+ pieces of content across all platforms. No scripts needed. No stress.',
     },
     formats: [
@@ -447,6 +447,17 @@ export const en = {
           'Fast turnaround',
         ],
         useCase: 'Trending content, viral formats, quick content creation',
+      },
+      {
+        badge: 'Scripting',
+        title: 'Word-for-Word Script Format',
+        description: 'We provide you with a word-for-word script. You read it. We transform it into content everywhere.',
+        benefits: [
+          'Script written for you',
+          'Simple and natural reading',
+          'Guaranteed optimized content',
+        ],
+        useCase: 'Structured content, key messages, high-impact content',
       },
     ],
     api: {

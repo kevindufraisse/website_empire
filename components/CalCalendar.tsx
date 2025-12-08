@@ -71,9 +71,8 @@ export default function CalCalendar() {
   }, [lang])
 
   return (
-    <div className="w-full min-h-[600px] rounded-xl overflow-hidden bg-white/5 border border-white/10 p-4">
+    <div className="w-full min-h-[600px]" style={{ maxWidth: '100%' }}>
       <div ref={containerRef} className="w-full min-h-[600px]" />
     </div>
   )
 }
-

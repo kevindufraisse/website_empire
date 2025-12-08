@@ -501,7 +501,7 @@ export const fr: Translations = {
     hero: {
       badge: '6 Façons de Créer',
       title: 'Choisissez Votre Format :',
-      titleHighlight: 'Interview, Points Clés, Screen Recording, ou Scripts IA',
+      titleHighlight: 'Interview, Points Clés, Screen Recording, Scripts IA ou Scriptage Mot pour Mot',
       subtitle: 'Vous choisissez comment enregistrer. On transforme en 132 contenus/mois partout. Pas de scripts. Pas de stress.',
     },
     formats: [
@@ -570,6 +570,17 @@ export const fr: Translations = {
           'Livraison rapide',
         ],
         useCase: 'Contenu tendance, formats viraux, création rapide',
+      },
+      {
+        badge: 'Scriptage',
+        title: 'Format Scriptage Mot pour Mot',
+        description: 'On vous fournit un script mot pour mot. Vous le lisez. On transforme en contenu partout.',
+        benefits: [
+          'Script écrit pour vous',
+          'Lecture simple et naturelle',
+          'Contenu optimisé garanti',
+        ],
+        useCase: 'Contenu structuré, messages clés, contenu à fort impact',
       },
     ],
     api: {

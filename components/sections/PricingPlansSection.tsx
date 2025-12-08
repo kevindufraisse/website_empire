@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { Crown, Check } from 'lucide-react'
+import { Crown, Check, Video, Users, Sparkles } from 'lucide-react'
 import BorderBeam from '@/components/magicui/border-beam'
 import { PRICING, LAUNCH_OFFER_ACTIVE } from '@/lib/pricing-config'
 
@@ -111,7 +111,7 @@ export default function PricingPlansSection() {
             {LAUNCH_OFFER_ACTIVE && (
               <div className="inline-block mb-4 px-4 py-2 rounded-full bg-empire/10 border border-empire/30">
                 <p className="text-sm font-bold text-empire">
-                  🔥 {lang === 'fr' ? `Prix de lancement : -${PRICING.monthlyNormal - PRICING.monthly}€/mois` : `Launch Pricing: Save €${PRICING.monthlyNormal - PRICING.monthly}/month`}
+                  {lang === 'fr' ? `Prix de lancement : -${PRICING.monthlyNormal - PRICING.monthly}€/mois` : `Launch Pricing: Save €${PRICING.monthlyNormal - PRICING.monthly}/month`}
                 </p>
               </div>
             )}
@@ -123,6 +123,83 @@ export default function PricingPlansSection() {
                 ? 'Payez à la semaine, au mois, au trimestre ou à l\'année. Annulez quand vous voulez.'
                 : 'Pay weekly, monthly, quarterly, or yearly. Cancel anytime.'}
             </p>
+          </div>
+        </FadeInBlock>
+
+        {/* Launch Bonus Banner - Compact & Clear */}
+        <FadeInBlock delay={0.2}>
+          <div className="mb-12 relative p-1 rounded-xl bg-gradient-to-r from-empire/30 via-empire/20 to-empire/30">
+            <div className="bg-black rounded-lg p-6 md:p-8 relative overflow-hidden">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-empire/5 blur-2xl pointer-events-none" />
+              
+              <div className="relative z-10">
+                {/* Header - Compact */}
+                <div className="text-center mb-6">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-empire/20 border border-empire/30 text-empire text-xs font-bold mb-4">
+                    <Sparkles size={14} />
+                    {lang === 'fr' ? 'BONUS OFFERT' : 'BONUS FREE'}
+                  </div>
+                  
+                  <h3 className="text-2xl md:text-3xl font-black text-white mb-2">
+                    {lang === 'fr' 
+                      ? '4H de Live Masterclass OFFERTES' 
+                      : '4H Live Masterclass FREE'}
+                  </h3>
+                  
+                  <p className="text-base text-neutral-300 max-w-2xl mx-auto">
+                    {lang === 'fr' 
+                      ? 'Pour apprendre : 1 mois d\'Académie Empire offert (valeur 2000€). Live avec Kevin chaque semaine devant +100K abonnés.' 
+                      : 'To learn: 1 month Empire Academy free (€2000 value). Live with Kevin every week in front of +100K followers.'}
+                  </p>
+                </div>
+
+                {/* Timeline - Visual & Clear */}
+                <div className="relative">
+                  <div className="hidden md:block absolute top-6 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-empire/50 to-transparent" />
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="relative flex flex-col items-center text-center">
+                      <div className="w-14 h-14 rounded-full bg-gradient-to-br from-empire to-empire/60 border-4 border-black shadow-[0_0_20px_rgba(218,252,104,0.3)] flex items-center justify-center mb-3 relative z-10">
+                        <span className="text-black font-black text-xl">1</span>
+                      </div>
+                      <p className="text-white font-bold text-sm mb-1">
+                        {lang === 'fr' ? 'Vous réservez' : 'You reserve'}
+                      </p>
+                      <p className="text-xs text-neutral-400">
+                        {lang === 'fr' ? 'Choisissez votre plan' : 'Choose your plan'}
+                      </p>
+                    </div>
+                    
+                    <div className="relative flex flex-col items-center text-center">
+                      <div className="w-14 h-14 rounded-full bg-gradient-to-br from-empire to-empire/60 border-4 border-black shadow-[0_0_20px_rgba(218,252,104,0.3)] flex items-center justify-center mb-3 relative z-10">
+                        <Video className="text-black" size={20} />
+                      </div>
+                      <p className="text-white font-bold text-sm mb-1">
+                        {lang === 'fr' ? '4H live offertes' : '4H live free'}
+                      </p>
+                      <p className="text-xs text-neutral-400">
+                        {lang === 'fr' ? 'Chaque semaine avec Kevin' : 'Every week with Kevin'}
+                      </p>
+                      <p className="text-xs text-empire mt-1 font-semibold">
+                        {lang === 'fr' ? 'Mode Acteur • +100K abonnés' : 'Actor Mode • +100K followers'}
+                      </p>
+                    </div>
+                    
+                    <div className="relative flex flex-col items-center text-center">
+                      <div className="w-14 h-14 rounded-full bg-gradient-to-br from-empire to-empire/60 border-4 border-black shadow-[0_0_20px_rgba(218,252,104,0.3)] flex items-center justify-center mb-3 relative z-10">
+                        <span className="text-black font-black text-xl">3</span>
+                      </div>
+                      <p className="text-white font-bold text-sm mb-1">
+                        {lang === 'fr' ? 'Vous décidez' : 'You decide'}
+                      </p>
+                      <p className="text-xs text-neutral-400">
+                        {lang === 'fr' ? 'Continuer (+500€/mois) OU garder juste la machine' : 'Continue (+€500/mo) OR keep just the machine'}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </FadeInBlock>
 
@@ -226,11 +303,25 @@ export default function PricingPlansSection() {
                       </div>
                       <div className="flex items-center gap-2">
                         <Check className="text-empire flex-shrink-0" size={16} />
-                        <span className="text-neutral-300">{lang === 'fr' ? 'Coaching personal branding' : 'Personal branding coaching'} <span className="text-neutral-500 text-xs">({lang === 'fr' ? 'optionnel' : 'optional'})</span></span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Check className="text-empire flex-shrink-0" size={16} />
                         <span className="text-neutral-300">{lang === 'fr' ? 'Annulation flexible' : 'Cancel anytime'}</span>
+                      </div>
+                      
+                      {/* Bonus included - More visible */}
+                      <div className="pt-3 mt-3 border-t-2 border-empire/30">
+                        <div className="p-2 rounded-lg bg-empire/10 border border-empire/20">
+                          <div className="flex items-center gap-2 mb-1">
+                            <Sparkles className="text-empire flex-shrink-0" size={14} />
+                            <span className="text-empire font-bold text-xs">
+                              {lang === 'fr' ? 'BONUS INCLUS' : 'BONUS INCLUDED'}
+                            </span>
+                          </div>
+                          <p className="text-white font-semibold text-xs">
+                            {lang === 'fr' ? '1 mois d\'Académie offert' : '1 month Academy free'}
+                          </p>
+                          <p className="text-xs text-neutral-400 mt-0.5">
+                            {lang === 'fr' ? '4H live avec Kevin' : '4H live with Kevin'}
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -283,4 +374,3 @@ export default function PricingPlansSection() {
     </section>
   )
 }
-

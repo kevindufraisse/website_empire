@@ -234,6 +234,26 @@ export default function FormatsList() {
       imageSrc: 'https://d1yei2z3i6k35z.cloudfront.net/3647172/6909dd68e1cdd_6.png',
       reverse: true,
     },
+    {
+      icon: FileText,
+      badge: t.formats?.formats?.[6]?.badge || 'Scripting',
+      title: t.formats?.formats?.[6]?.title || 'Format Scriptage Mot pour Mot',
+      description: t.formats?.formats?.[6]?.description || 'We provide you with a word-for-word script. You read it. We transform it into content everywhere.',
+      benefits: [
+        t.formats?.formats?.[6]?.benefits?.[0] || 'Script written for you',
+        t.formats?.formats?.[6]?.benefits?.[1] || 'Simple and natural reading',
+        t.formats?.formats?.[6]?.benefits?.[2] || 'Guaranteed optimized content',
+      ],
+      outputs: getOutputs('long'),
+      extraInfo: lang === 'fr'
+        ? 'On vous envoie un script mot pour mot optimisé. Vous le lisez naturellement. On transforme en 132 contenus/mois.'
+        : 'We send you an optimized word-for-word script. You read it naturally. We transform it into 132 pieces/month.',
+      useCase: {
+        title: lang === 'fr' ? 'Parfait pour :' : 'Perfect for:',
+        text: t.formats?.formats?.[6]?.useCase || 'Structured content, key messages, high-impact content'
+      },
+      imageSrc: 'https://d1yei2z3i6k35z.cloudfront.net/3647172/6909dd5b662e5_5.png',
+    },
   ]
 
   return (
