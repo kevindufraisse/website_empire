@@ -22,12 +22,12 @@ export function InlineCTA({
     return (
       <div className="text-center py-8">
         <p className="text-xl font-bold text-white mb-4">{title}</p>
-        <button
-          onClick={() => openVideoDialog()}
+        <a
+          href="/demo"
           className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-empire/10 border border-empire/30 text-empire font-bold hover:bg-empire/20 hover:gap-3 transition-all"
         >
           {primaryText} <ArrowRight size={18} />
-        </button>
+        </a>
       </div>
     )
   }
