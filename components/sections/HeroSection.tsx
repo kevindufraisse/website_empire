@@ -6,7 +6,7 @@ import RetroGrid from '@/components/magicui/retro-grid'
 import { Meteors } from '@/components/magicui/meteors'
 import { StarRating } from '@/components/ui/star-rating'
 import { RainbowButton } from '@/components/magicui/rainbow-button'
-import { HeroVideoDialog, openVideoDialog } from '@/components/magicui/hero-video-dialog'
+import { HeroVideoDialog } from '@/components/magicui/hero-video-dialog'
 import { CheckCircle2 } from 'lucide-react'
 import { PRICING } from '@/lib/pricing-config'
 
@@ -108,19 +108,13 @@ export default function HeroSection() {
             transition={{ delay: 0.4, duration: 0.6 }}
             className="mt-8 flex flex-col items-center justify-center gap-4"
           >
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <div className="flex items-center justify-center">
               <a
-                href="/pricing"
+                href="/demo"
                 className="px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)]"
               >
                 {t.hero.cta1}
               </a>
-              <button
-                onClick={() => openVideoDialog()}
-                className="px-8 py-4 border-2 border-empire/50 text-white font-semibold rounded-xl hover:border-empire hover:bg-empire/10 transition-all"
-              >
-                {t.hero.cta2}
-              </button>
             </div>
           </motion.div>
             

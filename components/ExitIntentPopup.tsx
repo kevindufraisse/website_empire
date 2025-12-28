@@ -93,16 +93,7 @@ export function ExitIntentPopup() {
             <p className="text-sm opacity-80 mt-1">{t.exitPopup.ctaSchedule}</p>
           </button>
 
-          {/* Secondary link */}
-          <a
-            href="/order"
-            className="block text-center text-sm text-neutral-400 hover:text-empire transition-colors mb-6"
-            onClick={() => setDismissed(true)}
-          >
-            {t.exitPopup.ctaSecondary} →
-          </a>
-
-          <div className="flex items-center justify-center gap-2 text-xs text-neutral-500">
+          <div className="flex items-center justify-center gap-2 text-xs text-neutral-500 mt-6">
             <Clock size={12} />
             <span>{t.exitPopup.footer}</span>
           </div>

@@ -76,7 +76,7 @@ export default function StoryBreakthrough() {
                   {t.story.breakthrough.subtitle}
                 </p>
                 <a
-                  href="/pricing"
+                  href="/demo"
                   className="inline-block px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)]"
                 >
                   {t.story.breakthrough.cta}

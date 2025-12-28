@@ -204,28 +204,20 @@ export function HeroVideoDialog({
                 <VidalyticsPlayer />
               </div>
 
-              {/* CTAs below video */}
+              {/* CTA below video */}
               <div className="mt-3 p-3 sm:p-4 rounded-xl bg-gradient-to-br from-empire/20 to-empire/5 border border-empire/30">
                 <p className="text-white font-semibold mb-3 text-center text-sm sm:text-base">
                   {t.videoDialog.readyToJoin}
                 </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
-                  <a
-                    href="/pricing"
-                    className="py-3 px-4 rounded-lg bg-empire text-black font-bold hover:scale-105 transition-all text-center text-sm"
-                  >
-                    {t.videoDialog.startNow}
-                  </a>
-                  <button
-                    onClick={() => {
-                      router.push('/demo')
-                      setIsOpen(false)
-                    }}
-                    className="py-3 px-4 rounded-lg bg-white/10 border border-white/20 text-white font-semibold hover:bg-white/20 transition-all text-center text-sm"
-                  >
-                    {t.videoDialog.joinQA}
-                  </button>
-                </div>
+                <button
+                  onClick={() => {
+                    router.push('/demo')
+                    setIsOpen(false)
+                  }}
+                  className="w-full py-3 px-4 rounded-lg bg-empire text-black font-bold hover:scale-105 transition-all text-center text-sm"
+                >
+                  {t.videoDialog.joinQA}
+                </button>
               </div>
             </motion.div>
           </div>

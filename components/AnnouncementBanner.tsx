@@ -26,10 +26,10 @@ export default function AnnouncementBanner() {
               : `Save €${savings}/month on all plans`}
           </span>
           <a 
-            href="/pricing"
+            href="/demo"
             className="px-2 py-0.5 bg-black text-empire font-bold rounded hover:scale-105 transition-all whitespace-nowrap ml-1"
           >
-            {lang === 'fr' ? "J'en profite" : 'Get Offer'} →
+            {lang === 'fr' ? "Réserver une démo" : 'Book a demo'} →
           </a>
           
           <button

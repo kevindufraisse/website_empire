@@ -3,8 +3,7 @@ import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { openVideoDialog } from '@/components/magicui/hero-video-dialog'
-import { Zap, Calendar } from 'lucide-react'
+import { Zap } from 'lucide-react'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -46,24 +45,12 @@ export default function FinalBoostCTA() {
                   {t.finalCTA.subtitle}
                 </p>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <a
-                    href="/pricing"
-                    className="px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)] text-center"
-                  >
-                    {t.finalCTA.startNow}
-                  </a>
-                  <button
-                    onClick={() => openVideoDialog()}
-                    className="px-8 py-4 border-2 border-empire/50 text-white font-semibold rounded-xl hover:border-empire hover:bg-empire/10 transition-all text-center"
-                  >
-                    {t.finalCTA.watchDemo}
-                  </button>
-                </div>
-
-                <p className="text-sm text-neutral-400">
-                  {t.finalCTA.details}
-                </p>
+                <a
+                  href="/demo"
+                  className="w-full px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)] text-center"
+                >
+                  {t.finalCTA.watchDemo}
+                </a>
               </div>
             </div>
           </FadeInBlock>

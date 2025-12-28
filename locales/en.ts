@@ -1,9 +1,9 @@
 export const en = {
   header: {
     spots: '83/100 spots',
-    watchDemo: 'Book a meeting',
+    watchDemo: 'Book a demo',
     getAccess: 'Get Access',
-    joinQA: 'Book a meeting',
+    joinQA: 'Book a demo',
     formats: 'Formats',
     product: 'Product',
     howItWorks: 'How It Works',
@@ -16,7 +16,7 @@ export const en = {
     title: 'From Invisible to <span class="text-empire">Omnipresent</span> in the next 24 Hours.',
     subtitle: 'Speak once a week for 15 minutes. Get a month of posts, reels, newsletters & videos — live on every platform.',
     description: 'Limited to 100 clients',
-    cta1: 'Get Your First 30 Posts',
+    cta1: 'Book a demo',
     cta2: 'Watch Demo (20 min)',
     rating: 'Based on 20 reviews',
     creatorsTitle: 'The systems used by the world\'s top creators',
@@ -138,7 +138,7 @@ export const en = {
     limited: 'LIMITED TO 100 CLIENTS',
     title: 'Ready to Join?',
     subtitle: 'Choose your path below',
-    startNow: 'Start Now (83 spots left this month)',
+    startNow: 'Book a demo',
     watchDemo: 'Book a meeting',
     details: 'Pay weekly (€300) · Cancel anytime · Start immediately',
     seeContentPlan: 'See Your Content Plan',
@@ -195,7 +195,7 @@ export const en = {
   },
   videoDialog: {
     readyToJoin: 'Ready to join?',
-    startNow: 'Get Your First 30 Posts',
+    startNow: 'Book a demo',
     joinQA: 'Book a meeting',
   },
   stickyBar: {

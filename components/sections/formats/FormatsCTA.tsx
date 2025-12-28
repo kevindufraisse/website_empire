@@ -3,7 +3,6 @@ import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { openVideoDialog } from '@/components/magicui/hero-video-dialog'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -39,19 +38,13 @@ export default function FormatsCTA() {
               {t.formats?.cta?.subtitle || 'No matter how you create, Empire transforms it into 30+ pieces of content per week.'}
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+            <div className="flex items-center justify-center pt-4">
               <a
-                href="/pricing"
+                href="/demo"
                 className="px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)] text-center"
               >
-                {t.finalCTA.startNow}
-              </a>
-              <button
-                onClick={() => openVideoDialog()}
-                className="px-8 py-4 border-2 border-empire/50 text-white font-semibold rounded-xl hover:border-empire hover:bg-empire/10 transition-all text-center"
-              >
                 {t.finalCTA.watchDemo}
-              </button>
+              </a>
             </div>
           </div>
         </FadeInBlock>

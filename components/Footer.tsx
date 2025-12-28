@@ -7,16 +7,16 @@ export default function Footer() {
   return (
     <footer className="relative w-full border-t border-white/10 bg-black">
       <div className="container py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
           {/* Brand */}
-          <div>
+          <div className="flex flex-col items-center md:items-start">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-empire to-empire/50 flex items-center justify-center font-bold text-black text-sm">
                 E
               </div>
               <span className="text-lg font-bold text-white">Empire Internet</span>
             </div>
-            <p className="text-sm text-neutral-500 mb-4">
+            <p className="text-sm text-neutral-500 mb-4 text-center md:text-left">
               {t.footer.tagline}
             </p>
             <div className="flex items-center gap-2 text-sm text-neutral-500">
@@ -25,35 +25,15 @@ export default function Footer() {
                 kevin@empire-internet.com
               </a>
             </div>
-            <div className="mt-4">
-              <a 
-                href="https://www.skool.com/tes-7483" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-sm text-neutral-500 hover:text-empire transition-colors"
-              >
-                {t.footer.community || 'Rejoignez la communauté gratuite →'}
-              </a>
-            </div>
           </div>
 
-          {/* Product */}
-          <div>
-            <h4 className="font-semibold text-white mb-4">{t.footer.product || 'Product'}</h4>
-            <ul className="space-y-2 text-sm text-neutral-500">
-              <li><a href="/formats" className="hover:text-empire transition-colors">{t.header.product || 'Product'}</a></li>
-              <li><a href="/how-it-works" className="hover:text-empire transition-colors">{t.header.howItWorks}</a></li>
-              <li><a href="/pricing" className="hover:text-empire transition-colors">{t.header.pricing}</a></li>
-            </ul>
-          </div>
-
-          {/* About */}
-          <div>
-            <h4 className="font-semibold text-white mb-4">{t.footer.about || 'About'}</h4>
-            <ul className="space-y-2 text-sm text-neutral-500">
-              <li><a href="/story" className="hover:text-empire transition-colors">{t.footer.ourStory || 'Our Story'}</a></li>
-            </ul>
-          </div>
+          {/* CTA */}
+          <a
+            href="/demo"
+            className="px-6 py-3 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)]"
+          >
+            {t.finalCTA.watchDemo}
+          </a>
         </div>
 
         {/* Bottom */}

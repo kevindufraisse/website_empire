@@ -180,10 +180,10 @@ export default function RolesReplacedSection() {
         <FadeInBlock delay={0.5}>
           <div className="mt-12 text-center">
             <a
-              href="/pricing"
+              href="/demo"
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-empire text-black font-bold text-lg hover:scale-105 transition-transform shadow-[0_0_30px_rgba(218,252,104,0.3)]"
             >
-              {lang === 'fr' ? 'Voir les tarifs' : 'See pricing'}
+              {lang === 'fr' ? 'Réserver une démo' : 'Book a demo'}
               <span>→</span>
             </a>
           </div>

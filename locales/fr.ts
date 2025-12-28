@@ -139,7 +139,7 @@ export const fr: Translations = {
     title: 'De <span class="text-empire">Invisible</span> à <span class="text-empire">Omniprésent</span> dans les prochaines 24h.',
     subtitle: 'Parlez 15 min/semaine. Un mois de posts, reels, newsletters et vidéos — publiés partout.',
     description: 'Limité à 100 clients',
-    cta1: 'Vos 30 Premiers Posts',
+    cta1: 'Réserver une démo',
     cta2: 'Voir la Démo (20 min)',
     rating: 'Basé sur 20 avis',
     creatorsTitle: 'Les systèmes utilisés par les meilleurs créateurs mondiaux',
@@ -261,7 +261,7 @@ export const fr: Translations = {
     limited: 'LIMITÉ À 100 CLIENTS',
     title: 'Prêt à Rejoindre ?',
     subtitle: 'Choisissez votre voie',
-    startNow: 'Commencer (83 places ce mois-ci)',
+    startNow: 'Réserver une démo',
     watchDemo: 'Réserver un rendez-vous',
     details: 'Paiement hebdo (€300) · Annulez quand vous voulez · Démarrage immédiat',
     seeContentPlan: 'Voir Votre Plan de Contenu',
@@ -318,7 +318,7 @@ export const fr: Translations = {
   },
   videoDialog: {
     readyToJoin: 'Prêt à rejoindre ?',
-    startNow: 'Vos 30 Premiers Posts',
+    startNow: 'Réserver une démo',
     joinQA: 'Réserver un rendez-vous',
   },
   stickyBar: {

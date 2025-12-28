@@ -1,7 +1,5 @@
 'use client'
 import { ArrowRight, Calendar } from 'lucide-react'
-import { RainbowButton } from '@/components/magicui/rainbow-button'
-import { openVideoDialog } from '@/components/magicui/hero-video-dialog'
 
 interface InlineCTAProps {
   title: string
@@ -43,20 +41,12 @@ export function InlineCTA({
         </div>
         <p className="text-xl font-bold text-white mb-2">{title}</p>
         {description && <p className="text-neutral-300 mb-4">{description}</p>}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <a
-            href="/pricing"
-            className="px-6 py-3 bg-empire text-black font-bold rounded-lg hover:scale-105 transition-all"
-          >
-            {primaryText}
-          </a>
-          <button
-            onClick={() => openVideoDialog()}
-            className="px-6 py-3 border-2 border-empire/30 text-white font-semibold rounded-lg hover:bg-empire/10 transition-all"
-          >
-            {secondaryText || 'Watch Demo'}
-          </button>
-        </div>
+        <a
+          href="/demo"
+          className="px-6 py-3 bg-empire text-black font-bold rounded-lg hover:scale-105 transition-all"
+        >
+          {primaryText}
+        </a>
       </div>
     )
   }
@@ -65,20 +55,12 @@ export function InlineCTA({
     <div className="p-6 md:p-8 rounded-xl bg-gradient-to-br from-empire/10 to-transparent border border-empire/30 text-center">
       <p className="text-xl md:text-2xl font-bold text-white mb-3">{title}</p>
       {description && <p className="text-neutral-300 mb-6">{description}</p>}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-md mx-auto">
-        <a
-          href="/pricing"
-          className="px-6 py-3 bg-empire text-black font-bold rounded-lg hover:scale-105 transition-all"
-        >
-          {primaryText}
-        </a>
-        <button
-          onClick={() => openVideoDialog()}
-          className="px-6 py-3 border-2 border-empire/30 text-white font-semibold rounded-lg hover:bg-empire/10 transition-all"
-        >
-          {secondaryText || 'Watch Demo'}
-        </button>
-      </div>
+      <a
+        href="/demo"
+        className="px-6 py-3 bg-empire text-black font-bold rounded-lg hover:scale-105 transition-all"
+      >
+        {primaryText}
+      </a>
     </div>
   )
 }

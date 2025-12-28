@@ -114,7 +114,7 @@ export default function StoryResults() {
                   {t.story.results.finalWelcome}
                 </p>
                 <a
-                  href="/pricing"
+                  href="/demo"
                   className="inline-block px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(218,252,104,0.5)] hover:shadow-[0_0_40px_rgba(218,252,104,0.7)]"
                 >
                   {t.story.results.finalCta}
