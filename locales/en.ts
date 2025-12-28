@@ -505,7 +505,7 @@ export const en = {
   faqItems: [
     {
       question: 'How do I get started?',
-      answer: 'Two ways: 1) Book a one-to-one meeting to discover everything, OR 2) Go directly to our order page and choose your plan. Either way, your first content is ready within 24 hours of your interview.',
+      answer: 'Book a one-to-one meeting to discover everything and choose the plan that fits you best. Your first content is ready within 24 hours of your interview.',
     },
     {
       question: 'How much time do I need to invest?',

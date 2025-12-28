@@ -628,7 +628,7 @@ export const fr: Translations = {
   faqItems: [
     {
       question: 'Comment je commence ?',
-      answer: 'Deux façons : 1) Réservez un rendez-vous one-to-one pour tout découvrir, OU 2) Allez sur la page de commande et choisissez votre plan. Votre premier contenu est prêt 24h après votre interview.',
+      answer: 'Réservez un rendez-vous one-to-one pour tout découvrir et choisir le plan qui vous convient. Votre premier contenu est prêt 24h après votre interview.',
     },
     {
       question: 'Combien de temps dois-je investir ?',
