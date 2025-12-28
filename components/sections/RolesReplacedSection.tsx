@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { Check, X } from 'lucide-react'
+import { Check } from 'lucide-react'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -64,83 +64,6 @@ export default function RolesReplacedSection() {
             </p>
           </div>
         </FadeInBlock>
-
-        {/* Comparaison Before/After */}
-        <div className="grid md:grid-cols-2 gap-8 mb-12">
-          {/* Sans Empire */}
-          <FadeInBlock delay={0.2}>
-            <div className="relative p-8 rounded-2xl bg-gradient-to-br from-red-500/10 to-red-500/5 border border-red-500/30">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center">
-                  <X className="text-red-400" size={20} />
-                </div>
-                <h3 className="text-xl font-bold text-white">
-                  {lang === 'fr' ? 'Sans Empire' : 'Without Empire'}
-                </h3>
-              </div>
-              <div className="space-y-3">
-                <div className="flex items-center justify-between p-3 rounded-lg bg-white/5">
-                  <span className="text-neutral-300 text-sm">
-                    {lang === 'fr' ? '15+ employés à gérer' : '15+ employees to manage'}
-                  </span>
-                  <span className="text-red-400 font-bold">~€180K/an</span>
-                </div>
-                <div className="flex items-center justify-between p-3 rounded-lg bg-white/5">
-                  <span className="text-neutral-300 text-sm">
-                    {lang === 'fr' ? 'Recrutement & formation' : 'Recruitment & training'}
-                  </span>
-                  <span className="text-red-400 font-bold">
-                    {lang === 'fr' ? '6+ mois' : '6+ months'}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between p-3 rounded-lg bg-white/5">
-                  <span className="text-neutral-300 text-sm">
-                    {lang === 'fr' ? 'Coordination complexe' : 'Complex coordination'}
-                  </span>
-                  <span className="text-red-400 font-bold">
-                    {lang === 'fr' ? 'Épuisant' : 'Exhausting'}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </FadeInBlock>
-
-          {/* Avec Empire */}
-          <FadeInBlock delay={0.3}>
-            <div className="relative p-8 rounded-2xl bg-gradient-to-br from-empire/20 to-empire/5 border-2 border-empire shadow-[0_0_30px_rgba(218,252,104,0.2)]">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-full bg-empire/30 flex items-center justify-center">
-                  <Check className="text-empire" size={20} />
-                </div>
-                <h3 className="text-xl font-bold text-white">
-                  {lang === 'fr' ? 'Avec Empire' : 'With Empire'}
-                </h3>
-              </div>
-              <div className="space-y-3">
-                <div className="flex items-center justify-between p-3 rounded-lg bg-white/5">
-                  <span className="text-neutral-300 text-sm">
-                    {lang === 'fr' ? 'Tout en un' : 'All-in-one'}
-                  </span>
-                  <span className="text-empire font-bold">€1000/mois</span>
-                </div>
-                <div className="flex items-center justify-between p-3 rounded-lg bg-white/5">
-                  <span className="text-neutral-300 text-sm">
-                    {lang === 'fr' ? 'Contenu en' : 'Content in'}
-                  </span>
-                  <span className="text-empire font-bold">24-48h</span>
-                </div>
-                <div className="flex items-center justify-between p-3 rounded-lg bg-white/5">
-                  <span className="text-neutral-300 text-sm">
-                    {lang === 'fr' ? 'Zéro gestion' : 'Zero management'}
-                  </span>
-                  <span className="text-empire font-bold">
-                    {lang === 'fr' ? 'Automatique' : 'Automatic'}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </FadeInBlock>
-        </div>
 
         {/* Liste des rôles */}
         <FadeInBlock delay={0.4}>
