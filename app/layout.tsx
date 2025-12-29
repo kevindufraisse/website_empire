@@ -5,7 +5,7 @@ import { LanguageProvider } from '@/contexts/LanguageContext'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import ClientWrappers from '@/components/ClientWrappers'
-import CalFloatingButton from '@/components/CalFloatingButton'
+import CalStickyBar from '@/components/CalStickyBar'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -44,8 +44,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         {/* End Google Tag Manager (noscript) */}
         <LanguageProvider>
           <Header />
-          <CalFloatingButton />
           <ClientWrappers />
+          <CalStickyBar />
           <div>
             {children}
           </div>
