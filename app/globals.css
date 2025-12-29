@@ -138,6 +138,17 @@ body {
 /* Responsive utilities */
 @media (max-width: 768px) {
   .container {
+    padding: 1.25rem;
+  }
+  
+  /* Full-width buttons on mobile */
+  .mobile-full-width {
+    width: 100%;
+  }
+}
+
+@media (max-width: 380px) {
+  .container {
     padding: 1rem;
   }
 }

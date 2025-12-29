@@ -108,10 +108,10 @@ export default function HeroSection() {
             transition={{ delay: 0.4, duration: 0.6 }}
             className="mt-8 flex flex-col items-center justify-center gap-4"
           >
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center w-full px-4 sm:px-0">
               <a
                 href="/demo"
-                className="px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)]"
+                className="w-full sm:w-auto px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)] text-center"
               >
                 {t.hero.cta1}
               </a>
@@ -153,69 +153,69 @@ export default function HeroSection() {
               <p className="text-xs text-red-400 font-semibold mb-4">
                 {t.hero?.creatorsCost || 'They pay €50-100K/month for their content systems'}
               </p>
-              <div className="flex flex-wrap items-center justify-center gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 max-w-3xl mx-auto">
                 {/* Grant Cardone */}
-                <div className="flex flex-col items-center gap-2 px-4 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
+                <div className="flex flex-col items-center gap-2 px-3 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
                   <img 
                     src="https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4295dabe20aff6b9885_Cardone.webp"
                     alt="Grant Cardone"
-                    className="w-12 h-12 rounded-full object-cover"
+                    className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover"
                   />
                   <div className="text-center">
-                    <p className="text-xs font-bold text-white group-hover:text-empire transition-colors">Grant Cardone</p>
-                    <p className="text-[10px] text-neutral-500">~€100K/mo</p>
+                    <p className="text-[11px] md:text-xs font-bold text-white group-hover:text-empire transition-colors">Grant Cardone</p>
+                    <p className="text-[9px] md:text-[10px] text-neutral-500">~€100K/mo</p>
                   </div>
                 </div>
 
                 {/* Alex Hormozi */}
-                <div className="flex flex-col items-center gap-2 px-4 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
+                <div className="flex flex-col items-center gap-2 px-3 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
                   <img 
                     src="https://yt3.googleusercontent.com/29XFUn3pc3cC81yUUCFiyCKKdgi856IGMJ4EZBnf53zTfrWWUGvmYnYGx86K08f4XR03UxpWyw=s900-c-k-c0x00ffffff-no-rj"
                     alt="Alex Hormozi"
-                    className="w-12 h-12 rounded-full object-cover"
+                    className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover"
                   />
                   <div className="text-center">
-                    <p className="text-xs font-bold text-white group-hover:text-empire transition-colors">Alex Hormozi</p>
-                    <p className="text-[10px] text-neutral-500">~€80K/mo</p>
+                    <p className="text-[11px] md:text-xs font-bold text-white group-hover:text-empire transition-colors">Alex Hormozi</p>
+                    <p className="text-[9px] md:text-[10px] text-neutral-500">~€80K/mo</p>
                   </div>
                 </div>
 
                 {/* Ali Abdaal */}
-                <div className="flex flex-col items-center gap-2 px-4 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
+                <div className="flex flex-col items-center gap-2 px-3 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
                   <img 
                     src="https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4d436f96370e8ccb7c4_Abdaal.webp"
                     alt="Ali Abdaal"
-                    className="w-12 h-12 rounded-full object-cover"
+                    className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover"
                   />
                   <div className="text-center">
-                    <p className="text-xs font-bold text-white group-hover:text-empire transition-colors">Ali Abdaal</p>
-                    <p className="text-[10px] text-neutral-500">~€75K/mo</p>
+                    <p className="text-[11px] md:text-xs font-bold text-white group-hover:text-empire transition-colors">Ali Abdaal</p>
+                    <p className="text-[9px] md:text-[10px] text-neutral-500">~€75K/mo</p>
                   </div>
                 </div>
 
                 {/* Matt Gray */}
-                <div className="flex flex-col items-center gap-2 px-4 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
+                <div className="flex flex-col items-center gap-2 px-3 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
                   <img 
                     src="https://yt3.googleusercontent.com/W_GKaSoEuny3REkdSVW-AD6wcB_z5Ltr3hY_Mos94yDKlFLupVnJ6Gf8w1YfjEGps2nr62fB=s160-c-k-c0x00ffffff-no-rj"
                     alt="Matt Gray"
-                    className="w-12 h-12 rounded-full object-cover"
+                    className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover"
                   />
                   <div className="text-center">
-                    <p className="text-xs font-bold text-white group-hover:text-empire transition-colors">Matt Gray</p>
-                    <p className="text-[10px] text-neutral-500">~€60K/mo</p>
+                    <p className="text-[11px] md:text-xs font-bold text-white group-hover:text-empire transition-colors">Matt Gray</p>
+                    <p className="text-[9px] md:text-[10px] text-neutral-500">~€60K/mo</p>
                   </div>
                 </div>
 
-                {/* Chris Williamson */}
-                <div className="flex flex-col items-center gap-2 px-4 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
+                {/* Chris Williamson - Hidden on smallest screens, visible from sm */}
+                <div className="flex flex-col items-center gap-2 px-3 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group col-span-2 sm:col-span-1">
                   <img 
                     src="https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4d4f950bcf495c7dfb2_Williamson.webp"
                     alt="Chris Williamson"
-                    className="w-12 h-12 rounded-full object-cover"
+                    className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover"
                   />
                   <div className="text-center">
-                    <p className="text-xs font-bold text-white group-hover:text-empire transition-colors">Chris Williamson</p>
-                    <p className="text-[10px] text-neutral-500">~€70K/mo</p>
+                    <p className="text-[11px] md:text-xs font-bold text-white group-hover:text-empire transition-colors">Chris Williamson</p>
+                    <p className="text-[9px] md:text-[10px] text-neutral-500">~€70K/mo</p>
                   </div>
                 </div>
               </div>
