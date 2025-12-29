@@ -5,7 +5,7 @@ import { LanguageProvider } from '@/contexts/LanguageContext'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import ClientWrappers from '@/components/ClientWrappers'
-import CommunityStickyBar from '@/components/CommunityStickyBar'
+import CalStickyBar from '@/components/CalStickyBar'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -45,7 +45,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <LanguageProvider>
           <Header />
           <ClientWrappers />
-          <CommunityStickyBar />
+          <CalStickyBar />
           <div>
             {children}
           </div>
