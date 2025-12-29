@@ -5,7 +5,7 @@ import { Mail } from 'lucide-react'
 export default function Footer() {
   const { t } = useLanguage()
   return (
-    <footer className="relative w-full border-t border-white/10 bg-black">
+    <footer className="relative w-full border-t border-white/10 bg-black pb-[env(safe-area-inset-bottom)]">
       <div className="container py-8 md:py-12">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8 mb-6 md:mb-8">
           {/* Brand */}

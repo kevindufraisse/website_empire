@@ -156,11 +156,14 @@ export default function HeroSection() {
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 max-w-3xl mx-auto">
                 {/* Grant Cardone */}
                 <div className="flex flex-col items-center gap-2 px-3 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
-                  <img 
-                    src="https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4295dabe20aff6b9885_Cardone.webp"
-                    alt="Grant Cardone"
-                    className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover"
-                  />
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-neutral-800 overflow-hidden">
+                    <img 
+                      src="https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4295dabe20aff6b9885_Cardone.webp"
+                      alt="Grant Cardone"
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
                   <div className="text-center">
                     <p className="text-[11px] md:text-xs font-bold text-white group-hover:text-empire transition-colors">Grant Cardone</p>
                     <p className="text-[9px] md:text-[10px] text-neutral-500">~€100K/mo</p>
@@ -169,11 +172,14 @@ export default function HeroSection() {
 
                 {/* Alex Hormozi */}
                 <div className="flex flex-col items-center gap-2 px-3 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
-                  <img 
-                    src="https://yt3.googleusercontent.com/29XFUn3pc3cC81yUUCFiyCKKdgi856IGMJ4EZBnf53zTfrWWUGvmYnYGx86K08f4XR03UxpWyw=s900-c-k-c0x00ffffff-no-rj"
-                    alt="Alex Hormozi"
-                    className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover"
-                  />
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-neutral-800 overflow-hidden">
+                    <img 
+                      src="https://yt3.googleusercontent.com/29XFUn3pc3cC81yUUCFiyCKKdgi856IGMJ4EZBnf53zTfrWWUGvmYnYGx86K08f4XR03UxpWyw=s900-c-k-c0x00ffffff-no-rj"
+                      alt="Alex Hormozi"
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
                   <div className="text-center">
                     <p className="text-[11px] md:text-xs font-bold text-white group-hover:text-empire transition-colors">Alex Hormozi</p>
                     <p className="text-[9px] md:text-[10px] text-neutral-500">~€80K/mo</p>
@@ -182,11 +188,14 @@ export default function HeroSection() {
 
                 {/* Ali Abdaal */}
                 <div className="flex flex-col items-center gap-2 px-3 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
-                  <img 
-                    src="https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4d436f96370e8ccb7c4_Abdaal.webp"
-                    alt="Ali Abdaal"
-                    className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover"
-                  />
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-neutral-800 overflow-hidden">
+                    <img 
+                      src="https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4d436f96370e8ccb7c4_Abdaal.webp"
+                      alt="Ali Abdaal"
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
                   <div className="text-center">
                     <p className="text-[11px] md:text-xs font-bold text-white group-hover:text-empire transition-colors">Ali Abdaal</p>
                     <p className="text-[9px] md:text-[10px] text-neutral-500">~€75K/mo</p>
@@ -195,11 +204,14 @@ export default function HeroSection() {
 
                 {/* Matt Gray */}
                 <div className="flex flex-col items-center gap-2 px-3 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
-                  <img 
-                    src="https://yt3.googleusercontent.com/W_GKaSoEuny3REkdSVW-AD6wcB_z5Ltr3hY_Mos94yDKlFLupVnJ6Gf8w1YfjEGps2nr62fB=s160-c-k-c0x00ffffff-no-rj"
-                    alt="Matt Gray"
-                    className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover"
-                  />
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-neutral-800 overflow-hidden">
+                    <img 
+                      src="https://yt3.googleusercontent.com/W_GKaSoEuny3REkdSVW-AD6wcB_z5Ltr3hY_Mos94yDKlFLupVnJ6Gf8w1YfjEGps2nr62fB=s160-c-k-c0x00ffffff-no-rj"
+                      alt="Matt Gray"
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
                   <div className="text-center">
                     <p className="text-[11px] md:text-xs font-bold text-white group-hover:text-empire transition-colors">Matt Gray</p>
                     <p className="text-[9px] md:text-[10px] text-neutral-500">~€60K/mo</p>
@@ -208,11 +220,14 @@ export default function HeroSection() {
 
                 {/* Chris Williamson - Hidden on smallest screens, visible from sm */}
                 <div className="flex flex-col items-center gap-2 px-3 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group col-span-2 sm:col-span-1">
-                  <img 
-                    src="https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4d4f950bcf495c7dfb2_Williamson.webp"
-                    alt="Chris Williamson"
-                    className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover"
-                  />
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-neutral-800 overflow-hidden">
+                    <img 
+                      src="https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4d4f950bcf495c7dfb2_Williamson.webp"
+                      alt="Chris Williamson"
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
                   <div className="text-center">
                     <p className="text-[11px] md:text-xs font-bold text-white group-hover:text-empire transition-colors">Chris Williamson</p>
                     <p className="text-[9px] md:text-[10px] text-neutral-500">~€70K/mo</p>

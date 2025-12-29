@@ -75,7 +75,7 @@ export default function HowItWorksAccordion() {
           {/* Content breakdown */}
           <div>
             <p className="text-sm text-neutral-400 mb-4">{t.howItWorks.step2.perInterview}</p>
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2 md:gap-3">
               {contentTypes.map((type, i) => {
                 const IconComponent = type.icon
                 return (
@@ -195,45 +195,45 @@ export default function HowItWorksAccordion() {
                   {/* Header */}
                   <button
                     onClick={() => setOpenStep(isOpen ? null : step.number)}
-                    className="w-full p-6 flex items-center justify-between text-left group"
+                    className="w-full p-4 md:p-6 flex items-center justify-between text-left group min-h-[44px]"
                   >
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-3 md:gap-4">
                       <div
                         className={cn(
-                          'flex items-center justify-center rounded-full transition-all',
+                          'flex items-center justify-center rounded-full transition-all flex-shrink-0',
                           isOpen
-                            ? 'w-14 h-14 bg-empire/20 border-2 border-empire'
-                            : 'w-12 h-12 bg-white/5 border border-white/10 group-hover:border-empire/30'
+                            ? 'w-11 h-11 md:w-14 md:h-14 bg-empire/20 border-2 border-empire'
+                            : 'w-10 h-10 md:w-12 md:h-12 bg-white/5 border border-white/10 group-hover:border-empire/30'
                         )}
                       >
-                        <Icon className={isOpen ? 'text-empire' : 'text-neutral-400'} size={24} />
+                        <Icon className={isOpen ? 'text-empire' : 'text-neutral-400'} size={20} />
                       </div>
-                      <div>
-                        <div className="flex items-center gap-2 mb-1">
+                      <div className="min-w-0">
+                        <div className="flex flex-wrap items-center gap-1.5 md:gap-2 mb-1">
                           <span
                             className={cn(
-                              'text-xs font-bold px-2 py-0.5 rounded-full',
+                              'text-[10px] md:text-xs font-bold px-2 py-0.5 rounded-full',
                               isOpen ? 'bg-empire text-black' : 'bg-white/10 text-neutral-500'
                             )}
                           >
                             {t.howItWorks.stepLabel} {step.number}
                           </span>
                           {step.number === 2 && (
-                            <span className="text-xs bg-empire/20 text-empire px-2 py-0.5 rounded-full font-semibold">
+                            <span className="text-[10px] md:text-xs bg-empire/20 text-empire px-2 py-0.5 rounded-full font-semibold">
                               ⭐ Human QA
                             </span>
                           )}
                         </div>
-                        <h3 className="text-xl md:text-2xl font-bold text-white">{step.title}</h3>
-                        <p className="text-sm text-neutral-400 mt-1">{step.summary}</p>
+                        <h3 className="text-base md:text-2xl font-bold text-white leading-tight">{step.title}</h3>
+                        <p className="text-xs md:text-sm text-neutral-400 mt-0.5 md:mt-1 line-clamp-2">{step.summary}</p>
                       </div>
                     </div>
                     <ChevronDown
                       className={cn(
-                        'text-neutral-400 transition-transform duration-300',
+                        'text-neutral-400 transition-transform duration-300 flex-shrink-0 ml-2',
                         isOpen ? 'rotate-180 text-empire' : ''
                       )}
-                      size={24}
+                      size={20}
                     />
                   </button>
 
@@ -247,8 +247,8 @@ export default function HowItWorksAccordion() {
                     transition={{ duration: 0.3, ease: 'easeInOut' }}
                     className="overflow-hidden"
                   >
-                    <div className="px-6 pb-6 border-t border-white/10">
-                      <div className="pt-6">{step.details}</div>
+                    <div className="px-4 md:px-6 pb-4 md:pb-6 border-t border-white/10">
+                      <div className="pt-4 md:pt-6">{step.details}</div>
                     </div>
                   </motion.div>
                 </div>

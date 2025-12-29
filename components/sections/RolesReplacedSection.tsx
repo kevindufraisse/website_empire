@@ -67,30 +67,30 @@ export default function RolesReplacedSection() {
 
         {/* Liste des rôles */}
         <FadeInBlock delay={0.4}>
-          <div className="p-8 md:p-10 rounded-2xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10">
-            <h3 className="text-2xl font-bold text-white mb-6 text-center">
+          <div className="p-5 md:p-10 rounded-xl md:rounded-2xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10">
+            <h3 className="text-xl md:text-2xl font-bold text-white mb-4 md:mb-6 text-center">
               {lang === 'fr' ? 'Tous ces rôles inclus' : 'All these roles included'}
             </h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 md:gap-4">
               {roles.map((role, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, scale: 0.9 }}
                   whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.3, delay: i * 0.05 }}
+                  transition={{ duration: 0.3, delay: i * 0.03 }}
                   viewport={{ once: true }}
-                  className="flex items-center gap-2 p-3 rounded-lg bg-white/5 border border-white/10 hover:border-empire/30 transition-colors"
+                  className="flex items-center gap-1.5 md:gap-2 p-2 md:p-3 rounded-lg bg-white/5 border border-white/10 hover:border-empire/30 transition-colors"
                 >
-                  <Check className="text-empire flex-shrink-0" size={16} />
-                  <span className="text-neutral-300 text-sm font-medium">
+                  <Check className="text-empire flex-shrink-0" size={14} />
+                  <span className="text-neutral-300 text-xs md:text-sm font-medium leading-tight">
                     {lang === 'fr' ? role.fr : role.en}
                   </span>
                 </motion.div>
               ))}
             </div>
             
-            <div className="mt-8 text-center">
-              <p className="text-neutral-400 text-sm">
+            <div className="mt-5 md:mt-8 text-center">
+              <p className="text-neutral-400 text-xs md:text-sm">
                 {lang === 'fr'
                   ? '+ tous les outils et logiciels nécessaires'
                   : '+ all necessary tools and software'}
@@ -101,10 +101,10 @@ export default function RolesReplacedSection() {
 
         {/* CTA */}
         <FadeInBlock delay={0.5}>
-          <div className="mt-12 text-center">
+          <div className="mt-8 md:mt-12 text-center px-4 md:px-0">
             <a
               href="/demo"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-empire text-black font-bold text-lg hover:scale-105 transition-transform shadow-[0_0_30px_rgba(218,252,104,0.3)]"
+              className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-4 rounded-xl bg-empire text-black font-bold text-base md:text-lg hover:scale-105 transition-transform shadow-[0_0_30px_rgba(218,252,104,0.3)]"
             >
               {lang === 'fr' ? 'Réserver une démo' : 'Book a demo'}
               <span>→</span>

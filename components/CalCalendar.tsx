@@ -79,18 +79,46 @@ export default function CalCalendar() {
   }, [lang])
 
   return (
-    <div className="w-full min-h-[600px] relative" style={{ maxWidth: '100%' }}>
+    <div className="w-full min-h-[500px] md:min-h-[600px] relative" style={{ maxWidth: '100%' }}>
       {isLoading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-xl">
-          <div className="flex flex-col items-center gap-4">
-            <div className="w-12 h-12 border-4 border-empire/30 border-t-empire rounded-full animate-spin" />
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-neutral-900/80 rounded-xl backdrop-blur-sm z-10">
+          {/* Skeleton calendar */}
+          <div className="w-full max-w-md px-6 mb-6">
+            {/* Header skeleton */}
+            <div className="flex items-center justify-between mb-4">
+              <div className="h-6 w-32 bg-white/10 rounded animate-pulse" />
+              <div className="flex gap-2">
+                <div className="h-8 w-8 bg-white/10 rounded animate-pulse" />
+                <div className="h-8 w-8 bg-white/10 rounded animate-pulse" />
+              </div>
+            </div>
+            {/* Days skeleton */}
+            <div className="grid grid-cols-7 gap-2 mb-2">
+              {[...Array(7)].map((_, i) => (
+                <div key={i} className="h-4 bg-white/5 rounded animate-pulse" />
+              ))}
+            </div>
+            {/* Calendar grid skeleton */}
+            <div className="grid grid-cols-7 gap-2">
+              {[...Array(35)].map((_, i) => (
+                <div 
+                  key={i} 
+                  className="h-10 bg-white/5 rounded animate-pulse"
+                  style={{ animationDelay: `${i * 20}ms` }}
+                />
+              ))}
+            </div>
+          </div>
+          {/* Loading text */}
+          <div className="flex items-center gap-3">
+            <div className="w-5 h-5 border-2 border-empire/30 border-t-empire rounded-full animate-spin" />
             <p className="text-neutral-400 text-sm">
               {lang === 'fr' ? 'Chargement du calendrier...' : 'Loading calendar...'}
             </p>
           </div>
         </div>
       )}
-      <div ref={containerRef} className="w-full min-h-[600px]" />
+      <div ref={containerRef} className="w-full min-h-[500px] md:min-h-[600px]" />
     </div>
   )
 }
