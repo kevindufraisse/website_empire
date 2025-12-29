@@ -37,9 +37,8 @@ export default function StoryResults() {
         layout: "month_view",
         theme: "dark",
         cssVarsPerTheme: {
-          dark: {
-            "cal-brand": "#dafc68"
-          }
+          light: { "cal-brand": "#dafc68" },
+          dark: { "cal-brand": "#dafc68" }
         }
       })
     })()
