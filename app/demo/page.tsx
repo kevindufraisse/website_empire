@@ -9,18 +9,18 @@ export default function DemoPage() {
   const { t } = useLanguage()
 
   return (
-    <main className="relative min-h-screen bg-gradient-to-b from-black via-[#0f0f0f] to-black pt-24 md:pt-32">
+    <main className="relative min-h-screen bg-gradient-to-b from-black via-[#0f0f0f] to-black pt-20 md:pt-32">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgba(218,252,104,0.1),transparent)]" />
       
       {/* Header */}
-      <div className="max-w-3xl mx-auto px-4 py-12 md:py-20 relative z-10 text-center">
+      <div className="max-w-3xl mx-auto px-4 py-8 md:py-20 relative z-10 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <div className="flex items-center justify-center gap-4 mb-6">
-            <div className="relative w-20 h-20 rounded-full overflow-hidden border-2 border-empire/30">
+          <div className="flex items-center justify-center gap-4 mb-4 md:mb-6">
+            <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-empire/30">
               <Image
                 src="https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=2,background=white,quality=75,width=400,height=400/event-covers/ze/cc3ea0bd-f389-48b2-af3e-87f8dacdc687.png"
                 alt="Kevin Dufraisse"
@@ -29,12 +29,12 @@ export default function DemoPage() {
               />
             </div>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 md:mb-4">
             {t.demo.title}
             <br />
             <span className="text-empire">{t.demo.titleWith}</span>
           </h1>
-          <p className="text-lg text-neutral-300">
+          <p className="text-base md:text-lg text-neutral-300">
             {t.demo.subtitle}
           </p>
         </motion.div>

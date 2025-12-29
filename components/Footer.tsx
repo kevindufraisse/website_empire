@@ -6,17 +6,17 @@ export default function Footer() {
   const { t } = useLanguage()
   return (
     <footer className="relative w-full border-t border-white/10 bg-black">
-      <div className="container py-12">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
+      <div className="container py-8 md:py-12">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8 mb-6 md:mb-8">
           {/* Brand */}
-          <div className="flex flex-col items-center md:items-start">
-            <div className="flex items-center gap-2 mb-4">
+          <div className="flex flex-col items-center md:items-start w-full md:w-auto">
+            <div className="flex items-center gap-2 mb-3 md:mb-4">
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-empire to-empire/50 flex items-center justify-center font-bold text-black text-sm">
                 E
               </div>
               <span className="text-lg font-bold text-white">Empire Internet</span>
             </div>
-            <p className="text-sm text-neutral-500 mb-4 text-center md:text-left">
+            <p className="text-sm text-neutral-500 mb-3 md:mb-4 text-center md:text-left">
               {t.footer.tagline}
             </p>
             <div className="flex items-center gap-2 text-sm text-neutral-500">
@@ -30,7 +30,7 @@ export default function Footer() {
           {/* CTA */}
           <a
             href="/demo"
-            className="px-6 py-3 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)]"
+            className="w-full md:w-auto text-center px-6 py-3.5 min-h-[44px] bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)]"
           >
             {t.finalCTA.watchDemo}
           </a>

@@ -140,16 +140,16 @@ export default function FAQSection({ variant = 'all' }: { variant?: 'all' | 'hom
   const faqs = getFAQs(t, variant)
 
   return (
-    <section id="faq" className="relative w-full py-20 md:py-32 bg-gradient-to-b from-black via-[#0f0f0f] to-black overflow-hidden">
+    <section id="faq" className="relative w-full py-12 md:py-32 bg-gradient-to-b from-black via-[#0f0f0f] to-black overflow-hidden">
       <div className="container">
         <div className="max-w-3xl mx-auto relative z-10">
           {/* Title */}
           <FadeInBlock>
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-bold mb-4">
+          <div className="text-center mb-8 md:mb-12">
+            <h2 className="text-2xl md:text-5xl font-bold mb-3 md:mb-4">
               {t.faq.title}
             </h2>
-            <p className="text-xl text-neutral-300">
+            <p className="text-base md:text-xl text-neutral-300">
               {t.faq.subtitle}
             </p>
           </div>
@@ -157,7 +157,7 @@ export default function FAQSection({ variant = 'all' }: { variant?: 'all' | 'hom
 
           {/* FAQ Accordion */}
           <FadeInBlock delay={0.1}>
-            <div className="space-y-3">
+            <div className="space-y-2 md:space-y-3">
               {faqs.map((faq: any, index: number) => {
                 const isOpen = openIndex === index
 
@@ -165,7 +165,7 @@ export default function FAQSection({ variant = 'all' }: { variant?: 'all' | 'hom
                   <div
                     key={index}
                     className={cn(
-                      'rounded-xl border transition-all overflow-hidden',
+                      'rounded-lg md:rounded-xl border transition-all overflow-hidden',
                       isOpen
                         ? 'bg-gradient-to-br from-white/10 to-white/[0.02] border-empire/30'
                         : 'bg-gradient-to-br from-white/5 to-transparent border-white/10 hover:border-white/20'
@@ -174,10 +174,10 @@ export default function FAQSection({ variant = 'all' }: { variant?: 'all' | 'hom
                     {/* Question */}
                     <button
                       onClick={() => setOpenIndex(isOpen ? null : index)}
-                      className="w-full p-5 flex items-center justify-between text-left group"
+                      className="w-full p-4 md:p-5 flex items-center justify-between text-left group min-h-[44px]"
                     >
                       <h3 className={cn(
-                        'text-lg font-semibold transition-colors',
+                        'text-base md:text-lg font-semibold transition-colors pr-2',
                         isOpen ? 'text-empire' : 'text-white group-hover:text-empire'
                       )}>
                         {faq.question}
@@ -187,7 +187,7 @@ export default function FAQSection({ variant = 'all' }: { variant?: 'all' | 'hom
                           'text-neutral-400 transition-all duration-300 flex-shrink-0',
                           isOpen ? 'rotate-180 text-empire' : 'group-hover:text-empire'
                         )}
-                        size={20}
+                        size={18}
                       />
                     </button>
 
@@ -201,8 +201,8 @@ export default function FAQSection({ variant = 'all' }: { variant?: 'all' | 'hom
                       transition={{ duration: 0.3, ease: 'easeInOut' }}
                       className="overflow-hidden"
                     >
-                      <div className="px-5 pb-5 pt-0 border-t border-white/10">
-                        <p className="text-neutral-300 leading-relaxed pt-4">
+                      <div className="px-4 md:px-5 pb-4 md:pb-5 pt-0 border-t border-white/10">
+                        <p className="text-sm md:text-base text-neutral-300 leading-relaxed pt-3 md:pt-4">
                           {faq.answer}
                         </p>
                       </div>
