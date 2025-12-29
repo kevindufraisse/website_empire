@@ -1,15 +1,33 @@
 'use client'
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useState, useEffect } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { LanguageSwitcher } from '@/components/LanguageSwitcher'
 import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { getCalApi } from "@calcom/embed-react"
 
 export default function Header() {
   const { t, lang } = useLanguage()
-  const router = useRouter()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  const namespace = lang === 'fr' ? 'empire-request-fr' : 'empire-request'
+  const calLink = lang === 'fr' ? 'kevin-dufraisse-private/empire-request-fr' : 'kevin-dufraisse-private/empire-request'
+
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi({ namespace })
+      cal("ui", { 
+        hideEventTypeDetails: false, 
+        layout: "month_view",
+        theme: "dark",
+        cssVarsPerTheme: {
+          dark: {
+            "cal-brand": "#dafc68"
+          }
+        }
+      })
+    })()
+  }, [namespace])
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/20 bg-black/95 backdrop-blur-md">
@@ -31,7 +49,9 @@ export default function Header() {
               <LanguageSwitcher />
             </div>
             <button
-              onClick={() => router.push('/demo')}
+              data-cal-namespace={namespace}
+              data-cal-link={calLink}
+              data-cal-config='{"layout":"month_view","theme":"dark"}'
               className="hidden sm:block px-4 md:px-5 py-2 md:py-2.5 rounded-lg bg-empire text-black font-semibold hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.2)] text-sm md:text-base"
             >
               {t.header.joinQA}
@@ -71,10 +91,10 @@ export default function Header() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                onClick={() => {
-                  router.push('/demo')
-                  setIsMenuOpen(false)
-                }}
+                data-cal-namespace={namespace}
+                data-cal-link={calLink}
+                data-cal-config='{"layout":"month_view","theme":"dark"}'
+                onClick={() => setIsMenuOpen(false)}
                 className="w-full py-3.5 rounded-lg bg-empire text-black font-bold hover:scale-[1.02] transition-all shadow-[0_0_20px_rgba(218,252,104,0.2)]"
               >
                 {t.header.joinQA}

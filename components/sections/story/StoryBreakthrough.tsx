@@ -1,10 +1,11 @@
 'use client'
 import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import BorderBeam from '@/components/magicui/border-beam'
 import { MessageSquare, Sparkles, TrendingUp } from 'lucide-react'
+import { getCalApi } from "@calcom/embed-react"
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -23,7 +24,26 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 }
 
 export default function StoryBreakthrough() {
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()
+
+  const namespace = lang === 'fr' ? 'empire-request-fr' : 'empire-request'
+  const calLink = lang === 'fr' ? 'kevin-dufraisse-private/empire-request-fr' : 'kevin-dufraisse-private/empire-request'
+
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi({ namespace })
+      cal("ui", { 
+        hideEventTypeDetails: false, 
+        layout: "month_view",
+        theme: "dark",
+        cssVarsPerTheme: {
+          dark: {
+            "cal-brand": "#dafc68"
+          }
+        }
+      })
+    })()
+  }, [namespace])
   
   return (
     <section className="container py-20 md:py-32 bg-gradient-to-b from-black via-[#0a0a0a] to-black">
@@ -75,12 +95,14 @@ export default function StoryBreakthrough() {
                 <p className="text-lg text-neutral-300 mb-8">
                   {t.story.breakthrough.subtitle}
                 </p>
-                <a
-                  href="/demo"
+                <button
+                  data-cal-namespace={namespace}
+                  data-cal-link={calLink}
+                  data-cal-config='{"layout":"month_view","theme":"dark"}'
                   className="inline-block px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)]"
                 >
                   {t.story.breakthrough.cta}
-                </a>
+                </button>
               </div>
             </div>
           </div>

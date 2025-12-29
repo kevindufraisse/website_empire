@@ -1,9 +1,30 @@
 'use client'
+import { useEffect } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { Mail } from 'lucide-react'
+import { getCalApi } from "@calcom/embed-react"
 
 export default function Footer() {
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()
+  
+  const namespace = lang === 'fr' ? 'empire-request-fr' : 'empire-request'
+  const calLink = lang === 'fr' ? 'kevin-dufraisse-private/empire-request-fr' : 'kevin-dufraisse-private/empire-request'
+
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi({ namespace })
+      cal("ui", { 
+        hideEventTypeDetails: false, 
+        layout: "month_view",
+        theme: "dark",
+        cssVarsPerTheme: {
+          dark: {
+            "cal-brand": "#dafc68"
+          }
+        }
+      })
+    })()
+  }, [namespace])
   return (
     <footer className="relative w-full border-t border-white/10 bg-black pb-[env(safe-area-inset-bottom)]">
       <div className="container py-8 md:py-12">
@@ -28,12 +49,14 @@ export default function Footer() {
           </div>
 
           {/* CTA */}
-          <a
-            href="/demo"
+          <button
+            data-cal-namespace={namespace}
+            data-cal-link={calLink}
+            data-cal-config='{"layout":"month_view","theme":"dark"}'
             className="w-full md:w-auto text-center px-6 py-3.5 min-h-[44px] bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)]"
           >
             {t.finalCTA.watchDemo}
-          </a>
+          </button>
         </div>
 
         {/* Bottom */}

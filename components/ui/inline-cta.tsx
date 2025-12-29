@@ -1,5 +1,8 @@
 'use client'
+import { useEffect } from 'react'
 import { ArrowRight, Calendar } from 'lucide-react'
+import { useLanguage } from '@/contexts/LanguageContext'
+import { getCalApi } from "@calcom/embed-react"
 
 interface InlineCTAProps {
   title: string
@@ -18,16 +21,39 @@ export function InlineCTA({
   urgencyLabel = 'Limited spots',
   variant = 'default' 
 }: InlineCTAProps) {
+  const { lang } = useLanguage()
+  
+  const namespace = lang === 'fr' ? 'empire-request-fr' : 'empire-request'
+  const calLink = lang === 'fr' ? 'kevin-dufraisse-private/empire-request-fr' : 'kevin-dufraisse-private/empire-request'
+
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi({ namespace })
+      cal("ui", { 
+        hideEventTypeDetails: false, 
+        layout: "month_view",
+        theme: "dark",
+        cssVarsPerTheme: {
+          dark: {
+            "cal-brand": "#dafc68"
+          }
+        }
+      })
+    })()
+  }, [namespace])
+
   if (variant === 'minimal') {
     return (
       <div className="text-center py-8">
         <p className="text-xl font-bold text-white mb-4">{title}</p>
-        <a
-          href="/demo"
+        <button
+          data-cal-namespace={namespace}
+          data-cal-link={calLink}
+          data-cal-config='{"layout":"month_view","theme":"dark"}'
           className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-empire/10 border border-empire/30 text-empire font-bold hover:bg-empire/20 hover:gap-3 transition-all"
         >
           {primaryText} <ArrowRight size={18} />
-        </a>
+        </button>
       </div>
     )
   }
@@ -41,12 +67,14 @@ export function InlineCTA({
         </div>
         <p className="text-xl font-bold text-white mb-2">{title}</p>
         {description && <p className="text-neutral-300 mb-4">{description}</p>}
-        <a
-          href="/demo"
+        <button
+          data-cal-namespace={namespace}
+          data-cal-link={calLink}
+          data-cal-config='{"layout":"month_view","theme":"dark"}'
           className="px-6 py-3 bg-empire text-black font-bold rounded-lg hover:scale-105 transition-all"
         >
           {primaryText}
-        </a>
+        </button>
       </div>
     )
   }
@@ -55,13 +83,14 @@ export function InlineCTA({
     <div className="p-6 md:p-8 rounded-xl bg-gradient-to-br from-empire/10 to-transparent border border-empire/30 text-center">
       <p className="text-xl md:text-2xl font-bold text-white mb-3">{title}</p>
       {description && <p className="text-neutral-300 mb-6">{description}</p>}
-      <a
-        href="/demo"
+      <button
+        data-cal-namespace={namespace}
+        data-cal-link={calLink}
+        data-cal-config='{"layout":"month_view","theme":"dark"}'
         className="px-6 py-3 bg-empire text-black font-bold rounded-lg hover:scale-105 transition-all"
       >
         {primaryText}
-      </a>
+      </button>
     </div>
   )
 }
-

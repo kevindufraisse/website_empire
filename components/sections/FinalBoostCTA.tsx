@@ -1,9 +1,10 @@
 'use client'
 import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { Zap } from 'lucide-react'
+import { getCalApi } from "@calcom/embed-react"
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -22,7 +23,26 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 }
 
 export default function FinalBoostCTA() {
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()
+  
+  const namespace = lang === 'fr' ? 'empire-request-fr' : 'empire-request'
+  const calLink = lang === 'fr' ? 'kevin-dufraisse-private/empire-request-fr' : 'kevin-dufraisse-private/empire-request'
+
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi({ namespace })
+      cal("ui", { 
+        hideEventTypeDetails: false, 
+        layout: "month_view",
+        theme: "dark",
+        cssVarsPerTheme: {
+          dark: {
+            "cal-brand": "#dafc68"
+          }
+        }
+      })
+    })()
+  }, [namespace])
   
   return (
     <section className="relative w-full pb-20 md:pb-32 bg-gradient-to-b from-black to-[#0f0f0f]">
@@ -45,12 +65,14 @@ export default function FinalBoostCTA() {
                   {t.finalCTA.subtitle}
                 </p>
 
-                <a
-                  href="/demo"
+                <button
+                  data-cal-namespace={namespace}
+                  data-cal-link={calLink}
+                  data-cal-config='{"layout":"month_view","theme":"dark"}'
                   className="inline-block w-full sm:w-auto px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)] text-center"
                 >
                   {t.finalCTA.watchDemo}
-                </a>
+                </button>
               </div>
             </div>
           </FadeInBlock>

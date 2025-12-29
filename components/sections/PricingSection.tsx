@@ -1,10 +1,11 @@
 'use client'
 import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { Zap, Shield, Clock } from 'lucide-react'
 import { PRICING, LAUNCH_OFFER_ACTIVE } from '@/lib/pricing-config'
+import { getCalApi } from "@calcom/embed-react"
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -23,7 +24,26 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 }
 
 export default function PricingSection() {
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()
+  
+  const namespace = lang === 'fr' ? 'empire-request-fr' : 'empire-request'
+  const calLink = lang === 'fr' ? 'kevin-dufraisse-private/empire-request-fr' : 'kevin-dufraisse-private/empire-request'
+
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi({ namespace })
+      cal("ui", { 
+        hideEventTypeDetails: false, 
+        layout: "month_view",
+        theme: "dark",
+        cssVarsPerTheme: {
+          dark: {
+            "cal-brand": "#dafc68"
+          }
+        }
+      })
+    })()
+  }, [namespace])
   
   return (
     <section id="pricing" className="container py-20 md:py-32">
@@ -108,12 +128,14 @@ export default function PricingSection() {
 
                 {/* CTA Buttons */}
                 <div className="flex flex-col items-center gap-4">
-                  <a
-                    href="/demo"
+                  <button
+                    data-cal-namespace={namespace}
+                    data-cal-link={calLink}
+                    data-cal-config='{"layout":"month_view","theme":"dark"}'
                     className="w-full px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)] text-center"
                   >
                     {t.finalCTA.watchDemo}
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>

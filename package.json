@@ -8,6 +8,7 @@
     "lint": "next lint || true"
   },
   "dependencies": {
+    "@calcom/embed-react": "^1.5.3",
     "clsx": "^2.1.1",
     "framer-motion": "^11.0.0",
     "lucide-react": "^0.460.0",

@@ -1,14 +1,32 @@
 'use client'
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
 import { X, Zap, Gift, Clock, ArrowRight } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { getCalApi } from "@calcom/embed-react"
 
 export function ExitIntentPopup() {
-  const router = useRouter()
   const [show, setShow] = useState(false)
   const [dismissed, setDismissed] = useState(false)
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()
+
+  const namespace = lang === 'fr' ? 'empire-request-fr' : 'empire-request'
+  const calLink = lang === 'fr' ? 'kevin-dufraisse-private/empire-request-fr' : 'kevin-dufraisse-private/empire-request'
+
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi({ namespace })
+      cal("ui", { 
+        hideEventTypeDetails: false, 
+        layout: "month_view",
+        theme: "dark",
+        cssVarsPerTheme: {
+          dark: {
+            "cal-brand": "#dafc68"
+          }
+        }
+      })
+    })()
+  }, [namespace])
 
   useEffect(() => {
     // Check if already shown in this session
@@ -80,10 +98,10 @@ export function ExitIntentPopup() {
 
           {/* Main CTA */}
           <button
-            onClick={() => {
-              router.push('/demo')
-              setDismissed(true)
-            }}
+            data-cal-namespace={namespace}
+            data-cal-link={calLink}
+            data-cal-config='{"layout":"month_view","theme":"dark"}'
+            onClick={() => setDismissed(true)}
             className="w-full p-5 rounded-xl bg-gradient-to-r from-empire to-green-400 text-black font-bold hover:scale-[1.02] transition-all text-center mb-4 shadow-[0_0_30px_rgba(218,252,104,0.4)] group"
           >
             <div className="flex items-center justify-center gap-2">
@@ -116,5 +134,3 @@ export function ExitIntentPopup() {
     </div>
   )
 }
-
-

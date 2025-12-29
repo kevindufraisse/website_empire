@@ -1,9 +1,10 @@
 'use client'
 import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { Check } from 'lucide-react'
+import { getCalApi } from "@calcom/embed-react"
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -41,6 +42,25 @@ const roles = [
 
 export default function RolesReplacedSection() {
   const { lang } = useLanguage()
+  
+  const namespace = lang === 'fr' ? 'empire-request-fr' : 'empire-request'
+  const calLink = lang === 'fr' ? 'kevin-dufraisse-private/empire-request-fr' : 'kevin-dufraisse-private/empire-request'
+
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi({ namespace })
+      cal("ui", { 
+        hideEventTypeDetails: false, 
+        layout: "month_view",
+        theme: "dark",
+        cssVarsPerTheme: {
+          dark: {
+            "cal-brand": "#dafc68"
+          }
+        }
+      })
+    })()
+  }, [namespace])
 
   return (
     <section className="container py-20 md:py-32">
@@ -102,13 +122,15 @@ export default function RolesReplacedSection() {
         {/* CTA */}
         <FadeInBlock delay={0.5}>
           <div className="mt-8 md:mt-12 text-center px-4 md:px-0">
-            <a
-              href="/demo"
+            <button
+              data-cal-namespace={namespace}
+              data-cal-link={calLink}
+              data-cal-config='{"layout":"month_view","theme":"dark"}'
               className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-4 rounded-xl bg-empire text-black font-bold text-base md:text-lg hover:scale-105 transition-transform shadow-[0_0_30px_rgba(218,252,104,0.3)]"
             >
               {lang === 'fr' ? 'Réserver une démo' : 'Book a demo'}
               <span>→</span>
-            </a>
+            </button>
           </div>
         </FadeInBlock>
       </div>

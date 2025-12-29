@@ -1,13 +1,13 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
 import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { Play, X } from 'lucide-react'
 import { VidalyticsPlayer } from '@/components/VidalyticsPlayer'
 import { cn } from '@/lib/utils'
+import { getCalApi } from "@calcom/embed-react"
 
 interface HeroVideoDialogProps {
   animationStyle?: 'from-center' | 'from-bottom' | 'from-top' | 'fade'
@@ -32,9 +32,27 @@ export function HeroVideoDialog({
   thumbnailAlt = 'Video thumbnail',
   className,
 }: HeroVideoDialogProps) {
-  const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()
+  
+  const namespace = lang === 'fr' ? 'empire-request-fr' : 'empire-request'
+  const calLink = lang === 'fr' ? 'kevin-dufraisse-private/empire-request-fr' : 'kevin-dufraisse-private/empire-request'
+
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi({ namespace })
+      cal("ui", { 
+        hideEventTypeDetails: false, 
+        layout: "month_view",
+        theme: "dark",
+        cssVarsPerTheme: {
+          dark: {
+            "cal-brand": "#dafc68"
+          }
+        }
+      })
+    })()
+  }, [namespace])
   
   // Exposer setIsOpen globalement
   globalSetIsOpen = setIsOpen
@@ -210,10 +228,10 @@ export function HeroVideoDialog({
                   {t.videoDialog.readyToJoin}
                 </p>
                 <button
-                  onClick={() => {
-                    router.push('/demo')
-                    setIsOpen(false)
-                  }}
+                  data-cal-namespace={namespace}
+                  data-cal-link={calLink}
+                  data-cal-config='{"layout":"month_view","theme":"dark"}'
+                  onClick={() => setIsOpen(false)}
                   className="w-full py-3 px-4 rounded-lg bg-empire text-black font-bold hover:scale-105 transition-all text-center text-sm"
                 >
                   {t.videoDialog.joinQA}

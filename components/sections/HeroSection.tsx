@@ -1,6 +1,6 @@
 'use client'
 import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import RetroGrid from '@/components/magicui/retro-grid'
 import { Meteors } from '@/components/magicui/meteors'
@@ -9,9 +9,29 @@ import { RainbowButton } from '@/components/magicui/rainbow-button'
 import { HeroVideoDialog } from '@/components/magicui/hero-video-dialog'
 import { CheckCircle2 } from 'lucide-react'
 import { PRICING } from '@/lib/pricing-config'
+import { getCalApi } from "@calcom/embed-react"
 
 export default function HeroSection() {
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()
+  
+  const namespace = lang === 'fr' ? 'empire-request-fr' : 'empire-request'
+  const calLink = lang === 'fr' ? 'kevin-dufraisse-private/empire-request-fr' : 'kevin-dufraisse-private/empire-request'
+
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi({ namespace })
+      cal("ui", { 
+        hideEventTypeDetails: false, 
+        layout: "month_view",
+        theme: "dark",
+        cssVarsPerTheme: {
+          dark: {
+            "cal-brand": "#dafc68"
+          }
+        }
+      })
+    })()
+  }, [namespace])
   return (
     <>
       <section className="relative w-full py-20 md:py-32 overflow-hidden bg-gradient-to-b from-black via-transparent to-[#0f0f0f]">
@@ -109,12 +129,14 @@ export default function HeroSection() {
             className="mt-8 flex flex-col items-center justify-center gap-4"
           >
             <div className="flex items-center justify-center w-full px-4 sm:px-0">
-              <a
-                href="/demo"
+              <button
+                data-cal-namespace={namespace}
+                data-cal-link={calLink}
+                data-cal-config='{"layout":"month_view","theme":"dark"}'
                 className="w-full sm:w-auto px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)] text-center"
               >
                 {t.hero.cta1}
-              </a>
+              </button>
             </div>
           </motion.div>
             

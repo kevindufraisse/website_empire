@@ -1,12 +1,32 @@
 'use client'
 import { X } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { LAUNCH_OFFER_ACTIVE, PRICING } from '@/lib/pricing-config'
+import { getCalApi } from "@calcom/embed-react"
 
 export default function AnnouncementBanner() {
   const [dismissed, setDismissed] = useState(false)
   const { lang } = useLanguage()
+
+  const namespace = lang === 'fr' ? 'empire-request-fr' : 'empire-request'
+  const calLink = lang === 'fr' ? 'kevin-dufraisse-private/empire-request-fr' : 'kevin-dufraisse-private/empire-request'
+
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi({ namespace })
+      cal("ui", { 
+        hideEventTypeDetails: false, 
+        layout: "month_view",
+        theme: "dark",
+        cssVarsPerTheme: {
+          dark: {
+            "cal-brand": "#dafc68"
+          }
+        }
+      })
+    })()
+  }, [namespace])
 
   // Ne pas afficher si pas en mode lancement ou si déjà fermé
   if (!LAUNCH_OFFER_ACTIVE || dismissed) return null
@@ -25,12 +45,14 @@ export default function AnnouncementBanner() {
               ? `Économisez ${savings}€/mois sur tous les plans`
               : `Save €${savings}/month on all plans`}
           </span>
-          <a 
-            href="/demo"
+          <button 
+            data-cal-namespace={namespace}
+            data-cal-link={calLink}
+            data-cal-config='{"layout":"month_view","theme":"dark"}'
             className="px-2 py-0.5 bg-black text-empire font-bold rounded hover:scale-105 transition-all whitespace-nowrap ml-1"
           >
             {lang === 'fr' ? "Réserver une démo" : 'Book a demo'} →
-          </a>
+          </button>
           
           <button
             onClick={() => setDismissed(true)}
@@ -44,4 +66,3 @@ export default function AnnouncementBanner() {
     </div>
   )
 }
-
