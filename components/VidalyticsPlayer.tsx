@@ -9,9 +9,9 @@ export function VidalyticsPlayer() {
   // IDs différents pour EN et FR
   const videoIds = {
     en: {
-      embedId: 'vidalytics_embed_8p1SsPHAYkWadRPI',
-      videoId: '8p1SsPHAYkWadRPI',
-      aspectRatio: '56.25%',
+      embedId: 'vidalytics_embed_eC6wQ0IBC0XGwMad',
+      videoId: 'eC6wQ0IBC0XGwMad',
+      aspectRatio: '64.86%',
     },
     fr: {
       embedId: 'vidalytics_embed_3Gl33E2MRH9oof9_',
