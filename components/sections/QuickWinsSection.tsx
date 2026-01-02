@@ -1,9 +1,10 @@
 'use client'
 import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { X, CheckCircle2, Calendar as CalendarIcon, TrendingUp, Clock } from 'lucide-react'
+import { X, CheckCircle2, Calendar as CalendarIcon, ArrowRight } from 'lucide-react'
+import { getCalApi } from "@calcom/embed-react"
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -23,6 +24,24 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 
 export default function QuickWinsSection() {
   const { lang } = useLanguage()
+
+  const namespace = lang === 'fr' ? 'empire-request-fr' : 'empire-request'
+  const calLink = lang === 'fr' ? 'kevin-dufraisse-private/empire-request-fr' : 'kevin-dufraisse-private/empire-request'
+
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi({ namespace })
+      cal("ui", { 
+        hideEventTypeDetails: false, 
+        layout: "month_view",
+        theme: "dark",
+        cssVarsPerTheme: {
+          light: { "cal-brand": "#dafc68" },
+          dark: { "cal-brand": "#dafc68" }
+        }
+      })
+    })()
+  }, [namespace])
 
   return (
     <section className="container py-20 md:py-32">
@@ -190,13 +209,23 @@ export default function QuickWinsSection() {
         {/* Bottom stat */}
         <FadeInBlock delay={0.3}>
           <div className="mt-12 text-center">
-            <p className="text-xl md:text-2xl text-neutral-300">
+            <p className="text-xl md:text-2xl text-neutral-300 mb-8">
               {lang === 'fr' ? 'Récupérez ' : 'Get back '}
               <span className="text-empire font-bold">
                 {lang === 'fr' ? '11h45/semaine' : '11h45/week'}
               </span>
               {lang === 'fr' ? ' de votre vie' : ' of your life'}
             </p>
+            
+            <button
+              data-cal-namespace={namespace}
+              data-cal-link={calLink}
+              data-cal-config='{"layout":"month_view","theme":"dark"}'
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-empire text-black font-bold text-lg hover:scale-105 transition-transform shadow-[0_0_30px_rgba(218,252,104,0.3)]"
+            >
+              {lang === 'fr' ? 'Passer à Empire' : 'Switch to Empire'}
+              <ArrowRight size={20} />
+            </button>
           </div>
         </FadeInBlock>
       </div>
