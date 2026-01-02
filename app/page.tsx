@@ -1,5 +1,4 @@
 import HeroSection from '@/components/sections/HeroSection'
-import QuickProblemSolution from '@/components/sections/QuickProblemSolution'
 import HowItWorksAccordion from '@/components/sections/HowItWorksAccordion'
 import BentoGridSection from '@/components/sections/BentoGridSection'
 import QuickWinsSection from '@/components/sections/QuickWinsSection'
@@ -13,9 +12,6 @@ export default function Page() {
     <main className="relative">
       {/* Hero with VSL */}
       <HeroSection />
-
-      {/* Quick Problem/Solution - Conversion focused */}
-      <QuickProblemSolution />
 
       {/* Roles Replaced - NEW */}
       <RolesReplacedSection />
