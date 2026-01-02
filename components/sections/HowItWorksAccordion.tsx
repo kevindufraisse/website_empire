@@ -1,11 +1,12 @@
 'use client'
 import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import NumberTicker from '@/components/magicui/number-ticker'
 import { SocialIcons } from '@/components/ui/social-icons'
-import { Mic, Wand2, Calendar, UserCheck, Clock, Zap, Image, ArrowRight, Sparkles } from 'lucide-react'
+import { Mic, Wand2, Calendar, UserCheck, Clock, Zap, Image, ArrowRight } from 'lucide-react'
+import { getCalApi } from "@calcom/embed-react"
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -36,6 +37,24 @@ const contentTypes = [
 
 export default function HowItWorksAccordion() {
   const { t, lang } = useLanguage()
+
+  const namespace = lang === 'fr' ? 'empire-request-fr' : 'empire-request'
+  const calLink = lang === 'fr' ? 'kevin-dufraisse-private/empire-request-fr' : 'kevin-dufraisse-private/empire-request'
+
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi({ namespace })
+      cal("ui", { 
+        hideEventTypeDetails: false, 
+        layout: "month_view",
+        theme: "dark",
+        cssVarsPerTheme: {
+          light: { "cal-brand": "#dafc68" },
+          dark: { "cal-brand": "#dafc68" }
+        }
+      })
+    })()
+  }, [namespace])
 
   return (
     <section id="how-it-works" className="relative w-full py-16 md:py-28 overflow-hidden bg-[#0a0a0a]">
@@ -218,6 +237,24 @@ export default function HowItWorksAccordion() {
               <div className="px-5 py-3 rounded-xl bg-empire/10 border border-empire/30">
                 <span className="text-empire font-bold">= 39h 45min {lang === 'fr' ? 'économisées' : 'saved'}</span>
               </div>
+            </div>
+          </FadeInBlock>
+
+          {/* CTA Button */}
+          <FadeInBlock delay={0.4}>
+            <div className="mt-10 md:mt-14 text-center">
+              <button
+                data-cal-namespace={namespace}
+                data-cal-link={calLink}
+                data-cal-config='{"layout":"month_view","theme":"dark"}'
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-empire text-black font-bold text-lg hover:scale-105 transition-transform shadow-[0_0_30px_rgba(218,252,104,0.3)]"
+              >
+                {lang === 'fr' ? 'Réserver une démo' : 'Book a demo'}
+                <ArrowRight size={20} />
+              </button>
+              <p className="mt-3 text-sm text-neutral-500">
+                {lang === 'fr' ? '15 min · Sans engagement' : '15 min · No commitment'}
+              </p>
             </div>
           </FadeInBlock>
         </div>

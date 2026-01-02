@@ -13,11 +13,11 @@ export default function Page() {
       {/* Hero with VSL */}
       <HeroSection />
 
-      {/* Roles Replaced - NEW */}
-      <RolesReplacedSection />
-
       {/* How It Works - 3 steps */}
       <HowItWorksAccordion />
+
+      {/* Roles Replaced */}
+      <RolesReplacedSection />
 
       {/* Visual explanation - Bento Grid */}
       <BentoGridSection />
