@@ -148,8 +148,59 @@ export default function HowItWorksAccordion() {
                   </div>
                 </div>
 
+                {/* The Machine - Expert Cloning Highlight */}
+                <div className="mt-8 p-6 rounded-2xl bg-gradient-to-r from-purple-500/10 via-empire/10 to-blue-500/10 border border-purple-500/30 relative overflow-hidden">
+                  {/* Background glow */}
+                  <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgba(218,252,104,0.05),transparent)]" />
+                  
+                  <div className="relative z-10">
+                    <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8">
+                      <div className="flex items-center gap-3">
+                        <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-empire/30 to-purple-500/30 border border-empire/50 flex items-center justify-center">
+                          <span className="text-2xl">🧠</span>
+                        </div>
+                        <div>
+                          <h4 className="text-lg md:text-xl font-bold text-white">
+                            {lang === 'fr' ? 'La Machine Empire' : 'The Empire Machine'}
+                          </h4>
+                          <p className="text-sm text-empire font-semibold">
+                            {lang === 'fr' ? 'Des mois de R&D condensés' : 'Months of R&D condensed'}
+                          </p>
+                        </div>
+                      </div>
+                      
+                      <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <div className="px-4 py-3 rounded-lg bg-white/5 border border-white/10">
+                          <p className="text-2xl font-black text-empire">50+</p>
+                          <p className="text-xs text-neutral-400">
+                            {lang === 'fr' ? 'Experts clonés' : 'Experts cloned'}
+                          </p>
+                        </div>
+                        <div className="px-4 py-3 rounded-lg bg-white/5 border border-white/10">
+                          <p className="text-2xl font-black text-empire">6</p>
+                          <p className="text-xs text-neutral-400">
+                            {lang === 'fr' ? 'Mois de développement' : 'Months of development'}
+                          </p>
+                        </div>
+                        <div className="px-4 py-3 rounded-lg bg-white/5 border border-white/10">
+                          <p className="text-2xl font-black text-empire">∞</p>
+                          <p className="text-xs text-neutral-400">
+                            {lang === 'fr' ? 'Posts analysés' : 'Posts analyzed'}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <p className="mt-4 text-sm text-neutral-300">
+                      {lang === 'fr' 
+                        ? 'Nous avons étudié et cloné les stratégies des meilleurs créateurs de contenu viral. Leur expertise est maintenant intégrée dans notre IA pour maximiser la performance de chaque post.'
+                        : 'We studied and cloned the strategies of the best viral content creators. Their expertise is now embedded in our AI to maximize the performance of every post.'}
+                    </p>
+                  </div>
+                </div>
+
                 {/* Content Types Grid */}
-                <div className="mt-8 p-6 rounded-2xl bg-white/5 border border-white/10">
+                <div className="mt-6 p-6 rounded-2xl bg-white/5 border border-white/10">
                   <p className="text-sm text-neutral-400 mb-4 text-center">{t.howItWorks.step2.perInterview}</p>
                   <div className="grid grid-cols-4 sm:grid-cols-8 gap-2">
                     {contentTypes.map((type, i) => {
