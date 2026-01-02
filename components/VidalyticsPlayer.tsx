@@ -11,10 +11,12 @@ export function VidalyticsPlayer() {
     en: {
       embedId: 'vidalytics_embed_8p1SsPHAYkWadRPI',
       videoId: '8p1SsPHAYkWadRPI',
+      aspectRatio: '56.25%',
     },
     fr: {
-      embedId: 'vidalytics_embed_PHRjqrj4u4nDqnAq',
-      videoId: 'PHRjqrj4u4nDqnAq',
+      embedId: 'vidalytics_embed_3Gl33E2MRH9oof9_',
+      videoId: '3Gl33E2MRH9oof9_',
+      aspectRatio: '64.86%',
     }
   }
 
@@ -53,7 +55,7 @@ export function VidalyticsPlayer() {
   return (
     <div 
       id={currentVideo.embedId}
-      style={{ width: '100%', position: 'relative', paddingTop: '56.25%' }}
+      style={{ width: '100%', position: 'relative', paddingTop: currentVideo.aspectRatio }}
     />
   )
 }
