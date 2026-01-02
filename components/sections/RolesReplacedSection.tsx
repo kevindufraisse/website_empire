@@ -23,21 +23,21 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 }
 
 const roles = [
-  { en: 'LinkedIn Ghostwriter', fr: 'Ghostwriter LinkedIn' },
-  { en: 'Community Manager', fr: 'Community Manager' },
-  { en: 'LinkedIn Setter', fr: 'Setter LinkedIn' },
-  { en: 'Copywriter', fr: 'Copywriter' },
-  { en: 'Viral Writer', fr: 'Viral Writer' },
-  { en: 'YouTube Writer', fr: 'YouTube Writer' },
-  { en: 'Video Editor', fr: 'Monteur Vidéo' },
-  { en: 'Social Media Manager', fr: 'Social Media Manager' },
-  { en: 'Content Strategist', fr: 'Content Strategist' },
-  { en: 'Graphic Designer', fr: 'Graphic Designer' },
-  { en: 'SEO Writer', fr: 'SEO Writer' },
-  { en: 'Script Writer', fr: 'Script Writer' },
-  { en: 'Podcast Producer', fr: 'Podcast Producer' },
-  { en: 'Brand Strategist', fr: 'Brand Strategist' },
-  { en: 'Email Copywriter', fr: 'Email Copywriter' },
+  { en: 'LinkedIn Ghostwriter', fr: 'Ghostwriter LinkedIn', savings: 2500 },
+  { en: 'Community Manager', fr: 'Community Manager', savings: 2000 },
+  { en: 'LinkedIn Setter', fr: 'Setter LinkedIn', savings: 1500 },
+  { en: 'Copywriter', fr: 'Copywriter', savings: 2000 },
+  { en: 'Viral Writer', fr: 'Viral Writer', savings: 3000 },
+  { en: 'YouTube Writer', fr: 'YouTube Writer', savings: 2500 },
+  { en: 'Video Editor', fr: 'Monteur Vidéo', savings: 2000 },
+  { en: 'Social Media Manager', fr: 'Social Media Manager', savings: 2500 },
+  { en: 'Content Strategist', fr: 'Content Strategist', savings: 3500 },
+  { en: 'Graphic Designer', fr: 'Graphic Designer', savings: 2000 },
+  { en: 'SEO Writer', fr: 'SEO Writer', savings: 1800 },
+  { en: 'Script Writer', fr: 'Script Writer', savings: 2200 },
+  { en: 'Podcast Producer', fr: 'Podcast Producer', savings: 2500 },
+  { en: 'Brand Strategist', fr: 'Brand Strategist', savings: 4000 },
+  { en: 'Email Copywriter', fr: 'Email Copywriter', savings: 1800 },
 ]
 
 export default function RolesReplacedSection() {
@@ -68,7 +68,7 @@ export default function RolesReplacedSection() {
           <div className="text-center mb-16">
             <div className="inline-block mb-4 px-4 py-2 rounded-full bg-empire/10 border border-empire/30">
               <p className="text-sm font-bold text-empire">
-                {lang === 'fr' ? 'UNE ÉQUIPE COMPLÈTE' : 'A COMPLETE TEAM'}
+                {lang === 'fr' ? 'L\'EXPERTISE DES MEILLEURS, CLONÉE' : 'TOP EXPERTS, CLONED'}
               </p>
             </div>
             <h2 className="text-3xl md:text-5xl font-bold mb-6">
@@ -76,10 +76,15 @@ export default function RolesReplacedSection() {
                 ? 'Empire remplace 15+ rôles' 
                 : 'Empire replaces 15+ roles'}
             </h2>
-            <p className="text-xl text-neutral-300 max-w-3xl mx-auto">
+            <p className="text-xl text-neutral-300 max-w-3xl mx-auto mb-6">
               {lang === 'fr'
-                ? 'Pourquoi embaucher une équipe entière quand Empire fait tout ?'
-                : 'Why hire an entire team when Empire does it all?'}
+                ? 'Nous avons passé des mois à cloner les meilleurs experts en contenu viral.'
+                : 'We spent months cloning the best viral content experts.'}
+            </p>
+            <p className="text-lg text-neutral-400 max-w-2xl mx-auto">
+              {lang === 'fr'
+                ? 'Chaque post est optimisé pour maximiser la viralité et la performance. Leur expertise, votre voix.'
+                : 'Every post is optimized to maximize virality and performance. Their expertise, your voice.'}
             </p>
           </div>
         </FadeInBlock>
@@ -98,22 +103,34 @@ export default function RolesReplacedSection() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.3, delay: i * 0.03 }}
                   viewport={{ once: true }}
-                  className="flex items-center gap-1.5 md:gap-2 p-2 md:p-3 rounded-lg bg-white/5 border border-white/10 hover:border-empire/30 transition-colors"
+                  className="flex flex-col p-2 md:p-3 rounded-lg bg-white/5 border border-white/10 hover:border-empire/30 transition-colors"
                 >
-                  <Check className="text-empire flex-shrink-0" size={14} />
-                  <span className="text-neutral-300 text-xs md:text-sm font-medium leading-tight">
-                    {lang === 'fr' ? role.fr : role.en}
+                  <div className="flex items-center gap-1.5 md:gap-2">
+                    <Check className="text-empire flex-shrink-0" size={14} />
+                    <span className="text-neutral-300 text-xs md:text-sm font-medium leading-tight">
+                      {lang === 'fr' ? role.fr : role.en}
+                    </span>
+                  </div>
+                  <span className="text-[10px] md:text-xs text-green-400 mt-1 pl-5">
+                    {lang === 'fr' ? `Économisez ${role.savings}€/mois` : `Save €${role.savings}/mo`}
                   </span>
                 </motion.div>
               ))}
             </div>
             
-            <div className="mt-5 md:mt-8 text-center">
+            <div className="mt-5 md:mt-8 text-center space-y-3">
               <p className="text-neutral-400 text-xs md:text-sm">
                 {lang === 'fr'
                   ? '+ tous les outils et logiciels nécessaires'
                   : '+ all necessary tools and software'}
               </p>
+              <div className="inline-block px-4 py-2 rounded-full bg-green-500/10 border border-green-500/30">
+                <p className="text-sm md:text-base font-bold text-green-400">
+                  {lang === 'fr' 
+                    ? '💰 Total économisé : +35 800€/mois' 
+                    : '💰 Total savings: €35,800+/month'}
+                </p>
+              </div>
             </div>
           </div>
         </FadeInBlock>
