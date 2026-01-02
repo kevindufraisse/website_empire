@@ -85,7 +85,7 @@ export default function CalStickyBar() {
             data-cal-config='{"layout":"month_view","theme":"dark"}'
             className="flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 bg-empire text-black font-bold rounded-lg hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)] text-sm sm:text-base whitespace-nowrap group"
           >
-            {lang === 'fr' ? 'Réserver une démo' : 'Book a demo'}
+            {lang === 'fr' ? 'Audit gratuit' : 'Free Audit'}
             <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
