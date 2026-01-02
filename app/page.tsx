@@ -19,9 +19,6 @@ export default function Page() {
       {/* Roles Replaced */}
       <RolesReplacedSection />
 
-      {/* Visual explanation - Bento Grid */}
-      <BentoGridSection />
-
       {/* Quick Wins - Before/After */}
       <QuickWinsSection />
 
@@ -30,6 +27,9 @@ export default function Page() {
 
       {/* FAQ - Essential questions */}
       <FAQSection variant="home" />
+
+      {/* Visual explanation - Bento Grid */}
+      <BentoGridSection />
 
       {/* Final CTA */}
       <FinalBoostCTA />
