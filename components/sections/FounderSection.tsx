@@ -150,8 +150,14 @@ export default function FounderSection() {
                 <div className="absolute -inset-1 bg-gradient-to-r from-empire/40 to-empire/20 rounded-2xl blur opacity-40" />
                 <div className="relative rounded-2xl overflow-hidden border border-white/10">
                   <Image
-                    src="https://d1yei2z3i6k35z.cloudfront.net/3647172/695b84b825207_Capturedecran2025-11-29a10.06.24.png"
-                    alt="Kevin Dufraisse - #9 Lead Generation Worldwide"
+                    src={lang === 'fr' 
+                      ? "https://d1yei2z3i6k35z.cloudfront.net/3647172/68c9e9f667659_1.png"
+                      : "https://d1yei2z3i6k35z.cloudfront.net/3647172/695b84b825207_Capturedecran2025-11-29a10.06.24.png"
+                    }
+                    alt={lang === 'fr' 
+                      ? "Kevin Dufraisse - #1 Lead Generation France" 
+                      : "Kevin Dufraisse - #9 Lead Generation Worldwide"
+                    }
                     width={600}
                     height={800}
                     className="w-full h-auto"
