@@ -59,11 +59,12 @@ export default function FounderSection() {
     }
   }, [lang])
 
-  const credentials = [
+  // Different credentials for FR vs EN
+  const credentialsFr = [
     {
       icon: Code2,
-      stat: '#6',
-      label: t.founder?.credential1 || 'Lead Generation Worldwide',
+      stat: '#1',
+      label: 'Lead Generation France',
       color: 'from-white/10 to-white/5',
       borderColor: 'border-white/20',
       textColor: 'text-empire',
@@ -71,8 +72,8 @@ export default function FounderSection() {
     },
     {
       icon: Award,
-      stat: '#48',
-      label: t.founder?.credential2 || 'LinkedIn Influencer France',
+      stat: '#55',
+      label: 'LinkedIn Influence France',
       color: 'from-white/10 to-white/5',
       borderColor: 'border-white/20',
       textColor: 'text-empire',
@@ -81,13 +82,45 @@ export default function FounderSection() {
     {
       icon: TrendingUp,
       stat: '+€3M',
-      label: t.founder?.credential3 || 'Generated Online',
+      label: 'Générés en Ligne',
       color: 'from-white/10 to-white/5',
       borderColor: 'border-white/20',
       textColor: 'text-empire',
       shadow: ''
     }
   ]
+
+  const credentialsEn = [
+    {
+      icon: Code2,
+      stat: '#9',
+      label: 'Lead Generation Worldwide',
+      color: 'from-white/10 to-white/5',
+      borderColor: 'border-white/20',
+      textColor: 'text-empire',
+      shadow: ''
+    },
+    {
+      icon: Award,
+      stat: '#55',
+      label: 'LinkedIn Influence France',
+      color: 'from-white/10 to-white/5',
+      borderColor: 'border-white/20',
+      textColor: 'text-empire',
+      shadow: ''
+    },
+    {
+      icon: TrendingUp,
+      stat: '+€3M',
+      label: 'Generated Online',
+      color: 'from-white/10 to-white/5',
+      borderColor: 'border-white/20',
+      textColor: 'text-empire',
+      shadow: ''
+    }
+  ]
+
+  const credentials = lang === 'fr' ? credentialsFr : credentialsEn
 
   return (
     <section className="relative py-20 md:py-28 overflow-hidden bg-gradient-to-b from-[#0a0a0a] via-black to-[#0a0a0a]">
@@ -117,8 +150,8 @@ export default function FounderSection() {
                 <div className="absolute -inset-1 bg-gradient-to-r from-empire/40 to-empire/20 rounded-2xl blur opacity-40" />
                 <div className="relative rounded-2xl overflow-hidden border border-white/10">
                   <Image
-                    src="https://www.empire-internet.com/_next/image?url=https%3A%2F%2Fd1yei2z3i6k35z.cloudfront.net%2F3647172%2F68c9e9f667659_1.png&w=1200&q=75&dpl=dpl_uBnQRaTatZbzz9Y9NR8Ln9kXSQzd"
-                    alt="Kevin Dufraisse - Top 50 LinkedIn France"
+                    src="https://d1yei2z3i6k35z.cloudfront.net/3647172/695b84b825207_Capturedecran2025-11-29a10.06.24.png"
+                    alt="Kevin Dufraisse - #9 Lead Generation Worldwide"
                     width={600}
                     height={800}
                     className="w-full h-auto"
