@@ -5,6 +5,7 @@ import { useRef, useEffect, useState } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { Mic, ArrowRight } from 'lucide-react'
 import { getCalApi } from "@calcom/embed-react"
+import AnimatedList, { AnimatedListItem } from '@/components/magicui/animated-list'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -49,23 +50,167 @@ function VoiceAnimation() {
   )
 }
 
-// Content List Items
-const contentItems = [
-  { icon: 'linkedin', label: '30 LinkedIn posts', time: 'Écrit & planifié' },
-  { icon: 'newsletter', label: '30 newsletters', time: 'Contenu quotidien' },
-  { icon: 'reels', label: '30 reels/shorts', time: 'Édité & optimisé' },
-  { icon: 'instagram', label: '30 Instagram posts', time: 'Designé & légendé' },
-  { icon: 'twitter', label: '10 Twitter posts', time: 'Idées décortiquées' },
-  { icon: 'threads', label: '10 Threads posts', time: 'Contenu engageant' },
+// Content notification items for AnimatedList
+const getNotificationsFr = (SocialIconComponent: typeof SocialIcon): AnimatedListItem[] => [
+  {
+    id: 1,
+    content: (
+      <div className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-empire/20 shadow-lg">
+        <div className="flex-shrink-0"><SocialIconComponent type="linkedin" /></div>
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-medium truncate">30 LinkedIn posts</p>
+          <p className="text-xs text-neutral-500">Écrit & planifié · À l'instant</p>
+        </div>
+        <div className="text-xs text-empire font-bold">✓</div>
+      </div>
+    ),
+  },
+  {
+    id: 2,
+    content: (
+      <div className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-empire/20 shadow-lg">
+        <div className="flex-shrink-0"><SocialIconComponent type="newsletter" /></div>
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-medium truncate">30 newsletters</p>
+          <p className="text-xs text-neutral-500">Contenu quotidien · 2m</p>
+        </div>
+        <div className="text-xs text-empire font-bold">✓</div>
+      </div>
+    ),
+  },
+  {
+    id: 3,
+    content: (
+      <div className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-empire/20 shadow-lg">
+        <div className="flex-shrink-0"><SocialIconComponent type="reels" /></div>
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-medium truncate">30 reels/shorts</p>
+          <p className="text-xs text-neutral-500">Édité & optimisé · 5m</p>
+        </div>
+        <div className="text-xs text-empire font-bold">✓</div>
+      </div>
+    ),
+  },
+  {
+    id: 4,
+    content: (
+      <div className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-empire/20 shadow-lg">
+        <div className="flex-shrink-0"><SocialIconComponent type="instagram" /></div>
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-medium truncate">30 Instagram posts</p>
+          <p className="text-xs text-neutral-500">Designé & légendé · 8m</p>
+        </div>
+        <div className="text-xs text-empire font-bold">✓</div>
+      </div>
+    ),
+  },
+  {
+    id: 5,
+    content: (
+      <div className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-empire/20 shadow-lg">
+        <div className="flex-shrink-0"><SocialIconComponent type="twitter" /></div>
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-medium truncate">10 Twitter posts</p>
+          <p className="text-xs text-neutral-500">Idées décortiquées · 12m</p>
+        </div>
+        <div className="text-xs text-empire font-bold">✓</div>
+      </div>
+    ),
+  },
+  {
+    id: 6,
+    content: (
+      <div className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-empire/20 shadow-lg">
+        <div className="flex-shrink-0"><SocialIconComponent type="threads" /></div>
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-medium truncate">10 Threads posts</p>
+          <p className="text-xs text-neutral-500">Contenu engageant · 15m</p>
+        </div>
+        <div className="text-xs text-empire font-bold">✓</div>
+      </div>
+    ),
+  },
 ]
 
-const contentItemsEn = [
-  { icon: 'linkedin', label: '30 LinkedIn posts', time: 'Written & scheduled' },
-  { icon: 'newsletter', label: '30 newsletters', time: 'Daily content' },
-  { icon: 'reels', label: '30 reels/shorts', time: 'Edited & optimized' },
-  { icon: 'instagram', label: '30 Instagram posts', time: 'Designed & captioned' },
-  { icon: 'twitter', label: '10 Twitter posts', time: 'Ideas unpacked' },
-  { icon: 'threads', label: '10 Threads posts', time: 'Engaging content' },
+const getNotificationsEn = (SocialIconComponent: typeof SocialIcon): AnimatedListItem[] => [
+  {
+    id: 1,
+    content: (
+      <div className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-empire/20 shadow-lg">
+        <div className="flex-shrink-0"><SocialIconComponent type="linkedin" /></div>
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-medium truncate">30 LinkedIn posts</p>
+          <p className="text-xs text-neutral-500">Written & scheduled · Just now</p>
+        </div>
+        <div className="text-xs text-empire font-bold">✓</div>
+      </div>
+    ),
+  },
+  {
+    id: 2,
+    content: (
+      <div className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-empire/20 shadow-lg">
+        <div className="flex-shrink-0"><SocialIconComponent type="newsletter" /></div>
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-medium truncate">30 newsletters</p>
+          <p className="text-xs text-neutral-500">Daily content · 2m ago</p>
+        </div>
+        <div className="text-xs text-empire font-bold">✓</div>
+      </div>
+    ),
+  },
+  {
+    id: 3,
+    content: (
+      <div className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-empire/20 shadow-lg">
+        <div className="flex-shrink-0"><SocialIconComponent type="reels" /></div>
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-medium truncate">30 reels/shorts</p>
+          <p className="text-xs text-neutral-500">Edited & optimized · 5m ago</p>
+        </div>
+        <div className="text-xs text-empire font-bold">✓</div>
+      </div>
+    ),
+  },
+  {
+    id: 4,
+    content: (
+      <div className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-empire/20 shadow-lg">
+        <div className="flex-shrink-0"><SocialIconComponent type="instagram" /></div>
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-medium truncate">30 Instagram posts</p>
+          <p className="text-xs text-neutral-500">Designed & captioned · 8m ago</p>
+        </div>
+        <div className="text-xs text-empire font-bold">✓</div>
+      </div>
+    ),
+  },
+  {
+    id: 5,
+    content: (
+      <div className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-empire/20 shadow-lg">
+        <div className="flex-shrink-0"><SocialIconComponent type="twitter" /></div>
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-medium truncate">10 Twitter posts</p>
+          <p className="text-xs text-neutral-500">Ideas unpacked · 12m ago</p>
+        </div>
+        <div className="text-xs text-empire font-bold">✓</div>
+      </div>
+    ),
+  },
+  {
+    id: 6,
+    content: (
+      <div className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-empire/20 shadow-lg">
+        <div className="flex-shrink-0"><SocialIconComponent type="threads" /></div>
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-medium truncate">10 Threads posts</p>
+          <p className="text-xs text-neutral-500">Engaging content · 15m ago</p>
+        </div>
+        <div className="text-xs text-empire font-bold">✓</div>
+      </div>
+    ),
+  },
 ]
 
 // Social Icons
@@ -121,7 +266,7 @@ const SocialIcon = ({ type }: { type: string }) => {
 
 export default function HowItWorksAccordion() {
   const { t, lang } = useLanguage()
-  const items = lang === 'fr' ? contentItems : contentItemsEn
+  const notifications = lang === 'fr' ? getNotificationsFr(SocialIcon) : getNotificationsEn(SocialIcon)
 
   const namespace = lang === 'fr' ? 'empire-request-fr' : 'empire-request'
   const calLink = lang === 'fr' ? 'kevin-dufraisse-private/empire-request-fr' : 'kevin-dufraisse-private/empire-request'
@@ -194,30 +339,23 @@ export default function HowItWorksAccordion() {
               </div>
 
               {/* BLOCK 2 - Content Ready */}
-              <div className="group relative flex flex-col overflow-hidden rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30 transition-all min-h-[320px]">
-                {/* Content list */}
-                <div className="flex-1 pt-4 px-3 pb-2 overflow-hidden">
-                  <div className="flex flex-col gap-1.5">
-                    {items.map((item, i) => (
-                      <div
-                        key={i}
-                        className="flex items-center gap-3 p-2 rounded-lg bg-white/5 border border-empire/20"
-                      >
-                        <div className="flex-shrink-0">
-                          <SocialIcon type={item.icon} />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium truncate">{item.label}</p>
-                          <p className="text-[10px] text-neutral-500">{item.time}</p>
-                        </div>
-                        <div className="text-xs text-empire font-bold">✓</div>
-                      </div>
-                    ))}
+              <div className="group relative flex flex-col justify-end overflow-hidden rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30 transition-all min-h-[320px]">
+                {/* Animated content list */}
+                <div className="absolute inset-0">
+                  <div className="absolute inset-0 pt-6 px-3 [mask-image:linear-gradient(to_top,transparent_20%,#000_100%)]">
+                    <AnimatedList
+                      items={notifications}
+                      delay={1200}
+                      className="w-full"
+                    />
                   </div>
                 </div>
                 
+                {/* Gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
+                
                 {/* Text - at bottom */}
-                <div className="relative z-10 p-6 pt-4 bg-gradient-to-t from-black via-black/90 to-transparent">
+                <div className="relative z-10 p-6">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">2</span>
                     <h3 className="text-xl font-semibold text-white">
@@ -228,6 +366,9 @@ export default function HowItWorksAccordion() {
                     {lang === 'fr' ? 'IA + humain créent 30+ contenus par semaine.' : 'AI + human create 30+ pieces per week.'}
                   </p>
                 </div>
+                
+                {/* Hover effect */}
+                <div className="pointer-events-none absolute inset-0 transform-gpu transition-all duration-300 group-hover:bg-black/[.03] z-5" />
               </div>
 
               {/* BLOCK 3 - Calendar Ready */}
