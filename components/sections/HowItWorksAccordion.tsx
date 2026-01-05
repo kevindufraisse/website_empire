@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef, useEffect, useState } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { Mic, Calendar, ArrowRight } from 'lucide-react'
+import { Mic, ArrowRight } from 'lucide-react'
 import { getCalApi } from "@calcom/embed-react"
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
@@ -246,11 +246,6 @@ export default function HowItWorksAccordion() {
               <div className="group relative flex flex-col justify-end overflow-hidden rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30 transition-all min-h-[320px]">
                 <div className="absolute inset-0">
                   <div className="flex flex-col items-center justify-center h-full w-full p-8 gap-4">
-                    {/* Calendar Icon */}
-                    <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-empire/30 to-empire/10 border-2 border-empire flex items-center justify-center">
-                      <Calendar className="text-empire" size={36} />
-                    </div>
-                    
                     {/* Mini Calendar Preview */}
                     <div className="grid grid-cols-7 gap-1 p-3 rounded-xl bg-white/5 border border-white/10">
                       {Array.from({ length: 28 }).map((_, i) => (
