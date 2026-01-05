@@ -356,15 +356,22 @@ export default function HowItWorksAccordion() {
                 
                 {/* Text - at bottom */}
                 <div className="relative z-10 p-6">
-                  <div className="flex items-center gap-2 mb-1">
+                  <div className="flex items-center gap-2 mb-2">
                     <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">2</span>
                     <h3 className="text-xl font-semibold text-white">
                       {lang === 'fr' ? 'Contenu Créé' : 'Content Created'}
                     </h3>
                   </div>
-                  <p className="text-neutral-400 text-sm">
+                  <p className="text-neutral-400 text-sm mb-3">
                     {lang === 'fr' ? 'IA + humain créent 30+ contenus par semaine.' : 'AI + human create 30+ pieces per week.'}
                   </p>
+                  {/* Human verification badge */}
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/20 border border-green-500/40">
+                    <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                    <span className="text-xs font-semibold text-green-400">
+                      {lang === 'fr' ? '✓ Vérifié par un humain' : '✓ Human verified'}
+                    </span>
+                  </div>
                 </div>
                 
                 {/* Hover effect */}
