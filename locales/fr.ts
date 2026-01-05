@@ -645,7 +645,7 @@ export const fr: Translations = {
     },
     {
       question: 'Qu\'est-ce qui rend ceci différent d\'une agence de contenu ?',
-      answer: 'Vitesse, coût et qualité. Les agences = €5-15K/mois, semaines à livrer, et ratent votre voix. Empire = 132 contenus/mois pour €1K/mois, contrôle qualité humain sur tout.',
+      answer: 'Vitesse, coût et qualité. Les agences = €5-15K/mois, semaines à livrer, et ratent votre voix. Empire = 132 contenus/mois, contrôle qualité humain sur tout.',
     },
     {
       question: 'Puis-je annuler à tout moment ?',

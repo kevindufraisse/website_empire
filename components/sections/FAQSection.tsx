@@ -102,7 +102,7 @@ const getFAQsOld = (t: any) => t.faqItems || [
   },
   {
     question: 'What makes this different from hiring a content agency?',
-    answer: 'Speed, cost, and quality. Agencies cost €5K-15K/month, take weeks to deliver, and often miss your voice. Empire delivers 132 pieces/month for €1K/month, with human QA on everything.',
+    answer: 'Speed, cost, and quality. Agencies cost €5K-15K/month, take weeks to deliver, and often miss your voice. Empire delivers 132 pieces/month with human QA on everything.',
   },
   {
     question: 'Can I cancel anytime?',
