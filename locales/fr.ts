@@ -895,6 +895,20 @@ export const fr: Translations = {
       applyButton: 'Postuler maintenant',
     },
   },
+  founder: {
+    badge: 'Le Créateur',
+    title: 'Créé par Quelqu\'un Qui Comprend',
+    subtitle: 'Les clones IA n\'ont pas été créés par des développeurs lambda. Ils ont été conçus par un top créateur de contenu qui a passé des mois à reverse-engineer le contenu viral.',
+    credential1: 'Growth Hacker Mondial',
+    credential2: 'Influenceur LinkedIn France',
+    credential3: 'Générés en Ligne',
+    viewCertificate: 'Voir le Certificat Favikon',
+    name: 'Kevin Dufraisse',
+    bio: 'Après avoir généré plus de 3M€ en ligne grâce au content marketing et au copywriting, j\'ai passé 6 mois à étudier les meilleurs créateurs mondiaux et à décrypter ce qui rend un contenu viral. Puis j\'ai cloné ces insights dans des systèmes IA que tout le monde peut utiliser.',
+    tagline: '→ Empire est le système que j\'aurais voulu avoir quand j\'ai commencé.',
+    keyPoint: 'La différence :',
+    keyMessage: 'Ce ne sont pas des templates IA génériques. Ils sont entraînés sur les frameworks exacts qui ont généré des millions de vues et d\'euros de revenus.',
+  },
 }
 
 

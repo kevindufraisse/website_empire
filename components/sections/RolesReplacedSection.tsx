@@ -86,30 +86,6 @@ export default function RolesReplacedSection() {
                 ? 'Chaque post est optimisé pour maximiser la viralité et la performance. Leur expertise, votre voix.'
                 : 'Every post is optimized to maximize virality and performance. Their expertise, your voice.'}
             </p>
-            
-            {/* Founder Credibility Card */}
-            <div className="mt-10 inline-flex flex-col sm:flex-row items-center gap-4 sm:gap-6 px-6 py-4 rounded-2xl bg-white/5 border border-white/10">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-empire to-empire/50 flex items-center justify-center text-black font-bold text-xl">
-                KD
-              </div>
-              <div className="text-center sm:text-left">
-                <p className="text-sm text-neutral-400 mb-1">
-                  {lang === 'fr' ? 'Créé par' : 'Built by'}
-                </p>
-                <p className="text-lg font-bold text-white mb-2">Kevin Dufraisse</p>
-                <div className="flex flex-wrap justify-center sm:justify-start gap-2">
-                  <span className="px-2 py-1 text-[10px] font-semibold rounded-full bg-red-500/10 border border-red-500/30 text-red-400">
-                    🏆 #6 Hacker {lang === 'fr' ? 'Mondial' : 'Worldwide'}
-                  </span>
-                  <span className="px-2 py-1 text-[10px] font-semibold rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400">
-                    📈 Top 48 LinkedIn France
-                  </span>
-                  <span className="px-2 py-1 text-[10px] font-semibold rounded-full bg-green-500/10 border border-green-500/30 text-green-400">
-                    💰 +3M€ {lang === 'fr' ? 'générés en ligne' : 'generated online'}
-                  </span>
-                </div>
-              </div>
-            </div>
           </div>
         </FadeInBlock>
 

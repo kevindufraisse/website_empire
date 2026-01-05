@@ -893,6 +893,20 @@ export const en = {
       applyButton: 'Apply now',
     },
   },
+  founder: {
+    badge: 'Meet the Creator',
+    title: 'Built by Someone Who Gets It',
+    subtitle: 'The AI clones weren\'t built by random developers. They were crafted by a top content creator who spent months reverse-engineering viral content.',
+    credential1: 'Growth Hacker Worldwide',
+    credential2: 'LinkedIn Influencer France',
+    credential3: 'Generated Online',
+    viewCertificate: 'View Favikon Certificate',
+    name: 'Kevin Dufraisse',
+    bio: 'After generating over €3M online through content marketing and copywriting, I spent 6 months studying the world\'s top creators and reverse-engineering what makes content go viral. Then I cloned those insights into AI systems that anyone can use.',
+    tagline: '→ Empire is the system I wish I had when I started.',
+    keyPoint: 'The difference:',
+    keyMessage: 'These aren\'t generic AI templates. They\'re trained on the exact frameworks that generated millions of views and euros in revenue.',
+  },
 }
 
 export type Translations = typeof en
