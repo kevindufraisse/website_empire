@@ -3,8 +3,9 @@ import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef, useEffect } from 'react'
 import Image from 'next/image'
-import { Award, TrendingUp, Code2 } from 'lucide-react'
+import { Award, TrendingUp, Code2, ArrowRight } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { getCalApi } from "@calcom/embed-react"
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -24,6 +25,25 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 
 export default function FounderSection() {
   const { t, lang } = useLanguage()
+
+  const namespace = lang === 'fr' ? 'empire-request-fr' : 'empire-request'
+  const calLink = lang === 'fr' ? 'kevin-dufraisse-private/empire-request-fr' : 'kevin-dufraisse-private/empire-request'
+
+  // Load Cal.com
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi({ namespace })
+      cal("ui", { 
+        hideEventTypeDetails: false, 
+        layout: "month_view",
+        theme: "dark",
+        cssVarsPerTheme: {
+          light: { "cal-brand": "#dafc68" },
+          dark: { "cal-brand": "#dafc68" }
+        }
+      })
+    })()
+  }, [namespace])
 
   // Load Senja widget script for French version
   useEffect(() => {
@@ -166,6 +186,24 @@ export default function FounderSection() {
               </div>
             </FadeInBlock>
           )}
+
+          {/* CTA - Talk to Kevin */}
+          <FadeInBlock delay={0.4}>
+            <div className="mt-12 text-center">
+              <button
+                data-cal-namespace={namespace}
+                data-cal-link={calLink}
+                data-cal-config='{"layout":"month_view","theme":"dark"}'
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-empire text-black font-bold text-lg hover:scale-105 transition-transform shadow-[0_0_30px_rgba(218,252,104,0.3)]"
+              >
+                {lang === 'fr' ? 'Parler à Kevin ou l\'équipe' : 'Talk to Kevin or the team'}
+                <ArrowRight size={20} />
+              </button>
+              <p className="mt-3 text-sm text-neutral-500">
+                {lang === 'fr' ? '15 min · Sans engagement' : '15 min · No commitment'}
+              </p>
+            </div>
+          </FadeInBlock>
         </div>
       </div>
     </section>
