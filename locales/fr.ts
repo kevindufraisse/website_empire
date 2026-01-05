@@ -908,6 +908,7 @@ export const fr: Translations = {
     tagline: '→ Empire est le système que j\'aurais voulu avoir quand j\'ai commencé.',
     keyPoint: 'La différence :',
     keyMessage: 'Ce ne sont pas des templates IA génériques. Ils sont entraînés sur les frameworks exacts qui ont généré des millions de vues et d\'euros de revenus.',
+    top1Badge: 'Mis en avant dans le Top 1% des meilleurs entrepreneurs FR',
   },
 }
 

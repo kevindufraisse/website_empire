@@ -1,7 +1,7 @@
 'use client'
 import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import Image from 'next/image'
 import { Award, TrendingUp, Code2 } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
@@ -23,7 +23,21 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 }
 
 export default function FounderSection() {
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()
+
+  // Load Senja widget script for French version
+  useEffect(() => {
+    if (lang === 'fr') {
+      const existingScript = document.querySelector('script[src*="senja.io/widget/84aa0cc7"]')
+      if (!existingScript) {
+        const script = document.createElement('script')
+        script.src = 'https://widget.senja.io/widget/84aa0cc7-bfa4-4108-9247-676e059134d8/platform.js'
+        script.type = 'text/javascript'
+        script.async = true
+        document.body.appendChild(script)
+      }
+    }
+  }, [lang])
 
   const credentials = [
     {
@@ -141,6 +155,24 @@ export default function FounderSection() {
               </div>
             </FadeInBlock>
           </div>
+
+          {/* Top 1% French Entrepreneurs - Senja Widget (FR only) */}
+          {lang === 'fr' && (
+            <FadeInBlock delay={0.3}>
+              <div className="mt-16 text-center">
+                <p className="text-xs text-empire uppercase tracking-widest mb-4">
+                  {t.founder?.top1Badge || 'Mis en avant dans le Top 1% des meilleurs entrepreneurs FR'}
+                </p>
+                <div 
+                  className="senja-embed" 
+                  data-id="84aa0cc7-bfa4-4108-9247-676e059134d8" 
+                  data-mode="shadow" 
+                  data-lazyload="false" 
+                  style={{ display: 'block', width: '100%' }}
+                />
+              </div>
+            </FadeInBlock>
+          )}
         </div>
       </div>
     </section>
