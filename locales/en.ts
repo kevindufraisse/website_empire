@@ -906,6 +906,7 @@ export const en = {
     tagline: '→ Empire is the system I wish I had when I started.',
     keyPoint: 'The difference:',
     keyMessage: 'These aren\'t generic AI templates. They\'re trained on the exact frameworks that generated millions of views and euros in revenue.',
+    top1Badge: 'Featured in the Top 1% of French Entrepreneurs',
   },
 }
 
