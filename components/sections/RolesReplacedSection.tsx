@@ -108,7 +108,7 @@ export default function RolesReplacedSection() {
                   <div className="flex items-center gap-1.5 md:gap-2">
                     <Check className="text-empire flex-shrink-0" size={14} />
                     <span className="text-neutral-300 text-xs md:text-sm font-medium leading-tight">
-                      {lang === 'fr' ? role.fr : role.en}
+                    {lang === 'fr' ? role.fr : role.en}
                     </span>
                   </div>
                   <span className="text-[10px] md:text-xs text-green-400 mt-1 pl-5">

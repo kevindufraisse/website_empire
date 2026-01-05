@@ -1,9 +1,9 @@
 export const en = {
   header: {
     spots: '83/100 spots',
-    watchDemo: 'Free Content Audit',
+    watchDemo: 'Free Audit',
     getAccess: 'Get Access',
-    joinQA: 'Free Content Audit',
+    joinQA: 'Free Audit',
     formats: 'Formats',
     product: 'Product',
     howItWorks: 'How It Works',
@@ -13,14 +13,12 @@ export const en = {
     hiring: 'We are hiring',
   },
   hero: {
+    targetAudience: 'For entrepreneurs, CEOs & professionals',
     title: 'From Invisible to <span class="text-empire">Omnipresent</span> in the next 24 Hours.',
     subtitle: 'Speak once a week for 15 minutes. Get a month of posts, reels, newsletters & videos — live on every platform.',
     description: 'Limited to 100 clients',
-    cta1: 'Free Content Audit',
+    cta1: 'Free Audit',
     cta2: 'Watch Demo (20 min)',
-    auditBullet1: 'Full review of your content strategy',
-    auditBullet2: 'Concrete action plan to break through on social',
-    auditBullet3: 'If you\'re a good fit, you can join Empire',
     rating: 'Based on 20 reviews',
     creatorsTitle: 'The systems used by the world\'s top creators',
     creatorsCost: 'They pay €50-100K/month for their content systems',
@@ -141,8 +139,8 @@ export const en = {
     limited: 'LIMITED TO 100 CLIENTS',
     title: 'Ready to Join?',
     subtitle: 'Choose your path below',
-    startNow: 'Free Content Audit',
-    watchDemo: 'Free Content Audit',
+    startNow: 'Free Audit',
+    watchDemo: 'Free Audit',
     details: 'Pay weekly (€300) · Cancel anytime · Start immediately',
     seeContentPlan: 'See Your Content Plan',
     startThisWeek: 'Start This Week',
@@ -198,7 +196,7 @@ export const en = {
   },
   videoDialog: {
     readyToJoin: 'Ready to join?',
-    startNow: 'Free Content Audit',
+    startNow: 'Free Audit',
     joinQA: 'Book a meeting',
   },
   stickyBar: {

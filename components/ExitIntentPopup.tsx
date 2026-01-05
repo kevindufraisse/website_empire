@@ -102,15 +102,15 @@ export function ExitIntentPopup() {
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-empire/20 border border-empire/30 mb-4">
             <span className="text-sm font-semibold text-empire">{t.badge}</span>
           </div>
-          
+
           <h3 className="text-3xl sm:text-4xl font-bold text-white mb-2">
             {t.title}
           </h3>
           <p className="text-neutral-300">
             {t.subtitle}
           </p>
-        </div>
-
+            </div>
+            
         {/* Benefits */}
         <div className="px-6 py-4 grid grid-cols-3 gap-3">
           <div className="p-3 rounded-lg bg-white/5 border border-white/10 text-center">
@@ -127,9 +127,9 @@ export function ExitIntentPopup() {
             <Sparkles className="text-empire mx-auto mb-2" size={24} />
             <p className="text-white font-semibold text-xs sm:text-sm">{t.benefit3}</p>
             <p className="text-neutral-400 text-[10px] sm:text-xs mt-1 hidden sm:block">{t.benefit3Desc}</p>
-          </div>
-        </div>
-
+              </div>
+            </div>
+            
         {/* Systeme.io Form */}
         <div className="px-6 py-4">
           <div 
@@ -140,7 +140,7 @@ export function ExitIntentPopup() {
               {lang === 'fr' ? 'Chargement...' : 'Loading...'}
             </div>
           </div>
-        </div>
+            </div>
 
         {/* Social proof */}
         <div className="px-6 pb-6">

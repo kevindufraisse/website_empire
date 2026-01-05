@@ -40,10 +40,20 @@ export default function HeroSection() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(218,252,104,0.15),transparent)]" />
         
         <div className="relative z-10 text-center max-w-4xl mx-auto">
+          {/* Target audience badge */}
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: 'easeOut' }}
+            className="text-xs text-neutral-400 mb-4 tracking-widest uppercase"
+          >
+            {t.hero.targetAudience}
+          </motion.p>
+          
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
+            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight"
             dangerouslySetInnerHTML={{ __html: t.hero.title.replace(/<br\/>/g, '<br>') }}
           />
@@ -137,22 +147,6 @@ export default function HeroSection() {
                 {t.hero.cta1}
               </button>
             </div>
-            
-            {/* Audit Description Bullets */}
-            <div className="flex flex-col gap-2 text-left max-w-md mx-auto mt-2">
-              <div className="flex items-center gap-2 text-sm text-neutral-300">
-                <CheckCircle2 size={16} className="text-empire flex-shrink-0" />
-                <span>{(t.hero as any).auditBullet1 || 'Full review of your content strategy'}</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-neutral-300">
-                <CheckCircle2 size={16} className="text-empire flex-shrink-0" />
-                <span>{(t.hero as any).auditBullet2 || 'Concrete action plan to break through on social'}</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-neutral-300">
-                <CheckCircle2 size={16} className="text-empire flex-shrink-0" />
-                <span>{(t.hero as any).auditBullet3 || 'If you\'re a good fit, you can join Empire'}</span>
-              </div>
-            </div>
           </motion.div>
             
             {/* Star Rating */}
@@ -194,12 +188,12 @@ export default function HeroSection() {
                 {/* Grant Cardone */}
                 <div className="flex flex-col items-center gap-2 px-3 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
                   <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-neutral-800 overflow-hidden">
-                    <img 
-                      src="https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4295dabe20aff6b9885_Cardone.webp"
-                      alt="Grant Cardone"
+                  <img 
+                    src="https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4295dabe20aff6b9885_Cardone.webp"
+                    alt="Grant Cardone"
                       className="w-full h-full object-cover"
                       loading="lazy"
-                    />
+                  />
                   </div>
                   <div className="text-center">
                     <p className="text-[11px] md:text-xs font-bold text-white group-hover:text-empire transition-colors">Grant Cardone</p>
@@ -210,12 +204,12 @@ export default function HeroSection() {
                 {/* Alex Hormozi */}
                 <div className="flex flex-col items-center gap-2 px-3 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
                   <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-neutral-800 overflow-hidden">
-                    <img 
-                      src="https://yt3.googleusercontent.com/29XFUn3pc3cC81yUUCFiyCKKdgi856IGMJ4EZBnf53zTfrWWUGvmYnYGx86K08f4XR03UxpWyw=s900-c-k-c0x00ffffff-no-rj"
-                      alt="Alex Hormozi"
+                  <img 
+                    src="https://yt3.googleusercontent.com/29XFUn3pc3cC81yUUCFiyCKKdgi856IGMJ4EZBnf53zTfrWWUGvmYnYGx86K08f4XR03UxpWyw=s900-c-k-c0x00ffffff-no-rj"
+                    alt="Alex Hormozi"
                       className="w-full h-full object-cover"
                       loading="lazy"
-                    />
+                  />
                   </div>
                   <div className="text-center">
                     <p className="text-[11px] md:text-xs font-bold text-white group-hover:text-empire transition-colors">Alex Hormozi</p>
@@ -226,12 +220,12 @@ export default function HeroSection() {
                 {/* Ali Abdaal */}
                 <div className="flex flex-col items-center gap-2 px-3 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
                   <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-neutral-800 overflow-hidden">
-                    <img 
-                      src="https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4d436f96370e8ccb7c4_Abdaal.webp"
-                      alt="Ali Abdaal"
+                  <img 
+                    src="https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4d436f96370e8ccb7c4_Abdaal.webp"
+                    alt="Ali Abdaal"
                       className="w-full h-full object-cover"
                       loading="lazy"
-                    />
+                  />
                   </div>
                   <div className="text-center">
                     <p className="text-[11px] md:text-xs font-bold text-white group-hover:text-empire transition-colors">Ali Abdaal</p>
@@ -242,12 +236,12 @@ export default function HeroSection() {
                 {/* Matt Gray */}
                 <div className="flex flex-col items-center gap-2 px-3 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
                   <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-neutral-800 overflow-hidden">
-                    <img 
-                      src="https://yt3.googleusercontent.com/W_GKaSoEuny3REkdSVW-AD6wcB_z5Ltr3hY_Mos94yDKlFLupVnJ6Gf8w1YfjEGps2nr62fB=s160-c-k-c0x00ffffff-no-rj"
-                      alt="Matt Gray"
+                  <img 
+                    src="https://yt3.googleusercontent.com/W_GKaSoEuny3REkdSVW-AD6wcB_z5Ltr3hY_Mos94yDKlFLupVnJ6Gf8w1YfjEGps2nr62fB=s160-c-k-c0x00ffffff-no-rj"
+                    alt="Matt Gray"
                       className="w-full h-full object-cover"
                       loading="lazy"
-                    />
+                  />
                   </div>
                   <div className="text-center">
                     <p className="text-[11px] md:text-xs font-bold text-white group-hover:text-empire transition-colors">Matt Gray</p>
@@ -258,12 +252,12 @@ export default function HeroSection() {
                 {/* Chris Williamson - Hidden on smallest screens, visible from sm */}
                 <div className="flex flex-col items-center gap-2 px-3 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group col-span-2 sm:col-span-1">
                   <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-neutral-800 overflow-hidden">
-                    <img 
-                      src="https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4d4f950bcf495c7dfb2_Williamson.webp"
-                      alt="Chris Williamson"
+                  <img 
+                    src="https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4d4f950bcf495c7dfb2_Williamson.webp"
+                    alt="Chris Williamson"
                       className="w-full h-full object-cover"
                       loading="lazy"
-                    />
+                  />
                   </div>
                   <div className="text-center">
                     <p className="text-[11px] md:text-xs font-bold text-white group-hover:text-empire transition-colors">Chris Williamson</p>

@@ -45,7 +45,7 @@ export default function Header() {
           {/* Right side */}
           <div className="flex items-center gap-2 md:gap-3">
             <div className="hidden sm:block">
-              <LanguageSwitcher />
+            <LanguageSwitcher />
             </div>
             <button
               data-cal-namespace={namespace}

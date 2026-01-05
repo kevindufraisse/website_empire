@@ -82,13 +82,13 @@ export default function HowItWorksAccordion() {
                 {/* Number Badge */}
                 <div className="absolute -top-4 left-6 w-8 h-8 rounded-lg bg-empire flex items-center justify-center shadow-lg">
                   <span className="text-lg font-black text-black">1</span>
-                </div>
+            </div>
                 
                 <div className="mt-4 flex-1 flex flex-col">
                   <div className="flex items-center gap-2 mb-3">
                     <Mic className="text-empire" size={20} />
                     <h3 className="text-lg md:text-xl font-bold text-white">{t.howItWorks.step1.title}</h3>
-                  </div>
+          </div>
                   
                   <p className="text-sm text-neutral-400 mb-4 flex-1">{t.howItWorks.step1.summary}</p>
                   
@@ -98,9 +98,9 @@ export default function HowItWorksAccordion() {
                       <NumberTicker value={15} />
                     </p>
                     <p className="text-sm text-neutral-400">{lang === 'fr' ? 'minutes' : 'minutes'}</p>
-                  </div>
-                </div>
-                
+            </div>
+          </div>
+
                 {/* Arrow - Desktop only */}
                 <div className="hidden md:flex absolute -right-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 items-center justify-center">
                   <ArrowRight className="text-empire" size={24} />
@@ -136,44 +136,44 @@ export default function HowItWorksAccordion() {
                     <div className="flex-1 px-2 py-2 rounded-lg bg-black/30 border border-white/10">
                       <p className="text-lg font-black text-empire">6</p>
                       <p className="text-[10px] text-neutral-500">{lang === 'fr' ? 'mois R&D' : 'months R&D'}</p>
-                    </div>
-                  </div>
-                  
+              </div>
+            </div>
+            
                   {/* Big Number */}
                   <div className="text-center p-4 rounded-xl bg-black/30 border border-empire/30">
                     <p className="text-4xl md:text-5xl font-black text-empire">
                       <NumberTicker value={30} />+
                     </p>
                     <p className="text-sm text-neutral-400">{lang === 'fr' ? 'contenus créés' : 'pieces created'}</p>
-                  </div>
-                  
+              </div>
+
                   {/* Human QA */}
                   <div className="mt-4 flex items-center gap-2 p-3 rounded-lg bg-black/20 border border-white/10">
                     <UserCheck className="text-empire flex-shrink-0" size={18} />
                     <p className="text-xs text-neutral-300">
                       <span className="text-empire font-semibold">Human QA</span> · {lang === 'fr' ? 'Chaque post vérifié' : 'Every post verified'}
-                    </p>
-                  </div>
-                </div>
+                </p>
+              </div>
+            </div>
                 
                 {/* Arrow - Desktop only */}
                 <div className="hidden md:flex absolute -right-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 items-center justify-center">
                   <ArrowRight className="text-empire" size={24} />
-                </div>
-              </div>
+          </div>
+        </div>
 
               {/* STEP 3 */}
               <div className="relative p-6 rounded-2xl bg-gradient-to-b from-white/[0.08] to-white/[0.02] border border-white/10 hover:border-empire/30 transition-all flex flex-col">
                 {/* Number Badge */}
                 <div className="absolute -top-4 left-6 w-8 h-8 rounded-lg bg-empire flex items-center justify-center shadow-lg">
                   <span className="text-lg font-black text-black">3</span>
-                </div>
+            </div>
                 
                 <div className="mt-4 flex-1 flex flex-col">
                   <div className="flex items-center gap-2 mb-3">
                     <Calendar className="text-empire" size={20} />
                     <h3 className="text-lg md:text-xl font-bold text-white">{t.howItWorks.step3.title}</h3>
-                  </div>
+            </div>
                   
                   <p className="text-sm text-neutral-400 mb-4 flex-1">{t.howItWorks.step3.summary}</p>
                   
@@ -181,11 +181,11 @@ export default function HowItWorksAccordion() {
                   <div className="text-center p-4 rounded-xl bg-empire/10 border border-empire/20">
                     <p className="text-4xl md:text-5xl font-black text-empire">1</p>
                     <p className="text-sm text-neutral-400">{lang === 'fr' ? 'clic pour publier' : 'click to publish'}</p>
-                  </div>
-                </div>
-              </div>
             </div>
-          </FadeInBlock>
+          </div>
+        </div>
+          </div>
+        </FadeInBlock>
 
           {/* Content Types - Horizontal scroll on mobile */}
           <FadeInBlock delay={0.2}>
@@ -194,7 +194,7 @@ export default function HowItWorksAccordion() {
               <div className="flex flex-wrap justify-center gap-2 md:gap-3">
                 {contentTypes.map((type, i) => {
                   const IconComponent = type.icon
-                  return (
+              return (
                     <motion.div
                       key={i}
                       initial={{ opacity: 0, scale: 0.8 }}
@@ -212,7 +212,7 @@ export default function HowItWorksAccordion() {
                       )}
                       <span className="text-lg font-bold text-empire">{type.count}</span>
                       <span className="text-xs text-neutral-400">{type.label}</span>
-                    </motion.div>
+                  </motion.div>
                   )
                 })}
               </div>
@@ -255,9 +255,9 @@ export default function HowItWorksAccordion() {
               <p className="mt-3 text-sm text-neutral-500">
                 {lang === 'fr' ? '15 min · Sans engagement' : '15 min · No commitment'}
               </p>
-            </div>
-          </FadeInBlock>
-        </div>
+          </div>
+        </FadeInBlock>
+      </div>
       </div>
     </section>
   )
