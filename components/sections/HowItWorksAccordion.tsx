@@ -163,28 +163,24 @@ export default function HowItWorksAccordion() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
               
               {/* BLOCK 1 - Voice Recording */}
-              <div className="group relative flex flex-col justify-end overflow-hidden rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30 transition-all min-h-[320px]">
-                <div className="absolute inset-0">
-                  <div className="flex flex-col items-center justify-center h-full w-full p-8 gap-6">
-                    {/* Mic Icon */}
-                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-empire/30 to-empire/10 border-2 border-empire flex items-center justify-center">
-                      <Mic className="text-empire" size={28} />
-                    </div>
-                    
-                    {/* Voice Waveform */}
-                    <VoiceAnimation />
-                    
-                    <p className="text-xs text-empire font-semibold tracking-wider uppercase">
-                      {lang === 'fr' ? 'Enregistrement...' : 'Recording...'}
-                    </p>
+              <div className="group relative flex flex-col overflow-hidden rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30 transition-all min-h-[320px]">
+                {/* Voice visual */}
+                <div className="flex-1 flex flex-col items-center justify-center p-6 gap-4">
+                  {/* Mic Icon */}
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-empire/30 to-empire/10 border-2 border-empire flex items-center justify-center">
+                    <Mic className="text-empire" size={28} />
                   </div>
+                  
+                  {/* Voice Waveform */}
+                  <VoiceAnimation />
+                  
+                  <p className="text-xs text-empire font-semibold tracking-wider uppercase">
+                    {lang === 'fr' ? 'Enregistrement...' : 'Recording...'}
+                  </p>
                 </div>
                 
-                {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
-                
-                {/* Text */}
-                <div className="relative z-10 p-6">
+                {/* Text - at bottom */}
+                <div className="relative z-10 p-6 pt-4 bg-gradient-to-t from-black via-black/90 to-transparent">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">1</span>
                     <h3 className="text-xl font-semibold text-white">
@@ -198,38 +194,30 @@ export default function HowItWorksAccordion() {
               </div>
 
               {/* BLOCK 2 - Content Ready */}
-              <div className="group relative flex flex-col justify-end overflow-hidden rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30 transition-all min-h-[320px]">
-                <div className="absolute inset-0">
-                  <div className="absolute inset-0 pt-6 px-3 [mask-image:linear-gradient(to_top,transparent_20%,#000_100%)]">
-                    <div className="flex flex-col gap-2 overflow-hidden w-full">
-                      {items.map((item, i) => (
-                        <motion.div
-                          key={i}
-                          initial={{ opacity: 0, x: -20 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          transition={{ delay: i * 0.1 }}
-                          viewport={{ once: true }}
-                          className="flex items-center gap-3 p-2.5 rounded-lg bg-white/5 border border-empire/20"
-                        >
-                          <div className="flex-shrink-0">
-                            <SocialIcon type={item.icon} />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <p className="text-sm font-medium truncate">{item.label}</p>
-                            <p className="text-[10px] text-neutral-500">{item.time}</p>
-                          </div>
-                          <div className="text-xs text-empire font-bold">✓</div>
-                        </motion.div>
-                      ))}
-                    </div>
+              <div className="group relative flex flex-col overflow-hidden rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30 transition-all min-h-[320px]">
+                {/* Content list */}
+                <div className="flex-1 pt-4 px-3 pb-2 overflow-hidden">
+                  <div className="flex flex-col gap-1.5">
+                    {items.map((item, i) => (
+                      <div
+                        key={i}
+                        className="flex items-center gap-3 p-2 rounded-lg bg-white/5 border border-empire/20"
+                      >
+                        <div className="flex-shrink-0">
+                          <SocialIcon type={item.icon} />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium truncate">{item.label}</p>
+                          <p className="text-[10px] text-neutral-500">{item.time}</p>
+                        </div>
+                        <div className="text-xs text-empire font-bold">✓</div>
+                      </div>
+                    ))}
                   </div>
                 </div>
                 
-                {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
-                
-                {/* Text */}
-                <div className="relative z-10 p-6">
+                {/* Text - at bottom */}
+                <div className="relative z-10 p-6 pt-4 bg-gradient-to-t from-black via-black/90 to-transparent">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">2</span>
                     <h3 className="text-xl font-semibold text-white">
@@ -243,36 +231,32 @@ export default function HowItWorksAccordion() {
               </div>
 
               {/* BLOCK 3 - Calendar Ready */}
-              <div className="group relative flex flex-col justify-end overflow-hidden rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30 transition-all min-h-[320px]">
-                <div className="absolute inset-0">
-                  <div className="flex flex-col items-center justify-center h-full w-full p-8 gap-4">
-                    {/* Mini Calendar Preview */}
-                    <div className="grid grid-cols-7 gap-1 p-3 rounded-xl bg-white/5 border border-white/10">
-                      {Array.from({ length: 28 }).map((_, i) => (
-                        <div
-                          key={i}
-                          className={`w-5 h-5 rounded text-[10px] flex items-center justify-center ${
-                            [2, 5, 9, 12, 16, 19, 23, 26].includes(i)
-                              ? 'bg-empire/30 text-empire font-bold'
-                              : 'bg-white/5 text-neutral-500'
-                          }`}
-                        >
-                          {i + 1}
-                        </div>
-                      ))}
-                    </div>
-                    
-                    <p className="text-xs text-empire font-semibold tracking-wider uppercase">
-                      {lang === 'fr' ? '1 clic pour publier' : '1 click to publish'}
-                    </p>
+              <div className="group relative flex flex-col overflow-hidden rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30 transition-all min-h-[320px]">
+                {/* Calendar visual */}
+                <div className="flex-1 flex flex-col items-center justify-center p-6 gap-4">
+                  {/* Mini Calendar Preview */}
+                  <div className="grid grid-cols-7 gap-1.5 p-4 rounded-xl bg-white/5 border border-white/10">
+                    {Array.from({ length: 28 }).map((_, i) => (
+                      <div
+                        key={i}
+                        className={`w-6 h-6 rounded text-[10px] flex items-center justify-center ${
+                          [2, 5, 9, 12, 16, 19, 23, 26].includes(i)
+                            ? 'bg-empire/30 text-empire font-bold'
+                            : 'bg-white/5 text-neutral-500'
+                        }`}
+                      >
+                        {i + 1}
+                      </div>
+                    ))}
                   </div>
+                  
+                  <p className="text-xs text-empire font-semibold tracking-wider uppercase">
+                    {lang === 'fr' ? '1 clic pour publier' : '1 click to publish'}
+                  </p>
                 </div>
                 
-                {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
-                
-                {/* Text */}
-                <div className="relative z-10 p-6">
+                {/* Text - at bottom */}
+                <div className="relative z-10 p-6 pt-4 bg-gradient-to-t from-black via-black/90 to-transparent">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">3</span>
                     <h3 className="text-xl font-semibold text-white">
