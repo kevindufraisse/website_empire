@@ -340,9 +340,17 @@ export default function HowItWorksAccordion() {
 
               {/* BLOCK 2 - Content Ready */}
               <div className="group relative flex flex-col justify-end overflow-hidden rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30 transition-all min-h-[320px]">
+                {/* Human Verified Badge - Top right */}
+                <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-500/20 border border-green-500/40 backdrop-blur-sm">
+                  <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                  <span className="text-[10px] font-semibold text-green-400">
+                    {lang === 'fr' ? 'Vérifié humain' : 'Human verified'}
+                  </span>
+                </div>
+                
                 {/* Animated content list */}
                 <div className="absolute inset-0">
-                  <div className="absolute inset-0 pt-6 px-3 [mask-image:linear-gradient(to_top,transparent_20%,#000_100%)]">
+                  <div className="absolute inset-0 pt-10 px-3 [mask-image:linear-gradient(to_top,transparent_20%,#000_100%)]">
                     <AnimatedList
                       items={notifications}
                       delay={1200}
@@ -356,22 +364,15 @@ export default function HowItWorksAccordion() {
                 
                 {/* Text - at bottom */}
                 <div className="relative z-10 p-6">
-                  <div className="flex items-center gap-2 mb-2">
+                  <div className="flex items-center gap-2 mb-1">
                     <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">2</span>
                     <h3 className="text-xl font-semibold text-white">
-                      {lang === 'fr' ? 'Contenu Créé' : 'Content Created'}
+                      {lang === 'fr' ? 'IA + Humain' : 'AI + Human'}
                     </h3>
                   </div>
-                  <p className="text-neutral-400 text-sm mb-3">
-                    {lang === 'fr' ? 'IA + humain créent 30+ contenus par semaine.' : 'AI + human create 30+ pieces per week.'}
+                  <p className="text-neutral-400 text-sm">
+                    {lang === 'fr' ? 'L\'IA crée, un expert vérifie chaque post.' : 'AI creates, an expert reviews every post.'}
                   </p>
-                  {/* Human verification badge */}
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/20 border border-green-500/40">
-                    <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                    <span className="text-xs font-semibold text-green-400">
-                      {lang === 'fr' ? '✓ Vérifié par un humain' : '✓ Human verified'}
-                    </span>
-                  </div>
                 </div>
                 
                 {/* Hover effect */}
