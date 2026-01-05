@@ -899,7 +899,7 @@ export const fr: Translations = {
     badge: 'Le Créateur',
     title: 'Créé par Quelqu\'un Qui Comprend',
     subtitle: 'Les clones IA n\'ont pas été créés par des développeurs lambda. Ils ont été conçus par un top créateur de contenu qui a passé des mois à reverse-engineer le contenu viral.',
-    credential1: 'Expert Lead Generation',
+    credential1: 'Lead Generation Mondial',
     credential2: 'Influenceur LinkedIn France',
     credential3: 'Générés en Ligne',
     viewCertificate: 'Voir le Certificat Favikon',

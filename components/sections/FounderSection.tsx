@@ -29,7 +29,7 @@ export default function FounderSection() {
     {
       icon: Code2,
       stat: '#6',
-      label: t.founder?.credential1 || 'Lead Generation Expert',
+      label: t.founder?.credential1 || 'Lead Generation Worldwide',
       color: 'from-white/10 to-white/5',
       borderColor: 'border-white/20',
       textColor: 'text-empire',
