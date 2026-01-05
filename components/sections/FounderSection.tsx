@@ -91,27 +91,20 @@ export default function FounderSection() {
           </FadeInBlock>
 
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            {/* Left side - Photo & Favikon */}
+            {/* Left side - Photo */}
             <FadeInBlock delay={0.1}>
               <div className="relative">
-                <a 
-                  href="https://www.favikon.com/creators/kevin-dufraisse"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block relative group"
-                >
-                  <div className="absolute -inset-1 bg-gradient-to-r from-empire/40 to-empire/20 rounded-2xl blur opacity-40 group-hover:opacity-60 transition duration-500" />
-                  <div className="relative rounded-2xl overflow-hidden border border-white/10 group-hover:border-empire/30 transition-all">
-                    <Image
-                      src="https://www.empire-internet.com/_next/image?url=https%3A%2F%2Fd1yei2z3i6k35z.cloudfront.net%2F3647172%2F68c9e9f667659_1.png&w=1200&q=75&dpl=dpl_uBnQRaTatZbzz9Y9NR8Ln9kXSQzd"
-                      alt="Kevin Dufraisse - Top 50 LinkedIn France"
-                      width={600}
-                      height={800}
-                      className="w-full h-auto group-hover:scale-[1.01] transition-transform duration-500"
-                      unoptimized
-                    />
-                  </div>
-                </a>
+                <div className="absolute -inset-1 bg-gradient-to-r from-empire/40 to-empire/20 rounded-2xl blur opacity-40" />
+                <div className="relative rounded-2xl overflow-hidden border border-white/10">
+                  <Image
+                    src="https://www.empire-internet.com/_next/image?url=https%3A%2F%2Fd1yei2z3i6k35z.cloudfront.net%2F3647172%2F68c9e9f667659_1.png&w=1200&q=75&dpl=dpl_uBnQRaTatZbzz9Y9NR8Ln9kXSQzd"
+                    alt="Kevin Dufraisse - Top 50 LinkedIn France"
+                    width={600}
+                    height={800}
+                    className="w-full h-auto"
+                    unoptimized
+                  />
+                </div>
               </div>
             </FadeInBlock>
 
