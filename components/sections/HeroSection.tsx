@@ -137,6 +137,22 @@ export default function HeroSection() {
                 {t.hero.cta1}
               </button>
             </div>
+            
+            {/* Audit Description Bullets */}
+            <div className="flex flex-col gap-2 text-left max-w-md mx-auto mt-2">
+              <div className="flex items-center gap-2 text-sm text-neutral-300">
+                <CheckCircle2 size={16} className="text-empire flex-shrink-0" />
+                <span>{(t.hero as any).auditBullet1 || 'Full review of your content strategy'}</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-neutral-300">
+                <CheckCircle2 size={16} className="text-empire flex-shrink-0" />
+                <span>{(t.hero as any).auditBullet2 || 'Concrete action plan to break through on social'}</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-neutral-300">
+                <CheckCircle2 size={16} className="text-empire flex-shrink-0" />
+                <span>{(t.hero as any).auditBullet3 || 'If you\'re a good fit, you can join Empire'}</span>
+              </div>
+            </div>
           </motion.div>
             
             {/* Star Rating */}
