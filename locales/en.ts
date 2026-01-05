@@ -897,7 +897,7 @@ export const en = {
     badge: 'Meet the Creator',
     title: 'Built by Someone Who Gets It',
     subtitle: 'The AI clones weren\'t built by random developers. They were crafted by a top content creator who spent months reverse-engineering viral content.',
-    credential1: 'Growth Hacker Worldwide',
+    credential1: 'Lead Generation Expert',
     credential2: 'LinkedIn Influencer France',
     credential3: 'Generated Online',
     viewCertificate: 'View Favikon Certificate',

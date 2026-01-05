@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef } from 'react'
 import Image from 'next/image'
-import { Award, TrendingUp, Code2, ExternalLink } from 'lucide-react'
+import { Award, TrendingUp, Code2 } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
@@ -29,29 +29,29 @@ export default function FounderSection() {
     {
       icon: Code2,
       stat: '#6',
-      label: t.founder?.credential1 || 'Growth Hacker Worldwide',
-      color: 'from-purple-500/30 to-purple-500/10',
-      borderColor: 'border-purple-400',
-      textColor: 'text-purple-400',
-      shadow: 'shadow-[0_0_20px_rgba(168,85,247,0.3)]'
+      label: t.founder?.credential1 || 'Lead Generation Expert',
+      color: 'from-white/10 to-white/5',
+      borderColor: 'border-white/20',
+      textColor: 'text-empire',
+      shadow: ''
     },
     {
       icon: Award,
       stat: '#48',
       label: t.founder?.credential2 || 'LinkedIn Influencer France',
-      color: 'from-blue-500/30 to-blue-500/10',
-      borderColor: 'border-blue-400',
-      textColor: 'text-blue-400',
-      shadow: 'shadow-[0_0_20px_rgba(59,130,246,0.3)]'
+      color: 'from-white/10 to-white/5',
+      borderColor: 'border-white/20',
+      textColor: 'text-empire',
+      shadow: ''
     },
     {
       icon: TrendingUp,
       stat: '+€3M',
       label: t.founder?.credential3 || 'Generated Online',
-      color: 'from-empire/30 to-green-500/10',
-      borderColor: 'border-empire',
+      color: 'from-white/10 to-white/5',
+      borderColor: 'border-white/20',
       textColor: 'text-empire',
-      shadow: 'shadow-[0_0_20px_rgba(218,252,104,0.3)]'
+      shadow: ''
     }
   ]
 
@@ -86,21 +86,16 @@ export default function FounderSection() {
                   rel="noopener noreferrer"
                   className="block relative group"
                 >
-                  <div className="absolute -inset-1 bg-gradient-to-r from-empire via-green-400 to-empire rounded-2xl blur opacity-30 group-hover:opacity-50 transition duration-500" />
-                  <div className="relative rounded-2xl overflow-hidden border-2 border-empire/30 group-hover:border-empire/50 transition-all">
+                  <div className="absolute -inset-1 bg-gradient-to-r from-empire/40 to-empire/20 rounded-2xl blur opacity-40 group-hover:opacity-60 transition duration-500" />
+                  <div className="relative rounded-2xl overflow-hidden border border-white/10 group-hover:border-empire/30 transition-all">
                     <Image
-                      src="https://d1yei2z3i6k35z.cloudfront.net/3647172/68c9e9f667659_1.png"
+                      src="https://www.empire-internet.com/_next/image?url=https%3A%2F%2Fd1yei2z3i6k35z.cloudfront.net%2F3647172%2F68c9e9f667659_1.png&w=1200&q=75&dpl=dpl_uBnQRaTatZbzz9Y9NR8Ln9kXSQzd"
                       alt="Kevin Dufraisse - Top 50 LinkedIn France"
                       width={600}
                       height={800}
-                      className="w-full h-auto group-hover:scale-[1.02] transition-transform duration-500"
+                      className="w-full h-auto group-hover:scale-[1.01] transition-transform duration-500"
+                      unoptimized
                     />
-                    {/* Overlay on hover */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
-                      <span className="flex items-center gap-2 text-empire font-semibold">
-                        {t.founder?.viewCertificate || 'View Favikon Certificate'} <ExternalLink size={16} />
-                      </span>
-                    </div>
                   </div>
                 </a>
               </div>
