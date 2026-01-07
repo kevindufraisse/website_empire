@@ -41,6 +41,7 @@ const pricingPlans = [
     noteFr: 'Tous les contenus sont créés pour le mois. Si vous annulez votre abonnement, tous les contenus seront supprimés d\'Empire.',
     link: 'https://www.join.empire-internet.com/mois-empire',
     hasLiveQA: false,
+    hasAcademyBonus: false,
   },
   {
     id: 'quarterly',
@@ -62,6 +63,7 @@ const pricingPlans = [
     popular: true,
     link: 'https://www.join.empire-internet.com/trimestre-empire',
     hasLiveQA: true,
+    hasAcademyBonus: true,
   },
   {
     id: 'yearly',
@@ -82,6 +84,7 @@ const pricingPlans = [
     noteFr: 'RECOMMANDÉ : Tous les contenus sont créés pour toute l\'année. Meilleure valeur et sécurité des contenus.',
     link: 'https://www.join.empire-internet.com/an-empire',
     hasLiveQA: true,
+    hasAcademyBonus: true,
   },
 ]
 
@@ -112,7 +115,7 @@ export default function PricingPlansSection() {
           </div>
         </FadeInBlock>
 
-        {/* Launch Bonus Banner - Compact & Clear */}
+        {/* Launch Bonus Banner - Only for quarterly+ plans */}
         <FadeInBlock delay={0.2}>
           <div className="mb-12 relative p-1 rounded-xl bg-gradient-to-r from-empire/30 via-empire/20 to-empire/30">
             <div className="bg-black rounded-lg p-6 md:p-8 relative overflow-hidden">
@@ -123,7 +126,7 @@ export default function PricingPlansSection() {
                 <div className="text-center mb-6">
                   <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-empire/20 border border-empire/30 text-empire text-xs font-bold mb-4">
                     <Sparkles size={14} />
-                    {lang === 'fr' ? 'BONUS OFFERT' : 'BONUS FREE'}
+                    {lang === 'fr' ? 'BONUS TRIMESTRIEL & ANNUEL' : 'QUARTERLY & YEARLY BONUS'}
                   </div>
                   
                   <h3 className="text-2xl md:text-3xl font-black text-white mb-2">
@@ -134,8 +137,8 @@ export default function PricingPlansSection() {
                   
                   <p className="text-base text-neutral-300 max-w-2xl mx-auto">
                     {lang === 'fr' 
-                      ? 'Pour apprendre : 1 mois d\'Académie Empire offert (valeur 2000€). Live avec Kevin chaque semaine devant +100K abonnés.' 
-                      : 'To learn: 1 month Empire Academy free (€2000 value). Live with Kevin every week in front of +100K followers.'}
+                      ? 'Pour les plans trimestriel & annuel : 1 mois d\'Académie Empire offert (valeur 2000€). Live avec Kevin chaque semaine devant +100K abonnés.' 
+                      : 'For quarterly & yearly plans: 1 month Empire Academy free (€2000 value). Live with Kevin every week in front of +100K followers.'}
                   </p>
                 </div>
 
@@ -273,7 +276,11 @@ export default function PricingPlansSection() {
                     <div className="space-y-2 text-sm">
                       <div className="flex items-center gap-2">
                         <Check className="text-empire flex-shrink-0" size={16} />
-                        <span className="text-neutral-300">30+ {lang === 'fr' ? 'contenus/mois' : 'content pieces/mo'}</span>
+                        <span className="text-neutral-300">+112 {lang === 'fr' ? 'contenus/mois' : 'content pieces/mo'}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Check className="text-empire flex-shrink-0" size={16} />
+                        <span className="text-neutral-300">{lang === 'fr' ? 'Publiés sur toutes les plateformes' : 'Published on all platforms'}</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <Check className="text-empire flex-shrink-0" size={16} />
@@ -285,48 +292,46 @@ export default function PricingPlansSection() {
                       </div>
                       <div className="flex items-center gap-2">
                         <Check className="text-empire flex-shrink-0" size={16} />
-                        <span className="text-neutral-300">{lang === 'fr' ? 'Accès API' : 'API access'}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Check className="text-empire flex-shrink-0" size={16} />
                         <span className="text-neutral-300">{lang === 'fr' ? 'Annulation flexible' : 'Cancel anytime'}</span>
                       </div>
                       
-                      {/* Bonus included - More visible */}
-                      <div className="pt-3 mt-3 border-t-2 border-empire/30">
-                        <div className="p-2 rounded-lg bg-empire/10 border border-empire/20">
-                          <div className="flex items-center gap-2 mb-1">
-                            <Sparkles className="text-empire flex-shrink-0" size={14} />
-                            <span className="text-empire font-bold text-xs">
-                              {lang === 'fr' ? 'BONUS INCLUS' : 'BONUS INCLUDED'}
-                            </span>
-                          </div>
-                          <p className="text-white font-semibold text-xs">
-                            {lang === 'fr' ? '1 mois d\'Académie offert' : '1 month Academy free'}
-                          </p>
-                          <p className="text-xs text-neutral-400 mt-0.5">
-                            {lang === 'fr' ? '4H live avec Kevin' : '4H live with Kevin'}
-                          </p>
-                        </div>
-                        
-                        {/* Live Q&A bonus for quarterly+ plans */}
-                        {plan.hasLiveQA && (
-                          <div className="p-2 rounded-lg bg-purple-500/10 border border-purple-500/20 mt-2">
+                      {/* Bonus included - Only for quarterly+ plans */}
+                      {plan.hasAcademyBonus && (
+                        <div className="pt-3 mt-3 border-t-2 border-empire/30">
+                          <div className="p-2 rounded-lg bg-empire/10 border border-empire/20">
                             <div className="flex items-center gap-2 mb-1">
-                              <Users className="text-purple-400 flex-shrink-0" size={14} />
-                              <span className="text-purple-400 font-bold text-xs">
-                                {lang === 'fr' ? 'LIVE Q&A MENSUEL' : 'MONTHLY LIVE Q&A'}
+                              <Sparkles className="text-empire flex-shrink-0" size={14} />
+                              <span className="text-empire font-bold text-xs">
+                                {lang === 'fr' ? 'BONUS INCLUS' : 'BONUS INCLUDED'}
                               </span>
                             </div>
                             <p className="text-white font-semibold text-xs">
-                              {lang === 'fr' ? 'Sessions live avec Kevin' : 'Live sessions with Kevin'}
+                              {lang === 'fr' ? '1 mois d\'Académie offert' : '1 month Academy free'}
                             </p>
                             <p className="text-xs text-neutral-400 mt-0.5">
-                              {lang === 'fr' ? 'Posez vos questions chaque mois · Gratuit' : 'Ask your questions every month · Free'}
+                              {lang === 'fr' ? '4H live avec Kevin' : '4H live with Kevin'}
                             </p>
                           </div>
-                        )}
-                      </div>
+                          
+                          {/* Live Q&A bonus for quarterly+ plans */}
+                          {plan.hasLiveQA && (
+                            <div className="p-2 rounded-lg bg-purple-500/10 border border-purple-500/20 mt-2">
+                              <div className="flex items-center gap-2 mb-1">
+                                <Users className="text-purple-400 flex-shrink-0" size={14} />
+                                <span className="text-purple-400 font-bold text-xs">
+                                  {lang === 'fr' ? 'LIVE Q&A MENSUEL' : 'MONTHLY LIVE Q&A'}
+                                </span>
+                              </div>
+                              <p className="text-white font-semibold text-xs">
+                                {lang === 'fr' ? 'Sessions live avec Kevin' : 'Live sessions with Kevin'}
+                              </p>
+                              <p className="text-xs text-neutral-400 mt-0.5">
+                                {lang === 'fr' ? 'Posez vos questions chaque mois · Gratuit' : 'Ask your questions every month · Free'}
+                              </p>
+                            </div>
+                          )}
+                        </div>
+                      )}
                     </div>
                   </div>
 
