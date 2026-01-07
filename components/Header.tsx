@@ -60,7 +60,7 @@ export default function Header() {
                 href="/partners"
                 className="hidden sm:block px-3 md:px-4 py-2 md:py-2.5 rounded-lg border border-empire/50 text-empire font-semibold hover:bg-empire/10 hover:border-empire transition-all text-sm md:text-base"
               >
-                {lang === 'fr' ? 'Partenaires' : 'Partners'}
+                {lang === 'fr' ? 'Devenir Partenaire' : 'Become a Partner'}
               </a>
             )}
             {!hideCTA && (
@@ -121,7 +121,7 @@ export default function Header() {
                   onClick={() => setIsMenuOpen(false)}
                   className="w-full py-3 rounded-lg border border-empire/50 text-empire font-bold text-center hover:bg-empire/10 transition-all"
                 >
-                  {lang === 'fr' ? 'Partenaires' : 'Partners'}
+                  {lang === 'fr' ? 'Devenir Partenaire' : 'Become a Partner'}
                 </motion.a>
               )}
               
