@@ -145,11 +145,11 @@ export default function PricingPageHero() {
                 <div className="relative z-10 flex flex-col items-center gap-4">
                   {/* Recommended badge */}
                   <div className="px-4 py-1.5 bg-empire text-black text-xs font-black rounded-full uppercase tracking-wider">
-                    {lang === 'fr' ? '⭐ Recommandé' : '⭐ Recommended'}
+                    {lang === 'fr' ? '⭐ Vous êtes recommandé' : '⭐ You are referred'}
                   </div>
                   
                   <p className="text-sm text-neutral-300 uppercase tracking-wider font-semibold">
-                    {lang === 'fr' ? 'Votre prix' : 'Your price'}
+                    {lang === 'fr' ? 'Remise de 500€ appliquée' : '€500 discount applied'}
                   </p>
                   
                   <div className="flex flex-col items-center gap-2">
