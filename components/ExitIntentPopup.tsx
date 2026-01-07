@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect, useRef } from 'react'
+import { usePathname } from 'next/navigation'
 import { X, Users, FileCode, Zap, Sparkles } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 
@@ -8,8 +9,15 @@ export function ExitIntentPopup() {
   const [dismissed, setDismissed] = useState(false)
   const { lang } = useLanguage()
   const scriptContainerRef = useRef<HTMLDivElement>(null)
+  const pathname = usePathname()
+  
+  // Disable on partners page
+  const isPartnersPage = pathname === '/partners'
 
   useEffect(() => {
+    // Don't show on partners page
+    if (isPartnersPage) return
+    
     // Check if already shown in this session
     const hasShown = sessionStorage.getItem('exitPopupShown')
     if (hasShown) return
@@ -23,7 +31,7 @@ export function ExitIntentPopup() {
 
     document.addEventListener('mouseleave', handleMouseLeave)
     return () => document.removeEventListener('mouseleave', handleMouseLeave)
-  }, [dismissed])
+  }, [dismissed, isPartnersPage])
 
   // Load Systeme.io script when popup shows
   useEffect(() => {
