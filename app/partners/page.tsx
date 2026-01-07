@@ -1,7 +1,7 @@
 'use client'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from 'framer-motion'
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { 
   DollarSign, 
@@ -12,20 +12,19 @@ import {
   TrendingUp, 
   Lightbulb, 
   Award,
-  Check,
   Users,
-  Clock,
   Shield,
   Zap,
   ArrowRight,
   Star,
-  Calendar,
   Mail,
   MessageSquare,
   Video,
-  FileText
+  FileText,
+  X,
+  Play,
+  Phone
 } from 'lucide-react'
-import { getCalApi } from "@calcom/embed-react"
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -164,27 +163,104 @@ const partnerResources = [
 
 export default function PartnersPage() {
   const { lang } = useLanguage()
-  
-  const namespace = lang === 'fr' ? 'empire-partner-fr' : 'empire-partner'
-  const calLink = lang === 'fr' ? 'kevin-dufraisse-private/empire-partner-fr' : 'kevin-dufraisse-private/empire-partner'
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const formContainerRef = useRef<HTMLDivElement>(null)
 
+  // Load Systeme.io form when modal opens
   useEffect(() => {
-    (async function () {
-      const cal = await getCalApi({ namespace })
-      cal("ui", { 
-        hideEventTypeDetails: false, 
-        layout: "month_view",
-        theme: "dark",
-        cssVarsPerTheme: {
-          light: { "cal-brand": "#dafc68" },
-          dark: { "cal-brand": "#dafc68" }
-        }
-      })
-    })()
-  }, [namespace])
+    if (isModalOpen && formContainerRef.current) {
+      // Clear previous content
+      formContainerRef.current.innerHTML = ''
+      
+      // Create and append script
+      const script = document.createElement('script')
+      script.id = 'form-script-tag-5606340'
+      script.src = 'https://www.join.empire-internet.com/public/remote/page/335981536ebd00244294d1b1d2e7ef2cee0ed0dc.js'
+      formContainerRef.current.appendChild(script)
+    }
+  }, [isModalOpen])
+
+  const openModal = () => setIsModalOpen(true)
+  const closeModal = () => setIsModalOpen(false)
+
+  const whatsappLink = 'https://wa.me/33665427470'
+  const loomDemoUrl = 'https://www.loom.com/share/90e64db2f5454c94b50b1c8cdbcbcc11'
+  const loomEmbedUrl = 'https://www.loom.com/embed/90e64db2f5454c94b50b1c8cdbcbcc11'
 
   return (
     <main className="relative min-h-screen bg-black">
+      {/* Partner Signup Modal */}
+      <AnimatePresence>
+        {isModalOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+            onClick={closeModal}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-lg bg-gradient-to-br from-neutral-900 to-black border-2 border-empire/50 rounded-2xl p-6 md:p-8 shadow-[0_0_60px_rgba(218,252,104,0.2)]"
+            >
+              {/* Close button */}
+              <button
+                onClick={closeModal}
+                className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+              >
+                <X size={20} className="text-white" />
+              </button>
+
+              {/* Modal Header */}
+              <div className="text-center mb-6">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-empire/20 border border-empire/30 text-empire text-xs font-bold mb-3">
+                  <Users size={14} />
+                  {lang === 'fr' ? 'INSCRIPTION PARTENAIRE' : 'PARTNER SIGNUP'}
+                </div>
+                <h3 className="text-2xl font-black text-white mb-2">
+                  {lang === 'fr' ? 'Rejoignez le Programme' : 'Join the Program'}
+                </h3>
+                <p className="text-sm text-neutral-400">
+                  {lang === 'fr' 
+                    ? 'Inscrivez-vous et recevez vos liens affiliés + ressources'
+                    : 'Sign up and receive your affiliate links + resources'}
+                </p>
+              </div>
+
+              {/* Systeme.io Form Container */}
+              <div 
+                ref={formContainerRef} 
+                className="min-h-[300px] flex items-center justify-center"
+              >
+                <div className="text-center text-neutral-400">
+                  <div className="animate-spin w-8 h-8 border-2 border-empire border-t-transparent rounded-full mx-auto mb-2" />
+                  {lang === 'fr' ? 'Chargement...' : 'Loading...'}
+                </div>
+              </div>
+
+              {/* WhatsApp Alternative */}
+              <div className="mt-6 pt-6 border-t border-white/10 text-center">
+                <p className="text-sm text-neutral-400 mb-3">
+                  {lang === 'fr' ? 'Ou contactez-moi directement :' : 'Or contact me directly:'}
+                </p>
+                <a
+                  href={whatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-green-500/20 border border-green-500/30 text-green-400 font-semibold hover:bg-green-500/30 transition-colors"
+                >
+                  <Phone size={18} />
+                  WhatsApp: +33 6 65 42 74 70
+                </a>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Hero Section */}
       <section className="relative py-24 md:py-32 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(218,252,104,0.2),transparent)]" />
@@ -222,17 +298,20 @@ export default function PartnersPage() {
             <FadeInBlock delay={0.3}>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <button
-                  data-cal-namespace={namespace}
-                  data-cal-link={calLink}
-                  data-cal-config='{"layout":"month_view","theme":"dark"}'
+                  onClick={openModal}
                   className="px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(218,252,104,0.3)] flex items-center gap-2"
                 >
                   {lang === 'fr' ? 'Devenir Partenaire' : 'Become a Partner'} <ArrowRight size={20} />
                 </button>
-                <div className="flex items-center gap-2 text-neutral-400">
-                  <Clock size={16} />
-                  <span className="text-sm">{lang === 'fr' ? 'Appel de 15 min' : '15 min call'}</span>
-                </div>
+                <a
+                  href={whatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 py-4 bg-green-500/20 border border-green-500/30 text-green-400 font-bold rounded-xl hover:bg-green-500/30 transition-all flex items-center gap-2"
+                >
+                  <Phone size={18} />
+                  WhatsApp
+                </a>
               </div>
             </FadeInBlock>
             
@@ -255,6 +334,48 @@ export default function PartnersPage() {
             </FadeInBlock>
           </div>
         </div>
+      </section>
+
+      {/* Demo Video Section */}
+      <section className="container py-16">
+        <FadeInBlock>
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-8">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/20 border border-purple-500/30 text-purple-400 text-xs font-bold mb-4">
+                <Play size={14} />
+                {lang === 'fr' ? 'DÉMO PRODUIT' : 'PRODUCT DEMO'}
+              </div>
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
+                {lang === 'fr' ? 'Découvrez Empire Internet en Action' : 'See Empire Internet in Action'}
+              </h2>
+              <p className="text-neutral-400">
+                {lang === 'fr' ? 'Regardez comment fonctionne notre machine à contenu' : 'Watch how our content machine works'}
+              </p>
+            </div>
+            
+            <div className="relative rounded-2xl overflow-hidden border-2 border-white/10 shadow-[0_0_40px_rgba(0,0,0,0.5)]">
+              <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
+                <iframe
+                  src={loomEmbedUrl}
+                  frameBorder="0"
+                  allowFullScreen
+                  style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+                />
+              </div>
+            </div>
+            
+            <div className="mt-4 text-center">
+              <a
+                href={loomDemoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-neutral-400 hover:text-empire transition-colors"
+              >
+                {lang === 'fr' ? 'Ouvrir dans Loom →' : 'Open in Loom →'}
+              </a>
+            </div>
+          </div>
+        </FadeInBlock>
       </section>
 
       {/* Commission Structure */}
@@ -419,8 +540,8 @@ export default function PartnersPage() {
               {[
                 {
                   step: '1',
-                  title: lang === 'fr' ? 'Devenez Partenaire' : 'Become a Partner',
-                  desc: lang === 'fr' ? 'Appelez-nous 15 min. On vous donne vos liens affiliés.' : 'Call us for 15 min. We give you your affiliate links.',
+                  title: lang === 'fr' ? 'Inscrivez-vous' : 'Sign Up',
+                  desc: lang === 'fr' ? 'Remplissez le formulaire. Recevez vos liens affiliés.' : 'Fill out the form. Receive your affiliate links.',
                 },
                 {
                   step: '2',
@@ -487,24 +608,33 @@ export default function PartnersPage() {
               </h2>
               <p className="text-lg text-neutral-300 mb-8">
                 {lang === 'fr' 
-                  ? 'Appelez-nous 15 minutes. On vous explique tout et on vous donne vos liens.'
-                  : 'Call us for 15 minutes. We explain everything and give you your links.'}
+                  ? 'Inscrivez-vous maintenant et recevez vos liens affiliés + ressources.'
+                  : 'Sign up now and receive your affiliate links + resources.'}
               </p>
               
-              <button
-                data-cal-namespace={namespace}
-                data-cal-link={calLink}
-                data-cal-config='{"layout":"month_view","theme":"dark"}'
-                className="px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(218,252,104,0.3)] flex items-center gap-2 mx-auto"
-              >
-                <Calendar size={20} />
-                {lang === 'fr' ? 'Réserver Mon Appel Partenaire' : 'Book My Partner Call'}
-              </button>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button
+                  onClick={openModal}
+                  className="px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(218,252,104,0.3)] flex items-center gap-2"
+                >
+                  <Users size={20} />
+                  {lang === 'fr' ? 'Devenir Partenaire' : 'Become a Partner'}
+                </button>
+                <a
+                  href={whatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 py-4 bg-green-500/20 border border-green-500/30 text-green-400 font-bold rounded-xl hover:bg-green-500/30 transition-all flex items-center gap-2"
+                >
+                  <Phone size={18} />
+                  WhatsApp
+                </a>
+              </div>
               
               <p className="mt-6 text-sm text-neutral-400">
                 {lang === 'fr' 
-                  ? '✓ 15 min · ✓ Sans engagement · ✓ Ressources offertes'
-                  : '✓ 15 min · ✓ No commitment · ✓ Free resources'}
+                  ? '✓ Inscription gratuite · ✓ Commissions récurrentes · ✓ Ressources offertes'
+                  : '✓ Free signup · ✓ Recurring commissions · ✓ Free resources'}
               </p>
             </div>
           </div>
