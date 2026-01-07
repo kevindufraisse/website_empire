@@ -47,15 +47,23 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* CTA */}
-          <button
-            data-cal-namespace={namespace}
-            data-cal-link={calLink}
-            data-cal-config='{"layout":"month_view","theme":"dark"}'
-            className="w-full md:w-auto text-center px-6 py-3.5 min-h-[44px] bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)]"
-          >
-            {t.finalCTA.watchDemo}
-          </button>
+          {/* CTAs */}
+          <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
+            <a
+              href="/partners"
+              className="w-full sm:w-auto text-center px-5 py-3 min-h-[44px] bg-transparent border-2 border-empire/50 text-empire font-bold rounded-xl hover:bg-empire/10 hover:border-empire transition-all flex items-center justify-center gap-2"
+            >
+              {lang === 'fr' ? 'Devenir Partenaire' : 'Become a Partner'}
+            </a>
+            <button
+              data-cal-namespace={namespace}
+              data-cal-link={calLink}
+              data-cal-config='{"layout":"month_view","theme":"dark"}'
+              className="w-full sm:w-auto text-center px-6 py-3.5 min-h-[44px] bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)]"
+            >
+              {t.finalCTA.watchDemo}
+            </button>
+          </div>
         </div>
 
         {/* Bottom */}
