@@ -1,7 +1,7 @@
 'use client'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
-import { useRef, useState } from 'react'
+import { useRef, useEffect } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { 
   DollarSign, 
@@ -22,8 +22,7 @@ import {
   Video,
   FileText,
   Play,
-  Phone,
-  X
+  Phone
 } from 'lucide-react'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
@@ -163,13 +162,27 @@ const partnerResources = [
 
 export default function PartnersPage() {
   const { lang } = useLanguage()
-  const [isModalOpen, setIsModalOpen] = useState(false)
   
-  // URL du formulaire Systeme.io à embedder
-  const formIframeUrl = 'https://www.join.empire-internet.com/form-partner'
-  
-  const openModal = () => setIsModalOpen(true)
-  const closeModal = () => setIsModalOpen(false)
+  // Charger le script Systeme.io pour le popup
+  useEffect(() => {
+    // Vérifier si le script existe déjà
+    if (document.getElementById('form-script-tag-5606340')) return
+    
+    // Créer et ajouter le script
+    const script = document.createElement('script')
+    script.id = 'form-script-tag-5606340'
+    script.src = 'https://www.join.empire-internet.com/public/remote/page/335981536ebd00244294d1b1d2e7ef2cee0ed0dc.js'
+    script.async = true
+    document.body.appendChild(script)
+    
+    return () => {
+      // Cleanup si nécessaire
+      const existingScript = document.getElementById('form-script-tag-5606340')
+      if (existingScript) {
+        existingScript.remove()
+      }
+    }
+  }, [])
 
   const whatsappLink = 'https://wa.me/33665427470'
   const loomDemoUrl = 'https://www.loom.com/share/90e64db2f5454c94b50b1c8cdbcbcc11'
@@ -177,42 +190,6 @@ export default function PartnersPage() {
 
   return (
     <main className="relative min-h-screen bg-black">
-      {/* Form Modal */}
-      <AnimatePresence>
-        {isModalOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
-            onClick={closeModal}
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-2xl max-h-[90vh] bg-white rounded-2xl overflow-hidden shadow-[0_0_60px_rgba(218,252,104,0.3)]"
-            >
-              {/* Close button */}
-              <button
-                onClick={closeModal}
-                className="absolute top-4 right-4 z-10 p-2 rounded-full bg-black/20 hover:bg-black/40 transition-colors"
-              >
-                <X size={20} className="text-white" />
-              </button>
-
-              {/* Iframe with form */}
-              <iframe
-                src={formIframeUrl}
-                className="w-full h-[80vh] border-0"
-                title="Partner Registration Form"
-              />
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-      
       {/* Hero Section */}
       <section className="relative py-24 md:py-32 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(218,252,104,0.2),transparent)]" />
@@ -250,7 +227,8 @@ export default function PartnersPage() {
             <FadeInBlock delay={0.3}>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <button
-                  onClick={openModal}
+                  id="form-trigger-5606340"
+                  type="button"
                   className="px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(218,252,104,0.3)] flex items-center gap-2 cursor-pointer"
                 >
                   {lang === 'fr' ? 'Devenir Partenaire' : 'Become a Partner'} <ArrowRight size={20} />
@@ -566,7 +544,11 @@ export default function PartnersPage() {
               
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <button
-                  onClick={openModal}
+                  type="button"
+                  onClick={() => {
+                    const trigger = document.getElementById('form-trigger-5606340')
+                    if (trigger) trigger.click()
+                  }}
                   className="px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(218,252,104,0.3)] flex items-center gap-2 cursor-pointer"
                 >
                   <Users size={20} />
