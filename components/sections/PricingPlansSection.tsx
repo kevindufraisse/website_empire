@@ -25,23 +25,6 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 
 const pricingPlans = [
   {
-    id: 'weekly',
-    name: 'Weekly',
-    nameFr: 'Hebdomadaire',
-    price: PRICING.weekly,
-    priceNormal: PRICING.weeklyNormal,
-    period: 'week',
-    periodFr: 'semaine',
-    billingCycle: 'Billed weekly',
-    billingCycleFr: 'Facturé chaque semaine',
-    badge: null,
-    savings: LAUNCH_OFFER_ACTIVE ? `Save €${PRICING.savingsWeekly} (launch)` : null,
-    savingsFr: LAUNCH_OFFER_ACTIVE ? `Économisez €${PRICING.savingsWeekly} (lancement)` : null,
-    note: 'Content generated week after week. Review each week and upgrade to monthly/quarterly/yearly plans to create content for longer periods.',
-    noteFr: 'Contenu généré semaine après semaine. Regardez le rendu chaque semaine et passez à un plan mensuel/trimestriel/annuel pour créer des contenus sur plusieurs semaines.',
-    link: 'https://www.join.empire-internet.com/semaine-empire',
-  },
-  {
     id: 'monthly',
     name: 'Monthly',
     nameFr: 'Mensuel',
@@ -57,6 +40,7 @@ const pricingPlans = [
     note: 'All content created for the month. If you cancel, all content will be deleted from Empire.',
     noteFr: 'Tous les contenus sont créés pour le mois. Si vous annulez votre abonnement, tous les contenus seront supprimés d\'Empire.',
     link: 'https://www.join.empire-internet.com/mois-empire',
+    hasLiveQA: false,
   },
   {
     id: 'quarterly',
@@ -77,6 +61,7 @@ const pricingPlans = [
     noteFr: 'Tous les contenus sont créés pour le trimestre. Si vous annulez votre abonnement, tous les contenus seront supprimés d\'Empire.',
     popular: true,
     link: 'https://www.join.empire-internet.com/trimestre-empire',
+    hasLiveQA: true,
   },
   {
     id: 'yearly',
@@ -96,6 +81,7 @@ const pricingPlans = [
     note: 'RECOMMENDED: All content created for the entire year. Best value and content security.',
     noteFr: 'RECOMMANDÉ : Tous les contenus sont créés pour toute l\'année. Meilleure valeur et sécurité des contenus.',
     link: 'https://www.join.empire-internet.com/an-empire',
+    hasLiveQA: true,
   },
 ]
 
@@ -120,8 +106,8 @@ export default function PricingPlansSection() {
             </h2>
             <p className="text-xl text-neutral-300 max-w-2xl mx-auto">
               {lang === 'fr' 
-                ? 'Payez à la semaine, au mois, au trimestre ou à l\'année. Annulez quand vous voulez.'
-                : 'Pay weekly, monthly, quarterly, or yearly. Cancel anytime.'}
+                ? 'Payez au mois, au trimestre ou à l\'année. Annulez quand vous voulez.'
+                : 'Pay monthly, quarterly, or yearly. Cancel anytime.'}
             </p>
           </div>
         </FadeInBlock>
@@ -204,7 +190,7 @@ export default function PricingPlansSection() {
         </FadeInBlock>
 
         {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {pricingPlans.map((plan, i) => (
             <FadeInBlock key={plan.id} delay={0.1 * i}>
               <div className={`relative h-full p-6 rounded-2xl border transition-all hover:scale-105 ${
@@ -322,6 +308,24 @@ export default function PricingPlansSection() {
                             {lang === 'fr' ? '4H live avec Kevin' : '4H live with Kevin'}
                           </p>
                         </div>
+                        
+                        {/* Live Q&A bonus for quarterly+ plans */}
+                        {plan.hasLiveQA && (
+                          <div className="p-2 rounded-lg bg-purple-500/10 border border-purple-500/20 mt-2">
+                            <div className="flex items-center gap-2 mb-1">
+                              <Users className="text-purple-400 flex-shrink-0" size={14} />
+                              <span className="text-purple-400 font-bold text-xs">
+                                {lang === 'fr' ? 'LIVE Q&A MENSUEL' : 'MONTHLY LIVE Q&A'}
+                              </span>
+                            </div>
+                            <p className="text-white font-semibold text-xs">
+                              {lang === 'fr' ? 'Sessions live avec Kevin' : 'Live sessions with Kevin'}
+                            </p>
+                            <p className="text-xs text-neutral-400 mt-0.5">
+                              {lang === 'fr' ? 'Posez vos questions chaque mois · Gratuit' : 'Ask your questions every month · Free'}
+                            </p>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>

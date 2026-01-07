@@ -11,7 +11,7 @@ import RolesReplacedSection from '@/components/sections/RolesReplacedSection'
 
 export const metadata = {
   title: 'Pricing — Empire Internet',
-  description: 'From €280/week to €833/month. Compare to hiring a team (€12,000/month). See why Empire is the smart choice.'
+  description: 'From €833/month to €1,000/month. Compare to hiring a team (€12,000/month). See why Empire is the smart choice.'
 }
 
 export default function PricingPage() {
