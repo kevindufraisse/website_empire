@@ -1,7 +1,7 @@
 'use client'
 import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
-import { useRef, useEffect } from 'react'
+import { useRef } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { 
   DollarSign, 
@@ -162,21 +162,8 @@ const partnerResources = [
 
 export default function PartnersPage() {
   const { lang } = useLanguage()
-
-  // Load Systeme.io form script on mount
-  useEffect(() => {
-    const scriptId = 'form-script-tag-5606340'
-    
-    // Check if script already exists
-    if (document.getElementById(scriptId)) return
-    
-    // Create and append script to body
-    const script = document.createElement('script')
-    script.id = scriptId
-    script.src = 'https://www.join.empire-internet.com/public/remote/page/335981536ebd00244294d1b1d2e7ef2cee0ed0dc.js'
-    script.async = true
-    document.body.appendChild(script)
-  }, [])
+  
+  const partnerFormUrl = 'https://www.join.empire-internet.com/partners'
 
   const whatsappLink = 'https://wa.me/33665427470'
   const loomDemoUrl = 'https://www.loom.com/share/90e64db2f5454c94b50b1c8cdbcbcc11'
@@ -220,12 +207,14 @@ export default function PartnersPage() {
             
             <FadeInBlock delay={0.3}>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <button
-                  id="form-trigger-5606340"
+                <a
+                  href={partnerFormUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(218,252,104,0.3)] flex items-center gap-2"
                 >
                   {lang === 'fr' ? 'Devenir Partenaire' : 'Become a Partner'} <ArrowRight size={20} />
-                </button>
+                </a>
                 <a
                   href={whatsappLink}
                   target="_blank"
@@ -536,18 +525,15 @@ export default function PartnersPage() {
               </p>
               
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <button
-                  id="form-trigger-5606340-2"
-                  onClick={() => {
-                    // Trigger the same form popup
-                    const trigger = document.getElementById('form-trigger-5606340')
-                    if (trigger) trigger.click()
-                  }}
+                <a
+                  href={partnerFormUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(218,252,104,0.3)] flex items-center gap-2"
                 >
                   <Users size={20} />
                   {lang === 'fr' ? 'Devenir Partenaire' : 'Become a Partner'}
-                </button>
+                </a>
                 <a
                   href={whatsappLink}
                   target="_blank"
