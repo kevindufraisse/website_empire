@@ -230,7 +230,7 @@ export default function PartnersPage() {
                   type="button"
                   className="systeme-show-popup-5606340 px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(218,252,104,0.3)] flex items-center gap-2 cursor-pointer"
                 >
-                  {lang === 'fr' ? 'Devenir Partenaire' : 'Become a Partner'} <ArrowRight size={20} />
+                  {lang === 'fr' ? 'Obtenir mon lien' : 'Get my sharable link'} <ArrowRight size={20} />
                 </button>
                 <a
                   href={whatsappLink}
@@ -547,7 +547,7 @@ export default function PartnersPage() {
                   className="systeme-show-popup-5606340 px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(218,252,104,0.3)] flex items-center gap-2 cursor-pointer"
                 >
                   <Users size={20} />
-                  {lang === 'fr' ? 'Devenir Partenaire' : 'Become a Partner'}
+                  {lang === 'fr' ? 'Obtenir mon lien' : 'Get my sharable link'}
                 </button>
                 <a
                   href={whatsappLink}

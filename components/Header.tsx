@@ -78,7 +78,7 @@ export default function Header() {
                 type="button"
                 className="systeme-show-popup-5606340 hidden sm:block px-4 md:px-5 py-2 md:py-2.5 rounded-lg bg-empire text-black font-semibold hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.2)] text-sm md:text-base cursor-pointer"
               >
-                {lang === 'fr' ? 'Devenir Partenaire' : 'Become a Partner'}
+                {lang === 'fr' ? 'Obtenir mon lien' : 'Get my sharable link'}
               </button>
             )}
 
@@ -149,7 +149,7 @@ export default function Header() {
                   onClick={() => setIsMenuOpen(false)}
                   className="systeme-show-popup-5606340 w-full py-3.5 rounded-lg bg-empire text-black font-bold hover:scale-[1.02] transition-all shadow-[0_0_20px_rgba(218,252,104,0.2)] cursor-pointer"
                 >
-                  {lang === 'fr' ? 'Devenir Partenaire' : 'Become a Partner'}
+                  {lang === 'fr' ? 'Obtenir mon lien' : 'Get my sharable link'}
                 </motion.button>
               )}
             </div>
