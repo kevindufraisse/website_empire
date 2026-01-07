@@ -132,31 +132,53 @@ export default function PricingPageHero() {
                 </div>
               </div>
               
-              {/* Bottom message - Enhanced with better contrast */}
-              <div className="mt-8 inline-flex flex-col items-center gap-3 px-10 py-6 rounded-2xl bg-gradient-to-br from-empire/20 to-empire/5 border-2 border-empire shadow-[0_0_30px_rgba(218,252,104,0.3)]">
-                <p className="text-xs text-neutral-400 uppercase tracking-wider font-bold">
-                  {lang === 'fr' ? '👇 Votre prix' : '👇 Your price'}
-                </p>
-                <div className="flex flex-col items-center gap-1">
+              {/* Bottom message - MEGA Enhanced pricing box */}
+              <motion.div 
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ delay: 0.6, duration: 0.5, type: "spring" }}
+                className="mt-10 inline-flex flex-col items-center gap-4 px-12 py-8 rounded-3xl bg-gradient-to-br from-empire/30 via-empire/15 to-empire/5 border-3 border-empire shadow-[0_0_60px_rgba(218,252,104,0.4)] relative overflow-hidden"
+              >
+                {/* Animated glow effect */}
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(218,252,104,0.15),transparent_70%)] animate-pulse" />
+                
+                <div className="relative z-10 flex flex-col items-center gap-4">
+                  {/* Recommended badge */}
+                  <div className="px-4 py-1.5 bg-empire text-black text-xs font-black rounded-full uppercase tracking-wider">
+                    {lang === 'fr' ? '⭐ Recommandé' : '⭐ Recommended'}
+                  </div>
+                  
+                  <p className="text-sm text-neutral-300 uppercase tracking-wider font-semibold">
+                    {lang === 'fr' ? 'Votre prix' : 'Your price'}
+                  </p>
+                  
+                  <div className="flex flex-col items-center gap-2">
+                    {LAUNCH_OFFER_ACTIVE && (
+                      <span className="text-3xl font-bold text-neutral-500 line-through decoration-red-500 decoration-3">€{PRICING.monthlyNormal}</span>
+                    )}
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-6xl md:text-7xl font-black text-empire drop-shadow-[0_0_30px_rgba(218,252,104,0.5)]">€{PRICING.monthly}</span>
+                      <span className="text-xl text-neutral-300 font-medium">{lang === 'fr' ? '/mois' : '/month'}</span>
+                    </div>
+                  </div>
+                  
                   {LAUNCH_OFFER_ACTIVE && (
-                    <span className="text-2xl font-bold text-neutral-400 line-through">€{PRICING.monthlyNormal}</span>
+                    <motion.div 
+                      animate={{ scale: [1, 1.05, 1] }}
+                      transition={{ repeat: Infinity, duration: 2 }}
+                      className="px-6 py-2.5 bg-gradient-to-r from-green-500/20 to-green-400/20 rounded-full border-2 border-green-400/50"
+                    >
+                      <p className="text-lg text-green-400 font-black">
+                        💰 {lang === 'fr' ? `Économisez ${PRICING.monthlyNormal - PRICING.monthly}€/mois` : `Save €${PRICING.monthlyNormal - PRICING.monthly}/month`}
+                      </p>
+                    </motion.div>
                   )}
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-5xl font-bold text-empire">€{PRICING.monthly}</span>
-                    <span className="text-lg text-neutral-300">/mois</span>
-                  </div>
+                  
+                  <p className="text-sm text-neutral-400 text-center max-w-sm mt-2">
+                    {lang === 'fr' ? 'Le même système que les top créateurs à 1% du prix' : 'The same system as top creators at 1% of the price'}
+                  </p>
                 </div>
-                {LAUNCH_OFFER_ACTIVE && (
-                  <div className="px-4 py-1.5 bg-empire/20 rounded-full border border-empire">
-                    <p className="text-sm text-empire font-bold">
-                      {lang === 'fr' ? `💰 Économisez ${PRICING.monthlyNormal - PRICING.monthly}€/mois` : `💰 Save €${PRICING.monthlyNormal - PRICING.monthly}/month`}
-                    </p>
-                  </div>
-                )}
-                <p className="text-xs text-neutral-400 text-center max-w-xs">
-                  {lang === 'fr' ? 'Le même système que les top créateurs à 1% du prix' : 'The same system as top creators at 1% of the price'}
-                </p>
-              </div>
+              </motion.div>
             </div>
           </motion.div>
         </div>
