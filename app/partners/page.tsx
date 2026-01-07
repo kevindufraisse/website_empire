@@ -1,7 +1,8 @@
 'use client'
 import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
+import Script from 'next/script'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { 
   DollarSign, 
@@ -162,8 +163,6 @@ const partnerResources = [
 
 export default function PartnersPage() {
   const { lang } = useLanguage()
-  
-  const partnerFormUrl = 'https://www.join.empire-internet.com/partners'
 
   const whatsappLink = 'https://wa.me/33665427470'
   const loomDemoUrl = 'https://www.loom.com/share/90e64db2f5454c94b50b1c8cdbcbcc11'
@@ -171,6 +170,13 @@ export default function PartnersPage() {
 
   return (
     <main className="relative min-h-screen bg-black">
+      {/* Systeme.io popup script */}
+      <Script 
+        id="form-script-tag-5606340"
+        src="https://www.join.empire-internet.com/public/remote/page/335981536ebd00244294d1b1d2e7ef2cee0ed0dc.js"
+        strategy="afterInteractive"
+      />
+      
       {/* Hero Section */}
       <section className="relative py-24 md:py-32 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(218,252,104,0.2),transparent)]" />
@@ -207,14 +213,12 @@ export default function PartnersPage() {
             
             <FadeInBlock delay={0.3}>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a
-                  href={partnerFormUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(218,252,104,0.3)] flex items-center gap-2"
+                <button
+                  id="form-trigger-5606340"
+                  className="px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(218,252,104,0.3)] flex items-center gap-2 cursor-pointer"
                 >
                   {lang === 'fr' ? 'Devenir Partenaire' : 'Become a Partner'} <ArrowRight size={20} />
-                </a>
+                </button>
                 <a
                   href={whatsappLink}
                   target="_blank"
@@ -525,15 +529,16 @@ export default function PartnersPage() {
               </p>
               
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a
-                  href={partnerFormUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(218,252,104,0.3)] flex items-center gap-2"
+                <button
+                  onClick={() => {
+                    const trigger = document.getElementById('form-trigger-5606340')
+                    if (trigger) trigger.click()
+                  }}
+                  className="px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(218,252,104,0.3)] flex items-center gap-2 cursor-pointer"
                 >
                   <Users size={20} />
                   {lang === 'fr' ? 'Devenir Partenaire' : 'Become a Partner'}
-                </a>
+                </button>
                 <a
                   href={whatsappLink}
                   target="_blank"
