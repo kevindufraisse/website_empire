@@ -227,9 +227,8 @@ export default function PartnersPage() {
             <FadeInBlock delay={0.3}>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <button
-                  id="form-trigger-5606340"
                   type="button"
-                  className="px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(218,252,104,0.3)] flex items-center gap-2 cursor-pointer"
+                  className="systeme-show-popup-5606340 px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(218,252,104,0.3)] flex items-center gap-2 cursor-pointer"
                 >
                   {lang === 'fr' ? 'Devenir Partenaire' : 'Become a Partner'} <ArrowRight size={20} />
                 </button>
@@ -545,11 +544,7 @@ export default function PartnersPage() {
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <button
                   type="button"
-                  onClick={() => {
-                    const trigger = document.getElementById('form-trigger-5606340')
-                    if (trigger) trigger.click()
-                  }}
-                  className="px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(218,252,104,0.3)] flex items-center gap-2 cursor-pointer"
+                  className="systeme-show-popup-5606340 px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(218,252,104,0.3)] flex items-center gap-2 cursor-pointer"
                 >
                   <Users size={20} />
                   {lang === 'fr' ? 'Devenir Partenaire' : 'Become a Partner'}
