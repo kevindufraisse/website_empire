@@ -1,7 +1,7 @@
 'use client'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { 
   DollarSign, 
@@ -21,7 +21,6 @@ import {
   MessageSquare,
   Video,
   FileText,
-  X,
   Play,
   Phone
 } from 'lucide-react'
@@ -163,25 +162,21 @@ const partnerResources = [
 
 export default function PartnersPage() {
   const { lang } = useLanguage()
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const formContainerRef = useRef<HTMLDivElement>(null)
 
-  // Load Systeme.io form when modal opens
+  // Load Systeme.io form script on mount
   useEffect(() => {
-    if (isModalOpen && formContainerRef.current) {
-      // Clear previous content
-      formContainerRef.current.innerHTML = ''
-      
-      // Create and append script
-      const script = document.createElement('script')
-      script.id = 'form-script-tag-5606340'
-      script.src = 'https://www.join.empire-internet.com/public/remote/page/335981536ebd00244294d1b1d2e7ef2cee0ed0dc.js'
-      formContainerRef.current.appendChild(script)
-    }
-  }, [isModalOpen])
-
-  const openModal = () => setIsModalOpen(true)
-  const closeModal = () => setIsModalOpen(false)
+    const scriptId = 'form-script-tag-5606340'
+    
+    // Check if script already exists
+    if (document.getElementById(scriptId)) return
+    
+    // Create and append script to body
+    const script = document.createElement('script')
+    script.id = scriptId
+    script.src = 'https://www.join.empire-internet.com/public/remote/page/335981536ebd00244294d1b1d2e7ef2cee0ed0dc.js'
+    script.async = true
+    document.body.appendChild(script)
+  }, [])
 
   const whatsappLink = 'https://wa.me/33665427470'
   const loomDemoUrl = 'https://www.loom.com/share/90e64db2f5454c94b50b1c8cdbcbcc11'
@@ -189,78 +184,6 @@ export default function PartnersPage() {
 
   return (
     <main className="relative min-h-screen bg-black">
-      {/* Partner Signup Modal */}
-      <AnimatePresence>
-        {isModalOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
-            onClick={closeModal}
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-lg bg-gradient-to-br from-neutral-900 to-black border-2 border-empire/50 rounded-2xl p-6 md:p-8 shadow-[0_0_60px_rgba(218,252,104,0.2)]"
-            >
-              {/* Close button */}
-              <button
-                onClick={closeModal}
-                className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
-              >
-                <X size={20} className="text-white" />
-              </button>
-
-              {/* Modal Header */}
-              <div className="text-center mb-6">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-empire/20 border border-empire/30 text-empire text-xs font-bold mb-3">
-                  <Users size={14} />
-                  {lang === 'fr' ? 'INSCRIPTION PARTENAIRE' : 'PARTNER SIGNUP'}
-                </div>
-                <h3 className="text-2xl font-black text-white mb-2">
-                  {lang === 'fr' ? 'Rejoignez le Programme' : 'Join the Program'}
-                </h3>
-                <p className="text-sm text-neutral-400">
-                  {lang === 'fr' 
-                    ? 'Inscrivez-vous et recevez vos liens affiliés + ressources'
-                    : 'Sign up and receive your affiliate links + resources'}
-                </p>
-              </div>
-
-              {/* Systeme.io Form Container */}
-              <div 
-                ref={formContainerRef} 
-                className="min-h-[300px] flex items-center justify-center"
-              >
-                <div className="text-center text-neutral-400">
-                  <div className="animate-spin w-8 h-8 border-2 border-empire border-t-transparent rounded-full mx-auto mb-2" />
-                  {lang === 'fr' ? 'Chargement...' : 'Loading...'}
-                </div>
-              </div>
-
-              {/* WhatsApp Alternative */}
-              <div className="mt-6 pt-6 border-t border-white/10 text-center">
-                <p className="text-sm text-neutral-400 mb-3">
-                  {lang === 'fr' ? 'Ou contactez-moi directement :' : 'Or contact me directly:'}
-                </p>
-                <a
-                  href={whatsappLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-green-500/20 border border-green-500/30 text-green-400 font-semibold hover:bg-green-500/30 transition-colors"
-                >
-                  <Phone size={18} />
-                  WhatsApp: +33 6 65 42 74 70
-                </a>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       {/* Hero Section */}
       <section className="relative py-24 md:py-32 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(218,252,104,0.2),transparent)]" />
@@ -298,7 +221,7 @@ export default function PartnersPage() {
             <FadeInBlock delay={0.3}>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <button
-                  onClick={openModal}
+                  id="form-trigger-5606340"
                   className="px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(218,252,104,0.3)] flex items-center gap-2"
                 >
                   {lang === 'fr' ? 'Devenir Partenaire' : 'Become a Partner'} <ArrowRight size={20} />
@@ -614,7 +537,12 @@ export default function PartnersPage() {
               
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <button
-                  onClick={openModal}
+                  id="form-trigger-5606340-2"
+                  onClick={() => {
+                    // Trigger the same form popup
+                    const trigger = document.getElementById('form-trigger-5606340')
+                    if (trigger) trigger.click()
+                  }}
                   className="px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(218,252,104,0.3)] flex items-center gap-2"
                 >
                   <Users size={20} />

@@ -12,8 +12,8 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const pathname = usePathname()
   
-  // Hide CTA button on pricing page
-  const isPricingPage = pathname === '/pricing'
+  // Hide CTA button on pricing and partners pages
+  const hideCTA = pathname === '/pricing' || pathname === '/partners'
 
   const namespace = lang === 'fr' ? 'empire-request-fr' : 'empire-request'
   const calLink = lang === 'fr' ? 'kevin-dufraisse-private/empire-request-fr' : 'kevin-dufraisse-private/empire-request'
@@ -52,7 +52,7 @@ export default function Header() {
             <div className="hidden sm:block">
             <LanguageSwitcher />
             </div>
-            {!isPricingPage && (
+            {!hideCTA && (
               <button
                 data-cal-namespace={namespace}
                 data-cal-link={calLink}
@@ -93,7 +93,7 @@ export default function Header() {
               </div>
 
               {/* CTA Button Mobile */}
-              {!isPricingPage && (
+              {!hideCTA && (
                 <motion.button
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}

@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { getCalApi } from "@calcom/embed-react"
 import { Calendar, ArrowRight } from 'lucide-react'
@@ -7,11 +8,17 @@ import { Calendar, ArrowRight } from 'lucide-react'
 export default function CalStickyBar() {
   const { lang } = useLanguage()
   const [isVisible, setIsVisible] = useState(false)
+  const pathname = usePathname()
+
+  // Hide on partners page
+  const isPartnersPage = pathname === '/partners'
 
   const namespace = lang === 'fr' ? 'empire-request-fr' : 'empire-request'
   const calLink = lang === 'fr' ? 'kevin-dufraisse-private/empire-request-fr' : 'kevin-dufraisse-private/empire-request'
 
   useEffect(() => {
+    if (isPartnersPage) return
+    
     (async function () {
       const cal = await getCalApi({ namespace })
       cal("ui", { 
@@ -24,9 +31,11 @@ export default function CalStickyBar() {
         }
       })
     })()
-  }, [namespace])
+  }, [namespace, isPartnersPage])
 
   useEffect(() => {
+    if (isPartnersPage) return
+    
     const handleScroll = () => {
       const scrollY = window.scrollY
       const heroHeight = window.innerHeight * 0.5
@@ -40,7 +49,10 @@ export default function CalStickyBar() {
 
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [isPartnersPage])
+
+  // Don't render on partners page
+  if (isPartnersPage) return null
 
   return (
     <div 
