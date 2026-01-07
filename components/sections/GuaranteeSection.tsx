@@ -49,8 +49,8 @@ export default function GuaranteeSection() {
 
               <p className="text-lg md:text-xl text-neutral-200 mb-8 leading-relaxed">
                 {lang === 'fr' 
-                  ? `Commencez avec notre plan hebdomadaire (€${PRICING.weekly}). Voyez la qualité. Si vous n'êtes pas satisfait, annulez à tout moment. Sans questions.`
-                  : `Start with our weekly plan (€${PRICING.weekly}). See the quality. If you're not happy, cancel anytime. No questions asked.`}
+                  ? `Commencez avec notre plan mensuel (€${PRICING.monthly}). Voyez la qualité. Si vous n'êtes pas satisfait, annulez à tout moment. Sans questions.`
+                  : `Start with our monthly plan (€${PRICING.monthly}). See the quality. If you're not happy, cancel anytime. No questions asked.`}
               </p>
 
               <div className="grid md:grid-cols-3 gap-4 mb-8">

@@ -29,7 +29,7 @@ export default function PricingPage() {
       {/* Roles Replaced - NEW */}
       <RolesReplacedSection />
 
-      {/* Pricing Plans - Weekly/Monthly/Quarterly/Yearly */}
+      {/* Pricing Plans - Monthly/Quarterly/Yearly */}
       <PricingPlansSection />
 
       {/* Launch Urgency - Why join now */}

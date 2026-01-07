@@ -141,7 +141,7 @@ export const en = {
     subtitle: 'Choose your path below',
     startNow: 'Free Audit',
     watchDemo: 'Free Audit',
-    details: 'Pay weekly (€300) · Cancel anytime · Start immediately',
+    details: 'Pay monthly · Cancel anytime · Start immediately',
     seeContentPlan: 'See Your Content Plan',
     startThisWeek: 'Start This Week',
   },
@@ -530,7 +530,7 @@ export const en = {
     },
     {
       question: 'Why no free trial or money-back guarantee?',
-      answer: 'We have a real team working on your content from day 1 — writers, editors, QA specialists. A free trial would mean they work for free, which isn\'t sustainable. Instead, we offer weekly payment (test for 1 week) and cancel anytime. You see the quality immediately without long-term commitment.',
+      answer: 'We have a real team working on your content from day 1 — writers, editors, QA specialists. A free trial would mean they work for free, which isn\'t sustainable. Instead, we offer monthly payment and cancel anytime. You see the quality immediately without long-term commitment.',
     },
     {
       question: 'What platforms do you publish to?',

@@ -34,7 +34,7 @@ export default function PricingPageHero() {
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-4"
           >
             {lang === 'fr' ? 'Commencez à ' : 'Start at '}
-            <span className="text-empire">€{PRICING.weekly}{lang === 'fr' ? '/semaine' : '/week'}</span>
+            <span className="text-empire">€{PRICING.yearly}{lang === 'fr' ? '/mois' : '/month'}</span>
           </motion.h1>
           
           <motion.p
@@ -44,8 +44,8 @@ export default function PricingPageHero() {
             className="text-xl md:text-2xl text-neutral-300 max-w-3xl mx-auto mb-12"
           >
             {lang === 'fr' 
-              ? `Pendant que d'autres dépensent €12,000+ pour des équipes de contenu, obtenez les mêmes résultats à partir de €${PRICING.weekly}/semaine. Annulez quand vous voulez.`
-              : `While others spend €12,000+ on content teams, get the same results starting at €${PRICING.weekly}/week. Cancel anytime.`}
+              ? `Pendant que d'autres dépensent €12,000+ pour des équipes de contenu, obtenez les mêmes résultats à partir de €${PRICING.yearly}/mois. Annulez quand vous voulez.`
+              : `While others spend €12,000+ on content teams, get the same results starting at €${PRICING.yearly}/month. Cancel anytime.`}
           </motion.p>
 
           {/* Top Creators Section */}

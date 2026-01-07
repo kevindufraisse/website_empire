@@ -188,7 +188,7 @@ export default function InclusionsTableSection() {
               </p>
               <p className="text-neutral-300">
                 {lang === 'fr' ? 'Vous payez :' : 'You pay:'} 
-                <span className="text-white font-bold"> €{PRICING.weekly}/semaine</span>
+                <span className="text-white font-bold"> €{PRICING.yearly}{lang === 'fr' ? '/mois' : '/month'}</span>
               </p>
             </div>
           </div>

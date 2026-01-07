@@ -8,24 +8,6 @@ import { PRICING, LAUNCH_OFFER_ACTIVE } from '@/lib/pricing-config'
 
 const pricingPlans = [
   {
-    id: 'weekly',
-    name: 'Weekly Plan',
-    nameFr: 'Plan Hebdomadaire',
-    price: PRICING.weekly,
-    priceNormal: PRICING.weeklyNormal,
-    period: 'week',
-    periodFr: 'semaine',
-    totalBilled: PRICING.weekly,
-    billingCycle: 'Every week',
-    billingCycleFr: 'Chaque semaine',
-    recommended: false,
-    popular: false,
-    badge: null,
-    savings: LAUNCH_OFFER_ACTIVE ? `Save €${PRICING.savingsWeekly}/week` : null,
-    savingsFr: LAUNCH_OFFER_ACTIVE ? `Économisez €${PRICING.savingsWeekly}/semaine` : null,
-    stripe_link: 'https://www.join.empire-internet.com/semaine-empire',
-  },
-  {
     id: 'monthly',
     name: 'Monthly Plan',
     nameFr: 'Plan Mensuel',
@@ -39,8 +21,8 @@ const pricingPlans = [
     recommended: false,
     popular: false,
     badge: null,
-    savings: LAUNCH_OFFER_ACTIVE ? `Save €${PRICING.savingsMonthly}/month` : `Save €${(PRICING.weekly * 4) - PRICING.monthly}/month vs Weekly`,
-    savingsFr: LAUNCH_OFFER_ACTIVE ? `Économisez €${PRICING.savingsMonthly}/mois` : `Économisez €${(PRICING.weekly * 4) - PRICING.monthly}/mois vs Hebdo`,
+    savings: LAUNCH_OFFER_ACTIVE ? `Save €${PRICING.savingsMonthly}/month` : null,
+    savingsFr: LAUNCH_OFFER_ACTIVE ? `Économisez €${PRICING.savingsMonthly}/mois` : null,
     stripe_link: 'https://www.join.empire-internet.com/mois-empire',
   },
   {
@@ -144,7 +126,7 @@ export default function OrderPage() {
           </div>
 
           {/* Pricing Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
             {pricingPlans.map((plan) => (
               <motion.div
                 key={plan.id}
@@ -432,8 +414,8 @@ export default function OrderPage() {
                 </p>
                 <p className="text-sm text-neutral-400">
                   {lang === 'fr'
-                    ? 'Immédiatement, puis automatiquement à chaque cycle (semaine/mois/trimestre/an).'
-                    : 'Immediately, then automatically at each cycle (week/month/quarter/year).'
+                    ? 'Immédiatement, puis automatiquement à chaque cycle (mois/trimestre/an).'
+                    : 'Immediately, then automatically at each cycle (month/quarter/year).'
                   }
                 </p>
               </div>

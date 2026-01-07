@@ -264,7 +264,7 @@ export const fr: Translations = {
     subtitle: 'Choisissez votre voie',
     startNow: 'Audit gratuit',
     watchDemo: 'Audit gratuit',
-    details: 'Paiement hebdo (€300) · Annulez quand vous voulez · Démarrage immédiat',
+    details: 'Paiement mensuel · Annulez quand vous voulez · Démarrage immédiat',
     seeContentPlan: 'Voir Votre Plan de Contenu',
     startThisWeek: 'Commencer Cette Semaine',
   },
@@ -653,7 +653,7 @@ export const fr: Translations = {
     },
     {
       question: 'Pourquoi pas d\'essai gratuit ou garantie satisfait ou remboursé ?',
-      answer: 'On a une vraie équipe qui travaille dès le jour 1 — rédacteurs, éditeurs, QA. Un essai gratuit = ils travaillent gratuitement, pas durable. À la place : paiement hebdo (testez 1 semaine) et annulation à tout moment. Vous voyez la qualité immédiatement sans engagement.',
+      answer: 'On a une vraie équipe qui travaille dès le jour 1 — rédacteurs, éditeurs, QA. Un essai gratuit = ils travaillent gratuitement, pas durable. À la place : paiement mensuel et annulation à tout moment. Vous voyez la qualité immédiatement sans engagement.',
     },
     {
       question: 'Sur quelles plateformes publiez-vous ?',
