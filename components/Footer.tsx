@@ -1,12 +1,15 @@
 'use client'
 import { useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { Mail } from 'lucide-react'
 import { getCalApi } from "@calcom/embed-react"
 
 export default function Footer() {
   const { t, lang } = useLanguage()
+  const pathname = usePathname()
   
+  const isPartnersPage = pathname === '/partners'
   const namespace = lang === 'fr' ? 'empire-request-fr' : 'empire-request'
   const calLink = lang === 'fr' ? 'kevin-dufraisse-private/empire-request-fr' : 'kevin-dufraisse-private/empire-request'
 
@@ -49,20 +52,24 @@ export default function Footer() {
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
-            <a
-              href="/partners"
-              className="w-full sm:w-auto text-center px-5 py-3 min-h-[44px] bg-transparent border-2 border-empire/50 text-empire font-bold rounded-xl hover:bg-empire/10 hover:border-empire transition-all flex items-center justify-center gap-2"
-            >
-              {lang === 'fr' ? 'Devenir Partenaire' : 'Become a Partner'}
-            </a>
-            <button
-              data-cal-namespace={namespace}
-              data-cal-link={calLink}
-              data-cal-config='{"layout":"month_view","theme":"dark"}'
-              className="w-full sm:w-auto text-center px-6 py-3.5 min-h-[44px] bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)]"
-            >
-              {t.finalCTA.watchDemo}
-            </button>
+            {!isPartnersPage && (
+              <a
+                href="/partners"
+                className="w-full sm:w-auto text-center px-5 py-3 min-h-[44px] bg-transparent border-2 border-empire/50 text-empire font-bold rounded-xl hover:bg-empire/10 hover:border-empire transition-all flex items-center justify-center gap-2"
+              >
+                {lang === 'fr' ? 'Devenir Partenaire' : 'Become a Partner'}
+              </a>
+            )}
+            {!isPartnersPage && (
+              <button
+                data-cal-namespace={namespace}
+                data-cal-link={calLink}
+                data-cal-config='{"layout":"month_view","theme":"dark"}'
+                className="w-full sm:w-auto text-center px-6 py-3.5 min-h-[44px] bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)]"
+              >
+                {t.finalCTA.watchDemo}
+              </button>
+            )}
           </div>
         </div>
 
