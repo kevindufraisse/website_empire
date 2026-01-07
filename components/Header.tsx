@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { LanguageSwitcher } from '@/components/LanguageSwitcher'
 import { Menu, X } from 'lucide-react'
@@ -9,6 +10,10 @@ import { getCalApi } from "@calcom/embed-react"
 export default function Header() {
   const { t, lang } = useLanguage()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const pathname = usePathname()
+  
+  // Hide CTA button on pricing page
+  const isPricingPage = pathname === '/pricing'
 
   const namespace = lang === 'fr' ? 'empire-request-fr' : 'empire-request'
   const calLink = lang === 'fr' ? 'kevin-dufraisse-private/empire-request-fr' : 'kevin-dufraisse-private/empire-request'
@@ -47,14 +52,16 @@ export default function Header() {
             <div className="hidden sm:block">
             <LanguageSwitcher />
             </div>
-            <button
-              data-cal-namespace={namespace}
-              data-cal-link={calLink}
-              data-cal-config='{"layout":"month_view","theme":"dark"}'
-              className="hidden sm:block px-4 md:px-5 py-2 md:py-2.5 rounded-lg bg-empire text-black font-semibold hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.2)] text-sm md:text-base"
-            >
-              {t.header.joinQA}
-            </button>
+            {!isPricingPage && (
+              <button
+                data-cal-namespace={namespace}
+                data-cal-link={calLink}
+                data-cal-config='{"layout":"month_view","theme":"dark"}'
+                className="hidden sm:block px-4 md:px-5 py-2 md:py-2.5 rounded-lg bg-empire text-black font-semibold hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.2)] text-sm md:text-base"
+              >
+                {t.header.joinQA}
+              </button>
+            )}
 
             {/* Mobile Menu Button */}
             <button
@@ -86,18 +93,20 @@ export default function Header() {
               </div>
 
               {/* CTA Button Mobile */}
-              <motion.button
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                data-cal-namespace={namespace}
-                data-cal-link={calLink}
-                data-cal-config='{"layout":"month_view","theme":"dark"}'
-                onClick={() => setIsMenuOpen(false)}
-                className="w-full py-3.5 rounded-lg bg-empire text-black font-bold hover:scale-[1.02] transition-all shadow-[0_0_20px_rgba(218,252,104,0.2)]"
-              >
-                {t.header.joinQA}
-              </motion.button>
+              {!isPricingPage && (
+                <motion.button
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 }}
+                  data-cal-namespace={namespace}
+                  data-cal-link={calLink}
+                  data-cal-config='{"layout":"month_view","theme":"dark"}'
+                  onClick={() => setIsMenuOpen(false)}
+                  className="w-full py-3.5 rounded-lg bg-empire text-black font-bold hover:scale-[1.02] transition-all shadow-[0_0_20px_rgba(218,252,104,0.2)]"
+                >
+                  {t.header.joinQA}
+                </motion.button>
+              )}
             </div>
           </motion.div>
         )}
