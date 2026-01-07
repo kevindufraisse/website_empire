@@ -295,41 +295,23 @@ export default function PricingPlansSection() {
                         <span className="text-neutral-300">{lang === 'fr' ? 'Annulation flexible' : 'Cancel anytime'}</span>
                       </div>
                       
-                      {/* Bonus included - Only for quarterly+ plans */}
-                      {plan.hasAcademyBonus && (
+                      {/* Live Q&A bonus for quarterly+ plans only */}
+                      {plan.hasLiveQA && (
                         <div className="pt-3 mt-3 border-t-2 border-empire/30">
-                          <div className="p-2 rounded-lg bg-empire/10 border border-empire/20">
+                          <div className="p-2 rounded-lg bg-purple-500/10 border border-purple-500/20">
                             <div className="flex items-center gap-2 mb-1">
-                              <Sparkles className="text-empire flex-shrink-0" size={14} />
-                              <span className="text-empire font-bold text-xs">
-                                {lang === 'fr' ? 'BONUS INCLUS' : 'BONUS INCLUDED'}
+                              <Users className="text-purple-400 flex-shrink-0" size={14} />
+                              <span className="text-purple-400 font-bold text-xs">
+                                {lang === 'fr' ? 'LIVE Q&A MENSUEL' : 'MONTHLY LIVE Q&A'}
                               </span>
                             </div>
                             <p className="text-white font-semibold text-xs">
-                              {lang === 'fr' ? '1 mois d\'Académie offert' : '1 month Academy free'}
+                              {lang === 'fr' ? 'Sessions live avec Kevin' : 'Live sessions with Kevin'}
                             </p>
                             <p className="text-xs text-neutral-400 mt-0.5">
-                              {lang === 'fr' ? '4H live avec Kevin' : '4H live with Kevin'}
+                              {lang === 'fr' ? 'Posez vos questions chaque mois · Gratuit' : 'Ask your questions every month · Free'}
                             </p>
                           </div>
-                          
-                          {/* Live Q&A bonus for quarterly+ plans */}
-                          {plan.hasLiveQA && (
-                            <div className="p-2 rounded-lg bg-purple-500/10 border border-purple-500/20 mt-2">
-                              <div className="flex items-center gap-2 mb-1">
-                                <Users className="text-purple-400 flex-shrink-0" size={14} />
-                                <span className="text-purple-400 font-bold text-xs">
-                                  {lang === 'fr' ? 'LIVE Q&A MENSUEL' : 'MONTHLY LIVE Q&A'}
-                                </span>
-                              </div>
-                              <p className="text-white font-semibold text-xs">
-                                {lang === 'fr' ? 'Sessions live avec Kevin' : 'Live sessions with Kevin'}
-                              </p>
-                              <p className="text-xs text-neutral-400 mt-0.5">
-                                {lang === 'fr' ? 'Posez vos questions chaque mois · Gratuit' : 'Ask your questions every month · Free'}
-                              </p>
-                            </div>
-                          )}
                         </div>
                       )}
                     </div>
