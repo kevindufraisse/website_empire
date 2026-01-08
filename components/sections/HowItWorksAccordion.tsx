@@ -62,7 +62,7 @@ const getNotificationsFr = (SocialIconComponent: typeof SocialIcon): AnimatedLis
           <p className="text-xs text-neutral-500">Écrit & planifié · À l'instant</p>
         </div>
         <div className="text-xs text-empire font-bold">✓</div>
-      </div>
+            </div>
     ),
   },
   {
@@ -73,9 +73,9 @@ const getNotificationsFr = (SocialIconComponent: typeof SocialIcon): AnimatedLis
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium truncate">30 newsletters</p>
           <p className="text-xs text-neutral-500">Contenu quotidien · 2m</p>
-        </div>
+            </div>
         <div className="text-xs text-empire font-bold">✓</div>
-      </div>
+          </div>
     ),
   },
   {
@@ -88,10 +88,10 @@ const getNotificationsFr = (SocialIconComponent: typeof SocialIcon): AnimatedLis
           <p className="text-xs text-neutral-500">Édité & optimisé · 5m</p>
         </div>
         <div className="text-xs text-empire font-bold">✓</div>
-      </div>
-    ),
-  },
-  {
+        </div>
+      ),
+    },
+    {
     id: 4,
     content: (
       <div className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-empire/20 shadow-lg">
@@ -99,9 +99,9 @@ const getNotificationsFr = (SocialIconComponent: typeof SocialIcon): AnimatedLis
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium truncate">30 Instagram posts</p>
           <p className="text-xs text-neutral-500">Designé & légendé · 8m</p>
-        </div>
+                      </div>
         <div className="text-xs text-empire font-bold">✓</div>
-      </div>
+                  </div>
     ),
   },
   {
@@ -112,9 +112,9 @@ const getNotificationsFr = (SocialIconComponent: typeof SocialIcon): AnimatedLis
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium truncate">10 Twitter posts</p>
           <p className="text-xs text-neutral-500">Idées décortiquées · 12m</p>
-        </div>
+            </div>
         <div className="text-xs text-empire font-bold">✓</div>
-      </div>
+          </div>
     ),
   },
   {
@@ -125,9 +125,9 @@ const getNotificationsFr = (SocialIconComponent: typeof SocialIcon): AnimatedLis
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium truncate">10 Threads posts</p>
           <p className="text-xs text-neutral-500">Contenu engageant · 15m</p>
-        </div>
+              </div>
         <div className="text-xs text-empire font-bold">✓</div>
-      </div>
+            </div>
     ),
   },
 ]
@@ -141,9 +141,9 @@ const getNotificationsEn = (SocialIconComponent: typeof SocialIcon): AnimatedLis
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium truncate">30 LinkedIn posts</p>
           <p className="text-xs text-neutral-500">Written & scheduled · Just now</p>
-        </div>
+              </div>
         <div className="text-xs text-empire font-bold">✓</div>
-      </div>
+              </div>
     ),
   },
   {
@@ -154,9 +154,9 @@ const getNotificationsEn = (SocialIconComponent: typeof SocialIcon): AnimatedLis
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium truncate">30 newsletters</p>
           <p className="text-xs text-neutral-500">Daily content · 2m ago</p>
-        </div>
+            </div>
         <div className="text-xs text-empire font-bold">✓</div>
-      </div>
+          </div>
     ),
   },
   {
@@ -169,10 +169,10 @@ const getNotificationsEn = (SocialIconComponent: typeof SocialIcon): AnimatedLis
           <p className="text-xs text-neutral-500">Edited & optimized · 5m ago</p>
         </div>
         <div className="text-xs text-empire font-bold">✓</div>
-      </div>
-    ),
-  },
-  {
+        </div>
+      ),
+    },
+    {
     id: 4,
     content: (
       <div className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-empire/20 shadow-lg">
@@ -180,9 +180,9 @@ const getNotificationsEn = (SocialIconComponent: typeof SocialIcon): AnimatedLis
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium truncate">30 Instagram posts</p>
           <p className="text-xs text-neutral-500">Designed & captioned · 8m ago</p>
-        </div>
+            </div>
         <div className="text-xs text-empire font-bold">✓</div>
-      </div>
+            </div>
     ),
   },
   {
@@ -193,9 +193,9 @@ const getNotificationsEn = (SocialIconComponent: typeof SocialIcon): AnimatedLis
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium truncate">10 Twitter posts</p>
           <p className="text-xs text-neutral-500">Ideas unpacked · 12m ago</p>
-        </div>
+            </div>
         <div className="text-xs text-empire font-bold">✓</div>
-      </div>
+          </div>
     ),
   },
   {
@@ -208,10 +208,10 @@ const getNotificationsEn = (SocialIconComponent: typeof SocialIcon): AnimatedLis
           <p className="text-xs text-neutral-500">Engaging content · 15m ago</p>
         </div>
         <div className="text-xs text-empire font-bold">✓</div>
-      </div>
-    ),
-  },
-]
+        </div>
+      ),
+    },
+  ]
 
 // Social Icons
 const SocialIcon = ({ type }: { type: string }) => {
@@ -293,18 +293,18 @@ export default function HowItWorksAccordion() {
       
       <div className="container relative z-10">
         <div className="max-w-6xl mx-auto">
-          {/* Title */}
-          <FadeInBlock>
+        {/* Title */}
+        <FadeInBlock>
             <div className="text-center mb-10 md:mb-16">
               <h2 className="text-3xl md:text-5xl font-bold mb-3">{t.howItWorks.title}</h2>
               <p className="text-base md:text-xl text-neutral-400">
-                {t.howItWorks.subtitle}
-              </p>
-            </div>
-          </FadeInBlock>
+              {t.howItWorks.subtitle}
+            </p>
+          </div>
+        </FadeInBlock>
 
           {/* 3 Visual Blocks */}
-          <FadeInBlock delay={0.1}>
+        <FadeInBlock delay={0.1}>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
               
               {/* BLOCK 1 - Voice Recording */}
@@ -397,12 +397,12 @@ export default function HowItWorksAccordion() {
                         {i + 1}
                       </div>
                     ))}
-                  </div>
+                        </div>
                   
                   <p className="text-xs text-empire font-semibold tracking-wider uppercase">
                     {lang === 'fr' ? '1 clic pour publier' : '1 click to publish'}
                   </p>
-                </div>
+                    </div>
                 
                 {/* Text - at bottom */}
                 <div className="relative z-10 p-6 pt-4 bg-gradient-to-t from-black via-black/90 to-transparent">
@@ -411,7 +411,7 @@ export default function HowItWorksAccordion() {
                     <h3 className="text-xl font-semibold text-white">
                       {lang === 'fr' ? 'Publiez' : 'Publish'}
                     </h3>
-                  </div>
+                    </div>
                   <p className="text-neutral-400 text-sm">
                     {lang === 'fr' ? 'Tout est dans votre calendrier. Relisez et publiez.' : 'Everything in your calendar. Review and publish.'}
                   </p>
@@ -436,9 +436,9 @@ export default function HowItWorksAccordion() {
               <p className="mt-3 text-sm text-neutral-500">
                 {lang === 'fr' ? '15 min · Sans engagement' : '15 min · No commitment'}
               </p>
-            </div>
-          </FadeInBlock>
-        </div>
+          </div>
+        </FadeInBlock>
+      </div>
       </div>
     </section>
   )

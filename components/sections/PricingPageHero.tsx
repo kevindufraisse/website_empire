@@ -150,19 +150,19 @@ export default function PricingPageHero() {
                   
                   <p className="text-sm text-neutral-300 uppercase tracking-wider font-semibold">
                     {lang === 'fr' ? 'Remise de 500€ appliquée' : '€500 discount applied'}
-                  </p>
+                </p>
                   
                   <div className="flex flex-col items-center gap-2">
-                    {LAUNCH_OFFER_ACTIVE && (
+                  {LAUNCH_OFFER_ACTIVE && (
                       <span className="text-3xl font-bold text-neutral-500 line-through decoration-red-500 decoration-3">€{PRICING.monthlyNormal}</span>
-                    )}
-                    <div className="flex items-baseline gap-2">
+                  )}
+                  <div className="flex items-baseline gap-2">
                       <span className="text-6xl md:text-7xl font-black text-empire drop-shadow-[0_0_30px_rgba(218,252,104,0.5)]">€{PRICING.monthly}</span>
                       <span className="text-xl text-neutral-300 font-medium">{lang === 'fr' ? '/mois' : '/month'}</span>
                     </div>
                   </div>
                   
-                  {LAUNCH_OFFER_ACTIVE && (
+                {LAUNCH_OFFER_ACTIVE && (
                     <motion.div 
                       animate={{ scale: [1, 1.05, 1] }}
                       transition={{ repeat: Infinity, duration: 2 }}
@@ -170,14 +170,14 @@ export default function PricingPageHero() {
                     >
                       <p className="text-lg text-green-400 font-black">
                         💰 {lang === 'fr' ? `Économisez ${PRICING.monthlyNormal - PRICING.monthly}€/mois` : `Save €${PRICING.monthlyNormal - PRICING.monthly}/month`}
-                      </p>
+                    </p>
                     </motion.div>
-                  )}
+                )}
                   
                   <p className="text-sm text-neutral-400 text-center max-w-sm mt-2">
-                    {lang === 'fr' ? 'Le même système que les top créateurs à 1% du prix' : 'The same system as top creators at 1% of the price'}
-                  </p>
-                </div>
+                  {lang === 'fr' ? 'Le même système que les top créateurs à 1% du prix' : 'The same system as top creators at 1% of the price'}
+                </p>
+              </div>
               </motion.div>
             </div>
           </motion.div>

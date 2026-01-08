@@ -375,49 +375,6 @@ export default function PartnersPage() {
         </FadeInBlock>
       </section>
 
-      {/* Client Benefit - The €500 Discount */}
-      <section className="container py-20">
-        <FadeInBlock>
-          <div className="p-8 md:p-12 rounded-3xl bg-gradient-to-br from-empire/20 via-empire/10 to-transparent border-2 border-empire relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-empire/20 rounded-full blur-3xl" />
-            
-            <div className="relative z-10 max-w-3xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-empire text-black text-xs font-bold mb-4">
-                <Gift size={14} />
-                {lang === 'fr' ? 'AVANTAGE EXCLUSIF' : 'EXCLUSIVE BENEFIT'}
-              </div>
-              
-              <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
-                {lang === 'fr' 
-                  ? 'Vos clients économisent 500€/mois'
-                  : 'Your clients save €500/month'}
-              </h2>
-              
-              <p className="text-lg text-neutral-300 mb-6">
-                {lang === 'fr' 
-                  ? 'En passant par vous, vos clients bénéficient d\'une remise exclusive de 500€/mois sur Empire Internet. Vous devenez leur "accès privilégié".'
-                  : 'By going through you, your clients get an exclusive €500/month discount on Empire Internet. You become their "privileged access".'}
-              </p>
-              
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div className="p-4 rounded-xl bg-black/40 border border-white/10">
-                  <p className="text-empire font-bold mb-1">{lang === 'fr' ? 'Ce que vos clients pensent' : 'What your clients think'}</p>
-                  <p className="text-sm text-neutral-300 italic">
-                    "{lang === 'fr' ? 'Grâce à toi, j\'économise 500€ chaque mois.' : 'Thanks to you, I save €500 every month.'}"
-                  </p>
-                </div>
-                <div className="p-4 rounded-xl bg-black/40 border border-white/10">
-                  <p className="text-empire font-bold mb-1">{lang === 'fr' ? 'Votre position' : 'Your position'}</p>
-                  <p className="text-sm text-neutral-300">
-                    {lang === 'fr' ? 'Vous passez pour le héros. Relation renforcée.' : 'You look like the hero. Relationship strengthened.'}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </FadeInBlock>
-      </section>
-
       {/* Benefits Grid */}
       <section className="container py-20">
         <FadeInBlock>
