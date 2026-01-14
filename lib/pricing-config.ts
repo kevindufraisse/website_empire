@@ -30,12 +30,14 @@ export const LAUNCH_OFFER_ACTIVE = true
 const NORMAL_MONTHLY = 1500
 const NORMAL_WEEKLY = 420      // 1500€ ÷ 4 = 375€ mais on charge un peu plus
 const NORMAL_QUARTERLY = 1400  // Environ -6.7% vs 1500€
+const NORMAL_SEMESTER = 1300   // Environ -13.3% vs 1500€
 const NORMAL_YEARLY = 1250     // Environ -16.7% vs 1500€
 
 // Prix offre de lancement (on garde les MÊMES prix qu'avant)
 const LAUNCH_MONTHLY = 1000    // Ancien prix mensuel
 const LAUNCH_WEEKLY = 280      // Ancien prix hebdo (on garde exactement pareil)
 const LAUNCH_QUARTERLY = 933   // Ancien prix trimestriel (arrondi pour facile : 2800 / 3 ≈ 933)
+const LAUNCH_SEMESTER = 933    // Prix semestriel : 5600 / 6 ≈ 933
 const LAUNCH_YEARLY = 833      // Ancien prix annuel (arrondi pour facile : 10000 / 12 ≈ 833)
 
 // ========================================
@@ -46,22 +48,26 @@ const PRICES_LAUNCH = {
   monthly: LAUNCH_MONTHLY,     // 1000€
   weekly: LAUNCH_WEEKLY,       // 280€
   quarterly: LAUNCH_QUARTERLY, // 933€
+  semester: LAUNCH_SEMESTER,   // 933€
   yearly: LAUNCH_YEARLY,       // 833€
   
   // Prix normaux (barrés en mode lancement)
   monthlyNormal: NORMAL_MONTHLY,       // 1500€
   weeklyNormal: NORMAL_WEEKLY,         // 420€
   quarterlyNormal: NORMAL_QUARTERLY,   // 1400€
+  semesterNormal: NORMAL_SEMESTER,     // 1300€
   yearlyNormal: NORMAL_YEARLY,         // 1250€
   
   // Totaux facturés (arrondis)
   quarterlyTotal: 2800,  // Arrondi pour clarté
+  semesterTotal: 5600,   // 6 mois
   yearlyTotal: 10000,    // Arrondi pour clarté
   
   // Économies vs prix normal
   savingsMonthly: NORMAL_MONTHLY - LAUNCH_MONTHLY,              // 500€
   savingsWeekly: NORMAL_WEEKLY - LAUNCH_WEEKLY,                 // 140€
   savingsQuarterly: (NORMAL_MONTHLY * 3) - 2800,  // 1700€
+  savingsSemester: (NORMAL_MONTHLY * 6) - 5600,   // 3400€
   savingsYearly: (NORMAL_MONTHLY * 12) - 10000,   // 8000€
   
   // Comparaisons
@@ -76,22 +82,26 @@ const PRICES_NORMAL = {
   monthly: NORMAL_MONTHLY,
   weekly: NORMAL_WEEKLY,
   quarterly: NORMAL_QUARTERLY,
+  semester: NORMAL_SEMESTER,
   yearly: NORMAL_YEARLY,
   
   // Prix normaux (pas de barré)
   monthlyNormal: NORMAL_MONTHLY,
   weeklyNormal: NORMAL_WEEKLY,
   quarterlyNormal: NORMAL_QUARTERLY,
+  semesterNormal: NORMAL_SEMESTER,
   yearlyNormal: NORMAL_YEARLY,
   
   // Totaux facturés
   quarterlyTotal: NORMAL_QUARTERLY * 3,  // 4200€
+  semesterTotal: NORMAL_SEMESTER * 6,    // 7800€
   yearlyTotal: NORMAL_YEARLY * 12,       // 15000€
   
   // Économies vs mensuel normal
   savingsMonthly: 0,
   savingsWeekly: 0,
   savingsQuarterly: (NORMAL_MONTHLY * 3) - (NORMAL_QUARTERLY * 3),  // 300€
+  savingsSemester: (NORMAL_MONTHLY * 6) - (NORMAL_SEMESTER * 6),    // 1200€
   savingsYearly: (NORMAL_MONTHLY * 12) - (NORMAL_YEARLY * 12),      // 3000€
   
   // Comparaisons

@@ -54,14 +54,36 @@ const pricingPlans = [
     totalBilled: PRICING.quarterlyTotal,
     billingCycle: 'Billed every 3 months',
     billingCycleFr: 'Facturé tous les 3 mois',
-    badge: '70% CHOOSE THIS',
-    badgeFr: '70% CHOISISSENT',
+    badge: null,
+    badgeFr: null,
     savings: `Save €${PRICING.savingsQuarterly} (launch)`,
     savingsFr: `Économisez €${PRICING.savingsQuarterly} (lancement)`,
     note: 'All content created for the quarter. If you cancel, all content will be deleted from Empire.',
     noteFr: 'Tous les contenus sont créés pour le trimestre. Si vous annulez votre abonnement, tous les contenus seront supprimés d\'Empire.',
-    popular: true,
+    popular: false,
     link: 'https://www.join.empire-internet.com/trimestre-empire',
+    hasLiveQA: true,
+    hasAcademyBonus: true,
+  },
+  {
+    id: 'semester',
+    name: 'Semester',
+    nameFr: 'Semestriel',
+    price: PRICING.semester,
+    priceNormal: PRICING.semesterNormal,
+    period: 'month',
+    periodFr: 'mois',
+    totalBilled: PRICING.semesterTotal,
+    billingCycle: 'Billed every 6 months',
+    billingCycleFr: 'Facturé tous les 6 mois',
+    badge: '70% CHOOSE THIS',
+    badgeFr: '70% CHOISISSENT',
+    savings: `Save €${PRICING.savingsSemester} (launch)`,
+    savingsFr: `Économisez €${PRICING.savingsSemester} (lancement)`,
+    note: 'All content created for 6 months. Best balance between value and flexibility.',
+    noteFr: 'Tous les contenus sont créés pour 6 mois. Meilleur équilibre entre valeur et flexibilité.',
+    popular: true,
+    link: 'https://www.join.empire-internet.com/semestre-empire',
     hasLiveQA: true,
     hasAcademyBonus: true,
   },
@@ -109,8 +131,8 @@ export default function PricingPlansSection() {
             </h2>
             <p className="text-xl text-neutral-300 max-w-2xl mx-auto">
               {lang === 'fr' 
-                ? 'Payez au mois, au trimestre ou à l\'année. Annulez quand vous voulez.'
-                : 'Pay monthly, quarterly, or yearly. Cancel anytime.'}
+                ? 'Payez au mois, au trimestre, au semestre ou à l\'année. Annulez quand vous voulez.'
+                : 'Pay monthly, quarterly, semester, or yearly. Cancel anytime.'}
             </p>
           </div>
         </FadeInBlock>
@@ -193,7 +215,7 @@ export default function PricingPlansSection() {
         </FadeInBlock>
 
         {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {pricingPlans.map((plan, i) => (
             <FadeInBlock key={plan.id} delay={0.1 * i}>
               <div className={`relative h-full p-6 rounded-2xl border transition-all hover:scale-105 ${

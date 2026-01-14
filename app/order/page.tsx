@@ -36,13 +36,32 @@ const pricingPlans = [
     totalBilled: PRICING.quarterlyTotal,
     billingCycle: `Every 3 months (€${PRICING.quarterlyTotal})`,
     billingCycleFr: `Tous les 3 mois (€${PRICING.quarterlyTotal})`,
+    recommended: false,
+    popular: false,
+    badge: null,
+    badgeFr: null,
+    savings: `Save €${PRICING.savingsQuarterly}`,
+    savingsFr: `Économisez €${PRICING.savingsQuarterly}`,
+    stripe_link: 'https://www.join.empire-internet.com/trimestre-empire',
+  },
+  {
+    id: 'semester',
+    name: 'Semester Plan',
+    nameFr: 'Plan Semestriel',
+    price: PRICING.semester,
+    priceNormal: PRICING.semesterNormal,
+    period: 'month',
+    periodFr: 'mois',
+    totalBilled: PRICING.semesterTotal,
+    billingCycle: `Every 6 months (€${PRICING.semesterTotal})`,
+    billingCycleFr: `Tous les 6 mois (€${PRICING.semesterTotal})`,
     recommended: true,
     popular: true,
     badge: '70% CHOOSE THIS',
     badgeFr: '70% CHOISISSENT',
-    savings: `Save €${PRICING.savingsQuarterly}`,
-    savingsFr: `Économisez €${PRICING.savingsQuarterly}`,
-    stripe_link: 'https://www.join.empire-internet.com/trimestre-empire',
+    savings: `Save €${PRICING.savingsSemester}`,
+    savingsFr: `Économisez €${PRICING.savingsSemester}`,
+    stripe_link: 'https://www.join.empire-internet.com/semestre-empire',
   },
   {
     id: 'yearly',
@@ -92,7 +111,7 @@ const bonuses = [
 ]
 
 export default function OrderPage() {
-  const [selectedPlan, setSelectedPlan] = useState('quarterly')
+  const [selectedPlan, setSelectedPlan] = useState('semester')
   const { lang } = useLanguage()
 
   const selectedPlanData = pricingPlans.find(p => p.id === selectedPlan)
