@@ -51,7 +51,6 @@ const pricingPlans = [
     priceNormal: PRICING.quarterlyNormal * 3,
     period: '3 months',
     periodFr: '3 mois',
-    totalBilled: null,
     billingCycle: 'Billed every 3 months',
     billingCycleFr: 'Facturé tous les 3 mois',
     badge: null,
@@ -73,7 +72,6 @@ const pricingPlans = [
     priceNormal: PRICING.semesterNormal * 6,
     period: '6 months',
     periodFr: '6 mois',
-    totalBilled: null,
     billingCycle: 'Billed every 6 months',
     billingCycleFr: 'Facturé tous les 6 mois',
     badge: '70% CHOOSE THIS',
@@ -95,7 +93,6 @@ const pricingPlans = [
     priceNormal: PRICING.yearlyNormal * 12,
     period: 'year',
     periodFr: 'an',
-    totalBilled: null,
     billingCycle: 'Billed yearly',
     billingCycleFr: 'Facturé chaque année',
     badge: 'BEST VALUE',
@@ -247,33 +244,23 @@ export default function PricingPlansSection() {
                     {LAUNCH_OFFER_ACTIVE ? (
                       // Mode lancement : prix barré + nouveau prix
                       <div>
-                        <div className="flex flex-col gap-1">
-                          <span className="text-xl font-bold text-neutral-500 line-through">€{plan.priceNormal}</span>
-                          <div className="flex items-baseline gap-1">
-                            <span className="text-3xl md:text-4xl font-bold text-empire">€{plan.price}</span>
-                            <span className="text-neutral-400">/{lang === 'fr' ? plan.periodFr : plan.period}</span>
-                          </div>
-                        </div>
-                        {plan.totalBilled && (
-                          <p className="text-sm text-neutral-400 mt-2">
-                            €{plan.totalBilled} {lang === 'fr' ? 'facturé' : 'billed'}
-                          </p>
-                        )}
-                      </div>
-                    ) : (
-                      // Mode normal : prix simple
-                      <div>
-                        <div className="flex items-baseline gap-1">
-                          <span className="text-3xl md:text-4xl font-bold text-white">€{plan.price}</span>
-                          <span className="text-neutral-400">/{lang === 'fr' ? plan.periodFr : plan.period}</span>
-                        </div>
-                        {plan.totalBilled && (
-                          <p className="text-sm text-neutral-400 mt-2">
-                            €{plan.totalBilled} {lang === 'fr' ? 'facturé' : 'billed'}
-                          </p>
-                        )}
-                      </div>
-                    )}
+                       <div className="flex flex-col gap-1">
+                         <span className="text-xl font-bold text-neutral-500 line-through">€{plan.priceNormal}</span>
+                         <div className="flex items-baseline gap-1">
+                           <span className="text-3xl md:text-4xl font-bold text-empire">€{plan.price}</span>
+                           <span className="text-neutral-400">/{lang === 'fr' ? plan.periodFr : plan.period}</span>
+                         </div>
+                       </div>
+                     </div>
+                   ) : (
+                     // Mode normal : prix simple
+                     <div>
+                       <div className="flex items-baseline gap-1">
+                         <span className="text-3xl md:text-4xl font-bold text-white">€{plan.price}</span>
+                         <span className="text-neutral-400">/{lang === 'fr' ? plan.periodFr : plan.period}</span>
+                       </div>
+                     </div>
+                   )}
                   </div>
 
                   {plan.savings && (
