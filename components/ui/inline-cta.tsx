@@ -23,8 +23,8 @@ export function InlineCTA({
 }: InlineCTAProps) {
   const { lang } = useLanguage()
   
-  const namespace = lang === 'fr' ? 'empire-request-fr' : 'empire-request'
-  const calLink = lang === 'fr' ? 'kevin-dufraisse-private/empire-request-fr' : 'kevin-dufraisse-private/empire-request'
+  const namespace = 'empire-demo'
+  const calLink = 'jules-bernard-g7tpow/empire-demo'
 
   useEffect(() => {
     (async function () {
