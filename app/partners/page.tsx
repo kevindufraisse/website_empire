@@ -41,43 +41,6 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
   )
 }
 
-const commissionPlans = [
-  {
-    plan: 'Mensuel',
-    planEn: 'Monthly',
-    clientPays: '€1,000',
-    youEarn: '€100',
-    youEarnEn: '€100',
-    period: '/mois',
-    periodEn: '/month',
-    color: 'from-blue-500/20 to-blue-500/5',
-    borderColor: 'border-blue-500/30',
-  },
-  {
-    plan: 'Trimestriel',
-    planEn: 'Quarterly',
-    clientPays: '€2,800',
-    youEarn: '€280',
-    youEarnEn: '€280',
-    period: '/3 mois',
-    periodEn: '/3 months',
-    color: 'from-empire/20 to-empire/5',
-    borderColor: 'border-empire',
-    popular: true,
-  },
-  {
-    plan: 'Annuel',
-    planEn: 'Yearly',
-    clientPays: '€10,000',
-    youEarn: '€1,000',
-    youEarnEn: '€1,000',
-    period: '/an',
-    periodEn: '/year',
-    color: 'from-purple-500/20 to-purple-500/5',
-    borderColor: 'border-purple-500/30',
-  },
-]
-
 const benefits = [
   {
     icon: DollarSign,
@@ -307,73 +270,6 @@ export default function PartnersPage() {
         </FadeInBlock>
       </section>
 
-      {/* Commission Structure */}
-      <section className="container py-20">
-        <FadeInBlock>
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-bold mb-4">
-              {lang === 'fr' ? 'Vos Commissions' : 'Your Commissions'}
-            </h2>
-            <p className="text-xl text-neutral-300">
-              {lang === 'fr' ? '10% récurrent sur chaque client référé' : '10% recurring on every referred client'}
-            </p>
-          </div>
-        </FadeInBlock>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-          {commissionPlans.map((plan, i) => (
-            <FadeInBlock key={plan.plan} delay={0.1 * i}>
-              <div className={`relative p-6 rounded-2xl bg-gradient-to-br ${plan.color} border-2 ${plan.borderColor} ${plan.popular ? 'scale-105 shadow-[0_0_40px_rgba(218,252,104,0.2)]' : ''}`}>
-                {plan.popular && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-empire text-black text-xs font-bold rounded-full">
-                    {lang === 'fr' ? 'POPULAIRE' : 'POPULAR'}
-                  </div>
-                )}
-                
-                <h3 className="text-xl font-bold text-white mb-2">
-                  {lang === 'fr' ? plan.plan : plan.planEn}
-                </h3>
-                <p className="text-sm text-neutral-400 mb-4">
-                  {lang === 'fr' ? 'Client paie' : 'Client pays'} {plan.clientPays}
-                </p>
-                
-                <div className="mb-4">
-                  <p className="text-xs text-neutral-500 uppercase tracking-wider mb-1">
-                    {lang === 'fr' ? 'Vous gagnez' : 'You earn'}
-                  </p>
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-4xl font-black text-empire">{plan.youEarn}</span>
-                    <span className="text-neutral-400">{lang === 'fr' ? plan.period : plan.periodEn}</span>
-                  </div>
-                </div>
-                
-                <div className="p-3 rounded-lg bg-white/5 border border-white/10">
-                  <p className="text-xs text-neutral-300">
-                    {lang === 'fr' 
-                      ? '💰 Tant que le client reste abonné'
-                      : '💰 As long as the client stays subscribed'}
-                  </p>
-                </div>
-              </div>
-            </FadeInBlock>
-          ))}
-        </div>
-        
-        {/* Example calculation */}
-        <FadeInBlock delay={0.4}>
-          <div className="mt-12 p-6 rounded-2xl bg-gradient-to-r from-empire/10 to-purple-500/10 border border-empire/30 max-w-3xl mx-auto text-center">
-            <p className="text-sm text-neutral-400 mb-2">
-              {lang === 'fr' ? 'Exemple : 10 clients sur le plan annuel' : 'Example: 10 clients on yearly plan'}
-            </p>
-            <p className="text-3xl md:text-4xl font-black text-white mb-2">
-              = <span className="text-empire">€10,000</span>{lang === 'fr' ? '/an' : '/year'}
-            </p>
-            <p className="text-sm text-neutral-300">
-              {lang === 'fr' ? 'Sans rien produire. Sans gérer. Sans supporter.' : 'Without producing anything. Without managing. Without supporting.'}
-            </p>
-          </div>
-        </FadeInBlock>
-      </section>
 
       {/* Benefits Grid */}
       <section className="container py-20">
