@@ -66,13 +66,21 @@ export default function CalCalendar() {
           : `Cal.ns["${namespace}"]("ui", {"theme":"light","cssVarsPerTheme":{"light":{"cal-brand":"#dafc68"},"dark":{"cal-brand":"#000000"}},"hideEventTypeDetails":false,"layout":"month_view"});`
         }
         
-        // Redirect to thank-you page after booking (for reliable tracking)
+        // Facebook Pixel tracking for booking confirmation
         Cal.ns["${namespace}"]("on", {
           action: "bookingSuccessful",
           callback: function(e) {
             console.log('Cal.com booking successful!', e);
-            // Redirect to thank-you page where FB Pixel will fire
-            window.location.href = '/demo/thank-you';
+            // Via GTM dataLayer
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+              'event': 'cal_booking_confirmed',
+              'booking_data': e
+            });
+            // Direct fbq call (fallback)
+            if (typeof fbq !== 'undefined') {
+              fbq('track', 'Schedule');
+            }
           }
         });
       `

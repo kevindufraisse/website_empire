@@ -31,12 +31,23 @@ export default function CalStickyBar() {
         }
       })
       
-      // Redirect to thank-you page after booking (for reliable tracking)
+      // Facebook Pixel tracking for booking confirmation
       cal("on", {
         action: "bookingSuccessful",
-        callback: () => {
-          console.log('Cal.com booking successful!')
-          window.location.href = '/demo/thank-you'
+        callback: (e: any) => {
+          console.log('Cal.com booking successful!', e)
+          // Via GTM dataLayer
+          if (typeof window !== 'undefined') {
+            (window as any).dataLayer = (window as any).dataLayer || [];
+            (window as any).dataLayer.push({
+              'event': 'cal_booking_confirmed',
+              'booking_data': e
+            });
+            // Direct fbq call (fallback)
+            if ((window as any).fbq) {
+              (window as any).fbq('track', 'Schedule')
+            }
+          }
         }
       })
     })()

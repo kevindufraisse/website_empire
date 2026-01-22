@@ -1,22 +1,21 @@
 'use client'
 
-import { useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { CheckCircle2, Calendar, Share2, Users, Rocket, CalendarPlus } from 'lucide-react'
+import { useEffect } from 'react'
+import { CheckCircle2, Calendar, Share2, Users, Rocket, CalendarPlus, MessageCircle, Play } from 'lucide-react'
 import Link from 'next/link'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function DemoThankYouPage() {
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()
   
-  // Facebook Pixel tracking - fires when user reaches thank you page
+  // Facebook Pixel tracking - fire Schedule event on page load
   useEffect(() => {
     // Via GTM dataLayer
     if (typeof window !== 'undefined') {
       (window as any).dataLayer = (window as any).dataLayer || [];
       (window as any).dataLayer.push({
-        'event': 'booking_confirmed',
-        'page': 'demo_thank_you'
+        'event': 'cal_booking_confirmed'
       });
       
       // Direct fbq call
@@ -60,6 +59,62 @@ export default function DemoThankYouPage() {
           >
             {t.demoThankYou.subtitle}
           </motion.p>
+
+          {/* WhatsApp Contact */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35 }}
+            className="mb-8"
+          >
+            <a
+              href="https://wa.me/33665427470"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 px-6 py-4 rounded-xl bg-[#25D366]/20 border border-[#25D366]/50 hover:bg-[#25D366]/30 transition-all group"
+            >
+              <div className="w-10 h-10 rounded-full bg-[#25D366] flex items-center justify-center">
+                <MessageCircle className="text-white" size={20} />
+              </div>
+              <div className="text-left">
+                <p className="text-white font-semibold group-hover:text-[#25D366] transition-colors">
+                  {lang === 'fr' ? 'Une question ? Contactez-nous sur WhatsApp' : 'Questions? Contact us on WhatsApp'}
+                </p>
+                <p className="text-sm text-neutral-400">+33 6 65 42 74 70</p>
+              </div>
+            </a>
+          </motion.div>
+
+          {/* Video Demo Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="mb-8"
+          >
+            <div className="p-6 rounded-xl bg-white/5 border border-white/10">
+              <div className="flex items-center justify-center gap-2 mb-4">
+                <Play className="text-empire" size={20} />
+                <h3 className="text-lg font-bold text-white">
+                  {lang === 'fr' ? 'Découvrez Empire en attendant' : 'Discover Empire while you wait'}
+                </h3>
+              </div>
+              <div className="relative rounded-xl overflow-hidden border border-white/20 aspect-video bg-black">
+                <iframe
+                  src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                  title="Empire Demo Video"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="absolute inset-0 w-full h-full"
+                />
+              </div>
+              <p className="text-sm text-neutral-400 mt-3">
+                {lang === 'fr' 
+                  ? 'Cette vidéo vous montre comment Empire transforme votre contenu en machine à leads.'
+                  : 'This video shows you how Empire transforms your content into a lead machine.'}
+              </p>
+            </div>
+          </motion.div>
 
           {/* What's Next */}
           <motion.div
