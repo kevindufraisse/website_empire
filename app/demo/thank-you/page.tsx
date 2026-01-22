@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { CheckCircle2, Calendar, Share2, Users, Rocket, CalendarPlus } from 'lucide-react'
 import Link from 'next/link'
@@ -7,6 +8,24 @@ import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function DemoThankYouPage() {
   const { t } = useLanguage()
+  
+  // Facebook Pixel tracking - fires when user reaches thank you page
+  useEffect(() => {
+    // Via GTM dataLayer
+    if (typeof window !== 'undefined') {
+      (window as any).dataLayer = (window as any).dataLayer || [];
+      (window as any).dataLayer.push({
+        'event': 'booking_confirmed',
+        'page': 'demo_thank_you'
+      });
+      
+      // Direct fbq call
+      if ((window as any).fbq) {
+        (window as any).fbq('track', 'Schedule');
+        console.log('Facebook Pixel: Schedule event fired on thank-you page');
+      }
+    }
+  }, [])
   
   return (
     <main className="relative min-h-screen flex items-center justify-center bg-gradient-to-b from-black via-[#0f0f0f] to-black pt-24 md:pt-32">
