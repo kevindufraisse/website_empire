@@ -1,14 +1,11 @@
 'use client'
 import { motion } from 'framer-motion'
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import RetroGrid from '@/components/magicui/retro-grid'
 import { Meteors } from '@/components/magicui/meteors'
 import { StarRating } from '@/components/ui/star-rating'
-import { RainbowButton } from '@/components/magicui/rainbow-button'
-import { HeroVideoDialog } from '@/components/magicui/hero-video-dialog'
-import { CheckCircle2 } from 'lucide-react'
-import { PRICING } from '@/lib/pricing-config'
+import CalCalendar from '@/components/CalCalendar'
 import { getCalApi } from "@calcom/embed-react"
 
 export default function HeroSection() {
@@ -268,18 +265,16 @@ export default function HeroSection() {
             </div>
           </motion.div>
 
-          {/* Hero Video Thumbnail */}
+          {/* Calendrier de prise de rendez-vous */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.8 }}
-            className="mt-8 hero-video"
+            className="mt-8 w-full max-w-4xl mx-auto"
           >
-            <HeroVideoDialog
-              animationStyle="from-center"
-              thumbnailSrc="https://d1yei2z3i6k35z.cloudfront.net/3647172/6908ab447a777_Capturedecran2025-11-03a14.16.47.png"
-              thumbnailAlt="Empire Internet Demo - Configuration Interface"
-            />
+            <div className="rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-neutral-900/50 backdrop-blur-sm">
+              <CalCalendar />
+            </div>
           </motion.div>
         </div>
         </div>

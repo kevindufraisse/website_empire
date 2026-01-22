@@ -317,84 +317,14 @@ a {
   animation: meteor linear infinite;
 }
 
-/* Force black background in fullscreen mode for Vidalytics */
-div[id^="vidalytics_embed"]:fullscreen,
-div[id^="vidalytics_embed"]:-webkit-full-screen,
-div[id^="vidalytics_embed"]:-moz-full-screen,
-div[id^="vidalytics_embed"]:-ms-fullscreen {
-  background-color: #000 !important;
-  padding: 0 !important;
-  margin: 0 !important;
-}
-
-/* Force black backdrop behind fullscreen element */
-div[id^="vidalytics_embed"]:fullscreen::backdrop,
-div[id^="vidalytics_embed"]:-webkit-full-screen::backdrop,
-div[id^="vidalytics_embed"]:-moz-full-screen::backdrop,
-div[id^="vidalytics_embed"]:-ms-fullscreen::backdrop {
-  background-color: #000 !important;
-}
-
-/* Also target any iframe that might go fullscreen */
-iframe:fullscreen,
-iframe:-webkit-full-screen,
-iframe:-moz-full-screen,
-iframe:-ms-fullscreen {
-  background-color: #000 !important;
-}
-
-iframe:fullscreen::backdrop,
-iframe:-webkit-full-screen::backdrop,
-iframe:-moz-full-screen::backdrop {
-  background-color: #000 !important;
-}
-
-/* Masquer TOUT le contenu de la page quand Vidalytics est en fullscreen */
-/* Forcer le header et tous les autres éléments à être masqués */
-body.vidalytics-fullscreen-active header,
-body.vidalytics-fullscreen-active > header,
-body.vidalytics-fullscreen-active main,
-body.vidalytics-fullscreen-active > main,
-body.vidalytics-fullscreen-active footer,
-body.vidalytics-fullscreen-active > footer,
-body.vidalytics-fullscreen-active nav,
-body.vidalytics-fullscreen-active > nav,
-body.vidalytics-fullscreen-active > div:not(.vidalytics-dialog-container),
-body.vidalytics-fullscreen-active > *:not(.vidalytics-dialog-container) {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-  z-index: -1 !important;
-}
-
-/* Forcer le header spécifiquement (il a z-50, il faut le forcer) */
-body.vidalytics-fullscreen-active header.fixed,
-body.vidalytics-fullscreen-active > header.fixed {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-  z-index: -9999 !important;
-}
-
-/* S'assurer que le dialog reste visible avec le z-index le plus élevé */
-body.vidalytics-fullscreen-active .vidalytics-dialog-container {
-  display: flex !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  pointer-events: auto !important;
+/* Calendar dialog styles */
+.calendar-dialog-container {
   z-index: 9999999 !important;
 }
 
-/* Forcer le dialog à être toujours au-dessus de tout */
-.vidalytics-dialog-container {
-  z-index: 9999999 !important;
-}
-
-/* Masquer le header quand le dialog est ouvert (forcer z-index bas) */
-body.vidalytics-dialog-open > header,
-body.vidalytics-dialog-open header {
+/* Masquer le header quand le dialog calendrier est ouvert */
+body.calendar-dialog-open > header,
+body.calendar-dialog-open header {
   z-index: 1 !important;
 }
 
@@ -409,18 +339,4 @@ body.vidalytics-dialog-open header {
 .calendar-full-width > * {
   max-width: 100% !important;
   width: 100% !important;
-}
-
-/* Masquer complètement le header quand en fullscreen */
-body.vidalytics-fullscreen-active > header,
-body.vidalytics-fullscreen-active header,
-body.vidalytics-fullscreen-active header.fixed {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-  z-index: -9999 !important;
-  position: fixed !important;
-  top: -9999px !important;
-  left: -9999px !important;
 }
