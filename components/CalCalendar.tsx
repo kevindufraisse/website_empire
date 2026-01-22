@@ -70,9 +70,16 @@ export default function CalCalendar() {
         Cal.ns["${namespace}"]("on", {
           action: "bookingSuccessful",
           callback: function(e) {
+            console.log('Cal.com booking successful!', e);
+            // Via GTM dataLayer
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+              'event': 'cal_booking_confirmed',
+              'booking_data': e
+            });
+            // Direct fbq call (fallback)
             if (typeof fbq !== 'undefined') {
               fbq('track', 'Schedule');
-              console.log('Facebook Pixel: Schedule event fired');
             }
           }
         });
