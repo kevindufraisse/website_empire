@@ -24,6 +24,17 @@ export default function CalPopupButton({ children, className }: CalPopupButtonPr
           dark: { "cal-brand": "#dafc68" }
         }
       })
+      
+      // Facebook Pixel tracking for booking confirmation
+      cal("on", {
+        action: "bookingSuccessful",
+        callback: () => {
+          if (typeof window !== 'undefined' && (window as any).fbq) {
+            (window as any).fbq('track', 'Schedule')
+            console.log('Facebook Pixel: Schedule event fired')
+          }
+        }
+      })
     })()
   }, [namespace])
 

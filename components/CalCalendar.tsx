@@ -65,6 +65,17 @@ export default function CalCalendar() {
           ? `Cal.ns["${namespace}"]("ui", {"hideEventTypeDetails":false,"layout":"month_view"});`
           : `Cal.ns["${namespace}"]("ui", {"theme":"light","cssVarsPerTheme":{"light":{"cal-brand":"#dafc68"},"dark":{"cal-brand":"#000000"}},"hideEventTypeDetails":false,"layout":"month_view"});`
         }
+        
+        // Facebook Pixel tracking for booking confirmation
+        Cal.ns["${namespace}"]("on", {
+          action: "bookingSuccessful",
+          callback: function(e) {
+            if (typeof fbq !== 'undefined') {
+              fbq('track', 'Schedule');
+              console.log('Facebook Pixel: Schedule event fired');
+            }
+          }
+        });
       `
 
       // Attendre que le calendrier soit chargé
