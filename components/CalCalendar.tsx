@@ -10,9 +10,9 @@ export default function CalCalendar() {
   useEffect(() => {
     if (!containerRef.current) return
 
-    const namespace = 'empire-demo'
-    const containerId = 'my-cal-inline-empire-demo'
-    const calLink = 'jules-bernard-g7tpow/empire-demo'
+    const namespace = 'audit-empire'
+    const containerId = 'my-cal-inline-audit-empire'
+    const calLink = 'team/empire-internet/audit-empire'
 
     // Nettoyer le conteneur
     containerRef.current.innerHTML = `<div style="width:100%;height:100%;overflow:scroll" id="${containerId}"></div>`

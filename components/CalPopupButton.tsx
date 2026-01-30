@@ -9,8 +9,8 @@ interface CalPopupButtonProps {
 }
 
 export default function CalPopupButton({ children, className }: CalPopupButtonProps) {
-  const namespace = 'empire-demo'
-  const calLink = 'jules-bernard-g7tpow/empire-demo'
+  const namespace = 'audit-empire'
+  const calLink = 'team/empire-internet/audit-empire'
 
   useEffect(() => {
     (async function () {

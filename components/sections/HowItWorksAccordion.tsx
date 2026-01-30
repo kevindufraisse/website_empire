@@ -268,8 +268,8 @@ export default function HowItWorksAccordion() {
   const { t, lang } = useLanguage()
   const notifications = lang === 'fr' ? getNotificationsFr(SocialIcon) : getNotificationsEn(SocialIcon)
 
-  const namespace = 'empire-demo'
-  const calLink = 'jules-bernard-g7tpow/empire-demo'
+  const namespace = 'audit-empire'
+  const calLink = 'team/empire-internet/audit-empire'
 
   useEffect(() => {
     (async function () {

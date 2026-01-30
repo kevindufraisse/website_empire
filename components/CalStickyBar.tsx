@@ -13,8 +13,8 @@ export default function CalStickyBar() {
   // Hide on partners page
   const isPartnersPage = pathname === '/partners'
 
-  const namespace = 'empire-demo'
-  const calLink = 'jules-bernard-g7tpow/empire-demo'
+  const namespace = 'audit-empire'
+  const calLink = 'team/empire-internet/audit-empire'
 
   useEffect(() => {
     if (isPartnersPage) return
