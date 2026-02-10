@@ -74,15 +74,6 @@ export default function Header() {
             <div className="hidden sm:block">
             <LanguageSwitcher />
             </div>
-            {/* Partner link - shown on all pages except /partners */}
-            {!isPartnersPage && (
-              <a
-                href="/partners"
-                className="hidden sm:block px-3 md:px-4 py-2 md:py-2.5 rounded-lg border border-empire/50 text-empire font-semibold hover:bg-empire/10 hover:border-empire transition-all text-sm md:text-base"
-              >
-                {lang === 'fr' ? 'Devenir Partenaire' : 'Become a Partner'}
-              </a>
-            )}
             {!hideCTA && (
               <button
                 data-cal-namespace={namespace}
