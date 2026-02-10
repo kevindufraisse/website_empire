@@ -53,14 +53,6 @@ export default function Footer() {
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
             {!isPartnersPage && (
-          <a
-                href="/partners"
-                className="w-full sm:w-auto text-center px-5 py-3 min-h-[44px] bg-transparent border-2 border-empire/50 text-empire font-bold rounded-xl hover:bg-empire/10 hover:border-empire transition-all flex items-center justify-center gap-2"
-              >
-                {lang === 'fr' ? 'Devenir Partenaire' : 'Become a Partner'}
-              </a>
-            )}
-            {!isPartnersPage && (
               <button
                 data-cal-namespace={namespace}
                 data-cal-link={calLink}
