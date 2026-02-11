@@ -50,7 +50,7 @@ export default function AnnouncementBanner() {
             data-cal-config='{"layout":"month_view","theme":"dark"}'
             className="px-2 py-0.5 bg-black text-empire font-bold rounded hover:scale-105 transition-all whitespace-nowrap ml-1"
           >
-            {lang === 'fr' ? "30 min stratégique gratuite" : 'Free 30 min strategy call'} →
+            {lang === 'fr' ? "60 min stratégique gratuite" : 'Free 60 min strategy call'} →
           </button>
           
           <button
