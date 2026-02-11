@@ -223,7 +223,7 @@ export default function QuickWinsSection() {
               data-cal-config='{"layout":"month_view","theme":"dark"}'
               className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-empire text-black font-bold text-lg hover:scale-105 transition-transform shadow-[0_0_30px_rgba(218,252,104,0.3)]"
             >
-              {lang === 'fr' ? 'Passer à Empire' : 'Switch to Empire'}
+              {lang === 'fr' ? '30 min stratégique gratuite' : 'Free 30 min strategy call'}
               <ArrowRight size={20} />
             </button>
           </div>

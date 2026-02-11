@@ -144,7 +144,7 @@ export default function RolesReplacedSection() {
               data-cal-config='{"layout":"month_view","theme":"dark"}'
               className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-4 rounded-xl bg-empire text-black font-bold text-base md:text-lg hover:scale-105 transition-transform shadow-[0_0_30px_rgba(218,252,104,0.3)]"
             >
-              {lang === 'fr' ? '30 min consulting offert' : 'Free 30 min consulting'}
+              {lang === 'fr' ? '30 min stratégique gratuite' : 'Free 30 min strategy call'}
               <span>→</span>
             </button>
           </div>

@@ -122,19 +122,6 @@ export default function Header() {
                 <LanguageSwitcher />
               </div>
 
-              {/* Partner link mobile - shown on all pages except /partners */}
-              {!isPartnersPage && (
-                <motion.a
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.05 }}
-                  href="/partners"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="w-full py-3 rounded-lg border border-empire/50 text-empire font-bold text-center hover:bg-empire/10 transition-all"
-                >
-                  {lang === 'fr' ? 'Devenir Partenaire' : 'Become a Partner'}
-                </motion.a>
-              )}
               
               {/* CTA Button Mobile */}
               {!hideCTA && (
