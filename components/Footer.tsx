@@ -34,9 +34,6 @@ export default function Footer() {
           {/* Brand */}
           <div className="flex flex-col items-center md:items-start w-full md:w-auto">
             <div className="flex items-center gap-2 mb-3 md:mb-4">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-empire to-empire/50 flex items-center justify-center font-bold text-black text-sm">
-                E
-              </div>
               <span className="text-lg font-bold text-white">Empire Internet</span>
             </div>
             <p className="text-sm text-neutral-500 mb-3 md:mb-4 text-center md:text-left">

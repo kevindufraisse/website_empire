@@ -61,9 +61,6 @@ export default function Header() {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <a href="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-empire to-empire/50 flex items-center justify-center font-bold text-black text-sm">
-              E
-            </div>
             <span className="text-lg md:text-xl font-bold text-white group-hover:text-empire transition-colors">
               Empire Internet
             </span>
