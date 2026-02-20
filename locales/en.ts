@@ -893,6 +893,20 @@ export const en = {
       applyButton: 'Apply now',
     },
   },
+  expertAddon: {
+    badge: 'Option',
+    sectionTitle: 'Boost Your Results',
+    sectionSubtitle: 'Go further with expert guidance',
+    title: 'Expert Content Strategist',
+    description: 'An expert trained in viral content techniques tells you exactly what to say. You just speak and click publish.',
+    bullets: [
+      'Personalized content strategy',
+      'Topics & angles prepared for you',
+      'You just speak, we handle the rest',
+    ],
+    cta: 'Ask about it in your call',
+    howItWorksBadge: 'Option: an expert guides you on what to say',
+  },
   founder: {
     badge: 'Meet the Creator',
     title: 'Built by Someone Who Gets It',

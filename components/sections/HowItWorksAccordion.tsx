@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef, useEffect, useState } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { Mic, ArrowRight } from 'lucide-react'
+import { Mic, ArrowRight, Sparkles } from 'lucide-react'
 import { getCalApi } from "@calcom/embed-react"
 import AnimatedList, { AnimatedListItem } from '@/components/magicui/animated-list'
 
@@ -335,6 +335,12 @@ export default function HowItWorksAccordion() {
                   <p className="text-neutral-400 text-sm">
                     {lang === 'fr' ? 'On transforme votre voix en contenu qui convertit.' : 'We transform your voice into content that converts.'}
                   </p>
+                  <div className="mt-2 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-empire/10 border border-empire/20">
+                    <Sparkles className="text-empire" size={12} />
+                    <span className="text-[11px] font-medium text-empire">
+                      {t.expertAddon.howItWorksBadge}
+                    </span>
+                  </div>
                 </div>
               </div>
 

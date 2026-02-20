@@ -7,6 +7,7 @@ import FAQSection from '@/components/sections/FAQSection'
 import TestimonialsSection from '@/components/sections/TestimonialsSection'
 import PricingPageHero from '@/components/sections/PricingPageHero'
 import LaunchUrgencySection from '@/components/sections/LaunchUrgencySection'
+import ExpertAddonSection from '@/components/sections/ExpertAddonSection'
 import RolesReplacedSection from '@/components/sections/RolesReplacedSection'
 
 export const metadata = {
@@ -31,6 +32,9 @@ export default function PricingPage() {
 
       {/* Pricing Plans - Monthly/Quarterly/Yearly */}
       <PricingPlansSection />
+
+      {/* Expert Coaching Add-on */}
+      <ExpertAddonSection />
 
       {/* Launch Urgency - Why join now */}
       <LaunchUrgencySection />

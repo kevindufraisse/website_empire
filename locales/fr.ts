@@ -895,6 +895,20 @@ export const fr: Translations = {
       applyButton: 'Postuler maintenant',
     },
   },
+  expertAddon: {
+    badge: 'Option',
+    sectionTitle: 'Boostez Vos Résultats',
+    sectionSubtitle: 'Allez plus loin avec un accompagnement expert',
+    title: 'Expert Stratégiste Contenu',
+    description: 'Un expert formé aux techniques de contenu viral vous guide sur exactement quoi dire. Vous n\'avez qu\'à parler et cliquer sur publier.',
+    bullets: [
+      'Stratégie de contenu personnalisée',
+      'Sujets & angles préparés pour vous',
+      'Vous parlez, on gère le reste',
+    ],
+    cta: 'Demandez en rendez-vous',
+    howItWorksBadge: 'Option : un expert vous guide sur quoi dire',
+  },
   founder: {
     badge: 'Le Créateur',
     title: 'Créé par Quelqu\'un Qui Comprend',
