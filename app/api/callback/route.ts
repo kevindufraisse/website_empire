@@ -9,7 +9,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Missing fields' }, { status: 400 })
     }
 
-    const webhookUrl = process.env.CALLBACK_WEBHOOK_URL
+    const webhookUrl = process.env.CALLBACK_WEBHOOK_URL || 'https://hook.eu1.make.com/kte7swdmp4hvdqe06hnq43nv3h1w9qnt'
 
     if (webhookUrl) {
       await fetch(webhookUrl, {

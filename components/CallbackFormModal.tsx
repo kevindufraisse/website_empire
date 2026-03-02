@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, ArrowRight, Phone, Loader2, CheckCircle2, XCircle } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
@@ -109,15 +110,18 @@ export default function CallbackFormModal({ isOpen, onClose }: CallbackFormModal
     }
   }
 
-  if (!isOpen) return null
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => { setMounted(true) }, [])
 
-  return (
+  if (!isOpen || !mounted) return null
+
+  return createPortal(
     <AnimatePresence>
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
+        className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
         onClick={handleClose}
       >
         <motion.div
@@ -251,6 +255,7 @@ export default function CallbackFormModal({ isOpen, onClose }: CallbackFormModal
           )}
         </motion.div>
       </motion.div>
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   )
 }

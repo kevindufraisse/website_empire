@@ -3,11 +3,13 @@ import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { getCalApi } from "@calcom/embed-react"
-import { Calendar, ArrowRight } from 'lucide-react'
+import { Calendar, ArrowRight, Phone } from 'lucide-react'
+import CallbackFormModal from '@/components/CallbackFormModal'
 
 export default function CalStickyBar() {
   const { lang } = useLanguage()
   const [isVisible, setIsVisible] = useState(false)
+  const [callbackOpen, setCallbackOpen] = useState(false)
   const pathname = usePathname()
 
   // Hide on partners page
@@ -110,18 +112,28 @@ export default function CalStickyBar() {
             </p>
           </div>
 
-          {/* CTA Button */}
-          <button
-            data-cal-namespace={namespace}
-            data-cal-link={calLink}
-            data-cal-config='{"layout":"month_view","theme":"dark"}'
-            className="flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 bg-empire text-black font-bold rounded-lg hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)] text-sm sm:text-base whitespace-nowrap group"
-          >
-            {lang === 'fr' ? '60 min stratégique gratuite' : 'Free 60 min strategy call'}
-            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-          </button>
+          {/* Buttons */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setCallbackOpen(true)}
+              className="flex items-center gap-1.5 px-3 py-2.5 sm:px-4 sm:py-3 bg-white/10 border border-white/20 text-white font-medium rounded-lg hover:border-empire/40 hover:text-empire transition-all text-sm whitespace-nowrap"
+            >
+              <Phone size={14} />
+              <span className="hidden sm:inline">{lang === 'fr' ? 'Être recontacté' : 'Callback'}</span>
+            </button>
+            <button
+              data-cal-namespace={namespace}
+              data-cal-link={calLink}
+              data-cal-config='{"layout":"month_view","theme":"dark"}'
+              className="flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 bg-empire text-black font-bold rounded-lg hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)] text-sm sm:text-base whitespace-nowrap group"
+            >
+              {lang === 'fr' ? '60 min stratégique gratuite' : 'Free 60 min strategy call'}
+              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+            </button>
+          </div>
         </div>
       </div>
+      <CallbackFormModal isOpen={callbackOpen} onClose={() => setCallbackOpen(false)} />
     </div>
   )
 }
