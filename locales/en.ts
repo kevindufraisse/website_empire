@@ -560,6 +560,10 @@ export const en = {
       question: 'Can I get help with my personal branding strategy?',
       answer: 'Yes. We offer optional personal branding coaching with experts who have worked with top-tier creators in France and the US. Available as an add-on after subscription. Launch price: €1000/month.',
     },
+    {
+      question: 'How do you guarantee post visibility?',
+      answer: 'We have a network of partners trained in Empire Internet methods who engage with your posts as soon as they go live. This network boosts initial engagement on every post, sending a strong signal to the algorithms and maximizing your organic reach. Our partners are available and activated automatically with each publication.',
+    },
   ],
   exitPopup: {
     title: 'Wait! Special Offer',

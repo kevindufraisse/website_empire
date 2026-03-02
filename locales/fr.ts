@@ -683,6 +683,10 @@ export const fr: Translations = {
       question: 'Puis-je être accompagné sur ma stratégie de personal branding ?',
       answer: 'Oui. Nous proposons un coaching personal branding optionnel avec des experts qui ont accompagné les meilleurs créateurs FR et US. Disponible en supplément après souscription. Prix de lancement : 1000€/mois.',
     },
+    {
+      question: 'Comment garantir la visibilité de mes posts ?',
+      answer: 'Nous disposons d\'un réseau de partenaires formés aux méthodes Empire Internet qui interagissent avec vos publications dès leur sortie. Ce réseau booste l\'engagement initial de chaque post, ce qui envoie un signal fort aux algorithmes et maximise votre portée organique. Nos partenaires sont disponibles et activés automatiquement à chaque publication.',
+    },
   ],
   demo: {
     title: 'Réservez votre rendez-vous',
