@@ -6,10 +6,13 @@ import { LanguageSwitcher } from '@/components/LanguageSwitcher'
 import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { getCalApi } from "@calcom/embed-react"
+import { Phone } from 'lucide-react'
+import CallbackFormModal from '@/components/CallbackFormModal'
 
 export default function Header() {
   const { t, lang } = useLanguage()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [callbackOpen, setCallbackOpen] = useState(false)
   const pathname = usePathname()
   
   // Hide default CTA button on pricing and partners pages
@@ -71,6 +74,13 @@ export default function Header() {
             <div className="hidden sm:block">
             <LanguageSwitcher />
             </div>
+            <button
+              onClick={() => setCallbackOpen(true)}
+              className="hidden sm:flex items-center gap-1.5 px-3 md:px-4 py-2 md:py-2.5 rounded-lg bg-white/5 border border-white/10 text-neutral-300 font-medium hover:border-empire/40 hover:text-empire transition-all text-sm"
+            >
+              <Phone size={13} />
+              {lang === 'fr' ? 'Être recontacté' : 'Get a callback'}
+            </button>
             {!hideCTA && (
               <button
                 data-cal-namespace={namespace}
@@ -120,6 +130,18 @@ export default function Header() {
               </div>
 
               
+              {/* Callback Button Mobile */}
+              <motion.button
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.05 }}
+                onClick={() => { setCallbackOpen(true); setIsMenuOpen(false) }}
+                className="w-full flex items-center justify-center gap-2 py-3.5 rounded-lg bg-white/5 border border-white/10 text-neutral-300 font-medium hover:border-empire/40 hover:text-empire transition-all"
+              >
+                <Phone size={15} />
+                {lang === 'fr' ? 'Être recontacté' : 'Get a callback'}
+              </motion.button>
+
               {/* CTA Button Mobile */}
               {!hideCTA && (
                 <motion.button
@@ -151,6 +173,7 @@ export default function Header() {
           </motion.div>
         )}
       </AnimatePresence>
+      <CallbackFormModal isOpen={callbackOpen} onClose={() => setCallbackOpen(false)} />
     </header>
   )
 }

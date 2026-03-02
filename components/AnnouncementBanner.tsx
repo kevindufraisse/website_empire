@@ -1,12 +1,14 @@
 'use client'
-import { X } from 'lucide-react'
+import { X, Phone } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { LAUNCH_OFFER_ACTIVE, PRICING } from '@/lib/pricing-config'
 import { getCalApi } from "@calcom/embed-react"
+import CallbackFormModal from '@/components/CallbackFormModal'
 
 export default function AnnouncementBanner() {
   const [dismissed, setDismissed] = useState(false)
+  const [callbackOpen, setCallbackOpen] = useState(false)
   const { lang } = useLanguage()
 
   const namespace = 'audit-empire'
@@ -52,6 +54,13 @@ export default function AnnouncementBanner() {
           >
             {lang === 'fr' ? "60 min stratégique gratuite" : 'Free 60 min strategy call'} →
           </button>
+          <button
+            onClick={() => setCallbackOpen(true)}
+            className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 bg-black/80 text-white font-semibold rounded hover:scale-105 transition-all whitespace-nowrap ml-1"
+          >
+            <Phone size={10} />
+            {lang === 'fr' ? 'Être recontacté' : 'Callback'}
+          </button>
           
           <button
             onClick={() => setDismissed(true)}
@@ -62,6 +71,7 @@ export default function AnnouncementBanner() {
           </button>
         </div>
       </div>
+      <CallbackFormModal isOpen={callbackOpen} onClose={() => setCallbackOpen(false)} />
     </div>
   )
 }
