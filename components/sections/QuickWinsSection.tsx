@@ -5,6 +5,7 @@ import { useRef, useEffect } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { X, CheckCircle2, Calendar as CalendarIcon, ArrowRight } from 'lucide-react'
 import { getCalApi } from "@calcom/embed-react"
+import CallbackButton from '@/components/CallbackButton'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -226,6 +227,9 @@ export default function QuickWinsSection() {
               {lang === 'fr' ? '60 min stratégique gratuite' : 'Free 60 min strategy call'}
               <ArrowRight size={20} />
             </button>
+            <div className="mt-3">
+              <CallbackButton variant="subtle" />
+            </div>
           </div>
         </FadeInBlock>
       </div>

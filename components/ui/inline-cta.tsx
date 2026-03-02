@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { ArrowRight, Calendar } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { getCalApi } from "@calcom/embed-react"
+import CallbackButton from '@/components/CallbackButton'
 
 interface InlineCTAProps {
   title: string
@@ -53,6 +54,9 @@ export function InlineCTA({
         >
           {primaryText} <ArrowRight size={18} />
         </button>
+        <div className="mt-3">
+          <CallbackButton variant="subtle" />
+        </div>
       </div>
     )
   }
@@ -74,6 +78,9 @@ export function InlineCTA({
         >
           {primaryText}
         </button>
+        <div className="mt-3">
+          <CallbackButton variant="subtle" />
+        </div>
       </div>
     )
   }
@@ -90,6 +97,9 @@ export function InlineCTA({
       >
         {primaryText}
       </button>
+      <div className="mt-3">
+        <CallbackButton variant="subtle" />
+      </div>
     </div>
   )
 }

@@ -5,6 +5,7 @@ import { useRef, useEffect, useState } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { Mic, ArrowRight, Sparkles } from 'lucide-react'
 import { getCalApi } from "@calcom/embed-react"
+import CallbackButton from '@/components/CallbackButton'
 import AnimatedList, { AnimatedListItem } from '@/components/magicui/animated-list'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
@@ -442,6 +443,9 @@ export default function HowItWorksAccordion() {
               <p className="mt-3 text-sm text-neutral-500">
                 {lang === 'fr' ? '15 min · Sans engagement' : '15 min · No commitment'}
               </p>
+              <div className="mt-3">
+                <CallbackButton variant="subtle" />
+              </div>
           </div>
         </FadeInBlock>
       </div>

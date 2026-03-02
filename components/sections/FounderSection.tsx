@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { Award, TrendingUp, Code2, ArrowRight } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { getCalApi } from "@calcom/embed-react"
+import CallbackButton from '@/components/CallbackButton'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -241,6 +242,9 @@ export default function FounderSection() {
               <p className="mt-3 text-sm text-neutral-500">
                 {lang === 'fr' ? '15 min · Sans engagement' : '15 min · No commitment'}
               </p>
+              <div className="mt-3">
+                <CallbackButton variant="subtle" />
+              </div>
             </div>
           </FadeInBlock>
         </div>

@@ -5,6 +5,7 @@ import { useRef, useEffect } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { Check } from 'lucide-react'
 import { getCalApi } from "@calcom/embed-react"
+import CallbackButton from '@/components/CallbackButton'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -147,6 +148,9 @@ export default function RolesReplacedSection() {
               {lang === 'fr' ? '60 min stratégique gratuite' : 'Free 60 min strategy call'}
               <span>→</span>
             </button>
+            <div className="mt-3">
+              <CallbackButton variant="subtle" />
+            </div>
           </div>
         </FadeInBlock>
       </div>
