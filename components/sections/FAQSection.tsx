@@ -28,14 +28,15 @@ const getFAQs = (t: any, variant: string = 'all') => {
   
   // FAQ HOME : Top questions essentielles + nouvelles FAQs spécifiques
   const homeFAQs = [
-    t.faq?.specific?.howManyPosts, // Nouvelle FAQ spécifique
+    t.faq?.specific?.howManyPosts,
     allFAQs[0], // How do I get started?
     allFAQs[1], // How much time do I need to invest?
     allFAQs[2], // What if the content doesn't sound like me?
-    t.faq?.specific?.whatIfDontLike, // Nouvelle FAQ spécifique
+    t.faq?.specific?.whatIfDontLike,
     allFAQs[3], // How quickly will I see results?
     allFAQs[4], // What makes this different from hiring an agency?
     allFAQs[5], // Can I cancel anytime?
+    allFAQs[14], // How do you guarantee post visibility?
   ].filter(Boolean)
   
   // FAQ PRICING : Questions sur prix/achat + nouvelles FAQs spécifiques
