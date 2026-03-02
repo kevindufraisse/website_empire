@@ -336,7 +336,7 @@ export default function PricingPlansSection() {
                         : 'bg-white/10 text-white hover:bg-empire hover:text-black'
                     }`}
                   >
-                    {lang === 'fr' ? '60 min stratégique gratuite' : 'Free 60 min strategy call'}
+                    {lang === 'fr' ? 'Accès immédiat' : 'Get instant access'}
                   </a>
                 </div>
               </div>

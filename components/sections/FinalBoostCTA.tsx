@@ -5,6 +5,7 @@ import { useRef, useEffect } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { Zap } from 'lucide-react'
 import { getCalApi } from "@calcom/embed-react"
+import CallbackButton from '@/components/CallbackButton'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -72,6 +73,9 @@ export default function FinalBoostCTA() {
                 >
                   {t.finalCTA.watchDemo}
                 </button>
+                <div className="mt-3">
+                  <CallbackButton variant="subtle" />
+                </div>
               </div>
             </div>
           </FadeInBlock>

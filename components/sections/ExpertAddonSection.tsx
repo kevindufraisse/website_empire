@@ -6,6 +6,7 @@ import { useRef, useEffect } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { GraduationCap, CheckCircle2, ArrowRight } from 'lucide-react'
 import { getCalApi } from "@calcom/embed-react"
+import CallbackButton from '@/components/CallbackButton'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -88,15 +89,18 @@ export default function ExpertAddonSection() {
                   ))}
                 </div>
 
-                <button
-                  data-cal-namespace={namespace}
-                  data-cal-link={calLink}
-                  data-cal-config='{"layout":"month_view","theme":"dark"}'
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-empire/10 border border-empire/30 text-empire font-semibold text-sm hover:bg-empire/20 transition-colors"
-                >
-                  {t.expertAddon.cta}
-                  <ArrowRight size={16} />
-                </button>
+                <div className="flex flex-wrap items-center gap-4">
+                  <button
+                    data-cal-namespace={namespace}
+                    data-cal-link={calLink}
+                    data-cal-config='{"layout":"month_view","theme":"dark"}'
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-empire/10 border border-empire/30 text-empire font-semibold text-sm hover:bg-empire/20 transition-colors"
+                  >
+                    {t.expertAddon.cta}
+                    <ArrowRight size={16} />
+                  </button>
+                  <CallbackButton variant="subtle" />
+                </div>
               </div>
             </div>
           </div>

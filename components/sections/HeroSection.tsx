@@ -5,8 +5,8 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import RetroGrid from '@/components/magicui/retro-grid'
 import { Meteors } from '@/components/magicui/meteors'
 import { StarRating } from '@/components/ui/star-rating'
-import CalCalendar from '@/components/CalCalendar'
 import { getCalApi } from "@calcom/embed-react"
+import CallbackButton from '@/components/CallbackButton'
 
 export default function HeroSection() {
   const { t, lang } = useLanguage()
@@ -134,7 +134,7 @@ export default function HeroSection() {
             transition={{ delay: 0.4, duration: 0.6 }}
             className="mt-8 flex flex-col items-center justify-center gap-4"
           >
-            <div className="flex items-center justify-center w-full px-4 sm:px-0">
+            <div className="flex flex-col items-center justify-center w-full px-4 sm:px-0 gap-3">
               <button
                 data-cal-namespace={namespace}
                 data-cal-link={calLink}
@@ -143,6 +143,7 @@ export default function HeroSection() {
               >
                 {t.hero.cta1}
               </button>
+              <CallbackButton variant="subtle" />
             </div>
           </motion.div>
             
@@ -265,17 +266,29 @@ export default function HeroSection() {
             </div>
           </motion.div>
 
-          {/* Calendrier de prise de rendez-vous */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.8 }}
-            className="mt-8 w-full max-w-4xl mx-auto"
-          >
-            <div className="rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-neutral-900/50 backdrop-blur-sm">
-              <CalCalendar />
-            </div>
-          </motion.div>
+          {/* Video Loom - FR only */}
+          {lang === 'fr' && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.8 }}
+              className="mt-8 w-full max-w-4xl mx-auto"
+            >
+              <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-neutral-900/50 backdrop-blur-sm" style={{ paddingBottom: '56.25%' }}>
+                <iframe
+                  src="https://www.loom.com/embed/9751f76501dc436f8728f46736d7aea8?hideEmbedTopBar=true&autoplay=1&hide_owner=true&hide_share=true&hide_speed=true&hide_title=true"
+                  frameBorder="0"
+                  allowFullScreen
+                  allow="autoplay"
+                  className="absolute inset-0 w-full h-full"
+                />
+                {/* Overlay to hide bottom player controls */}
+                <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-black to-transparent pointer-events-none" />
+                {/* Overlay to hide emoji reaction button (bottom-right) */}
+                <div className="absolute bottom-0 right-0 w-16 h-16 bg-gradient-to-tl from-black to-transparent pointer-events-none" />
+              </div>
+            </motion.div>
+          )}
         </div>
         </div>
       </section>
