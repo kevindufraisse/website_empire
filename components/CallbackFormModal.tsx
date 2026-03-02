@@ -128,7 +128,7 @@ export default function CallbackFormModal({ isOpen, onClose }: CallbackFormModal
     }
 
     setLoading(true)
-    const fullPhone = `${COUNTRIES[countryIdx].code} ${form.phone}`
+    const fullPhone = `${COUNTRIES[countryIdx].code}${form.phone}`
     try {
       await fetch('/api/callback', {
         method: 'POST',
