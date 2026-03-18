@@ -6,6 +6,7 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import { Zap, Shield, Clock } from 'lucide-react'
 import { PRICING, LAUNCH_OFFER_ACTIVE } from '@/lib/pricing-config'
 import { getCalApi } from "@calcom/embed-react"
+import { useCalLink } from '@/hooks/useCalLink'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -27,7 +28,7 @@ export default function PricingSection() {
   const { t, lang } = useLanguage()
   
   const namespace = 'audit-empire'
-  const calLink = 'team/empire-internet/audit-empire'
+  const calLink = useCalLink()
 
   useEffect(() => {
     (async function () {

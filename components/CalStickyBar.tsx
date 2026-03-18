@@ -5,6 +5,7 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import { getCalApi } from "@calcom/embed-react"
 import { Calendar, ArrowRight, Phone } from 'lucide-react'
 import CallbackFormModal from '@/components/CallbackFormModal'
+import { useCalLink } from '@/hooks/useCalLink'
 
 export default function CalStickyBar() {
   const { lang } = useLanguage()
@@ -16,7 +17,7 @@ export default function CalStickyBar() {
   const isPartnersPage = pathname === '/partners'
 
   const namespace = 'audit-empire'
-  const calLink = 'team/empire-internet/audit-empire'
+  const calLink = useCalLink()
 
   useEffect(() => {
     if (isPartnersPage) return

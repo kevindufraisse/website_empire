@@ -1,9 +1,11 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { useCalLink } from '@/hooks/useCalLink'
 
 export default function CalCalendar() {
   const { lang } = useLanguage()
+  const calLink = useCalLink()
   const containerRef = useRef<HTMLDivElement>(null)
   const [isLoading, setIsLoading] = useState(true)
 
@@ -12,7 +14,6 @@ export default function CalCalendar() {
 
     const namespace = 'audit-empire'
     const containerId = 'my-cal-inline-audit-empire'
-    const calLink = 'team/empire-internet/audit-empire'
 
     // Nettoyer le conteneur
     containerRef.current.innerHTML = `<div style="width:100%;height:100%;overflow:scroll" id="${containerId}"></div>`
@@ -94,7 +95,7 @@ export default function CalCalendar() {
     return () => {
       clearTimeout(timer)
     }
-  }, [lang])
+  }, [lang, calLink])
 
   return (
     <div className="w-full min-h-[500px] md:min-h-[600px] relative" style={{ maxWidth: '100%' }}>

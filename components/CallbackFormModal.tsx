@@ -5,6 +5,7 @@ import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Phone, Loader2, CheckCircle2, XCircle, ChevronDown } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { getEmpParam } from '@/hooks/useCalLink'
 
 const COUNTRIES = [
   { code: '+33', flag: '🇫🇷', name: 'France' },
@@ -138,6 +139,7 @@ export default function CallbackFormModal({ isOpen, onClose }: CallbackFormModal
           email: form.email,
           phone: fullPhone,
           budget: form.budget,
+          emp: getEmpParam() || undefined,
         }),
       })
       setStep('success')

@@ -4,6 +4,7 @@ import { useInView } from 'framer-motion'
 import { useRef, useEffect } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { getCalApi } from "@calcom/embed-react"
+import { useCalLink } from '@/hooks/useCalLink'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -25,7 +26,7 @@ export default function FormatsCTA() {
   const { t, lang } = useLanguage()
 
   const namespace = 'audit-empire'
-  const calLink = 'team/empire-internet/audit-empire'
+  const calLink = useCalLink()
 
   useEffect(() => {
     (async function () {

@@ -6,6 +6,7 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import { X, CheckCircle2, Calendar as CalendarIcon, ArrowRight } from 'lucide-react'
 import { getCalApi } from "@calcom/embed-react"
 import CallbackButton from '@/components/CallbackButton'
+import { useCalLink } from '@/hooks/useCalLink'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -27,7 +28,7 @@ export default function QuickWinsSection() {
   const { lang } = useLanguage()
 
   const namespace = 'audit-empire'
-  const calLink = 'team/empire-internet/audit-empire'
+  const calLink = useCalLink()
 
   useEffect(() => {
     (async function () {

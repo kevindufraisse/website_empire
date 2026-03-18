@@ -7,6 +7,7 @@ import { Mic, ArrowRight, Sparkles } from 'lucide-react'
 import { getCalApi } from "@calcom/embed-react"
 import CallbackButton from '@/components/CallbackButton'
 import AnimatedList, { AnimatedListItem } from '@/components/magicui/animated-list'
+import { useCalLink } from '@/hooks/useCalLink'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -270,7 +271,7 @@ export default function HowItWorksAccordion() {
   const notifications = lang === 'fr' ? getNotificationsFr(SocialIcon) : getNotificationsEn(SocialIcon)
 
   const namespace = 'audit-empire'
-  const calLink = 'team/empire-internet/audit-empire'
+  const calLink = useCalLink()
 
   useEffect(() => {
     (async function () {

@@ -2,6 +2,7 @@
 import { getCalApi } from "@calcom/embed-react"
 import { useEffect } from "react"
 import { useLanguage } from '@/contexts/LanguageContext'
+import { useCalLink } from '@/hooks/useCalLink'
 
 interface CalPopupButtonProps {
   children: React.ReactNode
@@ -10,7 +11,7 @@ interface CalPopupButtonProps {
 
 export default function CalPopupButton({ children, className }: CalPopupButtonProps) {
   const namespace = 'audit-empire'
-  const calLink = 'team/empire-internet/audit-empire'
+  const calLink = useCalLink()
 
   useEffect(() => {
     (async function () {

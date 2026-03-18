@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { getCalApi } from "@calcom/embed-react"
 import { Phone } from 'lucide-react'
 import CallbackFormModal from '@/components/CallbackFormModal'
+import { useCalLink } from '@/hooks/useCalLink'
 
 export default function Header() {
   const { t, lang } = useLanguage()
@@ -21,7 +22,7 @@ export default function Header() {
   const isPartnersPage = pathname === '/partners'
 
   const namespace = 'audit-empire'
-  const calLink = 'team/empire-internet/audit-empire'
+  const calLink = useCalLink()
 
   useEffect(() => {
     (async function () {

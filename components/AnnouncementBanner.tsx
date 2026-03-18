@@ -5,6 +5,7 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import { LAUNCH_OFFER_ACTIVE, PRICING } from '@/lib/pricing-config'
 import { getCalApi } from "@calcom/embed-react"
 import CallbackFormModal from '@/components/CallbackFormModal'
+import { useCalLink } from '@/hooks/useCalLink'
 
 export default function AnnouncementBanner() {
   const [dismissed, setDismissed] = useState(false)
@@ -12,7 +13,7 @@ export default function AnnouncementBanner() {
   const { lang } = useLanguage()
 
   const namespace = 'audit-empire'
-  const calLink = 'team/empire-internet/audit-empire'
+  const calLink = useCalLink()
 
   useEffect(() => {
     (async function () {

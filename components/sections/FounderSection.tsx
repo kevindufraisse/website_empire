@@ -7,6 +7,7 @@ import { Award, TrendingUp, Code2, ArrowRight } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { getCalApi } from "@calcom/embed-react"
 import CallbackButton from '@/components/CallbackButton'
+import { useCalLink } from '@/hooks/useCalLink'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -28,7 +29,7 @@ export default function FounderSection() {
   const { t, lang } = useLanguage()
 
   const namespace = 'audit-empire'
-  const calLink = 'team/empire-internet/audit-empire'
+  const calLink = useCalLink()
 
   // Load Cal.com
   useEffect(() => {

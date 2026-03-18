@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { Mail } from 'lucide-react'
 import { getCalApi } from "@calcom/embed-react"
+import { useCalLink } from '@/hooks/useCalLink'
 
 export default function Footer() {
   const { t, lang } = useLanguage()
@@ -11,7 +12,7 @@ export default function Footer() {
   
   const isPartnersPage = pathname === '/partners'
   const namespace = 'audit-empire'
-  const calLink = 'team/empire-internet/audit-empire'
+  const calLink = useCalLink()
 
   useEffect(() => {
     (async function () {

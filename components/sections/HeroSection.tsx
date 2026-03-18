@@ -7,12 +7,13 @@ import { Meteors } from '@/components/magicui/meteors'
 import { StarRating } from '@/components/ui/star-rating'
 import { getCalApi } from "@calcom/embed-react"
 import CallbackButton from '@/components/CallbackButton'
+import { useCalLink } from '@/hooks/useCalLink'
 
 export default function HeroSection() {
   const { t, lang } = useLanguage()
   
   const namespace = 'audit-empire'
-  const calLink = 'team/empire-internet/audit-empire'
+  const calLink = useCalLink()
 
   useEffect(() => {
     (async function () {

@@ -4,6 +4,7 @@ import { ArrowRight, Calendar } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { getCalApi } from "@calcom/embed-react"
 import CallbackButton from '@/components/CallbackButton'
+import { useCalLink } from '@/hooks/useCalLink'
 
 interface InlineCTAProps {
   title: string
@@ -25,7 +26,7 @@ export function InlineCTA({
   const { lang } = useLanguage()
   
   const namespace = 'audit-empire'
-  const calLink = 'team/empire-internet/audit-empire'
+  const calLink = useCalLink()
 
   useEffect(() => {
     (async function () {
