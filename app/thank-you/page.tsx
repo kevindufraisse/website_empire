@@ -58,49 +58,34 @@ export default function DemoThankYouPage() {
             </motion.p>
           </div>
 
-          {/* Confirm Button */}
+          {/* Loom Video - opens in new tab */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35 }}
-            className="text-center mb-8"
+            className="text-center mb-10"
           >
-            <button
-              onClick={() => setConfirmed(true)}
-              disabled={confirmed}
-              className={`inline-flex items-center gap-3 px-8 py-4 rounded-xl font-bold text-lg transition-all ${
-                confirmed
-                  ? 'bg-empire/20 border-2 border-empire text-empire cursor-default'
-                  : 'bg-empire text-black hover:scale-105 shadow-[0_0_30px_rgba(218,252,104,0.4)] animate-pulse'
-              }`}
+            <a
+              href="https://www.loom.com/share/184e8823d9154d74aeca55a5cd488f08"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex flex-col items-center gap-3"
             >
-              {confirmed ? (
-                <>
-                  <Check size={24} />
-                  {lang === 'fr' ? 'Confirmé ✓' : 'Confirmed ✓'}
-                </>
-              ) : (
-                lang === 'fr' ? 'Confirmer mon rendez-vous' : 'Confirm my appointment'
-              )}
-            </button>
-          </motion.div>
-
-          {/* Loom Video */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="mb-10"
-          >
-            <div className="relative rounded-2xl overflow-hidden border border-white/20 shadow-2xl bg-neutral-900/50" style={{ paddingBottom: '56.25%' }}>
-              <iframe
-                src="https://www.loom.com/embed/184e8823d9154d74aeca55a5cd488f08?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_speed=true&t=0"
-                frameBorder="0"
-                allowFullScreen
-                allow="autoplay"
-                className="absolute inset-0 w-full h-full"
-              />
-            </div>
+              <div className="relative w-full max-w-md rounded-2xl overflow-hidden border border-white/20 shadow-2xl bg-neutral-900/50 aspect-video flex items-center justify-center group-hover:border-empire/40 transition-all">
+                <img
+                  src="https://cdn.loom.com/sessions/thumbnails/184e8823d9154d74aeca55a5cd488f08-with-play.gif"
+                  alt="Regarder la vidéo"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-all" />
+                <div className="relative w-16 h-16 rounded-full bg-empire/90 flex items-center justify-center shadow-[0_0_30px_rgba(218,252,104,0.4)] group-hover:scale-110 transition-transform">
+                  <svg className="w-6 h-6 text-black ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+              </div>
+              <span className="text-sm text-neutral-400 group-hover:text-empire transition-colors">
+                {lang === 'fr' ? 'Ouvrir la vidéo dans une nouvelle fenêtre →' : 'Open video in a new window →'}
+              </span>
+            </a>
           </motion.div>
 
           {/* Transcript Text */}
@@ -209,6 +194,33 @@ export default function DemoThankYouPage() {
                 <p className="text-sm text-neutral-400">+33 6 65 42 74 70</p>
               </div>
             </a>
+          </motion.div>
+
+          {/* Confirm Button - Bottom */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7 }}
+            className="text-center mt-10"
+          >
+            <button
+              onClick={() => setConfirmed(true)}
+              disabled={confirmed}
+              className={`inline-flex items-center gap-3 px-8 py-4 rounded-xl font-bold text-lg transition-all ${
+                confirmed
+                  ? 'bg-empire/20 border-2 border-empire text-empire cursor-default'
+                  : 'bg-empire text-black hover:scale-105 shadow-[0_0_30px_rgba(218,252,104,0.4)] animate-pulse'
+              }`}
+            >
+              {confirmed ? (
+                <>
+                  <Check size={24} />
+                  {lang === 'fr' ? 'Confirmé ✓' : 'Confirmed ✓'}
+                </>
+              ) : (
+                lang === 'fr' ? 'Confirmer mon rendez-vous' : 'Confirm my appointment'
+              )}
+            </button>
           </motion.div>
         </div>
       </div>
