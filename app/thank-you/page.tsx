@@ -1,85 +1,29 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useEffect } from 'react'
-import { CheckCircle2, MessageCircle, Play } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { CheckCircle2, MessageCircle, Check, ChevronDown } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function DemoThankYouPage() {
   const { lang } = useLanguage()
-  
-  // Facebook Pixel tracking - fire Schedule event on page load
+  const [confirmed, setConfirmed] = useState(false)
+  const [showFullText, setShowFullText] = useState(false)
+
   useEffect(() => {
-    // Via GTM dataLayer
     if (typeof window !== 'undefined') {
       (window as any).dataLayer = (window as any).dataLayer || [];
-      (window as any).dataLayer.push({
-        'event': 'cal_booking_confirmed'
-      });
-      
-      // Direct fbq call
+      (window as any).dataLayer.push({ 'event': 'cal_booking_confirmed' });
       if ((window as any).fbq) {
         (window as any).fbq('track', 'Schedule');
-        console.log('Facebook Pixel: Schedule event fired on thank-you page');
       }
     }
   }, [])
 
-  // Vidalytics video IDs
-  const videoIds = {
-    en: {
-      embedId: 'vidalytics_embed_eC6wQ0IBC0XGwMad',
-      videoId: 'eC6wQ0IBC0XGwMad',
-    },
-    fr: {
-      embedId: 'vidalytics_embed_3Gl33E2MRH9oof9_',
-      videoId: '3Gl33E2MRH9oof9_',
-    }
-  }
-
-  const currentVideo = videoIds[lang]
-
-  // Load Vidalytics script
-  useEffect(() => {
-    // Clean up previous Vidalytics instances
-    const oldContainerEn = document.getElementById(videoIds.en.embedId)
-    const oldContainerFr = document.getElementById(videoIds.fr.embedId)
-    if (oldContainerEn) oldContainerEn.innerHTML = ''
-    if (oldContainerFr) oldContainerFr.innerHTML = ''
-    
-    // Small delay to ensure DOM is ready
-    const timer = setTimeout(() => {
-      const script = document.createElement('script')
-      script.type = 'text/javascript'
-      script.id = `vidalytics-script-${currentVideo.videoId}`
-      script.innerHTML = `
-        (function (v, i, d, a, l, y, t, c, s) {
-          y='_'+d.toLowerCase();c=d+'L';if(!v[d]){v[d]={};}if(!v[c]){v[c]={};}if(!v[y]){v[y]={};}var vl='Loader',vli=v[y][vl],vsl=v[c][vl + 'Script'],vlf=v[c][vl + 'Loaded'],ve='Embed';
-          if (!vsl){vsl=function(u,cb){
-            if(t){cb();return;}s=i.createElement("script");s.type="text/javascript";s.async=1;s.src=u;
-            if(s.readyState){s.onreadystatechange=function(){if(s.readyState==="loaded"||s.readyState=="complete"){s.onreadystatechange=null;vlf=1;cb();}};}else{s.onload=function(){vlf=1;cb();};}
-            i.getElementsByTagName("head")[0].appendChild(s);
-          };}
-          vsl(l+'loader.min.js',function(){if(!vli){var vlc=v[c][vl];vli=new vlc();}vli.loadScript(l+'player.min.js',function(){var vec=v[d][ve];t=new vec();t.run(a);});});
-        })(window, document, 'Vidalytics', '${currentVideo.embedId}', 'https://fast.vidalytics.com/embeds/ydq0TH7p/${currentVideo.videoId}/');
-      `
-      document.body.appendChild(script)
-    }, 100)
-
-    return () => {
-      clearTimeout(timer)
-      // Remove old scripts
-      const oldScript = document.getElementById(`vidalytics-script-${currentVideo.videoId}`)
-      if (oldScript && oldScript.parentNode) {
-        oldScript.parentNode.removeChild(oldScript)
-      }
-    }
-  }, [lang, currentVideo.embedId, currentVideo.videoId])
-  
   return (
     <main className="relative min-h-screen bg-gradient-to-b from-black via-[#0f0f0f] to-black pt-24 md:pt-32">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgba(218,252,104,0.1),transparent)]" />
-      
+
       <div className="container py-12 relative z-10">
         <div className="max-w-3xl mx-auto">
           {/* Success Header */}
@@ -101,31 +45,141 @@ export default function DemoThankYouPage() {
             >
               {lang === 'fr' ? 'Rendez-vous confirmé !' : 'Appointment confirmed!'}
             </motion.h1>
-            
+
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
               className="text-lg text-neutral-300"
             >
-              {lang === 'fr' 
+              {lang === 'fr'
                 ? 'En attendant, découvrez comment Empire fonctionne 👇'
                 : 'In the meantime, discover how Empire works 👇'}
             </motion.p>
           </div>
 
-          {/* Video Demo Section */}
+          {/* Confirm Button */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35 }}
+            className="text-center mb-8"
+          >
+            <button
+              onClick={() => setConfirmed(true)}
+              disabled={confirmed}
+              className={`inline-flex items-center gap-3 px-8 py-4 rounded-xl font-bold text-lg transition-all ${
+                confirmed
+                  ? 'bg-empire/20 border-2 border-empire text-empire cursor-default'
+                  : 'bg-empire text-black hover:scale-105 shadow-[0_0_30px_rgba(218,252,104,0.4)] animate-pulse'
+              }`}
+            >
+              {confirmed ? (
+                <>
+                  <Check size={24} />
+                  {lang === 'fr' ? 'Confirmé ✓' : 'Confirmed ✓'}
+                </>
+              ) : (
+                lang === 'fr' ? 'Confirmer mon rendez-vous' : 'Confirm my appointment'
+              )}
+            </button>
+          </motion.div>
+
+          {/* Loom Video */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="mb-8"
+            className="mb-10"
           >
-            <div className="rounded-2xl overflow-hidden border border-white/20 shadow-2xl bg-black">
-              <div 
-                id={currentVideo.embedId}
-                style={{ width: '100%', position: 'relative', paddingTop: '64.86%' }}
+            <div className="relative rounded-2xl overflow-hidden border border-white/20 shadow-2xl bg-neutral-900/50" style={{ paddingBottom: '56.25%' }}>
+              <iframe
+                src="https://www.loom.com/embed/184e8823d9154d74aeca55a5cd488f08?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_speed=true&t=0"
+                frameBorder="0"
+                allowFullScreen
+                allow="autoplay"
+                className="absolute inset-0 w-full h-full"
               />
+            </div>
+          </motion.div>
+
+          {/* Transcript Text */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="mb-10"
+          >
+            <div className="p-6 md:p-8 rounded-2xl bg-white/5 border border-white/10">
+              <h2 className="text-xl md:text-2xl font-bold text-white mb-6">
+                {lang === 'fr' ? 'Ce que vous allez découvrir' : 'What you\'ll discover'}
+              </h2>
+
+              <div className={`space-y-5 text-neutral-300 leading-relaxed ${!showFullText ? 'max-h-[600px] overflow-hidden relative' : ''}`}>
+                <p>
+                  <strong className="text-empire">Le problème :</strong> Vous êtes entrepreneur, CEO ou freelance. Vous savez que le contenu est un levier business indispensable, mais entre vos clients, votre delivery et votre quotidien, il ne reste plus d'énergie pour écrire un post ou monter une vidéo. Trouver des idées, rédiger, tourner, monter, programmer, publier — c'est le travail de 5 personnes. Ce n'est pas censé être le vôtre.
+                </p>
+
+                <p>
+                  <strong className="text-empire">Les tentatives classiques :</strong> Vous avez peut-être essayé de déléguer à un freelance — contenu générique, retards, turnover. Ou de tout faire vous-même — motivé 2 semaines, 3 posts, zéro traction, abandon. Ce n'est pas un problème de discipline. Vous n'aviez juste pas de système.
+                </p>
+
+                <p>
+                  <strong className="text-empire">Ce que font les top créateurs :</strong> Grant Cardone, Alex Hormozi, Matt Gray — ils ne créent pas du contenu assis devant un écran. Ils parlent, et une équipe transforme tout derrière. Sauf que ça leur coûte 50 à 100 000€ par mois et 5 ans à mettre en place. Empire reproduit ce système pour vous, clé en main.
+                </p>
+
+                <p>
+                  <strong className="text-empire">Le système Empire en 3 étapes :</strong>
+                </p>
+                <ul className="space-y-2 ml-4">
+                  <li className="flex items-start gap-2">
+                    <span className="text-empire font-bold mt-0.5">1.</span>
+                    <span><strong className="text-white">L'extraction</strong> — Vous parlez 15 minutes lors d'une interview. L'IA, formée sur votre expertise, capture vos meilleures idées, votre vocabulaire, vos angles. Plus vous l'utilisez, plus elle vous connaît.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-empire font-bold mt-0.5">2.</span>
+                    <span><strong className="text-white">La transformation</strong> — Une équipe d'assistants formés pendant des mois prend le relais. Ils coupent vos vidéos, rédigent vos posts LinkedIn, structurent vos newsletters, créent vos Reels et Shorts. Chaque contenu est vérifié : orthographe, ton, qualité.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-empire font-bold mt-0.5">3.</span>
+                    <span><strong className="text-white">La publication</strong> — Une interview génère une semaine entière de contenu sur 6 plateformes : LinkedIn, YouTube, Instagram, Twitter/X, Threads et newsletter. Vous relisez, vous validez, c'est publié.</span>
+                  </li>
+                </ul>
+
+                <p>
+                  <strong className="text-empire">Résultats concrets :</strong> Un copywriter à 2 500€/mois produisait des newsletters. Quand le système Empire a pris le relais, plus de 75% des lecteurs ont préféré la version IA. Un abonné a écrit : "Je ne sais pas ce qui s'est passé, mais ta newsletter s'est tellement améliorée."
+                </p>
+
+                <p>
+                  <strong className="text-empire">Témoignages :</strong> Marguerite, experte marketing B2B, a doublé son pipeline commercial en un mois. Sophie, sparring partner pour fondateurs, est passée de posts aléatoires à 1-3 contenus par jour. Antoine, dirigeant, confirme : "Bizarrement, c'est mon ton naturel."
+                </p>
+
+                <p>
+                  <strong className="text-empire">Avant vs Après Empire :</strong> Avant — 3-4 posts par mois, des heures de travail, une seule plateforme, zéro retour. Après — publication quotidienne sur 6 plateformes, 15 minutes par semaine, calendrier rempli, leads entrants automatiques.
+                </p>
+
+                <p>
+                  <strong className="text-empire">Pour qui c'est fait :</strong> Entrepreneurs, CEOs, freelances qui font plus de 5 000€/mois et qui veulent transformer leur visibilité en ligne en levier business — sans sacrifier leur temps. Limité à 100 clients pour garantir la qualité.
+                </p>
+
+                <p>
+                  <strong className="text-empire">L'audit gratuit :</strong> 45 minutes pour analyser votre business, vos plateformes et votre positionnement. On vous dit honnêtement si Empire est adapté ou pas. Et même si ce n'est pas le bon moment, vous repartez avec toutes nos ressources : templates, méthodes et outils.
+                </p>
+
+                {!showFullText && (
+                  <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0d0d0d] to-transparent pointer-events-none" />
+                )}
+              </div>
+
+              {!showFullText && (
+                <button
+                  onClick={() => setShowFullText(true)}
+                  className="mt-4 flex items-center gap-2 text-empire font-medium hover:underline mx-auto"
+                >
+                  {lang === 'fr' ? 'Lire la suite' : 'Read more'}
+                  <ChevronDown size={16} />
+                </button>
+              )}
             </div>
           </motion.div>
 
@@ -133,7 +187,7 @@ export default function DemoThankYouPage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
+            transition={{ delay: 0.6 }}
             className="text-center"
           >
             <p className="text-neutral-400 mb-4">
