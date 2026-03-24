@@ -74,16 +74,6 @@ export default function Header() {
 
           {/* Right side */}
           <div className="flex items-center gap-2 md:gap-3">
-            <div className="hidden sm:block">
-            <LanguageSwitcher />
-            </div>
-            <button
-              onClick={() => setCallbackOpen(true)}
-              className="hidden sm:flex items-center gap-1.5 px-3 md:px-4 py-2 md:py-2.5 rounded-lg bg-white/5 border border-white/10 text-neutral-300 font-medium hover:border-empire/40 hover:text-empire transition-all text-sm"
-            >
-              <Phone size={13} />
-              {lang === 'fr' ? 'Être recontacté' : 'Get a callback'}
-            </button>
             {!hideCTA && (
               <button
                 data-cal-namespace={namespace}
@@ -101,14 +91,6 @@ export default function Header() {
               >
                 {lang === 'fr' ? 'Obtenir mon lien' : 'Get my sharable link'}
               </button>
-            )}
-            {isAcademyPage && (
-              <a
-                href="/"
-                className="hidden sm:block px-4 md:px-5 py-2 md:py-2.5 rounded-lg bg-empire text-black font-semibold hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.2)] text-sm md:text-base"
-              >
-                Découvrir Empire Internet →
-              </a>
             )}
 
             {/* Mobile Menu Button */}
@@ -134,24 +116,7 @@ export default function Header() {
             className="sm:hidden border-t border-white/10 bg-black/98"
           >
             <div className="px-4 py-5 space-y-4">
-              {/* Language Switcher Mobile */}
-              <div className="py-2">
-                <p className="text-xs text-neutral-500 mb-2">{lang === 'fr' ? 'Langue' : 'Language'}</p>
-                <LanguageSwitcher />
-              </div>
-
               
-              {/* Callback Button Mobile */}
-              <motion.button
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.05 }}
-                onClick={() => { setCallbackOpen(true); setIsMenuOpen(false) }}
-                className="w-full flex items-center justify-center gap-2 py-3.5 rounded-lg bg-white/5 border border-white/10 text-neutral-300 font-medium hover:border-empire/40 hover:text-empire transition-all"
-              >
-                <Phone size={15} />
-                {lang === 'fr' ? 'Être recontacté' : 'Get a callback'}
-              </motion.button>
 
               {/* CTA Button Mobile */}
               {!hideCTA && (
@@ -179,18 +144,6 @@ export default function Header() {
                 >
                   {lang === 'fr' ? 'Obtenir mon lien' : 'Get my sharable link'}
                 </motion.button>
-              )}
-              {isAcademyPage && (
-                <motion.a
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 }}
-                  href="/"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="block w-full py-3.5 rounded-lg bg-empire text-black font-bold text-center hover:scale-[1.02] transition-all shadow-[0_0_20px_rgba(218,252,104,0.2)]"
-                >
-                  Découvrir Empire Internet →
-                </motion.a>
               )}
             </div>
           </motion.div>

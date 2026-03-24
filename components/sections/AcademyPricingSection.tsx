@@ -3,6 +3,7 @@ import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { Check } from 'lucide-react'
 import BorderBeam from '@/components/magicui/border-beam'
+import AcademyPriceCountdown from './AcademyPriceCountdown'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -47,6 +48,7 @@ export default function AcademyPricingSection() {
           </FadeInBlock>
 
           <FadeInBlock delay={0.1}>
+            <AcademyPriceCountdown />
             <div className="relative p-8 md:p-10 rounded-2xl bg-gradient-to-br from-empire/20 to-empire/5 border border-empire shadow-[0_0_50px_rgba(218,252,104,0.15)] flex flex-col overflow-hidden">
               <BorderBeam size={350} duration={10} delay={0} />
 

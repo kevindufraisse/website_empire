@@ -4,6 +4,31 @@ import { usePathname } from 'next/navigation'
 import { X, Users, FileCode, Zap, Sparkles } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 
+// ── Academy countdown config (sync with AcademyPriceCountdown) ──────────────
+const NEXT_PRICE = 597
+const PRICE_DEADLINE = new Date('2026-04-10T23:59:59')
+// ────────────────────────────────────────────────────────────────────────────
+
+function useAcademyCountdown() {
+  const [timeLeft, setTimeLeft] = useState<{ d: number; h: number; m: number; s: number } | null>(null)
+  useEffect(() => {
+    const calc = () => {
+      const diff = PRICE_DEADLINE.getTime() - Date.now()
+      if (diff <= 0) { setTimeLeft(null); return }
+      setTimeLeft({
+        d: Math.floor(diff / 86400000),
+        h: Math.floor((diff % 86400000) / 3600000),
+        m: Math.floor((diff % 3600000) / 60000),
+        s: Math.floor((diff % 60000) / 1000),
+      })
+    }
+    calc()
+    const id = setInterval(calc, 1000)
+    return () => clearInterval(id)
+  }, [])
+  return timeLeft
+}
+
 export function ExitIntentPopup() {
   const [show, setShow] = useState(false)
   const [dismissed, setDismissed] = useState(false)
@@ -16,8 +41,8 @@ export function ExitIntentPopup() {
   const isAcademyPage = pathname === '/academy'
 
   useEffect(() => {
-    // Don't show on partners or academy page
-    if (isPartnersPage || isAcademyPage) return
+    // Don't show on partners page
+    if (isPartnersPage) return
     
     // Check if already shown in this session
     const hasShown = sessionStorage.getItem('exitPopupShown')
@@ -87,8 +112,95 @@ export function ExitIntentPopup() {
   }
 
   const t = content[lang as keyof typeof content] || content.en
+  const academyCountdown = useAcademyCountdown()
 
   if (!show || dismissed) return null
+
+  // ── Academy-specific popup ────────────────────────────────────────────────
+  if (isAcademyPage) {
+    return (
+      <div
+        className="fixed inset-0 bg-black/90 backdrop-blur-sm z-[9998] flex items-center justify-center p-4 animate-fade-in"
+        onClick={() => setDismissed(true)}
+      >
+        <div
+          className="relative max-w-md w-full bg-gradient-to-br from-neutral-900 via-black to-neutral-900 border-2 border-empire rounded-2xl shadow-[0_0_60px_rgba(218,252,104,0.3)]"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <button
+            onClick={() => setDismissed(true)}
+            className="absolute top-4 right-4 text-neutral-500 hover:text-white transition-colors z-10"
+          >
+            <X size={22} />
+          </button>
+
+          <div className="p-6 text-center">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-empire/20 border border-empire/30 mb-4">
+              <span className="w-1.5 h-1.5 rounded-full bg-empire animate-pulse" />
+              <span className="text-xs font-bold text-empire tracking-widest uppercase">Offre de lancement</span>
+            </div>
+
+            <h3 className="text-2xl sm:text-3xl font-black text-white mb-2">
+              Attends — le prix monte bientôt.
+            </h3>
+            <p className="text-neutral-400 text-sm mb-6">
+              Tu pars, mais le prix de <span className="text-white font-semibold">497€</span> ne sera plus disponible longtemps.
+            </p>
+
+            {/* Countdown */}
+            {academyCountdown && (
+              <div className="mb-6">
+                <p className="text-xs text-neutral-500 mb-3">
+                  Le prix passe à <span className="text-empire font-bold">{NEXT_PRICE}€</span> dans
+                </p>
+                <div className="flex items-center justify-center gap-2">
+                  {[
+                    { val: academyCountdown.d, unit: 'j' },
+                    { val: academyCountdown.h, unit: 'h' },
+                    { val: academyCountdown.m, unit: 'm' },
+                    { val: academyCountdown.s, unit: 's' },
+                  ].map(({ val, unit }) => (
+                    <div key={unit} className="flex flex-col items-center">
+                      <div className="w-12 h-12 rounded-xl bg-black border border-empire/40 flex items-center justify-center">
+                        <span className="text-empire font-black text-xl tabular-nums leading-none">
+                          {String(val).padStart(2, '0')}
+                        </span>
+                      </div>
+                      <span className="text-[10px] text-neutral-600 mt-1 uppercase">{unit}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* CTA */}
+            <a
+              href="https://www.join.empire-internet.com/academy"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setDismissed(true)}
+              className="block w-full py-4 rounded-xl bg-empire text-black font-bold text-base hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.35)] mb-3"
+            >
+              Rejoindre à 497€ maintenant →
+            </a>
+            <button
+              onClick={() => setDismissed(true)}
+              className="text-xs text-neutral-600 hover:text-neutral-400 transition-colors"
+            >
+              Non merci, je préfère payer plus tard
+            </button>
+          </div>
+        </div>
+
+        <style jsx>{`
+          @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+          .animate-fade-in { animation: fade-in 0.3s ease-out; }
+        `}</style>
+      </div>
+    )
+  }
+  // ─────────────────────────────────────────────────────────────────────────
 
   return (
     <div 
