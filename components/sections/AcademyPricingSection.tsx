@@ -34,7 +34,7 @@ const vipFeatures = [
   'Tout le pack standard',
   'Accompagnement personnalisé',
   'Priorité sur les missions Empire',
-  'Suivi direct avec l'équipe',
+  "Suivi direct avec l'équipe",
   'Accès réseau clients 12 mois',
   'Affiliation + coaching inclus',
 ]
