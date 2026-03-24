@@ -27,19 +27,19 @@ const steps = [
   {
     num: '02',
     title: 'Tu appliques chaque jour',
-    desc: 'Un exercice par jour, posté dans le groupe. Tu crées, tu reçois des feedbacks, tu progresses. C'est l'action qui fait la différence — pas la théorie.',
+    desc: "Un exercice par jour, posté dans le groupe. Tu crées, tu reçois des feedbacks, tu progresses. C'est l'action qui fait la différence — pas la théorie.",
     tag: null,
   },
   {
     num: '03',
     title: 'Tu maîtrises un métier rare',
-    desc: 'Générer des vues, attirer des clients, créer une audience indépendante de l'algo. Un actif que l'IA ne peut pas te voler.',
+    desc: "Générer des vues, attirer des clients, créer une audience indépendante de l'algo. Un actif que l'IA ne peut pas te voler.",
     tag: 'Semaine 3',
   },
   {
     num: '04',
     title: 'Les meilleurs intègrent le réseau Empire VIP',
-    desc: 'Les participants qui se distinguent reçoivent des missions directement de notre réseau clients. C'est mérité — pas garanti. Mais c'est réel.',
+    desc: "Les participants qui se distinguent reçoivent des missions directement de notre réseau clients. C'est mérité — pas garanti. Mais c'est réel.",
     tag: 'VIP',
     highlight: true,
   },

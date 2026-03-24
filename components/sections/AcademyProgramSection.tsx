@@ -22,7 +22,7 @@ const weeks = [
   {
     tag: 'Semaine 1 · Jours 1–7',
     title: 'Comprendre la viralité',
-    desc: 'Psychologie de l'attention, hooks, mécanique des millions de vues. Pourquoi certains contenus explosent.',
+    desc: "Psychologie de l'attention, hooks, mécanique des millions de vues. Pourquoi certains contenus explosent.",
     color: 'from-blue-500/10 to-transparent border-blue-500/20',
     tagColor: 'text-blue-400',
   },
@@ -56,7 +56,7 @@ const tools = [
   {
     icon: Users,
     label: 'Groupe privé',
-    desc: 'Tu postes, tu reçois des feedbacks, tu vois les résultats des autres. C'est là que les meilleurs se révèlent.',
+    desc: "Tu postes, tu reçois des feedbacks, tu vois les résultats des autres. C'est là que les meilleurs se révèlent.",
   },
 ]
 

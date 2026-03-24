@@ -37,7 +37,7 @@ const lives = [
   {
     num: 'Live 4',
     title: 'YouTube & contenu long',
-    desc: 'Bâtir une audience durable qui ne dépend pas de l'algo. La stratégie long terme.',
+    desc: "Bâtir une audience durable qui ne dépend pas de l'algo. La stratégie long terme.",
   },
   {
     num: 'Live 5',

@@ -35,7 +35,7 @@ const yesFor = [
 
 const faqs = [
   {
-    q: 'C'est pour qui exactement ?',
+    q: "C'est pour qui exactement ?",
     a: "Pour toute personne qui veut maîtriser les mécaniques de la viralité et potentiellement travailler avec nous. Aucune expérience requise — juste la volonté d'agir chaque jour.",
   },
   {
