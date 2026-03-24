@@ -104,10 +104,12 @@ export default function AcademyHeroSection() {
             className="flex flex-col items-center gap-3 mb-10"
           >
             <a
-              href="#academy-pricing"
+              href="https://www.join.empire-internet.com/academy"
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-8 py-4 bg-empire text-black font-bold text-lg rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(218,252,104,0.35)] inline-block"
             >
-              Rejoindre le bootcamp à 497€ →
+              Passer le test d'éligibilité →
             </a>
             <p className="text-xs text-neutral-500">
               21 jours · 6 lives · Groupe privé · Replays à vie · 0 audience requise

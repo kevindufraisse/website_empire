@@ -4,7 +4,6 @@ import { useRef } from 'react'
 import { Check } from 'lucide-react'
 import BorderBeam from '@/components/magicui/border-beam'
 import { AvatarCircles } from '@/components/magicui/avatar-circles'
-import AcademyPriceCountdown from './AcademyPriceCountdown'
 
 const avatars = [
   { imageUrl: 'https://i.pravatar.cc/48?img=11', profileUrl: '' },
@@ -57,17 +56,12 @@ export default function AcademyPricingSection() {
           </FadeInBlock>
 
           <FadeInBlock delay={0.1}>
-            <AcademyPriceCountdown />
             <div className="relative p-8 md:p-10 rounded-2xl bg-gradient-to-br from-empire/20 to-empire/5 border border-empire shadow-[0_0_50px_rgba(218,252,104,0.15)] flex flex-col overflow-hidden">
               <BorderBeam size={350} duration={10} delay={0} />
 
               <div className="mb-8 text-center">
-                <p className="text-neutral-400 text-sm mb-2">Accès unique · Offre de lancement</p>
-                <div className="flex items-baseline justify-center gap-3">
-                  <span className="text-2xl font-bold text-neutral-500 line-through">897€</span>
-                  <span className="text-5xl md:text-6xl font-black text-empire">497€</span>
-                </div>
-                <p className="text-xs text-empire/70 mt-1">une fois · économisez 400€</p>
+                <p className="text-neutral-400 text-sm mb-1">Accès unique · Offre de lancement</p>
+                <p className="text-white font-bold text-lg">Bootcamp Head of Viralité — 21 jours</p>
               </div>
 
               <div className="space-y-3 mb-10">
@@ -85,7 +79,7 @@ export default function AcademyPricingSection() {
                 rel="noopener noreferrer"
                 className="block text-center px-6 py-4 rounded-xl bg-empire text-black font-bold text-lg hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)]"
               >
-                Je rejoins le bootcamp →
+                Passer le test d'éligibilité →
               </a>
 
               <div className="flex flex-col items-center gap-2 mt-5">
@@ -93,7 +87,7 @@ export default function AcademyPricingSection() {
                   <AvatarCircles avatarUrls={avatars} numPeople={31} className="[&_img]:h-8 [&_img]:w-8 [&_div]:h-8 [&_div]:w-8 [&_div]:text-[10px] -space-x-3" />
                   <p className="text-xs text-neutral-400">déjà inscrits</p>
                 </div>
-                <p className="text-xs text-neutral-600">Places limitées · Prix garanti uniquement au lancement</p>
+                <p className="text-xs text-neutral-600">Places limitées · Bootcamp de lancement</p>
               </div>
             </div>
           </FadeInBlock>

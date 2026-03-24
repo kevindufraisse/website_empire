@@ -138,41 +138,16 @@ export function ExitIntentPopup() {
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-empire/20 border border-empire/30 mb-4">
               <span className="w-1.5 h-1.5 rounded-full bg-empire animate-pulse" />
-              <span className="text-xs font-bold text-empire tracking-widest uppercase">Offre de lancement</span>
+              <span className="text-xs font-bold text-empire tracking-widest uppercase">Places limitées</span>
             </div>
 
             <h3 className="text-2xl sm:text-3xl font-black text-white mb-2">
-              Attends — le prix monte bientôt.
+              Tu es éligible ?
             </h3>
             <p className="text-neutral-400 text-sm mb-6">
-              Tu pars, mais le prix de <span className="text-white font-semibold">497€</span> ne sera plus disponible longtemps.
+              Le bootcamp n'est pas ouvert à tout le monde.{' '}
+              <span className="text-white font-semibold">Passe le test pour savoir si tu peux rejoindre.</span>
             </p>
-
-            {/* Countdown */}
-            {academyCountdown && (
-              <div className="mb-6">
-                <p className="text-xs text-neutral-500 mb-3">
-                  Le prix passe à <span className="text-empire font-bold">{NEXT_PRICE}€</span> dans
-                </p>
-                <div className="flex items-center justify-center gap-2">
-                  {[
-                    { val: academyCountdown.d, unit: 'j' },
-                    { val: academyCountdown.h, unit: 'h' },
-                    { val: academyCountdown.m, unit: 'm' },
-                    { val: academyCountdown.s, unit: 's' },
-                  ].map(({ val, unit }) => (
-                    <div key={unit} className="flex flex-col items-center">
-                      <div className="w-12 h-12 rounded-xl bg-black border border-empire/40 flex items-center justify-center">
-                        <span className="text-empire font-black text-xl tabular-nums leading-none">
-                          {String(val).padStart(2, '0')}
-                        </span>
-                      </div>
-                      <span className="text-[10px] text-neutral-600 mt-1 uppercase">{unit}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
 
             {/* CTA */}
             <a
@@ -182,13 +157,13 @@ export function ExitIntentPopup() {
               onClick={() => setDismissed(true)}
               className="block w-full py-4 rounded-xl bg-empire text-black font-bold text-base hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.35)] mb-3"
             >
-              Rejoindre à 497€ maintenant →
+              Passer le test d'éligibilité →
             </a>
             <button
               onClick={() => setDismissed(true)}
               className="text-xs text-neutral-600 hover:text-neutral-400 transition-colors"
             >
-              Non merci, je préfère payer plus tard
+              Non merci, je ne suis peut-être pas éligible
             </button>
           </div>
         </div>

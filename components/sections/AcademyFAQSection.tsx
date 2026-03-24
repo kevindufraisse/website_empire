@@ -170,9 +170,9 @@ export default function AcademyFAQSection() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-8 py-4 bg-empire text-black font-bold text-lg rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(218,252,104,0.3)]"
               >
-                Je rejoins le bootcamp à 497€ →
+                Passer le test d'éligibilité →
               </a>
-              <p className="text-xs text-neutral-500 mt-3">Places limitées · Offre de lancement</p>
+              <p className="text-xs text-neutral-500 mt-3">Places limitées · Bootcamp de lancement</p>
             </div>
           </FadeInBlock>
 
