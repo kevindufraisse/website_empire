@@ -5,6 +5,7 @@ import AcademyProcessSection from '@/components/sections/AcademyProcessSection'
 import AcademyProgramSection from '@/components/sections/AcademyProgramSection'
 import AcademyLivesSection from '@/components/sections/AcademyLivesSection'
 import AcademyPricingSection from '@/components/sections/AcademyPricingSection'
+import AcademyCertificationSection from '@/components/sections/AcademyCertificationSection'
 import AcademyFAQSection from '@/components/sections/AcademyFAQSection'
 
 export const metadata = {
@@ -35,6 +36,9 @@ export default function AcademyPage() {
 
       {/* Offre pricing */}
       <AcademyPricingSection />
+
+      {/* Certifications */}
+      <AcademyCertificationSection />
 
       {/* FAQ */}
       <AcademyFAQSection />
