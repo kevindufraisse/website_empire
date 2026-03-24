@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import RetroGrid from '@/components/magicui/retro-grid'
 import { Meteors } from '@/components/magicui/meteors'
 import NumberTicker from '@/components/magicui/number-ticker'
+import { SparklesText } from '@/components/magicui/sparkles-text'
 import Image from 'next/image'
 
 const stats = [
@@ -53,7 +54,9 @@ export default function AcademyHeroSection() {
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-5"
           >
             Deviens{' '}
-            <span className="text-empire">Head of Viralité.</span>
+            <SparklesText className="text-empire" sparklesCount={7} colors={{ first: '#DAFC68', second: '#a8f040' }}>
+              Head of Viralité.
+            </SparklesText>
           </motion.h1>
 
           {/* Subtitle */}

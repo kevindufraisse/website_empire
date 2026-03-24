@@ -3,7 +3,16 @@ import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { Check } from 'lucide-react'
 import BorderBeam from '@/components/magicui/border-beam'
+import { AvatarCircles } from '@/components/magicui/avatar-circles'
 import AcademyPriceCountdown from './AcademyPriceCountdown'
+
+const avatars = [
+  { imageUrl: 'https://i.pravatar.cc/48?img=11', profileUrl: '' },
+  { imageUrl: 'https://i.pravatar.cc/48?img=22', profileUrl: '' },
+  { imageUrl: 'https://i.pravatar.cc/48?img=33', profileUrl: '' },
+  { imageUrl: 'https://i.pravatar.cc/48?img=44', profileUrl: '' },
+  { imageUrl: 'https://i.pravatar.cc/48?img=55', profileUrl: '' },
+]
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -79,9 +88,13 @@ export default function AcademyPricingSection() {
                 Je rejoins le bootcamp →
               </a>
 
-              <p className="text-xs text-neutral-500 text-center mt-4">
-                Places limitées · Prix garanti uniquement au lancement
-              </p>
+              <div className="flex flex-col items-center gap-2 mt-5">
+                <div className="flex items-center gap-3">
+                  <AvatarCircles avatarUrls={avatars} numPeople={31} className="[&_img]:h-8 [&_img]:w-8 [&_div]:h-8 [&_div]:w-8 [&_div]:text-[10px] -space-x-3" />
+                  <p className="text-xs text-neutral-400">déjà inscrits</p>
+                </div>
+                <p className="text-xs text-neutral-600">Places limitées · Prix garanti uniquement au lancement</p>
+              </div>
             </div>
           </FadeInBlock>
         </div>

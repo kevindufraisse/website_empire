@@ -3,11 +3,13 @@ import AcademyWhoSection from '@/components/sections/AcademyWhoSection'
 import AcademyContextSection from '@/components/sections/AcademyContextSection'
 import AcademyProcessSection from '@/components/sections/AcademyProcessSection'
 import AcademyLivesSection from '@/components/sections/AcademyLivesSection'
+import AcademyMarqueeStrip from '@/components/sections/AcademyMarqueeStrip'
 import AcademyTestimonialsSection from '@/components/sections/AcademyTestimonialsSection'
 import AcademyPricingSection from '@/components/sections/AcademyPricingSection'
 import AcademyCertificationSection from '@/components/sections/AcademyCertificationSection'
 import AcademyFAQSection from '@/components/sections/AcademyFAQSection'
 import AcademyStickyBar from '@/components/sections/AcademyStickyBar'
+import { ScrollProgress } from '@/components/magicui/scroll-progress'
 
 export const metadata = {
   title: 'Academy — Empire Internet',
@@ -17,8 +19,12 @@ export const metadata = {
 export default function AcademyPage() {
   return (
     <main className="relative">
+      <ScrollProgress />
       {/* Hero */}
       <AcademyHeroSection />
+
+      {/* Marquee bénéfices */}
+      <AcademyMarqueeStrip />
 
       {/* Qui on est */}
       <AcademyWhoSection />
@@ -32,14 +38,14 @@ export default function AcademyPage() {
       {/* Les 6 lives + 2 Q&A */}
       <AcademyLivesSection />
 
-      {/* Témoignages Senja */}
-      <AcademyTestimonialsSection />
-
       {/* Offre pricing */}
       <AcademyPricingSection />
 
       {/* Certifications */}
       <AcademyCertificationSection />
+
+      {/* Témoignages Senja */}
+      <AcademyTestimonialsSection />
 
       {/* FAQ */}
       <AcademyFAQSection />

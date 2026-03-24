@@ -17,11 +17,22 @@ const config: Config = {
       },
       animation: {
         orbit: 'orbit calc(var(--duration)*1s) linear infinite',
+        sparkle: 'sparkle 1.8s ease-in-out var(--sparkle-delay, 0s) infinite',
+        'sparkle-rotate': 'sparkle-rotate 2s linear infinite',
       },
       keyframes: {
         orbit: {
           '0%': { transform: 'rotate(0deg) translateY(calc(var(--radius) * 1px)) rotate(0deg)' },
           '100%': { transform: 'rotate(360deg) translateY(calc(var(--radius) * 1px)) rotate(-360deg)' },
+        },
+        sparkle: {
+          '0%': { opacity: '0', transform: 'translate(-50%, -50%) scale(0) rotate(0deg)' },
+          '50%': { opacity: '1' },
+          '100%': { opacity: '0', transform: 'translate(-50%, -50%) scale(var(--sparkle-scale, 1)) rotate(180deg)' },
+        },
+        'sparkle-rotate': {
+          from: { transform: 'rotate(0deg)' },
+          to: { transform: 'rotate(180deg)' },
         },
       },
     }
