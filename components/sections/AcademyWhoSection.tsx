@@ -77,12 +77,15 @@ export default function AcademyWhoSection() {
 
             <div className="space-y-5 text-neutral-300 leading-relaxed">
               <p className="text-base md:text-lg">
-                On produit du contenu viral pour des entrepreneurs et on génère des millions de vues chaque mois pour nos clients.{' '}
-                <span className="text-white font-semibold">Ce bootcamp, c'est notre système interne rendu accessible pour la première fois — pas une formation théorique.</span>
+                Au départ, on était juste deux frères qui créaient du contenu pour nos propres projets. On testait tout — les hooks, les formats, les rythmes de publication. On a raté beaucoup. Et puis quelques contenus ont explosé.{' '}
+                <span className="text-white font-semibold">On a compris pourquoi. On a rendu ça systématique.</span>
               </p>
               <p className="text-base md:text-lg">
-                Tu n'apprends pas ce que font d'autres formateurs.{' '}
-                <span className="text-empire font-semibold">Tu apprends exactement ce qu'on fait nous, au quotidien, pour nos clients.</span>
+                Aujourd'hui on produit du contenu viral pour des entrepreneurs et des marques — 10M+ vues par mois. Des clients nous ont demandé comment on faisait.{' '}
+                <span className="text-empire font-semibold">Ce bootcamp, c'est la réponse. Notre système exact, pas une théorie.</span>
+              </p>
+              <p className="text-base md:text-lg text-neutral-400">
+                Tu n'apprends pas ce que d'autres formateurs pensent qui marche. Tu apprends ce qu'on fait nous, cette semaine, pour nos clients.
               </p>
             </div>
           </div>
