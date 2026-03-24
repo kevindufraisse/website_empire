@@ -24,16 +24,23 @@ export default function AcademyStickyBar() {
           <div className="container">
             <div className="flex items-center justify-between gap-3 py-2.5 md:py-3">
 
-              {/* Left — statut */}
-              <div className="flex items-center gap-2 min-w-0">
+              {/* Left — statut + places */}
+              <div className="flex items-center gap-3 min-w-0">
                 <span className="relative flex h-2 w-2 flex-shrink-0">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-empire opacity-60" />
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-empire" />
                 </span>
-                <p className="text-sm text-neutral-300 whitespace-nowrap">
-                  Bootcamp <span className="text-white font-semibold">Head of Viralité</span>
-                  <span className="hidden sm:inline text-neutral-500"> · Places limitées</span>
-                </p>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:gap-3 min-w-0">
+                  <p className="text-sm text-neutral-300 whitespace-nowrap">
+                    Bootcamp <span className="text-white font-semibold">Head of Viralité</span>
+                  </p>
+                  <div className="hidden sm:flex items-center gap-1.5">
+                    <div className="w-24 h-1.5 rounded-full bg-white/10 overflow-hidden">
+                      <div className="h-full bg-empire rounded-full" style={{ width: '83%' }} />
+                    </div>
+                    <span className="text-[11px] text-empire font-semibold whitespace-nowrap">17 places restantes</span>
+                  </div>
+                </div>
               </div>
 
               {/* Right — CTA */}

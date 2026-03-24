@@ -8,6 +8,7 @@ import AcademyPricingSection from '@/components/sections/AcademyPricingSection'
 import AcademyCertificationSection from '@/components/sections/AcademyCertificationSection'
 import AcademyFAQSection from '@/components/sections/AcademyFAQSection'
 import AcademyStickyBar from '@/components/sections/AcademyStickyBar'
+import AcademySocialProofToast from '@/components/sections/AcademySocialProofToast'
 import { ScrollProgress } from '@/components/magicui/scroll-progress'
 
 export const metadata = {
@@ -48,6 +49,9 @@ export default function AcademyPage() {
 
       {/* Sticky CTA spécifique academy */}
       <AcademyStickyBar />
+
+      {/* Toast candidatures en temps réel */}
+      <AcademySocialProofToast />
     </main>
   )
 }

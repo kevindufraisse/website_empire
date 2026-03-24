@@ -81,12 +81,22 @@ export default function AcademyPricingSection() {
                 Passer le test d'éligibilité →
               </a>
 
-              <div className="flex flex-col items-center gap-2 mt-5">
+              <div className="flex flex-col items-center gap-3 mt-5">
                 <div className="flex items-center gap-3">
                   <AvatarCircles avatarUrls={avatars} numPeople={31} className="[&_img]:h-8 [&_img]:w-8 [&_div]:h-8 [&_div]:w-8 [&_div]:text-[10px] -space-x-3" />
-                  <p className="text-xs text-neutral-400">déjà inscrits</p>
+                  <p className="text-xs text-neutral-400">déjà admis</p>
                 </div>
-                <p className="text-xs text-neutral-600">Sur sélection · Places limitées</p>
+                {/* Barre de places */}
+                <div className="w-full">
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-[11px] text-neutral-500">Capacité de la promotion</span>
+                    <span className="text-[11px] font-bold text-empire">17 places restantes / 100</span>
+                  </div>
+                  <div className="w-full h-1.5 rounded-full bg-white/8 overflow-hidden">
+                    <div className="h-full bg-gradient-to-r from-empire to-empire/70 rounded-full" style={{ width: '83%' }} />
+                  </div>
+                  <p className="text-[10px] text-neutral-600 text-center mt-1.5">Sur sélection · Places limitées</p>
+                </div>
               </div>
             </div>
           </FadeInBlock>
