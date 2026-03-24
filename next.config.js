@@ -1,6 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  async redirects() {
+    return [
+      {
+        source: '/pricing',
+        destination: 'https://www.empire-internet.com/pricing',
+        permanent: false,
+      },
+    ]
+  },
   images: {
     remotePatterns: [
       {
