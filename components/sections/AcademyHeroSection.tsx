@@ -29,7 +29,7 @@ export default function AcademyHeroSection() {
           >
             <span className="w-2 h-2 rounded-full bg-empire animate-pulse" />
             <p className="text-xs font-bold text-empire tracking-widest uppercase">
-              Bootcamp de lancement · Places limitées · Offre à 500€ uniquement au lancement
+              Bootcamp de lancement · Places limitées · Offre à 497€ uniquement au lancement
             </p>
           </motion.div>
 
@@ -75,7 +75,7 @@ export default function AcademyHeroSection() {
               href="#academy-pricing"
               className="px-8 py-4 bg-empire text-black font-bold text-lg rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(218,252,104,0.35)] inline-block"
             >
-              Rejoindre le bootcamp à 500€ →
+              Rejoindre le bootcamp à 497€ →
             </a>
             <p className="text-xs text-neutral-500">
               21 jours · 6 lives · Groupe privé · Replays à vie · 0 audience requise

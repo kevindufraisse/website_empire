@@ -52,10 +52,11 @@ export default function AcademyPricingSection() {
 
               <div className="mb-8 text-center">
                 <p className="text-neutral-400 text-sm mb-2">Accès unique · Offre de lancement</p>
-                <div className="flex items-baseline justify-center gap-2">
-                  <span className="text-5xl md:text-6xl font-black text-empire">500€</span>
-                  <span className="text-neutral-400 text-lg">une fois</span>
+                <div className="flex items-baseline justify-center gap-3">
+                  <span className="text-2xl font-bold text-neutral-500 line-through">897€</span>
+                  <span className="text-5xl md:text-6xl font-black text-empire">497€</span>
                 </div>
+                <p className="text-xs text-empire/70 mt-1">une fois · économisez 400€</p>
               </div>
 
               <div className="space-y-3 mb-10">
