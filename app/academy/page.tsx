@@ -3,6 +3,7 @@ import AcademyWhoSection from '@/components/sections/AcademyWhoSection'
 import AcademyContextSection from '@/components/sections/AcademyContextSection'
 import AcademyProcessSection from '@/components/sections/AcademyProcessSection'
 import AcademyLivesSection from '@/components/sections/AcademyLivesSection'
+import AcademyTestimonialsSection from '@/components/sections/AcademyTestimonialsSection'
 import AcademyPricingSection from '@/components/sections/AcademyPricingSection'
 import AcademyCertificationSection from '@/components/sections/AcademyCertificationSection'
 import AcademyFAQSection from '@/components/sections/AcademyFAQSection'
@@ -30,6 +31,9 @@ export default function AcademyPage() {
 
       {/* Les 6 lives + 2 Q&A */}
       <AcademyLivesSection />
+
+      {/* Témoignages Senja */}
+      <AcademyTestimonialsSection />
 
       {/* Offre pricing */}
       <AcademyPricingSection />
