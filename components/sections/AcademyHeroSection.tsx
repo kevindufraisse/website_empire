@@ -50,27 +50,18 @@ export default function AcademyHeroSection() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-4"
           >
-            On forme les prochains{' '}
-            <span className="text-empire">Head of Viralité.</span>
+            On forme les futurs{' '}
+            <span className="text-empire">Head of Virality.</span>
           </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.15 }}
-            className="text-base md:text-lg text-empire font-semibold mb-3"
-          >
-            Les meilleurs reçoivent nos clients directement.
-          </motion.p>
 
           {/* Subtitle */}
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
+            transition={{ delay: 0.15, duration: 0.6 }}
             className="text-lg md:text-xl text-neutral-300 max-w-2xl mx-auto mb-4"
           >
-            Découvre le nouveau métier qui permet de gagner 3 000€/mois en 4h par semaine — et que l'IA ne peut pas te voler. En 21 jours, tu maîtrises les techniques qui nous ont valu 7 millions de vues sur tous les réseaux.
+            Le métier secret qui permet de gagner 3 000€/mois en 4h par semaine — et que l'IA ne peut pas te voler. En 21 jours, tu maîtrises les techniques qui nous ont valu 7 millions de vues sur tous les réseaux.
           </motion.p>
 
           {/* Proof line */}

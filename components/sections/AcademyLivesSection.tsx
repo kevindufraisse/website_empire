@@ -111,13 +111,13 @@ export default function AcademyLivesSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1, duration: 0.4 }}
                 viewport={{ once: true }}
-                className="p-6 rounded-xl bg-gradient-to-br from-purple-500/10 to-purple-500/[0.02] border border-purple-500/25 hover:border-purple-400/40 transition-all group"
+                className="p-6 rounded-xl bg-gradient-to-br from-white/8 to-white/[0.02] border border-white/15 hover:border-empire/30 transition-all group"
               >
                 <div className="flex items-center gap-2 mb-3">
-                  <div className="w-8 h-8 rounded-lg bg-purple-500/15 border border-purple-500/25 flex items-center justify-center">
-                    <MessageCircle className="text-purple-400" size={14} />
+                  <div className="w-8 h-8 rounded-lg bg-empire/15 border border-empire/25 flex items-center justify-center">
+                    <MessageCircle className="text-empire" size={14} />
                   </div>
-                  <span className="text-xs font-bold text-purple-400">{qa.num}</span>
+                  <span className="text-xs font-bold text-empire">{qa.num}</span>
                 </div>
                 <h3 className="text-white font-bold text-sm md:text-base mb-1.5">{qa.title}</h3>
                 <p className="text-neutral-400 text-xs leading-relaxed">{qa.desc}</p>
