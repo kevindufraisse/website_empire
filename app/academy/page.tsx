@@ -3,7 +3,6 @@ import AcademyWhoSection from '@/components/sections/AcademyWhoSection'
 import AcademyContextSection from '@/components/sections/AcademyContextSection'
 import AcademyProcessSection from '@/components/sections/AcademyProcessSection'
 import AcademyLivesSection from '@/components/sections/AcademyLivesSection'
-import AcademyMarqueeStrip from '@/components/sections/AcademyMarqueeStrip'
 import AcademyTestimonialsSection from '@/components/sections/AcademyTestimonialsSection'
 import AcademyPricingSection from '@/components/sections/AcademyPricingSection'
 import AcademyCertificationSection from '@/components/sections/AcademyCertificationSection'
@@ -22,9 +21,6 @@ export default function AcademyPage() {
       <ScrollProgress />
       {/* Hero */}
       <AcademyHeroSection />
-
-      {/* Marquee bénéfices */}
-      <AcademyMarqueeStrip />
 
       {/* Qui on est */}
       <AcademyWhoSection />
