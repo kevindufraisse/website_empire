@@ -38,11 +38,15 @@ export default function AcademyContextSection() {
           <FadeInBlock>
             <div className="text-center mb-16">
               <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">Le contexte</p>
-              <h2 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
-                L'IA a tué des métiers entiers.
+              <h2 className="text-3xl md:text-5xl font-bold leading-tight mb-6">
+                Tu t'es formé pendant des années.
                 <br />
-                <span className="text-empire">Pas celui-là.</span>
+                <span className="text-empire">L'IA le fait gratuitement maintenant.</span>
               </h2>
+              <p className="text-neutral-400 text-base md:text-lg max-w-2xl mx-auto">
+                Ce n'est pas une question de talent. C'est une question de visibilité. Dans un monde où tout le monde a accès aux mêmes outils,{' '}
+                <span className="text-white font-semibold">la seule chose qui te différencie, c'est que les gens te connaissent — toi.</span>
+              </p>
             </div>
           </FadeInBlock>
 
@@ -50,7 +54,8 @@ export default function AcademyContextSection() {
             <div className="grid md:grid-cols-2 gap-6 items-start">
               {/* Colonne métiers morts */}
               <div className="p-6 rounded-2xl bg-gradient-to-br from-red-950/30 to-red-900/10 border border-red-500/20">
-                <p className="text-xs font-bold text-red-400 tracking-widest uppercase mb-4">Menacés par l'IA</p>
+                <p className="text-xs font-bold text-red-400 tracking-widest uppercase mb-2">Remplacés par l'IA</p>
+                <p className="text-neutral-500 text-xs mb-4">Des métiers que des gens ont mis des années à apprendre.</p>
                 <div className="space-y-2">
                   {deadJobs.map((job, i) => (
                     <motion.div
@@ -68,43 +73,29 @@ export default function AcademyContextSection() {
                 </div>
               </div>
 
-              {/* Colonne Head of Viralité */}
+              {/* Colonne insight */}
               <div className="flex flex-col gap-4">
-                {/* Insight principal */}
                 <div className="p-6 rounded-2xl bg-gradient-to-br from-empire/20 to-empire/5 border border-empire/40 relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-empire/10 rounded-full blur-2xl" />
                   <div className="relative z-10">
                     <div className="flex items-center gap-2 mb-4">
                       <Check className="text-empire" size={16} />
-                      <p className="text-xs font-bold text-empire tracking-widest uppercase">La vraie survie</p>
+                      <p className="text-xs font-bold text-empire tracking-widest uppercase">Ce qui résiste</p>
                     </div>
-                    <p className="text-xl font-black text-white mb-3 leading-snug">
-                      Quand la compétence devient égale pour tout le monde, il ne reste que deux avantages.
+                    <p className="text-xl font-black text-white mb-4 leading-snug">
+                      Une audience de 10 000 personnes qui te connaissent — l'IA ne peut pas te remplacer auprès d'elles.
                     </p>
-                    <div className="space-y-3 mt-4">
-                      <div className="flex items-start gap-3 p-3 rounded-xl bg-white/5 border border-white/10">
-                        <span className="text-empire text-lg leading-none mt-0.5">①</span>
-                        <div>
-                          <p className="text-white font-bold text-sm">Être le plus visible</p>
-                          <p className="text-neutral-400 text-xs mt-0.5">Celui qu'on voit partout est celui qu'on choisit en premier.</p>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-3 p-3 rounded-xl bg-white/5 border border-white/10">
-                        <span className="text-empire text-lg leading-none mt-0.5">②</span>
-                        <div>
-                          <p className="text-white font-bold text-sm">Être le plus de confiance</p>
-                          <p className="text-neutral-400 text-xs mt-0.5">Une audience, c'est des gens qui te suivent depuis des mois. Ils ne comparent plus.</p>
-                        </div>
-                      </div>
-                    </div>
+                    <p className="text-neutral-300 text-sm leading-relaxed">
+                      Celui qu'on voit partout, c'est celui qu'on choisit en premier. Pas le meilleur — le plus visible.{' '}
+                      <span className="text-white font-semibold">Construire une audience, c'est devenir impossible à ignorer.</span>
+                    </p>
                   </div>
                 </div>
 
-                {/* Conclusion */}
                 <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/10">
                   <p className="text-neutral-300 text-sm leading-relaxed">
-                    Construire une audience aujourd'hui, c'est le seul moyen de ne pas être interchangeable demain.{' '}
-                    <span className="text-empire font-semibold">C'est exactement ce qu'on t'enseigne.</span>
+                    L'IA égalise les compétences. Elle ne peut pas égaliser la confiance que tu as construite avec des milliers de personnes sur la durée.{' '}
+                    <span className="text-empire font-semibold">C'est exactement ce qu'on t'enseigne à construire.</span>
                   </p>
                 </div>
               </div>

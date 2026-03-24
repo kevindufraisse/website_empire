@@ -150,10 +150,34 @@ export default function AcademyProofStrip() {
             initial={{ opacity: 0 }}
             animate={inView ? { opacity: 1 } : {}}
             transition={{ duration: 0.5, delay: 0.9 }}
-            className="text-center text-xs text-neutral-600 mt-8"
+            className="text-center text-xs text-neutral-600 mt-6 mb-10"
           >
             Résultats observés sur nos clients · Toutes plateformes confondues
           </motion.p>
+
+          {/* Stats clés */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 1 }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-3"
+          >
+            {[
+              { ticker: 3000, suffix: '€', label: 'par mois', sub: 'objectif atteignable' },
+              { ticker: 4, suffix: 'h', label: 'par semaine', sub: 'une fois lancé' },
+              { ticker: 10, suffix: 'M+', label: 'vues/mois', sub: 'pour nos clients' },
+              { ticker: 21, suffix: 'j', label: 'pour tout', sub: 'maîtriser' },
+            ].map((s, i) => (
+              <div key={i} className="flex flex-col items-center p-4 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all">
+                <span className="text-2xl md:text-3xl font-black text-empire tabular-nums">
+                  {inView && <NumberTicker value={s.ticker} delay={1 + i * 0.15} className="text-empire" />}
+                  {s.suffix}
+                </span>
+                <span className="text-xs text-white font-semibold mt-1">{s.label}</span>
+                <span className="text-[10px] text-neutral-500 mt-0.5">{s.sub}</span>
+              </div>
+            ))}
+          </motion.div>
 
         </div>
       </div>
