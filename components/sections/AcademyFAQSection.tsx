@@ -172,7 +172,7 @@ export default function AcademyFAQSection() {
               >
                 Passer le test d'éligibilité →
               </a>
-              <p className="text-xs text-neutral-500 mt-3">Places limitées · Bootcamp de lancement</p>
+              <p className="text-xs text-neutral-500 mt-3">Sur sélection · Places limitées</p>
             </div>
           </FadeInBlock>
 

@@ -32,7 +32,7 @@ export default function AcademyHeroSection() {
           >
             <span className="w-2 h-2 rounded-full bg-empire animate-pulse" />
             <p className="text-xs font-bold text-empire tracking-widest uppercase">
-              Bootcamp de lancement · Places limitées · Offre à 497€ uniquement au lancement
+              Pour salariés, freelances en reconversion & entrepreneurs · Sur sélection
             </p>
           </motion.div>
 

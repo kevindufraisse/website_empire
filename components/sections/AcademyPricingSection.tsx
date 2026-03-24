@@ -87,7 +87,7 @@ export default function AcademyPricingSection() {
                   <AvatarCircles avatarUrls={avatars} numPeople={31} className="[&_img]:h-8 [&_img]:w-8 [&_div]:h-8 [&_div]:w-8 [&_div]:text-[10px] -space-x-3" />
                   <p className="text-xs text-neutral-400">déjà inscrits</p>
                 </div>
-                <p className="text-xs text-neutral-600">Places limitées · Bootcamp de lancement</p>
+                <p className="text-xs text-neutral-600">Sur sélection · Places limitées</p>
               </div>
             </div>
           </FadeInBlock>
