@@ -33,6 +33,8 @@ export default function AcademyStickyBar() {
                 <div className="flex flex-col sm:flex-row sm:items-center sm:gap-3 min-w-0">
                   <p className="text-sm text-neutral-300 whitespace-nowrap">
                     Bootcamp <span className="text-white font-semibold">Head of Viralité</span>
+                    <span className="hidden md:inline text-neutral-500"> · </span>
+                    <span className="hidden md:inline text-empire font-semibold">25 avr → 17 mai</span>
                   </p>
                   <div className="hidden sm:flex items-center gap-1.5">
                     <div className="w-24 h-1.5 rounded-full bg-white/10 overflow-hidden">

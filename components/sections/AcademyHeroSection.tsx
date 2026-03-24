@@ -36,11 +36,31 @@ export default function AcademyHeroSection() {
             </p>
           </motion.div>
 
+          {/* Date promotion */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.05 }}
+            className="flex items-center justify-center gap-3 mb-5"
+          >
+            <div className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/15">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-3.5 h-3.5 text-empire flex-shrink-0">
+                <rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" />
+              </svg>
+              <span className="text-xs font-semibold text-white">Prochaine promotion</span>
+              <span className="text-xs text-empire font-bold">25 avril → 17 mai</span>
+            </div>
+            <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/15">
+              <span className="w-1.5 h-1.5 rounded-full bg-empire animate-pulse" />
+              <span className="text-xs text-neutral-400">17 places restantes</span>
+            </div>
+          </motion.div>
+
           {/* Eyebrow */}
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.05 }}
+            transition={{ duration: 0.4, delay: 0.08 }}
             className="text-sm text-neutral-400 mb-3 tracking-widest uppercase"
           >
             Empire Internet · Bootcamp 21 jours
