@@ -73,10 +73,12 @@ export default function AcademyHeroSection() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-5"
           >
-            Deviens{' '}
+            Génère{' '}
             <SparklesText className="text-empire" sparklesCount={7} colors={{ first: '#DAFC68', second: '#a8f040' }}>
-              Head of Viralité.
+              3 000€/mois
             </SparklesText>
+            <br className="hidden sm:block" />
+            {' '}sans audience. En 21 jours.
           </motion.h1>
 
           {/* Subtitle */}
@@ -86,7 +88,8 @@ export default function AcademyHeroSection() {
             transition={{ delay: 0.15, duration: 0.6 }}
             className="text-lg md:text-xl text-neutral-300 max-w-2xl mx-auto mb-6"
           >
-            Le seul métier que l'IA ne peut pas te voler. En 21 jours, tu maîtrises les mécaniques de la viralité — et tu peux générer des revenus sans audience, sans expérience, sans te vendre.
+            Tu publies dans le vide ? Tu n'as pas d'expérience ? C'est exactement le profil qu'on cherche.{' '}
+            <span className="text-white font-semibold">En 21 jours, tu maîtrises ce qui fait exploser un contenu — et tu peux en vivre.</span>
           </motion.p>
 
           {/* Platform logos */}
@@ -131,9 +134,14 @@ export default function AcademyHeroSection() {
             >
               Passer le test d'éligibilité →
             </a>
-            <p className="text-xs text-neutral-500">
-              21 jours · 6 lives · Groupe privé · Replays à vie · 0 audience requise
-            </p>
+            <div className="flex flex-col items-center gap-1">
+              <p className="text-xs text-neutral-500">
+                Formulaire de 2 min · Réponse sous 24h · Aucun engagement
+              </p>
+              <p className="text-xs text-neutral-600">
+                21 jours · 6 lives · Groupe privé · Replays à vie
+              </p>
+            </div>
           </motion.div>
 
           {/* Founders — compact with LinkedIn */}

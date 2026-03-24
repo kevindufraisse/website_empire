@@ -86,6 +86,18 @@ export default function AcademyPricingSection() {
               >
                 Passer le test d'éligibilité →
               </a>
+              <p className="text-xs text-neutral-600 text-center mt-2">Formulaire de 2 min · Réponse sous 24h · Aucun engagement</p>
+
+              {/* Garantie */}
+              <div className="mt-5 flex items-start gap-3 p-4 rounded-xl bg-white/[0.03] border border-white/10">
+                <span className="text-xl flex-shrink-0">🛡</span>
+                <div>
+                  <p className="text-white font-semibold text-sm">Satisfait ou remboursé — 7 jours</p>
+                  <p className="text-neutral-500 text-xs mt-0.5 leading-relaxed">
+                    Si après la première semaine le programme ne correspond pas à ce qu'on t'a promis, on te rembourse intégralement. Sans questions.
+                  </p>
+                </div>
+              </div>
 
               <div className="flex flex-col items-center gap-3 mt-5">
                 <div className="flex items-center gap-3">

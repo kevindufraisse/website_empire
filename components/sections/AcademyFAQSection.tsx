@@ -168,7 +168,7 @@ export default function AcademyFAQSection() {
               >
                 Passer le test d'éligibilité →
               </a>
-              <p className="text-xs text-neutral-500 mt-3">Sur sélection · Places limitées</p>
+              <p className="text-xs text-neutral-500 mt-2">Formulaire de 2 min · Réponse sous 24h · Aucun engagement</p>
             </div>
           </FadeInBlock>
 

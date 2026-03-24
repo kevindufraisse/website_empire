@@ -1,11 +1,12 @@
 import AcademyHeroSection from '@/components/sections/AcademyHeroSection'
+import AcademySelectionSection from '@/components/sections/AcademySelectionSection'
 import AcademyWhoSection from '@/components/sections/AcademyWhoSection'
 import AcademyContextSection from '@/components/sections/AcademyContextSection'
 import AcademyProcessSection from '@/components/sections/AcademyProcessSection'
 import AcademyLivesSection from '@/components/sections/AcademyLivesSection'
-import AcademyTestimonialsSection from '@/components/sections/AcademyTestimonialsSection'
-import AcademyPricingSection from '@/components/sections/AcademyPricingSection'
 import AcademyCertificationSection from '@/components/sections/AcademyCertificationSection'
+import AcademyPricingSection from '@/components/sections/AcademyPricingSection'
+import AcademyTestimonialsSection from '@/components/sections/AcademyTestimonialsSection'
 import AcademyFAQSection from '@/components/sections/AcademyFAQSection'
 import AcademyStickyBar from '@/components/sections/AcademyStickyBar'
 import AcademySocialProofToast from '@/components/sections/AcademySocialProofToast'
@@ -23,6 +24,9 @@ export default function AcademyPage() {
       {/* Hero */}
       <AcademyHeroSection />
 
+      {/* Pourquoi sur sélection + critères + timeline après clic */}
+      <AcademySelectionSection />
+
       {/* Qui on est */}
       <AcademyWhoSection />
 
@@ -35,11 +39,11 @@ export default function AcademyPage() {
       {/* Les 6 lives + 2 Q&A */}
       <AcademyLivesSection />
 
+      {/* Certifications — avant pricing (valeur long terme) */}
+      <AcademyCertificationSection />
+
       {/* Offre pricing */}
       <AcademyPricingSection />
-
-      {/* Certifications */}
-      <AcademyCertificationSection />
 
       {/* Témoignages Senja */}
       <AcademyTestimonialsSection />
