@@ -7,10 +7,10 @@ import NumberTicker from '@/components/magicui/number-ticker'
 import Image from 'next/image'
 
 const stats = [
-  { ticker: 3000, suffix: '€', label: 'par mois', sub: 'objectif atteignable' },
-  { ticker: 4, suffix: 'h', label: 'par semaine', sub: 'une fois lancé' },
-  { ticker: 10, suffix: 'M+', label: 'vues/mois', sub: 'pour nos clients' },
-  { ticker: 21, suffix: 'j', label: 'pour tout', sub: 'maîtriser' },
+  { ticker: 3000, suffix: '€', label: 'objectif élèves', sub: 'dès les 1ers mois' },
+  { ticker: 4, suffix: 'h', label: 'par semaine', sub: 'système en place' },
+  { ticker: 10, suffix: 'M+', label: 'vues/mois', sub: 'générées pour nos clients' },
+  { ticker: 21, suffix: 'j', label: 'durée du bootcamp', sub: 'de zéro à opérationnel' },
 ]
 
 const founders = [
