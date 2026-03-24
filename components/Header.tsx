@@ -16,10 +16,12 @@ export default function Header() {
   const [callbackOpen, setCallbackOpen] = useState(false)
   const pathname = usePathname()
   
-  // Hide default CTA button on pricing and partners pages
-  const hideCTA = pathname === '/pricing' || pathname === '/partners'
+  // Hide default CTA button on pricing, partners and academy pages
+  const hideCTA = pathname === '/pricing' || pathname === '/partners' || pathname === '/academy'
   // Show partner CTA on partners page
   const isPartnersPage = pathname === '/partners'
+  // Show academy-specific CTA
+  const isAcademyPage = pathname === '/academy'
 
   const namespace = 'audit-empire'
   const calLink = useCalLink()
@@ -100,6 +102,14 @@ export default function Header() {
                 {lang === 'fr' ? 'Obtenir mon lien' : 'Get my sharable link'}
               </button>
             )}
+            {isAcademyPage && (
+              <a
+                href="/"
+                className="hidden sm:block px-4 md:px-5 py-2 md:py-2.5 rounded-lg bg-empire text-black font-semibold hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.2)] text-sm md:text-base"
+              >
+                Découvrir Empire Internet →
+              </a>
+            )}
 
             {/* Mobile Menu Button */}
             <button
@@ -169,6 +179,18 @@ export default function Header() {
                 >
                   {lang === 'fr' ? 'Obtenir mon lien' : 'Get my sharable link'}
                 </motion.button>
+              )}
+              {isAcademyPage && (
+                <motion.a
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 }}
+                  href="/"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="block w-full py-3.5 rounded-lg bg-empire text-black font-bold text-center hover:scale-[1.02] transition-all shadow-[0_0_20px_rgba(218,252,104,0.2)]"
+                >
+                  Découvrir Empire Internet →
+                </motion.a>
               )}
             </div>
           </motion.div>

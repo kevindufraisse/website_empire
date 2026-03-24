@@ -11,12 +11,13 @@ export function ExitIntentPopup() {
   const scriptContainerRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
   
-  // Disable on partners page
+  // Disable on partners and academy pages
   const isPartnersPage = pathname === '/partners'
+  const isAcademyPage = pathname === '/academy'
 
   useEffect(() => {
-    // Don't show on partners page
-    if (isPartnersPage) return
+    // Don't show on partners or academy page
+    if (isPartnersPage || isAcademyPage) return
     
     // Check if already shown in this session
     const hasShown = sessionStorage.getItem('exitPopupShown')

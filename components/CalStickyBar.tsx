@@ -13,14 +13,15 @@ export default function CalStickyBar() {
   const [callbackOpen, setCallbackOpen] = useState(false)
   const pathname = usePathname()
 
-  // Hide on partners page
+  // Hide on partners and academy pages
   const isPartnersPage = pathname === '/partners'
+  const isAcademyPage = pathname === '/academy'
 
   const namespace = 'audit-empire'
   const calLink = useCalLink()
 
   useEffect(() => {
-    if (isPartnersPage) return
+    if (isPartnersPage || isAcademyPage) return
     
     (async function () {
       const cal = await getCalApi({ namespace })
@@ -57,7 +58,7 @@ export default function CalStickyBar() {
   }, [namespace, isPartnersPage])
 
   useEffect(() => {
-    if (isPartnersPage) return
+    if (isPartnersPage || isAcademyPage) return
     
     const handleScroll = () => {
       const scrollY = window.scrollY
@@ -74,8 +75,8 @@ export default function CalStickyBar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [isPartnersPage])
 
-  // Don't render on partners page
-  if (isPartnersPage) return null
+  // Don't render on partners or academy page
+  if (isPartnersPage || isAcademyPage) return null
 
   return (
     <div 
