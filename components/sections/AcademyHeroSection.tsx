@@ -3,7 +3,15 @@ import { motion } from 'framer-motion'
 import RetroGrid from '@/components/magicui/retro-grid'
 import { Meteors } from '@/components/magicui/meteors'
 import { SparklesText } from '@/components/magicui/sparkles-text'
+import NumberTicker from '@/components/magicui/number-ticker'
 import Image from 'next/image'
+
+const stats = [
+  { ticker: 3000, suffix: '€', label: 'par mois', sub: 'objectif atteignable' },
+  { ticker: 4, suffix: 'h', label: 'par semaine', sub: 'une fois lancé' },
+  { ticker: 10, suffix: 'M+', label: 'vues/mois', sub: 'pour nos clients' },
+  { ticker: 21, suffix: 'j', label: 'pour tout', sub: 'maîtriser' },
+]
 
 const founders = [
   {
@@ -96,11 +104,30 @@ export default function AcademyHeroSection() {
             </p>
           </motion.div>
 
+          {/* Stats */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.6 }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-2xl mx-auto mb-10"
+          >
+            {stats.map((s, i) => (
+              <div key={i} className="flex flex-col items-center py-3 px-2 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all">
+                <span className="text-xl md:text-2xl font-black text-empire tabular-nums">
+                  <NumberTicker value={s.ticker} delay={0.4 + i * 0.12} className="text-empire" />
+                  {s.suffix}
+                </span>
+                <span className="text-[11px] text-white font-semibold mt-0.5">{s.label}</span>
+                <span className="text-[10px] text-neutral-500">{s.sub}</span>
+              </div>
+            ))}
+          </motion.div>
+
           {/* Founders */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.4, duration: 0.5 }}
+            transition={{ delay: 0.55, duration: 0.5 }}
             className="flex flex-wrap items-center justify-center gap-3"
           >
             {founders.map((f) => (
