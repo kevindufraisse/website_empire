@@ -1,4 +1,5 @@
 import AcademyHeroSection from '@/components/sections/AcademyHeroSection'
+import AcademyProofStrip from '@/components/sections/AcademyProofStrip'
 import AcademySelectionSection from '@/components/sections/AcademySelectionSection'
 import AcademyWhoSection from '@/components/sections/AcademyWhoSection'
 import AcademyContextSection from '@/components/sections/AcademyContextSection'
@@ -23,6 +24,9 @@ export default function AcademyPage() {
       <ScrollProgress />
       {/* Hero */}
       <AcademyHeroSection />
+
+      {/* Preuve avant/après — résultats animés */}
+      <AcademyProofStrip />
 
       {/* Pourquoi sur sélection + critères + timeline après clic */}
       <AcademySelectionSection />
