@@ -48,10 +48,10 @@ export default function AcademyHeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-4"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-5"
           >
-            On forme les futurs{' '}
-            <span className="text-empire">Head of Virality.</span>
+            Deviens{' '}
+            <span className="text-empire">Head of Viralité.</span>
           </motion.h1>
 
           {/* Subtitle */}
@@ -59,36 +59,26 @@ export default function AcademyHeroSection() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.15, duration: 0.6 }}
-            className="text-lg md:text-xl text-neutral-300 max-w-2xl mx-auto mb-4"
+            className="text-lg md:text-xl text-neutral-300 max-w-2xl mx-auto mb-8"
           >
-            Le métier secret qui permet de gagner 3 000€/mois en 4h par semaine — et que l'IA ne peut pas te voler. En 21 jours, tu maîtrises les techniques qui nous ont valu 7 millions de vues sur tous les réseaux.
-          </motion.p>
-
-          {/* Proof line */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.25, duration: 0.5 }}
-            className="text-xs md:text-sm text-neutral-500 mb-8"
-          >
-            → 7 000 000 vues générées · 2M vues/mois · Applicable par n'importe qui · 0 audience requise
+            Le seul métier que l'IA ne peut pas te voler. En 21 jours, tu maîtrises les mécaniques de la viralité — et tu peux générer des revenus sans audience, sans expérience, sans te vendre.
           </motion.p>
 
           {/* CTA */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-            className="flex flex-col items-center gap-3 mb-8"
+            transition={{ delay: 0.25, duration: 0.5 }}
+            className="flex flex-col items-center gap-3 mb-10"
           >
             <a
               href="#academy-pricing"
               className="px-8 py-4 bg-empire text-black font-bold text-lg rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(218,252,104,0.35)] inline-block"
             >
-              Je postule au bootcamp à 500€ →
+              Rejoindre le bootcamp à 500€ →
             </a>
             <p className="text-xs text-neutral-500">
-              6 lives experts · 2 Q&A en direct · Vidéos · Exercices · Groupe privé
+              21 jours · 6 lives · Groupe privé · Replays à vie · 0 audience requise
             </p>
           </motion.div>
 

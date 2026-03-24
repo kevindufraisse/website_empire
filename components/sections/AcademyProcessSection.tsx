@@ -20,27 +20,27 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 const steps = [
   {
     num: '01',
-    title: 'Tu rejoins le bootcamp à 500€',
-    desc: 'Accès immédiat aux vidéos, exercices quotidiens, 6 lives experts et groupe privé. 21 jours pour maîtriser les techniques de viralité sur tous les réseaux.',
+    title: 'Tu rejoins le bootcamp',
+    desc: 'Accès immédiat aux vidéos, exercices quotidiens, 6 lives et groupe privé. Le programme démarre le jour même.',
     tag: null,
   },
   {
     num: '02',
-    title: 'Tu appliques chaque jour',
-    desc: "Un exercice par jour, posté dans le groupe. Tu crées, tu reçois des feedbacks, tu progresses. C'est l'action qui fait la différence — pas la théorie.",
+    title: 'Tu crées chaque jour',
+    desc: "Un exercice par jour, posté dans le groupe. Tu reçois des feedbacks, tu vois progresser ton niveau. Pas de théorie — que de l'action.",
     tag: null,
   },
   {
     num: '03',
-    title: 'Tu maîtrises un métier rare',
-    desc: "Générer des vues, attirer des clients, créer une audience indépendante de l'algo. Un actif que l'IA ne peut pas te voler.",
+    title: 'Tu maîtrises les mécaniques de la viralité',
+    desc: "Hooks, formats, psychologie de l'attention. Tu sais pourquoi certains contenus explosent — et tu sais le reproduire.",
     tag: 'Semaine 3',
   },
   {
     num: '04',
-    title: 'Les meilleurs intègrent le réseau Empire VIP',
-    desc: "Les participants qui se distinguent reçoivent des missions directement de notre réseau clients. C'est mérité — pas garanti. Mais c'est réel.",
-    tag: 'VIP',
+    title: 'Bonus : les meilleurs rejoignent le réseau Empire',
+    desc: "On repère les profils qui se démarquent dans le groupe. On leur envoie des missions directement. Deux missions suffisent à rembourser le bootcamp. C'est mérité — pas garanti.",
+    tag: '+ Bonus',
     highlight: true,
   },
 ]
@@ -53,8 +53,8 @@ export default function AcademyProcessSection() {
           <div className="text-center mb-16">
             <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">Comment ça se passe</p>
             <h2 className="text-3xl md:text-5xl font-bold leading-tight">
-              Du bootcamp aux{' '}
-              <span className="text-empire">premières missions.</span>
+              21 jours pour{' '}
+              <span className="text-empire">maîtriser un métier rare.</span>
             </h2>
           </div>
         </FadeInBlock>
@@ -101,16 +101,6 @@ export default function AcademyProcessSection() {
           </div>
         </div>
 
-        {/* Meritocracy note */}
-        <FadeInBlock delay={0.4}>
-          <div className="mt-10 p-6 rounded-xl bg-gradient-to-br from-white/5 to-transparent border border-white/10 text-center">
-            <p className="text-base font-bold text-white mb-2">La méritocratie comme moteur.</p>
-            <p className="text-sm text-neutral-400 leading-relaxed max-w-2xl mx-auto">
-              On ne promet pas des clients à tout le monde. On promet de te former avec nos vraies méthodes. Les meilleurs profils, on les repère dans le groupe — et on leur envoie des missions.{' '}
-              <span className="text-empire font-semibold">Deux missions suffisent pour rembourser ton investissement total.</span>
-            </p>
-          </div>
-        </FadeInBlock>
       </div>
     </section>
   )

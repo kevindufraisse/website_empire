@@ -36,7 +36,7 @@ const weeks = [
   {
     tag: 'Semaine 3 · Jours 15–21',
     title: 'Devenir Head of Viralité',
-    desc: 'Transformer les vues en clients, générer des RDV, construire une activité à 3 000€/mois en 4h/semaine.',
+    desc: 'Transformer les vues en clients, générer des RDV, construire une activité qui tourne sans te vendre à plein temps.',
     color: 'from-empire/15 to-transparent border-empire/30',
     tagColor: 'text-empire',
   },
@@ -70,8 +70,8 @@ export default function AcademyProgramSection() {
             <div className="text-center mb-16">
               <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">Le programme</p>
               <h2 className="text-3xl md:text-5xl font-bold leading-tight">
-                21 jours. Une action{' '}
-                <span className="text-empire">concrète par jour.</span>
+                Ce que tu apprends,{' '}
+                <span className="text-empire">semaine par semaine.</span>
               </h2>
             </div>
           </FadeInBlock>
