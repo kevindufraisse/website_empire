@@ -39,7 +39,7 @@ const steps = [
   {
     num: '04',
     title: 'Bonus : les meilleurs rejoignent le réseau Empire',
-    desc: "On repère les profils qui se démarquent dans le groupe. On leur envoie des missions directement. Deux missions suffisent à rembourser le bootcamp. C'est mérité — pas garanti.",
+    desc: "On repère les profils qui se démarquent dans le groupe. On leur envoie des missions directement. C'est mérité — pas garanti.",
     tag: '+ Bonus',
     highlight: true,
   },

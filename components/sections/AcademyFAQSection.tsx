@@ -51,10 +51,6 @@ const faqs = [
     a: 'Oui. Les vidéos et les replays des lives sont accessibles à vie. Tu peux reprendre le programme quand tu veux, autant de fois que tu veux.',
   },
   {
-    q: 'Quelle différence entre Standard et VIP ?',
-    a: "Le Standard te donne accès à tout le contenu du bootcamp. Le VIP ajoute un accompagnement personnalisé, la priorité sur les missions Empire, et l'accès au réseau clients pendant 12 mois.",
-  },
-  {
     q: 'Puis-je rejoindre si je suis débutant complet ?',
     a: "Absolument. Le bootcamp est conçu pour partir de zéro. Pas besoin d'audience, d'expérience ou d'équipement. Si tu peux créer du contenu chaque jour, tu peux réussir.",
   },

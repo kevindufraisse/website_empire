@@ -29,7 +29,6 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 }
 
 const features = [
-  'Bootcamp Head of Virality — 21 jours',
   '21 vidéos pré-enregistrées',
   '21 exercices quotidiens',
   '3 lives avec Marc',
@@ -60,7 +59,7 @@ export default function AcademyPricingSection() {
               <BorderBeam size={350} duration={10} delay={0} />
 
               <div className="mb-8 text-center">
-                <p className="text-neutral-400 text-sm mb-1">Accès unique · Offre de lancement</p>
+                <p className="text-neutral-400 text-sm mb-1">Sur sélection · Places limitées</p>
                 <p className="text-white font-bold text-lg">Bootcamp Head of Viralité — 21 jours</p>
               </div>
 

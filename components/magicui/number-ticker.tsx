@@ -34,7 +34,7 @@ export default function NumberTicker({
   useEffect(() => {
     const unsubscribe = springValue.on('change', (latest) => {
       if (ref.current) {
-        ref.current.textContent = Intl.NumberFormat('en-US', {
+        ref.current.textContent = Intl.NumberFormat('fr-FR', {
           minimumFractionDigits: decimalPlaces,
           maximumFractionDigits: decimalPlaces,
         }).format(Number(latest.toFixed(decimalPlaces)))
