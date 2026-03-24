@@ -2,13 +2,14 @@
 import { motion } from 'framer-motion'
 import RetroGrid from '@/components/magicui/retro-grid'
 import { Meteors } from '@/components/magicui/meteors'
+import NumberTicker from '@/components/magicui/number-ticker'
 import Image from 'next/image'
 
 const stats = [
-  { value: '3 000€', label: 'par mois', sub: 'objectif atteignable' },
-  { value: '4h', label: 'par semaine', sub: 'une fois lancé' },
-  { value: '10M+', label: 'vues/mois', sub: 'pour nos clients' },
-  { value: '21', label: 'jours pour', sub: 'tout maîtriser' },
+  { ticker: 3000, suffix: '€', label: 'par mois', sub: 'objectif atteignable' },
+  { ticker: 4, suffix: 'h', label: 'par semaine', sub: 'une fois lancé' },
+  { ticker: 10, suffix: 'M+', label: 'vues/mois', sub: 'pour nos clients' },
+  { ticker: 21, suffix: '', label: 'jours pour', sub: 'tout maîtriser' },
 ]
 
 export default function AcademyHeroSection() {
@@ -161,7 +162,10 @@ export default function AcademyHeroSection() {
           >
             {stats.map((stat, i) => (
               <div key={i} className="flex flex-col items-center p-4 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all">
-                <span className="text-2xl md:text-3xl font-black text-empire">{stat.value}</span>
+                <span className="text-2xl md:text-3xl font-black text-empire tabular-nums">
+                  <NumberTicker value={stat.ticker} delay={i * 0.15} className="text-empire" />
+                  {stat.suffix}
+                </span>
                 <span className="text-xs md:text-sm text-white font-semibold mt-1">{stat.label}</span>
                 <span className="text-[10px] md:text-xs text-neutral-500 mt-0.5">{stat.sub}</span>
               </div>
