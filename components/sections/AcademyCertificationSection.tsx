@@ -55,8 +55,8 @@ const levels = [
       perkText: 'text-neutral-300',
     },
     title: 'Certifié Expert',
-    subtitle: '1M de vues dans le mois',
-    criteria: 'Tu as généré 1 000 000 de vues sur le mois écoulé, toutes plateformes.',
+    subtitle: 'Résultats prouvés',
+    criteria: 'Tu as généré des vues significatives sur le mois écoulé et démontré une maîtrise des formats viraux.',
     perks: [
       'Certification Expert officielle',
       'Badge LinkedIn "Certifié Expert Viralité"',
@@ -78,8 +78,8 @@ const levels = [
       perkText: 'text-white font-medium',
     },
     title: 'Certifié Elite',
-    subtitle: '1M de vues + résultats clients',
-    criteria: 'Tu as généré 1M+ de vues et prouvé tes résultats sur des missions clients réelles.',
+    subtitle: 'Résultats clients prouvés',
+    criteria: 'Tu as démontré des résultats viraux reproductibles et prouvé ta valeur sur des missions clients réelles.',
     perks: [
       'Certification Elite officielle',
       'Badge LinkedIn "Certifié Elite Empire"',
@@ -164,20 +164,6 @@ export default function AcademyCertificationSection() {
             ))}
           </div>
 
-          {/* 1M views note */}
-          <FadeInBlock delay={0.4}>
-            <div className="mt-10 p-5 rounded-xl bg-white/[0.03] border border-white/10 flex flex-col md:flex-row items-start md:items-center gap-4">
-              <div className="w-10 h-10 rounded-xl bg-empire/10 border border-empire/20 flex items-center justify-center flex-shrink-0">
-                <span className="text-lg">📊</span>
-              </div>
-              <div>
-                <p className="text-white font-semibold text-sm mb-1">Le seuil de 1M de vues — atteignable en 21 jours.</p>
-                <p className="text-neutral-400 text-sm leading-relaxed">
-                  Ça paraît ambitieux. Mais avec les formats courts sur Instagram, TikTok et YouTube, 1M de vues sur le mois, c'est l'objectif que la plupart de nos clients atteignent dès le premier mois. Tu auras exactement les mêmes techniques.
-                </p>
-              </div>
-            </div>
-          </FadeInBlock>
 
         </div>
       </div>
