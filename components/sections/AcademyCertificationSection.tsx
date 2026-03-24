@@ -24,11 +24,13 @@ const levels = [
     tier: 'Bronze',
     emoji: '🥉',
     color: {
-      border: 'border-amber-700/50',
-      bg: 'from-amber-900/20 to-amber-900/5',
-      badge: 'bg-amber-900/30 text-amber-400 border-amber-700/40',
-      glow: 'shadow-[0_0_20px_rgba(180,100,30,0.15)]',
-      label: 'text-amber-400',
+      border: 'border-white/10',
+      bg: 'from-white/[0.04] to-transparent',
+      badge: 'bg-white/8 text-neutral-400 border-white/15',
+      glow: '',
+      label: 'text-neutral-300',
+      check: 'text-neutral-500',
+      perkText: 'text-neutral-400',
     },
     title: 'Certifié Empire',
     subtitle: 'Programme complété',
@@ -44,11 +46,13 @@ const levels = [
     tier: 'Argent',
     emoji: '🥈',
     color: {
-      border: 'border-neutral-400/50',
-      bg: 'from-neutral-600/20 to-neutral-600/5',
-      badge: 'bg-neutral-700/30 text-neutral-300 border-neutral-500/40',
-      glow: 'shadow-[0_0_20px_rgba(180,180,180,0.1)]',
-      label: 'text-neutral-300',
+      border: 'border-white/25',
+      bg: 'from-white/[0.08] to-white/[0.02]',
+      badge: 'bg-white/10 text-white border-white/25',
+      glow: 'shadow-[0_0_30px_rgba(255,255,255,0.04)]',
+      label: 'text-white',
+      check: 'text-white/60',
+      perkText: 'text-neutral-300',
     },
     title: 'Certifié Expert',
     subtitle: '1M de vues dans le mois',
@@ -65,11 +69,13 @@ const levels = [
     tier: 'Or',
     emoji: '🥇',
     color: {
-      border: 'border-empire/60',
-      bg: 'from-empire/20 to-empire/5',
+      border: 'border-empire/50',
+      bg: 'from-empire/15 to-empire/[0.03]',
       badge: 'bg-empire/20 text-empire border-empire/40',
-      glow: 'shadow-[0_0_40px_rgba(218,252,104,0.2)]',
+      glow: 'shadow-[0_0_50px_rgba(218,252,104,0.18)]',
       label: 'text-empire',
+      check: 'text-empire',
+      perkText: 'text-white font-medium',
     },
     title: 'Certifié Elite',
     subtitle: '1M de vues + résultats clients',
@@ -148,8 +154,8 @@ export default function AcademyCertificationSection() {
                   <div className="flex-1 space-y-2.5">
                     {level.perks.map((perk, j) => (
                       <div key={j} className="flex items-start gap-2.5">
-                        <Check className={`flex-shrink-0 mt-0.5 ${level.highlight ? 'text-empire' : 'text-neutral-400'}`} size={13} />
-                        <span className={`text-sm leading-snug ${level.highlight ? 'text-white font-medium' : 'text-neutral-400'}`}>{perk}</span>
+                        <Check className={`flex-shrink-0 mt-0.5 ${level.color.check}`} size={13} />
+                        <span className={`text-sm leading-snug ${level.color.perkText}`}>{perk}</span>
                       </div>
                     ))}
                   </div>

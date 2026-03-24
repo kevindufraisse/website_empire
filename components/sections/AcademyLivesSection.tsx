@@ -2,6 +2,7 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { Video, MessageCircle } from 'lucide-react'
+import Image from 'next/image'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -27,7 +28,7 @@ const lives = [
   {
     num: 'Live 2',
     title: 'Millions de vues sur Instagram & TikTok',
-    desc: 'Formats courts, hooks, rythme. Les techniques exactes derrière nos 7M de vues.',
+    desc: "Formats courts, hooks, rythme. Les techniques exactes derrière nos 10M+ de vues par mois.",
   },
   {
     num: 'Live 3',
@@ -111,13 +112,36 @@ export default function AcademyLivesSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1, duration: 0.4 }}
                 viewport={{ once: true }}
-                className="p-6 rounded-xl bg-gradient-to-br from-white/8 to-white/[0.02] border border-white/15 hover:border-empire/30 transition-all group"
+                className="p-6 rounded-xl bg-gradient-to-br from-white/8 to-white/[0.02] border border-empire/20 hover:border-empire/40 transition-all group"
               >
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="w-8 h-8 rounded-lg bg-empire/15 border border-empire/25 flex items-center justify-center">
-                    <MessageCircle className="text-empire" size={14} />
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="flex -space-x-2">
+                    <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-empire/40">
+                      <Image
+                        src="https://media.licdn.com/dms/image/v2/D4E03AQG4nlTt-7wB9w/profile-displayphoto-crop_800_800/B4EZi8WwoyHEAI-/0/1755506740516?e=1775692800&v=beta&t=3Oq_HdQ6GKMFVN6CwQCbvB2Qh7VWo1ls1KIroOyhPYY"
+                        alt="Kevin"
+                        width={32}
+                        height={32}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-empire/40">
+                      <Image
+                        src="https://media.licdn.com/dms/image/v2/D4E03AQF43VvOp7iRkw/profile-displayphoto-scale_400_400/B4EZzc5.uqHAAg-/0/1773232713405?e=1775692800&v=beta&t=Z4CykW-joMs63r3xGQHIdOaqpNtjtC7jQdcL5HSHJNs"
+                        alt="Marc"
+                        width={32}
+                        height={32}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
                   </div>
-                  <span className="text-xs font-bold text-empire">{qa.num}</span>
+                  <div>
+                    <div className="flex items-center gap-1.5">
+                      <MessageCircle className="text-empire" size={12} />
+                      <span className="text-xs font-bold text-empire">{qa.num}</span>
+                    </div>
+                    <span className="text-[10px] text-neutral-500">Kevin & Marc Dufraisse</span>
+                  </div>
                 </div>
                 <h3 className="text-white font-bold text-sm md:text-base mb-1.5">{qa.title}</h3>
                 <p className="text-neutral-400 text-xs leading-relaxed">{qa.desc}</p>

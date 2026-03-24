@@ -2,11 +2,11 @@ import AcademyHeroSection from '@/components/sections/AcademyHeroSection'
 import AcademyWhoSection from '@/components/sections/AcademyWhoSection'
 import AcademyContextSection from '@/components/sections/AcademyContextSection'
 import AcademyProcessSection from '@/components/sections/AcademyProcessSection'
-import AcademyProgramSection from '@/components/sections/AcademyProgramSection'
 import AcademyLivesSection from '@/components/sections/AcademyLivesSection'
 import AcademyPricingSection from '@/components/sections/AcademyPricingSection'
 import AcademyCertificationSection from '@/components/sections/AcademyCertificationSection'
 import AcademyFAQSection from '@/components/sections/AcademyFAQSection'
+import AcademyStickyBar from '@/components/sections/AcademyStickyBar'
 
 export const metadata = {
   title: 'Academy — Empire Internet',
@@ -28,9 +28,6 @@ export default function AcademyPage() {
       {/* Du bootcamp aux premières missions */}
       <AcademyProcessSection />
 
-      {/* Le programme 21 jours */}
-      <AcademyProgramSection />
-
       {/* Les 6 lives + 2 Q&A */}
       <AcademyLivesSection />
 
@@ -42,6 +39,9 @@ export default function AcademyPage() {
 
       {/* FAQ */}
       <AcademyFAQSection />
+
+      {/* Sticky CTA spécifique academy */}
+      <AcademyStickyBar />
     </main>
   )
 }

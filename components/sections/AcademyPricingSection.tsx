@@ -41,7 +41,7 @@ export default function AcademyPricingSection() {
             <div className="text-center mb-16">
               <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">L'offre</p>
               <h2 className="text-3xl md:text-5xl font-bold leading-tight">
-                Rejoins le <span className="text-empire">bootcamp.</span>
+                Rejoins le <span className="text-empire">bootcamp 21 jours.</span>
               </h2>
             </div>
           </FadeInBlock>
@@ -69,7 +69,7 @@ export default function AcademyPricingSection() {
               </div>
 
               <a
-                href="https://www.join.empire-internet.com/bootcamp-standard"
+                href="https://www.join.empire-internet.com/academy"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block text-center px-6 py-4 rounded-xl bg-empire text-black font-bold text-lg hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)]"

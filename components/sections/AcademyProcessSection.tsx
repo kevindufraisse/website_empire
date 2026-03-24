@@ -32,8 +32,8 @@ const steps = [
   },
   {
     num: '03',
-    title: 'Tu maîtrises les mécaniques de la viralité',
-    desc: "Hooks, formats, psychologie de l'attention. Tu sais pourquoi certains contenus explosent — et tu sais le reproduire.",
+    title: "À J21, tu sors avec un vrai métier",
+    desc: "Tu as créé du contenu chaque jour pendant 3 semaines. Tu sais ce qui fonctionne sur chaque réseau, tu as eu des feedbacks, tu as vu tes progrès. Pas des slides — une vraie compétence.",
     tag: 'Semaine 3',
   },
   {
@@ -53,8 +53,8 @@ export default function AcademyProcessSection() {
           <div className="text-center mb-16">
             <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">Comment ça se passe</p>
             <h2 className="text-3xl md:text-5xl font-bold leading-tight">
-              21 jours pour{' '}
-              <span className="text-empire">maîtriser un métier rare.</span>
+              Ce qui se passe{' '}
+              <span className="text-empire">concrètement.</span>
             </h2>
           </div>
         </FadeInBlock>
