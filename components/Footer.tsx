@@ -11,6 +11,9 @@ export default function Footer() {
   const pathname = usePathname()
   
   const isPartnersPage = pathname === '/partners'
+  const isAcademyPage = pathname === '/academy'
+
+  if (isAcademyPage) return null
   const namespace = 'audit-empire'
   const calLink = useCalLink()
 
