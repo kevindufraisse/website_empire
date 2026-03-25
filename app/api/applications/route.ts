@@ -5,19 +5,18 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
 
-    // Check if an incomplete application already exists for this email
-    // (step_completed < 6 = not yet submitted)
+    // Check if ANY application exists for this email — always reuse the most advanced one
     const { data: existing } = await supabaseAdmin
       .from('applications')
-      .select('id, step_completed')
+      .select('id, step_completed, disc_profile')
       .eq('email', body.email.toLowerCase().trim())
-      .lt('step_completed', 6)
+      .order('step_completed', { ascending: false })
       .order('created_at', { ascending: false })
       .limit(1)
       .single()
 
     if (existing?.id) {
-      // Reuse the existing record — update contact info in case it changed
+      // Always reuse — update contact info
       await supabaseAdmin
         .from('applications')
         .update({
@@ -29,12 +28,18 @@ export async function POST(req: NextRequest) {
         .eq('id', existing.id)
 
       return NextResponse.json(
-        { id: existing.id, resumed: true, step: existing.step_completed },
+        {
+          id: existing.id,
+          resumed: true,
+          step: existing.step_completed,
+          completed: existing.step_completed >= 6,
+          disc_profile: existing.disc_profile ?? null,
+        },
         { status: 200 }
       )
     }
 
-    // No existing incomplete application — create a new one
+    // No existing application at all — create a new one
     const { data, error } = await supabaseAdmin
       .from('applications')
       .insert({
