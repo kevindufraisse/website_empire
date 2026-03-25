@@ -493,6 +493,38 @@ export default function AcademyApplicationForm() {
         if (!res.ok) throw new Error(json.error)
         setAppId(json.id)
         saveProgress(json.id, 1, form.first_name)
+
+        // If server found an existing incomplete application, restore form data
+        if (json.resumed && json.step > 1) {
+          try {
+            const existing = await fetch(`/api/applications/${json.id}`)
+            if (existing.ok) {
+              const data = await existing.json()
+              setForm(prev => ({
+                ...prev,
+                hours_per_week: data.hours_per_week ?? prev.hours_per_week,
+                budget: data.budget ?? prev.budget,
+                has_created_content: data.has_created_content ?? prev.has_created_content,
+                content_link: data.content_link ?? prev.content_link,
+                haunting_project: data.haunting_project ?? prev.haunting_project,
+                disc_role: data.disc_role ?? prev.disc_role,
+                disc_obstacle: data.disc_obstacle ?? prev.disc_obstacle,
+                friends_say: data.friends_say ?? prev.friends_say,
+                social_link: data.social_link ?? prev.social_link,
+                motivation: data.motivation ?? prev.motivation,
+                referral_1: data.referral_1 ?? prev.referral_1,
+                referral_2: data.referral_2 ?? prev.referral_2,
+                referral_3: data.referral_3 ?? prev.referral_3,
+              }))
+              // Jump to the next unfilled step
+              const nextStep = Math.min(json.step + 1, TOTAL_STEPS)
+              saveProgress(json.id, json.step, form.first_name)
+              setStep(nextStep)
+              setLoading(false)
+              return
+            }
+          } catch { /* fall through to normal step increment */ }
+        }
       } else {
         // Update existing record
         const payload: Record<string, unknown> = { step_completed: step }
