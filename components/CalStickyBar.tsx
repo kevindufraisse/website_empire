@@ -16,6 +16,7 @@ export default function CalStickyBar() {
   // Hide on partners and academy pages
   const isPartnersPage = pathname === '/partners'
   const isAcademyPage = pathname === '/academy'
+  const isCandidaturePage = pathname === '/candidature'
 
   const namespace = 'audit-empire'
   const calLink = useCalLink()
@@ -75,8 +76,7 @@ export default function CalStickyBar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [isPartnersPage])
 
-  // Don't render on partners or academy page
-  if (isPartnersPage || isAcademyPage) return null
+  if (isPartnersPage || isAcademyPage || isCandidaturePage) return null
 
   return (
     <div 

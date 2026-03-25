@@ -92,9 +92,7 @@ export default function AcademyHeroSection() {
             className="flex flex-col items-center gap-2 mb-12"
           >
             <a
-              href="https://www.join.empire-internet.com/academy"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/candidature"
               className="px-10 py-4 bg-empire text-black font-bold text-lg rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(218,252,104,0.35)] inline-block"
             >
               Passer le test d'éligibilité →

@@ -17,11 +17,14 @@ export default function Header() {
   const pathname = usePathname()
   
   // Hide default CTA button on pricing, partners and academy pages
-  const hideCTA = pathname === '/pricing' || pathname === '/partners' || pathname === '/academy'
+  const isCandidaturePage = pathname === '/candidature'
+  const hideCTA = pathname === '/pricing' || pathname === '/partners' || pathname === '/academy' || isCandidaturePage
   // Show partner CTA on partners page
   const isPartnersPage = pathname === '/partners'
   // Show academy-specific CTA
   const isAcademyPage = pathname === '/academy'
+
+  if (isCandidaturePage) return null
 
   const namespace = 'audit-empire'
   const calLink = useCalLink()

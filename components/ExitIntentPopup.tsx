@@ -36,13 +36,13 @@ export function ExitIntentPopup() {
   const scriptContainerRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
   
-  // Disable on partners and academy pages
+  // Disable on partners, academy and candidature pages
   const isPartnersPage = pathname === '/partners'
   const isAcademyPage = pathname === '/academy'
+  const isCandidaturePage = pathname === '/candidature'
 
   useEffect(() => {
-    // Don't show on partners page
-    if (isPartnersPage) return
+    if (isPartnersPage || isCandidaturePage) return
     
     // Check if already shown in this session
     const hasShown = sessionStorage.getItem('exitPopupShown')
@@ -151,9 +151,7 @@ export function ExitIntentPopup() {
 
             {/* CTA */}
             <a
-              href="https://www.join.empire-internet.com/academy"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/candidature"
               onClick={() => setDismissed(true)}
               className="block w-full py-4 rounded-xl bg-empire text-black font-bold text-base hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.35)] mb-3"
             >

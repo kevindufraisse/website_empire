@@ -102,9 +102,7 @@ export default function AcademySelectionSection() {
           <FadeInBlock delay={0.3}>
             <div className="text-center">
               <a
-                href="https://www.join.empire-internet.com/academy"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/candidature"
                 className="inline-flex items-center gap-2 px-7 py-3.5 bg-empire text-black font-bold text-base rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.25)]"
               >
                 Passer le test d'éligibilité →

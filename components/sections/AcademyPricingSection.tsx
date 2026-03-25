@@ -79,9 +79,7 @@ export default function AcademyPricingSection() {
               </div>
 
               <a
-                href="https://www.join.empire-internet.com/academy"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/candidature"
                 className="block text-center px-6 py-4 rounded-xl bg-empire text-black font-bold text-lg hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)]"
               >
                 Passer le test d'éligibilité →
