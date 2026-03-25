@@ -14,8 +14,6 @@ export default function Footer() {
   const isAcademyPage = pathname === '/academy'
   const isCandidaturePage = pathname === '/candidature'
 
-  if (isCandidaturePage) return null
-
   const namespace = 'audit-empire'
   const calLink = useCalLink()
 
@@ -33,6 +31,9 @@ export default function Footer() {
       })
     })()
   }, [namespace])
+
+  if (isCandidaturePage) return null
+
   return (
     <footer className="relative w-full border-t border-white/10 bg-black pb-[env(safe-area-inset-bottom)]">
       <div className="container py-8 md:py-12">

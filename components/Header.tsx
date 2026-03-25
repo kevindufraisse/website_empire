@@ -24,8 +24,6 @@ export default function Header() {
   // Show academy-specific CTA
   const isAcademyPage = pathname === '/academy'
 
-  if (isCandidaturePage) return null
-
   const namespace = 'audit-empire'
   const calLink = useCalLink()
 
@@ -63,6 +61,9 @@ export default function Header() {
       })
     })()
   }, [namespace])
+
+  // Hide entirely on candidature page — after all hooks
+  if (isCandidaturePage) return null
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/20 bg-black/95 backdrop-blur-md">
