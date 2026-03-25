@@ -337,7 +337,7 @@ export default function AcademyApplicationForm() {
         if (!res.ok) throw new Error(json.error)
 
         if (step === 5) {
-          const { calculateScore } = await import('@/lib/supabase')
+          const { calculateScore } = await import('@/lib/scoring')
           const { disc } = calculateScore(form)
           if (disc !== 'pending') setResultDisc(disc)
           setDone(true)

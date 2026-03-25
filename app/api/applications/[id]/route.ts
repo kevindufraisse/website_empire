@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { supabaseAdmin, calculateScore } from '@/lib/supabase'
+import { supabaseAdmin } from '@/lib/supabase'
+import { calculateScore } from '@/lib/scoring'
 
 export async function PATCH(
   req: NextRequest,
