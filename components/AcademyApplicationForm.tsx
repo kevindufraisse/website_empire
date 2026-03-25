@@ -69,7 +69,6 @@ function Input({
         value={value}
         onChange={e => onChange(e.target.value)}
         placeholder={placeholder}
-        required={required}
         className="w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-neutral-600 text-sm focus:outline-none focus:border-empire/60 focus:bg-white/[0.07] transition-all"
       />
     </div>
@@ -96,7 +95,6 @@ function Textarea({
         value={value}
         onChange={e => onChange(e.target.value)}
         placeholder={placeholder}
-        required={required}
         rows={3}
         className="w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-neutral-600 text-sm focus:outline-none focus:border-empire/60 focus:bg-white/[0.07] transition-all resize-none"
       />
@@ -274,7 +272,7 @@ export default function AcademyApplicationForm() {
       case 4:
         return !!form.disc_role && !!form.disc_obstacle
       case 5:
-        return form.motivation.trim().length > 10
+        return form.motivation.trim().length > 0
       default:
         return true
     }
@@ -504,7 +502,7 @@ export default function AcademyApplicationForm() {
                 </motion.div>
               )}
               <Textarea
-                label="C'est quoi le projet que t'as jamais fini mais qui te hante encore ?"
+                label="C'est quoi le projet que t'as jamais fini mais qui te hante encore ? (optionnel)"
                 name="haunting_project"
                 value={form.haunting_project}
                 onChange={set('haunting_project')}
