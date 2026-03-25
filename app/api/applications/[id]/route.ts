@@ -30,7 +30,7 @@ export async function PATCH(
     const { id } = params
 
     // On the final step, calculate DISC score
-    const isFinal = body.step_completed >= 5
+    const isFinal = body.step_completed >= 6
     let scoreData = {}
     if (isFinal) {
       const { score, disc } = calculateScore(body)

@@ -21,12 +21,16 @@ interface FormData {
   content_link: string
   haunting_project: string
   // Step 4 — DISC behavioral
-  disc_role: string       // maps to D/I/S/C
-  disc_obstacle: string   // maps to D/I/S/C
+  disc_role: string
+  disc_obstacle: string
   friends_say: string
   // Step 5
   social_link: string
   motivation: string
+  // Step 6 — referrals
+  referral_1: string
+  referral_2: string
+  referral_3: string
 }
 
 const initial: FormData = {
@@ -35,6 +39,7 @@ const initial: FormData = {
   has_created_content: '', content_link: '', haunting_project: '',
   disc_role: '', disc_obstacle: '', friends_say: '',
   social_link: '', motivation: '',
+  referral_1: '', referral_2: '', referral_3: '',
 }
 
 // ─── Step config ──────────────────────────────────────────────────────────────
@@ -45,7 +50,11 @@ const STEPS = [
   { num: 3, label: 'Profil' },
   { num: 4, label: 'Personnalité' },
   { num: 5, label: 'Finalisation' },
+  { num: 6, label: 'Recommandation' },
 ]
+
+const TOTAL_STEPS = 6
+const COUNTDOWN_SECONDS = 15 * 60
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
@@ -350,6 +359,21 @@ export default function AcademyApplicationForm() {
   const [resultDisc, setResultDisc] = useState<DiscType | null>(null)
   const [resumeData, setResumeData] = useState<{ id: string; step: number; name: string } | null>(null)
   const [resumeLoading, setResumeLoading] = useState(false)
+  const [timeLeft, setTimeLeft] = useState<number | null>(null)
+  const [timerStarted, setTimerStarted] = useState(false)
+
+  // ── 15-min countdown — starts on step 1 first render ────────────────────
+  useEffect(() => {
+    if (timerStarted || resumeData) return
+    setTimerStarted(true)
+    setTimeLeft(COUNTDOWN_SECONDS)
+  }, [timerStarted, resumeData])
+
+  useEffect(() => {
+    if (timeLeft === null || timeLeft <= 0 || done) return
+    const t = setTimeout(() => setTimeLeft(s => (s !== null ? s - 1 : null)), 1000)
+    return () => clearTimeout(t)
+  }, [timeLeft, done])
 
   // ── Check for saved progress on mount ───────────────────────────────────
   useEffect(() => {
@@ -357,7 +381,7 @@ export default function AcademyApplicationForm() {
       const saved = localStorage.getItem(STORAGE_KEY)
       if (!saved) return
       const parsed = JSON.parse(saved)
-      if (parsed?.id && parsed?.step && parsed.step > 1 && parsed.step < 6) {
+      if (parsed?.id && parsed?.step && parsed.step > 1 && parsed.step < 7) {
         setResumeData(parsed)
       }
     } catch {
@@ -400,9 +424,12 @@ export default function AcademyApplicationForm() {
         friends_say: data.friends_say ?? '',
         social_link: data.social_link ?? '',
         motivation: data.motivation ?? '',
+        referral_1: data.referral_1 ?? '',
+        referral_2: data.referral_2 ?? '',
+        referral_3: data.referral_3 ?? '',
       })
       setAppId(resumeData.id)
-      setStep(Math.min(resumeData.step + 1, 5))
+      setStep(Math.min(resumeData.step + 1, TOTAL_STEPS))
       setResumeData(null)
     } catch {
       // If fetch fails, just start fresh
@@ -435,6 +462,8 @@ export default function AcademyApplicationForm() {
         return !!form.disc_role && !!form.disc_obstacle
       case 5:
         return form.motivation.trim().length > 0
+      case 6:
+        return true // all referral fields optional
       default:
         return true
     }
@@ -482,13 +511,17 @@ export default function AcademyApplicationForm() {
         } else if (step === 5) {
           payload.social_link = form.social_link
           payload.motivation = form.motivation
-          // Pass all scoring fields for final calculation
+        } else if (step === 6) {
+          payload.referral_1 = form.referral_1
+          payload.referral_2 = form.referral_2
+          payload.referral_3 = form.referral_3
+          // Final step — pass all scoring fields
           payload.hours_per_week = form.hours_per_week
           payload.budget = form.budget
           payload.has_created_content = form.has_created_content
           payload.disc_role = form.disc_role
           payload.disc_obstacle = form.disc_obstacle
-          payload.step_completed = 5
+          payload.step_completed = 6
         }
 
         const res = await fetch(`/api/applications/${appId}`, {
@@ -499,7 +532,7 @@ export default function AcademyApplicationForm() {
         const json = await res.json()
         if (!res.ok) throw new Error(json.error)
 
-        if (step === 5) {
+        if (step === 6) {
           const { calculateScore } = await import('@/lib/scoring')
           const { disc } = calculateScore(form)
           if (disc !== 'pending') setResultDisc(disc)
@@ -549,7 +582,7 @@ export default function AcademyApplicationForm() {
           >
             {resumeLoading
               ? <><Loader2 size={16} className="animate-spin" /> Chargement...</>
-              : <>Reprendre (étape {resumeData.step} / 5) →</>
+              : <>Reprendre (étape {resumeData.step} / {TOTAL_STEPS}) →</>
             }
           </button>
           <button
@@ -563,15 +596,47 @@ export default function AcademyApplicationForm() {
     )
   }
 
-  const progress = ((step - 1) / (STEPS.length - 1)) * 100
+  const progress = ((step - 1) / (TOTAL_STEPS - 1)) * 100
+
+  const mins = timeLeft !== null ? Math.floor(timeLeft / 60) : 15
+  const secs = timeLeft !== null ? timeLeft % 60 : 0
+  const isUrgent = timeLeft !== null && timeLeft <= 120
 
   return (
     <div className="w-full">
+      {/* Countdown timer */}
+      {timeLeft !== null && timeLeft > 0 && (
+        <motion.div
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          className={`flex items-center justify-between px-4 py-2.5 rounded-xl mb-6 border transition-all ${
+            isUrgent
+              ? 'bg-red-500/10 border-red-500/30'
+              : 'bg-white/[0.03] border-white/10'
+          }`}
+        >
+          <div className="flex items-center gap-2">
+            <span className={`w-2 h-2 rounded-full animate-pulse flex-shrink-0 ${isUrgent ? 'bg-red-400' : 'bg-empire'}`} />
+            <p className={`text-xs font-medium ${isUrgent ? 'text-red-400' : 'text-neutral-400'}`}>
+              {isUrgent ? 'Plus que' : 'Ce créneau est réservé pour'}
+            </p>
+          </div>
+          <span className={`text-sm font-black tabular-nums ${isUrgent ? 'text-red-400' : 'text-empire'}`}>
+            {String(mins).padStart(2, '0')}:{String(secs).padStart(2, '0')}
+          </span>
+        </motion.div>
+      )}
+      {timeLeft === 0 && (
+        <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl mb-6 bg-white/[0.03] border border-white/10">
+          <span className="text-xs text-neutral-500">Créneau expiré — ta progression est sauvegardée, continue !</span>
+        </div>
+      )}
+
       {/* Progress bar */}
       <div className="mb-8">
         <div className="flex justify-between items-center mb-3">
           <p className="text-xs font-bold text-neutral-500 uppercase tracking-widest">
-            Étape {step} / {STEPS.length}
+            Étape {step} / {TOTAL_STEPS}
           </p>
           <p className="text-xs text-neutral-600">{STEPS[step - 1].label}</p>
         </div>
@@ -812,6 +877,46 @@ export default function AcademyApplicationForm() {
               </div>
             </div>
           )}
+
+          {/* ── Step 6: Recommandation ── */}
+          {step === 6 && (
+            <div className="space-y-6">
+              <div className="mb-2">
+                <h2 className="text-xl font-bold text-white mb-1">Tu connais des gens qui devraient postuler ?</h2>
+                <p className="text-sm text-neutral-500">
+                  Si tu penses à quelqu'un qui serait fait pour ça — salariés, freelances, entrepreneurs —
+                  laisse leur profil LinkedIn. On les contacte de ta part.
+                </p>
+              </div>
+
+              <div className="space-y-3">
+                {([
+                  { field: 'referral_1' as const, placeholder: 'linkedin.com/in/prénom-nom ou @profil' },
+                  { field: 'referral_2' as const, placeholder: 'Un deuxième profil (optionnel)' },
+                  { field: 'referral_3' as const, placeholder: 'Un troisième profil (optionnel)' },
+                ] as const).map(({ field, placeholder }, i) => (
+                  <div key={field} className="flex items-center gap-3">
+                    <div className="w-7 h-7 rounded-full bg-[#0A66C2]/15 border border-[#0A66C2]/30 flex items-center justify-center flex-shrink-0">
+                      <span className="text-[10px] font-black text-[#5B9FE6]">{i + 1}</span>
+                    </div>
+                    <input
+                      type="text"
+                      value={form[field]}
+                      onChange={e => set(field)(e.target.value)}
+                      placeholder={placeholder}
+                      className="flex-1 bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-neutral-600 text-sm focus:outline-none focus:border-[#0A66C2]/50 focus:bg-white/[0.07] transition-all"
+                    />
+                  </div>
+                ))}
+              </div>
+
+              <div className="p-4 rounded-xl bg-white/[0.03] border border-white/10">
+                <p className="text-xs text-neutral-500 leading-relaxed">
+                  Tous les champs sont optionnels. Si tu ne penses à personne maintenant, tu peux passer directement.
+                </p>
+              </div>
+            </div>
+          )}
         </motion.div>
       </AnimatePresence>
 
@@ -847,7 +952,7 @@ export default function AcademyApplicationForm() {
         >
           {loading ? (
             <><Loader2 size={16} className="animate-spin" /> En cours...</>
-          ) : step === 5 ? (
+          ) : step === 6 ? (
             <><Check size={16} /> Envoyer ma candidature</>
           ) : (
             <>Continuer <ArrowRight size={16} /></>
