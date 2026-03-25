@@ -2,6 +2,25 @@ import { NextRequest, NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase'
 import { calculateScore } from '@/lib/scoring'
 
+export async function GET(
+  _req: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const { data, error } = await supabaseAdmin
+      .from('applications')
+      .select('*')
+      .eq('id', params.id)
+      .single()
+
+    if (error) throw error
+    return NextResponse.json(data)
+  } catch (err) {
+    console.error('[GET /api/applications/:id]', err)
+    return NextResponse.json({ error: 'Introuvable.' }, { status: 404 })
+  }
+}
+
 export async function PATCH(
   req: NextRequest,
   { params }: { params: { id: string } }

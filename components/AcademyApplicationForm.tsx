@@ -1,7 +1,9 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Check, ArrowRight, Loader2, ChevronLeft } from 'lucide-react'
+import { Check, ArrowRight, Loader2, ChevronLeft, RotateCcw } from 'lucide-react'
+
+const STORAGE_KEY = 'empire_candidature'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -255,6 +257,75 @@ export default function AcademyApplicationForm() {
   const [error, setError] = useState<string | null>(null)
   const [done, setDone] = useState(false)
   const [resultDisc, setResultDisc] = useState<DiscType | null>(null)
+  const [resumeData, setResumeData] = useState<{ id: string; step: number; name: string } | null>(null)
+  const [resumeLoading, setResumeLoading] = useState(false)
+
+  // ── Check for saved progress on mount ───────────────────────────────────
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY)
+      if (!saved) return
+      const parsed = JSON.parse(saved)
+      if (parsed?.id && parsed?.step && parsed.step > 1 && parsed.step < 6) {
+        setResumeData(parsed)
+      }
+    } catch {
+      // ignore malformed data
+    }
+  }, [])
+
+  // ── Persist progress to localStorage ────────────────────────────────────
+  function saveProgress(id: string, currentStep: number, name: string) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ id, step: currentStep, name }))
+    } catch { /* ignore */ }
+  }
+
+  function clearProgress() {
+    try { localStorage.removeItem(STORAGE_KEY) } catch { /* ignore */ }
+  }
+
+  // ── Resume existing application ──────────────────────────────────────────
+  async function handleResume() {
+    if (!resumeData) return
+    setResumeLoading(true)
+    try {
+      const res = await fetch(`/api/applications/${resumeData.id}`)
+      if (!res.ok) throw new Error()
+      const data = await res.json()
+      // Restore form data from DB
+      setForm({
+        first_name: data.first_name ?? '',
+        last_name: data.last_name ?? '',
+        email: data.email ?? '',
+        phone: data.phone ?? '',
+        hours_per_week: data.hours_per_week ?? '',
+        budget: data.budget ?? '',
+        has_created_content: data.has_created_content ?? '',
+        content_link: data.content_link ?? '',
+        haunting_project: data.haunting_project ?? '',
+        disc_role: data.disc_role ?? '',
+        disc_obstacle: data.disc_obstacle ?? '',
+        friends_say: data.friends_say ?? '',
+        social_link: data.social_link ?? '',
+        motivation: data.motivation ?? '',
+      })
+      setAppId(resumeData.id)
+      setStep(Math.min(resumeData.step + 1, 5))
+      setResumeData(null)
+    } catch {
+      // If fetch fails, just start fresh
+      clearProgress()
+      setResumeData(null)
+    } finally {
+      setResumeLoading(false)
+    }
+  }
+
+  function handleStartFresh() {
+    clearProgress()
+    setResumeData(null)
+  }
 
   const set = (field: keyof FormData) => (v: string) =>
     setForm(prev => ({ ...prev, [field]: v }))
@@ -301,6 +372,7 @@ export default function AcademyApplicationForm() {
         const json = await res.json()
         if (!res.ok) throw new Error(json.error)
         setAppId(json.id)
+        saveProgress(json.id, 1, form.first_name)
       } else {
         // Update existing record
         const payload: Record<string, unknown> = { step_completed: step }
@@ -340,10 +412,13 @@ export default function AcademyApplicationForm() {
           const { calculateScore } = await import('@/lib/scoring')
           const { disc } = calculateScore(form)
           if (disc !== 'pending') setResultDisc(disc)
+          clearProgress()
           setDone(true)
           setLoading(false)
           return
         }
+        // Save progress after each successful PATCH
+        if (appId) saveProgress(appId, step, form.first_name)
       }
 
       setStep(s => s + 1)
@@ -357,6 +432,45 @@ export default function AcademyApplicationForm() {
   // ── UI ────────────────────────────────────────────────────────────────────
 
   if (done) return <ResultScreen disc={resultDisc} />
+
+  // Resume prompt
+  if (resumeData) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-center py-8"
+      >
+        <div className="w-14 h-14 rounded-2xl bg-empire/10 border border-empire/30 flex items-center justify-center mx-auto mb-5">
+          <RotateCcw className="text-empire" size={22} />
+        </div>
+        <h2 className="text-xl font-bold text-white mb-2">
+          Tu avais commencé, {resumeData.name}.
+        </h2>
+        <p className="text-sm text-neutral-500 mb-8 max-w-xs mx-auto">
+          On a gardé ta progression. Tu veux reprendre là où tu t'étais arrêté ?
+        </p>
+        <div className="space-y-3 max-w-xs mx-auto">
+          <button
+            onClick={handleResume}
+            disabled={resumeLoading}
+            className="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-empire text-black font-bold text-sm rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.25)]"
+          >
+            {resumeLoading
+              ? <><Loader2 size={16} className="animate-spin" /> Chargement...</>
+              : <>Reprendre (étape {resumeData.step} / 5) →</>
+            }
+          </button>
+          <button
+            onClick={handleStartFresh}
+            className="w-full px-6 py-3 text-sm text-neutral-500 hover:text-neutral-300 transition-colors"
+          >
+            Recommencer depuis le début
+          </button>
+        </div>
+      </motion.div>
+    )
+  }
 
   const progress = ((step - 1) / (STEPS.length - 1)) * 100
 
