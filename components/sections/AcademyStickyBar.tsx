@@ -1,15 +1,15 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useApplicationCount } from '@/hooks/useApplicationCount'
 
-const PLACES_OPTIONS = [13, 14, 15, 16, 17]
+const MAX_SELECTED = 20
 
 export default function AcademyStickyBar() {
   const [visible, setVisible] = useState(false)
-  const [places, setPlaces] = useState<number | null>(null)
+  const appCount = useApplicationCount()
 
   useEffect(() => {
-    setPlaces(PLACES_OPTIONS[Math.floor(Math.random() * PLACES_OPTIONS.length)])
     const onScroll = () => setVisible(window.scrollY > 400)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
@@ -28,7 +28,7 @@ export default function AcademyStickyBar() {
           <div className="container">
             <div className="flex items-center justify-between gap-3 py-2.5 md:py-3">
 
-              {/* Left — statut + places */}
+              {/* Left — statut + candidatures live */}
               <div className="flex items-center gap-3 min-w-0">
                 <span className="relative flex h-2 w-2 flex-shrink-0">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-empire opacity-60" />
@@ -40,14 +40,11 @@ export default function AcademyStickyBar() {
                     <span className="hidden md:inline text-neutral-500"> · </span>
                     <span className="hidden md:inline text-empire font-semibold">25 avr → 17 mai</span>
                   </p>
-                  <div className="hidden sm:flex items-center gap-1.5">
-                    <div className="w-24 h-1.5 rounded-full bg-white/10 overflow-hidden">
-                      <div className="h-full bg-empire rounded-full" style={{ width: '83%' }} />
-                    </div>
+                  {appCount !== null && (
                     <span className="text-[11px] text-empire font-semibold whitespace-nowrap">
-                      {places !== null ? `${places} places restantes` : '— places restantes'}
+                      {appCount} candidatures · {MAX_SELECTED} admis
                     </span>
-                  </div>
+                  )}
                 </div>
               </div>
 

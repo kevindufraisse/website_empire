@@ -1,19 +1,20 @@
 'use client'
 import { motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
 import RetroGrid from '@/components/magicui/retro-grid'
 import { Meteors } from '@/components/magicui/meteors'
 import { SparklesText } from '@/components/magicui/sparkles-text'
 import NumberTicker from '@/components/magicui/number-ticker'
 import Image from 'next/image'
+import { useApplicationCount } from '@/hooks/useApplicationCount'
+
+const MAX_SELECTED = 20
+
 const stats = [
   { ticker: 3000, suffix: '€', label: 'objectif élèves', sub: 'dès les 1ers mois' },
   { ticker: 4, suffix: 'h', label: 'par semaine', sub: 'système en place' },
   { ticker: 10, suffix: 'M+', label: 'vues/mois', sub: 'générées pour nos clients' },
   { ticker: 21, suffix: 'j', label: 'durée du bootcamp', sub: 'de zéro à opérationnel' },
 ]
-
-const PLACES_OPTIONS = [13, 14, 15, 16, 17]
 
 const founders = [
   {
@@ -31,10 +32,7 @@ const founders = [
 ]
 
 export default function AcademyHeroSection() {
-  const [places, setPlaces] = useState<number | null>(null)
-  useEffect(() => {
-    setPlaces(PLACES_OPTIONS[Math.floor(Math.random() * PLACES_OPTIONS.length)])
-  }, [])
+  const appCount = useApplicationCount()
 
   return (
     <section className="relative w-full py-24 md:py-36 overflow-hidden bg-gradient-to-b from-black via-transparent to-[#0f0f0f]">
@@ -45,7 +43,7 @@ export default function AcademyHeroSection() {
       <div className="container relative z-10">
         <div className="max-w-3xl mx-auto text-center">
 
-          {/* Badge + date + places */}
+          {/* Badge + date + candidatures */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -55,7 +53,9 @@ export default function AcademyHeroSection() {
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-empire/10 border border-empire/40">
               <span className="w-2 h-2 rounded-full bg-empire animate-pulse" />
               <p className="text-xs font-bold text-empire tracking-widest uppercase">
-                Sur sélection{places !== null ? ` · ${places} places restantes` : ''}
+                {appCount !== null
+                  ? `${appCount} candidatures · ${MAX_SELECTED} sélectionnés`
+                  : `Sur sélection · ${MAX_SELECTED} admis`}
               </p>
             </div>
             <div className="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-white/5 border border-white/15">

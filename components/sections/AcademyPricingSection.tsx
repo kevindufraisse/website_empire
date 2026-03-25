@@ -1,11 +1,12 @@
 'use client'
 import { motion, useInView } from 'framer-motion'
-import { useRef, useEffect, useState } from 'react'
-import { Check } from 'lucide-react'
+import { useRef } from 'react'
+import { Check, Users } from 'lucide-react'
 import BorderBeam from '@/components/magicui/border-beam'
 import { AvatarCircles } from '@/components/magicui/avatar-circles'
+import { useApplicationCount } from '@/hooks/useApplicationCount'
 
-const PLACES_OPTIONS = [13, 14, 15, 16, 17]
+const MAX_SELECTED = 20
 
 const avatars = [
   { imageUrl: 'https://i.pravatar.cc/48?img=11', profileUrl: '' },
@@ -42,10 +43,7 @@ const features = [
 ]
 
 export default function AcademyPricingSection() {
-  const [places, setPlaces] = useState<number | null>(null)
-  useEffect(() => {
-    setPlaces(PLACES_OPTIONS[Math.floor(Math.random() * PLACES_OPTIONS.length)])
-  }, [])
+  const appCount = useApplicationCount()
 
   return (
     <section id="academy-pricing" className="relative w-full py-20 md:py-28 bg-gradient-to-b from-[#0f0f0f] to-black overflow-hidden">
@@ -93,27 +91,32 @@ export default function AcademyPricingSection() {
               </a>
               <p className="text-xs text-neutral-600 text-center mt-2">Formulaire de 2 min · Réponse le 2 avril · Aucun engagement</p>
 
-              <div className="flex flex-col items-center gap-3 mt-5">
-                <div className="flex items-center gap-3">
-                  <AvatarCircles avatarUrls={avatars} numPeople={31} className="[&_img]:h-8 [&_img]:w-8 [&_div]:h-8 [&_div]:w-8 [&_div]:text-[10px] -space-x-3" />
-                  <p className="text-xs text-neutral-400">déjà admis</p>
-                </div>
-                {/* Barre de places */}
-                <div className="w-full">
-                  <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-[11px] text-neutral-500">Capacité de la promotion</span>
-                    <span className="text-[11px] font-bold text-empire">
-                      {places !== null ? `${places} places restantes / 100` : '— places restantes / 100'}
-                    </span>
+              {/* Live candidatures counter */}
+              <div className="mt-5 p-4 rounded-xl bg-black/30 border border-empire/20 space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Users size={14} className="text-empire" />
+                    <span className="text-xs text-neutral-400">Candidatures reçues</span>
                   </div>
+                  <span className="text-sm font-black text-empire">
+                    {appCount !== null ? appCount : '—'}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-neutral-400">Admis dans la promotion</span>
+                  <span className="text-sm font-black text-white">{MAX_SELECTED} max</span>
+                </div>
+                {appCount !== null && (
                   <div className="w-full h-1.5 rounded-full bg-white/8 overflow-hidden">
                     <div
-                      className="h-full bg-gradient-to-r from-empire to-empire/70 rounded-full transition-all"
-                      style={{ width: places !== null ? `${100 - places}%` : '83%' }}
+                      className="h-full bg-gradient-to-r from-red-500 to-empire rounded-full transition-all"
+                      style={{ width: `${Math.min(100, (appCount / (appCount + MAX_SELECTED)) * 100)}%` }}
                     />
                   </div>
-                  <p className="text-[10px] text-neutral-600 text-center mt-1.5">Sur sélection · Places limitées</p>
-                </div>
+                )}
+                <p className="text-[11px] text-neutral-500 text-center leading-snug">
+                  Plus tu candidates tôt, plus tu as de chances d'être sélectionné.
+                </p>
               </div>
             </div>
           </FadeInBlock>

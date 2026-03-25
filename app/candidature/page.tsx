@@ -1,4 +1,5 @@
 import AcademyApplicationForm from '@/components/AcademyApplicationForm'
+import CandidatureBadge from '@/components/CandidatureBadge'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -49,10 +50,7 @@ export default function CandidaturePage() {
               <span className="text-white font-bold text-sm">Empire Internet</span>
             </div>
 
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-empire/10 border border-empire/30 mb-6">
-              <span className="w-2 h-2 rounded-full bg-empire animate-pulse" />
-              <span className="text-xs font-bold text-empire tracking-widest uppercase">Sur sélection · 17 places restantes</span>
-            </div>
+            <CandidatureBadge />
 
             <h1 className="text-3xl md:text-4xl font-black text-white leading-tight mb-4">
               Test d'éligibilité.{' '}

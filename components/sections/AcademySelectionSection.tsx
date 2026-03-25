@@ -27,8 +27,8 @@ const criteria = [
 ]
 
 const steps = [
-  { num: '01', title: 'Tu passes le test', desc: '2 minutes. On vérifie que le profil et les objectifs sont alignés.' },
-  { num: '02', title: 'On te répond le 2 avril', desc: 'Admis ou pas. Si c\'est non, on te dit pourquoi et ce qu\'on conseille.' },
+  { num: '01', title: 'Tu passes le test', desc: '2 minutes. On vérifie que le profil et les objectifs sont alignés. Plus tu candidates tôt, plus tu as de chances.' },
+  { num: '02', title: 'On te répond le 2 avril', desc: 'Admis ou pas — pour les 20 profils retenus. Si c\'est non, on te dit pourquoi et ce qu\'on conseille.' },
   { num: '03', title: 'Tu rejoins la promotion', desc: 'Accès immédiat au programme. Démarrage le 25 avril.' },
 ]
 
@@ -43,11 +43,11 @@ export default function AcademySelectionSection() {
             <div className="text-center mb-12">
               <p className="text-xs font-bold text-empire tracking-widest uppercase mb-3">Sur sélection</p>
               <h2 className="text-2xl md:text-4xl font-bold text-white leading-tight mb-3">
-                Pourquoi c'est sur sélection —{' '}
-                <span className="text-neutral-400">et ce qu'on évalue.</span>
+                On ne sélectionne que 20 personnes.{' '}
+                <span className="text-neutral-400">Voici comment.</span>
               </h2>
               <p className="text-neutral-400 text-base max-w-xl mx-auto">
-                La qualité du groupe fait partie du programme. On accepte uniquement des profils qui vont s'impliquer — pour que tout le monde progresse.
+                La qualité du groupe fait partie du programme. Chaque candidature est lue. On prend les 20 profils les plus motivés — pas les premiers arrivés.
               </p>
             </div>
           </FadeInBlock>
