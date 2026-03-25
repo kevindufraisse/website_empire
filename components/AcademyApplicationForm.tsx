@@ -116,17 +116,31 @@ function Textarea({
 // ─── Country codes ────────────────────────────────────────────────────────────
 
 const COUNTRIES = [
+  // Favoris en premier
   { code: '+33',  flag: '🇫🇷', name: 'France' },
   { code: '+32',  flag: '🇧🇪', name: 'Belgique' },
   { code: '+41',  flag: '🇨🇭', name: 'Suisse' },
   { code: '+352', flag: '🇱🇺', name: 'Luxembourg' },
+  // Afrique francophone
   { code: '+212', flag: '🇲🇦', name: 'Maroc' },
   { code: '+213', flag: '🇩🇿', name: 'Algérie' },
   { code: '+216', flag: '🇹🇳', name: 'Tunisie' },
   { code: '+221', flag: '🇸🇳', name: 'Sénégal' },
-  { code: '+225', flag: '🇨🇮', name: 'Côte d\'Ivoire' },
+  { code: '+225', flag: '🇨🇮', name: "Côte d'Ivoire" },
   { code: '+237', flag: '🇨🇲', name: 'Cameroun' },
-  { code: '+1',   flag: '🇺🇸', name: 'États-Unis / Canada' },
+  { code: '+223', flag: '🇲🇱', name: 'Mali' },
+  { code: '+226', flag: '🇧🇫', name: 'Burkina Faso' },
+  { code: '+227', flag: '🇳🇪', name: 'Niger' },
+  { code: '+228', flag: '🇹🇬', name: 'Togo' },
+  { code: '+229', flag: '🇧🇯', name: 'Bénin' },
+  { code: '+230', flag: '🇲🇺', name: 'Maurice' },
+  { code: '+241', flag: '🇬🇦', name: 'Gabon' },
+  { code: '+242', flag: '🇨🇬', name: 'Congo' },
+  { code: '+243', flag: '🇨🇩', name: 'RD Congo' },
+  { code: '+261', flag: '🇲🇬', name: 'Madagascar' },
+  // Europe
+  { code: '+1',   flag: '🇺🇸', name: 'États-Unis' },
+  { code: '+1',   flag: '🇨🇦', name: 'Canada' },
   { code: '+44',  flag: '🇬🇧', name: 'Royaume-Uni' },
   { code: '+49',  flag: '🇩🇪', name: 'Allemagne' },
   { code: '+34',  flag: '🇪🇸', name: 'Espagne' },
@@ -134,8 +148,44 @@ const COUNTRIES = [
   { code: '+351', flag: '🇵🇹', name: 'Portugal' },
   { code: '+31',  flag: '🇳🇱', name: 'Pays-Bas' },
   { code: '+46',  flag: '🇸🇪', name: 'Suède' },
+  { code: '+47',  flag: '🇳🇴', name: 'Norvège' },
+  { code: '+45',  flag: '🇩🇰', name: 'Danemark' },
+  { code: '+358', flag: '🇫🇮', name: 'Finlande' },
+  { code: '+43',  flag: '🇦🇹', name: 'Autriche' },
+  { code: '+48',  flag: '🇵🇱', name: 'Pologne' },
+  { code: '+420', flag: '🇨🇿', name: 'Tchéquie' },
+  { code: '+36',  flag: '🇭🇺', name: 'Hongrie' },
+  { code: '+40',  flag: '🇷🇴', name: 'Roumanie' },
+  { code: '+30',  flag: '🇬🇷', name: 'Grèce' },
+  { code: '+7',   flag: '🇷🇺', name: 'Russie' },
+  { code: '+380', flag: '🇺🇦', name: 'Ukraine' },
+  // Moyen-Orient
   { code: '+971', flag: '🇦🇪', name: 'Émirats Arabes Unis' },
   { code: '+966', flag: '🇸🇦', name: 'Arabie Saoudite' },
+  { code: '+974', flag: '🇶🇦', name: 'Qatar' },
+  { code: '+965', flag: '🇰🇼', name: 'Koweït' },
+  { code: '+972', flag: '🇮🇱', name: 'Israël' },
+  { code: '+90',  flag: '🇹🇷', name: 'Turquie' },
+  // Asie
+  { code: '+86',  flag: '🇨🇳', name: 'Chine' },
+  { code: '+81',  flag: '🇯🇵', name: 'Japon' },
+  { code: '+82',  flag: '🇰🇷', name: 'Corée du Sud' },
+  { code: '+91',  flag: '🇮🇳', name: 'Inde' },
+  { code: '+62',  flag: '🇮🇩', name: 'Indonésie' },
+  { code: '+66',  flag: '🇹🇭', name: 'Thaïlande' },
+  { code: '+84',  flag: '🇻🇳', name: 'Vietnam' },
+  { code: '+63',  flag: '🇵🇭', name: 'Philippines' },
+  { code: '+65',  flag: '🇸🇬', name: 'Singapour' },
+  // Amériques
+  { code: '+55',  flag: '🇧🇷', name: 'Brésil' },
+  { code: '+52',  flag: '🇲🇽', name: 'Mexique' },
+  { code: '+54',  flag: '🇦🇷', name: 'Argentine' },
+  { code: '+57',  flag: '🇨🇴', name: 'Colombie' },
+  { code: '+56',  flag: '🇨🇱', name: 'Chili' },
+  { code: '+51',  flag: '🇵🇪', name: 'Pérou' },
+  // Océanie
+  { code: '+61',  flag: '🇦🇺', name: 'Australie' },
+  { code: '+64',  flag: '🇳🇿', name: 'Nouvelle-Zélande' },
 ]
 
 function PhoneInput({
@@ -147,7 +197,9 @@ function PhoneInput({
   const [dialCode, setDialCode] = useState('+33')
   const [localNumber, setLocalNumber] = useState('')
   const [open, setOpen] = useState(false)
+  const [search, setSearch] = useState('')
   const ref = useRef<HTMLDivElement>(null)
+  const searchRef = useRef<HTMLInputElement>(null)
 
   // Sync combined value
   useEffect(() => {
@@ -158,7 +210,9 @@ function PhoneInput({
   // Pre-fill from existing value (resume)
   useEffect(() => {
     if (!value) return
-    const found = COUNTRIES.find(c => value.startsWith(c.code))
+    // Sort by code length desc to match longer codes first (+352 before +35)
+    const sorted = [...COUNTRIES].sort((a, b) => b.code.length - a.code.length)
+    const found = sorted.find(c => value.startsWith(c.code))
     if (found) {
       setDialCode(found.code)
       setLocalNumber(value.slice(found.code.length))
@@ -170,13 +224,28 @@ function PhoneInput({
   // Close on outside click
   useEffect(() => {
     function handle(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false)
+        setSearch('')
+      }
     }
     document.addEventListener('mousedown', handle)
     return () => document.removeEventListener('mousedown', handle)
   }, [])
 
+  // Focus search when dropdown opens
+  useEffect(() => {
+    if (open) setTimeout(() => searchRef.current?.focus(), 50)
+  }, [open])
+
   const selected = COUNTRIES.find(c => c.code === dialCode) ?? COUNTRIES[0]
+
+  const filtered = search.trim()
+    ? COUNTRIES.filter(c =>
+        c.name.toLowerCase().includes(search.toLowerCase()) ||
+        c.code.includes(search)
+      )
+    : COUNTRIES
 
   return (
     <div className="flex flex-col gap-1.5">
@@ -197,21 +266,37 @@ function PhoneInput({
           </button>
 
           {open && (
-            <div className="absolute top-full left-0 mt-1 z-50 w-56 max-h-60 overflow-y-auto rounded-xl bg-[#111] border border-white/10 shadow-xl">
-              {COUNTRIES.map(c => (
-                <button
-                  key={c.code + c.name}
-                  type="button"
-                  onClick={() => { setDialCode(c.code); setOpen(false) }}
-                  className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm text-left hover:bg-white/5 transition-colors ${
-                    c.code === dialCode ? 'text-empire bg-empire/5' : 'text-neutral-300'
-                  }`}
-                >
-                  <span className="text-base leading-none">{c.flag}</span>
-                  <span className="flex-1 truncate">{c.name}</span>
-                  <span className="text-xs text-neutral-500 tabular-nums">{c.code}</span>
-                </button>
-              ))}
+            <div className="absolute top-full left-0 mt-1 z-50 w-64 rounded-xl bg-[#111] border border-white/10 shadow-2xl overflow-hidden">
+              {/* Search */}
+              <div className="p-2 border-b border-white/10">
+                <input
+                  ref={searchRef}
+                  type="text"
+                  value={search}
+                  onChange={e => setSearch(e.target.value)}
+                  placeholder="Chercher un pays ou indicatif..."
+                  className="w-full bg-white/[0.06] border border-white/10 rounded-lg px-3 py-2 text-white placeholder-neutral-600 text-xs focus:outline-none focus:border-empire/50 transition-all"
+                />
+              </div>
+              {/* List */}
+              <div className="max-h-52 overflow-y-auto">
+                {filtered.length === 0 ? (
+                  <p className="px-4 py-3 text-xs text-neutral-600 text-center">Aucun résultat</p>
+                ) : filtered.map((c, i) => (
+                  <button
+                    key={`${c.code}-${i}`}
+                    type="button"
+                    onClick={() => { setDialCode(c.code); setOpen(false); setSearch('') }}
+                    className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm text-left hover:bg-white/5 transition-colors ${
+                      c.code === dialCode && c.name === selected.name ? 'text-empire bg-empire/5' : 'text-neutral-300'
+                    }`}
+                  >
+                    <span className="text-base leading-none">{c.flag}</span>
+                    <span className="flex-1 truncate text-xs">{c.name}</span>
+                    <span className="text-xs text-neutral-500 tabular-nums">{c.code}</span>
+                  </button>
+                ))}
+              </div>
             </div>
           )}
         </div>
