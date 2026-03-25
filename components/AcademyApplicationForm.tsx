@@ -1,7 +1,7 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Check, ArrowRight, Loader2, ChevronLeft, RotateCcw, Copy, CheckCheck } from 'lucide-react'
+import { Check, ArrowRight, Loader2, ChevronLeft, RotateCcw, Copy, CheckCheck, ChevronDown } from 'lucide-react'
 
 const STORAGE_KEY = 'empire_candidature'
 
@@ -109,6 +109,122 @@ function Textarea({
         rows={3}
         className="w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-neutral-600 text-sm focus:outline-none focus:border-empire/60 focus:bg-white/[0.07] transition-all resize-none"
       />
+    </div>
+  )
+}
+
+// ─── Country codes ────────────────────────────────────────────────────────────
+
+const COUNTRIES = [
+  { code: '+33',  flag: '🇫🇷', name: 'France' },
+  { code: '+32',  flag: '🇧🇪', name: 'Belgique' },
+  { code: '+41',  flag: '🇨🇭', name: 'Suisse' },
+  { code: '+352', flag: '🇱🇺', name: 'Luxembourg' },
+  { code: '+212', flag: '🇲🇦', name: 'Maroc' },
+  { code: '+213', flag: '🇩🇿', name: 'Algérie' },
+  { code: '+216', flag: '🇹🇳', name: 'Tunisie' },
+  { code: '+221', flag: '🇸🇳', name: 'Sénégal' },
+  { code: '+225', flag: '🇨🇮', name: 'Côte d\'Ivoire' },
+  { code: '+237', flag: '🇨🇲', name: 'Cameroun' },
+  { code: '+1',   flag: '🇺🇸', name: 'États-Unis / Canada' },
+  { code: '+44',  flag: '🇬🇧', name: 'Royaume-Uni' },
+  { code: '+49',  flag: '🇩🇪', name: 'Allemagne' },
+  { code: '+34',  flag: '🇪🇸', name: 'Espagne' },
+  { code: '+39',  flag: '🇮🇹', name: 'Italie' },
+  { code: '+351', flag: '🇵🇹', name: 'Portugal' },
+  { code: '+31',  flag: '🇳🇱', name: 'Pays-Bas' },
+  { code: '+46',  flag: '🇸🇪', name: 'Suède' },
+  { code: '+971', flag: '🇦🇪', name: 'Émirats Arabes Unis' },
+  { code: '+966', flag: '🇸🇦', name: 'Arabie Saoudite' },
+]
+
+function PhoneInput({
+  value, onChange,
+}: {
+  value: string
+  onChange: (v: string) => void
+}) {
+  const [dialCode, setDialCode] = useState('+33')
+  const [localNumber, setLocalNumber] = useState('')
+  const [open, setOpen] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+
+  // Sync combined value
+  useEffect(() => {
+    const num = localNumber.replace(/^0/, '')
+    onChange(`${dialCode}${num}`)
+  }, [dialCode, localNumber]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Pre-fill from existing value (resume)
+  useEffect(() => {
+    if (!value) return
+    const found = COUNTRIES.find(c => value.startsWith(c.code))
+    if (found) {
+      setDialCode(found.code)
+      setLocalNumber(value.slice(found.code.length))
+    } else {
+      setLocalNumber(value)
+    }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Close on outside click
+  useEffect(() => {
+    function handle(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
+    }
+    document.addEventListener('mousedown', handle)
+    return () => document.removeEventListener('mousedown', handle)
+  }, [])
+
+  const selected = COUNTRIES.find(c => c.code === dialCode) ?? COUNTRIES[0]
+
+  return (
+    <div className="flex flex-col gap-1.5">
+      <label className="text-sm font-medium text-neutral-300">
+        Téléphone <span className="text-empire">*</span>
+      </label>
+      <div className="flex gap-2" ref={ref}>
+        {/* Dropdown trigger */}
+        <div className="relative flex-shrink-0">
+          <button
+            type="button"
+            onClick={() => setOpen(o => !o)}
+            className="flex items-center gap-1.5 px-3 py-3 bg-white/[0.04] border border-white/10 rounded-xl text-sm text-white hover:bg-white/[0.07] focus:outline-none focus:border-empire/60 transition-all h-full"
+          >
+            <span className="text-base leading-none">{selected.flag}</span>
+            <span className="text-neutral-400 text-xs tabular-nums">{selected.code}</span>
+            <ChevronDown size={12} className={`text-neutral-600 transition-transform ${open ? 'rotate-180' : ''}`} />
+          </button>
+
+          {open && (
+            <div className="absolute top-full left-0 mt-1 z-50 w-56 max-h-60 overflow-y-auto rounded-xl bg-[#111] border border-white/10 shadow-xl">
+              {COUNTRIES.map(c => (
+                <button
+                  key={c.code + c.name}
+                  type="button"
+                  onClick={() => { setDialCode(c.code); setOpen(false) }}
+                  className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm text-left hover:bg-white/5 transition-colors ${
+                    c.code === dialCode ? 'text-empire bg-empire/5' : 'text-neutral-300'
+                  }`}
+                >
+                  <span className="text-base leading-none">{c.flag}</span>
+                  <span className="flex-1 truncate">{c.name}</span>
+                  <span className="text-xs text-neutral-500 tabular-nums">{c.code}</span>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Number input */}
+        <input
+          type="tel"
+          value={localNumber}
+          onChange={e => setLocalNumber(e.target.value.replace(/[^\d\s\-().]/g, ''))}
+          placeholder="6 12 34 56 78"
+          className="flex-1 bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-neutral-600 text-sm focus:outline-none focus:border-empire/60 focus:bg-white/[0.07] transition-all"
+        />
+      </div>
     </div>
   )
 }
@@ -453,7 +569,7 @@ export default function AcademyApplicationForm() {
   function isStepValid() {
     switch (step) {
       case 1:
-        return form.first_name.trim() && form.last_name.trim() && form.email.includes('@') && form.phone.trim().length >= 8
+        return form.first_name.trim() && form.last_name.trim() && form.email.includes('@') && form.phone.replace(/\D/g, '').length >= 7
       case 2:
         return !!form.hours_per_week && !!form.budget
       case 3:
@@ -723,7 +839,7 @@ export default function AcademyApplicationForm() {
                 <Input label="Nom" name="last_name" value={form.last_name} onChange={set('last_name')} placeholder="Dupont" required />
               </div>
               <Input label="Email" name="email" type="email" value={form.email} onChange={set('email')} placeholder="kevin@exemple.com" required />
-              <Input label="Téléphone" name="phone" type="tel" value={form.phone} onChange={set('phone')} placeholder="+33 6 12 34 56 78" required />
+              <PhoneInput value={form.phone} onChange={set('phone')} />
             </div>
           )}
 
