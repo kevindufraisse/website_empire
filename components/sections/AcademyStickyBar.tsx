@@ -2,10 +2,14 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
+const PLACES_OPTIONS = [13, 14, 15, 16, 17]
+
 export default function AcademyStickyBar() {
   const [visible, setVisible] = useState(false)
+  const [places, setPlaces] = useState<number | null>(null)
 
   useEffect(() => {
+    setPlaces(PLACES_OPTIONS[Math.floor(Math.random() * PLACES_OPTIONS.length)])
     const onScroll = () => setVisible(window.scrollY > 400)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
@@ -40,7 +44,9 @@ export default function AcademyStickyBar() {
                     <div className="w-24 h-1.5 rounded-full bg-white/10 overflow-hidden">
                       <div className="h-full bg-empire rounded-full" style={{ width: '83%' }} />
                     </div>
-                    <span className="text-[11px] text-empire font-semibold whitespace-nowrap">17 places restantes</span>
+                    <span className="text-[11px] text-empire font-semibold whitespace-nowrap">
+                      {places !== null ? `${places} places restantes` : '— places restantes'}
+                    </span>
                   </div>
                 </div>
               </div>

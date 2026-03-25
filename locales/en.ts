@@ -13,7 +13,7 @@ export const en = {
     hiring: 'We are hiring',
   },
   hero: {
-    targetAudience: 'For entrepreneurs, CEOs & professionals',
+    targetAudience: 'For freelancers, employees & entrepreneurs',
     title: 'From Invisible to <span class="text-empire">Omnipresent</span> in the next 24 Hours.',
     subtitle: 'Speak once a week for 15 minutes. Get a month of posts, reels, newsletters & videos — live on every platform.',
     description: 'Limited to 100 clients',

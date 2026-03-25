@@ -1,10 +1,12 @@
 'use client'
 import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
 import RetroGrid from '@/components/magicui/retro-grid'
 import { Meteors } from '@/components/magicui/meteors'
 import { SparklesText } from '@/components/magicui/sparkles-text'
 import NumberTicker from '@/components/magicui/number-ticker'
 import Image from 'next/image'
+import { Check } from 'lucide-react'
 
 const stats = [
   { ticker: 3000, suffix: '€', label: 'objectif élèves', sub: 'dès les 1ers mois' },
@@ -12,6 +14,16 @@ const stats = [
   { ticker: 10, suffix: 'M+', label: 'vues/mois', sub: 'générées pour nos clients' },
   { ticker: 21, suffix: 'j', label: 'durée du bootcamp', sub: 'de zéro à opérationnel' },
 ]
+
+const valueItems = [
+  '21 vidéos',
+  '6 lives experts',
+  'Groupe privé',
+  'Certification LinkedIn',
+  'Réseau Empire',
+]
+
+const PLACES_OPTIONS = [13, 14, 15, 16, 17]
 
 const founders = [
   {
@@ -29,6 +41,11 @@ const founders = [
 ]
 
 export default function AcademyHeroSection() {
+  const [places, setPlaces] = useState<number | null>(null)
+  useEffect(() => {
+    setPlaces(PLACES_OPTIONS[Math.floor(Math.random() * PLACES_OPTIONS.length)])
+  }, [])
+
   return (
     <section className="relative w-full py-24 md:py-36 overflow-hidden bg-gradient-to-b from-black via-transparent to-[#0f0f0f]">
       <RetroGrid />
@@ -38,7 +55,7 @@ export default function AcademyHeroSection() {
       <div className="container relative z-10">
         <div className="max-w-3xl mx-auto text-center">
 
-          {/* Badge + date + places — tout en un */}
+          {/* Badge + date + places */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -48,7 +65,7 @@ export default function AcademyHeroSection() {
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-empire/10 border border-empire/40">
               <span className="w-2 h-2 rounded-full bg-empire animate-pulse" />
               <p className="text-xs font-bold text-empire tracking-widest uppercase">
-                Sur sélection · 17 places restantes
+                Sur sélection{places !== null ? ` · ${places} places restantes` : ''}
               </p>
             </div>
             <div className="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-white/5 border border-white/15">
@@ -64,24 +81,35 @@ export default function AcademyHeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-6"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-4"
           >
-            Travaille pour toi.{' '}
+            Deviens expert en viralité.{' '}
             <br className="hidden sm:block" />
             <SparklesText className="text-empire" sparklesCount={7} colors={{ first: '#DAFC68', second: '#a8f040' }}>
-              Sans patron.
+              Gagne 3 000€/mois
             </SparklesText>
+            {' '}en 4h/semaine.
           </motion.h1>
 
-          {/* Subtitle */}
+          {/* Definition under H1 */}
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
+            transition={{ delay: 0.18, duration: 0.5 }}
+            className="text-xs text-neutral-500 mb-6 tracking-wide"
+          >
+            Head of Viralité = la personne qui sait pourquoi un contenu explose — et qui peut le reproduire à la demande.
+          </motion.p>
+
+          {/* Subtitle — Joanna Wiebe style */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.25, duration: 0.6 }}
             className="text-lg md:text-xl text-neutral-300 max-w-2xl mx-auto mb-10"
           >
-            En 21 jours, tu maîtrises ce qui fait exploser un contenu sur tous les réseaux.{' '}
-            <span className="text-white font-semibold">Sans audience, sans expérience — et tu peux en vivre.</span>
+            En 21 jours, tu sais créer des posts qui font des centaines de milliers de vues.{' '}
+            <span className="text-white font-semibold">Et tu peux vendre cette compétence à des clients.</span>
           </motion.p>
 
           {/* CTA */}
@@ -89,7 +117,7 @@ export default function AcademyHeroSection() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.5 }}
-            className="flex flex-col items-center gap-2 mb-12"
+            className="flex flex-col items-center gap-2 mb-6"
           >
             <a
               href="/candidature"
@@ -100,6 +128,21 @@ export default function AcademyHeroSection() {
             <p className="text-xs text-neutral-500">
               Formulaire de 2 min · Réponse sous 24h · Aucun engagement
             </p>
+          </motion.div>
+
+          {/* Value strip — what's included, no price */}
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35, duration: 0.5 }}
+            className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 mb-10 px-4 py-3 rounded-xl bg-white/[0.03] border border-white/8 max-w-xl mx-auto"
+          >
+            {valueItems.map((item, i) => (
+              <div key={i} className="flex items-center gap-1.5">
+                <Check size={11} className="text-empire flex-shrink-0" />
+                <span className="text-[12px] text-neutral-400 whitespace-nowrap">{item}</span>
+              </div>
+            ))}
           </motion.div>
 
           {/* Stats */}

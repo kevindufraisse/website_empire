@@ -136,7 +136,7 @@ export const fr: Translations = {
     hiring: 'We are hiring',
   },
   hero: {
-    targetAudience: 'Pour entrepreneurs, CEO & salariés',
+    targetAudience: 'Pour freelances, salariés & entrepreneurs',
     title: 'De <span class="text-empire">Invisible</span> à <span class="text-empire">Omniprésent</span> dans les prochaines 24h.',
     subtitle: 'Parlez 15 min/semaine. Un mois de posts, reels, newsletters et vidéos — publiés partout.',
     description: 'Limité à 100 clients',

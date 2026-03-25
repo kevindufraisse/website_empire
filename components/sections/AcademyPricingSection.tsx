@@ -1,9 +1,11 @@
 'use client'
 import { motion, useInView } from 'framer-motion'
-import { useRef } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { Check } from 'lucide-react'
 import BorderBeam from '@/components/magicui/border-beam'
 import { AvatarCircles } from '@/components/magicui/avatar-circles'
+
+const PLACES_OPTIONS = [13, 14, 15, 16, 17]
 
 const avatars = [
   { imageUrl: 'https://i.pravatar.cc/48?img=11', profileUrl: '' },
@@ -40,6 +42,11 @@ const features = [
 ]
 
 export default function AcademyPricingSection() {
+  const [places, setPlaces] = useState<number | null>(null)
+  useEffect(() => {
+    setPlaces(PLACES_OPTIONS[Math.floor(Math.random() * PLACES_OPTIONS.length)])
+  }, [])
+
   return (
     <section id="academy-pricing" className="relative w-full py-20 md:py-28 bg-gradient-to-b from-[#0f0f0f] to-black overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_40%_at_50%_0%,rgba(218,252,104,0.06),transparent)]" />
@@ -95,10 +102,15 @@ export default function AcademyPricingSection() {
                 <div className="w-full">
                   <div className="flex items-center justify-between mb-1.5">
                     <span className="text-[11px] text-neutral-500">Capacité de la promotion</span>
-                    <span className="text-[11px] font-bold text-empire">17 places restantes / 100</span>
+                    <span className="text-[11px] font-bold text-empire">
+                      {places !== null ? `${places} places restantes / 100` : '— places restantes / 100'}
+                    </span>
                   </div>
                   <div className="w-full h-1.5 rounded-full bg-white/8 overflow-hidden">
-                    <div className="h-full bg-gradient-to-r from-empire to-empire/70 rounded-full" style={{ width: '83%' }} />
+                    <div
+                      className="h-full bg-gradient-to-r from-empire to-empire/70 rounded-full transition-all"
+                      style={{ width: places !== null ? `${100 - places}%` : '83%' }}
+                    />
                   </div>
                   <p className="text-[10px] text-neutral-600 text-center mt-1.5">Sur sélection · Places limitées</p>
                 </div>
