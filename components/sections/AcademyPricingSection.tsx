@@ -32,7 +32,7 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 
 const features = [
   '21 vidéos pré-enregistrées',
-  '21 exercices quotidiens',
+  '21 défis quotidiens',
   '3 lives avec Marc',
   '3 lives avec Kevin',
   '1 Q&A en direct avec Kevin & Marc',
@@ -91,7 +91,7 @@ export default function AcademyPricingSection() {
               >
                 Passer le test d'éligibilité →
               </a>
-              <p className="text-xs text-neutral-600 text-center mt-2">Formulaire de 2 min · Réponse sous 24h · Aucun engagement</p>
+              <p className="text-xs text-neutral-600 text-center mt-2">Formulaire de 2 min · Réponse le 2 avril · Aucun engagement</p>
 
               <div className="flex flex-col items-center gap-3 mt-5">
                 <div className="flex items-center gap-3">

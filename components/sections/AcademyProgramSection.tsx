@@ -107,7 +107,7 @@ const tools = [
   },
   {
     icon: PenLine,
-    label: 'Exercices quotidiens',
+    label: 'Défis quotidiens',
     desc: 'Chaque jour, une action concrète. Tu ne regardes pas — tu fais.',
     glow: false,
   },

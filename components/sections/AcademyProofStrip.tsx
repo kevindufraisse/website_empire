@@ -7,12 +7,16 @@ const before = [
   { label: 'Vues', value: '247', raw: null },
   { label: 'Likes', value: '4', raw: null },
   { label: 'Abonnés gagnés', value: '0', raw: null },
+  { label: 'RDV générés / mois', value: '0', raw: null },
+  { label: 'Revenus générés', value: '0€', raw: null },
 ]
 
 const after = [
-  { label: 'Vues', value: null, raw: 1200000, suffix: '' },
-  { label: 'Likes', value: null, raw: 38400, suffix: '' },
-  { label: 'Abonnés gagnés', value: null, raw: 2100, suffix: '+' },
+  { label: 'Vues', value: null, raw: 1199942, suffix: '' },
+  { label: 'Likes', value: null, raw: 38391, suffix: '' },
+  { label: 'Abonnés gagnés', value: null, raw: 2099, suffix: '+' },
+  { label: 'RDV générés / mois', value: null, raw: 14, suffix: '+' },
+  { label: 'Revenus générés', value: null, raw: 3200, suffix: '€' },
 ]
 
 function StatCard({

@@ -34,7 +34,7 @@ const levels = [
     },
     title: 'Certifié Empire',
     subtitle: 'Programme complété',
-    criteria: 'Tu as suivi le bootcamp et appliqué les exercices.',
+    criteria: 'Tu as suivi le bootcamp et relevé les défis quotidiens.',
     perks: [
       'Certification officielle Empire Internet',
       'Badge ajoutable sur LinkedIn',

@@ -28,7 +28,7 @@ const criteria = [
 
 const steps = [
   { num: '01', title: 'Tu passes le test', desc: '2 minutes. On vérifie que le profil et les objectifs sont alignés.' },
-  { num: '02', title: 'On te répond sous 24h', desc: 'Admis ou pas. Si c\'est non, on te dit pourquoi et ce qu\'on conseille.' },
+  { num: '02', title: 'On te répond le 2 avril', desc: 'Admis ou pas. Si c\'est non, on te dit pourquoi et ce qu\'on conseille.' },
   { num: '03', title: 'Tu rejoins la promotion', desc: 'Accès immédiat au programme. Démarrage le 25 avril.' },
 ]
 
@@ -107,7 +107,7 @@ export default function AcademySelectionSection() {
               >
                 Passer le test d'éligibilité →
               </a>
-              <p className="text-xs text-neutral-600 mt-2">Formulaire de 2 min · Réponse sous 24h · Aucun engagement</p>
+              <p className="text-xs text-neutral-600 mt-2">Formulaire de 2 min · Réponse le 2 avril · Aucun engagement</p>
             </div>
           </FadeInBlock>
 

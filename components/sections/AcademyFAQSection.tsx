@@ -44,7 +44,7 @@ const faqs = [
   },
   {
     q: 'Combien de temps dois-je y consacrer ?',
-    a: "Environ 1 à 2 heures par jour pendant 21 jours. Une vidéo courte + un exercice posté dans le groupe. Si tu es prêt à ça, tu seras dans les meilleurs.",
+    a: "Environ 1 à 2 heures par jour pendant 21 jours. Une vidéo courte + un défi posté dans le groupe. Si tu es prêt à ça, tu seras dans les meilleurs.",
   },
   {
     q: "Est-ce que j'ai accès à vie ?",
@@ -166,7 +166,7 @@ export default function AcademyFAQSection() {
               >
                 Passer le test d'éligibilité →
               </a>
-              <p className="text-xs text-neutral-500 mt-2">Formulaire de 2 min · Réponse sous 24h · Aucun engagement</p>
+              <p className="text-xs text-neutral-500 mt-2">Formulaire de 2 min · Réponse le 2 avril · Aucun engagement</p>
             </div>
           </FadeInBlock>
 

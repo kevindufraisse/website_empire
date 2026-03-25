@@ -21,13 +21,13 @@ const steps = [
   {
     num: '01',
     title: 'Tu rejoins le bootcamp',
-    desc: 'Accès immédiat aux vidéos, exercices quotidiens, 6 lives et groupe privé. Le programme démarre le jour même.',
+    desc: 'Accès immédiat aux vidéos, défis quotidiens, 6 lives et groupe privé. Le programme démarre le jour même.',
     tag: null,
   },
   {
     num: '02',
     title: 'Tu crées chaque jour',
-    desc: "Un exercice par jour, posté dans le groupe. Tu reçois des feedbacks, tu vois progresser ton niveau. Pas de théorie — que de l'action.",
+    desc: "Un défi par jour, posté dans le groupe. Tu reçois des feedbacks, tu vois progresser ton niveau. Pas de théorie — que de l'action.",
     tag: null,
   },
   {

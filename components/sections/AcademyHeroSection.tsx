@@ -6,21 +6,11 @@ import { Meteors } from '@/components/magicui/meteors'
 import { SparklesText } from '@/components/magicui/sparkles-text'
 import NumberTicker from '@/components/magicui/number-ticker'
 import Image from 'next/image'
-import { Check } from 'lucide-react'
-
 const stats = [
   { ticker: 3000, suffix: '€', label: 'objectif élèves', sub: 'dès les 1ers mois' },
   { ticker: 4, suffix: 'h', label: 'par semaine', sub: 'système en place' },
   { ticker: 10, suffix: 'M+', label: 'vues/mois', sub: 'générées pour nos clients' },
   { ticker: 21, suffix: 'j', label: 'durée du bootcamp', sub: 'de zéro à opérationnel' },
-]
-
-const valueItems = [
-  '21 vidéos',
-  '6 lives experts',
-  'Groupe privé',
-  'Certification LinkedIn',
-  'Réseau Empire',
 ]
 
 const PLACES_OPTIONS = [13, 14, 15, 16, 17]
@@ -117,7 +107,7 @@ export default function AcademyHeroSection() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.5 }}
-            className="flex flex-col items-center gap-2 mb-6"
+            className="flex flex-col items-center gap-2 mb-12"
           >
             <a
               href="/candidature"
@@ -126,24 +116,10 @@ export default function AcademyHeroSection() {
               Passer le test d'éligibilité →
             </a>
             <p className="text-xs text-neutral-500">
-              Formulaire de 2 min · Réponse sous 24h · Aucun engagement
+              Formulaire de 2 min · Réponse le 2 avril · Aucun engagement
             </p>
           </motion.div>
 
-          {/* Value strip — what's included, no price */}
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.35, duration: 0.5 }}
-            className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 mb-10 px-4 py-3 rounded-xl bg-white/[0.03] border border-white/8 max-w-xl mx-auto"
-          >
-            {valueItems.map((item, i) => (
-              <div key={i} className="flex items-center gap-1.5">
-                <Check size={11} className="text-empire flex-shrink-0" />
-                <span className="text-[12px] text-neutral-400 whitespace-nowrap">{item}</span>
-              </div>
-            ))}
-          </motion.div>
 
           {/* Stats */}
           <motion.div
