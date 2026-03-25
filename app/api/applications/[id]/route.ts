@@ -9,12 +9,12 @@ export async function PATCH(
     const body = await req.json()
     const { id } = params
 
-    // On the final step, calculate the score
+    // On the final step, calculate DISC score
     const isFinal = body.step_completed >= 5
     let scoreData = {}
     if (isFinal) {
-      const { score, color } = calculateScore(body)
-      scoreData = { score, profile_color: color }
+      const { score, disc } = calculateScore(body)
+      scoreData = { score, profile_color: disc, disc_profile: disc }
     }
 
     const { error } = await supabaseAdmin

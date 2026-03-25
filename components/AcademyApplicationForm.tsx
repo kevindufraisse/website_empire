@@ -18,9 +18,9 @@ interface FormData {
   has_created_content: string
   content_link: string
   haunting_project: string
-  // Step 4
-  money_project: string
-  unpopular_opinion: string
+  // Step 4 — DISC behavioral
+  disc_role: string       // maps to D/I/S/C
+  disc_obstacle: string   // maps to D/I/S/C
   friends_say: string
   // Step 5
   social_link: string
@@ -31,7 +31,7 @@ const initial: FormData = {
   first_name: '', last_name: '', email: '', phone: '',
   hours_per_week: '', budget: '',
   has_created_content: '', content_link: '', haunting_project: '',
-  money_project: '', unpopular_opinion: '', friends_say: '',
+  disc_role: '', disc_obstacle: '', friends_say: '',
   social_link: '', motivation: '',
 }
 
@@ -138,62 +138,110 @@ function OptionCard({
   )
 }
 
-// ─── Result Screen ─────────────────────────────────────────────────────────────
+// ─── DISC Result Screen ────────────────────────────────────────────────────────
 
-function ResultScreen({ color }: { color: 'red' | 'blue' | 'green' | null }) {
-  const config = {
-    green: {
-      emoji: '🟢',
-      title: 'Profil validé.',
-      sub: 'Tu corresponds exactement à ce qu\'on cherche.',
-      body: 'On revient vers toi dans les 24 prochaines heures avec la suite. Garde un œil sur ta boîte mail.',
-      badge: 'Accès prioritaire',
-      badgeColor: 'bg-empire/20 text-empire border-empire/40',
-    },
-    blue: {
-      emoji: '🔵',
-      title: 'Candidature reçue.',
-      sub: 'Profil intéressant — on veut en savoir plus.',
-      body: 'On analyse ta candidature et on revient vers toi sous 24h. Prépare-toi à une courte conversation.',
-      badge: 'En cours d\'évaluation',
-      badgeColor: 'bg-blue-500/20 text-blue-300 border-blue-500/40',
-    },
-    red: {
-      emoji: '🔴',
-      title: 'Candidature reçue.',
-      sub: 'Le timing n\'est peut-être pas le bon.',
-      body: 'On a bien reçu ta candidature. Si le profil ne correspond pas à la promo actuelle, on te le dira honnêtement et on te proposera une alternative.',
-      badge: 'En cours d\'analyse',
-      badgeColor: 'bg-neutral-700/50 text-neutral-400 border-neutral-600/40',
-    },
-  }
+type DiscType = 'dominant' | 'influent' | 'stable' | 'conforme'
 
-  const c = color ? config[color] : config.blue
+const discConfig: Record<DiscType, {
+  color: string
+  dot: string
+  badge: string
+  badgeStyle: string
+  letter: string
+  title: string
+  sub: string
+  traits: string[]
+  forBootcamp: string
+}> = {
+  dominant: {
+    color: '#ef4444',
+    dot: 'bg-red-500',
+    badge: 'Profil D — Dominant',
+    badgeStyle: 'bg-red-500/15 text-red-400 border-red-500/40',
+    letter: 'D',
+    title: 'Tu avances. Sans attendre.',
+    sub: 'Tu décides vite, tu assumes, tu fonces. C\'est exactement le profil qu\'on cherche.',
+    traits: ['Orienté résultats', 'Décide vite', 'Compétitif', 'Aime les défis'],
+    forBootcamp: 'Excellent fit — tu as le moteur pour créer chaque jour et ne pas lâcher.',
+  },
+  influent: {
+    color: '#eab308',
+    dot: 'bg-yellow-500',
+    badge: 'Profil I — Influent',
+    badgeStyle: 'bg-yellow-500/15 text-yellow-400 border-yellow-500/40',
+    letter: 'I',
+    title: 'Tu crées, tu connectes, tu convaincs.',
+    sub: 'Tu sais naturellement capter l\'attention. Le contenu, c\'est ton terrain.',
+    traits: ['Enthousiaste', 'Persuasif', 'Créatif', 'Social, fédérateur'],
+    forBootcamp: 'Profil idéal pour la viralité — tu as l\'instinct du créateur de contenu.',
+  },
+  stable: {
+    color: '#22c55e',
+    dot: 'bg-green-500',
+    badge: 'Profil S — Stable',
+    badgeStyle: 'bg-green-500/15 text-green-400 border-green-500/40',
+    letter: 'S',
+    title: 'Tu construis dans la durée.',
+    sub: 'Tu es fiable, méthodique, patient. La régularité — ton super-pouvoir.',
+    traits: ['Régulier', 'Fiable', 'Patient', 'Travail en profondeur'],
+    forBootcamp: 'Bon fit — la régularité quotidienne du bootcamp est faite pour toi.',
+  },
+  conforme: {
+    color: '#3b82f6',
+    dot: 'bg-blue-500',
+    badge: 'Profil C — Conforme',
+    badgeStyle: 'bg-blue-500/15 text-blue-400 border-blue-500/40',
+    letter: 'C',
+    title: 'Tu analyses avant d\'agir.',
+    sub: 'Précis, structuré, logique. Tu veux comprendre avant de faire.',
+    traits: ['Analytique', 'Précis', 'Qualité', 'Orienté données'],
+    forBootcamp: 'Profil intéressant — tu apporteras de la rigueur, même si la création rapide sera ton défi.',
+  },
+}
+
+function ResultScreen({ disc }: { disc: DiscType | null }) {
+  const d = disc ? discConfig[disc] : discConfig.influent
 
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
-      className="text-center py-6"
+      className="text-center py-4"
     >
-      <div className="text-6xl mb-6">{c.emoji}</div>
-      <span className={`inline-block text-xs font-bold px-3 py-1 rounded-full border mb-4 ${c.badgeColor}`}>
-        {c.badge}
-      </span>
-      <h2 className="text-2xl font-bold text-white mb-2">{c.title}</h2>
-      <p className="text-empire font-semibold mb-4">{c.sub}</p>
-      <p className="text-neutral-400 text-sm leading-relaxed max-w-sm mx-auto mb-8">{c.body}</p>
+      {/* DISC letter badge */}
+      <div
+        className="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 text-3xl font-black text-white"
+        style={{ backgroundColor: `${d.color}25`, border: `2px solid ${d.color}60` }}
+      >
+        <span style={{ color: d.color }}>{d.letter}</span>
+      </div>
 
-      <div className="flex items-center justify-center gap-3 p-4 rounded-2xl bg-white/[0.03] border border-white/10 max-w-xs mx-auto">
-        <div className="flex -space-x-2">
-          {['11', '22', '33'].map(n => (
-            <img key={n} src={`https://i.pravatar.cc/32?img=${n}`} className="w-8 h-8 rounded-full border-2 border-black" alt="" />
-          ))}
-        </div>
-        <p className="text-xs text-neutral-400">
-          <span className="text-white font-semibold">+31 candidatures</span> reçues cette semaine
-        </p>
+      <span className={`inline-block text-xs font-bold px-3 py-1.5 rounded-full border mb-4 tracking-wide ${d.badgeStyle}`}>
+        {d.badge}
+      </span>
+
+      <h2 className="text-2xl font-bold text-white mb-2">{d.title}</h2>
+      <p className="text-neutral-400 text-sm leading-relaxed max-w-xs mx-auto mb-6">{d.sub}</p>
+
+      {/* Traits */}
+      <div className="flex flex-wrap justify-center gap-2 mb-6">
+        {d.traits.map(t => (
+          <span key={t} className="text-xs px-3 py-1 rounded-full bg-white/5 border border-white/10 text-neutral-300">
+            {t}
+          </span>
+        ))}
+      </div>
+
+      {/* For bootcamp */}
+      <div className="p-4 rounded-2xl bg-empire/5 border border-empire/20 mb-6 max-w-sm mx-auto">
+        <p className="text-xs text-empire font-semibold mb-1">Pour le bootcamp :</p>
+        <p className="text-xs text-neutral-400 leading-relaxed">{d.forBootcamp}</p>
+      </div>
+
+      <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 max-w-xs mx-auto">
+        <p className="text-sm text-white font-semibold mb-1">Candidature reçue ✓</p>
+        <p className="text-xs text-neutral-500">Kevin & Marc analysent ton profil. Réponse sous 24h.</p>
       </div>
     </motion.div>
   )
@@ -208,7 +256,7 @@ export default function AcademyApplicationForm() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [done, setDone] = useState(false)
-  const [resultColor, setResultColor] = useState<'red' | 'blue' | 'green' | null>(null)
+  const [resultDisc, setResultDisc] = useState<DiscType | null>(null)
 
   const set = (field: keyof FormData) => (v: string) =>
     setForm(prev => ({ ...prev, [field]: v }))
@@ -224,7 +272,7 @@ export default function AcademyApplicationForm() {
       case 3:
         return !!form.has_created_content
       case 4:
-        return form.money_project.trim().length > 10 && form.unpopular_opinion.trim().length > 5
+        return !!form.disc_role && !!form.disc_obstacle
       case 5:
         return form.motivation.trim().length > 10
       default:
@@ -267,16 +315,18 @@ export default function AcademyApplicationForm() {
           payload.content_link = form.content_link
           payload.haunting_project = form.haunting_project
         } else if (step === 4) {
-          payload.money_project = form.money_project
-          payload.unpopular_opinion = form.unpopular_opinion
+          payload.disc_role = form.disc_role
+          payload.disc_obstacle = form.disc_obstacle
           payload.friends_say = form.friends_say
         } else if (step === 5) {
           payload.social_link = form.social_link
           payload.motivation = form.motivation
-          // Pass scoring fields for final calculation
+          // Pass all scoring fields for final calculation
           payload.hours_per_week = form.hours_per_week
           payload.budget = form.budget
           payload.has_created_content = form.has_created_content
+          payload.disc_role = form.disc_role
+          payload.disc_obstacle = form.disc_obstacle
           payload.step_completed = 5
         }
 
@@ -289,10 +339,9 @@ export default function AcademyApplicationForm() {
         if (!res.ok) throw new Error(json.error)
 
         if (step === 5) {
-          // Fetch the score color from the local utility
           const { calculateScore } = await import('@/lib/supabase')
-          const { color } = calculateScore(form)
-          if (color !== 'pending') setResultColor(color)
+          const { disc } = calculateScore(form)
+          if (disc !== 'pending') setResultDisc(disc)
           setDone(true)
           setLoading(false)
           return
@@ -309,7 +358,7 @@ export default function AcademyApplicationForm() {
 
   // ── UI ────────────────────────────────────────────────────────────────────
 
-  if (done) return <ResultScreen color={resultColor} />
+  if (done) return <ResultScreen disc={resultDisc} />
 
   const progress = ((step - 1) / (STEPS.length - 1)) * 100
 
@@ -464,31 +513,64 @@ export default function AcademyApplicationForm() {
             </div>
           )}
 
-          {/* ── Step 4: Personnalité ── */}
+          {/* ── Step 4: Profil DISC ── */}
           {step === 4 && (
-            <div className="space-y-6">
+            <div className="space-y-7">
               <div className="mb-2">
-                <h2 className="text-xl font-bold text-white mb-1">On apprend à te connaître.</h2>
-                <p className="text-sm text-neutral-500">Pas de bonnes ou mauvaises réponses — on veut de l'honnêteté, pas du performatif.</p>
+                <h2 className="text-xl font-bold text-white mb-1">Comment tu fonctionnes.</h2>
+                <p className="text-sm text-neutral-500">Deux questions. Pas de bonne réponse — juste la plus honnête.</p>
               </div>
+
+              {/* Q1 — Role */}
+              <div>
+                <p className="text-sm font-medium text-neutral-300 mb-3">
+                  Dans un projet, tu es plutôt : <span className="text-empire">*</span>
+                </p>
+                <div className="space-y-2">
+                  {[
+                    { value: 'dominant',  label: 'Le moteur',      sub: 'Tu décides, tu diriges, tu avances — même sans avoir toutes les infos' },
+                    { value: 'influent',  label: "L'ambassadeur",   sub: 'Tu convaincs, tu fédères, tu mets de l\'énergie dans le groupe' },
+                    { value: 'stable',    label: 'Le pilier',       sub: 'Tu assures, tu soutiens, tu construis dans la durée sans te griller' },
+                    { value: 'conforme',  label: "L'analyste",      sub: 'Tu structures, tu vérifies, tu veux que ce soit bien fait avant d\'agir' },
+                  ].map(opt => (
+                    <OptionCard
+                      key={opt.value}
+                      value={opt.value}
+                      label={opt.label}
+                      sub={opt.sub}
+                      selected={form.disc_role === opt.value}
+                      onClick={() => set('disc_role')(opt.value)}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* Q2 — Obstacle */}
+              <div>
+                <p className="text-sm font-medium text-neutral-300 mb-3">
+                  Face à un obstacle, tu : <span className="text-empire">*</span>
+                </p>
+                <div className="space-y-2">
+                  {[
+                    { value: 'dominant', label: 'Tu fonces malgré tout',           sub: 'Quitte à ajuster en cours de route' },
+                    { value: 'influent', label: 'Tu trouves une autre approche',    sub: 'Et tu t\'adaptes avec enthousiasme' },
+                    { value: 'stable',   label: 'Tu prends le temps',               sub: 'Pour trouver la bonne solution sans te précipiter' },
+                    { value: 'conforme', label: 'Tu analyses pourquoi ça a bloqué', sub: 'Avant de repartir avec une méthode solide' },
+                  ].map(opt => (
+                    <OptionCard
+                      key={opt.value}
+                      value={opt.value}
+                      label={opt.label}
+                      sub={opt.sub}
+                      selected={form.disc_obstacle === opt.value}
+                      onClick={() => set('disc_obstacle')(opt.value)}
+                    />
+                  ))}
+                </div>
+              </div>
+
               <Textarea
-                label="Si t'avais 10 000€ et 1 mois pour lancer un projet, tu fais quoi ?"
-                name="money_project"
-                value={form.money_project}
-                onChange={set('money_project')}
-                placeholder="Sois concret — pas 'j investirais' ou 'je me formerais'"
-                required
-              />
-              <Textarea
-                label="C'est quoi ton opinion impopulaire ?"
-                name="unpopular_opinion"
-                value={form.unpopular_opinion}
-                onChange={set('unpopular_opinion')}
-                placeholder="Un avis que t'assumes même si ça plaît pas à tout le monde"
-                required
-              />
-              <Textarea
-                label="C'est quoi tes potes diraient sur toi quand tu quittes un dîner ?"
+                label="C'est quoi tes potes diraient sur toi quand tu quittes un dîner ? (optionnel)"
                 name="friends_say"
                 value={form.friends_say}
                 onChange={set('friends_say')}

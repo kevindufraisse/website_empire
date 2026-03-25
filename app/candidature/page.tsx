@@ -1,5 +1,4 @@
 import AcademyApplicationForm from '@/components/AcademyApplicationForm'
-import RetroGrid from '@/components/magicui/retro-grid'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -22,7 +21,8 @@ const founders = [
 export default function CandidaturePage() {
   return (
     <main className="relative min-h-screen bg-[#0a0a0a] overflow-hidden">
-      <RetroGrid />
+      {/* Subtle grid background */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:60px_60px]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_40%_at_50%_0%,rgba(218,252,104,0.08),transparent)]" />
 
       <div className="relative z-10 container py-16 md:py-24">
