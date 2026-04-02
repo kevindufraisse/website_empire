@@ -1,5 +1,6 @@
 import Script from 'next/script'
 import YtLeadForm from '@/components/YtLeadForm'
+import ClientResultsTicker from '@/components/ClientResultsTicker'
 
 export const metadata = {
   title: 'Découvrir Empire Internet - Appel Stratégique Gratuit',
@@ -86,49 +87,6 @@ export default function DecouvertePage() {
                 ))}
               </div>
 
-              {/* Before / After */}
-              <div className="rounded-xl overflow-hidden border border-white/8 mb-7">
-                <div className="grid grid-cols-2">
-                  {/* Before */}
-                  <div className="bg-white/[0.02] p-4 border-r border-white/8">
-                    <p className="text-[11px] font-bold text-neutral-600 uppercase tracking-widest mb-3">Avant</p>
-                    <div className="space-y-3">
-                      {[
-                        { label: 'Vues / mois',     value: '~200' },
-                        { label: 'Clients inbound', value: '0' },
-                        { label: 'Temps contenu',   value: '8h+/sem' },
-                        { label: 'CA généré',       value: '0€' },
-                      ].map(({ label, value }) => (
-                        <div key={label}>
-                          <p className="text-[11px] text-neutral-600 mb-0.5">{label}</p>
-                          <p className="text-base font-bold text-neutral-500">{value}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  {/* After */}
-                  <div className="bg-empire/[0.04] p-4">
-                    <p className="text-[11px] font-bold text-empire uppercase tracking-widest mb-3">Après</p>
-                    <div className="space-y-3">
-                      {[
-                        { label: 'Vues / mois',     value: '500K+' },
-                        { label: 'Clients inbound', value: '10-20/mois' },
-                        { label: 'Temps contenu',   value: '15 min/sem' },
-                        { label: 'CA potentiel',    value: '5 000€+' },
-                      ].map(({ label, value }) => (
-                        <div key={label}>
-                          <p className="text-[11px] text-neutral-500 mb-0.5">{label}</p>
-                          <p className="text-base font-bold text-white">{value}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                <div className="px-4 py-2.5 bg-empire/5 border-t border-empire/10">
-                  <p className="text-[11px] text-neutral-500 text-center">Résultats observés sur nos clients · Sans garantie individuelle</p>
-                </div>
-              </div>
-
               {/* Creator credit */}
               <div className="flex items-center gap-2.5">
                 <img src={KEVIN_IMG} alt="Kevin Dufraisse" width={32} height={32} className="w-8 h-8 rounded-full border border-white/15 object-cover" />
@@ -145,8 +103,13 @@ export default function DecouvertePage() {
                 <YtLeadForm />
               </div>
 
+              {/* Animated results ticker */}
+              <div className="mt-4">
+                <ClientResultsTicker />
+              </div>
+
               {/* Social proof below form */}
-              <div className="flex items-center justify-center gap-3 mt-4">
+              <div className="flex items-center justify-center gap-3 mt-3">
                 <div className="flex -space-x-2">
                   {AVATARS.map((url, i) => (
                     <img key={i} src={url} alt="" width={24} height={24} className="w-6 h-6 rounded-full border-2 border-black object-cover" />
