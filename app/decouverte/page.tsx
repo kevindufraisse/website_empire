@@ -129,21 +129,6 @@ export default function DecouvertePage() {
                 </div>
               </div>
 
-              <ul className="space-y-2.5 mb-7">
-                {[
-                  'Zéro rédaction, zéro montage de ta part',
-                  '10M+ vues générées pour nos clients ce mois',
-                  '30 min · Gratuit · Sans engagement',
-                ].map((b, i) => (
-                  <li key={i} className="flex items-start gap-2.5">
-                    <svg viewBox="0 0 12 10" fill="none" className="w-3.5 h-3.5 flex-shrink-0 mt-0.5">
-                      <path d="M1 5l3 3 7-7" stroke="#dafc68" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                    <span className="text-neutral-300 text-sm">{b}</span>
-                  </li>
-                ))}
-              </ul>
-
               {/* Creator credit */}
               <div className="flex items-center gap-2.5">
                 <img src={KEVIN_IMG} alt="Kevin Dufraisse" width={32} height={32} className="w-8 h-8 rounded-full border border-white/15 object-cover" />
