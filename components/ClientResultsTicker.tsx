@@ -28,6 +28,12 @@ const RESULTS = [
     detail: 'Entrepreneur solo · Zéro audience au départ',
   },
   {
+    stat: '9 100€',
+    unit: 'économisés',
+    context: 'par mois en moyenne',
+    detail: 'Vs. embaucher une équipe contenu en interne',
+  },
+  {
     stat: '2 099',
     unit: 'abonnés',
     context: 'gagnés en 21 jours',
