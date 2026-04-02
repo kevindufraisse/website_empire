@@ -61,13 +61,14 @@ export default function DecouvertePage() {
             {/* ── Left : Pitch ── */}
             <div className="lg:sticky lg:top-8">
               <h1 className="text-3xl sm:text-4xl font-extrabold leading-tight mb-4">
-                Arrête d'écrire du contenu.<br />
-                <span className="text-empire">Parle 15 min.<br className="hidden sm:block" />On publie partout.</span>
+                Fais des millions de vues<br />
+                et attire des clients —{' '}
+                <span className="text-empire">sans écrire<br className="hidden sm:block" />ni monter ton contenu.</span>
               </h1>
 
               <p className="text-neutral-400 text-base mb-6">
-                Une interview par semaine → 30+ posts, reels, vidéos, newsletters.{' '}
-                <span className="text-white font-semibold">Sans que tu écrives une seule ligne.</span>
+                Une interview de 15 min par semaine.{' '}
+                <span className="text-white font-semibold">On s'occupe du reste.</span>
               </p>
 
               <ul className="space-y-2.5 mb-7">
