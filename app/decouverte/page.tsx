@@ -23,7 +23,6 @@ const platforms = [
 
 
 const KEVIN_IMG = 'https://media.licdn.com/dms/image/v2/D4E03AQG4nlTt-7wB9w/profile-displayphoto-crop_800_800/B4EZi8WwoyHEAI-/0/1755506740516?e=1775692800&v=beta&t=3Oq_HdQ6GKMFVN6CwQCbvB2Qh7VWo1ls1KIroOyhPYY'
-const MARC_IMG = 'https://media.licdn.com/dms/image/v2/D4E03AQF43VvOp7iRkw/profile-displayphoto-scale_400_400/B4EZzc5.uqHAAg-/0/1773232713405?e=1775692800&v=beta&t=Z4CykW-joMs63r3xGQHIdOaqpNtjtC7jQdcL5HSHJNs'
 
 function PlatformLogos({ className = '' }: { className?: string }) {
   return (
@@ -118,16 +117,13 @@ export default function DecouvertePage() {
                 {/* Platform logos */}
                 <PlatformLogos className="mb-8" />
 
-                {/* Founders */}
-                <div className="flex items-center gap-3 p-4 rounded-xl bg-white/[0.03] border border-white/8">
-                  <div className="flex -space-x-3">
-                    <img src={KEVIN_IMG} alt="Kevin" width={40} height={40} className="w-10 h-10 rounded-full border-2 border-black object-cover" />
-                    <img src={MARC_IMG} alt="Marc" width={40} height={40} className="w-10 h-10 rounded-full border-2 border-black object-cover" />
-                  </div>
-                  <div>
-                    <p className="text-white text-sm font-semibold">Kevin & Marc Dufraisse</p>
-                    <p className="text-neutral-500 text-xs">Fondateurs · Empire Internet</p>
-                  </div>
+                {/* Creator credit */}
+                <div className="flex items-center gap-2.5">
+                  <img src={KEVIN_IMG} alt="Kevin Dufraisse" width={36} height={36} className="w-9 h-9 rounded-full border border-white/15 object-cover flex-shrink-0" />
+                  <p className="text-neutral-500 text-xs leading-snug">
+                    Créé par <span className="text-white font-semibold">Kevin Dufraisse</span>{' '}
+                    · Top 48 LinkedIn France
+                  </p>
                 </div>
               </div>
 
@@ -175,17 +171,14 @@ export default function DecouvertePage() {
             />
           </section>
 
-          {/* ── Mobile-only founders ─────────────────────────── */}
+          {/* ── Mobile-only creator credit ───────────────────── */}
           <section className="md:hidden px-4 pb-10 max-w-5xl mx-auto w-full">
-            <div className="flex items-center gap-3 p-4 rounded-xl bg-white/[0.03] border border-white/8">
-              <div className="flex -space-x-3">
-                <img src={KEVIN_IMG} alt="Kevin" width={36} height={36} className="w-9 h-9 rounded-full border-2 border-black object-cover" />
-                <img src={MARC_IMG} alt="Marc" width={36} height={36} className="w-9 h-9 rounded-full border-2 border-black object-cover" />
-              </div>
-              <div>
-                <p className="text-white text-sm font-semibold">Kevin & Marc Dufraisse</p>
-                <p className="text-neutral-500 text-xs">Fondateurs · Empire Internet</p>
-              </div>
+            <div className="flex items-center gap-2.5">
+              <img src={KEVIN_IMG} alt="Kevin Dufraisse" width={32} height={32} className="w-8 h-8 rounded-full border border-white/15 object-cover flex-shrink-0" />
+              <p className="text-neutral-500 text-xs leading-snug">
+                Créé par <span className="text-white font-semibold">Kevin Dufraisse</span>{' '}
+                · Top 48 LinkedIn France
+              </p>
             </div>
           </section>
 
