@@ -24,10 +24,11 @@ const COUNTRIES = [
   { code: '+971', flag: '🇦🇪', name: 'UAE' },
 ]
 
-// Map our budget values to Cal.com radio option labels
+// Map our budget values to Cal.com radio option labels (identifier: "price")
 const BUDGET_MAP: Record<string, string> = {
   '1000-5000': '+1000€ - 5000€',
   '5000+':     '5000€ - 10 000€',
+  '10000+':    '+10 000€',
 }
 
 interface Lead {
@@ -108,8 +109,7 @@ function CalModal({ lead, countryCode, onClose }: { lead: Lead; countryCode: str
               name: lead.firstName,
               email: lead.email,
               smsReminderNumber: fullPhone,
-              // Pre-fill budget radio field
-              'Combien suis-je prêt à dépenser par mois pour résoudre cette problématique?': BUDGET_MAP[lead.budget] ?? '',
+              price: BUDGET_MAP[lead.budget] ?? '',
             }}
           />
         </div>
