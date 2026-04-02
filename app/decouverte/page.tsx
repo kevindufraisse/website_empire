@@ -87,6 +87,11 @@ export default function DecouvertePage() {
                 ))}
               </div>
 
+              {/* Animated results ticker */}
+              <div className="mb-6">
+                <ClientResultsTicker />
+              </div>
+
               {/* Creator credit */}
               <div className="flex items-center gap-2.5">
                 <img src={KEVIN_IMG} alt="Kevin Dufraisse" width={32} height={32} className="w-8 h-8 rounded-full border border-white/15 object-cover" />
@@ -101,11 +106,6 @@ export default function DecouvertePage() {
               <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 sm:p-7">
                 <h2 className="text-lg font-bold text-white mb-5">Réserve ton appel gratuit</h2>
                 <YtLeadForm />
-              </div>
-
-              {/* Animated results ticker */}
-              <div className="mt-4">
-                <ClientResultsTicker />
               </div>
 
               {/* Social proof below form */}
