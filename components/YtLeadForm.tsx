@@ -88,7 +88,7 @@ function CalModal({ lead, countryCode, onClose }: { lead: Lead; countryCode: str
             <p className="text-sm font-semibold text-white">
               C'est noté, {lead.firstName} 👋
             </p>
-            <p className="text-xs text-neutral-500">Choisis ton créneau - tes infos sont pré-remplies.</p>
+            <p className="text-xs text-neutral-500">Choisissez votre créneau - vos infos sont pré-remplies.</p>
           </div>
           <button
             onClick={onClose}
@@ -185,7 +185,7 @@ export default function YtLeadForm() {
       <div className="text-center py-8 space-y-4">
         <p className="text-lg font-bold text-white">Pas encore le budget pour un accompagnement ?</p>
         <p className="text-neutral-400 text-sm max-w-sm mx-auto">
-          Notre bootcamp est fait pour toi - apprends à créer du contenu viral toi-même et génère tes premiers 3 000€/mois en 21 jours.
+          Notre bootcamp est fait pour vous - apprenez à créer du contenu viral vous-même et générez vos premiers 3 000€/mois en 21 jours.
         </p>
         <a
           href="/academy"
@@ -211,7 +211,7 @@ export default function YtLeadForm() {
       <form onSubmit={handleSubmit} className="space-y-3">
         <input
           type="text"
-          placeholder="Ton prénom *"
+          placeholder="Votre prénom *"
           value={form.firstName}
           onChange={(e) => { setForm({ ...form, firstName: e.target.value }); setErrors({ ...errors, firstName: false }) }}
           className={`w-full px-4 py-4 rounded-xl bg-white/5 border text-white placeholder:text-neutral-500 focus:outline-none transition-colors text-base ${errors.firstName ? 'border-red-500' : 'border-white/10 focus:border-empire/60'}`}
@@ -219,7 +219,7 @@ export default function YtLeadForm() {
 
         <input
           type="email"
-          placeholder="Ton email *"
+          placeholder="Votre email *"
           value={form.email}
           onChange={(e) => { setForm({ ...form, email: e.target.value }); setErrors({ ...errors, email: false }) }}
           autoComplete="email"
@@ -258,7 +258,7 @@ export default function YtLeadForm() {
           </div>
           <input
             type="tel"
-            placeholder="Ton téléphone *"
+              placeholder="Votre téléphone *"
             value={form.phone}
             onChange={(e) => { setForm({ ...form, phone: e.target.value }); setErrors({ ...errors, phone: false }) }}
             autoComplete="tel"
@@ -271,6 +271,7 @@ export default function YtLeadForm() {
         <div>
           <p className={`text-xs mb-2 ${errors.budget ? 'text-red-400' : 'text-neutral-500'}`}>
             Budget mensuel pour résoudre ce problème *
+
           </p>
           <div className="grid grid-cols-3 gap-2">
             {[
@@ -303,12 +304,12 @@ export default function YtLeadForm() {
         >
           {loading
             ? <><Loader2 size={18} className="animate-spin" /> Envoi en cours...</>
-            : 'Réserver mon appel gratuit →'
+            : 'Réserver votre appel gratuit →'
           }
         </button>
 
         <p className="text-xs text-neutral-600 text-center">
-          30 min · Gratuit · Sans engagement · Avec Kevin ou Marc
+          30 min · Gratuit · Sans engagement
         </p>
       </form>
 

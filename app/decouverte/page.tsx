@@ -62,9 +62,9 @@ export default function DecouvertePage() {
             {/* ── Left : Pitch ── */}
             <div className="lg:sticky lg:top-8">
               <h1 className="text-3xl sm:text-4xl font-extrabold leading-tight mb-4">
-                Fais des millions de vues<br />
-                et attire des clients -{' '}
-                <span className="text-empire">sans écrire<br className="hidden sm:block" />ni monter ton contenu.</span>
+                Faites des millions de vues<br />
+                et attirez des clients -{' '}
+                <span className="text-empire">sans écrire<br className="hidden sm:block" />ni monter votre contenu.</span>
               </h1>
 
               <p className="text-neutral-400 text-base mb-3">
@@ -104,7 +104,7 @@ export default function DecouvertePage() {
             {/* ── Right : Form → Cal.com ── */}
             <div>
               <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 sm:p-7">
-                <h2 className="text-lg font-bold text-white mb-5">Réserve ton appel gratuit</h2>
+                <h2 className="text-lg font-bold text-white mb-5">Réservez votre appel gratuit</h2>
                 <YtLeadForm />
               </div>
 
