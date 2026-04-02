@@ -1,6 +1,12 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
+
+declare global {
+  interface Window {
+    dataLayer: Record<string, unknown>[]
+  }
+}
 import { createPortal } from 'react-dom'
 import Cal, { getCalApi } from '@calcom/embed-react'
 import { ChevronDown, Loader2, X } from 'lucide-react'
@@ -177,6 +183,21 @@ export default function YtLeadForm() {
       })
     } catch { /* best-effort */ }
     setLoading(false)
+
+    // Fire GTM conversion event
+    if (typeof window !== 'undefined') {
+      window.dataLayer = window.dataLayer || []
+      window.dataLayer.push({
+        event: 'ads_conversion_book_appointment',
+        conversion_value: form.budget === '5000+' ? 5000 : 1000,
+        currency: 'EUR',
+        user_data: {
+          email: form.email,
+          phone_number: `${COUNTRIES[countryIdx].code}${form.phone}`,
+        },
+      })
+    }
+
     setShowCal(true)
   }
 
