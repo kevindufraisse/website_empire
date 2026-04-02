@@ -88,7 +88,7 @@ function CalModal({ lead, countryCode, onClose }: { lead: Lead; countryCode: str
             <p className="text-sm font-semibold text-white">
               C'est noté, {lead.firstName} 👋
             </p>
-            <p className="text-xs text-neutral-500">Choisis ton créneau — tes infos sont pré-remplies.</p>
+            <p className="text-xs text-neutral-500">Choisis ton créneau - tes infos sont pré-remplies.</p>
           </div>
           <button
             onClick={onClose}
@@ -185,7 +185,7 @@ export default function YtLeadForm() {
       <div className="text-center py-8 space-y-4">
         <p className="text-lg font-bold text-white">Pas encore le budget pour un accompagnement ?</p>
         <p className="text-neutral-400 text-sm max-w-sm mx-auto">
-          Notre bootcamp est fait pour toi — apprends à créer du contenu viral toi-même et génère tes premiers 3 000€/mois en 21 jours.
+          Notre bootcamp est fait pour toi - apprends à créer du contenu viral toi-même et génère tes premiers 3 000€/mois en 21 jours.
         </p>
         <a
           href="/academy"

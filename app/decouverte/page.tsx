@@ -2,7 +2,7 @@ import Script from 'next/script'
 import YtLeadForm from '@/components/YtLeadForm'
 
 export const metadata = {
-  title: 'Découvrir Empire Internet — Appel Stratégique Gratuit',
+  title: 'Découvrir Empire Internet - Appel Stratégique Gratuit',
   description: "30 min pour voir si notre système de contenu s'adapte à toi. Gratuit, sans engagement.",
   robots: 'noindex, nofollow',
 }
@@ -62,7 +62,7 @@ export default function DecouvertePage() {
             <div className="lg:sticky lg:top-8">
               <h1 className="text-3xl sm:text-4xl font-extrabold leading-tight mb-4">
                 Fais des millions de vues<br />
-                et attire des clients —{' '}
+                et attire des clients -{' '}
                 <span className="text-empire">sans écrire<br className="hidden sm:block" />ni monter ton contenu.</span>
               </h1>
 
