@@ -104,16 +104,6 @@ export default function DecouvertePage() {
                 ))}
               </div>
 
-              {/* Social proof */}
-              <div className="flex items-center gap-3 mb-5">
-                <div className="flex -space-x-2">
-                  {AVATARS.map((url, i) => (
-                    <img key={i} src={url} alt="" width={28} height={28} className="w-7 h-7 rounded-full border-2 border-black object-cover" />
-                  ))}
-                </div>
-                <p className="text-xs text-neutral-400">+200 entrepreneurs accompagnés</p>
-              </div>
-
               {/* Creator credit */}
               <div className="flex items-center gap-2.5">
                 <img src={KEVIN_IMG} alt="Kevin Dufraisse" width={32} height={32} className="w-8 h-8 rounded-full border border-white/15 object-cover" />
@@ -126,9 +116,18 @@ export default function DecouvertePage() {
             {/* ── Right : Form → Cal.com ── */}
             <div>
               <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 sm:p-7">
-                <h2 className="text-lg font-bold text-white mb-1">Réserve ton appel gratuit</h2>
-                <p className="text-xs text-neutral-500 mb-5">30 min · En visio · Avec Kevin ou Marc</p>
+                <h2 className="text-lg font-bold text-white mb-5">Réserve ton appel gratuit</h2>
                 <YtLeadForm />
+              </div>
+
+              {/* Social proof below form */}
+              <div className="flex items-center justify-center gap-3 mt-4">
+                <div className="flex -space-x-2">
+                  {AVATARS.map((url, i) => (
+                    <img key={i} src={url} alt="" width={24} height={24} className="w-6 h-6 rounded-full border-2 border-black object-cover" />
+                  ))}
+                </div>
+                <p className="text-xs text-neutral-500">+100 entrepreneurs accompagnés</p>
               </div>
             </div>
           </div>
