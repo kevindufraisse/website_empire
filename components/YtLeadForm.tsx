@@ -63,7 +63,7 @@ export default function YtLeadForm() {
       cal('ui', {
         theme: 'dark',
         hideEventTypeDetails: false,
-        layout: 'month_view',
+        layout: 'column_view',
         cssVarsPerTheme: {
           light: { 'cal-brand': '#dafc68' },
           dark: { 'cal-brand': '#dafc68' },
@@ -241,11 +241,11 @@ export default function YtLeadForm() {
             calLink={CAL_LINK}
             style={{ width: '100%', height: '100%', overflow: 'scroll' }}
             config={{
-              layout: 'month_view',
+              layout: 'column_view',
               theme: 'dark',
               name: form.firstName,
               email: form.email,
-              phone: fullPhone,
+              smsReminderNumber: fullPhone,
             }}
           />
         </div>
