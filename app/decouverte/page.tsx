@@ -13,23 +13,6 @@ const bullets = [
   '10M+ vues générées pour nos clients ce mois',
 ]
 
-const callSteps = [
-  {
-    num: '01',
-    title: 'On comprend ton activité',
-    desc: 'Qui tu es, ce que tu vends, à qui. 10 min pour capter l\'essentiel.',
-  },
-  {
-    num: '02',
-    title: 'On te montre le plan',
-    desc: 'Comment on transformerait ta parole en machine à contenu viral, sur chaque réseau.',
-  },
-  {
-    num: '03',
-    title: 'Tu décides librement',
-    desc: 'Aucune pression. Si ça matche on avance — sinon tu repars avec des idées concrètes.',
-  },
-]
 
 const KEVIN_IMG = 'https://media.licdn.com/dms/image/v2/D4E03AQG4nlTt-7wB9w/profile-displayphoto-crop_800_800/B4EZi8WwoyHEAI-/0/1755506740516?e=1775692800&v=beta&t=3Oq_HdQ6GKMFVN6CwQCbvB2Qh7VWo1ls1KIroOyhPYY'
 const MARC_IMG = 'https://media.licdn.com/dms/image/v2/D4E03AQF43VvOp7iRkw/profile-displayphoto-scale_400_400/B4EZzc5.uqHAAg-/0/1773232713405?e=1775692800&v=beta&t=Z4CykW-joMs63r3xGQHIdOaqpNtjtC7jQdcL5HSHJNs'
@@ -101,24 +84,6 @@ export default function DecouvertePage() {
                   ))}
                 </div>
 
-                {/* What happens on the call */}
-                <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/8 mb-8">
-                  <p className="text-xs text-neutral-500 uppercase tracking-widest font-bold mb-4">Ce qui se passe lors de l'appel</p>
-                  <div className="space-y-4">
-                    {callSteps.map((s, i) => (
-                      <div key={i} className="flex gap-3">
-                        <div className="w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center text-[10px] font-black bg-empire/10 border border-empire/30 text-empire mt-0.5">
-                          {s.num}
-                        </div>
-                        <div>
-                          <p className="text-white font-semibold text-sm leading-tight">{s.title}</p>
-                          <p className="text-neutral-500 text-xs mt-0.5 leading-relaxed">{s.desc}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
                 {/* Founders */}
                 <div className="flex items-center gap-3 p-4 rounded-xl bg-white/[0.03] border border-white/8">
                   <div className="flex -space-x-3">
@@ -175,25 +140,8 @@ export default function DecouvertePage() {
             />
           </section>
 
-          {/* ── Mobile-only proof & steps ────────────────────── */}
-          <section className="md:hidden px-4 pb-10 max-w-5xl mx-auto w-full space-y-6">
-            <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/8">
-              <p className="text-xs text-neutral-500 uppercase tracking-widest font-bold mb-4">Ce qui se passe lors de l'appel</p>
-              <div className="space-y-4">
-                {callSteps.map((s, i) => (
-                  <div key={i} className="flex gap-3">
-                    <div className="w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center text-[10px] font-black bg-empire/10 border border-empire/30 text-empire mt-0.5">
-                      {s.num}
-                    </div>
-                    <div>
-                      <p className="text-white font-semibold text-sm leading-tight">{s.title}</p>
-                      <p className="text-neutral-500 text-xs mt-0.5 leading-relaxed">{s.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
+          {/* ── Mobile-only founders ─────────────────────────── */}
+          <section className="md:hidden px-4 pb-10 max-w-5xl mx-auto w-full">
             <div className="flex items-center gap-3 p-4 rounded-xl bg-white/[0.03] border border-white/8">
               <div className="flex -space-x-3">
                 <img src={KEVIN_IMG} alt="Kevin" width={36} height={36} className="w-9 h-9 rounded-full border-2 border-black object-cover" />
