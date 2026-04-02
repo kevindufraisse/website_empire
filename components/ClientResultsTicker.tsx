@@ -22,7 +22,7 @@ const RESULTS = [
     detail: 'Au lieu de 21h+ de rédaction/montage',
   },
   {
-    stat: '3 200€',
+    stat: '32 000€',
     unit: 'de CA',
     context: 'généré dès le 1er mois',
     detail: 'Entrepreneur solo · Zéro audience au départ',
