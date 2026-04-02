@@ -66,10 +66,25 @@ export default function DecouvertePage() {
                 <span className="text-empire">sans écrire<br className="hidden sm:block" />ni monter ton contenu.</span>
               </h1>
 
-              <p className="text-neutral-400 text-base mb-6">
-                Une interview de 15 min par semaine → 30+ posts, reels, vidéos, newsletters.{' '}
-                <span className="text-white font-semibold">Sans que tu écrives une seule ligne.</span>
+              <p className="text-neutral-400 text-base mb-3">
+                Une interview de 15 min par semaine → 30+ posts, reels, vidéos, newsletters.
               </p>
+
+              {/* Platform logos */}
+              <div className="flex items-center gap-2 flex-wrap mb-6">
+                <span className="text-[11px] text-neutral-600">Publié sur</span>
+                {platforms.map((p) => (
+                  <div
+                    key={p.name}
+                    title={p.name}
+                    className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:border-empire/30 transition-all"
+                  >
+                    <svg viewBox={p.viewBox ?? '0 0 24 24'} fill="currentColor" className="w-4 h-4 text-neutral-400">
+                      <path d={p.svg} />
+                    </svg>
+                  </div>
+                ))}
+              </div>
 
               {/* Before / After */}
               <div className="rounded-xl overflow-hidden border border-white/8 mb-7">
@@ -128,22 +143,6 @@ export default function DecouvertePage() {
                   </li>
                 ))}
               </ul>
-
-              {/* Platform logos */}
-              <div className="flex items-center gap-2 flex-wrap mb-6">
-                <span className="text-[11px] text-neutral-600">Publié sur</span>
-                {platforms.map((p) => (
-                  <div
-                    key={p.name}
-                    title={p.name}
-                    className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:border-empire/30 transition-all"
-                  >
-                    <svg viewBox={p.viewBox ?? '0 0 24 24'} fill="currentColor" className="w-4 h-4 text-neutral-400">
-                      <path d={p.svg} />
-                    </svg>
-                  </div>
-                ))}
-              </div>
 
               {/* Creator credit */}
               <div className="flex items-center gap-2.5">
