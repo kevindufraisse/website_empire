@@ -35,7 +35,7 @@ export default function DecouvertePage() {
   return (
     <>
       <Script
-        src="https://widget.senja.io/widget/dbb797c0-9c9f-491d-8b35-7bb197153711/platform.js"
+        src="https://widget.senja.io/widget/a7bf7e4a-0f3b-4751-8190-849f83d16306/platform.js"
         strategy="lazyOnload"
       />
 
@@ -137,7 +137,7 @@ export default function DecouvertePage() {
               </p>
               <div
                 className="senja-embed"
-                data-id="dbb797c0-9c9f-491d-8b35-7bb197153711"
+                data-id="a7bf7e4a-0f3b-4751-8190-849f83d16306"
                 data-mode="shadow"
                 data-lazyload="false"
                 style={{ display: 'block', width: '100%' }}
