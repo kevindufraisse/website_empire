@@ -97,6 +97,8 @@ export default function Header() {
               </button>
             )}
 
+            <LanguageSwitcher />
+
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
