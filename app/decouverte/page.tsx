@@ -43,7 +43,8 @@ export default function DecouvertePage() {
         <div className="relative z-10 flex flex-col min-h-screen">
 
           {/* Logo bar */}
-          <div className="flex items-center justify-between px-4 sm:px-6 py-4 border-b border-white/5">
+          <div className="border-b border-white/5">
+          <div className="flex items-center justify-between max-w-5xl mx-auto w-full px-4 sm:px-6 py-4">
             <a href="/" className="text-white font-bold text-base tracking-tight hover:text-empire transition-colors">
               Empire Internet
             </a>
@@ -51,6 +52,7 @@ export default function DecouvertePage() {
               <span className="w-1.5 h-1.5 rounded-full bg-empire animate-pulse" />
               Appel gratuit disponible
             </div>
+          </div>
           </div>
 
           {/* ── Main 2-col layout ── */}
