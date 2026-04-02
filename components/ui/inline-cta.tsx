@@ -18,7 +18,7 @@ interface InlineCTAProps {
 export function InlineCTA({ 
   title, 
   description, 
-  primaryText = 'Free 60 min strategy call',
+  primaryText = 'Free 45 min strategy call',
   secondaryText,
   urgencyLabel = 'Limited spots',
   variant = 'default' 

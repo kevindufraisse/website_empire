@@ -237,7 +237,7 @@ export default function FounderSection() {
                 data-cal-config='{"layout":"month_view","theme":"dark"}'
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-empire text-black font-bold text-lg hover:scale-105 transition-transform shadow-[0_0_30px_rgba(218,252,104,0.3)]"
               >
-                {lang === 'fr' ? '60 min stratégique gratuite' : 'Free 60 min strategy call'}
+                {lang === 'fr' ? '45 min stratégique gratuite' : 'Free 45 min strategy call'}
                 <ArrowRight size={20} />
               </button>
               <p className="mt-3 text-sm text-neutral-500">

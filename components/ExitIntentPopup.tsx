@@ -39,7 +39,7 @@ export function ExitIntentPopup() {
   // Disable on partners, academy and candidature pages
   const isPartnersPage = pathname === '/partners'
   const isAcademyPage = pathname === '/academy'
-  const isCandidaturePage = pathname === '/candidature' || pathname === '/decouverte'
+  const isCandidaturePage = pathname === '/candidature' || pathname === '/decouverte' || pathname === '/join-us'
 
   useEffect(() => {
     if (isPartnersPage || isCandidaturePage) return

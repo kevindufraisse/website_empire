@@ -6,6 +6,7 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import ClientWrappers from '@/components/ClientWrappers'
 import CalStickyBar from '@/components/CalStickyBar'
+import CalCtaRedirect from '@/components/CalCtaRedirect'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -43,6 +44,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </noscript>
         {/* End Google Tag Manager (noscript) */}
         <LanguageProvider>
+          <CalCtaRedirect />
           <Header />
           <ClientWrappers />
           <CalStickyBar />

@@ -14,6 +14,26 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
+function normalizeCtaDuration(value: unknown): unknown {
+  if (typeof value === 'string') {
+    return value
+      .replaceAll('60 min stratégique gratuite', '45 min stratégique gratuite')
+      .replaceAll('Free 60 min strategy call', 'Free 45 min strategy call')
+  }
+
+  if (Array.isArray(value)) {
+    return value.map(normalizeCtaDuration)
+  }
+
+  if (value && typeof value === 'object') {
+    return Object.fromEntries(
+      Object.entries(value).map(([key, nestedValue]) => [key, normalizeCtaDuration(nestedValue)])
+    )
+  }
+
+  return value
+}
+
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Language>('en')
 
@@ -37,9 +57,10 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   }
 
   const translations = lang === 'fr' ? fr : en
+  const normalizedTranslations = normalizeCtaDuration(translations) as Translations
 
   return (
-    <LanguageContext.Provider value={{ lang, setLang, t: translations }}>
+    <LanguageContext.Provider value={{ lang, setLang, t: normalizedTranslations }}>
       {children}
     </LanguageContext.Provider>
   )

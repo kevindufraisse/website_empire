@@ -128,7 +128,7 @@ function CalModal({ lead, countryCode, onClose }: { lead: Lead; countryCode: str
 }
 
 // ── Main form ─────────────────────────────────────────────────────────────────
-export default function YtLeadForm() {
+export default function YtLeadForm({ eventName = 'ads_conversion_book_appointment' }: { eventName?: string }) {
   const [loading, setLoading] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [showCal, setShowCal] = useState(false)
@@ -186,19 +186,14 @@ export default function YtLeadForm() {
     } catch { /* best-effort */ }
     setLoading(false)
 
-    // Fire GA4 conversion event
+    // Fire GA4 conversion event via GTM dataLayer
     if (typeof window !== 'undefined') {
       const payload = {
         value: form.budget === '5000+' ? 5000 : 1000,
         currency: 'EUR',
       }
-      if (typeof window.gtag === 'function') {
-        window.gtag('event', 'ads_conversion_book_appointment', payload)
-      } else {
-        // Fallback: push directly to dataLayer (GTM will forward to GA4)
-        window.dataLayer = window.dataLayer || []
-        window.dataLayer.push({ event: 'ads_conversion_book_appointment', ...payload })
-      }
+      window.dataLayer = window.dataLayer || []
+      window.dataLayer.push({ event: eventName, ...payload })
     }
 
     setShowCal(true)

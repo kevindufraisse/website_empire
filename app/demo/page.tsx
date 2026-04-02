@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { useLanguage } from '@/contexts/LanguageContext'
-import CalCalendar from '@/components/CalCalendar'
+import YtLeadForm from '@/components/YtLeadForm'
 
 export default function DemoPage() {
   const { t } = useLanguage()
@@ -40,14 +40,17 @@ export default function DemoPage() {
         </motion.div>
       </div>
 
-      {/* Calendrier - Direct sans container */}
+      {/* Formulaire puis calendrier (même logique que /decouverte) */}
       <div className="px-4 md:px-8 pb-12 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <CalCalendar />
+          <div className="max-w-2xl mx-auto rounded-2xl border border-white/10 bg-white/[0.03] p-5 sm:p-7">
+            <h2 className="text-lg font-bold text-white mb-5 text-center">Réservez votre appel stratégique</h2>
+            <YtLeadForm />
+          </div>
         </motion.div>
       </div>
 
