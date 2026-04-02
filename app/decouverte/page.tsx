@@ -58,11 +58,6 @@ export default function DecouvertePage() {
 
             {/* ── Left : Pitch ── */}
             <div className="lg:sticky lg:top-8">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-empire/10 border border-empire/30 mb-5">
-                <span className="w-1.5 h-1.5 rounded-full bg-empire animate-pulse" />
-                <span className="text-xs font-bold text-empire tracking-widest uppercase">Comme dans la vidéo →</span>
-              </div>
-
               <h1 className="text-3xl sm:text-4xl font-extrabold leading-tight mb-4">
                 Arrête d'écrire du contenu.<br />
                 <span className="text-empire">Parle 15 min.<br className="hidden sm:block" />On publie partout.</span>
