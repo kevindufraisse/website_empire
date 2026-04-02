@@ -1,5 +1,5 @@
 import Script from 'next/script'
-import YoutubeAdForm, { MobileStickyBookCTA } from '@/components/YoutubeAdForm'
+import YtCalEmbed from '@/components/YtCalEmbed'
 
 export const metadata = {
   title: 'Découvrir Empire Internet — Appel Stratégique Gratuit',
@@ -21,36 +21,19 @@ const platforms = [
   { name: 'Threads', svg: 'M141.537 88.988c-.893-.452-1.804-.875-2.732-1.27-1.56-27.306-16.398-42.94-41.457-43.1h-.165c-14.985 0-27.449 6.396-35.12 18.036l13.779 9.452c5.73-8.695 14.724-10.548 21.348-10.548h.077c8.25.053 14.474 2.452 18.503 7.129 2.933 3.405 4.893 8.11 5.865 14.05-7.314-1.243-15.224-1.625-23.68-1.14-23.82 1.372-39.134 15.264-38.105 34.568.519 9.792 5.397 18.216 13.733 23.719 7.047 4.652 16.123 6.927 25.557 6.412 12.457-.683 22.23-5.437 29.048-14.127 5.178-6.601 8.452-15.153 9.899-25.93 5.937 3.583 10.337 8.298 12.767 13.966 4.132 9.635 4.373 25.468-8.547 38.375-11.318 11.309-24.924 16.2-45.587 16.352-22.81-.17-40.06-7.484-51.275-21.742C20.168 139.965 14.74 120.681 14.537 96c.203-24.681 5.631-43.965 16.136-57.314C41.929 24.425 59.179 17.11 81.988 16.94c22.975.17 40.526 7.521 52.171 21.847 5.71 7.025 10.016 15.861 12.853 26.162l17.147-4.308c-3.44-12.7-8.853-23.626-16.22-32.687C133.036 9.641 111.202.196 82.07 0H81.942C52.867.19 31.277 9.642 16.773 28.08 3.867 44.487-2.79 67.316-3.007 95.932L-3 96l-0.007.068c.217 28.616 6.874 51.445 19.78 67.852C31.277 182.358 52.867 191.81 81.942 192h1.112c26.96-.173 44.555-6.708 59.05-21.19C161.08 151.866 160.51 128.12 154.26 113.54c-4.484-10.454-13.033-18.945-24.724-24.553zM98.44 129.507c-10.44.588-21.286-4.098-21.821-14.135-.464-7.441 5.229-15.745 22.394-16.735 1.966-.113 3.895-.168 5.79-.168 6.235 0 12.068.606 17.371 1.766-1.978 24.702-13.58 28.713-23.734 29.272z', viewBox: '0 0 192 192' },
 ]
 
-
 const KEVIN_IMG = 'https://media.licdn.com/dms/image/v2/D4E03AQG4nlTt-7wB9w/profile-displayphoto-crop_800_800/B4EZi8WwoyHEAI-/0/1755506740516?e=1775692800&v=beta&t=3Oq_HdQ6GKMFVN6CwQCbvB2Qh7VWo1ls1KIroOyhPYY'
 
-function PlatformLogos({ className = '' }: { className?: string }) {
-  return (
-    <div className={`flex items-center gap-2 flex-wrap ${className}`}>
-      <span className="text-[11px] text-neutral-600 mr-1">Publié sur</span>
-      {platforms.map((p) => (
-        <div
-          key={p.name}
-          title={p.name}
-          className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:border-empire/30 hover:bg-empire/5 transition-all"
-        >
-          <svg
-            viewBox={p.viewBox ?? '0 0 24 24'}
-            fill="currentColor"
-            className="w-4 h-4 text-neutral-400"
-          >
-            <path d={p.svg} />
-          </svg>
-        </div>
-      ))}
-    </div>
-  )
-}
+const AVATARS = [
+  'https://i.pravatar.cc/48?img=11',
+  'https://i.pravatar.cc/48?img=22',
+  'https://i.pravatar.cc/48?img=33',
+  'https://i.pravatar.cc/48?img=44',
+  'https://i.pravatar.cc/48?img=55',
+]
 
 export default function DecouvertePage() {
   return (
     <>
-      {/* Senja script — load async */}
       <Script
         src="https://widget.senja.io/widget/dbb797c0-9c9f-491d-8b35-7bb197153711/platform.js"
         strategy="lazyOnload"
@@ -58,15 +41,14 @@ export default function DecouvertePage() {
 
       <main className="min-h-screen bg-black text-white overflow-x-hidden">
 
-        {/* Background gradients */}
+        {/* Background */}
         <div className="fixed inset-0 pointer-events-none">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_100%_50%_at_50%_-10%,rgba(218,252,104,0.1),transparent)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_60%_at_90%_80%,rgba(218,252,104,0.03),transparent)]" />
         </div>
 
         <div className="relative z-10 flex flex-col min-h-screen">
 
-          {/* ── Logo bar ──────────────────────────────────────── */}
+          {/* ── Logo bar ─────────────────────────────── */}
           <div className="flex items-center justify-between px-4 sm:px-6 py-4 border-b border-white/5">
             <a href="/" className="text-white font-bold text-base tracking-tight hover:text-empire transition-colors">
               Empire Internet
@@ -77,113 +59,95 @@ export default function DecouvertePage() {
             </div>
           </div>
 
-          {/* ── HERO ─────────────────────────────────────────── */}
-          <section className="px-4 sm:px-6 pt-8 pb-6 max-w-5xl mx-auto w-full">
+          <div className="flex-1 max-w-3xl mx-auto w-full px-4 sm:px-6 py-8 md:py-12">
 
-            {/* Desktop 2-col / Mobile single col reversed (form first) */}
-            <div className="grid md:grid-cols-[1fr_420px] gap-8 md:gap-12 items-start">
+            {/* ── Pitch — compact, above the calendar ── */}
+            <div className="text-center mb-8">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-empire/10 border border-empire/30 mb-5">
+                <span className="w-1.5 h-1.5 rounded-full bg-empire animate-pulse" />
+                <span className="text-xs font-bold text-empire tracking-widest uppercase">Comme dans la vidéo →</span>
+              </div>
 
-              {/* ── Left pitch — hidden on mobile, shown on desktop ── */}
-              <div className="hidden md:block">
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-empire/10 border border-empire/30 mb-5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-empire animate-pulse" />
-                  <span className="text-xs font-bold text-empire tracking-widest uppercase">Comme dans la vidéo →</span>
-                </div>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight mb-4">
+                Arrête d'écrire du contenu.<br />
+                <span className="text-empire">Parle 15 min. On publie partout.</span>
+              </h1>
 
-                <h1 className="text-4xl lg:text-5xl font-extrabold leading-tight mb-4">
-                  Arrête d'écrire<br />
-                  du contenu.<br />
-                  <span className="text-empire">Parle 15 min.<br />On publie partout.</span>
-                </h1>
+              <p className="text-neutral-400 text-base md:text-lg max-w-xl mx-auto mb-6">
+                Une interview par semaine → 30+ posts, reels, vidéos, newsletters.{' '}
+                <span className="text-white font-semibold">Sans que tu écrives une seule ligne.</span>
+              </p>
 
-                <p className="text-neutral-400 text-lg leading-relaxed mb-7">
-                  Une interview par semaine → 30+ posts, reels, vidéos, newsletters. Sur 6 réseaux.{' '}
-                  <span className="text-white font-semibold">Sans que tu écrives une seule ligne.</span>
-                </p>
+              {/* Bullets */}
+              <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mb-5">
+                {bullets.map((b, i) => (
+                  <div key={i} className="flex items-center gap-2">
+                    <svg viewBox="0 0 12 10" fill="none" className="w-3 h-3 flex-shrink-0">
+                      <path d="M1 5l3 3 7-7" stroke="#dafc68" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                    <span className="text-neutral-400 text-sm">{b}</span>
+                  </div>
+                ))}
+              </div>
 
-                <div className="space-y-2.5 mb-5">
-                  {bullets.map((b, i) => (
-                    <div key={i} className="flex items-center gap-3">
-                      <div className="w-5 h-5 rounded-full bg-empire/15 border border-empire/30 flex items-center justify-center flex-shrink-0">
-                        <svg viewBox="0 0 12 10" fill="none" className="w-3 h-3">
-                          <path d="M1 5l3 3 7-7" stroke="#dafc68" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                      </div>
-                      <span className="text-neutral-300 text-sm">{b}</span>
-                    </div>
+              {/* Platform logos */}
+              <div className="flex items-center justify-center gap-2 flex-wrap mb-6">
+                <span className="text-[11px] text-neutral-600 mr-1">Publié sur</span>
+                {platforms.map((p) => (
+                  <div
+                    key={p.name}
+                    title={p.name}
+                    className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:border-empire/30 hover:bg-empire/5 transition-all"
+                  >
+                    <svg viewBox={p.viewBox ?? '0 0 24 24'} fill="currentColor" className="w-4 h-4 text-neutral-400">
+                      <path d={p.svg} />
+                    </svg>
+                  </div>
+                ))}
+              </div>
+
+              {/* Social proof */}
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <div className="flex -space-x-2">
+                  {AVATARS.map((url, i) => (
+                    <img key={i} src={url} alt="" width={28} height={28} className="w-7 h-7 rounded-full border-2 border-black object-cover" />
                   ))}
                 </div>
-
-                {/* Platform logos */}
-                <PlatformLogos className="mb-8" />
-
-                {/* Creator credit */}
-                <div className="flex items-center gap-2.5">
-                  <img src={KEVIN_IMG} alt="Kevin Dufraisse" width={36} height={36} className="w-9 h-9 rounded-full border border-white/15 object-cover flex-shrink-0" />
-                  <p className="text-neutral-500 text-xs leading-snug">
-                    Créé par <span className="text-white font-semibold">Kevin Dufraisse</span>{' '}
-                    · Top 48 LinkedIn France
-                  </p>
-                </div>
+                <p className="text-xs text-neutral-400">+200 entrepreneurs accompagnés</p>
               </div>
 
-              {/* ── Right : Form (sticky desktop, top on mobile) ── */}
-              <div>
-                {/* Mobile-only hero pitch above form */}
-                <div className="md:hidden mb-6">
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-empire/10 border border-empire/30 mb-4">
-                    <span className="w-1.5 h-1.5 rounded-full bg-empire animate-pulse" />
-                    <span className="text-xs font-bold text-empire tracking-widest uppercase">Comme dans la vidéo →</span>
-                  </div>
-                  <h1 className="text-3xl font-extrabold leading-tight mb-3">
-                    Tu parles 15 min.<br />
-                    <span className="text-empire">On publie partout.</span>
-                  </h1>
-                  <p className="text-neutral-400 text-sm leading-relaxed mb-4">
-                    30+ posts, reels, vidéos sur 6 réseaux — sans que tu écrives une seule ligne.
-                  </p>
-                  <PlatformLogos />
-                </div>
-
-                {/* Form card */}
-                <div className="md:sticky md:top-6">
-                  <div className="p-5 sm:p-6 rounded-2xl bg-white/[0.04] border border-white/10 shadow-[0_0_60px_rgba(218,252,104,0.07)]">
-                    <div className="mb-5">
-                      <h2 className="text-lg font-bold text-white">Réserve ton appel gratuit</h2>
-                      <p className="text-neutral-500 text-sm mt-0.5">30 min · En visio · Avec Kevin ou Marc</p>
-                    </div>
-                    <YoutubeAdForm />
-                  </div>
-                </div>
+              {/* Creator credit */}
+              <div className="flex items-center justify-center gap-2.5">
+                <img src={KEVIN_IMG} alt="Kevin Dufraisse" width={28} height={28} className="w-7 h-7 rounded-full border border-white/15 object-cover" />
+                <p className="text-neutral-500 text-xs">
+                  Créé par <span className="text-white font-semibold">Kevin Dufraisse</span> · Top 48 LinkedIn France
+                </p>
               </div>
             </div>
-          </section>
 
-          {/* ── Testimonials — Senja ─────────────────────────── */}
-          <section className="px-4 sm:px-6 py-10 max-w-5xl mx-auto w-full">
-            <p className="text-xs text-neutral-500 uppercase tracking-widest font-bold text-center mb-6">Ce qu'en disent ceux qui sont passés par là</p>
-            <div
-              className="senja-embed"
-              data-id="dbb797c0-9c9f-491d-8b35-7bb197153711"
-              data-mode="shadow"
-              data-lazyload="false"
-              style={{ display: 'block', width: '100%' }}
-            />
-          </section>
+            {/* ── Cal.com — pleine largeur ──────────────── */}
+            <div className="rounded-2xl overflow-hidden border border-white/8 bg-white/[0.02] p-1">
+              <YtCalEmbed />
+            </div>
 
-          {/* ── Mobile-only creator credit ───────────────────── */}
-          <section className="md:hidden px-4 pb-10 max-w-5xl mx-auto w-full">
-            <div className="flex items-center gap-2.5">
-              <img src={KEVIN_IMG} alt="Kevin Dufraisse" width={32} height={32} className="w-8 h-8 rounded-full border border-white/15 object-cover flex-shrink-0" />
-              <p className="text-neutral-500 text-xs leading-snug">
-                Créé par <span className="text-white font-semibold">Kevin Dufraisse</span>{' '}
-                · Top 48 LinkedIn France
+            {/* ── Senja testimonials ───────────────────── */}
+            <div className="mt-10">
+              <p className="text-xs text-neutral-500 uppercase tracking-widest font-bold text-center mb-6">
+                Ce qu'en disent ceux qui sont passés par là
               </p>
+              <div
+                className="senja-embed"
+                data-id="dbb797c0-9c9f-491d-8b35-7bb197153711"
+                data-mode="shadow"
+                data-lazyload="false"
+                style={{ display: 'block', width: '100%' }}
+              />
             </div>
-          </section>
 
-          {/* ── Footer ───────────────────────────────────────── */}
-          <div className="border-t border-white/5 py-5 text-center mt-auto pb-24 md:pb-5">
+          </div>
+
+          {/* ── Footer ──────────────────────────────── */}
+          <div className="border-t border-white/5 py-5 text-center">
             <p className="text-xs text-neutral-700">
               © 2026 Empire Internet ·{' '}
               <a href="/" className="hover:text-neutral-500 transition-colors">Retour au site</a>
@@ -191,10 +155,6 @@ export default function DecouvertePage() {
           </div>
 
         </div>
-
-        {/* Sticky mobile CTA (appears when form scrolls out of view) */}
-        <MobileStickyBookCTA />
-
       </main>
     </>
   )
