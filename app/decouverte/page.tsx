@@ -67,8 +67,8 @@ export default function DecouvertePage() {
               </h1>
 
               <p className="text-neutral-400 text-base mb-6">
-                Une interview de 15 min par semaine.{' '}
-                <span className="text-white font-semibold">On s'occupe du reste.</span>
+                Une interview de 15 min par semaine → 30+ posts, reels, vidéos, newsletters.{' '}
+                <span className="text-white font-semibold">Sans que tu écrives une seule ligne.</span>
               </p>
 
               {/* Before / After */}
