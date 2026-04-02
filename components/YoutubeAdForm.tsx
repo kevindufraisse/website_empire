@@ -17,12 +17,13 @@ const AVATARS = [
 
 export default function YoutubeAdForm() {
   const [step, setStep] = useState<'form' | 'booking'>('form')
-  const [firstName, setFirstName] = useState('')
   const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
   const [loading, setLoading] = useState(false)
-  const [calLink, setCalLink] = useState(CAL_BASE)
   const bookingRef = useRef<HTMLDivElement>(null)
+  const calInitialized = useRef(false)
 
+  // Initialize Cal.com UI theme once
   useEffect(() => {
     ;(async () => {
       const cal = await getCalApi({ namespace: CAL_NAMESPACE })
@@ -38,22 +39,41 @@ export default function YoutubeAdForm() {
     })()
   }, [])
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!firstName.trim() || !email.trim()) return
-    setLoading(true)
+  // Trigger inline embed AFTER step switches to 'booking'
+  useEffect(() => {
+    if (step !== 'booking' || calInitialized.current) return
+    calInitialized.current = true
 
-    const params = new URLSearchParams({ name: firstName.trim(), email: email.trim() })
+    const params = new URLSearchParams({ email: email.trim() })
+    // Cal.com standard field — phone requires a custom field in Cal.com event settings
+    if (phone.trim()) params.set('phone', phone.trim())
     const emp = sessionStorage.getItem('emp') || new URLSearchParams(window.location.search).get('emp')
     if (emp) params.set('emp', emp)
 
-    setCalLink(`${CAL_BASE}?${params.toString()}`)
-    setLoading(false)
-    setStep('booking')
+    const calLink = `${CAL_BASE}?${params.toString()}`
+
+    ;(async () => {
+      const cal = await getCalApi({ namespace: CAL_NAMESPACE })
+      cal('inline', {
+        elementOrSelector: '#yt-cal-inline',
+        calLink,
+        layout: 'month_view',
+      })
+    })()
 
     setTimeout(() => {
       bookingRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }, 150)
+    }, 200)
+  }, [step, email, phone])
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!email.trim() || !phone.trim()) return
+    setLoading(true)
+    // Small delay for UX
+    await new Promise((r) => setTimeout(r, 400))
+    setLoading(false)
+    setStep('booking')
   }
 
   return (
@@ -69,22 +89,12 @@ export default function YoutubeAdForm() {
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.35 }}
           >
-            {/* Urgency badge */}
             <div className="flex items-center justify-center gap-2 mb-4">
               <span className="w-1.5 h-1.5 rounded-full bg-empire animate-pulse" />
               <p className="text-xs text-empire font-semibold">Appel offert · 30 min avec Kevin ou Marc</p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-3">
-              <input
-                type="text"
-                placeholder="Ton prénom"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                required
-                autoComplete="given-name"
-                className="w-full px-4 py-4 rounded-xl bg-white/5 border border-white/15 text-white placeholder-neutral-500 focus:outline-none focus:border-empire/60 transition-colors text-base"
-              />
               <input
                 type="email"
                 placeholder="Ton email"
@@ -95,13 +105,26 @@ export default function YoutubeAdForm() {
                 inputMode="email"
                 className="w-full px-4 py-4 rounded-xl bg-white/5 border border-white/15 text-white placeholder-neutral-500 focus:outline-none focus:border-empire/60 transition-colors text-base"
               />
+              <input
+                type="tel"
+                placeholder="Ton numéro de téléphone"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                required
+                autoComplete="tel"
+                inputMode="tel"
+                className="w-full px-4 py-4 rounded-xl bg-white/5 border border-white/15 text-white placeholder-neutral-500 focus:outline-none focus:border-empire/60 transition-colors text-base"
+              />
               <button
                 type="submit"
-                disabled={loading || !firstName.trim() || !email.trim()}
+                disabled={loading || !email.trim() || !phone.trim()}
                 className="w-full py-4 rounded-xl bg-empire text-black font-black text-base hover:scale-[1.02] active:scale-[0.98] transition-all shadow-[0_0_30px_rgba(218,252,104,0.35)] disabled:opacity-40 disabled:scale-100 min-h-[56px]"
               >
                 {loading
-                  ? <span className="flex items-center justify-center gap-2"><span className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin" /> Un instant…</span>
+                  ? <span className="flex items-center justify-center gap-2">
+                      <span className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin" />
+                      Un instant…
+                    </span>
                   : 'Réserver mon appel gratuit →'}
               </button>
             </form>
@@ -110,7 +133,6 @@ export default function YoutubeAdForm() {
               Sans engagement · Tes données ne sont jamais revendues
             </p>
 
-            {/* Social proof */}
             <div className="flex items-center justify-center gap-3 mt-4 pt-4 border-t border-white/5">
               <div className="flex -space-x-2">
                 {AVATARS.map((url, i) => (
@@ -137,21 +159,17 @@ export default function YoutubeAdForm() {
                 <Check size={14} className="text-black" />
               </div>
               <div>
-                <p className="text-white font-bold text-sm">
-                  C'est noté{firstName ? `, ${firstName}` : ''} 👋
-                </p>
+                <p className="text-white font-bold text-sm">C'est noté 👋</p>
                 <p className="text-neutral-400 text-xs mt-0.5 leading-relaxed">
-                  Choisis ton créneau ci-dessous — prénom et email déjà pré-remplis.
+                  Choisis ton créneau — ton email est déjà pré-rempli.
                 </p>
               </div>
             </div>
 
-            {/* Cal.com inline embed */}
+            {/* Cal.com inline target — initialized via cal('inline', ...) */}
             <div
-              data-cal-namespace={CAL_NAMESPACE}
-              data-cal-link={calLink}
-              data-cal-config='{"layout":"month_view","theme":"dark"}'
-              style={{ width: '100%', minHeight: '500px', overflow: 'scroll' }}
+              id="yt-cal-inline"
+              style={{ width: '100%', minHeight: '600px' }}
             />
           </motion.div>
         )}
@@ -163,20 +181,16 @@ export default function YoutubeAdForm() {
 /* ── Sticky mobile CTA ────────────────────────────────────────────── */
 export function MobileStickyBookCTA() {
   const [visible, setVisible] = useState(false)
-  const [booked, setBooked] = useState(false)
 
   useEffect(() => {
     const onScroll = () => {
       const el = document.getElementById('yt-form')
       if (!el) return
-      const rect = el.getBoundingClientRect()
-      setVisible(rect.bottom < 0)
+      setVisible(el.getBoundingClientRect().bottom < 0)
     }
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
-
-  if (booked) return null
 
   return (
     <AnimatePresence>
@@ -189,10 +203,7 @@ export function MobileStickyBookCTA() {
           className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-black/95 backdrop-blur-md border-t border-empire/20 px-4 py-3 pb-[env(safe-area-inset-bottom)]"
         >
           <button
-            onClick={() => {
-              document.getElementById('yt-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-              setBooked(true)
-            }}
+            onClick={() => document.getElementById('yt-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
             className="w-full py-4 rounded-xl bg-empire text-black font-black text-base shadow-[0_0_30px_rgba(218,252,104,0.4)] active:scale-[0.98] transition-all"
           >
             Réserver mon appel gratuit →
