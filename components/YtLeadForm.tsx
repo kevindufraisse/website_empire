@@ -182,17 +182,25 @@ export default function YtLeadForm() {
 
   if (submitted) {
     return (
-      <div className="text-center py-8">
-        <p className="text-lg font-bold text-white mb-2">Pas de souci.</p>
+      <div className="text-center py-8 space-y-4">
+        <p className="text-lg font-bold text-white">Pas encore le budget pour un accompagnement ?</p>
         <p className="text-neutral-400 text-sm max-w-sm mx-auto">
-          Ce n'est peut-être pas le bon moment. Reviens quand tu es prêt à investir dans ta visibilité.{' '}
+          Notre bootcamp est fait pour toi — apprends à créer du contenu viral toi-même et génère tes premiers 3 000€/mois en 21 jours.
+        </p>
+        <a
+          href="/academy"
+          className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-empire text-black font-bold text-sm hover:bg-empire/90 transition-colors"
+        >
+          Découvrir le bootcamp →
+        </a>
+        <div>
           <button
             onClick={() => { setForm({ ...form, budget: '' }); setSubmitted(false) }}
-            className="text-empire underline hover:no-underline"
+            className="text-xs text-neutral-600 hover:text-neutral-400 transition-colors underline"
           >
-            Recommencer
+            Revenir au formulaire
           </button>
-        </p>
+        </div>
       </div>
     )
   }
