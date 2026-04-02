@@ -1,8 +1,9 @@
 'use client'
-import { useState, useRef, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useState } from 'react'
+import { motion } from 'framer-motion'
 import Script from 'next/script'
-import { Check, Phone, ArrowRight, Calendar } from 'lucide-react'
+import { ArrowRight, Phone, Calendar } from 'lucide-react'
+import CallbackFormModal from '@/components/CallbackFormModal'
 
 const stats = [
   { value: '10M+', label: 'vues/mois générées' },
@@ -10,118 +11,19 @@ const stats = [
   { value: '21j', label: 'pour tout maîtriser' },
 ]
 
-function CallbackForm() {
-  const [form, setForm] = useState({ first_name: '', phone: '', email: '' })
-  const [loading, setLoading] = useState(false)
-  const [success, setSuccess] = useState(false)
-  const [error, setError] = useState('')
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!form.phone && !form.email) {
-      setError('Saisis au moins ton téléphone ou ton email.')
-      return
-    }
-    setLoading(true)
-    setError('')
-    try {
-      const res = await fetch('/api/leads', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, source: 'youtube' }),
-      })
-      if (!res.ok) throw new Error()
-      setSuccess(true)
-    } catch {
-      setError('Une erreur est survenue. Réessaie.')
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  if (success) {
-    return (
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="flex flex-col items-center gap-4 py-10 text-center"
-      >
-        <div className="w-14 h-14 rounded-full bg-empire/20 border border-empire flex items-center justify-center">
-          <Check className="text-empire" size={28} />
-        </div>
-        <p className="text-xl font-black text-white">C'est bon !</p>
-        <p className="text-neutral-400 text-sm max-w-xs">
-          On t'appelle dans les <span className="text-white font-semibold">24h</span> pour faire le point et voir si on peut t'aider.
-        </p>
-      </motion.div>
-    )
-  }
-
-  return (
-    <form onSubmit={handleSubmit} className="space-y-3">
-      <div className="flex gap-3">
-        <div className="flex-1">
-          <input
-            type="text"
-            placeholder="Ton prénom"
-            value={form.first_name}
-            onChange={e => setForm(p => ({ ...p, first_name: e.target.value }))}
-            className="w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/15 text-white placeholder:text-neutral-500 text-sm focus:outline-none focus:border-empire/60 transition-colors"
-          />
-        </div>
-        <div className="flex-1">
-          <input
-            type="tel"
-            placeholder="Ton 06 / 07"
-            value={form.phone}
-            onChange={e => setForm(p => ({ ...p, phone: e.target.value }))}
-            className="w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/15 text-white placeholder:text-neutral-500 text-sm focus:outline-none focus:border-empire/60 transition-colors"
-          />
-        </div>
-      </div>
-      <input
-        type="email"
-        placeholder="Ton email (pour recevoir la confirmation)"
-        value={form.email}
-        onChange={e => setForm(p => ({ ...p, email: e.target.value }))}
-        className="w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/15 text-white placeholder:text-neutral-500 text-sm focus:outline-none focus:border-empire/60 transition-colors"
-      />
-      {error && <p className="text-red-400 text-xs">{error}</p>}
-      <button
-        type="submit"
-        disabled={loading}
-        className="w-full py-4 rounded-xl bg-empire text-black font-black text-base hover:scale-[1.02] transition-all shadow-[0_0_30px_rgba(218,252,104,0.35)] disabled:opacity-60 disabled:scale-100 flex items-center justify-center gap-2"
-      >
-        <Phone size={16} />
-        {loading ? 'Envoi…' : 'Je veux être rappelé →'}
-      </button>
-      <p className="text-[11px] text-neutral-600 text-center">
-        On ne revend pas tes données · Rappel sous 24h · Aucun engagement
-      </p>
-    </form>
-  )
-}
+const steps = [
+  { n: '01', t: 'On t\'appelle', d: '15 minutes. On écoute, on comprend où tu en es.' },
+  { n: '02', t: 'On voit si c\'est fait pour toi', d: 'Pas un pitch. Une vraie conversation.' },
+  { n: '03', t: 'On te dit quoi faire', d: 'Admis dans le bootcamp — ou une autre direction si c\'est mieux pour toi.' },
+]
 
 export default function YoutubePageClient() {
-  const [calLoaded, setCalLoaded] = useState(false)
-  const calRef = useRef<HTMLButtonElement>(null)
-
-  useEffect(() => {
-    if (calLoaded && calRef.current) {
-      // @ts-expect-error Cal is loaded via script
-      window.Cal?.('ui', { theme: 'dark', styles: { branding: { brandColor: '#DAFC68' } } })
-    }
-  }, [calLoaded])
+  const [callbackOpen, setCallbackOpen] = useState(false)
 
   return (
     <div className="min-h-screen bg-black text-white">
-      {/* Cal.com embed script */}
-      <Script
-        src="https://cal.com/embed.js"
-        onLoad={() => setCalLoaded(true)}
-      />
+      <CallbackFormModal isOpen={callbackOpen} onClose={() => setCallbackOpen(false)} />
 
-      {/* No header, no footer — pure conversion */}
       <div className="max-w-xl mx-auto px-4 py-12 md:py-20">
 
         {/* Logo */}
@@ -158,8 +60,8 @@ export default function YoutubePageClient() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
-          className="flex items-center justify-center gap-6 mb-10"
+          transition={{ delay: 0.15, duration: 0.5 }}
+          className="flex items-center justify-center gap-8 mb-10"
         >
           {stats.map((s, i) => (
             <div key={i} className="text-center">
@@ -169,27 +71,27 @@ export default function YoutubePageClient() {
           ))}
         </motion.div>
 
-        {/* Primary — Callback form */}
+        {/* Primary CTA — callback */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.25, duration: 0.5 }}
-          className="p-6 rounded-2xl bg-gradient-to-br from-empire/15 to-empire/5 border border-empire/40 shadow-[0_0_40px_rgba(218,252,104,0.1)] mb-5"
+          transition={{ delay: 0.2, duration: 0.5 }}
+          className="mb-4"
         >
-          <div className="flex items-center gap-2 mb-5">
-            <div className="w-7 h-7 rounded-full bg-empire/20 border border-empire/40 flex items-center justify-center flex-shrink-0">
-              <Phone size={13} className="text-empire" />
-            </div>
-            <div>
-              <p className="text-white font-bold text-sm leading-tight">Être rappelé par Kevin ou Marc</p>
-              <p className="text-neutral-500 text-[11px]">On t'appelle dans les 24h — à l'heure qui t'arrange</p>
-            </div>
-          </div>
-          <CallbackForm />
+          <button
+            onClick={() => setCallbackOpen(true)}
+            className="w-full py-4 rounded-xl bg-empire text-black font-black text-base hover:scale-[1.02] transition-all shadow-[0_0_30px_rgba(218,252,104,0.35)] flex items-center justify-center gap-2"
+          >
+            <Phone size={16} />
+            Être rappelé par Kevin ou Marc →
+          </button>
+          <p className="text-[11px] text-neutral-600 text-center mt-2">
+            Formulaire 30s · Rappel dans les 24h · Aucun engagement
+          </p>
         </motion.div>
 
         {/* Divider */}
-        <div className="flex items-center gap-3 mb-5">
+        <div className="flex items-center gap-3 my-5">
           <div className="flex-1 h-px bg-white/10" />
           <span className="text-xs text-neutral-600 uppercase tracking-widest">ou</span>
           <div className="flex-1 h-px bg-white/10" />
@@ -199,11 +101,10 @@ export default function YoutubePageClient() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.35, duration: 0.5 }}
+          transition={{ delay: 0.3, duration: 0.5 }}
           className="mb-14"
         >
           <button
-            ref={calRef}
             data-cal-link="team/empire-internet/audit-empire"
             data-cal-config='{"layout":"month_view","theme":"dark"}'
             className="w-full py-3.5 rounded-xl bg-white/5 border border-white/15 text-white font-semibold text-sm hover:border-empire/40 hover:bg-empire/5 transition-all flex items-center justify-center gap-2"
@@ -217,15 +118,11 @@ export default function YoutubePageClient() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
+          transition={{ delay: 0.35, duration: 0.5 }}
           className="mb-16 space-y-3"
         >
           <p className="text-xs font-bold text-neutral-500 uppercase tracking-widest text-center mb-4">Ce qui se passe après</p>
-          {[
-            { n: '01', t: 'On t\'appelle', d: '15 minutes. On écoute, on comprend où tu en es.' },
-            { n: '02', t: 'On voit si c\'est fait pour toi', d: 'Pas un pitch. Une vraie conversation.' },
-            { n: '03', t: 'On te dit quoi faire', d: 'Admis dans le bootcamp — ou une autre direction si c\'est mieux pour toi.' },
-          ].map((s, i) => (
+          {steps.map((s, i) => (
             <div key={i} className="flex gap-4 items-start">
               <div className="w-7 h-7 rounded-full bg-empire/10 border border-empire/30 flex items-center justify-center flex-shrink-0 text-[11px] font-black text-empire">
                 {s.n}
@@ -242,7 +139,7 @@ export default function YoutubePageClient() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.5, duration: 0.5 }}
+          transition={{ delay: 0.4, duration: 0.5 }}
         >
           <p className="text-xs font-bold text-neutral-500 uppercase tracking-widest text-center mb-8">Ce qu'en disent ceux qui sont passés par là</p>
           <div
