@@ -5,6 +5,8 @@ import { useState, useEffect, useRef } from 'react'
 declare global {
   interface Window {
     dataLayer: Record<string, unknown>[]
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    gtag: (...args: any[]) => void
   }
 }
 import { createPortal } from 'react-dom'
@@ -184,17 +186,13 @@ export default function YtLeadForm() {
     } catch { /* best-effort */ }
     setLoading(false)
 
-    // Fire GTM conversion event
-    if (typeof window !== 'undefined') {
-      window.dataLayer = window.dataLayer || []
-      window.dataLayer.push({
-        event: 'ads_conversion_book_appointment',
-        conversion_value: form.budget === '5000+' ? 5000 : 1000,
+    // Fire GA4 conversion event (picked up by Google Ads via GA4 link)
+    if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+      window.gtag('event', 'ads_conversion_book_appointment', {
+        value: form.budget === '5000+' ? 5000 : 1000,
         currency: 'EUR',
-        user_data: {
-          email: form.email,
-          phone_number: `${COUNTRIES[countryIdx].code}${form.phone}`,
-        },
+        email: form.email,
+        phone_number: `${COUNTRIES[countryIdx].code}${form.phone}`,
       })
     }
 
