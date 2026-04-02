@@ -10,7 +10,7 @@ const RESULTS = [
     detail: 'Consultant RH · LinkedIn + Instagram',
   },
   {
-    stat: '14',
+    stat: '38',
     unit: 'RDV qualifiés',
     context: 'en un mois',
     detail: 'Coach business · Contenu organique uniquement',
@@ -19,7 +19,7 @@ const RESULTS = [
     stat: '15 min',
     unit: 'par semaine',
     context: 'de temps investi',
-    detail: 'Au lieu de 8h+ de rédaction/montage',
+    detail: 'Au lieu de 21h+ de rédaction/montage',
   },
   {
     stat: '3 200€',
