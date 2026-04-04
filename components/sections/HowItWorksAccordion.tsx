@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef, useEffect, useState } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { Mic, ArrowRight, Sparkles } from 'lucide-react'
+import { Mic, ArrowRight, Sparkles, Search, TrendingUp, Award } from 'lucide-react'
 import { getCalApi } from "@calcom/embed-react"
 import CallbackButton from '@/components/CallbackButton'
 import AnimatedList, { AnimatedListItem } from '@/components/magicui/animated-list'
@@ -305,37 +305,63 @@ export default function HowItWorksAccordion() {
           </div>
         </FadeInBlock>
 
-          {/* 3 Visual Blocks */}
+          {/* 4 Visual Blocks */}
         <FadeInBlock delay={0.1}>
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
-              
-              {/* BLOCK 1 - Voice Recording */}
-              <div className="group relative flex flex-col overflow-hidden rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30 transition-all min-h-[320px]">
-                {/* Voice visual */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+
+              {/* BLOCK 1 - Mois 1 : Analyse & Formation */}
+              <div className="group relative flex flex-col overflow-hidden rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30 transition-all min-h-[300px]">
                 <div className="flex-1 flex flex-col items-center justify-center p-6 gap-4">
-                  {/* Mic Icon */}
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-empire/30 to-empire/10 border-2 border-empire flex items-center justify-center">
-                    <Mic className="text-empire" size={28} />
+                  {/* Animated niche analysis visual */}
+                  <div className="relative w-20 h-20 flex items-center justify-center">
+                    <div className="absolute inset-0 rounded-full border-2 border-empire/30 animate-ping opacity-30" />
+                    <div className="absolute inset-2 rounded-full border border-empire/50 animate-pulse" />
+                    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-empire/30 to-empire/10 border-2 border-empire flex items-center justify-center">
+                      <Search className="text-empire" size={24} />
+                    </div>
                   </div>
-                  
-                  {/* Voice Waveform */}
+                  <div className="flex flex-col gap-1.5 w-full">
+                    {['Analyse de niche', 'Sujets viraux', 'Systèmes setup'].map((item, i) => (
+                      <div key={i} className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-empire/10">
+                        <div className="w-1.5 h-1.5 rounded-full bg-empire flex-shrink-0" />
+                        <span className="text-xs text-neutral-300">{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="relative z-10 p-5 pt-3 bg-gradient-to-t from-black via-black/90 to-transparent">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">1</span>
+                    <h3 className="text-base font-semibold text-white">
+                      {lang === 'fr' ? 'Mois 1 - On prend en main' : 'Month 1 - We take over'}
+                    </h3>
+                  </div>
+                  <p className="text-neutral-400 text-sm">
+                    {lang === 'fr' ? 'Nos coachs analysent votre niche et mettent en place vos systèmes.' : 'Our coaches analyze your niche and set up your systems.'}
+                  </p>
+                </div>
+              </div>
+
+              {/* BLOCK 2 - Voice Recording (anciennement Bloc 1) */}
+              <div className="group relative flex flex-col overflow-hidden rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30 transition-all min-h-[300px]">
+                <div className="flex-1 flex flex-col items-center justify-center p-6 gap-4">
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-empire/30 to-empire/10 border-2 border-empire flex items-center justify-center">
+                    <Mic className="text-empire" size={24} />
+                  </div>
                   <VoiceAnimation />
-                  
                   <p className="text-xs text-empire font-semibold tracking-wider uppercase">
                     {lang === 'fr' ? 'Enregistrement...' : 'Recording...'}
                   </p>
                 </div>
-                
-                {/* Text - at bottom */}
-                <div className="relative z-10 p-6 pt-4 bg-gradient-to-t from-black via-black/90 to-transparent">
+                <div className="relative z-10 p-5 pt-3 bg-gradient-to-t from-black via-black/90 to-transparent">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">1</span>
-                    <h3 className="text-xl font-semibold text-white">
-                      {lang === 'fr' ? 'Parlez 15 min' : 'Speak 15 min'}
+                    <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">2</span>
+                    <h3 className="text-base font-semibold text-white">
+                      {lang === 'fr' ? 'L\'interview (15 min)' : 'The interview (15 min)'}
                     </h3>
                   </div>
                   <p className="text-neutral-400 text-sm">
-                    {lang === 'fr' ? 'On transforme votre voix en contenu qui convertit.' : 'We transform your voice into content that converts.'}
+                    {lang === 'fr' ? 'Vous parlez, on transforme votre voix en 30+ contenus partout.' : 'You speak, we turn your voice into 30+ pieces everywhere.'}
                   </p>
                   <div className="mt-2 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-empire/10 border border-empire/20">
                     <Sparkles className="text-empire" size={12} />
@@ -346,82 +372,65 @@ export default function HowItWorksAccordion() {
                 </div>
               </div>
 
-              {/* BLOCK 2 - Content Ready */}
-              <div className="group relative flex flex-col justify-end overflow-hidden rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30 transition-all min-h-[320px]">
-                {/* Human Verified Badge - Top right */}
+              {/* BLOCK 3 - Content Ready (anciennement Bloc 2) */}
+              <div className="group relative flex flex-col justify-end overflow-hidden rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30 transition-all min-h-[300px]">
                 <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-500/20 border border-green-500/40 backdrop-blur-sm">
                   <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                   <span className="text-[10px] font-semibold text-green-400">
                     {lang === 'fr' ? 'Vérifié humain' : 'Human verified'}
                   </span>
                 </div>
-                
-                {/* Animated content list */}
                 <div className="absolute inset-0">
                   <div className="absolute inset-0 pt-10 px-3 [mask-image:linear-gradient(to_top,transparent_20%,#000_100%)]">
-                    <AnimatedList
-                      items={notifications}
-                      delay={1200}
-                      className="w-full"
-                    />
+                    <AnimatedList items={notifications} delay={1200} className="w-full" />
                   </div>
                 </div>
-                
-                {/* Gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
-                
-                {/* Text - at bottom */}
-                <div className="relative z-10 p-6">
+                <div className="relative z-10 p-5">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">2</span>
-                    <h3 className="text-xl font-semibold text-white">
-                      {lang === 'fr' ? 'IA + Humain' : 'AI + Human'}
+                    <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">3</span>
+                    <h3 className="text-base font-semibold text-white">
+                      {lang === 'fr' ? 'IA + Humain Créent' : 'AI + Human Create'}
                     </h3>
                   </div>
                   <p className="text-neutral-400 text-sm">
-                    {lang === 'fr' ? 'L\'IA crée, un expert vérifie chaque post.' : 'AI creates, an expert reviews every post.'}
+                    {lang === 'fr' ? 'L\'IA crée, un expert vérifie chaque post. Publiez en 1 clic.' : 'AI creates, an expert reviews every post. Publish in 1 click.'}
                   </p>
                 </div>
-                
-                {/* Hover effect */}
                 <div className="pointer-events-none absolute inset-0 transform-gpu transition-all duration-300 group-hover:bg-black/[.03] z-5" />
               </div>
 
-              {/* BLOCK 3 - Calendar Ready */}
-              <div className="group relative flex flex-col overflow-hidden rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30 transition-all min-h-[320px]">
-                {/* Calendar visual */}
+              {/* BLOCK 4 - Autonomie */}
+              <div className="group relative flex flex-col overflow-hidden rounded-xl bg-gradient-to-br from-empire/10 to-empire/[0.02] border border-empire/20 hover:border-empire/50 transition-all min-h-[300px]">
                 <div className="flex-1 flex flex-col items-center justify-center p-6 gap-4">
-                  {/* Mini Calendar Preview */}
-                  <div className="grid grid-cols-7 gap-1.5 p-4 rounded-xl bg-white/5 border border-white/10">
-                    {Array.from({ length: 28 }).map((_, i) => (
-                      <div
-                        key={i}
-                        className={`w-6 h-6 rounded text-[10px] flex items-center justify-center ${
-                          [2, 5, 9, 12, 16, 19, 23, 26].includes(i)
-                            ? 'bg-empire/30 text-empire font-bold'
-                            : 'bg-white/5 text-neutral-500'
-                        }`}
-                      >
-                        {i + 1}
+                  <div className="relative w-20 h-20 flex items-center justify-center">
+                    <div className="absolute inset-0 rounded-full bg-empire/10 animate-pulse" />
+                    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-empire/40 to-empire/20 border-2 border-empire flex items-center justify-center">
+                      <Award className="text-empire" size={24} />
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-1.5 w-full">
+                    {[
+                      lang === 'fr' ? 'Vous enregistrez seul' : 'You record alone',
+                      lang === 'fr' ? 'Maîtrise de la viralité' : 'Virality mastered',
+                      lang === 'fr' ? 'Coachs disponibles' : 'Coaches on standby',
+                    ].map((item, i) => (
+                      <div key={i} className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-empire/10 border border-empire/20">
+                        <TrendingUp className="w-3 h-3 text-empire flex-shrink-0" />
+                        <span className="text-xs text-empire font-medium">{item}</span>
                       </div>
                     ))}
-                        </div>
-                  
-                  <p className="text-xs text-empire font-semibold tracking-wider uppercase">
-                    {lang === 'fr' ? '1 clic pour publier' : '1 click to publish'}
-                  </p>
-                    </div>
-                
-                {/* Text - at bottom */}
-                <div className="relative z-10 p-6 pt-4 bg-gradient-to-t from-black via-black/90 to-transparent">
+                  </div>
+                </div>
+                <div className="relative z-10 p-5 pt-3 bg-gradient-to-t from-black via-black/90 to-transparent">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">3</span>
-                    <h3 className="text-xl font-semibold text-white">
-                      {lang === 'fr' ? 'Publiez' : 'Publish'}
+                    <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">4</span>
+                    <h3 className="text-base font-semibold text-white">
+                      {lang === 'fr' ? 'Vous devenez autonome' : 'You become autonomous'}
                     </h3>
-                    </div>
+                  </div>
                   <p className="text-neutral-400 text-sm">
-                    {lang === 'fr' ? 'Tout est dans votre calendrier. Relisez et publiez.' : 'Everything in your calendar. Review and publish.'}
+                    {lang === 'fr' ? 'Après le mois 1, vous enregistrez votre propre contenu. On scale.' : 'After month 1, you record your own content. We scale.'}
                   </p>
                 </div>
               </div>
