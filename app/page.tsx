@@ -7,6 +7,7 @@ import FounderSection from '@/components/sections/FounderSection'
 import TestimonialsSection from '@/components/sections/TestimonialsSection'
 import FAQSection from '@/components/sections/FAQSection'
 import FinalBoostCTA from '@/components/sections/FinalBoostCTA'
+import WhyNowSection from '@/components/sections/WhyNowSection'
 
 export default function Page() {
   return (
@@ -17,6 +18,9 @@ export default function Page() {
       {/* How It Works - 3 steps */}
       <HowItWorksAccordion />
 
+      {/* Testimonials - Senja widget */}
+      <TestimonialsSection />
+
       {/* Roles Replaced */}
       <RolesReplacedSection />
 
@@ -26,8 +30,8 @@ export default function Page() {
       {/* Quick Wins - Before/After */}
       <QuickWinsSection />
 
-      {/* Testimonials - Senja widget */}
-      <TestimonialsSection />
+      {/* Why Now - commoditisation des compétences */}
+      <WhyNowSection />
 
       {/* FAQ - Essential questions */}
       <FAQSection variant="home" />

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef, useEffect, useState } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { Mic, ArrowRight, TrendingUp, Award } from 'lucide-react'
+import { Mic, ArrowRight } from 'lucide-react'
 import { getCalApi } from "@calcom/embed-react"
 import CallbackButton from '@/components/CallbackButton'
 import AnimatedList, { AnimatedListItem } from '@/components/magicui/animated-list'
@@ -309,41 +309,42 @@ export default function HowItWorksAccordion() {
         <FadeInBlock delay={0.1}>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
 
-              {/* BLOCK 1 - Calendrier éditorial */}
+              {/* BLOCK 1 - Research */}
               <div className="group relative flex flex-col overflow-hidden rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30 transition-all min-h-[300px]">
-                <div className="flex-1 flex flex-col items-center justify-center p-6 gap-4">
-                  <div className="grid grid-cols-7 gap-1 p-3 rounded-xl bg-white/5 border border-white/10">
-                    {Array.from({ length: 28 }).map((_, i) => (
-                      <div
-                        key={i}
-                        className={`w-5 h-5 rounded text-[9px] flex items-center justify-center ${
-                          [2, 5, 9, 12, 16, 19, 23, 26].includes(i)
-                            ? 'bg-empire/30 text-empire font-bold'
-                            : 'bg-white/5 text-neutral-500'
-                        }`}
-                      >
-                        {i + 1}
-                      </div>
-                    ))}
-                  </div>
-                  <p className="text-xs text-empire font-semibold tracking-wider uppercase">
-                    {lang === 'fr' ? '30+ contenus planifiés' : '30+ pieces scheduled'}
-                  </p>
+                <div className="flex-1 flex flex-col items-center justify-center p-5 gap-3">
+                  {(lang === 'fr' ? [
+                    'Sujets viraux de votre niche identifiés',
+                    'Meilleurs formats de votre secteur analysés',
+                    'Tunnel de conversion installé',
+                    'Séquences de prospection activées',
+                  ] : [
+                    'Viral topics in your niche identified',
+                    'Best formats in your sector analyzed',
+                    'Conversion funnel installed',
+                    'Prospecting sequences activated',
+                  ]).map((item, i) => (
+                    <div key={i} className="flex items-center gap-2 w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10">
+                      <span className="text-empire font-bold text-sm flex-shrink-0">✓</span>
+                      <span className="text-xs text-neutral-300">{item}</span>
+                    </div>
+                  ))}
                 </div>
                 <div className="relative z-10 p-5 pt-3 bg-gradient-to-t from-black via-black/90 to-transparent">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">1</span>
                     <h3 className="text-base font-semibold text-white">
-                      {lang === 'fr' ? 'Setup & Calendrier' : 'Setup & Calendar'}
+                      {lang === 'fr' ? 'Analyse & Installation' : 'Research & Setup'}
                     </h3>
                   </div>
                   <p className="text-neutral-400 text-sm">
-                    {lang === 'fr' ? 'On construit votre stratégie et prépare tout votre calendrier éditorial.' : 'We build your strategy and prepare your full editorial calendar.'}
+                    {lang === 'fr'
+                      ? 'Sujets viraux de votre niche + systèmes de conversion et prospection automatiques.'
+                      : 'Viral topics in your niche + automated conversion and prospecting systems.'}
                   </p>
                 </div>
               </div>
 
-              {/* BLOCK 2 - Voice Recording (anciennement Bloc 1) */}
+              {/* BLOCK 2 - Parlez 15 min */}
               <div className="group relative flex flex-col overflow-hidden rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30 transition-all min-h-[300px]">
                 <div className="flex-1 flex flex-col items-center justify-center p-6 gap-4">
                   <div className="w-14 h-14 rounded-full bg-gradient-to-br from-empire/30 to-empire/10 border-2 border-empire flex items-center justify-center">
@@ -358,16 +359,18 @@ export default function HowItWorksAccordion() {
                   <div className="flex items-center gap-2 mb-1">
                     <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">2</span>
                     <h3 className="text-base font-semibold text-white">
-                      {lang === 'fr' ? 'L\'interview (15 min)' : 'The interview (15 min)'}
+                      {lang === 'fr' ? 'Parlez 15 min' : 'Speak 15 min'}
                     </h3>
                   </div>
                   <p className="text-neutral-400 text-sm">
-                    {lang === 'fr' ? 'Vous parlez, on transforme votre voix en 30+ contenus partout.' : 'You speak, we turn your voice into 30+ pieces everywhere.'}
+                    {lang === 'fr'
+                      ? 'Zéro préparation. Vous donnez vos opinions sur des sujets - on fait le reste.'
+                      : 'Zero prep. You share your opinions on topics - we handle the rest.'}
                   </p>
                 </div>
               </div>
 
-              {/* BLOCK 3 - Content Ready (anciennement Bloc 2) */}
+              {/* BLOCK 3 - IA + Humain */}
               <div className="group relative flex flex-col justify-end overflow-hidden rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30 transition-all min-h-[300px]">
                 <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-500/20 border border-green-500/40 backdrop-blur-sm">
                   <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
@@ -385,51 +388,63 @@ export default function HowItWorksAccordion() {
                   <div className="flex items-center gap-2 mb-1">
                     <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">3</span>
                     <h3 className="text-base font-semibold text-white">
-                      {lang === 'fr' ? 'IA + Humain Créent' : 'AI + Human Create'}
+                      {lang === 'fr' ? 'IA + Humain' : 'AI + Human'}
                     </h3>
                   </div>
                   <p className="text-neutral-400 text-sm">
-                    {lang === 'fr' ? 'L\'IA crée, un expert vérifie chaque post. Publiez en 1 clic.' : 'AI creates, an expert reviews every post. Publish in 1 click.'}
+                    {lang === 'fr'
+                      ? 'On crée 30+ contenus avec les meilleures techniques de viralité.'
+                      : 'We create 30+ pieces using the best virality techniques.'}
                   </p>
                 </div>
                 <div className="pointer-events-none absolute inset-0 transform-gpu transition-all duration-300 group-hover:bg-black/[.03] z-5" />
               </div>
 
-              {/* BLOCK 4 - Autonomie */}
-              <div className="group relative flex flex-col overflow-hidden rounded-xl bg-gradient-to-br from-empire/10 to-empire/[0.02] border border-empire/20 hover:border-empire/50 transition-all min-h-[300px]">
+              {/* BLOCK 4 - Publiez */}
+              <div className="group relative flex flex-col overflow-hidden rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30 transition-all min-h-[300px]">
                 <div className="flex-1 flex flex-col items-center justify-center p-6 gap-4">
-                  <div className="relative w-20 h-20 flex items-center justify-center">
-                    <div className="absolute inset-0 rounded-full bg-empire/10 animate-pulse" />
-                    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-empire/40 to-empire/20 border-2 border-empire flex items-center justify-center">
-                      <Award className="text-empire" size={24} />
-                    </div>
-                  </div>
-                  <div className="flex flex-col gap-1.5 w-full">
-                    {[
-                      lang === 'fr' ? 'Vous enregistrez seul' : 'You record alone',
-                      lang === 'fr' ? 'Maîtrise de la viralité' : 'Virality mastered',
-                      lang === 'fr' ? 'Coachs disponibles' : 'Coaches on standby',
-                    ].map((item, i) => (
-                      <div key={i} className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-empire/10 border border-empire/20">
-                        <TrendingUp className="w-3 h-3 text-empire flex-shrink-0" />
-                        <span className="text-xs text-empire font-medium">{item}</span>
+                  <div className="grid grid-cols-7 gap-1.5 p-3 rounded-xl bg-white/5 border border-white/10">
+                    {Array.from({ length: 28 }).map((_, i) => (
+                      <div
+                        key={i}
+                        className={`w-5 h-5 rounded text-[9px] flex items-center justify-center ${
+                          [2, 5, 9, 12, 16, 19, 23, 26].includes(i)
+                            ? 'bg-empire/30 text-empire font-bold'
+                            : 'bg-white/5 text-neutral-500'
+                        }`}
+                      >
+                        {i + 1}
                       </div>
                     ))}
                   </div>
+                  <p className="text-xs text-empire font-semibold tracking-wider uppercase">
+                    {lang === 'fr' ? '1 clic pour publier' : '1 click to publish'}
+                  </p>
                 </div>
                 <div className="relative z-10 p-5 pt-3 bg-gradient-to-t from-black via-black/90 to-transparent">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">4</span>
                     <h3 className="text-base font-semibold text-white">
-                      {lang === 'fr' ? 'Vous devenez autonome' : 'You become autonomous'}
+                      {lang === 'fr' ? 'Publiez en 1 clic' : 'Publish in 1 click'}
                     </h3>
                   </div>
                   <p className="text-neutral-400 text-sm">
-                    {lang === 'fr' ? 'Après le mois 1, vous enregistrez votre propre contenu. On scale.' : 'After month 1, you record your own content. We scale.'}
+                    {lang === 'fr'
+                      ? 'Nos experts ajoutent votre contenu à votre calendrier. Vous publiez en 1 clic.'
+                      : 'Our experts add your content to the calendar. You publish in 1 click.'}
                   </p>
                 </div>
               </div>
 
+            </div>
+          </FadeInBlock>
+
+          {/* Reassurance note */}
+          <FadeInBlock delay={0.15}>
+            <div className="mt-6 flex justify-center">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm text-neutral-400">
+                * {lang === 'fr' ? 'Pas besoin de montrer votre visage' : 'No need to show your face'}
+              </div>
             </div>
           </FadeInBlock>
 
