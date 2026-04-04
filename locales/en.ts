@@ -77,6 +77,15 @@ export const en = {
       badge3: 'One-click publish',
       badge3Sub: 'No stress, no rush',
     },
+    step4: {
+      title: 'You Become Autonomous',
+      summary: 'You record your own content. We scale.',
+      description: 'After month 1, you master virality. You record your own content independently - our coaches remain available to optimize your performance and scale your results.',
+      badge1: 'Full autonomy',
+      badge1Sub: 'You record alone',
+      badge2: 'Ongoing support',
+      badge2Sub: 'Coaches on standby',
+    },
   },
   features: {
     title: 'What You Actually Get',
