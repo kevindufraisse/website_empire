@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef, useEffect, useState } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { Mic, ArrowRight, Sparkles, Search, TrendingUp, Award } from 'lucide-react'
+import { Mic, ArrowRight, TrendingUp, Award } from 'lucide-react'
 import { getCalApi } from "@calcom/embed-react"
 import CallbackButton from '@/components/CallbackButton'
 import AnimatedList, { AnimatedListItem } from '@/components/magicui/animated-list'
@@ -309,35 +309,36 @@ export default function HowItWorksAccordion() {
         <FadeInBlock delay={0.1}>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
 
-              {/* BLOCK 1 - Mois 1 : Analyse & Formation */}
+              {/* BLOCK 1 - Calendrier éditorial */}
               <div className="group relative flex flex-col overflow-hidden rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30 transition-all min-h-[300px]">
                 <div className="flex-1 flex flex-col items-center justify-center p-6 gap-4">
-                  {/* Animated niche analysis visual */}
-                  <div className="relative w-20 h-20 flex items-center justify-center">
-                    <div className="absolute inset-0 rounded-full border-2 border-empire/30 animate-ping opacity-30" />
-                    <div className="absolute inset-2 rounded-full border border-empire/50 animate-pulse" />
-                    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-empire/30 to-empire/10 border-2 border-empire flex items-center justify-center">
-                      <Search className="text-empire" size={24} />
-                    </div>
-                  </div>
-                  <div className="flex flex-col gap-1.5 w-full">
-                    {['Analyse de niche', 'Sujets viraux', 'Systèmes setup'].map((item, i) => (
-                      <div key={i} className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-empire/10">
-                        <div className="w-1.5 h-1.5 rounded-full bg-empire flex-shrink-0" />
-                        <span className="text-xs text-neutral-300">{item}</span>
+                  <div className="grid grid-cols-7 gap-1 p-3 rounded-xl bg-white/5 border border-white/10">
+                    {Array.from({ length: 28 }).map((_, i) => (
+                      <div
+                        key={i}
+                        className={`w-5 h-5 rounded text-[9px] flex items-center justify-center ${
+                          [2, 5, 9, 12, 16, 19, 23, 26].includes(i)
+                            ? 'bg-empire/30 text-empire font-bold'
+                            : 'bg-white/5 text-neutral-500'
+                        }`}
+                      >
+                        {i + 1}
                       </div>
                     ))}
                   </div>
+                  <p className="text-xs text-empire font-semibold tracking-wider uppercase">
+                    {lang === 'fr' ? '30+ contenus planifiés' : '30+ pieces scheduled'}
+                  </p>
                 </div>
                 <div className="relative z-10 p-5 pt-3 bg-gradient-to-t from-black via-black/90 to-transparent">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">1</span>
                     <h3 className="text-base font-semibold text-white">
-                      {lang === 'fr' ? 'Mois 1 - On prend en main' : 'Month 1 - We take over'}
+                      {lang === 'fr' ? 'Setup & Calendrier' : 'Setup & Calendar'}
                     </h3>
                   </div>
                   <p className="text-neutral-400 text-sm">
-                    {lang === 'fr' ? 'Nos coachs analysent votre niche et mettent en place vos systèmes.' : 'Our coaches analyze your niche and set up your systems.'}
+                    {lang === 'fr' ? 'On construit votre stratégie et prépare tout votre calendrier éditorial.' : 'We build your strategy and prepare your full editorial calendar.'}
                   </p>
                 </div>
               </div>
@@ -363,12 +364,6 @@ export default function HowItWorksAccordion() {
                   <p className="text-neutral-400 text-sm">
                     {lang === 'fr' ? 'Vous parlez, on transforme votre voix en 30+ contenus partout.' : 'You speak, we turn your voice into 30+ pieces everywhere.'}
                   </p>
-                  <div className="mt-2 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-empire/10 border border-empire/20">
-                    <Sparkles className="text-empire" size={12} />
-                    <span className="text-[11px] font-medium text-empire">
-                      {t.expertAddon.howItWorksBadge}
-                    </span>
-                  </div>
                 </div>
               </div>
 
