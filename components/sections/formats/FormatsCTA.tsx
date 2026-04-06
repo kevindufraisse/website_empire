@@ -5,6 +5,7 @@ import { useRef, useEffect } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { getCalApi } from "@calcom/embed-react"
 import { useCalLink } from '@/hooks/useCalLink'
+import { CtaReassurance } from '@/components/ui/cta-reassurance'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -23,7 +24,7 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 }
 
 export default function FormatsCTA() {
-  const { t, lang } = useLanguage()
+  const { t } = useLanguage()
 
   const namespace = 'audit-empire'
   const calLink = useCalLink()
@@ -58,7 +59,7 @@ export default function FormatsCTA() {
               {t.formats?.cta?.subtitle || 'No matter how you create, Empire transforms it into 30+ pieces of content per week.'}
             </p>
 
-            <div className="flex items-center justify-center pt-4">
+            <div className="flex flex-col items-center justify-center gap-4 pt-4">
               <button
                 data-cal-namespace={namespace}
                 data-cal-link={calLink}
@@ -67,6 +68,7 @@ export default function FormatsCTA() {
               >
                 {t.finalCTA.watchDemo}
               </button>
+              <CtaReassurance className="px-2" />
             </div>
           </div>
         </FadeInBlock>

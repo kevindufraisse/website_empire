@@ -46,7 +46,7 @@ export default function AcademyContextSection() {
               </h2>
               <p className="text-neutral-400 text-base md:text-lg max-w-2xl mx-auto">
                 Ce n'est pas une prédiction. C'est ce qui se passe maintenant.{' '}
-                <span className="text-white font-semibold">Les métiers de la connaissance pure disparaissent — remplacés en quelques mois par des modèles entraînés sur tout internet.</span>
+                <span className="text-white font-semibold">Les métiers de la connaissance pure disparaissent - remplacés en quelques mois par des modèles entraînés sur tout internet.</span>
               </p>
             </div>
           </FadeInBlock>
@@ -90,7 +90,7 @@ export default function AcademyContextSection() {
                       L'IA peut générer du contenu à l'infini. Elle ne peut pas décider pourquoi <em>toi</em> tu t'arrêtes, regardes, partages.
                     </p>
                     <p className="text-neutral-300 text-sm leading-relaxed">
-                      Comprendre le cerveau humain — la psychologie de l'attention, la mécanique de la viralité — c'est{' '}
+                      Comprendre le cerveau humain - la psychologie de l'attention, la mécanique de la viralité - c'est{' '}
                       <span className="text-white font-semibold">la seule compétence que l'IA ne peut pas reproduire.</span>{' '}
                       Parce qu'elle ne ressent pas. Elle prédit.
                     </p>

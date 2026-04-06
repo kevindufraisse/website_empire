@@ -8,7 +8,7 @@ import BonusSection from '@/components/sections/BonusSection'
 import FinalBoostCTA from '@/components/sections/FinalBoostCTA'
 
 export const metadata = {
-  title: 'How It Works — Empire Internet',
+  title: 'How It Works - Empire Internet',
   description: 'From one recording to 30+ pieces of content. See how Empire transforms your voice into an omnipresent content machine.'
 }
 

@@ -27,19 +27,19 @@ const steps = [
   {
     num: '02',
     title: 'Tu crées chaque jour',
-    desc: "Un défi par jour, posté dans le groupe. Tu reçois des feedbacks, tu vois progresser ton niveau. Pas de théorie — que de l'action.",
+    desc: "Un défi par jour, posté dans le groupe. Tu reçois des feedbacks, tu vois progresser ton niveau. Pas de théorie - que de l'action.",
     tag: null,
   },
   {
     num: '03',
     title: "À J21, tu sors avec un vrai métier",
-    desc: "Tu as créé du contenu chaque jour pendant 3 semaines. Tu sais ce qui fonctionne sur chaque réseau, tu as eu des feedbacks, tu as vu tes progrès. Pas des slides — une vraie compétence.",
+    desc: "Tu as créé du contenu chaque jour pendant 3 semaines. Tu sais ce qui fonctionne sur chaque réseau, tu as eu des feedbacks, tu as vu tes progrès. Pas des slides - une vraie compétence.",
     tag: 'Semaine 3',
   },
   {
     num: '04',
     title: 'Bonus : les meilleurs rejoignent le réseau Empire',
-    desc: "On repère les profils qui se démarquent dans le groupe. On leur envoie des missions directement. C'est mérité — pas garanti.",
+    desc: "On repère les profils qui se démarquent dans le groupe. On leur envoie des missions directement. C'est mérité - pas garanti.",
     tag: '+ Bonus',
     highlight: true,
   },

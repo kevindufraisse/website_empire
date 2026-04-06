@@ -5,7 +5,7 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
 
-    // Check if ANY application exists for this email — always reuse the most advanced one
+    // Check if ANY application exists for this email - always reuse the most advanced one
     const { data: existing } = await supabaseAdmin
       .from('applications')
       .select('id, step_completed, disc_profile')
@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
       .single()
 
     if (existing?.id) {
-      // Always reuse — update contact info
+      // Always reuse - update contact info
       await supabaseAdmin
         .from('applications')
         .update({
@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    // No existing application at all — create a new one
+    // No existing application at all - create a new one
     const { data, error } = await supabaseAdmin
       .from('applications')
       .insert({

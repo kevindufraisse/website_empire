@@ -46,8 +46,8 @@ const benefits = [
     icon: DollarSign,
     title: 'Revenu Récurrent',
     titleEn: 'Recurring Revenue',
-    description: 'Commission de 10% — tant que le client reste abonné. Revenu prévisible, non lié au temps travaillé.',
-    descriptionEn: '10% commission — as long as the client stays subscribed. Predictable income, not tied to hours worked.',
+    description: 'Commission de 10% - tant que le client reste abonné. Revenu prévisible, non lié au temps travaillé.',
+    descriptionEn: '10% commission - as long as the client stays subscribed. Predictable income, not tied to hours worked.',
     color: 'text-green-400',
     bgColor: 'bg-green-500/10',
   },
@@ -82,8 +82,8 @@ const benefits = [
     icon: Wrench,
     title: 'Zéro Charge Opérationnelle',
     titleEn: 'Zero Operational Load',
-    description: 'On close. On produit. On supporte. Vous recommandez — et c\'est tout.',
-    descriptionEn: 'We close. We produce. We support. You recommend — that\'s it.',
+    description: 'On close. On produit. On supporte. Vous recommandez - et c\'est tout.',
+    descriptionEn: 'We close. We produce. We support. You recommend - that\'s it.',
     color: 'text-orange-400',
     bgColor: 'bg-orange-500/10',
   },
@@ -182,8 +182,8 @@ export default function PartnersPage() {
             <FadeInBlock delay={0.2}>
               <p className="text-xl md:text-2xl text-neutral-300 mb-8 max-w-3xl mx-auto">
                 {lang === 'fr' 
-                  ? 'Recommandez Empire Internet à vos clients et partenaires. Gagnez des commissions tant qu\'ils restent abonnés — sans travail supplémentaire.'
-                  : 'Recommend Empire Internet to your clients and partners. Earn commissions as long as they stay subscribed — no extra work.'}
+                  ? 'Recommandez Empire Internet à vos clients et partenaires. Gagnez des commissions tant qu\'ils restent abonnés - sans travail supplémentaire.'
+                  : 'Recommend Empire Internet to your clients and partners. Earn commissions as long as they stay subscribed - no extra work.'}
               </p>
             </FadeInBlock>
             

@@ -6,6 +6,7 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import { Mic, ArrowRight } from 'lucide-react'
 import { getCalApi } from "@calcom/embed-react"
 import CallbackButton from '@/components/CallbackButton'
+import { CtaReassurance } from '@/components/ui/cta-reassurance'
 import AnimatedList, { AnimatedListItem } from '@/components/magicui/animated-list'
 import { useCalLink } from '@/hooks/useCalLink'
 
@@ -457,7 +458,7 @@ export default function HowItWorksAccordion() {
                 data-cal-config='{"layout":"month_view","theme":"dark"}'
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-empire text-black font-bold text-lg hover:scale-105 transition-transform shadow-[0_0_30px_rgba(218,252,104,0.3)]"
               >
-                {lang === 'fr' ? '45 min stratégique gratuite' : 'Free 45 min strategy call'}
+                {t.common.startNow}
                 <ArrowRight size={20} />
               </button>
               <p className="mt-3 text-sm text-neutral-500">
@@ -466,6 +467,7 @@ export default function HowItWorksAccordion() {
               <div className="mt-3">
                 <CallbackButton variant="subtle" />
               </div>
+              <CtaReassurance className="mt-4 px-2" />
           </div>
         </FadeInBlock>
       </div>

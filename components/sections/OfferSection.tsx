@@ -36,7 +36,7 @@ const features = [
   {
     icon: Calendar,
     title: '4 interviews',
-    description: '30 min each — you just show up',
+    description: '30 min each - you just show up',
     highlight: false,
   },
   {
@@ -48,7 +48,7 @@ const features = [
   {
     icon: Mail,
     title: 'Daily newsletters',
-    description: 'That sound like you — but better',
+    description: 'That sound like you - but better',
     highlight: true,
   },
   {
@@ -116,7 +116,7 @@ export default function OfferSection() {
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-bold mb-6">What You Get</h2>
             <p className="text-xl text-neutral-300 max-w-2xl mx-auto">
-              Everything you need to become omnipresent across all platforms — without lifting a
+              Everything you need to become omnipresent across all platforms - without lifting a
               finger.
             </p>
           </div>

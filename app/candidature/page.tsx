@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'Test d\'éligibilité — Bootcamp Empire Internet',
+  title: 'Test d\'éligibilité - Bootcamp Empire Internet',
   description: 'Vérifie si tu es éligible au bootcamp Head of Viralité. Formulaire de 2 min. Réponse sous 24h.',
 }
 
@@ -39,7 +39,7 @@ export default function CandidaturePage() {
 
         <div className="max-w-5xl mx-auto grid md:grid-cols-[1fr_1.1fr] gap-12 items-start">
 
-          {/* Left — context */}
+          {/* Left - context */}
           <div className="md:sticky md:top-24">
 
             {/* Logo */}
@@ -57,7 +57,7 @@ export default function CandidaturePage() {
               <span className="text-empire">2 minutes.</span>
             </h1>
             <p className="text-neutral-400 text-base leading-relaxed mb-8">
-              Ce bootcamp n'est pas pour tout le monde — c'est voulu.
+              Ce bootcamp n'est pas pour tout le monde - c'est voulu.
               On accepte uniquement des profils qui s'impliquent vraiment.
               Ce formulaire nous aide à trouver les bons.
             </p>
@@ -67,7 +67,7 @@ export default function CandidaturePage() {
               {[
                 { num: '01', text: 'Tu remplis le formulaire', sub: 'Environ 2 minutes.' },
                 { num: '02', text: 'On analyse ton profil', sub: 'Sous 24h ouvrées.' },
-                { num: '03', text: 'On te répond', sub: 'Admis ou pas — honnêtement.' },
+                { num: '03', text: 'On te répond', sub: 'Admis ou pas - honnêtement.' },
                 { num: '04', text: 'Tu rejoins la promo', sub: 'Démarrage le 25 avril.' },
               ].map(s => (
                 <div key={s.num} className="flex items-start gap-4">
@@ -103,7 +103,7 @@ export default function CandidaturePage() {
             </div>
           </div>
 
-          {/* Right — form */}
+          {/* Right - form */}
           <div className="bg-white/[0.03] border border-white/10 rounded-3xl p-8">
             <AcademyApplicationForm />
           </div>

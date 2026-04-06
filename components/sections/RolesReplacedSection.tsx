@@ -6,6 +6,7 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import { Check } from 'lucide-react'
 import { getCalApi } from "@calcom/embed-react"
 import CallbackButton from '@/components/CallbackButton'
+import { CtaReassurance } from '@/components/ui/cta-reassurance'
 import { useCalLink } from '@/hooks/useCalLink'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
@@ -43,7 +44,7 @@ const roles = [
 ]
 
 export default function RolesReplacedSection() {
-  const { lang } = useLanguage()
+  const { lang, t } = useLanguage()
   
   const namespace = 'audit-empire'
   const calLink = useCalLink()
@@ -146,12 +147,13 @@ export default function RolesReplacedSection() {
               data-cal-config='{"layout":"month_view","theme":"dark"}'
               className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-4 rounded-xl bg-empire text-black font-bold text-base md:text-lg hover:scale-105 transition-transform shadow-[0_0_30px_rgba(218,252,104,0.3)]"
             >
-              {lang === 'fr' ? '45 min stratégique gratuite' : 'Free 45 min strategy call'}
+              {t.common.startNow}
               <span>→</span>
             </button>
             <div className="mt-3">
               <CallbackButton variant="subtle" />
             </div>
+            <CtaReassurance className="mt-4 px-2" />
           </div>
         </FadeInBlock>
       </div>

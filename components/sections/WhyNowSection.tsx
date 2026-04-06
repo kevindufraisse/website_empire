@@ -7,6 +7,7 @@ import { getCalApi } from '@calcom/embed-react'
 import { useEffect } from 'react'
 import { ArrowRight } from 'lucide-react'
 import { useCalLink } from '@/hooks/useCalLink'
+import { CtaReassurance } from '@/components/ui/cta-reassurance'
 
 function FadeIn({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -24,7 +25,7 @@ function FadeIn({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
 }
 
 export default function WhyNowSection() {
-  const { lang } = useLanguage()
+  const { lang, t } = useLanguage()
   const namespace = 'audit-empire'
   const calLink = useCalLink()
 
@@ -127,9 +128,10 @@ export default function WhyNowSection() {
               data-cal-config='{"layout":"month_view","theme":"dark"}'
               className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-empire text-black font-bold hover:scale-105 transition-transform shadow-[0_0_30px_rgba(218,252,104,0.25)]"
             >
-              {fr ? 'Commencer maintenant' : 'Start now'}
+              {t.common.startNow}
               <ArrowRight size={18} />
             </button>
+            <CtaReassurance className="mt-4 px-2" />
           </div>
         </FadeIn>
 

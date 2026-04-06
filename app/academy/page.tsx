@@ -14,7 +14,7 @@ import AcademySocialProofToast from '@/components/sections/AcademySocialProofToa
 import { ScrollProgress } from '@/components/magicui/scroll-progress'
 
 export const metadata = {
-  title: 'Academy — Empire Internet',
+  title: 'Academy - Empire Internet',
   description: 'Bootcamp 21 jours. Deviens Head of Viralité. 3 000€/mois en 4h/semaine. Les meilleurs rejoignent le réseau Empire.'
 }
 
@@ -25,7 +25,7 @@ export default function AcademyPage() {
       {/* Hero */}
       <AcademyHeroSection />
 
-      {/* Preuve avant/après — résultats animés */}
+      {/* Preuve avant/après - résultats animés */}
       <AcademyProofStrip />
 
       {/* Pourquoi sur sélection + critères + timeline après clic */}
@@ -43,7 +43,7 @@ export default function AcademyPage() {
       {/* Les 6 lives + 2 Q&A */}
       <AcademyLivesSection />
 
-      {/* Certifications — avant pricing (valeur long terme) */}
+      {/* Certifications - avant pricing (valeur long terme) */}
       <AcademyCertificationSection />
 
       {/* Offre pricing */}

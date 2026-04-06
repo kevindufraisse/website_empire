@@ -70,18 +70,18 @@ export default function AcademyWhoSection() {
                   </div>
                 </div>
                 <p className="text-neutral-400 text-sm">
-                  Kevin &amp; Marc Dufraisse <span className="text-neutral-600">— fondateurs</span>
+                  Kevin &amp; Marc Dufraisse <span className="text-neutral-600">- fondateurs</span>
                 </p>
               </div>
             </div>
 
             <div className="space-y-5 text-neutral-300 leading-relaxed">
               <p className="text-base md:text-lg">
-                Au départ, on était juste deux frères qui créaient du contenu pour nos propres projets. On testait tout — les hooks, les formats, les rythmes de publication. On a raté beaucoup. Et puis quelques contenus ont explosé.{' '}
+                Au départ, on était juste deux frères qui créaient du contenu pour nos propres projets. On testait tout - les hooks, les formats, les rythmes de publication. On a raté beaucoup. Et puis quelques contenus ont explosé.{' '}
                 <span className="text-white font-semibold">On a compris pourquoi. On a rendu ça systématique.</span>
               </p>
               <p className="text-base md:text-lg">
-                Aujourd'hui on produit du contenu viral pour des entrepreneurs et des marques — 10M+ vues par mois. Des clients nous ont demandé comment on faisait.{' '}
+                Aujourd'hui on produit du contenu viral pour des entrepreneurs et des marques - 10M+ vues par mois. Des clients nous ont demandé comment on faisait.{' '}
                 <span className="text-empire font-semibold">Ce bootcamp, c'est la réponse. Notre système exact, pas une théorie.</span>
               </p>
               <p className="text-base md:text-lg text-neutral-400">

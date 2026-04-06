@@ -20,14 +20,14 @@ interface FormData {
   has_created_content: string
   content_link: string
   haunting_project: string
-  // Step 4 — DISC behavioral
+  // Step 4 - DISC behavioral
   disc_role: string
   disc_obstacle: string
   friends_say: string
   // Step 5
   social_link: string
   motivation: string
-  // Step 6 — referrals
+  // Step 6 - referrals
   referral_1: string
   referral_2: string
   referral_3: string
@@ -366,56 +366,56 @@ const discConfig: Record<DiscType, {
   dominant: {
     color: '#ef4444',
     dot: 'bg-red-500',
-    badge: 'Profil D — Dominant',
+    badge: 'Profil D - Dominant',
     badgeStyle: 'bg-red-500/15 text-red-400 border-red-500/40',
     letter: 'D',
     title: 'Tu avances. Sans attendre.',
     sub: 'Tu décides vite, tu assumes, tu fonces. C\'est exactement le profil qu\'on cherche.',
     traits: ['Orienté résultats', 'Décide vite', 'Compétitif', 'Aime les défis'],
-    forBootcamp: 'Excellent fit — tu as le moteur pour créer chaque jour et ne pas lâcher.',
+    forBootcamp: 'Excellent fit - tu as le moteur pour créer chaque jour et ne pas lâcher.',
   },
   influent: {
     color: '#eab308',
     dot: 'bg-yellow-500',
-    badge: 'Profil I — Influent',
+    badge: 'Profil I - Influent',
     badgeStyle: 'bg-yellow-500/15 text-yellow-400 border-yellow-500/40',
     letter: 'I',
     title: 'Tu crées, tu connectes, tu convaincs.',
     sub: 'Tu sais naturellement capter l\'attention. Le contenu, c\'est ton terrain.',
     traits: ['Enthousiaste', 'Persuasif', 'Créatif', 'Social, fédérateur'],
-    forBootcamp: 'Profil idéal pour la viralité — tu as l\'instinct du créateur de contenu.',
+    forBootcamp: 'Profil idéal pour la viralité - tu as l\'instinct du créateur de contenu.',
   },
   stable: {
     color: '#22c55e',
     dot: 'bg-green-500',
-    badge: 'Profil S — Stable',
+    badge: 'Profil S - Stable',
     badgeStyle: 'bg-green-500/15 text-green-400 border-green-500/40',
     letter: 'S',
     title: 'Tu construis dans la durée.',
-    sub: 'Tu es fiable, méthodique, patient. La régularité — ton super-pouvoir.',
+    sub: 'Tu es fiable, méthodique, patient. La régularité - ton super-pouvoir.',
     traits: ['Régulier', 'Fiable', 'Patient', 'Travail en profondeur'],
-    forBootcamp: 'Bon fit — la régularité quotidienne du bootcamp est faite pour toi.',
+    forBootcamp: 'Bon fit - la régularité quotidienne du bootcamp est faite pour toi.',
   },
   conforme: {
     color: '#3b82f6',
     dot: 'bg-blue-500',
-    badge: 'Profil C — Conforme',
+    badge: 'Profil C - Conforme',
     badgeStyle: 'bg-blue-500/15 text-blue-400 border-blue-500/40',
     letter: 'C',
     title: 'Tu analyses avant d\'agir.',
     sub: 'Précis, structuré, logique. Tu veux comprendre avant de faire.',
     traits: ['Analytique', 'Précis', 'Qualité', 'Orienté données'],
-    forBootcamp: 'Profil intéressant — tu apporteras de la rigueur, même si la création rapide sera ton défi.',
+    forBootcamp: 'Profil intéressant - tu apporteras de la rigueur, même si la création rapide sera ton défi.',
   },
 }
 
 const PAGE_URL = 'https://empire-internet.com/candidature'
 
 const shareMessages: Record<DiscType, string> = {
-  dominant: `Je viens de candidater au Bootcamp Head of Viralité d'Empire Internet.\n\nProfil DISC : Dominant — je fonce, je décide, j'avance.\n\n21 jours pour maîtriser la viralité et générer 3 000€/mois.\n\nTu veux tester ton éligibilité ?`,
-  influent: `Je viens de candidater au Bootcamp Head of Viralité d'Empire Internet.\n\nProfil DISC : Influent — contenu, connexion, conviction.\n\n21 jours pour maîtriser la viralité et générer 3 000€/mois.\n\nTu veux tester ton éligibilité ?`,
-  stable: `Je viens de candidater au Bootcamp Head of Viralité d'Empire Internet.\n\nProfil DISC : Stable — je construis dans la durée, sans me griller.\n\n21 jours pour maîtriser la viralité et générer 3 000€/mois.\n\nTu veux tester ton éligibilité ?`,
-  conforme: `Je viens de candidater au Bootcamp Head of Viralité d'Empire Internet.\n\nProfil DISC : Conforme — j'analyse, je structure, je perfectionne.\n\n21 jours pour maîtriser la viralité et générer 3 000€/mois.\n\nTu veux tester ton éligibilité ?`,
+  dominant: `Je viens de candidater au Bootcamp Head of Viralité d'Empire Internet.\n\nProfil DISC : Dominant - je fonce, je décide, j'avance.\n\n21 jours pour maîtriser la viralité et générer 3 000€/mois.\n\nTu veux tester ton éligibilité ?`,
+  influent: `Je viens de candidater au Bootcamp Head of Viralité d'Empire Internet.\n\nProfil DISC : Influent - contenu, connexion, conviction.\n\n21 jours pour maîtriser la viralité et générer 3 000€/mois.\n\nTu veux tester ton éligibilité ?`,
+  stable: `Je viens de candidater au Bootcamp Head of Viralité d'Empire Internet.\n\nProfil DISC : Stable - je construis dans la durée, sans me griller.\n\n21 jours pour maîtriser la viralité et générer 3 000€/mois.\n\nTu veux tester ton éligibilité ?`,
+  conforme: `Je viens de candidater au Bootcamp Head of Viralité d'Empire Internet.\n\nProfil DISC : Conforme - j'analyse, je structure, je perfectionne.\n\n21 jours pour maîtriser la viralité et générer 3 000€/mois.\n\nTu veux tester ton éligibilité ?`,
 }
 
 function ShareButtons({ disc }: { disc: DiscType }) {
@@ -563,7 +563,7 @@ export default function AcademyApplicationForm() {
   const [timeLeft, setTimeLeft] = useState<number | null>(null)
   const [timerStarted, setTimerStarted] = useState(false)
 
-  // ── 15-min countdown — starts on step 1 first render ────────────────────
+  // ── 15-min countdown - starts on step 1 first render ────────────────────
   useEffect(() => {
     if (timerStarted || resumeData) return
     setTimerStarted(true)
@@ -679,7 +679,7 @@ export default function AcademyApplicationForm() {
 
     try {
       if (step === 1) {
-        // Create record in DB — capture email immediately
+        // Create record in DB - capture email immediately
         const res = await fetch('/api/applications', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -759,7 +759,7 @@ export default function AcademyApplicationForm() {
           payload.referral_1 = form.referral_1
           payload.referral_2 = form.referral_2
           payload.referral_3 = form.referral_3
-          // Final step — pass all scoring fields
+          // Final step - pass all scoring fields
           payload.hours_per_week = form.hours_per_week
           payload.budget = form.budget
           payload.has_created_content = form.has_created_content
@@ -872,7 +872,7 @@ export default function AcademyApplicationForm() {
       )}
       {timeLeft === 0 && (
         <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl mb-6 bg-white/[0.03] border border-white/10">
-          <span className="text-xs text-neutral-500">Créneau expiré — ta progression est sauvegardée, continue !</span>
+          <span className="text-xs text-neutral-500">Créneau expiré - ta progression est sauvegardée, continue !</span>
         </div>
       )}
 
@@ -939,10 +939,10 @@ export default function AcademyApplicationForm() {
                 <p className="text-sm font-medium text-neutral-300 mb-3">Combien d'heures par semaine tu peux y consacrer ? <span className="text-empire">*</span></p>
                 <div className="space-y-2">
                   {[
-                    { value: '<2h', label: 'Moins de 2h', sub: 'Difficile — le bootcamp demande de la régularité' },
+                    { value: '<2h', label: 'Moins de 2h', sub: 'Difficile - le bootcamp demande de la régularité' },
                     { value: '2-5h', label: '2 à 5h', sub: 'Faisable avec de la discipline' },
                     { value: '5-10h', label: '5 à 10h', sub: 'Idéal pour progresser vite' },
-                    { value: '10h+', label: '10h et plus', sub: 'Mode intensif — résultats rapides' },
+                    { value: '10h+', label: '10h et plus', sub: 'Mode intensif - résultats rapides' },
                   ].map(opt => (
                     <OptionCard
                       key={opt.value}
@@ -983,7 +983,7 @@ export default function AcademyApplicationForm() {
             <div className="space-y-6">
               <div className="mb-2">
                 <h2 className="text-xl font-bold text-white mb-1">Ton rapport au contenu.</h2>
-                <p className="text-sm text-neutral-500">Pas besoin d'expérience — on veut juste savoir où tu en es.</p>
+                <p className="text-sm text-neutral-500">Pas besoin d'expérience - on veut juste savoir où tu en es.</p>
               </div>
               <div>
                 <p className="text-sm font-medium text-neutral-300 mb-3">T'as déjà créé du contenu sur internet ? <span className="text-empire">*</span></p>
@@ -1030,17 +1030,17 @@ export default function AcademyApplicationForm() {
             <div className="space-y-7">
               <div className="mb-2">
                 <h2 className="text-xl font-bold text-white mb-1">Comment tu fonctionnes.</h2>
-                <p className="text-sm text-neutral-500">Deux questions. Pas de bonne réponse — juste la plus honnête.</p>
+                <p className="text-sm text-neutral-500">Deux questions. Pas de bonne réponse - juste la plus honnête.</p>
               </div>
 
-              {/* Q1 — Role */}
+              {/* Q1 - Role */}
               <div>
                 <p className="text-sm font-medium text-neutral-300 mb-3">
                   Dans un projet, tu es plutôt : <span className="text-empire">*</span>
                 </p>
                 <div className="space-y-2">
                   {[
-                    { value: 'dominant',  label: 'Le moteur',      sub: 'Tu décides, tu diriges, tu avances — même sans avoir toutes les infos' },
+                    { value: 'dominant',  label: 'Le moteur',      sub: 'Tu décides, tu diriges, tu avances - même sans avoir toutes les infos' },
                     { value: 'influent',  label: "L'ambassadeur",   sub: 'Tu convaincs, tu fédères, tu mets de l\'énergie dans le groupe' },
                     { value: 'stable',    label: 'Le pilier',       sub: 'Tu assures, tu soutiens, tu construis dans la durée sans te griller' },
                     { value: 'conforme',  label: "L'analyste",      sub: 'Tu structures, tu vérifies, tu veux que ce soit bien fait avant d\'agir' },
@@ -1057,7 +1057,7 @@ export default function AcademyApplicationForm() {
                 </div>
               </div>
 
-              {/* Q2 — Obstacle */}
+              {/* Q2 - Obstacle */}
               <div>
                 <p className="text-sm font-medium text-neutral-300 mb-3">
                   Face à un obstacle, tu : <span className="text-empire">*</span>
@@ -1096,7 +1096,7 @@ export default function AcademyApplicationForm() {
             <div className="space-y-6">
               <div className="mb-2">
                 <h2 className="text-xl font-bold text-white mb-1">Dernier détail.</h2>
-                <p className="text-sm text-neutral-500">Plus c'est spécifique, mieux c'est — ça nous aide à sélectionner les bons profils.</p>
+                <p className="text-sm text-neutral-500">Plus c'est spécifique, mieux c'est - ça nous aide à sélectionner les bons profils.</p>
               </div>
               <Input
                 label="Un réseau social ou profil qu'on peut regarder (optionnel)"
@@ -1106,7 +1106,7 @@ export default function AcademyApplicationForm() {
                 placeholder="LinkedIn, Instagram, TikTok, site perso..."
               />
               <Textarea
-                label="Pourquoi ce bootcamp maintenant — et pas dans 6 mois ?"
+                label="Pourquoi ce bootcamp maintenant - et pas dans 6 mois ?"
                 name="motivation"
                 value={form.motivation}
                 onChange={set('motivation')}
@@ -1128,7 +1128,7 @@ export default function AcademyApplicationForm() {
               <div className="mb-2">
                 <h2 className="text-xl font-bold text-white mb-1">Tu connais des gens qui devraient postuler ?</h2>
                 <p className="text-sm text-neutral-500">
-                  Si tu penses à quelqu'un qui serait fait pour ça — salariés, freelances, entrepreneurs —
+                  Si tu penses à quelqu'un qui serait fait pour ça - salariés, freelances, entrepreneurs -
                   laisse leur profil LinkedIn. On les contacte de ta part.
                 </p>
               </div>

@@ -107,7 +107,7 @@ export default function AcademyCertificationSection() {
                 <span className="text-empire">Obtiens ta certification.</span>
               </h2>
               <p className="text-neutral-400 text-base md:text-lg max-w-2xl mx-auto">
-                À la fin du bootcamp, tu peux passer les certifications Empire Internet — ajoutables sur ton profil LinkedIn. Les niveaux sont basés sur tes vrais résultats.
+                À la fin du bootcamp, tu peux passer les certifications Empire Internet - ajoutables sur ton profil LinkedIn. Les niveaux sont basés sur tes vrais résultats.
               </p>
             </div>
           </FadeInBlock>

@@ -91,7 +91,7 @@ const getFAQsOld = (t: any) => t.faqItems || [
   },
   {
     question: 'How much time do I need to invest?',
-    answer: 'Just 15 minutes per week for the interview call. That\'s it. We handle everything else — content creation, editing, scheduling, and distribution across all platforms.',
+    answer: 'Just 15 minutes per week for the interview call. That\'s it. We handle everything else - content creation, editing, scheduling, and distribution across all platforms.',
   },
   {
     question: 'What if the content doesn\'t sound like me?',
@@ -111,7 +111,7 @@ const getFAQsOld = (t: any) => t.faqItems || [
   },
   {
     question: 'Why no free trial or money-back guarantee?',
-    answer: 'We have a real team working on your content from day 1 — writers, editors, QA specialists. A free trial would mean they work for free, which isn\'t sustainable. Instead, we offer monthly payment and cancel anytime. You see the quality immediately without long-term commitment.',
+    answer: 'We have a real team working on your content from day 1 - writers, editors, QA specialists. A free trial would mean they work for free, which isn\'t sustainable. Instead, we offer monthly payment and cancel anytime. You see the quality immediately without long-term commitment.',
   },
   {
     question: 'What platforms do you publish to?',
@@ -119,7 +119,7 @@ const getFAQsOld = (t: any) => t.faqItems || [
   },
   {
     question: 'Why are there only a few testimonials?',
-    answer: 'Empire Internet launched less than 2 months ago. We\'re intentionally keeping it small — maximum 100 clients total — to maintain quality and personal attention. Current clients are already seeing results, and we\'re collecting testimonials as we grow.',
+    answer: 'Empire Internet launched less than 2 months ago. We\'re intentionally keeping it small - maximum 100 clients total - to maintain quality and personal attention. Current clients are already seeing results, and we\'re collecting testimonials as we grow.',
   },
   {
     question: 'Do I need to be on camera or have video equipment?',

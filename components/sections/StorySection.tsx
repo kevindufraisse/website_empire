@@ -75,7 +75,7 @@ export default function StorySection() {
         {/* Story Content */}
         <FadeInBlock delay={0.2}>
           <div className="text-lg md:text-xl text-neutral-300 space-y-4">
-            <p>Every morning — without fail — I wrote.</p>
+            <p>Every morning - without fail - I wrote.</p>
             <p>Even on holidays.</p>
             <p>Even when I was sick.</p>
             <p>One idea, one post, one more shot to stay visible.</p>
@@ -112,7 +112,7 @@ export default function StorySection() {
               <p>A post lives for 24 hours.</p>
               <p>Then it disappears.</p>
               <p className="pt-4">
-                So every day, I had to show up again — and again — just to survive.
+                So every day, I had to show up again - and again - just to survive.
               </p>
               <p>
                 To stay in the game, I had to chase the next "great idea." Something smart,
@@ -158,7 +158,7 @@ export default function StorySection() {
             <p>Missed deadlines.</p>
             <p>Gave me mediocre work.</p>
             <p className="pt-4">
-              I was spending thousands to get stressed — and re-do everything myself.
+              I was spending thousands to get stressed - and re-do everything myself.
             </p>
             <p className="pt-6 font-semibold text-white">So I kept doing it alone.</p>
             <p>More posts.</p>
@@ -174,7 +174,7 @@ export default function StorySection() {
               I wasn't running a business.
             </p>
             <p className="text-xl md:text-2xl text-neutral-300 mt-4">
-              I was trapped inside a machine — one I built myself.
+              I was trapped inside a machine - one I built myself.
             </p>
             <p className="text-lg text-neutral-400 mt-6">And the machine? It never stopped.</p>
           </div>

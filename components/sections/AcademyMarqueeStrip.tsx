@@ -3,7 +3,7 @@ import Marquee from '@/components/magicui/marquee'
 
 const items = [
   { icon: '⚡', text: '21 jours pour tout maîtriser' },
-  { icon: '🎯', text: '3 000€/mois — objectif atteignable' },
+  { icon: '🎯', text: '3 000€/mois - objectif atteignable' },
   { icon: '👁', text: '10M+ vues/mois générées' },
   { icon: '🔴', text: '6 lives experts inclus' },
   { icon: '🔒', text: 'Replays à vie' },

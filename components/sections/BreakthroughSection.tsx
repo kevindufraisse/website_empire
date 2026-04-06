@@ -90,7 +90,7 @@ export default function BreakthroughSection() {
             <p className="text-2xl md:text-3xl font-semibold text-white">
               Everyone has something to say
             </p>
-            <p>— they just need the right system to capture it.</p>
+            <p>- they just need the right system to capture it.</p>
           </div>
         </FadeInBlock>
 
@@ -175,7 +175,7 @@ export default function BreakthroughSection() {
           <div className="relative p-8 md:p-12 rounded-2xl bg-gradient-to-br from-empire/10 to-transparent border border-empire/30">
             <div className="text-lg md:text-xl text-neutral-300 space-y-4">
               <p>The content was sharp.</p>
-              <p>Sounded like me — on my best day.</p>
+              <p>Sounded like me - on my best day.</p>
               <p className="pt-4 text-white font-semibold">And it worked.</p>
               <p className="text-3xl md:text-4xl font-bold text-empire mt-6">
                 1 million views per month.

@@ -22,7 +22,7 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 
 const results = [
   '30+ LinkedIn posts, written & scheduled',
-  'Daily newsletters that sound like you — but better',
+  'Daily newsletters that sound like you - but better',
   '30+ short-form videos for Reels, Shorts, TikTok',
   '30+ Instagram posts',
   '4+ high-converting carousels',

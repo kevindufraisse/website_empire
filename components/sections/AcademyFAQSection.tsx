@@ -36,7 +36,7 @@ const yesFor = [
 const faqs = [
   {
     q: "C'est pour qui exactement ?",
-    a: "Pour toute personne qui veut maîtriser les mécaniques de la viralité et potentiellement travailler avec nous. Aucune expérience requise — juste la volonté d'agir chaque jour.",
+    a: "Pour toute personne qui veut maîtriser les mécaniques de la viralité et potentiellement travailler avec nous. Aucune expérience requise - juste la volonté d'agir chaque jour.",
   },
   {
     q: 'Est-ce que le réseau Empire est garanti ?',
@@ -68,7 +68,7 @@ export default function AcademyFAQSection() {
             <div className="text-center mb-16">
               <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">FAQ</p>
               <h2 className="text-3xl md:text-5xl font-bold leading-tight">
-                Pour qui est ce programme —<br />
+                Pour qui est ce programme -<br />
                 <span className="text-empire">et toutes vos questions.</span>
               </h2>
             </div>
@@ -164,7 +164,7 @@ export default function AcademyFAQSection() {
                 href="/candidature"
                 className="inline-flex items-center gap-2 px-8 py-4 bg-empire text-black font-bold text-lg rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(218,252,104,0.3)]"
               >
-                Passer le test d'éligibilité →
+                Postuler - sur sélection →
               </a>
               <p className="text-xs text-neutral-500 mt-2">Formulaire de 2 min · Réponse le 2 avril · Aucun engagement</p>
             </div>

@@ -10,8 +10,8 @@ export const fr: Translations = {
     bonus2Desc: 'Valeur €500 · On analyse ton contenu actuel',
     bonus3Title: '10 Posts Bonus Premier Mois',
     bonus3Desc: '40 posts au lieu de 30',
-    ctaButton: '60 min stratégique gratuite',
-    ctaSchedule: '60 min stratégique gratuite',
+    ctaButton: 'Installer Empire Internet',
+    ctaSchedule: 'Installer Empire Internet',
     ctaSecondary: 'Ou commencer immédiatement',
     footer: 'Les bonus expirent quand on atteint 100 clients',
   },
@@ -72,7 +72,7 @@ export const fr: Translations = {
           'Au début, c\'était nul. Je balançais des prompts à ChatGPT, et je recevais de la merde.',
           'Mais je n\'ai pas lâché.',
           'J\'ai passé des mois à affiner chaque mot, chaque structure, chaque transition.',
-          'Jusqu\'à ce que ça clique enfin. Le contenu était tranchant. Sonnait comme moi — dans mon meilleur jour.',
+          'Jusqu\'à ce que ça clique enfin. Le contenu était tranchant. Sonnait comme moi - dans mon meilleur jour.',
           '1 million de vues par mois. Sans effort.',
         ],
       },
@@ -124,9 +124,9 @@ export const fr: Translations = {
   },
   header: {
     spots: '83/100 places',
-    watchDemo: '60 min stratégique gratuite',
+    watchDemo: 'Installer Empire Internet',
     getAccess: 'Obtenir l\'Accès',
-    joinQA: '60 min stratégique gratuite',
+    joinQA: 'Installer Empire Internet',
     formats: 'Formats',
     product: 'Produit',
     howItWorks: 'Comment Ça Marche',
@@ -138,9 +138,9 @@ export const fr: Translations = {
   hero: {
     targetAudience: 'Pour freelances, salariés & entrepreneurs',
     title: 'De <span class="text-empire">Invisible</span> à <span class="text-empire">Omniprésent</span> dans les prochaines 24h.',
-    subtitle: 'Parlez 15 min/semaine. Un mois de posts, reels, newsletters et vidéos — publiés partout.',
+    subtitle: 'Parlez 15 min/semaine. Un mois de posts, reels, newsletters et vidéos - publiés partout.',
     description: 'Limité à 100 clients',
-    cta1: '60 min stratégique gratuite',
+    cta1: 'Installer Empire Internet',
     cta2: 'Voir la Démo (20 min)',
     rating: 'Basé sur 20 avis',
     creatorsTitle: 'Les systèmes utilisés par les meilleurs créateurs mondiaux',
@@ -271,8 +271,8 @@ export const fr: Translations = {
     limited: 'LIMITÉ À 100 CLIENTS',
     title: 'Prêt à Rejoindre ?',
     subtitle: 'Choisissez votre voie',
-    startNow: '60 min stratégique gratuite',
-    watchDemo: '60 min stratégique gratuite',
+    startNow: 'Installer Empire Internet',
+    watchDemo: 'Installer Empire Internet',
     details: 'Paiement mensuel · Annulez quand vous voulez · Démarrage immédiat',
     seeContentPlan: 'Voir Votre Plan de Contenu',
     startThisWeek: 'Commencer Cette Semaine',
@@ -283,7 +283,7 @@ export const fr: Translations = {
     specific: {
       howManyPosts: {
         question: 'Combien de posts j\'obtiens exactement ?',
-        answer: 'Exactement 30 posts LinkedIn, 30 newsletters, 30 Reels/Shorts, 30 posts Instagram, 30 posts Twitter, 4 carrousels, et 4 podcasts MP3 — par interview. Soit 132 contenus par mois si vous faites une interview par semaine.',
+        answer: 'Exactement 30 posts LinkedIn, 30 newsletters, 30 Reels/Shorts, 30 posts Instagram, 30 posts Twitter, 4 carrousels, et 4 podcasts MP3 - par interview. Soit 132 contenus par mois si vous faites une interview par semaine.',
       },
       whatIfDontLike: {
         question: 'Et si je n\'aime pas le contenu ?',
@@ -305,7 +305,7 @@ export const fr: Translations = {
       },
       {
         concern: 'Je n\'ai pas le temps pour l\'interview.',
-        answer: '15 minutes par semaine. C\'est moins que votre temps sur Instagram. On s\'adapte à votre planning. Pas d\'excuses — si vous pouvez parler, vous pouvez créer.',
+        answer: '15 minutes par semaine. C\'est moins que votre temps sur Instagram. On s\'adapte à votre planning. Pas d\'excuses - si vous pouvez parler, vous pouvez créer.',
       },
       {
         concern: 'C\'est vraiment mieux qu\'embaucher ?',
@@ -328,22 +328,22 @@ export const fr: Translations = {
   },
   videoDialog: {
     readyToJoin: 'Prêt à rejoindre ?',
-    startNow: '60 min stratégique gratuite',
-    joinQA: '60 min stratégique gratuite',
+    startNow: 'Installer Empire Internet',
+    joinQA: 'Installer Empire Internet',
   },
   stickyBar: {
     spotsLeft: 'places restantes',
   },
   contentReady: {
     title: 'Le Secret : On A Cloné les Meilleurs',
-    subtitle: 'On a cloné les meilleurs copywriters et monteurs vidéo — et on les a mis dans l\'IA',
+    subtitle: 'On a cloné les meilleurs copywriters et monteurs vidéo - et on les a mis dans l\'IA',
     average: 'Moyenne :',
     viewsMonth: 'vues/mois',
     aiPrompt: 'Système de Prompts IA',
     systemTitle: 'Le Système de Prompts IA',
     systemDescription: 'On a passé des mois à reverse-engineer les patterns, accroches et structures qui rendent les meilleurs créateurs viraux. Puis on a tout codé dans des prompts IA personnalisés.',
     cta: 'Vous voulez du contenu qui performe comme les meilleurs ?',
-    ctaButton: '60 min stratégique gratuite',
+    ctaButton: 'Installer Empire Internet',
     frameworks: [
       { name: "Structure de Justin Welsh", pattern: '"Problème → Histoire → Solution → CTA"' },
       { name: "Montages Vidéo d\'Hormozi", pattern: '"Coupe rapide toutes les 3s + rupture de pattern"' },
@@ -355,7 +355,7 @@ export const fr: Translations = {
   },
   multiPlatform: {
     title: 'Avant Empire vs Après Empire',
-    subtitle: 'De posts éparpillés à présence multi-plateforme cohérente — en 15 min/semaine',
+    subtitle: 'De posts éparpillés à présence multi-plateforme cohérente - en 15 min/semaine',
     without: 'Sans Empire',
     withEmpire: 'Avec Empire',
     doingYourself: 'Vous le faites vous-même',
@@ -426,8 +426,13 @@ export const fr: Translations = {
     value: 'Valeur :',
   },
   common: {
-    startNow: '60 min stratégique gratuite',
-    watchDemo: '60 min stratégique gratuite',
+    startNow: 'Installer Empire Internet',
+    watchDemo: 'Installer Empire Internet',
+    ctaReassurance:
+      'Vous choisissez un créneau - confirmation par email. Si ce n’est pas pour vous, on vous le dit clairement.',
+    /** Une ligne sous header / sticky / bannière (peu de place) */
+    ctaReassuranceNav:
+      'Créneau + email · Sans engagement · Pas pour vous ? On vous le dit.',
     learnMore: 'En savoir plus',
     perMonth: '/mois',
     perWeek: '/semaine',
@@ -628,7 +633,7 @@ export const fr: Translations = {
     },
     q4: {
       question: 'Et si je suis timide devant la caméra ?',
-      answer: 'Pas de problème ! Vous pouvez faire des interviews audio ou des screenrecordings. Cependant, pour les contenus vidéo (Reels/Shorts), on utilise du b-roll et du montage pro — mais votre visage apparaîtra dans les vidéos finales car c\'est essentiel pour le personal branding.',
+      answer: 'Pas de problème ! Vous pouvez faire des interviews audio ou des screenrecordings. Cependant, pour les contenus vidéo (Reels/Shorts), on utilise du b-roll et du montage pro - mais votre visage apparaîtra dans les vidéos finales car c\'est essentiel pour le personal branding.',
     },
     q5: {
       question: 'Puis-je utiliser mon contenu existant ?',
@@ -642,7 +647,7 @@ export const fr: Translations = {
     },
     {
       question: 'Combien de temps dois-je investir ?',
-      answer: 'Juste 15 minutes par semaine pour l\'interview. C\'est tout. On gère le reste — création, édition, planification et distribution partout.',
+      answer: 'Juste 15 minutes par semaine pour l\'interview. C\'est tout. On gère le reste - création, édition, planification et distribution partout.',
     },
     {
       question: 'Et si le contenu ne sonne pas comme moi ?',
@@ -662,7 +667,7 @@ export const fr: Translations = {
     },
     {
       question: 'Pourquoi pas d\'essai gratuit ou garantie satisfait ou remboursé ?',
-      answer: 'On a une vraie équipe qui travaille dès le jour 1 — rédacteurs, éditeurs, QA. Un essai gratuit = ils travaillent gratuitement, pas durable. À la place : paiement mensuel et annulation à tout moment. Vous voyez la qualité immédiatement sans engagement.',
+      answer: 'On a une vraie équipe qui travaille dès le jour 1 - rédacteurs, éditeurs, QA. Un essai gratuit = ils travaillent gratuitement, pas durable. À la place : paiement mensuel et annulation à tout moment. Vous voyez la qualité immédiatement sans engagement.',
     },
     {
       question: 'Sur quelles plateformes publiez-vous ?',
@@ -670,7 +675,7 @@ export const fr: Translations = {
     },
     {
       question: 'Pourquoi si peu de témoignages ?',
-      answer: 'Empire a lancé il y a moins de 2 mois. On le garde petit — max 100 clients — pour maintenir qualité et attention personnelle. Les clients actuels voient déjà des résultats, on collecte les témoignages au fur et à mesure.',
+      answer: 'Empire a lancé il y a moins de 2 mois. On le garde petit - max 100 clients - pour maintenir qualité et attention personnelle. Les clients actuels voient déjà des résultats, on collecte les témoignages au fur et à mesure.',
     },
     {
       question: 'Ai-je besoin d\'être devant la caméra ou d\'avoir du matériel vidéo ?',
@@ -731,7 +736,7 @@ export const fr: Translations = {
     errorSubmit: 'Une erreur est survenue. Veuillez réessayer.',
     aboutTitle: 'À propos du rendez-vous',
     aboutText1: 'Ce rendez-vous one-to-one est conçu pour comprendre vos besoins et déterminer si Empire peut correspondre à votre projet de création de contenu.',
-    aboutText2: 'On va discuter de vos objectifs, analyser votre situation actuelle, et voir ensemble si Empire est la bonne solution pour vous. Pas de vente forcée—juste une conversation honnête pour voir si on matche. 🚀',
+    aboutText2: 'On va discuter de vos objectifs, analyser votre situation actuelle, et voir ensemble si Empire est la bonne solution pour vous. Pas de vente forcée-juste une conversation honnête pour voir si on matche. 🚀',
     aboutPresentedBy: 'Présenté par',
   },
   demoThankYou: {
@@ -753,7 +758,7 @@ export const fr: Translations = {
       title: 'Partagez la bonne nouvelle ! 🚀',
       desc: 'Connaissez-vous d\'autres créateurs qui pourraient être intéressés ? Partagez ce lien et invitez-les à rejoindre la démo !',
       button: 'Partager le lien',
-      watchDemo: '60 min stratégique gratuite',
+      watchDemo: 'Installer Empire Internet',
       shareTitle: 'Demo Empire internet avec Kevin Dufraisse',
       shareText: 'Réserve un rendez-vous one-to-one pour découvrir Empire Internet ! 🎉',
       copied: 'Lien copié dans le presse-papier !',
@@ -768,7 +773,7 @@ export const fr: Translations = {
   hiring: {
     title: 'We are hiring',
     subtitle: 'Rejoins Empire Internet et aide-nous à construire la machine de contenu la plus rapide du monde',
-    bannerText: 'Rejoins Empire Internet — 2 postes ouverts',
+    bannerText: 'Rejoins Empire Internet - 2 postes ouverts',
     bannerButton: 'Voir les postes',
     companyMission: {
       title: 'Mission de l\'entreprise',
@@ -780,8 +785,8 @@ export const fr: Translations = {
       cta: 'Tu arrives au moment exact où tout explose.',
     },
     salesCloser: {
-      title: 'Sales Closer FR/EN — Poste fondateur',
-      type: 'Freelance — Remote',
+      title: 'Sales Closer FR/EN - Poste fondateur',
+      type: 'Freelance - Remote',
       compensation: '8k–20k€/mois',
       missionTitle: 'Mission du rôle',
       missionDescription: 'Tu es la personne qui transforme notre volume massif de leads en clients premium.',
@@ -842,7 +847,7 @@ export const fr: Translations = {
     },
     customerSuccess: {
       title: 'Customer Success & Community Coordinator',
-      type: 'CDI ou freelance longue durée — Remote',
+      type: 'CDI ou freelance longue durée - Remote',
       compensation: '1 000 – 2 000€/mois + bonus upsells',
       missionTitle: 'Mission en une phrase',
       missionDescription: 'Aider les clients existants à réussir, rester motivés et utiliser Empire Internet à 100%, et proposer un upsell lorsqu\'il est pertinent.',

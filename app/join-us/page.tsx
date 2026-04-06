@@ -4,7 +4,7 @@ import ClientResultsTicker from '@/components/ClientResultsTicker'
 
 export const metadata = {
   title: 'Réserver un appel - Empire Internet',
-  description: "30 min pour voir si notre système de contenu s'adapte à votre activité. Gratuit, sans engagement.",
+  description: "45 min pour voir si notre système de contenu s'adapte à votre activité. Gratuit, sans engagement.",
 }
 
 const platforms = [

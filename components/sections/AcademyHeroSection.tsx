@@ -88,10 +88,10 @@ export default function AcademyHeroSection() {
             transition={{ delay: 0.18, duration: 0.5 }}
             className="text-xs text-neutral-500 mb-6 tracking-wide"
           >
-            Head of Viralité = la personne qui sait pourquoi un contenu explose — et qui peut le reproduire à la demande.
+            Head of Viralité = la personne qui sait pourquoi un contenu explose - et qui peut le reproduire à la demande.
           </motion.p>
 
-          {/* Subtitle — Joanna Wiebe style */}
+          {/* Subtitle - Joanna Wiebe style */}
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -113,7 +113,7 @@ export default function AcademyHeroSection() {
               href="/candidature"
               className="px-10 py-4 bg-empire text-black font-bold text-lg rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(218,252,104,0.35)] inline-block"
             >
-              Passer le test d'éligibilité →
+              Postuler - sur sélection →
             </a>
             <p className="text-xs text-neutral-500">
               Formulaire de 2 min · Réponse le 2 avril · Aucun engagement

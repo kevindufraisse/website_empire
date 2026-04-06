@@ -1,9 +1,9 @@
 export const en = {
   header: {
     spots: '83/100 spots',
-    watchDemo: 'Free 60 min strategy call',
+    watchDemo: 'Install Empire Internet',
     getAccess: 'Get Access',
-    joinQA: 'Free 60 min strategy call',
+    joinQA: 'Install Empire Internet',
     formats: 'Formats',
     product: 'Product',
     howItWorks: 'How It Works',
@@ -15,9 +15,9 @@ export const en = {
   hero: {
     targetAudience: 'For freelancers, employees & entrepreneurs',
     title: 'From Invisible to <span class="text-empire">Omnipresent</span> in the next 24 Hours.',
-    subtitle: 'Speak once a week for 15 minutes. Get a month of posts, reels, newsletters & videos — live on every platform.',
+    subtitle: 'Speak once a week for 15 minutes. Get a month of posts, reels, newsletters & videos - live on every platform.',
     description: 'Limited to 100 clients',
-    cta1: 'Free 60 min strategy call',
+    cta1: 'Install Empire Internet',
     cta2: 'Watch Demo (20 min)',
     rating: 'Based on 20 reviews',
     creatorsTitle: 'The systems used by the world\'s top creators',
@@ -148,8 +148,8 @@ export const en = {
     limited: 'LIMITED TO 100 CLIENTS',
     title: 'Ready to Join?',
     subtitle: 'Choose your path below',
-    startNow: 'Free 60 min strategy call',
-    watchDemo: 'Free 60 min strategy call',
+    startNow: 'Install Empire Internet',
+    watchDemo: 'Install Empire Internet',
     details: 'Pay monthly · Cancel anytime · Start immediately',
     seeContentPlan: 'See Your Content Plan',
     startThisWeek: 'Start This Week',
@@ -160,7 +160,7 @@ export const en = {
     specific: {
       howManyPosts: {
         question: 'How many posts do I get exactly?',
-        answer: 'You get exactly 30 LinkedIn posts, 30 newsletters, 30 Reels/Shorts, 30 Instagram posts, 30 Twitter posts, 4 carousels, and 4 MP3 podcasts — per interview. That\'s 132 pieces of content per month if you do one interview per week.',
+        answer: 'You get exactly 30 LinkedIn posts, 30 newsletters, 30 Reels/Shorts, 30 Instagram posts, 30 Twitter posts, 4 carousels, and 4 MP3 podcasts - per interview. That\'s 132 pieces of content per month if you do one interview per week.',
       },
       whatIfDontLike: {
         question: 'What if I don\'t like the content?',
@@ -182,7 +182,7 @@ export const en = {
       },
       {
         concern: 'What if I don\'t have time for the interview?',
-        answer: 'You only need 15 minutes per week. That\'s less time than you spend scrolling on your phone. We schedule around your availability. No excuses — if you can talk, you can create content.',
+        answer: 'You only need 15 minutes per week. That\'s less time than you spend scrolling on your phone. We schedule around your availability. No excuses - if you can talk, you can create content.',
       },
       {
         concern: 'Is this really better than hiring someone?',
@@ -205,22 +205,22 @@ export const en = {
   },
   videoDialog: {
     readyToJoin: 'Ready to join?',
-    startNow: 'Free 60 min strategy call',
-    joinQA: 'Free 60 min strategy call',
+    startNow: 'Install Empire Internet',
+    joinQA: 'Install Empire Internet',
   },
   stickyBar: {
     spotsLeft: 'spots left',
   },
   contentReady: {
     title: 'The Secret: We Cloned the Best',
-    subtitle: 'We cloned the best copywriters and video editors in the world — and put them in AI',
+    subtitle: 'We cloned the best copywriters and video editors in the world - and put them in AI',
     average: 'Average:',
     viewsMonth: 'views/month',
     aiPrompt: 'AI Prompt System',
     systemTitle: 'Our AI Prompt System',
     systemDescription: 'We spent months reverse-engineering the patterns, hooks, and structures that make top creators go viral. Then we coded it all into custom AI prompts.',
     cta: 'Want content that performs like the best creators?',
-    ctaButton: 'Free 60 min strategy call',
+    ctaButton: 'Install Empire Internet',
     frameworks: [
       { name: "Justin Welsh's Structure", pattern: '"Problem → Story → Solution → CTA"' },
       { name: "Hormozi's Video Cuts", pattern: '"Fast cuts every 3s + pattern interrupt"' },
@@ -232,7 +232,7 @@ export const en = {
   },
   multiPlatform: {
     title: 'Before Empire vs After Empire',
-    subtitle: 'From scattered posts to consistent multi-platform presence — in just 15 minutes',
+    subtitle: 'From scattered posts to consistent multi-platform presence - in just 15 minutes',
     without: 'Without Empire',
     withEmpire: 'With Empire',
     doingYourself: 'Doing it yourself',
@@ -303,8 +303,13 @@ export const en = {
     value: 'Value:',
   },
   common: {
-    startNow: 'Free 60 min strategy call',
-    watchDemo: 'Free 60 min strategy call',
+    startNow: 'Install Empire Internet',
+    watchDemo: 'Install Empire Internet',
+    ctaReassurance:
+      'You pick a slot - confirmation by email. If it’s not a fit, we’ll tell you clearly.',
+    /** One line under header / sticky / banner (space-constrained) */
+    ctaReassuranceNav:
+      'Slot + email · No commitment · Not a fit? We’ll say so.',
     learnMore: 'Learn more',
     perMonth: '/month',
     perWeek: '/week',
@@ -505,7 +510,7 @@ export const en = {
     },
     q4: {
       question: 'What if I\'m camera shy?',
-      answer: 'No problem! You can do audio-only interviews or screenrecordings. However, for video content (Reels/Shorts), we use b-roll, stock footage, and professional editing — but your face will appear in the final videos as it\'s essential for personal branding.',
+      answer: 'No problem! You can do audio-only interviews or screenrecordings. However, for video content (Reels/Shorts), we use b-roll, stock footage, and professional editing - but your face will appear in the final videos as it\'s essential for personal branding.',
     },
     q5: {
       question: 'Can I use my existing content?',
@@ -519,7 +524,7 @@ export const en = {
     },
     {
       question: 'How much time do I need to invest?',
-      answer: 'Just 15 minutes per week for the interview call. That\'s it. We handle everything else — content creation, editing, scheduling, and distribution across all platforms.',
+      answer: 'Just 15 minutes per week for the interview call. That\'s it. We handle everything else - content creation, editing, scheduling, and distribution across all platforms.',
     },
     {
       question: 'What if the content doesn\'t sound like me?',
@@ -539,7 +544,7 @@ export const en = {
     },
     {
       question: 'Why no free trial or money-back guarantee?',
-      answer: 'We have a real team working on your content from day 1 — writers, editors, QA specialists. A free trial would mean they work for free, which isn\'t sustainable. Instead, we offer monthly payment and cancel anytime. You see the quality immediately without long-term commitment.',
+      answer: 'We have a real team working on your content from day 1 - writers, editors, QA specialists. A free trial would mean they work for free, which isn\'t sustainable. Instead, we offer monthly payment and cancel anytime. You see the quality immediately without long-term commitment.',
     },
     {
       question: 'What platforms do you publish to?',
@@ -547,7 +552,7 @@ export const en = {
     },
     {
       question: 'Why are there only a few testimonials?',
-      answer: 'Empire Internet launched less than 2 months ago. We\'re intentionally keeping it small — maximum 100 clients total — to maintain quality and personal attention. Current clients are already seeing results, and we\'re collecting testimonials as we grow.',
+      answer: 'Empire Internet launched less than 2 months ago. We\'re intentionally keeping it small - maximum 100 clients total - to maintain quality and personal attention. Current clients are already seeing results, and we\'re collecting testimonials as we grow.',
     },
     {
       question: 'Do I need to be on camera or have video equipment?',
@@ -583,8 +588,8 @@ export const en = {
     bonus2Desc: '€500 value · We analyze your current content',
     bonus3Title: '10 Bonus Posts First Month',
     bonus3Desc: '40 posts instead of 30',
-    ctaButton: 'Free 60 min strategy call',
-    ctaSchedule: 'Free 60 min strategy call',
+    ctaButton: 'Install Empire Internet',
+    ctaSchedule: 'Install Empire Internet',
     ctaSecondary: 'Or start immediately',
     footer: 'Bonuses expire when we hit 100 clients',
   },
@@ -645,7 +650,7 @@ export const en = {
           'At first, it sucked. I threw prompts at ChatGPT, and got garbage.',
           'But I didn\'t quit.',
           'I spent months refining every word, every structure, every transition.',
-          'Until it finally clicked. The content was sharp. Sounded like me — on my best day.',
+          'Until it finally clicked. The content was sharp. Sounded like me - on my best day.',
           '1 million views per month. Effortlessly.',
         ],
       },
@@ -729,7 +734,7 @@ export const en = {
     errorSubmit: 'An error occurred. Please try again.',
     aboutTitle: 'About the meeting',
     aboutText1: 'This one-to-one meeting is designed to understand your needs and determine if Empire can fit with your content creation project.',
-    aboutText2: 'We\'ll discuss your goals, analyze your current situation, and see together if Empire is the right solution for you. No hard sell—just an honest conversation to see if we\'re a match. 🚀',
+    aboutText2: 'We\'ll discuss your goals, analyze your current situation, and see together if Empire is the right solution for you. No hard sell-just an honest conversation to see if we\'re a match. 🚀',
     aboutPresentedBy: 'Presented by',
   },
   demoThankYou: {
@@ -751,7 +756,7 @@ export const en = {
       title: 'Share the good news! 🚀',
       desc: 'Know other creators who might be interested? Share this link and invite them to join the demo!',
       button: 'Share link',
-      watchDemo: 'Watch demo',
+      watchDemo: 'Install Empire Internet',
       shareTitle: 'Demo Empire internet with Kevin Dufraisse',
       shareText: 'Book a one-to-one meeting to discover Empire Internet! 🎉',
       copied: 'Link copied to clipboard!',
@@ -766,7 +771,7 @@ export const en = {
   hiring: {
     title: 'We are hiring',
     subtitle: 'Join Empire Internet and help us build the world\'s fastest content machine',
-    bannerText: 'Join Empire Internet — 2 open positions',
+    bannerText: 'Join Empire Internet - 2 open positions',
     bannerButton: 'View positions',
     companyMission: {
       title: 'Company Mission',
@@ -778,8 +783,8 @@ export const en = {
       cta: 'You\'re arriving at the exact moment everything is exploding.',
     },
     salesCloser: {
-      title: 'Sales Closer FR/EN — Founding Role',
-      type: 'Freelance — Remote',
+      title: 'Sales Closer FR/EN - Founding Role',
+      type: 'Freelance - Remote',
       compensation: '8k–20k€/month',
       missionTitle: 'Role Mission',
       missionDescription: 'You\'re the person who transforms our massive volume of leads into premium clients.',
@@ -840,7 +845,7 @@ export const en = {
     },
     customerSuccess: {
       title: 'Customer Success & Community Coordinator',
-      type: 'Full-time or long-term freelance — Remote',
+      type: 'Full-time or long-term freelance - Remote',
       compensation: '€1,000 – €2,000/month + upsell bonuses',
       missionTitle: 'Mission in One Sentence',
       missionDescription: 'Help existing clients succeed, stay motivated, and use Empire Internet to 100%, and propose upsells when relevant.',

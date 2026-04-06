@@ -6,6 +6,7 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import { Zap } from 'lucide-react'
 import { getCalApi } from "@calcom/embed-react"
 import CallbackButton from '@/components/CallbackButton'
+import { CtaReassurance } from '@/components/ui/cta-reassurance'
 import { useCalLink } from '@/hooks/useCalLink'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
@@ -25,7 +26,7 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 }
 
 export default function FinalBoostCTA() {
-  const { t, lang } = useLanguage()
+  const { t } = useLanguage()
   
   const namespace = 'audit-empire'
   const calLink = useCalLink()
@@ -77,6 +78,7 @@ export default function FinalBoostCTA() {
                 <div className="mt-3">
                   <CallbackButton variant="subtle" />
                 </div>
+                <CtaReassurance className="mt-4 px-2" />
               </div>
             </div>
           </FadeInBlock>

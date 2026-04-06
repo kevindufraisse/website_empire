@@ -155,7 +155,7 @@ export default function AcademyLivesSection() {
           <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
             <p className="text-sm text-neutral-400">
               Tous les lives sont enregistrés.{' '}
-              <span className="text-white font-semibold">Les replays sont disponibles à vie</span> — tu ne rates rien même si tu ne peux pas être en direct.
+              <span className="text-white font-semibold">Les replays sont disponibles à vie</span> - tu ne rates rien même si tu ne peux pas être en direct.
             </p>
           </div>
         </FadeInBlock>

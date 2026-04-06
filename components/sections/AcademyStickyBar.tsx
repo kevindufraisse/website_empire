@@ -28,7 +28,7 @@ export default function AcademyStickyBar() {
           <div className="container">
             <div className="flex items-center justify-between gap-3 py-2.5 md:py-3">
 
-              {/* Left — statut + candidatures live */}
+              {/* Left - statut + candidatures live */}
               <div className="flex items-center gap-3 min-w-0">
                 <span className="relative flex h-2 w-2 flex-shrink-0">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-empire opacity-60" />
@@ -48,12 +48,12 @@ export default function AcademyStickyBar() {
                 </div>
               </div>
 
-              {/* Right — CTA */}
+              {/* Right - CTA */}
               <a
                 href="/candidature"
                 className="flex-shrink-0 px-5 py-2.5 bg-empire text-black font-bold text-sm rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)] whitespace-nowrap"
               >
-                Passer le test d'éligibilité →
+                Postuler - sur sélection →
               </a>
             </div>
           </div>

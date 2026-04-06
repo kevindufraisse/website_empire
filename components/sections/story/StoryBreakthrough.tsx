@@ -7,6 +7,7 @@ import BorderBeam from '@/components/magicui/border-beam'
 import { MessageSquare, Sparkles, TrendingUp } from 'lucide-react'
 import { getCalApi } from "@calcom/embed-react"
 import { useCalLink } from '@/hooks/useCalLink'
+import { CtaReassurance } from '@/components/ui/cta-reassurance'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -103,6 +104,7 @@ export default function StoryBreakthrough() {
                 >
                   {t.story.breakthrough.cta}
                 </button>
+                <CtaReassurance className="mt-4 px-2" />
               </div>
             </div>
           </div>

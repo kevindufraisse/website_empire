@@ -93,7 +93,7 @@ export const frComplete = {
     },
     {
       question: 'Combien de temps dois-je investir ?',
-      answer: 'Juste 15 minutes par semaine pour l\'appel d\'interview. C\'est tout. Nous gérons tout le reste — création de contenu, édition, planification et distribution sur toutes les plateformes.',
+      answer: 'Juste 15 minutes par semaine pour l\'appel d\'interview. C\'est tout. Nous gérons tout le reste - création de contenu, édition, planification et distribution sur toutes les plateformes.',
     },
     {
       question: 'Et si le contenu ne sonne pas comme moi ?',
@@ -113,7 +113,7 @@ export const frComplete = {
     },
     {
       question: 'Pourquoi pas d\'essai gratuit ou garantie satisfait ou remboursé ?',
-      answer: 'Nous avons une vraie équipe qui travaille sur votre contenu dès le jour 1 — rédacteurs, éditeurs, spécialistes QA. Un essai gratuit signifierait qu\'ils travaillent gratuitement, ce qui n\'est pas durable. À la place, nous offrons un paiement hebdomadaire (testez 1 semaine) et annulation à tout moment. Vous voyez la qualité immédiatement sans engagement long terme.',
+      answer: 'Nous avons une vraie équipe qui travaille sur votre contenu dès le jour 1 - rédacteurs, éditeurs, spécialistes QA. Un essai gratuit signifierait qu\'ils travaillent gratuitement, ce qui n\'est pas durable. À la place, nous offrons un paiement hebdomadaire (testez 1 semaine) et annulation à tout moment. Vous voyez la qualité immédiatement sans engagement long terme.',
     },
     {
       question: 'Sur quelles plateformes publiez-vous ?',
@@ -121,7 +121,7 @@ export const frComplete = {
     },
     {
       question: 'Pourquoi si peu de témoignages ?',
-      answer: 'Empire Internet a lancé il y a moins de 2 mois. Nous le gardons intentionnellement petit — maximum 100 clients au total — pour maintenir qualité et attention personnelle. Les clients actuels voient déjà des résultats, et nous collectons des témoignages au fur et à mesure.',
+      answer: 'Empire Internet a lancé il y a moins de 2 mois. Nous le gardons intentionnellement petit - maximum 100 clients au total - pour maintenir qualité et attention personnelle. Les clients actuels voient déjà des résultats, et nous collectons des témoignages au fur et à mesure.',
     },
     {
       question: 'Ai-je besoin d\'être devant la caméra ou d\'avoir du matériel vidéo ?',

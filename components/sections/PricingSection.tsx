@@ -7,6 +7,7 @@ import { Zap, Shield, Clock } from 'lucide-react'
 import { PRICING, LAUNCH_OFFER_ACTIVE } from '@/lib/pricing-config'
 import { getCalApi } from "@calcom/embed-react"
 import { useCalLink } from '@/hooks/useCalLink'
+import { CtaReassurance } from '@/components/ui/cta-reassurance'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -55,7 +56,7 @@ export default function PricingSection() {
               Ready to become <span className="text-empire">omnipresent</span>?
             </h2>
             <p className="text-xl text-neutral-300 max-w-2xl mx-auto">
-              Join the creators who are building their empire — without the burnout.
+              Join the creators who are building their empire - without the burnout.
             </p>
           </div>
         </FadeInBlock>
@@ -136,6 +137,7 @@ export default function PricingSection() {
                   >
                     {t.finalCTA.watchDemo}
                   </button>
+                  <CtaReassurance className="px-2" />
                 </div>
               </div>
             </div>

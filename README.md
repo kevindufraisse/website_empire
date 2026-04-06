@@ -1,4 +1,4 @@
-# Empire Internet — MagicUI-style Next.js Starter
+# Empire Internet - MagicUI-style Next.js Starter
 
 ## Dev
 ```bash

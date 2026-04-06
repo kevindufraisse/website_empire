@@ -76,7 +76,7 @@ const weeks = [
     num: '01',
     tag: 'Semaine 1 · Jours 1–7',
     title: 'Comprendre la viralité',
-    desc: "Psychologie de l'attention, hooks, mécanique des millions de vues. Pourquoi certains contenus explosent — et comment le reproduire.",
+    desc: "Psychologie de l'attention, hooks, mécanique des millions de vues. Pourquoi certains contenus explosent - et comment le reproduire.",
     highlight: false,
     platforms: false,
   },
@@ -108,7 +108,7 @@ const tools = [
   {
     icon: PenLine,
     label: 'Défis quotidiens',
-    desc: 'Chaque jour, une action concrète. Tu ne regardes pas — tu fais.',
+    desc: 'Chaque jour, une action concrète. Tu ne regardes pas - tu fais.',
     glow: false,
   },
   {
@@ -139,7 +139,7 @@ export default function AcademyProgramSection() {
             </div>
           </FadeInBlock>
 
-          {/* Weeks — timeline layout */}
+          {/* Weeks - timeline layout */}
           <FadeInBlock delay={0.1}>
             <div className="relative">
               {/* Connecting line desktop */}

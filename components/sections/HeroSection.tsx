@@ -7,6 +7,7 @@ import { Meteors } from '@/components/magicui/meteors'
 import { StarRating } from '@/components/ui/star-rating'
 import { getCalApi } from "@calcom/embed-react"
 import CallbackButton from '@/components/CallbackButton'
+import { CtaReassurance } from '@/components/ui/cta-reassurance'
 import { useCalLink } from '@/hooks/useCalLink'
 
 export default function HeroSection() {
@@ -145,6 +146,7 @@ export default function HeroSection() {
                 {t.hero.cta1}
               </button>
               <CallbackButton variant="subtle" />
+              <CtaReassurance className="mt-3 px-2" />
             </div>
           </motion.div>
             

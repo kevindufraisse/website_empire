@@ -5,6 +5,7 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import { Mail } from 'lucide-react'
 import { getCalApi } from "@calcom/embed-react"
 import { useCalLink } from '@/hooks/useCalLink'
+import { CtaReassurance } from '@/components/ui/cta-reassurance'
 
 export default function Footer() {
   const { t, lang } = useLanguage()
@@ -64,14 +65,17 @@ export default function Footer() {
                 Découvrir Empire Internet →
               </a>
             ) : !isPartnersPage && (
-              <button
-                data-cal-namespace={namespace}
-                data-cal-link={calLink}
-                data-cal-config='{"layout":"month_view","theme":"dark"}'
-                className="w-full sm:w-auto text-center px-6 py-3.5 min-h-[44px] bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)]"
-              >
-                {t.finalCTA.watchDemo}
-              </button>
+              <div className="flex flex-col items-center gap-2 w-full sm:w-auto">
+                <button
+                  data-cal-namespace={namespace}
+                  data-cal-link={calLink}
+                  data-cal-config='{"layout":"month_view","theme":"dark"}'
+                  className="w-full sm:w-auto text-center px-6 py-3.5 min-h-[44px] bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)]"
+                >
+                  {t.finalCTA.watchDemo}
+                </button>
+                <CtaReassurance className="max-w-xs px-1" />
+              </div>
             )}
           </div>
         </div>

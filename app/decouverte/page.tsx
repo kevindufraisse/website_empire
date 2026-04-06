@@ -4,7 +4,7 @@ import ClientResultsTicker from '@/components/ClientResultsTicker'
 
 export const metadata = {
   title: 'Découvrir Empire Internet - Appel Stratégique Gratuit',
-  description: "30 min pour voir si notre système de contenu s'adapte à toi. Gratuit, sans engagement.",
+  description: "45 min pour voir si notre système de contenu s'adapte à toi. Gratuit, sans engagement.",
   robots: 'noindex, nofollow',
 }
 

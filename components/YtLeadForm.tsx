@@ -13,6 +13,8 @@ import { createPortal } from 'react-dom'
 import Cal, { getCalApi } from '@calcom/embed-react'
 import { ChevronDown, Loader2, X } from 'lucide-react'
 import { getEmpParam } from '@/hooks/useCalLink'
+import { useLanguage } from '@/contexts/LanguageContext'
+import { CtaReassurance } from '@/components/ui/cta-reassurance'
 
 const CAL_LINK = 'team/empire-internet/audit-empire'
 
@@ -129,6 +131,7 @@ function CalModal({ lead, countryCode, onClose }: { lead: Lead; countryCode: str
 
 // ── Main form ─────────────────────────────────────────────────────────────────
 export default function YtLeadForm({ eventName = 'ads_conversion_book_appointment' }: { eventName?: string }) {
+  const { lang } = useLanguage()
   const [loading, setLoading] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [showCal, setShowCal] = useState(false)
@@ -322,14 +325,24 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
           className="w-full py-4 rounded-xl bg-empire text-black font-bold text-base hover:bg-empire/90 transition-colors flex items-center justify-center gap-2 disabled:opacity-70 mt-1"
         >
           {loading
-            ? <><Loader2 size={18} className="animate-spin" /> Envoi en cours...</>
-            : 'Réserver votre appel gratuit →'
+            ? (
+              <>
+                <Loader2 size={18} className="animate-spin" />
+                {lang === 'fr' ? 'Envoi en cours...' : 'Sending...'}
+              </>
+            )
+            : lang === 'fr'
+              ? 'Vérifier votre éligibilité →'
+              : 'Check your eligibility →'
           }
         </button>
 
         <p className="text-xs text-neutral-600 text-center">
-          30 min · Gratuit · Sans engagement
+          {lang === 'fr'
+            ? '45 min · Gratuit · Sans engagement'
+            : '45 min · Free · No commitment'}
         </p>
+        <CtaReassurance className="mt-3" />
       </form>
 
       {/* ── Cal.com modal portal ── */}

@@ -11,7 +11,7 @@ import CalCtaRedirect from '@/components/CalCtaRedirect'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Empire Internet — The Content Machine',
+  title: 'Empire Internet - The Content Machine',
   description: 'Speak 15 minutes. Become omnipresent. Empire Internet.'
 }
 

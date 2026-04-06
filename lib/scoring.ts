@@ -1,4 +1,4 @@
-// Pure scoring utility — no Supabase dependency, safe to import client-side
+// Pure scoring utility - no Supabase dependency, safe to import client-side
 
 export type DiscProfile = 'pending' | 'dominant' | 'influent' | 'stable' | 'conforme'
 

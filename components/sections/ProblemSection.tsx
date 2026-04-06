@@ -62,7 +62,7 @@ export default function ProblemSection() {
             <p>Doubt creeps in.</p>
             <p>The calendar stays empty.</p>
             <p className="pt-4">
-              Meanwhile, you see others posting daily — and you wonder what the hell they know that
+              Meanwhile, you see others posting daily - and you wonder what the hell they know that
               you don't.
             </p>
           </div>

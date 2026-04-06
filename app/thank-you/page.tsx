@@ -127,15 +127,15 @@ export default function DemoThankYouPage() {
 
               <div className={`space-y-5 text-neutral-300 leading-relaxed ${!showFullText ? 'max-h-[600px] overflow-hidden relative' : ''}`}>
                 <p>
-                  <strong className="text-empire">Le problème :</strong> Vous êtes entrepreneur, CEO ou freelance. Vous savez que le contenu est un levier business indispensable, mais entre vos clients, votre delivery et votre quotidien, il ne reste plus d'énergie pour écrire un post ou monter une vidéo. Trouver des idées, rédiger, tourner, monter, programmer, publier — c'est le travail de 5 personnes. Ce n'est pas censé être le vôtre.
+                  <strong className="text-empire">Le problème :</strong> Vous êtes entrepreneur, CEO ou freelance. Vous savez que le contenu est un levier business indispensable, mais entre vos clients, votre delivery et votre quotidien, il ne reste plus d'énergie pour écrire un post ou monter une vidéo. Trouver des idées, rédiger, tourner, monter, programmer, publier - c'est le travail de 5 personnes. Ce n'est pas censé être le vôtre.
                 </p>
 
                 <p>
-                  <strong className="text-empire">Les tentatives classiques :</strong> Vous avez peut-être essayé de déléguer à un freelance — contenu générique, retards, turnover. Ou de tout faire vous-même — motivé 2 semaines, 3 posts, zéro traction, abandon. Ce n'est pas un problème de discipline. Vous n'aviez juste pas de système.
+                  <strong className="text-empire">Les tentatives classiques :</strong> Vous avez peut-être essayé de déléguer à un freelance - contenu générique, retards, turnover. Ou de tout faire vous-même - motivé 2 semaines, 3 posts, zéro traction, abandon. Ce n'est pas un problème de discipline. Vous n'aviez juste pas de système.
                 </p>
 
                 <p>
-                  <strong className="text-empire">Ce que font les top créateurs :</strong> Grant Cardone, Alex Hormozi, Matt Gray — ils ne créent pas du contenu assis devant un écran. Ils parlent, et une équipe transforme tout derrière. Sauf que ça leur coûte 50 à 100 000€ par mois et 5 ans à mettre en place. Empire reproduit ce système pour vous, clé en main.
+                  <strong className="text-empire">Ce que font les top créateurs :</strong> Grant Cardone, Alex Hormozi, Matt Gray - ils ne créent pas du contenu assis devant un écran. Ils parlent, et une équipe transforme tout derrière. Sauf que ça leur coûte 50 à 100 000€ par mois et 5 ans à mettre en place. Empire reproduit ce système pour vous, clé en main.
                 </p>
 
                 <p>
@@ -144,15 +144,15 @@ export default function DemoThankYouPage() {
                 <ul className="space-y-2 ml-4">
                   <li className="flex items-start gap-2">
                     <span className="text-empire font-bold mt-0.5">1.</span>
-                    <span><strong className="text-white">L'extraction</strong> — Vous parlez 15 minutes lors d'une interview. L'IA, formée sur votre expertise, capture vos meilleures idées, votre vocabulaire, vos angles. Plus vous l'utilisez, plus elle vous connaît.</span>
+                    <span><strong className="text-white">L'extraction</strong> - Vous parlez 15 minutes lors d'une interview. L'IA, formée sur votre expertise, capture vos meilleures idées, votre vocabulaire, vos angles. Plus vous l'utilisez, plus elle vous connaît.</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-empire font-bold mt-0.5">2.</span>
-                    <span><strong className="text-white">La transformation</strong> — Une équipe d'assistants formés pendant des mois prend le relais. Ils coupent vos vidéos, rédigent vos posts LinkedIn, structurent vos newsletters, créent vos Reels et Shorts. Chaque contenu est vérifié : orthographe, ton, qualité.</span>
+                    <span><strong className="text-white">La transformation</strong> - Une équipe d'assistants formés pendant des mois prend le relais. Ils coupent vos vidéos, rédigent vos posts LinkedIn, structurent vos newsletters, créent vos Reels et Shorts. Chaque contenu est vérifié : orthographe, ton, qualité.</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-empire font-bold mt-0.5">3.</span>
-                    <span><strong className="text-white">La publication</strong> — Une interview génère une semaine entière de contenu sur 6 plateformes : LinkedIn, YouTube, Instagram, Twitter/X, Threads et newsletter. Vous relisez, vous validez, c'est publié.</span>
+                    <span><strong className="text-white">La publication</strong> - Une interview génère une semaine entière de contenu sur 6 plateformes : LinkedIn, YouTube, Instagram, Twitter/X, Threads et newsletter. Vous relisez, vous validez, c'est publié.</span>
                   </li>
                 </ul>
 
@@ -165,11 +165,11 @@ export default function DemoThankYouPage() {
                 </p>
 
                 <p>
-                  <strong className="text-empire">Avant vs Après Empire :</strong> Avant — 3-4 posts par mois, des heures de travail, une seule plateforme, zéro retour. Après — publication quotidienne sur 6 plateformes, 15 minutes par semaine, calendrier rempli, leads entrants automatiques.
+                  <strong className="text-empire">Avant vs Après Empire :</strong> Avant - 3-4 posts par mois, des heures de travail, une seule plateforme, zéro retour. Après - publication quotidienne sur 6 plateformes, 15 minutes par semaine, calendrier rempli, leads entrants automatiques.
                 </p>
 
                 <p>
-                  <strong className="text-empire">Pour qui c'est fait :</strong> Entrepreneurs, CEOs, freelances qui font plus de 5 000€/mois et qui veulent transformer leur visibilité en ligne en levier business — sans sacrifier leur temps. Limité à 100 clients pour garantir la qualité.
+                  <strong className="text-empire">Pour qui c'est fait :</strong> Entrepreneurs, CEOs, freelances qui font plus de 5 000€/mois et qui veulent transformer leur visibilité en ligne en levier business - sans sacrifier leur temps. Limité à 100 clients pour garantir la qualité.
                 </p>
 
                 <p>

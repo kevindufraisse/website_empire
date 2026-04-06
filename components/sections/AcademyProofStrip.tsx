@@ -76,7 +76,7 @@ export default function AcademyProofStrip() {
             transition={{ duration: 0.5 }}
             className="text-center text-xs font-bold text-neutral-500 tracking-widest uppercase mb-8"
           >
-            Ce que ça change — en 21 jours
+            Ce que ça change - en 21 jours
           </motion.p>
 
           <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-4 md:gap-6">

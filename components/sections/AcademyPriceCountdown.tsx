@@ -45,7 +45,7 @@ export default function AcademyPriceCountdown() {
 
   const activeTier = PRICE_TIERS[activeIdx]
 
-  // Don't render on server — only after client mount
+  // Don't render on server - only after client mount
   if (activeIdx === -1 || !activeTier) return null
 
   return (

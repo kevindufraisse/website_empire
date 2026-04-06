@@ -21,14 +21,14 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 const criteria = [
   { ok: true,  text: 'Tu veux créer un revenu en ligne sans dépendre d\'un patron ou d\'un algorithme existant' },
   { ok: true,  text: 'Tu es prêt à créer du contenu chaque jour pendant 21 jours, même si c\'est inconfortable' },
-  { ok: true,  text: 'Tu pars de zéro — pas d\'audience, pas d\'expérience, c\'est exactement le profil qu\'on veut' },
+  { ok: true,  text: 'Tu pars de zéro - pas d\'audience, pas d\'expérience, c\'est exactement le profil qu\'on veut' },
   { ok: false, text: 'Tu as déjà une grosse audience et un système de contenu qui tourne' },
   { ok: false, text: 'Tu cherches une formation à regarder sans rien appliquer' },
 ]
 
 const steps = [
   { num: '01', title: 'Tu passes le test', desc: '2 minutes. On vérifie que le profil et les objectifs sont alignés. Plus tu candidates tôt, plus tu as de chances.' },
-  { num: '02', title: 'On te répond le 2 avril', desc: 'Admis ou pas — pour les 20 profils retenus. Si c\'est non, on te dit pourquoi et ce qu\'on conseille.' },
+  { num: '02', title: 'On te répond le 2 avril', desc: 'Admis ou pas - pour les 20 profils retenus. Si c\'est non, on te dit pourquoi et ce qu\'on conseille.' },
   { num: '03', title: 'Tu rejoins la promotion', desc: 'Accès immédiat au programme. Démarrage le 25 avril.' },
 ]
 
@@ -47,7 +47,7 @@ export default function AcademySelectionSection() {
                 <span className="text-neutral-400">Voici comment.</span>
               </h2>
               <p className="text-neutral-400 text-base max-w-xl mx-auto">
-                La qualité du groupe fait partie du programme. Chaque candidature est lue. On prend les 20 profils les plus motivés — pas les premiers arrivés.
+                La qualité du groupe fait partie du programme. Chaque candidature est lue. On prend les 20 profils les plus motivés - pas les premiers arrivés.
               </p>
             </div>
           </FadeInBlock>
@@ -105,7 +105,7 @@ export default function AcademySelectionSection() {
                 href="/candidature"
                 className="inline-flex items-center gap-2 px-7 py-3.5 bg-empire text-black font-bold text-base rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.25)]"
               >
-                Passer le test d'éligibilité →
+                Postuler - sur sélection →
               </a>
               <p className="text-xs text-neutral-600 mt-2">Formulaire de 2 min · Réponse le 2 avril · Aucun engagement</p>
             </div>

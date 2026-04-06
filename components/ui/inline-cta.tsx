@@ -4,6 +4,7 @@ import { ArrowRight, Calendar } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { getCalApi } from "@calcom/embed-react"
 import CallbackButton from '@/components/CallbackButton'
+import { CtaReassurance } from '@/components/ui/cta-reassurance'
 import { useCalLink } from '@/hooks/useCalLink'
 
 interface InlineCTAProps {
@@ -18,12 +19,13 @@ interface InlineCTAProps {
 export function InlineCTA({ 
   title, 
   description, 
-  primaryText = 'Free 45 min strategy call',
+  primaryText,
   secondaryText,
   urgencyLabel = 'Limited spots',
   variant = 'default' 
 }: InlineCTAProps) {
-  const { lang } = useLanguage()
+  const { t } = useLanguage()
+  const resolvedPrimary = primaryText ?? t.common.startNow
   
   const namespace = 'audit-empire'
   const calLink = useCalLink()
@@ -53,11 +55,12 @@ export function InlineCTA({
           data-cal-config='{"layout":"month_view","theme":"dark"}'
           className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-empire/10 border border-empire/30 text-empire font-bold hover:bg-empire/20 hover:gap-3 transition-all"
         >
-          {primaryText} <ArrowRight size={18} />
+          {resolvedPrimary} <ArrowRight size={18} />
         </button>
         <div className="mt-3">
           <CallbackButton variant="subtle" />
         </div>
+        <CtaReassurance className="mt-3" />
       </div>
     )
   }
@@ -77,11 +80,12 @@ export function InlineCTA({
           data-cal-config='{"layout":"month_view","theme":"dark"}'
           className="px-6 py-3 bg-empire text-black font-bold rounded-lg hover:scale-105 transition-all"
         >
-          {primaryText}
+          {resolvedPrimary}
         </button>
         <div className="mt-3">
           <CallbackButton variant="subtle" />
         </div>
+        <CtaReassurance className="mt-3" />
       </div>
     )
   }
@@ -96,11 +100,12 @@ export function InlineCTA({
         data-cal-config='{"layout":"month_view","theme":"dark"}'
         className="px-6 py-3 bg-empire text-black font-bold rounded-lg hover:scale-105 transition-all"
       >
-        {primaryText}
+        {resolvedPrimary}
       </button>
       <div className="mt-3">
         <CallbackButton variant="subtle" />
       </div>
+      <CtaReassurance className="mt-3" />
     </div>
   )
 }

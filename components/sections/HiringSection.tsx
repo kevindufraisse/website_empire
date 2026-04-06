@@ -83,11 +83,11 @@ export default function HiringSection() {
                 <div className="flex items-start justify-between mb-6">
                   <div>
                     <h2 className="text-3xl md:text-4xl font-bold mb-2">
-                      {hiring.salesCloser?.title || 'Sales Closer FR/EN — Poste fondateur'}
+                      {hiring.salesCloser?.title || 'Sales Closer FR/EN - Poste fondateur'}
                     </h2>
                     <div className="flex flex-wrap gap-3 mt-4">
                       <span className="px-4 py-2 rounded-lg bg-empire/20 text-empire font-semibold text-sm">
-                        {hiring.salesCloser?.type || 'Freelance — Remote'}
+                        {hiring.salesCloser?.type || 'Freelance - Remote'}
                       </span>
                       <span className="px-4 py-2 rounded-lg bg-white/10 text-white font-semibold text-sm">
                         {hiring.salesCloser?.compensation || '8k–20k€/mois'}
@@ -287,7 +287,7 @@ export default function HiringSection() {
                     </h2>
                     <div className="flex flex-wrap gap-3 mt-4">
                       <span className="px-4 py-2 rounded-lg bg-empire/20 text-empire font-semibold text-sm">
-                        {hiring.customerSuccess?.type || 'CDI ou freelance longue durée — Remote'}
+                        {hiring.customerSuccess?.type || 'CDI ou freelance longue durée - Remote'}
                       </span>
                       <span className="px-4 py-2 rounded-lg bg-white/10 text-white font-semibold text-sm">
                         {hiring.customerSuccess?.compensation || '1 000 – 2 000€/mois + bonus upsells'}

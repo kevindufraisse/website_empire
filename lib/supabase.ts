@@ -4,10 +4,10 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 const supabaseSecretKey = process.env.SUPABASE_SECRET_KEY!
 
-// Client-side (anon — used in browser)
+// Client-side (anon - used in browser)
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
-// Server-side only (service role — bypasses RLS, never import this client-side)
+// Server-side only (service role - bypasses RLS, never import this client-side)
 export const supabaseAdmin = createClient(supabaseUrl, supabaseSecretKey)
 
 export type ApplicationStatus = 'new' | 'contacted' | 'accepted' | 'rejected'

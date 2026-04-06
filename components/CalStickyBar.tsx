@@ -6,9 +6,10 @@ import { getCalApi } from "@calcom/embed-react"
 import { Calendar, ArrowRight, Phone } from 'lucide-react'
 import CallbackFormModal from '@/components/CallbackFormModal'
 import { useCalLink } from '@/hooks/useCalLink'
+import { CtaReassurance } from '@/components/ui/cta-reassurance'
 
 export default function CalStickyBar() {
-  const { lang } = useLanguage()
+  const { lang, t } = useLanguage()
   const [isVisible, setIsVisible] = useState(false)
   const [callbackOpen, setCallbackOpen] = useState(false)
   const pathname = usePathname()
@@ -89,7 +90,7 @@ export default function CalStickyBar() {
       <div className="absolute inset-0 bg-black/90 backdrop-blur-md border-t border-empire/30" />
       
       {/* Content */}
-      <div className="relative max-w-7xl mx-auto px-4 py-3">
+      <div className="relative max-w-7xl mx-auto px-4 py-3 flex flex-col gap-2">
         <div className="flex items-center justify-between gap-4">
           {/* Left side - Text (Desktop) */}
           <div className="hidden sm:flex items-center gap-3">
@@ -129,11 +130,15 @@ export default function CalStickyBar() {
               data-cal-config='{"layout":"month_view","theme":"dark"}'
               className="flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 bg-empire text-black font-bold rounded-lg hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)] text-sm sm:text-base whitespace-nowrap group"
             >
-              {lang === 'fr' ? '45 min stratégique gratuite' : 'Free 45 min strategy call'}
+              {t.common.startNow}
               <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
         </div>
+        <CtaReassurance
+          variant="compact"
+          className="text-[10px] text-neutral-500 border-t border-white/10 pt-2 -mb-0.5"
+        />
       </div>
       <CallbackFormModal isOpen={callbackOpen} onClose={() => setCallbackOpen(false)} />
     </div>

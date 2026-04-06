@@ -5,7 +5,7 @@ import FAQSection from '@/components/sections/FAQSection'
 import FormatsCTA from '@/components/sections/formats/FormatsCTA'
 
 export const metadata = {
-  title: 'Recording Formats — Empire Internet',
+  title: 'Recording Formats - Empire Internet',
   description: 'Choose how you want to create content: Interviews, Improvisation, Reels Scripts, or Automations.'
 }
 

@@ -155,7 +155,7 @@ export function ExitIntentPopup() {
               onClick={() => setDismissed(true)}
               className="block w-full py-4 rounded-xl bg-empire text-black font-bold text-base hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.35)] mb-3"
             >
-              Passer le test d'éligibilité →
+              Postuler - sur sélection →
             </a>
             <button
               onClick={() => setDismissed(true)}

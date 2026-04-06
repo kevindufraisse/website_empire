@@ -7,6 +7,7 @@ import { Award, Newspaper } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { getCalApi } from "@calcom/embed-react"
 import { useCalLink } from '@/hooks/useCalLink'
+import { CtaReassurance } from '@/components/ui/cta-reassurance'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -141,6 +142,7 @@ export default function StoryResults() {
                 >
                   {t.story.results.finalCta}
                 </button>
+                <CtaReassurance className="mt-4 px-2" />
               </div>
             </div>
           </div>
