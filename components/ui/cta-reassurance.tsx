@@ -4,31 +4,18 @@ import { useLanguage } from '@/contexts/LanguageContext'
 
 type CtaReassuranceProps = {
   className?: string
-  /** Default: centered under hero-style CTAs. Use `start` / `end` for cards or header. */
-  align?: 'center' | 'start' | 'end'
-  /** `compact` = one line for header, sticky bar, banner */
-  variant?: 'full' | 'compact'
+  /** Default: centered under hero-style CTAs. Use `start` for left-aligned blocks (e.g. cards). */
+  align?: 'center' | 'start'
 }
 
-export function CtaReassurance({
-  className = '',
-  align = 'center',
-  variant = 'full',
-}: CtaReassuranceProps) {
+export function CtaReassurance({ className = '', align = 'center' }: CtaReassuranceProps) {
   const { t } = useLanguage()
   const alignClass =
-    align === 'start'
-      ? 'text-left max-w-lg'
-      : align === 'end'
-        ? 'text-right max-w-[14rem] ml-auto'
-        : 'text-center max-w-md mx-auto'
-
-  const copy =
-    variant === 'compact' ? t.common.ctaReassuranceNav : t.common.ctaReassurance
+    align === 'start' ? 'text-left max-w-lg' : 'text-center max-w-md mx-auto'
 
   return (
     <p className={`text-xs text-neutral-500 leading-relaxed ${alignClass} ${className}`}>
-      {copy}
+      {t.common.ctaReassurance}
     </p>
   )
 }

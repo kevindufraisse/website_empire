@@ -307,9 +307,8 @@ export const en = {
     watchDemo: 'Install Empire Internet',
     ctaReassurance:
       'You pick a slot - confirmation by email. If it’s not a fit, we’ll tell you clearly.',
-    /** One line under header / sticky / banner (space-constrained) */
-    ctaReassuranceNav:
-      'Slot + email · No commitment · Not a fit? We’ll say so.',
+    /** Small second line inside compact Cal buttons (header, sticky, banner) */
+    ctaCalButtonHint: 'Free · No commitment',
     learnMore: 'Learn more',
     perMonth: '/month',
     perWeek: '/week',
