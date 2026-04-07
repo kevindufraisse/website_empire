@@ -68,16 +68,16 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/20 bg-black/95 backdrop-blur-md">
       <nav className="max-w-7xl mx-auto px-4 py-3.5">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-2 sm:gap-3 min-w-0">
           {/* Logo */}
-          <a href="/" className="flex items-center gap-2 group">
+          <a href="/" className="flex items-center gap-2 group shrink-0">
             <span className="text-lg md:text-xl font-bold text-white group-hover:text-empire transition-colors">
               Empire Internet
             </span>
           </a>
 
           {/* Right side */}
-          <div className="flex items-center gap-2 md:gap-3">
+          <div className="flex items-center justify-end gap-2 md:gap-3 min-w-0">
             {!hideCTA && (
               <button
                 data-cal-namespace={namespace}
