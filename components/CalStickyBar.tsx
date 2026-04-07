@@ -6,6 +6,7 @@ import { getCalApi } from "@calcom/embed-react"
 import { Calendar, ArrowRight, Phone } from 'lucide-react'
 import CallbackFormModal from '@/components/CallbackFormModal'
 import { useCalLink } from '@/hooks/useCalLink'
+import { CtaReassurance } from '@/components/ui/cta-reassurance'
 
 export default function CalStickyBar() {
   const { t, lang } = useLanguage()
@@ -89,7 +90,7 @@ export default function CalStickyBar() {
       <div className="absolute inset-0 bg-black/90 backdrop-blur-md border-t border-empire/30" />
       
       {/* Content */}
-      <div className="relative max-w-7xl mx-auto px-4 py-3">
+      <div className="relative max-w-7xl mx-auto px-4 py-3 flex flex-col gap-2">
         <div className="flex items-center justify-between gap-4">
           {/* Left side - Text (Desktop) */}
           <div className="hidden sm:flex items-center gap-3">
@@ -127,18 +128,19 @@ export default function CalStickyBar() {
               data-cal-namespace={namespace}
               data-cal-link={calLink}
               data-cal-config='{"layout":"month_view","theme":"dark"}'
-              className="flex flex-col items-stretch sm:items-end gap-0.5 px-4 py-2 sm:px-6 sm:py-2.5 bg-empire text-black font-bold rounded-lg hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)] text-sm sm:text-base group min-w-0"
+              className="flex flex-col items-center sm:items-end gap-0.5 px-4 py-2 sm:px-6 sm:py-2.5 bg-empire text-black font-bold rounded-lg hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)] text-sm sm:text-base group min-w-0"
             >
               <span className="flex items-center justify-center sm:justify-end gap-2 whitespace-nowrap">
                 {t.common.startNow}
                 <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform flex-shrink-0" />
               </span>
-              <span className="text-[9px] font-medium text-black/75 text-center sm:text-right leading-tight max-w-[11rem] sm:max-w-[13rem]">
+              <span className="text-[9px] font-medium text-black/75 text-center sm:text-right leading-tight">
                 {t.common.ctaCalButtonHint}
               </span>
             </button>
           </div>
         </div>
+        <CtaReassurance className="text-[10px] sm:text-[11px] leading-snug border-t border-white/10 pt-2 -mb-0.5" />
       </div>
       <CallbackFormModal isOpen={callbackOpen} onClose={() => setCallbackOpen(false)} />
     </div>

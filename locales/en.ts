@@ -305,10 +305,9 @@ export const en = {
   common: {
     startNow: 'Install Empire Internet',
     watchDemo: 'Install Empire Internet',
-    ctaReassurance:
-      'You pick a slot - confirmation by email. If it’s not a fit, we’ll tell you clearly.',
-    /** Small second line inside compact Cal buttons (header, sticky, banner) */
-    ctaCalButtonHint: 'Free · No commitment',
+    ctaReassurance: 'Depending on available spots.',
+    /** Micro-line inside compact Cal buttons (header, sticky, banner) */
+    ctaCalButtonHint: 'Free call · No card · No commitment',
     learnMore: 'Learn more',
     perMonth: '/month',
     perWeek: '/week',

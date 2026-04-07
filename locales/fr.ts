@@ -428,10 +428,9 @@ export const fr: Translations = {
   common: {
     startNow: 'Installer Empire Internet',
     watchDemo: 'Installer Empire Internet',
-    ctaReassurance:
-      'Vous choisissez un créneau - confirmation par email. Si ce n’est pas pour vous, on vous le dit clairement.',
-    /** Petite ligne dans les boutons Cal compacts (header, sticky, bannière) */
-    ctaCalButtonHint: 'Gratuit · Sans engagement',
+    ctaReassurance: 'En fonction des places disponibles.',
+    /** Micro-ligne dans les boutons Cal compacts (header, sticky, bannière) */
+    ctaCalButtonHint: 'Offert · Sans CB · Sans engagement',
     learnMore: 'En savoir plus',
     perMonth: '/mois',
     perWeek: '/semaine',

@@ -6,6 +6,7 @@ import { LAUNCH_OFFER_ACTIVE, PRICING } from '@/lib/pricing-config'
 import { getCalApi } from "@calcom/embed-react"
 import CallbackFormModal from '@/components/CallbackFormModal'
 import { useCalLink } from '@/hooks/useCalLink'
+import { CtaReassurance } from '@/components/ui/cta-reassurance'
 
 export default function AnnouncementBanner() {
   const [dismissed, setDismissed] = useState(false)
@@ -37,8 +38,8 @@ export default function AnnouncementBanner() {
 
   return (
     <div className="sticky top-0 left-0 right-0 bg-gradient-to-r from-empire via-[#c8e860] to-empire text-black py-1.5 px-4 z-[60] shadow-md">
-      <div className="max-w-7xl mx-auto relative">
-        <div className="relative flex items-center justify-center gap-2 text-center text-xs flex-wrap px-8 pr-10 py-0.5">
+      <div className="max-w-7xl mx-auto relative flex flex-col items-center gap-1 pb-0.5">
+        <div className="relative flex items-center justify-center gap-2 text-center text-xs flex-wrap px-8 pr-10 py-0.5 w-full">
           <span className="font-bold">
             🔥 {lang === 'fr' ? 'LANCEMENT' : 'LAUNCH'}:
           </span>
@@ -76,6 +77,7 @@ export default function AnnouncementBanner() {
             <X size={14} />
           </button>
         </div>
+        <CtaReassurance className="!text-black/80 text-[10px] leading-snug max-w-lg px-4 !mx-auto" />
       </div>
       <CallbackFormModal isOpen={callbackOpen} onClose={() => setCallbackOpen(false)} />
     </div>
