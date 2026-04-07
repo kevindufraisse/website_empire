@@ -84,12 +84,12 @@ export default function Header() {
                 data-cal-link={calLink}
                 data-cal-config='{"layout":"month_view","theme":"dark"}'
                 title={t.common.ctaReassurance}
-                className="hidden sm:flex flex-col items-end gap-0.5 max-w-[10.5rem] shrink-0 px-3 md:px-3.5 py-1.5 md:py-2 rounded-lg bg-empire text-black hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.2)]"
+                className="hidden sm:inline-flex sm:flex-col sm:items-end sm:justify-center gap-px shrink-0 px-3 md:px-4 py-1.5 md:py-2 rounded-lg bg-empire text-black hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.2)]"
               >
-                <span className="font-semibold text-xs md:text-sm leading-snug text-right">
+                <span className="font-semibold text-[11px] md:text-sm leading-none text-right whitespace-nowrap">
                   {t.header.joinQA}
                 </span>
-                <span className="text-[8px] md:text-[9px] font-medium leading-tight text-right text-black/70">
+                <span className="text-[8px] md:text-[9px] font-medium leading-none text-right text-black/70 whitespace-nowrap">
                   {t.common.ctaReassuranceCompact}
                 </span>
               </button>
