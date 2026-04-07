@@ -429,8 +429,6 @@ export const fr: Translations = {
     startNow: 'Installer Empire Internet',
     watchDemo: 'Installer Empire Internet',
     ctaReassurance: 'En fonction des places disponibles.',
-    /** Micro-ligne dans les boutons Cal compacts (header, sticky, bannière) */
-    ctaCalButtonHint: 'Offert · Sans CB · Sans engagement',
     learnMore: 'En savoir plus',
     perMonth: '/mois',
     perWeek: '/semaine',

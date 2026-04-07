@@ -306,8 +306,6 @@ export const en = {
     startNow: 'Install Empire Internet',
     watchDemo: 'Install Empire Internet',
     ctaReassurance: 'Depending on available spots.',
-    /** Micro-line inside compact Cal buttons (header, sticky, banner) */
-    ctaCalButtonHint: 'Free call · No card · No commitment',
     learnMore: 'Learn more',
     perMonth: '/month',
     perWeek: '/week',

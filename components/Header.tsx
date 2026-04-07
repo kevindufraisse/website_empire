@@ -9,7 +9,6 @@ import { getCalApi } from "@calcom/embed-react"
 import { Phone } from 'lucide-react'
 import CallbackFormModal from '@/components/CallbackFormModal'
 import { useCalLink } from '@/hooks/useCalLink'
-import { CtaReassurance } from '@/components/ui/cta-reassurance'
 
 export default function Header() {
   const { t, lang } = useLanguage()
@@ -80,25 +79,19 @@ export default function Header() {
           {/* Right side */}
           <div className="flex items-center gap-2 md:gap-3">
             {!hideCTA && (
-              <div className="hidden sm:flex flex-col items-end gap-1.5 max-w-[14rem]">
-                <button
-                  data-cal-namespace={namespace}
-                  data-cal-link={calLink}
-                  data-cal-config='{"layout":"month_view","theme":"dark"}'
-                  className="w-full flex flex-col items-end gap-0.5 px-4 md:px-5 py-2 md:py-2 rounded-lg bg-empire text-black hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.2)]"
-                >
-                  <span className="font-semibold text-sm md:text-base leading-tight text-right">
-                    {t.header.joinQA}
-                  </span>
-                  <span className="text-[9px] font-medium leading-tight text-right text-black/70">
-                    {t.common.ctaCalButtonHint}
-                  </span>
-                </button>
-                <CtaReassurance
-                  align="end"
-                  className="text-[10px] leading-snug text-neutral-500 !max-w-[14rem]"
-                />
-              </div>
+              <button
+                data-cal-namespace={namespace}
+                data-cal-link={calLink}
+                data-cal-config='{"layout":"month_view","theme":"dark"}'
+                className="hidden sm:flex flex-col items-end gap-0.5 max-w-[14rem] px-4 md:px-5 py-2 md:py-2 rounded-lg bg-empire text-black hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.2)]"
+              >
+                <span className="font-semibold text-sm md:text-base leading-tight text-right">
+                  {t.header.joinQA}
+                </span>
+                <span className="text-[9px] font-medium leading-tight text-right text-black/70">
+                  {t.common.ctaReassurance}
+                </span>
+              </button>
             )}
             {isPartnersPage && (
               <button
@@ -138,24 +131,21 @@ export default function Header() {
 
               {/* CTA Button Mobile */}
               {!hideCTA && (
-                <div>
-                  <motion.button
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 }}
-                    data-cal-namespace={namespace}
-                    data-cal-link={calLink}
-                    data-cal-config='{"layout":"month_view","theme":"dark"}'
-                    onClick={() => setIsMenuOpen(false)}
-                    className="w-full flex flex-col items-center gap-1 py-3 rounded-lg bg-empire text-black font-bold hover:scale-[1.02] transition-all shadow-[0_0_20px_rgba(218,252,104,0.2)]"
-                  >
-                    <span className="leading-tight px-2 text-center">{t.header.joinQA}</span>
-                    <span className="text-[10px] font-medium text-black/70 leading-tight px-2 text-center">
-                      {t.common.ctaCalButtonHint}
-                    </span>
-                  </motion.button>
-                  <CtaReassurance className="mt-2.5 text-[11px] leading-snug" />
-                </div>
+                <motion.button
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 }}
+                  data-cal-namespace={namespace}
+                  data-cal-link={calLink}
+                  data-cal-config='{"layout":"month_view","theme":"dark"}'
+                  onClick={() => setIsMenuOpen(false)}
+                  className="w-full flex flex-col items-center gap-1 py-3 rounded-lg bg-empire text-black font-bold hover:scale-[1.02] transition-all shadow-[0_0_20px_rgba(218,252,104,0.2)]"
+                >
+                  <span className="leading-tight px-2 text-center">{t.header.joinQA}</span>
+                  <span className="text-[10px] font-medium text-black/70 leading-tight px-2 text-center">
+                    {t.common.ctaReassurance}
+                  </span>
+                </motion.button>
               )}
               {isPartnersPage && (
                 <motion.button
