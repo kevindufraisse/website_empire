@@ -306,6 +306,8 @@ export const en = {
     startNow: 'Install Empire Internet',
     watchDemo: 'Install Empire Internet',
     ctaReassurance: 'Depending on available spots.',
+    /** Tight subline: header, sticky, banner (keeps the CTA compact) */
+    ctaReassuranceCompact: 'Per spot availability.',
     learnMore: 'Learn more',
     perMonth: '/month',
     perWeek: '/week',

@@ -44,13 +44,21 @@ export default function DecouvertePage() {
 
           {/* Logo bar */}
           <div className="border-b border-white/5">
-          <div className="flex items-center justify-between max-w-5xl mx-auto w-full px-4 sm:px-6 py-4">
-            <a href="/" className="text-white font-bold text-base tracking-tight hover:text-empire transition-colors">
+          <div className="flex items-center justify-between max-w-5xl mx-auto w-full px-4 sm:px-6 py-4 gap-3">
+            <a href="/" className="text-white font-bold text-base tracking-tight hover:text-empire transition-colors shrink-0">
               Empire Internet
             </a>
-            <div className="flex items-center gap-1.5 text-xs text-neutral-500">
-              <span className="w-1.5 h-1.5 rounded-full bg-empire animate-pulse" />
-              Appel gratuit disponible
+            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+              <a
+                href="#reserve-form"
+                className="lg:hidden shrink-0 text-xs font-bold text-empire hover:text-empire/90 underline-offset-2 hover:underline"
+              >
+                Réserver →
+              </a>
+              <div className="flex items-center gap-1.5 text-[11px] sm:text-xs text-neutral-500 min-w-0">
+                <span className="w-1.5 h-1.5 rounded-full bg-empire animate-pulse shrink-0" />
+                <span className="truncate">Appel gratuit disponible</span>
+              </div>
             </div>
           </div>
           </div>
@@ -58,8 +66,8 @@ export default function DecouvertePage() {
           {/* ── Main 2-col layout ── */}
           <div className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 py-8 md:py-14 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
 
-            {/* ── Left : Pitch ── */}
-            <div className="lg:sticky lg:top-8">
+            {/* ── Left : Pitch (below form on mobile so cold traffic sees the form first) ── */}
+            <div className="lg:sticky lg:top-8 order-2 lg:order-1">
               <h1 className="text-3xl sm:text-4xl font-extrabold leading-tight mb-4">
                 Faites des millions de vues<br />
                 et attirez des clients -{' '}
@@ -100,8 +108,8 @@ export default function DecouvertePage() {
               </div>
             </div>
 
-            {/* ── Right : Form → Cal.com ── */}
-            <div>
+            {/* ── Right : Form → Cal.com (first on mobile) ── */}
+            <div id="reserve-form" className="order-1 lg:order-2 scroll-mt-6">
               <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 sm:p-7">
                 <h2 className="text-lg font-bold text-white mb-5">Réservez votre appel gratuit</h2>
                 <YtLeadForm eventName="organic_lead_form" />

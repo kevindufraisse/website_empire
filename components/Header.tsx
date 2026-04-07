@@ -83,13 +83,14 @@ export default function Header() {
                 data-cal-namespace={namespace}
                 data-cal-link={calLink}
                 data-cal-config='{"layout":"month_view","theme":"dark"}'
-                className="hidden sm:flex flex-col items-end gap-0.5 max-w-[14rem] px-4 md:px-5 py-2 md:py-2 rounded-lg bg-empire text-black hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.2)]"
+                title={t.common.ctaReassurance}
+                className="hidden sm:flex flex-col items-end gap-0.5 max-w-[10.5rem] shrink-0 px-3 md:px-3.5 py-1.5 md:py-2 rounded-lg bg-empire text-black hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.2)]"
               >
-                <span className="font-semibold text-sm md:text-base leading-tight text-right">
+                <span className="font-semibold text-xs md:text-sm leading-snug text-right">
                   {t.header.joinQA}
                 </span>
-                <span className="text-[9px] font-medium leading-tight text-right text-black/70">
-                  {t.common.ctaReassurance}
+                <span className="text-[8px] md:text-[9px] font-medium leading-tight text-right text-black/70">
+                  {t.common.ctaReassuranceCompact}
                 </span>
               </button>
             )}
@@ -138,12 +139,13 @@ export default function Header() {
                   data-cal-namespace={namespace}
                   data-cal-link={calLink}
                   data-cal-config='{"layout":"month_view","theme":"dark"}'
+                  title={t.common.ctaReassurance}
                   onClick={() => setIsMenuOpen(false)}
                   className="w-full flex flex-col items-center gap-1 py-3 rounded-lg bg-empire text-black font-bold hover:scale-[1.02] transition-all shadow-[0_0_20px_rgba(218,252,104,0.2)]"
                 >
-                  <span className="leading-tight px-2 text-center">{t.header.joinQA}</span>
+                  <span className="leading-tight px-2 text-center text-sm">{t.header.joinQA}</span>
                   <span className="text-[10px] font-medium text-black/70 leading-tight px-2 text-center">
-                    {t.common.ctaReassurance}
+                    {t.common.ctaReassuranceCompact}
                   </span>
                 </motion.button>
               )}

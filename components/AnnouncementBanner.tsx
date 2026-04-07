@@ -48,6 +48,8 @@ export default function AnnouncementBanner() {
               : `Save €${savings}/month on all plans`}
           </span>
           <button 
+            type="button"
+            title={t.common.ctaReassurance}
             data-cal-namespace={namespace}
             data-cal-link={calLink}
             data-cal-config='{"layout":"month_view","theme":"dark"}'
@@ -56,8 +58,8 @@ export default function AnnouncementBanner() {
             <span className="leading-none text-[10px] sm:text-xs whitespace-nowrap">
               {t.common.startNow} →
             </span>
-            <span className="text-[7px] sm:text-[8px] font-semibold text-empire/90 leading-tight text-center max-w-[9rem] sm:max-w-none">
-              {t.common.ctaReassurance}
+            <span className="text-[7px] sm:text-[8px] font-semibold text-empire/90 leading-tight text-center max-w-[8rem] sm:max-w-[10rem]">
+              {t.common.ctaReassuranceCompact}
             </span>
           </button>
           <button

@@ -124,6 +124,8 @@ export default function CalStickyBar() {
               <span className="hidden sm:inline">{lang === 'fr' ? 'Être recontacté' : 'Callback'}</span>
             </button>
             <button
+              type="button"
+              title={t.common.ctaReassurance}
               data-cal-namespace={namespace}
               data-cal-link={calLink}
               data-cal-config='{"layout":"month_view","theme":"dark"}'
@@ -133,8 +135,8 @@ export default function CalStickyBar() {
                 {t.common.startNow}
                 <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform flex-shrink-0" />
               </span>
-              <span className="text-[9px] font-medium text-black/75 text-center sm:text-right leading-tight max-w-[11rem] sm:max-w-[13rem]">
-                {t.common.ctaReassurance}
+              <span className="text-[9px] font-medium text-black/75 text-center sm:text-right leading-tight max-w-[9.5rem] sm:max-w-[11rem]">
+                {t.common.ctaReassuranceCompact}
               </span>
             </button>
           </div>

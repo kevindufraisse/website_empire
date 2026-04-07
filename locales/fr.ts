@@ -429,6 +429,8 @@ export const fr: Translations = {
     startNow: 'Installer Empire Internet',
     watchDemo: 'Installer Empire Internet',
     ctaReassurance: 'En fonction des places disponibles.',
+    /** Sous-ligne très courte : header, sticky, bannière (évite un bouton énorme) */
+    ctaReassuranceCompact: 'Selon les places dispo.',
     learnMore: 'En savoir plus',
     perMonth: '/mois',
     perWeek: '/semaine',
