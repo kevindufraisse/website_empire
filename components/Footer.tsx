@@ -82,9 +82,20 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-neutral-600">
-            © {new Date().getFullYear()} Empire Internet. All rights reserved.
-          </p>
+          <div className="flex flex-col sm:flex-row sm:flex-wrap items-center gap-3 sm:gap-4 text-sm text-neutral-600">
+            <p>© {new Date().getFullYear()} Empire Internet. All rights reserved.</p>
+            <span className="hidden sm:inline text-neutral-700" aria-hidden>
+              ·
+            </span>
+            <nav className="flex items-center gap-4 text-neutral-500">
+              <a href="/terms" className="hover:text-empire transition-colors">
+                {t.footer.termsOfUse}
+              </a>
+              <a href="/privacy" className="hover:text-empire transition-colors">
+                {t.footer.privacyPolicy}
+              </a>
+            </nav>
+          </div>
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-empire animate-pulse" />
             <p className="text-xs text-neutral-500">

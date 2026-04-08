@@ -202,6 +202,8 @@ export const en = {
     ourStory: 'Our Story',
     spotsRemaining: 'spots remaining (Limited to 100 clients)',
     community: 'Join the free community →',
+    termsOfUse: 'Terms of use',
+    privacyPolicy: 'Privacy policy',
   },
   videoDialog: {
     readyToJoin: 'Ready to join?',

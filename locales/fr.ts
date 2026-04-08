@@ -325,6 +325,8 @@ export const fr: Translations = {
     ourStory: 'Notre Histoire',
     spotsRemaining: 'places restantes (Limité à 100 clients)',
     community: 'Rejoignez la communauté gratuite →',
+    termsOfUse: "Conditions d'utilisation",
+    privacyPolicy: 'Politique de confidentialité',
   },
   videoDialog: {
     readyToJoin: 'Prêt à rejoindre ?',
