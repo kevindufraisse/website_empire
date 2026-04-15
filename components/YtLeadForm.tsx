@@ -53,6 +53,11 @@ function CalModal({ lead, countryCode, onClose }: { lead: Lead; countryCode: str
   const calInitialized = useRef(false)
   const fullPhone = `${countryCode}${lead.phone}`
 
+  const emp = getEmpParam()
+  const calLink = emp
+    ? `${CAL_LINK}?emp=${encodeURIComponent(emp)}`
+    : CAL_LINK
+
   useEffect(() => {
     if (calInitialized.current) return
     calInitialized.current = true
@@ -111,7 +116,7 @@ function CalModal({ lead, countryCode, onClose }: { lead: Lead; countryCode: str
         {/* Cal.com */}
         <div className="flex-1 overflow-auto">
           <Cal
-            calLink={CAL_LINK}
+            calLink={calLink}
             style={{ width: '100%', height: '100%', minHeight: '600px' }}
             config={{
               layout: 'month_view',
