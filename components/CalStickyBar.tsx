@@ -16,7 +16,7 @@ export default function CalStickyBar() {
   // Hide on partners and academy pages
   const isPartnersPage = pathname === '/partners'
   const isAcademyPage = pathname === '/academy'
-  const isCandidaturePage = pathname === '/candidature' || pathname === '/decouverte' || pathname === '/join-us'
+  const isCandidaturePage = pathname === '/candidature' || pathname === '/decouverte' || pathname === '/join-us' || pathname === '/vsl'
 
   const namespace = 'audit-empire'
   const calLink = useCalLink()

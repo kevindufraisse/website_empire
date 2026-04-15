@@ -19,7 +19,7 @@ export default function HiringBanner() {
               {t.header.hiring || 'We are hiring'}
             </span>
             <span className="hidden sm:inline text-black/80 text-sm">
-              {t.hiring?.bannerText || 'Rejoins Empire Internet - 2 postes ouverts'}
+              {t.hiring?.bannerText || 'Rejoignez Empire Internet - 2 postes ouverts'}
             </span>
             <Link
               href="/careers"

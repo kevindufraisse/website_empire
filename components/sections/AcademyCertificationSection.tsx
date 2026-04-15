@@ -34,7 +34,7 @@ const levels = [
     },
     title: 'Certifié Empire',
     subtitle: 'Programme complété',
-    criteria: 'Tu as suivi le bootcamp et relevé les défis quotidiens.',
+    criteria: 'Vous avez suivi le bootcamp et relevé les défis quotidiens.',
     perks: [
       'Certification officielle Empire Internet',
       'Badge ajoutable sur LinkedIn',
@@ -56,7 +56,7 @@ const levels = [
     },
     title: 'Certifié Expert',
     subtitle: 'Résultats prouvés',
-    criteria: 'Tu as généré des vues significatives sur le mois écoulé et démontré une maîtrise des formats viraux.',
+    criteria: 'Vous avez généré des vues significatives sur le mois écoulé et démontré une maîtrise des formats viraux.',
     perks: [
       'Certification Expert officielle',
       'Badge LinkedIn "Certifié Expert Viralité"',
@@ -79,11 +79,11 @@ const levels = [
     },
     title: 'Certifié Elite',
     subtitle: 'Résultats clients prouvés',
-    criteria: 'Tu as démontré des résultats viraux reproductibles et prouvé ta valeur sur des missions clients réelles.',
+    criteria: 'Vous avez démontré des résultats viraux reproductibles et prouvé votre valeur sur des missions clients réelles.',
     perks: [
       'Certification Elite officielle',
       'Badge LinkedIn "Certifié Elite Empire"',
-      'Travailler avec tes propres clients',
+      'Travailler avec vos propres clients',
       'Recevoir des clients Empire Internet',
       'Premier client garanti après le bootcamp',
     ],
@@ -103,11 +103,11 @@ export default function AcademyCertificationSection() {
             <div className="text-center mb-6">
               <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">Certification</p>
               <h2 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
-                Prouve tes résultats.{' '}
-                <span className="text-empire">Obtiens ta certification.</span>
+                Prouvez vos résultats.{' '}
+                <span className="text-empire">Obtenez votre certification.</span>
               </h2>
               <p className="text-neutral-400 text-base md:text-lg max-w-2xl mx-auto">
-                À la fin du bootcamp, tu peux passer les certifications Empire Internet - ajoutables sur ton profil LinkedIn. Les niveaux sont basés sur tes vrais résultats.
+                À la fin du bootcamp, vous pouvez passer les certifications Empire Internet - ajoutables sur votre profil LinkedIn. Les niveaux sont basés sur vos vrais résultats.
               </p>
             </div>
           </FadeInBlock>

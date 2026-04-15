@@ -4,7 +4,7 @@ import ClientResultsTicker from '@/components/ClientResultsTicker'
 
 export const metadata = {
   title: 'Découvrir Empire Internet - Appel Stratégique Gratuit',
-  description: "45 min pour voir si notre système de contenu s'adapte à toi. Gratuit, sans engagement.",
+  description: "45 min pour voir si notre système de contenu s'adapte à vous. Gratuit, sans engagement.",
   robots: 'noindex, nofollow',
 }
 
@@ -62,9 +62,8 @@ export default function DecouvertePage() {
             {/* ── Left : Pitch ── */}
             <div className="lg:sticky lg:top-8">
               <h1 className="text-3xl sm:text-4xl font-extrabold leading-tight mb-4">
-                Faites des millions de vues<br />
-                et attirez des clients -{' '}
-                <span className="text-empire">sans écrire<br className="hidden sm:block" />ni monter votre contenu.</span>
+                Faites des millions de vues et attirez des clients -{' '}
+                <span className="text-empire">sans écrire ni monter votre contenu.</span>
               </h1>
 
               <p className="text-neutral-400 text-base mb-3">

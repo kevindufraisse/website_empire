@@ -20,39 +20,51 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 }
 
 const notFor = [
-  'Tu cherches un résultat sans rien faire',
-  'Tu veux juste "apprendre" sans appliquer',
-  'Tu as déjà une grosse audience et un système qui tourne',
-  "Tu n'es pas prêt à créer du contenu chaque jour pendant 21 jours",
+  'Vous cherchez un résultat sans rien faire',
+  'Vous voulez juste "apprendre" sans appliquer',
+  'Vous avez déjà une grosse audience et un système qui tourne',
+  "Vous n'êtes pas prêt à publier chaque jour pendant 21 jours",
 ]
 
 const yesFor = [
-  'Tu veux créer une activité en ligne de zéro',
-  'Tu veux apprendre à faire des millions de vues',
-  "Tu veux survivre à l'IA et maîtriser un vrai métier",
-  'Tu veux potentiellement travailler avec Empire Internet',
+  'Vous voulez apprendre les mécaniques de la viralité',
+  'Vous voulez créer une activité en ligne de zéro',
+  'Vous voulez publier sans passer 3h à rédiger et monter',
+  'Vous voulez potentiellement travailler avec Empire Internet',
 ]
 
 const faqs = [
   {
+    q: "Qu'est-ce que j'apprends exactement ?",
+    a: "Vous apprenez les mécaniques de la viralité : pourquoi certains contenus explosent, comment construire des hooks, quels formats marchent sur chaque réseau. C'est la compétence la plus demandée aujourd'hui. Et pendant que vous apprenez, on vous crée votre contenu — vous n'avez qu'à publier.",
+  },
+  {
+    q: 'Vous créez vraiment le contenu pour moi ?',
+    a: "Oui. Chaque jour pendant le bootcamp, on vous génère votre post LinkedIn et votre Short — rédigé, monté, prêt à poster. Vous vous concentrez sur comprendre la viralité. Vous publiez en 15 min. C'est votre avantage par rapport à tous les autres programmes.",
+  },
+  {
+    q: 'Ça prend combien de temps par jour ?',
+    a: "15 minutes pour publier. Le reste du temps, vous regardez les vidéos et vous absorbez les mécaniques de la viralité à votre rythme.",
+  },
+  {
+    q: "C'est quoi la différence entre les 2 chemins ?",
+    a: "Chemin 1 : vous utilisez vos nouvelles compétences en viralité pour développer votre propre audience. Chemin 2 : vous rejoignez le réseau Empire. On vous trouve les clients, on vous crée le contenu, vous publiez et vous êtes payé. Le chemin 2 est réservé aux meilleurs profils.",
+  },
+  {
     q: "C'est pour qui exactement ?",
-    a: "Pour toute personne qui veut maîtriser les mécaniques de la viralité et potentiellement travailler avec nous. Aucune expérience requise - juste la volonté d'agir chaque jour.",
+    a: "Pour toute personne qui veut maîtriser la viralité et devenir visible en ligne. Aucune expérience requise. On vous crée le contenu pendant le bootcamp, donc même si vous ne savez pas écrire ou monter, vous publiez dès le jour 1.",
   },
   {
     q: 'Est-ce que le réseau Empire est garanti ?',
-    a: "Non, et c'est honnête. On repère les meilleurs profils dans le groupe. Si tu t'impliques, crées et te démarques, les missions viendront naturellement. Deux missions suffisent à rembourser l'investissement.",
-  },
-  {
-    q: 'Combien de temps dois-je y consacrer ?',
-    a: "Environ 1 à 2 heures par jour pendant 21 jours. Une vidéo courte + un défi posté dans le groupe. Si tu es prêt à ça, tu seras dans les meilleurs.",
+    a: "Non, et c'est honnête. On repère les meilleurs profils du bootcamp. Si vous vous impliquez et vous démarquez, les missions viennent. 2 missions suffisent à rembourser l'investissement.",
   },
   {
     q: "Est-ce que j'ai accès à vie ?",
-    a: 'Oui. Les vidéos et les replays des lives sont accessibles à vie. Tu peux reprendre le programme quand tu veux, autant de fois que tu veux.',
+    a: 'Oui. Les vidéos et replays sont accessibles à vie.',
   },
   {
     q: 'Puis-je rejoindre si je suis débutant complet ?',
-    a: "Absolument. Le bootcamp est conçu pour partir de zéro. Pas besoin d'audience, d'expérience ou d'équipement. Si tu peux créer du contenu chaque jour, tu peux réussir.",
+    a: "C'est exactement pour ça qu'on a créé ce bootcamp. Pas besoin d'audience ou d'expérience. On vous crée votre contenu. Vous apprenez et vous publiez.",
   },
 ]
 
@@ -68,7 +80,7 @@ export default function AcademyFAQSection() {
             <div className="text-center mb-16">
               <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">FAQ</p>
               <h2 className="text-3xl md:text-5xl font-bold leading-tight">
-                Pour qui est ce programme -<br />
+                Pour qui est ce programme —<br />
                 <span className="text-empire">et toutes vos questions.</span>
               </h2>
             </div>
@@ -79,7 +91,7 @@ export default function AcademyFAQSection() {
             <div className="grid md:grid-cols-2 gap-5 mb-14">
               {/* Not for */}
               <div className="p-6 rounded-2xl bg-gradient-to-br from-red-950/30 to-transparent border border-red-500/20">
-                <p className="text-xs font-bold text-red-400 tracking-widest uppercase mb-4">Ce n'est pas pour toi si...</p>
+                <p className="text-xs font-bold text-red-400 tracking-widest uppercase mb-4">Ce n'est pas pour vous si...</p>
                 <div className="space-y-2.5">
                   {notFor.map((item, i) => (
                     <div key={i} className="flex items-start gap-2.5">
@@ -92,7 +104,7 @@ export default function AcademyFAQSection() {
 
               {/* Yes for */}
               <div className="p-6 rounded-2xl bg-gradient-to-br from-empire/15 to-transparent border border-empire/30">
-                <p className="text-xs font-bold text-empire tracking-widest uppercase mb-4">C'est pour toi si...</p>
+                <p className="text-xs font-bold text-empire tracking-widest uppercase mb-4">C'est pour vous si...</p>
                 <div className="space-y-2.5">
                   {yesFor.map((item, i) => (
                     <div key={i} className="flex items-start gap-2.5">
@@ -166,7 +178,7 @@ export default function AcademyFAQSection() {
               >
                 Postuler - sur sélection →
               </a>
-              <p className="text-xs text-neutral-500 mt-2">Formulaire de 2 min · Réponse le 2 avril · Aucun engagement</p>
+              <p className="text-xs text-neutral-500 mt-2">Formulaire de 2 min · Aucun engagement</p>
             </div>
           </FadeInBlock>
 

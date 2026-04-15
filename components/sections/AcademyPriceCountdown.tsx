@@ -3,9 +3,8 @@ import { useEffect, useState } from 'react'
 
 // ─── Configuration des paliers de prix ─────────────────────────────────────
 const PRICE_TIERS = [
-  { price: 497,  label: 'Early bird',    deadline: new Date('2026-04-10T23:59:59') },
-  { price: 597,  label: 'Lancement',     deadline: new Date('2026-04-25T23:59:59') },
-  { price: 697,  label: 'Prix définitif', deadline: null },
+  { price: 497,  label: 'Première promo', deadline: new Date('2026-04-20T23:59:59') },
+  { price: 897,  label: 'Prix normal',    deadline: null },
 ]
 // ───────────────────────────────────────────────────────────────────────────
 

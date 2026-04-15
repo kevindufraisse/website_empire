@@ -369,10 +369,10 @@ const discConfig: Record<DiscType, {
     badge: 'Profil D - Dominant',
     badgeStyle: 'bg-red-500/15 text-red-400 border-red-500/40',
     letter: 'D',
-    title: 'Tu avances. Sans attendre.',
-    sub: 'Tu décides vite, tu assumes, tu fonces. C\'est exactement le profil qu\'on cherche.',
+    title: 'Vous avancez. Sans attendre.',
+    sub: 'Vous décidez vite, vous assumez, vous foncez. C\'est exactement le profil qu\'on cherche.',
     traits: ['Orienté résultats', 'Décide vite', 'Compétitif', 'Aime les défis'],
-    forBootcamp: 'Excellent fit - tu as le moteur pour créer chaque jour et ne pas lâcher.',
+    forBootcamp: 'Excellent fit - vous avez le moteur pour créer chaque jour et ne pas lâcher.',
   },
   influent: {
     color: '#eab308',
@@ -380,10 +380,10 @@ const discConfig: Record<DiscType, {
     badge: 'Profil I - Influent',
     badgeStyle: 'bg-yellow-500/15 text-yellow-400 border-yellow-500/40',
     letter: 'I',
-    title: 'Tu crées, tu connectes, tu convaincs.',
-    sub: 'Tu sais naturellement capter l\'attention. Le contenu, c\'est ton terrain.',
+    title: 'Vous créez, vous connectez, vous convainquez.',
+    sub: 'Vous savez naturellement capter l\'attention. Le contenu, c\'est votre terrain.',
     traits: ['Enthousiaste', 'Persuasif', 'Créatif', 'Social, fédérateur'],
-    forBootcamp: 'Profil idéal pour la viralité - tu as l\'instinct du créateur de contenu.',
+    forBootcamp: 'Profil idéal pour la viralité - vous avez l\'instinct du créateur de contenu.',
   },
   stable: {
     color: '#22c55e',
@@ -391,10 +391,10 @@ const discConfig: Record<DiscType, {
     badge: 'Profil S - Stable',
     badgeStyle: 'bg-green-500/15 text-green-400 border-green-500/40',
     letter: 'S',
-    title: 'Tu construis dans la durée.',
-    sub: 'Tu es fiable, méthodique, patient. La régularité - ton super-pouvoir.',
+    title: 'Vous construisez dans la durée.',
+    sub: 'Vous êtes fiable, méthodique, patient. La régularité - votre super-pouvoir.',
     traits: ['Régulier', 'Fiable', 'Patient', 'Travail en profondeur'],
-    forBootcamp: 'Bon fit - la régularité quotidienne du bootcamp est faite pour toi.',
+    forBootcamp: 'Bon fit - la régularité quotidienne du bootcamp est faite pour vous.',
   },
   conforme: {
     color: '#3b82f6',
@@ -402,20 +402,20 @@ const discConfig: Record<DiscType, {
     badge: 'Profil C - Conforme',
     badgeStyle: 'bg-blue-500/15 text-blue-400 border-blue-500/40',
     letter: 'C',
-    title: 'Tu analyses avant d\'agir.',
-    sub: 'Précis, structuré, logique. Tu veux comprendre avant de faire.',
+    title: 'Vous analysez avant d\'agir.',
+    sub: 'Précis, structuré, logique. Vous voulez comprendre avant de faire.',
     traits: ['Analytique', 'Précis', 'Qualité', 'Orienté données'],
-    forBootcamp: 'Profil intéressant - tu apporteras de la rigueur, même si la création rapide sera ton défi.',
+    forBootcamp: 'Profil intéressant - vous apporterez de la rigueur, même si la création rapide sera votre défi.',
   },
 }
 
 const PAGE_URL = 'https://empire-internet.com/candidature'
 
 const shareMessages: Record<DiscType, string> = {
-  dominant: `Je viens de candidater au Bootcamp Head of Viralité d'Empire Internet.\n\nProfil DISC : Dominant - je fonce, je décide, j'avance.\n\n21 jours pour maîtriser la viralité et générer 3 000€/mois.\n\nTu veux tester ton éligibilité ?`,
-  influent: `Je viens de candidater au Bootcamp Head of Viralité d'Empire Internet.\n\nProfil DISC : Influent - contenu, connexion, conviction.\n\n21 jours pour maîtriser la viralité et générer 3 000€/mois.\n\nTu veux tester ton éligibilité ?`,
-  stable: `Je viens de candidater au Bootcamp Head of Viralité d'Empire Internet.\n\nProfil DISC : Stable - je construis dans la durée, sans me griller.\n\n21 jours pour maîtriser la viralité et générer 3 000€/mois.\n\nTu veux tester ton éligibilité ?`,
-  conforme: `Je viens de candidater au Bootcamp Head of Viralité d'Empire Internet.\n\nProfil DISC : Conforme - j'analyse, je structure, je perfectionne.\n\n21 jours pour maîtriser la viralité et générer 3 000€/mois.\n\nTu veux tester ton éligibilité ?`,
+  dominant: `Je viens de candidater au Bootcamp Head of Viralité d'Empire Internet.\n\nProfil DISC : Dominant - je fonce, je décide, j'avance.\n\n21 jours pour maîtriser la viralité et générer 3 000€/mois.\n\nVous voulez tester votre éligibilité ?`,
+  influent: `Je viens de candidater au Bootcamp Head of Viralité d'Empire Internet.\n\nProfil DISC : Influent - contenu, connexion, conviction.\n\n21 jours pour maîtriser la viralité et générer 3 000€/mois.\n\nVous voulez tester votre éligibilité ?`,
+  stable: `Je viens de candidater au Bootcamp Head of Viralité d'Empire Internet.\n\nProfil DISC : Stable - je construis dans la durée, sans me griller.\n\n21 jours pour maîtriser la viralité et générer 3 000€/mois.\n\nVous voulez tester votre éligibilité ?`,
+  conforme: `Je viens de candidater au Bootcamp Head of Viralité d'Empire Internet.\n\nProfil DISC : Conforme - j'analyse, je structure, je perfectionne.\n\n21 jours pour maîtriser la viralité et générer 3 000€/mois.\n\nVous voulez tester votre éligibilité ?`,
 }
 
 function ShareButtons({ disc }: { disc: DiscType }) {
@@ -437,7 +437,7 @@ function ShareButtons({ disc }: { disc: DiscType }) {
   return (
     <div className="mt-8 max-w-sm mx-auto">
       <p className="text-xs font-bold text-neutral-500 uppercase tracking-widest text-center mb-4">
-        Tu connais quelqu'un qui devrait postuler ?
+        Vous connaissez quelqu'un qui devrait postuler ?
       </p>
       <div className="grid grid-cols-2 gap-2 mb-2">
         {/* LinkedIn */}
@@ -539,7 +539,7 @@ function ResultScreen({ disc }: { disc: DiscType | null }) {
 
       <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 max-w-xs mx-auto">
         <p className="text-sm text-white font-semibold mb-1">Candidature reçue ✓</p>
-        <p className="text-xs text-neutral-500">Kevin & Marc analysent ton profil. Réponse sous 24h.</p>
+        <p className="text-xs text-neutral-500">Kevin & Marc analysent votre profil. Réponse sous 24h.</p>
       </div>
 
       {/* Share */}
@@ -813,10 +813,10 @@ export default function AcademyApplicationForm() {
           <RotateCcw className="text-empire" size={22} />
         </div>
         <h2 className="text-xl font-bold text-white mb-2">
-          Tu avais commencé, {resumeData.name}.
+          Vous aviez commencé, {resumeData.name}.
         </h2>
         <p className="text-sm text-neutral-500 mb-8 max-w-xs mx-auto">
-          On a gardé ta progression. Tu veux reprendre là où tu t'étais arrêté ?
+          On a gardé votre progression. Vous voulez reprendre là où vous vous étiez arrêté ?
         </p>
         <div className="space-y-3 max-w-xs mx-auto">
           <button
@@ -872,7 +872,7 @@ export default function AcademyApplicationForm() {
       )}
       {timeLeft === 0 && (
         <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl mb-6 bg-white/[0.03] border border-white/10">
-          <span className="text-xs text-neutral-500">Créneau expiré - ta progression est sauvegardée, continue !</span>
+          <span className="text-xs text-neutral-500">Créneau expiré - votre progression est sauvegardée, continuez !</span>
         </div>
       )}
 
@@ -917,7 +917,7 @@ export default function AcademyApplicationForm() {
             <div className="space-y-4">
               <div className="mb-6">
                 <h2 className="text-xl font-bold text-white mb-1">On commence par faire connaissance.</h2>
-                <p className="text-sm text-neutral-500">On ne revend pas tes données. On t'envoie juste une réponse sous 24h.</p>
+                <p className="text-sm text-neutral-500">On ne revend pas vos données. On vous envoie juste une réponse sous 24h.</p>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <Input label="Prénom" name="first_name" value={form.first_name} onChange={set('first_name')} placeholder="Kevin" required />
@@ -933,10 +933,10 @@ export default function AcademyApplicationForm() {
             <div className="space-y-6">
               <div className="mb-2">
                 <h2 className="text-xl font-bold text-white mb-1">Parlons disponibilités.</h2>
-                <p className="text-sm text-neutral-500">Le bootcamp demande de créer chaque jour. On veut savoir si tu as le temps.</p>
+                <p className="text-sm text-neutral-500">Le bootcamp demande de créer chaque jour. On veut savoir si vous avez le temps.</p>
               </div>
               <div>
-                <p className="text-sm font-medium text-neutral-300 mb-3">Combien d'heures par semaine tu peux y consacrer ? <span className="text-empire">*</span></p>
+                <p className="text-sm font-medium text-neutral-300 mb-3">Combien d'heures par semaine pouvez-vous y consacrer ? <span className="text-empire">*</span></p>
                 <div className="space-y-2">
                   {[
                     { value: '<2h', label: 'Moins de 2h', sub: 'Difficile - le bootcamp demande de la régularité' },
@@ -956,13 +956,13 @@ export default function AcademyApplicationForm() {
                 </div>
               </div>
               <div>
-                <p className="text-sm font-medium text-neutral-300 mb-3">Quel est ton budget pour te former ? <span className="text-empire">*</span></p>
+                <p className="text-sm font-medium text-neutral-300 mb-3">Quel est votre budget pour vous former ? <span className="text-empire">*</span></p>
                 <div className="space-y-2">
                   {[
                     { value: '0-400', label: 'Moins de 400€', sub: '' },
                     { value: '400-1000', label: '400€ – 1 000€', sub: '' },
                     { value: '1000-2000', label: '1 000€ – 2 000€', sub: '' },
-                    { value: '2000+', label: 'Plus de 2 000€', sub: 'Tu vises un résultat sérieux' },
+                    { value: '2000+', label: 'Plus de 2 000€', sub: 'Vous visez un résultat sérieux' },
                   ].map(opt => (
                     <OptionCard
                       key={opt.value}
@@ -982,11 +982,11 @@ export default function AcademyApplicationForm() {
           {step === 3 && (
             <div className="space-y-6">
               <div className="mb-2">
-                <h2 className="text-xl font-bold text-white mb-1">Ton rapport au contenu.</h2>
-                <p className="text-sm text-neutral-500">Pas besoin d'expérience - on veut juste savoir où tu en es.</p>
+                <h2 className="text-xl font-bold text-white mb-1">Votre rapport au contenu.</h2>
+                <p className="text-sm text-neutral-500">Pas besoin d'expérience - on veut juste savoir où vous en êtes.</p>
               </div>
               <div>
-                <p className="text-sm font-medium text-neutral-300 mb-3">T'as déjà créé du contenu sur internet ? <span className="text-empire">*</span></p>
+                <p className="text-sm font-medium text-neutral-300 mb-3">Avez-vous déjà créé du contenu sur internet ? <span className="text-empire">*</span></p>
                 <div className="space-y-2">
                   {[
                     { value: 'non', label: 'Non, jamais', sub: 'C\'est exactement le profil qu\'on prend' },
@@ -1016,11 +1016,11 @@ export default function AcademyApplicationForm() {
                 </motion.div>
               )}
               <Textarea
-                label="C'est quoi le projet que t'as jamais fini mais qui te hante encore ? (optionnel)"
+                label="Quel est le projet que vous n'avez jamais fini mais qui vous hante encore ? (optionnel)"
                 name="haunting_project"
                 value={form.haunting_project}
                 onChange={set('haunting_project')}
-                placeholder="Un projet, une idée, un truc que t'aurais voulu lancer..."
+                placeholder="Un projet, une idée, quelque chose que vous auriez voulu lancer..."
               />
             </div>
           )}
@@ -1029,21 +1029,21 @@ export default function AcademyApplicationForm() {
           {step === 4 && (
             <div className="space-y-7">
               <div className="mb-2">
-                <h2 className="text-xl font-bold text-white mb-1">Comment tu fonctionnes.</h2>
+                <h2 className="text-xl font-bold text-white mb-1">Comment vous fonctionnez.</h2>
                 <p className="text-sm text-neutral-500">Deux questions. Pas de bonne réponse - juste la plus honnête.</p>
               </div>
 
               {/* Q1 - Role */}
               <div>
                 <p className="text-sm font-medium text-neutral-300 mb-3">
-                  Dans un projet, tu es plutôt : <span className="text-empire">*</span>
+                  Dans un projet, vous êtes plutôt : <span className="text-empire">*</span>
                 </p>
                 <div className="space-y-2">
                   {[
-                    { value: 'dominant',  label: 'Le moteur',      sub: 'Tu décides, tu diriges, tu avances - même sans avoir toutes les infos' },
-                    { value: 'influent',  label: "L'ambassadeur",   sub: 'Tu convaincs, tu fédères, tu mets de l\'énergie dans le groupe' },
-                    { value: 'stable',    label: 'Le pilier',       sub: 'Tu assures, tu soutiens, tu construis dans la durée sans te griller' },
-                    { value: 'conforme',  label: "L'analyste",      sub: 'Tu structures, tu vérifies, tu veux que ce soit bien fait avant d\'agir' },
+                    { value: 'dominant',  label: 'Le moteur',      sub: 'Vous décidez, vous dirigez, vous avancez - même sans avoir toutes les infos' },
+                    { value: 'influent',  label: "L'ambassadeur",   sub: 'Vous convainquez, vous fédérez, vous mettez de l\'énergie dans le groupe' },
+                    { value: 'stable',    label: 'Le pilier',       sub: 'Vous assurez, vous soutenez, vous construisez dans la durée sans vous griller' },
+                    { value: 'conforme',  label: "L'analyste",      sub: 'Vous structurez, vous vérifiez, vous voulez que ce soit bien fait avant d\'agir' },
                   ].map(opt => (
                     <OptionCard
                       key={opt.value}
@@ -1060,14 +1060,14 @@ export default function AcademyApplicationForm() {
               {/* Q2 - Obstacle */}
               <div>
                 <p className="text-sm font-medium text-neutral-300 mb-3">
-                  Face à un obstacle, tu : <span className="text-empire">*</span>
+                  Face à un obstacle, vous : <span className="text-empire">*</span>
                 </p>
                 <div className="space-y-2">
                   {[
-                    { value: 'dominant', label: 'Tu fonces malgré tout',           sub: 'Quitte à ajuster en cours de route' },
-                    { value: 'influent', label: 'Tu trouves une autre approche',    sub: 'Et tu t\'adaptes avec enthousiasme' },
-                    { value: 'stable',   label: 'Tu prends le temps',               sub: 'Pour trouver la bonne solution sans te précipiter' },
-                    { value: 'conforme', label: 'Tu analyses pourquoi ça a bloqué', sub: 'Avant de repartir avec une méthode solide' },
+                    { value: 'dominant', label: 'Vous foncez malgré tout',           sub: 'Quitte à ajuster en cours de route' },
+                    { value: 'influent', label: 'Vous trouvez une autre approche',    sub: 'Et vous vous adaptez avec enthousiasme' },
+                    { value: 'stable',   label: 'Vous prenez le temps',               sub: 'Pour trouver la bonne solution sans vous précipiter' },
+                    { value: 'conforme', label: 'Vous analysez pourquoi ça a bloqué', sub: 'Avant de repartir avec une méthode solide' },
                   ].map(opt => (
                     <OptionCard
                       key={opt.value}
@@ -1082,7 +1082,7 @@ export default function AcademyApplicationForm() {
               </div>
 
               <Textarea
-                label="C'est quoi tes potes diraient sur toi quand tu quittes un dîner ? (optionnel)"
+                label="Que diraient vos amis de vous quand vous quittez un dîner ? (optionnel)"
                 name="friends_say"
                 value={form.friends_say}
                 onChange={set('friends_say')}
@@ -1110,12 +1110,12 @@ export default function AcademyApplicationForm() {
                 name="motivation"
                 value={form.motivation}
                 onChange={set('motivation')}
-                placeholder="Qu'est-ce qui se passe dans ta vie en ce moment qui rend ça urgent ?"
+                placeholder="Qu'est-ce qui se passe dans votre vie en ce moment qui rend ça urgent ?"
                 required
               />
               <div className="p-4 rounded-xl bg-empire/5 border border-empire/20">
                 <p className="text-xs text-neutral-400 leading-relaxed">
-                  En soumettant, tu acceptes qu'on te contacte par email ou téléphone pour répondre à ta candidature.
+                  En soumettant, vous acceptez qu'on vous contacte par email ou téléphone pour répondre à votre candidature.
                   Aucun engagement, aucune vente forcée.
                 </p>
               </div>
@@ -1126,10 +1126,10 @@ export default function AcademyApplicationForm() {
           {step === 6 && (
             <div className="space-y-6">
               <div className="mb-2">
-                <h2 className="text-xl font-bold text-white mb-1">Tu connais des gens qui devraient postuler ?</h2>
+                <h2 className="text-xl font-bold text-white mb-1">Vous connaissez des gens qui devraient postuler ?</h2>
                 <p className="text-sm text-neutral-500">
-                  Si tu penses à quelqu'un qui serait fait pour ça - salariés, freelances, entrepreneurs -
-                  laisse leur profil LinkedIn. On les contacte de ta part.
+                  Si vous pensez à quelqu'un qui serait fait pour ça - salariés, freelances, entrepreneurs -
+                  laissez leur profil LinkedIn. On les contacte de votre part.
                 </p>
               </div>
 
@@ -1156,7 +1156,7 @@ export default function AcademyApplicationForm() {
 
               <div className="p-4 rounded-xl bg-white/[0.03] border border-white/10">
                 <p className="text-xs text-neutral-500 leading-relaxed">
-                  Tous les champs sont optionnels. Si tu ne penses à personne maintenant, tu peux passer directement.
+                  Tous les champs sont optionnels. Si vous ne pensez à personne maintenant, vous pouvez passer directement.
                 </p>
               </div>
             </div>

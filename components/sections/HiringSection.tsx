@@ -70,7 +70,7 @@ export default function HiringSection() {
                 </div>
               </div>
               <p className="text-empire font-bold mt-6 text-lg">
-                {hiring.companyMission?.cta || 'Tu arrives au moment exact où tout explose.'}
+                {hiring.companyMission?.cta || 'Vous arrivez au moment exact où tout explose.'}
               </p>
             </div>
           </FadeInBlock>
@@ -103,7 +103,7 @@ export default function HiringSection() {
                     {hiring.salesCloser?.missionTitle || 'Mission du rôle'}
                   </h3>
                   <p className="text-neutral-300 mb-4 leading-relaxed">
-                    {hiring.salesCloser?.missionDescription || 'Tu es la personne qui transforme notre volume massif de leads en clients premium.'}
+                    {hiring.salesCloser?.missionDescription || 'Vous êtes la personne qui transforme notre volume massif de leads en clients premium.'}
                   </p>
                   <ul className="space-y-2">
                     {hiring.salesCloser?.responsibilities?.map((resp: string, idx: number) => (
@@ -138,7 +138,7 @@ export default function HiringSection() {
                     {hiring.salesCloser?.profileTitle || 'Profil recherché'}
                   </h3>
                   <p className="text-neutral-300 mb-4 leading-relaxed">
-                    {hiring.salesCloser?.profileDescription || 'Tu es un closer qui coche ces cases :'}
+                    {hiring.salesCloser?.profileDescription || 'Vous êtes un closer qui coche ces cases :'}
                   </p>
                   <div className="grid md:grid-cols-2 gap-3">
                     {hiring.salesCloser?.requirements?.map((req: string, idx: number) => (
@@ -163,7 +163,7 @@ export default function HiringSection() {
                     ))}
                   </div>
                   <p className="text-empire font-bold mt-6 text-lg">
-                    {hiring.salesCloser?.motivation || 'Tu veux littéralement : Gagner plus en 12 mois qu\'en 3 ans dans une autre boîte.'}
+                    {hiring.salesCloser?.motivation || 'Vous voulez littéralement : Gagner plus en 12 mois qu\'en 3 ans dans une autre boîte.'}
                   </p>
                 </div>
 
@@ -204,7 +204,7 @@ export default function HiringSection() {
                         <li>• Cliff 12 mois</li>
                       </ul>
                       <p className="text-empire font-semibold mt-2 text-sm">
-                        {hiring.salesCloser?.equityCta || 'Tu deviens partenaire de la croissance.'}
+                        {hiring.salesCloser?.equityCta || 'Vous devenez partenaire de la croissance.'}
                       </p>
                     </div>
                   </div>
@@ -225,7 +225,7 @@ export default function HiringSection() {
                       '100% leads entrants (YouTube, LinkedIn, communauté)',
                       'Produit validé, market fit clair',
                       'Croissance organique explosive',
-                      'Tu construis le département Sales',
+                      'Vous construisez le département Sales',
                       'Accès direct au fondateur',
                       'Ascension rapide vers Head of Sales',
                       'Full remote',
@@ -239,7 +239,7 @@ export default function HiringSection() {
                     ))}
                   </div>
                   <p className="text-empire font-bold mt-6 text-lg">
-                    {hiring.salesCloser?.finalCta || 'Tu arrives juste avant l\'explosion. Tu peux prendre une part de la fusée.'}
+                    {hiring.salesCloser?.finalCta || 'Vous arrivez juste avant l\'explosion. Vous pouvez prendre une part de la fusée.'}
                   </p>
                 </div>
 
@@ -250,7 +250,7 @@ export default function HiringSection() {
                     {hiring.salesCloser?.applyTitle || 'Pour postuler'}
                   </h3>
                   <p className="text-neutral-300 mb-4 leading-relaxed">
-                    {hiring.salesCloser?.applyDescription || 'Envoie une vidéo de 1 minute (FR + EN) dans laquelle tu :'}
+                    {hiring.salesCloser?.applyDescription || 'Envoyez une vidéo de 1 minute (FR + EN) dans laquelle vous :'}
                   </p>
                   <ul className="space-y-2 mb-6">
                     {hiring.salesCloser?.applyPoints?.map((point: string, idx: number) => (
@@ -259,10 +259,10 @@ export default function HiringSection() {
                         <span>{point}</span>
                       </li>
                     )) || [
-                      'Te présentes',
-                      'Pitches Empire Internet',
-                      'Explique pourquoi tu veux un rôle fondateur',
-                      'Partages ton track record',
+                      'Vous vous présentez',
+                      'Présentez Empire Internet',
+                      'Expliquez pourquoi vous voulez un rôle fondateur',
+                      'Partagez votre track record',
                     ].map((point, idx) => (
                       <li key={idx} className="flex items-start gap-3 text-neutral-300">
                         <CheckCircle2 className="text-empire mt-1 flex-shrink-0" size={18} />
@@ -465,10 +465,10 @@ export default function HiringSection() {
                 {/* Why Key */}
                 <div className="mb-8">
                   <h3 className="text-xl font-bold mb-4 text-empire">
-                    {hiring.customerSuccess?.whyKeyTitle || 'Pourquoi ce rôle est clé pour toi'}
+                    {hiring.customerSuccess?.whyKeyTitle || 'Pourquoi ce rôle est clé pour vous'}
                   </h3>
                   <p className="text-neutral-300 mb-4 leading-relaxed">
-                    {hiring.customerSuccess?.whyKeyDescription || 'Cette personne te retire :'}
+                    {hiring.customerSuccess?.whyKeyDescription || 'Cette personne vous retire :'}
                   </p>
                   <div className="grid md:grid-cols-2 gap-3 mb-4">
                     {hiring.customerSuccess?.whyKeyPoints?.map((point: string, idx: number) => (
@@ -492,7 +492,7 @@ export default function HiringSection() {
                     ))}
                   </div>
                   <p className="text-empire font-bold text-lg">
-                    {hiring.customerSuccess?.whyKeyCta || 'Tu récupères 10–15 heures/semaine. Tu peux te concentrer sur YouTube, scaling, produit et vision.'}
+                    {hiring.customerSuccess?.whyKeyCta || 'Vous récupérez 10–15 heures/semaine. Vous pouvez vous concentrer sur YouTube, scaling, produit et vision.'}
                   </p>
                 </div>
 

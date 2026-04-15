@@ -1,7 +1,6 @@
 'use client'
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-import Image from 'next/image'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -51,22 +50,10 @@ export default function AcademyWhoSection() {
               <div className="flex items-center gap-3">
                 <div className="flex -space-x-2">
                   <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-empire/40 shadow-[0_0_10px_rgba(218,252,104,0.2)]">
-                    <Image
-                      src="https://media.licdn.com/dms/image/v2/D4E03AQG4nlTt-7wB9w/profile-displayphoto-crop_800_800/B4EZi8WwoyHEAI-/0/1755506740516?e=1775692800&v=beta&t=3Oq_HdQ6GKMFVN6CwQCbvB2Qh7VWo1ls1KIroOyhPYY"
-                      alt="Kevin Dufraisse"
-                      width={36}
-                      height={36}
-                      className="w-full h-full object-cover"
-                    />
+                    <img src="/founders/kevin.png" alt="Kevin Dufraisse" className="w-full h-full object-cover" />
                   </div>
                   <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-empire/40 shadow-[0_0_10px_rgba(218,252,104,0.2)]">
-                    <Image
-                      src="https://media.licdn.com/dms/image/v2/D4E03AQF43VvOp7iRkw/profile-displayphoto-scale_400_400/B4EZzc5.uqHAAg-/0/1773232713405?e=1775692800&v=beta&t=Z4CykW-joMs63r3xGQHIdOaqpNtjtC7jQdcL5HSHJNs"
-                      alt="Marc Dufraisse"
-                      width={36}
-                      height={36}
-                      className="w-full h-full object-cover"
-                    />
+                    <img src="/founders/marc.svg" alt="Marc Dufraisse" className="w-full h-full object-cover" />
                   </div>
                 </div>
                 <p className="text-neutral-400 text-sm">
@@ -77,15 +64,15 @@ export default function AcademyWhoSection() {
 
             <div className="space-y-5 text-neutral-300 leading-relaxed">
               <p className="text-base md:text-lg">
-                Au départ, on était juste deux frères qui créaient du contenu pour nos propres projets. On testait tout - les hooks, les formats, les rythmes de publication. On a raté beaucoup. Et puis quelques contenus ont explosé.{' '}
-                <span className="text-white font-semibold">On a compris pourquoi. On a rendu ça systématique.</span>
+                On a commencé en créant du contenu pour nos propres projets. On a testé tout : hooks, formats, rythmes. Beaucoup de ratés. Puis certains contenus ont explosé.{' '}
+                <span className="text-white font-semibold">On a compris pourquoi. Et on a rendu ça systématique.</span>
               </p>
               <p className="text-base md:text-lg">
-                Aujourd'hui on produit du contenu viral pour des entrepreneurs et des marques - 10M+ vues par mois. Des clients nous ont demandé comment on faisait.{' '}
-                <span className="text-empire font-semibold">Ce bootcamp, c'est la réponse. Notre système exact, pas une théorie.</span>
+                Aujourd'hui on produit du contenu viral pour des entrepreneurs et des marques — 10M+ vues par mois. Ce bootcamp, c'est notre méthode exacte. Pas une théorie.{' '}
+                <span className="text-empire font-semibold">Vous apprenez ce qu'on fait nous, cette semaine, pour nos clients.</span>
               </p>
               <p className="text-base md:text-lg text-neutral-400">
-                Tu n'apprends pas ce que d'autres formateurs pensent qui marche. Tu apprends ce qu'on fait nous, cette semaine, pour nos clients.
+                Et pendant que vous apprenez, on vous crée votre contenu chaque jour. Vous n'avez qu'à publier.
               </p>
             </div>
           </div>

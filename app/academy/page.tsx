@@ -1,11 +1,9 @@
 import AcademyHeroSection from '@/components/sections/AcademyHeroSection'
 import AcademyProofStrip from '@/components/sections/AcademyProofStrip'
-import AcademySelectionSection from '@/components/sections/AcademySelectionSection'
+import AcademyEmpireAlphaSection from '@/components/sections/AcademyEmpireAlphaSection'
 import AcademyWhoSection from '@/components/sections/AcademyWhoSection'
-import AcademyContextSection from '@/components/sections/AcademyContextSection'
 import AcademyProcessSection from '@/components/sections/AcademyProcessSection'
-import AcademyLivesSection from '@/components/sections/AcademyLivesSection'
-import AcademyCertificationSection from '@/components/sections/AcademyCertificationSection'
+import AcademyTwoPathsSection from '@/components/sections/AcademyTwoPathsSection'
 import AcademyPricingSection from '@/components/sections/AcademyPricingSection'
 import AcademyTestimonialsSection from '@/components/sections/AcademyTestimonialsSection'
 import AcademyFAQSection from '@/components/sections/AcademyFAQSection'
@@ -14,8 +12,8 @@ import AcademySocialProofToast from '@/components/sections/AcademySocialProofToa
 import { ScrollProgress } from '@/components/magicui/scroll-progress'
 
 export const metadata = {
-  title: 'Academy - Empire Internet',
-  description: 'Bootcamp 21 jours. Deviens Head of Viralité. 3 000€/mois en 4h/semaine. Les meilleurs rejoignent le réseau Empire.'
+  title: 'Bootcamp Viralité 21 jours - Empire Internet',
+  description: 'Maîtrisez la viralité en 21 jours. On vous crée votre contenu chaque jour. Sur sélection, 20 places. Les meilleurs rejoignent le réseau Empire.'
 }
 
 export default function AcademyPage() {
@@ -25,26 +23,20 @@ export default function AcademyPage() {
       {/* Hero */}
       <AcademyHeroSection />
 
-      {/* Preuve avant/après - résultats animés */}
+      {/* Preuve avant/après */}
       <AcademyProofStrip />
 
-      {/* Pourquoi sur sélection + critères + timeline après clic */}
-      <AcademySelectionSection />
+      {/* Game changer : on publie ton contenu à ta place */}
+      <AcademyEmpireAlphaSection />
 
       {/* Qui on est */}
       <AcademyWhoSection />
 
-      {/* L'IA a tué des métiers */}
-      <AcademyContextSection />
-
       {/* Du bootcamp aux premières missions */}
       <AcademyProcessSection />
 
-      {/* Les 6 lives + 2 Q&A */}
-      <AcademyLivesSection />
-
-      {/* Certifications - avant pricing (valeur long terme) */}
-      <AcademyCertificationSection />
+      {/* Les 2 chemins : poster pour vous vs poster pour Empire */}
+      <AcademyTwoPathsSection />
 
       {/* Offre pricing */}
       <AcademyPricingSection />
@@ -55,10 +47,10 @@ export default function AcademyPage() {
       {/* FAQ */}
       <AcademyFAQSection />
 
-      {/* Sticky CTA spécifique academy */}
+      {/* Sticky CTA */}
       <AcademyStickyBar />
 
-      {/* Toast candidatures en temps réel */}
+      {/* Toast candidatures */}
       <AcademySocialProofToast />
     </main>
   )

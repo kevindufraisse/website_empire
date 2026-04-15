@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 export const metadata = {
   title: 'Test d\'éligibilité - Bootcamp Empire Internet',
-  description: 'Vérifie si tu es éligible au bootcamp Head of Viralité. Formulaire de 2 min. Réponse sous 24h.',
+  description: 'Vérifiez si vous êtes éligible au bootcamp Head of Viralité. Formulaire de 2 min. Réponse sous 24h.',
 }
 
 const founders = [
@@ -65,10 +65,10 @@ export default function CandidaturePage() {
             {/* What happens */}
             <div className="space-y-4 mb-8">
               {[
-                { num: '01', text: 'Tu remplis le formulaire', sub: 'Environ 2 minutes.' },
-                { num: '02', text: 'On analyse ton profil', sub: 'Sous 24h ouvrées.' },
-                { num: '03', text: 'On te répond', sub: 'Admis ou pas - honnêtement.' },
-                { num: '04', text: 'Tu rejoins la promo', sub: 'Démarrage le 25 avril.' },
+                { num: '01', text: 'Vous remplissez le formulaire', sub: 'Environ 2 minutes.' },
+                { num: '02', text: 'On analyse votre profil', sub: 'Sous 24h ouvrées.' },
+                { num: '03', text: 'On vous répond', sub: 'Admis ou pas - honnêtement.' },
+                { num: '04', text: 'Vous rejoignez la promo', sub: 'Démarrage le 25 avril.' },
               ].map(s => (
                 <div key={s.num} className="flex items-start gap-4">
                   <div className="w-7 h-7 rounded-full bg-empire/10 border border-empire/30 flex items-center justify-center flex-shrink-0 text-xs font-black text-empire">

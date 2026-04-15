@@ -56,7 +56,7 @@ export default function AcademyContextSection() {
               {/* Colonne métiers morts */}
               <div className="p-6 rounded-2xl bg-gradient-to-br from-red-950/40 to-red-900/10 border border-red-500/25">
                 <p className="text-xs font-bold text-red-400 tracking-widest uppercase mb-1">Métiers en cours de destruction</p>
-                <p className="text-neutral-600 text-xs mb-4">Pendant que tu lis ces lignes.</p>
+                <p className="text-neutral-600 text-xs mb-4">Pendant que vous lisez ces lignes.</p>
                 <div className="space-y-2">
                   {deadJobs.map((item, i) => (
                     <motion.div
@@ -87,7 +87,7 @@ export default function AcademyContextSection() {
                       <p className="text-xs font-bold text-empire tracking-widest uppercase">La seule chose qui résiste</p>
                     </div>
                     <p className="text-xl font-black text-white mb-4 leading-snug">
-                      L'IA peut générer du contenu à l'infini. Elle ne peut pas décider pourquoi <em>toi</em> tu t'arrêtes, regardes, partages.
+                      L'IA peut générer du contenu à l'infini. Elle ne peut pas décider pourquoi <em>vous</em> vous vous arrêtez, regardez, partagez.
                     </p>
                     <p className="text-neutral-300 text-sm leading-relaxed">
                       Comprendre le cerveau humain - la psychologie de l'attention, la mécanique de la viralité - c'est{' '}

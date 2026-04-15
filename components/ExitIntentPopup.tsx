@@ -142,11 +142,11 @@ export function ExitIntentPopup() {
             </div>
 
             <h3 className="text-2xl sm:text-3xl font-black text-white mb-2">
-              Tu es éligible ?
+              Vous êtes éligible ?
             </h3>
             <p className="text-neutral-400 text-sm mb-6">
               Le bootcamp n'est pas ouvert à tout le monde.{' '}
-              <span className="text-white font-semibold">Passe le test pour savoir si tu peux rejoindre.</span>
+              <span className="text-white font-semibold">Passez le test pour savoir si vous pouvez rejoindre.</span>
             </p>
 
             {/* CTA */}

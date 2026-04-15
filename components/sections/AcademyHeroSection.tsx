@@ -4,7 +4,6 @@ import RetroGrid from '@/components/magicui/retro-grid'
 import { Meteors } from '@/components/magicui/meteors'
 import { SparklesText } from '@/components/magicui/sparkles-text'
 import NumberTicker from '@/components/magicui/number-ticker'
-import Image from 'next/image'
 import { useApplicationCount } from '@/hooks/useApplicationCount'
 
 const MAX_SELECTED = 20
@@ -21,13 +20,13 @@ const founders = [
     name: 'Kevin Dufraisse',
     role: 'Contenu viral & stratégie',
     url: 'https://www.linkedin.com/in/kevin-dufraisse/',
-    img: 'https://media.licdn.com/dms/image/v2/D4E03AQG4nlTt-7wB9w/profile-displayphoto-crop_800_800/B4EZi8WwoyHEAI-/0/1755506740516?e=1775692800&v=beta&t=3Oq_HdQ6GKMFVN6CwQCbvB2Qh7VWo1ls1KIroOyhPYY',
+    img: '/founders/kevin.png',
   },
   {
     name: 'Marc Dufraisse',
     role: 'IA & accompagnement 1:1',
     url: 'https://www.linkedin.com/in/marc-dufraisse/',
-    img: 'https://media.licdn.com/dms/image/v2/D4E03AQF43VvOp7iRkw/profile-displayphoto-scale_400_400/B4EZzc5.uqHAAg-/0/1773232713405?e=1775692800&v=beta&t=Z4CykW-joMs63r3xGQHIdOaqpNtjtC7jQdcL5HSHJNs',
+    img: '/founders/marc.svg',
   },
 ]
 
@@ -73,33 +72,23 @@ export default function AcademyHeroSection() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-4"
           >
-            Deviens expert en viralité.{' '}
-            <br className="hidden sm:block" />
+            Maîtrisez la{' '}
             <SparklesText className="text-empire" sparklesCount={7} colors={{ first: '#DAFC68', second: '#a8f040' }}>
-              Gagne 3 000€/mois
+              viralité
             </SparklesText>
-            {' '}en 4h/semaine.
+            <br className="hidden sm:block" />
+            en 21 jours.
           </motion.h1>
 
-          {/* Definition under H1 */}
+          {/* Subtitle */}
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.18, duration: 0.5 }}
-            className="text-xs text-neutral-500 mb-6 tracking-wide"
-          >
-            Head of Viralité = la personne qui sait pourquoi un contenu explose - et qui peut le reproduire à la demande.
-          </motion.p>
-
-          {/* Subtitle - Joanna Wiebe style */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.25, duration: 0.6 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
             className="text-lg md:text-xl text-neutral-300 max-w-2xl mx-auto mb-10"
           >
-            En 21 jours, tu sais créer des posts qui font des centaines de milliers de vues.{' '}
-            <span className="text-white font-semibold">Et tu peux vendre cette compétence à des clients.</span>
+            On vous crée votre contenu chaque jour. Vous publiez en 15 min.{' '}
+            <span className="text-white font-semibold">Les meilleurs rejoignent notre réseau et gagnent 3 000€/mois.</span>
           </motion.p>
 
           {/* CTA */}
@@ -116,7 +105,7 @@ export default function AcademyHeroSection() {
               Postuler - sur sélection →
             </a>
             <p className="text-xs text-neutral-500">
-              Formulaire de 2 min · Réponse le 2 avril · Aucun engagement
+              Formulaire de 2 min · Aucun engagement
             </p>
           </motion.div>
 
@@ -156,7 +145,7 @@ export default function AcademyHeroSection() {
                 className="flex items-center gap-2.5 px-3 py-2 rounded-full bg-white/5 border border-white/10 hover:border-empire/40 hover:bg-empire/5 transition-all group"
               >
                 <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0 border border-empire/30">
-                  <Image src={f.img} alt={f.name} width={32} height={32} className="w-full h-full object-cover" />
+                  <img src={f.img} alt={f.name} className="w-full h-full object-cover" />
                 </div>
                 <div className="text-left">
                   <p className="text-xs font-semibold text-white group-hover:text-empire transition-colors leading-tight">{f.name}</p>
