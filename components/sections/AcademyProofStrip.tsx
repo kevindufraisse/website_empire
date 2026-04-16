@@ -156,7 +156,7 @@ export default function AcademyProofStrip() {
             transition={{ duration: 0.5, delay: 0.9 }}
             className="text-center text-xs text-neutral-600 mt-8"
           >
-            Résultats observés sur nos clients · Toutes plateformes confondues
+            Résultats de nos clients agence · La méthode exacte qu'on t'enseigne
           </motion.p>
 
         </div>

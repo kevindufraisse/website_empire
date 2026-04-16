@@ -10,7 +10,7 @@ const MAX_SELECTED = 20
 
 const stats = [
   { ticker: 3000, suffix: '€', label: 'objectif élèves', sub: 'dès les 1ers mois' },
-  { ticker: 4, suffix: 'h', label: 'par semaine', sub: 'système en place' },
+  { ticker: 15, suffix: 'min', label: 'par jour', sub: 'tu parles, on fait le reste' },
   { ticker: 10, suffix: 'M+', label: 'vues/mois', sub: 'générées pour nos clients' },
   { ticker: 21, suffix: 'j', label: 'durée du bootcamp', sub: 'de zéro à opérationnel' },
 ]
@@ -26,7 +26,7 @@ const founders = [
     name: 'Marc Dufraisse',
     role: 'IA & accompagnement 1:1',
     url: 'https://www.linkedin.com/in/marc-dufraisse/',
-    img: '/founders/marc.svg',
+    img: '/founders/marc.jpg',
   },
 ]
 
@@ -72,7 +72,7 @@ export default function AcademyHeroSection() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-4"
           >
-            Maîtrisez la{' '}
+            Maîtrise la{' '}
             <SparklesText className="text-empire" sparklesCount={7} colors={{ first: '#DAFC68', second: '#a8f040' }}>
               viralité
             </SparklesText>
@@ -87,8 +87,8 @@ export default function AcademyHeroSection() {
             transition={{ delay: 0.2, duration: 0.6 }}
             className="text-lg md:text-xl text-neutral-300 max-w-2xl mx-auto mb-10"
           >
-            On vous crée votre contenu chaque jour. Vous publiez en 15 min.{' '}
-            <span className="text-white font-semibold">Les meilleurs rejoignent notre réseau et gagnent 3 000€/mois.</span>
+            En 21 jours, tu sais pourquoi certains contenus explosent - et tu peux le reproduire.{' '}
+            <span className="text-white font-semibold">On te crée ton contenu pendant que tu apprends.</span>
           </motion.p>
 
           {/* CTA */}

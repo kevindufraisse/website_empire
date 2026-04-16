@@ -21,28 +21,28 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 
 const path1 = {
   icon: User,
-  tag: 'Chemin 1',
-  title: 'Vous postez pour vous',
-  desc: 'Vous développez votre propre audience avec vos nouvelles compétences en viralité.',
+  tag: 'Option 1',
+  title: 'Tu postes pour toi',
+  desc: "Tu repars avec les compétences. Tu développes ta propre audience et tu génères tes propres clients.",
   perks: [
-    'Vous maîtrisez la viralité',
-    'Vous construisez votre audience',
-    'Vous générez vos propres clients',
+    'Tu maîtrises les mécaniques de la viralité',
+    'Tu sais créer tes hooks, posts et shorts',
+    'Tu construis ton audience et génères tes clients',
+    'Accès à vie aux replays',
   ],
-  highlight: false,
 }
 
 const path2 = {
   icon: Users,
-  tag: 'Chemin 2',
-  title: 'Vous postez pour Empire',
-  desc: "On vous trouve les clients. On vous crée le contenu. Vous publiez et vous êtes payé.",
+  tag: 'Option 2',
+  title: 'Tu deviens partenaire Empire',
+  desc: "On te trouve les clients. On te crée le contenu. Tu coaches et tu es payé.",
   perks: [
-    "On vous envoie des clients directement",
-    'On crée votre contenu chaque jour',
+    'On te trouve les clients',
+    'On te crée ton contenu chaque jour',
+    '500€ par mission - ~4h de coaching',
     'Objectif : 3 000€/mois en 4h/semaine',
   ],
-  highlight: true,
 }
 
 export default function AcademyTwoPathsSection() {
@@ -54,13 +54,13 @@ export default function AcademyTwoPathsSection() {
 
           <FadeInBlock>
             <div className="text-center mb-14">
-              <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">Après le bootcamp</p>
+              <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">Après les 21 jours</p>
               <h2 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
-                2 chemins s'ouvrent à vous.{' '}
-                <span className="text-empire">Vous choisissez.</span>
+                2 options.{' '}
+                <span className="text-empire">Tu choisis.</span>
               </h2>
               <p className="text-neutral-400 text-base md:text-lg max-w-2xl mx-auto">
-                À la fin des 21 jours, vous avez les compétences. Ce que vous en faites dépend de vous.
+                À la fin du bootcamp, tu as les compétences. Ce que tu en fais dépend de toi.
               </p>
             </div>
           </FadeInBlock>
@@ -68,7 +68,7 @@ export default function AcademyTwoPathsSection() {
           <FadeInBlock delay={0.1}>
             <div className="grid md:grid-cols-2 gap-6">
 
-              {/* Chemin 1 */}
+              {/* Option 1 - Solo */}
               <div className="relative h-full p-7 md:p-8 rounded-2xl bg-gradient-to-br from-white/8 to-white/[0.02] border border-white/10 flex flex-col">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center">
@@ -90,7 +90,7 @@ export default function AcademyTwoPathsSection() {
                 </div>
               </div>
 
-              {/* Chemin 2 */}
+              {/* Option 2 - Partenaire Empire */}
               <div className="relative h-full p-7 md:p-8 rounded-2xl bg-gradient-to-br from-empire/15 to-empire/5 border border-empire/40 shadow-[0_0_40px_rgba(218,252,104,0.1)] flex flex-col overflow-hidden">
                 <BorderBeam size={300} duration={9} />
                 <div className="relative z-10 flex flex-col h-full">
@@ -105,7 +105,7 @@ export default function AcademyTwoPathsSection() {
                       </div>
                     </div>
                     <span className="text-[10px] font-bold text-black bg-empire rounded-full px-2.5 py-1 leading-none">
-                      RECOMMANDÉ
+                      SUR SÉLECTION
                     </span>
                   </div>
                   <p className="text-neutral-300 text-sm mb-6 leading-relaxed">{path2.desc}</p>
@@ -120,7 +120,10 @@ export default function AcademyTwoPathsSection() {
 
                   <div className="mt-6 p-4 rounded-xl bg-black/30 border border-empire/20">
                     <p className="text-xs text-neutral-400 leading-relaxed">
-                      <span className="text-empire font-semibold">Le deal :</span> on vous trouve les clients. On vous crée le contenu. Vous publiez en 15 min/jour et vous êtes payé. Pas de prospection. Pas de rédaction. Juste poster.
+                      <span className="text-empire font-semibold">Les missions :</span> 4h de coaching/mois avec un client Empire. Tu lui apprends le système qu'on t'a enseigné. On s'occupe du closing et de la delivery.
+                    </p>
+                    <p className="text-xs text-neutral-500 leading-relaxed mt-2">
+                      <span className="text-white font-semibold">Critère :</span> +100 000 vues/semaine pendant le bootcamp.
                     </p>
                   </div>
                 </div>
@@ -137,7 +140,7 @@ export default function AcademyTwoPathsSection() {
               >
                 Postuler pour rejoindre le bootcamp <ArrowRight size={18} />
               </a>
-              <p className="text-xs text-neutral-500 mt-2">Les meilleurs profils accèdent directement au chemin 2</p>
+              <p className="text-xs text-neutral-500 mt-2">Les meilleurs profils accèdent directement à l'option 2</p>
             </div>
           </FadeInBlock>
 

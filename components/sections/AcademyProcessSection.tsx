@@ -1,7 +1,7 @@
 'use client'
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-import { Play, Repeat, Trophy } from 'lucide-react'
+import { Flame, Repeat, Trophy } from 'lucide-react'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -20,22 +20,22 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 
 const steps = [
   {
-    icon: Play,
+    icon: Flame,
     week: 'Jour 1',
-    title: 'Vous rejoignez le bootcamp',
-    desc: 'Accès immédiat aux vidéos, lives et groupe privé. Votre premier contenu est déjà prêt.',
+    title: 'Tu rejoins le bootcamp',
+    desc: 'Accès immédiat aux challenges, lives et groupe privé. Ton premier contenu est déjà prêt à publier.',
   },
   {
     icon: Repeat,
     week: '21 jours',
-    title: 'Vous publiez, on vous forme',
-    desc: 'Chaque jour : on vous crée votre contenu, vous publiez en 15 min, et vous apprenez la viralité via les vidéos et lives.',
+    title: 'Tu publies, on te forme',
+    desc: 'Chaque jour : un challenge, ton contenu prêt à poster, et des feedbacks. Tu apprends la viralité en faisant.',
   },
   {
     icon: Trophy,
     week: 'Après',
-    title: 'Vous maîtrisez la viralité',
-    desc: 'Vous savez ce qui fait exploser un contenu. Les meilleurs profils rejoignent le réseau Empire et reçoivent des clients.',
+    title: 'Tu maîtrises la viralité',
+    desc: 'Tu sais ce qui fait exploser un contenu. 3 options s\'offrent à toi : solo, licence Empire, ou partenaire.',
     highlight: true,
   },
 ]
@@ -46,7 +46,7 @@ export default function AcademyProcessSection() {
       <div className="max-w-3xl mx-auto">
         <FadeInBlock>
           <div className="text-center mb-14">
-            <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">Comment ça marche</p>
+            <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">Le déroulé</p>
             <h2 className="text-3xl md:text-5xl font-bold leading-tight">
               Simple.{' '}
               <span className="text-empire">En 3 étapes.</span>

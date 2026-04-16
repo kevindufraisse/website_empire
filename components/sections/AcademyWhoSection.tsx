@@ -53,7 +53,7 @@ export default function AcademyWhoSection() {
                     <img src="/founders/kevin.png" alt="Kevin Dufraisse" className="w-full h-full object-cover" />
                   </div>
                   <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-empire/40 shadow-[0_0_10px_rgba(218,252,104,0.2)]">
-                    <img src="/founders/marc.svg" alt="Marc Dufraisse" className="w-full h-full object-cover" />
+                    <img src="/founders/marc.jpg" alt="Marc Dufraisse" className="w-full h-full object-cover" />
                   </div>
                 </div>
                 <p className="text-neutral-400 text-sm">
@@ -68,11 +68,11 @@ export default function AcademyWhoSection() {
                 <span className="text-white font-semibold">On a compris pourquoi. Et on a rendu ça systématique.</span>
               </p>
               <p className="text-base md:text-lg">
-                Aujourd'hui on produit du contenu viral pour des entrepreneurs et des marques — 10M+ vues par mois. Ce bootcamp, c'est notre méthode exacte. Pas une théorie.{' '}
-                <span className="text-empire font-semibold">Vous apprenez ce qu'on fait nous, cette semaine, pour nos clients.</span>
+                Aujourd'hui on produit du contenu viral pour des entrepreneurs et des marques - 10M+ vues par mois. Ce bootcamp, c'est notre méthode exacte. Pas une théorie.{' '}
+                <span className="text-empire font-semibold">Tu apprends ce qu'on fait nous, cette semaine, pour nos clients.</span>
               </p>
               <p className="text-base md:text-lg text-neutral-400">
-                Et pendant que vous apprenez, on vous crée votre contenu chaque jour. Vous n'avez qu'à publier.
+                Et pendant que tu apprends, on te crée ton contenu chaque jour. Tu n'as qu'à publier.
               </p>
             </div>
           </div>

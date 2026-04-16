@@ -1,7 +1,7 @@
 'use client'
 import { motion, useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
-import { ChevronDown, X, Check } from 'lucide-react'
+import { ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
@@ -19,52 +19,34 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
   )
 }
 
-const notFor = [
-  'Vous cherchez un résultat sans rien faire',
-  'Vous voulez juste "apprendre" sans appliquer',
-  'Vous avez déjà une grosse audience et un système qui tourne',
-  "Vous n'êtes pas prêt à publier chaque jour pendant 21 jours",
-]
-
-const yesFor = [
-  'Vous voulez apprendre les mécaniques de la viralité',
-  'Vous voulez créer une activité en ligne de zéro',
-  'Vous voulez publier sans passer 3h à rédiger et monter',
-  'Vous voulez potentiellement travailler avec Empire Internet',
-]
-
 const faqs = [
   {
-    q: "Qu'est-ce que j'apprends exactement ?",
-    a: "Vous apprenez les mécaniques de la viralité : pourquoi certains contenus explosent, comment construire des hooks, quels formats marchent sur chaque réseau. C'est la compétence la plus demandée aujourd'hui. Et pendant que vous apprenez, on vous crée votre contenu — vous n'avez qu'à publier.",
+    q: "Concrètement, comment ça marche ?",
+    a: "Tu parles 15 minutes - comme un vocal. De tes sujets, de tes idées. On récupère la transcription. Nos assistantes créent ton calendrier de publication. On rédige tes posts et on monte tes Shorts. Toi tu publies en 15 min. Pas de page blanche. Pas de montage. Tu parles, on fait le reste.",
   },
   {
-    q: 'Vous créez vraiment le contenu pour moi ?',
-    a: "Oui. Chaque jour pendant le bootcamp, on vous génère votre post LinkedIn et votre Short — rédigé, monté, prêt à poster. Vous vous concentrez sur comprendre la viralité. Vous publiez en 15 min. C'est votre avantage par rapport à tous les autres programmes.",
+    q: 'Combien ça coûte ?',
+    a: "Le prix est communiqué après validation de ta candidature. Pour te donner un repère : si tu fais tout seul (21 posts + 21 Shorts + stratégie + coaching), ça revient à 4 000€+. Le bootcamp coûte une fraction de ça. Et 2 missions clients suffisent à rembourser l'investissement.",
   },
   {
     q: 'Ça prend combien de temps par jour ?',
-    a: "15 minutes pour publier. Le reste du temps, vous regardez les vidéos et vous absorbez les mécaniques de la viralité à votre rythme.",
+    a: "15 minutes pour publier. Le reste du temps, tu fais les challenges quotidiens et tu absorbes les mécaniques de la viralité à ton rythme. Ton contenu est déjà prêt.",
   },
   {
-    q: "C'est quoi la différence entre les 2 chemins ?",
-    a: "Chemin 1 : vous utilisez vos nouvelles compétences en viralité pour développer votre propre audience. Chemin 2 : vous rejoignez le réseau Empire. On vous trouve les clients, on vous crée le contenu, vous publiez et vous êtes payé. Le chemin 2 est réservé aux meilleurs profils.",
+    q: "C'est quoi les 2 options après le bootcamp ?",
+    a: "Option 1 : tu postes pour toi. Tu repars avec les compétences en viralité, tu développes ta propre audience et tes clients. Option 2 : tu deviens partenaire Empire. On te trouve les clients, on te crée le contenu, tu coaches 4h/mois et tu es payé 500€ par mission. L'option 2 est sur sélection : il faut avoir atteint +100K vues/semaine pendant le bootcamp.",
+  },
+  {
+    q: "Les missions clients, c'est garanti ?",
+    a: "Non, et c'est honnête. Le critère : atteindre +100K vues/semaine pendant le bootcamp. C'est faisable - on l'a fait, nos clients le font. Si tu t'impliques et te démarques, les missions viennent. Concrètement : 4h de coaching/mois avec un client Empire. On s'occupe du closing. Toi tu coaches.",
   },
   {
     q: "C'est pour qui exactement ?",
-    a: "Pour toute personne qui veut maîtriser la viralité et devenir visible en ligne. Aucune expérience requise. On vous crée le contenu pendant le bootcamp, donc même si vous ne savez pas écrire ou monter, vous publiez dès le jour 1.",
+    a: "Pour toute personne qui veut maîtriser la viralité et devenir visible en ligne. Débutant complet, freelance en galère de clients, salarié qui veut se lancer, entrepreneur sans visibilité. Aucune expérience requise. On te crée le contenu, donc même si tu ne sais ni écrire ni monter, tu publies dès le jour 1.",
   },
   {
-    q: 'Est-ce que le réseau Empire est garanti ?',
-    a: "Non, et c'est honnête. On repère les meilleurs profils du bootcamp. Si vous vous impliquez et vous démarquez, les missions viennent. 2 missions suffisent à rembourser l'investissement.",
-  },
-  {
-    q: "Est-ce que j'ai accès à vie ?",
-    a: 'Oui. Les vidéos et replays sont accessibles à vie.',
-  },
-  {
-    q: 'Puis-je rejoindre si je suis débutant complet ?',
-    a: "C'est exactement pour ça qu'on a créé ce bootcamp. Pas besoin d'audience ou d'expérience. On vous crée votre contenu. Vous apprenez et vous publiez.",
+    q: "Après les 21 jours, j'ai encore accès à quoi ?",
+    a: "Les replays et les challenges sont accessibles à vie. Si tu deviens partenaire Empire, on continue de te créer ton contenu. Sinon, tu repars avec les compétences.",
   },
 ]
 
@@ -80,45 +62,13 @@ export default function AcademyFAQSection() {
             <div className="text-center mb-16">
               <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">FAQ</p>
               <h2 className="text-3xl md:text-5xl font-bold leading-tight">
-                Pour qui est ce programme —<br />
-                <span className="text-empire">et toutes vos questions.</span>
+                Toutes tes questions.{' '}
+                <span className="text-empire">Réponses honnêtes.</span>
               </h2>
             </div>
           </FadeInBlock>
 
-          {/* Fit / No fit */}
           <FadeInBlock delay={0.1}>
-            <div className="grid md:grid-cols-2 gap-5 mb-14">
-              {/* Not for */}
-              <div className="p-6 rounded-2xl bg-gradient-to-br from-red-950/30 to-transparent border border-red-500/20">
-                <p className="text-xs font-bold text-red-400 tracking-widest uppercase mb-4">Ce n'est pas pour vous si...</p>
-                <div className="space-y-2.5">
-                  {notFor.map((item, i) => (
-                    <div key={i} className="flex items-start gap-2.5">
-                      <X className="text-red-400 flex-shrink-0 mt-0.5" size={14} />
-                      <span className="text-neutral-400 text-sm">{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Yes for */}
-              <div className="p-6 rounded-2xl bg-gradient-to-br from-empire/15 to-transparent border border-empire/30">
-                <p className="text-xs font-bold text-empire tracking-widest uppercase mb-4">C'est pour vous si...</p>
-                <div className="space-y-2.5">
-                  {yesFor.map((item, i) => (
-                    <div key={i} className="flex items-start gap-2.5">
-                      <Check className="text-empire flex-shrink-0 mt-0.5" size={14} />
-                      <span className="text-white text-sm font-medium">{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </FadeInBlock>
-
-          {/* Accordion */}
-          <FadeInBlock delay={0.2}>
             <div className="space-y-2.5">
               {faqs.map((faq, i) => {
                 const isOpen = openIndex === i
@@ -169,7 +119,6 @@ export default function AcademyFAQSection() {
             </div>
           </FadeInBlock>
 
-          {/* CTA final */}
           <FadeInBlock delay={0.3}>
             <div className="mt-14 text-center">
               <a

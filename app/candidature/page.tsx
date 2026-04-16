@@ -1,6 +1,5 @@
 import AcademyApplicationForm from '@/components/AcademyApplicationForm'
 import CandidatureBadge from '@/components/CandidatureBadge'
-import Image from 'next/image'
 import Link from 'next/link'
 
 export const metadata = {
@@ -9,14 +8,8 @@ export const metadata = {
 }
 
 const founders = [
-  {
-    name: 'Kevin Dufraisse',
-    img: 'https://media.licdn.com/dms/image/v2/D4E03AQG4nlTt-7wB9w/profile-displayphoto-crop_800_800/B4EZi8WwoyHEAI-/0/1755506740516?e=1775692800&v=beta&t=3Oq_HdQ6GKMFVN6CwQCbvB2Qh7VWo1ls1KIroOyhPYY',
-  },
-  {
-    name: 'Marc Dufraisse',
-    img: 'https://media.licdn.com/dms/image/v2/D4E03AQF43VvOp7iRkw/profile-displayphoto-scale_400_400/B4EZzc5.uqHAAg-/0/1773232713405?e=1775692800&v=beta&t=Z4CykW-joMs63r3xGQHIdOaqpNtjtC7jQdcL5HSHJNs',
-  },
+  { name: 'Kevin Dufraisse', img: '/founders/kevin.png' },
+  { name: 'Marc Dufraisse', img: '/founders/marc.jpg' },
 ]
 
 export default function CandidaturePage() {
@@ -86,12 +79,10 @@ export default function CandidaturePage() {
             <div className="flex items-center gap-3 p-4 rounded-2xl bg-white/[0.03] border border-white/10">
               <div className="flex -space-x-2">
                 {founders.map(f => (
-                  <Image
+                  <img
                     key={f.name}
                     src={f.img}
                     alt={f.name}
-                    width={36}
-                    height={36}
                     className="w-9 h-9 rounded-full border-2 border-[#0a0a0a] object-cover"
                   />
                 ))}

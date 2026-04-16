@@ -1,11 +1,12 @@
 import AcademyHeroSection from '@/components/sections/AcademyHeroSection'
+import AcademyPainSection from '@/components/sections/AcademyPainSection'
+import AcademyForWhoSection from '@/components/sections/AcademyForWhoSection'
 import AcademyProofStrip from '@/components/sections/AcademyProofStrip'
 import AcademyEmpireAlphaSection from '@/components/sections/AcademyEmpireAlphaSection'
-import AcademyWhoSection from '@/components/sections/AcademyWhoSection'
-import AcademyProcessSection from '@/components/sections/AcademyProcessSection'
-import AcademyTwoPathsSection from '@/components/sections/AcademyTwoPathsSection'
-import AcademyPricingSection from '@/components/sections/AcademyPricingSection'
 import AcademyTestimonialsSection from '@/components/sections/AcademyTestimonialsSection'
+import AcademyTwoPathsSection from '@/components/sections/AcademyTwoPathsSection'
+import AcademyWhoSection from '@/components/sections/AcademyWhoSection'
+import AcademyPricingSection from '@/components/sections/AcademyPricingSection'
 import AcademyFAQSection from '@/components/sections/AcademyFAQSection'
 import AcademyStickyBar from '@/components/sections/AcademyStickyBar'
 import AcademySocialProofToast from '@/components/sections/AcademySocialProofToast'
@@ -13,7 +14,7 @@ import { ScrollProgress } from '@/components/magicui/scroll-progress'
 
 export const metadata = {
   title: 'Bootcamp Viralité 21 jours - Empire Internet',
-  description: 'Maîtrisez la viralité en 21 jours. On vous crée votre contenu chaque jour. Sur sélection, 20 places. Les meilleurs rejoignent le réseau Empire.'
+  description: 'Maîtrise la viralité en 21 jours. Tu parles 15 min, on rédige tout, tu publies. Sur sélection, 20 places. Les meilleurs deviennent partenaires Empire.'
 }
 
 export default function AcademyPage() {
@@ -23,26 +24,29 @@ export default function AcademyPage() {
       {/* Hero */}
       <AcademyHeroSection />
 
-      {/* Preuve avant/après */}
+      {/* Douleur - pourquoi maintenant */}
+      <AcademyPainSection />
+
+      {/* Pour qui */}
+      <AcademyForWhoSection />
+
+      {/* Comment ça marche + déroulé bootcamp */}
+      <AcademyEmpireAlphaSection />
+
+      {/* Preuve avant/après clients agence */}
       <AcademyProofStrip />
 
-      {/* Game changer : on publie ton contenu à ta place */}
-      <AcademyEmpireAlphaSection />
+      {/* Témoignages */}
+      <AcademyTestimonialsSection />
+
+      {/* 2 options après le bootcamp */}
+      <AcademyTwoPathsSection />
 
       {/* Qui on est */}
       <AcademyWhoSection />
 
-      {/* Du bootcamp aux premières missions */}
-      <AcademyProcessSection />
-
-      {/* Les 2 chemins : poster pour vous vs poster pour Empire */}
-      <AcademyTwoPathsSection />
-
-      {/* Offre pricing */}
+      {/* Offre récap + CTA */}
       <AcademyPricingSection />
-
-      {/* Témoignages Senja */}
-      <AcademyTestimonialsSection />
 
       {/* FAQ */}
       <AcademyFAQSection />

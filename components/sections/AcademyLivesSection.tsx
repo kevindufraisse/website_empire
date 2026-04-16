@@ -2,7 +2,7 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { Video, MessageCircle } from 'lucide-react'
-import Image from 'next/image'
+
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -47,7 +47,7 @@ const lives = [
   },
   {
     num: 'Live 6',
-    title: '3 000€/mois en 4h/semaine',
+    title: '3 000€/mois · 500€/mission',
     desc: 'Systèmes, outils, organisation. Comment construire et scaler sans y passer sa vie.',
   },
 ]
@@ -117,20 +117,16 @@ export default function AcademyLivesSection() {
                 <div className="flex items-center gap-3 mb-4">
                   <div className="flex -space-x-2">
                     <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-empire/40">
-                      <Image
-                        src="https://media.licdn.com/dms/image/v2/D4E03AQG4nlTt-7wB9w/profile-displayphoto-crop_800_800/B4EZi8WwoyHEAI-/0/1755506740516?e=1775692800&v=beta&t=3Oq_HdQ6GKMFVN6CwQCbvB2Qh7VWo1ls1KIroOyhPYY"
+                      <img
+                        src="/founders/kevin.png"
                         alt="Kevin"
-                        width={32}
-                        height={32}
                         className="w-full h-full object-cover"
                       />
                     </div>
                     <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-empire/40">
-                      <Image
-                        src="https://media.licdn.com/dms/image/v2/D4E03AQF43VvOp7iRkw/profile-displayphoto-scale_400_400/B4EZzc5.uqHAAg-/0/1773232713405?e=1775692800&v=beta&t=Z4CykW-joMs63r3xGQHIdOaqpNtjtC7jQdcL5HSHJNs"
+                      <img
+                        src="/founders/marc.jpg"
                         alt="Marc"
-                        width={32}
-                        height={32}
                         className="w-full h-full object-cover"
                       />
                     </div>

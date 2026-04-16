@@ -102,6 +102,14 @@ export default function Header() {
                 {lang === 'fr' ? 'Obtenir mon lien' : 'Get my sharable link'}
               </button>
             )}
+            {isAcademyPage && (
+              <a
+                href="/candidature"
+                className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-empire text-black font-semibold text-sm hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.2)]"
+              >
+                Postuler - sur sélection →
+              </a>
+            )}
 
             <LanguageSwitcher />
 
@@ -160,6 +168,18 @@ export default function Header() {
                 >
                   {lang === 'fr' ? 'Obtenir mon lien' : 'Get my sharable link'}
                 </motion.button>
+              )}
+              {isAcademyPage && (
+                <motion.a
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 }}
+                  href="/candidature"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="w-full py-3.5 rounded-lg bg-empire text-black font-bold text-center hover:scale-[1.02] transition-all shadow-[0_0_20px_rgba(218,252,104,0.2)] block"
+                >
+                  Postuler - sur sélection →
+                </motion.a>
               )}
             </div>
           </motion.div>
