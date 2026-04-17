@@ -33,18 +33,6 @@ const faqs = [
     a: "15 minutes pour publier. Le reste du temps, tu fais les challenges quotidiens et tu absorbes les mécaniques de la viralité à ton rythme. Ton contenu est déjà prêt.",
   },
   {
-    q: "C'est quoi les 2 options après le bootcamp ?",
-    a: "Option 1 : tu postes pour toi. Tu repars avec les compétences en viralité, tu développes ta propre audience et tes clients. Option 2 : tu deviens partenaire Empire. On te trouve les clients, on te crée le contenu, tu coaches 4h/mois et tu es payé 500€ par mission. L'option 2 est sur sélection : il faut avoir atteint +100K vues/semaine pendant le bootcamp.",
-  },
-  {
-    q: "Les missions clients, c'est garanti ?",
-    a: "Non, et c'est honnête. Le critère : atteindre +100K vues/semaine pendant le bootcamp. C'est faisable - on l'a fait, nos clients le font. Si tu t'impliques et te démarques, les missions viennent. Concrètement : 4h de coaching/mois avec un client Empire. On s'occupe du closing. Toi tu coaches.",
-  },
-  {
-    q: "C'est pour qui exactement ?",
-    a: "Pour toute personne qui veut maîtriser la viralité et devenir visible en ligne. Débutant complet, freelance en galère de clients, salarié qui veut se lancer, entrepreneur sans visibilité. Aucune expérience requise. On te crée le contenu, donc même si tu ne sais ni écrire ni monter, tu publies dès le jour 1.",
-  },
-  {
     q: "Après les 21 jours, j'ai encore accès à quoi ?",
     a: "Les replays et les challenges sont accessibles à vie. Si tu deviens partenaire Empire, on continue de te créer ton contenu. Sinon, tu repars avec les compétences.",
   },

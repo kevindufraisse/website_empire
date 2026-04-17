@@ -1,13 +1,10 @@
 import AcademyHeroSection from '@/components/sections/AcademyHeroSection'
-import AcademyPainSection from '@/components/sections/AcademyPainSection'
 import AcademyForWhoSection from '@/components/sections/AcademyForWhoSection'
-import AcademyProofStrip from '@/components/sections/AcademyProofStrip'
-import AcademyEmpireAlphaSection from '@/components/sections/AcademyEmpireAlphaSection'
-import AcademyProgramSection from '@/components/sections/AcademyProgramSection'
-import AcademyTestimonialsSection from '@/components/sections/AcademyTestimonialsSection'
 import AcademyTwoPathsSection from '@/components/sections/AcademyTwoPathsSection'
+import AcademyProgramSection from '@/components/sections/AcademyProgramSection'
+import AcademyProofStrip from '@/components/sections/AcademyProofStrip'
+import AcademyTestimonialsSection from '@/components/sections/AcademyTestimonialsSection'
 import AcademyWhoSection from '@/components/sections/AcademyWhoSection'
-import AcademyPricingSection from '@/components/sections/AcademyPricingSection'
 import AcademyFAQSection from '@/components/sections/AcademyFAQSection'
 import AcademyStickyBar from '@/components/sections/AcademyStickyBar'
 import AcademySocialProofToast from '@/components/sections/AcademySocialProofToast'
@@ -25,20 +22,14 @@ export default function AcademyPage() {
       {/* Hero */}
       <AcademyHeroSection />
 
-      {/* Douleur - pourquoi maintenant */}
-      <AcademyPainSection />
-
-      {/* Pour qui + 2 options */}
+      {/* Pour qui + 2 voies */}
       <AcademyForWhoSection />
       <AcademyTwoPathsSection />
 
-      {/* Comment ça marche */}
-      <AcademyEmpireAlphaSection />
-
-      {/* Programme semaine par semaine */}
+      {/* Comment ça marche + programme */}
       <AcademyProgramSection />
 
-      {/* Preuve avant/après clients agence */}
+      {/* Preuves avant/après */}
       <AcademyProofStrip />
 
       {/* Témoignages */}
@@ -46,9 +37,6 @@ export default function AcademyPage() {
 
       {/* Qui on est */}
       <AcademyWhoSection />
-
-      {/* Offre récap + CTA */}
-      <AcademyPricingSection />
 
       {/* FAQ */}
       <AcademyFAQSection />
