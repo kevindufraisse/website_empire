@@ -1,7 +1,7 @@
 'use client'
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-import { Zap, Mic, FileText, Send, Flame, Trophy } from 'lucide-react'
+import { Zap, Lightbulb, Mic, FileText, Send } from 'lucide-react'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -20,44 +20,28 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 
 const howItWorks = [
   {
-    icon: Mic,
+    icon: Lightbulb,
     num: '01',
+    title: 'On trouve tes sujets',
+    desc: 'On identifie les thématiques qui marchent dans ta niche. Tu ne pars jamais de zéro - on te donne les angles.',
+  },
+  {
+    icon: Mic,
+    num: '02',
     title: 'Tu parles 15 minutes',
-    desc: 'Comme un vocal. De tes sujets, de tes idées. Pas besoin de savoir écrire ou monter.',
+    desc: 'Via Empire Alpha, notre outil simplifié. Tu parles comme un vocal - ton point de vue, tes idées, ton expérience. Pas besoin de savoir écrire ou monter.',
   },
   {
     icon: FileText,
-    num: '02',
-    title: 'On rédige et on monte',
-    desc: 'On récupère ta transcription. Nos assistantes créent ton calendrier. On rédige tes posts avec nos meilleurs prompts.',
-  },
-  {
-    icon: Send,
     num: '03',
-    title: 'Tu publies en 15 min',
-    desc: 'Tes posts LinkedIn + Shorts sont prêts. Tu copies, tu colles, tu postes.',
-  },
-]
-
-const bootcampSteps = [
-  {
-    icon: Flame,
-    tag: 'Jour 1',
-    title: 'Tu rejoins le bootcamp',
-    desc: 'Accès immédiat aux challenges, lives et groupe privé. Ton premier contenu est déjà prêt.',
+    title: 'On écrit tes contenus',
+    desc: 'On récupère ta transcription. On rédige tes posts LinkedIn, on monte tes Shorts. Tout est prêt à publier.',
   },
   {
     icon: Send,
-    tag: '21 jours',
-    title: 'Tu publies, on te forme',
-    desc: 'Chaque jour : un challenge + ton contenu prêt à poster. Tu apprends la viralité en faisant.',
-  },
-  {
-    icon: Trophy,
-    tag: 'Après',
-    title: 'Tu maîtrises la viralité',
-    desc: 'Tu sais ce qui fait exploser un contenu. Tu choisis : développer ta propre audience, ou rejoindre notre réseau et recevoir des missions clients payées.',
-    highlight: true,
+    num: '04',
+    title: 'Tu publies en 15 min',
+    desc: 'Tu copies, tu colles, tu postes. Chaque jour, du contenu de qualité sur tes réseaux - sans y passer ta vie.',
   },
 ]
 
@@ -76,16 +60,16 @@ export default function AcademyEmpireAlphaSection() {
                 <span className="text-xs font-bold text-empire tracking-widest uppercase">Comment ça marche</span>
               </div>
               <h2 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
-                Tu parles. On rédige.{' '}
-                <span className="text-empire">Tu publies.</span>
+                On trouve les sujets. Tu parles.{' '}
+                <span className="text-empire">On écrit tout.</span>
               </h2>
               <p className="text-neutral-400 text-base md:text-lg max-w-xl mx-auto">
-                Pas de page blanche. Pas de montage. Tu nous donnes ta voix, on fait le reste.
+                Pas de page blanche. Pas de montage. On te donne les thématiques, tu parles 15 min, on fait le reste.
               </p>
             </div>
           </FadeInBlock>
 
-          <div className="space-y-5 mb-20">
+          <div className="space-y-5">
             {howItWorks.map((step, i) => (
               <FadeInBlock key={i} delay={i * 0.1}>
                 <div className="flex items-start gap-5 p-6 md:p-8 rounded-2xl bg-gradient-to-br from-white/8 to-white/[0.02] border border-white/10 hover:border-empire/30 transition-all">
@@ -97,42 +81,6 @@ export default function AcademyEmpireAlphaSection() {
                     <h3 className="text-lg md:text-xl font-bold text-white mb-1">{step.title}</h3>
                     <p className="text-neutral-400 text-sm md:text-base leading-relaxed">{step.desc}</p>
                   </div>
-                </div>
-              </FadeInBlock>
-            ))}
-          </div>
-
-          {/* Part 2: Bootcamp timeline */}
-          <FadeInBlock>
-            <div className="text-center mb-10">
-              <p className="text-xs font-bold text-neutral-500 tracking-widest uppercase mb-3">Le déroulé</p>
-              <h3 className="text-2xl md:text-3xl font-bold">
-                Ton parcours en{' '}
-                <span className="text-empire">3 étapes.</span>
-              </h3>
-            </div>
-          </FadeInBlock>
-
-          <div className="grid md:grid-cols-3 gap-5">
-            {bootcampSteps.map((step, i) => (
-              <FadeInBlock key={i} delay={i * 0.1}>
-                <div className={`relative h-full p-6 rounded-2xl border transition-all text-center ${
-                  step.highlight
-                    ? 'bg-gradient-to-br from-empire/15 to-empire/5 border-empire/40'
-                    : 'bg-gradient-to-br from-white/8 to-white/[0.02] border-white/10'
-                }`}>
-                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-4 ${
-                    step.highlight
-                      ? 'bg-empire/20 border border-empire/40'
-                      : 'bg-white/10 border border-white/15'
-                  }`}>
-                    <step.icon className={step.highlight ? 'text-empire' : 'text-neutral-300'} size={20} />
-                  </div>
-                  <p className={`text-[10px] font-bold tracking-widest uppercase mb-2 ${
-                    step.highlight ? 'text-empire' : 'text-neutral-500'
-                  }`}>{step.tag}</p>
-                  <h3 className="text-base font-bold text-white mb-2">{step.title}</h3>
-                  <p className="text-neutral-400 text-sm leading-relaxed">{step.desc}</p>
                 </div>
               </FadeInBlock>
             ))}

@@ -5,7 +5,7 @@ const items = [
   { icon: '⚡', text: '21 jours pour tout maîtriser' },
   { icon: '🎯', text: '3 000€/mois - objectif atteignable' },
   { icon: '👁', text: '10M+ vues/mois générées' },
-  { icon: '🔴', text: '6 lives experts inclus' },
+  { icon: '🔴', text: '21 challenges quotidiens' },
   { icon: '🔒', text: 'Replays à vie' },
   { icon: '🤝', text: 'Groupe privé' },
   { icon: '🚀', text: 'Accès immédiat dès aujourd\'hui' },

@@ -1,7 +1,7 @@
 'use client'
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-import { Play, PenLine, Users } from 'lucide-react'
+import { PenLine, Users, Send } from 'lucide-react'
 import BorderBeam from '@/components/magicui/border-beam'
 import { DotPattern } from '@/components/magicui/dot-pattern'
 
@@ -100,12 +100,6 @@ const weeks = [
 
 const tools = [
   {
-    icon: Play,
-    label: 'Vidéos pré-enregistrées',
-    desc: 'Une leçon courte et actionnable chaque jour. Vous avancez à votre rythme, accès à vie.',
-    glow: false,
-  },
-  {
     icon: PenLine,
     label: 'Défis quotidiens',
     desc: 'Chaque jour, une action concrète. Vous ne regardez pas - vous faites.',
@@ -115,6 +109,12 @@ const tools = [
     icon: Users,
     label: 'Groupe privé',
     desc: "Vous postez, vous recevez des feedbacks, vous voyez les résultats des autres. C'est là que les meilleurs se révèlent.",
+    glow: false,
+  },
+  {
+    icon: Send,
+    label: 'Contenu créé pour vous',
+    desc: "Vos posts LinkedIn et Shorts sont rédigés et montés par notre équipe. Vous publiez, c'est tout.",
     glow: false,
   },
 ]

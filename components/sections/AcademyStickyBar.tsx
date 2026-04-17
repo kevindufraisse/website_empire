@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useApplicationCount } from '@/hooks/useApplicationCount'
+import { COHORT_RANGE_SHORT } from '@/lib/cohort-config'
 
 const MAX_SELECTED = 20
 
@@ -38,7 +39,7 @@ export default function AcademyStickyBar() {
                   <p className="text-sm text-neutral-300 whitespace-nowrap">
                     Bootcamp <span className="text-white font-semibold">Head of Viralité</span>
                     <span className="hidden md:inline text-neutral-500"> · </span>
-                    <span className="hidden md:inline text-empire font-semibold">25 avr → 17 mai</span>
+                    <span className="hidden md:inline text-empire font-semibold">{COHORT_RANGE_SHORT}</span>
                   </p>
                   {appCount !== null && (
                     <span className="text-[11px] text-empire font-semibold whitespace-nowrap">

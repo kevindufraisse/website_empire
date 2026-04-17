@@ -3,6 +3,7 @@ import AcademyPainSection from '@/components/sections/AcademyPainSection'
 import AcademyForWhoSection from '@/components/sections/AcademyForWhoSection'
 import AcademyProofStrip from '@/components/sections/AcademyProofStrip'
 import AcademyEmpireAlphaSection from '@/components/sections/AcademyEmpireAlphaSection'
+import AcademyProgramSection from '@/components/sections/AcademyProgramSection'
 import AcademyTestimonialsSection from '@/components/sections/AcademyTestimonialsSection'
 import AcademyTwoPathsSection from '@/components/sections/AcademyTwoPathsSection'
 import AcademyWhoSection from '@/components/sections/AcademyWhoSection'
@@ -14,7 +15,7 @@ import { ScrollProgress } from '@/components/magicui/scroll-progress'
 
 export const metadata = {
   title: 'Bootcamp Viralité 21 jours - Empire Internet',
-  description: 'Maîtrise la viralité en 21 jours. Tu parles 15 min, on rédige tout, tu publies. Sur sélection, 20 places. Les meilleurs deviennent partenaires Empire.'
+  description: 'Deviens viral en 21 jours sans écrire ton contenu. On trouve les sujets, tu parles 15 min, on rédige tout. Sur sélection, 20 places.'
 }
 
 export default function AcademyPage() {
@@ -27,20 +28,21 @@ export default function AcademyPage() {
       {/* Douleur - pourquoi maintenant */}
       <AcademyPainSection />
 
-      {/* Pour qui */}
+      {/* Pour qui + 2 options */}
       <AcademyForWhoSection />
+      <AcademyTwoPathsSection />
 
-      {/* Comment ça marche + déroulé bootcamp */}
+      {/* Comment ça marche */}
       <AcademyEmpireAlphaSection />
+
+      {/* Programme semaine par semaine */}
+      <AcademyProgramSection />
 
       {/* Preuve avant/après clients agence */}
       <AcademyProofStrip />
 
       {/* Témoignages */}
       <AcademyTestimonialsSection />
-
-      {/* 2 options après le bootcamp */}
-      <AcademyTwoPathsSection />
 
       {/* Qui on est */}
       <AcademyWhoSection />

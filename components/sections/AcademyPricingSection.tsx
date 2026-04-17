@@ -4,6 +4,7 @@ import { useRef } from 'react'
 import { Check, Users, ArrowRight } from 'lucide-react'
 import BorderBeam from '@/components/magicui/border-beam'
 import { useApplicationCount } from '@/hooks/useApplicationCount'
+import { COHORT_RANGE_LONG } from '@/lib/cohort-config'
 
 const MAX_SELECTED = 20
 
@@ -26,17 +27,17 @@ const diyComparison = [
   { item: '21 posts LinkedIn par un freelance', cost: '1 680€' },
   { item: '21 Shorts montés par un vidéaste', cost: '1 680€' },
   { item: 'Stratégie de contenu personnalisée', cost: '500€' },
-  { item: '6 lives experts + 2 Q&A en direct', cost: '400€' },
+  { item: 'Groupe privé + accompagnement', cost: '400€' },
 ]
 
 const included = [
-  { item: '21 posts LinkedIn créés pour toi', highlight: true },
-  { item: '21 Shorts vidéo montés pour toi', highlight: true },
-  { item: '21 challenges quotidiens pour apprendre la viralité', highlight: false },
-  { item: '6 lives experts + 2 Q&A en direct', highlight: false },
-  { item: 'Groupe privé', highlight: false },
-  { item: 'Replays à vie', highlight: false },
-  { item: 'Éligible aux missions clients Empire (500€/mission)', highlight: true },
+  { item: '21 posts LinkedIn créés pour toi', highlight: true, value: '1 680€' },
+  { item: '21 Shorts vidéo montés pour toi', highlight: true, value: '1 680€' },
+  { item: '21 challenges quotidiens pour apprendre la viralité', highlight: false, value: null },
+  { item: 'Groupe privé + accompagnement', highlight: false, value: '400€' },
+  { item: 'Stratégie de contenu personnalisée', highlight: false, value: '500€' },
+  { item: 'Groupe privé + replays à vie', highlight: false, value: null },
+  { item: 'Éligible aux missions clients Empire (500€/mission)', highlight: true, value: null },
 ]
 
 export default function AcademyPricingSection() {
@@ -80,7 +81,7 @@ export default function AcademyPricingSection() {
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-3.5 h-3.5 text-empire flex-shrink-0">
                       <rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" />
                     </svg>
-                    <span className="text-xs font-bold text-empire">25 avril → 17 mai 2026</span>
+                    <span className="text-xs font-bold text-empire">{COHORT_RANGE_LONG}</span>
                   </div>
                 </div>
 
@@ -88,11 +89,18 @@ export default function AcademyPricingSection() {
                   {included.map((row, i) => (
                     <div key={i} className="flex items-center gap-3">
                       <Check className="text-empire flex-shrink-0" size={16} />
-                      <span className={`text-sm ${row.highlight ? 'text-white font-semibold' : 'text-neutral-300'}`}>
+                      <span className={`flex-1 text-sm ${row.highlight ? 'text-white font-semibold' : 'text-neutral-300'}`}>
                         {row.item}
                       </span>
+                      {row.value && (
+                        <span className="text-xs text-neutral-600 line-through font-mono flex-shrink-0">{row.value}</span>
+                      )}
                     </div>
                   ))}
+                  <div className="pt-3 mt-1 border-t border-empire/20 flex items-center justify-between">
+                    <span className="text-sm text-white font-semibold">Valeur totale</span>
+                    <span className="text-base text-empire font-black">4 260€+</span>
+                  </div>
                 </div>
 
                 <p className="text-center text-xs text-neutral-500 mb-4">

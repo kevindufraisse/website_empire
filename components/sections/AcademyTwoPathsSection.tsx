@@ -21,9 +21,9 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 
 const path1 = {
   icon: User,
-  tag: 'Option 1',
-  title: 'Tu postes pour toi',
-  desc: "Tu repars avec les compétences. Tu développes ta propre audience et tu génères tes propres clients.",
+  tag: 'Option 1 - Tu as un projet',
+  title: 'Tu communiques pour toi',
+  desc: "Tu utilises les compétences du bootcamp pour développer ta propre audience et générer tes clients.",
   perks: [
     'Tu maîtrises les mécaniques de la viralité',
     'Tu sais créer tes hooks, posts et shorts',
@@ -34,9 +34,9 @@ const path1 = {
 
 const path2 = {
   icon: Users,
-  tag: 'Option 2',
-  title: 'Tu deviens partenaire Empire',
-  desc: "On te trouve les clients. On te crée le contenu. Tu coaches et tu es payé.",
+  tag: 'Option 2 - Pas de projet ?',
+  title: 'Tu communiques pour Empire',
+  desc: "On te trouve les clients. On te crée le contenu. Tu coaches et tu es payé. Pas besoin d'avoir un projet à toi.",
   perks: [
     'On te trouve les clients',
     'On te crée ton contenu chaque jour',
@@ -54,13 +54,13 @@ export default function AcademyTwoPathsSection() {
 
           <FadeInBlock>
             <div className="text-center mb-14">
-              <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">Après les 21 jours</p>
+              <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">Même sans projet</p>
               <h2 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
-                2 options.{' '}
+                2 voies possibles.{' '}
                 <span className="text-empire">Tu choisis.</span>
               </h2>
               <p className="text-neutral-400 text-base md:text-lg max-w-2xl mx-auto">
-                À la fin du bootcamp, tu as les compétences. Ce que tu en fais dépend de toi.
+                Tu as un projet ? Tu communiques dessus. Tu n'en as pas ? Tu communiques pour Empire et on te paye.
               </p>
             </div>
           </FadeInBlock>

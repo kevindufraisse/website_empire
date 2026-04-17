@@ -4,8 +4,9 @@ import { useRef } from 'react'
 
 const pains = [
   'Tu passes 3h à écrire un post qui fait 200 vues',
-  'Tu vois les autres exploser en ligne et tu comprends pas comment',
-  'Tu sais que l\'IA remplace les métiers un par un',
+  'Tu vois les autres exploser en ligne et tu comprends pas comment ils font',
+  'Tu as peur de publier, de te ridiculiser devant ton réseau',
+  'Tu sais pas comment transformer des vues en clients concrets',
   'Tu veux te lancer mais tu sais pas par où commencer',
 ]
 

@@ -2,6 +2,7 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { Check, X } from 'lucide-react'
+import { COHORT_START_TEXT } from '@/lib/cohort-config'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -28,8 +29,8 @@ const criteria = [
 
 const steps = [
   { num: '01', title: 'Vous passez le test', desc: '2 minutes. On vérifie que le profil et les objectifs sont alignés. Plus vous candidatez tôt, plus vous avez de chances.' },
-  { num: '02', title: 'On vous répond le 2 avril', desc: 'Admis ou pas - pour les 20 profils retenus. Si c\'est non, on vous dit pourquoi et ce qu\'on conseille.' },
-  { num: '03', title: 'Vous rejoignez la promotion', desc: 'Accès immédiat au programme. Démarrage le 25 avril.' },
+  { num: '02', title: 'On vous répond sous 48h', desc: 'Admis ou pas - pour les 20 profils retenus. Si c\'est non, on vous dit pourquoi et ce qu\'on conseille.' },
+  { num: '03', title: 'Vous rejoignez la promotion', desc: `Accès immédiat au programme. ${COHORT_START_TEXT}` },
 ]
 
 export default function AcademySelectionSection() {
@@ -107,7 +108,7 @@ export default function AcademySelectionSection() {
               >
                 Postuler - sur sélection →
               </a>
-              <p className="text-xs text-neutral-600 mt-2">Formulaire de 2 min · Réponse le 2 avril · Aucun engagement</p>
+              <p className="text-xs text-neutral-600 mt-2">Formulaire de 2 min · Réponse sous 48h · Aucun engagement</p>
             </div>
           </FadeInBlock>
 
