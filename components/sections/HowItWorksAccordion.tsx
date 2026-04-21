@@ -442,9 +442,17 @@ export default function HowItWorksAccordion() {
 
           {/* Reassurance note */}
           <FadeInBlock delay={0.15}>
-            <div className="mt-6 flex justify-center">
+            <div className="mt-6 flex flex-col items-center gap-4">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm text-neutral-400">
                 * {lang === 'fr' ? 'Pas besoin de montrer votre visage' : 'No need to show your face'}
+              </div>
+              <p className="text-xs text-neutral-500">{lang === 'fr' ? 'Publié sur' : 'Published on'}</p>
+              <div className="flex flex-wrap items-center justify-center gap-2">
+                {['LinkedIn', 'YouTube', 'Instagram', 'Twitter/X', 'Threads', 'Newsletter'].map((p) => (
+                  <span key={p} className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-xs font-medium text-neutral-300">
+                    {p}
+                  </span>
+                ))}
               </div>
             </div>
           </FadeInBlock>

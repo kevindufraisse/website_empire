@@ -7,31 +7,11 @@ import { getEmpParam } from '@/hooks/useCalLink'
 import YtLeadForm from '@/components/YtLeadForm'
 
 const CREATORS = [
-  {
-    name: 'Grant Cardone',
-    img: 'https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4295dabe20aff6b9885_Cardone.webp',
-    cost: '~€100K/mo',
-  },
-  {
-    name: 'Alex Hormozi',
-    img: 'https://yt3.googleusercontent.com/29XFUn3pc3cC81yUUCFiyCKKdgi856IGMJ4EZBnf53zTfrWWUGvmYnYGx86K08f4XR03UxpWyw=s900-c-k-c0x00ffffff-no-rj',
-    cost: '~€80K/mo',
-  },
-  {
-    name: 'Ali Abdaal',
-    img: 'https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4d436f96370e8ccb7c4_Abdaal.webp',
-    cost: '~€75K/mo',
-  },
-  {
-    name: 'Matt Gray',
-    img: 'https://yt3.googleusercontent.com/W_GKaSoEuny3REkdSVW-AD6wcB_z5Ltr3hY_Mos94yDKlFLupVnJ6Gf8w1YfjEGps2nr62fB=s160-c-k-c0x00ffffff-no-rj',
-    cost: '~€60K/mo',
-  },
-  {
-    name: 'Chris Williamson',
-    img: 'https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4d4f950bcf495c7dfb2_Williamson.webp',
-    cost: '~€70K/mo',
-  },
+  { name: 'Grant Cardone', img: '/creators/cardone.webp', cost: '~€100K/mo' },
+  { name: 'Alex Hormozi', img: '/creators/hormozi.jpg', cost: '~€80K/mo' },
+  { name: 'Ali Abdaal', img: '/creators/abdaal.webp', cost: '~€75K/mo' },
+  { name: 'Matt Gray', img: '/creators/gray.jpg', cost: '~€60K/mo' },
+  { name: 'Chris Williamson', img: '/creators/williamson.webp', cost: '~€70K/mo' },
 ]
 
 export default function VslPage() {
@@ -55,50 +35,40 @@ export default function VslPage() {
 
         <div className="relative z-10">
           {/* ── Hero + Video ── */}
-          <section className="pt-24 md:pt-32 pb-12 md:pb-16">
+          <section className="pt-16 md:pt-20 pb-12 md:pb-16">
             <div className="container max-w-4xl mx-auto px-4">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                className="text-center mb-6"
+                className="text-center mb-4"
               >
-                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight">
                   Installez le système des plus gros
                   <br />
                   <span className="text-empire">créateurs business mondiaux</span>
                 </h1>
-                <p className="text-neutral-400 text-base md:text-lg mt-3">
+                <p className="text-neutral-400 text-sm md:text-base mt-2">
                   et générez des milliers de ventes grâce au personal branding
                 </p>
-                <div className="mt-4 flex flex-col items-center gap-1 text-neutral-500 animate-bounce">
-                  <span className="text-xs">Découvrir leur système dans la vidéo</span>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 5v14M5 12l7 7 7-7" />
-                  </svg>
-                </div>
               </motion.div>
 
-              {/* Influencer logos */}
+              {/* Creators - compact inline */}
               <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
                 transition={{ delay: 0.15, duration: 0.6 }}
-                className="mb-8"
+                className="mb-4"
               >
-                <p className="text-sm text-neutral-400 text-center mb-2">
-                  Le système utilisé par les plus grands créateurs au monde
-                </p>
-                <p className="text-xs text-red-400 font-semibold text-center mb-5">
-                  Ils paient 50 à 100K€/mois pour leurs systèmes de contenu
-                </p>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 max-w-3xl mx-auto">
-                  {CREATORS.map((c) => (
-                    <div
-                      key={c.name}
-                      className="flex flex-col items-center gap-2 px-3 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group"
-                    >
-                      <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-neutral-800 overflow-hidden">
+                <div className="flex items-center justify-center gap-3 flex-wrap">
+                  <span className="text-[11px] text-neutral-500 mr-1">Utilisé par</span>
+                  <div className="flex items-center -space-x-2">
+                    {CREATORS.map((c) => (
+                      <div
+                        key={c.name}
+                        className="w-7 h-7 rounded-full bg-neutral-800 overflow-hidden border-2 border-black"
+                        title={`${c.name} · ${c.cost}`}
+                      >
                         <img
                           src={c.img}
                           alt={c.name}
@@ -106,16 +76,20 @@ export default function VslPage() {
                           loading="lazy"
                         />
                       </div>
-                      <div className="text-center">
-                        <p className="text-[11px] md:text-xs font-bold text-white group-hover:text-empire transition-colors">
-                          {c.name}
-                        </p>
-                        <p className="text-[9px] md:text-[10px] text-neutral-500">{c.cost}</p>
-                      </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
+                  <span className="text-[11px] text-neutral-500">et les plus grands créateurs mondiaux</span>
                 </div>
               </motion.div>
+
+              <div className="flex justify-center mb-3">
+                <span className="text-[11px] text-neutral-500 flex items-center gap-1.5 animate-bounce">
+                  Découvrir leur système
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 5v14M5 12l7 7 7-7" />
+                  </svg>
+                </span>
+              </div>
 
               {/* Loom Video */}
               <motion.div
@@ -142,9 +116,14 @@ export default function VslPage() {
                 transition={{ delay: 0.4, duration: 0.5 }}
                 className="max-w-lg mx-auto"
               >
-                <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 sm:p-7">
-                  <h2 className="text-lg font-bold text-white mb-5">Réservez votre appel gratuit</h2>
-                  <YtLeadForm />
+                <div className="relative rounded-2xl border border-empire/25 bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-6 sm:p-8 shadow-[0_0_40px_-8px_rgba(218,252,104,0.12)]">
+                  <div className="absolute inset-0 rounded-2xl bg-[radial-gradient(ellipse_60%_40%_at_50%_0%,rgba(218,252,104,0.06),transparent)] pointer-events-none" />
+                  <div className="relative">
+                    <p className="text-empire text-xs font-semibold tracking-wider uppercase mb-2">Appel stratégique offert</p>
+                    <h2 className="text-xl font-bold text-white mb-1">Réservez votre appel gratuit</h2>
+                    <p className="text-neutral-400 text-sm mb-6">45 min avec un expert pour auditer votre stratégie</p>
+                    <YtLeadForm />
+                  </div>
                 </div>
               </motion.div>
             </div>
@@ -186,9 +165,14 @@ export default function VslPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 sm:p-7">
-                  <h2 className="text-lg font-bold text-white mb-5">Réservez votre appel gratuit</h2>
-                  <YtLeadForm />
+                <div className="relative rounded-2xl border border-empire/25 bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-6 sm:p-8 shadow-[0_0_40px_-8px_rgba(218,252,104,0.12)]">
+                  <div className="absolute inset-0 rounded-2xl bg-[radial-gradient(ellipse_60%_40%_at_50%_0%,rgba(218,252,104,0.06),transparent)] pointer-events-none" />
+                  <div className="relative">
+                    <p className="text-empire text-xs font-semibold tracking-wider uppercase mb-2">Dernière étape</p>
+                    <h2 className="text-xl font-bold text-white mb-1">Prêt à passer à l'action ?</h2>
+                    <p className="text-neutral-400 text-sm mb-6">Réservez votre appel stratégique gratuit maintenant</p>
+                    <YtLeadForm />
+                  </div>
                 </div>
               </motion.div>
             </div>

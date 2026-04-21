@@ -241,7 +241,7 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
           placeholder="Votre prénom *"
           value={form.firstName}
           onChange={(e) => { setForm({ ...form, firstName: e.target.value }); setErrors({ ...errors, firstName: false }) }}
-          className={`w-full px-4 py-4 rounded-xl bg-white/5 border text-white placeholder:text-neutral-500 focus:outline-none transition-colors text-base ${errors.firstName ? 'border-red-500' : 'border-white/10 focus:border-empire/60'}`}
+          className={`w-full px-4 py-3.5 rounded-xl bg-white/[0.07] border text-white placeholder:text-neutral-500 focus:outline-none focus:ring-1 focus:ring-empire/30 transition-all text-base ${errors.firstName ? 'border-red-500' : 'border-white/[0.12] focus:border-empire/50'}`}
         />
 
         <input
@@ -251,11 +251,11 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
           onChange={(e) => { setForm({ ...form, email: e.target.value }); setErrors({ ...errors, email: false }) }}
           autoComplete="email"
           inputMode="email"
-          className={`w-full px-4 py-4 rounded-xl bg-white/5 border text-white placeholder:text-neutral-500 focus:outline-none transition-colors text-base ${errors.email ? 'border-red-500' : 'border-white/10 focus:border-empire/60'}`}
+          className={`w-full px-4 py-3.5 rounded-xl bg-white/[0.07] border text-white placeholder:text-neutral-500 focus:outline-none focus:ring-1 focus:ring-empire/30 transition-all text-base ${errors.email ? 'border-red-500' : 'border-white/[0.12] focus:border-empire/50'}`}
         />
 
         {/* Phone with country code */}
-        <div className={`flex rounded-xl bg-white/5 border overflow-hidden transition-colors ${errors.phone ? 'border-red-500' : 'border-white/10 focus-within:border-empire/60'}`}>
+        <div className={`flex rounded-xl bg-white/[0.07] border overflow-hidden transition-all ${errors.phone ? 'border-red-500' : 'border-white/[0.12] focus-within:border-empire/50 focus-within:ring-1 focus-within:ring-empire/30'}`}>
           <div ref={dropdownRef} className="relative">
             <button
               type="button"
@@ -310,12 +310,12 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
                 key={value}
                 type="button"
                 onClick={() => { setForm({ ...form, budget: value }); setErrors({ ...errors, budget: false }) }}
-                className={`py-3 rounded-xl border text-sm font-medium transition-all ${
+                className={`py-3 rounded-xl border text-sm font-medium transition-all cursor-pointer ${
                   form.budget === value
                     ? value === 'none'
                       ? 'bg-red-500/10 border-red-500/30 text-red-400'
-                      : 'bg-empire/15 border-empire/50 text-empire'
-                    : 'bg-white/5 border-white/10 text-neutral-300 hover:border-empire/30'
+                      : 'bg-empire/15 border-empire/50 text-empire shadow-[0_0_12px_-4px_rgba(218,252,104,0.2)]'
+                    : 'bg-white/[0.07] border-white/[0.12] text-neutral-300 hover:border-empire/30 hover:bg-white/[0.1]'
                 }`}
               >
                 {label}
@@ -327,7 +327,7 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-4 rounded-xl bg-empire text-black font-bold text-base hover:bg-empire/90 transition-colors flex items-center justify-center gap-2 disabled:opacity-70 mt-1"
+          className="w-full py-4 rounded-xl bg-empire text-black font-bold text-base hover:brightness-110 transition-all flex items-center justify-center gap-2 disabled:opacity-70 mt-2 shadow-[0_0_20px_-4px_rgba(218,252,104,0.35)] hover:shadow-[0_0_28px_-4px_rgba(218,252,104,0.5)]"
         >
           {loading
             ? (

@@ -24,14 +24,14 @@ export default function Page() {
       {/* Roles Replaced */}
       <RolesReplacedSection />
 
-      {/* Founder Credibility Section */}
-      <FounderSection />
-
       {/* Quick Wins - Before/After */}
       <QuickWinsSection />
 
-      {/* Why Now - commoditisation des compétences */}
+      {/* Features */}
       <WhyNowSection />
+
+      {/* Founder Credibility Section */}
+      <FounderSection />
 
       {/* FAQ - Essential questions */}
       <FAQSection variant="home" />

@@ -139,7 +139,7 @@ export const fr: Translations = {
     targetAudience: 'Pour freelances, salariés & entrepreneurs',
     title: 'De <span class="text-empire">Invisible</span> à <span class="text-empire">Omniprésent</span> dans les prochaines 24h.',
     subtitle: 'Parlez 15 min/semaine. Un mois de posts, reels, newsletters et vidéos - publiés partout.',
-    description: 'Limité à 100 clients',
+    description: '',
     cta1: 'Installer Empire Internet',
     cta2: 'Voir la Démo (20 min)',
     rating: 'Basé sur 20 avis',
@@ -430,9 +430,9 @@ export const fr: Translations = {
   common: {
     startNow: 'Installer Empire Internet',
     watchDemo: 'Installer Empire Internet',
-    ctaReassurance: 'En fonction des places disponibles.',
+    ctaReassurance: 'Audit gratuit, sans engagement.',
     /** Sous-ligne très courte : header, sticky, bannière (évite un bouton énorme) */
-    ctaReassuranceCompact: 'Selon les places dispo.',
+    ctaReassuranceCompact: 'Sans engagement.',
     learnMore: 'En savoir plus',
     perMonth: '/mois',
     perWeek: '/semaine',

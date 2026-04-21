@@ -17,7 +17,7 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         {/* Google Tag Manager */}
         <script dangerouslySetInnerHTML={{
@@ -48,7 +48,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <Header />
           <ClientWrappers />
           <CalStickyBar />
-          <div>
+          <div suppressHydrationWarning>
             {children}
           </div>
           <Footer />

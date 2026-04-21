@@ -16,7 +16,7 @@ export const en = {
     targetAudience: 'For freelancers, employees & entrepreneurs',
     title: 'From Invisible to <span class="text-empire">Omnipresent</span> in the next 24 Hours.',
     subtitle: 'Speak once a week for 15 minutes. Get a month of posts, reels, newsletters & videos - live on every platform.',
-    description: 'Limited to 100 clients',
+    description: '',
     cta1: 'Install Empire Internet',
     cta2: 'Watch Demo (20 min)',
     rating: 'Based on 20 reviews',
@@ -43,7 +43,7 @@ export const en = {
   },
   howItWorks: {
     title: 'How It Works',
-    subtitle: 'From your voice to published content in 3 simple steps',
+    subtitle: 'From your voice to published content in 4 simple steps',
     stepLabel: 'STEP',
     step1: {
       title: 'You Talk (15 min)',
@@ -307,9 +307,9 @@ export const en = {
   common: {
     startNow: 'Install Empire Internet',
     watchDemo: 'Install Empire Internet',
-    ctaReassurance: 'Depending on available spots.',
+    ctaReassurance: 'Free audit call, no commitment.',
     /** Tight subline: header, sticky, banner (keeps the CTA compact) */
-    ctaReassuranceCompact: 'Per spot availability.',
+    ctaReassuranceCompact: 'No commitment.',
     learnMore: 'Learn more',
     perMonth: '/month',
     perWeek: '/week',

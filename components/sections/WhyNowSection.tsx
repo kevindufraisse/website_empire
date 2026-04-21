@@ -1,11 +1,24 @@
 'use client'
 import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { getCalApi } from '@calcom/embed-react'
-import { useEffect } from 'react'
-import { ArrowRight } from 'lucide-react'
+import {
+  ArrowRight,
+  FileText,
+  Video,
+  Mail,
+  Calendar,
+  Bot,
+  UserCheck,
+  Mic,
+  Image as ImageIcon,
+  Zap,
+  BarChart3,
+  Users,
+  Code2,
+} from 'lucide-react'
 import { useCalLink } from '@/hooks/useCalLink'
 import { CtaReassurance } from '@/components/ui/cta-reassurance'
 
@@ -24,10 +37,48 @@ function FadeIn({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
   )
 }
 
+const features = {
+  fr: [
+    { icon: Mic, title: '4 interviews de 15 min/mois', desc: 'Vous parlez, on fait le reste', highlight: false },
+    { icon: FileText, title: '30+ posts LinkedIn', desc: 'Rédigés, optimisés et planifiés', highlight: false },
+    { icon: Mail, title: 'Newsletters quotidiennes', desc: 'Qui sonnent comme vous, en mieux', highlight: true },
+    { icon: Video, title: '30+ vidéos courtes', desc: 'Reels, Shorts, TikTok montés', highlight: false },
+    { icon: ImageIcon, title: '30+ posts Instagram', desc: 'Visuels engageants créés pour vous', highlight: false },
+    { icon: ImageIcon, title: '4+ carrousels', desc: 'Le format le plus viral', highlight: false },
+    { icon: Bot, title: '1 setter IA LinkedIn', desc: 'Prospection automatisée 24/7', highlight: true },
+    { icon: Zap, title: 'Reels illimités scriptés', desc: 'Montés et prêts à publier', highlight: false },
+    { icon: Calendar, title: 'Tout planifié', desc: 'Calendrier complet, rien à faire', highlight: false },
+    { icon: BarChart3, title: 'Prompts IA sur-mesure', desc: 'Entraînés sur votre ton unique', highlight: true },
+    { icon: UserCheck, title: '1 assistante humaine dédiée', desc: 'QA et suivi de chaque publication', highlight: true },
+    { icon: Zap, title: '1 expert en viralité', desc: 'Trouve les sujets qui vont performer', highlight: true },
+    { icon: Users, title: 'Communauté privée', desc: 'Réseau de fondateurs et créateurs', highlight: false },
+    { icon: Code2, title: 'API Empire', desc: 'Intégrez Empire à vos outils existants', highlight: false },
+    { icon: Users, title: 'Employee Advocacy', desc: 'Faites publier vos employés automatiquement', highlight: true },
+  ],
+  en: [
+    { icon: Mic, title: '4 x 15-min interviews/mo', desc: 'You talk, we do the rest', highlight: false },
+    { icon: FileText, title: '30+ LinkedIn posts', desc: 'Written, optimized, scheduled', highlight: false },
+    { icon: Mail, title: 'Daily newsletters', desc: 'Sound like you, but better', highlight: true },
+    { icon: Video, title: '30+ short videos', desc: 'Reels, Shorts, TikTok edited', highlight: false },
+    { icon: ImageIcon, title: '30+ Instagram posts', desc: 'Engaging visuals created for you', highlight: false },
+    { icon: ImageIcon, title: '4+ carousels', desc: 'The most viral format', highlight: false },
+    { icon: Bot, title: '1 AI LinkedIn setter', desc: 'Automated outreach 24/7', highlight: true },
+    { icon: Zap, title: 'Unlimited scripted Reels', desc: 'Edited and ready to post', highlight: false },
+    { icon: Calendar, title: 'Everything scheduled', desc: 'Full calendar, zero effort', highlight: false },
+    { icon: BarChart3, title: 'Custom AI prompts', desc: 'Trained on your unique tone', highlight: true },
+    { icon: UserCheck, title: '1 dedicated human assistant', desc: 'QA and follow-up on every post', highlight: true },
+    { icon: Zap, title: '1 virality expert', desc: 'Finds topics that will perform', highlight: true },
+    { icon: Users, title: 'Private community', desc: 'Founder & creator network', highlight: false },
+    { icon: Code2, title: 'Empire API', desc: 'Integrate Empire with your existing tools', highlight: false },
+    { icon: Users, title: 'Employee Advocacy', desc: 'Get your employees publishing automatically', highlight: true },
+  ],
+}
+
 export default function WhyNowSection() {
   const { lang, t } = useLanguage()
   const namespace = 'audit-empire'
   const calLink = useCalLink()
+  const fr = lang === 'fr'
 
   useEffect(() => {
     ;(async () => {
@@ -43,7 +94,7 @@ export default function WhyNowSection() {
     })()
   }, [namespace])
 
-  const fr = lang === 'fr'
+  const currentFeatures = features[fr ? 'fr' : 'en']
 
   return (
     <section className="relative w-full py-16 md:py-28 overflow-hidden bg-[#0a0a0a]">
@@ -55,73 +106,57 @@ export default function WhyNowSection() {
         <FadeIn>
           <div className="text-center mb-12 md:mb-16">
             <span className="inline-block px-3 py-1 rounded-full bg-empire/10 border border-empire/20 text-empire text-xs font-semibold tracking-wider uppercase mb-4">
-              {fr ? 'Pourquoi maintenant ?' : 'Why now?'}
+              {fr ? 'Fonctionnalités' : 'Features'}
             </span>
             <h2 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
               {fr
-                ? <>L&apos;IA a rendu les compétences <span className="text-empire">ordinaires.</span><br />Votre marque, elle, est irremplaçable.</>
-                : <>AI has made skills <span className="text-empire">ordinary.</span><br />Your personal brand is irreplaceable.</>}
+                ? <>Tout ce qu&apos;Empire <span className="text-empire">crée pour vous</span> chaque mois</>
+                : <>Everything Empire <span className="text-empire">creates for you</span> every month</>}
             </h2>
             <p className="text-neutral-400 text-lg max-w-2xl mx-auto">
               {fr
-                ? 'Quand tout le monde peut tout faire avec l\'IA, la seule chose qui différencie est la confiance que vous inspirez - et la communauté que vous avez construite.'
-                : 'When anyone can do anything with AI, the only differentiator is the trust you inspire - and the community you\'ve built.'}
+                ? '15 minutes d\'interview. Le reste est automatisé.'
+                : '15 minutes of interview. The rest is automated.'}
             </p>
           </div>
         </FadeIn>
 
-        {/* 3-column argument */}
+        {/* Features grid */}
         <FadeIn delay={0.1}>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
-
-            {/* Card 1 - Le problème */}
-            <div className="rounded-xl p-6 bg-white/[0.03] border border-white/10">
-              <span className="inline-flex w-7 h-7 rounded-md bg-white/10 items-center justify-center text-white font-bold text-sm mb-3">1</span>
-              <h3 className="font-semibold text-white mb-2">
-                {fr ? 'Les compétences se commoditisent' : 'Skills are being commoditized'}
-              </h3>
-              <p className="text-sm text-neutral-400">
-                {fr
-                  ? 'Un développeur, un designer, un copywriter - l\'IA fait tout ça. Ce qui compte maintenant, c\'est qui vous êtes, pas ce que vous savez faire.'
-                  : 'A developer, designer, copywriter - AI does all of it. What matters now is who you are, not what you can do.'}
-              </p>
-            </div>
-
-            {/* Card 2 - La vérité */}
-            <div className="rounded-xl p-6 bg-empire/5 border border-empire/20">
-              <span className="inline-flex w-7 h-7 rounded-md bg-empire items-center justify-center text-black font-bold text-sm mb-3">2</span>
-              <h3 className="font-semibold text-white mb-2">
-                {fr ? 'Confiance + Communauté = le seul moat' : 'Trust + Community = the only moat'}
-              </h3>
-              <p className="text-sm text-neutral-400">
-                {fr
-                  ? 'Les entrepreneurs qui vont dominer leur marché dans 3 ans sont ceux qui construisent leur audience et leur autorité aujourd\'hui.'
-                  : 'The entrepreneurs who will dominate their market in 3 years are those building their audience and authority today.'}
-              </p>
-            </div>
-
-            {/* Card 3 - L'urgence */}
-            <div className="rounded-xl p-6 bg-white/[0.03] border border-white/10">
-              <span className="inline-flex w-7 h-7 rounded-md bg-white/10 items-center justify-center text-white font-bold text-sm mb-3">3</span>
-              <h3 className="font-semibold text-white mb-2">
-                {fr ? 'Vos concurrents commencent déjà' : 'Your competitors are already starting'}
-              </h3>
-              <p className="text-sm text-neutral-400">
-                {fr
-                  ? 'Chaque semaine sans contenu est une semaine où quelqu\'un d\'autre prend votre place dans l\'esprit de vos prospects.'
-                  : 'Every week without content is a week where someone else takes your place in your prospects\' minds.'}
-              </p>
-            </div>
-
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 mb-12">
+            {currentFeatures.map((f, i) => {
+              const Icon = f.icon
+              return (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.35, delay: i * 0.04 }}
+                  viewport={{ once: true }}
+                  className={`group flex items-start gap-3.5 p-4 rounded-xl border transition-all ${
+                    f.highlight
+                      ? 'bg-empire/5 border-empire/20 hover:border-empire/40'
+                      : 'bg-white/[0.03] border-white/10 hover:border-white/20'
+                  }`}
+                >
+                  <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                    f.highlight ? 'bg-empire/20' : 'bg-white/5'
+                  }`}>
+                    <Icon className={f.highlight ? 'text-empire' : 'text-neutral-400'} size={18} />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-white">{f.title}</p>
+                    <p className="text-xs text-neutral-500 mt-0.5">{f.desc}</p>
+                  </div>
+                </motion.div>
+              )
+            })}
           </div>
         </FadeIn>
 
-        {/* CTA centré */}
+        {/* CTA */}
         <FadeIn delay={0.2}>
           <div className="text-center">
-            <p className="text-neutral-500 text-sm mb-4">
-              {fr ? 'Plus vous attendez, plus c\'est long à rattraper.' : 'The longer you wait, the longer it takes to catch up.'}
-            </p>
             <button
               data-cal-namespace={namespace}
               data-cal-link={calLink}
