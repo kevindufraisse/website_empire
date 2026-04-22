@@ -54,8 +54,8 @@ export default function CallbackFormModal({ isOpen, onClose }: CallbackFormModal
 
   const t = {
     fr: {
-      title: 'Être recontacté',
-      subtitle: 'Laissez vos coordonnées, on vous rappelle rapidement',
+      title: 'Vérifier votre éligibilité',
+      subtitle: 'Laissez vos coordonnées, on vérifie votre profil et on vous recontacte',
       firstName: 'Prénom',
       email: 'Email',
       phone: 'Téléphone',
@@ -71,8 +71,8 @@ export default function CallbackFormModal({ isOpen, onClose }: CallbackFormModal
       close: 'Fermer',
     },
     en: {
-      title: 'Get a callback',
-      subtitle: 'Leave your details, we\'ll get back to you quickly',
+      title: 'Check your eligibility',
+      subtitle: 'Leave your details, we\'ll review your profile and get back to you',
       firstName: 'First name',
       email: 'Email',
       phone: 'Phone',

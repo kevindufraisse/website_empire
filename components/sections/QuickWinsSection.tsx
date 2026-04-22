@@ -164,7 +164,7 @@ export default function QuickWinsSection() {
                   ))}
                 </div>
                 <p className="text-xs text-empire font-semibold mt-3 text-center">
-                  {lang === 'fr' ? '30+ posts / mois' : '30+ posts / month'}
+                  {lang === 'fr' ? 'Contenu quotidien' : 'Daily content'}
                 </p>
               </div>
 

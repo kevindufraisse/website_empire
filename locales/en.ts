@@ -1,9 +1,9 @@
 export const en = {
   header: {
     spots: '83/100 spots',
-    watchDemo: 'Install Empire Internet',
+    watchDemo: 'Check my eligibility',
     getAccess: 'Get Access',
-    joinQA: 'Install Empire Internet',
+    joinQA: 'Check my eligibility',
     formats: 'Formats',
     product: 'Product',
     howItWorks: 'How It Works',
@@ -14,20 +14,20 @@ export const en = {
   },
   hero: {
     targetAudience: 'For freelancers, employees & entrepreneurs',
-    title: 'From Invisible to <span class="text-empire">Omnipresent</span> in the next 24 Hours.',
-    subtitle: 'Speak once a week for 15 minutes. Get a month of posts, reels, newsletters & videos - live on every platform.',
+    title: '30 days to go from <br class="hidden sm:block"/><span class="text-empire">Invisible</span> to <span class="text-empire">Omnipresent</span> <br class="hidden sm:block"/>in 15 min per week.',
+    subtitle: '1 interview of 15 min per week. We publish for you every day - without writing a line or editing a video.',
     description: '',
-    cta1: 'Install Empire Internet',
+    cta1: 'Check my eligibility',
     cta2: 'Watch Demo (20 min)',
     rating: 'Based on 20 reviews',
-    creatorsTitle: 'The systems used by the world\'s top creators',
-    creatorsCost: 'They pay €50-100K/month for their content systems',
-    creatorsYouPay: 'You: €1,000/month for the same system',
+    creatorsTitle: 'These methods cost €50-100K/month to set up',
+    creatorsCost: 'We automated them for you - starting at €1,000/month',
+    creatorsYouPay: '',
     publishedOn: 'Published on',
   },
   howItWorksPage: {
     title: 'How Empire Works',
-    subtitle: 'One interview a week → 30+ pieces of content → posted everywhere',
+    subtitle: 'One interview a week → content published everywhere, every day',
     step1Title: 'Interview',
     step1Desc: '30 min call, just talking',
     step2Title: 'AI Processing',
@@ -56,7 +56,7 @@ export const en = {
     },
     step2: {
       title: 'AI + Human Create',
-      summary: 'AI generates 30+ pieces, then a real human polishes everything.',
+      summary: 'AI generates your content, then a real human polishes everything.',
       description: 'AI generates the content, then a real human editor reviews and polishes every single piece before it goes to you.',
       perInterview: 'Per interview, you get:',
       humanQA: 'Human Quality Check',
@@ -148,8 +148,8 @@ export const en = {
     limited: 'LIMITED TO 100 CLIENTS',
     title: 'Ready to Join?',
     subtitle: 'Choose your path below',
-    startNow: 'Install Empire Internet',
-    watchDemo: 'Install Empire Internet',
+    startNow: 'Check my eligibility',
+    watchDemo: 'Check my eligibility',
     details: 'Pay monthly · Cancel anytime · Start immediately',
     seeContentPlan: 'See Your Content Plan',
     startThisWeek: 'Start This Week',
@@ -160,7 +160,7 @@ export const en = {
     specific: {
       howManyPosts: {
         question: 'How many posts do I get exactly?',
-        answer: 'You get exactly 30 LinkedIn posts, 30 newsletters, 30 Reels/Shorts, 30 Instagram posts, 30 Twitter posts, 4 carousels, and 4 MP3 podcasts - per interview. That\'s 132 pieces of content per month if you do one interview per week.',
+        answer: '30 LinkedIn posts, 30 newsletters, 30 Reels/Shorts, 30 Instagram posts, 30 Twitter posts, unlimited carousels, and 4 MP3 podcasts per month. Enough to publish every day on every platform.',
       },
       whatIfDontLike: {
         question: 'What if I don\'t like the content?',
@@ -186,7 +186,7 @@ export const en = {
       },
       {
         concern: 'Is this really better than hiring someone?',
-        answer: 'Yes. Hiring someone costs €12K+/month, takes weeks to onboard, and you still manage them. Empire delivers 132 pieces/month for €1K/month, with zero management. You get the same (or better) results for 92% less.',
+        answer: 'Yes. Hiring someone costs €12K+/month, takes weeks to onboard, and you still manage them. Empire delivers daily content on every platform for €1K/month, with zero management. Same results, 92% less.',
       },
       {
         concern: 'What if the content doesn\'t perform?',
@@ -207,8 +207,8 @@ export const en = {
   },
   videoDialog: {
     readyToJoin: 'Ready to join?',
-    startNow: 'Install Empire Internet',
-    joinQA: 'Install Empire Internet',
+    startNow: 'Check my eligibility',
+    joinQA: 'Check my eligibility',
   },
   stickyBar: {
     spotsLeft: 'spots left',
@@ -222,7 +222,7 @@ export const en = {
     systemTitle: 'Our AI Prompt System',
     systemDescription: 'We spent months reverse-engineering the patterns, hooks, and structures that make top creators go viral. Then we coded it all into custom AI prompts.',
     cta: 'Want content that performs like the best creators?',
-    ctaButton: 'Install Empire Internet',
+    ctaButton: 'Check my eligibility',
     frameworks: [
       { name: "Justin Welsh's Structure", pattern: '"Problem → Story → Solution → CTA"' },
       { name: "Hormozi's Video Cuts", pattern: '"Fast cuts every 3s + pattern interrupt"' },
@@ -305,8 +305,8 @@ export const en = {
     value: 'Value:',
   },
   common: {
-    startNow: 'Install Empire Internet',
-    watchDemo: 'Install Empire Internet',
+    startNow: 'Check my eligibility',
+    watchDemo: 'Check my eligibility',
     ctaReassurance: 'Free audit call, no commitment.',
     /** Tight subline: header, sticky, banner (keeps the CTA compact) */
     ctaReassuranceCompact: 'No commitment.',
@@ -385,7 +385,7 @@ export const en = {
     line1: 'But between client work, your business, and life... the calendar stays empty.',
     line2: 'You\'re not lazy. The system is broken.',
     solution: 'Empire fixes that.',
-    hook: '15 minutes of talking = 30+ posts across all platforms.',
+    hook: '15 minutes of talking = content published every day.',
     subtext: 'No writing. No editing. No scheduling. Just results.',
     readStory: 'Read the full story',
   },
@@ -394,7 +394,7 @@ export const en = {
       badge: '6 Ways to Create',
       title: 'Choose Your Recording Format:',
       titleHighlight: 'Interview, Bulletpoints, Screen Recording, AI Scripts, or Word-for-Word Scripting',
-      subtitle: 'You choose how you want to record. We transform it into 30+ pieces of content across all platforms. No scripts needed. No stress.',
+      subtitle: 'You choose how you want to record. We publish content every day on every platform. No scripts needed. No stress.',
     },
     formats: [
       {
@@ -492,7 +492,7 @@ export const en = {
     cta: {
       title: 'Choose Your Format',
       titleHighlight: 'We Handle Everything Else',
-      subtitle: 'No matter how you create, Empire transforms it into 30+ pieces of content per week.',
+      subtitle: 'No matter how you create, Empire publishes content every day on every platform.',
     },
   },
   faqFormats: {
@@ -536,7 +536,7 @@ export const en = {
     },
     {
       question: 'What makes this different from hiring a content agency?',
-      answer: 'Speed, cost, and quality. Agencies cost €5K-15K/month, take weeks to deliver, and often miss your voice. Empire delivers 132 pieces/month with human QA on everything.',
+      answer: 'Speed, cost, and quality. Agencies cost €5K-15K/month, take weeks to deliver, and often miss your voice. Empire publishes daily content with human QA on everything, starting at €1K/month.',
     },
     {
       question: 'Can I cancel anytime?',
@@ -588,8 +588,8 @@ export const en = {
     bonus2Desc: '€500 value · We analyze your current content',
     bonus3Title: '10 Bonus Posts First Month',
     bonus3Desc: '40 posts instead of 30',
-    ctaButton: 'Install Empire Internet',
-    ctaSchedule: 'Install Empire Internet',
+    ctaButton: 'Check my eligibility',
+    ctaSchedule: 'Check my eligibility',
     ctaSecondary: 'Or start immediately',
     footer: 'Bonuses expire when we hit 100 clients',
   },
@@ -682,7 +682,7 @@ export const en = {
       step2Title: '2. AI + Human',
       step2Desc: 'AI generates. Humans polish. The perfect mix.',
       step3Title: '3. You Grow',
-      step3Desc: '30+ pieces of content published. Everywhere.',
+      step3Desc: 'Your content published. Everywhere.',
       tagline: 'Simple. Scalable. Finally sustainable.',
       subtitle: 'The same system that got me to 1M+ views/month',
       cta: 'That\'s how I built Empire. Want to use it?',
@@ -756,7 +756,7 @@ export const en = {
       title: 'Share the good news! 🚀',
       desc: 'Know other creators who might be interested? Share this link and invite them to join the demo!',
       button: 'Share link',
-      watchDemo: 'Install Empire Internet',
+      watchDemo: 'Check my eligibility',
       shareTitle: 'Demo Empire internet with Kevin Dufraisse',
       shareText: 'Book a one-to-one meeting to discover Empire Internet! 🎉',
       copied: 'Link copied to clipboard!',

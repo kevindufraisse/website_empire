@@ -10,8 +10,8 @@ export const fr: Translations = {
     bonus2Desc: 'Valeur €500 · On analyse votre contenu actuel',
     bonus3Title: '10 Posts Bonus Premier Mois',
     bonus3Desc: '40 posts au lieu de 30',
-    ctaButton: 'Installer Empire Internet',
-    ctaSchedule: 'Installer Empire Internet',
+    ctaButton: 'Voir si je suis éligible',
+    ctaSchedule: 'Voir si je suis éligible',
     ctaSecondary: 'Ou commencer immédiatement',
     footer: 'Les bonus expirent quand on atteint 100 clients',
   },
@@ -104,7 +104,7 @@ export const fr: Translations = {
       step2Title: '2. IA + Humain',
       step2Desc: 'L\'IA génère. Les humains polissent. Le mix parfait.',
       step3Title: '3. Vous Grandissez',
-      step3Desc: '30+ contenus publiés. Partout.',
+      step3Desc: 'Vos contenus publiés. Partout.',
       tagline: 'Simple. Scalable. Enfin durable.',
       subtitle: 'Le même système qui m\'a amené à 1M+ vues/mois',
       cta: 'C\'est comme ça que j\'ai construit Empire. Vous voulez l\'utiliser ?',
@@ -124,9 +124,9 @@ export const fr: Translations = {
   },
   header: {
     spots: '83/100 places',
-    watchDemo: 'Installer Empire Internet',
+    watchDemo: 'Voir si je suis éligible',
     getAccess: 'Obtenir l\'Accès',
-    joinQA: 'Installer Empire Internet',
+    joinQA: 'Voir si je suis éligible',
     formats: 'Formats',
     product: 'Produit',
     howItWorks: 'Comment Ça Marche',
@@ -137,20 +137,20 @@ export const fr: Translations = {
   },
   hero: {
     targetAudience: 'Pour freelances, salariés & entrepreneurs',
-    title: 'De <span class="text-empire">Invisible</span> à <span class="text-empire">Omniprésent</span> dans les prochaines 24h.',
-    subtitle: 'Parlez 15 min/semaine. Un mois de posts, reels, newsletters et vidéos - publiés partout.',
+    title: '30 jours pour passer de <br class="hidden sm:block"/><span class="text-empire">Invisible</span> à <span class="text-empire">Omniprésent</span> <br class="hidden sm:block"/>en 15 min par semaine.',
+    subtitle: '1 interview de 15 min par semaine. On publie pour vous tous les jours - sans écrire une ligne ni monter une vidéo.',
     description: '',
-    cta1: 'Installer Empire Internet',
+    cta1: 'Voir si je suis éligible',
     cta2: 'Voir la Démo (20 min)',
     rating: 'Basé sur 20 avis',
-    creatorsTitle: 'Les systèmes utilisés par les meilleurs créateurs mondiaux',
-    creatorsCost: 'Ils paient 50-100K€/mois pour leurs systèmes de contenu',
-    creatorsYouPay: 'Vous : 1 000€/mois pour le même système',
+    creatorsTitle: 'Ces méthodes coûtent 50-100K€/mois à mettre en place',
+    creatorsCost: 'On les a automatisées pour vous - à partir de 1 000€/mois',
+    creatorsYouPay: '',
     publishedOn: 'Publié sur',
   },
   howItWorksPage: {
     title: 'Comment Fonctionne Empire',
-    subtitle: '1 interview/semaine → 132 contenus/mois → publiés partout',
+    subtitle: '1 interview/semaine → contenu publié partout, tous les jours',
     step1Title: 'Interview',
     step1Desc: 'Appel 15 min, vous parlez',
     step2Title: 'Traitement IA',
@@ -180,7 +180,7 @@ export const fr: Translations = {
     step2: {
       title: 'L\'interview (15 min)',
       summary: 'On vous fait une interview. Vous parlez, on crée partout.',
-      description: 'Nos coachs vous interviewent 15 min par semaine. Zéro préparation, zéro script. Votre expertise devient 30+ contenus publiés sur tous les réseaux.',
+      description: 'Nos coachs vous interviewent 15 min par semaine. Zéro préparation, zéro script. Votre expertise devient du contenu publié quotidiennement sur tous les réseaux.',
       perInterview: 'Par interview, vous obtenez :',
       humanQA: 'Contrôle Qualité Humain',
       humanQASub: 'Chaque pièce vérifiée par un expert',
@@ -191,7 +191,7 @@ export const fr: Translations = {
     },
     step3: {
       title: 'IA + Humain Créent',
-      summary: 'L\'IA génère 30+ pièces, un expert vérifie tout.',
+      summary: 'L\'IA génère le contenu, un expert vérifie tout.',
       description: 'L\'IA génère le contenu, puis un vrai éditeur révise et peaufine chaque pièce. Tout est pré-planifié dans votre calendrier - relisez et publiez en 1 clic.',
       badge1: 'Pré-planifié',
       badge1Sub: 'Horaires optimaux',
@@ -271,8 +271,8 @@ export const fr: Translations = {
     limited: 'LIMITÉ À 100 CLIENTS',
     title: 'Prêt à Rejoindre ?',
     subtitle: 'Choisissez votre voie',
-    startNow: 'Installer Empire Internet',
-    watchDemo: 'Installer Empire Internet',
+    startNow: 'Voir si je suis éligible',
+    watchDemo: 'Voir si je suis éligible',
     details: 'Paiement mensuel · Annulez quand vous voulez · Démarrage immédiat',
     seeContentPlan: 'Voir Votre Plan de Contenu',
     startThisWeek: 'Commencer Cette Semaine',
@@ -283,7 +283,7 @@ export const fr: Translations = {
     specific: {
       howManyPosts: {
         question: 'Combien de posts j\'obtiens exactement ?',
-        answer: 'Exactement 30 posts LinkedIn, 30 newsletters, 30 Reels/Shorts, 30 posts Instagram, 30 posts Twitter, 4 carrousels, et 4 podcasts MP3 - par interview. Soit 132 contenus par mois si vous faites une interview par semaine.',
+        answer: '30 posts LinkedIn, 30 newsletters, 30 Reels/Shorts, 30 posts Instagram, 30 posts Twitter, des carrousels illimités et 4 podcasts MP3 par mois. Suffisant pour publier tous les jours sur toutes les plateformes.',
       },
       whatIfDontLike: {
         question: 'Et si je n\'aime pas le contenu ?',
@@ -309,7 +309,7 @@ export const fr: Translations = {
       },
       {
         concern: 'C\'est vraiment mieux qu\'embaucher ?',
-        answer: 'Oui. Embaucher = €12K+/mois, semaines d\'intégration, et vous devez les gérer. Empire = 132 contenus/mois pour €1K/mois, zéro gestion. Même résultat, 92% moins cher.',
+        answer: 'Oui. Embaucher = €12K+/mois, semaines d\'intégration, et vous devez les gérer. Empire = contenu quotidien sur toutes les plateformes pour €1K/mois, zéro gestion. Même résultat, 92% moins cher.',
       },
       {
         concern: 'Et si ça ne performe pas ?',
@@ -330,8 +330,8 @@ export const fr: Translations = {
   },
   videoDialog: {
     readyToJoin: 'Prêt à rejoindre ?',
-    startNow: 'Installer Empire Internet',
-    joinQA: 'Installer Empire Internet',
+    startNow: 'Voir si je suis éligible',
+    joinQA: 'Voir si je suis éligible',
   },
   stickyBar: {
     spotsLeft: 'places restantes',
@@ -345,7 +345,7 @@ export const fr: Translations = {
     systemTitle: 'Le Système de Prompts IA',
     systemDescription: 'On a passé des mois à reverse-engineer les patterns, accroches et structures qui rendent les meilleurs créateurs viraux. Puis on a tout codé dans des prompts IA personnalisés.',
     cta: 'Vous voulez du contenu qui performe comme les meilleurs ?',
-    ctaButton: 'Installer Empire Internet',
+    ctaButton: 'Voir si je suis éligible',
     frameworks: [
       { name: "Structure de Justin Welsh", pattern: '"Problème → Histoire → Solution → CTA"' },
       { name: "Montages Vidéo d\'Hormozi", pattern: '"Coupe rapide toutes les 3s + rupture de pattern"' },
@@ -428,8 +428,8 @@ export const fr: Translations = {
     value: 'Valeur :',
   },
   common: {
-    startNow: 'Installer Empire Internet',
-    watchDemo: 'Installer Empire Internet',
+    startNow: 'Voir si je suis éligible',
+    watchDemo: 'Voir si je suis éligible',
     ctaReassurance: 'Audit gratuit, sans engagement.',
     /** Sous-ligne très courte : header, sticky, bannière (évite un bouton énorme) */
     ctaReassuranceCompact: 'Sans engagement.',
@@ -508,7 +508,7 @@ export const fr: Translations = {
     line1: 'Mais entre clients, business, et vie... le calendrier reste vide.',
     line2: 'Vous n\'êtes pas paresseux. Le système est cassé.',
     solution: 'Empire corrige ça.',
-    hook: '15 minutes de parole = 132 contenus/mois.',
+    hook: '15 minutes de parole = du contenu publié tous les jours.',
     subtext: 'Pas d\'écriture. Pas de montage. Pas de planification. Juste des résultats.',
     readStory: 'Lire l\'histoire',
   },
@@ -517,7 +517,7 @@ export const fr: Translations = {
       badge: '6 Façons de Créer',
       title: 'Choisissez Votre Format :',
       titleHighlight: 'Interview, Points Clés, Screen Recording, Scripts IA ou Scriptage Mot pour Mot',
-      subtitle: 'Vous choisissez comment enregistrer. On transforme en 132 contenus/mois partout. Pas de scripts. Pas de stress.',
+      subtitle: 'Vous choisissez comment enregistrer. On transforme en contenu publié quotidiennement partout. Pas de scripts. Pas de stress.',
     },
     formats: [
       {
@@ -615,7 +615,7 @@ export const fr: Translations = {
     cta: {
       title: 'Choisissez Votre Format',
       titleHighlight: 'On Gère le Reste',
-      subtitle: 'Peu importe comment vous créez, Empire transforme en 132 contenus/mois.',
+      subtitle: 'Peu importe comment vous créez, Empire publie du contenu tous les jours sur toutes vos plateformes.',
     },
   },
   faqFormats: {
@@ -659,7 +659,7 @@ export const fr: Translations = {
     },
     {
       question: 'Qu\'est-ce qui rend ceci différent d\'une agence de contenu ?',
-      answer: 'Vitesse, coût et qualité. Les agences = €5-15K/mois, semaines à livrer, et ratent votre voix. Empire = 132 contenus/mois, contrôle qualité humain sur tout.',
+      answer: 'Vitesse, coût et qualité. Les agences = €5-15K/mois, semaines à livrer, et ratent votre voix. Empire = contenu publié quotidiennement, contrôle qualité humain sur tout, à partir de €1K/mois.',
     },
     {
       question: 'Puis-je annuler à tout moment ?',
@@ -758,7 +758,7 @@ export const fr: Translations = {
       title: 'Partagez la bonne nouvelle ! 🚀',
       desc: 'Connaissez-vous d\'autres créateurs qui pourraient être intéressés ? Partagez ce lien et invitez-les à rejoindre la démo !',
       button: 'Partager le lien',
-      watchDemo: 'Installer Empire Internet',
+      watchDemo: 'Voir si je suis éligible',
       shareTitle: 'Demo Empire internet avec Kevin Dufraisse',
       shareText: 'Réservez un rendez-vous one-to-one pour découvrir Empire Internet ! 🎉',
       copied: 'Lien copié dans le presse-papier !',

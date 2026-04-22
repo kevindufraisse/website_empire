@@ -133,8 +133,8 @@ export default function HeroSection() {
               <p className="text-sm text-neutral-400 mb-2">
                 {t.hero?.creatorsTitle || 'The systems used by the world\'s top creators'}
               </p>
-              <p className="text-xs text-red-400 font-semibold mb-4">
-                {t.hero?.creatorsCost || 'They pay €50-100K/month for their content systems'}
+              <p className="text-xs text-empire font-semibold mb-4">
+                {t.hero?.creatorsCost || 'We automated them for you - starting at €1,000/month'}
               </p>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 max-w-3xl mx-auto">
                 {/* Grant Cardone */}

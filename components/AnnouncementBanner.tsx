@@ -59,7 +59,7 @@ export default function AnnouncementBanner() {
               {t.common.startNow} →
             </span>
             <span className="text-[7px] sm:text-[8px] font-semibold text-empire/90 leading-tight text-center max-w-[8rem] sm:max-w-[10rem]">
-              {t.common.ctaReassuranceCompact}
+              {lang === 'fr' ? 'Audit gratuit' : 'Free audit'}
             </span>
           </button>
           <button
@@ -67,7 +67,7 @@ export default function AnnouncementBanner() {
             className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 bg-black/80 text-white font-semibold rounded hover:scale-105 transition-all whitespace-nowrap ml-1"
           >
             <Phone size={10} />
-            {lang === 'fr' ? 'Être recontacté' : 'Callback'}
+            {lang === 'fr' ? 'On vous rappelle' : 'We call you'}
           </button>
           
           <button

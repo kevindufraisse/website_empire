@@ -101,7 +101,7 @@ export default function CalStickyBar() {
                 {lang === 'fr' ? 'Prêt à transformer votre contenu ?' : 'Ready to transform your content?'}
               </p>
               <p className="text-neutral-400 text-xs">
-                {lang === 'fr' ? '30+ contenus/semaine • Résultats en 24h' : '30+ contents/week • Results in 24h'}
+                {lang === 'fr' ? 'Publiez tous les jours · À partir de 1 000€/mois' : 'Publish every day · Starting at €1,000/month'}
               </p>
             </div>
           </div>
@@ -110,7 +110,7 @@ export default function CalStickyBar() {
           <div className="sm:hidden flex items-center gap-2">
             <Calendar className="text-empire flex-shrink-0" size={18} />
             <p className="text-white font-medium text-sm">
-              {lang === 'fr' ? '30+ contenus/semaine' : '30+ contents/week'}
+              {lang === 'fr' ? 'Publiez tous les jours' : 'Publish every day'}
             </p>
           </div>
 
@@ -121,7 +121,7 @@ export default function CalStickyBar() {
               className="flex items-center gap-1.5 px-3 py-2.5 sm:px-4 sm:py-3 bg-white/10 border border-white/20 text-white font-medium rounded-lg hover:border-empire/40 hover:text-empire transition-all text-sm whitespace-nowrap"
             >
               <Phone size={14} />
-              <span className="hidden sm:inline">{lang === 'fr' ? 'Être recontacté' : 'Callback'}</span>
+              <span className="hidden sm:inline">{lang === 'fr' ? 'On vous rappelle' : 'We call you'}</span>
             </button>
             <button
               type="button"
@@ -136,7 +136,7 @@ export default function CalStickyBar() {
                 <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform flex-shrink-0" />
               </span>
               <span className="text-[9px] font-medium text-black/75 text-center sm:text-right leading-tight max-w-[9.5rem] sm:max-w-[11rem]">
-                {t.common.ctaReassuranceCompact}
+                {lang === 'fr' ? 'Audit gratuit' : 'Free audit'}
               </span>
             </button>
           </div>

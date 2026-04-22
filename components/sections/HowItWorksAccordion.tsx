@@ -298,11 +298,43 @@ export default function HowItWorksAccordion() {
         <div className="max-w-6xl mx-auto">
         {/* Title */}
         <FadeInBlock>
-            <div className="text-center mb-10 md:mb-16">
-              <h2 className="text-3xl md:text-5xl font-bold mb-3">{t.howItWorks.title}</h2>
-              <p className="text-base md:text-xl text-neutral-400">
-              {t.howItWorks.subtitle}
-            </p>
+            <div className="text-center mb-6 md:mb-10">
+              <div className="inline-block mb-4 px-4 py-2 rounded-full bg-empire/10 border border-empire/30">
+                <p className="text-sm font-bold text-empire">
+                  {lang === 'fr' ? 'COMMENT ÇA MARCHE' : 'HOW IT WORKS'}
+                </p>
+              </div>
+              <h2 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
+                {lang === 'fr'
+                  ? <>On a étudié ce qui rend<br className="hidden sm:block" /><span className="text-empire"> les meilleurs créateurs viraux et riches</span></>
+                  : <>We studied what makes<br className="hidden sm:block" /><span className="text-empire"> top creators viral and rich</span></>}
+              </h2>
+              <p className="text-base md:text-lg text-neutral-400 max-w-2xl mx-auto">
+                {lang === 'fr'
+                  ? 'Puis on a transformé ces méthodes en un système que vous pouvez utiliser en 15 min par semaine.'
+                  : 'Then we turned those methods into a system you can use in 15 min per week.'}
+              </p>
+          </div>
+        </FadeInBlock>
+
+        {/* Creator avatars */}
+        <FadeInBlock delay={0.05}>
+          <div className="flex items-center justify-center gap-3 mb-10 md:mb-14">
+            <span className="text-xs text-neutral-500">{lang === 'fr' ? 'Inspiré par' : 'Inspired by'}</span>
+            <div className="flex -space-x-2">
+              {[
+                { name: 'Grant Cardone', img: '/creators/cardone.webp' },
+                { name: 'Alex Hormozi', img: '/creators/hormozi.jpg' },
+                { name: 'Ali Abdaal', img: '/creators/abdaal.webp' },
+                { name: 'Matt Gray', img: '/creators/gray.jpg' },
+                { name: 'Chris Williamson', img: '/creators/williamson.webp' },
+              ].map((c) => (
+                <div key={c.name} className="w-7 h-7 rounded-full bg-neutral-800 overflow-hidden border-2 border-black" title={c.name}>
+                  <img src={c.img} alt={c.name} className="w-full h-full object-cover" loading="lazy" />
+                </div>
+              ))}
+            </div>
+            <span className="text-xs text-neutral-500">{lang === 'fr' ? '& les meilleurs créateurs' : '& top creators'}</span>
           </div>
         </FadeInBlock>
 
@@ -316,13 +348,13 @@ export default function HowItWorksAccordion() {
                   {(lang === 'fr' ? [
                     'Sujets viraux de votre niche identifiés',
                     'Meilleurs formats de votre secteur analysés',
-                    'Tunnel de conversion installé',
-                    'Séquences de prospection activées',
+                    'Votre ton et style de communication analysés',
+                    'Stratégie de contenu personnalisée',
                   ] : [
                     'Viral topics in your niche identified',
                     'Best formats in your sector analyzed',
-                    'Conversion funnel installed',
-                    'Prospecting sequences activated',
+                    'Your tone and communication style analyzed',
+                    'Personalized content strategy',
                   ]).map((item, i) => (
                     <div key={i} className="flex items-center gap-2 w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10">
                       <span className="text-empire font-bold text-sm flex-shrink-0">✓</span>
@@ -334,13 +366,13 @@ export default function HowItWorksAccordion() {
                   <div className="flex items-center gap-2 mb-1">
                     <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">1</span>
                     <h3 className="text-base font-semibold text-white">
-                      {lang === 'fr' ? 'Analyse & Installation' : 'Research & Setup'}
+                      {lang === 'fr' ? 'Analyse & Stratégie' : 'Research & Strategy'}
                     </h3>
                   </div>
                   <p className="text-neutral-400 text-sm">
                     {lang === 'fr'
-                      ? 'Sujets viraux de votre niche + systèmes de conversion et prospection automatiques.'
-                      : 'Viral topics in your niche + automated conversion and prospecting systems.'}
+                      ? 'On étudie votre niche, vos concurrents et votre ton pour créer une stratégie sur mesure.'
+                      : 'We study your niche, competitors and tone to create a tailored strategy.'}
                   </p>
                 </div>
               </div>
@@ -394,8 +426,8 @@ export default function HowItWorksAccordion() {
                   </div>
                   <p className="text-neutral-400 text-sm">
                     {lang === 'fr'
-                      ? 'On crée 30+ contenus avec les meilleures techniques de viralité.'
-                      : 'We create 30+ pieces using the best virality techniques.'}
+                      ? 'On crée vos contenus du mois avec les meilleures techniques de viralité.'
+                      : 'We create your monthly content using the best virality techniques.'}
                   </p>
                 </div>
                 <div className="pointer-events-none absolute inset-0 transform-gpu transition-all duration-300 group-hover:bg-black/[.03] z-5" />
