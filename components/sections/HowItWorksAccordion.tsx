@@ -306,13 +306,13 @@ export default function HowItWorksAccordion() {
               </div>
               <h2 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
                 {lang === 'fr'
-                  ? <>On a étudié ce qui rend<br className="hidden sm:block" /><span className="text-empire"> les meilleurs créateurs viraux et riches</span></>
-                  : <>We studied what makes<br className="hidden sm:block" /><span className="text-empire"> top creators viral and rich</span></>}
+                  ? <>On a étudié ce qui rend les meilleurs créateurs<br className="hidden sm:block" /><span className="text-empire"> viraux, riches, visibles et écoutés</span></>
+                  : <>We studied what makes top creators<br className="hidden sm:block" /><span className="text-empire"> viral, rich, visible and heard</span></>}
               </h2>
               <p className="text-base md:text-lg text-neutral-400 max-w-2xl mx-auto">
                 {lang === 'fr'
-                  ? 'Puis on a transformé ces méthodes en un système que vous pouvez utiliser en 15 min par semaine.'
-                  : 'Then we turned those methods into a system you can use in 15 min per week.'}
+                  ? 'Résultat : un système clé en main. Vous parlez 15 min, on fait le reste.'
+                  : 'The result: a turnkey system. You talk 15 min, we handle the rest.'}
               </p>
           </div>
         </FadeInBlock>
