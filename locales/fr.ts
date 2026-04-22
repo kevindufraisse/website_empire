@@ -106,7 +106,7 @@ export const fr: Translations = {
       step3Title: '3. Vous Grandissez',
       step3Desc: 'Vos contenus publiés. Partout.',
       tagline: 'Simple. Scalable. Enfin durable.',
-      subtitle: 'Le même système qui m\'a amené à 1M+ vues/mois',
+      subtitle: 'Le même système qui m\'a amené dans le Top 1% des créateurs FR',
       cta: 'C\'est comme ça que j\'ai construit Empire. Vous voulez l\'utiliser ?',
     },
     results: {
@@ -137,14 +137,14 @@ export const fr: Translations = {
   },
   hero: {
     targetAudience: 'Pour freelances, salariés & entrepreneurs',
-    title: '30 jours pour passer de <br class="hidden sm:block"/><span class="text-empire">Invisible</span> à <span class="text-empire">Omniprésent</span> <br class="hidden sm:block"/>en 15 min par semaine.',
+    title: '30 jours pour devenir <br class="hidden sm:block"/>la <span class="text-empire">référence</span> de votre marché, <br class="hidden sm:block"/>en 15 min par semaine.',
     subtitle: '1 interview de 15 min par semaine. On publie pour vous tous les jours - sans écrire une ligne ni monter une vidéo.',
     description: '',
     cta1: 'Voir si je suis éligible',
     cta2: 'Voir la Démo (20 min)',
     rating: 'Basé sur 20 avis',
     creatorsTitle: 'Ces méthodes coûtent 50-100K€/mois à mettre en place',
-    creatorsCost: 'On les a automatisées pour vous - à partir de 1 000€/mois',
+    creatorsCost: 'On les a automatisées pour vous.',
     creatorsYouPay: '',
     publishedOn: 'Publié sur',
   },
@@ -455,7 +455,7 @@ export const fr: Translations = {
     subtitle: 'Résultats réels de créateurs qui utilisent Empire',
   },
   bentoGrid: {
-    voiceContent: 'Voix → Contenu Badass',
+    voiceContent: 'Votre voix → Vos meilleurs contenus',
     voiceContentDesc: 'On transforme votre voix en contenu marketing qui convertit.',
     recording: 'ENREGISTREMENT...',
     contentReady: 'Contenu Prêt',
@@ -479,7 +479,7 @@ export const fr: Translations = {
     minsAgo2: 'm',
   },
   featureDetails: {
-    title: 'Votre Voix → <span class="text-empire">Contenu Badass</span>',
+    title: 'Votre Voix → <span class="text-empire">Vos Meilleurs Contenus</span>',
     subtitle: 'On transforme votre interview de 15 minutes en contenu pour chaque plateforme',
     you15min: 'Vous (15 min)',
     previews: {
@@ -930,7 +930,7 @@ export const fr: Translations = {
   founder: {
     badge: 'Le Créateur',
     title: 'Créé par Quelqu\'un Qui Comprend',
-    subtitle: 'Les clones IA n\'ont pas été créés par des développeurs lambda. Ils ont été conçus par un top créateur de contenu qui a passé des mois à reverse-engineer le contenu viral.',
+    subtitle: 'Empire a été conçu par un créateur qui a généré 3M en ligne - pas par une équipe tech déconnectée du terrain.',
     credential1: 'Lead Generation Mondial',
     credential2: 'Influenceur LinkedIn France',
     credential3: 'Générés en Ligne',

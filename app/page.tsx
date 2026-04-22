@@ -1,7 +1,6 @@
 import HeroSection from '@/components/sections/HeroSection'
 import HowItWorksAccordion from '@/components/sections/HowItWorksAccordion'
 import BentoGridSection from '@/components/sections/BentoGridSection'
-import QuickWinsSection from '@/components/sections/QuickWinsSection'
 import FounderSection from '@/components/sections/FounderSection'
 import TestimonialsSection from '@/components/sections/TestimonialsSection'
 import FAQSection from '@/components/sections/FAQSection'
@@ -14,23 +13,20 @@ export default function Page() {
       {/* Hero with VSL */}
       <HeroSection />
 
-      {/* How It Works - 3 steps */}
+      {/* How It Works */}
       <HowItWorksAccordion />
 
       {/* Testimonials - Senja widget */}
       <TestimonialsSection />
 
-      {/* Quick Wins - Before/After */}
-      <QuickWinsSection />
-
-      {/* Features */}
+      {/* Features - 3 pillars */}
       <WhyNowSection />
 
-      {/* Founder Credibility Section */}
-      <FounderSection />
-
-      {/* FAQ - Essential questions */}
+      {/* FAQ */}
       <FAQSection variant="home" />
+
+      {/* Founder Credibility */}
+      <FounderSection />
 
       {/* Visual explanation - Bento Grid */}
       <BentoGridSection />

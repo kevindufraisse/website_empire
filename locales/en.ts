@@ -14,14 +14,14 @@ export const en = {
   },
   hero: {
     targetAudience: 'For freelancers, employees & entrepreneurs',
-    title: '30 days to go from <br class="hidden sm:block"/><span class="text-empire">Invisible</span> to <span class="text-empire">Omnipresent</span> <br class="hidden sm:block"/>in 15 min per week.',
+    title: '30 days to become <br class="hidden sm:block"/>the <span class="text-empire">reference</span> in your market, <br class="hidden sm:block"/>in 15 min per week.',
     subtitle: '1 interview of 15 min per week. We publish for you every day - without writing a line or editing a video.',
     description: '',
     cta1: 'Check my eligibility',
     cta2: 'Watch Demo (20 min)',
     rating: 'Based on 20 reviews',
     creatorsTitle: 'These methods cost €50-100K/month to set up',
-    creatorsCost: 'We automated them for you - starting at €1,000/month',
+    creatorsCost: 'We automated them for you.',
     creatorsYouPay: '',
     publishedOn: 'Published on',
   },
@@ -332,7 +332,7 @@ export const en = {
     subtitle: 'Real results from creators who joined Empire',
   },
   bentoGrid: {
-    voiceContent: 'Voice → Badass Content',
+    voiceContent: 'Your Voice → Your Best Content',
     voiceContentDesc: 'We transform your voice into marketing content that converts.',
     recording: 'RECORDING...',
     contentReady: 'Content Ready',
@@ -356,7 +356,7 @@ export const en = {
     minsAgo2: 'm ago',
   },
   featureDetails: {
-    title: 'Your Voice → <span class="text-empire">Badass Content</span>',
+    title: 'Your Voice → <span class="text-empire">Your Best Content</span>',
     subtitle: 'We transform your 15-minute interview into content for every platform',
     you15min: 'You (15 min)',
     previews: {
@@ -684,7 +684,7 @@ export const en = {
       step3Title: '3. You Grow',
       step3Desc: 'Your content published. Everywhere.',
       tagline: 'Simple. Scalable. Finally sustainable.',
-      subtitle: 'The same system that got me to 1M+ views/month',
+      subtitle: 'The same system that got me to the Top 1% of creators',
       cta: 'That\'s how I built Empire. Want to use it?',
     },
     results: {
@@ -928,7 +928,7 @@ export const en = {
   founder: {
     badge: 'Meet the Creator',
     title: 'Built by Someone Who Gets It',
-    subtitle: 'The AI clones weren\'t built by random developers. They were crafted by a top content creator who spent months reverse-engineering viral content.',
+    subtitle: 'Empire was built by a creator who generated €3M online - not by a tech team disconnected from the field.',
     credential1: 'Lead Generation Worldwide',
     credential2: 'LinkedIn Influencer France',
     credential3: 'Generated Online',

@@ -141,7 +141,7 @@ export default function FounderSection() {
                 {t.founder?.title || 'Built by Someone Who Gets It'}
               </h2>
               <p className="text-neutral-400 max-w-2xl mx-auto">
-                {t.founder?.subtitle || 'The AI clones weren\'t built by random developers. They were crafted by a top content creator who spent months reverse-engineering viral content.'}
+                {t.founder?.subtitle || 'Empire was built by a creator who generated €3M online - not by a tech team disconnected from the field.'}
               </p>
             </div>
           </FadeInBlock>

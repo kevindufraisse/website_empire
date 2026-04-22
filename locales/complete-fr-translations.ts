@@ -4,7 +4,7 @@ export const frComplete = {
   // BENTO GRID CARDS
   bentoGrid: {
     voiceContent: {
-      name: 'Voix → Contenu Badass',
+      name: 'Votre voix → Vos meilleurs contenus',
       description: 'Nous transformons votre voix en contenu marketing qui convertit.',
     },
     contentReady: {
@@ -23,7 +23,7 @@ export const frComplete = {
 
   // FEATURE DETAILS (9 transformations)
   featureDetails: {
-    title: 'Votre Voix → <span class="text-empire">Contenu Badass</span>',
+    title: 'Votre Voix → <span class="text-empire">Vos Meilleurs Contenus</span>',
     subtitle: 'Nous transformons votre interview de 15 minutes en contenu pour chaque plateforme',
     linkedinPost: {
       title: 'Post LinkedIn',

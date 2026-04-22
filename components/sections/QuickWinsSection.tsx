@@ -185,10 +185,10 @@ export default function QuickWinsSection() {
                   <CheckCircle2 className="text-empire flex-shrink-0 mt-1" size={18} />
                   <div>
                     <p className="font-semibold text-white text-sm">
-                      {lang === 'fr' ? '1M+ views/mois' : '1M+ views/month'}
+                      {lang === 'fr' ? '100K-500K vues/mois' : '100K-500K views/month'}
                     </p>
                     <p className="text-xs text-neutral-500">
-                      {lang === 'fr' ? 'Visibilité maximale' : 'Maximum visibility'}
+                      {lang === 'fr' ? 'Top 1% des créateurs FR de votre niche' : 'Top 1% of creators in your niche'}
                     </p>
                   </div>
                 </div>
