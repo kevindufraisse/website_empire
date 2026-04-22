@@ -17,10 +17,10 @@ export function StarRating({ className }: { className?: string }) {
         ))}
       </div>
       <span className="text-sm font-semibold text-neutral-300">
-        5.0 <span className="text-neutral-500">/5</span>
+        4,9 <span className="text-neutral-500">/5</span>
       </span>
       <span className="text-xs text-neutral-500">
-        · {t.hero.rating}
+        · 53 avis
       </span>
     </div>
   )

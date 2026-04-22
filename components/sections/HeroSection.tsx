@@ -32,7 +32,7 @@ export default function HeroSection() {
   }, [namespace])
   return (
     <>
-      <section className="relative w-full py-28 md:py-40 overflow-hidden bg-gradient-to-b from-black via-transparent to-[#0f0f0f]">
+      <section className="relative w-full pt-20 md:pt-28 pb-28 md:pb-40 overflow-hidden bg-gradient-to-b from-black via-transparent to-[#0f0f0f]">
         <div className="container">
         <RetroGrid />
         <Meteors number={15} />
@@ -93,8 +93,8 @@ export default function HeroSection() {
                 className="w-full sm:w-auto px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)] text-center flex flex-col items-center gap-0.5"
               >
                 <span>{t.hero.cta1}</span>
-                <span className="text-[10px] font-medium text-black/60">
-                  {lang === 'fr' ? 'Gratuit · Sans engagement' : 'Free · No commitment'}
+                <span className="text-[10px] font-medium text-black/50">
+                  {lang === 'fr' ? 'Vérifier votre éligibilité' : 'Check your eligibility'}
                 </span>
               </button>
               <CallbackButton variant="subtle" />
