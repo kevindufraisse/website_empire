@@ -9,7 +9,7 @@ export const metadata = {
 }
 
 const founders = [
-  { name: 'Kevin Dufraisse', img: '/founders/kevin.png' },
+  { name: 'Kevin Dufraisse', img: '/founders/kevin.jpg' },
   { name: 'Marc Dufraisse', img: '/founders/marc.jpg' },
 ]
 

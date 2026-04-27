@@ -410,7 +410,7 @@ export default function HowItWorksAccordion() {
                   <div className="flex-1 flex flex-col items-center justify-center p-6 gap-5">
                     <div className="flex -space-x-4">
                       <img
-                        src="/founders/kevin.png"
+                        src="/founders/kevin.jpg"
                         alt="Kevin Dufraisse"
                         className="w-16 h-16 rounded-full object-cover object-top border-2 border-autopilot ring-2 ring-black"
                         loading="lazy"

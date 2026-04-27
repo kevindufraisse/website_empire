@@ -12,7 +12,7 @@ const founders = [
   {
     name: 'Kevin Dufraisse',
     url: 'https://www.linkedin.com/in/kevin-dufraisse/',
-    img: '/founders/kevin.png',
+    img: '/founders/kevin.jpg',
     stats: [
       '#48 influenceur LinkedIn France',
       '2M de vues / mois',
