@@ -1,6 +1,7 @@
 'use client'
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
+import { COHORT_START_TEXT } from '@/lib/cohort-config'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -16,6 +17,11 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
     </motion.div>
   )
 }
+
+const founders = [
+  { name: 'Kevin Dufraisse', img: '/founders/kevin.png' },
+  { name: 'Marc Dufraisse', img: '/founders/marc.jpg' },
+]
 
 export default function AcademyWhoSection() {
   return (
@@ -49,10 +55,10 @@ export default function AcademyWhoSection() {
               <div className="hidden sm:block w-px h-10 bg-white/10 flex-shrink-0" />
               <div className="flex items-center gap-3">
                 <div className="flex -space-x-2">
-                  <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-academy/40 shadow-[0_0_10px_rgba(252, 165, 165,0.2)]">
+                  <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-academy/40 shadow-[0_0_10px_rgba(252,165,165,0.2)]">
                     <img src="/founders/kevin.png" alt="Kevin Dufraisse" className="w-full h-full object-cover" />
                   </div>
-                  <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-academy/40 shadow-[0_0_10px_rgba(252, 165, 165,0.2)]">
+                  <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-academy/40 shadow-[0_0_10px_rgba(252,165,165,0.2)]">
                     <img src="/founders/marc.jpg" alt="Marc Dufraisse" className="w-full h-full object-cover" />
                   </div>
                 </div>
@@ -74,6 +80,43 @@ export default function AcademyWhoSection() {
               <p className="text-base md:text-lg text-neutral-400">
                 Et pendant que tu apprends, on te crée ton contenu chaque jour. Tu n'as qu'à publier.
               </p>
+            </div>
+          </div>
+        </FadeInBlock>
+
+        {/* CTA enrollment block */}
+        <FadeInBlock delay={0.3}>
+          <div className="mt-10 relative p-8 md:p-10 rounded-2xl bg-gradient-to-br from-academy/[0.08] to-transparent border border-academy/20 overflow-hidden text-center">
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(252,165,165,0.06),transparent)] pointer-events-none" />
+
+            <div className="relative z-10">
+              <p className="text-sm text-academy font-bold tracking-widest uppercase mb-3">Vous rejoignez la promo</p>
+              <p className="text-2xl md:text-3xl font-extrabold text-white mb-6">{COHORT_START_TEXT}</p>
+
+              <div className="flex items-center justify-center gap-4 mb-6">
+                <div className="flex -space-x-3">
+                  {founders.map(f => (
+                    <img
+                      key={f.name}
+                      src={f.img}
+                      alt={f.name}
+                      className="w-11 h-11 rounded-full border-2 border-academy/40 object-cover shadow-[0_0_15px_rgba(252,165,165,0.15)]"
+                    />
+                  ))}
+                </div>
+                <p className="text-sm text-neutral-400 text-left leading-snug">
+                  Kevin &amp; Marc lisent chaque candidature{' '}
+                  <span className="text-white font-semibold">personnellement.</span>
+                </p>
+              </div>
+
+              <a
+                href="/candidature"
+                className="inline-flex items-center gap-2 px-8 py-3.5 bg-academy text-black font-bold text-base rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(252,165,165,0.25)]"
+              >
+                Postuler maintenant
+                <span aria-hidden="true">→</span>
+              </a>
             </div>
           </div>
         </FadeInBlock>

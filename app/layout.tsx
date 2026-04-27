@@ -3,6 +3,7 @@ import { ReactNode } from 'react'
 import { Inter } from 'next/font/google'
 import { LanguageProvider } from '@/contexts/LanguageContext'
 import { AutopilotProvider } from '@/contexts/AutopilotContext'
+import { GiftCountdownProvider } from '@/components/GiftCountdownBar'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import ClientWrappers from '@/components/ClientWrappers'
@@ -46,6 +47,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         {/* End Google Tag Manager (noscript) */}
         <LanguageProvider>
           <AutopilotProvider>
+            <GiftCountdownProvider>
             <CalCtaRedirect />
             <Header />
             <ClientWrappers />
@@ -54,6 +56,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               {children}
             </div>
             <Footer />
+            </GiftCountdownProvider>
           </AutopilotProvider>
         </LanguageProvider>
       </body>

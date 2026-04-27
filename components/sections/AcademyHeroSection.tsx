@@ -79,16 +79,16 @@ export default function AcademyHeroSection() {
               transition={{ duration: 0.4 }}
               className="mb-5 flex justify-center"
             >
-              <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border bg-academy/10 border-academy/40 shadow-[0_0_20px_rgba(252, 165, 165,0.2)]">
-                <span className="relative flex h-2 w-2">
+              <div className="inline-flex items-center gap-2 px-3 md:px-4 py-1.5 rounded-full border bg-academy/10 border-academy/40 shadow-[0_0_20px_rgba(252,165,165,0.2)]">
+                <span className="relative flex h-2 w-2 flex-shrink-0">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60 bg-academy" />
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-academy" />
                 </span>
-                <span className="text-[11px] md:text-xs font-black tracking-[0.18em] uppercase text-academy">
+                <span className="text-[11px] md:text-xs font-black tracking-[0.18em] uppercase text-academy flex-shrink-0">
                   Academy
                 </span>
-                <span className="text-[11px] md:text-xs text-neutral-400 font-medium">
-                  Apprends la viralité · 21 jours · Contenu produit pour toi
+                <span className="hidden sm:inline text-[11px] md:text-xs text-neutral-400 font-medium">
+                  21 jours · Contenu produit pour toi
                 </span>
               </div>
             </motion.div>

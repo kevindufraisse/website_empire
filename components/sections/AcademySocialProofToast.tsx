@@ -55,7 +55,7 @@ export default function AcademySocialProofToast() {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.35, ease: 'easeOut' }}
-          className="fixed bottom-20 left-4 z-40 max-w-[240px]"
+          className="fixed bottom-4 left-4 z-40 max-w-[240px]"
         >
           <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-neutral-900 border border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.5)]">
             {/* Avatar initial */}

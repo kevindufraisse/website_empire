@@ -2,15 +2,14 @@
 
 import { ExitIntentPopup } from '@/components/ExitIntentPopup'
 import { GlobalLumaCalendar } from '@/components/GlobalLumaCalendar'
+import GiftCountdownModal from '@/components/GiftCountdownBar'
 
 export default function ClientWrappers() {
   return (
     <>
-      {/* Exit Intent Popup */}
       <ExitIntentPopup />
-
-      {/* Global Luma Calendar */}
       <GlobalLumaCalendar />
+      <GiftCountdownModal />
     </>
   )
 }

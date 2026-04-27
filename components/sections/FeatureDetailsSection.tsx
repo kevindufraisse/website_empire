@@ -1,13 +1,13 @@
 'use client'
 import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
-import { useRef, forwardRef } from 'react'
+import { useRef, forwardRef, useState, useEffect } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { AnimatedBeam } from '@/components/magicui/animated-beam'
 import { SparklesText } from '@/components/magicui/sparkles-text'
 import { LinkedInPost, InstagramReel, InstagramCarousel, YouTubeShort, TwitterThread } from '@/components/ui/post-preview'
 import Marquee from '@/components/magicui/marquee'
-import { FileText, Bell, Mic as MicIcon, Calendar, Linkedin, Mail, Video, Instagram, Image, Mic } from 'lucide-react'
+import { FileText, Bell, Mic as MicIcon, Calendar, Linkedin, Mail, Video, Instagram, Image, Mic, Lock, Unlock } from 'lucide-react'
 import { SocialIcons } from '@/components/ui/social-icons'
 import { cn } from '@/lib/utils'
 
@@ -95,8 +95,32 @@ const getTransformations = (t: any) => [
   },
 ]
 
+const UNLOCK_DELAY = 5 * 60
+
+function PostUnlockCountdown({ unlocked, secondsLeft }: { unlocked: boolean; secondsLeft: number }) {
+  if (unlocked) return null
+  const min = Math.floor(secondsLeft / 60)
+  const sec = secondsLeft % 60
+
+  return (
+    <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/60 backdrop-blur-sm rounded-xl">
+      <div className="flex items-center gap-2 mb-2">
+        <Lock size={16} className="text-empire" />
+        <span className="text-xs font-bold text-empire uppercase tracking-widest">Contenu verrouillé</span>
+      </div>
+      <div className="flex items-baseline gap-1 tabular-nums">
+        <span className="text-3xl font-black text-white">{min}</span>
+        <span className="text-sm text-neutral-400">min</span>
+        <span className="text-3xl font-black text-white ml-1">{String(sec).padStart(2, '0')}</span>
+        <span className="text-sm text-neutral-400">sec</span>
+      </div>
+      <p className="text-[11px] text-neutral-400 mt-2">Restez sur la page pour débloquer</p>
+    </div>
+  )
+}
+
 export default function FeatureDetailsSection() {
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()
   const transformations = getTransformations(t)
   const containerRef = useRef<HTMLElement>(null)
   const div1Ref = useRef<HTMLElement>(null)
@@ -107,6 +131,24 @@ export default function FeatureDetailsSection() {
   const div6Ref = useRef<HTMLElement>(null)
   const div7Ref = useRef<HTMLElement>(null)
   const div8Ref = useRef<HTMLElement>(null)
+
+  const [secondsLeft, setSecondsLeft] = useState(UNLOCK_DELAY)
+  const [unlocked, setUnlocked] = useState(false)
+
+  useEffect(() => {
+    if (unlocked) return
+    const id = setInterval(() => {
+      setSecondsLeft(prev => {
+        if (prev <= 1) {
+          clearInterval(id)
+          setUnlocked(true)
+          return 0
+        }
+        return prev - 1
+      })
+    }, 1000)
+    return () => clearInterval(id)
+  }, [unlocked])
 
   return (
     <section id="voice-transformation" className="relative w-full py-20 md:py-32 bg-black">
@@ -178,37 +220,48 @@ export default function FeatureDetailsSection() {
             </div>
 
             {/* Scrolling Post Previews - Hidden on mobile */}
-            <div className="hidden md:flex h-[400px] md:h-[500px] flex-col justify-center gap-4 overflow-hidden">
-              {/* First row: Text posts (LinkedIn, Twitter) - less blur, appear first */}
+            <div className="relative hidden md:flex h-[400px] md:h-[500px] flex-col justify-center gap-4 overflow-hidden">
+              <PostUnlockCountdown unlocked={unlocked} secondsLeft={secondsLeft} />
+
               <div className="[mask-image:linear-gradient(to_left,transparent_0%,#000_5%,#000_95%,transparent_100%)]">
-                <Marquee reverse pauseOnHover className="[--duration:25s]">
+                <Marquee reverse pauseOnHover={unlocked} className="[--duration:25s]">
                   <div className="flex gap-4">
-                    <div className="blur-[1px] hover:blur-none transition-all duration-300 scale-90">
+                    <div className={`transition-all duration-700 scale-90 ${unlocked ? 'blur-none' : 'blur-[6px]'}`}>
                       <LinkedInPost />
                     </div>
-                    <div className="blur-[1px] hover:blur-none transition-all duration-300 scale-90">
+                    <div className={`transition-all duration-700 scale-90 ${unlocked ? 'blur-none' : 'blur-[6px]'}`}>
                       <TwitterThread />
                     </div>
                   </div>
                 </Marquee>
               </div>
               
-              {/* Second row: Video content (Reels, Shorts) - more blur to show they're generated after */}
               <div className="[mask-image:linear-gradient(to_left,transparent_0%,#000_5%,#000_95%,transparent_100%)]">
-                <Marquee reverse pauseOnHover className="[--duration:20s]">
+                <Marquee reverse pauseOnHover={unlocked} className="[--duration:20s]">
                   <div className="flex gap-4">
-                    <div className="blur-[2.5px] hover:blur-none transition-all duration-300 scale-90">
+                    <div className={`transition-all duration-700 scale-90 ${unlocked ? 'blur-none' : 'blur-[8px]'}`}>
                       <InstagramReel />
                     </div>
-                    <div className="blur-[2.5px] hover:blur-none transition-all duration-300 scale-90">
+                    <div className={`transition-all duration-700 scale-90 ${unlocked ? 'blur-none' : 'blur-[8px]'}`}>
                       <InstagramCarousel />
                     </div>
-                    <div className="blur-[2.5px] hover:blur-none transition-all duration-300 scale-90">
+                    <div className={`transition-all duration-700 scale-90 ${unlocked ? 'blur-none' : 'blur-[8px]'}`}>
                       <YouTubeShort />
                     </div>
                   </div>
                 </Marquee>
               </div>
+
+              {unlocked && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="absolute top-3 right-3 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-empire/20 border border-empire/40"
+                >
+                  <Unlock size={12} className="text-empire" />
+                  <span className="text-[11px] font-bold text-empire">Débloqué</span>
+                </motion.div>
+              )}
             </div>
           </div>
         </FadeInBlock>

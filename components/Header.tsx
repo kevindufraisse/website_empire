@@ -10,6 +10,7 @@ import { Phone } from 'lucide-react'
 import CallbackFormModal from '@/components/CallbackFormModal'
 import { useCalLink } from '@/hooks/useCalLink'
 import TierNav from '@/components/TierNav'
+import { GiftHeaderBadge } from '@/components/GiftCountdownBar'
 
 export default function Header() {
   const { t, lang } = useLanguage()
@@ -79,10 +80,16 @@ export default function Header() {
             </span>
           </a>
 
-          {/* Center - TierNav on desktop */}
+          {/* Center - Gift badge + TierNav on desktop */}
           {showTierNav && (
-            <div className="hidden md:flex flex-1 justify-center px-4">
+            <div className="hidden md:flex flex-1 justify-center items-center gap-2.5 px-4">
+              <GiftHeaderBadge />
               <TierNav />
+            </div>
+          )}
+          {!showTierNav && (
+            <div className="hidden md:flex flex-1 justify-center items-center px-4">
+              <GiftHeaderBadge />
             </div>
           )}
 

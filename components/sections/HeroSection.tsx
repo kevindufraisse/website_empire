@@ -8,6 +8,7 @@ import { Meteors } from '@/components/magicui/meteors'
 import { StarRating } from '@/components/ui/star-rating'
 import { getCalApi } from "@calcom/embed-react"
 import { useCalLink } from '@/hooks/useCalLink'
+import ClientResultsTicker from '@/components/ClientResultsTicker'
 
 export default function HeroSection() {
   const { t, lang } = useLanguage()
@@ -55,20 +56,20 @@ export default function HeroSection() {
               className="mb-5 flex justify-center"
             >
               <div
-                className={`inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border ${
+                className={`inline-flex items-center gap-2 px-3 md:px-4 py-1.5 rounded-full border ${
                   autopilot
                     ? 'bg-autopilot/10 border-autopilot/40 shadow-[0_0_20px_rgba(212,165,116,0.2)]'
                     : 'bg-empire/10 border-empire/40 shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.18)]'
                 }`}
               >
-                <span className="relative flex h-2 w-2">
+                <span className="relative flex h-2 w-2 flex-shrink-0">
                   <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-60 ${autopilot ? 'bg-autopilot' : 'bg-empire'}`} />
                   <span className={`relative inline-flex rounded-full h-2 w-2 ${autopilot ? 'bg-autopilot' : 'bg-empire'}`} />
                 </span>
-                <span className={`text-[11px] md:text-xs font-black tracking-[0.18em] uppercase ${autopilot ? 'text-autopilot' : 'text-empire'}`}>
+                <span className={`text-[11px] md:text-xs font-black tracking-[0.18em] uppercase flex-shrink-0 ${autopilot ? 'text-autopilot' : 'text-empire'}`}>
                   {autopilot ? 'Autopilot' : 'Copilot'}
                 </span>
-                <span className="text-[11px] md:text-xs text-neutral-400 font-medium">
+                <span className="hidden sm:inline text-[11px] md:text-xs text-neutral-400 font-medium">
                   {autopilot
                     ? (lang === 'fr' ? 'Expert dédié · 0 contact' : 'Dedicated expert · Zero contact')
                     : (lang === 'fr' ? 'Avec coach · 15 min/sem' : 'With coach · 15 min/wk')}
@@ -86,9 +87,10 @@ export default function HeroSection() {
           >
             <div className="flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
               <img
-                src="/founders/kevin.png"
+                src="https://yt3.googleusercontent.com/MyCzqYDBJdaDVbAep281y04MTNNyR5NoAt6dbxssVmK-n-5noMshHppcxeg2yDilh3CLhVPN=s160-c-k-c0x00ffffff-no-rj"
                 alt="Kevin Dufraisse"
-                className="w-7 h-7 rounded-full object-cover object-top"
+                className="w-7 h-7 rounded-full object-cover"
+                loading="lazy"
               />
               <span className="text-xs text-neutral-300">
                 {lang === 'fr'
@@ -252,6 +254,18 @@ export default function HeroSection() {
               </div>
             </div>
           </motion.div>
+
+          {/* Client results ticker - Autopilot only */}
+          {autopilot && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7, duration: 0.6 }}
+              className="mt-8 max-w-md mx-auto"
+            >
+              <ClientResultsTicker />
+            </motion.div>
+          )}
 
           {/* Video Loom - FR only, hidden in Autopilot */}
           {lang === 'fr' && !autopilot && (
