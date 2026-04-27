@@ -117,7 +117,8 @@ export function GiftCountdownProvider({ children }: { children: React.ReactNode 
     pathname === '/candidature' ||
     pathname === '/decouverte' ||
     pathname === '/join-us' ||
-    pathname === '/thank-you'
+    pathname === '/thank-you' ||
+    pathname === '/vsl'
 
   useEffect(() => {
     if (isExcludedPage) return
