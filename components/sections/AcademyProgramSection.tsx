@@ -127,10 +127,8 @@ export default function AcademyProgramSection() {
           {/* Weeks - timeline layout */}
           <FadeInBlock delay={0.1}>
             <p className="text-center text-xs font-bold text-neutral-400 tracking-widest uppercase mb-6">Le programme semaine par semaine</p>
-            <div className="relative">
-              <div className="hidden md:block absolute top-9 left-[calc(16.66%-1px)] right-[calc(16.66%-1px)] h-px bg-gradient-to-r from-academy/20 via-academy/50 to-academy z-0" />
-
-              <div className="relative z-10 grid md:grid-cols-3 gap-5">
+            <div>
+              <div className="grid md:grid-cols-3 gap-5">
                 {weeks.map((week, i) => (
                   <motion.div
                     key={i}
