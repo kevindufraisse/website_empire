@@ -171,11 +171,11 @@ export function GiftHeaderBadge() {
 
   return (
     <button
-      onClick={() => isReady && setShowModal(true)}
-      className={`relative flex items-center gap-1.5 px-2.5 py-1.5 rounded-full border text-xs font-bold transition-all whitespace-nowrap ${
+      onClick={() => setShowModal(true)}
+      className={`relative flex items-center gap-1.5 px-2.5 py-1.5 rounded-full border text-xs font-bold transition-all whitespace-nowrap cursor-pointer hover:scale-105 ${
         isReady
-          ? 'bg-empire/15 border-empire/40 text-empire cursor-pointer hover:scale-105 hover:shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]'
-          : 'bg-white/5 border-white/10 text-neutral-400 cursor-default'
+          ? 'bg-empire/15 border-empire/40 text-empire hover:shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]'
+          : 'bg-white/5 border-white/10 text-neutral-400 hover:border-white/20'
       }`}
     >
       <Gift size={14} className={isReady ? 'text-empire animate-bounce' : 'text-neutral-500'} />
@@ -217,9 +217,12 @@ export function GiftHeaderBadge() {
 /* ── Modal (rendered once globally via ClientWrappers) ── */
 
 export default function GiftCountdownModal() {
-  const { showModal, setShowModal, dismissed } = useGiftState()
+  const { showModal, setShowModal, dismissed, countdown, isReady } = useGiftState()
 
   if (dismissed && !showModal) return null
+
+  const mins = Math.floor(countdown / 60)
+  const secs = String(countdown % 60).padStart(2, '0')
 
   return (
     <AnimatePresence>
@@ -236,93 +239,141 @@ export default function GiftCountdownModal() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="relative w-full max-w-4xl my-8"
+            className={`relative w-full ${isReady ? 'max-w-4xl' : 'max-w-lg'} my-8`}
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Header */}
-            <div className="text-center mb-8">
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ delay: 0.2, type: 'spring', stiffness: 300 }}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-empire/20 border border-empire/30 mb-4"
-              >
-                <Sparkles className="text-empire" size={16} />
-                <span className="text-sm font-bold text-empire">100% GRATUIT</span>
-                <Sparkles className="text-empire" size={16} />
-              </motion.div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-2">
-                Vos {GIFT_COUNT} ressources offertes
-              </h2>
-              <p className="text-neutral-400 text-sm sm:text-base max-w-lg mx-auto">
-                Des outils utilisés par les plus gros créateurs. Récupérez-les avant de partir.
-              </p>
-            </div>
+            {!isReady ? (
+              <>
+                <div className="text-center py-8">
+                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-empire/10 border border-empire/20 mb-6">
+                    <Gift className="text-empire" size={28} />
+                  </div>
 
-            {/* Gift cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {gifts.map((gift, i) => {
-                const Icon = gift.icon
-                return (
-                  <motion.a
-                    key={gift.id}
-                    href={gift.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 + i * 0.08 }}
-                    className={`group relative flex flex-col p-5 rounded-2xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] border ${gift.borderColor} hover:border-white/20 transition-all hover:scale-[1.02] hover:shadow-xl`}
+                  <h2 className="text-2xl sm:text-3xl font-black text-white mb-3">
+                    Du contenu se débloque
+                  </h2>
+                  <p className="text-neutral-400 text-sm sm:text-base max-w-md mx-auto mb-8">
+                    Restez sur la page pour accéder à des ressources exclusives.
+                  </p>
+
+                  <div className="space-y-4 max-w-sm mx-auto mb-8">
+                    <div className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10">
+                      <div className="flex items-center gap-2 shrink-0">
+                        <Gift size={16} className="text-empire" />
+                      </div>
+                      <div className="text-left flex-1">
+                        <p className="text-sm font-semibold text-white">{GIFT_COUNT} ressources gratuites</p>
+                        <p className="text-xs text-neutral-400">Outils, templates, méthodes</p>
+                      </div>
+                      <span className="font-mono tabular-nums text-sm font-bold text-empire">{mins}:{secs}</span>
+                    </div>
+
+                    <div className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10">
+                      <div className="flex items-center gap-2 shrink-0">
+                        <Linkedin size={16} className="text-blue-400" />
+                      </div>
+                      <div className="text-left flex-1">
+                        <p className="text-sm font-semibold text-white">Posts LinkedIn & contenus</p>
+                        <p className="text-xs text-neutral-400">Exemples réels de posts viraux</p>
+                      </div>
+                      <span className="font-mono tabular-nums text-sm font-bold text-blue-400">5:00</span>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => setShowModal(false)}
+                    className="px-8 py-3 rounded-xl bg-empire text-black font-bold text-sm hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]"
                   >
-                    {gift.free && (
-                      <div className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-empire/20 border border-empire/30">
-                        <span className="text-[10px] font-bold text-empire">GRATUIT</span>
-                      </div>
-                    )}
+                    Continuer à naviguer
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="text-center mb-8">
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.2, type: 'spring', stiffness: 300 }}
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-empire/20 border border-empire/30 mb-4"
+                  >
+                    <Sparkles className="text-empire" size={16} />
+                    <span className="text-sm font-bold text-empire">100% GRATUIT</span>
+                    <Sparkles className="text-empire" size={16} />
+                  </motion.div>
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-2">
+                    Vos {GIFT_COUNT} ressources offertes
+                  </h2>
+                  <p className="text-neutral-400 text-sm sm:text-base max-w-lg mx-auto">
+                    Des outils utilisés par les plus gros créateurs. Récupérez-les avant de partir.
+                  </p>
+                </div>
 
-                    <div className={`w-11 h-11 rounded-xl ${gift.bgColor} flex items-center justify-center mb-4`}>
-                      <Icon className={gift.textColor} size={22} />
-                    </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {gifts.map((gift, i) => {
+                    const Icon = gift.icon
+                    return (
+                      <motion.a
+                        key={gift.id}
+                        href={gift.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.1 + i * 0.08 }}
+                        className={`group relative flex flex-col p-5 rounded-2xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] border ${gift.borderColor} hover:border-white/20 transition-all hover:scale-[1.02] hover:shadow-xl`}
+                      >
+                        {gift.free && (
+                          <div className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-empire/20 border border-empire/30">
+                            <span className="text-[10px] font-bold text-empire">GRATUIT</span>
+                          </div>
+                        )}
 
-                    <h3 className="text-base font-bold text-white leading-tight mb-0.5">
-                      {gift.title}
-                    </h3>
-                    <p className={`text-xs font-semibold ${gift.textColor} mb-2`}>
-                      {gift.subtitle}
-                    </p>
+                        <div className={`w-11 h-11 rounded-xl ${gift.bgColor} flex items-center justify-center mb-4`}>
+                          <Icon className={gift.textColor} size={22} />
+                        </div>
 
-                    <p className="text-xs text-neutral-400 leading-relaxed mb-3 flex-1">
-                      {gift.description}
-                    </p>
+                        <h3 className="text-base font-bold text-white leading-tight mb-0.5">
+                          {gift.title}
+                        </h3>
+                        <p className={`text-xs font-semibold ${gift.textColor} mb-2`}>
+                          {gift.subtitle}
+                        </p>
 
-                    {gift.badge && (
-                      <div className="mb-3">
-                        <span className={`inline-block text-[10px] font-semibold ${gift.textColor} px-2 py-1 rounded-full ${gift.bgColor} border ${gift.borderColor}`}>
-                          {gift.badge}
-                        </span>
-                      </div>
-                    )}
+                        <p className="text-xs text-neutral-400 leading-relaxed mb-3 flex-1">
+                          {gift.description}
+                        </p>
 
-                    <div className={`flex items-center gap-1.5 text-xs font-bold ${gift.textColor} group-hover:underline`}>
-                      <span>Récupérer</span>
-                      <ExternalLink size={12} />
-                    </div>
-                  </motion.a>
-                )
-              })}
-            </div>
+                        {gift.badge && (
+                          <div className="mb-3">
+                            <span className={`inline-block text-[10px] font-semibold ${gift.textColor} px-2 py-1 rounded-full ${gift.bgColor} border ${gift.borderColor}`}>
+                              {gift.badge}
+                            </span>
+                          </div>
+                        )}
 
-            <div className="text-center mt-8 space-y-2">
-              <button
-                onClick={() => setShowModal(false)}
-                className="px-6 py-2.5 rounded-xl bg-white/10 border border-white/10 text-sm text-neutral-300 font-medium hover:bg-white/15 transition-all"
-              >
-                Continuer à naviguer
-              </button>
-              <p className="text-[11px] text-neutral-500">
-                Vous pourrez revenir à vos ressources depuis le header
-              </p>
-            </div>
+                        <div className={`flex items-center gap-1.5 text-xs font-bold ${gift.textColor} group-hover:underline`}>
+                          <span>Récupérer</span>
+                          <ExternalLink size={12} />
+                        </div>
+                      </motion.a>
+                    )
+                  })}
+                </div>
+
+                <div className="text-center mt-8 space-y-2">
+                  <button
+                    onClick={() => setShowModal(false)}
+                    className="px-6 py-2.5 rounded-xl bg-white/10 border border-white/10 text-sm text-neutral-300 font-medium hover:bg-white/15 transition-all"
+                  >
+                    Continuer à naviguer
+                  </button>
+                  <p className="text-[11px] text-neutral-500">
+                    Vous pourrez revenir à vos ressources depuis le header
+                  </p>
+                </div>
+              </>
+            )}
 
             <button
               onClick={() => setShowModal(false)}
