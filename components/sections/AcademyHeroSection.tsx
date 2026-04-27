@@ -5,6 +5,7 @@ import { Meteors } from '@/components/magicui/meteors'
 import { SparklesText } from '@/components/magicui/sparkles-text'
 import { useApplicationCount } from '@/hooks/useApplicationCount'
 import { COHORT_RANGE_SHORT } from '@/lib/cohort-config'
+import MediaCredibilityStrip from '@/components/MediaCredibilityStrip'
 
 const MAX_SELECTED = 20
 
@@ -247,6 +248,10 @@ export default function AcademyHeroSection() {
             </a>
           ))}
         </motion.div>
+
+        <div className="mt-10 md:mt-14">
+          <MediaCredibilityStrip />
+        </div>
 
       </div>
     </section>

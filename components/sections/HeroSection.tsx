@@ -8,6 +8,7 @@ import { Meteors } from '@/components/magicui/meteors'
 import { StarRating } from '@/components/ui/star-rating'
 import { getCalApi } from "@calcom/embed-react"
 import { useCalLink } from '@/hooks/useCalLink'
+import MediaCredibilityStrip from '@/components/MediaCredibilityStrip'
 
 export default function HeroSection() {
   const { t, lang } = useLanguage()
@@ -278,6 +279,9 @@ export default function HeroSection() {
               </div>
             </motion.div>
           )}
+        </div>
+        <div className="mt-12 md:mt-16">
+          <MediaCredibilityStrip />
         </div>
         </div>
       </section>
