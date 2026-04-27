@@ -85,7 +85,7 @@ export default function AcademyProgramSection() {
   return (
     <section className="relative w-full py-20 md:py-28 bg-gradient-to-b from-black to-[#0f0f0f] overflow-hidden">
       <DotPattern className="opacity-30" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_40%_at_50%_60%,rgba(218,252,104,0.05),transparent)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_40%_at_50%_60%,rgba(252, 165, 165,0.05),transparent)]" />
 
       <div className="container relative z-10">
         <div className="max-w-5xl mx-auto">
@@ -96,7 +96,7 @@ export default function AcademyProgramSection() {
               <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">Comment ça marche</p>
               <h2 className="text-3xl md:text-5xl font-bold leading-tight">
                 On trouve les sujets. Tu parles.{' '}
-                <span className="text-empire">On écrit tout.</span>
+                <span className="text-academy">On écrit tout.</span>
               </h2>
             </div>
           </FadeInBlock>
@@ -113,12 +113,12 @@ export default function AcademyProgramSection() {
                   viewport={{ once: true }}
                   className="flex flex-col items-center text-center p-5 rounded-2xl bg-gradient-to-br from-white/8 to-white/[0.02] border border-white/10"
                 >
-                  <div className="w-11 h-11 rounded-xl bg-empire/15 border border-empire/30 flex items-center justify-center mb-3">
-                    <step.icon className="text-empire" size={20} />
+                  <div className="w-11 h-11 rounded-xl bg-academy/15 border border-academy/30 flex items-center justify-center mb-3">
+                    <step.icon className="text-academy" size={20} />
                   </div>
-                  <p className="text-[10px] font-bold text-empire/60 tracking-widest uppercase mb-1">0{i + 1}</p>
+                  <p className="text-[10px] font-bold text-academy/60 tracking-widest uppercase mb-1">0{i + 1}</p>
                   <p className="text-sm font-bold text-white mb-1">{step.label}</p>
-                  <p className="text-xs text-neutral-500 leading-relaxed">{step.desc}</p>
+                  <p className="text-xs text-neutral-400 leading-relaxed">{step.desc}</p>
                 </motion.div>
               ))}
             </div>
@@ -126,9 +126,9 @@ export default function AcademyProgramSection() {
 
           {/* Weeks - timeline layout */}
           <FadeInBlock delay={0.1}>
-            <p className="text-center text-xs font-bold text-neutral-500 tracking-widest uppercase mb-6">Le programme semaine par semaine</p>
+            <p className="text-center text-xs font-bold text-neutral-400 tracking-widest uppercase mb-6">Le programme semaine par semaine</p>
             <div className="relative">
-              <div className="hidden md:block absolute top-9 left-[calc(16.66%-1px)] right-[calc(16.66%-1px)] h-px bg-gradient-to-r from-empire/20 via-empire/50 to-empire" />
+              <div className="hidden md:block absolute top-9 left-[calc(16.66%-1px)] right-[calc(16.66%-1px)] h-px bg-gradient-to-r from-academy/20 via-academy/50 to-academy" />
 
               <div className="grid md:grid-cols-3 gap-5">
                 {weeks.map((week, i) => (
@@ -140,7 +140,7 @@ export default function AcademyProgramSection() {
                     viewport={{ once: true }}
                     className={`relative p-6 rounded-2xl border overflow-hidden transition-all ${
                       week.highlight
-                        ? 'bg-gradient-to-br from-empire/15 to-empire/5 border-empire/60 shadow-[0_0_40px_rgba(218,252,104,0.12)]'
+                        ? 'bg-gradient-to-br from-academy/15 to-academy/5 border-academy/60 shadow-[0_0_40px_rgba(252, 165, 165,0.12)]'
                         : 'bg-gradient-to-br from-white/8 to-white/[0.02] border-white/10'
                     }`}
                   >
@@ -148,14 +148,14 @@ export default function AcademyProgramSection() {
 
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center font-black text-sm mb-5 border-2 relative z-10 ${
                       week.highlight
-                        ? 'bg-empire text-black border-empire shadow-[0_0_16px_rgba(218,252,104,0.5)]'
-                        : 'bg-white/5 text-empire border-empire/30'
+                        ? 'bg-academy text-black border-academy shadow-[0_0_16px_rgba(252, 165, 165,0.5)]'
+                        : 'bg-white/5 text-academy border-academy/30'
                     }`}>
                       {week.num}
                     </div>
 
-                    <p className="text-[10px] font-bold tracking-widest uppercase text-empire/70 mb-2">{week.tag}</p>
-                    <h3 className={`text-lg font-bold mb-2 ${week.highlight ? 'text-empire' : 'text-white'}`}>
+                    <p className="text-[10px] font-bold tracking-widest uppercase text-academy/70 mb-2">{week.tag}</p>
+                    <h3 className={`text-lg font-bold mb-2 ${week.highlight ? 'text-academy' : 'text-white'}`}>
                       {week.title}
                     </h3>
                     <p className="text-sm text-neutral-400 leading-relaxed mb-4">{week.desc}</p>
@@ -164,7 +164,7 @@ export default function AcademyProgramSection() {
                         {platforms.map((p) => (
                           <div
                             key={p.name}
-                            className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-white/5 border border-white/10 hover:border-empire/30 hover:bg-empire/5 transition-all"
+                            className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-white/5 border border-white/10 hover:border-academy/30 hover:bg-academy/5 transition-all"
                           >
                             <span className="text-neutral-400">
                               <svg viewBox={p.viewBox || '0 0 24 24'} fill="currentColor" className="w-3.5 h-3.5"><path d={p.path} /></svg>
@@ -190,14 +190,14 @@ export default function AcademyProgramSection() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.08, duration: 0.4 }}
                   viewport={{ once: true }}
-                  className="group flex gap-4 p-5 rounded-xl bg-white/[0.04] border border-white/10 hover:border-empire/30 hover:bg-empire/5 transition-all"
+                  className="group flex gap-4 p-5 rounded-xl bg-white/[0.08] border border-white/15 hover:border-academy/30 hover:bg-academy/5 transition-all"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-empire/10 border border-empire/20 flex items-center justify-center flex-shrink-0 group-hover:bg-empire/20 group-hover:border-empire/40 transition-all">
-                    <tool.icon className="text-empire" size={17} />
+                  <div className="w-10 h-10 rounded-xl bg-academy/10 border border-academy/20 flex items-center justify-center flex-shrink-0 group-hover:bg-academy/20 group-hover:border-academy/40 transition-all">
+                    <tool.icon className="text-academy" size={17} />
                   </div>
                   <div>
-                    <p className="text-white font-semibold text-sm mb-1 group-hover:text-empire transition-colors">{tool.label}</p>
-                    <p className="text-neutral-500 text-xs leading-relaxed">{tool.desc}</p>
+                    <p className="text-white font-semibold text-sm mb-1 group-hover:text-academy transition-colors">{tool.label}</p>
+                    <p className="text-neutral-400 text-xs leading-relaxed">{tool.desc}</p>
                   </div>
                 </motion.div>
               ))}

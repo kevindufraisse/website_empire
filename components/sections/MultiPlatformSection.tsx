@@ -126,7 +126,7 @@ export default function MultiPlatformSection() {
               <div className="space-y-2">
                 <div className="grid grid-cols-7 gap-1 mb-2">
                   {days.map((day, i) => (
-                    <div key={i} className="text-center text-xs text-neutral-500 font-medium py-1">
+                    <div key={i} className="text-center text-xs text-neutral-400 font-medium py-1">
                       {day.slice(0, 1)}
                     </div>
                   ))}
@@ -164,7 +164,7 @@ export default function MultiPlatformSection() {
 
               {/* Stats */}
               <div className="mt-4 pt-4 border-t border-red-500/20 text-center">
-                <p className="text-sm text-neutral-500">
+                <p className="text-sm text-neutral-400">
                   <span className="text-red-400 font-bold">4 posts</span> / month · 1-2 platforms
                 </p>
               </div>
@@ -175,10 +175,10 @@ export default function MultiPlatformSection() {
           <FadeInBlock delay={0.2}>
             <div className="relative p-6 rounded-2xl bg-gradient-to-br from-empire/10 to-transparent border border-empire/30">
               {/* Stats badges around */}
-              <div className="absolute -top-3 -right-3 px-3 py-1.5 rounded-lg bg-empire/20 border border-empire/50 backdrop-blur-sm shadow-[0_0_20px_rgba(218,252,104,0.2)]">
+              <div className="absolute -top-3 -right-3 px-3 py-1.5 rounded-lg bg-empire/20 border border-empire/50 backdrop-blur-sm shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.2)]">
                 <p className="text-xs text-empire font-bold">1M+ views/mo</p>
               </div>
-              <div className="absolute -bottom-3 -left-3 px-3 py-1.5 rounded-lg bg-empire/20 border border-empire/50 backdrop-blur-sm shadow-[0_0_20px_rgba(218,252,104,0.2)]">
+              <div className="absolute -bottom-3 -left-3 px-3 py-1.5 rounded-lg bg-empire/20 border border-empire/50 backdrop-blur-sm shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.2)]">
                 <p className="text-xs text-empire font-bold">100+ leads/mo</p>
               </div>
 
@@ -196,7 +196,7 @@ export default function MultiPlatformSection() {
               <div className="space-y-2">
                 <div className="grid grid-cols-7 gap-1 mb-2">
                   {days.map((day, i) => (
-                    <div key={i} className="text-center text-xs text-neutral-500 font-medium py-1">
+                    <div key={i} className="text-center text-xs text-neutral-400 font-medium py-1">
                       {day.slice(0, 1)}
                     </div>
                   ))}
@@ -250,27 +250,27 @@ export default function MultiPlatformSection() {
               <div className="mt-4 flex flex-wrap gap-2 justify-center text-[10px]">
                 <div className="flex items-center gap-1">
                   <div className="w-2 h-2 rounded-full bg-blue-500" />
-                  <span className="text-neutral-500">LinkedIn</span>
+                  <span className="text-neutral-400">LinkedIn</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <div className="w-2 h-2 rounded-full bg-empire" />
-                  <span className="text-neutral-500">Newsletter</span>
+                  <span className="text-neutral-400">Newsletter</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <div className="w-2 h-2 rounded-full bg-red-500" />
-                  <span className="text-neutral-500">YouTube</span>
+                  <span className="text-neutral-400">YouTube</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <div className="w-2 h-2 rounded-full bg-pink-500" />
-                  <span className="text-neutral-500">Instagram</span>
+                  <span className="text-neutral-400">Instagram</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <div className="w-2 h-2 rounded-full bg-blue-400" />
-                  <span className="text-neutral-500">Twitter</span>
+                  <span className="text-neutral-400">Twitter</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <div className="w-2 h-2 rounded-full bg-neutral-400" />
-                  <span className="text-neutral-500">Threads</span>
+                  <span className="text-neutral-400">Threads</span>
                 </div>
               </div>
             </div>
@@ -280,7 +280,7 @@ export default function MultiPlatformSection() {
         {/* Platform Icons */}
         <FadeInBlock delay={0.3}>
           <div className="mt-12 text-center">
-            <p className="text-sm text-neutral-500 mb-4">{t.multiPlatform.publishTo}</p>
+            <p className="text-sm text-neutral-400 mb-4">{t.multiPlatform.publishTo}</p>
             <div className="flex flex-wrap items-center justify-center gap-6">
               <div className="flex items-center gap-2 text-sm text-neutral-300">
                 <div className="scale-90"><SocialIcons.linkedin /></div>

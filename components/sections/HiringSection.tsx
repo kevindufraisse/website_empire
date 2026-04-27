@@ -27,7 +27,7 @@ export default function HiringSection() {
 
   return (
     <section className="relative w-full py-20 md:py-32 bg-gradient-to-b from-black via-[#0f0f0f] to-black overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgba(218,252,104,0.1),transparent)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgb(var(--empire-rgb)_/_0.1),transparent)]" />
       
       <div className="container relative z-10">
         <div className="max-w-6xl mx-auto">
@@ -115,8 +115,8 @@ export default function HiringSection() {
                       'Prendre en charge les leads entrants (FR + EN)',
                       'Mener les appels de closing (qualification, diagnostic, closing)',
                       'Gérer les objections avec calme et leadership',
-                      'Closer l\'offre principale (1 000€/mois / 10 000€/an)',
-                      'Upsell les offres premium (3k → 50k)',
+                      'Closer l\'offre principale Empire',
+                      'Upsell les offres premium',
                       'Maintenir un pipeline propre et prévisible',
                       'Collaborer directement avec Kevin (fondateur)',
                     ].map((resp, idx) => (
@@ -451,7 +451,7 @@ export default function HiringSection() {
                       <strong className="text-white">{hiring.customerSuccess?.bonus || 'Bonus upsells'}</strong> : 5–10%
                     </p>
                     <p>
-                      <strong className="text-white">{hiring.customerSuccess?.access || 'Accès gratuit'}</strong> à Empire Internet (valeur 1 000€/mois)
+                      <strong className="text-white">{hiring.customerSuccess?.access || 'Accès gratuit'}</strong> à Empire Internet
                     </p>
                     <p>
                       <strong className="text-white">{hiring.customerSuccess?.evolutive || 'Évolutif'}</strong> après 6 mois

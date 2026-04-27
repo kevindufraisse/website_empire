@@ -131,7 +131,7 @@ export default function FormatsComparison() {
                     <td className="p-4 text-center text-neutral-300 text-sm font-semibold">{format.duration}</td>
                     <td className="p-4 text-center">
                       <span className="text-empire font-bold text-lg">{format.outputs}</span>
-                      <span className="text-neutral-500 text-xs ml-1">
+                      <span className="text-neutral-400 text-xs ml-1">
                         {lang === 'fr' ? 'contenus' : 'pieces'}
                       </span>
                     </td>
@@ -141,7 +141,7 @@ export default function FormatsComparison() {
             </table>
           </div>
 
-          <p className="text-center text-sm text-neutral-500 mt-6">
+          <p className="text-center text-sm text-neutral-400 mt-6">
             {lang === 'fr' 
               ? '👇 Scrollez pour voir chaque format en détail'
               : '👇 Scroll to see each format in detail'}

@@ -41,7 +41,7 @@ export default function BonusSection() {
   return (
     <section className="relative w-full py-20 md:py-32 overflow-hidden bg-black">
       <DotPattern className="opacity-50" width={20} height={20} cr={1.5} />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_50%,rgba(218,252,104,0.1),transparent)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_50%,rgb(var(--empire-rgb)_/_0.1),transparent)]" />
       <div className="container">
         <div className="max-w-6xl mx-auto relative z-10">
         {/* Title */}
@@ -129,8 +129,8 @@ export default function BonusSection() {
               <div className="mt-auto">
 
                 <div className="text-center">
-                  <p className="text-xs text-neutral-500">
-                    {t.bonus.value} <span className="text-empire font-bold text-base">€3,000{t.common.perMonth}</span>
+                  <p className="text-xs text-neutral-400">
+                    {t.bonus.value} <span className="text-empire font-bold text-base">{t.bonus.included || 'Inclus'}</span>
                   </p>
                 </div>
               </div>
@@ -178,7 +178,7 @@ export default function BonusSection() {
                   <div className="flex items-center gap-2 mb-1">
                     <Bot className="text-blue-400" size={14} />
                     <span className="text-[10px] font-semibold text-white">{t.bonus.aiSetterLabel}</span>
-                    <span className="text-[10px] text-neutral-600">2h ago</span>
+                    <span className="text-[10px] text-neutral-400">2h ago</span>
                   </div>
                   <p className="text-xs text-neutral-300">
                     Hey Sarah, saw your recent post about scaling content. Are you handling 
@@ -191,7 +191,7 @@ export default function BonusSection() {
                   <div className="flex items-center gap-2 mb-1">
                     <div className="w-4 h-4 rounded-full bg-empire/30" />
                     <span className="text-[10px] font-semibold text-white">Sarah M.</span>
-                    <span className="text-[10px] text-neutral-600">1h ago</span>
+                    <span className="text-[10px] text-neutral-400">1h ago</span>
                   </div>
                   <p className="text-xs text-neutral-300">
                     Right now I'm doing it myself but it's killing me tbh. Takes so much time 
@@ -204,7 +204,7 @@ export default function BonusSection() {
                   <div className="flex items-center gap-2 mb-1">
                     <Bot className="text-blue-400" size={14} />
                     <span className="text-[10px] font-semibold text-white">{t.bonus.aiSetterLabel}</span>
-                    <span className="text-[10px] text-neutral-600">45m ago</span>
+                    <span className="text-[10px] text-neutral-400">45m ago</span>
                   </div>
                   <p className="text-xs text-neutral-300">
                     I hear you. How much time are you spending on content per week right now?
@@ -216,7 +216,7 @@ export default function BonusSection() {
                   <div className="flex items-center gap-2 mb-1">
                     <div className="w-4 h-4 rounded-full bg-empire/30" />
                     <span className="text-[10px] font-semibold text-white">Sarah M.</span>
-                    <span className="text-[10px] text-neutral-600">30m ago</span>
+                    <span className="text-[10px] text-neutral-400">30m ago</span>
                   </div>
                   <p className="text-xs text-neutral-300">
                     Probably 8-10 hours. Writing, editing, scheduling... it never ends
@@ -228,7 +228,7 @@ export default function BonusSection() {
                   <div className="flex items-center gap-2 mb-1">
                     <Bot className="text-blue-400" size={14} />
                     <span className="text-[10px] font-semibold text-white">{t.bonus.aiSetterLabel}</span>
-                    <span className="text-[10px] text-neutral-600">Just now</span>
+                    <span className="text-[10px] text-neutral-400">Just now</span>
                   </div>
                   <p className="text-xs text-neutral-300">
                     What if you could get that down to 15 minutes/week? I can show you how. 
@@ -253,8 +253,8 @@ export default function BonusSection() {
               </div>
 
               <div className="mt-auto text-center">
-                <p className="text-xs text-neutral-500">
-                  {t.bonus.value} <span className="text-empire font-bold text-base">€800{t.common.perMonth}</span>
+                <p className="text-xs text-neutral-400">
+                  {t.bonus.value} <span className="text-empire font-bold text-base">{t.bonus.included || 'Inclus'}</span>
                 </p>
               </div>
             </div>

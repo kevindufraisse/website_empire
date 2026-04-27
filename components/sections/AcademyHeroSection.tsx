@@ -38,7 +38,7 @@ export default function AcademyHeroSection() {
     <section className="relative w-full py-24 md:py-36 overflow-hidden bg-gradient-to-b from-black via-transparent to-[#0f0f0f]">
       <RetroGrid />
       <Meteors number={12} />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(218,252,104,0.12),transparent)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(252, 165, 165,0.12),transparent)]" />
 
       <div className="container relative z-10">
 
@@ -55,14 +55,14 @@ export default function AcademyHeroSection() {
             transition={{ duration: 0.6, delay: 0.5 }}
             className="hidden lg:flex flex-col items-center gap-3 w-48 mt-24 group"
           >
-            <div className="w-20 h-20 rounded-2xl overflow-hidden border-2 border-empire/40 group-hover:border-empire transition-all shadow-[0_0_25px_rgba(218,252,104,0.15)]">
+            <div className="w-20 h-20 rounded-2xl overflow-hidden border-2 border-academy/40 group-hover:border-academy transition-all shadow-[0_0_25px_rgba(252, 165, 165,0.15)]">
               <img src={founders[0].img} alt={founders[0].name} className="w-full h-full object-cover" />
             </div>
-            <p className="text-sm font-bold text-white group-hover:text-empire transition-colors">{founders[0].name}</p>
+            <p className="text-sm font-bold text-white group-hover:text-academy transition-colors">{founders[0].name}</p>
             <div className="flex flex-col gap-1.5">
               {founders[0].stats.map((s, i) => (
                 <div key={i} className="flex items-center gap-1.5">
-                  <span className="w-1 h-1 rounded-full bg-empire flex-shrink-0" />
+                  <span className="w-1 h-1 rounded-full bg-academy flex-shrink-0" />
                   <span className="text-[11px] text-neutral-400 leading-tight">{s}</span>
                 </div>
               ))}
@@ -72,6 +72,27 @@ export default function AcademyHeroSection() {
           {/* Center content */}
           <div className="max-w-3xl text-center flex-1">
 
+            {/* Tier kicker - positions Academy against Copilot/Autopilot */}
+            <motion.div
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              className="mb-5 flex justify-center"
+            >
+              <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border bg-academy/10 border-academy/40 shadow-[0_0_20px_rgba(252, 165, 165,0.2)]">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60 bg-academy" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-academy" />
+                </span>
+                <span className="text-[11px] md:text-xs font-black tracking-[0.18em] uppercase text-academy">
+                  Academy
+                </span>
+                <span className="text-[11px] md:text-xs text-neutral-400 font-medium">
+                  Apprends la viralité · 21 jours · Contenu produit pour toi
+                </span>
+              </div>
+            </motion.div>
+
             {/* Badge + date */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -79,19 +100,19 @@ export default function AcademyHeroSection() {
               transition={{ duration: 0.4 }}
               className="flex flex-wrap items-center justify-center gap-2 mb-8"
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-empire/10 border border-empire/40">
-                <span className="w-2 h-2 rounded-full bg-empire animate-pulse" />
-                <p className="text-xs font-bold text-empire tracking-widest uppercase">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-academy/10 border border-academy/40">
+                <span className="w-2 h-2 rounded-full bg-academy animate-pulse" />
+                <p className="text-xs font-bold text-academy tracking-widest uppercase">
                   {appCount !== null
                     ? `${appCount} candidatures · ${MAX_SELECTED} sélectionnés`
                     : `Sur sélection · ${MAX_SELECTED} admis`}
                 </p>
               </div>
               <div className="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-white/5 border border-white/15">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-3 h-3 text-empire flex-shrink-0">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-3 h-3 text-academy flex-shrink-0">
                   <rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" />
                 </svg>
-                <span className="text-xs text-empire font-bold">{COHORT_RANGE_SHORT}</span>
+                <span className="text-xs text-academy font-bold">{COHORT_RANGE_SHORT}</span>
               </div>
             </motion.div>
 
@@ -102,11 +123,11 @@ export default function AcademyHeroSection() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-5"
             >
-              Deviens{' '}
-              <SparklesText className="text-empire" sparklesCount={7} colors={{ first: '#DAFC68', second: '#a8f040' }}>
-                viral
+              21 jours pour apprendre la{' '}
+              <SparklesText className="text-academy" sparklesCount={7} colors={{ first: '#fca5a5', second: '#f87171' }}>
+                viralité
               </SparklesText>
-              {' '}en 21 jours.
+              .
             </motion.h1>
 
             {/* Value prop - one unified block */}
@@ -142,7 +163,7 @@ export default function AcademyHeroSection() {
                   'Transformer les vues en clients et en revenus concrets',
                 ].map((line, i) => (
                   <div key={i} className="flex items-start gap-2.5 text-left">
-                    <span className="text-empire mt-0.5 flex-shrink-0 font-bold">›</span>
+                    <span className="text-academy mt-0.5 flex-shrink-0 font-bold">›</span>
                     <span className="text-base text-neutral-200">{line}</span>
                   </div>
                 ))}
@@ -158,11 +179,11 @@ export default function AcademyHeroSection() {
             >
               <a
                 href="/candidature"
-                className="px-10 py-4 bg-empire text-black font-bold text-lg rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(218,252,104,0.35)] inline-block"
+                className="px-10 py-4 bg-academy text-black font-bold text-lg rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(252, 165, 165,0.35)] inline-block"
               >
                 Postuler - sur sélection →
               </a>
-              <p className="text-xs text-neutral-500">
+              <p className="text-xs text-neutral-400">
                 Formulaire de 2 min · Aucun engagement
               </p>
             </motion.div>
@@ -180,14 +201,14 @@ export default function AcademyHeroSection() {
             transition={{ duration: 0.6, delay: 0.5 }}
             className="hidden lg:flex flex-col items-center gap-3 w-48 mt-24 group"
           >
-            <div className="w-20 h-20 rounded-2xl overflow-hidden border-2 border-empire/40 group-hover:border-empire transition-all shadow-[0_0_25px_rgba(218,252,104,0.15)]">
+            <div className="w-20 h-20 rounded-2xl overflow-hidden border-2 border-academy/40 group-hover:border-academy transition-all shadow-[0_0_25px_rgba(252, 165, 165,0.15)]">
               <img src={founders[1].img} alt={founders[1].name} className="w-full h-full object-cover" />
             </div>
-            <p className="text-sm font-bold text-white group-hover:text-empire transition-colors">{founders[1].name}</p>
+            <p className="text-sm font-bold text-white group-hover:text-academy transition-colors">{founders[1].name}</p>
             <div className="flex flex-col gap-1.5">
               {founders[1].stats.map((s, i) => (
                 <div key={i} className="flex items-center gap-1.5">
-                  <span className="w-1 h-1 rounded-full bg-empire flex-shrink-0" />
+                  <span className="w-1 h-1 rounded-full bg-academy flex-shrink-0" />
                   <span className="text-[11px] text-neutral-400 leading-tight">{s}</span>
                 </div>
               ))}
@@ -209,16 +230,16 @@ export default function AcademyHeroSection() {
               href={f.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex flex-col items-center gap-2.5 p-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-empire/30 transition-all group"
+              className="flex flex-col items-center gap-2.5 p-4 rounded-2xl bg-white/[0.08] border border-white/15 hover:border-academy/30 transition-all group"
             >
-              <div className="w-14 h-14 rounded-xl overflow-hidden border-2 border-empire/30 group-hover:border-empire transition-all">
+              <div className="w-14 h-14 rounded-xl overflow-hidden border-2 border-academy/30 group-hover:border-academy transition-all">
                 <img src={f.img} alt={f.name} className="w-full h-full object-cover" />
               </div>
-              <p className="text-xs font-bold text-white group-hover:text-empire transition-colors">{f.name}</p>
+              <p className="text-xs font-bold text-white group-hover:text-academy transition-colors">{f.name}</p>
               <div className="flex flex-col gap-1">
                 {f.stats.map((s, i) => (
                   <div key={i} className="flex items-center gap-1.5">
-                    <span className="w-1 h-1 rounded-full bg-empire flex-shrink-0" />
+                    <span className="w-1 h-1 rounded-full bg-academy flex-shrink-0" />
                     <span className="text-[10px] text-neutral-400 leading-tight">{s}</span>
                   </div>
                 ))}

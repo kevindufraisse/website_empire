@@ -44,10 +44,10 @@ export default function Footer() {
             <div className="flex items-center gap-2 mb-3 md:mb-4">
               <span className="text-lg font-bold text-white">Empire Internet</span>
             </div>
-            <p className="text-sm text-neutral-500 mb-3 md:mb-4 text-center md:text-left">
+            <p className="text-sm text-neutral-400 mb-3 md:mb-4 text-center md:text-left">
               {t.footer.tagline}
             </p>
-            <div className="flex items-center gap-2 text-sm text-neutral-500">
+            <div className="flex items-center gap-2 text-sm text-neutral-400">
               <Mail size={16} />
               <a href="mailto:kevin@empire-internet.com" className="hover:text-empire transition-colors">
                 kevin@empire-internet.com
@@ -60,7 +60,7 @@ export default function Footer() {
             {isAcademyPage ? (
               <a
                 href="/"
-                className="w-full sm:w-auto text-center px-6 py-3.5 min-h-[44px] bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)]"
+                className="w-full sm:w-auto text-center px-6 py-3.5 min-h-[44px] bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]"
               >
                 Découvrir Empire Internet →
               </a>
@@ -70,7 +70,7 @@ export default function Footer() {
                   data-cal-namespace={namespace}
                   data-cal-link={calLink}
                   data-cal-config='{"layout":"month_view","theme":"dark"}'
-                  className="w-full sm:w-auto text-center px-6 py-3.5 min-h-[44px] bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)]"
+                  className="w-full sm:w-auto text-center px-6 py-3.5 min-h-[44px] bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]"
                 >
                   {t.finalCTA.watchDemo}
                 </button>
@@ -82,12 +82,12 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex flex-col sm:flex-row sm:flex-wrap items-center gap-3 sm:gap-4 text-sm text-neutral-600">
+          <div className="flex flex-col sm:flex-row sm:flex-wrap items-center gap-3 sm:gap-4 text-sm text-neutral-400">
             <p>© {new Date().getFullYear()} Empire Internet. All rights reserved.</p>
-            <span className="hidden sm:inline text-neutral-700" aria-hidden>
+            <span className="hidden sm:inline text-neutral-400" aria-hidden>
               ·
             </span>
-            <nav className="flex items-center gap-4 text-neutral-500">
+            <nav className="flex items-center gap-4 text-neutral-400">
               <a href="/terms" className="hover:text-empire transition-colors">
                 {t.footer.termsOfUse}
               </a>
@@ -98,7 +98,7 @@ export default function Footer() {
           </div>
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-empire animate-pulse" />
-            <p className="text-xs text-neutral-500">
+            <p className="text-xs text-neutral-400">
               <span className="text-empire font-semibold">83</span> {t.footer.spotsRemaining}
             </p>
           </div>

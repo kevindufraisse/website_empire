@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useAutopilot } from '@/contexts/AutopilotContext'
 
 const RESULTS = [
   {
@@ -44,6 +45,9 @@ const RESULTS = [
 export default function ClientResultsTicker() {
   const [current, setCurrent] = useState(0)
   const [visible, setVisible] = useState(true)
+  const { autopilot } = useAutopilot()
+  const statClass = autopilot ? 'text-autopilot' : 'text-empire'
+  const dotActiveClass = autopilot ? 'bg-autopilot' : 'bg-empire'
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -60,7 +64,7 @@ export default function ClientResultsTicker() {
 
   return (
     <div className="rounded-xl border border-white/8 bg-white/[0.02] p-4 overflow-hidden">
-      <p className="text-[10px] text-neutral-600 uppercase tracking-widest font-bold mb-3">
+      <p className="text-[10px] text-neutral-400 uppercase tracking-widest font-bold mb-3">
         Le saviez-vous · Résultats clients
       </p>
       <div
@@ -68,11 +72,11 @@ export default function ClientResultsTicker() {
         style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(6px)' }}
       >
         <div className="flex items-baseline gap-2 mb-1">
-          <span className="text-2xl font-black text-empire">{r.stat}</span>
+          <span className={`text-2xl font-black ${statClass}`}>{r.stat}</span>
           <span className="text-sm font-semibold text-white">{r.unit}</span>
           <span className="text-xs text-neutral-400">{r.context}</span>
         </div>
-        <p className="text-xs text-neutral-600">{r.detail}</p>
+        <p className="text-xs text-neutral-400">{r.detail}</p>
       </div>
       {/* Progress dots */}
       <div className="flex items-center gap-1 mt-3">
@@ -80,7 +84,7 @@ export default function ClientResultsTicker() {
           <button
             key={i}
             onClick={() => { setVisible(false); setTimeout(() => { setCurrent(i); setVisible(true) }, 200) }}
-            className={`h-0.5 rounded-full transition-all duration-300 ${i === current ? 'w-5 bg-empire' : 'w-1.5 bg-white/15'}`}
+            className={`h-0.5 rounded-full transition-all duration-300 ${i === current ? `w-5 ${dotActiveClass}` : 'w-1.5 bg-white/15'}`}
           />
         ))}
       </div>

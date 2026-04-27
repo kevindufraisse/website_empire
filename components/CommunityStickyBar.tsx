@@ -120,7 +120,7 @@ export default function CommunityStickyBar() {
             {/* CTA Button */}
             <button
               onClick={() => setIsModalOpen(true)}
-              className="flex items-center gap-2 px-4 py-2.5 sm:px-6 sm:py-3 bg-gradient-to-r from-empire to-[#c8e860] text-black font-bold rounded-lg hover:scale-105 transition-all shadow-[0_0_25px_rgba(218,252,104,0.4)] text-sm sm:text-base whitespace-nowrap"
+              className="flex items-center gap-2 px-4 py-2.5 sm:px-6 sm:py-3 bg-empire text-black font-bold rounded-lg hover:scale-105 transition-all shadow-[0_0_25px_rgb(var(--empire-rgb)_/_0.4)] text-sm sm:text-base whitespace-nowrap"
             >
               <Sparkles size={18} />
               {t.cta}
@@ -144,7 +144,7 @@ export default function CommunityStickyBar() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-gradient-to-br from-neutral-900 via-black to-neutral-900 border border-empire/30 rounded-2xl shadow-[0_0_60px_rgba(218,252,104,0.2)]"
+              className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-gradient-to-br from-neutral-900 via-black to-neutral-900 border border-empire/30 rounded-2xl shadow-[0_0_60px_rgb(var(--empire-rgb)_/_0.2)]"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close button */}

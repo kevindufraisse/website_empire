@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef, useEffect, useState } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { useAutopilot } from '@/contexts/AutopilotContext'
 import { getCalApi } from '@calcom/embed-react'
 import {
   ArrowRight,
@@ -147,6 +148,7 @@ const pillars: Record<string, Pillar[]> = {
 
 export default function WhyNowSection() {
   const { lang, t } = useLanguage()
+  const { autopilot } = useAutopilot()
   const namespace = 'audit-empire'
   const calLink = useCalLink()
   const fr = lang === 'fr'
@@ -166,11 +168,13 @@ export default function WhyNowSection() {
     })()
   }, [namespace])
 
+  if (autopilot) return null
+
   const currentPillars = pillars[fr ? 'fr' : 'en']
 
   return (
     <section className="relative w-full py-16 md:py-28 overflow-hidden bg-[#0a0a0a]">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_100%,rgba(218,252,104,0.06),transparent)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_100%,rgb(var(--empire-rgb)_/_0.06),transparent)]" />
 
       <div className="container relative z-10 max-w-5xl mx-auto">
 
@@ -185,9 +189,11 @@ export default function WhyNowSection() {
                 : <>Everything Empire <span className="text-empire">creates for you</span> every month</>}
             </h2>
             <p className="text-neutral-400 text-lg max-w-2xl mx-auto">
-              {fr
-                ? '15 minutes d\'interview. Le reste est automatisé.'
-                : '15 minutes of interview. The rest is automated.'}
+              {autopilot
+                ? t.autopilot.whyNow.subtitle
+                : (fr
+                    ? '15 minutes d\'interview. Le reste est automatisé.'
+                    : '15 minutes of interview. The rest is automated.')}
             </p>
           </div>
         </FadeIn>
@@ -197,14 +203,24 @@ export default function WhyNowSection() {
             const PillarIcon = pillar.icon
             const isExpanded = expandedPillar === pillar.id
             const hasMore = pillar.moreFeatures.length > 0
+            const highlighted = autopilot && pillar.id === 'accompagnement'
 
             return (
               <FadeIn key={pillar.id} delay={pi * 0.1}>
-                <div className="rounded-2xl border border-white/10 bg-white/[0.02] overflow-hidden">
+                <div className={`relative rounded-2xl border overflow-hidden transition-all ${
+                  highlighted
+                    ? 'border-autopilot/60 bg-gradient-to-br from-autopilot/10 to-white/[0.02] shadow-[0_0_30px_rgba(212,165,116,0.15)]'
+                    : 'border-white/10 bg-white/[0.02]'
+                }`}>
+                  {highlighted && (
+                    <div className="absolute top-3 right-3 z-10 px-2 py-1 rounded-full bg-autopilot text-black text-[10px] font-bold tracking-wider uppercase shadow-md">
+                      {fr ? 'Autopilot' : 'Autopilot'}
+                    </div>
+                  )}
                   <div className="p-5 pb-4 border-b border-white/5">
                     <div className="flex items-center gap-3 mb-1">
-                      <div className="w-8 h-8 rounded-lg bg-empire/15 flex items-center justify-center">
-                        <PillarIcon className="text-empire" size={16} />
+                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${highlighted ? 'bg-autopilot/20' : 'bg-empire/15'}`}>
+                        <PillarIcon className={highlighted ? 'text-autopilot' : 'text-empire'} size={16} />
                       </div>
                       <h3 className="text-lg font-bold text-white">{pillar.label}</h3>
                     </div>
@@ -238,13 +254,13 @@ export default function WhyNowSection() {
                             {pillar.moreFeatures.map((f, i) => {
                               const Icon = f.icon
                               return (
-                                <div key={i} className="flex items-start gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/10">
+                                <div key={i} className="flex items-start gap-3 p-3 rounded-xl bg-white/[0.08] border border-white/15">
                                   <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0">
                                     <Icon className="text-neutral-400" size={15} />
                                   </div>
                                   <div>
                                     <p className="text-sm font-semibold text-white">{f.title}</p>
-                                    <p className="text-xs text-neutral-500 mt-0.5">{f.desc}</p>
+                                    <p className="text-xs text-neutral-400 mt-0.5">{f.desc}</p>
                                   </div>
                                 </div>
                               )
@@ -274,16 +290,22 @@ export default function WhyNowSection() {
           <div className="text-center">
             <p className="text-sm text-neutral-400 mb-4">
               {fr
-                ? <>Tout ça <span className="text-empire font-semibold">à partir de 1 000€/mois</span> - au lieu de 5 000-15 000€ en agence.</>
-                : <>All of this <span className="text-empire font-semibold">starting at €1,000/month</span> - instead of €5,000-15,000 with an agency.</>}
+                ? <>Tout ça <span className="text-empire font-semibold">sur devis personnalisé</span> - au lieu de 5 000-15 000€ en agence.</>
+                : <>All of this <span className="text-empire font-semibold">on custom quote</span> - instead of €5,000-15,000 with an agency.</>}
             </p>
             <button
               data-cal-namespace={namespace}
               data-cal-link={calLink}
               data-cal-config='{"layout":"month_view","theme":"dark"}'
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-empire text-black font-bold hover:scale-105 transition-transform shadow-[0_0_30px_rgba(218,252,104,0.25)]"
+              className={`inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-bold hover:scale-105 transition-all ${
+                autopilot
+                  ? 'bg-gradient-to-r from-autopilot to-autopilot text-black shadow-[0_0_30px_rgba(212,165,116,0.35)]'
+                  : 'bg-empire text-black shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.25)]'
+              }`}
             >
-              {fr ? 'Voir si je suis éligible' : 'See if I\'m eligible'}
+              {autopilot
+                ? t.autopilot.hero.cta1
+                : (fr ? 'Voir si je suis éligible' : 'See if I\'m eligible')}
               <ArrowRight size={18} />
             </button>
             <CtaReassurance className="mt-4 px-2" />

@@ -169,9 +169,10 @@ export default function CallbackFormModal({ isOpen, onClose }: CallbackFormModal
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           transition={{ duration: 0.2 }}
-          className="relative w-full max-w-md bg-[#111] border border-white/10 rounded-2xl p-6 md:p-8"
+          className="relative w-full max-w-md bg-gradient-to-b from-[#151515] to-[#0d0d0d] border border-empire/30 rounded-2xl p-6 md:p-8 shadow-[0_0_60px_-20px_rgb(var(--empire-rgb)_/_0.35)] overflow-hidden"
           onClick={(e) => e.stopPropagation()}
         >
+          <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-transparent via-empire to-transparent" />
           <button
             onClick={handleClose}
             className="absolute top-4 right-4 text-neutral-400 hover:text-white transition-colors"
@@ -195,7 +196,7 @@ export default function CallbackFormModal({ isOpen, onClose }: CallbackFormModal
                   placeholder={txt.firstName}
                   value={form.firstName}
                   onChange={(e) => { setForm({ ...form, firstName: e.target.value }); setErrors({ ...errors, firstName: false }) }}
-                  className={`w-full px-4 py-3 rounded-xl bg-white/5 border text-white placeholder:text-neutral-500 focus:outline-none focus:border-empire transition-colors ${errors.firstName ? 'border-red-500' : 'border-white/10'}`}
+                  className={`w-full px-4 py-3 rounded-xl bg-white/[0.12] border text-white placeholder:text-neutral-400 focus:outline-none focus:border-empire transition-colors ${errors.firstName ? 'border-red-500' : 'border-white/20'}`}
                 />
 
                 <input
@@ -203,11 +204,11 @@ export default function CallbackFormModal({ isOpen, onClose }: CallbackFormModal
                   placeholder={txt.email}
                   value={form.email}
                   onChange={(e) => { setForm({ ...form, email: e.target.value }); setErrors({ ...errors, email: false }) }}
-                  className={`w-full px-4 py-3 rounded-xl bg-white/5 border text-white placeholder:text-neutral-500 focus:outline-none focus:border-empire transition-colors ${errors.email ? 'border-red-500' : 'border-white/10'}`}
+                  className={`w-full px-4 py-3 rounded-xl bg-white/[0.12] border text-white placeholder:text-neutral-400 focus:outline-none focus:border-empire transition-colors ${errors.email ? 'border-red-500' : 'border-white/20'}`}
                 />
 
                 {/* Phone with country selector */}
-                <div className={`flex rounded-xl bg-white/5 border overflow-hidden transition-colors ${errors.phone ? 'border-red-500' : 'border-white/10'} focus-within:border-empire`}>
+                <div className={`flex rounded-xl bg-white/[0.12] border overflow-hidden transition-colors ${errors.phone ? 'border-red-500' : 'border-white/20'} focus-within:border-empire`}>
                   <div ref={dropdownRef} className="relative">
                     <button
                       type="button"
@@ -216,10 +217,10 @@ export default function CallbackFormModal({ isOpen, onClose }: CallbackFormModal
                     >
                       <span className="text-base">{COUNTRIES[countryIdx].flag}</span>
                       <span className="text-sm text-neutral-300">{COUNTRIES[countryIdx].code}</span>
-                      <ChevronDown size={12} className="text-neutral-500" />
+                      <ChevronDown size={12} className="text-neutral-400" />
                     </button>
                     {countryOpen && (
-                      <div className="absolute top-full left-0 mt-1 w-56 max-h-52 overflow-y-auto bg-[#1a1a1a] border border-white/10 rounded-xl shadow-2xl z-10">
+                      <div className="absolute top-full left-0 mt-1 w-56 max-h-52 overflow-y-auto bg-[#1a1a1a] border border-white/15 rounded-xl shadow-2xl z-10">
                         {COUNTRIES.map((c, i) => (
                           <button
                             key={`${c.code}-${c.name}`}
@@ -239,7 +240,7 @@ export default function CallbackFormModal({ isOpen, onClose }: CallbackFormModal
                     placeholder={txt.phone}
                     value={form.phone}
                     onChange={(e) => { setForm({ ...form, phone: e.target.value }); setErrors({ ...errors, phone: false }) }}
-                    className="flex-1 px-3 py-3 bg-transparent text-white placeholder:text-neutral-500 focus:outline-none min-w-0"
+                    className="flex-1 px-3 py-3 bg-transparent text-white placeholder:text-neutral-400 focus:outline-none min-w-0"
                   />
                 </div>
 
@@ -253,7 +254,7 @@ export default function CallbackFormModal({ isOpen, onClose }: CallbackFormModal
                       className={`px-3 py-2.5 rounded-xl border text-sm font-medium transition-all ${
                         form.budget === '1000-5000'
                           ? 'bg-empire/15 border-empire/50 text-empire'
-                          : 'bg-white/5 border-white/10 text-neutral-300 hover:border-empire/30'
+                          : 'bg-white/[0.08] border-white/15 text-neutral-300 hover:border-empire/40 hover:bg-white/[0.10]'
                       }`}
                     >
                       {txt.budget1}
@@ -264,7 +265,7 @@ export default function CallbackFormModal({ isOpen, onClose }: CallbackFormModal
                       className={`px-3 py-2.5 rounded-xl border text-sm font-medium transition-all ${
                         form.budget === '5000+'
                           ? 'bg-empire/15 border-empire/50 text-empire'
-                          : 'bg-white/5 border-white/10 text-neutral-300 hover:border-empire/30'
+                          : 'bg-white/[0.08] border-white/15 text-neutral-300 hover:border-empire/40 hover:bg-white/[0.10]'
                       }`}
                     >
                       {txt.budget2}
@@ -275,7 +276,7 @@ export default function CallbackFormModal({ isOpen, onClose }: CallbackFormModal
                       className={`px-3 py-2.5 rounded-xl border text-sm font-medium transition-all ${
                         form.budget === 'none'
                           ? 'bg-red-500/10 border-red-500/30 text-red-400'
-                          : 'bg-white/5 border-white/10 text-neutral-400 hover:border-white/20'
+                          : 'bg-white/[0.08] border-white/15 text-neutral-300 hover:border-white/30'
                       }`}
                     >
                       {txt.noBudget}
@@ -316,7 +317,7 @@ export default function CallbackFormModal({ isOpen, onClose }: CallbackFormModal
 
           {step === 'cancelled' && (
             <div className="text-center py-4">
-              <div className="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 rounded-full bg-white/[0.08] border border-white/15 flex items-center justify-center mx-auto mb-4">
                 <XCircle className="text-neutral-400" size={32} />
               </div>
               <h3 className="text-xl font-bold text-white mb-2">{txt.cancelledTitle}</h3>

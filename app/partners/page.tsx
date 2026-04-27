@@ -55,8 +55,8 @@ const benefits = [
     icon: Gift,
     title: 'Avantage Exclusif Clients',
     titleEn: 'Exclusive Client Benefit',
-    description: '-500€/mois de remise pour vos clients. Vous devenez "l\'accès privilégié". Vos clients vous voient comme le héros.',
-    descriptionEn: '€500/month discount for your clients. You become "the exclusive access". Your clients see you as the hero.',
+    description: 'Remise exclusive pour vos clients. Vous devenez "l\'accès privilégié". Vos clients vous voient comme le héros.',
+    descriptionEn: 'Exclusive discount for your clients. You become "the exclusive access". Your clients see you as the hero.',
     color: 'text-empire',
     bgColor: 'bg-empire/10',
   },
@@ -155,7 +155,7 @@ export default function PartnersPage() {
     <main className="relative min-h-screen bg-black">
       {/* Hero Section */}
       <section className="relative py-24 md:py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(218,252,104,0.2),transparent)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgb(var(--empire-rgb)_/_0.2),transparent)]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_80%,rgba(139,92,246,0.1),transparent)]" />
         
         <div className="container relative z-10">
@@ -191,7 +191,7 @@ export default function PartnersPage() {
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <button
                   type="button"
-                  className="systeme-show-popup-5606340 px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(218,252,104,0.3)] flex items-center gap-2 cursor-pointer"
+                  className="systeme-show-popup-5606340 px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.3)] flex items-center gap-2 cursor-pointer"
                 >
                   {lang === 'fr' ? 'Obtenir mon lien' : 'Get my sharable link'} <ArrowRight size={20} />
                 </button>
@@ -338,7 +338,7 @@ export default function PartnersPage() {
               ].map((item, i) => (
                 <FadeInBlock key={item.step} delay={0.1 * i}>
                   <div className="text-center">
-                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-empire to-empire/60 border-4 border-black shadow-[0_0_30px_rgba(218,252,104,0.3)] flex items-center justify-center mx-auto mb-4 relative z-10">
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-empire to-empire/60 border-4 border-black shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.3)] flex items-center justify-center mx-auto mb-4 relative z-10">
                       <span className="text-black font-black text-2xl">{item.step}</span>
                     </div>
                     <h3 className="text-xl font-bold text-white mb-2">{item.title}</h3>
@@ -382,7 +382,7 @@ export default function PartnersPage() {
       <section className="container py-20">
         <FadeInBlock>
           <div className="max-w-3xl mx-auto text-center p-8 md:p-12 rounded-3xl bg-gradient-to-br from-empire/20 to-empire/5 border-2 border-empire relative overflow-hidden">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(218,252,104,0.1),transparent)] animate-pulse" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgb(var(--empire-rgb)_/_0.1),transparent)] animate-pulse" />
             
             <div className="relative z-10">
               <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
@@ -397,7 +397,7 @@ export default function PartnersPage() {
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <button
                   type="button"
-                  className="systeme-show-popup-5606340 px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(218,252,104,0.3)] flex items-center gap-2 cursor-pointer"
+                  className="systeme-show-popup-5606340 px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.3)] flex items-center gap-2 cursor-pointer"
                 >
                   <Users size={20} />
                   {lang === 'fr' ? 'Obtenir mon lien' : 'Get my sharable link'}

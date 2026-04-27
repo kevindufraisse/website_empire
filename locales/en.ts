@@ -14,8 +14,8 @@ export const en = {
   },
   hero: {
     targetAudience: 'For freelancers, employees & entrepreneurs',
-    title: '30 days to become <br class="hidden sm:block"/>the <span class="text-empire">reference</span> in your market, <br class="hidden sm:block"/>in 15 min per week.',
-    subtitle: '1 interview of 15 min per week. We publish for you every day - without writing a line or editing a video.',
+    title: '30 days to become <br class="hidden sm:block"/>the <span class="text-empire">reference</span> in your market.',
+    subtitle: 'A coach interviews you 15 min/wk. We publish for you every day - no writing, no editing.',
     description: '',
     cta1: 'Check my eligibility',
     cta2: 'Watch Demo (20 min)',
@@ -135,7 +135,7 @@ export const en = {
     inHouseTimeline: 'Hire 5+ people',
     inHouseQuality: 'Inconsistent',
     empire: 'Empire Internet',
-    empirePrice: '€1.5K/mo',
+    empirePrice: 'Custom quote',
     empireTimeline: '24-48h',
     empireQuality: 'Sounds like you',
     price: 'Price',
@@ -186,7 +186,7 @@ export const en = {
       },
       {
         concern: 'Is this really better than hiring someone?',
-        answer: 'Yes. Hiring someone costs €12K+/month, takes weeks to onboard, and you still manage them. Empire delivers daily content on every platform for €1K/month, with zero management. Same results, 92% less.',
+        answer: 'Yes. Hiring someone costs €12K+/month, takes weeks to onboard, and you still manage them. Empire delivers daily content on every platform on a custom quote, with zero management. Same results, fraction of the cost.',
       },
       {
         concern: 'What if the content doesn\'t perform?',
@@ -302,7 +302,8 @@ export const en = {
     aiSetterLabel: 'AI Setter',
     qualifiedLead: '✓ Qualified Lead - Ready for you',
     activeConversations: 'Active conversations with qualified prospects',
-    value: 'Value:',
+    value: 'Status:',
+    included: 'Included',
   },
   common: {
     startNow: 'Check my eligibility',
@@ -536,7 +537,7 @@ export const en = {
     },
     {
       question: 'What makes this different from hiring a content agency?',
-      answer: 'Speed, cost, and quality. Agencies cost €5K-15K/month, take weeks to deliver, and often miss your voice. Empire publishes daily content with human QA on everything, starting at €1K/month.',
+      answer: 'Speed, cost, and quality. Agencies cost €5K-15K/month, take weeks to deliver, and often miss your voice. Empire publishes daily content with human QA on everything, on a custom quote.',
     },
     {
       question: 'Can I cancel anytime?',
@@ -564,7 +565,7 @@ export const en = {
     },
     {
       question: 'Is the AI Setter included or extra?',
-      answer: 'It\'s included as a bonus (€800/mo value). The AI engages with prospects on LinkedIn, qualifies leads, and hands them off to you when they\'re ready to talk.',
+      answer: 'It\'s included as a bonus. The AI engages with prospects on LinkedIn, qualifies leads, and hands them off to you when they\'re ready to talk.',
     },
     {
       question: 'Why are there only 100 spots?',
@@ -572,7 +573,7 @@ export const en = {
     },
     {
       question: 'Can I get help with my personal branding strategy?',
-      answer: 'Yes. We offer optional personal branding coaching with experts who have worked with top-tier creators in France and the US. Available as an add-on after subscription. Launch price: €1000/month.',
+      answer: 'Yes. We offer optional personal branding coaching with experts who have worked with top-tier creators in France and the US. Available as an add-on after subscription, on custom quote.',
     },
     {
       question: 'How do you guarantee post visibility?',
@@ -585,7 +586,7 @@ export const en = {
     bonus1Title: 'Priority Onboarding',
     bonus1Desc: 'Skip the waitlist, start next week',
     bonus2Title: 'Free Content Audit',
-    bonus2Desc: '€500 value · We analyze your current content',
+    bonus2Desc: 'Included · We analyze your current content',
     bonus3Title: '10 Bonus Posts First Month',
     bonus3Desc: '40 posts instead of 30',
     ctaButton: 'Check my eligibility',
@@ -673,7 +674,7 @@ export const en = {
       totalTitle: 'Total: €100,000+ per year',
       totalDesc: 'And yet, most remain invisible',
       ctaText: 'There is a better way.',
-      ctaPrice: '€1000/month. All included.',
+      ctaPrice: 'Custom quote.',
     },
     breakthrough: {
       title: 'Today, this same system powers Empire',
@@ -792,7 +793,7 @@ export const en = {
         'Handle incoming leads (FR + EN)',
         'Lead closing calls (qualification, diagnosis, closing)',
         'Handle objections with calm and leadership',
-        'Close the main offer (€1,000/month / €10,000/year)',
+        'Close the main Empire offer',
         'Upsell premium offers (3k → 50k)',
         'Maintain a clean and predictable pipeline',
         'Collaborate directly with Kevin (founder)',
@@ -939,6 +940,52 @@ export const en = {
     keyPoint: 'The difference:',
     keyMessage: 'These aren\'t generic AI templates. They\'re trained on the exact frameworks that generated millions of views and euros in revenue.',
     top1Badge: 'Featured in the Top 1% of French Entrepreneurs',
+  },
+  autopilot: {
+    toggleLabel: 'Autopilot Mode',
+    toggleHint: 'No 15 min? Activate Autopilot',
+    hero: {
+      targetAudience: 'For CEOs & founders with zero free time',
+      title: '30 days to become <br class="hidden sm:block"/>the <span class="text-autopilot">reference</span> in your market, <br class="hidden sm:block"/>without lifting a finger.',
+      subtitle: 'A dedicated virality expert takes full control of your networks. Finds your topics. Writes in your voice. Publishes for you. You? You run your business.',
+      cta1: 'Apply to Autopilot Mode',
+      ctaReassurance: 'Premium tier · Application only',
+    },
+    howItWorks: {
+      badge: 'AUTOPILOT MODE',
+      title: 'Your virality expert takes <span class="text-autopilot">100% control</span>',
+      subtitle: 'Zero input. Zero effort. Your presence, fully delegated to an expert.',
+      b1: {
+        title: 'We learn everything about you - no interview',
+        desc: 'We devour your podcasts, interviews, articles, books, old posts. In 7 days we know you better than an assistant would in 6 months.',
+        items: [
+          'We listen to all your podcasts & interviews',
+          'We read your old posts and articles',
+          'We spy on your competitors',
+          'We clone the way you write',
+        ],
+      },
+      b2: {
+        title: '1 dedicated expert + weekly topics',
+        desc: 'A senior human assigned to your account. Sends you the week\'s topics every Monday. Approve in 1 click - or let them decide.',
+      },
+      b3: {
+        title: 'Created by AI, verified by humans',
+        desc: 'AI generates in your style. 2 human editors review every post before it reaches you. No post ships without human eyes.',
+      },
+      b4: {
+        title: 'Published with your safety net',
+        desc: 'Everything goes live on schedule. Weekly 2-min recap. Don\'t like a post? We redo it, pull it, or replace it - free.',
+      },
+    },
+    whyNow: {
+      subtitle: 'Zero input. Zero effort. Your presence, fully delegated.',
+    },
+    finalCTA: {
+      title: 'Ready to delegate your presence entirely?',
+      subtitle: 'Apply to Autopilot. Limited slots - we only take on founders we know we can make win.',
+      cta: 'Apply to Autopilot Mode',
+    },
   },
 }
 

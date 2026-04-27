@@ -12,7 +12,7 @@ import { ScrollProgress } from '@/components/magicui/scroll-progress'
 
 export const metadata = {
   title: 'Bootcamp Viralité 21 jours - Empire Internet',
-  description: 'Deviens viral en 21 jours sans écrire ton contenu. On trouve les sujets, tu parles 15 min, on rédige tout. Sur sélection, 20 places.'
+  description: '21 jours pour apprendre la viralité sans écrire ton contenu. On trouve les sujets, tu parles 15 min, on rédige tout. Sur sélection, 20 places.'
 }
 
 export default function AcademyPage() {

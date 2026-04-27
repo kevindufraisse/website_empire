@@ -12,7 +12,7 @@ export default function CalendarGrid({ className, label = 'Content scheduled' }:
       {/* Days header */}
       <div className="grid grid-cols-7 gap-1 mb-2">
         {days.map((day, i) => (
-          <div key={i} className="text-center text-xs text-neutral-500 font-medium">
+          <div key={i} className="text-center text-xs text-neutral-400 font-medium">
             {day}
           </div>
         ))}
@@ -33,7 +33,7 @@ export default function CalendarGrid({ className, label = 'Content scheduled' }:
               className={`aspect-square rounded-md flex items-center justify-center text-xs transition-all ${
                 hasContent
                   ? 'bg-empire/20 border border-empire/50 text-empire font-semibold hover:bg-empire/30'
-                  : 'bg-white/5 border border-white/10 text-neutral-500 hover:bg-white/10'
+                  : 'bg-white/5 border border-white/10 text-neutral-400 hover:bg-white/10'
               }`}
             >
               {day <= 30 ? day : ''}

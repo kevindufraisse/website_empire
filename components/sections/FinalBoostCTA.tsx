@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef, useEffect } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { useAutopilot } from '@/contexts/AutopilotContext'
 import { Zap } from 'lucide-react'
 import { getCalApi } from "@calcom/embed-react"
 import CallbackButton from '@/components/CallbackButton'
@@ -27,6 +28,7 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 
 export default function FinalBoostCTA() {
   const { t } = useLanguage()
+  const { autopilot } = useAutopilot()
   
   const namespace = 'audit-empire'
   const calLink = useCalLink()
@@ -51,8 +53,13 @@ export default function FinalBoostCTA() {
       <div className="container">
         <div className="max-w-4xl mx-auto">
           <FadeInBlock>
-            <div className="relative p-8 md:p-12 rounded-2xl bg-gradient-to-br from-empire/10 to-transparent border border-empire/30 overflow-hidden text-center">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(218,252,104,0.15),transparent)]" />
+            <div className={`relative p-8 md:p-12 rounded-2xl border overflow-hidden text-center transition-colors ${
+              autopilot
+                ? 'bg-gradient-to-br from-autopilot/10 to-transparent border-autopilot/40'
+                : 'bg-gradient-to-br from-empire/10 to-transparent border-empire/30'
+            }`}>
+              <div className={`absolute inset-0 transition-opacity ${autopilot ? 'opacity-0' : 'opacity-100'} bg-[radial-gradient(circle_at_center,rgb(var(--empire-rgb)_/_0.15),transparent)]`} />
+              <div className={`absolute inset-0 transition-opacity ${autopilot ? 'opacity-100' : 'opacity-0'} bg-[radial-gradient(circle_at_center,rgba(212,165,116,0.18),transparent)]`} />
               
               <div className="relative z-10">
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/20 border border-red-500/30 mb-4">
@@ -61,19 +68,23 @@ export default function FinalBoostCTA() {
                 </div>
 
                 <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
-                  {t.finalCTA.title}
+                  {autopilot ? t.autopilot.finalCTA.title : t.finalCTA.title}
                 </h2>
                 <p className="text-lg text-neutral-300 mb-8">
-                  {t.finalCTA.subtitle}
+                  {autopilot ? t.autopilot.finalCTA.subtitle : t.finalCTA.subtitle}
                 </p>
 
                 <button
                   data-cal-namespace={namespace}
                   data-cal-link={calLink}
                   data-cal-config='{"layout":"month_view","theme":"dark"}'
-                  className="inline-block w-full sm:w-auto px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)] text-center"
+                  className={`inline-block w-full sm:w-auto px-8 py-4 font-bold rounded-xl hover:scale-105 transition-all text-center ${
+                    autopilot
+                      ? 'bg-gradient-to-r from-autopilot to-autopilot text-black shadow-[0_0_30px_rgba(212,165,116,0.4)]'
+                      : 'bg-empire text-black shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]'
+                  }`}
                 >
-                  {t.finalCTA.watchDemo}
+                  {autopilot ? t.autopilot.finalCTA.cta : t.finalCTA.watchDemo}
                 </button>
                 <div className="mt-3">
                   <CallbackButton variant="subtle" />

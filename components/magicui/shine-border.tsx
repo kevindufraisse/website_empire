@@ -4,7 +4,7 @@ import { ReactNode } from 'react'
 export default function ShineBorder({
   children,
   className,
-  color = '#DAFC68',
+  color = 'var(--empire-hex)',
 }: {
   children: ReactNode
   className?: string

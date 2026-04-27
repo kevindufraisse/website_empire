@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { useAutopilot } from '@/contexts/AutopilotContext'
 import { getCalApi } from "@calcom/embed-react"
 import { Calendar, ArrowRight, Phone } from 'lucide-react'
 import CallbackFormModal from '@/components/CallbackFormModal'
@@ -9,9 +10,28 @@ import { useCalLink } from '@/hooks/useCalLink'
 
 export default function CalStickyBar() {
   const { t, lang } = useLanguage()
+  const { autopilot } = useAutopilot()
   const [isVisible, setIsVisible] = useState(false)
   const [callbackOpen, setCallbackOpen] = useState(false)
   const pathname = usePathname()
+
+  const accent = autopilot
+    ? {
+        border: 'border-autopilot/30',
+        bgSoft: 'bg-autopilot/20',
+        text: 'text-autopilot',
+        btnBorderHover: 'hover:border-autopilot/40 hover:text-autopilot',
+        btnBg: 'bg-autopilot',
+        btnShadow: 'shadow-[0_0_20px_rgba(212,165,116,0.3)]',
+      }
+    : {
+        border: 'border-empire/30',
+        bgSoft: 'bg-empire/20',
+        text: 'text-empire',
+        btnBorderHover: 'hover:border-empire/40 hover:text-empire',
+        btnBg: 'bg-empire',
+        btnShadow: 'shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]',
+      }
 
   // Hide on partners and academy pages
   const isPartnersPage = pathname === '/partners'
@@ -86,29 +106,29 @@ export default function CalStickyBar() {
       style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
     >
       {/* Background blur */}
-      <div className="absolute inset-0 bg-black/90 backdrop-blur-md border-t border-empire/30" />
+      <div className={`absolute inset-0 bg-black/90 backdrop-blur-md border-t ${accent.border}`} />
       
       {/* Content */}
       <div className="relative max-w-7xl mx-auto px-4 py-3">
         <div className="flex items-center justify-between gap-4">
           {/* Left side - Text (Desktop) */}
           <div className="hidden sm:flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-empire/20 flex items-center justify-center">
-              <Calendar className="text-empire" size={20} />
+            <div className={`w-10 h-10 rounded-full ${accent.bgSoft} flex items-center justify-center`}>
+              <Calendar className={accent.text} size={20} />
             </div>
             <div>
               <p className="text-white font-semibold text-sm">
                 {lang === 'fr' ? 'Prêt à transformer votre contenu ?' : 'Ready to transform your content?'}
               </p>
               <p className="text-neutral-400 text-xs">
-                {lang === 'fr' ? 'Publiez tous les jours · À partir de 1 000€/mois' : 'Publish every day · Starting at €1,000/month'}
+                {lang === 'fr' ? 'Publiez tous les jours · Demandez votre devis' : 'Publish every day · Request your quote'}
               </p>
             </div>
           </div>
 
           {/* Mobile - Compact text */}
           <div className="sm:hidden flex items-center gap-2">
-            <Calendar className="text-empire flex-shrink-0" size={18} />
+            <Calendar className={`${accent.text} flex-shrink-0`} size={18} />
             <p className="text-white font-medium text-sm">
               {lang === 'fr' ? 'Publiez tous les jours' : 'Publish every day'}
             </p>
@@ -118,7 +138,7 @@ export default function CalStickyBar() {
           <div className="flex items-center gap-2">
             <button
               onClick={() => setCallbackOpen(true)}
-              className="flex items-center gap-1.5 px-3 py-2.5 sm:px-4 sm:py-3 bg-white/10 border border-white/20 text-white font-medium rounded-lg hover:border-empire/40 hover:text-empire transition-all text-sm whitespace-nowrap"
+              className={`flex items-center gap-1.5 px-3 py-2.5 sm:px-4 sm:py-3 bg-white/10 border border-white/20 text-white font-medium rounded-lg ${accent.btnBorderHover} transition-all text-sm whitespace-nowrap`}
             >
               <Phone size={14} />
               <span className="hidden sm:inline">{lang === 'fr' ? 'On vous rappelle' : 'We call you'}</span>
@@ -129,7 +149,7 @@ export default function CalStickyBar() {
               data-cal-namespace={namespace}
               data-cal-link={calLink}
               data-cal-config='{"layout":"month_view","theme":"dark"}'
-              className="flex flex-col items-center sm:items-end gap-0.5 px-4 py-2 sm:px-6 sm:py-2.5 bg-empire text-black font-bold rounded-lg hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)] text-sm sm:text-base group min-w-0"
+              className={`flex flex-col items-center sm:items-end gap-0.5 px-4 py-2 sm:px-6 sm:py-2.5 ${accent.btnBg} text-black font-bold rounded-lg hover:scale-105 transition-all ${accent.btnShadow} text-sm sm:text-base group min-w-0`}
             >
               <span className="flex items-center justify-center sm:justify-end gap-2 whitespace-nowrap">
                 {t.common.startNow}

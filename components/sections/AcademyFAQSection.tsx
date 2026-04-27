@@ -51,7 +51,7 @@ export default function AcademyFAQSection() {
               <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">FAQ</p>
               <h2 className="text-3xl md:text-5xl font-bold leading-tight">
                 Toutes tes questions.{' '}
-                <span className="text-empire">Réponses honnêtes.</span>
+                <span className="text-academy">Réponses honnêtes.</span>
               </h2>
             </div>
           </FadeInBlock>
@@ -66,7 +66,7 @@ export default function AcademyFAQSection() {
                     className={cn(
                       'rounded-xl border transition-all overflow-hidden',
                       isOpen
-                        ? 'bg-gradient-to-br from-white/10 to-white/[0.02] border-empire/30'
+                        ? 'bg-gradient-to-br from-white/10 to-white/[0.02] border-academy/30'
                         : 'bg-gradient-to-br from-white/5 to-transparent border-white/10 hover:border-white/20'
                     )}
                   >
@@ -76,14 +76,14 @@ export default function AcademyFAQSection() {
                     >
                       <h3 className={cn(
                         'text-base md:text-lg font-semibold transition-colors pr-3',
-                        isOpen ? 'text-empire' : 'text-white group-hover:text-empire'
+                        isOpen ? 'text-academy' : 'text-white group-hover:text-academy'
                       )}>
                         {faq.q}
                       </h3>
                       <ChevronDown
                         className={cn(
                           'text-neutral-400 transition-all duration-300 flex-shrink-0',
-                          isOpen ? 'rotate-180 text-empire' : 'group-hover:text-empire'
+                          isOpen ? 'rotate-180 text-academy' : 'group-hover:text-academy'
                         )}
                         size={18}
                       />
@@ -111,11 +111,11 @@ export default function AcademyFAQSection() {
             <div className="mt-14 text-center">
               <a
                 href="/candidature"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-empire text-black font-bold text-lg rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(218,252,104,0.3)]"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-academy text-black font-bold text-lg rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(252, 165, 165,0.3)]"
               >
                 Postuler - sur sélection →
               </a>
-              <p className="text-xs text-neutral-500 mt-2">Formulaire de 2 min · Aucun engagement</p>
+              <p className="text-xs text-neutral-400 mt-2">Formulaire de 2 min · Aucun engagement</p>
             </div>
           </FadeInBlock>
 

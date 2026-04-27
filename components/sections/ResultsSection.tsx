@@ -38,12 +38,12 @@ export default function ResultsSection() {
           {/* Left: Image */}
           <FadeInBlock>
             <div className="relative rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-br from-empire/5 to-transparent p-8">
-              <div className="aspect-[4/3] flex items-center justify-center text-neutral-500">
+              <div className="aspect-[4/3] flex items-center justify-center text-neutral-400">
                 <div className="text-center">
                   <Newspaper className="mx-auto mb-4 text-empire" size={64} />
                   <p className="text-lg font-semibold">Kevin + Press Coverage</p>
-                  <p className="text-sm text-neutral-600 mt-2">(Image placeholder)</p>
-                  <p className="text-xs text-neutral-700 mt-4 max-w-xs mx-auto">
+                  <p className="text-sm text-neutral-400 mt-2">(Image placeholder)</p>
+                  <p className="text-xs text-neutral-400 mt-4 max-w-xs mx-auto">
                     Add your press appearances, media features, or personal brand image here
                   </p>
                 </div>

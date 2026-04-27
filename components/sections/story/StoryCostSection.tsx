@@ -82,7 +82,7 @@ export default function StoryCostSection() {
                 />
                 <div className="text-center">
                   <p className="text-xs font-bold text-white group-hover:text-empire transition-colors">{creator.name}</p>
-                  <p className="text-[10px] text-neutral-500">{creator.cost}</p>
+                  <p className="text-[10px] text-neutral-400">{creator.cost}</p>
                 </div>
               </div>
             ))}

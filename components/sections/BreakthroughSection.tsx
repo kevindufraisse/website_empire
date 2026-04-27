@@ -113,7 +113,7 @@ export default function BreakthroughSection() {
                 <span className="text-lg font-semibold">One interview</span>
               </div>
               
-              <span className="text-neutral-500 hidden md:block">→</span>
+              <span className="text-neutral-400 hidden md:block">→</span>
               
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 rounded-full bg-empire/20 border border-empire flex items-center justify-center text-empire font-bold">
@@ -122,7 +122,7 @@ export default function BreakthroughSection() {
                 <span className="text-lg font-semibold">AI writes</span>
               </div>
               
-              <span className="text-neutral-500 hidden md:block">→</span>
+              <span className="text-neutral-400 hidden md:block">→</span>
               
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 rounded-full bg-empire/20 border border-empire flex items-center justify-center text-empire font-bold">
@@ -131,7 +131,7 @@ export default function BreakthroughSection() {
                 <span className="text-lg font-semibold">Humans polish</span>
               </div>
               
-              <span className="text-neutral-500 hidden md:block">→</span>
+              <span className="text-neutral-400 hidden md:block">→</span>
               
               <div className="flex items-center gap-3">
                 <Sparkles className="text-empire" size={24} />

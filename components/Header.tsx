@@ -9,6 +9,7 @@ import { getCalApi } from "@calcom/embed-react"
 import { Phone } from 'lucide-react'
 import CallbackFormModal from '@/components/CallbackFormModal'
 import { useCalLink } from '@/hooks/useCalLink'
+import TierNav from '@/components/TierNav'
 
 export default function Header() {
   const { t, lang } = useLanguage()
@@ -16,13 +17,15 @@ export default function Header() {
   const [callbackOpen, setCallbackOpen] = useState(false)
   const pathname = usePathname()
   
-  // Hide default CTA button on pricing, partners and academy pages
+  // Hide default CTA button on partners and academy pages
   const isCandidaturePage = pathname === '/candidature' || pathname === '/decouverte' || pathname === '/join-us'
-  const hideCTA = pathname === '/pricing' || pathname === '/partners' || pathname === '/academy' || isCandidaturePage
+  const hideCTA = pathname === '/partners' || pathname === '/academy' || isCandidaturePage
   // Show partner CTA on partners page
   const isPartnersPage = pathname === '/partners'
   // Show academy-specific CTA
   const isAcademyPage = pathname === '/academy'
+  // Tier nav shown on main landing and academy page (unified tier navigation)
+  const showTierNav = pathname === '/' || pathname === '/academy'
 
   const namespace = 'audit-empire'
   const calLink = useCalLink()
@@ -72,9 +75,16 @@ export default function Header() {
           {/* Logo */}
           <a href="/" className="flex items-center gap-2 group shrink-0">
             <span className="text-lg md:text-xl font-bold text-white group-hover:text-empire transition-colors">
-              Empire Internet
+              Empire
             </span>
           </a>
+
+          {/* Center - TierNav on desktop */}
+          {showTierNav && (
+            <div className="hidden md:flex flex-1 justify-center px-4">
+              <TierNav />
+            </div>
+          )}
 
           {/* Right side */}
           <div className="flex items-center justify-end gap-2 md:gap-3 min-w-0">
@@ -84,7 +94,7 @@ export default function Header() {
                 data-cal-link={calLink}
                 data-cal-config='{"layout":"month_view","theme":"dark"}'
                 title={t.common.ctaReassurance}
-                className="hidden sm:inline-flex sm:flex-col sm:items-end sm:justify-center gap-px shrink-0 px-3 md:px-4 py-1.5 md:py-2 rounded-lg bg-empire text-black hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.2)]"
+                className="hidden sm:inline-flex sm:flex-col sm:items-end sm:justify-center gap-px shrink-0 px-3 md:px-4 py-1.5 md:py-2 rounded-lg bg-empire text-black hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.2)]"
               >
                 <span className="font-semibold text-[11px] md:text-sm leading-none text-right whitespace-nowrap">
                   {t.header.joinQA}
@@ -97,7 +107,7 @@ export default function Header() {
             {isPartnersPage && (
               <button
                 type="button"
-                className="systeme-show-popup-5606340 hidden sm:block px-4 md:px-5 py-2 md:py-2.5 rounded-lg bg-empire text-black font-semibold hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.2)] text-sm md:text-base cursor-pointer"
+                className="systeme-show-popup-5606340 hidden sm:block px-4 md:px-5 py-2 md:py-2.5 rounded-lg bg-empire text-black font-semibold hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.2)] text-sm md:text-base cursor-pointer"
               >
                 {lang === 'fr' ? 'Obtenir mon lien' : 'Get my sharable link'}
               </button>
@@ -105,7 +115,7 @@ export default function Header() {
             {isAcademyPage && (
               <a
                 href="/candidature"
-                className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-empire text-black font-semibold text-sm hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.2)]"
+                className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-empire text-black font-semibold text-sm hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.2)]"
               >
                 Postuler - sur sélection →
               </a>
@@ -123,6 +133,13 @@ export default function Header() {
             </button>
           </div>
         </div>
+
+        {/* Mobile TierNav (second row) */}
+        {showTierNav && (
+          <div className="md:hidden flex justify-center pt-3">
+            <TierNav />
+          </div>
+        )}
       </nav>
 
       {/* Mobile Menu Drawer */}
@@ -136,8 +153,6 @@ export default function Header() {
             className="sm:hidden border-t border-white/10 bg-black/98"
           >
             <div className="px-4 py-5 space-y-4">
-              
-
               {/* CTA Button Mobile */}
               {!hideCTA && (
                 <motion.button
@@ -149,7 +164,7 @@ export default function Header() {
                   data-cal-config='{"layout":"month_view","theme":"dark"}'
                   title={t.common.ctaReassurance}
                   onClick={() => setIsMenuOpen(false)}
-                  className="w-full flex flex-col items-center gap-1 py-3 rounded-lg bg-empire text-black font-bold hover:scale-[1.02] transition-all shadow-[0_0_20px_rgba(218,252,104,0.2)]"
+                  className="w-full flex flex-col items-center gap-1 py-3 rounded-lg bg-empire text-black font-bold hover:scale-[1.02] transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.2)]"
                 >
                   <span className="leading-tight px-2 text-center text-sm">{t.header.joinQA}</span>
                   <span className="text-[10px] font-medium text-black/70 leading-tight px-2 text-center">
@@ -164,7 +179,7 @@ export default function Header() {
                   transition={{ delay: 0.1 }}
                   type="button"
                   onClick={() => setIsMenuOpen(false)}
-                  className="systeme-show-popup-5606340 w-full py-3.5 rounded-lg bg-empire text-black font-bold hover:scale-[1.02] transition-all shadow-[0_0_20px_rgba(218,252,104,0.2)] cursor-pointer"
+                  className="systeme-show-popup-5606340 w-full py-3.5 rounded-lg bg-empire text-black font-bold hover:scale-[1.02] transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.2)] cursor-pointer"
                 >
                   {lang === 'fr' ? 'Obtenir mon lien' : 'Get my sharable link'}
                 </motion.button>
@@ -176,7 +191,7 @@ export default function Header() {
                   transition={{ delay: 0.1 }}
                   href="/candidature"
                   onClick={() => setIsMenuOpen(false)}
-                  className="w-full py-3.5 rounded-lg bg-empire text-black font-bold text-center hover:scale-[1.02] transition-all shadow-[0_0_20px_rgba(218,252,104,0.2)] block"
+                  className="w-full py-3.5 rounded-lg bg-empire text-black font-bold text-center hover:scale-[1.02] transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.2)] block"
                 >
                   Postuler - sur sélection →
                 </motion.a>

@@ -28,7 +28,7 @@ export function SparklesText({
   className,
   sparklesCount = 10,
   colors = {
-    first: '#DAFC68',
+    first: 'var(--empire-hex)',
     second: '#7be0ff',
   },
 }: SparklesTextProps): ReactElement {

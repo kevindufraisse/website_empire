@@ -1,20 +1,24 @@
 'use client'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useEffect } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { useAutopilot } from '@/contexts/AutopilotContext'
 import RetroGrid from '@/components/magicui/retro-grid'
 import { Meteors } from '@/components/magicui/meteors'
 import { StarRating } from '@/components/ui/star-rating'
 import { getCalApi } from "@calcom/embed-react"
-import CallbackButton from '@/components/CallbackButton'
-import { CtaReassurance } from '@/components/ui/cta-reassurance'
 import { useCalLink } from '@/hooks/useCalLink'
 
 export default function HeroSection() {
   const { t, lang } = useLanguage()
+  const { autopilot } = useAutopilot()
   
   const namespace = 'audit-empire'
   const calLink = useCalLink()
+
+  const heroTitle = autopilot ? t.autopilot.hero.title : t.hero.title
+  const heroSubtitle = autopilot ? t.autopilot.hero.subtitle : t.hero.subtitle
+  const heroCta = autopilot ? t.autopilot.hero.cta1 : t.hero.cta1
 
   useEffect(() => {
     (async function () {
@@ -36,19 +40,50 @@ export default function HeroSection() {
         <div className="container">
         <RetroGrid />
         <Meteors number={15} />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(218,252,104,0.15),transparent)]" />
+        <div className={`absolute inset-0 transition-opacity duration-500 ${autopilot ? 'opacity-0' : 'opacity-100'} bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgb(var(--empire-rgb)_/_0.15),transparent)]`} />
+        <div className={`absolute inset-0 transition-opacity duration-500 ${autopilot ? 'opacity-100' : 'opacity-0'} bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(212,165,116,0.18),transparent)]`} />
         
         <div className="relative z-10 text-center max-w-4xl mx-auto">
+          {/* Tier kicker - positions this hero against the other tiers */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={autopilot ? 'autopilot-kicker' : 'copilot-kicker'}
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.3 }}
+              className="mb-5 flex justify-center"
+            >
+              <div
+                className={`inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border ${
+                  autopilot
+                    ? 'bg-autopilot/10 border-autopilot/40 shadow-[0_0_20px_rgba(212,165,116,0.2)]'
+                    : 'bg-empire/10 border-empire/40 shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.18)]'
+                }`}
+              >
+                <span className="relative flex h-2 w-2">
+                  <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-60 ${autopilot ? 'bg-autopilot' : 'bg-empire'}`} />
+                  <span className={`relative inline-flex rounded-full h-2 w-2 ${autopilot ? 'bg-autopilot' : 'bg-empire'}`} />
+                </span>
+                <span className={`text-[11px] md:text-xs font-black tracking-[0.18em] uppercase ${autopilot ? 'text-autopilot' : 'text-empire'}`}>
+                  {autopilot ? 'Autopilot' : 'Copilot'}
+                </span>
+                <span className="text-[11px] md:text-xs text-neutral-400 font-medium">
+                  {autopilot
+                    ? (lang === 'fr' ? 'Expert dédié · 0 contact' : 'Dedicated expert · Zero contact')
+                    : (lang === 'fr' ? 'Avec coach · 15 min/sem' : 'With coach · 15 min/wk')}
+                </span>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+
           {/* Creator badge */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: 'easeOut' }}
-            className="mb-8 flex flex-col items-center gap-3"
+            className="mb-8 flex justify-center"
           >
-            <p className="text-xs text-neutral-400 tracking-widest uppercase">
-              {t.hero.targetAudience}
-            </p>
             <div className="flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
               <img
                 src="/founders/kevin.png"
@@ -63,42 +98,51 @@ export default function HeroSection() {
             </div>
           </motion.div>
           
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight"
-            dangerouslySetInnerHTML={{ __html: t.hero.title.replace(/<br\/>/g, '<br>') }}
-          />
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.1, duration: 0.6 }}
-            className="text-lg md:text-xl text-neutral-300 max-w-2xl mx-auto mt-8"
-          >
-            {t.hero.subtitle}
-          </motion.p>
+          <AnimatePresence mode="wait">
+            <motion.h1
+              key={heroTitle}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.4, ease: 'easeOut' }}
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight"
+              dangerouslySetInnerHTML={{ __html: heroTitle.replace(/<br\/>/g, '<br>') }}
+            />
+          </AnimatePresence>
+          <AnimatePresence mode="wait">
+            <motion.p
+              key={heroSubtitle}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.35 }}
+              className="text-lg md:text-xl text-neutral-300 max-w-2xl mx-auto mt-8"
+            >
+              {heroSubtitle}
+            </motion.p>
+          </AnimatePresence>
 
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
-            className="mt-10 flex flex-col items-center justify-center gap-4"
+            className="mt-10 flex flex-col items-center justify-center gap-2"
           >
-            <div className="flex flex-col items-center justify-center w-full px-4 sm:px-0 gap-3">
-              <button
-                data-cal-namespace={namespace}
-                data-cal-link={calLink}
-                data-cal-config='{"layout":"month_view","theme":"dark"}'
-                className="w-full sm:w-auto px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)] text-center flex flex-col items-center gap-0.5"
-              >
-                <span>{t.hero.cta1}</span>
-                <span className="text-[10px] font-medium text-black/50">
-                  {lang === 'fr' ? 'Vérifier votre éligibilité' : 'Check your eligibility'}
-                </span>
-              </button>
-              <CallbackButton variant="subtle" />
-            </div>
+            <button
+              data-cal-namespace={namespace}
+              data-cal-link={calLink}
+              data-cal-config='{"layout":"month_view","theme":"dark"}'
+              className={`w-full sm:w-auto px-8 py-4 font-bold rounded-xl hover:scale-105 transition-all text-center ${
+                autopilot
+                  ? 'bg-gradient-to-r from-autopilot to-autopilot text-black shadow-[0_0_30px_rgba(212,165,116,0.4)]'
+                  : 'bg-empire text-black shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]'
+              }`}
+            >
+              {heroCta}
+            </button>
+            <p className="text-[11px] text-neutral-400">
+              {lang === 'fr' ? 'Gratuit · Sans engagement' : 'Free · No commitment'}
+            </p>
           </motion.div>
             
             {/* Star Rating */}
@@ -110,17 +154,6 @@ export default function HeroSection() {
           >
             <StarRating className="mt-2" />
           </motion.div>
-
-          {t.hero.description && (
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.55, duration: 0.6 }}
-              className="mt-2 text-xs md:text-sm text-neutral-400 max-w-md mx-auto"
-            >
-              {t.hero.description}
-            </motion.p>
-          )}
 
           {/* Top Creators Section */}
           <motion.div
@@ -134,7 +167,7 @@ export default function HeroSection() {
                 {t.hero?.creatorsTitle || 'The systems used by the world\'s top creators'}
               </p>
               <p className="text-xs text-empire font-semibold mb-4">
-                {t.hero?.creatorsCost || 'We automated them for you - starting at €1,000/month'}
+                {t.hero?.creatorsCost || 'We automated them for you - request your custom quote'}
               </p>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 max-w-3xl mx-auto">
                 {/* Grant Cardone */}
@@ -149,7 +182,7 @@ export default function HeroSection() {
                   </div>
                   <div className="text-center">
                     <p className="text-[11px] md:text-xs font-bold text-white group-hover:text-empire transition-colors">Grant Cardone</p>
-                    <p className="text-[9px] md:text-[10px] text-neutral-500">~€100K/mo</p>
+                    <p className="text-[9px] md:text-[10px] text-neutral-400">~€100K/mo</p>
                   </div>
                 </div>
 
@@ -165,7 +198,7 @@ export default function HeroSection() {
                   </div>
                   <div className="text-center">
                     <p className="text-[11px] md:text-xs font-bold text-white group-hover:text-empire transition-colors">Alex Hormozi</p>
-                    <p className="text-[9px] md:text-[10px] text-neutral-500">~€80K/mo</p>
+                    <p className="text-[9px] md:text-[10px] text-neutral-400">~€80K/mo</p>
                   </div>
                 </div>
 
@@ -181,7 +214,7 @@ export default function HeroSection() {
                   </div>
                   <div className="text-center">
                     <p className="text-[11px] md:text-xs font-bold text-white group-hover:text-empire transition-colors">Ali Abdaal</p>
-                    <p className="text-[9px] md:text-[10px] text-neutral-500">~€75K/mo</p>
+                    <p className="text-[9px] md:text-[10px] text-neutral-400">~€75K/mo</p>
                   </div>
                 </div>
 
@@ -197,7 +230,7 @@ export default function HeroSection() {
                   </div>
                   <div className="text-center">
                     <p className="text-[11px] md:text-xs font-bold text-white group-hover:text-empire transition-colors">Matt Gray</p>
-                    <p className="text-[9px] md:text-[10px] text-neutral-500">~€60K/mo</p>
+                    <p className="text-[9px] md:text-[10px] text-neutral-400">~€60K/mo</p>
                   </div>
                 </div>
 
@@ -213,15 +246,15 @@ export default function HeroSection() {
                   </div>
                   <div className="text-center">
                     <p className="text-[11px] md:text-xs font-bold text-white group-hover:text-empire transition-colors">Chris Williamson</p>
-                    <p className="text-[9px] md:text-[10px] text-neutral-500">~€70K/mo</p>
+                    <p className="text-[9px] md:text-[10px] text-neutral-400">~€70K/mo</p>
                   </div>
                 </div>
               </div>
             </div>
           </motion.div>
 
-          {/* Video Loom - FR only */}
-          {lang === 'fr' && (
+          {/* Video Loom - FR only, hidden in Autopilot */}
+          {lang === 'fr' && !autopilot && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

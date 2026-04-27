@@ -72,7 +72,7 @@ function Input({
   return (
     <div className="flex flex-col gap-1.5">
       <label className="text-sm font-medium text-neutral-300">
-        {label} {required && <span className="text-empire">*</span>}
+        {label} {required && <span className="text-academy">*</span>}
       </label>
       <input
         type={type}
@@ -80,7 +80,7 @@ function Input({
         value={value}
         onChange={e => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-neutral-600 text-sm focus:outline-none focus:border-empire/60 focus:bg-white/[0.07] transition-all"
+        className="w-full bg-white/[0.12] border border-white/20 rounded-xl px-4 py-3 text-white placeholder-neutral-400 text-sm focus:outline-none focus:border-academy/60 focus:bg-white/[0.15] transition-all"
       />
     </div>
   )
@@ -99,7 +99,7 @@ function Textarea({
   return (
     <div className="flex flex-col gap-1.5">
       <label className="text-sm font-medium text-neutral-300">
-        {label} {required && <span className="text-empire">*</span>}
+        {label} {required && <span className="text-academy">*</span>}
       </label>
       <textarea
         name={name}
@@ -107,7 +107,7 @@ function Textarea({
         onChange={e => onChange(e.target.value)}
         placeholder={placeholder}
         rows={3}
-        className="w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-neutral-600 text-sm focus:outline-none focus:border-empire/60 focus:bg-white/[0.07] transition-all resize-none"
+        className="w-full bg-white/[0.12] border border-white/20 rounded-xl px-4 py-3 text-white placeholder-neutral-400 text-sm focus:outline-none focus:border-academy/60 focus:bg-white/[0.12] transition-all resize-none"
       />
     </div>
   )
@@ -250,7 +250,7 @@ function PhoneInput({
   return (
     <div className="flex flex-col gap-1.5">
       <label className="text-sm font-medium text-neutral-300">
-        Téléphone <span className="text-empire">*</span>
+        Téléphone <span className="text-academy">*</span>
       </label>
       <div className="flex gap-2" ref={ref}>
         {/* Dropdown trigger */}
@@ -258,11 +258,11 @@ function PhoneInput({
           <button
             type="button"
             onClick={() => setOpen(o => !o)}
-            className="flex items-center gap-1.5 px-3 py-3 bg-white/[0.04] border border-white/10 rounded-xl text-sm text-white hover:bg-white/[0.07] focus:outline-none focus:border-empire/60 transition-all h-full"
+            className="flex items-center gap-1.5 px-3 py-3 bg-white/[0.12] border border-white/20 rounded-xl text-sm text-white hover:bg-white/[0.10] focus:outline-none focus:border-academy/60 transition-all h-full"
           >
             <span className="text-base leading-none">{selected.flag}</span>
             <span className="text-neutral-400 text-xs tabular-nums">{selected.code}</span>
-            <ChevronDown size={12} className={`text-neutral-600 transition-transform ${open ? 'rotate-180' : ''}`} />
+            <ChevronDown size={12} className={`text-neutral-400 transition-transform ${open ? 'rotate-180' : ''}`} />
           </button>
 
           {open && (
@@ -275,25 +275,25 @@ function PhoneInput({
                   value={search}
                   onChange={e => setSearch(e.target.value)}
                   placeholder="Chercher un pays ou indicatif..."
-                  className="w-full bg-white/[0.06] border border-white/10 rounded-lg px-3 py-2 text-white placeholder-neutral-600 text-xs focus:outline-none focus:border-empire/50 transition-all"
+                  className="w-full bg-white/[0.10] border border-white/20 rounded-lg px-3 py-2 text-white placeholder-neutral-400 text-xs focus:outline-none focus:border-academy/50 transition-all"
                 />
               </div>
               {/* List */}
               <div className="max-h-52 overflow-y-auto">
                 {filtered.length === 0 ? (
-                  <p className="px-4 py-3 text-xs text-neutral-600 text-center">Aucun résultat</p>
+                  <p className="px-4 py-3 text-xs text-neutral-400 text-center">Aucun résultat</p>
                 ) : filtered.map((c, i) => (
                   <button
                     key={`${c.code}-${i}`}
                     type="button"
                     onClick={() => { setDialCode(c.code); setOpen(false); setSearch('') }}
                     className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm text-left hover:bg-white/5 transition-colors ${
-                      c.code === dialCode && c.name === selected.name ? 'text-empire bg-empire/5' : 'text-neutral-300'
+                      c.code === dialCode && c.name === selected.name ? 'text-academy bg-academy/5' : 'text-neutral-300'
                     }`}
                   >
                     <span className="text-base leading-none">{c.flag}</span>
                     <span className="flex-1 truncate text-xs">{c.name}</span>
-                    <span className="text-xs text-neutral-500 tabular-nums">{c.code}</span>
+                    <span className="text-xs text-neutral-400 tabular-nums">{c.code}</span>
                   </button>
                 ))}
               </div>
@@ -307,7 +307,7 @@ function PhoneInput({
           value={localNumber}
           onChange={e => setLocalNumber(e.target.value.replace(/[^\d\s\-().]/g, ''))}
           placeholder="6 12 34 56 78"
-          className="flex-1 bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-neutral-600 text-sm focus:outline-none focus:border-empire/60 focus:bg-white/[0.07] transition-all"
+          className="flex-1 bg-white/[0.12] border border-white/20 rounded-xl px-4 py-3 text-white placeholder-neutral-400 text-sm focus:outline-none focus:border-academy/60 focus:bg-white/[0.15] transition-all"
         />
       </div>
     </div>
@@ -329,19 +329,19 @@ function OptionCard({
       onClick={onClick}
       className={`w-full text-left p-4 rounded-xl border transition-all ${
         selected
-          ? 'bg-empire/15 border-empire/60 text-white'
-          : 'bg-white/[0.03] border-white/10 text-neutral-400 hover:border-white/25 hover:text-neutral-200'
+          ? 'bg-academy/15 border-academy/60 text-white'
+          : 'bg-white/[0.10] border-white/20 text-neutral-300 hover:border-white/30 hover:text-white'
       }`}
     >
       <div className="flex items-center gap-3">
         <div className={`w-4 h-4 rounded-full border-2 flex-shrink-0 flex items-center justify-center ${
-          selected ? 'border-empire bg-empire' : 'border-white/20'
+          selected ? 'border-academy bg-academy' : 'border-white/20'
         }`}>
           {selected && <div className="w-2 h-2 rounded-full bg-black" />}
         </div>
         <div>
           <span className="text-sm font-semibold">{label}</span>
-          {sub && <p className="text-xs text-neutral-500 mt-0.5">{sub}</p>}
+          {sub && <p className="text-xs text-neutral-400 mt-0.5">{sub}</p>}
         </div>
       </div>
     </button>
@@ -436,7 +436,7 @@ function ShareButtons({ disc }: { disc: DiscType }) {
 
   return (
     <div className="mt-8 max-w-sm mx-auto">
-      <p className="text-xs font-bold text-neutral-500 uppercase tracking-widest text-center mb-4">
+      <p className="text-xs font-bold text-neutral-400 uppercase tracking-widest text-center mb-4">
         Vous connaissez quelqu'un qui devrait postuler ?
       </p>
       <div className="grid grid-cols-2 gap-2 mb-2">
@@ -487,7 +487,7 @@ function ShareButtons({ disc }: { disc: DiscType }) {
           className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white/5 border border-white/15 text-neutral-300 text-xs font-semibold hover:bg-white/10 transition-all"
         >
           {copied
-            ? <><CheckCheck size={14} className="text-empire" /> Copié !</>
+            ? <><CheckCheck size={14} className="text-academy" /> Copié !</>
             : <><Copy size={14} /> Copier le lien</>
           }
         </button>
@@ -532,14 +532,14 @@ function ResultScreen({ disc }: { disc: DiscType | null }) {
       </div>
 
       {/* For bootcamp */}
-      <div className="p-4 rounded-2xl bg-empire/5 border border-empire/20 mb-6 max-w-sm mx-auto">
-        <p className="text-xs text-empire font-semibold mb-1">Pour le bootcamp :</p>
+      <div className="p-4 rounded-2xl bg-academy/5 border border-academy/20 mb-6 max-w-sm mx-auto">
+        <p className="text-xs text-academy font-semibold mb-1">Pour le bootcamp :</p>
         <p className="text-xs text-neutral-400 leading-relaxed">{d.forBootcamp}</p>
       </div>
 
-      <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 max-w-xs mx-auto">
+      <div className="p-4 rounded-2xl bg-white/[0.10] border border-white/15 max-w-xs mx-auto">
         <p className="text-sm text-white font-semibold mb-1">Candidature reçue ✓</p>
-        <p className="text-xs text-neutral-500">Kevin & Marc analysent votre profil. Réponse sous 24h.</p>
+        <p className="text-xs text-neutral-400">Kevin & Marc analysent votre profil. Réponse sous 24h.</p>
       </div>
 
       {/* Share */}
@@ -809,20 +809,20 @@ export default function AcademyApplicationForm() {
         animate={{ opacity: 1, y: 0 }}
         className="text-center py-8"
       >
-        <div className="w-14 h-14 rounded-2xl bg-empire/10 border border-empire/30 flex items-center justify-center mx-auto mb-5">
-          <RotateCcw className="text-empire" size={22} />
+        <div className="w-14 h-14 rounded-2xl bg-academy/10 border border-academy/30 flex items-center justify-center mx-auto mb-5">
+          <RotateCcw className="text-academy" size={22} />
         </div>
         <h2 className="text-xl font-bold text-white mb-2">
           Vous aviez commencé, {resumeData.name}.
         </h2>
-        <p className="text-sm text-neutral-500 mb-8 max-w-xs mx-auto">
+        <p className="text-sm text-neutral-400 mb-8 max-w-xs mx-auto">
           On a gardé votre progression. Vous voulez reprendre là où vous vous étiez arrêté ?
         </p>
         <div className="space-y-3 max-w-xs mx-auto">
           <button
             onClick={handleResume}
             disabled={resumeLoading}
-            className="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-empire text-black font-bold text-sm rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.25)]"
+            className="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-academy text-black font-bold text-sm rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(252, 165, 165,0.25)]"
           >
             {resumeLoading
               ? <><Loader2 size={16} className="animate-spin" /> Chargement...</>
@@ -831,7 +831,7 @@ export default function AcademyApplicationForm() {
           </button>
           <button
             onClick={handleStartFresh}
-            className="w-full px-6 py-3 text-sm text-neutral-500 hover:text-neutral-300 transition-colors"
+            className="w-full px-6 py-3 text-sm text-neutral-400 hover:text-neutral-300 transition-colors"
           >
             Recommencer depuis le début
           </button>
@@ -856,37 +856,37 @@ export default function AcademyApplicationForm() {
           className={`flex items-center justify-between px-4 py-2.5 rounded-xl mb-6 border transition-all ${
             isUrgent
               ? 'bg-red-500/10 border-red-500/30'
-              : 'bg-white/[0.03] border-white/10'
+              : 'bg-white/[0.10] border-white/15'
           }`}
         >
           <div className="flex items-center gap-2">
-            <span className={`w-2 h-2 rounded-full animate-pulse flex-shrink-0 ${isUrgent ? 'bg-red-400' : 'bg-empire'}`} />
+            <span className={`w-2 h-2 rounded-full animate-pulse flex-shrink-0 ${isUrgent ? 'bg-red-400' : 'bg-academy'}`} />
             <p className={`text-xs font-medium ${isUrgent ? 'text-red-400' : 'text-neutral-400'}`}>
               {isUrgent ? 'Plus que' : 'Ce créneau est réservé pour'}
             </p>
           </div>
-          <span className={`text-sm font-black tabular-nums ${isUrgent ? 'text-red-400' : 'text-empire'}`}>
+          <span className={`text-sm font-black tabular-nums ${isUrgent ? 'text-red-400' : 'text-academy'}`}>
             {String(mins).padStart(2, '0')}:{String(secs).padStart(2, '0')}
           </span>
         </motion.div>
       )}
       {timeLeft === 0 && (
-        <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl mb-6 bg-white/[0.03] border border-white/10">
-          <span className="text-xs text-neutral-500">Créneau expiré - votre progression est sauvegardée, continuez !</span>
+        <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl mb-6 bg-white/[0.10] border border-white/15">
+          <span className="text-xs text-neutral-400">Créneau expiré - votre progression est sauvegardée, continuez !</span>
         </div>
       )}
 
       {/* Progress bar */}
       <div className="mb-8">
         <div className="flex justify-between items-center mb-3">
-          <p className="text-xs font-bold text-neutral-500 uppercase tracking-widest">
+          <p className="text-xs font-bold text-neutral-400 uppercase tracking-widest">
             Étape {step} / {TOTAL_STEPS}
           </p>
-          <p className="text-xs text-neutral-600">{STEPS[step - 1].label}</p>
+          <p className="text-xs text-neutral-400">{STEPS[step - 1].label}</p>
         </div>
         <div className="w-full h-1 bg-white/10 rounded-full overflow-hidden">
           <motion.div
-            className="h-full bg-empire rounded-full"
+            className="h-full bg-academy rounded-full"
             animate={{ width: `${Math.max(progress, 5)}%` }}
             transition={{ duration: 0.4, ease: 'easeOut' }}
           />
@@ -896,7 +896,7 @@ export default function AcademyApplicationForm() {
             <div
               key={s.num}
               className={`w-2 h-2 rounded-full transition-all ${
-                s.num < step ? 'bg-empire' : s.num === step ? 'bg-empire/60' : 'bg-white/10'
+                s.num < step ? 'bg-academy' : s.num === step ? 'bg-academy/60' : 'bg-white/10'
               }`}
             />
           ))}
@@ -917,7 +917,7 @@ export default function AcademyApplicationForm() {
             <div className="space-y-4">
               <div className="mb-6">
                 <h2 className="text-xl font-bold text-white mb-1">On commence par faire connaissance.</h2>
-                <p className="text-sm text-neutral-500">On ne revend pas vos données. On vous envoie juste une réponse sous 24h.</p>
+                <p className="text-sm text-neutral-400">On ne revend pas vos données. On vous envoie juste une réponse sous 24h.</p>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <Input label="Prénom" name="first_name" value={form.first_name} onChange={set('first_name')} placeholder="Kevin" required />
@@ -933,10 +933,10 @@ export default function AcademyApplicationForm() {
             <div className="space-y-6">
               <div className="mb-2">
                 <h2 className="text-xl font-bold text-white mb-1">Parlons disponibilités.</h2>
-                <p className="text-sm text-neutral-500">Le bootcamp demande de créer chaque jour. On veut savoir si vous avez le temps.</p>
+                <p className="text-sm text-neutral-400">Le bootcamp demande de créer chaque jour. On veut savoir si vous avez le temps.</p>
               </div>
               <div>
-                <p className="text-sm font-medium text-neutral-300 mb-3">Combien d'heures par semaine pouvez-vous y consacrer ? <span className="text-empire">*</span></p>
+                <p className="text-sm font-medium text-neutral-300 mb-3">Combien d'heures par semaine pouvez-vous y consacrer ? <span className="text-academy">*</span></p>
                 <div className="space-y-2">
                   {[
                     { value: '<2h', label: 'Moins de 2h', sub: 'Difficile - le bootcamp demande de la régularité' },
@@ -956,7 +956,7 @@ export default function AcademyApplicationForm() {
                 </div>
               </div>
               <div>
-                <p className="text-sm font-medium text-neutral-300 mb-3">Quel est votre budget pour vous former ? <span className="text-empire">*</span></p>
+                <p className="text-sm font-medium text-neutral-300 mb-3">Quel est votre budget pour vous former ? <span className="text-academy">*</span></p>
                 <div className="space-y-2">
                   {[
                     { value: '0-400', label: 'Moins de 400€', sub: '' },
@@ -983,10 +983,10 @@ export default function AcademyApplicationForm() {
             <div className="space-y-6">
               <div className="mb-2">
                 <h2 className="text-xl font-bold text-white mb-1">Votre rapport au contenu.</h2>
-                <p className="text-sm text-neutral-500">Pas besoin d'expérience - on veut juste savoir où vous en êtes.</p>
+                <p className="text-sm text-neutral-400">Pas besoin d'expérience - on veut juste savoir où vous en êtes.</p>
               </div>
               <div>
-                <p className="text-sm font-medium text-neutral-300 mb-3">Avez-vous déjà créé du contenu sur internet ? <span className="text-empire">*</span></p>
+                <p className="text-sm font-medium text-neutral-300 mb-3">Avez-vous déjà créé du contenu sur internet ? <span className="text-academy">*</span></p>
                 <div className="space-y-2">
                   {[
                     { value: 'non', label: 'Non, jamais', sub: 'C\'est exactement le profil qu\'on prend' },
@@ -1030,13 +1030,13 @@ export default function AcademyApplicationForm() {
             <div className="space-y-7">
               <div className="mb-2">
                 <h2 className="text-xl font-bold text-white mb-1">Comment vous fonctionnez.</h2>
-                <p className="text-sm text-neutral-500">Deux questions. Pas de bonne réponse - juste la plus honnête.</p>
+                <p className="text-sm text-neutral-400">Deux questions. Pas de bonne réponse - juste la plus honnête.</p>
               </div>
 
               {/* Q1 - Role */}
               <div>
                 <p className="text-sm font-medium text-neutral-300 mb-3">
-                  Dans un projet, vous êtes plutôt : <span className="text-empire">*</span>
+                  Dans un projet, vous êtes plutôt : <span className="text-academy">*</span>
                 </p>
                 <div className="space-y-2">
                   {[
@@ -1060,7 +1060,7 @@ export default function AcademyApplicationForm() {
               {/* Q2 - Obstacle */}
               <div>
                 <p className="text-sm font-medium text-neutral-300 mb-3">
-                  Face à un obstacle, vous : <span className="text-empire">*</span>
+                  Face à un obstacle, vous : <span className="text-academy">*</span>
                 </p>
                 <div className="space-y-2">
                   {[
@@ -1096,7 +1096,7 @@ export default function AcademyApplicationForm() {
             <div className="space-y-6">
               <div className="mb-2">
                 <h2 className="text-xl font-bold text-white mb-1">Dernier détail.</h2>
-                <p className="text-sm text-neutral-500">Plus c'est spécifique, mieux c'est - ça nous aide à sélectionner les bons profils.</p>
+                <p className="text-sm text-neutral-400">Plus c'est spécifique, mieux c'est - ça nous aide à sélectionner les bons profils.</p>
               </div>
               <Input
                 label="Un réseau social ou profil qu'on peut regarder (optionnel)"
@@ -1113,7 +1113,7 @@ export default function AcademyApplicationForm() {
                 placeholder="Qu'est-ce qui se passe dans votre vie en ce moment qui rend ça urgent ?"
                 required
               />
-              <div className="p-4 rounded-xl bg-empire/5 border border-empire/20">
+              <div className="p-4 rounded-xl bg-academy/5 border border-academy/20">
                 <p className="text-xs text-neutral-400 leading-relaxed">
                   En soumettant, vous acceptez qu'on vous contacte par email ou téléphone pour répondre à votre candidature.
                   Aucun engagement, aucune vente forcée.
@@ -1127,7 +1127,7 @@ export default function AcademyApplicationForm() {
             <div className="space-y-6">
               <div className="mb-2">
                 <h2 className="text-xl font-bold text-white mb-1">Vous connaissez des gens qui devraient postuler ?</h2>
-                <p className="text-sm text-neutral-500">
+                <p className="text-sm text-neutral-400">
                   Si vous pensez à quelqu'un qui serait fait pour ça - salariés, freelances, entrepreneurs -
                   laissez leur profil LinkedIn. On les contacte de votre part.
                 </p>
@@ -1148,14 +1148,14 @@ export default function AcademyApplicationForm() {
                       value={form[field]}
                       onChange={e => set(field)(e.target.value)}
                       placeholder={placeholder}
-                      className="flex-1 bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-neutral-600 text-sm focus:outline-none focus:border-[#0A66C2]/50 focus:bg-white/[0.07] transition-all"
+                      className="flex-1 bg-white/[0.12] border border-white/20 rounded-xl px-4 py-3 text-white placeholder-neutral-400 text-sm focus:outline-none focus:border-[#0A66C2]/50 focus:bg-white/[0.12] transition-all"
                     />
                   </div>
                 ))}
               </div>
 
-              <div className="p-4 rounded-xl bg-white/[0.03] border border-white/10">
-                <p className="text-xs text-neutral-500 leading-relaxed">
+              <div className="p-4 rounded-xl bg-white/[0.10] border border-white/15">
+                <p className="text-xs text-neutral-400 leading-relaxed">
                   Tous les champs sont optionnels. Si vous ne pensez à personne maintenant, vous pouvez passer directement.
                 </p>
               </div>
@@ -1178,7 +1178,7 @@ export default function AcademyApplicationForm() {
             type="button"
             onClick={() => setStep(s => s - 1)}
             disabled={loading}
-            className="flex items-center gap-2 text-sm text-neutral-500 hover:text-neutral-300 transition-colors"
+            className="flex items-center gap-2 text-sm text-neutral-400 hover:text-neutral-300 transition-colors"
           >
             <ChevronLeft size={16} />
             Retour
@@ -1190,8 +1190,8 @@ export default function AcademyApplicationForm() {
           disabled={!isStepValid() || loading}
           className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all ${
             isStepValid() && !loading
-              ? 'bg-empire text-black hover:scale-105 shadow-[0_0_20px_rgba(218,252,104,0.3)]'
-              : 'bg-white/10 text-neutral-600 cursor-not-allowed'
+              ? 'bg-academy text-black hover:scale-105 shadow-[0_0_20px_rgba(252, 165, 165,0.3)]'
+              : 'bg-white/10 text-neutral-400 cursor-not-allowed'
           }`}
         >
           {loading ? (

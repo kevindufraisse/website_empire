@@ -4,8 +4,8 @@ import Link from 'next/link'
 import { COHORT_START_TEXT } from '@/lib/cohort-config'
 
 export const metadata = {
-  title: 'Test d\'éligibilité - Bootcamp Empire Internet',
-  description: 'Vérifiez si vous êtes éligible au bootcamp Head of Viralité. Formulaire de 2 min. Réponse sous 24h.',
+  title: 'Candidature - Empire Academy',
+  description: 'Vérifiez si vous êtes éligible à Empire Academy. 21 jours pour maîtriser la viralité. Formulaire de 2 min.',
 }
 
 const founders = [
@@ -18,16 +18,16 @@ export default function CandidaturePage() {
     <main className="relative min-h-screen bg-[#0a0a0a] overflow-hidden">
       {/* Subtle grid background */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:60px_60px]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_40%_at_50%_0%,rgba(218,252,104,0.08),transparent)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_40%_at_50%_0%,rgba(252, 165, 165,0.10),transparent)]" />
 
       <div className="relative z-10 container py-16 md:py-24">
         {/* Back link */}
         <div className="mb-10">
           <Link
             href="/academy"
-            className="inline-flex items-center gap-2 text-sm text-neutral-500 hover:text-neutral-300 transition-colors"
+            className="inline-flex items-center gap-2 text-sm text-neutral-400 hover:text-neutral-300 transition-colors"
           >
-            ← Retour au bootcamp
+            ← Retour à Empire Academy
           </Link>
         </div>
 
@@ -38,22 +38,22 @@ export default function CandidaturePage() {
 
             {/* Logo */}
             <div className="flex items-center gap-2 mb-8">
-              <div className="w-8 h-8 rounded-lg bg-empire flex items-center justify-center">
-                <span className="text-black font-black text-sm">EI</span>
+              <div className="w-8 h-8 rounded-lg bg-academy flex items-center justify-center">
+                <span className="text-black font-black text-sm">EA</span>
               </div>
-              <span className="text-white font-bold text-sm">Empire Internet</span>
+              <span className="text-white font-bold text-sm">Empire Academy</span>
             </div>
 
             <CandidatureBadge />
 
             <h1 className="text-3xl md:text-4xl font-black text-white leading-tight mb-4">
-              Test d'éligibilité.{' '}
-              <span className="text-empire">2 minutes.</span>
+              Candidature Empire Academy.{' '}
+              <span className="text-academy">2 minutes.</span>
             </h1>
             <p className="text-neutral-400 text-base leading-relaxed mb-8">
-              Ce bootcamp n'est pas pour tout le monde - c'est voulu.
-              On accepte uniquement des profils qui s'impliquent vraiment.
-              Ce formulaire nous aide à trouver les bons.
+              Empire Academy n'est pas pour tout le monde - c'est voulu.
+              21 jours intensifs pour maîtriser la viralité, avec du contenu produit pour toi pendant le bootcamp.
+              On sélectionne les profils qui s'impliquent vraiment.
             </p>
 
             {/* What happens */}
@@ -65,19 +65,19 @@ export default function CandidaturePage() {
                 { num: '04', text: 'Vous rejoignez la promo', sub: COHORT_START_TEXT },
               ].map(s => (
                 <div key={s.num} className="flex items-start gap-4">
-                  <div className="w-7 h-7 rounded-full bg-empire/10 border border-empire/30 flex items-center justify-center flex-shrink-0 text-xs font-black text-empire">
+                  <div className="w-7 h-7 rounded-full bg-academy/10 border border-academy/30 flex items-center justify-center flex-shrink-0 text-xs font-black text-academy">
                     {s.num}
                   </div>
                   <div>
                     <p className="text-white text-sm font-semibold leading-tight">{s.text}</p>
-                    <p className="text-neutral-600 text-xs">{s.sub}</p>
+                    <p className="text-neutral-400 text-xs">{s.sub}</p>
                   </div>
                 </div>
               ))}
             </div>
 
             {/* Founders */}
-            <div className="flex items-center gap-3 p-4 rounded-2xl bg-white/[0.03] border border-white/10">
+            <div className="flex items-center gap-3 p-4 rounded-2xl bg-white/[0.08] border border-white/15">
               <div className="flex -space-x-2">
                 {founders.map(f => (
                   <img
@@ -96,7 +96,8 @@ export default function CandidaturePage() {
           </div>
 
           {/* Right - form */}
-          <div className="bg-white/[0.03] border border-white/10 rounded-3xl p-8">
+          <div className="relative bg-gradient-to-b from-white/[0.08] to-white/[0.04] border border-academy/30 rounded-3xl p-8 shadow-[0_0_60px_-20px_rgba(252, 165, 165,0.35)] overflow-hidden">
+            <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-transparent via-academy to-transparent" />
             <AcademyApplicationForm />
           </div>
 

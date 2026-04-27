@@ -30,7 +30,7 @@ const platforms = [
   { icon: () => <SocialIcons.instagram />, name: 'Instagram', color: '#E4405F' },
   { icon: () => <SocialIcons.twitter />, name: 'Twitter/X', color: '#1DA1F2' },
   { icon: () => <SocialIcons.threads />, name: 'Threads', color: '#FFFFFF' },
-  { icon: () => <SocialIcons.newsletter />, name: 'Newsletter', color: '#DAFC68' },
+  { icon: () => <SocialIcons.newsletter />, name: 'Newsletter', color: 'var(--empire-hex)' },
 ]
 
 export default function HowItWorksSection() {
@@ -92,7 +92,7 @@ export default function HowItWorksSection() {
                 <defs>
                   <linearGradient id="gradient-beam" x1="0%" y1="0%" x2="100%" y2="0%">
                     <stop offset="0%" stopColor="transparent" />
-                    <stop offset="50%" stopColor="#DAFC68" stopOpacity="0.8" />
+                    <stop offset="50%" stopColor="var(--empire-hex)" stopOpacity="0.8" />
                     <stop offset="100%" stopColor="transparent" />
                   </linearGradient>
                 </defs>

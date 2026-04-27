@@ -15,8 +15,8 @@ export function RainbowButton({ children, className, onClick }: RainbowButtonPro
       onClick={onClick}
       className={cn(
         'group relative inline-flex items-center justify-center overflow-hidden rounded-xl px-8 py-4 font-bold text-black transition-all',
-        'bg-[linear-gradient(90deg,#DAFC68,#7be0ff,#DAFC68,#7be0ff)] bg-[length:200%_100%]',
-        'hover:scale-105 hover:shadow-[0_0_40px_rgba(218,252,104,0.4)]',
+        'bg-[linear-gradient(90deg,var(--empire-hex),#7be0ff,var(--empire-hex),#7be0ff)] bg-[length:200%_100%]',
+        'hover:scale-105 hover:shadow-[0_0_40px_rgb(var(--empire-rgb)_/_0.4)]',
         'animate-rainbow',
         className
       )}

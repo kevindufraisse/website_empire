@@ -10,7 +10,7 @@ export default function DemoPage() {
 
   return (
     <main className="relative min-h-screen bg-gradient-to-b from-black via-[#0f0f0f] to-black pt-20 md:pt-32">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgba(218,252,104,0.1),transparent)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgb(var(--empire-rgb)_/_0.1),transparent)]" />
       
       {/* Header */}
       <div className="max-w-3xl mx-auto px-4 py-8 md:py-20 relative z-10 text-center">
@@ -47,7 +47,7 @@ export default function DemoPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <div className="max-w-2xl mx-auto rounded-2xl border border-white/10 bg-white/[0.03] p-5 sm:p-7">
+          <div className="max-w-2xl mx-auto rounded-2xl border border-white/10 bg-white/[0.08] p-5 sm:p-7">
             <h2 className="text-lg font-bold text-white mb-5 text-center">Réservez votre appel stratégique</h2>
             <YtLeadForm />
           </div>

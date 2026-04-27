@@ -65,12 +65,12 @@ export function ExitIntentPopup() {
         onClick={() => setDismissed(true)}
       >
         <div
-          className="relative max-w-md w-full bg-gradient-to-br from-neutral-900 via-black to-neutral-900 border-2 border-empire rounded-2xl shadow-[0_0_60px_rgba(218,252,104,0.3)]"
+          className="relative max-w-md w-full bg-gradient-to-br from-neutral-900 via-black to-neutral-900 border-2 border-empire rounded-2xl shadow-[0_0_60px_rgb(var(--empire-rgb)_/_0.3)]"
           onClick={(e) => e.stopPropagation()}
         >
           <button
             onClick={() => setDismissed(true)}
-            className="absolute top-4 right-4 text-neutral-500 hover:text-white transition-colors z-10"
+            className="absolute top-4 right-4 text-neutral-400 hover:text-white transition-colors z-10"
           >
             <X size={22} />
           </button>
@@ -89,13 +89,13 @@ export function ExitIntentPopup() {
             <a
               href="/candidature"
               onClick={() => setDismissed(true)}
-              className="block w-full py-4 rounded-xl bg-empire text-black font-bold text-base hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.35)] mb-3"
+              className="block w-full py-4 rounded-xl bg-empire text-black font-bold text-base hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.35)] mb-3"
             >
               Postuler - sur sélection →
             </a>
             <button
               onClick={() => setDismissed(true)}
-              className="text-xs text-neutral-600 hover:text-neutral-400 transition-colors"
+              className="text-xs text-neutral-400 hover:text-neutral-400 transition-colors"
             >
               Non merci
             </button>
@@ -116,12 +116,12 @@ export function ExitIntentPopup() {
       onClick={() => setDismissed(true)}
     >
       <div
-        className="relative max-w-sm w-full bg-gradient-to-br from-neutral-900 via-black to-neutral-900 border-2 border-empire rounded-2xl shadow-[0_0_60px_rgba(218,252,104,0.3)]"
+        className="relative max-w-sm w-full bg-gradient-to-br from-neutral-900 via-black to-neutral-900 border-2 border-empire rounded-2xl shadow-[0_0_60px_rgb(var(--empire-rgb)_/_0.3)]"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={() => setDismissed(true)}
-          className="absolute top-3 right-3 text-neutral-500 hover:text-white transition-colors z-10"
+          className="absolute top-3 right-3 text-neutral-400 hover:text-white transition-colors z-10"
         >
           <X size={20} />
         </button>
@@ -141,13 +141,13 @@ export function ExitIntentPopup() {
             </p>
             <button
               onClick={() => window.open('/vsl', '_blank')}
-              className="w-full py-3.5 rounded-xl bg-empire text-black font-bold text-sm hover:scale-[1.03] active:scale-100 transition-all shadow-[0_0_20px_rgba(218,252,104,0.35)] mb-2.5"
+              className="w-full py-3.5 rounded-xl bg-empire text-black font-bold text-sm hover:scale-[1.03] active:scale-100 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.35)] mb-2.5"
             >
               {lang === 'fr' ? 'Oui, je veux voir →' : 'Yes, show me →'}
             </button>
             <button
               onClick={() => setStep('community')}
-              className="text-xs text-neutral-500 hover:text-neutral-300 transition-colors"
+              className="text-xs text-neutral-400 hover:text-neutral-300 transition-colors"
             >
               {lang === 'fr' ? 'Non, ça ne m\'intéresse pas' : 'No, not interested'}
             </button>
@@ -176,7 +176,7 @@ export function ExitIntentPopup() {
               ref={scriptContainerRef}
               className="min-h-[120px] flex items-center justify-center"
             >
-              <div className="text-neutral-500 text-xs">
+              <div className="text-neutral-400 text-xs">
                 {lang === 'fr' ? 'Chargement...' : 'Loading...'}
               </div>
             </div>

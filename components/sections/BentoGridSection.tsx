@@ -57,7 +57,7 @@ const getNotifications = (t: any): AnimatedListItem[] => [
         <div className="flex-shrink-0"><SocialIcons.linkedin /></div>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium truncate">30 LinkedIn posts</p>
-          <p className="text-xs text-neutral-500">{t.bentoGrid.writtenScheduled} · {t.bentoGrid.justNow}</p>
+          <p className="text-xs text-neutral-400">{t.bentoGrid.writtenScheduled} · {t.bentoGrid.justNow}</p>
         </div>
         <div className="text-xs text-empire font-bold">✓</div>
       </div>
@@ -70,7 +70,7 @@ const getNotifications = (t: any): AnimatedListItem[] => [
         <div className="flex-shrink-0"><SocialIcons.newsletter /></div>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium truncate">30 newsletters</p>
-          <p className="text-xs text-neutral-500">{t.bentoGrid.dailyContent} · 2{t.bentoGrid.minsAgo2}</p>
+          <p className="text-xs text-neutral-400">{t.bentoGrid.dailyContent} · 2{t.bentoGrid.minsAgo2}</p>
         </div>
         <div className="text-xs text-empire font-bold">✓</div>
       </div>
@@ -83,7 +83,7 @@ const getNotifications = (t: any): AnimatedListItem[] => [
         <div className="flex-shrink-0"><SocialIcons.video /></div>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium truncate">30 reels/shorts</p>
-          <p className="text-xs text-neutral-500">{t.bentoGrid.editedOptimized} · 5{t.bentoGrid.minsAgo2}</p>
+          <p className="text-xs text-neutral-400">{t.bentoGrid.editedOptimized} · 5{t.bentoGrid.minsAgo2}</p>
         </div>
         <div className="text-xs text-empire font-bold">✓</div>
       </div>
@@ -96,7 +96,7 @@ const getNotifications = (t: any): AnimatedListItem[] => [
         <div className="flex-shrink-0"><SocialIcons.instagram /></div>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium truncate">30 Instagram posts</p>
-          <p className="text-xs text-neutral-500">{t.bentoGrid.designedCaptioned} · 8{t.bentoGrid.minsAgo2}</p>
+          <p className="text-xs text-neutral-400">{t.bentoGrid.designedCaptioned} · 8{t.bentoGrid.minsAgo2}</p>
         </div>
         <div className="text-xs text-empire font-bold">✓</div>
       </div>
@@ -109,7 +109,7 @@ const getNotifications = (t: any): AnimatedListItem[] => [
         <div className="flex-shrink-0"><SocialIcons.instagram /></div>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium truncate">4 carousels</p>
-          <p className="text-xs text-neutral-500">{t.bentoGrid.highConverting} · 12{t.bentoGrid.minsAgo2}</p>
+          <p className="text-xs text-neutral-400">{t.bentoGrid.highConverting} · 12{t.bentoGrid.minsAgo2}</p>
         </div>
         <div className="text-xs text-empire font-bold">✓</div>
       </div>
@@ -122,7 +122,7 @@ const getNotifications = (t: any): AnimatedListItem[] => [
         <div className="flex-shrink-0 w-5 h-5 flex items-center justify-center"><Mic className="text-empire" size={16} /></div>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium truncate">4 MP3 podcasts</p>
-          <p className="text-xs text-neutral-500">{t.bentoGrid.audioExtracted} · 15{t.bentoGrid.minsAgo2}</p>
+          <p className="text-xs text-neutral-400">{t.bentoGrid.audioExtracted} · 15{t.bentoGrid.minsAgo2}</p>
         </div>
         <div className="text-xs text-empire font-bold">✓</div>
       </div>
@@ -135,7 +135,7 @@ const getNotifications = (t: any): AnimatedListItem[] => [
         <div className="flex-shrink-0"><SocialIcons.youtube /></div>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium truncate">4 long-form MP4 videos</p>
-          <p className="text-xs text-neutral-500">{t.bentoGrid.editedWithBroll} · 18{t.bentoGrid.minsAgo2}</p>
+          <p className="text-xs text-neutral-400">{t.bentoGrid.editedWithBroll} · 18{t.bentoGrid.minsAgo2}</p>
         </div>
         <div className="text-xs text-empire font-bold">✓</div>
       </div>
@@ -148,7 +148,7 @@ const getNotifications = (t: any): AnimatedListItem[] => [
         <div className="flex-shrink-0"><SocialIcons.twitter /></div>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium truncate">10 Twitter posts</p>
-          <p className="text-xs text-neutral-500">{t.bentoGrid.ideasBrokenDown} · 20{t.bentoGrid.minsAgo2}</p>
+          <p className="text-xs text-neutral-400">{t.bentoGrid.ideasBrokenDown} · 20{t.bentoGrid.minsAgo2}</p>
         </div>
         <div className="text-xs text-empire font-bold">✓</div>
       </div>
@@ -161,7 +161,7 @@ const getNotifications = (t: any): AnimatedListItem[] => [
         <div className="flex-shrink-0"><SocialIcons.threads /></div>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium truncate">10 Threads posts</p>
-          <p className="text-xs text-neutral-500">{t.bentoGrid.engagingContent} · 22{t.bentoGrid.minsAgo2}</p>
+          <p className="text-xs text-neutral-400">{t.bentoGrid.engagingContent} · 22{t.bentoGrid.minsAgo2}</p>
         </div>
         <div className="text-xs text-empire font-bold">✓</div>
       </div>
@@ -302,7 +302,7 @@ export default function BentoGridSection({ useAnchors = false }: { useAnchors?: 
   
   return (
     <section id="features" className="relative w-full section-spacing bg-gradient-to-b from-[#0f0f0f] via-black to-black">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(218,252,104,0.1),transparent)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgb(var(--empire-rgb)_/_0.1),transparent)]" />
       <div className="container">
         <div className="max-w-6xl mx-auto relative z-10">
         {/* Title */}

@@ -31,7 +31,7 @@ const deadJobs = [
 export default function AcademyContextSection() {
   return (
     <section className="relative w-full py-20 md:py-28 bg-gradient-to-b from-[#0f0f0f] to-black overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,rgba(218,252,104,0.03),transparent)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,rgba(252, 165, 165,0.03),transparent)]" />
       {/* Red tint for dystopian feel */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_20%,rgba(220,38,38,0.04),transparent)]" />
       <div className="container relative z-10">
@@ -56,7 +56,7 @@ export default function AcademyContextSection() {
               {/* Colonne métiers morts */}
               <div className="p-6 rounded-2xl bg-gradient-to-br from-red-950/40 to-red-900/10 border border-red-500/25">
                 <p className="text-xs font-bold text-red-400 tracking-widest uppercase mb-1">Métiers en cours de destruction</p>
-                <p className="text-neutral-600 text-xs mb-4">Pendant que vous lisez ces lignes.</p>
+                <p className="text-neutral-400 text-xs mb-4">Pendant que vous lisez ces lignes.</p>
                 <div className="space-y-2">
                   {deadJobs.map((item, i) => (
                     <motion.div
@@ -69,8 +69,8 @@ export default function AcademyContextSection() {
                     >
                       <X className="text-red-500 flex-shrink-0 mt-0.5" size={13} />
                       <div>
-                        <span className="text-neutral-500 text-sm line-through block leading-tight">{item.job}</span>
-                        <span className="text-neutral-700 text-[11px] leading-tight">{item.stat}</span>
+                        <span className="text-neutral-400 text-sm line-through block leading-tight">{item.job}</span>
+                        <span className="text-neutral-400 text-[11px] leading-tight">{item.stat}</span>
                       </div>
                     </motion.div>
                   ))}
@@ -79,12 +79,12 @@ export default function AcademyContextSection() {
 
               {/* Colonne insight */}
               <div className="flex flex-col gap-4">
-                <div className="p-6 rounded-2xl bg-gradient-to-br from-empire/20 to-empire/5 border border-empire/40 relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-empire/10 rounded-full blur-2xl" />
+                <div className="p-6 rounded-2xl bg-gradient-to-br from-academy/20 to-academy/5 border border-academy/40 relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-academy/10 rounded-full blur-2xl" />
                   <div className="relative z-10">
                     <div className="flex items-center gap-2 mb-4">
-                      <Check className="text-empire" size={16} />
-                      <p className="text-xs font-bold text-empire tracking-widest uppercase">La seule chose qui résiste</p>
+                      <Check className="text-academy" size={16} />
+                      <p className="text-xs font-bold text-academy tracking-widest uppercase">La seule chose qui résiste</p>
                     </div>
                     <p className="text-xl font-black text-white mb-4 leading-snug">
                       L'IA peut générer du contenu à l'infini. Elle ne peut pas décider pourquoi <em>vous</em> vous vous arrêtez, regardez, partagez.
@@ -97,12 +97,12 @@ export default function AcademyContextSection() {
                   </div>
                 </div>
 
-                <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/10">
-                  <p className="text-neutral-500 text-xs uppercase tracking-widest mb-2 font-bold">La logique qui suit</p>
+                <div className="p-5 rounded-2xl bg-white/[0.08] border border-white/15">
+                  <p className="text-neutral-400 text-xs uppercase tracking-widest mb-2 font-bold">La logique qui suit</p>
                   <p className="text-neutral-300 text-sm leading-relaxed mb-3">
                     Dans un monde où la compétence est égale pour tous, les gens choisissent soit le plus visible, soit celui en qui ils ont le plus confiance.
                   </p>
-                  <p className="text-empire text-sm font-semibold">
+                  <p className="text-academy text-sm font-semibold">
                     Construire une audience aujourd'hui, c'est le seul moyen de ne pas être interchangeable demain.
                   </p>
                 </div>

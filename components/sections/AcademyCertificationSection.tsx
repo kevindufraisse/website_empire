@@ -29,7 +29,7 @@ const levels = [
       badge: 'bg-white/8 text-neutral-400 border-white/15',
       glow: '',
       label: 'text-neutral-300',
-      check: 'text-neutral-500',
+      check: 'text-neutral-400',
       perkText: 'text-neutral-400',
     },
     title: 'Certifié Empire',
@@ -69,12 +69,12 @@ const levels = [
     tier: 'Or',
     emoji: '🥇',
     color: {
-      border: 'border-empire/50',
-      bg: 'from-empire/15 to-empire/[0.03]',
-      badge: 'bg-empire/20 text-empire border-empire/40',
-      glow: 'shadow-[0_0_50px_rgba(218,252,104,0.18)]',
-      label: 'text-empire',
-      check: 'text-empire',
+      border: 'border-academy/50',
+      bg: 'from-academy/15 to-academy/[0.03]',
+      badge: 'bg-academy/20 text-academy border-academy/40',
+      glow: 'shadow-[0_0_50px_rgba(252, 165, 165,0.18)]',
+      label: 'text-academy',
+      check: 'text-academy',
       perkText: 'text-white font-medium',
     },
     title: 'Certifié Elite',
@@ -94,7 +94,7 @@ const levels = [
 export default function AcademyCertificationSection() {
   return (
     <section className="relative w-full py-20 md:py-28 bg-gradient-to-b from-[#0f0f0f] to-black overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,rgba(218,252,104,0.04),transparent)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,rgba(252, 165, 165,0.04),transparent)]" />
       <div className="container relative z-10">
         <div className="max-w-5xl mx-auto">
 
@@ -104,7 +104,7 @@ export default function AcademyCertificationSection() {
               <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">Certification</p>
               <h2 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
                 Prouvez vos résultats.{' '}
-                <span className="text-empire">Obtenez votre certification.</span>
+                <span className="text-academy">Obtenez votre certification.</span>
               </h2>
               <p className="text-neutral-400 text-base md:text-lg max-w-2xl mx-auto">
                 À la fin du bootcamp, vous pouvez passer les certifications Empire Internet - ajoutables sur votre profil LinkedIn. Les niveaux sont basés sur vos vrais résultats.
@@ -135,7 +135,7 @@ export default function AcademyCertificationSection() {
                       {level.emoji} {level.tier}
                     </span>
                     {level.highlight && (
-                      <span className="text-[10px] font-bold text-empire bg-empire/10 border border-empire/30 px-2 py-0.5 rounded-full">
+                      <span className="text-[10px] font-bold text-academy bg-academy/10 border border-academy/30 px-2 py-0.5 rounded-full">
                         MEILLEUR NIVEAU
                       </span>
                     )}
@@ -143,7 +143,7 @@ export default function AcademyCertificationSection() {
 
                   {/* Title */}
                   <h3 className={`text-xl font-black mb-1 ${level.color.label}`}>{level.title}</h3>
-                  <p className="text-xs font-semibold text-neutral-500 uppercase tracking-wide mb-4">{level.subtitle}</p>
+                  <p className="text-xs font-semibold text-neutral-400 uppercase tracking-wide mb-4">{level.subtitle}</p>
 
                   {/* Criteria */}
                   <div className="p-3 rounded-xl bg-white/5 border border-white/8 mb-5">

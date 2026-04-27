@@ -2,7 +2,7 @@
 import { X, Phone } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { LAUNCH_OFFER_ACTIVE, PRICING } from '@/lib/pricing-config'
+import { LAUNCH_OFFER_ACTIVE } from '@/lib/pricing-config'
 import { getCalApi } from "@calcom/embed-react"
 import CallbackFormModal from '@/components/CallbackFormModal'
 import { useCalLink } from '@/hooks/useCalLink'
@@ -33,10 +33,8 @@ export default function AnnouncementBanner() {
   // Ne pas afficher si pas en mode lancement ou si déjà fermé
   if (!LAUNCH_OFFER_ACTIVE || dismissed) return null
 
-  const savings = PRICING.monthlyNormal - PRICING.monthly
-
   return (
-    <div className="sticky top-0 left-0 right-0 bg-gradient-to-r from-empire via-[#c8e860] to-empire text-black py-1.5 px-4 z-[60] shadow-md">
+    <div className="sticky top-0 left-0 right-0 bg-empire text-black py-1.5 px-4 z-[60] shadow-md">
       <div className="max-w-7xl mx-auto relative">
         <div className="relative flex items-center justify-center gap-2 text-center text-xs flex-wrap px-8 pr-10 py-0.5">
           <span className="font-bold">
@@ -44,8 +42,8 @@ export default function AnnouncementBanner() {
           </span>
           <span className="font-semibold">
             {lang === 'fr' 
-              ? `Économisez ${savings}€/mois sur tous les plans`
-              : `Save €${savings}/month on all plans`}
+              ? `Offre limitée - demandez votre devis personnalisé`
+              : `Limited-time offer - request your personalized quote`}
           </span>
           <button 
             type="button"

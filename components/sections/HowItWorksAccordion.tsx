@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef, useEffect, useState } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { useAutopilot } from '@/contexts/AutopilotContext'
 import { Mic, ArrowRight } from 'lucide-react'
 import { getCalApi } from "@calcom/embed-react"
 import CallbackButton from '@/components/CallbackButton'
@@ -62,7 +63,7 @@ const getNotificationsFr = (SocialIconComponent: typeof SocialIcon): AnimatedLis
         <div className="flex-shrink-0"><SocialIconComponent type="linkedin" /></div>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium truncate">30 LinkedIn posts</p>
-          <p className="text-xs text-neutral-500">Écrit & planifié · À l'instant</p>
+          <p className="text-xs text-neutral-400">Écrit & planifié · À l'instant</p>
         </div>
         <div className="text-xs text-empire font-bold">✓</div>
             </div>
@@ -75,7 +76,7 @@ const getNotificationsFr = (SocialIconComponent: typeof SocialIcon): AnimatedLis
         <div className="flex-shrink-0"><SocialIconComponent type="newsletter" /></div>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium truncate">30 newsletters</p>
-          <p className="text-xs text-neutral-500">Contenu quotidien · 2m</p>
+          <p className="text-xs text-neutral-400">Contenu quotidien · 2m</p>
             </div>
         <div className="text-xs text-empire font-bold">✓</div>
           </div>
@@ -88,7 +89,7 @@ const getNotificationsFr = (SocialIconComponent: typeof SocialIcon): AnimatedLis
         <div className="flex-shrink-0"><SocialIconComponent type="reels" /></div>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium truncate">30 reels/shorts</p>
-          <p className="text-xs text-neutral-500">Édité & optimisé · 5m</p>
+          <p className="text-xs text-neutral-400">Édité & optimisé · 5m</p>
         </div>
         <div className="text-xs text-empire font-bold">✓</div>
         </div>
@@ -101,7 +102,7 @@ const getNotificationsFr = (SocialIconComponent: typeof SocialIcon): AnimatedLis
         <div className="flex-shrink-0"><SocialIconComponent type="instagram" /></div>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium truncate">30 Instagram posts</p>
-          <p className="text-xs text-neutral-500">Designé & légendé · 8m</p>
+          <p className="text-xs text-neutral-400">Designé & légendé · 8m</p>
                       </div>
         <div className="text-xs text-empire font-bold">✓</div>
                   </div>
@@ -114,7 +115,7 @@ const getNotificationsFr = (SocialIconComponent: typeof SocialIcon): AnimatedLis
         <div className="flex-shrink-0"><SocialIconComponent type="twitter" /></div>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium truncate">10 Twitter posts</p>
-          <p className="text-xs text-neutral-500">Idées décortiquées · 12m</p>
+          <p className="text-xs text-neutral-400">Idées décortiquées · 12m</p>
             </div>
         <div className="text-xs text-empire font-bold">✓</div>
           </div>
@@ -127,7 +128,7 @@ const getNotificationsFr = (SocialIconComponent: typeof SocialIcon): AnimatedLis
         <div className="flex-shrink-0"><SocialIconComponent type="threads" /></div>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium truncate">10 Threads posts</p>
-          <p className="text-xs text-neutral-500">Contenu engageant · 15m</p>
+          <p className="text-xs text-neutral-400">Contenu engageant · 15m</p>
               </div>
         <div className="text-xs text-empire font-bold">✓</div>
             </div>
@@ -143,7 +144,7 @@ const getNotificationsEn = (SocialIconComponent: typeof SocialIcon): AnimatedLis
         <div className="flex-shrink-0"><SocialIconComponent type="linkedin" /></div>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium truncate">30 LinkedIn posts</p>
-          <p className="text-xs text-neutral-500">Written & scheduled · Just now</p>
+          <p className="text-xs text-neutral-400">Written & scheduled · Just now</p>
               </div>
         <div className="text-xs text-empire font-bold">✓</div>
               </div>
@@ -156,7 +157,7 @@ const getNotificationsEn = (SocialIconComponent: typeof SocialIcon): AnimatedLis
         <div className="flex-shrink-0"><SocialIconComponent type="newsletter" /></div>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium truncate">30 newsletters</p>
-          <p className="text-xs text-neutral-500">Daily content · 2m ago</p>
+          <p className="text-xs text-neutral-400">Daily content · 2m ago</p>
             </div>
         <div className="text-xs text-empire font-bold">✓</div>
           </div>
@@ -169,7 +170,7 @@ const getNotificationsEn = (SocialIconComponent: typeof SocialIcon): AnimatedLis
         <div className="flex-shrink-0"><SocialIconComponent type="reels" /></div>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium truncate">30 reels/shorts</p>
-          <p className="text-xs text-neutral-500">Edited & optimized · 5m ago</p>
+          <p className="text-xs text-neutral-400">Edited & optimized · 5m ago</p>
         </div>
         <div className="text-xs text-empire font-bold">✓</div>
         </div>
@@ -182,7 +183,7 @@ const getNotificationsEn = (SocialIconComponent: typeof SocialIcon): AnimatedLis
         <div className="flex-shrink-0"><SocialIconComponent type="instagram" /></div>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium truncate">30 Instagram posts</p>
-          <p className="text-xs text-neutral-500">Designed & captioned · 8m ago</p>
+          <p className="text-xs text-neutral-400">Designed & captioned · 8m ago</p>
             </div>
         <div className="text-xs text-empire font-bold">✓</div>
             </div>
@@ -195,7 +196,7 @@ const getNotificationsEn = (SocialIconComponent: typeof SocialIcon): AnimatedLis
         <div className="flex-shrink-0"><SocialIconComponent type="twitter" /></div>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium truncate">10 Twitter posts</p>
-          <p className="text-xs text-neutral-500">Ideas unpacked · 12m ago</p>
+          <p className="text-xs text-neutral-400">Ideas unpacked · 12m ago</p>
             </div>
         <div className="text-xs text-empire font-bold">✓</div>
           </div>
@@ -208,7 +209,7 @@ const getNotificationsEn = (SocialIconComponent: typeof SocialIcon): AnimatedLis
         <div className="flex-shrink-0"><SocialIconComponent type="threads" /></div>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium truncate">10 Threads posts</p>
-          <p className="text-xs text-neutral-500">Engaging content · 15m ago</p>
+          <p className="text-xs text-neutral-400">Engaging content · 15m ago</p>
         </div>
         <div className="text-xs text-empire font-bold">✓</div>
         </div>
@@ -227,7 +228,7 @@ const SocialIcon = ({ type }: { type: string }) => {
       )
     case 'newsletter':
       return (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="#DAFC68">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--empire-hex)">
           <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
         </svg>
       )
@@ -269,6 +270,7 @@ const SocialIcon = ({ type }: { type: string }) => {
 
 export default function HowItWorksAccordion() {
   const { t, lang } = useLanguage()
+  const { autopilot } = useAutopilot()
   const notifications = lang === 'fr' ? getNotificationsFr(SocialIcon) : getNotificationsEn(SocialIcon)
 
   const namespace = 'audit-empire'
@@ -292,27 +294,39 @@ export default function HowItWorksAccordion() {
   return (
     <section id="how-it-works" className="relative w-full py-16 md:py-28 overflow-hidden bg-[#0a0a0a]">
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(218,252,104,0.08),transparent)]" />
-      
+      <div className={`absolute inset-0 transition-opacity duration-500 ${autopilot ? 'opacity-0' : 'opacity-100'} bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgb(var(--empire-rgb)_/_0.08),transparent)]`} />
+      <div className={`absolute inset-0 transition-opacity duration-500 ${autopilot ? 'opacity-100' : 'opacity-0'} bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(212,165,116,0.08),transparent)]`} />
+
       <div className="container relative z-10">
         <div className="max-w-6xl mx-auto">
         {/* Title */}
         <FadeInBlock>
             <div className="text-center mb-6 md:mb-10">
-              <div className="inline-block mb-4 px-4 py-2 rounded-full bg-empire/10 border border-empire/30">
-                <p className="text-sm font-bold text-empire">
-                  {lang === 'fr' ? 'COMMENT ÇA MARCHE' : 'HOW IT WORKS'}
+              <div className={`inline-block mb-4 px-4 py-2 rounded-full transition-colors ${autopilot ? 'bg-autopilot/10 border border-autopilot/40' : 'bg-empire/10 border border-empire/30'}`}>
+                <p className={`text-sm font-bold ${autopilot ? 'text-autopilot' : 'text-empire'}`}>
+                  {autopilot
+                    ? t.autopilot.howItWorks.badge
+                    : (lang === 'fr' ? 'COMMENT ÇA MARCHE' : 'HOW IT WORKS')}
                 </p>
               </div>
-              <h2 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
-                {lang === 'fr'
-                  ? <>On a étudié ce qui rend les meilleurs créateurs<br className="hidden sm:block" /><span className="text-empire"> viraux, riches, visibles et écoutés</span></>
-                  : <>We studied what makes top creators<br className="hidden sm:block" /><span className="text-empire"> viral, rich, visible and heard</span></>}
-              </h2>
+              {autopilot ? (
+                <h2
+                  className="text-3xl md:text-5xl font-bold mb-4 leading-tight"
+                  dangerouslySetInnerHTML={{ __html: t.autopilot.howItWorks.title }}
+                />
+              ) : (
+                <h2 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
+                  {lang === 'fr'
+                    ? <>On a étudié ce qui rend les meilleurs créateurs<br className="hidden sm:block" /><span className="text-empire"> viraux, riches, visibles et écoutés</span></>
+                    : <>We studied what makes top creators<br className="hidden sm:block" /><span className="text-empire"> viral, rich, visible and heard</span></>}
+                </h2>
+              )}
               <p className="text-base md:text-lg text-neutral-400 max-w-2xl mx-auto">
-                {lang === 'fr'
-                  ? 'Résultat : un système clé en main. Vous parlez 15 min, on fait le reste.'
-                  : 'The result: a turnkey system. You talk 15 min, we handle the rest.'}
+                {autopilot
+                  ? t.autopilot.howItWorks.subtitle
+                  : (lang === 'fr'
+                      ? 'Résultat : un système clé en main. Vous parlez 15 min, on fait le reste.'
+                      : 'The result: a turnkey system. You talk 15 min, we handle the rest.')}
               </p>
           </div>
         </FadeInBlock>
@@ -320,7 +334,7 @@ export default function HowItWorksAccordion() {
         {/* Creator avatars */}
         <FadeInBlock delay={0.05}>
           <div className="flex items-center justify-center gap-3 mb-10 md:mb-14">
-            <span className="text-xs text-neutral-500">{lang === 'fr' ? 'Inspiré par' : 'Inspired by'}</span>
+            <span className="text-xs text-neutral-400">{lang === 'fr' ? 'Inspiré par' : 'Inspired by'}</span>
             <div className="flex -space-x-2">
               {[
                 { name: 'Grant Cardone', img: '/creators/cardone.webp' },
@@ -334,7 +348,7 @@ export default function HowItWorksAccordion() {
                 </div>
               ))}
             </div>
-            <span className="text-xs text-neutral-500">{lang === 'fr' ? '& les meilleurs créateurs' : '& top creators'}</span>
+            <span className="text-xs text-neutral-400">{lang === 'fr' ? '& les meilleurs créateurs' : '& top creators'}</span>
           </div>
         </FadeInBlock>
 
@@ -343,68 +357,130 @@ export default function HowItWorksAccordion() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
 
               {/* BLOCK 1 - Research */}
-              <div className="group relative flex flex-col overflow-hidden rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30 transition-all min-h-[300px]">
+              <div className={`group relative flex flex-col overflow-hidden rounded-xl transition-all min-h-[300px] ${
+                autopilot
+                  ? 'bg-gradient-to-br from-autopilot/10 to-white/[0.02] border border-autopilot/30 hover:border-autopilot/60'
+                  : 'bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30'
+              }`}>
                 <div className="flex-1 flex flex-col items-center justify-center p-5 gap-3">
-                  {(lang === 'fr' ? [
-                    'Sujets viraux de votre niche identifiés',
-                    'Meilleurs formats de votre secteur analysés',
-                    'Votre ton et style de communication analysés',
-                    'Stratégie de contenu personnalisée',
-                  ] : [
-                    'Viral topics in your niche identified',
-                    'Best formats in your sector analyzed',
-                    'Your tone and communication style analyzed',
-                    'Personalized content strategy',
-                  ]).map((item, i) => (
-                    <div key={i} className="flex items-center gap-2 w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10">
-                      <span className="text-empire font-bold text-sm flex-shrink-0">✓</span>
+                  {(autopilot
+                    ? t.autopilot.howItWorks.b1.items
+                    : lang === 'fr' ? [
+                        'Sujets viraux de votre niche identifiés',
+                        'Meilleurs formats de votre secteur analysés',
+                        'Votre ton et style de communication analysés',
+                        'Stratégie de contenu personnalisée',
+                      ] : [
+                        'Viral topics in your niche identified',
+                        'Best formats in your sector analyzed',
+                        'Your tone and communication style analyzed',
+                        'Personalized content strategy',
+                      ]
+                  ).map((item, i) => (
+                    <div key={i} className={`flex items-center gap-2 w-full px-3 py-2 rounded-lg ${
+                      autopilot ? 'bg-autopilot/5 border border-autopilot/20' : 'bg-white/5 border border-white/10'
+                    }`}>
+                      <span className={`font-bold text-sm flex-shrink-0 ${autopilot ? 'text-autopilot' : 'text-empire'}`}>✓</span>
                       <span className="text-xs text-neutral-300">{item}</span>
                     </div>
                   ))}
                 </div>
                 <div className="relative z-10 p-5 pt-3 bg-gradient-to-t from-black via-black/90 to-transparent">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">1</span>
+                    <span className={`w-6 h-6 rounded-md flex items-center justify-center text-black font-bold text-sm ${autopilot ? 'bg-autopilot' : 'bg-empire'}`}>1</span>
                     <h3 className="text-base font-semibold text-white">
-                      {lang === 'fr' ? 'Analyse & Stratégie' : 'Research & Strategy'}
+                      {autopilot
+                        ? t.autopilot.howItWorks.b1.title
+                        : (lang === 'fr' ? 'Analyse & Stratégie' : 'Research & Strategy')}
                     </h3>
                   </div>
                   <p className="text-neutral-400 text-sm">
-                    {lang === 'fr'
-                      ? 'On étudie votre niche, vos concurrents et votre ton pour créer une stratégie sur mesure.'
-                      : 'We study your niche, competitors and tone to create a tailored strategy.'}
+                    {autopilot
+                      ? t.autopilot.howItWorks.b1.desc
+                      : (lang === 'fr'
+                          ? 'On étudie votre niche, vos concurrents et votre ton pour créer une stratégie sur mesure.'
+                          : 'We study your niche, competitors and tone to create a tailored strategy.')}
                   </p>
                 </div>
               </div>
 
-              {/* BLOCK 2 - Parlez 15 min */}
-              <div className="group relative flex flex-col overflow-hidden rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30 transition-all min-h-[300px]">
-                <div className="flex-1 flex flex-col items-center justify-center p-6 gap-4">
-                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-empire/30 to-empire/10 border-2 border-empire flex items-center justify-center">
-                    <Mic className="text-empire" size={24} />
+              {/* BLOCK 2 - Parlez 15 min (or Expert dédié in autopilot) */}
+              {autopilot ? (
+                <div className="group relative flex flex-col overflow-hidden rounded-xl bg-gradient-to-br from-autopilot/10 to-white/[0.02] border border-autopilot/30 hover:border-autopilot/60 transition-all min-h-[300px]">
+                  <div className="flex-1 flex flex-col items-center justify-center p-6 gap-5">
+                    <div className="flex -space-x-4">
+                      <img
+                        src="/founders/kevin.png"
+                        alt="Kevin Dufraisse"
+                        className="w-16 h-16 rounded-full object-cover object-top border-2 border-autopilot ring-2 ring-black"
+                        loading="lazy"
+                      />
+                      <img
+                        src="/founders/marc.jpg"
+                        alt="Marc"
+                        className="w-16 h-16 rounded-full object-cover border-2 border-autopilot ring-2 ring-black"
+                        loading="lazy"
+                      />
+                      <div className="w-16 h-16 rounded-full bg-autopilot/20 border-2 border-autopilot ring-2 ring-black flex items-center justify-center text-autopilot text-sm font-bold">
+                        +3
+                      </div>
+                    </div>
+                    <div className="flex flex-col items-center gap-1.5">
+                      <p className="text-xs text-autopilot font-bold tracking-wider uppercase text-center">
+                        {lang === 'fr' ? '1M+ vues/mois · Top 50 LinkedIn FR' : '1M+ views/mo · Top 50 LinkedIn FR'}
+                      </p>
+                      <p className="text-xs text-neutral-400 text-center px-2">
+                        {lang === 'fr'
+                          ? 'Votre expert formé par cette équipe'
+                          : 'Your expert trained by this team'}
+                      </p>
+                    </div>
                   </div>
-                  <VoiceAnimation />
-                  <p className="text-xs text-empire font-semibold tracking-wider uppercase">
-                    {lang === 'fr' ? 'Enregistrement...' : 'Recording...'}
-                  </p>
-                </div>
-                <div className="relative z-10 p-5 pt-3 bg-gradient-to-t from-black via-black/90 to-transparent">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">2</span>
-                    <h3 className="text-base font-semibold text-white">
-                      {lang === 'fr' ? 'Parlez 15 min' : 'Speak 15 min'}
-                    </h3>
+                  <div className="relative z-10 p-5 pt-3 bg-gradient-to-t from-black via-black/90 to-transparent">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="w-6 h-6 rounded-md bg-autopilot flex items-center justify-center text-black font-bold text-sm">2</span>
+                      <h3 className="text-base font-semibold text-white">
+                        {t.autopilot.howItWorks.b2.title}
+                      </h3>
+                    </div>
+                    <p className="text-neutral-400 text-sm">
+                      {t.autopilot.howItWorks.b2.desc}
+                    </p>
                   </div>
-                  <p className="text-neutral-400 text-sm">
-                    {lang === 'fr'
-                      ? 'Zéro préparation. Vous donnez vos opinions sur des sujets - on fait le reste.'
-                      : 'Zero prep. You share your opinions on topics - we handle the rest.'}
-                  </p>
                 </div>
-              </div>
+              ) : (
+                <div className="group relative flex flex-col overflow-hidden rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30 transition-all min-h-[300px]">
+                  <div className="flex-1 flex flex-col items-center justify-center p-6 gap-4">
+                    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-empire/30 to-empire/10 border-2 border-empire flex items-center justify-center">
+                      <Mic className="text-empire" size={24} />
+                    </div>
+                    <VoiceAnimation />
+                    <p className="text-xs text-empire font-semibold tracking-wider uppercase">
+                      {lang === 'fr' ? 'Enregistrement...' : 'Recording...'}
+                    </p>
+                  </div>
+                  <div className="relative z-10 p-5 pt-3 bg-gradient-to-t from-black via-black/90 to-transparent">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">2</span>
+                      <h3 className="text-base font-semibold text-white">
+                        {lang === 'fr' ? 'Parlez 15 min' : 'Speak 15 min'}
+                      </h3>
+                    </div>
+                    <p className="text-neutral-400 text-sm">
+                      {lang === 'fr'
+                        ? 'Zéro préparation. Vous donnez vos opinions sur des sujets - on fait le reste.'
+                        : 'Zero prep. You share your opinions on topics - we handle the rest.'}
+                    </p>
+                  </div>
+                </div>
+              )}
 
               {/* BLOCK 3 - IA + Humain */}
-              <div className="group relative flex flex-col justify-end overflow-hidden rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30 transition-all min-h-[300px]">
+              <div className={`group relative flex flex-col justify-end overflow-hidden rounded-xl transition-all min-h-[300px] ${
+                autopilot
+                  ? 'bg-gradient-to-br from-autopilot/10 to-white/[0.02] border border-autopilot/30 hover:border-autopilot/60'
+                  : 'bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30'
+              }`}>
                 <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-500/20 border border-green-500/40 backdrop-blur-sm">
                   <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                   <span className="text-[10px] font-semibold text-green-400">
@@ -419,52 +495,71 @@ export default function HowItWorksAccordion() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
                 <div className="relative z-10 p-5">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">3</span>
+                    <span className={`w-6 h-6 rounded-md flex items-center justify-center text-black font-bold text-sm ${autopilot ? 'bg-autopilot' : 'bg-empire'}`}>3</span>
                     <h3 className="text-base font-semibold text-white">
-                      {lang === 'fr' ? 'IA + Humain' : 'AI + Human'}
+                      {autopilot
+                        ? t.autopilot.howItWorks.b3.title
+                        : (lang === 'fr' ? 'IA + Humain' : 'AI + Human')}
                     </h3>
                   </div>
                   <p className="text-neutral-400 text-sm">
-                    {lang === 'fr'
-                      ? 'On crée vos contenus du mois avec les meilleures techniques de viralité.'
-                      : 'We create your monthly content using the best virality techniques.'}
+                    {autopilot
+                      ? t.autopilot.howItWorks.b3.desc
+                      : (lang === 'fr'
+                          ? 'On crée vos contenus du mois avec les meilleures techniques de viralité.'
+                          : 'We create your monthly content using the best virality techniques.')}
                   </p>
                 </div>
                 <div className="pointer-events-none absolute inset-0 transform-gpu transition-all duration-300 group-hover:bg-black/[.03] z-5" />
               </div>
 
-              {/* BLOCK 4 - Publiez */}
-              <div className="group relative flex flex-col overflow-hidden rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30 transition-all min-h-[300px]">
+              {/* BLOCK 4 - Publiez (or Safety net in autopilot) */}
+              <div className={`group relative flex flex-col overflow-hidden rounded-xl transition-all min-h-[300px] ${
+                autopilot
+                  ? 'bg-gradient-to-br from-autopilot/10 to-white/[0.02] border border-autopilot/30 hover:border-autopilot/60'
+                  : 'bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30'
+              }`}>
                 <div className="flex-1 flex flex-col items-center justify-center p-6 gap-4">
                   <div className="grid grid-cols-7 gap-1.5 p-3 rounded-xl bg-white/5 border border-white/10">
-                    {Array.from({ length: 28 }).map((_, i) => (
-                      <div
-                        key={i}
-                        className={`w-5 h-5 rounded text-[9px] flex items-center justify-center ${
-                          [2, 5, 9, 12, 16, 19, 23, 26].includes(i)
-                            ? 'bg-empire/30 text-empire font-bold'
-                            : 'bg-white/5 text-neutral-500'
-                        }`}
-                      >
-                        {i + 1}
-                      </div>
-                    ))}
+                    {Array.from({ length: 28 }).map((_, i) => {
+                      const highlight = [2, 5, 9, 12, 16, 19, 23, 26].includes(i)
+                      return (
+                        <div
+                          key={i}
+                          className={`w-5 h-5 rounded text-[9px] flex items-center justify-center ${
+                            highlight
+                              ? autopilot
+                                ? 'bg-autopilot/30 text-autopilot font-bold'
+                                : 'bg-empire/30 text-empire font-bold'
+                              : 'bg-white/5 text-neutral-400'
+                          }`}
+                        >
+                          {i + 1}
+                        </div>
+                      )
+                    })}
                   </div>
-                  <p className="text-xs text-empire font-semibold tracking-wider uppercase">
-                    {lang === 'fr' ? '1 clic pour publier' : '1 click to publish'}
+                  <p className={`text-xs font-semibold tracking-wider uppercase ${autopilot ? 'text-autopilot' : 'text-empire'}`}>
+                    {autopilot
+                      ? (lang === 'fr' ? 'Publié automatiquement' : 'Published automatically')
+                      : (lang === 'fr' ? '1 clic pour publier' : '1 click to publish')}
                   </p>
                 </div>
                 <div className="relative z-10 p-5 pt-3 bg-gradient-to-t from-black via-black/90 to-transparent">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">4</span>
+                    <span className={`w-6 h-6 rounded-md flex items-center justify-center text-black font-bold text-sm ${autopilot ? 'bg-autopilot' : 'bg-empire'}`}>4</span>
                     <h3 className="text-base font-semibold text-white">
-                      {lang === 'fr' ? 'Publiez en 1 clic' : 'Publish in 1 click'}
+                      {autopilot
+                        ? t.autopilot.howItWorks.b4.title
+                        : (lang === 'fr' ? 'Publiez en 1 clic' : 'Publish in 1 click')}
                     </h3>
                   </div>
                   <p className="text-neutral-400 text-sm">
-                    {lang === 'fr'
-                      ? 'Nos experts ajoutent votre contenu à votre calendrier. Vous publiez en 1 clic.'
-                      : 'Our experts add your content to the calendar. You publish in 1 click.'}
+                    {autopilot
+                      ? t.autopilot.howItWorks.b4.desc
+                      : (lang === 'fr'
+                          ? 'Nos experts ajoutent votre contenu à votre calendrier. Vous publiez en 1 clic.'
+                          : 'Our experts add your content to the calendar. You publish in 1 click.')}
                   </p>
                 </div>
               </div>
@@ -476,9 +571,11 @@ export default function HowItWorksAccordion() {
           <FadeInBlock delay={0.15}>
             <div className="mt-6 flex flex-col items-center gap-4">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm text-neutral-400">
-                * {lang === 'fr' ? 'Pas besoin de montrer votre visage' : 'No need to show your face'}
+                * {autopilot
+                  ? (lang === 'fr' ? 'Zéro contact requis · Vous pouvez ne jamais nous parler' : 'Zero contact required · You never have to talk to us')
+                  : (lang === 'fr' ? 'Pas besoin de montrer votre visage' : 'No need to show your face')}
               </div>
-              <p className="text-xs text-neutral-500">{lang === 'fr' ? 'Publié sur' : 'Published on'}</p>
+              <p className="text-xs text-neutral-400">{lang === 'fr' ? 'Publié sur' : 'Published on'}</p>
               <div className="flex flex-wrap items-center justify-center gap-2">
                 {['LinkedIn', 'YouTube', 'Instagram', 'Twitter/X', 'Threads', 'Newsletter'].map((p) => (
                   <span key={p} className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-xs font-medium text-neutral-300">
@@ -496,13 +593,19 @@ export default function HowItWorksAccordion() {
                 data-cal-namespace={namespace}
                 data-cal-link={calLink}
                 data-cal-config='{"layout":"month_view","theme":"dark"}'
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-empire text-black font-bold text-lg hover:scale-105 transition-transform shadow-[0_0_30px_rgba(218,252,104,0.3)]"
+                className={`inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-lg hover:scale-105 transition-all ${
+                  autopilot
+                    ? 'bg-gradient-to-r from-autopilot to-autopilot text-black shadow-[0_0_30px_rgba(212,165,116,0.4)]'
+                    : 'bg-empire text-black shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.3)]'
+                }`}
               >
-                {t.common.startNow}
+                {autopilot ? t.autopilot.hero.cta1 : t.common.startNow}
                 <ArrowRight size={20} />
               </button>
-              <p className="mt-3 text-sm text-neutral-500">
-                {lang === 'fr' ? '15 min · Sans engagement' : '15 min · No commitment'}
+              <p className="mt-3 text-sm text-neutral-400">
+                {autopilot
+                  ? t.autopilot.hero.ctaReassurance
+                  : (lang === 'fr' ? '15 min · Sans engagement' : '15 min · No commitment')}
               </p>
               <div className="mt-3">
                 <CallbackButton variant="subtle" />

@@ -31,7 +31,7 @@ export default function VslPage() {
       />
 
       <main className="min-h-screen bg-black text-white overflow-x-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(218,252,104,0.08),transparent)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgb(var(--empire-rgb)_/_0.08),transparent)]" />
 
         <div className="relative z-10">
           {/* ── Hero + Video ── */}
@@ -61,7 +61,7 @@ export default function VslPage() {
                 className="mb-4"
               >
                 <div className="flex items-center justify-center gap-3 flex-wrap">
-                  <span className="text-[11px] text-neutral-500 mr-1">Utilisé par</span>
+                  <span className="text-[11px] text-neutral-400 mr-1">Utilisé par</span>
                   <div className="flex items-center -space-x-2">
                     {CREATORS.map((c) => (
                       <div
@@ -78,12 +78,12 @@ export default function VslPage() {
                       </div>
                     ))}
                   </div>
-                  <span className="text-[11px] text-neutral-500">et les plus grands créateurs mondiaux</span>
+                  <span className="text-[11px] text-neutral-400">et les plus grands créateurs mondiaux</span>
                 </div>
               </motion.div>
 
               <div className="flex justify-center mb-3">
-                <span className="text-[11px] text-neutral-500 flex items-center gap-1.5 animate-bounce">
+                <span className="text-[11px] text-neutral-400 flex items-center gap-1.5 animate-bounce">
                   Découvrir leur système
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M12 5v14M5 12l7 7 7-7" />
@@ -116,8 +116,8 @@ export default function VslPage() {
                 transition={{ delay: 0.4, duration: 0.5 }}
                 className="max-w-lg mx-auto"
               >
-                <div className="relative rounded-2xl border border-empire/25 bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-6 sm:p-8 shadow-[0_0_40px_-8px_rgba(218,252,104,0.12)]">
-                  <div className="absolute inset-0 rounded-2xl bg-[radial-gradient(ellipse_60%_40%_at_50%_0%,rgba(218,252,104,0.06),transparent)] pointer-events-none" />
+                <div className="relative rounded-2xl border border-empire/25 bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-6 sm:p-8 shadow-[0_0_40px_-8px_rgb(var(--empire-rgb)_/_0.12)]">
+                  <div className="absolute inset-0 rounded-2xl bg-[radial-gradient(ellipse_60%_40%_at_50%_0%,rgb(var(--empire-rgb)_/_0.06),transparent)] pointer-events-none" />
                   <div className="relative">
                     <p className="text-empire text-xs font-semibold tracking-wider uppercase mb-2">Appel stratégique offert</p>
                     <h2 className="text-xl font-bold text-white mb-1">Réservez votre appel gratuit</h2>
@@ -165,8 +165,8 @@ export default function VslPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                <div className="relative rounded-2xl border border-empire/25 bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-6 sm:p-8 shadow-[0_0_40px_-8px_rgba(218,252,104,0.12)]">
-                  <div className="absolute inset-0 rounded-2xl bg-[radial-gradient(ellipse_60%_40%_at_50%_0%,rgba(218,252,104,0.06),transparent)] pointer-events-none" />
+                <div className="relative rounded-2xl border border-empire/25 bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-6 sm:p-8 shadow-[0_0_40px_-8px_rgb(var(--empire-rgb)_/_0.12)]">
+                  <div className="absolute inset-0 rounded-2xl bg-[radial-gradient(ellipse_60%_40%_at_50%_0%,rgb(var(--empire-rgb)_/_0.06),transparent)] pointer-events-none" />
                   <div className="relative">
                     <p className="text-empire text-xs font-semibold tracking-wider uppercase mb-2">Dernière étape</p>
                     <h2 className="text-xl font-bold text-white mb-1">Prêt à passer à l'action ?</h2>

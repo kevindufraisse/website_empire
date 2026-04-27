@@ -5,7 +5,12 @@ const nextConfig = {
     return [
       {
         source: '/pricing',
-        destination: 'https://www.empire-internet.com/pricing',
+        destination: '/decouverte',
+        permanent: false,
+      },
+      {
+        source: '/order',
+        destination: '/decouverte',
         permanent: false,
       },
     ]

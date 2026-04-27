@@ -71,7 +71,7 @@ export function GlobalLumaCalendar() {
       }}
     >
       <div 
-        className="relative max-w-2xl w-full bg-black border-2 border-empire/30 rounded-2xl overflow-hidden shadow-[0_0_60px_rgba(218,252,104,0.3)]"
+        className="relative max-w-2xl w-full bg-black border-2 border-empire/30 rounded-2xl overflow-hidden shadow-[0_0_60px_rgb(var(--empire-rgb)_/_0.3)]"
         onClick={(e) => e.stopPropagation()}
         style={{ zIndex: 2147483647 }}
       >

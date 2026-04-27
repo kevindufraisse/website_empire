@@ -80,8 +80,8 @@ export default function FormatsAPI() {
                   <div className="aspect-square flex items-center justify-center">
                     <div className="text-center">
                       <Code className="mx-auto mb-4 text-empire" size={80} />
-                      <p className="text-sm text-neutral-500 font-mono">api-workflow-diagram.png</p>
-                      <p className="text-xs text-neutral-600 mt-2">API flowchart visual here</p>
+                      <p className="text-sm text-neutral-400 font-mono">api-workflow-diagram.png</p>
+                      <p className="text-xs text-neutral-400 mt-2">API flowchart visual here</p>
                       <div className="mt-6 space-y-2 text-left max-w-xs mx-auto">
                         <div className="flex items-center gap-2 text-xs text-neutral-400">
                           <div className="w-3 h-3 rounded-full bg-empire/30" />

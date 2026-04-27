@@ -22,7 +22,7 @@ export default function DemoThankYouPage() {
 
   return (
     <main className="relative min-h-screen bg-gradient-to-b from-black via-[#0f0f0f] to-black pt-24 md:pt-32">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgba(218,252,104,0.1),transparent)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgb(var(--empire-rgb)_/_0.1),transparent)]" />
 
       <div className="container py-12 relative z-10">
         <div className="max-w-3xl mx-auto">
@@ -32,7 +32,7 @@ export default function DemoThankYouPage() {
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ type: 'spring', duration: 0.6 }}
-              className="w-20 h-20 rounded-full bg-empire/20 border-4 border-empire flex items-center justify-center mx-auto mb-4 shadow-[0_0_50px_rgba(218,252,104,0.3)]"
+              className="w-20 h-20 rounded-full bg-empire/20 border-4 border-empire flex items-center justify-center mx-auto mb-4 shadow-[0_0_50px_rgb(var(--empire-rgb)_/_0.3)]"
             >
               <CheckCircle2 className="text-empire" size={40} />
             </motion.div>
@@ -79,7 +79,7 @@ export default function DemoThankYouPage() {
                 href="https://www.loom.com/share/184e8823d9154d74aeca55a5cd488f08"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs text-neutral-500 hover:text-empire transition-colors"
+                className="text-xs text-neutral-400 hover:text-empire transition-colors"
               >
                 {lang === 'fr' ? 'Ouvrir dans une nouvelle fenêtre →' : 'Open in a new window →'}
               </a>
@@ -99,7 +99,7 @@ export default function DemoThankYouPage() {
               className={`inline-flex items-center gap-3 px-8 py-4 rounded-xl font-bold text-lg transition-all ${
                 confirmed
                   ? 'bg-empire/20 border-2 border-empire text-empire cursor-default'
-                  : 'bg-empire text-black hover:scale-105 shadow-[0_0_30px_rgba(218,252,104,0.4)] animate-bounce'
+                  : 'bg-empire text-black hover:scale-105 shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.4)] animate-bounce'
               }`}
             >
               {confirmed ? (

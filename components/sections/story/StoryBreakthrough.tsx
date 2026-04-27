@@ -59,8 +59,8 @@ export default function StoryBreakthrough() {
 
         {/* The Process - Visual */}
         <FadeInBlock delay={0.2}>
-          <div className="relative p-8 md:p-12 rounded-2xl bg-gradient-to-br from-empire/5 to-transparent border-2 border-empire/20 overflow-hidden shadow-[0_0_50px_rgba(218,252,104,0.1)]">
-            <BorderBeam size={300} duration={12} delay={0} colorFrom="#DAFC68" colorTo="#4ade80" />
+          <div className="relative p-8 md:p-12 rounded-2xl bg-gradient-to-br from-empire/5 to-transparent border-2 border-empire/20 overflow-hidden shadow-[0_0_50px_rgb(var(--empire-rgb)_/_0.1)]">
+            <BorderBeam size={300} duration={12} delay={0} colorFrom="var(--empire-hex)" colorTo="#4ade80" />
             
             <div className="relative z-10">
               <div className="grid md:grid-cols-3 gap-8 mb-12">
@@ -81,7 +81,7 @@ export default function StoryBreakthrough() {
                 </div>
 
                 <div className="text-center group">
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-empire/30 to-green-500/10 border-2 border-empire flex items-center justify-center shadow-[0_0_20px_rgba(218,252,104,0.3)] group-hover:shadow-[0_0_30px_rgba(218,252,104,0.5)] transition-all">
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-empire/30 to-green-500/10 border-2 border-empire flex items-center justify-center shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)] group-hover:shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.5)] transition-all">
                     <TrendingUp className="text-empire" size={28} />
                   </div>
                   <h3 className="text-xl font-bold text-white mb-2">{t.story.breakthrough.step3Title}</h3>
@@ -100,7 +100,7 @@ export default function StoryBreakthrough() {
                   data-cal-namespace={namespace}
                   data-cal-link={calLink}
                   data-cal-config='{"layout":"month_view","theme":"dark"}'
-                  className="inline-block px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)]"
+                  className="inline-block px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]"
                 >
                   {t.story.breakthrough.cta}
                 </button>

@@ -20,7 +20,7 @@ export default function FormatsHero() {
     <section className="relative w-full py-20 md:py-32 overflow-hidden bg-gradient-to-b from-black via-transparent to-[#0f0f0f]">
       <div className="container">
         <RetroGrid />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(218,252,104,0.15),transparent)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgb(var(--empire-rgb)_/_0.15),transparent)]" />
         
         <div className="relative z-10 text-center max-w-5xl mx-auto">
           <motion.div

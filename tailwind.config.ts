@@ -10,7 +10,9 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        empire: '#DAFC68'
+        empire: 'rgb(var(--empire-rgb) / <alpha-value>)',
+        autopilot: '#d4a574',
+        academy: '#fca5a5'
       },
       boxShadow: {
         soft: '0 10px 30px rgba(0,0,0,.35)'

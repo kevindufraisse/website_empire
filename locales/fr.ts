@@ -7,7 +7,7 @@ export const fr: Translations = {
     bonus1Title: 'Onboarding Prioritaire',
     bonus1Desc: 'Passe la file d\'attente, commence la semaine prochaine',
     bonus2Title: 'Audit de Contenu Gratuit',
-    bonus2Desc: 'Valeur €500 · On analyse votre contenu actuel',
+    bonus2Desc: 'Inclus · On analyse votre contenu actuel',
     bonus3Title: '10 Posts Bonus Premier Mois',
     bonus3Desc: '40 posts au lieu de 30',
     ctaButton: 'Voir si je suis éligible',
@@ -95,7 +95,7 @@ export const fr: Translations = {
       totalTitle: 'Total : €100,000+ par an',
       totalDesc: 'Et pourtant, la plupart restent invisibles',
       ctaText: 'Il existe un meilleur moyen.',
-      ctaPrice: '€1000/mois. Tout compris.',
+      ctaPrice: 'Sur devis personnalisé.',
     },
     breakthrough: {
       title: 'Aujourd\'hui, ce même système alimente Empire',
@@ -137,8 +137,8 @@ export const fr: Translations = {
   },
   hero: {
     targetAudience: 'Pour freelances, salariés & entrepreneurs',
-    title: '30 jours pour devenir <br class="hidden sm:block"/>la <span class="text-empire">référence</span> de votre marché, <br class="hidden sm:block"/>en 15 min par semaine.',
-    subtitle: '1 interview de 15 min par semaine. On publie pour vous tous les jours - sans écrire une ligne ni monter une vidéo.',
+    title: '30 jours pour devenir <br class="hidden sm:block"/>la <span class="text-empire">référence</span> de votre marché.',
+    subtitle: 'Un coach vous interviewe 15 min/sem. On publie pour vous tous les jours - sans écrire une ligne ni monter une vidéo.',
     description: '',
     cta1: 'Voir si je suis éligible',
     cta2: 'Voir la Démo (20 min)',
@@ -258,7 +258,7 @@ export const fr: Translations = {
     inHouseTimeline: 'Recruter 5+ personnes',
     inHouseQuality: 'Inconstant',
     empire: 'Empire Internet',
-    empirePrice: '€1,5K/mois',
+    empirePrice: 'Sur devis',
     empireTimeline: '24-48h',
     empireQuality: 'Sonne comme vous',
     price: 'Prix',
@@ -309,7 +309,7 @@ export const fr: Translations = {
       },
       {
         concern: 'C\'est vraiment mieux qu\'embaucher ?',
-        answer: 'Oui. Embaucher = €12K+/mois, semaines d\'intégration, et vous devez les gérer. Empire = contenu quotidien sur toutes les plateformes pour €1K/mois, zéro gestion. Même résultat, 92% moins cher.',
+        answer: 'Oui. Embaucher = €12K+/mois, semaines d\'intégration, et vous devez les gérer. Empire = contenu quotidien sur toutes les plateformes sur devis, zéro gestion. Même résultat, fraction du coût.',
       },
       {
         concern: 'Et si ça ne performe pas ?',
@@ -425,7 +425,8 @@ export const fr: Translations = {
     aiSetterLabel: 'AI Setter',
     qualifiedLead: '✓ Lead Qualifié - Prêt pour vous',
     activeConversations: 'Conversations actives avec prospects qualifiés',
-    value: 'Valeur :',
+    value: 'Statut :',
+    included: 'Inclus',
   },
   common: {
     startNow: 'Voir si je suis éligible',
@@ -659,7 +660,7 @@ export const fr: Translations = {
     },
     {
       question: 'Qu\'est-ce qui rend ceci différent d\'une agence de contenu ?',
-      answer: 'Vitesse, coût et qualité. Les agences = €5-15K/mois, semaines à livrer, et ratent votre voix. Empire = contenu publié quotidiennement, contrôle qualité humain sur tout, à partir de €1K/mois.',
+      answer: 'Vitesse, coût et qualité. Les agences = €5-15K/mois, semaines à livrer, et ratent votre voix. Empire = contenu publié quotidiennement, contrôle qualité humain sur tout, sur devis personnalisé.',
     },
     {
       question: 'Puis-je annuler à tout moment ?',
@@ -687,7 +688,7 @@ export const fr: Translations = {
     },
     {
       question: 'L\'AI Setter est-il inclus ou en supplément ?',
-      answer: 'Inclus en bonus (valeur €800/mois). L\'IA engage des prospects sur LinkedIn, qualifie les leads, et vous les transfère quand prêts à parler.',
+      answer: 'Inclus en bonus. L\'IA engage des prospects sur LinkedIn, qualifie les leads, et vous les transfère quand prêts à parler.',
     },
     {
       question: 'Pourquoi seulement 100 places ?',
@@ -695,7 +696,7 @@ export const fr: Translations = {
     },
     {
       question: 'Puis-je être accompagné sur ma stratégie de personal branding ?',
-      answer: 'Oui. Nous proposons un coaching personal branding optionnel avec des experts qui ont accompagné les meilleurs créateurs FR et US. Disponible en supplément après souscription. Prix de lancement : 1000€/mois.',
+      answer: 'Oui. Nous proposons un coaching personal branding optionnel avec des experts qui ont accompagné les meilleurs créateurs FR et US. Disponible en supplément après souscription, sur devis.',
     },
     {
       question: 'Comment garantir la visibilité de mes posts ?',
@@ -794,8 +795,8 @@ export const fr: Translations = {
         'Prendre en charge les leads entrants (FR + EN)',
         'Mener les appels de closing (qualification, diagnostic, closing)',
         'Gérer les objections avec calme et leadership',
-        'Closer l\'offre principale (1 000€/mois / 10 000€/an)',
-        'Upsell les offres premium (3k → 50k)',
+        'Closer l\'offre principale Empire',
+        'Upsell les offres premium',
         'Maintenir un pipeline propre et prévisible',
         'Collaborer directement avec Kevin (fondateur)',
       ],
@@ -941,6 +942,52 @@ export const fr: Translations = {
     keyPoint: 'La différence :',
     keyMessage: 'Ce ne sont pas des templates IA génériques. Ils sont entraînés sur les frameworks exacts qui ont généré des millions de vues et d\'euros de revenus.',
     top1Badge: 'Mis en avant dans le Top 1% des meilleurs entrepreneurs FR',
+  },
+  autopilot: {
+    toggleLabel: 'Mode Autopilot',
+    toggleHint: 'Pas 15 min ? Activez Autopilot',
+    hero: {
+      targetAudience: 'Pour CEO & fondateurs avec zéro temps libre',
+      title: '30 jours pour devenir <br class="hidden sm:block"/>la <span class="text-autopilot">référence</span> de votre marché, <br class="hidden sm:block"/>sans lever le petit doigt.',
+      subtitle: 'Un expert viralité dédié prend le contrôle total de vos réseaux. Il trouve vos sujets. Écrit dans votre voix. Publie pour vous. Vous ? Vous gérez votre business.',
+      cta1: 'Postuler au mode Autopilot',
+      ctaReassurance: 'Offre premium · Sur sélection',
+    },
+    howItWorks: {
+      badge: 'MODE AUTOPILOT',
+      title: 'Votre expert viralité prend <span class="text-autopilot">100% le contrôle</span>',
+      subtitle: 'Zéro input. Zéro effort. Votre présence, totalement déléguée à un expert.',
+      b1: {
+        title: 'On apprend tout de vous - sans interview',
+        desc: 'On dévore vos podcasts, interviews, articles, livres, anciens posts. En 7 jours on vous connaît mieux qu\'un assistant en 6 mois.',
+        items: [
+          'On écoute tous vos podcasts & interviews',
+          'On lit vos anciens posts et articles',
+          'On espionne vos concurrents',
+          'On clone votre façon d\'écrire',
+        ],
+      },
+      b2: {
+        title: '1 expert dédié + sujets chaque semaine',
+        desc: 'Un humain senior assigné à votre compte. Il vous envoie les sujets chaque lundi. Validez en 1 clic - ou laissez-le décider.',
+      },
+      b3: {
+        title: 'Créé par IA, vérifié par humains',
+        desc: 'L\'IA génère selon votre style. 2 editors humains relisent chaque post avant qu\'il arrive chez vous. Aucun post ne sort sans œil humain.',
+      },
+      b4: {
+        title: 'Publié avec votre filet de sécurité',
+        desc: 'Tout part à l\'heure prévue. Récap hebdo en 2 min. Un post vous plaît pas ? On le refait, on le retire ou on le remplace - gratuit.',
+      },
+    },
+    whyNow: {
+      subtitle: 'Zéro input. Zéro effort. Votre présence, totalement déléguée.',
+    },
+    finalCTA: {
+      title: 'Prêt à déléguer votre présence entièrement ?',
+      subtitle: 'Postulez au mode Autopilot. Places limitées - on ne prend que les fondateurs qu\'on sait faire gagner.',
+      cta: 'Postuler au mode Autopilot',
+    },
   },
 }
 

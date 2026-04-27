@@ -36,7 +36,7 @@ export default function StoryJourney() {
     {
       icon: AlertCircle,
       color: 'from-orange-500 via-amber-500 to-yellow-500',
-      glowColor: 'rgba(251,146,60,0.3)',
+      glowColor: 'rgba(252, 165, 165,0.3)',
       title: t.story.journey.awareness.title,
       year: t.story.journey.awareness.year,
       story: t.story.journey.awareness.lines,
@@ -52,7 +52,7 @@ export default function StoryJourney() {
     {
       icon: Rocket,
       color: 'from-green-400 via-emerald-400 to-empire',
-      glowColor: 'rgba(218,252,104,0.3)',
+      glowColor: 'rgb(var(--empire-rgb) / 0.3)',
       title: t.story.journey.system.title,
       year: t.story.journey.system.year,
       story: t.story.journey.system.lines,

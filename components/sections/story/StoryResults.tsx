@@ -66,9 +66,9 @@ export default function StoryResults() {
           <FadeInBlock delay={0.1}>
             <div className="relative group">
               <div className="absolute -inset-1 bg-gradient-to-r from-empire to-green-400 rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-1000" />
-              <div className="relative p-6 rounded-2xl bg-gradient-to-br from-empire/5 to-transparent border-2 border-empire/20 overflow-hidden shadow-[0_0_30px_rgba(218,252,104,0.15)]">
+              <div className="relative p-6 rounded-2xl bg-gradient-to-br from-empire/5 to-transparent border-2 border-empire/20 overflow-hidden shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.15)]">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 rounded-full bg-empire/30 border-2 border-empire flex items-center justify-center shadow-[0_0_15px_rgba(218,252,104,0.4)]">
+                  <div className="w-12 h-12 rounded-full bg-empire/30 border-2 border-empire flex items-center justify-center shadow-[0_0_15px_rgb(var(--empire-rgb)_/_0.4)]">
                     <Award className="text-empire" size={24} />
                   </div>
                   <div>
@@ -124,21 +124,21 @@ export default function StoryResults() {
           <div className="mt-16 text-center max-w-3xl mx-auto">
             <div className="relative group">
               <div className="absolute -inset-1 bg-gradient-to-r from-empire via-green-400 to-empire rounded-2xl blur opacity-40 group-hover:opacity-60 transition duration-1000" />
-              <div className="relative p-8 rounded-2xl bg-gradient-to-br from-empire/10 to-transparent border-2 border-empire/30 shadow-[0_0_40px_rgba(218,252,104,0.2)]">
+              <div className="relative p-8 rounded-2xl bg-gradient-to-br from-empire/10 to-transparent border-2 border-empire/30 shadow-[0_0_40px_rgb(var(--empire-rgb)_/_0.2)]">
                 <p className="text-2xl md:text-3xl font-bold text-white mb-4">
                   {t.story.results.finalTitle}
                 </p>
                 <p className="text-lg text-neutral-300 mb-6">
                   {t.story.results.finalSubtitle}
                 </p>
-                <p className="text-empire font-semibold text-xl mb-8 drop-shadow-[0_0_10px_rgba(218,252,104,0.5)]">
+                <p className="text-empire font-semibold text-xl mb-8 drop-shadow-[0_0_10px_rgb(var(--empire-rgb)_/_0.5)]">
                   {t.story.results.finalWelcome}
                 </p>
                 <button
                   data-cal-namespace={namespace}
                   data-cal-link={calLink}
                   data-cal-config='{"layout":"month_view","theme":"dark"}'
-                  className="inline-block px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(218,252,104,0.5)] hover:shadow-[0_0_40px_rgba(218,252,104,0.7)]"
+                  className="inline-block px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.5)] hover:shadow-[0_0_40px_rgb(var(--empire-rgb)_/_0.7)]"
                 >
                   {t.story.results.finalCta}
                 </button>

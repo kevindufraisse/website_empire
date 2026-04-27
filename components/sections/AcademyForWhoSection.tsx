@@ -43,7 +43,7 @@ export default function AcademyForWhoSection() {
             <div className="text-center mb-10">
               <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">Pour qui</p>
               <h2 className="text-3xl md:text-4xl font-bold leading-tight">
-                Ce bootcamp est <span className="text-empire">sélectif.</span>
+                Ce bootcamp est <span className="text-academy">sélectif.</span>
               </h2>
             </div>
           </FadeInBlock>
@@ -62,12 +62,12 @@ export default function AcademyForWhoSection() {
                 </div>
               </div>
 
-              <div className="p-6 rounded-2xl bg-gradient-to-br from-empire/15 to-transparent border border-empire/30">
-                <p className="text-xs font-bold text-empire tracking-widest uppercase mb-4">Pour toi si...</p>
+              <div className="p-6 rounded-2xl bg-gradient-to-br from-academy/15 to-transparent border border-academy/30">
+                <p className="text-xs font-bold text-academy tracking-widest uppercase mb-4">Pour toi si...</p>
                 <div className="space-y-2.5">
                   {yesFor.map((item, i) => (
                     <div key={i} className="flex items-start gap-2.5">
-                      <Check className="text-empire flex-shrink-0 mt-0.5" size={14} />
+                      <Check className="text-academy flex-shrink-0 mt-0.5" size={14} />
                       <span className="text-white text-sm font-medium">{item}</span>
                     </div>
                   ))}

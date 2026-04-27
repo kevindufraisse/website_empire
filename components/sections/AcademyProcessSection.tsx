@@ -49,7 +49,7 @@ export default function AcademyProcessSection() {
             <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">Le déroulé</p>
             <h2 className="text-3xl md:text-5xl font-bold leading-tight">
               Simple.{' '}
-              <span className="text-empire">En 3 étapes.</span>
+              <span className="text-academy">En 3 étapes.</span>
             </h2>
           </div>
         </FadeInBlock>
@@ -59,18 +59,18 @@ export default function AcademyProcessSection() {
             <FadeInBlock key={i} delay={i * 0.1}>
               <div className={`relative h-full p-6 rounded-2xl border transition-all text-center ${
                 step.highlight
-                  ? 'bg-gradient-to-br from-empire/15 to-empire/5 border-empire/40'
+                  ? 'bg-gradient-to-br from-academy/15 to-academy/5 border-academy/40'
                   : 'bg-gradient-to-br from-white/8 to-white/[0.02] border-white/10'
               }`}>
                 <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4 ${
                   step.highlight
-                    ? 'bg-empire/20 border border-empire/40'
+                    ? 'bg-academy/20 border border-academy/40'
                     : 'bg-white/10 border border-white/15'
                 }`}>
-                  <step.icon className={step.highlight ? 'text-empire' : 'text-neutral-300'} size={24} />
+                  <step.icon className={step.highlight ? 'text-academy' : 'text-neutral-300'} size={24} />
                 </div>
                 <p className={`text-[10px] font-bold tracking-widest uppercase mb-2 ${
-                  step.highlight ? 'text-empire' : 'text-neutral-500'
+                  step.highlight ? 'text-academy' : 'text-neutral-400'
                 }`}>{step.week}</p>
                 <h3 className="text-lg font-bold text-white mb-2">{step.title}</h3>
                 <p className="text-neutral-400 text-sm leading-relaxed">{step.desc}</p>

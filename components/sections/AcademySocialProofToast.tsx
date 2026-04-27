@@ -59,21 +59,21 @@ export default function AcademySocialProofToast() {
         >
           <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-neutral-900 border border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.5)]">
             {/* Avatar initial */}
-            <div className="w-8 h-8 rounded-full bg-empire/20 border border-empire/40 flex items-center justify-center flex-shrink-0">
-              <span className="text-empire font-black text-xs">{current.name[0]}</span>
+            <div className="w-8 h-8 rounded-full bg-academy/20 border border-academy/40 flex items-center justify-center flex-shrink-0">
+              <span className="text-academy font-black text-xs">{current.name[0]}</span>
             </div>
             <div className="min-w-0">
               <p className="text-white text-xs font-semibold leading-tight truncate">
                 {current.name} de {current.city}
               </p>
-              <p className="text-neutral-500 text-[10px] leading-tight mt-0.5">
+              <p className="text-neutral-400 text-[10px] leading-tight mt-0.5">
                 vient de postuler · {current.time}
               </p>
             </div>
             {/* Pulse */}
             <span className="relative flex h-2 w-2 flex-shrink-0">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-empire opacity-50" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-empire" />
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-academy opacity-50" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-academy" />
             </span>
           </div>
         </motion.div>

@@ -2,7 +2,7 @@
 
 export const buttonStyles = {
   // Primary CTA (paiement/start now)
-  primary: "px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(218,252,104,0.3)]",
+  primary: "px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]",
   
   // Secondary CTA (Q&A/demo)
   secondary: "px-8 py-4 border-2 border-empire/50 text-white font-semibold rounded-xl hover:border-empire hover:bg-empire/10 transition-all",

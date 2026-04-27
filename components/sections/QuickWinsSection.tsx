@@ -89,7 +89,7 @@ export default function QuickWinsSection() {
                     />
                   ))}
                 </div>
-                <p className="text-xs text-neutral-500 mt-3 text-center">
+                <p className="text-xs text-neutral-400 mt-3 text-center">
                   {lang === 'fr' ? '4 posts / mois' : '4 posts / month'}
                 </p>
               </div>
@@ -101,7 +101,7 @@ export default function QuickWinsSection() {
                     <p className="font-semibold text-white text-sm">
                       {lang === 'fr' ? '12h/semaine de travail' : '12h/week of work'}
                     </p>
-                    <p className="text-xs text-neutral-500">
+                    <p className="text-xs text-neutral-400">
                       {lang === 'fr' ? 'Écriture, montage, planification...' : 'Writing, editing, scheduling...'}
                     </p>
                   </div>
@@ -113,7 +113,7 @@ export default function QuickWinsSection() {
                     <p className="font-semibold text-white text-sm">
                       {lang === 'fr' ? '~2K views/mois' : '~2K views/month'}
                     </p>
-                    <p className="text-xs text-neutral-500">
+                    <p className="text-xs text-neutral-400">
                       {lang === 'fr' ? 'Visibilité limitée' : 'Limited visibility'}
                     </p>
                   </div>
@@ -125,7 +125,7 @@ export default function QuickWinsSection() {
                     <p className="font-semibold text-white text-sm">
                       {lang === 'fr' ? 'Inconsistant & stressant' : 'Inconsistent & stressful'}
                     </p>
-                    <p className="text-xs text-neutral-500">
+                    <p className="text-xs text-neutral-400">
                       {lang === 'fr' ? 'Burnout garanti' : 'Burnout guaranteed'}
                     </p>
                   </div>
@@ -175,7 +175,7 @@ export default function QuickWinsSection() {
                     <p className="font-semibold text-white text-sm">
                       {lang === 'fr' ? '15min/semaine de travail' : '15min/week of work'}
                     </p>
-                    <p className="text-xs text-neutral-500">
+                    <p className="text-xs text-neutral-400">
                       {lang === 'fr' ? 'Juste parler, on fait le reste' : 'Just talk, we do the rest'}
                     </p>
                   </div>
@@ -187,7 +187,7 @@ export default function QuickWinsSection() {
                     <p className="font-semibold text-white text-sm">
                       {lang === 'fr' ? '100K-500K vues/mois' : '100K-500K views/month'}
                     </p>
-                    <p className="text-xs text-neutral-500">
+                    <p className="text-xs text-neutral-400">
                       {lang === 'fr' ? 'Top 1% des créateurs FR de votre niche' : 'Top 1% of creators in your niche'}
                     </p>
                   </div>
@@ -199,7 +199,7 @@ export default function QuickWinsSection() {
                     <p className="font-semibold text-white text-sm">
                       {lang === 'fr' ? 'Publié quotidiennement' : 'Published daily'}
                     </p>
-                    <p className="text-xs text-neutral-500">
+                    <p className="text-xs text-neutral-400">
                       {lang === 'fr' ? 'Omnipresence automatique' : 'Automatic omnipresence'}
                     </p>
                   </div>
@@ -224,7 +224,7 @@ export default function QuickWinsSection() {
               data-cal-namespace={namespace}
               data-cal-link={calLink}
               data-cal-config='{"layout":"month_view","theme":"dark"}'
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-empire text-black font-bold text-lg hover:scale-105 transition-transform shadow-[0_0_30px_rgba(218,252,104,0.3)]"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-empire text-black font-bold text-lg hover:scale-105 transition-transform shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.3)]"
             >
               {t.common.startNow}
               <ArrowRight size={20} />

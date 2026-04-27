@@ -26,20 +26,20 @@ export default function AcademyWhoSection() {
             <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">Qui on est</p>
             <h2 className="text-3xl md:text-5xl font-bold leading-tight">
               Le bootcamp créé par{' '}
-              <span className="text-empire">ceux qui le font pour vrai.</span>
+              <span className="text-academy">ceux qui le font pour vrai.</span>
             </h2>
           </div>
         </FadeInBlock>
 
         <FadeInBlock delay={0.15}>
           <div className="relative p-8 md:p-12 rounded-2xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-empire/5 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute top-0 right-0 w-64 h-64 bg-academy/5 rounded-full blur-3xl pointer-events-none" />
 
             {/* EI + founders inline */}
             <div className="flex flex-col sm:flex-row sm:items-center gap-5 mb-8">
               <div className="flex items-center gap-3 flex-shrink-0">
-                <div className="w-11 h-11 rounded-xl bg-empire/20 border border-empire/30 flex items-center justify-center">
-                  <span className="text-empire font-black text-sm">EI</span>
+                <div className="w-11 h-11 rounded-xl bg-academy/20 border border-academy/30 flex items-center justify-center">
+                  <span className="text-academy font-black text-sm">EI</span>
                 </div>
                 <div>
                   <p className="text-white font-bold text-sm">Empire Internet</p>
@@ -49,15 +49,15 @@ export default function AcademyWhoSection() {
               <div className="hidden sm:block w-px h-10 bg-white/10 flex-shrink-0" />
               <div className="flex items-center gap-3">
                 <div className="flex -space-x-2">
-                  <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-empire/40 shadow-[0_0_10px_rgba(218,252,104,0.2)]">
+                  <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-academy/40 shadow-[0_0_10px_rgba(252, 165, 165,0.2)]">
                     <img src="/founders/kevin.png" alt="Kevin Dufraisse" className="w-full h-full object-cover" />
                   </div>
-                  <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-empire/40 shadow-[0_0_10px_rgba(218,252,104,0.2)]">
+                  <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-academy/40 shadow-[0_0_10px_rgba(252, 165, 165,0.2)]">
                     <img src="/founders/marc.jpg" alt="Marc Dufraisse" className="w-full h-full object-cover" />
                   </div>
                 </div>
                 <p className="text-neutral-400 text-sm">
-                  Kevin &amp; Marc Dufraisse <span className="text-neutral-600">- fondateurs</span>
+                  Kevin &amp; Marc Dufraisse <span className="text-neutral-400">- fondateurs</span>
                 </p>
               </div>
             </div>
@@ -69,7 +69,7 @@ export default function AcademyWhoSection() {
               </p>
               <p className="text-base md:text-lg">
                 Aujourd'hui on produit du contenu viral pour des entrepreneurs et des marques - 10M+ vues par mois. Ce bootcamp, c'est notre méthode exacte. Pas une théorie.{' '}
-                <span className="text-empire font-semibold">Tu apprends ce qu'on fait nous, cette semaine, pour nos clients.</span>
+                <span className="text-academy font-semibold">Tu apprends ce qu'on fait nous, cette semaine, pour nos clients.</span>
               </p>
               <p className="text-base md:text-lg text-neutral-400">
                 Et pendant que tu apprends, on te crée ton contenu chaque jour. Tu n'as qu'à publier.

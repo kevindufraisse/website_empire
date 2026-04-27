@@ -91,11 +91,11 @@ export default function StorySection() {
         {/* LinkedIn Ranking Image Placeholder */}
         <FadeInBlock delay={0.3}>
           <div className="relative rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-br from-white/5 to-transparent p-8">
-            <div className="aspect-video flex items-center justify-center text-neutral-500">
+            <div className="aspect-video flex items-center justify-center text-neutral-400">
               <div className="text-center">
                 <Calendar className="mx-auto mb-4 text-empire" size={48} />
                 <p className="text-sm">LinkedIn Top 50 Ranking Screenshot</p>
-                <p className="text-xs text-neutral-600 mt-2">(Image placeholder)</p>
+                <p className="text-xs text-neutral-400 mt-2">(Image placeholder)</p>
               </div>
             </div>
           </div>
@@ -138,11 +138,11 @@ export default function StorySection() {
         {/* Stripe Payments Placeholder */}
         <FadeInBlock delay={0.6}>
           <div className="relative rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-br from-white/5 to-transparent p-8">
-            <div className="aspect-[2/1] flex items-center justify-center text-neutral-500">
+            <div className="aspect-[2/1] flex items-center justify-center text-neutral-400">
               <div className="text-center">
                 <TrendingUp className="mx-auto mb-4 text-empire" size={48} />
                 <p className="text-sm">Stripe Payments Dashboard</p>
-                <p className="text-xs text-neutral-600 mt-2">(Image placeholder)</p>
+                <p className="text-xs text-neutral-400 mt-2">(Image placeholder)</p>
               </div>
             </div>
           </div>

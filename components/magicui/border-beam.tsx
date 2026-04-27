@@ -3,7 +3,7 @@ export default function BorderBeam({
   size = 200,
   duration = 15,
   delay = 0,
-  colorFrom = '#DAFC68',
+  colorFrom = 'var(--empire-hex)',
   colorTo = '#7be0ff',
 }: {
   className?: string

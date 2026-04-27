@@ -143,7 +143,7 @@ export default function CalendarSection() {
 
   return (
     <section id="calendar" className="relative w-full py-20 md:py-32 bg-gradient-to-b from-black via-[#0f0f0f] to-black">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(218,252,104,0.08),transparent)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgb(var(--empire-rgb)_/_0.08),transparent)]" />
       <div className="container">
         <div className="max-w-5xl mx-auto relative z-10">
         {/* Savings Popup */}
@@ -154,7 +154,7 @@ export default function CalendarSection() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.8, y: -20 }}
               transition={{ duration: 0.3 }}
-              className="fixed top-24 right-8 z-50 p-6 rounded-2xl bg-gradient-to-br from-empire/20 to-empire/5 border-2 border-empire backdrop-blur-md shadow-[0_0_50px_rgba(218,252,104,0.3)]"
+              className="fixed top-24 right-8 z-50 p-6 rounded-2xl bg-gradient-to-br from-empire/20 to-empire/5 border-2 border-empire backdrop-blur-md shadow-[0_0_50px_rgb(var(--empire-rgb)_/_0.3)]"
             >
               <button
                 onClick={() => setShowSavings(null)}
@@ -244,11 +244,11 @@ export default function CalendarSection() {
                         <span className="text-xs font-semibold text-neutral-400 uppercase">
                           {item.platform}
                         </span>
-                        <span className="text-xs text-neutral-600">•</span>
-                        <span className="text-xs text-neutral-500">{item.type}</span>
+                        <span className="text-xs text-neutral-400">•</span>
+                        <span className="text-xs text-neutral-400">{item.type}</span>
                         {item.verified && (
                           <>
-                            <span className="text-xs text-neutral-600">•</span>
+                            <span className="text-xs text-neutral-400">•</span>
                             <div className="flex items-center gap-1">
                               <UserCheck className="text-empire" size={12} />
                               <span className="text-xs text-empire font-semibold">{t.common.verified}</span>
@@ -273,7 +273,7 @@ export default function CalendarSection() {
                     <div className="flex-shrink-0 flex items-center gap-2">
                       <span className={cn(
                         'text-xs font-semibold transition-colors',
-                        !item.published ? 'text-neutral-300' : 'text-neutral-600'
+                        !item.published ? 'text-neutral-300' : 'text-neutral-400'
                       )}>
                         {t.calendar.review}
                       </span>
@@ -282,7 +282,7 @@ export default function CalendarSection() {
                         className={cn(
                           'relative w-14 h-7 rounded-full transition-all duration-300 ease-in-out',
                           item.published
-                            ? 'bg-empire shadow-[0_0_15px_rgba(218,252,104,0.3)]'
+                            ? 'bg-empire shadow-[0_0_15px_rgb(var(--empire-rgb)_/_0.3)]'
                             : 'bg-white/10'
                         )}
                       >
@@ -301,7 +301,7 @@ export default function CalendarSection() {
                       </button>
                       <span className={cn(
                         'text-xs font-semibold transition-colors',
-                        item.published ? 'text-empire' : 'text-neutral-600'
+                        item.published ? 'text-empire' : 'text-neutral-400'
                       )}>
                         {t.calendar.publish}
                       </span>

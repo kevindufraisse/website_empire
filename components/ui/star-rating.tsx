@@ -12,14 +12,14 @@ export function StarRating({ className }: { className?: string }) {
             key={star}
             className="text-empire"
             size={16}
-            fill="#DAFC68"
+            fill="var(--empire-hex)"
           />
         ))}
       </div>
       <span className="text-sm font-semibold text-neutral-300">
-        4,9 <span className="text-neutral-500">/5</span>
+        4,9 <span className="text-neutral-400">/5</span>
       </span>
-      <span className="text-xs text-neutral-500">
+      <span className="text-xs text-neutral-400">
         · 53 avis
       </span>
     </div>

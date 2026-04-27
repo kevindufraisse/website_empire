@@ -23,7 +23,7 @@ export default function AcademyPainSection() {
             initial={{ opacity: 0 }}
             animate={inView ? { opacity: 1 } : {}}
             transition={{ duration: 0.5 }}
-            className="text-xs font-bold text-neutral-500 tracking-widest uppercase mb-6"
+            className="text-xs font-bold text-neutral-400 tracking-widest uppercase mb-6"
           >
             Si tu te reconnais
           </motion.p>
@@ -35,7 +35,7 @@ export default function AcademyPainSection() {
                 initial={{ opacity: 0, x: -15 }}
                 animate={inView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.4, delay: 0.1 + i * 0.08 }}
-                className="flex items-center gap-3 p-4 rounded-xl bg-white/[0.03] border border-white/8"
+                className="flex items-center gap-3 p-4 rounded-xl bg-white/[0.08] border border-white/15"
               >
                 <span className="text-red-400/70 text-sm flex-shrink-0">✕</span>
                 <span className="text-neutral-400 text-sm md:text-base text-left">{pain}</span>

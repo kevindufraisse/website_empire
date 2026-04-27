@@ -105,7 +105,7 @@ export default function ContentReadySection() {
           <div className="relative flex h-[500px] md:h-[700px] w-full items-center justify-center overflow-visible mb-12 py-12">
             {/* Center - Empire */}
             <div className="relative z-10 flex flex-col items-center justify-center">
-              <div className="w-32 h-32 rounded-full bg-gradient-to-br from-empire/30 to-empire/10 border-4 border-empire flex items-center justify-center shadow-[0_0_50px_rgba(218,252,104,0.3)]">
+              <div className="w-32 h-32 rounded-full bg-gradient-to-br from-empire/30 to-empire/10 border-4 border-empire flex items-center justify-center shadow-[0_0_50px_rgb(var(--empire-rgb)_/_0.3)]">
                 <SparklesText className="text-2xl font-bold text-empire" sparklesCount={8}>
                   Empire
                 </SparklesText>

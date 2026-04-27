@@ -64,7 +64,7 @@ export default function CalCalendar() {
         
         ${lang === 'fr' 
           ? `Cal.ns["${namespace}"]("ui", {"hideEventTypeDetails":false,"layout":"month_view"});`
-          : `Cal.ns["${namespace}"]("ui", {"theme":"light","cssVarsPerTheme":{"light":{"cal-brand":"#dafc68"},"dark":{"cal-brand":"#000000"}},"hideEventTypeDetails":false,"layout":"month_view"});`
+          : `Cal.ns["${namespace}"]("ui", {"theme":"light","cssVarsPerTheme":{"light":{"cal-brand": "#dafc68"},"dark":{"cal-brand":"#000000"}},"hideEventTypeDetails":false,"layout":"month_view"});`
         }
         
         // Facebook Pixel tracking for booking confirmation

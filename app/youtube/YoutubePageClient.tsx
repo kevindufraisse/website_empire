@@ -67,7 +67,7 @@ function CallbackForm() {
             placeholder="Votre prénom"
             value={form.first_name}
             onChange={e => setForm(p => ({ ...p, first_name: e.target.value }))}
-            className="w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/15 text-white placeholder:text-neutral-500 text-sm focus:outline-none focus:border-empire/60 transition-colors"
+            className="w-full px-4 py-3.5 rounded-xl bg-white/[0.12] border border-white/20 text-white placeholder:text-neutral-400 text-sm focus:outline-none focus:border-empire/60 transition-colors"
           />
         </div>
         <div className="flex-1">
@@ -76,7 +76,7 @@ function CallbackForm() {
             placeholder="Votre 06 / 07"
             value={form.phone}
             onChange={e => setForm(p => ({ ...p, phone: e.target.value }))}
-            className="w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/15 text-white placeholder:text-neutral-500 text-sm focus:outline-none focus:border-empire/60 transition-colors"
+            className="w-full px-4 py-3.5 rounded-xl bg-white/[0.12] border border-white/20 text-white placeholder:text-neutral-400 text-sm focus:outline-none focus:border-empire/60 transition-colors"
           />
         </div>
       </div>
@@ -85,18 +85,18 @@ function CallbackForm() {
         placeholder="Votre email (pour recevoir la confirmation)"
         value={form.email}
         onChange={e => setForm(p => ({ ...p, email: e.target.value }))}
-        className="w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/15 text-white placeholder:text-neutral-500 text-sm focus:outline-none focus:border-empire/60 transition-colors"
+        className="w-full px-4 py-3.5 rounded-xl bg-white/[0.12] border border-white/20 text-white placeholder:text-neutral-400 text-sm focus:outline-none focus:border-empire/60 transition-colors"
       />
       {error && <p className="text-red-400 text-xs">{error}</p>}
       <button
         type="submit"
         disabled={loading}
-        className="w-full py-4 rounded-xl bg-empire text-black font-black text-base hover:scale-[1.02] transition-all shadow-[0_0_30px_rgba(218,252,104,0.35)] disabled:opacity-60 disabled:scale-100 flex items-center justify-center gap-2"
+        className="w-full py-4 rounded-xl bg-empire text-black font-black text-base hover:scale-[1.02] transition-all shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.35)] disabled:opacity-60 disabled:scale-100 flex items-center justify-center gap-2"
       >
         <Phone size={16} />
         {loading ? 'Envoi…' : 'Je veux être rappelé →'}
       </button>
-      <p className="text-[11px] text-neutral-600 text-center">
+      <p className="text-[11px] text-neutral-400 text-center">
         On ne revend pas vos données · Rappel sous 24h · Aucun engagement
       </p>
     </form>
@@ -109,7 +109,7 @@ export default function YoutubePageClient() {
 
   useEffect(() => {
     if (calLoaded && calRef.current) {
-      window.Cal?.('ui', { theme: 'dark', styles: { branding: { brandColor: '#DAFC68' } } })
+      window.Cal?.('ui', { theme: 'dark', styles: { branding: { brandColor: 'var(--empire-hex)' } } })
     }
   }, [calLoaded])
 
@@ -164,7 +164,7 @@ export default function YoutubePageClient() {
           {stats.map((s, i) => (
             <div key={i} className="text-center">
               <p className="text-lg font-black text-empire leading-none">{s.value}</p>
-              <p className="text-[11px] text-neutral-500 mt-0.5">{s.label}</p>
+              <p className="text-[11px] text-neutral-400 mt-0.5">{s.label}</p>
             </div>
           ))}
         </motion.div>
@@ -174,7 +174,7 @@ export default function YoutubePageClient() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.25, duration: 0.5 }}
-          className="p-6 rounded-2xl bg-gradient-to-br from-empire/15 to-empire/5 border border-empire/40 shadow-[0_0_40px_rgba(218,252,104,0.1)] mb-5"
+          className="p-6 rounded-2xl bg-gradient-to-br from-empire/15 to-empire/5 border border-empire/40 shadow-[0_0_40px_rgb(var(--empire-rgb)_/_0.1)] mb-5"
         >
           <div className="flex items-center gap-2 mb-5">
             <div className="w-7 h-7 rounded-full bg-empire/20 border border-empire/40 flex items-center justify-center flex-shrink-0">
@@ -182,7 +182,7 @@ export default function YoutubePageClient() {
             </div>
             <div>
               <p className="text-white font-bold text-sm leading-tight">Être rappelé par Kevin ou Marc</p>
-              <p className="text-neutral-500 text-[11px]">On vous appelle dans les 24h - à l'heure qui vous arrange</p>
+              <p className="text-neutral-400 text-[11px]">On vous appelle dans les 24h - à l'heure qui vous arrange</p>
             </div>
           </div>
           <CallbackForm />
@@ -191,7 +191,7 @@ export default function YoutubePageClient() {
         {/* Divider */}
         <div className="flex items-center gap-3 mb-5">
           <div className="flex-1 h-px bg-white/10" />
-          <span className="text-xs text-neutral-600 uppercase tracking-widest">ou</span>
+          <span className="text-xs text-neutral-400 uppercase tracking-widest">ou</span>
           <div className="flex-1 h-px bg-white/10" />
         </div>
 
@@ -211,7 +211,7 @@ export default function YoutubePageClient() {
             <Calendar size={15} className="text-empire" />
             Choisir un créneau dans l'agenda →
           </button>
-          <CtaReassurance className="mt-2.5 !text-neutral-500 text-[11px] leading-snug" />
+          <CtaReassurance className="mt-2.5 !text-neutral-400 text-[11px] leading-snug" />
         </motion.div>
 
         {/* What happens next */}
@@ -221,7 +221,7 @@ export default function YoutubePageClient() {
           transition={{ delay: 0.4, duration: 0.5 }}
           className="mb-16 space-y-3"
         >
-          <p className="text-xs font-bold text-neutral-500 uppercase tracking-widest text-center mb-4">Ce qui se passe après</p>
+          <p className="text-xs font-bold text-neutral-400 uppercase tracking-widest text-center mb-4">Ce qui se passe après</p>
           {[
             { n: '01', t: 'On vous appelle', d: '15 minutes. On écoute, on comprend où vous en êtes.' },
             { n: '02', t: 'On voit si c\'est fait pour vous', d: 'Pas un pitch. Une vraie conversation.' },
@@ -233,7 +233,7 @@ export default function YoutubePageClient() {
               </div>
               <div>
                 <p className="text-white text-sm font-semibold leading-tight">{s.t}</p>
-                <p className="text-neutral-500 text-xs mt-0.5">{s.d}</p>
+                <p className="text-neutral-400 text-xs mt-0.5">{s.d}</p>
               </div>
             </div>
           ))}
@@ -245,7 +245,7 @@ export default function YoutubePageClient() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.5 }}
         >
-          <p className="text-xs font-bold text-neutral-500 uppercase tracking-widest text-center mb-8">Ce qu'en disent ceux qui sont passés par là</p>
+          <p className="text-xs font-bold text-neutral-400 uppercase tracking-widest text-center mb-8">Ce qu'en disent ceux qui sont passés par là</p>
           <div
             className="senja-embed"
             data-id="dbb797c0-9c9f-491d-8b35-7bb197153711"
@@ -261,8 +261,8 @@ export default function YoutubePageClient() {
 
         {/* Minimal footer */}
         <div className="mt-16 pt-8 border-t border-white/5 flex items-center justify-between">
-          <span className="text-xs text-neutral-600">© 2026 Empire Internet</span>
-          <a href="/academy" className="text-xs text-neutral-500 hover:text-empire transition-colors flex items-center gap-1">
+          <span className="text-xs text-neutral-400">© 2026 Empire Internet</span>
+          <a href="/academy" className="text-xs text-neutral-400 hover:text-empire transition-colors flex items-center gap-1">
             Voir le bootcamp <ArrowRight size={11} />
           </a>
         </div>

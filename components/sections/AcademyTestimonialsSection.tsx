@@ -6,7 +6,7 @@ export default function AcademyTestimonialsSection() {
     <section className="py-16 md:py-24 bg-[#0a0a0a]">
       <div className="container">
         <div className="max-w-3xl mx-auto text-center mb-10">
-          <p className="text-xs font-bold text-empire tracking-widest uppercase mb-3">Ils l'ont fait</p>
+          <p className="text-xs font-bold text-academy tracking-widest uppercase mb-3">Ils l'ont fait</p>
           <h2 className="text-3xl md:text-4xl font-extrabold text-white">
             Ce qu'en disent ceux qui sont passés par là.
           </h2>

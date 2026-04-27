@@ -128,7 +128,7 @@ export default function FounderSection() {
   return (
     <section className="relative py-20 md:py-28 overflow-hidden bg-gradient-to-b from-[#0a0a0a] via-black to-[#0a0a0a]">
       {/* Subtle background glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,rgba(218,252,104,0.05),transparent)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,rgb(var(--empire-rgb)_/_0.05),transparent)]" />
       
       <div className="container relative z-10">
         <div className="max-w-6xl mx-auto">
@@ -236,12 +236,12 @@ export default function FounderSection() {
                 data-cal-namespace={namespace}
                 data-cal-link={calLink}
                 data-cal-config='{"layout":"month_view","theme":"dark"}'
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-empire text-black font-bold text-lg hover:scale-105 transition-transform shadow-[0_0_30px_rgba(218,252,104,0.3)]"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-empire text-black font-bold text-lg hover:scale-105 transition-transform shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.3)]"
               >
                 {t.common.startNow}
                 <ArrowRight size={20} />
               </button>
-              <p className="mt-3 text-sm text-neutral-500">
+              <p className="mt-3 text-sm text-neutral-400">
                 {lang === 'fr' ? '15 min · Sans engagement' : '15 min · No commitment'}
               </p>
               <div className="mt-3">
