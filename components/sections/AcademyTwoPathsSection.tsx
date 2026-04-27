@@ -122,9 +122,6 @@ export default function AcademyTwoPathsSection() {
                     <p className="text-xs text-neutral-400 leading-relaxed">
                       <span className="text-academy font-semibold">Les missions :</span> 4h de coaching/mois avec un client Empire. Tu lui apprends le système qu'on t'a enseigné. On s'occupe du closing et de la delivery.
                     </p>
-                    <p className="text-xs text-neutral-400 leading-relaxed mt-2">
-                      <span className="text-white font-semibold">Critère :</span> +100 000 vues/semaine pendant le bootcamp.
-                    </p>
                   </div>
                 </div>
               </div>

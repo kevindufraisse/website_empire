@@ -30,7 +30,7 @@ const yesFor = [
   'Tu veux créer une activité en ligne de zéro',
   'Tu veux publier sans passer 3h à rédiger et monter',
   'Tu veux te reconvertir en head of viralité et potentiellement travailler avec nous',
-  "Tu n'as pas encore de projet - on t'aide à trouver ta niche et tu peux bosser avec nous directement",
+  "Tu n'as pas encore de projet mais tu es prêt à te lancer",
 ]
 
 export default function AcademyForWhoSection() {
