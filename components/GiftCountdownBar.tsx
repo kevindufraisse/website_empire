@@ -12,12 +12,15 @@ import {
   Copy,
   ExternalLink,
   Sparkles,
+  Lock,
 } from 'lucide-react'
 
 const COUNTDOWN_SECONDS = 80
 const STORAGE_KEY = 'giftCountdownDismissed'
 
 const GIFT_COUNT = 5
+
+const LINKEDIN_UNLOCK_SECONDS = 300
 
 const gifts = [
   {
@@ -32,6 +35,7 @@ const gifts = [
     badge: 'Méthode Adley Kinsmann',
     free: true,
     link: 'https://join.empire-internet.com/instagram-scrapper',
+    unlockDelay: 0,
   },
   {
     id: 'youtube-summarizer',
@@ -45,6 +49,7 @@ const gifts = [
     badge: null,
     free: true,
     link: 'https://join.empire-internet.com/youtube-export',
+    unlockDelay: 0,
   },
   {
     id: 'linkedin-autocomment',
@@ -58,6 +63,7 @@ const gifts = [
     badge: 'Méthode Empire Internet',
     free: true,
     link: 'https://join.empire-internet.com/post-linkedin',
+    unlockDelay: LINKEDIN_UNLOCK_SECONDS,
   },
   {
     id: 'personal-branding',
@@ -71,6 +77,7 @@ const gifts = [
     badge: '+1 milliard de vues/mois',
     free: true,
     link: 'https://join.empire-internet.com/branding',
+    unlockDelay: 0,
   },
   {
     id: 'viral-copypaste',
@@ -84,6 +91,7 @@ const gifts = [
     badge: '60 places dispos',
     free: true,
     link: 'https://join.empire-internet.com/3-templates-linkedin',
+    unlockDelay: 0,
   },
 ]
 
@@ -91,7 +99,9 @@ const gifts = [
 
 interface GiftState {
   countdown: number
+  linkedinCountdown: number
   isReady: boolean
+  isLinkedinReady: boolean
   showModal: boolean
   dismissed: boolean
   setShowModal: (v: boolean) => void
@@ -108,7 +118,9 @@ function useGiftState() {
 
 export function GiftCountdownProvider({ children }: { children: React.ReactNode }) {
   const [countdown, setCountdown] = useState(COUNTDOWN_SECONDS)
+  const [linkedinCountdown, setLinkedinCountdown] = useState(LINKEDIN_UNLOCK_SECONDS)
   const [isReady, setIsReady] = useState(false)
+  const [isLinkedinReady, setIsLinkedinReady] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const [dismissed, setDismissed] = useState(true)
   const pathname = usePathname()
@@ -129,18 +141,23 @@ export function GiftCountdownProvider({ children }: { children: React.ReactNode 
 
   useEffect(() => {
     if (dismissed) return
-    if (countdown <= 0) {
-      setIsReady(true)
-      return
-    }
+    if (countdown <= 0 && linkedinCountdown <= 0) return
     const interval = setInterval(() => {
-      setCountdown((prev) => {
-        if (prev <= 1) { setIsReady(true); return 0 }
-        return prev - 1
-      })
+      if (countdown > 0) {
+        setCountdown((prev) => {
+          if (prev <= 1) { setIsReady(true); return 0 }
+          return prev - 1
+        })
+      }
+      if (linkedinCountdown > 0) {
+        setLinkedinCountdown((prev) => {
+          if (prev <= 1) { setIsLinkedinReady(true); return 0 }
+          return prev - 1
+        })
+      }
     }, 1000)
     return () => clearInterval(interval)
-  }, [dismissed, countdown])
+  }, [dismissed, countdown, linkedinCountdown])
 
   const handleDismiss = useCallback(() => {
     setDismissed(true)
@@ -149,7 +166,7 @@ export function GiftCountdownProvider({ children }: { children: React.ReactNode 
   }, [])
 
   return (
-    <GiftContext.Provider value={{ countdown, isReady, showModal, dismissed: dismissed || isExcludedPage, setShowModal, handleDismiss }}>
+    <GiftContext.Provider value={{ countdown, linkedinCountdown, isReady, isLinkedinReady, showModal, dismissed: dismissed || isExcludedPage, setShowModal, handleDismiss }}>
       {children}
     </GiftContext.Provider>
   )
@@ -185,7 +202,7 @@ export function GiftHeaderBadge() {
             exit={{ opacity: 0 }}
             className="text-[11px]"
           >
-            <span className="text-neutral-300">{GIFT_COUNT} ressources dans </span>
+            <span className="text-neutral-300">{GIFT_COUNT} ressources offertes dans </span>
             <span className="font-mono tabular-nums font-bold text-white">{mins}:{secs}</span>
           </motion.span>
         ) : (
@@ -213,12 +230,14 @@ export function GiftHeaderBadge() {
 /* ── Modal (rendered once globally via ClientWrappers) ── */
 
 export default function GiftCountdownModal() {
-  const { showModal, setShowModal, dismissed, countdown, isReady } = useGiftState()
+  const { showModal, setShowModal, dismissed, countdown, linkedinCountdown, isReady, isLinkedinReady } = useGiftState()
 
   if (dismissed && !showModal) return null
 
   const mins = Math.floor(countdown / 60)
   const secs = String(countdown % 60).padStart(2, '0')
+  const liMins = Math.floor(linkedinCountdown / 60)
+  const liSecs = String(linkedinCountdown % 60).padStart(2, '0')
 
   return (
     <AnimatePresence>
@@ -297,31 +316,37 @@ export default function GiftCountdownModal() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {gifts.map((gift, i) => {
                     const Icon = gift.icon
+                    const isLocked = gift.unlockDelay > 0 && !isLinkedinReady
+                    const Wrapper = isLocked ? motion.div : motion.a
+                    const wrapperProps = isLocked ? {} : { href: gift.link, target: '_blank', rel: 'noopener noreferrer' }
                     return (
-                      <motion.a
+                      <Wrapper
                         key={gift.id}
-                        href={gift.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        {...(wrapperProps as any)}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 + i * 0.08 }}
-                        className={`group relative flex flex-col p-5 rounded-2xl bg-gradient-to-br from-white/[0.06] to-white/[0.02] border ${gift.borderColor} hover:border-empire/30 transition-all hover:scale-[1.02] hover:shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.1)]`}
+                        className={`group relative flex flex-col p-5 rounded-2xl bg-gradient-to-br from-white/[0.06] to-white/[0.02] border ${gift.borderColor} transition-all ${isLocked ? 'opacity-60 cursor-not-allowed' : 'hover:border-empire/30 hover:scale-[1.02] hover:shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.1)]'}`}
                       >
-                        {gift.free && (
+                        {isLocked ? (
+                          <div className="absolute top-3 right-3 flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-white/5 border border-white/10">
+                            <Lock size={10} className="text-neutral-400" />
+                            <span className="text-[10px] font-bold text-neutral-400 font-mono tabular-nums">{liMins}:{liSecs}</span>
+                          </div>
+                        ) : gift.free && (
                           <div className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-empire/20 border border-empire/30">
                             <span className="text-[10px] font-bold text-empire">GRATUIT</span>
                           </div>
                         )}
 
                         <div className={`w-11 h-11 rounded-xl ${gift.bgColor} flex items-center justify-center mb-4`}>
-                          <Icon className={gift.textColor} size={22} />
+                          <Icon className={isLocked ? 'text-neutral-500' : gift.textColor} size={22} />
                         </div>
 
-                        <h3 className="text-base font-bold text-white leading-tight mb-0.5">
+                        <h3 className={`text-base font-bold leading-tight mb-0.5 ${isLocked ? 'text-neutral-400' : 'text-white'}`}>
                           {gift.title}
                         </h3>
-                        <p className={`text-xs font-semibold ${gift.textColor} mb-2`}>
+                        <p className={`text-xs font-semibold mb-2 ${isLocked ? 'text-neutral-500' : gift.textColor}`}>
                           {gift.subtitle}
                         </p>
 
@@ -331,17 +356,17 @@ export default function GiftCountdownModal() {
 
                         {gift.badge && (
                           <div className="mb-3">
-                            <span className="inline-block text-[10px] font-semibold text-empire px-2 py-1 rounded-full bg-empire/10 border border-empire/20">
+                            <span className={`inline-block text-[10px] font-semibold px-2 py-1 rounded-full ${isLocked ? 'text-neutral-500 bg-white/5 border border-white/10' : 'text-empire bg-empire/10 border border-empire/20'}`}>
                               {gift.badge}
                             </span>
                           </div>
                         )}
 
-                        <div className={`flex items-center gap-1.5 text-xs font-bold ${gift.textColor} group-hover:underline`}>
-                          <span>Récupérer</span>
-                          <ExternalLink size={12} />
+                        <div className={`flex items-center gap-1.5 text-xs font-bold ${isLocked ? 'text-neutral-500' : `${gift.textColor} group-hover:underline`}`}>
+                          <span>{isLocked ? `Disponible dans ${liMins}:${liSecs}` : 'Récupérer'}</span>
+                          {!isLocked && <ExternalLink size={12} />}
                         </div>
-                      </motion.a>
+                      </Wrapper>
                     )
                   })}
                 </div>
