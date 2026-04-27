@@ -23,10 +23,9 @@ const gifts = [
   {
     id: 'instagram-viral',
     icon: Instagram,
-    color: 'from-pink-500 to-purple-600',
-    borderColor: 'border-pink-500/30',
-    bgColor: 'bg-pink-500/10',
-    textColor: 'text-pink-400',
+    borderColor: 'border-white/10',
+    bgColor: 'bg-white/5',
+    textColor: 'text-empire',
     title: 'Trouver les Reels viraux',
     subtitle: "d'un compte Instagram",
     description: 'Identifiez instantanément les réels les plus viraux de n\'importe quel compte Instagram.',
@@ -37,10 +36,9 @@ const gifts = [
   {
     id: 'youtube-summarizer',
     icon: Youtube,
-    color: 'from-red-500 to-red-700',
-    borderColor: 'border-red-500/30',
-    bgColor: 'bg-red-500/10',
-    textColor: 'text-red-400',
+    borderColor: 'border-white/10',
+    bgColor: 'bg-white/5',
+    textColor: 'text-empire',
     title: 'Résumer des vidéos YouTube',
     subtitle: 'avec l\'IA',
     description: 'Transformez n\'importe quelle vidéo YouTube en résumé actionnable en quelques secondes.',
@@ -51,10 +49,9 @@ const gifts = [
   {
     id: 'linkedin-autocomment',
     icon: Linkedin,
-    color: 'from-blue-500 to-blue-700',
-    borderColor: 'border-blue-500/30',
-    bgColor: 'bg-blue-500/10',
-    textColor: 'text-blue-400',
+    borderColor: 'border-white/10',
+    bgColor: 'bg-white/5',
+    textColor: 'text-empire',
     title: 'Auto-commenter sur LinkedIn',
     subtitle: 'vos posts automatiquement',
     description: 'Commentez automatiquement les posts de votre réseau pour booster votre visibilité LinkedIn.',
@@ -65,9 +62,8 @@ const gifts = [
   {
     id: 'personal-branding',
     icon: UserCircle,
-    color: 'from-empire to-yellow-500',
-    borderColor: 'border-empire/30',
-    bgColor: 'bg-empire/10',
+    borderColor: 'border-white/10',
+    bgColor: 'bg-white/5',
     textColor: 'text-empire',
     title: '60 min Personal Branding',
     subtitle: 'cheat sheet par Empire Internet',
@@ -79,10 +75,9 @@ const gifts = [
   {
     id: 'viral-copypaste',
     icon: Copy,
-    color: 'from-violet-500 to-purple-600',
-    borderColor: 'border-violet-500/30',
-    bgColor: 'bg-violet-500/10',
-    textColor: 'text-violet-400',
+    borderColor: 'border-white/10',
+    bgColor: 'bg-white/5',
+    textColor: 'text-empire',
     title: 'Copie-colle mes 3 templates',
     subtitle: 'les plus viraux sur LinkedIn',
     description: 'Télécharge les templates de 3 posts parmi les plus viraux que j\'ai jamais faits sur LinkedIn + adapte-les à ton business.',
@@ -267,17 +262,6 @@ export default function GiftCountdownModal() {
                       </div>
                       <span className="font-mono tabular-nums text-sm font-bold text-empire">{mins}:{secs}</span>
                     </div>
-
-                    <div className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10">
-                      <div className="flex items-center gap-2 shrink-0">
-                        <Linkedin size={16} className="text-blue-400" />
-                      </div>
-                      <div className="text-left flex-1">
-                        <p className="text-sm font-semibold text-white">Posts LinkedIn & contenus</p>
-                        <p className="text-xs text-neutral-400">Exemples réels de posts viraux</p>
-                      </div>
-                      <span className="font-mono tabular-nums text-sm font-bold text-blue-400">5:00</span>
-                    </div>
                   </div>
 
                   <button
@@ -321,7 +305,7 @@ export default function GiftCountdownModal() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 + i * 0.08 }}
-                        className={`group relative flex flex-col p-5 rounded-2xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] border ${gift.borderColor} hover:border-white/20 transition-all hover:scale-[1.02] hover:shadow-xl`}
+                        className={`group relative flex flex-col p-5 rounded-2xl bg-gradient-to-br from-white/[0.06] to-white/[0.02] border ${gift.borderColor} hover:border-empire/30 transition-all hover:scale-[1.02] hover:shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.1)]`}
                       >
                         {gift.free && (
                           <div className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-empire/20 border border-empire/30">
@@ -346,7 +330,7 @@ export default function GiftCountdownModal() {
 
                         {gift.badge && (
                           <div className="mb-3">
-                            <span className={`inline-block text-[10px] font-semibold ${gift.textColor} px-2 py-1 rounded-full ${gift.bgColor} border ${gift.borderColor}`}>
+                            <span className="inline-block text-[10px] font-semibold text-empire px-2 py-1 rounded-full bg-empire/10 border border-empire/20">
                               {gift.badge}
                             </span>
                           </div>
