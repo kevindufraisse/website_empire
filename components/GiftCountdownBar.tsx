@@ -189,7 +189,7 @@ export function GiftHeaderBadge() {
             exit={{ opacity: 0 }}
             className="text-[11px]"
           >
-            <span className="text-neutral-300">{GIFT_COUNT} cadeaux dans </span>
+            <span className="text-neutral-300">{GIFT_COUNT} ressources dans </span>
             <span className="font-mono tabular-nums font-bold text-white">{mins}:{secs}</span>
           </motion.span>
         ) : (
@@ -199,7 +199,7 @@ export function GiftHeaderBadge() {
             animate={{ opacity: 1, scale: 1 }}
             className="text-[11px] md:text-xs"
           >
-            {GIFT_COUNT} cadeaux débloqués
+            {GIFT_COUNT} ressources débloquées
           </motion.span>
         )}
       </AnimatePresence>
@@ -252,7 +252,7 @@ export default function GiftCountdownModal() {
                 <Sparkles className="text-empire" size={16} />
               </motion.div>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-2">
-                Vos {GIFT_COUNT} cadeaux offerts
+                Vos {GIFT_COUNT} ressources offertes
               </h2>
               <p className="text-neutral-400 text-sm sm:text-base max-w-lg mx-auto">
                 Des outils utilisés par les plus gros créateurs. Récupérez-les avant de partir.
@@ -320,7 +320,7 @@ export default function GiftCountdownModal() {
                 Continuer à naviguer
               </button>
               <p className="text-[11px] text-neutral-500">
-                Vous pourrez revenir à vos cadeaux depuis le header
+                Vous pourrez revenir à vos ressources depuis le header
               </p>
             </div>
 

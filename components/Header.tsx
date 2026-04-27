@@ -72,7 +72,7 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/20 bg-black/95 backdrop-blur-md">
       <nav className="max-w-7xl mx-auto px-4 py-3.5">
-        <div className="flex items-center justify-between gap-2 sm:gap-3 min-w-0">
+        <div className="relative flex items-center justify-between gap-2 sm:gap-3 min-w-0">
           {/* Logo */}
           <a href="/" className="flex items-center gap-2 group shrink-0">
             <span className="text-lg md:text-xl font-bold text-white group-hover:text-empire transition-colors">
@@ -80,15 +80,15 @@ export default function Header() {
             </span>
           </a>
 
-          {/* Center - Gift badge + TierNav on desktop */}
+          {/* Center - absolutely positioned for true centering */}
           {showTierNav && (
-            <div className="hidden md:flex flex-1 justify-center items-center gap-2.5 px-4">
+            <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-2.5">
               <GiftHeaderBadge />
               <TierNav />
             </div>
           )}
           {!showTierNav && (
-            <div className="hidden md:flex flex-1 justify-center items-center px-4">
+            <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center">
               <GiftHeaderBadge />
             </div>
           )}
