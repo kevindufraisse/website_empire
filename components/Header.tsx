@@ -80,21 +80,21 @@ export default function Header() {
             </span>
           </a>
 
-          {/* Center - absolutely positioned for true centering */}
+          {/* Center - absolutely positioned for true centering (lg+ to avoid iPad overlap) */}
           {showTierNav && (
-            <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-2.5">
+            <div className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-2.5">
               <GiftHeaderBadge />
               <TierNav />
             </div>
           )}
           {!showTierNav && (
-            <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center">
+            <div className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center">
               <GiftHeaderBadge />
             </div>
           )}
 
           {/* Right side */}
-          <div className="flex items-center justify-end gap-2 md:gap-3 min-w-0">
+          <div className="flex items-center justify-end gap-2 lg:gap-3 min-w-0">
             {!hideCTA && (
               <button
                 data-cal-namespace={namespace}
@@ -141,9 +141,9 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Mobile TierNav (second row) */}
+        {/* TierNav second row (mobile + tablet, hidden on lg+ where it's in center) */}
         {showTierNav && (
-          <div className="md:hidden flex justify-center pt-3">
+          <div className="lg:hidden flex justify-center pt-3">
             <TierNav />
           </div>
         )}
