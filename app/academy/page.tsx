@@ -8,7 +8,6 @@ import AcademyWhoSection from '@/components/sections/AcademyWhoSection'
 import AcademyFAQSection from '@/components/sections/AcademyFAQSection'
 import AcademyStickyBar from '@/components/sections/AcademyStickyBar'
 import AcademySocialProofToast from '@/components/sections/AcademySocialProofToast'
-import { ScrollProgress } from '@/components/magicui/scroll-progress'
 
 export const metadata = {
   title: 'Bootcamp Viralité 21 jours - Empire Internet',
@@ -18,7 +17,6 @@ export const metadata = {
 export default function AcademyPage() {
   return (
     <main className="relative">
-      <ScrollProgress />
       {/* Hero */}
       <AcademyHeroSection />
 
