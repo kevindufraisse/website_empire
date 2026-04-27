@@ -8,7 +8,6 @@ import { Meteors } from '@/components/magicui/meteors'
 import { StarRating } from '@/components/ui/star-rating'
 import { getCalApi } from "@calcom/embed-react"
 import { useCalLink } from '@/hooks/useCalLink'
-import ClientResultsTicker from '@/components/ClientResultsTicker'
 
 export default function HeroSection() {
   const { t, lang } = useLanguage()
@@ -255,17 +254,6 @@ export default function HeroSection() {
             </div>
           </motion.div>
 
-          {/* Client results ticker - Autopilot only */}
-          {autopilot && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7, duration: 0.6 }}
-              className="mt-8 max-w-md mx-auto"
-            >
-              <ClientResultsTicker />
-            </motion.div>
-          )}
 
           {/* Video Loom - FR only, hidden in Autopilot */}
           {lang === 'fr' && !autopilot && (
