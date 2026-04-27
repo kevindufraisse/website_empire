@@ -1,7 +1,6 @@
 'use client'
 
 import YtLeadForm from '@/components/YtLeadForm'
-import ClientResultsTicker from '@/components/ClientResultsTicker'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 
 const platforms = [
@@ -106,10 +105,6 @@ export default function JoinUsClient() {
                   </svg>
                 </div>
               ))}
-            </div>
-
-            <div className="mb-6">
-              <ClientResultsTicker />
             </div>
 
             <div className="flex items-center gap-2.5">
