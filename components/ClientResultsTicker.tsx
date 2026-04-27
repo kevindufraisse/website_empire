@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 
-const RESULTS = [
+const COPILOT_RESULTS = [
   {
     stat: '847 000',
     unit: 'vues',
@@ -29,12 +29,6 @@ const RESULTS = [
     detail: 'Entrepreneur solo · Zéro audience au départ',
   },
   {
-    stat: '9 100€',
-    unit: 'économisés',
-    context: 'par mois en moyenne',
-    detail: 'Vs. embaucher une équipe contenu en interne',
-  },
-  {
     stat: '2 099',
     unit: 'abonnés',
     context: 'gagnés en 21 jours',
@@ -42,12 +36,50 @@ const RESULTS = [
   },
 ]
 
+const AUTOPILOT_RESULTS = [
+  {
+    stat: '+50',
+    unit: 'Heads of Viralité',
+    context: 'dans notre réseau',
+    detail: 'Le plus grand réseau de créateurs viraux francophones',
+  },
+  {
+    stat: '100K',
+    unit: 'vues minimum',
+    context: 'garanties par mois',
+    detail: 'Objectif contractuel · On gère tout de A à Z',
+  },
+  {
+    stat: '0 min',
+    unit: 'de votre temps',
+    context: 'investi dans le contenu',
+    detail: 'Notre équipe s\'occupe de tout pour vous',
+  },
+  {
+    stat: '3,2M',
+    unit: 'vues',
+    context: 'record client en 30 jours',
+    detail: 'Dirigeant SaaS · LinkedIn + Instagram + TikTok',
+  },
+  {
+    stat: '24/7',
+    unit: 'production active',
+    context: 'sur tous vos canaux',
+    detail: 'Équipe dédiée · Stratégie + création + publication',
+  },
+]
+
 export default function ClientResultsTicker() {
   const [current, setCurrent] = useState(0)
   const [visible, setVisible] = useState(true)
   const { autopilot } = useAutopilot()
+  const RESULTS = autopilot ? AUTOPILOT_RESULTS : COPILOT_RESULTS
   const statClass = autopilot ? 'text-autopilot' : 'text-empire'
   const dotActiveClass = autopilot ? 'bg-autopilot' : 'bg-empire'
+
+  useEffect(() => {
+    setCurrent(0)
+  }, [autopilot])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -58,14 +90,14 @@ export default function ClientResultsTicker() {
       }, 400)
     }, 3500)
     return () => clearInterval(interval)
-  }, [])
+  }, [RESULTS.length])
 
-  const r = RESULTS[current]
+  const r = RESULTS[current % RESULTS.length]
 
   return (
     <div className="rounded-xl border border-white/8 bg-white/[0.02] p-4 overflow-hidden">
       <p className="text-[10px] text-neutral-400 uppercase tracking-widest font-bold mb-3">
-        Le saviez-vous · Résultats clients
+        {autopilot ? 'Autopilot · Notre réseau en action' : 'Le saviez-vous · Résultats clients'}
       </p>
       <div
         className="transition-all duration-400"
