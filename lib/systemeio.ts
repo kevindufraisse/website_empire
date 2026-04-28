@@ -43,8 +43,8 @@ async function request<T>(
       })
       clearTimeout(timer)
 
-      // 409 = contact already exists with that email — not an error for us.
-      if (res.status === 409) {
+      // 409 or 422 = contact already exists with that email — not an error for us.
+      if (res.status === 409 || res.status === 422) {
         const text = await res.text().catch(() => '')
         throw new ConflictError(text || 'conflict')
       }
