@@ -105,16 +105,18 @@ export default function AcademyWhoSection() {
                   ))}
                 </div>
                 <p className="text-sm text-neutral-400 text-left leading-snug">
-                  Kevin &amp; Marc lisent chaque candidature{' '}
+                  Kevin & Marc accompagnent chaque membre{' '}
                   <span className="text-white font-semibold">personnellement.</span>
                 </p>
               </div>
 
               <a
-                href="/candidature"
+                href="https://join.empire-internet.com/academy"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-8 py-3.5 bg-academy text-black font-bold text-base rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(252,165,165,0.25)]"
               >
-                Postuler maintenant
+                Rejoindre - 497€
                 <span aria-hidden="true">→</span>
               </a>
             </div>

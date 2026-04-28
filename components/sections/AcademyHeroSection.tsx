@@ -3,11 +3,8 @@ import { motion } from 'framer-motion'
 import RetroGrid from '@/components/magicui/retro-grid'
 import { Meteors } from '@/components/magicui/meteors'
 import { SparklesText } from '@/components/magicui/sparkles-text'
-import { useApplicationCount } from '@/hooks/useApplicationCount'
 import { COHORT_RANGE_SHORT } from '@/lib/cohort-config'
 import MediaCredibilityStrip from '@/components/MediaCredibilityStrip'
-
-const MAX_SELECTED = 20
 
 const founders = [
   {
@@ -33,8 +30,6 @@ const founders = [
 ]
 
 export default function AcademyHeroSection() {
-  const appCount = useApplicationCount()
-
   return (
     <section className="relative w-full py-24 md:py-36 overflow-hidden bg-gradient-to-b from-black via-transparent to-[#0f0f0f]">
       <RetroGrid />
@@ -94,21 +89,13 @@ export default function AcademyHeroSection() {
               </div>
             </motion.div>
 
-            {/* Badge + date */}
+            {/* Date */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
-              className="flex flex-wrap items-center justify-center gap-2 mb-8"
+              className="flex items-center justify-center mb-8"
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-academy/10 border border-academy/40">
-                <span className="w-2 h-2 rounded-full bg-academy animate-pulse" />
-                <p className="text-xs font-bold text-academy tracking-widest uppercase">
-                  {appCount !== null
-                    ? `${appCount} candidatures · ${MAX_SELECTED} sélectionnés`
-                    : `Sur sélection · ${MAX_SELECTED} admis`}
-                </p>
-              </div>
               <div className="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-white/5 border border-white/15">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-3 h-3 text-academy flex-shrink-0">
                   <rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" />
@@ -139,7 +126,7 @@ export default function AcademyHeroSection() {
               className="max-w-md mx-auto mb-8"
             >
               <p className="text-lg md:text-xl text-neutral-300 text-center mb-5">
-                1 challenge par jour. On écrit et monte ton contenu. Tu publies sur :
+                <span className="text-white font-semibold">15 min/jour.</span> On écrit et monte ton contenu. Tu publies sur :
               </p>
               <div className="flex items-center justify-center gap-3 mb-5">
                 {[
@@ -171,22 +158,65 @@ export default function AcademyHeroSection() {
               </div>
             </motion.div>
 
-            {/* CTA */}
+            {/* Price timeline - visible immediately */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.5 }}
-              className="flex flex-col items-center gap-2 mb-10"
+              className="max-w-md mx-auto mb-8"
+            >
+              <div className="p-4 rounded-xl bg-white/[0.06] border border-academy/20">
+                <p className="text-xs text-academy font-bold mb-3 text-center">Le prix augmente par palier</p>
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between text-xs">
+                    <div className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-academy" />
+                      <span className="text-white font-semibold">Early bird</span>
+                      <span className="text-neutral-500">5 - 9 mai</span>
+                      <span className="px-1.5 py-0.5 rounded bg-academy/20 text-academy font-bold text-[9px] tracking-wider">-400€</span>
+                    </div>
+                    <span className="text-academy font-bold">497€ <span className="font-normal text-neutral-500">ou 3x 165€</span></span>
+                  </div>
+                  <div className="flex items-center justify-between text-xs">
+                    <div className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-neutral-500" />
+                      <span className="text-neutral-300">Intermédiaire</span>
+                      <span className="text-neutral-500">10 - 15 mai</span>
+                    </div>
+                    <span className="text-neutral-400">697€ <span className="text-neutral-500">ou 3x 232€</span></span>
+                  </div>
+                  <div className="flex items-center justify-between text-xs">
+                    <div className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-neutral-600" />
+                      <span className="text-neutral-400">Prix final</span>
+                      <span className="text-neutral-500">16 - 18 mai</span>
+                    </div>
+                    <span className="text-neutral-500">897€ <span className="text-neutral-600">ou 3x 299€</span></span>
+                  </div>
+                </div>
+                <div className="mt-3 pt-3 border-t border-white/10 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[10px] text-neutral-500">
+                  <span>✓ Pas besoin de projet</span>
+                  <span>·</span>
+                  <span>✓ Inscription sous réserve</span>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* CTA */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.5 }}
+              className="flex flex-col items-center gap-1 mb-10"
             >
               <a
-                href="/candidature"
-                className="px-10 py-4 bg-academy text-black font-bold text-lg rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(252, 165, 165,0.35)] inline-block"
+                href="https://join.empire-internet.com/academy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-10 py-4 bg-academy text-black font-bold text-lg rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(252,165,165,0.35)] inline-block"
               >
-                Postuler - sur sélection →
+                Rejoindre - 497€ →
               </a>
-              <p className="text-xs text-neutral-400">
-                Formulaire de 2 min · Aucun engagement
-              </p>
             </motion.div>
 
 

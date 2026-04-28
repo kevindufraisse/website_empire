@@ -121,10 +121,12 @@ export default function Header() {
             )}
             {isAcademyPage && (
               <a
-                href="/candidature"
-                className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-empire text-black font-semibold text-sm hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.2)]"
+                href="https://join.empire-internet.com/academy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-academy text-black font-semibold text-sm hover:scale-105 transition-all shadow-[0_0_20px_rgba(252,165,165,0.2)]"
               >
-                Postuler - sur sélection →
+                Rejoindre - 497€
               </a>
             )}
 
@@ -196,11 +198,13 @@ export default function Header() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 }}
-                  href="/candidature"
+                  href="https://join.empire-internet.com/academy"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => setIsMenuOpen(false)}
-                  className="w-full py-3.5 rounded-lg bg-empire text-black font-bold text-center hover:scale-[1.02] transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.2)] block"
+                  className="w-full py-3.5 rounded-lg bg-academy text-black font-bold text-center hover:scale-[1.02] transition-all shadow-[0_0_20px_rgba(252,165,165,0.2)] block"
                 >
-                  Postuler - sur sélection →
+                  Rejoindre - 497€
                 </motion.a>
               )}
             </div>

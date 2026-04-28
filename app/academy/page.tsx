@@ -5,6 +5,7 @@ import AcademyProgramSection from '@/components/sections/AcademyProgramSection'
 import AcademyProofStrip from '@/components/sections/AcademyProofStrip'
 import AcademyTestimonialsSection from '@/components/sections/AcademyTestimonialsSection'
 import AcademyWhoSection from '@/components/sections/AcademyWhoSection'
+import AcademyPricingSection from '@/components/sections/AcademyPricingSection'
 import AcademyFAQSection from '@/components/sections/AcademyFAQSection'
 import AcademyStickyBar from '@/components/sections/AcademyStickyBar'
 import AcademySocialProofToast from '@/components/sections/AcademySocialProofToast'
@@ -23,6 +24,9 @@ export default function AcademyPage() {
       {/* Pour qui + 2 voies */}
       <AcademyForWhoSection />
       <AcademyTwoPathsSection />
+
+      {/* Pricing - paiement direct */}
+      <AcademyPricingSection />
 
       {/* Comment ça marche + programme */}
       <AcademyProgramSection />

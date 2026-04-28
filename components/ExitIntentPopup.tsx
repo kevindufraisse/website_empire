@@ -65,7 +65,7 @@ export function ExitIntentPopup() {
         onClick={() => setDismissed(true)}
       >
         <div
-          className="relative max-w-md w-full bg-gradient-to-br from-neutral-900 via-black to-neutral-900 border-2 border-empire rounded-2xl shadow-[0_0_60px_rgb(var(--empire-rgb)_/_0.3)]"
+          className="relative max-w-md w-full bg-gradient-to-br from-neutral-900 via-black to-neutral-900 border-2 border-academy rounded-2xl shadow-[0_0_60px_rgba(252,165,165,0.3)]"
           onClick={(e) => e.stopPropagation()}
         >
           <button
@@ -75,23 +75,39 @@ export function ExitIntentPopup() {
             <X size={22} />
           </button>
           <div className="p-6 text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-empire/20 border border-empire/30 mb-4">
-              <span className="w-1.5 h-1.5 rounded-full bg-empire animate-pulse" />
-              <span className="text-xs font-bold text-empire tracking-widest uppercase">Places limitées</span>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-academy/20 border border-academy/30 mb-4">
+              <span className="w-1.5 h-1.5 rounded-full bg-academy animate-pulse" />
+              <span className="text-xs font-bold text-academy tracking-widest uppercase">Offre de lancement</span>
             </div>
             <h3 className="text-2xl sm:text-3xl font-black text-white mb-2">
-              Vous êtes éligible ?
+              497€ au lieu de 897€
             </h3>
-            <p className="text-neutral-400 text-sm mb-6">
-              Le bootcamp n&apos;est pas ouvert à tout le monde.{' '}
-              <span className="text-white font-semibold">Passez le test pour savoir si vous pouvez rejoindre.</span>
+            <p className="text-neutral-400 text-sm mb-4">
+              21 posts LinkedIn + 21 Shorts créés pour toi.{' '}
+              <span className="text-white font-semibold">+3 000€ de contenu inclus.</span>
             </p>
+            <div className="flex flex-col gap-1.5 text-left mb-5">
+              <div className="flex items-center gap-2 text-xs text-neutral-300">
+                <span className="text-academy">✓</span>
+                <span>Paiement en 3x possible (165€/semaine)</span>
+              </div>
+              <div className="flex items-center gap-2 text-xs text-neutral-300">
+                <span className="text-academy">✓</span>
+                <span>Pas besoin de projet - on t&apos;en trouve un</span>
+              </div>
+              <div className="flex items-center gap-2 text-xs text-neutral-300">
+                <span className="text-academy">✓</span>
+                <span>497€ jusqu&apos;au 9 mai, puis 697€, puis 897€</span>
+              </div>
+            </div>
             <a
-              href="/candidature"
+              href="https://join.empire-internet.com/academy"
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={() => setDismissed(true)}
-              className="block w-full py-4 rounded-xl bg-empire text-black font-bold text-base hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.35)] mb-3"
+              className="block w-full py-4 rounded-xl bg-academy text-black font-bold text-base hover:scale-105 transition-all shadow-[0_0_20px_rgba(252,165,165,0.35)] mb-3"
             >
-              Postuler - sur sélection →
+              Confirmer ma place - 497€
             </a>
             <button
               onClick={() => setDismissed(true)}

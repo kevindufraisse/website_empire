@@ -105,7 +105,7 @@ export default function AcademyTwoPathsSection() {
                       </div>
                     </div>
                     <span className="text-[10px] font-bold text-black bg-academy rounded-full px-2.5 py-1 leading-none">
-                      SUR SÉLECTION
+                      RECOMMANDÉ
                     </span>
                   </div>
                   <p className="text-neutral-300 text-sm mb-6 leading-relaxed">{path2.desc}</p>
@@ -132,12 +132,14 @@ export default function AcademyTwoPathsSection() {
           <FadeInBlock delay={0.2}>
             <div className="mt-10 text-center">
               <a
-                href="/candidature"
+                href="https://join.empire-internet.com/academy"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-8 py-4 bg-academy text-black font-bold text-lg rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(252, 165, 165,0.3)]"
               >
-                Postuler pour rejoindre le bootcamp <ArrowRight size={18} />
+                Rejoindre le bootcamp - 497€ <ArrowRight size={18} />
               </a>
-              <p className="text-xs text-neutral-400 mt-2">Les meilleurs profils accèdent directement à l'option 2</p>
+              <p className="text-xs text-neutral-400 mt-2">ou 3x 165€/semaine</p>
             </div>
           </FadeInBlock>
 
