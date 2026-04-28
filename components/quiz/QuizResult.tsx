@@ -64,10 +64,10 @@ const OFFERS: Record<RecommendedOffer, OfferCopy> = {
       'Garantie résultats sous 90 jours - sinon on continue gratuitement',
     ],
     cta: {
-      label: 'Réserver mon appel Autopilot · 15 min',
-      href: '/decouverte',
+      label: 'Découvrir Empire Autopilot →',
+      href: '/?tier=autopilot',
     },
-    reassurance: 'Gratuit · 15 minutes · Aucun engagement · Pas de pitch agressif',
+    reassurance: 'Voir l\'offre complète · Aucun engagement',
     lossLine:
       "Sans système : 6 à 12 mois pour atteindre ce qu'on règle en 90 jours.",
   },
@@ -84,12 +84,12 @@ const OFFERS: Record<RecommendedOffer, OfferCopy> = {
       'Communauté privée Empire (creators sérieux uniquement)',
     ],
     cta: {
-      label: 'Réserver mon appel découverte · 15 min',
-      href: '/decouverte',
+      label: 'Découvrir Empire Copilot →',
+      href: '/',
     },
-    reassurance: 'Gratuit · 15 minutes · Aucun engagement · On vous dit honnêtement si vous êtes prêt',
+    reassurance: 'Voir l\'offre complète · Aucun engagement',
     lossLine:
-      "Continuer seul = encore 6 mois à publier sans liste email. Ou on règle ça en 1 appel.",
+      "Continuer seul = encore 6 mois à publier sans liste email. Ou un système qui tourne dès demain.",
   },
   academy: {
     kicker: '🎯 Recommandation #1 · Votre porte d\'entrée',
@@ -104,8 +104,8 @@ const OFFERS: Record<RecommendedOffer, OfferCopy> = {
       'Communauté privée + sessions live + accès à vie',
     ],
     cta: {
-      label: 'Postuler à Empire Academy',
-      href: '/candidature',
+      label: 'Découvrir Empire Academy →',
+      href: '/academy',
     },
     reassurance: '497€ · Paiement en 3x possible · Garantie 30 jours satisfait ou remboursé',
     lossLine:
@@ -123,8 +123,8 @@ const OFFERS: Record<RecommendedOffer, OfferCopy> = {
       'Communauté privée + sessions live + accès à vie',
     ],
     cta: {
-      label: 'Postuler à Empire Academy',
-      href: '/candidature',
+      label: 'Découvrir Empire Academy →',
+      href: '/academy',
     },
     reassurance: '497€ · Paiement en 3x possible · Garantie 30 jours satisfait ou remboursé',
   },
@@ -471,55 +471,43 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
           {/* ── 10 SUJETS à poster cette semaine ── */}
           <div className="mb-8">
             <p className="text-[11px] uppercase tracking-[0.2em] text-empire font-bold mb-3">
-              Vos 10 sujets à poster cette semaine
+              Votre stratégie complète arrive par email
             </p>
-            <div className="space-y-1.5">
-              {profile.topics.map((topic, i) => (
-                <motion.div
-                  key={topic}
-                  initial={{ opacity: 0, x: -6 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.8 + i * 0.04 }}
-                  className="flex items-start gap-3 px-4 py-2.5 rounded-xl bg-white/[0.03]"
-                >
-                  <span className="text-empire font-black text-xs mt-0.5 flex-shrink-0 w-5 text-right">{i + 1}</span>
-                  <p className="text-sm text-neutral-200 leading-snug">{topic}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
-          {/* ── PLAN 30 JOURS ── */}
-          <div className="mb-8">
-            <p className="text-[11px] uppercase tracking-[0.2em] text-empire font-bold mb-3">
-              Votre plan d&apos;action sur 30 jours
-            </p>
-            <div className="space-y-3">
-              {profile.plan30.map((week) => (
-                <motion.div
-                  key={week.week}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1.0 + week.week * 0.08 }}
-                  className="rounded-xl bg-white/[0.03] border border-white/10 overflow-hidden"
-                >
-                  <div className="flex items-center gap-3 px-4 py-3 border-b border-white/5">
-                    <div className="w-7 h-7 rounded-full bg-empire/15 border border-empire/30 flex items-center justify-center flex-shrink-0 text-empire font-black text-xs">
-                      S{week.week}
-                    </div>
-                    <p className="text-white font-semibold text-sm">Semaine {week.week} - {week.title}</p>
-                  </div>
-                  <ul className="px-4 py-3 space-y-1.5">
-                    {week.tasks.map((task) => (
-                      <li key={task} className="flex items-start gap-2.5 text-sm text-neutral-300">
-                        <Check size={14} className="text-empire mt-0.5 flex-shrink-0" />
-                        <span>{task}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </motion.div>
-              ))}
-            </div>
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.5 }}
+              className="rounded-2xl p-5 sm:p-6 bg-gradient-to-br from-empire/10 via-empire/5 to-transparent border border-empire/30"
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <Mail className="text-empire flex-shrink-0" size={22} />
+                <p className="text-white font-bold text-base sm:text-lg leading-tight">
+                  Check votre boîte mail dans 2 minutes
+                </p>
+              </div>
+              <p className="text-neutral-300 text-sm mb-4 leading-relaxed">
+                On vous envoie le détail complet personnalisé pour votre archétype <span className="text-empire font-semibold">{profile.name.replace('Le ', '').replace("L'", '')}</span> :
+              </p>
+              <ul className="space-y-2">
+                {[
+                  'Vos 10 sujets exacts à poster cette semaine (templates copy-paste)',
+                  'Votre plan d\'action sur 30 jours (semaine par semaine)',
+                  'Les 3 erreurs que font 90% des ' + profile.name.replace('Le ', '').replace("L'", '').toLowerCase() + 's',
+                  'La méthode complète pour transformer votre archétype en machine à clients',
+                ].map((item, i) => (
+                  <motion.li
+                    key={item}
+                    initial={{ opacity: 0, x: -6 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.9 + i * 0.06 }}
+                    className="flex items-start gap-2.5 text-sm text-neutral-200"
+                  >
+                    <Check size={14} className="text-empire mt-0.5 flex-shrink-0" />
+                    <span>{item}</span>
+                  </motion.li>
+                ))}
+              </ul>
+            </motion.div>
           </div>
 
           {/* ── PRIMARY CTA ── */}
@@ -598,16 +586,16 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
           {/* ── SECONDARY LINK ── */}
           {result.recommendedOffer === 'autopilot' && (
             <Link
-              href="/decouverte"
+              href="/"
               className="block text-center text-sm text-neutral-400 hover:text-empire transition mb-6"
             >
               Pas prêt pour Autopilot ?{' '}
-              <span className="underline underline-offset-2">Voir l&apos;offre Copilot →</span>
+              <span className="underline underline-offset-2">Voir Copilot →</span>
             </Link>
           )}
           {result.recommendedOffer === 'copilot' && (
             <Link
-              href="/candidature"
+              href="/academy"
               className="block text-center text-sm text-neutral-400 hover:text-empire transition mb-6"
             >
               Budget serré ?{' '}
@@ -627,12 +615,12 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
           {/* ── SHARE ── */}
           <QuizShareButtons archetype={result.archetype} score={result.score} />
 
-          {/* ── EMAIL REMINDER ── */}
-          <div className="flex items-start gap-3 p-4 rounded-xl bg-white/[0.03] border border-white/10">
+          {/* ── EMAIL CONFIRMATION ── */}
+          <div className="flex items-start gap-3 mt-4 p-4 rounded-xl bg-white/[0.03] border border-white/10">
             <Mail className="text-empire flex-shrink-0 mt-0.5" size={18} />
             <div className="text-sm">
               <p className="text-white font-semibold">
-                Votre plan détaillé arrive sur <span className="text-empire">{email}</span>
+                Votre plan détaillé est en route vers <span className="text-empire">{email}</span>
               </p>
               <p className="text-neutral-400 text-xs mt-1">
                 Vérifiez vos spams si vous ne le voyez pas dans 2 minutes.
