@@ -517,20 +517,23 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
             </div>
           </motion.div>
 
-          {/* ── SECONDARY OFFER ── */}
-          {secondaryOffer && (
+          {/* ── SECONDARY LINK ── */}
+          {result.recommendedOffer === 'autopilot' && (
             <Link
-              href={secondaryOffer.cta.href}
+              href="/decouverte"
               className="block text-center text-sm text-neutral-400 hover:text-empire transition mb-6"
             >
-              {result.recommendedOffer === 'autopilot'
-                ? 'Pas prêt pour Autopilot ? '
-                : result.recommendedOffer === 'copilot'
-                  ? 'Vous préférez apprendre seul ? '
-                  : 'Vous voulez aller plus vite ? '}
-              <span className="underline underline-offset-2">
-                Voir {secondaryOffer.title.split('—')[0].trim()} →
-              </span>
+              Pas prêt pour Autopilot ?{' '}
+              <span className="underline underline-offset-2">Voir l&apos;offre Copilot →</span>
+            </Link>
+          )}
+          {result.recommendedOffer !== 'autopilot' && result.recommendedOffer !== 'nurture' && (
+            <Link
+              href="/vsl"
+              className="block text-center text-sm text-neutral-400 hover:text-empire transition mb-6"
+            >
+              Voir comment Empire fonctionne en{' '}
+              <span className="underline underline-offset-2">vidéo de 20 min →</span>
             </Link>
           )}
 
