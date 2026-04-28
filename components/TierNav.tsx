@@ -35,13 +35,13 @@ export default function TierNav() {
     {
       id: 'copilot',
       label: 'Copilot',
-      sublabel: lang === 'fr' ? 'Créer ensemble' : 'Create together',
+      sublabel: lang === 'fr' ? 'Tu valides, on publie' : 'You validate, we publish',
       color: '#DAFC68',
     },
     {
       id: 'autopilot',
       label: 'Autopilot',
-      sublabel: lang === 'fr' ? 'Déléguer' : 'Delegate',
+      sublabel: lang === 'fr' ? 'On gère tout' : 'We handle everything',
       color: '#d4a574',
     },
   ]

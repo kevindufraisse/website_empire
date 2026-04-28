@@ -147,6 +147,9 @@ export default function AcademyPricingSection() {
                     <span>·</span>
                     <span>+3 000€ de contenu inclus</span>
                   </div>
+                  <p className="mt-3 text-[10px] text-neutral-600 text-center leading-relaxed">
+                    *Premier client garanti : réservé au chemin Empire (option 2). Si tu suis la méthode et que tu n'as pas de client après 3 mois, on continue avec toi gratuitement jusqu'à ce que ça arrive.
+                  </p>
                 </div>
 
               </div>
