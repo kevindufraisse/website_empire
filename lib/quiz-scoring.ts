@@ -91,58 +91,95 @@ export function computeQuizResult(answers: QuizAnswers): QuizResult {
   //   Nurture    →  free content / nothing to sell
   //
   // ───────────────────────────────────────────────────────────────────────────
-  const stage = answers.stage
-  const hours = answers.hours
-  const budget = answers.budget
-  const conviction = answers.conviction
+  // ─── Signaux extraits des 10 questions ────────────────────────────────────
+  const business = answers.business           // pre_revenue | lt5k | 5_20k | 20_50k | gt50k
+  const inactionCost = answers.inaction_cost  // never_thought | few | thousands | ten_plus | biggest
+  const budget = answers.budget               // high_decider | mid_decider | low_test | need_partner | not_yet
+  const timing = answers.timing               // now | month | quarter | six_months | no_pressure
+  const situation = answers.situation         // zero | sometimes | regular_no_convert | works_scaling | system_optimize
 
-  const doneForMe = hours === 'done_for_me'
-  const noTime = hours === 'lt2' || doneForMe
-  const isTotalBeginner = stage === 'not_started'
-  const isVeryEarly = stage === 'not_started' || stage === 'beginning'
+  // Capacité à payer (basée sur CA business)
+  const isHighRevenue = business === '20_50k' || business === 'gt50k'
+  const isMidRevenue = business === '5_20k' || isHighRevenue
+  const isPreRevenue = business === 'pre_revenue'
 
-  const hasBudget = budget === 'serious' || budget === 'high'
-  const hasHighBudget = budget === 'high'
-  const noBudget = budget === 'never'
+  // Décideur + budget
+  const isHighBudgetDecider = budget === 'high_decider'  // 5k+ déjà investi, décide seul
+  const isMidBudgetDecider = budget === 'mid_decider'    // jusqu'à 5k, décide seul
+  const isAnyDecider = isHighBudgetDecider || isMidBudgetDecider || budget === 'low_test'
+  const isHesitant = budget === 'not_yet' || budget === 'need_partner'
 
-  const isConvinced = conviction === 'convinced' || conviction === 'urgent' || conviction === 'active'
-  const isSkeptic = conviction === 'skeptic'
-  const isUrgent = conviction === 'urgent'
+  // Coût d'inaction (urgence)
+  const feelsHighCost = inactionCost === 'ten_plus' || inactionCost === 'biggest'
+  const feelsCost = feelsHighCost || inactionCost === 'thousands'
+  const noCostFeeling = inactionCost === 'never_thought'
+
+  // Timing
+  const isUrgentNow = timing === 'now' || timing === 'month'
+  const isSlowTiming = timing === 'six_months' || timing === 'no_pressure'
+
+  // Maturité contenu
+  const hasContentMaturity = situation === 'works_scaling' || situation === 'system_optimize'
+  const isContentBeginner = situation === 'zero'
 
   // ─── 3 PORTES : Academy / Copilot / Autopilot ──────────────────────────────
   //
-  // Autopilot = riche + convaincu (ou "faites pour moi")
-  // Copilot   = convaincu + budget sérieux
-  // Academy   = tout le reste (pas convaincu, petit budget, débutant)
-  //
-  // Pas de "nurture" - Academy sert de porte d'entrée pour convaincre.
+  // Autopilot = riche + convaincu + besoin urgent (ou maturité contenu déjà élevée)
+  // Copilot   = budget sérieux + décideur + convaincu (timing court)
+  // Academy   = tout le reste (porte d'entrée pour convaincre)
   // ───────────────────────────────────────────────────────────────────────────
 
   let recommendedOffer: RecommendedOffer
 
-  if (doneForMe && hasHighBudget) {
-    // "Faites pour moi" + budget prouvé 3k+ → autopilot.
+  if (
+    isHighBudgetDecider &&
+    isHighRevenue &&
+    feelsHighCost &&
+    isUrgentNow
+  ) {
+    // Top tier : CA élevé + budget prouvé + ressent le coût + urgence.
     recommendedOffer = 'autopilot'
-  } else if (hasHighBudget && isConvinced && noTime) {
-    // Budget 3k+ + convaincu + pas le temps → autopilot.
+  } else if (
+    isHighBudgetDecider &&
+    (hasContentMaturity || feelsHighCost) &&
+    !isSlowTiming
+  ) {
+    // High budget decider avec maturité ou douleur claire → autopilot.
     recommendedOffer = 'autopilot'
-  } else if (hasHighBudget && isUrgent) {
-    // Budget 3k+ + urgence → autopilot.
-    recommendedOffer = 'autopilot'
-  } else if (hasBudget && isConvinced) {
-    // Budget sérieux (500€+) + convaincu → copilot.
+  } else if (
+    isAnyDecider &&
+    isMidRevenue &&
+    feelsCost &&
+    !isSlowTiming
+  ) {
+    // Décideur avec CA moyen + ressent le coût + timing court → copilot.
     recommendedOffer = 'copilot'
-  } else if (isUrgent && hasBudget) {
-    // Urgent + budget sérieux → copilot.
+  } else if (
+    (isHighBudgetDecider || isMidBudgetDecider) &&
+    feelsCost
+  ) {
+    // Budget OK + ressent un coût → copilot.
     recommendedOffer = 'copilot'
   } else {
-    // Tout le reste : pas convaincu, petit budget, sceptique, curieux, débutant
-    // → Academy pour les convaincre et les faire entrer dans l'écosystème.
+    // Tout le reste : hésitant, pas de douleur, pré-revenu, petit budget,
+    // pas de timing, débutant → Academy (porte d'entrée pour convaincre).
     recommendedOffer = 'academy'
   }
 
-  // Hard floor: total beginner never gets autopilot.
-  if (isTotalBeginner && recommendedOffer === 'autopilot') {
+  // Garde-fou : pré-revenu jamais en Autopilot, on ne sur-promet pas.
+  if (isPreRevenue && recommendedOffer === 'autopilot') {
+    recommendedOffer = 'copilot'
+  }
+  // Garde-fou : débutant total contenu jamais en Autopilot non plus.
+  if (isContentBeginner && recommendedOffer === 'autopilot') {
+    recommendedOffer = 'copilot'
+  }
+  // Garde-fou : hésitant (need_partner ou not_yet) → toujours Academy max.
+  if (isHesitant && (recommendedOffer === 'autopilot' || recommendedOffer === 'copilot')) {
+    recommendedOffer = 'academy'
+  }
+  // Garde-fou : aucun ressenti de coût → Academy (pas prêt à payer cher).
+  if (noCostFeeling && recommendedOffer === 'autopilot') {
     recommendedOffer = 'copilot'
   }
 

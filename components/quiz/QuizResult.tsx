@@ -52,50 +52,50 @@ interface OfferCopy {
 
 const OFFERS: Record<RecommendedOffer, OfferCopy> = {
   autopilot: {
-    kicker: '🎯 Recommandation #1 · Le tier où vous allez le plus vite',
-    title: 'Autopilot — Done for you',
+    kicker: '🎯 Recommandation #1 · Calibrée pour votre profil',
+    title: 'Autopilot · Done for you',
     pitch:
-      "Vu votre profil, vous n'avez ni le temps ni l'envie de produire. Un expert dédié pilote votre machine de viralité de A à Z : sujets, scripts, publication, conversion. Vous validez, c'est tout.",
+      "Vu votre CA, votre budget et votre niveau d'urgence : Autopilot est fait pour vous. Un expert dédié pilote toute votre machine de contenu pendant que vous gérez votre business.",
     benefits: [
-      'Un expert viralité dédié + tout le système d\'automatisation',
-      'Sujets, scripts, posts, vidéos : produits dans votre voix, sans vous',
-      'Publication multi-canal automatique (LinkedIn, X, IG, YouTube)',
-      'Tunnel de capture email + scripts DMs pour convertir votre audience',
-      'Reporting hebdo : ce qui marche, ce qu\'on scale, ce qu\'on coupe',
+      "Au RDV : on calcule votre ROI projeté à 90 jours sur votre cas exact",
+      "Au RDV : on identifie les 3 leviers prioritaires de votre business",
+      "Au RDV : on vous dit honnêtement si Autopilot est rentable pour vous",
+      'Si on signe : expert dédié + production multi-canal + reporting hebdo',
+      'Garantie résultats sous 90 jours - sinon on continue gratuitement',
     ],
     cta: {
-      label: 'Découvrir Empire Autopilot',
-      href: '/?tier=autopilot',
+      label: 'Réserver mon appel Autopilot · 15 min',
+      href: '/decouverte',
     },
     reassurance: 'Gratuit · 15 minutes · Aucun engagement · Pas de pitch agressif',
     lossLine:
-      "Sans système, c'est 6 à 12 mois pour atteindre ce qu'on fait en 90 jours.",
+      "Sans système : 6 à 12 mois pour atteindre ce qu'on règle en 90 jours.",
   },
   copilot: {
-    kicker: '🎯 Recommandation #1 · Votre meilleur ratio impact/temps',
-    title: 'Copilot — Avec coach',
+    kicker: '🎯 Recommandation #1 · Le meilleur ratio impact/temps',
+    title: 'Copilot · Avec coach senior',
     pitch:
-      "Vous avez la matière, on construit le système. 15 min/sem avec un coach senior + vos outils d'automatisation = un contenu prévisible qui charge votre liste email et vos DMs.",
+      "Votre profil correspond exactement aux clients qu'on aide le mieux : décideur, du budget, conscient du coût de l'inaction. 15 min/sem avec un coach senior + vos outils = contenu prévisible qui convertit.",
     benefits: [
-      'Système éditorial automatisé (1 publi → diffusion multi-canal)',
-      'Coaching 1:1 hebdo (15 min) avec un expert Empire',
-      'Calendrier prévisible : vous savez quoi publier 4 semaines à l\'avance',
-      'Tunnel newsletter + scripts DMs pour convertir votre audience',
+      "Au RDV : audit gratuit de votre positionnement actuel",
+      "Au RDV : 3 angles éditoriaux concrets que vous pourrez tester cette semaine",
+      "Au RDV : on vous dit si Copilot peut vraiment vous faire passer à l'étape d'après",
+      'Si on signe : coaching hebdo + système d\'automatisation + calendrier 4 semaines',
       'Communauté privée Empire (creators sérieux uniquement)',
     ],
     cta: {
-      label: 'Découvrir Empire Copilot',
-      href: '/?tier=copilot',
+      label: 'Réserver mon appel découverte · 15 min',
+      href: '/decouverte',
     },
     reassurance: 'Gratuit · 15 minutes · Aucun engagement · On vous dit honnêtement si vous êtes prêt',
     lossLine:
-      "Continuer seul = encore 6 mois à publier dans le vide sans liste email. Ou on règle ça en 1 appel.",
+      "Continuer seul = encore 6 mois à publier sans liste email. Ou on règle ça en 1 appel.",
   },
   academy: {
-    kicker: '🎯 Recommandation #1 · Votre point de départ idéal',
-    title: 'Empire Academy — 21 jours intensifs',
+    kicker: '🎯 Recommandation #1 · Votre porte d\'entrée',
+    title: 'Empire Academy · 21 jours intensifs',
     pitch:
-      "Vous n'avez pas encore les fondations. Pas grave. Academy vous donne le système de viralité copy-paste + 42 contenus produits pour vous pendant le bootcamp. Vous repartez avec votre machine en place.",
+      "Pour votre profil, Academy est le bon premier pas. 21 jours pour bâtir vos fondations + 42 contenus produits pour vous + un système clé en main que vous pourrez upgrader plus tard si besoin.",
     benefits: [
       'Système de viralité copy-paste à appliquer dès J1',
       '21 posts LinkedIn + 21 Shorts produits POUR vous pendant 21 jours',
@@ -104,8 +104,8 @@ const OFFERS: Record<RecommendedOffer, OfferCopy> = {
       'Communauté privée + sessions live + accès à vie',
     ],
     cta: {
-      label: 'Découvrir Empire Academy',
-      href: '/academy',
+      label: 'Postuler à Empire Academy',
+      href: '/candidature',
     },
     reassurance: '497€ · Paiement en 3x possible · Garantie 30 jours satisfait ou remboursé',
     lossLine:
@@ -223,26 +223,65 @@ function IconAvatar({
 
 // ─── Personalization helpers ──────────────────────────────────────────────────
 
-function personalizedSituation(answers?: Record<string, string>): string | null {
+/**
+ * Estimated annual cost of inaction based on the visitor's own admission.
+ * Used in the "Coût de votre inaction" block - the conversion engine.
+ */
+function inactionAnalysis(answers?: Record<string, string>): {
+  amount: string
+  yearly: string
+  message: string
+  intensity: 'low' | 'medium' | 'high' | 'critical'
+} | null {
   if (!answers) return null
-  const HOURS: Record<string, string> = {
-    lt2: 'moins de 2h/sem disponibles',
-    '2_5': '2 à 5h/sem disponibles',
-    '5_10': '5 à 10h/sem disponibles',
-    gt10: 'plus de 10h/sem disponibles',
-    done_for_me: 'zéro heure - vous voulez que ce soit fait pour vous',
+  const cost = answers.inaction_cost
+  const business = answers.business
+
+  // Map answers to realistic ranges based on the business stage
+  const isHighRev = business === '20_50k' || business === 'gt50k'
+  const isMidRev = business === '5_20k'
+
+  if (cost === 'never_thought') {
+    return {
+      amount: isHighRev ? '5 à 10k€' : isMidRev ? '2 à 5k€' : '500€ à 2k€',
+      yearly: isHighRev ? '60 à 120k€' : isMidRev ? '24 à 60k€' : '6 à 24k€',
+      message: "Vous n'y aviez pas pensé - mais avec votre profil, c'est probablement le coût caché de chaque mois sans système.",
+      intensity: 'medium',
+    }
   }
-  const CONVICTION: Record<string, string> = {
-    skeptic: 'pas encore convaincu par le contenu',
-    curious: 'intéressé mais en recherche de preuves',
-    convinced: 'convaincu mais sans système en place',
-    urgent: 'conscient de perdre de l\'argent sans système',
-    active: 'déjà actif et prêt à passer au niveau supérieur',
+  if (cost === 'few') {
+    return {
+      amount: isHighRev ? '3 à 8k€' : '1 à 3k€',
+      yearly: isHighRev ? '36 à 96k€' : '12 à 36k€',
+      message: "Vous le sentez : ces opportunités manquées s'accumulent. Sur 12 mois, ça pèse lourd.",
+      intensity: 'medium',
+    }
   }
-  const h = answers.hours ? HOURS[answers.hours] : null
-  const c = answers.conviction ? CONVICTION[answers.conviction] : null
-  if (!h || !c) return null
-  return `Avec ${h} et ${c} - voici exactement ce qui vous bloque encore.`
+  if (cost === 'thousands') {
+    return {
+      amount: '3 à 8k€',
+      yearly: '36 à 96k€',
+      message: 'Plusieurs milliers chaque mois. Sur l\'année, c\'est une voiture, un salaire, un changement de vie.',
+      intensity: 'high',
+    }
+  }
+  if (cost === 'ten_plus') {
+    return {
+      amount: '10k+',
+      yearly: '120k€+',
+      message: "10k+ par mois, c'est plus de 120k€ par an qui n'arrivent jamais sur votre compte. C'est exactement ce qu'on règle en 90 jours.",
+      intensity: 'critical',
+    }
+  }
+  if (cost === 'biggest') {
+    return {
+      amount: 'Votre #1',
+      yearly: 'Inestimable',
+      message: "Vous l'avez dit : c'est votre plus grosse perte business. Continuer 6 mois de plus comme ça = manquer ce que vous pourriez accomplir en 90 jours.",
+      intensity: 'critical',
+    }
+  }
+  return null
 }
 
 // ─── Main result component ────────────────────────────────────────────────────
@@ -254,7 +293,7 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
   const greeting = firstName ? `${firstName}, ` : ''
   const primaryIcon = profile.icons[0]
   const tribe = profile.icons.slice(1)
-  const personalized = personalizedSituation(answers)
+  const inaction = inactionAnalysis(answers)
 
   const blocker = answers?.blocker
   const diagnostic = blocker ? profile.diagnostics[blocker] ?? null : null
@@ -342,14 +381,53 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
             </div>
           </motion.div>
 
-          {/* ── DESCRIPTION + PERSONALIZATION ── */}
-          <p className="text-neutral-200 leading-relaxed mb-3 text-[15px] sm:text-base">
+          {/* ── DESCRIPTION ── */}
+          <p className="text-neutral-200 leading-relaxed mb-6 text-[15px] sm:text-base">
             {profile.description}
           </p>
-          {personalized && (
-            <p className="text-empire/90 text-sm font-semibold leading-relaxed mb-8 italic">
-              {personalized}
-            </p>
+
+          {/* ── COÛT D'INACTION (le moteur de conversion RDV) ── */}
+          {inaction && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.6, duration: 0.5 }}
+              className={`relative mb-8 rounded-2xl p-5 sm:p-6 border overflow-hidden ${
+                inaction.intensity === 'critical'
+                  ? 'bg-gradient-to-br from-red-500/15 to-orange-500/5 border-red-500/40'
+                  : inaction.intensity === 'high'
+                    ? 'bg-gradient-to-br from-orange-500/15 to-amber-500/5 border-orange-500/40'
+                    : 'bg-gradient-to-br from-amber-500/10 to-transparent border-amber-500/30'
+              }`}
+            >
+              <div className="absolute -top-12 -right-12 w-40 h-40 rounded-full opacity-20 blur-3xl bg-red-500" />
+              <div className="relative">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className={`text-xl ${inaction.intensity === 'critical' ? 'text-red-400' : 'text-amber-400'}`}>
+                    🚨
+                  </span>
+                  <p className={`text-[10px] uppercase tracking-[0.2em] font-black ${
+                    inaction.intensity === 'critical' ? 'text-red-300' : 'text-amber-300'
+                  }`}>
+                    Le coût de votre inaction
+                  </p>
+                </div>
+                <div className="flex items-baseline gap-3 mb-3">
+                  <span className={`text-3xl sm:text-4xl font-black ${
+                    inaction.intensity === 'critical' ? 'text-red-300' : 'text-amber-300'
+                  }`}>
+                    {inaction.amount}€
+                  </span>
+                  <span className="text-neutral-400 text-sm">/mois perdus</span>
+                </div>
+                <p className="text-white text-sm sm:text-[15px] font-semibold mb-2">
+                  {inaction.message}
+                </p>
+                <p className="text-neutral-400 text-xs sm:text-sm">
+                  Sur 12 mois, c&apos;est <span className="text-white font-bold">{inaction.yearly}</span> qui n&apos;arrivent jamais sur votre compte.
+                </p>
+              </div>
+            </motion.div>
           )}
 
           {/* ── TRIBE ── */}
