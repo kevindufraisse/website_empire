@@ -112,21 +112,21 @@ const OFFERS: Record<RecommendedOffer, OfferCopy> = {
       "Sans fondations + sans système, vous allez continuer à essayer 10 trucs sans en maîtriser un seul.",
   },
   nurture: {
-    kicker: '🌱 Étape recommandée',
-    title: 'Regardez comment ça fonctionne',
+    kicker: '🎯 Recommandation #1 - Votre point de départ',
+    title: 'Empire Academy - 21 jours intensifs',
     pitch:
-      "Vous n'êtes pas encore convaincu et c'est normal. Regardez notre vidéo de 20 min qui explique tout le système - ensuite vous décidez.",
+      "Vous n'êtes pas encore convaincu par la création de contenu ? C'est exactement pour ça qu'Academy existe. 21 jours pour comprendre la puissance de la viralité dans votre business - avec du contenu produit pour vous.",
     benefits: [
-      'Comment le système Empire fonctionne concrètement',
-      'Les résultats obtenus par nos clients',
-      'Pourquoi le contenu est le levier #1 en 2026',
-      'Ce que ça change pour votre business',
+      '21 jours pour comprendre comment le contenu génère des clients',
+      '21 posts LinkedIn + 21 Shorts produits POUR vous',
+      'Système de viralité copy-paste à appliquer dès J1',
+      'Communauté privée + sessions live + accès à vie',
     ],
     cta: {
-      label: 'Regarder la vidéo - 20 min',
-      href: '/vsl',
+      label: 'Postuler à Empire Academy',
+      href: '/candidature',
     },
-    reassurance: 'Gratuit · Aucun engagement',
+    reassurance: '497€ · Paiement en 3x possible · Garantie 30 jours satisfait ou remboursé',
   },
 }
 
@@ -527,7 +527,16 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
               <span className="underline underline-offset-2">Voir l&apos;offre Copilot →</span>
             </Link>
           )}
-          {result.recommendedOffer !== 'autopilot' && result.recommendedOffer !== 'nurture' && (
+          {result.recommendedOffer === 'copilot' && (
+            <Link
+              href="/candidature"
+              className="block text-center text-sm text-neutral-400 hover:text-empire transition mb-6"
+            >
+              Budget serré ?{' '}
+              <span className="underline underline-offset-2">Commencer par Academy - 497€ →</span>
+            </Link>
+          )}
+          {result.recommendedOffer === 'academy' && (
             <Link
               href="/vsl"
               className="block text-center text-sm text-neutral-400 hover:text-empire transition mb-6"

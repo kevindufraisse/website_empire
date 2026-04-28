@@ -109,35 +109,39 @@ export function computeQuizResult(answers: QuizAnswers): QuizResult {
   const isSkeptic = conviction === 'skeptic'
   const isUrgent = conviction === 'urgent'
 
+  // ─── 3 PORTES : Academy / Copilot / Autopilot ──────────────────────────────
+  //
+  // Autopilot = riche + convaincu (ou "faites pour moi")
+  // Copilot   = convaincu + budget sérieux
+  // Academy   = tout le reste (pas convaincu, petit budget, débutant)
+  //
+  // Pas de "nurture" - Academy sert de porte d'entrée pour convaincre.
+  // ───────────────────────────────────────────────────────────────────────────
+
   let recommendedOffer: RecommendedOffer
 
-  if (isSkeptic) {
-    // Not convinced content matters → nurture with free value first.
-    recommendedOffer = 'nurture'
-  } else if (doneForMe && hasBudget) {
-    // "Do it for me" + proven budget → autopilot no-brainer.
+  if (doneForMe && hasHighBudget) {
+    // "Faites pour moi" + budget prouvé 3k+ → autopilot.
     recommendedOffer = 'autopilot'
   } else if (hasHighBudget && isConvinced && noTime) {
-    // High budget + convinced + no time → autopilot.
+    // Budget 3k+ + convaincu + pas le temps → autopilot.
+    recommendedOffer = 'autopilot'
+  } else if (hasHighBudget && isUrgent) {
+    // Budget 3k+ + urgence → autopilot.
     recommendedOffer = 'autopilot'
   } else if (hasBudget && isConvinced) {
-    // Serious budget + convinced → copilot (coached growth).
+    // Budget sérieux (500€+) + convaincu → copilot.
     recommendedOffer = 'copilot'
   } else if (isUrgent && hasBudget) {
-    // Urgent + budget → copilot at minimum.
+    // Urgent + budget sérieux → copilot.
     recommendedOffer = 'copilot'
-  } else if (noBudget && isVeryEarly) {
-    // No budget + beginner → academy (entry-level, €497).
-    recommendedOffer = 'academy'
-  } else if (isConvinced || budget === 'small') {
-    // Convinced but small/no budget → academy as stepping stone.
-    recommendedOffer = 'academy'
   } else {
-    // Curious but not convinced, no budget → nurture.
-    recommendedOffer = 'nurture'
+    // Tout le reste : pas convaincu, petit budget, sceptique, curieux, débutant
+    // → Academy pour les convaincre et les faire entrer dans l'écosystème.
+    recommendedOffer = 'academy'
   }
 
-  // Hard floor: total beginner never gets autopilot, even if budget is high.
+  // Hard floor: total beginner never gets autopilot.
   if (isTotalBeginner && recommendedOffer === 'autopilot') {
     recommendedOffer = 'copilot'
   }
