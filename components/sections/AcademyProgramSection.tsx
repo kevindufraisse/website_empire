@@ -138,7 +138,7 @@ export default function AcademyProgramSection() {
                     viewport={{ once: true }}
                     className={`relative p-6 rounded-2xl border overflow-hidden transition-all ${
                       week.highlight
-                        ? 'bg-gradient-to-br from-academy/15 to-academy/5 border-academy/60 shadow-[0_0_40px_rgba(252, 165, 165,0.12)]'
+                        ? 'bg-gradient-to-br from-academy/15 to-academy/5 border-academy/60 shadow-[0_0_40px_rgba(252,165,165,0.12)]'
                         : 'bg-gradient-to-br from-white/8 to-white/[0.02] border-white/10'
                     }`}
                   >
@@ -146,7 +146,7 @@ export default function AcademyProgramSection() {
 
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center font-black text-sm mb-5 border-2 relative z-10 ${
                       week.highlight
-                        ? 'bg-academy text-black border-academy shadow-[0_0_16px_rgba(252, 165, 165,0.5)]'
+                        ? 'bg-academy text-black border-academy shadow-[0_0_16px_rgba(252,165,165,0.5)]'
                         : 'bg-white/5 text-academy border-academy/30'
                     }`}>
                       {week.num}

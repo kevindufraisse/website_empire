@@ -22,7 +22,7 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 const features = [
   'Accès à Empire Alpha - tes posts LinkedIn + Shorts générés. Rien à rédiger, rien à monter.',
   '21 défis quotidiens - un par jour, tu postes, tu vois ce qui marche',
-  '6 masterclass lives - psychologie virale, LinkedIn, Instagram, YouTube, conversion, monétisation 3K€/mois',
+  '6 masterclass lives - psychologie virale, LinkedIn, Instagram, YouTube, IA & automatisation funnel, monétisation 3K€/mois',
   'Pod LinkedIn - le groupe engage sur tes posts, tes stats décollent',
   'Certification officielle - Bronze, Argent ou Or selon tes résultats, ajoutable sur LinkedIn',
   'Premier client garanti après 3 mois*',

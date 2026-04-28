@@ -42,9 +42,12 @@ export default function AcademyForWhoSection() {
           <FadeInBlock>
             <div className="text-center mb-10">
               <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">Pour qui</p>
-              <h2 className="text-3xl md:text-4xl font-bold leading-tight">
+              <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-3">
                 Ce bootcamp est <span className="text-academy">sélectif.</span>
               </h2>
+              <p className="text-sm text-neutral-400 max-w-md mx-auto">
+                Sur sélection : tu postules en réservant ta place et on confirme si tu fais partie des sélectionnés.
+              </p>
             </div>
           </FadeInBlock>
 
