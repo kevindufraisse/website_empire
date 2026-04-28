@@ -113,20 +113,20 @@ const OFFERS: Record<RecommendedOffer, OfferCopy> = {
   },
   nurture: {
     kicker: '🌱 Étape recommandée',
-    title: 'Démarrez avec nos ressources gratuites',
+    title: 'Regardez comment ça fonctionne',
     pitch:
-      "Vous n'êtes pas encore prêt à investir et c'est totalement OK. On vous envoie nos meilleurs contenus gratuits pour vous lancer dans les 30 prochains jours.",
+      "Vous n'êtes pas encore convaincu et c'est normal. Regardez notre vidéo de 20 min qui explique tout le système - ensuite vous décidez.",
     benefits: [
-      'Newsletter hebdomadaire avec les frameworks Empire',
-      'Templates LinkedIn / X gratuits',
-      'Accès à notre communauté débutants',
-      "Replay des derniers webinaires (€0)",
+      'Comment le système Empire fonctionne concrètement',
+      'Les résultats obtenus par nos clients',
+      'Pourquoi le contenu est le levier #1 en 2026',
+      'Ce que ça change pour votre business',
     ],
     cta: {
-      label: 'Voir les ressources gratuites',
-      href: '/youtube',
+      label: 'Regarder la vidéo - 20 min',
+      href: '/vsl',
     },
-    reassurance: 'Gratuit · Désabonnement en 1 clic',
+    reassurance: 'Gratuit · Aucun engagement',
   },
 }
 
