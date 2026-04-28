@@ -226,23 +226,23 @@ function IconAvatar({
 function personalizedSituation(answers?: Record<string, string>): string | null {
   if (!answers) return null
   const HOURS: Record<string, string> = {
-    lt2: 'moins de 2h/sem',
-    '2_5': '2 à 5h/sem',
-    '5_10': '5 à 10h/sem',
-    gt10: 'plus de 10h/sem',
-    done_for_me: '0h (vous voulez que ce soit fait pour vous)',
+    lt2: 'moins de 2h/sem disponibles',
+    '2_5': '2 à 5h/sem disponibles',
+    '5_10': '5 à 10h/sem disponibles',
+    gt10: 'plus de 10h/sem disponibles',
+    done_for_me: 'zéro heure - vous voulez que ce soit fait pour vous',
   }
-  const REVENUE: Record<string, string> = {
-    lt2k: 'moins de 2k€/mois',
-    '2_5k': '2 à 5k€/mois',
-    '5_10k': '5 à 10k€/mois',
-    '10_30k': '10 à 30k€/mois',
-    gt30k: 'plus de 30k€/mois',
+  const CONVICTION: Record<string, string> = {
+    skeptic: 'pas encore convaincu par le contenu',
+    curious: 'intéressé mais en recherche de preuves',
+    convinced: 'convaincu mais sans système en place',
+    urgent: 'conscient de perdre de l\'argent sans système',
+    active: 'déjà actif et prêt à passer au niveau supérieur',
   }
   const h = answers.hours ? HOURS[answers.hours] : null
-  const r = answers.revenue ? REVENUE[answers.revenue] : null
-  if (!h || !r) return null
-  return `Avec ${h} et un objectif de ${r}, voici exactement ce qui vous bloque encore.`
+  const c = answers.conviction ? CONVICTION[answers.conviction] : null
+  if (!h || !c) return null
+  return `Avec ${h} et ${c} - voici exactement ce qui vous bloque encore.`
 }
 
 // ─── Main result component ────────────────────────────────────────────────────

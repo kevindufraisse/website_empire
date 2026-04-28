@@ -93,36 +93,53 @@ export function computeQuizResult(answers: QuizAnswers): QuizResult {
   // ───────────────────────────────────────────────────────────────────────────
   const stage = answers.stage
   const hours = answers.hours
-  const revenueTarget = answers.revenue
+  const budget = answers.budget
+  const conviction = answers.conviction
 
-  const wantsHighRevenue = revenueTarget === '10_30k' || revenueTarget === 'gt30k'
-  const noTime = hours === 'lt2' || hours === 'done_for_me'
   const doneForMe = hours === 'done_for_me'
+  const noTime = hours === 'lt2' || doneForMe
   const isTotalBeginner = stage === 'not_started'
   const isVeryEarly = stage === 'not_started' || stage === 'beginning'
 
+  const hasBudget = budget === 'serious' || budget === 'high'
+  const hasHighBudget = budget === 'high'
+  const noBudget = budget === 'never'
+
+  const isConvinced = conviction === 'convinced' || conviction === 'urgent' || conviction === 'active'
+  const isSkeptic = conviction === 'skeptic'
+  const isUrgent = conviction === 'urgent'
+
   let recommendedOffer: RecommendedOffer
-  if (doneForMe) {
-    // Hard signal: they explicitly said "do it for me".
+
+  if (isSkeptic) {
+    // Not convinced content matters → nurture with free value first.
+    recommendedOffer = 'nurture'
+  } else if (doneForMe && hasBudget) {
+    // "Do it for me" + proven budget → autopilot no-brainer.
     recommendedOffer = 'autopilot'
-  } else if (score >= 70 && (wantsHighRevenue || noTime)) {
-    // Qualified + (ambitious OR no bandwidth) → push top tier.
+  } else if (hasHighBudget && isConvinced && noTime) {
+    // High budget + convinced + no time → autopilot.
     recommendedOffer = 'autopilot'
-  } else if (score >= 55) {
-    // Qualified but not premium-yet → coached growth tier.
+  } else if (hasBudget && isConvinced) {
+    // Serious budget + convinced → copilot (coached growth).
     recommendedOffer = 'copilot'
-  } else if (isVeryEarly || score >= 40) {
-    // Early-stage or borderline → entry-level course.
+  } else if (isUrgent && hasBudget) {
+    // Urgent + budget → copilot at minimum.
+    recommendedOffer = 'copilot'
+  } else if (noBudget && isVeryEarly) {
+    // No budget + beginner → academy (entry-level, €497).
+    recommendedOffer = 'academy'
+  } else if (isConvinced || budget === 'small') {
+    // Convinced but small/no budget → academy as stepping stone.
     recommendedOffer = 'academy'
   } else {
-    // Genuine cold lead — don't burn them with a hard pitch.
+    // Curious but not convinced, no budget → nurture.
     recommendedOffer = 'nurture'
   }
 
-  // Hard floor: a true total beginner is *never* sold autopilot or copilot —
-  // they need foundations first, otherwise we over-promise and they churn.
-  if (isTotalBeginner && (recommendedOffer === 'autopilot' || recommendedOffer === 'copilot')) {
-    recommendedOffer = 'academy'
+  // Hard floor: total beginner never gets autopilot, even if budget is high.
+  if (isTotalBeginner && recommendedOffer === 'autopilot') {
+    recommendedOffer = 'copilot'
   }
 
   // Secondary offer = next tier down on the ladder, for soft cross-sell.
