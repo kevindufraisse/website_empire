@@ -20,6 +20,14 @@ export default function QuizHomePopup() {
     if (!isAllowed) return
     const dismissed = readCookie(COOKIE_KEY)
     if (dismissed === '1') return
+    // Don't show if quiz is already completed
+    try {
+      const raw = localStorage.getItem('empire_quiz_v1')
+      if (raw) {
+        const data = JSON.parse(raw)
+        if (data?.stage === 'result' && data?.result) return
+      }
+    } catch { /* ignore */ }
     const t = setTimeout(() => setOpen(true), DELAY_MS)
     return () => clearTimeout(t)
   }, [isAllowed])
