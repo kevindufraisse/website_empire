@@ -174,7 +174,7 @@ export default function AcademyThankYouClient() {
                       {
                         n: '02',
                         t: "On t'explique ce qu'on ferait pour toi",
-                        d: 'Empire Internet produit ton contenu chaque jour - LinkedIn, Shorts, newsletter - avec une équipe dédiée. Tu valides, on publie. 15 min.',
+                        d: 'Empire Internet écrit et monte ton contenu chaque jour - LinkedIn, Shorts, newsletter - avec une équipe dédiée. Tu valides et tu publies. 15 min.',
                       },
                       {
                         n: '03',

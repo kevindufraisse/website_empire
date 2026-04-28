@@ -35,7 +35,7 @@ export default function TierNav() {
     {
       id: 'copilot',
       label: 'Copilot',
-      sublabel: lang === 'fr' ? 'Tu valides, on publie' : 'You validate, we publish',
+      sublabel: lang === 'fr' ? 'On écrit, tu publies' : 'We write, you publish',
       color: '#DAFC68',
     },
     {
