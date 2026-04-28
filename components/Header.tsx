@@ -31,11 +31,11 @@ export default function Header() {
     } catch { /* ignore */ }
   }, [])
 
-  const quizLabel = quizState === 'started'
-    ? (lang === 'fr' ? 'Terminer le quiz' : 'Finish quiz')
-    : (lang === 'fr' ? 'Quiz gratuit' : 'Free quiz')
-
-  const showQuizCTA = quizState !== 'done'
+  const quizLabel = quizState === 'done'
+    ? (lang === 'fr' ? 'Mon résultat' : 'My result')
+    : quizState === 'started'
+      ? (lang === 'fr' ? 'Terminer le quiz' : 'Finish quiz')
+      : (lang === 'fr' ? 'Quiz gratuit' : 'Free quiz')
 
   // Hide default CTA button on partners and academy pages
   const isCandidaturePage = pathname === '/candidature' || pathname === '/decouverte' || pathname === '/join-us'
@@ -114,7 +114,7 @@ export default function Header() {
 
           {/* Right side */}
           <div className="flex items-center justify-end gap-2 lg:gap-3 min-w-0">
-            {!hideCTA && showQuizCTA && (
+            {!hideCTA && (
               <a
                 href="/quiz"
                 className="inline-flex items-center gap-1.5 shrink-0 px-3 md:px-4 py-2 md:py-2.5 rounded-lg bg-empire text-black hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.2)]"
@@ -180,7 +180,7 @@ export default function Header() {
           >
             <div className="px-4 py-5 space-y-4">
               {/* CTA Button Mobile */}
-              {!hideCTA && showQuizCTA && (
+              {!hideCTA && (
                 <motion.a
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -189,7 +189,7 @@ export default function Header() {
                   onClick={() => setIsMenuOpen(false)}
                   className="w-full flex items-center justify-center gap-2 py-3 rounded-lg bg-empire text-black font-bold hover:scale-[1.02] transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.2)]"
                 >
-                  {quizState === 'started' ? 'Terminer le quiz →' : 'Quiz gratuit · 90 sec'}
+                  {quizLabel}
                 </motion.a>
               )}
               {isPartnersPage && (
