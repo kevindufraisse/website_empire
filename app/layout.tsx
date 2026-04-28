@@ -48,14 +48,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <LanguageProvider>
           <AutopilotProvider>
             <GiftCountdownProvider>
-            <CalCtaRedirect />
-            <Header />
-            <ClientWrappers />
-            <CalStickyBar />
+            <div data-chrome="cal-redirect"><CalCtaRedirect /></div>
+            <div data-chrome="header"><Header /></div>
+            <div data-chrome="popups"><ClientWrappers /></div>
+            <div data-chrome="sticky-bar"><CalStickyBar /></div>
             <div suppressHydrationWarning>
               {children}
             </div>
-            <Footer />
+            <div data-chrome="footer"><Footer /></div>
             </GiftCountdownProvider>
           </AutopilotProvider>
         </LanguageProvider>

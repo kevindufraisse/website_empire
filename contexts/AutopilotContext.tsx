@@ -19,6 +19,18 @@ export function AutopilotProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     try {
+      const params = new URLSearchParams(window.location.search)
+      const tier = params.get('tier')
+      if (tier === 'autopilot') {
+        setAutopilotState(true)
+        localStorage.setItem(STORAGE_KEY, 'true')
+        return
+      }
+      if (tier === 'copilot') {
+        setAutopilotState(false)
+        localStorage.setItem(STORAGE_KEY, 'false')
+        return
+      }
       const saved = localStorage.getItem(STORAGE_KEY)
       if (saved === 'true') setAutopilotState(true)
     } catch {}

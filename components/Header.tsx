@@ -18,6 +18,25 @@ export default function Header() {
   const [callbackOpen, setCallbackOpen] = useState(false)
   const pathname = usePathname()
   
+  // Quiz state: detect if started but not completed (client-only to avoid hydration mismatch)
+  const [quizState, setQuizState] = useState<'new' | 'started' | 'done'>('new')
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem('empire_quiz_v1')
+      if (!raw) return
+      const data = JSON.parse(raw)
+      if (data?.stage === 'result' && data?.result) setQuizState('done')
+      else if (data?.stage && data.stage !== 'intro') setQuizState('started')
+    } catch { /* ignore */ }
+  }, [])
+
+  const quizLabel = quizState === 'started'
+    ? (lang === 'fr' ? 'Terminer le quiz' : 'Finish quiz')
+    : (lang === 'fr' ? 'Quiz gratuit' : 'Free quiz')
+
+  const showQuizCTA = quizState !== 'done'
+
   // Hide default CTA button on partners and academy pages
   const isCandidaturePage = pathname === '/candidature' || pathname === '/decouverte' || pathname === '/join-us'
   const hideCTA = pathname === '/partners' || pathname === '/academy' || isCandidaturePage
@@ -95,21 +114,19 @@ export default function Header() {
 
           {/* Right side */}
           <div className="flex items-center justify-end gap-2 lg:gap-3 min-w-0">
-            {!hideCTA && (
-              <button
-                data-cal-namespace={namespace}
-                data-cal-link={calLink}
-                data-cal-config='{"layout":"month_view","theme":"dark"}'
-                title={t.common.ctaReassurance}
-                className="hidden sm:inline-flex sm:flex-col sm:items-end sm:justify-center gap-px shrink-0 px-3 md:px-4 py-1.5 md:py-2 rounded-lg bg-empire text-black hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.2)]"
+            {!hideCTA && showQuizCTA && (
+              <a
+                href="/quiz"
+                className="inline-flex items-center gap-1.5 shrink-0 px-3 md:px-4 py-2 md:py-2.5 rounded-lg bg-empire text-black hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.2)]"
               >
-                <span className="font-semibold text-[11px] md:text-sm leading-none text-right whitespace-nowrap">
-                  {t.header.joinQA}
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-black/20" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-black/30" />
                 </span>
-                <span className="text-[8px] md:text-[9px] font-medium leading-none text-right text-black/70 whitespace-nowrap">
-                  {t.common.ctaReassuranceCompact}
+                <span className="font-bold text-[11px] md:text-sm leading-none whitespace-nowrap">
+                  {quizLabel}
                 </span>
-              </button>
+              </a>
             )}
             {isPartnersPage && (
               <button
@@ -163,23 +180,17 @@ export default function Header() {
           >
             <div className="px-4 py-5 space-y-4">
               {/* CTA Button Mobile */}
-              {!hideCTA && (
-                <motion.button
+              {!hideCTA && showQuizCTA && (
+                <motion.a
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 }}
-                  data-cal-namespace={namespace}
-                  data-cal-link={calLink}
-                  data-cal-config='{"layout":"month_view","theme":"dark"}'
-                  title={t.common.ctaReassurance}
+                  href="/quiz"
                   onClick={() => setIsMenuOpen(false)}
-                  className="w-full flex flex-col items-center gap-1 py-3 rounded-lg bg-empire text-black font-bold hover:scale-[1.02] transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.2)]"
+                  className="w-full flex items-center justify-center gap-2 py-3 rounded-lg bg-empire text-black font-bold hover:scale-[1.02] transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.2)]"
                 >
-                  <span className="leading-tight px-2 text-center text-sm">{t.header.joinQA}</span>
-                  <span className="text-[10px] font-medium text-black/70 leading-tight px-2 text-center">
-                    {t.common.ctaReassuranceCompact}
-                  </span>
-                </motion.button>
+                  {quizState === 'started' ? 'Terminer le quiz →' : 'Quiz gratuit · 90 sec'}
+                </motion.a>
               )}
               {isPartnersPage && (
                 <motion.button

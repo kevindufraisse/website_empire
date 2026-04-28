@@ -145,6 +145,12 @@ export default function HeroSection() {
             <p className="text-[11px] text-neutral-400">
               {lang === 'fr' ? 'Gratuit · Sans engagement' : 'Free · No commitment'}
             </p>
+            <a
+              href="/quiz"
+              className="mt-2 inline-flex items-center gap-1.5 text-sm text-neutral-400 hover:text-empire transition-colors"
+            >
+              {lang === 'fr' ? 'Pas prêt ? Trouvez votre archétype en 90 sec →' : 'Not ready? Find your archetype in 90 sec →'}
+            </a>
           </motion.div>
             
             {/* Star Rating */}
