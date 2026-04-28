@@ -482,7 +482,7 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
               <div className="flex items-center gap-3 mb-4">
                 <Mail className="text-empire flex-shrink-0" size={22} />
                 <p className="text-white font-bold text-base sm:text-lg leading-tight">
-                  Check votre boîte mail dans 2 minutes
+                  Check votre boîte mail dans 20 minutes
                 </p>
               </div>
               <p className="text-neutral-300 text-sm mb-4 leading-relaxed">
@@ -623,7 +623,7 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
                 Votre plan détaillé est en route vers <span className="text-empire">{email}</span>
               </p>
               <p className="text-neutral-400 text-xs mt-1">
-                Vérifiez vos spams si vous ne le voyez pas dans 2 minutes.
+                Vérifiez vos spams si vous ne le voyez pas dans 20 minutes.
               </p>
             </div>
           </div>
