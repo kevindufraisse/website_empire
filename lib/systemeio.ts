@@ -43,10 +43,15 @@ async function request<T>(
       })
       clearTimeout(timer)
 
-      // 409 or 422 = contact already exists with that email — not an error for us.
+      // 409 or 422 with "déjà utilisée" = contact already exists — not an error for us.
+      // 422 with other messages (invalid email, bad fields) = real validation error.
       if (res.status === 409 || res.status === 422) {
         const text = await res.text().catch(() => '')
-        throw new ConflictError(text || 'conflict')
+        const isDuplicate = text.includes('déjà utilisée') || text.includes('already') || res.status === 409
+        if (isDuplicate) {
+          throw new ConflictError(text || 'conflict')
+        }
+        throw new Error(`systeme.io ${res.status} on ${path}: ${text}`)
       }
 
       if (!res.ok) {
