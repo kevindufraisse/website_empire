@@ -14,7 +14,7 @@ export default function CallbackButton({ className = '', variant = 'default' }: 
   const [isOpen, setIsOpen] = useState(false)
   const { lang } = useLanguage()
 
-  const label = lang === 'fr' ? 'Voir si je suis éligible' : 'Check my eligibility'
+  const label = lang === 'fr' ? 'Parler à un expert' : 'Talk to an expert'
 
   return (
     <>
