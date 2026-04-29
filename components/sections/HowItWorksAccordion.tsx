@@ -334,10 +334,10 @@ export default function HowItWorksAccordion() {
 
           {/* 4 Visual Blocks */}
         <FadeInBlock delay={0.1}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 items-stretch">
 
               {/* BLOCK 1 - Expert viralité */}
-              <div className={`group relative flex flex-col overflow-hidden rounded-xl transition-all min-h-[300px] ${
+              <div className={`group relative flex flex-col overflow-hidden rounded-xl transition-all min-h-[340px] ${
                 autopilot
                   ? 'bg-gradient-to-br from-autopilot/10 to-white/[0.02] border border-autopilot/30 hover:border-autopilot/60'
                   : 'bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30'
@@ -356,7 +356,7 @@ export default function HowItWorksAccordion() {
                   </div>
                   <p className="text-[11px] text-neutral-500">Réseau de 100 experts disponibles</p>
                 </div>
-                <div className="relative z-10 p-5 pt-3 bg-gradient-to-t from-black via-black/90 to-transparent">
+                <div className="relative z-10 p-5 pt-3 mt-auto bg-gradient-to-t from-black via-black/90 to-transparent">
                   <div className="flex items-center gap-2 mb-1">
                     <span className={`w-6 h-6 rounded-md flex items-center justify-center text-black font-bold text-sm ${autopilot ? 'bg-autopilot' : 'bg-empire'}`}>1</span>
                     <h3 className="text-base font-semibold text-white">
@@ -377,7 +377,7 @@ export default function HowItWorksAccordion() {
 
               {/* BLOCK 2 - Parlez 15 min (or Expert dédié in autopilot) */}
               {autopilot ? (
-                <div className="group relative flex flex-col overflow-hidden rounded-xl bg-gradient-to-br from-autopilot/10 to-white/[0.02] border border-autopilot/30 hover:border-autopilot/60 transition-all min-h-[300px]">
+                <div className="group relative flex flex-col overflow-hidden rounded-xl bg-gradient-to-br from-autopilot/10 to-white/[0.02] border border-autopilot/30 hover:border-autopilot/60 transition-all min-h-[340px]">
                   <div className="flex-1 flex flex-col items-center justify-center p-6 gap-5">
                     <div className="flex -space-x-4">
                       <img
@@ -407,7 +407,7 @@ export default function HowItWorksAccordion() {
                       </p>
                     </div>
                   </div>
-                  <div className="relative z-10 p-5 pt-3 bg-gradient-to-t from-black via-black/90 to-transparent">
+                  <div className="relative z-10 p-5 pt-3 mt-auto bg-gradient-to-t from-black via-black/90 to-transparent">
                     <div className="flex items-center gap-2 mb-1">
                       <span className="w-6 h-6 rounded-md bg-autopilot flex items-center justify-center text-black font-bold text-sm">2</span>
                       <h3 className="text-base font-semibold text-white">
@@ -420,7 +420,7 @@ export default function HowItWorksAccordion() {
                   </div>
                 </div>
               ) : (
-                <div className="group relative flex flex-col overflow-hidden rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30 transition-all min-h-[300px]">
+                <div className="group relative flex flex-col overflow-hidden rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30 transition-all min-h-[340px]">
                   <div className="flex-1 flex flex-col items-center justify-center p-6 gap-4">
                     <div className="w-14 h-14 rounded-full bg-gradient-to-br from-empire/30 to-empire/10 border-2 border-empire flex items-center justify-center">
                       <Mic className="text-empire" size={24} />
@@ -430,7 +430,7 @@ export default function HowItWorksAccordion() {
                       {lang === 'fr' ? 'Enregistrement...' : 'Recording...'}
                     </p>
                   </div>
-                  <div className="relative z-10 p-5 pt-3 bg-gradient-to-t from-black via-black/90 to-transparent">
+                  <div className="relative z-10 p-5 pt-3 mt-auto bg-gradient-to-t from-black via-black/90 to-transparent">
                     <div className="flex items-center gap-2 mb-1">
                       <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">2</span>
                       <h3 className="text-base font-semibold text-white">
@@ -447,7 +447,7 @@ export default function HowItWorksAccordion() {
               )}
 
               {/* BLOCK 3 - IA + Humain */}
-              <div className={`group relative flex flex-col justify-end overflow-hidden rounded-xl transition-all min-h-[300px] ${
+              <div className={`group relative flex flex-col justify-end overflow-hidden rounded-xl transition-all min-h-[340px] ${
                 autopilot
                   ? 'bg-gradient-to-br from-autopilot/10 to-white/[0.02] border border-autopilot/30 hover:border-autopilot/60'
                   : 'bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30'
@@ -485,7 +485,7 @@ export default function HowItWorksAccordion() {
               </div>
 
               {/* BLOCK 4 - Publiez (or Safety net in autopilot) */}
-              <div className={`group relative flex flex-col overflow-hidden rounded-xl transition-all min-h-[300px] ${
+              <div className={`group relative flex flex-col overflow-hidden rounded-xl transition-all min-h-[340px] ${
                 autopilot
                   ? 'bg-gradient-to-br from-autopilot/10 to-white/[0.02] border border-autopilot/30 hover:border-autopilot/60'
                   : 'bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30'
@@ -516,7 +516,7 @@ export default function HowItWorksAccordion() {
                       : (lang === 'fr' ? '1 clic pour publier' : '1 click to publish')}
                   </p>
                 </div>
-                <div className="relative z-10 p-5 pt-3 bg-gradient-to-t from-black via-black/90 to-transparent">
+                <div className="relative z-10 p-5 pt-3 mt-auto bg-gradient-to-t from-black via-black/90 to-transparent">
                   <div className="flex items-center gap-2 mb-1">
                     <span className={`w-6 h-6 rounded-md flex items-center justify-center text-black font-bold text-sm ${autopilot ? 'bg-autopilot' : 'bg-empire'}`}>4</span>
                     <h3 className="text-base font-semibold text-white">
