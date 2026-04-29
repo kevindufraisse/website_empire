@@ -410,132 +410,11 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
             </div>
           </motion.div>
 
-          {/* ── DESCRIPTION ── */}
-          <p className="text-neutral-200 leading-relaxed mb-6 text-[15px] sm:text-base">
-            {profile.description}
-          </p>
-
-          {/* ── COÛT D'INACTION (compact) ── */}
-          {inaction && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6, duration: 0.4 }}
-              className={`mb-6 rounded-xl px-4 py-3 border ${
-                inaction.intensity === 'critical'
-                  ? 'bg-red-500/10 border-red-500/30'
-                  : inaction.intensity === 'high'
-                    ? 'bg-orange-500/10 border-orange-500/30'
-                    : 'bg-amber-500/8 border-amber-500/25'
-              }`}
-            >
-              <div className="flex items-center gap-2 mb-1">
-                <span className="text-sm">🚨</span>
-                <p className={`text-[10px] uppercase tracking-widest font-black ${
-                  inaction.intensity === 'critical' ? 'text-red-300' : 'text-amber-300'
-                }`}>
-                  Coût estimé de votre inaction
-                </p>
-              </div>
-              <div className="flex items-baseline gap-2">
-                <span className={`text-lg font-black ${
-                  inaction.intensity === 'critical' ? 'text-red-300' : 'text-amber-300'
-                }`}>
-                  {inaction.amount}/mois
-                </span>
-                <span className="text-xs text-neutral-400">
-                  soit <span className="text-white font-semibold">{inaction.yearly}/an</span> perdus sans système
-                </span>
-              </div>
-            </motion.div>
-          )}
-
-          {/* ── TRIBE ── */}
-          {tribe.length > 0 && (
-            <div className="mb-8">
-              <p className="text-[11px] uppercase tracking-[0.2em] text-neutral-500 font-bold mb-4 text-center">
-                Votre tribu de Creators
-              </p>
-              <div className="grid grid-cols-2 gap-3">
-                {tribe.map((icon, i) => (
-                  <motion.div
-                    key={icon.handle}
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.7 + i * 0.1 }}
-                    className="flex items-center gap-3 p-3 rounded-2xl bg-white/[0.03] border border-white/10"
-                  >
-                    <IconAvatar icon={icon} size="md" delay={0.8 + i * 0.1} />
-                    <div className="min-w-0">
-                      <p className="text-white font-bold text-sm truncate">{icon.name}</p>
-                      <p className="text-neutral-500 text-xs truncate">{icon.role}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* ── DIAGNOSTIC - Pourquoi tes posts convertissent pas ── */}
-          {diagnostic && (
-            <div className="mb-8 rounded-2xl p-5 sm:p-6 bg-gradient-to-br from-rose-500/10 to-transparent border border-rose-500/20">
-              <p className="text-[11px] uppercase tracking-[0.2em] text-rose-300 font-bold mb-3">
-                Pourquoi vos posts ne convertissent pas
-              </p>
-              <p className="text-neutral-200 text-sm sm:text-[15px] leading-relaxed">
-                {diagnostic}
-              </p>
-            </div>
-          )}
-
-          {/* ── EMAIL + WARMING (grouped) ── */}
-          <div className="mb-8">
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.5 }}
-              className="rounded-2xl p-5 sm:p-6 bg-gradient-to-br from-empire/10 via-empire/5 to-transparent border border-empire/30"
-            >
-              <div className="flex items-center gap-3 mb-3">
-                <Mail className="text-empire flex-shrink-0" size={22} />
-                <p className="text-white font-bold text-base sm:text-lg leading-tight">
-                  Check votre boîte mail dans 20 minutes
-                </p>
-              </div>
-              <p className="text-neutral-300 text-sm mb-4 leading-relaxed">
-                On vous envoie vos 10 sujets à poster + votre plan 30 jours personnalisé pour l&apos;archétype <span className="text-empire font-semibold">{profile.name.replace('Le ', '').replace("L'", '')}</span>.
-              </p>
-
-              {/* Warming buttons - inside the email block for visibility */}
-              <div className="pt-4 border-t border-white/10">
-                <p className="text-xs font-bold text-empire mb-2.5">
-                  Pour être sûr de le recevoir :
-                </p>
-                <div className="flex flex-col sm:flex-row gap-2">
-                  <button
-                    onClick={downloadVCard}
-                    className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-white/[0.06] border border-white/10 text-xs font-semibold text-white hover:bg-white/[0.1] hover:border-empire/30 transition-all"
-                  >
-                    <UserPlus size={14} className="text-empire" />
-                    Ajouter Kevin aux contacts
-                  </button>
-                  <a
-                    href="mailto:kevin@empire-internet.com?subject=OK%20Kevin&body=OK"
-                    className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-white/[0.06] border border-white/10 text-xs font-semibold text-white hover:bg-white/[0.1] hover:border-empire/30 transition-all"
-                  >
-                    <Send size={14} className="text-empire" />
-                    Envoyer &quot;OK&quot; à Kevin
-                  </a>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-
-          {/* ── PRIMARY CTA ── */}
+          {/* ── PRIMARY CTA (first thing after the hook) ── */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.3, duration: 0.5 }}
+            transition={{ delay: 0.5, duration: 0.5 }}
             className={`relative rounded-2xl p-6 sm:p-7 mb-6 bg-gradient-to-br ${offerColor.bg} ${offerColor.border} border overflow-hidden`}
           >
             <div
@@ -560,7 +439,7 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
                     key={b}
                     initial={{ opacity: 0, x: -8 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 1.4 + i * 0.06 }}
+                    transition={{ delay: 0.6 + i * 0.06 }}
                     className="flex items-start gap-3 text-sm text-neutral-100"
                   >
                     <Check size={16} className={`${offerColor.text} mt-0.5 flex-shrink-0`} />
@@ -610,31 +489,138 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
 
           {/* ── SECONDARY LINK ── */}
           {result.recommendedOffer === 'autopilot' && (
-            <Link
-              href="/"
-              className="block text-center text-sm text-neutral-400 hover:text-[#DAFC68] transition mb-6"
-            >
-              Pas prêt pour le Premium ?{' '}
-              <span className="underline underline-offset-2">Voir Copilot →</span>
+            <Link href="/" className="block text-center text-sm text-neutral-400 hover:text-[#DAFC68] transition mb-6">
+              Pas prêt pour le Premium ? <span className="underline underline-offset-2">Voir Copilot →</span>
             </Link>
           )}
           {result.recommendedOffer === 'copilot' && (
-            <Link
-              href="/academy"
-              className="block text-center text-sm text-neutral-400 hover:text-empire transition mb-6"
-            >
-              Budget serré ?{' '}
-              <span className="underline underline-offset-2">Commencer par Academy - 497€ →</span>
+            <Link href="/academy" className="block text-center text-sm text-neutral-400 hover:text-empire transition mb-6">
+              Budget serré ? <span className="underline underline-offset-2">Commencer par Academy - 497€ →</span>
             </Link>
           )}
           {result.recommendedOffer === 'academy' && (
-            <Link
-              href="/vsl"
-              className="block text-center text-sm text-neutral-400 hover:text-empire transition mb-6"
-            >
-              Voir comment Empire fonctionne en{' '}
-              <span className="underline underline-offset-2">vidéo de 20 min →</span>
+            <Link href="/vsl" className="block text-center text-sm text-neutral-400 hover:text-empire transition mb-6">
+              Voir comment Empire fonctionne en <span className="underline underline-offset-2">vidéo de 20 min →</span>
             </Link>
+          )}
+
+          {/* ── COÛT D'INACTION (nudge after CTA) ── */}
+          {inaction && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8, duration: 0.4 }}
+              className={`mb-6 rounded-xl px-4 py-3 border ${
+                inaction.intensity === 'critical'
+                  ? 'bg-red-500/10 border-red-500/30'
+                  : inaction.intensity === 'high'
+                    ? 'bg-orange-500/10 border-orange-500/30'
+                    : 'bg-amber-500/8 border-amber-500/25'
+              }`}
+            >
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-sm">🚨</span>
+                <p className={`text-[10px] uppercase tracking-widest font-black ${
+                  inaction.intensity === 'critical' ? 'text-red-300' : 'text-amber-300'
+                }`}>
+                  Coût estimé de votre inaction
+                </p>
+              </div>
+              <div className="flex items-baseline gap-2">
+                <span className={`text-lg font-black ${
+                  inaction.intensity === 'critical' ? 'text-red-300' : 'text-amber-300'
+                }`}>
+                  {inaction.amount}/mois
+                </span>
+                <span className="text-xs text-neutral-400">
+                  soit <span className="text-white font-semibold">{inaction.yearly}/an</span> perdus sans système
+                </span>
+              </div>
+            </motion.div>
+          )}
+
+          {/* ── EMAIL + WARMING ── */}
+          <div className="mb-8">
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.9, duration: 0.5 }}
+              className="rounded-2xl p-5 sm:p-6 bg-gradient-to-br from-empire/10 via-empire/5 to-transparent border border-empire/30"
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <Mail className="text-empire flex-shrink-0" size={22} />
+                <p className="text-white font-bold text-base sm:text-lg leading-tight">
+                  Check votre boîte mail dans 20 minutes
+                </p>
+              </div>
+              <p className="text-neutral-300 text-sm mb-4 leading-relaxed">
+                On vous envoie vos 10 sujets à poster + votre plan 30 jours personnalisé pour l&apos;archétype <span className="text-empire font-semibold">{profile.name.replace('Le ', '').replace("L'", '')}</span>.
+              </p>
+              <div className="pt-4 border-t border-white/10">
+                <p className="text-xs font-bold text-empire mb-2.5">
+                  Pour être sûr de le recevoir :
+                </p>
+                <div className="flex flex-col sm:flex-row gap-2">
+                  <button
+                    onClick={downloadVCard}
+                    className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-white/[0.06] border border-white/10 text-xs font-semibold text-white hover:bg-white/[0.1] hover:border-empire/30 transition-all"
+                  >
+                    <UserPlus size={14} className="text-empire" />
+                    Ajouter Kevin aux contacts
+                  </button>
+                  <a
+                    href="mailto:kevin@empire-internet.com?subject=OK%20Kevin&body=OK"
+                    className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-white/[0.06] border border-white/10 text-xs font-semibold text-white hover:bg-white/[0.1] hover:border-empire/30 transition-all"
+                  >
+                    <Send size={14} className="text-empire" />
+                    Envoyer &quot;OK&quot; à Kevin
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* ── DESCRIPTION ── */}
+          <p className="text-neutral-200 leading-relaxed mb-6 text-[15px] sm:text-base">
+            {profile.description}
+          </p>
+
+          {/* ── TRIBE ── */}
+          {tribe.length > 0 && (
+            <div className="mb-8">
+              <p className="text-[11px] uppercase tracking-[0.2em] text-neutral-500 font-bold mb-4 text-center">
+                Votre tribu de Creators
+              </p>
+              <div className="grid grid-cols-2 gap-3">
+                {tribe.map((icon, i) => (
+                  <motion.div
+                    key={icon.handle}
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1.0 + i * 0.1 }}
+                    className="flex items-center gap-3 p-3 rounded-2xl bg-white/[0.03] border border-white/10"
+                  >
+                    <IconAvatar icon={icon} size="md" delay={1.1 + i * 0.1} />
+                    <div className="min-w-0">
+                      <p className="text-white font-bold text-sm truncate">{icon.name}</p>
+                      <p className="text-neutral-500 text-xs truncate">{icon.role}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* ── DIAGNOSTIC ── */}
+          {diagnostic && (
+            <div className="mb-8 rounded-2xl p-5 sm:p-6 bg-gradient-to-br from-rose-500/10 to-transparent border border-rose-500/20">
+              <p className="text-[11px] uppercase tracking-[0.2em] text-rose-300 font-bold mb-3">
+                Pourquoi vos posts ne convertissent pas
+              </p>
+              <p className="text-neutral-200 text-sm sm:text-[15px] leading-relaxed">
+                {diagnostic}
+              </p>
+            </div>
           )}
 
           {/* ── SHARE ── */}
