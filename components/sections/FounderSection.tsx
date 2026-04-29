@@ -242,7 +242,7 @@ export default function FounderSection() {
                 <ArrowRight size={20} />
               </button>
               <p className="mt-3 text-sm text-neutral-400">
-                {lang === 'fr' ? '300 000 vues garanties · 45 min · Gratuit · Sans engagement' : '300K views guaranteed · 45 min · Free · No commitment'}
+                {lang === 'fr' ? '300 000 vues garanties · 45 min' : '300K views guaranteed · 45 min'}
               </p>
               <div className="mt-3">
                 <CallbackButton variant="subtle" />
