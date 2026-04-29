@@ -73,18 +73,15 @@ export default function FinalBoostCTA() {
                   data-cal-namespace={namespace}
                   data-cal-link={calLink}
                   data-cal-config='{"layout":"month_view","theme":"dark"}'
-                  className={`inline-block w-full sm:w-auto px-8 py-4 font-bold rounded-xl hover:scale-105 transition-all text-center ${
+                  className={`inline-flex flex-col items-center w-full sm:w-auto px-8 py-4 font-bold rounded-xl hover:scale-105 transition-all text-center ${
                     autopilot
                       ? 'bg-gradient-to-r from-autopilot to-autopilot text-black shadow-[0_0_30px_rgba(212,165,116,0.4)]'
                       : 'bg-empire text-black shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]'
                   }`}
                 >
-                  {autopilot ? t.autopilot.finalCTA.cta : t.finalCTA.watchDemo}
+                  <span className="text-lg">{autopilot ? t.autopilot.finalCTA.cta : t.finalCTA.watchDemo}</span>
+                  <span className="text-[11px] font-semibold opacity-70">300 000 vues garanties · 45 min</span>
                 </button>
-                <div className="mt-3">
-                  <CallbackButton variant="subtle" />
-                </div>
-                <CtaReassurance className="mt-4 px-2" />
               </div>
             </div>
           </FadeInBlock>
