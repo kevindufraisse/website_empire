@@ -119,7 +119,7 @@ export const ARCHETYPES: Record<ArchetypeId, ArchetypeProfile> = {
       ],
       fr: [
         { name: 'Pauline Laigneau', handle: 'plaigneau', role: "L'interviewer du Gratin", stat: '1M abonnés' },
-        { name: 'Caroline Mignaux', handle: 'MignauxC', role: 'La storyteller marketing FR' },
+        { name: 'Caroline Mignaux', handle: 'carolinemignaux', role: 'La storyteller marketing FR' },
         { name: 'Justine Hutteau', handle: 'JustineHutteau', role: 'La founder de Respire' },
       ],
     },
