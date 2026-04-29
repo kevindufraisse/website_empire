@@ -5,7 +5,7 @@ import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Phone, Loader2, CheckCircle2, XCircle, ChevronDown } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { getEmpParam } from '@/hooks/useCalLink'
+import { getEmpParam, useCalLink } from '@/hooks/useCalLink'
 
 const COUNTRIES = [
   { code: '+33', flag: '🇫🇷', name: 'France' },
@@ -44,6 +44,7 @@ interface CallbackFormModalProps {
 
 export default function CallbackFormModal({ isOpen, onClose }: CallbackFormModalProps) {
   const { lang } = useLanguage()
+  const calLink = useCalLink()
   const [step, setStep] = useState<Step>('form')
   const [loading, setLoading] = useState(false)
   const [form, setForm] = useState({ firstName: '', email: '', phone: '', budget: '' })
@@ -54,8 +55,8 @@ export default function CallbackFormModal({ isOpen, onClose }: CallbackFormModal
 
   const t = {
     fr: {
-      title: 'Vérifier votre éligibilité',
-      subtitle: 'Laissez vos coordonnées, on vérifie votre profil et on vous recontacte',
+      title: 'Réservez votre appel',
+      subtitle: 'Laissez vos coordonnées puis choisissez un créneau',
       firstName: 'Prénom',
       email: 'Email',
       phone: 'Téléphone',
@@ -63,9 +64,9 @@ export default function CallbackFormModal({ isOpen, onClose }: CallbackFormModal
       budget1: '1 000€ - 5 000€',
       budget2: '+ 5 000€',
       noBudget: 'Pas de budget',
-      submit: 'Envoyer',
-      successTitle: 'Parfait !',
-      successText: 'On vous recontacte très vite. Gardez votre téléphone à portée de main.',
+      submit: 'Valider et choisir un créneau',
+      successTitle: 'Choisissez votre créneau',
+      successText: '',
       cancelledTitle: 'Pas de souci',
       cancelledText: 'N\'hésitez pas à revenir quand vous serez prêt.',
       close: 'Fermer',
@@ -300,18 +301,15 @@ export default function CallbackFormModal({ isOpen, onClose }: CallbackFormModal
           )}
 
           {step === 'success' && (
-            <div className="text-center py-4">
-              <div className="w-16 h-16 rounded-full bg-empire/20 border border-empire/30 flex items-center justify-center mx-auto mb-4">
-                <CheckCircle2 className="text-empire" size={32} />
+            <div className="py-2">
+              <h3 className="text-lg font-bold text-white mb-4 text-center">{txt.successTitle}</h3>
+              <div className="rounded-xl overflow-hidden border border-white/10 bg-white/[0.03]">
+                <iframe
+                  src={`https://cal.com/${calLink}?layout=month_view&theme=dark`}
+                  className="w-full h-[420px] border-0"
+                  loading="lazy"
+                />
               </div>
-              <h3 className="text-xl font-bold text-white mb-2">{txt.successTitle}</h3>
-              <p className="text-neutral-300 mb-6">{txt.successText}</p>
-              <button
-                onClick={handleClose}
-                className="px-6 py-2.5 rounded-xl bg-white/10 text-white font-medium hover:bg-white/20 transition-colors"
-              >
-                {txt.close}
-              </button>
             </div>
           )}
 
