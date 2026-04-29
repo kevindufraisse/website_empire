@@ -476,8 +476,8 @@ export default function HowItWorksAccordion() {
                     {autopilot
                       ? t.autopilot.howItWorks.b3.desc
                       : (lang === 'fr'
-                          ? 'On crée vos contenus de la semaine avec les meilleures techniques de viralité. 24h plus tard, tout est prêt.'
-                          : 'We create your weekly content using the best virality techniques. 24h later, everything is ready.')}
+                          ? 'Notre équipe récupère la vidéo et crée vos contenus de la semaine (LinkedIn, IG, TikTok...)'
+                          : 'Our team takes your video and creates your weekly content (LinkedIn, IG, TikTok...)')}
                   </p>
                 </div>
               </div>
