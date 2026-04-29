@@ -391,7 +391,7 @@ export default function HowItWorksAccordion() {
                     <h3 className="text-base font-semibold text-white">
                       {autopilot
                         ? t.autopilot.howItWorks.b1.title
-                        : (lang === 'fr' ? 'Analyse & Stratégie' : 'Research & Strategy')}
+                        : (lang === 'fr' ? 'Expert viralité dédié' : 'Dedicated virality expert')}
                     </h3>
                   </div>
                   <p className="text-neutral-400 text-sm">
@@ -499,7 +499,7 @@ export default function HowItWorksAccordion() {
                     <h3 className="text-base font-semibold text-white">
                       {autopilot
                         ? t.autopilot.howItWorks.b3.title
-                        : (lang === 'fr' ? 'IA + Humain' : 'AI + Human')}
+                        : (lang === 'fr' ? 'On rédige et on monte' : 'We write and edit')}
                     </h3>
                   </div>
                   <p className="text-neutral-400 text-sm">
@@ -605,7 +605,7 @@ export default function HowItWorksAccordion() {
               <p className="mt-3 text-sm text-neutral-400">
                 {autopilot
                   ? t.autopilot.hero.ctaReassurance
-                  : (lang === 'fr' ? '15 min · Sans engagement' : '15 min · No commitment')}
+                  : (lang === 'fr' ? '45 min · Gratuit · Sans engagement' : '45 min · Free · No commitment')}
               </p>
               <div className="mt-3">
                 <CallbackButton variant="subtle" />

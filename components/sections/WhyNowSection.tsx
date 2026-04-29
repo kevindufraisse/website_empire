@@ -63,7 +63,7 @@ const pillars: Record<string, Pillar[]> = {
         { icon: Video, title: '30+ Reels & Shorts', desc: 'Option sans caméra - pas besoin de montrer votre visage' },
       ],
       moreFeatures: [
-        { icon: Video, title: 'Scripts YouTube longs', desc: 'Scripts optimisés pour vos vidéos longues' },
+        { icon: Video, title: 'Vidéos longues YouTube', desc: 'On crée vos vidéos longues de A à Z' },
         { icon: ImageIcon, title: 'Carrousels illimités', desc: 'LinkedIn + Instagram' },
       ],
     },
@@ -290,8 +290,8 @@ export default function WhyNowSection() {
           <div className="text-center">
             <p className="text-sm text-neutral-400 mb-4">
               {fr
-                ? <>Tout ça <span className="text-empire font-semibold">sur devis personnalisé</span> - au lieu de 5 000-15 000€ en agence.</>
-                : <>All of this <span className="text-empire font-semibold">on custom quote</span> - instead of €5,000-15,000 with an agency.</>}
+                ? <>En moyenne, nos clients génèrent <span className="text-empire font-semibold">+10K€ de CA supplémentaire par mois</span> grâce à leur contenu.</>
+                : <>On average, our clients generate <span className="text-empire font-semibold">+€10K additional revenue per month</span> from their content.</>}
             </p>
             <button
               data-cal-namespace={namespace}
@@ -305,7 +305,7 @@ export default function WhyNowSection() {
             >
               {autopilot
                 ? t.autopilot.hero.cta1
-                : (fr ? 'Voir si je suis éligible' : 'See if I\'m eligible')}
+                : (fr ? 'Parler à un expert' : 'Talk to an expert')}
               <ArrowRight size={18} />
             </button>
             <CtaReassurance className="mt-4 px-2" />
