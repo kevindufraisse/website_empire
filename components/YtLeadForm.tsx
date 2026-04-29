@@ -358,8 +358,8 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
               </>
             )
             : lang === 'fr'
-              ? 'Vérifier votre éligibilité →'
-              : 'Check your eligibility →'
+              ? 'Valider et planifier un RDV →'
+              : 'Submit and book a call →'
           }
         </button>
 
