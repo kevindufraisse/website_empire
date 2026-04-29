@@ -337,12 +337,10 @@ export default function EmpireQuiz({ hookOverride, onCompleted, onDismiss }: Pro
                   </div>
 
                   <h1 className="text-2xl sm:text-3xl font-black text-white leading-[1.1] mb-2.5">
-                    Vous postez du contenu qui ne vous ressemble pas.<br />
-                    <span className="text-empire">C&apos;est pour ça que ça ne convertit pas.</span>
+                    Découvrez le type de créateur que vous êtes.
                   </h1>
                   <p className="text-sm sm:text-base text-neutral-300 leading-relaxed max-w-lg mx-auto lg:mx-0">
-                    Identifiez votre archétype de contenu en 7 questions.<br />
-                    Recevez un plan d&apos;action concret et les 10 sujets à poster cette semaine pour convertir vos lecteurs en clients.
+                    Et recevez un plan d&apos;action de 30 jours pour transformer vos lecteurs en clients payants.
                   </p>
                 </div>
 
