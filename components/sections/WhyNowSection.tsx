@@ -58,13 +58,13 @@ const pillars: Record<string, Pillar[]> = {
       icon: Sparkles,
       label: 'Contenu',
       keyFeatures: [
-        { icon: FileText, title: '30+ posts LinkedIn', desc: 'Rédigés, optimisés et planifiés' },
-        { icon: Mail, title: '30 newsletters/mois', desc: 'Qui sonnent comme vous, en mieux' },
-        { icon: Video, title: '30+ Reels & Shorts', desc: 'Option sans caméra - pas besoin de montrer votre visage' },
+        { icon: FileText, title: '30+ posts LinkedIn', desc: 'Rédigés, optimisés et planifiés', value: '1 500€' },
+        { icon: Mail, title: '30 newsletters/mois', desc: 'Qui sonnent comme vous, en mieux', value: '1 200€' },
+        { icon: Video, title: '30+ Reels & Shorts', desc: 'Option sans caméra - pas besoin de montrer votre visage', value: '3 000€' },
       ],
       moreFeatures: [
-        { icon: Video, title: 'Vidéos longues YouTube', desc: 'On crée vos vidéos longues de A à Z' },
-        { icon: ImageIcon, title: 'Carrousels illimités', desc: 'LinkedIn + Instagram' },
+        { icon: Video, title: 'Vidéos longues YouTube', desc: 'On crée vos vidéos longues de A à Z', value: '2 000€' },
+        { icon: ImageIcon, title: 'Carrousels illimités', desc: 'LinkedIn + Instagram', value: '800€' },
       ],
     },
     {
@@ -72,15 +72,15 @@ const pillars: Record<string, Pillar[]> = {
       icon: Send,
       label: 'Distribution',
       keyFeatures: [
-        { icon: Calendar, title: 'Publiez depuis la plateforme', desc: 'Tout est prêt dans votre calendrier, vous publiez en 1 clic' },
-        { icon: Bot, title: '1 setter IA LinkedIn', desc: 'Prospection automatisée 24/7' },
-        { icon: Users, title: 'Employee Advocacy', desc: 'Faites publier vos employés automatiquement' },
+        { icon: Calendar, title: 'Publiez depuis la plateforme', desc: 'Tout est prêt dans votre calendrier, vous publiez en 1 clic', value: '500€' },
+        { icon: Bot, title: '1 setter IA LinkedIn', desc: 'Prospection automatisée 24/7', value: '1 500€' },
+        { icon: Users, title: 'Employee Advocacy', desc: 'Faites publier vos employés automatiquement', value: '800€' },
       ],
       moreFeatures: [
-        { icon: Code2, title: 'Multi-comptes', desc: 'Publiez sur plusieurs comptes depuis la même plateforme' },
-        { icon: Mail, title: 'Substack automatique', desc: 'Vos newsletters publiées automatiquement sur Substack' },
-        { icon: Users, title: 'Diffusion Skool', desc: 'Contenu partagé automatiquement dans votre communauté Skool' },
-        { icon: Zap, title: 'Deeplinks de tracking', desc: 'Liens trackés pour mesurer la performance de chaque contenu' },
+        { icon: Code2, title: 'Multi-comptes', desc: 'Publiez sur plusieurs comptes depuis la même plateforme', value: '300€' },
+        { icon: Mail, title: 'Substack automatique', desc: 'Vos newsletters publiées automatiquement sur Substack', value: '200€' },
+        { icon: Users, title: 'Diffusion Skool', desc: 'Contenu partagé automatiquement dans votre communauté Skool', value: '200€' },
+        { icon: Zap, title: 'Deeplinks de tracking', desc: 'Liens trackés pour mesurer la performance de chaque contenu', value: '300€' },
       ],
     },
     {
@@ -88,13 +88,13 @@ const pillars: Record<string, Pillar[]> = {
       icon: HeadphonesIcon,
       label: 'Accompagnement',
       keyFeatures: [
-        { icon: Mic, title: 'Interview humain ou IA', desc: 'Choisissez : un coach vous interview ou notre IA le fait' },
-        { icon: Zap, title: '1 expert en viralité dédié', desc: 'Trouve les sujets qui vont performer dans votre niche' },
-        { icon: UserCheck, title: 'Équipe humaine dédiée', desc: 'De vrais humains créent et vérifient chaque contenu' },
+        { icon: Mic, title: 'Interview humain ou IA', desc: 'Choisissez : un coach vous interview ou notre IA le fait', value: '2 000€' },
+        { icon: Zap, title: '1 expert en viralité dédié', desc: 'Trouve les sujets qui vont performer dans votre niche', value: '3 000€' },
+        { icon: UserCheck, title: 'Équipe humaine dédiée', desc: 'De vrais humains créent et vérifient chaque contenu', value: '2 000€' },
       ],
       moreFeatures: [
-        { icon: Users, title: 'Communauté privée', desc: 'Réseau de fondateurs et créateurs' },
-        { icon: Mic, title: 'Lives de groupe', desc: 'Sessions collectives pour progresser ensemble' },
+        { icon: Users, title: 'Communauté privée', desc: 'Réseau de fondateurs et créateurs', value: '500€' },
+        { icon: Mic, title: 'Lives de groupe', desc: 'Sessions collectives pour progresser ensemble', value: '500€' },
       ],
     },
   ],
@@ -230,14 +230,17 @@ export default function WhyNowSection() {
                     {pillar.keyFeatures.map((f, i) => {
                       const Icon = f.icon
                       return (
-                        <div key={i} className="flex items-start gap-3 p-3 rounded-xl bg-empire/5 border border-empire/15">
+                        <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-empire/5 border border-empire/15">
                           <div className="w-8 h-8 rounded-lg bg-empire/15 flex items-center justify-center flex-shrink-0">
                             <Icon className="text-empire" size={15} />
                           </div>
-                          <div>
+                          <div className="flex-1 min-w-0">
                             <p className="text-sm font-semibold text-white">{f.title}</p>
                             <p className="text-xs text-neutral-400 mt-0.5">{f.desc}</p>
                           </div>
+                          {(f as any).value && (
+                            <span className="text-xs font-bold text-neutral-500 line-through whitespace-nowrap">{(f as any).value}</span>
+                          )}
                         </div>
                       )
                     })}
@@ -254,14 +257,17 @@ export default function WhyNowSection() {
                             {pillar.moreFeatures.map((f, i) => {
                               const Icon = f.icon
                               return (
-                                <div key={i} className="flex items-start gap-3 p-3 rounded-xl bg-white/[0.08] border border-white/15">
+                                <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.08] border border-white/15">
                                   <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0">
                                     <Icon className="text-neutral-400" size={15} />
                                   </div>
-                                  <div>
+                                  <div className="flex-1 min-w-0">
                                     <p className="text-sm font-semibold text-white">{f.title}</p>
                                     <p className="text-xs text-neutral-400 mt-0.5">{f.desc}</p>
                                   </div>
+                                  {(f as any).value && (
+                                    <span className="text-xs font-bold text-neutral-500 line-through whitespace-nowrap">{(f as any).value}</span>
+                                  )}
                                 </div>
                               )
                             })}
@@ -288,11 +294,17 @@ export default function WhyNowSection() {
 
         <FadeIn delay={0.3}>
           <div className="text-center">
-            <p className="text-sm text-neutral-400 mb-4">
-              {fr
-                ? <>En moyenne, nos clients génèrent <span className="text-empire font-semibold">+10K€ de CA supplémentaire par mois</span> grâce à leur contenu.</>
-                : <>On average, our clients generate <span className="text-empire font-semibold">+€10K additional revenue per month</span> from their content.</>}
-            </p>
+            <div className="mb-4">
+              <p className="text-sm text-neutral-500 mb-1">
+                {fr ? 'Valeur totale en agence :' : 'Total agency value:'}
+              </p>
+              <p className="text-2xl font-black text-neutral-400 line-through">
+                {fr ? '20 300€/mois' : '€20,300/mo'}
+              </p>
+              <p className="text-sm text-empire font-bold mt-1">
+                {fr ? 'Vous économisez +80% avec Empire.' : 'You save +80% with Empire.'}
+              </p>
+            </div>
             <button
               data-cal-namespace={namespace}
               data-cal-link={calLink}
