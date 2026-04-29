@@ -45,38 +45,6 @@ export default function HeroSection() {
         <div className={`absolute inset-0 transition-opacity duration-500 ${autopilot ? 'opacity-100' : 'opacity-0'} bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(212,165,116,0.18),transparent)]`} />
         
         <div className="relative z-10 text-center max-w-4xl mx-auto">
-          {/* Tier kicker - positions this hero against the other tiers */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={autopilot ? 'autopilot-kicker' : 'copilot-kicker'}
-              initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.3 }}
-              className="mb-5 flex justify-center"
-            >
-              <div
-                className={`inline-flex items-center gap-2 px-3 md:px-4 py-1.5 rounded-full border ${
-                  autopilot
-                    ? 'bg-autopilot/10 border-autopilot/40 shadow-[0_0_20px_rgba(212,165,116,0.2)]'
-                    : 'bg-empire/10 border-empire/40 shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.18)]'
-                }`}
-              >
-                <span className="relative flex h-2 w-2 flex-shrink-0">
-                  <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-60 ${autopilot ? 'bg-autopilot' : 'bg-empire'}`} />
-                  <span className={`relative inline-flex rounded-full h-2 w-2 ${autopilot ? 'bg-autopilot' : 'bg-empire'}`} />
-                </span>
-                <span className={`text-[11px] md:text-xs font-black tracking-[0.18em] uppercase flex-shrink-0 ${autopilot ? 'text-autopilot' : 'text-empire'}`}>
-                  {autopilot ? 'Autopilot' : 'Copilot'}
-                </span>
-                <span className="hidden sm:inline text-[11px] md:text-xs text-neutral-400 font-medium">
-                  {autopilot
-                    ? (lang === 'fr' ? 'Expert dédié · 0 contact' : 'Dedicated expert · Zero contact')
-                    : (lang === 'fr' ? 'Avec coach · 15 min/sem' : 'With coach · 15 min/wk')}
-                </span>
-              </div>
-            </motion.div>
-          </AnimatePresence>
 
           {/* Creator badge */}
           <motion.div
