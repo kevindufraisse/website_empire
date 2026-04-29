@@ -86,10 +86,9 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
               transition={{ duration: 0.35 }}
-              className="text-lg md:text-xl text-neutral-300 max-w-2xl mx-auto mt-5"
-            >
-              {heroSubtitle}
-            </motion.p>
+              className="text-lg md:text-xl text-neutral-300 max-w-2xl mx-auto mt-5 mb-2"
+              dangerouslySetInnerHTML={{ __html: heroSubtitle }}
+            />
           </AnimatePresence>
 
           <motion.div

@@ -138,7 +138,7 @@ export const fr: Translations = {
   hero: {
     targetAudience: 'Pour freelances, salariés & entrepreneurs',
     title: 'Installez le système de création de contenus <br class="hidden sm:block"/>des <span class="text-empire">futurs leaders</span> de demain.',
-    subtitle: 'Un coach en viralité vous interviewe 15 min/sem. On rédige et on monte tout pour vous.',
+    subtitle: 'Un coach en viralité vous interviewe 15 min/semaine.<br/>On rédige, on monte, on publie sur tous vos réseaux.',
     description: '',
     cta1: 'Parler à un expert',
     cta2: 'Voir la Démo (20 min)',
