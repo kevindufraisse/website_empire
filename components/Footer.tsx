@@ -6,7 +6,7 @@ import { Mail } from 'lucide-react'
 import { getCalApi } from "@calcom/embed-react"
 import { useCalLink } from '@/hooks/useCalLink'
 import { CtaReassurance } from '@/components/ui/cta-reassurance'
-import { GiftHeaderBadge } from '@/components/GiftCountdownBar'
+import { GiftFooterLink } from '@/components/GiftCountdownBar'
 
 export default function Footer() {
   const { t, lang } = useLanguage()
@@ -77,7 +77,7 @@ export default function Footer() {
               <a href="/quiz" className="text-sm text-neutral-400 hover:text-empire transition-colors">
                 {lang === 'fr' ? 'Quiz : quel créateur êtes-vous ?' : 'Quiz: what creator are you?'}
               </a>
-              <GiftHeaderBadge />
+              <GiftFooterLink />
             </div>
           </div>
 
@@ -88,10 +88,10 @@ export default function Footer() {
                 data-cal-namespace={namespace}
                 data-cal-link={calLink}
                 data-cal-config='{"layout":"month_view","theme":"dark"}'
-                className="inline-flex flex-col items-start px-6 py-3.5 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]"
+                className="inline-flex flex-col items-start text-left px-6 py-3.5 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]"
               >
-                <span>{t.finalCTA.watchDemo}</span>
-                <span className="text-[10px] font-semibold opacity-70">300 000 vues/mois garanties · 45 min</span>
+                <span className="text-left">{t.finalCTA.watchDemo}</span>
+                <span className="text-[10px] font-semibold opacity-70 text-left">300 000 vues/mois garanties · 45 min</span>
               </button>
             )}
           </div>

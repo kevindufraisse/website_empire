@@ -255,6 +255,28 @@ export function GiftHeaderBadge() {
   )
 }
 
+/* ── Footer link (text-only style for footer) ── */
+
+export function GiftFooterLink() {
+  const { countdown, isReady, dismissed, setShowModal } = useGiftState()
+
+  if (dismissed && !isReady) return null
+
+  const secs = String(countdown % 60).padStart(2, '0')
+  const mins = Math.floor(countdown / 60)
+
+  return (
+    <button
+      onClick={() => setShowModal(true)}
+      className="text-sm text-neutral-400 hover:text-empire transition-colors text-left"
+    >
+      {isReady
+        ? `${GIFT_COUNT} ressources débloquées`
+        : `${GIFT_COUNT} ressources offertes dans ${mins}:${secs}`}
+    </button>
+  )
+}
+
 /* ── Modal (rendered once globally via ClientWrappers) ── */
 
 export default function GiftCountdownModal() {
