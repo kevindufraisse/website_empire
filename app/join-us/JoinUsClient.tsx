@@ -45,7 +45,7 @@ export default function JoinUsClient() {
 
   const headline = autopilot
     ? 'Déléguez 100% de votre présence en ligne -'
-    : 'Faites des millions de vues et attirez des clients -'
+    : 'Attirez des clients -'
   const headlineAccent = autopilot
     ? 'un expert dédié prend le contrôle.'
     : 'sans écrire ni monter votre contenu.'
