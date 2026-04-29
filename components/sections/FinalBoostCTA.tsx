@@ -62,11 +62,6 @@ export default function FinalBoostCTA() {
               <div className={`absolute inset-0 transition-opacity ${autopilot ? 'opacity-100' : 'opacity-0'} bg-[radial-gradient(circle_at_center,rgba(212,165,116,0.18),transparent)]`} />
               
               <div className="relative z-10">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/20 border border-red-500/30 mb-4">
-                  <Zap className="text-red-400" size={16} />
-                  <p className="text-sm font-bold text-red-400">{t.finalCTA.limited}</p>
-                </div>
-
                 <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
                   {autopilot ? t.autopilot.finalCTA.title : t.finalCTA.title}
                 </h2>
