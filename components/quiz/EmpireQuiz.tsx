@@ -50,7 +50,7 @@ const INTRO_ARCHETYPES = [
 ] as const
 
 const INTRO_FEATURES = [
-  { title: '10 sujets à poster cette semaine' },
+  { title: '10 sujets à poster cette semaine (Instagram, LinkedIn...)' },
   { title: 'Les raisons pour lesquelles vos posts ne convertissent pas' },
   { title: 'Votre plan d\'action de 30 jours à copier-coller' },
 ]
