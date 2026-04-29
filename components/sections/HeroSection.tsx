@@ -141,7 +141,7 @@ export default function HeroSection() {
                 <div className="flex flex-col items-center gap-2 px-3 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
                   <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-neutral-800 overflow-hidden">
                   <img 
-                    src="https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4295dabe20aff6b9885_Cardone.webp"
+                    src="/creators/cardone.webp"
                     alt="Grant Cardone"
                       className="w-full h-full object-cover"
                       loading="lazy"
@@ -157,7 +157,7 @@ export default function HeroSection() {
                 <div className="flex flex-col items-center gap-2 px-3 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
                   <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-neutral-800 overflow-hidden">
                   <img 
-                    src="https://yt3.googleusercontent.com/29XFUn3pc3cC81yUUCFiyCKKdgi856IGMJ4EZBnf53zTfrWWUGvmYnYGx86K08f4XR03UxpWyw=s900-c-k-c0x00ffffff-no-rj"
+                    src="/creators/hormozi.jpg"
                     alt="Alex Hormozi"
                       className="w-full h-full object-cover"
                       loading="lazy"
@@ -173,7 +173,7 @@ export default function HeroSection() {
                 <div className="flex flex-col items-center gap-2 px-3 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
                   <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-neutral-800 overflow-hidden">
                   <img 
-                    src="https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4d436f96370e8ccb7c4_Abdaal.webp"
+                    src="/creators/abdaal.webp"
                     alt="Ali Abdaal"
                       className="w-full h-full object-cover"
                       loading="lazy"
@@ -189,7 +189,7 @@ export default function HeroSection() {
                 <div className="flex flex-col items-center gap-2 px-3 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
                   <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-neutral-800 overflow-hidden">
                   <img 
-                    src="https://yt3.googleusercontent.com/W_GKaSoEuny3REkdSVW-AD6wcB_z5Ltr3hY_Mos94yDKlFLupVnJ6Gf8w1YfjEGps2nr62fB=s160-c-k-c0x00ffffff-no-rj"
+                    src="/creators/gray.jpg"
                     alt="Matt Gray"
                       className="w-full h-full object-cover"
                       loading="lazy"
@@ -205,7 +205,7 @@ export default function HeroSection() {
                 <div className="flex flex-col items-center gap-2 px-3 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group col-span-2 sm:col-span-1">
                   <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-neutral-800 overflow-hidden">
                   <img 
-                    src="https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4d4f950bcf495c7dfb2_Williamson.webp"
+                    src="/creators/williamson.webp"
                     alt="Chris Williamson"
                       className="w-full h-full object-cover"
                       loading="lazy"
