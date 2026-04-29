@@ -536,50 +536,22 @@ export default function HowItWorksAccordion() {
             </div>
           </FadeInBlock>
 
-          {/* Reassurance note */}
-          <FadeInBlock delay={0.15}>
-            <div className="mt-6 flex flex-col items-center gap-4">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm text-neutral-400">
-                * {autopilot
-                  ? (lang === 'fr' ? 'Zéro contact requis · Vous pouvez ne jamais nous parler' : 'Zero contact required · You never have to talk to us')
-                  : (lang === 'fr' ? 'Pas besoin de montrer votre visage' : 'No need to show your face')}
-              </div>
-              <p className="text-xs text-neutral-400">{lang === 'fr' ? 'Publié sur' : 'Published on'}</p>
-              <div className="flex flex-wrap items-center justify-center gap-2">
-                {['LinkedIn', 'YouTube', 'Instagram', 'Twitter/X', 'Threads', 'Newsletter'].map((p) => (
-                  <span key={p} className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-xs font-medium text-neutral-300">
-                    {p}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </FadeInBlock>
-
           {/* CTA Button */}
-          <FadeInBlock delay={0.2}>
+          <FadeInBlock delay={0.15}>
             <div className="mt-10 md:mt-14 text-center">
               <button
                 data-cal-namespace={namespace}
                 data-cal-link={calLink}
                 data-cal-config='{"layout":"month_view","theme":"dark"}'
-                className={`inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-lg hover:scale-105 transition-all ${
+                className={`inline-flex flex-col items-center px-8 py-4 rounded-xl font-bold hover:scale-105 transition-all ${
                   autopilot
                     ? 'bg-gradient-to-r from-autopilot to-autopilot text-black shadow-[0_0_30px_rgba(212,165,116,0.4)]'
                     : 'bg-empire text-black shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.3)]'
                 }`}
               >
-                {autopilot ? t.autopilot.hero.cta1 : t.common.startNow}
-                <ArrowRight size={20} />
+                <span className="text-lg">{autopilot ? t.autopilot.hero.cta1 : t.common.startNow}</span>
+                <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? '300 000 vues garanties · 45 min' : '300K views guaranteed · 45 min'}</span>
               </button>
-              <p className="mt-3 text-sm text-neutral-400">
-                {autopilot
-                  ? t.autopilot.hero.ctaReassurance
-                  : (lang === 'fr' ? '300 000 vues garanties · 45 min' : '300K views guaranteed · 45 min')}
-              </p>
-              <div className="mt-3">
-                <CallbackButton variant="subtle" />
-              </div>
-              <CtaReassurance className="mt-4 px-2" />
           </div>
         </FadeInBlock>
       </div>
