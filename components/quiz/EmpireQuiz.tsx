@@ -381,17 +381,17 @@ export default function EmpireQuiz({ hookOverride, onCompleted, onDismiss }: Pro
               </div>
 
               {/* ── Features cards ── */}
-              <div className="mb-5 max-w-2xl mx-auto">
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+              <div className="mb-6 max-w-2xl mx-auto">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {INTRO_FEATURES.map((f, i) => (
                     <motion.div
                       key={f.title}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.35 + i * 0.06 }}
-                      className="flex items-center justify-center px-3 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-center"
+                      className="flex items-center justify-center px-4 py-4 rounded-xl bg-white/[0.04] border border-white/10 text-center"
                     >
-                      <span className="text-[11px] sm:text-xs font-semibold text-neutral-200 leading-tight">{f.title}</span>
+                      <span className="text-xs sm:text-sm font-semibold text-neutral-200 leading-snug">{f.title}</span>
                     </motion.div>
                   ))}
                 </div>
