@@ -446,25 +446,24 @@ export default function HowItWorksAccordion() {
                 </div>
               )}
 
-              {/* BLOCK 3 - IA + Humain */}
-              <div className={`group relative flex flex-col justify-end overflow-hidden rounded-xl transition-all min-h-[340px] ${
+              {/* BLOCK 3 - On rédige et on monte */}
+              <div className={`group relative flex flex-col overflow-hidden rounded-xl transition-all min-h-[340px] ${
                 autopilot
                   ? 'bg-gradient-to-br from-autopilot/10 to-white/[0.02] border border-autopilot/30 hover:border-autopilot/60'
                   : 'bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30'
               }`}>
-                <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-500/20 border border-green-500/40 backdrop-blur-sm">
-                  <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                  <span className="text-[10px] font-semibold text-green-400">
-                    {lang === 'fr' ? 'Vérifié humain' : 'Human verified'}
-                  </span>
-                </div>
-                <div className="absolute inset-0">
+                <div className="flex-1 relative overflow-hidden">
+                  <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-500/20 border border-green-500/40 backdrop-blur-sm">
+                    <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                    <span className="text-[10px] font-semibold text-green-400">
+                      {lang === 'fr' ? 'Vérifié humain' : 'Human verified'}
+                    </span>
+                  </div>
                   <div className="absolute inset-0 pt-10 px-3 [mask-image:linear-gradient(to_top,transparent_20%,#000_100%)]">
                     <AnimatedList items={notifications} delay={1200} className="w-full" />
                   </div>
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
-                <div className="relative z-10 p-5">
+                <div className="relative z-10 p-5 pt-3 mt-auto bg-gradient-to-t from-black via-black/90 to-transparent">
                   <div className="flex items-center gap-2 mb-1">
                     <span className={`w-6 h-6 rounded-md flex items-center justify-center text-black font-bold text-sm ${autopilot ? 'bg-autopilot' : 'bg-empire'}`}>3</span>
                     <h3 className="text-base font-semibold text-white">
@@ -481,7 +480,6 @@ export default function HowItWorksAccordion() {
                           : 'We create your monthly content using the best virality techniques.')}
                   </p>
                 </div>
-                <div className="pointer-events-none absolute inset-0 transform-gpu transition-all duration-300 group-hover:bg-black/[.03] z-5" />
               </div>
 
               {/* BLOCK 4 - Publiez (or Safety net in autopilot) */}
