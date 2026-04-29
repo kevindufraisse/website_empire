@@ -14,7 +14,7 @@ export default function CallbackButton({ className = '', variant = 'default' }: 
   const [isOpen, setIsOpen] = useState(false)
   const { lang } = useLanguage()
 
-  const label = lang === 'fr' ? 'Découvrir le système Empire' : 'Discover the Empire system'
+  const label = lang === 'fr' ? 'Je veux en savoir plus sur le système Empire' : 'I want to learn more about the Empire system'
 
   return (
     <>
