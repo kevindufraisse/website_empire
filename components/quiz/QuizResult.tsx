@@ -64,8 +64,8 @@ const OFFERS: Record<RecommendedOffer, OfferCopy> = {
       'Garantie résultats sous 90 jours - sinon on continue gratuitement',
     ],
     cta: {
-      label: 'Accéder à l\'offre Premium →',
-      href: '/?tier=autopilot',
+      label: 'Réserver un appel stratégique →',
+      href: '/',
     },
     reassurance: 'Page privée · Aucun engagement',
     lossLine:
