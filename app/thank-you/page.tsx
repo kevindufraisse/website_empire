@@ -173,7 +173,7 @@ export default function DemoThankYouPage() {
                 </p>
 
                 <p>
-                  <strong className="text-empire">L'audit gratuit :</strong> 45 minutes pour analyser votre business, vos plateformes et votre positionnement. On vous dit honnêtement si Empire est adapté ou pas. Et même si ce n'est pas le bon moment, vous repartez avec toutes nos ressources : templates, méthodes et outils.
+                  <strong className="text-empire">L'appel découverte :</strong> 15 minutes pour analyser votre business, vos plateformes et votre positionnement. On vous dit honnêtement si Empire est adapté ou pas.
                 </p>
 
                 {!showFullText && (

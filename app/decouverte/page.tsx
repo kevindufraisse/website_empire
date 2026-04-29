@@ -3,7 +3,7 @@ import DecouverteClient from './DecouverteClient'
 
 export const metadata = {
   title: 'Découvrir Empire Internet - Appel Stratégique Gratuit',
-  description: "45 min pour voir si notre système de contenu s'adapte à vous. Gratuit, sans engagement.",
+  description: "15 min pour voir si notre système de contenu s'adapte à vous. Gratuit, sans engagement.",
   robots: 'noindex, nofollow',
 }
 

@@ -121,7 +121,7 @@ export default function VslPage() {
                   <div className="relative">
                     <p className="text-empire text-xs font-semibold tracking-wider uppercase mb-2">Appel stratégique offert</p>
                     <h2 className="text-xl font-bold text-white mb-1">Réservez votre appel gratuit</h2>
-                    <p className="text-neutral-400 text-sm mb-6">45 min avec un expert pour auditer votre stratégie</p>
+                    <p className="text-neutral-400 text-sm mb-6">15 min avec un expert pour auditer votre stratégie</p>
                     <YtLeadForm />
                   </div>
                 </div>

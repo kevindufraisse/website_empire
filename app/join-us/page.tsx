@@ -3,7 +3,7 @@ import JoinUsClient from './JoinUsClient'
 
 export const metadata = {
   title: 'Réserver un appel - Empire Internet',
-  description: "45 min pour voir si notre système de contenu s'adapte à votre activité. Gratuit, sans engagement.",
+  description: "15 min pour voir si notre système de contenu s'adapte à votre activité. Gratuit, sans engagement.",
 }
 
 export default function JoinUsPage() {
