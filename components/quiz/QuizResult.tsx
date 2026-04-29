@@ -415,13 +415,13 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
             {profile.description}
           </p>
 
-          {/* ── COÛT D'INACTION (compact) ── */}
+          {/* ── MANQUE À GAGNER ESTIMÉ ── */}
           {inaction && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6, duration: 0.4 }}
-              className={`mb-6 rounded-xl px-4 py-3 border flex items-center gap-3 ${
+              className={`mb-6 rounded-xl px-4 py-3 border ${
                 inaction.intensity === 'critical'
                   ? 'bg-red-500/10 border-red-500/30'
                   : inaction.intensity === 'high'
@@ -429,13 +429,19 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
                     : 'bg-amber-500/8 border-amber-500/25'
               }`}
             >
-              <span className={`text-lg font-black whitespace-nowrap ${
+              <p className={`text-[10px] uppercase tracking-[0.18em] font-bold mb-1 ${
                 inaction.intensity === 'critical' ? 'text-red-300' : 'text-amber-300'
               }`}>
-                {inaction.amount}/mois
-              </span>
-              <p className="text-xs sm:text-sm text-neutral-300 leading-snug">
-                perdus sans système · <span className="text-white font-semibold">{inaction.yearly}/an</span>
+                Manque à gagner estimé
+              </p>
+              <p className="text-sm text-neutral-200 leading-snug">
+                Sans un système qui transforme vos posts en clients, vous laissez environ{' '}
+                <span className={`font-bold ${inaction.intensity === 'critical' ? 'text-red-300' : 'text-amber-300'}`}>
+                  {inaction.amount}/mois
+                </span>{' '}
+                sur la table — soit{' '}
+                <span className="text-white font-semibold">{inaction.yearly}/an</span>{' '}
+                en clients potentiels qui ne vous trouvent pas.
               </p>
             </motion.div>
           )}
