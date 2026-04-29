@@ -236,18 +236,11 @@ export default function FounderSection() {
                 data-cal-namespace={namespace}
                 data-cal-link={calLink}
                 data-cal-config='{"layout":"month_view","theme":"dark"}'
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-empire text-black font-bold text-lg hover:scale-105 transition-transform shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.3)]"
+                className="inline-flex flex-col items-center px-8 py-4 rounded-xl bg-empire text-black font-bold hover:scale-105 transition-transform shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.3)]"
               >
-                {t.common.startNow}
-                <ArrowRight size={20} />
+                <span className="text-lg">{t.common.startNow}</span>
+                <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? '300 000 vues garanties · 45 min' : '300K views guaranteed · 45 min'}</span>
               </button>
-              <p className="mt-3 text-sm text-neutral-400">
-                {lang === 'fr' ? '300 000 vues garanties · 45 min' : '300K views guaranteed · 45 min'}
-              </p>
-              <div className="mt-3">
-                <CallbackButton variant="subtle" />
-              </div>
-              <CtaReassurance className="mt-3 px-2" />
             </div>
           </FadeInBlock>
         </div>
