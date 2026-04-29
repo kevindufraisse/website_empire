@@ -342,24 +342,14 @@ export default function HowItWorksAccordion() {
                   ? 'bg-gradient-to-br from-autopilot/10 to-white/[0.02] border border-autopilot/30 hover:border-autopilot/60'
                   : 'bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30'
               }`}>
-                <div className="flex-1 flex flex-col items-center justify-center p-5 gap-4">
-                  <div className="flex flex-col items-center gap-2">
-                    <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-empire/40">
+                <div className="flex-1 flex items-center justify-center p-5">
+                  <div className="flex -space-x-3">
+                    <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-empire/40 relative z-10">
                       <img src="/founders/kevin.jpg" alt="Kevin" className="w-full h-full object-cover" />
                     </div>
-                    <p className="text-xs text-neutral-400">Kevin · Expert viralité</p>
-                  </div>
-                  <div className={`relative w-full px-4 py-3 rounded-xl text-xs leading-relaxed ${
-                    autopilot ? 'bg-autopilot/10 border border-autopilot/20 text-neutral-200' : 'bg-empire/10 border border-empire/20 text-neutral-200'
-                  }`}>
-                    <div className={`absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 ${
-                      autopilot ? 'bg-autopilot/10 border-l border-t border-autopilot/20' : 'bg-empire/10 border-l border-t border-empire/20'
-                    }`} />
-                    <span className="relative">
-                      {lang === 'fr'
-                        ? '"Voici votre stratégie personnalisée : 3 sujets viraux pour votre niche, les formats qui marchent, et votre calendrier."'
-                        : '"Here\'s your personalized strategy: 3 viral topics for your niche, best formats, and your content calendar."'}
-                    </span>
+                    <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-empire/40">
+                      <img src="/founders/marc.jpg" alt="Marc" className="w-full h-full object-cover" />
+                    </div>
                   </div>
                 </div>
                 <div className="relative z-10 p-5 pt-3 bg-gradient-to-t from-black via-black/90 to-transparent">
