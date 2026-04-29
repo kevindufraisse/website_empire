@@ -35,7 +35,7 @@ export default function Header() {
     ? (lang === 'fr' ? 'Mon résultat' : 'My result')
     : quizState === 'started'
       ? (lang === 'fr' ? 'Terminer le quiz' : 'Finish quiz')
-      : (lang === 'fr' ? 'Quiz gratuit' : 'Free quiz')
+      : (lang === 'fr' ? 'Quel créateur êtes-vous ?' : 'What creator are you?')
 
   // Hide default CTA button on partners and academy pages
   const isCandidaturePage = pathname === '/candidature' || pathname === '/decouverte' || pathname === '/join-us'
