@@ -342,7 +342,7 @@ export default function HowItWorksAccordion() {
                   ? 'bg-gradient-to-br from-autopilot/10 to-white/[0.02] border border-autopilot/30 hover:border-autopilot/60'
                   : 'bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30'
               }`}>
-                <div className="flex-1 flex flex-col items-center justify-center p-5 gap-3">
+                <div className="h-[200px] flex flex-col items-center justify-center p-5 gap-3">
                   <div className="flex -space-x-3">
                     <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-empire/40 relative z-20">
                       <img src="/founders/kevin.jpg" alt="Kevin" className="w-full h-full object-cover" />
@@ -378,7 +378,7 @@ export default function HowItWorksAccordion() {
               {/* BLOCK 2 - Parlez 15 min (or Expert dédié in autopilot) */}
               {autopilot ? (
                 <div className="group relative flex flex-col overflow-hidden rounded-xl bg-gradient-to-br from-autopilot/10 to-white/[0.02] border border-autopilot/30 hover:border-autopilot/60 transition-all min-h-[340px]">
-                  <div className="flex-1 flex flex-col items-center justify-center p-6 gap-5">
+                  <div className="h-[200px] flex flex-col items-center justify-center p-6 gap-5">
                     <div className="flex -space-x-4">
                       <img
                         src="/founders/kevin.jpg"
@@ -421,7 +421,7 @@ export default function HowItWorksAccordion() {
                 </div>
               ) : (
                 <div className="group relative flex flex-col overflow-hidden rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30 transition-all min-h-[340px]">
-                  <div className="flex-1 flex flex-col items-center justify-center p-6 gap-4">
+                  <div className="h-[200px] flex flex-col items-center justify-center p-6 gap-4">
                     <div className="w-14 h-14 rounded-full bg-gradient-to-br from-empire/30 to-empire/10 border-2 border-empire flex items-center justify-center">
                       <Mic className="text-empire" size={24} />
                     </div>
@@ -452,7 +452,7 @@ export default function HowItWorksAccordion() {
                   ? 'bg-gradient-to-br from-autopilot/10 to-white/[0.02] border border-autopilot/30 hover:border-autopilot/60'
                   : 'bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30'
               }`}>
-                <div className="flex-1 relative overflow-hidden">
+                <div className="h-[200px] relative overflow-hidden">
                   <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-500/20 border border-green-500/40 backdrop-blur-sm">
                     <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                     <span className="text-[10px] font-semibold text-green-400">
@@ -488,7 +488,7 @@ export default function HowItWorksAccordion() {
                   ? 'bg-gradient-to-br from-autopilot/10 to-white/[0.02] border border-autopilot/30 hover:border-autopilot/60'
                   : 'bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30'
               }`}>
-                <div className="flex-1 flex flex-col items-center justify-center p-6 gap-4">
+                <div className="h-[200px] flex flex-col items-center justify-center p-6 gap-4">
                   <div className="grid grid-cols-7 gap-1.5 p-3 rounded-xl bg-white/5 border border-white/10">
                     {Array.from({ length: 28 }).map((_, i) => {
                       const highlight = [2, 5, 9, 12, 16, 19, 23, 26].includes(i)
