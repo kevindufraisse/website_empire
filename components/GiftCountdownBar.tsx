@@ -132,11 +132,10 @@ function isCompletedAndFresh(): boolean {
 }
 
 export function GiftCountdownProvider({ children }: { children: React.ReactNode }) {
-  const alreadyCompleted = typeof window !== 'undefined' && isCompletedAndFresh()
-  const [countdown, setCountdown] = useState(alreadyCompleted ? 0 : COUNTDOWN_SECONDS)
-  const [linkedinCountdown, setLinkedinCountdown] = useState(alreadyCompleted ? 0 : LINKEDIN_UNLOCK_SECONDS)
-  const [isReady, setIsReady] = useState(alreadyCompleted)
-  const [isLinkedinReady, setIsLinkedinReady] = useState(alreadyCompleted)
+  const [countdown, setCountdown] = useState(COUNTDOWN_SECONDS)
+  const [linkedinCountdown, setLinkedinCountdown] = useState(LINKEDIN_UNLOCK_SECONDS)
+  const [isReady, setIsReady] = useState(false)
+  const [isLinkedinReady, setIsLinkedinReady] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const [dismissed, setDismissed] = useState(true)
   const pathname = usePathname()

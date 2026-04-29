@@ -87,7 +87,7 @@ export default function HeroSection() {
           >
             <div className="flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
               <img
-                src="https://yt3.googleusercontent.com/MyCzqYDBJdaDVbAep281y04MTNNyR5NoAt6dbxssVmK-n-5noMshHppcxeg2yDilh3CLhVPN=s160-c-k-c0x00ffffff-no-rj"
+                src="/founders/kevin.jpg"
                 alt="Kevin Dufraisse"
                 className="w-7 h-7 rounded-full object-cover"
                 loading="lazy"
