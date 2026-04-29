@@ -476,8 +476,8 @@ export default function HowItWorksAccordion() {
                     {autopilot
                       ? t.autopilot.howItWorks.b3.desc
                       : (lang === 'fr'
-                          ? '24h plus tard, vos contenus du mois sont prêts.'
-                          : '24h later, your monthly content is ready.')}
+                          ? '24h plus tard, vos contenus de la semaine sont prêts.'
+                          : '24h later, your weekly content is ready.')}
                   </p>
                 </div>
               </div>
