@@ -302,7 +302,7 @@ export default function WhyNowSection() {
                 {fr ? '20 300€/mois' : '€20,300/mo'}
               </p>
               <p className="text-sm text-empire font-bold mt-1">
-                {fr ? 'Vous économisez +80% avec Empire.' : 'You save +80% with Empire.'}
+                {fr ? 'En moyenne, nos clients économisent 146 000€/an.' : 'On average, our clients save €146,000/year.'}
               </p>
             </div>
             <button
