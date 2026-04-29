@@ -423,7 +423,7 @@ export default function EmpireQuiz({ hookOverride, onCompleted, onDismiss }: Pro
                   <ArrowRight size={20} className="group-hover:translate-x-0.5 transition-transform" />
                 </button>
                 <p className="text-xs text-neutral-500 mt-2">
-                  7 questions · 90 secondes · Gratuit
+                  10 questions · 90 secondes · Gratuit
                 </p>
               </div>
             </motion.div>
