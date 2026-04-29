@@ -227,7 +227,10 @@ function IconAvatar({
  * Estimated annual cost of inaction based on the visitor's own admission.
  * Used in the "Coût de votre inaction" block - the conversion engine.
  */
-function inactionAnalysis(answers?: Record<string, string>): {
+function inactionAnalysis(
+  answers: Record<string, string> | undefined,
+  recommendedOffer: RecommendedOffer,
+): {
   headline: string
   message: string
   intensity: 'low' | 'medium' | 'high' | 'critical'
@@ -236,39 +239,50 @@ function inactionAnalysis(answers?: Record<string, string>): {
   const cost = answers.inaction_cost
   if (!cost) return null
 
-  // We use the visitor's own answer to question 7 — no invented numbers.
+  const isAcademy = recommendedOffer === 'academy' || recommendedOffer === 'nurture'
+  // Academy = formation autonome (21 jours). Empire/Autopilot = accompagnement avec RDV.
+  const solutionLine = isAcademy
+    ? "Academy est conçu exactement pour vous donner les outils pour récupérer cette valeur en 21 jours."
+    : "Au RDV, on chiffre précisément avec vous combien vous pouvez récupérer en 90 jours."
+
   if (cost === 'never_thought') {
     return {
       headline: "Vous n'aviez pas chiffré votre manque à gagner",
-      message: "C'est exactement ce qu'on regarde au RDV : combien votre absence d'audience vous coûte chaque mois en clients qui partent à la concurrence.",
+      message: isAcademy
+        ? "Avec Academy, vous découvrez en 21 jours ce que coûte chaque mois sans audience qui convertit — et comment l'inverser."
+        : "C'est ce qu'on regarde ensemble au RDV : combien votre absence d'audience vous coûte chaque mois en clients qui partent à la concurrence.",
       intensity: 'low',
     }
   }
   if (cost === 'few') {
     return {
       headline: 'Vous sentez les opportunités manquées',
-      message: "Vous l'avez dit au quiz : il y en a eu \"quelques unes\". Le RDV sert à les chiffrer précisément pour savoir si un système est rentable pour vous.",
+      message: isAcademy
+        ? "Vous l'avez dit : il y en a eu \"quelques unes\". 21 jours suffisent pour mettre en place un système qui les capture au lieu de les laisser passer."
+        : "Vous l'avez dit au quiz : il y en a eu \"quelques unes\". Le RDV sert à les chiffrer précisément pour savoir si Empire est rentable pour vous.",
       intensity: 'medium',
     }
   }
   if (cost === 'thousands') {
     return {
-      headline: 'Vous estimez perdre plusieurs milliers d\'€ par mois',
-      message: "C'est votre propre estimation au quiz. Sur 12 mois, ça représente l'équivalent d'un salaire annuel. Empire est conçu exactement pour récupérer ça.",
+      headline: "Vous estimez perdre plusieurs milliers d'€/mois",
+      message: `C'est votre propre estimation au quiz. Sur 12 mois, ça représente l'équivalent d'un salaire annuel. ${solutionLine}`,
       intensity: 'high',
     }
   }
   if (cost === 'ten_plus') {
     return {
       headline: 'Vous estimez perdre 10k+/mois',
-      message: "10k+/mois selon votre réponse, soit 120k+/an en clients que vous ne capturez pas. C'est la situation typique qu'on règle avec Empire.",
+      message: `10k+/mois selon votre réponse, soit 120k+/an en clients que vous ne capturez pas. ${solutionLine}`,
       intensity: 'critical',
     }
   }
   if (cost === 'biggest') {
     return {
       headline: "C'est votre plus grosse perte business actuelle",
-      message: "Vos mots, pas les nôtres. Continuer 6 mois de plus dans cette config = passer à côté de ce qu'on peut débloquer ensemble en 90 jours.",
+      message: isAcademy
+        ? "Vos mots, pas les nôtres. Academy vous donne les fondations pour transformer cette perte en moteur de croissance."
+        : "Vos mots, pas les nôtres. Continuer 6 mois de plus dans cette config = passer à côté de ce qu'on peut débloquer ensemble en 90 jours.",
       intensity: 'critical',
     }
   }
@@ -313,7 +327,7 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
   const greeting = firstName ? `${firstName}, ` : ''
   const primaryIcon = profile.icons[0]
   const tribe = profile.icons.slice(1)
-  const inaction = inactionAnalysis(answers)
+  const inaction = inactionAnalysis(answers, result.recommendedOffer)
 
   const blocker = answers?.blocker
   const diagnostic = blocker ? profile.diagnostics[blocker] ?? null : null
