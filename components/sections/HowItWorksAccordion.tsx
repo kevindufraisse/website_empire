@@ -317,16 +317,16 @@ export default function HowItWorksAccordion() {
               ) : (
                 <h2 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
                   {lang === 'fr'
-                    ? <>On a passé 1 an à cloner les meilleurs marketers du monde et les mettre dans un <span className="text-empire">système qui produit tout pour vous en 15 min/semaine.</span></>
-                    : <>We spent 1 year cloning the world&apos;s best marketers into a <span className="text-empire">system that produces everything for you in 15 min/week.</span></>}
+                    ? <>On a passé 1 an à cloner les <span className="text-empire">meilleurs marketers du monde</span></>
+                    : <>We spent 1 year cloning the <span className="text-empire">world&apos;s best marketers</span></>}
                 </h2>
               )}
               <p className="text-base md:text-lg text-neutral-400 max-w-2xl mx-auto">
                 {autopilot
                   ? t.autopilot.howItWorks.subtitle
                   : (lang === 'fr'
-                      ? ''
-                      : '')}
+                      ? 'Et les mettre dans un système qui produit tout pour vous en 15 min/semaine.'
+                      : 'And put them into a system that produces everything for you in 15 min/week.')}
               </p>
           </div>
         </FadeInBlock>
