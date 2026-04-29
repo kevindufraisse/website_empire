@@ -285,23 +285,40 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
 
         <div className="relative">
           {/* ── HEADER ── */}
-          <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8 mb-8">
-            <ScoreRing value={result.score} />
-            <div className="flex-1 text-center sm:text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-3">
-                <Sparkles size={12} className="text-empire" />
-                <span className="text-[11px] uppercase tracking-widest text-empire font-bold">
-                  Votre archétype
-                </span>
+          {(() => {
+            const level = result.scoreBand === 'high'
+              ? { label: 'Avancé', desc: 'Vous avez déjà des fondations solides — il vous manque le système qui transforme tout en clients.' }
+              : result.scoreBand === 'medium'
+                ? { label: 'Intermédiaire', desc: 'Vous publiez de temps en temps mais sans système. Avec un cadre clair, vous pouvez décoller en quelques semaines.' }
+                : { label: 'Débutant', desc: 'Vous démarrez (ou vous avez essayé sans cadre). C\'est le bon moment pour bâtir des bases solides.' }
+            return (
+              <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8 mb-8">
+                <ScoreRing value={result.score} />
+                <div className="flex-1 text-center sm:text-left">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-3">
+                    <Sparkles size={12} className="text-empire" />
+                    <span className="text-[11px] uppercase tracking-widest text-empire font-bold">
+                      Votre archétype
+                    </span>
+                  </div>
+                  <h1 className="text-3xl sm:text-4xl font-black text-white leading-tight">
+                    {profile.emoji} {profile.name}
+                  </h1>
+                  <p className="text-neutral-400 mt-1 text-sm sm:text-base italic">
+                    {profile.tagline}
+                  </p>
+                  <div className="mt-3 inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-empire/10 border border-empire/30">
+                    <span className="text-[10px] uppercase tracking-widest text-empire font-bold">
+                      Niveau {level.label}
+                    </span>
+                  </div>
+                  <p className="text-neutral-400 text-xs sm:text-sm mt-2 leading-snug">
+                    {level.desc}
+                  </p>
+                </div>
               </div>
-              <h1 className="text-3xl sm:text-4xl font-black text-white leading-tight">
-                {profile.emoji} {profile.name}
-              </h1>
-              <p className="text-neutral-400 mt-1 text-sm sm:text-base italic">
-                {profile.tagline}
-              </p>
-            </div>
-          </div>
+            )
+          })()}
 
           {/* ── HERO CREATOR MATCH ── */}
           <motion.div
