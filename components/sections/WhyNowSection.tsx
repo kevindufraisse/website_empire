@@ -317,7 +317,7 @@ export default function WhyNowSection() {
             >
               {autopilot
                 ? t.autopilot.hero.cta1
-                : (fr ? 'Je veux en savoir plus sur le système Empire' : 'I want to learn more about the Empire system')}
+                : (fr ? 'Je veux découvrir le système Empire' : 'I want to discover the Empire system')}
               <ArrowRight size={18} />
             </button>
             <CtaReassurance className="mt-4 px-2" />
