@@ -39,7 +39,7 @@ export default function Header() {
 
   // Hide default CTA button on partners and academy pages
   const isCandidaturePage = pathname === '/candidature' || pathname === '/decouverte' || pathname === '/join-us'
-  const hideCTA = pathname === '/partners' || pathname === '/academy' || isCandidaturePage
+  const hideCTA = pathname === '/partners' || isCandidaturePage
   // Show partner CTA on partners page
   const isPartnersPage = pathname === '/partners'
   // Show academy-specific CTA

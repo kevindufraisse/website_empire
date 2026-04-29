@@ -34,8 +34,8 @@ export default function TierNav() {
     },
     {
       id: 'copilot',
-      label: 'Copilot',
-      sublabel: lang === 'fr' ? 'On écrit, tu publies' : 'We write, you publish',
+      label: 'Empire',
+      sublabel: lang === 'fr' ? '15 min → omniprésent' : '15 min → omnipresent',
       color: '#DAFC68',
     },
   ]
