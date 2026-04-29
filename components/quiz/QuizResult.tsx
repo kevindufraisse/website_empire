@@ -63,15 +63,13 @@ const OFFERS: Record<RecommendedOffer, OfferCopy> = {
       'On rédige vos posts LinkedIn + Shorts à partir de vos mots',
       'Un système d\'automatisation qui multi-poste sur tous vos canaux',
       'Calendrier éditorial 4 semaines à l\'avance — vous savez exactement ce qui va sortir',
-      'Communauté privée Empire (créateurs sérieux uniquement)',
+      'Accès à la communauté privée Empire',
     ],
     cta: {
       label: 'Réserver un appel découverte →',
       href: '/',
     },
     reassurance: 'Appel gratuit · 15 minutes · On vous dit si on peut vous aider',
-    lossLine:
-      "Continuer seul = passer encore 6 mois à publier sans système. Ou un coach senior dès la semaine prochaine.",
   },
   academy: {
     kicker: 'Recommandé pour votre profil',
@@ -90,8 +88,6 @@ const OFFERS: Record<RecommendedOffer, OfferCopy> = {
       href: '/academy',
     },
     reassurance: '497€ · Paiement en 3x possible · Garantie 30 jours satisfait ou remboursé',
-    lossLine:
-      "Sans fondations + sans système, vous allez continuer à essayer 10 trucs sans en maîtriser un seul.",
   },
   // Legacy types kept for backward-compat with old saved results.
   // We never recommend autopilot publicly anymore — falls back to copilot copy.
@@ -129,8 +125,8 @@ const OFFERS: Record<RecommendedOffer, OfferCopy> = {
 // ─── Score ring (animated 0 → value) ──────────────────────────────────────────
 
 function ScoreRing({ value }: { value: number }) {
-  const radius = 54
-  const stroke = 8
+  const radius = 38
+  const stroke = 6
   const circ = 2 * Math.PI * radius
   const offset = circ - (value / 100) * circ
 
@@ -147,14 +143,14 @@ function ScoreRing({ value }: { value: number }) {
   }, [count, value])
 
   return (
-    <div className="relative w-[140px] h-[140px]">
-      <svg width="140" height="140" viewBox="0 0 140 140" className="-rotate-90">
+    <div className="relative w-[100px] h-[100px]">
+      <svg width="100" height="100" viewBox="0 0 100 100" className="-rotate-90">
         <circle
-          cx="70" cy="70" r={radius}
+          cx="50" cy="50" r={radius}
           stroke="rgba(255,255,255,0.08)" strokeWidth={stroke} fill="none"
         />
         <motion.circle
-          cx="70" cy="70" r={radius}
+          cx="50" cy="50" r={radius}
           stroke="rgb(var(--empire-rgb))" strokeWidth={stroke} fill="none"
           strokeLinecap="round"
           strokeDasharray={circ}
@@ -164,10 +160,10 @@ function ScoreRing({ value }: { value: number }) {
         />
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <motion.span className="text-4xl font-black text-white tabular-nums">
+        <motion.span className="text-2xl font-black text-white tabular-nums">
           {display}
         </motion.span>
-        <span className="text-[10px] uppercase tracking-widest text-neutral-400">/ 100</span>
+        <span className="text-[9px] uppercase tracking-widest text-neutral-500">/ 100</span>
       </div>
     </div>
   )
@@ -217,74 +213,6 @@ function IconAvatar({
   )
 }
 
-// ─── Personalization helpers ──────────────────────────────────────────────────
-
-/**
- * Estimated annual cost of inaction based on the visitor's own admission.
- * Used in the "Coût de votre inaction" block - the conversion engine.
- */
-function inactionAnalysis(
-  answers: Record<string, string> | undefined,
-  recommendedOffer: RecommendedOffer,
-): {
-  headline: string
-  message: string
-  intensity: 'low' | 'medium' | 'high' | 'critical'
-} | null {
-  if (!answers) return null
-  const cost = answers.inaction_cost
-  if (!cost) return null
-
-  const isAcademy = recommendedOffer === 'academy' || recommendedOffer === 'nurture'
-  // Academy = formation autonome (21 jours). Empire (Copilot) = accompagnement avec RDV.
-  const solutionLine = isAcademy
-    ? "Academy est conçu exactement pour vous donner les outils pour récupérer cette valeur en 21 jours."
-    : "Au RDV, on chiffre précisément avec vous combien vous pouvez récupérer en 90 jours."
-
-  if (cost === 'never_thought') {
-    return {
-      headline: "Vous n'aviez pas chiffré votre manque à gagner",
-      message: isAcademy
-        ? "Avec Academy, vous découvrez en 21 jours ce que coûte chaque mois sans audience qui convertit — et comment l'inverser."
-        : "C'est ce qu'on regarde ensemble au RDV : combien votre absence d'audience vous coûte chaque mois en clients qui partent à la concurrence.",
-      intensity: 'low',
-    }
-  }
-  if (cost === 'few') {
-    return {
-      headline: 'Vous sentez les opportunités manquées',
-      message: isAcademy
-        ? "Vous l'avez dit : il y en a eu \"quelques unes\". 21 jours suffisent pour mettre en place un système qui les capture au lieu de les laisser passer."
-        : "Vous l'avez dit au quiz : il y en a eu \"quelques unes\". Le RDV sert à les chiffrer précisément pour savoir si Empire est rentable pour vous.",
-      intensity: 'medium',
-    }
-  }
-  if (cost === 'thousands') {
-    return {
-      headline: "Vous estimez perdre plusieurs milliers d'€/mois",
-      message: `C'est votre propre estimation au quiz. Sur 12 mois, ça représente l'équivalent d'un salaire annuel. ${solutionLine}`,
-      intensity: 'high',
-    }
-  }
-  if (cost === 'ten_plus') {
-    return {
-      headline: 'Vous estimez perdre 10k+/mois',
-      message: `10k+/mois selon votre réponse, soit 120k+/an en clients que vous ne capturez pas. ${solutionLine}`,
-      intensity: 'critical',
-    }
-  }
-  if (cost === 'biggest') {
-    return {
-      headline: "C'est votre plus grosse perte business actuelle",
-      message: isAcademy
-        ? "Vos mots, pas les nôtres. Academy vous donne les fondations pour transformer cette perte en moteur de croissance."
-        : "Vos mots, pas les nôtres. Continuer 6 mois de plus dans cette config = passer à côté de ce qu'on peut débloquer ensemble en 90 jours.",
-      intensity: 'critical',
-    }
-  }
-  return null
-}
-
 // ─── Main result component ────────────────────────────────────────────────────
 
 const OFFER_COLORS: Record<RecommendedOffer, { accent: string; glow: string; bg: string; border: string; text: string }> = {
@@ -323,17 +251,8 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
   const greeting = firstName ? `${firstName}, ` : ''
   const primaryIcon = profile.icons[0]
   const tribe = profile.icons.slice(1)
-  const inaction = inactionAnalysis(answers, result.recommendedOffer)
-
   const blocker = answers?.blocker
   const diagnostic = blocker ? profile.diagnostics[blocker] ?? null : null
-
-  const topPct = (() => {
-    if (result.score >= 80) return 'le top 12%'
-    if (result.score >= 70) return 'le top 25%'
-    if (result.score >= 55) return 'le top 40%'
-    return 'la majorité'
-  })()
 
   // Confetti burst on mount — only fires once.
   useEffect(() => {
@@ -381,9 +300,6 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
               <p className="text-neutral-400 mt-1 text-sm sm:text-base italic">
                 {profile.tagline}
               </p>
-              <p className="text-empire text-xs sm:text-sm font-bold mt-3">
-                Vous êtes dans {topPct} des candidats Empire.
-              </p>
             </div>
           </div>
 
@@ -416,33 +332,6 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
             {profile.description}
           </p>
 
-          {/* ── CE QUE VOUS NOUS AVEZ DIT (basé sur leur propre réponse) ── */}
-          {inaction && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6, duration: 0.4 }}
-              className={`mb-6 rounded-xl px-4 py-3 border ${
-                inaction.intensity === 'critical'
-                  ? 'bg-red-500/10 border-red-500/30'
-                  : inaction.intensity === 'high'
-                    ? 'bg-orange-500/10 border-orange-500/30'
-                    : 'bg-amber-500/8 border-amber-500/25'
-              }`}
-            >
-              <p className={`text-[10px] uppercase tracking-[0.18em] font-bold mb-1 ${
-                inaction.intensity === 'critical' ? 'text-red-300' : 'text-amber-300'
-              }`}>
-                Ce que vous nous avez dit au quiz
-              </p>
-              <p className={`text-sm font-bold mb-1 ${inaction.intensity === 'critical' ? 'text-red-300' : 'text-amber-300'}`}>
-                {inaction.headline}
-              </p>
-              <p className="text-xs sm:text-sm text-neutral-300 leading-snug">
-                {inaction.message}
-              </p>
-            </motion.div>
-          )}
 
           {/* ── TRIBE ── */}
           {tribe.length > 0 && (
