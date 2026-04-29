@@ -6,6 +6,7 @@ import { Mail } from 'lucide-react'
 import { getCalApi } from "@calcom/embed-react"
 import { useCalLink } from '@/hooks/useCalLink'
 import { CtaReassurance } from '@/components/ui/cta-reassurance'
+import { GiftHeaderBadge } from '@/components/GiftCountdownBar'
 
 export default function Footer() {
   const { t, lang } = useLanguage()
@@ -56,13 +57,14 @@ export default function Footer() {
           {/* Ressources gratuites */}
           <div className="flex flex-col items-center md:items-start">
             <p className="text-sm font-bold text-white mb-3">{lang === 'fr' ? 'Ressources gratuites' : 'Free resources'}</p>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 items-center md:items-start">
               <a href="/vsl" className="text-sm text-neutral-400 hover:text-empire transition-colors">
                 {lang === 'fr' ? 'Masterclass : le système Empire (20 min)' : 'Masterclass: the Empire system (20 min)'}
               </a>
               <a href="/quiz" className="text-sm text-neutral-400 hover:text-empire transition-colors">
                 {lang === 'fr' ? 'Quiz : quel créateur êtes-vous ?' : 'Quiz: what creator are you?'}
               </a>
+              <GiftHeaderBadge />
             </div>
           </div>
 
