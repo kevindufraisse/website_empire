@@ -421,7 +421,7 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6, duration: 0.4 }}
-              className={`mb-6 rounded-xl px-4 py-3 border flex items-center gap-3 ${
+              className={`mb-6 rounded-xl px-4 py-3 border ${
                 inaction.intensity === 'critical'
                   ? 'bg-red-500/10 border-red-500/30'
                   : inaction.intensity === 'high'
@@ -429,14 +429,24 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
                     : 'bg-amber-500/8 border-amber-500/25'
               }`}
             >
-              <span className={`text-lg font-black whitespace-nowrap ${
-                inaction.intensity === 'critical' ? 'text-red-300' : 'text-amber-300'
-              }`}>
-                {inaction.amount}/mois
-              </span>
-              <p className="text-xs sm:text-sm text-neutral-300 leading-snug">
-                perdus sans système · <span className="text-white font-semibold">{inaction.yearly}/an</span>
-              </p>
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-sm">🚨</span>
+                <p className={`text-[10px] uppercase tracking-widest font-black ${
+                  inaction.intensity === 'critical' ? 'text-red-300' : 'text-amber-300'
+                }`}>
+                  Coût estimé de votre inaction
+                </p>
+              </div>
+              <div className="flex items-baseline gap-2">
+                <span className={`text-lg font-black ${
+                  inaction.intensity === 'critical' ? 'text-red-300' : 'text-amber-300'
+                }`}>
+                  {inaction.amount}/mois
+                </span>
+                <span className="text-xs text-neutral-400">
+                  soit <span className="text-white font-semibold">{inaction.yearly}/an</span> perdus sans système
+                </span>
+              </div>
             </motion.div>
           )}
 
