@@ -331,59 +331,36 @@ export default function HowItWorksAccordion() {
           </div>
         </FadeInBlock>
 
-        {/* Creator avatars */}
-        <FadeInBlock delay={0.05}>
-          <div className="flex items-center justify-center gap-3 mb-10 md:mb-14">
-            <span className="text-xs text-neutral-400">{lang === 'fr' ? 'Inspiré par' : 'Inspired by'}</span>
-            <div className="flex -space-x-2">
-              {[
-                { name: 'Grant Cardone', img: '/creators/cardone.webp' },
-                { name: 'Alex Hormozi', img: '/creators/hormozi.jpg' },
-                { name: 'Ali Abdaal', img: '/creators/abdaal.webp' },
-                { name: 'Matt Gray', img: '/creators/gray.jpg' },
-                { name: 'Chris Williamson', img: '/creators/williamson.webp' },
-              ].map((c) => (
-                <div key={c.name} className="w-7 h-7 rounded-full bg-neutral-800 overflow-hidden border-2 border-black" title={c.name}>
-                  <img src={c.img} alt={c.name} className="w-full h-full object-cover" loading="lazy" />
-                </div>
-              ))}
-            </div>
-            <span className="text-xs text-neutral-400">{lang === 'fr' ? '& les meilleurs créateurs' : '& top creators'}</span>
-          </div>
-        </FadeInBlock>
 
           {/* 4 Visual Blocks */}
         <FadeInBlock delay={0.1}>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
 
-              {/* BLOCK 1 - Research */}
+              {/* BLOCK 1 - Expert viralité */}
               <div className={`group relative flex flex-col overflow-hidden rounded-xl transition-all min-h-[300px] ${
                 autopilot
                   ? 'bg-gradient-to-br from-autopilot/10 to-white/[0.02] border border-autopilot/30 hover:border-autopilot/60'
                   : 'bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30'
               }`}>
-                <div className="flex-1 flex flex-col items-center justify-center p-5 gap-3">
-                  {(autopilot
-                    ? t.autopilot.howItWorks.b1.items
-                    : lang === 'fr' ? [
-                        'Sujets viraux de votre niche identifiés',
-                        'Meilleurs formats de votre secteur analysés',
-                        'Votre ton et style de communication analysés',
-                        'Stratégie de contenu personnalisée',
-                      ] : [
-                        'Viral topics in your niche identified',
-                        'Best formats in your sector analyzed',
-                        'Your tone and communication style analyzed',
-                        'Personalized content strategy',
-                      ]
-                  ).map((item, i) => (
-                    <div key={i} className={`flex items-center gap-2 w-full px-3 py-2 rounded-lg ${
-                      autopilot ? 'bg-autopilot/5 border border-autopilot/20' : 'bg-white/5 border border-white/10'
-                    }`}>
-                      <span className={`font-bold text-sm flex-shrink-0 ${autopilot ? 'text-autopilot' : 'text-empire'}`}>✓</span>
-                      <span className="text-xs text-neutral-300">{item}</span>
+                <div className="flex-1 flex flex-col items-center justify-center p-5 gap-4">
+                  <div className="flex flex-col items-center gap-2">
+                    <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-empire/40">
+                      <img src="/founders/kevin.jpg" alt="Kevin" className="w-full h-full object-cover" />
                     </div>
-                  ))}
+                    <p className="text-xs text-neutral-400">Kevin · Expert viralité</p>
+                  </div>
+                  <div className={`relative w-full px-4 py-3 rounded-xl text-xs leading-relaxed ${
+                    autopilot ? 'bg-autopilot/10 border border-autopilot/20 text-neutral-200' : 'bg-empire/10 border border-empire/20 text-neutral-200'
+                  }`}>
+                    <div className={`absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 ${
+                      autopilot ? 'bg-autopilot/10 border-l border-t border-autopilot/20' : 'bg-empire/10 border-l border-t border-empire/20'
+                    }`} />
+                    <span className="relative">
+                      {lang === 'fr'
+                        ? '"Voici votre stratégie personnalisée : 3 sujets viraux pour votre niche, les formats qui marchent, et votre calendrier."'
+                        : '"Here\'s your personalized strategy: 3 viral topics for your niche, best formats, and your content calendar."'}
+                    </span>
+                  </div>
                 </div>
                 <div className="relative z-10 p-5 pt-3 bg-gradient-to-t from-black via-black/90 to-transparent">
                   <div className="flex items-center gap-2 mb-1">
