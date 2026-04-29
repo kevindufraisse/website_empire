@@ -174,6 +174,7 @@ export default function EmpireQuiz({ hookOverride, onCompleted, onDismiss }: Pro
           recommendedOffer: local.recommendedOffer,
           secondaryOffer: local.secondaryOffer,
           archetypeRanking: local.archetypeRanking,
+          premiumEligible: local.premiumEligible,
         }
         track('teaser_shown', { archetype: preview.archetype, score: preview.score })
         setState(s => ({ ...s, stage: 'email', preview }))

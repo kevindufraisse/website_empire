@@ -87,6 +87,7 @@ export async function POST(req: NextRequest) {
       recommendedOffer: result.recommendedOffer,
       secondaryOffer: result.secondaryOffer,
       archetypeRanking: result.archetypeRanking,
+      premiumEligible: result.premiumEligible,
     },
   })
 }

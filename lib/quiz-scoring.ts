@@ -23,6 +23,9 @@ export interface QuizResult {
   archetypeRanking: { id: ArchetypeId; pct: number }[]
   /** Plain-text summary safe to ship to Systeme.io custom fields. */
   summary: string
+  /** True when the lead qualifies for a fully-delegated (done-for-you) offer.
+   *  We still recommend Copilot publicly, but unlock a "delegate everything" mention. */
+  premiumEligible: boolean
 }
 
 const MAX_SCORE_RAW = QUESTIONS.reduce((sum, q) => {
@@ -129,59 +132,44 @@ export function computeQuizResult(answers: QuizAnswers): QuizResult {
   // Academy   = tout le reste (porte d'entrée pour convaincre)
   // ───────────────────────────────────────────────────────────────────────────
 
+  // ─── 2 PORTES : Empire (Copilot) vs Academy ──────────────────────────────
+  //
+  // Empire = >= 5k€/mois ET pas hésitant (besoin réel + capacité de payer)
+  // Academy = tout le reste (porte d'entrée, ticket bas)
+  //
+  // Note: On ne recommande JAMAIS Autopilot publiquement.
+  // Les profils "premium" (CA élevé + budget + urgence) reçoivent Copilot
+  // avec une mention "vous pouvez aussi tout déléguer si vous préférez".
+  // ───────────────────────────────────────────────────────────────────────────
+
   let recommendedOffer: RecommendedOffer
 
-  if (
+  if (isPreRevenue || business === 'lt5k') {
+    // Pas encore de CA récurrent ou < 5k€/mois → Academy (Empire trop cher).
+    recommendedOffer = 'academy'
+  } else if (isHesitant) {
+    // Hésitant (need_partner ou not_yet) → Academy (besoin de convaincre d'abord).
+    recommendedOffer = 'academy'
+  } else if (noCostFeeling && !isHighBudgetDecider) {
+    // Pas conscient du coût + pas gros budget → Academy.
+    recommendedOffer = 'academy'
+  } else if (isSlowTiming && !isHighBudgetDecider) {
+    // Pas pressé + pas gros budget → Academy.
+    recommendedOffer = 'academy'
+  } else {
+    // Tout le reste (5k+ avec un minimum de conviction) → Empire/Copilot.
+    recommendedOffer = 'copilot'
+  }
+
+  // Premium flag : profil top-tier qui pourrait déléguer entièrement.
+  // (Leur recommandation reste Copilot, on ajoute juste une mention DFY.)
+  const premiumEligible =
     isHighBudgetDecider &&
     isHighRevenue &&
     feelsHighCost &&
-    isUrgentNow
-  ) {
-    // Top tier : CA élevé + budget prouvé + ressent le coût + urgence.
-    recommendedOffer = 'autopilot'
-  } else if (
-    isHighBudgetDecider &&
-    (hasContentMaturity || feelsHighCost) &&
-    !isSlowTiming
-  ) {
-    // High budget decider avec maturité ou douleur claire → autopilot.
-    recommendedOffer = 'autopilot'
-  } else if (
-    isAnyDecider &&
-    isMidRevenue &&
-    feelsCost &&
-    !isSlowTiming
-  ) {
-    // Décideur avec CA moyen + ressent le coût + timing court → copilot.
-    recommendedOffer = 'copilot'
-  } else if (
-    (isHighBudgetDecider || isMidBudgetDecider) &&
-    feelsCost
-  ) {
-    // Budget OK + ressent un coût → copilot.
-    recommendedOffer = 'copilot'
-  } else {
-    // Tout le reste : hésitant, pas de douleur, pré-revenu, petit budget,
-    // pas de timing, débutant → Academy (porte d'entrée pour convaincre).
-    recommendedOffer = 'academy'
-  }
-
-  // Garde-fou : pré-revenu jamais en Autopilot, on ne sur-promet pas.
-  if (isPreRevenue && recommendedOffer === 'autopilot') {
-    recommendedOffer = 'copilot'
-  }
-  // Garde-fou : débutant total contenu jamais en Autopilot non plus.
-  if (isContentBeginner && recommendedOffer === 'autopilot') {
-    recommendedOffer = 'copilot'
-  }
-  // Garde-fou : hésitant (need_partner ou not_yet) → toujours Academy max.
-  if (isHesitant && (recommendedOffer === 'autopilot' || recommendedOffer === 'copilot')) {
-    recommendedOffer = 'academy'
-  }
-  // Garde-fou : aucun ressenti de coût → Academy (pas prêt à payer cher).
-  if (noCostFeeling && recommendedOffer === 'autopilot') {
-    recommendedOffer = 'copilot'
-  }
+    !isHesitant &&
+    !isSlowTiming &&
+    recommendedOffer === 'copilot'
 
   // Secondary offer = next tier down on the ladder, for soft cross-sell.
   const idx = OFFER_LADDER.indexOf(recommendedOffer)
@@ -200,6 +188,7 @@ export function computeQuizResult(answers: QuizAnswers): QuizResult {
     secondaryOffer,
     archetypeRanking,
     summary,
+    premiumEligible,
   }
 }
 

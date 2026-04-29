@@ -23,6 +23,8 @@ export interface QuizResultPayload {
   recommendedOffer: RecommendedOffer
   secondaryOffer: RecommendedOffer | null
   archetypeRanking: { id: ArchetypeId; pct: number }[]
+  /** True when the lead qualifies for the premium done-for-you tier. */
+  premiumEligible?: boolean
 }
 
 interface Props {
@@ -51,53 +53,33 @@ interface OfferCopy {
 }
 
 const OFFERS: Record<RecommendedOffer, OfferCopy> = {
-  autopilot: {
-    kicker: '🔒 Accès Premium · Réservé aux profils qualifiés',
-    title: 'Autopilot · Done for you',
-    pitch:
-      "Vu votre CA, votre budget et votre niveau d'urgence, vous êtes éligible à notre offre premium. Un expert dédié pilote toute votre machine de contenu pendant que vous gérez votre business. Cette offre n'est pas publique — seuls les profils qualifiés y accèdent.",
-    benefits: [
-      "Au RDV : on calcule votre ROI projeté à 90 jours sur votre cas exact",
-      "Au RDV : on identifie les 3 leviers prioritaires de votre business",
-      "Au RDV : on vous dit honnêtement si Autopilot est rentable pour vous",
-      'Si on signe : expert dédié + production multi-canal + reporting hebdo',
-      'Garantie résultats sous 90 jours - sinon on continue gratuitement',
-    ],
-    cta: {
-      label: 'Réserver un appel stratégique →',
-      href: '/',
-    },
-    reassurance: 'Page privée · Aucun engagement',
-    lossLine:
-      "Sans système : 6 à 12 mois pour atteindre ce qu'on règle en 90 jours.",
-  },
   copilot: {
-    kicker: '🎯 Recommandation #1 · Le meilleur ratio impact/temps',
-    title: 'Copilot · Avec coach senior',
+    kicker: 'Recommandé pour votre profil',
+    title: 'Empire',
     pitch:
-      "Votre profil correspond exactement aux clients qu'on aide le mieux : décideur, du budget, conscient du coût de l'inaction. 15 min/sem avec un coach senior + vos outils = contenu prévisible qui convertit.",
+      "Vous avez du CA, vous décidez, vous savez ce que ça vous coûte de ne pas avoir d'audience. Empire est fait pour vous : 15 min par semaine avec votre coach, on s'occupe de transformer ça en contenu qui amène des clients.",
     benefits: [
-      "Au RDV : audit gratuit de votre positionnement actuel",
-      "Au RDV : 3 angles éditoriaux concrets que vous pourrez tester cette semaine",
-      "Au RDV : on vous dit si Copilot peut vraiment vous faire passer à l'étape d'après",
-      'Si on signe : coaching hebdo + système d\'automatisation + calendrier 4 semaines',
-      'Communauté privée Empire (creators sérieux uniquement)',
+      'Un coach senior dédié qui vous interview 15 min/sem',
+      'On rédige vos posts LinkedIn + Shorts à partir de vos mots',
+      'Un système d\'automatisation qui multi-poste sur tous vos canaux',
+      'Calendrier éditorial 4 semaines à l\'avance — vous savez exactement ce qui va sortir',
+      'Communauté privée Empire (créateurs sérieux uniquement)',
     ],
     cta: {
-      label: 'Découvrir Empire Copilot →',
+      label: 'Réserver un appel découverte →',
       href: '/',
     },
-    reassurance: 'Voir l\'offre complète · Aucun engagement',
+    reassurance: 'Appel gratuit · 15 minutes · On vous dit si on peut vous aider',
     lossLine:
-      "Continuer seul = encore 6 mois à publier sans liste email. Ou un système qui tourne dès demain.",
+      "Continuer seul = passer encore 6 mois à publier sans système. Ou un coach senior dès la semaine prochaine.",
   },
   academy: {
-    kicker: '🎯 Recommandation #1 · Votre porte d\'entrée',
-    title: 'Empire Academy · 21 jours intensifs',
+    kicker: 'Recommandé pour votre profil',
+    title: 'Empire Academy · 21 jours',
     pitch:
-      "Pour votre profil, Academy est le bon premier pas. 21 jours pour bâtir vos fondations + 42 contenus produits pour vous + un système clé en main que vous pourrez upgrader plus tard si besoin.",
+      "Pour votre profil, Academy est le bon premier pas : 21 jours pour bâtir vos fondations de contenu, avec 42 publications produites pour vous. Vous repartez avec un système qui tourne et vous pourrez passer à Empire (avec coach dédié) quand vous voudrez accélérer.",
     benefits: [
-      'Système de viralité copy-paste à appliquer dès J1',
+      'Système de viralité copy-paste à appliquer dès le jour 1',
       '21 posts LinkedIn + 21 Shorts produits POUR vous pendant 21 jours',
       'Templates d\'automatisation multi-canal (gain de temps immédiat)',
       'Tunnel newsletter + scripts DMs : vos premiers leads dès J7',
@@ -111,21 +93,35 @@ const OFFERS: Record<RecommendedOffer, OfferCopy> = {
     lossLine:
       "Sans fondations + sans système, vous allez continuer à essayer 10 trucs sans en maîtriser un seul.",
   },
-  nurture: {
-    kicker: '🎯 Recommandation #1 - Votre point de départ',
-    title: 'Empire Academy - 21 jours intensifs',
+  // Legacy types kept for backward-compat with old saved results.
+  // We never recommend autopilot publicly anymore — falls back to copilot copy.
+  autopilot: {
+    kicker: 'Recommandé pour votre profil',
+    title: 'Empire',
     pitch:
-      "Vous n'êtes pas encore convaincu par la création de contenu ? C'est exactement pour ça qu'Academy existe. 21 jours pour comprendre la puissance de la viralité dans votre business - avec du contenu produit pour vous.",
+      "Vous avez du CA, vous décidez, vous savez ce que ça vous coûte de ne pas avoir d'audience. Empire est fait pour vous.",
+    benefits: [
+      'Coach senior dédié 15 min/sem',
+      'Production multi-canal (LinkedIn + Shorts)',
+      'Système d\'automatisation clé en main',
+      'Calendrier éditorial 4 semaines',
+      'Communauté privée Empire',
+    ],
+    cta: { label: 'Réserver un appel découverte →', href: '/' },
+    reassurance: 'Appel gratuit · 15 minutes',
+  },
+  nurture: {
+    kicker: 'Recommandé pour votre profil',
+    title: 'Empire Academy · 21 jours',
+    pitch:
+      "Academy est conçu exactement pour vous : 21 jours pour comprendre la puissance du contenu dans votre business — avec 42 publications produites pour vous.",
     benefits: [
       '21 jours pour comprendre comment le contenu génère des clients',
       '21 posts LinkedIn + 21 Shorts produits POUR vous',
       'Système de viralité copy-paste à appliquer dès J1',
       'Communauté privée + sessions live + accès à vie',
     ],
-    cta: {
-      label: 'Découvrir Empire Academy →',
-      href: '/academy',
-    },
+    cta: { label: 'Découvrir Empire Academy →', href: '/academy' },
     reassurance: '497€ · Paiement en 3x possible · Garantie 30 jours satisfait ou remboursé',
   },
 }
@@ -240,7 +236,7 @@ function inactionAnalysis(
   if (!cost) return null
 
   const isAcademy = recommendedOffer === 'academy' || recommendedOffer === 'nurture'
-  // Academy = formation autonome (21 jours). Empire/Autopilot = accompagnement avec RDV.
+  // Academy = formation autonome (21 jours). Empire (Copilot) = accompagnement avec RDV.
   const solutionLine = isAcademy
     ? "Academy est conçu exactement pour vous donner les outils pour récupérer cette valeur en 21 jours."
     : "Au RDV, on chiffre précisément avec vous combien vous pouvez récupérer en 90 jours."
@@ -294,7 +290,7 @@ function inactionAnalysis(
 const OFFER_COLORS: Record<RecommendedOffer, { accent: string; glow: string; bg: string; border: string; text: string }> = {
   copilot:   { accent: '#DAFC68', glow: 'shadow-[0_0_28px_rgba(218,252,104,0.45)]', bg: 'from-[#DAFC68]/15 via-[#DAFC68]/5 to-transparent', border: 'border-[#DAFC68]/40', text: 'text-[#DAFC68]' },
   academy:   { accent: '#fca5a5', glow: 'shadow-[0_0_28px_rgba(252,165,165,0.45)]', bg: 'from-[#fca5a5]/15 via-[#fca5a5]/5 to-transparent', border: 'border-[#fca5a5]/40', text: 'text-[#fca5a5]' },
-  autopilot: { accent: '#d4a574', glow: 'shadow-[0_0_28px_rgba(212,165,116,0.45)]', bg: 'from-[#d4a574]/15 via-[#d4a574]/5 to-transparent', border: 'border-[#d4a574]/40', text: 'text-[#d4a574]' },
+  autopilot: { accent: '#DAFC68', glow: 'shadow-[0_0_28px_rgba(218,252,104,0.45)]', bg: 'from-[#DAFC68]/15 via-[#DAFC68]/5 to-transparent', border: 'border-[#DAFC68]/40', text: 'text-[#DAFC68]' },
   nurture:   { accent: '#fca5a5', glow: 'shadow-[0_0_28px_rgba(252,165,165,0.45)]', bg: 'from-[#fca5a5]/15 via-[#fca5a5]/5 to-transparent', border: 'border-[#fca5a5]/40', text: 'text-[#fca5a5]' },
 }
 
@@ -567,7 +563,7 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
                 ))}
               </ul>
 
-              {result.recommendedOffer === 'academy' && (
+              {(result.recommendedOffer === 'academy' || result.recommendedOffer === 'nurture') && (
                 <div className="flex items-center gap-2 mb-5 px-3 py-2 rounded-lg bg-amber-500/10 border border-amber-500/30">
                   <Calendar size={14} className="text-amber-400 flex-shrink-0" />
                   <p className="text-xs sm:text-sm text-amber-200">
@@ -606,17 +602,20 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
             </div>
           </motion.div>
 
-          {/* ── SECONDARY LINK ── */}
-          {result.recommendedOffer === 'autopilot' && (
-            <Link
-              href="/"
-              className="block text-center text-sm text-neutral-400 hover:text-[#DAFC68] transition mb-6"
-            >
-              Pas prêt pour le Premium ?{' '}
-              <span className="underline underline-offset-2">Voir Copilot →</span>
-            </Link>
+          {/* ── PREMIUM BANNER (shown to top-tier profiles eligible for full delegation) ── */}
+          {result.premiumEligible && (result.recommendedOffer === 'copilot' || result.recommendedOffer === 'autopilot') && (
+            <div className="mb-6 rounded-xl p-4 sm:p-5 bg-gradient-to-r from-[#d4a574]/15 via-[#d4a574]/8 to-transparent border border-[#d4a574]/30">
+              <p className="text-[10px] uppercase tracking-[0.18em] font-bold mb-2 text-[#d4a574]">
+                Vous voulez tout déléguer ?
+              </p>
+              <p className="text-sm text-neutral-200 leading-snug">
+                Vu votre profil (CA, budget, urgence), vous êtes éligible à notre formule <span className="text-[#d4a574] font-semibold">Done For You</span> : un expert dédié pilote toute votre machine de contenu, vous n&apos;avez plus rien à faire. <span className="text-neutral-400">On en parle pendant l&apos;appel découverte.</span>
+              </p>
+            </div>
           )}
-          {result.recommendedOffer === 'copilot' && (
+
+          {/* ── SECONDARY LINK ── */}
+          {(result.recommendedOffer === 'copilot' || result.recommendedOffer === 'autopilot') && (
             <Link
               href="/academy"
               className="block text-center text-sm text-neutral-400 hover:text-empire transition mb-6"
@@ -625,7 +624,7 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
               <span className="underline underline-offset-2">Commencer par Academy - 497€ →</span>
             </Link>
           )}
-          {result.recommendedOffer === 'academy' && (
+          {(result.recommendedOffer === 'academy' || result.recommendedOffer === 'nurture') && (
             <Link
               href="/vsl"
               className="block text-center text-sm text-neutral-400 hover:text-empire transition mb-6"
