@@ -135,16 +135,16 @@ export default function HeroSection() {
             <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
               {(lang === 'fr'
                 ? [
-                    { stat: '×2', label: 'Closing' },
-                    { stat: '×5', label: 'Leads' },
+                    { stat: '+100%', label: 'Closing' },
+                    { stat: '+400%', label: 'Leads' },
                     { stat: '+30%', label: 'Tarifs' },
-                    { stat: '×3', label: 'Recommandations' },
+                    { stat: '+200%', label: 'Recommandations' },
                   ]
                 : [
-                    { stat: '×2', label: 'Closing' },
-                    { stat: '×5', label: 'Leads' },
+                    { stat: '+100%', label: 'Closing' },
+                    { stat: '+400%', label: 'Leads' },
                     { stat: '+30%', label: 'Pricing' },
-                    { stat: '×3', label: 'Referrals' },
+                    { stat: '+200%', label: 'Referrals' },
                   ]
               ).map((item) => (
                 <div key={item.label} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08]">
