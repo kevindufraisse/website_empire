@@ -51,8 +51,8 @@ const INTRO_ARCHETYPES = [
 
 const INTRO_FEATURES = [
   { title: '10 sujets à poster cette semaine' },
-  { title: 'Pourquoi vos posts ne convertissent pas' },
-  { title: 'Votre plan d\'action 30 jours' },
+  { title: 'Les raisons pour lesquelles vos posts ne convertissent pas' },
+  { title: 'Votre plan d\'action de 30 jours à copier-coller' },
 ]
 
 const INTRO_OUTCOMES = [
@@ -381,8 +381,8 @@ export default function EmpireQuiz({ hookOverride, onCompleted, onDismiss }: Pro
               </div>
 
               {/* ── Features cards ── */}
-              <div className="mb-5 max-w-lg mx-auto">
-                <div className="grid grid-cols-3 gap-2">
+              <div className="mb-5 max-w-2xl mx-auto">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                   {INTRO_FEATURES.map((f, i) => (
                     <motion.div
                       key={f.title}
