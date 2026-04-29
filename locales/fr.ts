@@ -431,7 +431,7 @@ export const fr: Translations = {
   common: {
     startNow: 'Je veux découvrir le système Empire',
     watchDemo: 'Je veux découvrir le système Empire',
-    ctaReassurance: '300 000 vues garanties · 45 min',
+    ctaReassurance: '300 000 vues/mois garanties · 45 min',
     /** Sous-ligne très courte : header, sticky, bannière (évite un bouton énorme) */
     ctaReassuranceCompact: 'Sans engagement.',
     learnMore: 'En savoir plus',

@@ -456,7 +456,7 @@ export default function HowItWorksAccordion() {
                   <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-500/20 border border-green-500/40 backdrop-blur-sm">
                     <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                     <span className="text-[10px] font-semibold text-green-400">
-                      {lang === 'fr' ? '300 000 vues garanties' : '300K views guaranteed'}
+                      {lang === 'fr' ? '300 000 vues/mois garanties' : '300K views/mo guaranteed'}
                     </span>
                   </div>
                   <div className="absolute inset-0 pt-10 px-3 [mask-image:linear-gradient(to_top,transparent_20%,#000_100%)]">
@@ -550,7 +550,7 @@ export default function HowItWorksAccordion() {
                 }`}
               >
                 <span className="text-lg">{autopilot ? t.autopilot.hero.cta1 : (lang === 'fr' ? 'Oui, je veux gagner du temps et découvrir le système Empire' : 'Yes, I want to save time and discover the Empire system')}</span>
-                <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? '300 000 vues garanties · 45 min' : '300K views guaranteed · 45 min'}</span>
+                <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? '300 000 vues/mois garanties · 45 min' : '300K views/mo guaranteed · 45 min'}</span>
               </button>
           </div>
         </FadeInBlock>

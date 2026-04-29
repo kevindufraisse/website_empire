@@ -76,7 +76,7 @@ export default function Footer() {
                 className="inline-flex flex-col items-center px-6 py-3.5 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]"
               >
                 <span>{t.finalCTA.watchDemo}</span>
-                <span className="text-[10px] font-semibold opacity-70">300 000 vues garanties · 45 min</span>
+                <span className="text-[10px] font-semibold opacity-70">300 000 vues/mois garanties · 45 min</span>
               </button>
             )}
           </div>

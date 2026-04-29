@@ -80,7 +80,7 @@ export default function FinalBoostCTA() {
                   }`}
                 >
                   <span className="text-lg">{autopilot ? t.autopilot.finalCTA.cta : t.finalCTA.watchDemo}</span>
-                  <span className="text-[11px] font-semibold opacity-70">300 000 vues garanties · 45 min</span>
+                  <span className="text-[11px] font-semibold opacity-70">300 000 vues/mois garanties · 45 min</span>
                 </button>
               </div>
             </div>
