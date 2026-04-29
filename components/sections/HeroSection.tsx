@@ -143,7 +143,7 @@ export default function HeroSection() {
               {heroCta}
             </button>
             <p className="text-[11px] text-neutral-400">
-              {lang === 'fr' ? 'Gratuit · Sans engagement' : 'Free · No commitment'}
+              {lang === 'fr' ? 'Gratuit · Sans engagement · On vous dit si on peut vous aider' : 'Free · No commitment · We tell you if we can help'}
             </p>
             <a
               href="/quiz"
