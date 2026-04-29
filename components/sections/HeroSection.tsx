@@ -107,10 +107,10 @@ export default function HeroSection() {
                   : 'bg-empire text-black shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]'
               }`}
             >
-              {heroCta}
+              {lang === 'fr' ? '300 000 vues garanties · Parler à un expert' : '300K views guaranteed · Talk to an expert'}
             </button>
-            <p className="text-[11px] text-neutral-400">
-              {lang === 'fr' ? '300 000 vues garanties · 45 min' : '300K views guaranteed · 45 min'}
+            <p className="text-xs text-neutral-400">
+              {lang === 'fr' ? '45 min · Sans engagement' : '45 min · No commitment'}
             </p>
           </motion.div>
             
