@@ -138,12 +138,14 @@ export default function HeroSection() {
                     { stat: '+100%', label: 'Closing' },
                     { stat: '+400%', label: 'Leads' },
                     { stat: '+30%', label: 'Tarifs' },
+                    { stat: '+110%', label: 'CA' },
                     { stat: '+200%', label: 'Recommandations' },
                   ]
                 : [
                     { stat: '+100%', label: 'Closing' },
                     { stat: '+400%', label: 'Leads' },
                     { stat: '+30%', label: 'Pricing' },
+                    { stat: '+110%', label: 'Revenue' },
                     { stat: '+200%', label: 'Referrals' },
                   ]
               ).map((item) => (
