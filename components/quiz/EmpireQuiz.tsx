@@ -327,10 +327,10 @@ export default function EmpireQuiz({ hookOverride, onCompleted, onDismiss }: Pro
               transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
               className="w-full max-w-3xl mx-auto"
             >
-              {/* ── Top: Title + grid side by side on desktop ── */}
-              <div className="flex flex-col lg:flex-row items-center gap-4 lg:gap-8 mb-4">
+              {/* ── Top: Title + grid stacked ── */}
+              <div className="flex flex-col items-center gap-4 mb-4">
                 {/* Title block */}
-                <div className="flex-1 text-center lg:text-left">
+                <div className="flex-1 text-center">
                   <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-3">
                     <span className="relative flex h-2 w-2">
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-empire opacity-60" />
@@ -344,13 +344,13 @@ export default function EmpireQuiz({ hookOverride, onCompleted, onDismiss }: Pro
                   <h1 className="text-2xl sm:text-3xl font-black text-white leading-[1.1] mb-2.5">
                     Découvrez le type de créateur que vous êtes.
                   </h1>
-                  <p className="text-sm sm:text-base text-neutral-300 leading-relaxed max-w-lg mx-auto lg:mx-0">
+                  <p className="text-sm sm:text-base text-neutral-300 leading-relaxed max-w-lg mx-auto">
                     Et recevez un plan d&apos;action de 30 jours pour transformer vos lecteurs en clients payants.
                   </p>
                 </div>
 
                 {/* 4 archetype circles */}
-                <div className="grid grid-cols-4 gap-2.5 sm:gap-3 w-full max-w-sm lg:max-w-xs flex-shrink-0">
+                <div className="grid grid-cols-4 gap-2.5 sm:gap-3 w-full max-w-sm">
                   {INTRO_ARCHETYPES.map((a, i) => (
                     <motion.div
                       key={a.id}
