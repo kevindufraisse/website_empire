@@ -50,9 +50,9 @@ const INTRO_ARCHETYPES = [
 ] as const
 
 const INTRO_FEATURES = [
-  { emoji: '🎯', title: '10 sujets à poster cette semaine' },
-  { emoji: '🔍', title: 'Pourquoi vos posts ne convertissent pas' },
-  { emoji: '📅', title: 'Votre plan d\'action 30 jours' },
+  { title: '10 sujets à poster cette semaine' },
+  { title: 'Pourquoi vos posts ne convertissent pas' },
+  { title: 'Votre plan d\'action 30 jours' },
 ]
 
 const INTRO_OUTCOMES = [
@@ -389,9 +389,8 @@ export default function EmpireQuiz({ hookOverride, onCompleted, onDismiss }: Pro
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.35 + i * 0.06 }}
-                      className="flex flex-col items-center gap-1.5 px-2 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-center"
+                      className="flex items-center justify-center px-3 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-center"
                     >
-                      <span className="text-lg">{f.emoji}</span>
                       <span className="text-[11px] sm:text-xs font-semibold text-neutral-200 leading-tight">{f.title}</span>
                     </motion.div>
                   ))}
