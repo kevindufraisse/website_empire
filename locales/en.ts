@@ -14,7 +14,7 @@ export const en = {
   },
   hero: {
     targetAudience: 'For freelancers, employees & entrepreneurs',
-    title: 'Install the content creation system<br class="hidden sm:block"/>of tomorrow\'s <span class="text-empire">future leaders</span>.',
+    title: 'Install the content system used by<br class="hidden sm:block"/>tomorrow\'s <span class="text-empire">future leaders</span>.',
     subtitle: 'A virality coach interviews you 15 min/week.<br/>We write, edit, and publish on all your channels.',
     description: '',
     cta1: 'I want to discover the Empire system',

@@ -137,85 +137,41 @@ export default function HeroSection() {
                 {t.hero?.creatorsCost || 'We automated them for you - request your custom quote'}
               </p>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 max-w-3xl mx-auto">
-                {/* Grant Cardone */}
-                <div className="flex flex-col items-center gap-2 px-3 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
-                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-neutral-800 overflow-hidden">
-                  <img 
-                    src="/creators/cardone.webp"
-                    alt="Grant Cardone"
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                  />
+                {(lang === 'fr'
+                  ? [
+                      { name: 'Yomi Denzel', revenue: '~€60K/mo', src: 'https://unavatar.io/x/YomiDenzel96' },
+                      { name: 'Pauline Laigneau', revenue: '~€25K/mo', src: 'https://unavatar.io/x/plaigneau' },
+                      { name: 'Stan Leloup', revenue: '~€30K/mo', src: 'https://unavatar.io/x/marketingstan' },
+                      { name: 'Oussama Ammar', revenue: '~€35K/mo', src: 'https://unavatar.io/x/daedalium' },
+                      { name: 'Antoine BM', revenue: '~€15K/mo', src: 'https://unavatar.io/x/antoinebm' },
+                    ]
+                  : [
+                      { name: 'Grant Cardone', revenue: '~€100K/mo', src: '/creators/cardone.webp' },
+                      { name: 'Alex Hormozi', revenue: '~€80K/mo', src: '/creators/hormozi.jpg' },
+                      { name: 'Ali Abdaal', revenue: '~€75K/mo', src: '/creators/abdaal.webp' },
+                      { name: 'Matt Gray', revenue: '~€60K/mo', src: '/creators/gray.jpg' },
+                      { name: 'Chris Williamson', revenue: '~€70K/mo', src: '/creators/williamson.webp' },
+                    ]
+                ).map((creator, i, arr) => (
+                  <div
+                    key={creator.name}
+                    className={`flex flex-col items-center gap-2 px-3 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group ${i === arr.length - 1 ? 'col-span-2 sm:col-span-1' : ''}`}
+                  >
+                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-neutral-800 overflow-hidden">
+                      <img
+                        src={creator.src}
+                        alt={creator.name}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                        referrerPolicy="no-referrer"
+                      />
+                    </div>
+                    <div className="text-center">
+                      <p className="text-[11px] md:text-xs font-bold text-white group-hover:text-empire transition-colors">{creator.name}</p>
+                      <p className="text-[9px] md:text-[10px] text-neutral-400">{creator.revenue}</p>
+                    </div>
                   </div>
-                  <div className="text-center">
-                    <p className="text-[11px] md:text-xs font-bold text-white group-hover:text-empire transition-colors">Grant Cardone</p>
-                    <p className="text-[9px] md:text-[10px] text-neutral-400">~€100K/mo</p>
-                  </div>
-                </div>
-
-                {/* Alex Hormozi */}
-                <div className="flex flex-col items-center gap-2 px-3 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
-                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-neutral-800 overflow-hidden">
-                  <img 
-                    src="/creators/hormozi.jpg"
-                    alt="Alex Hormozi"
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                  />
-                  </div>
-                  <div className="text-center">
-                    <p className="text-[11px] md:text-xs font-bold text-white group-hover:text-empire transition-colors">Alex Hormozi</p>
-                    <p className="text-[9px] md:text-[10px] text-neutral-400">~€80K/mo</p>
-                  </div>
-                </div>
-
-                {/* Ali Abdaal */}
-                <div className="flex flex-col items-center gap-2 px-3 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
-                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-neutral-800 overflow-hidden">
-                  <img 
-                    src="/creators/abdaal.webp"
-                    alt="Ali Abdaal"
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                  />
-                  </div>
-                  <div className="text-center">
-                    <p className="text-[11px] md:text-xs font-bold text-white group-hover:text-empire transition-colors">Ali Abdaal</p>
-                    <p className="text-[9px] md:text-[10px] text-neutral-400">~€75K/mo</p>
-                  </div>
-                </div>
-
-                {/* Matt Gray */}
-                <div className="flex flex-col items-center gap-2 px-3 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group">
-                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-neutral-800 overflow-hidden">
-                  <img 
-                    src="/creators/gray.jpg"
-                    alt="Matt Gray"
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                  />
-                  </div>
-                  <div className="text-center">
-                    <p className="text-[11px] md:text-xs font-bold text-white group-hover:text-empire transition-colors">Matt Gray</p>
-                    <p className="text-[9px] md:text-[10px] text-neutral-400">~€60K/mo</p>
-                  </div>
-                </div>
-
-                {/* Chris Williamson - Hidden on smallest screens, visible from sm */}
-                <div className="flex flex-col items-center gap-2 px-3 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group col-span-2 sm:col-span-1">
-                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-neutral-800 overflow-hidden">
-                  <img 
-                    src="/creators/williamson.webp"
-                    alt="Chris Williamson"
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                  />
-                  </div>
-                  <div className="text-center">
-                    <p className="text-[11px] md:text-xs font-bold text-white group-hover:text-empire transition-colors">Chris Williamson</p>
-                    <p className="text-[9px] md:text-[10px] text-neutral-400">~€70K/mo</p>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </motion.div>

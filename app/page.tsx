@@ -6,6 +6,7 @@ import TestimonialsSection from '@/components/sections/TestimonialsSection'
 import FAQSection from '@/components/sections/FAQSection'
 import FinalBoostCTA from '@/components/sections/FinalBoostCTA'
 import WhyNowSection from '@/components/sections/WhyNowSection'
+import WhyEmpireSection from '@/components/sections/WhyEmpireSection'
 
 export default function Page() {
   return (
@@ -15,6 +16,9 @@ export default function Page() {
 
       {/* How It Works */}
       <HowItWorksAccordion />
+
+      {/* Why now - the AI marketing gap */}
+      <WhyEmpireSection />
 
       {/* Testimonials - Senja widget */}
       <TestimonialsSection />
