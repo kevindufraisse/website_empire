@@ -309,16 +309,16 @@ export default function WhyNowSection() {
               data-cal-namespace={namespace}
               data-cal-link={calLink}
               data-cal-config='{"layout":"month_view","theme":"dark"}'
-              className={`inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-bold hover:scale-105 transition-all ${
+              className={`inline-flex flex-col items-center px-7 py-3.5 rounded-xl font-bold hover:scale-105 transition-all ${
                 autopilot
                   ? 'bg-gradient-to-r from-autopilot to-autopilot text-black shadow-[0_0_30px_rgba(212,165,116,0.35)]'
                   : 'bg-empire text-black shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.25)]'
               }`}
             >
-              {autopilot
+              <span className="text-lg">{autopilot
                 ? t.autopilot.hero.cta1
-                : (fr ? 'Je veux économiser et découvrir le système Empire' : 'I want to save and discover the Empire system')}
-              <ArrowRight size={18} />
+                : (fr ? 'Je veux économiser et découvrir le système Empire' : 'I want to save and discover the Empire system')}</span>
+              <span className="text-[11px] font-semibold opacity-70">{fr ? '300 000 vues garanties · 45 min' : '300K views guaranteed · 45 min'}</span>
             </button>
           </div>
         </FadeIn>
