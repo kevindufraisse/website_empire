@@ -17,6 +17,8 @@ import {
 
 const COUNTDOWN_SECONDS = 80
 const STORAGE_KEY = 'giftCountdownDismissed'
+const COMPLETED_KEY = 'giftCountdownCompleted'
+const RESET_DAYS = 7
 
 const GIFT_COUNT = 5
 
@@ -116,11 +118,25 @@ function useGiftState() {
   return ctx
 }
 
+function isCompletedAndFresh(): boolean {
+  try {
+    const ts = localStorage.getItem(COMPLETED_KEY)
+    if (!ts) return false
+    const elapsed = Date.now() - Number(ts)
+    if (elapsed > RESET_DAYS * 86_400_000) {
+      localStorage.removeItem(COMPLETED_KEY)
+      return false
+    }
+    return true
+  } catch { return false }
+}
+
 export function GiftCountdownProvider({ children }: { children: React.ReactNode }) {
-  const [countdown, setCountdown] = useState(COUNTDOWN_SECONDS)
-  const [linkedinCountdown, setLinkedinCountdown] = useState(LINKEDIN_UNLOCK_SECONDS)
-  const [isReady, setIsReady] = useState(false)
-  const [isLinkedinReady, setIsLinkedinReady] = useState(false)
+  const alreadyCompleted = typeof window !== 'undefined' && isCompletedAndFresh()
+  const [countdown, setCountdown] = useState(alreadyCompleted ? 0 : COUNTDOWN_SECONDS)
+  const [linkedinCountdown, setLinkedinCountdown] = useState(alreadyCompleted ? 0 : LINKEDIN_UNLOCK_SECONDS)
+  const [isReady, setIsReady] = useState(alreadyCompleted)
+  const [isLinkedinReady, setIsLinkedinReady] = useState(alreadyCompleted)
   const [showModal, setShowModal] = useState(false)
   const [dismissed, setDismissed] = useState(true)
   const pathname = usePathname()
@@ -135,6 +151,14 @@ export function GiftCountdownProvider({ children }: { children: React.ReactNode 
 
   useEffect(() => {
     if (isExcludedPage) return
+    if (isCompletedAndFresh()) {
+      setCountdown(0)
+      setLinkedinCountdown(0)
+      setIsReady(true)
+      setIsLinkedinReady(true)
+      setDismissed(false)
+      return
+    }
     const wasDismissed = sessionStorage.getItem(STORAGE_KEY)
     if (wasDismissed) return
     setDismissed(false)
@@ -145,7 +169,11 @@ export function GiftCountdownProvider({ children }: { children: React.ReactNode 
     const interval = setInterval(() => {
       if (countdown > 0) {
         setCountdown((prev) => {
-          if (prev <= 1) { setIsReady(true); return 0 }
+          if (prev <= 1) {
+            setIsReady(true)
+            try { localStorage.setItem(COMPLETED_KEY, String(Date.now())) } catch {}
+            return 0
+          }
           return prev - 1
         })
       }
