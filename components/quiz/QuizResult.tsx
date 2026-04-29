@@ -52,10 +52,10 @@ interface OfferCopy {
 
 const OFFERS: Record<RecommendedOffer, OfferCopy> = {
   autopilot: {
-    kicker: '🎯 Recommandation #1 · Calibrée pour votre profil',
+    kicker: '🔒 Accès Premium · Réservé aux profils qualifiés',
     title: 'Autopilot · Done for you',
     pitch:
-      "Vu votre CA, votre budget et votre niveau d'urgence : Autopilot est fait pour vous. Un expert dédié pilote toute votre machine de contenu pendant que vous gérez votre business.",
+      "Vu votre CA, votre budget et votre niveau d'urgence, vous êtes éligible à notre offre premium. Un expert dédié pilote toute votre machine de contenu pendant que vous gérez votre business. Cette offre n'est pas publique — seuls les profils qualifiés y accèdent.",
     benefits: [
       "Au RDV : on calcule votre ROI projeté à 90 jours sur votre cas exact",
       "Au RDV : on identifie les 3 leviers prioritaires de votre business",
@@ -64,10 +64,10 @@ const OFFERS: Record<RecommendedOffer, OfferCopy> = {
       'Garantie résultats sous 90 jours - sinon on continue gratuitement',
     ],
     cta: {
-      label: 'Découvrir Empire Autopilot →',
+      label: 'Accéder à l\'offre Premium →',
       href: '/?tier=autopilot',
     },
-    reassurance: 'Voir l\'offre complète · Aucun engagement',
+    reassurance: 'Page privée · Aucun engagement',
     lossLine:
       "Sans système : 6 à 12 mois pour atteindre ce qu'on règle en 90 jours.",
   },
@@ -286,9 +286,17 @@ function inactionAnalysis(answers?: Record<string, string>): {
 
 // ─── Main result component ────────────────────────────────────────────────────
 
+const OFFER_COLORS: Record<RecommendedOffer, { accent: string; glow: string; bg: string; border: string; text: string }> = {
+  copilot:   { accent: '#DAFC68', glow: 'shadow-[0_0_28px_rgba(218,252,104,0.45)]', bg: 'from-[#DAFC68]/15 via-[#DAFC68]/5 to-transparent', border: 'border-[#DAFC68]/40', text: 'text-[#DAFC68]' },
+  academy:   { accent: '#fca5a5', glow: 'shadow-[0_0_28px_rgba(252,165,165,0.45)]', bg: 'from-[#fca5a5]/15 via-[#fca5a5]/5 to-transparent', border: 'border-[#fca5a5]/40', text: 'text-[#fca5a5]' },
+  autopilot: { accent: '#d4a574', glow: 'shadow-[0_0_28px_rgba(212,165,116,0.45)]', bg: 'from-[#d4a574]/15 via-[#d4a574]/5 to-transparent', border: 'border-[#d4a574]/40', text: 'text-[#d4a574]' },
+  nurture:   { accent: '#fca5a5', glow: 'shadow-[0_0_28px_rgba(252,165,165,0.45)]', bg: 'from-[#fca5a5]/15 via-[#fca5a5]/5 to-transparent', border: 'border-[#fca5a5]/40', text: 'text-[#fca5a5]' },
+}
+
 export default function QuizResult({ result, email, firstName, answers, onRestart }: Props) {
   const profile = ARCHETYPES[result.archetype]
   const offer = OFFERS[result.recommendedOffer]
+  const offerColor = OFFER_COLORS[result.recommendedOffer]
   const secondaryOffer = result.secondaryOffer ? OFFERS[result.secondaryOffer] : null
   const greeting = firstName ? `${firstName}, ` : ''
   const primaryIcon = profile.icons[0]
@@ -515,12 +523,15 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.3, duration: 0.5 }}
-            className="relative rounded-2xl p-6 sm:p-7 mb-6 bg-gradient-to-br from-empire/15 via-empire/5 to-transparent border border-empire/40 overflow-hidden"
+            className={`relative rounded-2xl p-6 sm:p-7 mb-6 bg-gradient-to-br ${offerColor.bg} ${offerColor.border} border overflow-hidden`}
           >
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgb(var(--empire-rgb)_/_0.15),transparent_60%)] pointer-events-none" />
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{ background: `radial-gradient(circle at top right, ${offerColor.accent}26, transparent 60%)` }}
+            />
 
             <div className="relative">
-              <p className="text-[10px] uppercase tracking-[0.2em] text-empire font-black mb-2">
+              <p className={`text-[10px] uppercase tracking-[0.2em] font-black mb-2 ${offerColor.text}`}>
                 {offer.kicker}
               </p>
               <h3 className="text-2xl sm:text-3xl font-black text-white mb-2 leading-tight">
@@ -539,7 +550,7 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
                     transition={{ delay: 1.4 + i * 0.06 }}
                     className="flex items-start gap-3 text-sm text-neutral-100"
                   >
-                    <Check size={16} className="text-empire mt-0.5 flex-shrink-0" />
+                    <Check size={16} className={`${offerColor.text} mt-0.5 flex-shrink-0`} />
                     <span>{b}</span>
                   </motion.li>
                 ))}
@@ -557,7 +568,8 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
 
               <Link
                 href={offer.cta.href}
-                className="group inline-flex items-center justify-center gap-2 w-full px-6 py-4 rounded-xl bg-empire text-black font-bold text-base sm:text-lg hover:scale-[1.02] active:scale-100 transition-all shadow-[0_0_28px_rgb(var(--empire-rgb)_/_0.45)]"
+                className={`group inline-flex items-center justify-center gap-2 w-full px-6 py-4 rounded-xl font-bold text-base sm:text-lg hover:scale-[1.02] active:scale-100 transition-all text-black ${offerColor.glow}`}
+                style={{ backgroundColor: offerColor.accent }}
               >
                 {offer.cta.label}
                 <ArrowRight size={18} className="group-hover:translate-x-0.5 transition-transform" />
@@ -587,9 +599,9 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
           {result.recommendedOffer === 'autopilot' && (
             <Link
               href="/"
-              className="block text-center text-sm text-neutral-400 hover:text-empire transition mb-6"
+              className="block text-center text-sm text-neutral-400 hover:text-[#DAFC68] transition mb-6"
             >
-              Pas prêt pour Autopilot ?{' '}
+              Pas prêt pour le Premium ?{' '}
               <span className="underline underline-offset-2">Voir Copilot →</span>
             </Link>
           )}

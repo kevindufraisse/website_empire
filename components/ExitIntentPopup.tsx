@@ -17,9 +17,10 @@ export function ExitIntentPopup() {
   const isPartnersPage = pathname === '/partners'
   const isAcademyPage = pathname === '/academy'
   const isCandidaturePage = pathname === '/candidature' || pathname === '/decouverte' || pathname === '/join-us'
+  const isQuizPage = pathname === '/quiz'
 
   useEffect(() => {
-    if (isPartnersPage || isCandidaturePage) return
+    if (isPartnersPage || isCandidaturePage || isQuizPage) return
 
     const hasShown = sessionStorage.getItem('exitPopupShown')
     if (hasShown) return
@@ -33,7 +34,7 @@ export function ExitIntentPopup() {
 
     document.addEventListener('mouseleave', handleMouseLeave)
     return () => document.removeEventListener('mouseleave', handleMouseLeave)
-  }, [dismissed, isPartnersPage, isCandidaturePage])
+  }, [dismissed, isPartnersPage, isCandidaturePage, isQuizPage])
 
   useEffect(() => {
     if (step === 'community' && scriptContainerRef.current) {

@@ -38,12 +38,6 @@ export default function TierNav() {
       sublabel: lang === 'fr' ? 'On écrit, tu publies' : 'We write, you publish',
       color: '#DAFC68',
     },
-    {
-      id: 'autopilot',
-      label: 'Autopilot',
-      sublabel: lang === 'fr' ? 'On gère tout' : 'We handle everything',
-      color: '#d4a574',
-    },
   ]
 
   const handleClick = (tier: TierId) => {
@@ -51,9 +45,6 @@ export default function TierNav() {
       router.push('/academy')
     } else if (tier === 'copilot') {
       setAutopilot(false)
-      if (pathname !== '/') router.push('/')
-    } else if (tier === 'autopilot') {
-      setAutopilot(true)
       if (pathname !== '/') router.push('/')
     }
   }

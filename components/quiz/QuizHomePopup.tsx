@@ -16,6 +16,13 @@ export default function QuizHomePopup() {
 
   const isAllowed = pathname === '/'
 
+  // Close popup when navigating away (e.g. clicking a CTA to /academy from quiz result)
+  useEffect(() => {
+    if (!isAllowed && open) {
+      setOpen(false)
+    }
+  }, [isAllowed, open])
+
   useEffect(() => {
     if (!isAllowed) return
     const dismissed = readCookie(COOKIE_KEY)
