@@ -228,56 +228,47 @@ function IconAvatar({
  * Used in the "Coût de votre inaction" block - the conversion engine.
  */
 function inactionAnalysis(answers?: Record<string, string>): {
-  amount: string
-  yearly: string
+  headline: string
   message: string
   intensity: 'low' | 'medium' | 'high' | 'critical'
 } | null {
   if (!answers) return null
   const cost = answers.inaction_cost
-  const business = answers.business
+  if (!cost) return null
 
-  // Map answers to realistic ranges based on the business stage
-  const isHighRev = business === '20_50k' || business === 'gt50k'
-  const isMidRev = business === '5_20k'
-
+  // We use the visitor's own answer to question 7 — no invented numbers.
   if (cost === 'never_thought') {
     return {
-      amount: isHighRev ? '5 à 10k€' : isMidRev ? '2 à 5k€' : '500€ à 2k€',
-      yearly: isHighRev ? '60 à 120k€' : isMidRev ? '24 à 60k€' : '6 à 24k€',
-      message: "Vous n'y aviez pas pensé - mais avec votre profil, c'est probablement le coût caché de chaque mois sans système.",
-      intensity: 'medium',
+      headline: "Vous n'aviez pas chiffré votre manque à gagner",
+      message: "C'est exactement ce qu'on regarde au RDV : combien votre absence d'audience vous coûte chaque mois en clients qui partent à la concurrence.",
+      intensity: 'low',
     }
   }
   if (cost === 'few') {
     return {
-      amount: isHighRev ? '3 à 8k€' : '1 à 3k€',
-      yearly: isHighRev ? '36 à 96k€' : '12 à 36k€',
-      message: "Vous le sentez : ces opportunités manquées s'accumulent. Sur 12 mois, ça pèse lourd.",
+      headline: 'Vous sentez les opportunités manquées',
+      message: "Vous l'avez dit au quiz : il y en a eu \"quelques unes\". Le RDV sert à les chiffrer précisément pour savoir si un système est rentable pour vous.",
       intensity: 'medium',
     }
   }
   if (cost === 'thousands') {
     return {
-      amount: '3 à 8k€',
-      yearly: '36 à 96k€',
-      message: 'Plusieurs milliers chaque mois. Sur l\'année, c\'est une voiture, un salaire, un changement de vie.',
+      headline: 'Vous estimez perdre plusieurs milliers d\'€ par mois',
+      message: "C'est votre propre estimation au quiz. Sur 12 mois, ça représente l'équivalent d'un salaire annuel. Empire est conçu exactement pour récupérer ça.",
       intensity: 'high',
     }
   }
   if (cost === 'ten_plus') {
     return {
-      amount: '10k+',
-      yearly: '120k€+',
-      message: "10k+ par mois, c'est plus de 120k€ par an qui n'arrivent jamais sur votre compte. C'est exactement ce qu'on règle en 90 jours.",
+      headline: 'Vous estimez perdre 10k+/mois',
+      message: "10k+/mois selon votre réponse, soit 120k+/an en clients que vous ne capturez pas. C'est la situation typique qu'on règle avec Empire.",
       intensity: 'critical',
     }
   }
   if (cost === 'biggest') {
     return {
-      amount: 'Votre #1',
-      yearly: 'Inestimable',
-      message: "Vous l'avez dit : c'est votre plus grosse perte business. Continuer 6 mois de plus comme ça = manquer ce que vous pourriez accomplir en 90 jours.",
+      headline: "C'est votre plus grosse perte business actuelle",
+      message: "Vos mots, pas les nôtres. Continuer 6 mois de plus dans cette config = passer à côté de ce qu'on peut débloquer ensemble en 90 jours.",
       intensity: 'critical',
     }
   }
@@ -415,7 +406,7 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
             {profile.description}
           </p>
 
-          {/* ── MANQUE À GAGNER ESTIMÉ ── */}
+          {/* ── CE QUE VOUS NOUS AVEZ DIT (basé sur leur propre réponse) ── */}
           {inaction && (
             <motion.div
               initial={{ opacity: 0 }}
@@ -432,16 +423,13 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
               <p className={`text-[10px] uppercase tracking-[0.18em] font-bold mb-1 ${
                 inaction.intensity === 'critical' ? 'text-red-300' : 'text-amber-300'
               }`}>
-                Manque à gagner estimé
+                Ce que vous nous avez dit au quiz
               </p>
-              <p className="text-sm text-neutral-200 leading-snug">
-                Sans un système qui transforme vos posts en clients, vous laissez environ{' '}
-                <span className={`font-bold ${inaction.intensity === 'critical' ? 'text-red-300' : 'text-amber-300'}`}>
-                  {inaction.amount}/mois
-                </span>{' '}
-                sur la table — soit{' '}
-                <span className="text-white font-semibold">{inaction.yearly}/an</span>{' '}
-                en clients potentiels qui ne vous trouvent pas.
+              <p className={`text-sm font-bold mb-1 ${inaction.intensity === 'critical' ? 'text-red-300' : 'text-amber-300'}`}>
+                {inaction.headline}
+              </p>
+              <p className="text-xs sm:text-sm text-neutral-300 leading-snug">
+                {inaction.message}
               </p>
             </motion.div>
           )}
