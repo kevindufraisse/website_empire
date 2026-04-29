@@ -86,6 +86,21 @@ export default function Header() {
   // Hide entirely on candidature page - after all hooks
   if (isCandidaturePage) return null
 
+  // Minimal header (logo only) on thank-you page
+  if (pathname === '/academy/merci') {
+    return (
+      <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/20 bg-black/95 backdrop-blur-md">
+        <nav className="max-w-7xl mx-auto px-4 py-3.5">
+          <a href="/" className="flex items-center gap-2 group shrink-0">
+            <span className="text-lg md:text-xl font-bold text-white group-hover:text-empire transition-colors">
+              Empire
+            </span>
+          </a>
+        </nav>
+      </header>
+    )
+  }
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/20 bg-black/95 backdrop-blur-md">
       <nav className="max-w-7xl mx-auto px-4 py-3.5">
