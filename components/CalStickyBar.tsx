@@ -96,7 +96,7 @@ export default function CalStickyBar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [isPartnersPage])
 
-  if (isPartnersPage || isAcademyPage || isCandidaturePage) return null
+  if (isPartnersPage || isAcademyPage || isCandidaturePage || pathname === '/academy/merci') return null
 
   return (
     <div 

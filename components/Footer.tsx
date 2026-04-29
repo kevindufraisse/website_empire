@@ -33,7 +33,7 @@ export default function Footer() {
     })()
   }, [namespace])
 
-  if (isCandidaturePage) return null
+  if (isCandidaturePage || pathname === '/academy/merci') return null
 
   return (
     <footer className="relative w-full border-t border-white/10 bg-black pb-[env(safe-area-inset-bottom)]">
