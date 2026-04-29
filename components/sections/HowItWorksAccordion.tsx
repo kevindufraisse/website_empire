@@ -356,7 +356,7 @@ export default function HowItWorksAccordion() {
                   </div>
                   <p className="text-[11px] text-neutral-500">Réseau de 100 experts disponibles</p>
                 </div>
-                <div className="relative z-10 p-5 pt-3 mt-auto bg-gradient-to-t from-black via-black/90 to-transparent">
+                <div className="relative z-10 p-5 pt-3 mt-auto h-[140px] bg-gradient-to-t from-black via-black/90 to-transparent">
                   <div className="flex items-center gap-2 mb-1">
                     <span className={`w-6 h-6 rounded-md flex items-center justify-center text-black font-bold text-sm ${autopilot ? 'bg-autopilot' : 'bg-empire'}`}>1</span>
                     <h3 className="text-base font-semibold text-white">
@@ -407,7 +407,7 @@ export default function HowItWorksAccordion() {
                       </p>
                     </div>
                   </div>
-                  <div className="relative z-10 p-5 pt-3 mt-auto bg-gradient-to-t from-black via-black/90 to-transparent">
+                  <div className="relative z-10 p-5 pt-3 mt-auto h-[140px] bg-gradient-to-t from-black via-black/90 to-transparent">
                     <div className="flex items-center gap-2 mb-1">
                       <span className="w-6 h-6 rounded-md bg-autopilot flex items-center justify-center text-black font-bold text-sm">2</span>
                       <h3 className="text-base font-semibold text-white">
@@ -430,7 +430,7 @@ export default function HowItWorksAccordion() {
                       {lang === 'fr' ? 'Enregistrement...' : 'Recording...'}
                     </p>
                   </div>
-                  <div className="relative z-10 p-5 pt-3 mt-auto bg-gradient-to-t from-black via-black/90 to-transparent">
+                  <div className="relative z-10 p-5 pt-3 mt-auto h-[140px] bg-gradient-to-t from-black via-black/90 to-transparent">
                     <div className="flex items-center gap-2 mb-1">
                       <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">2</span>
                       <h3 className="text-base font-semibold text-white">
@@ -463,7 +463,7 @@ export default function HowItWorksAccordion() {
                     <AnimatedList items={notifications} delay={1200} className="w-full" />
                   </div>
                 </div>
-                <div className="relative z-10 p-5 pt-3 mt-auto bg-gradient-to-t from-black via-black/90 to-transparent">
+                <div className="relative z-10 p-5 pt-3 mt-auto h-[140px] bg-gradient-to-t from-black via-black/90 to-transparent">
                   <div className="flex items-center gap-2 mb-1">
                     <span className={`w-6 h-6 rounded-md flex items-center justify-center text-black font-bold text-sm ${autopilot ? 'bg-autopilot' : 'bg-empire'}`}>3</span>
                     <h3 className="text-base font-semibold text-white">
@@ -514,7 +514,7 @@ export default function HowItWorksAccordion() {
                       : (lang === 'fr' ? '1 clic pour publier' : '1 click to publish')}
                   </p>
                 </div>
-                <div className="relative z-10 p-5 pt-3 mt-auto bg-gradient-to-t from-black via-black/90 to-transparent">
+                <div className="relative z-10 p-5 pt-3 mt-auto h-[140px] bg-gradient-to-t from-black via-black/90 to-transparent">
                   <div className="flex items-center gap-2 mb-1">
                     <span className={`w-6 h-6 rounded-md flex items-center justify-center text-black font-bold text-sm ${autopilot ? 'bg-autopilot' : 'bg-empire'}`}>4</span>
                     <h3 className="text-base font-semibold text-white">
