@@ -84,11 +84,12 @@ export default function CalStickyBar() {
     const handleScroll = () => {
       const scrollY = window.scrollY
       const heroHeight = window.innerHeight * 0.5
+      const nearBottom = scrollY + window.innerHeight > document.body.scrollHeight - 400
       
-      if (scrollY > heroHeight) {
-        setIsVisible(true)
-      } else if (scrollY < 100) {
+      if (nearBottom || scrollY < 100) {
         setIsVisible(false)
+      } else if (scrollY > heroHeight) {
+        setIsVisible(true)
       }
     }
 
