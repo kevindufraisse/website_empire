@@ -550,28 +550,32 @@ export default function EmpireQuiz({ hookOverride, onCompleted, onDismiss }: Pro
                 transition={{ delay: 0.15, duration: 0.5 }}
                 className="relative mx-auto mb-6 max-w-sm rounded-2xl p-5 bg-gradient-to-br from-white/[0.05] to-white/[0.02] border border-white/10 overflow-hidden"
               >
-                <div className="flex items-center justify-between gap-4">
-                  <div className="text-left min-w-0">
-                    <p className="text-[10px] uppercase tracking-[0.2em] text-neutral-500 font-bold mb-1">
-                      Votre archétype
-                    </p>
-                    <p className="text-white font-black text-lg leading-tight truncate">
-                      {ARCHETYPES[state.preview.archetype].emoji}{' '}
-                      <span className="select-none">
-                        {ARCHETYPES[state.preview.archetype].name}
-                      </span>
-                    </p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-[10px] uppercase tracking-[0.2em] text-neutral-500 font-bold mb-1">
-                      Score
-                    </p>
-                    <p className="text-empire font-black text-2xl tabular-nums">
-                      {state.preview.score}
-                      <span className="text-sm text-neutral-500 font-normal"> / 100</span>
-                    </p>
-                  </div>
-                </div>
+                {(() => {
+                  const sharePct: Record<string, number> = { storyteller: 32, educator: 30, builder: 22, provocateur: 16 }
+                  return (
+                    <div className="flex items-center justify-between gap-4">
+                      <div className="text-left min-w-0">
+                        <p className="text-[10px] uppercase tracking-[0.2em] text-neutral-500 font-bold mb-1">
+                          Votre archétype
+                        </p>
+                        <p className="text-white font-black text-lg leading-tight truncate">
+                          {ARCHETYPES[state.preview.archetype].emoji}{' '}
+                          <span className="select-none">
+                            {ARCHETYPES[state.preview.archetype].name}
+                          </span>
+                        </p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-empire font-black text-2xl tabular-nums">
+                          {sharePct[state.preview.archetype]}%
+                        </p>
+                        <p className="text-[10px] text-neutral-500 font-medium">
+                          des créateurs Empire
+                        </p>
+                      </div>
+                    </div>
+                  )
+                })()}
 
                 {/* Locked plan preview */}
                 <div className="mt-4 pt-4 border-t border-white/10">
