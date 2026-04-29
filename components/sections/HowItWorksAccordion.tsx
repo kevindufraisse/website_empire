@@ -317,8 +317,8 @@ export default function HowItWorksAccordion() {
               ) : (
                 <h2 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
                   {lang === 'fr'
-                    ? <>On a passé 1 an à cloner les meilleurs marketers du monde.<br className="hidden sm:block" /> Un <span className="text-empire">système qui produit tout pour vous</span> en 15 min/semaine.</>
-                    : <>We spent 1 year cloning the world&apos;s best marketers.<br className="hidden sm:block" /> A <span className="text-empire">system that produces everything for you</span> in 15 min/week.</>}
+                    ? <>On a passé 1 an à cloner les meilleurs marketers du monde et les mettre dans un <span className="text-empire">système qui produit tout pour vous en 15 min/semaine.</span></>
+                    : <>We spent 1 year cloning the world&apos;s best marketers into a <span className="text-empire">system that produces everything for you in 15 min/week.</span></>}
                 </h2>
               )}
               <p className="text-base md:text-lg text-neutral-400 max-w-2xl mx-auto">
