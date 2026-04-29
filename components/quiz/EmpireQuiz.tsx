@@ -284,7 +284,7 @@ export default function EmpireQuiz({ hookOverride, onCompleted, onDismiss }: Pro
 
   if (state.stage === 'result' && state.result) {
     return (
-      <Shell onDismiss={onDismiss} progressPct={100} hideTopBar>
+      <Shell onDismiss={onDismiss} progressPct={100}>
         <div className="w-full max-w-3xl mx-auto py-6">
           <QuizResult
             result={state.result}

@@ -37,7 +37,7 @@ export default function HeroSection() {
   }, [namespace])
   return (
     <>
-      <section className="relative w-full pt-20 md:pt-28 pb-28 md:pb-40 overflow-hidden bg-gradient-to-b from-black via-transparent to-[#0f0f0f]">
+      <section className="relative w-full pt-20 md:pt-24 pb-20 md:pb-28 overflow-hidden bg-gradient-to-b from-black via-transparent to-[#0f0f0f]">
         <div className="container">
         <RetroGrid />
         <Meteors number={15} />
@@ -83,7 +83,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: 'easeOut' }}
-            className="mb-8 flex justify-center"
+            className="mb-5 flex justify-center"
           >
             <div className="flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
               <img
@@ -118,7 +118,7 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
               transition={{ duration: 0.35 }}
-              className="text-lg md:text-xl text-neutral-300 max-w-2xl mx-auto mt-8"
+              className="text-lg md:text-xl text-neutral-300 max-w-2xl mx-auto mt-5"
             >
               {heroSubtitle}
             </motion.p>
@@ -128,7 +128,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
-            className="mt-10 flex flex-col items-center justify-center gap-2"
+            className="mt-6 flex flex-col items-center justify-center gap-2"
           >
             <button
               data-cal-namespace={namespace}
