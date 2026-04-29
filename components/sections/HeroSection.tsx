@@ -127,29 +127,34 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.55, duration: 0.6 }}
-            className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4"
+            className="mt-8"
           >
-            {(lang === 'fr'
-              ? [
-                  { stat: '×10', label: 'Closing' },
-                  { stat: '×5', label: 'Leads' },
-                  { stat: '+30%', label: 'Pricing' },
-                  { stat: '+110%', label: 'CA' },
-                  { stat: '×3', label: 'Recommandations' },
-                ]
-              : [
-                  { stat: '×10', label: 'Closing' },
-                  { stat: '×5', label: 'Leads' },
-                  { stat: '+30%', label: 'Pricing' },
-                  { stat: '+110%', label: 'Revenue' },
-                  { stat: '×3', label: 'Referrals' },
-                ]
-            ).map((item) => (
-              <div key={item.label} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08]">
-                <span className="text-sm sm:text-base font-black text-empire">{item.stat}</span>
-                <span className="text-[11px] sm:text-xs text-neutral-400 font-medium">{item.label}</span>
-              </div>
-            ))}
+            <p className="text-[11px] text-neutral-500 text-center mb-2.5">
+              {lang === 'fr' ? 'En moyenne, nos créateurs constatent :' : 'On average, our creators see:'}
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+              {(lang === 'fr'
+                ? [
+                    { stat: '×10', label: 'Closing' },
+                    { stat: '×5', label: 'Leads' },
+                    { stat: '+30%', label: 'Pricing' },
+                    { stat: '+110%', label: 'CA' },
+                    { stat: '×3', label: 'Recommandations' },
+                  ]
+                : [
+                    { stat: '×10', label: 'Closing' },
+                    { stat: '×5', label: 'Leads' },
+                    { stat: '+30%', label: 'Pricing' },
+                    { stat: '+110%', label: 'Revenue' },
+                    { stat: '×3', label: 'Referrals' },
+                  ]
+              ).map((item) => (
+                <div key={item.label} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08]">
+                  <span className="text-sm sm:text-base font-bold text-white">{item.stat}</span>
+                  <span className="text-[11px] sm:text-xs text-neutral-500 font-medium">{item.label}</span>
+                </div>
+              ))}
+            </div>
           </motion.div>
 
           {/* Top Creators Section */}
