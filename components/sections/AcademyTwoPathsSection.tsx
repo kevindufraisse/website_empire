@@ -3,6 +3,7 @@ import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { User, Users, Check, ArrowRight } from 'lucide-react'
 import BorderBeam from '@/components/magicui/border-beam'
+import { useAcademyPricing } from '@/hooks/useAcademyPricing'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -46,6 +47,7 @@ const path2 = {
 }
 
 export default function AcademyTwoPathsSection() {
+  const pricing = useAcademyPricing()
   return (
     <section className="relative w-full py-20 md:py-28 bg-gradient-to-b from-[#0f0f0f] to-black overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,rgba(252, 165, 165,0.04),transparent)]" />
@@ -132,12 +134,12 @@ export default function AcademyTwoPathsSection() {
           <FadeInBlock delay={0.2}>
             <div className="mt-10 text-center">
               <a
-                href="https://join.empire-internet.com/academy"
+                href={pricing.link}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-8 py-4 bg-academy text-black font-bold text-lg rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(252, 165, 165,0.3)]"
               >
-                Rejoindre le bootcamp - 497€ <ArrowRight size={18} />
+                Rejoindre le bootcamp - {pricing.price}€ <ArrowRight size={18} />
               </a>
               <p className="text-xs text-neutral-400 mt-2">ou 3x 165€/semaine</p>
             </div>

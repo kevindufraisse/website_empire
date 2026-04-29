@@ -3,7 +3,8 @@ import { motion } from 'framer-motion'
 import RetroGrid from '@/components/magicui/retro-grid'
 import { Meteors } from '@/components/magicui/meteors'
 import { SparklesText } from '@/components/magicui/sparkles-text'
-import { COHORT_RANGE_SHORT } from '@/lib/cohort-config'
+import { COHORT_RANGE_SHORT, ACADEMY_TIERS_SUMMARY } from '@/lib/cohort-config'
+import { useAcademyPricing } from '@/hooks/useAcademyPricing'
 import MediaCredibilityStrip from '@/components/MediaCredibilityStrip'
 
 const founders = [
@@ -30,6 +31,7 @@ const founders = [
 ]
 
 export default function AcademyHeroSection() {
+  const pricing = useAcademyPricing()
   return (
     <section className="relative w-full py-24 md:py-36 overflow-hidden bg-gradient-to-b from-black via-transparent to-[#0f0f0f]">
       <RetroGrid />
@@ -166,13 +168,18 @@ export default function AcademyHeroSection() {
               className="flex flex-col items-center gap-1 mb-8"
             >
               <a
-                href="https://join.empire-internet.com/academy"
+                href={pricing.link}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-10 py-4 bg-academy text-black font-bold text-lg rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(252,165,165,0.35)] inline-block"
               >
-                Rejoindre - 497€ →
+                Rejoindre - {pricing.price}€ →
               </a>
+              {pricing.isUrgent && (
+                <p className="text-xs text-academy font-bold mt-1 animate-pulse">
+                  Le prix augmente dans {pricing.countdown}
+                </p>
+              )}
             </motion.div>
 
             {/* Price timeline */}
@@ -185,31 +192,26 @@ export default function AcademyHeroSection() {
               <div className="p-4 rounded-xl bg-white/[0.06] border border-academy/20">
                 <p className="text-xs text-academy font-bold mb-3 text-center">Le prix augmente par palier</p>
                 <div className="space-y-2">
-                  <div className="flex items-center justify-between text-xs">
-                    <div className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-academy" />
-                      <span className="text-white font-semibold">Early bird</span>
-                      <span className="text-neutral-500">5 - 9 mai</span>
-                      <span className="px-1.5 py-0.5 rounded bg-academy/20 text-academy font-bold text-[9px] tracking-wider">-400€</span>
-                    </div>
-                    <span className="text-academy font-bold">497€ <span className="font-normal text-neutral-500">ou 3x 165€</span></span>
-                  </div>
-                  <div className="flex items-center justify-between text-xs">
-                    <div className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-neutral-500" />
-                      <span className="text-neutral-300">Intermédiaire</span>
-                      <span className="text-neutral-500">10 - 15 mai</span>
-                    </div>
-                    <span className="text-neutral-400">697€ <span className="text-neutral-500">ou 3x 232€</span></span>
-                  </div>
-                  <div className="flex items-center justify-between text-xs">
-                    <div className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-neutral-600" />
-                      <span className="text-neutral-400">Prix final</span>
-                      <span className="text-neutral-500">16 - 18 mai</span>
-                    </div>
-                    <span className="text-neutral-500">897€ <span className="text-neutral-600">ou 3x 299€</span></span>
-                  </div>
+                  {ACADEMY_TIERS_SUMMARY.map((t, i) => {
+                    const isCurrent = t.price === pricing.price
+                    const isPast = t.price < pricing.price
+                    return (
+                      <div key={i} className="flex items-center justify-between text-xs">
+                        <div className="flex items-center gap-2">
+                          <span className={`w-1.5 h-1.5 rounded-full ${isCurrent ? 'bg-academy' : isPast ? 'bg-neutral-600' : 'bg-neutral-500'}`} />
+                          <span className={isCurrent ? 'text-white font-semibold' : isPast ? 'text-neutral-500 line-through' : 'text-neutral-300'}>
+                            {t.label}
+                          </span>
+                          {isCurrent && (
+                            <span className="px-1.5 py-0.5 rounded bg-academy/20 text-academy font-bold text-[9px] tracking-wider">EN COURS</span>
+                          )}
+                        </div>
+                        <span className={isCurrent ? 'text-academy font-bold' : isPast ? 'text-neutral-600 line-through' : 'text-neutral-400'}>
+                          {t.price}€ <span className={`font-normal ${isCurrent ? 'text-neutral-500' : 'text-neutral-600'}`}>ou 3x {t.installment}€</span>
+                        </span>
+                      </div>
+                    )
+                  })}
                 </div>
                 <div className="mt-3 pt-3 border-t border-white/10 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[10px] text-neutral-500">
                   <span>✓ Pas besoin de projet</span>

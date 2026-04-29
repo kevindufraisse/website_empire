@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
 import { X } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { useAcademyPricing } from '@/hooks/useAcademyPricing'
 
 type Step = 'choice' | 'community'
 
@@ -10,6 +11,7 @@ export function ExitIntentPopup() {
   const [show, setShow] = useState(false)
   const [dismissed, setDismissed] = useState(false)
   const [step, setStep] = useState<Step>('choice')
+  const pricing = useAcademyPricing()
   const { lang } = useLanguage()
   const scriptContainerRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
@@ -83,7 +85,7 @@ export function ExitIntentPopup() {
               <span className="text-xs font-bold text-academy tracking-widest uppercase">Offre de lancement</span>
             </div>
             <h3 className="text-2xl sm:text-3xl font-black text-white mb-2">
-              497€ au lieu de 897€
+              {pricing.price}€ au lieu de 897€
             </h3>
             <p className="text-neutral-400 text-sm mb-4">
               21 posts LinkedIn + 21 Shorts créés pour toi.{' '}
@@ -92,25 +94,27 @@ export function ExitIntentPopup() {
             <div className="flex flex-col gap-1.5 text-left mb-5">
               <div className="flex items-center gap-2 text-xs text-neutral-300">
                 <span className="text-academy">✓</span>
-                <span>Paiement en 3x possible (165€/semaine)</span>
+                <span>Paiement en 3x possible ({pricing.installment}€/semaine)</span>
               </div>
               <div className="flex items-center gap-2 text-xs text-neutral-300">
                 <span className="text-academy">✓</span>
                 <span>Pas besoin de projet - on t&apos;en trouve un</span>
               </div>
-              <div className="flex items-center gap-2 text-xs text-neutral-300">
-                <span className="text-academy">✓</span>
-                <span>497€ jusqu&apos;au 9 mai, puis 697€, puis 897€</span>
-              </div>
+              {pricing.isUrgent && (
+                <div className="flex items-center gap-2 text-xs text-academy font-semibold">
+                  <span>⏳</span>
+                  <span>Le prix augmente dans {pricing.countdown}</span>
+                </div>
+              )}
             </div>
             <a
-              href="https://join.empire-internet.com/academy"
+              href={pricing.link}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setDismissed(true)}
               className="block w-full py-4 rounded-xl bg-academy text-black font-bold text-base hover:scale-105 transition-all shadow-[0_0_20px_rgba(252,165,165,0.35)] mb-3"
             >
-              Confirmer ma place - 497€
+              Confirmer ma place - {pricing.price}€
             </a>
             <button
               onClick={() => setDismissed(true)}

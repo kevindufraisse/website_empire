@@ -3,6 +3,7 @@ import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { Check, Shield } from 'lucide-react'
 import BorderBeam from '@/components/magicui/border-beam'
+import { useAcademyPricing } from '@/hooks/useAcademyPricing'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -52,9 +53,8 @@ const comparison = [
   },
 ]
 
-const CHECKOUT_URL = 'https://join.empire-internet.com/academy'
-
 export default function AcademyPricingSection() {
+  const pricing = useAcademyPricing()
   return (
     <section id="pricing" className="relative w-full py-20 md:py-28 bg-gradient-to-b from-[#0f0f0f] via-black to-[#0f0f0f] overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_30%,rgba(252,165,165,0.08),transparent)]" />
@@ -130,13 +130,18 @@ export default function AcademyPricingSection() {
 
                   {/* CTA */}
                   <a
-                    href={CHECKOUT_URL}
+                    href={pricing.link}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="block w-full text-center px-8 py-4 bg-academy text-black font-bold text-lg rounded-xl hover:scale-[1.02] transition-all shadow-[0_0_40px_rgba(252,165,165,0.35)] hover:shadow-[0_0_60px_rgba(252,165,165,0.5)]"
                   >
-                    Confirmer ma place - 497€
+                    Confirmer ma place - {pricing.price}€
                   </a>
+                  {pricing.isUrgent && (
+                    <p className="text-center text-xs text-academy font-bold mt-2 animate-pulse">
+                      Le prix augmente dans {pricing.countdown}
+                    </p>
+                  )}
 
                   {/* Trust badges */}
                   <div className="mt-4 flex items-center justify-center gap-3 text-xs text-neutral-500">

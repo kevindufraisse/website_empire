@@ -3,6 +3,7 @@ import { motion, useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
 import { ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useAcademyPricing } from '@/hooks/useAcademyPricing'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -55,6 +56,7 @@ const faqs = [
 ]
 
 export default function AcademyFAQSection() {
+  const pricing = useAcademyPricing()
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   return (
@@ -126,12 +128,12 @@ export default function AcademyFAQSection() {
           <FadeInBlock delay={0.3}>
             <div className="mt-14 text-center">
               <a
-                href="https://join.empire-internet.com/academy"
+                href={pricing.link}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-8 py-4 bg-academy text-black font-bold text-lg rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(252, 165, 165,0.3)]"
               >
-                Confirmer ma place - 497€
+                Confirmer ma place - {pricing.price}€
               </a>
               <p className="text-xs text-neutral-400 mt-2">ou 3x 165€/semaine</p>
             </div>

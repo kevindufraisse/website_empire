@@ -2,6 +2,7 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { COHORT_START_TEXT } from '@/lib/cohort-config'
+import { useAcademyPricing } from '@/hooks/useAcademyPricing'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -24,6 +25,7 @@ const founders = [
 ]
 
 export default function AcademyWhoSection() {
+  const pricing = useAcademyPricing()
   return (
     <section className="container py-20 md:py-28">
       <div className="max-w-4xl mx-auto">
@@ -111,12 +113,12 @@ export default function AcademyWhoSection() {
               </div>
 
               <a
-                href="https://join.empire-internet.com/academy"
+                href={pricing.link}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-8 py-3.5 bg-academy text-black font-bold text-base rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(252,165,165,0.25)]"
               >
-                Rejoindre - 497€
+                Rejoindre - {pricing.price}€
                 <span aria-hidden="true">→</span>
               </a>
             </div>
