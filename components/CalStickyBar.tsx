@@ -119,10 +119,10 @@ export default function CalStickyBar() {
             </div>
             <div>
               <p className="text-white font-semibold text-sm">
-                {lang === 'fr' ? 'Prêt à transformer votre contenu ?' : 'Ready to transform your content?'}
+                {lang === 'fr' ? '300 000 vues garanties' : '300K views guaranteed'}
               </p>
               <p className="text-neutral-400 text-xs">
-                {lang === 'fr' ? 'Publiez tous les jours · Demandez votre devis' : 'Publish every day · Request your quote'}
+                {lang === 'fr' ? '45 min · Sans engagement' : '45 min · No commitment'}
               </p>
             </div>
           </div>
@@ -131,7 +131,7 @@ export default function CalStickyBar() {
           <div className="sm:hidden flex items-center gap-2">
             <Calendar className={`${accent.text} flex-shrink-0`} size={18} />
             <p className="text-white font-medium text-sm">
-              {lang === 'fr' ? 'Publiez tous les jours' : 'Publish every day'}
+              {lang === 'fr' ? '300 000 vues garanties' : '300K views guaranteed'}
             </p>
           </div>
 
@@ -146,19 +146,13 @@ export default function CalStickyBar() {
             </button>
             <button
               type="button"
-              title={t.common.ctaReassurance}
               data-cal-namespace={namespace}
               data-cal-link={calLink}
               data-cal-config='{"layout":"month_view","theme":"dark"}'
-              className={`flex flex-col items-center sm:items-end gap-0.5 px-4 py-2 sm:px-6 sm:py-2.5 ${accent.btnBg} text-black font-bold rounded-lg hover:scale-105 transition-all ${accent.btnShadow} text-sm sm:text-base group min-w-0`}
+              className={`flex items-center gap-2 px-4 py-2.5 sm:px-6 sm:py-2.5 ${accent.btnBg} text-black font-bold rounded-lg hover:scale-105 transition-all ${accent.btnShadow} text-sm sm:text-base group whitespace-nowrap`}
             >
-              <span className="flex items-center justify-center sm:justify-end gap-2 whitespace-nowrap">
-                {t.common.startNow}
-                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform flex-shrink-0" />
-              </span>
-              <span className="text-[9px] font-medium text-black/75 text-center sm:text-right leading-tight max-w-[9.5rem] sm:max-w-[11rem]">
-                {lang === 'fr' ? 'Audit gratuit' : 'Free audit'}
-              </span>
+              {t.common.startNow}
+              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
         </div>
