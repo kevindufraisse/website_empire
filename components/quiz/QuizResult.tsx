@@ -4,7 +4,7 @@ import { motion, useMotionValue, useTransform, animate } from 'framer-motion'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import confetti from 'canvas-confetti'
-import { Check, Mail, Sparkles, ArrowRight, RotateCcw, Clock, Shield, Calendar, Users, UserPlus, Send } from 'lucide-react'
+import { Check, Mail, Sparkles, ArrowRight, RotateCcw, Clock, Shield, Calendar, Users, Send } from 'lucide-react'
 import {
   ARCHETYPES,
   iconAvatarUrl,
@@ -227,27 +227,6 @@ const OFFER_COLORS: Record<RecommendedOffer, { accent: string; glow: string; bg:
   nurture:   { accent: '#fca5a5', glow: 'shadow-[0_0_28px_rgba(252,165,165,0.45)]', bg: 'from-[#fca5a5]/15 via-[#fca5a5]/5 to-transparent', border: 'border-[#fca5a5]/40', text: 'text-[#fca5a5]' },
 }
 
-function downloadVCard() {
-  const vcard = [
-    'BEGIN:VCARD',
-    'VERSION:3.0',
-    'FN:Kevin Dufraisse',
-    'N:Dufraisse;Kevin;;;',
-    'ORG:Empire Internet',
-    'EMAIL;TYPE=INTERNET:kevin@empire-internet.com',
-    'URL:https://empire-internet.com',
-    'NOTE:Empire Internet - The Content Machine',
-    'END:VCARD',
-  ].join('\r\n')
-  const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' })
-  const url = URL.createObjectURL(blob)
-  const a = document.createElement('a')
-  a.href = url
-  a.download = 'Kevin-Dufraisse-Empire.vcf'
-  a.click()
-  URL.revokeObjectURL(url)
-}
-
 export default function QuizResult({ result, email, firstName, answers, onRestart }: Props) {
   const profile = ARCHETYPES[result.archetype]
   const offer = OFFERS[result.recommendedOffer]
@@ -409,25 +388,32 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
                 On vous envoie vos 10 sujets à poster + votre plan 30 jours personnalisé pour l&apos;archétype <span className="text-empire font-semibold">{profile.name.replace('Le ', '').replace("L'", '')}</span>.
               </p>
 
-              {/* Warming buttons - inside the email block for visibility */}
+              {/* Email warming - send 'OK' to Kevin to avoid spam */}
               <div className="pt-4 border-t border-white/10">
-                <p className="text-xs font-bold text-empire mb-2.5">
-                  Pour être sûr de le recevoir :
+                <p className="text-xs font-bold text-empire mb-1">
+                  Pour être sûr de recevoir vos emails :
+                </p>
+                <p className="text-[11px] text-neutral-400 mb-2.5">
+                  Envoyez-moi un &quot;OK&quot; — ça empêche les futurs emails de tomber en spam.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-2">
-                  <button
-                    onClick={downloadVCard}
-                    className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-white/[0.06] border border-white/10 text-xs font-semibold text-white hover:bg-white/[0.1] hover:border-empire/30 transition-all"
-                  >
-                    <UserPlus size={14} className="text-empire" />
-                    Ajouter Kevin aux contacts
-                  </button>
                   <a
-                    href="mailto:kevin@empire-internet.com?subject=OK%20Kevin&body=OK"
+                    href="https://mail.google.com/mail/?view=cm&fs=1&to=kevin@empire-internet.com&su=OK%20Kevin&body=OK"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-white/[0.06] border border-white/10 text-xs font-semibold text-white hover:bg-white/[0.1] hover:border-empire/30 transition-all"
                   >
                     <Send size={14} className="text-empire" />
-                    Envoyer &quot;OK&quot; à Kevin
+                    Envoyer via Gmail
+                  </a>
+                  <a
+                    href="https://outlook.office.com/mail/deeplink/compose?to=kevin@empire-internet.com&subject=OK%20Kevin&body=OK"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-white/[0.06] border border-white/10 text-xs font-semibold text-white hover:bg-white/[0.1] hover:border-empire/30 transition-all"
+                  >
+                    <Send size={14} className="text-empire" />
+                    Envoyer via Outlook
                   </a>
                 </div>
               </div>
