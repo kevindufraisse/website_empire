@@ -110,22 +110,61 @@ export interface SystemeTag {
 /**
  * Create a contact, or return the existing one if the email already exists.
  * Systeme.io returns 409 on duplicates — we resolve it via a list lookup.
+ *
+ * IMPORTANT: Systeme.io expects firstName/lastName/phone inside the `fields`
+ * array with their reserved slugs (`first_name`, `surname`, `phone_number`),
+ * NOT as top-level keys. We translate here so callers can pass them naturally.
  */
 export async function createOrUpdateContact(
   payload: SystemeContactPayload,
 ): Promise<SystemeContact> {
+  const apiFields: Array<{ slug: string; value: string }> = []
+  if (payload.firstName) apiFields.push({ slug: 'first_name', value: payload.firstName })
+  if (payload.lastName) apiFields.push({ slug: 'surname', value: payload.lastName })
+  if (payload.phoneNumber) apiFields.push({ slug: 'phone_number', value: payload.phoneNumber })
+  if (payload.fields) apiFields.push(...payload.fields)
+
+  const apiPayload: Record<string, unknown> = {
+    email: payload.email,
+  }
+  if (payload.locale) apiPayload.locale = payload.locale
+  if (apiFields.length) apiPayload.fields = apiFields
+
   try {
     return await request<SystemeContact>('/contacts', {
       method: 'POST',
-      body: JSON.stringify(payload),
+      body: JSON.stringify(apiPayload),
     })
   } catch (err) {
     if (err instanceof ConflictError) {
       const existing = await findContactByEmail(payload.email)
-      if (existing) return existing
+      if (existing) {
+        // Contact already exists — push the firstName/fields onto it via PATCH
+        // so we don't lose data on subsequent submissions.
+        if (apiFields.length) {
+          try {
+            await updateContactFields(existing.id, apiFields)
+          } catch (patchErr) {
+            console.error('[systemeio] update existing contact fields failed', patchErr)
+          }
+        }
+        return existing
+      }
     }
     throw err
   }
+}
+
+/** Update the custom fields of an existing contact (PATCH /contacts/:id). */
+export async function updateContactFields(
+  contactId: number,
+  fields: Array<{ slug: string; value: string }>,
+): Promise<void> {
+  await request<void>(`/contacts/${contactId}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/merge-patch+json' },
+    body: JSON.stringify({ fields }),
+  })
 }
 
 export async function findContactByEmail(email: string): Promise<SystemeContact | null> {
