@@ -342,15 +342,19 @@ export default function HowItWorksAccordion() {
                   ? 'bg-gradient-to-br from-autopilot/10 to-white/[0.02] border border-autopilot/30 hover:border-autopilot/60'
                   : 'bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30'
               }`}>
-                <div className="flex-1 flex items-center justify-center p-5">
+                <div className="flex-1 flex flex-col items-center justify-center p-5 gap-3">
                   <div className="flex -space-x-3">
-                    <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-empire/40 relative z-10">
+                    <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-empire/40 relative z-20">
                       <img src="/founders/kevin.jpg" alt="Kevin" className="w-full h-full object-cover" />
                     </div>
-                    <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-empire/40">
+                    <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-empire/40 relative z-10">
                       <img src="/founders/marc.jpg" alt="Marc" className="w-full h-full object-cover" />
                     </div>
+                    <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-black bg-empire/20 flex items-center justify-center relative z-0">
+                      <span className="text-empire font-bold text-sm">+98</span>
+                    </div>
                   </div>
+                  <p className="text-[11px] text-neutral-500">Réseau de 100 experts disponibles</p>
                 </div>
                 <div className="relative z-10 p-5 pt-3 bg-gradient-to-t from-black via-black/90 to-transparent">
                   <div className="flex items-center gap-2 mb-1">
