@@ -415,47 +415,28 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
             {profile.description}
           </p>
 
-          {/* ── COÛT D'INACTION (le moteur de conversion RDV) ── */}
+          {/* ── COÛT D'INACTION (compact) ── */}
           {inaction && (
             <motion.div
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.6, duration: 0.5 }}
-              className={`relative mb-8 rounded-2xl p-5 sm:p-6 border overflow-hidden ${
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.6, duration: 0.4 }}
+              className={`mb-6 rounded-xl px-4 py-3 border flex items-center gap-3 ${
                 inaction.intensity === 'critical'
-                  ? 'bg-gradient-to-br from-red-500/15 to-orange-500/5 border-red-500/40'
+                  ? 'bg-red-500/10 border-red-500/30'
                   : inaction.intensity === 'high'
-                    ? 'bg-gradient-to-br from-orange-500/15 to-amber-500/5 border-orange-500/40'
-                    : 'bg-gradient-to-br from-amber-500/10 to-transparent border-amber-500/30'
+                    ? 'bg-orange-500/10 border-orange-500/30'
+                    : 'bg-amber-500/8 border-amber-500/25'
               }`}
             >
-              <div className="absolute -top-12 -right-12 w-40 h-40 rounded-full opacity-20 blur-3xl bg-red-500" />
-              <div className="relative">
-                <div className="flex items-center gap-2 mb-3">
-                  <span className={`text-xl ${inaction.intensity === 'critical' ? 'text-red-400' : 'text-amber-400'}`}>
-                    🚨
-                  </span>
-                  <p className={`text-[10px] uppercase tracking-[0.2em] font-black ${
-                    inaction.intensity === 'critical' ? 'text-red-300' : 'text-amber-300'
-                  }`}>
-                    Le coût de votre inaction
-                  </p>
-                </div>
-                <div className="flex items-baseline gap-3 mb-3">
-                  <span className={`text-3xl sm:text-4xl font-black ${
-                    inaction.intensity === 'critical' ? 'text-red-300' : 'text-amber-300'
-                  }`}>
-                    {inaction.amount}
-                  </span>
-                  <span className="text-neutral-400 text-sm">/mois perdus</span>
-                </div>
-                <p className="text-white text-sm sm:text-[15px] font-semibold mb-2">
-                  {inaction.message}
-                </p>
-                <p className="text-neutral-400 text-xs sm:text-sm">
-                  Sur 12 mois, c&apos;est <span className="text-white font-bold">{inaction.yearly}</span> qui n&apos;arrivent jamais sur votre compte.
-                </p>
-              </div>
+              <span className={`text-lg font-black whitespace-nowrap ${
+                inaction.intensity === 'critical' ? 'text-red-300' : 'text-amber-300'
+              }`}>
+                {inaction.amount}/mois
+              </span>
+              <p className="text-xs sm:text-sm text-neutral-300 leading-snug">
+                perdus sans système · <span className="text-white font-semibold">{inaction.yearly}/an</span>
+              </p>
             </motion.div>
           )}
 
