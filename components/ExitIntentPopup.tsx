@@ -27,6 +27,8 @@ export function ExitIntentPopup() {
 
     const handleMouseLeave = (e: MouseEvent) => {
       if (e.clientY <= 0 && !dismissed) {
+        // Don't trigger if the quiz fullscreen popup is open
+        if (document.getElementById('quiz-popup-overlay')) return
         setShow(true)
         sessionStorage.setItem('exitPopupShown', 'true')
       }
