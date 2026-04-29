@@ -476,8 +476,8 @@ export default function HowItWorksAccordion() {
                     {autopilot
                       ? t.autopilot.howItWorks.b3.desc
                       : (lang === 'fr'
-                          ? 'On crée vos contenus du mois avec les meilleures techniques de viralité.'
-                          : 'We create your monthly content using the best virality techniques.')}
+                          ? '24h plus tard, vos contenus du mois sont prêts.'
+                          : '24h later, your monthly content is ready.')}
                   </p>
                 </div>
               </div>
