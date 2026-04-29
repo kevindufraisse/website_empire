@@ -42,8 +42,6 @@ export default function Header() {
   const hideCTA = pathname === '/partners' || isCandidaturePage
   // Show partner CTA on partners page
   const isPartnersPage = pathname === '/partners'
-  // Show academy-specific CTA
-  const isAcademyPage = pathname === '/academy'
   // Tier nav shown on main landing and academy page (unified tier navigation)
   const showTierNav = pathname === '/' || pathname === '/academy'
 
@@ -136,17 +134,6 @@ export default function Header() {
                 {lang === 'fr' ? 'Obtenir mon lien' : 'Get my sharable link'}
               </button>
             )}
-            {isAcademyPage && (
-              <a
-                href="https://join.empire-internet.com/academy"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-academy text-black font-semibold text-sm hover:scale-105 transition-all shadow-[0_0_20px_rgba(252,165,165,0.2)]"
-              >
-                Rejoindre - 497€
-              </a>
-            )}
-
             <LanguageSwitcher />
 
             {/* Mobile Menu Button */}
@@ -203,20 +190,6 @@ export default function Header() {
                 >
                   {lang === 'fr' ? 'Obtenir mon lien' : 'Get my sharable link'}
                 </motion.button>
-              )}
-              {isAcademyPage && (
-                <motion.a
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 }}
-                  href="https://join.empire-internet.com/academy"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="w-full py-3.5 rounded-lg bg-academy text-black font-bold text-center hover:scale-[1.02] transition-all shadow-[0_0_20px_rgba(252,165,165,0.2)] block"
-                >
-                  Rejoindre - 497€
-                </motion.a>
               )}
             </div>
           </motion.div>
