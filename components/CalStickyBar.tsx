@@ -139,10 +139,10 @@ export default function CalStickyBar() {
           <div className="flex items-center gap-2">
             <button
               onClick={() => setCallbackOpen(true)}
-              className={`flex items-center gap-1.5 px-3 py-2.5 sm:px-4 sm:py-3 bg-white/10 border border-white/20 text-white font-medium rounded-lg ${accent.btnBorderHover} transition-all text-sm whitespace-nowrap`}
+              className={`flex items-center gap-2 px-4 py-2.5 sm:px-6 sm:py-2.5 bg-white/10 border border-white/20 text-white font-bold rounded-lg ${accent.btnBorderHover} transition-all text-sm sm:text-base whitespace-nowrap`}
             >
-              <Phone size={14} />
-              <span className="hidden sm:inline">{lang === 'fr' ? 'On vous rappelle' : 'We call you'}</span>
+              <Phone size={16} />
+              <span>{lang === 'fr' ? 'On vous rappelle' : 'We call you'}</span>
             </button>
             <button
               type="button"
