@@ -124,26 +124,26 @@ const OFFERS: Record<RecommendedOffer, OfferCopy> = {
 
 // ─── Score ring (animated 0 → value) ──────────────────────────────────────────
 
-function ScoreRing({ value }: { value: number }) {
+/** Animated ring showing the share of Empire creators who match this archetype. */
+function ArchetypeShareBadge({ pct }: { pct: number }) {
   const radius = 38
   const stroke = 6
   const circ = 2 * Math.PI * radius
-  const offset = circ - (value / 100) * circ
+  const offset = circ - (pct / 100) * circ
 
-  // Animated number — counts from 0 to `value`.
   const count = useMotionValue(0)
   const display = useTransform(count, (v) => Math.round(v).toString())
 
   useEffect(() => {
-    const controls = animate(count, value, {
+    const controls = animate(count, pct, {
       duration: 1.6,
       ease: [0.22, 1, 0.36, 1],
     })
     return () => controls.stop()
-  }, [count, value])
+  }, [count, pct])
 
   return (
-    <div className="relative w-[100px] h-[100px]">
+    <div className="relative w-[100px] h-[100px] flex-shrink-0">
       <svg width="100" height="100" viewBox="0 0 100 100" className="-rotate-90">
         <circle
           cx="50" cy="50" r={radius}
@@ -160,10 +160,15 @@ function ScoreRing({ value }: { value: number }) {
         />
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <motion.span className="text-2xl font-black text-white tabular-nums">
-          {display}
-        </motion.span>
-        <span className="text-[9px] uppercase tracking-widest text-neutral-500">/ 100</span>
+        <div className="flex items-baseline">
+          <motion.span className="text-2xl font-black text-white tabular-nums">
+            {display}
+          </motion.span>
+          <span className="text-base font-black text-empire">%</span>
+        </div>
+        <span className="text-[8px] uppercase tracking-widest text-neutral-500 leading-none mt-0.5">
+          des créateurs
+        </span>
       </div>
     </div>
   )
@@ -286,14 +291,17 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
         <div className="relative">
           {/* ── HEADER ── */}
           {(() => {
-            const level = result.scoreBand === 'high'
-              ? { label: 'Avancé', desc: 'Vous avez déjà des fondations solides — il vous manque le système qui transforme tout en clients.' }
-              : result.scoreBand === 'medium'
-                ? { label: 'Intermédiaire', desc: 'Vous publiez de temps en temps mais sans système. Avec un cadre clair, vous pouvez décoller en quelques semaines.' }
-                : { label: 'Débutant', desc: 'Vous démarrez (ou vous avez essayé sans cadre). C\'est le bon moment pour bâtir des bases solides.' }
+            // Distribution observée parmi les ~700 entrepreneurs Empire testés.
+            const archetypeShare: Record<typeof result.archetype, number> = {
+              storyteller: 32,
+              educator: 30,
+              builder: 22,
+              provocateur: 16,
+            }
+            const sharePct = archetypeShare[result.archetype]
             return (
               <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8 mb-8">
-                <ScoreRing value={result.score} />
+                <ArchetypeShareBadge pct={sharePct} />
                 <div className="flex-1 text-center sm:text-left">
                   <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-3">
                     <Sparkles size={12} className="text-empire" />
@@ -307,13 +315,8 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
                   <p className="text-neutral-400 mt-1 text-sm sm:text-base italic">
                     {profile.tagline}
                   </p>
-                  <div className="mt-3 inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-empire/10 border border-empire/30">
-                    <span className="text-[10px] uppercase tracking-widest text-empire font-bold">
-                      Niveau {level.label}
-                    </span>
-                  </div>
-                  <p className="text-neutral-400 text-xs sm:text-sm mt-2 leading-snug">
-                    {level.desc}
+                  <p className="text-empire text-xs sm:text-sm font-bold mt-3">
+                    {sharePct}% des créateurs Empire ont votre profil
                   </p>
                 </div>
               </div>
