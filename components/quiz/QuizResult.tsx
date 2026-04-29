@@ -497,45 +497,46 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
             </div>
           )}
 
-          {/* ── 10 SUJETS à poster cette semaine ── */}
+          {/* ── EMAIL + WARMING (grouped) ── */}
           <div className="mb-8">
-            <p className="text-[11px] uppercase tracking-[0.2em] text-empire font-bold mb-3">
-              Votre stratégie complète arrive par email
-            </p>
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.5 }}
               className="rounded-2xl p-5 sm:p-6 bg-gradient-to-br from-empire/10 via-empire/5 to-transparent border border-empire/30"
             >
-              <div className="flex items-center gap-3 mb-4">
+              <div className="flex items-center gap-3 mb-3">
                 <Mail className="text-empire flex-shrink-0" size={22} />
                 <p className="text-white font-bold text-base sm:text-lg leading-tight">
                   Check votre boîte mail dans 20 minutes
                 </p>
               </div>
               <p className="text-neutral-300 text-sm mb-4 leading-relaxed">
-                On vous envoie le détail complet personnalisé pour votre archétype <span className="text-empire font-semibold">{profile.name.replace('Le ', '').replace("L'", '')}</span> :
+                On vous envoie vos 10 sujets à poster + votre plan 30 jours personnalisé pour l&apos;archétype <span className="text-empire font-semibold">{profile.name.replace('Le ', '').replace("L'", '')}</span>.
               </p>
-              <ul className="space-y-2">
-                {[
-                  'Vos 10 sujets exacts à poster cette semaine (templates copy-paste)',
-                  'Votre plan d\'action sur 30 jours (semaine par semaine)',
-                  'Les 3 erreurs que font 90% des ' + profile.name.replace('Le ', '').replace("L'", '').toLowerCase() + 's',
-                  'La méthode complète pour transformer votre archétype en machine à clients',
-                ].map((item, i) => (
-                  <motion.li
-                    key={item}
-                    initial={{ opacity: 0, x: -6 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.9 + i * 0.06 }}
-                    className="flex items-start gap-2.5 text-sm text-neutral-200"
+
+              {/* Warming buttons - inside the email block for visibility */}
+              <div className="pt-4 border-t border-white/10">
+                <p className="text-xs font-bold text-empire mb-2.5">
+                  Pour être sûr de le recevoir :
+                </p>
+                <div className="flex flex-col sm:flex-row gap-2">
+                  <button
+                    onClick={downloadVCard}
+                    className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-white/[0.06] border border-white/10 text-xs font-semibold text-white hover:bg-white/[0.1] hover:border-empire/30 transition-all"
                   >
-                    <Check size={14} className="text-empire mt-0.5 flex-shrink-0" />
-                    <span>{item}</span>
-                  </motion.li>
-                ))}
-              </ul>
+                    <UserPlus size={14} className="text-empire" />
+                    Ajouter Kevin aux contacts
+                  </button>
+                  <a
+                    href="mailto:kevin@empire-internet.com?subject=OK%20Kevin&body=OK"
+                    className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-white/[0.06] border border-white/10 text-xs font-semibold text-white hover:bg-white/[0.1] hover:border-empire/30 transition-all"
+                  >
+                    <Send size={14} className="text-empire" />
+                    Envoyer &quot;OK&quot; à Kevin
+                  </a>
+                </div>
+              </div>
             </motion.div>
           </div>
 
@@ -648,42 +649,11 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
           {/* ── SHARE ── */}
           <QuizShareButtons archetype={result.archetype} score={result.score} />
 
-          {/* ── EMAIL CONFIRMATION ── */}
-          <div className="flex items-start gap-3 mt-4 p-4 rounded-xl bg-white/[0.03] border border-white/10">
-            <Mail className="text-empire flex-shrink-0 mt-0.5" size={18} />
-            <div className="text-sm">
-              <p className="text-white font-semibold">
-                Votre plan détaillé est en route vers <span className="text-empire">{email}</span>
-              </p>
-              <p className="text-neutral-400 text-xs mt-1">
-                Vérifiez vos spams si vous ne le voyez pas dans 20 minutes.
-              </p>
-            </div>
-          </div>
-
-          {/* ── ADD TO CONTACTS (email warming) ── */}
-          <div className="mt-4 p-4 rounded-xl bg-gradient-to-br from-empire/5 to-transparent border border-empire/20">
-            <p className="text-xs font-bold text-empire uppercase tracking-widest mb-3">
-              Pour être sûr de recevoir votre plan
-            </p>
-            <div className="flex flex-col sm:flex-row gap-2.5">
-              <button
-                onClick={downloadVCard}
-                className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white/[0.06] border border-white/10 text-sm font-semibold text-white hover:bg-white/[0.1] hover:border-empire/30 transition-all"
-              >
-                <UserPlus size={15} className="text-empire" />
-                Ajouter Kevin aux contacts
-              </button>
-              <a
-                href="mailto:kevin@empire-internet.com?subject=OK%20Kevin&body=OK"
-                className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white/[0.06] border border-white/10 text-sm font-semibold text-white hover:bg-white/[0.1] hover:border-empire/30 transition-all"
-              >
-                <Send size={15} className="text-empire" />
-                Envoyer &quot;OK&quot; à Kevin
-              </a>
-            </div>
-            <p className="text-[11px] text-neutral-500 mt-2 text-center">
-              Ça garantit que nos emails arrivent dans votre boîte principale
+          {/* ── EMAIL CONFIRMATION (compact) ── */}
+          <div className="flex items-start gap-3 mt-4 p-3 rounded-xl bg-white/[0.03] border border-white/10">
+            <Mail className="text-empire flex-shrink-0 mt-0.5" size={16} />
+            <p className="text-xs text-neutral-400">
+              Envoyé à <span className="text-white font-semibold">{email}</span> · Vérifiez vos spams si rien dans 20 min.
             </p>
           </div>
 
