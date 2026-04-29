@@ -185,8 +185,8 @@ export default function WhyNowSection() {
             </span>
             <h2 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
               {fr
-                ? <>Tout ce qu&apos;Empire <span className="text-empire">crée pour vous</span> chaque mois</>
-                : <>Everything Empire <span className="text-empire">creates for you</span> every month</>}
+                ? <>Ce qu&apos;Empire <span className="text-empire">crée pour vous</span> chaque mois</>
+                : <>What Empire <span className="text-empire">creates for you</span> every month</>}
             </h2>
             <p className="text-neutral-400 text-lg max-w-2xl mx-auto">
               {autopilot
