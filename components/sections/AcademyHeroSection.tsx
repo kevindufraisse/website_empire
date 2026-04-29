@@ -158,12 +158,29 @@ export default function AcademyHeroSection() {
               </div>
             </motion.div>
 
-            {/* Price timeline - visible immediately */}
+            {/* CTA */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.5 }}
-              className="max-w-md mx-auto mb-8"
+              className="flex flex-col items-center gap-1 mb-8"
+            >
+              <a
+                href="https://join.empire-internet.com/academy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-10 py-4 bg-academy text-black font-bold text-lg rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(252,165,165,0.35)] inline-block"
+              >
+                Rejoindre - 497€ →
+              </a>
+            </motion.div>
+
+            {/* Price timeline */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.5 }}
+              className="max-w-md mx-auto mb-10"
             >
               <div className="p-4 rounded-xl bg-white/[0.06] border border-academy/20">
                 <p className="text-xs text-academy font-bold mb-3 text-center">Le prix augmente par palier</p>
@@ -200,23 +217,6 @@ export default function AcademyHeroSection() {
                   <span>✓ Inscription sous réserve</span>
                 </div>
               </div>
-            </motion.div>
-
-            {/* CTA */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.5 }}
-              className="flex flex-col items-center gap-1 mb-10"
-            >
-              <a
-                href="https://join.empire-internet.com/academy"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-10 py-4 bg-academy text-black font-bold text-lg rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(252,165,165,0.35)] inline-block"
-              >
-                Rejoindre - 497€ →
-              </a>
             </motion.div>
 
 
