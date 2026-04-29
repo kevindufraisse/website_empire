@@ -461,34 +461,34 @@ export default function EmpireQuiz({ hookOverride, onCompleted, onDismiss }: Pro
             <p className="text-[11px] uppercase tracking-[0.2em] text-empire font-bold mb-4 text-center">
               {currentQuestion.kicker}
             </p>
-            <h2 className="text-3xl sm:text-4xl md:text-[2.6rem] font-black text-white leading-[1.15] mb-3 text-center">
+            <h2 className="text-2xl sm:text-3xl font-black text-white leading-[1.15] mb-2 text-center">
               {currentQuestion.question}
             </h2>
             {currentQuestion.helper && (
-              <p className="text-sm sm:text-base text-neutral-400 mb-8 text-center max-w-md mx-auto">
+              <p className="text-sm text-neutral-400 mb-4 text-center max-w-md mx-auto">
                 {currentQuestion.helper}
               </p>
             )}
 
-            <div className="flex flex-col gap-2.5 mt-8">
+            <div className="flex flex-col gap-2 mt-4">
               {currentQuestion.options.map((opt, i) => {
                 const isSelected = state.answers[currentQuestion.id] === opt.id
                 return (
                   <motion.button
                     key={opt.id}
-                    initial={{ opacity: 0, y: 12 }}
+                    initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.06 * i, duration: 0.3 }}
+                    transition={{ delay: 0.04 * i, duration: 0.25 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => answer(currentQuestion.id, opt.id)}
-                    className={`group relative flex items-center gap-4 text-left px-5 py-4 sm:px-6 sm:py-5 rounded-2xl border-2 transition-colors ${
+                    className={`group relative flex items-center gap-3 text-left px-4 py-3 rounded-xl border-2 transition-colors ${
                       isSelected
                         ? 'bg-empire/15 border-empire text-white'
                         : 'bg-white/[0.03] border-white/10 text-neutral-200 hover:bg-white/[0.06] hover:border-white/30'
                     }`}
                   >
                     <span
-                      className={`flex-shrink-0 w-11 h-11 rounded-full flex items-center justify-center text-xl transition-all ${
+                      className={`flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center text-base transition-all ${
                         isSelected
                           ? 'bg-empire text-black'
                           : 'bg-white/[0.06] border border-white/10 group-hover:bg-white/[0.12]'
@@ -504,7 +504,7 @@ export default function EmpireQuiz({ hookOverride, onCompleted, onDismiss }: Pro
                         </span>
                       )}
                     </span>
-                    <span className="text-base sm:text-[17px] leading-snug font-medium">
+                    <span className="text-sm sm:text-base leading-snug font-medium">
                       {opt.label}
                     </span>
                   </motion.button>
