@@ -140,7 +140,6 @@ export function GiftCountdownProvider({ children }: { children: React.ReactNode 
   }, [isExcludedPage])
 
   useEffect(() => {
-    if (dismissed) return
     if (countdown <= 0 && linkedinCountdown <= 0) return
     const interval = setInterval(() => {
       if (countdown > 0) {
@@ -157,7 +156,7 @@ export function GiftCountdownProvider({ children }: { children: React.ReactNode 
       }
     }, 1000)
     return () => clearInterval(interval)
-  }, [dismissed, countdown, linkedinCountdown])
+  }, [countdown, linkedinCountdown])
 
   const handleDismiss = useCallback(() => {
     setDismissed(true)
@@ -177,7 +176,8 @@ export function GiftCountdownProvider({ children }: { children: React.ReactNode 
 export function GiftHeaderBadge() {
   const { countdown, isReady, dismissed, setShowModal } = useGiftState()
 
-  if (dismissed) return null
+  // Once countdown is done, always show the badge so users can claim resources
+  if (dismissed && !isReady) return null
 
   const secs = String(countdown % 60).padStart(2, '0')
   const mins = Math.floor(countdown / 60)
