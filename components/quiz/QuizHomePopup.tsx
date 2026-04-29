@@ -107,13 +107,13 @@ export default function QuizHomePopup() {
       >
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_0%,rgb(var(--empire-rgb)_/_0.10),transparent_70%)] pointer-events-none" />
         <div className="relative z-10 min-h-screen flex items-stretch">
-          <EmpireQuiz
-            onCompleted={() => {
-              writeCookie(COOKIE_KEY, '1', COOKIE_DAYS)
-              setOpen(false)
-            }}
-            onDismiss={dismiss}
-          />
+              <EmpireQuiz
+                onCompleted={() => {
+                  // Pose le cookie mais NE FERME PAS le popup - laisse le user voir son résultat
+                  writeCookie(COOKIE_KEY, '1', COOKIE_DAYS)
+                }}
+                onDismiss={dismiss}
+              />
         </div>
       </motion.div>
     </AnimatePresence>

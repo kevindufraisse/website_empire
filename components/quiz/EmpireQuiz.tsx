@@ -112,7 +112,15 @@ export default function EmpireQuiz({ hookOverride, onCompleted, onDismiss }: Pro
       const raw = localStorage.getItem(STORAGE_KEY)
       if (raw) {
         const parsed = JSON.parse(raw) as SavedState
-        if (parsed && typeof parsed === 'object') setState(parsed)
+        if (parsed && typeof parsed === 'object') {
+          // Recovery: if user closed mid-submission, fall back to email stage so they can retry.
+          // This prevents being stuck on "loading" forever after a failed/interrupted submit.
+          if (parsed.stage === 'submitting' && !parsed.result) {
+            parsed.stage = 'email'
+          }
+          // If they closed during local computing, the useEffect below will re-run the compute.
+          setState(parsed)
+        }
       }
     } catch { /* ignore */ }
     hydrated.current = true
