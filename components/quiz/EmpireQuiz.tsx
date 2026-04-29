@@ -49,11 +49,16 @@ const INTRO_ARCHETYPES = [
   },
 ] as const
 
-const INTRO_BENEFITS = [
-  { title: 'Votre archétype exact', detail: 'vous arrêtez de vous éparpiller dans des formats qui ne vous ressemblent pas.' },
-  { title: 'Les 10 sujets à poster cette semaine', detail: 'adaptés à votre profil et à votre secteur.' },
-  { title: 'Pourquoi vos posts ne convertissent pas', detail: 'et comment corriger le tir.' },
-  { title: 'Votre plan d\'action sur 30 jours', detail: 'concret, applicable dès demain.' },
+const INTRO_FEATURES = [
+  { emoji: '🎯', title: '10 sujets à poster cette semaine' },
+  { emoji: '🔍', title: 'Pourquoi vos posts ne convertissent pas' },
+  { emoji: '📅', title: 'Votre plan d\'action 30 jours' },
+]
+
+const INTRO_OUTCOMES = [
+  'Vous savez quoi poster',
+  'Vous produisez 3x plus vite',
+  'Vous convertissez vos lecteurs',
 ]
 
 const STORAGE_KEY = 'empire_quiz_v1'
@@ -375,26 +380,38 @@ export default function EmpireQuiz({ hookOverride, onCompleted, onDismiss }: Pro
                 </div>
               </div>
 
-              {/* ── 4 bénéfices concrets ── */}
-              <div className="mb-4 max-w-xl mx-auto">
-                <div className="space-y-1.5">
-                  {INTRO_BENEFITS.map((b, i) => (
+              {/* ── Features cards ── */}
+              <div className="mb-5 max-w-lg mx-auto">
+                <div className="grid grid-cols-3 gap-2">
+                  {INTRO_FEATURES.map((f, i) => (
                     <motion.div
-                      key={b.title}
-                      initial={{ opacity: 0, x: -6 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.35 + i * 0.05 }}
-                      className="flex items-start gap-2.5 px-3 py-2 rounded-xl bg-white/[0.03]"
+                      key={f.title}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.35 + i * 0.06 }}
+                      className="flex flex-col items-center gap-1.5 px-2 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-center"
                     >
-                      <span className="text-empire mt-0.5 flex-shrink-0">→</span>
-                      <p className="text-[13px] sm:text-sm leading-snug">
-                        <span className="text-white font-semibold">{b.title}</span>
-                        <span className="text-neutral-400"> - {b.detail}</span>
-                      </p>
+                      <span className="text-lg">{f.emoji}</span>
+                      <span className="text-[11px] sm:text-xs font-semibold text-neutral-200 leading-tight">{f.title}</span>
                     </motion.div>
                   ))}
                 </div>
               </div>
+
+              {/* ── Outcomes ── */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
+                className="mb-5 flex items-center justify-center gap-3 sm:gap-4 flex-wrap"
+              >
+                {INTRO_OUTCOMES.map((o) => (
+                  <span key={o} className="inline-flex items-center gap-1.5 text-xs text-neutral-400">
+                    <span className="w-1 h-1 rounded-full bg-empire" />
+                    {o}
+                  </span>
+                ))}
+              </motion.div>
 
               {/* CTA */}
               <div className="text-center">
