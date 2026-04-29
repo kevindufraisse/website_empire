@@ -130,7 +130,7 @@ export default function HeroSection() {
             className="mt-8"
           >
             <p className="text-[11px] text-neutral-500 text-center mb-2.5">
-              {lang === 'fr' ? 'En moyenne, nos créateurs constatent :' : 'On average, our creators see:'}
+              {lang === 'fr' ? 'En moyenne en travaillant leur personal branding, nos créateurs remarquent :' : 'On average by working on their personal brand, our creators notice:'}
             </p>
             <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
               {(lang === 'fr'
