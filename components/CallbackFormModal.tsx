@@ -170,7 +170,7 @@ export default function CallbackFormModal({ isOpen, onClose }: CallbackFormModal
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           transition={{ duration: 0.2 }}
-          className="relative w-full max-w-md bg-gradient-to-b from-[#151515] to-[#0d0d0d] border border-empire/30 rounded-2xl p-6 md:p-8 shadow-[0_0_60px_-20px_rgb(var(--empire-rgb)_/_0.35)] overflow-hidden"
+          className={`relative w-full bg-gradient-to-b from-[#151515] to-[#0d0d0d] border border-empire/30 rounded-2xl p-6 md:p-8 shadow-[0_0_60px_-20px_rgb(var(--empire-rgb)_/_0.35)] overflow-hidden ${step === 'success' ? 'max-w-2xl' : 'max-w-md'}`}
           onClick={(e) => e.stopPropagation()}
         >
           <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-transparent via-empire to-transparent" />
@@ -306,7 +306,7 @@ export default function CallbackFormModal({ isOpen, onClose }: CallbackFormModal
               <div className="rounded-xl overflow-hidden border border-white/10 bg-white/[0.03]">
                 <iframe
                   src={`https://cal.com/${calLink}?layout=month_view&theme=dark`}
-                  className="w-full h-[420px] border-0"
+                  className="w-full h-[500px] border-0"
                   loading="lazy"
                 />
               </div>
