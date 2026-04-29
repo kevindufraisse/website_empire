@@ -382,7 +382,7 @@ export default function EmpireQuiz({ hookOverride, onCompleted, onDismiss }: Pro
 
               {/* ── Features cards ── */}
               <div className="mb-6 max-w-2xl mx-auto">
-                <div className="grid grid-cols-1 gap-3 max-w-md mx-auto">
+                <div className="grid grid-cols-3 gap-3">
                   {INTRO_FEATURES.map((f, i) => (
                     <motion.div
                       key={f.title}
