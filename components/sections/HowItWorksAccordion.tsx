@@ -453,10 +453,10 @@ export default function HowItWorksAccordion() {
                   : 'bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30'
               }`}>
                 <div className="h-[200px] relative overflow-hidden">
-                  <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-500/20 border border-green-500/40 backdrop-blur-sm">
-                    <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                    <span className="text-[10px] font-semibold text-green-400">
-                      {lang === 'fr' ? 'Vérifié humain' : 'Human verified'}
+                  <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-empire/20 border border-empire/40 backdrop-blur-sm">
+                    <div className="w-2 h-2 rounded-full bg-empire animate-pulse" />
+                    <span className="text-[10px] font-semibold text-empire">
+                      {lang === 'fr' ? '300 000 vues garanties' : '300K views guaranteed'}
                     </span>
                   </div>
                   <div className="absolute inset-0 pt-10 px-3 [mask-image:linear-gradient(to_top,transparent_20%,#000_100%)]">
