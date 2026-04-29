@@ -424,7 +424,7 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
                   <span className={`text-3xl sm:text-4xl font-black ${
                     inaction.intensity === 'critical' ? 'text-red-300' : 'text-amber-300'
                   }`}>
-                    {inaction.amount}€
+                    {inaction.amount}
                   </span>
                   <span className="text-neutral-400 text-sm">/mois perdus</span>
                 </div>
