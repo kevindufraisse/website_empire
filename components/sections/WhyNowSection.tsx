@@ -318,7 +318,7 @@ export default function WhyNowSection() {
               <span className="text-lg">{autopilot
                 ? t.autopilot.hero.cta1
                 : (fr ? 'Je veux économiser et découvrir le système Empire' : 'I want to save and discover the Empire system')}</span>
-              <span className="text-[11px] font-semibold opacity-70">{fr ? '300 000 vues/mois garanties · 45 min' : '300K views/mo guaranteed · 45 min'}</span>
+              <span className="text-[11px] font-semibold opacity-70">{fr ? '300 000 vues/mois garanties · 45 min' : '300 000 vues/mois garanties · 45 min'}</span>
             </button>
           </div>
         </FadeIn>

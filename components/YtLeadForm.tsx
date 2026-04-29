@@ -366,7 +366,7 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
         <p className="text-xs text-neutral-400 text-center">
           {lang === 'fr'
             ? '300 000 vues/mois garanties · 45 min'
-            : '300K views/mo guaranteed · 45 min'}
+            : '300 000 vues/mois garanties · 45 min'}
         </p>
         <CtaReassurance className="mt-3" />
       </form>

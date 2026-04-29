@@ -239,7 +239,7 @@ export default function FounderSection() {
                 className="inline-flex flex-col items-center px-8 py-4 rounded-xl bg-empire text-black font-bold hover:scale-105 transition-transform shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.3)]"
               >
                 <span className="text-lg">{t.common.startNow}</span>
-                <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? '300 000 vues/mois garanties · 45 min' : '300K views/mo guaranteed · 45 min'}</span>
+                <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? '300 000 vues/mois garanties · 45 min' : '300 000 vues/mois garanties · 45 min'}</span>
               </button>
             </div>
           </FadeInBlock>

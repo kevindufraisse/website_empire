@@ -119,7 +119,7 @@ export default function CalStickyBar() {
             </div>
             <div>
               <p className="text-white font-semibold text-sm">
-                {lang === 'fr' ? '300 000 vues/mois garanties' : '300K views/mo guaranteed'}
+                {lang === 'fr' ? '300 000 vues/mois garanties' : '300 000 vues/mois garanties'}
               </p>
               <p className="text-neutral-400 text-xs">
                 {lang === 'fr' ? '45 min · Sans engagement' : '45 min · No commitment'}
@@ -131,7 +131,7 @@ export default function CalStickyBar() {
           <div className="sm:hidden flex items-center gap-2">
             <Calendar className={`${accent.text} flex-shrink-0`} size={18} />
             <p className="text-white font-medium text-sm">
-              {lang === 'fr' ? '300 000 vues/mois garanties' : '300K views/mo guaranteed'}
+              {lang === 'fr' ? '300 000 vues/mois garanties' : '300 000 vues/mois garanties'}
             </p>
           </div>
 
