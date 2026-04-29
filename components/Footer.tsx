@@ -39,7 +39,7 @@ export default function Footer() {
   return (
     <footer className="relative w-full border-t border-white/10 bg-black pb-[env(safe-area-inset-bottom)]">
       <div className="container py-8 md:py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* Brand */}
           <div className="flex flex-col items-center md:items-start">
             <span className="text-lg font-bold text-white mb-2">Empire Internet</span>
@@ -50,6 +50,19 @@ export default function Footer() {
               <Mail size={14} />
               <a href="mailto:kevin@empire-internet.com" className="hover:text-empire transition-colors">
                 kevin@empire-internet.com
+              </a>
+            </div>
+          </div>
+
+          {/* Site */}
+          <div className="flex flex-col items-center md:items-start">
+            <p className="text-sm font-bold text-white mb-3">{lang === 'fr' ? 'Site' : 'Site'}</p>
+            <div className="flex flex-col gap-2 items-center md:items-start">
+              <a href="/" className="text-sm text-neutral-400 hover:text-empire transition-colors">
+                Empire Internet
+              </a>
+              <a href="/academy" className="text-sm text-neutral-400 hover:text-empire transition-colors">
+                Academy
               </a>
             </div>
           </div>
