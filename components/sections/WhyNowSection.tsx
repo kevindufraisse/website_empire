@@ -41,7 +41,7 @@ function FadeIn({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
   )
 }
 
-type Feature = { icon: React.ComponentType<{ className?: string; size?: number }>; title: string; desc: string }
+type Feature = { icon: React.ComponentType<{ className?: string; size?: number }>; title: string; desc: string; value?: string }
 
 type Pillar = {
   id: string
@@ -238,8 +238,8 @@ export default function WhyNowSection() {
                             <p className="text-sm font-semibold text-white">{f.title}</p>
                             <p className="text-xs text-neutral-400 mt-0.5">{f.desc}</p>
                           </div>
-                          {(f as any).value && (
-                            <span className="text-xs font-bold text-neutral-500 line-through whitespace-nowrap">{(f as any).value}</span>
+                          {f.value && (
+                            <span className="text-xs font-bold text-neutral-500 line-through whitespace-nowrap">{f.value}</span>
                           )}
                         </div>
                       )
@@ -265,8 +265,8 @@ export default function WhyNowSection() {
                                     <p className="text-sm font-semibold text-white">{f.title}</p>
                                     <p className="text-xs text-neutral-400 mt-0.5">{f.desc}</p>
                                   </div>
-                                  {(f as any).value && (
-                                    <span className="text-xs font-bold text-neutral-500 line-through whitespace-nowrap">{(f as any).value}</span>
+                                  {f.value && (
+                                    <span className="text-xs font-bold text-neutral-500 line-through whitespace-nowrap">{f.value}</span>
                                   )}
                                 </div>
                               )
