@@ -4,7 +4,7 @@ import { motion, useMotionValue, useTransform, animate } from 'framer-motion'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import confetti from 'canvas-confetti'
-import { Check, Mail, Sparkles, ArrowRight, RotateCcw, Clock, Shield, Calendar, Users } from 'lucide-react'
+import { Check, Mail, Sparkles, ArrowRight, RotateCcw, Clock, Shield, Calendar, Users, UserPlus, Send } from 'lucide-react'
 import {
   ARCHETYPES,
   iconAvatarUrl,
@@ -291,6 +291,27 @@ const OFFER_COLORS: Record<RecommendedOffer, { accent: string; glow: string; bg:
   academy:   { accent: '#fca5a5', glow: 'shadow-[0_0_28px_rgba(252,165,165,0.45)]', bg: 'from-[#fca5a5]/15 via-[#fca5a5]/5 to-transparent', border: 'border-[#fca5a5]/40', text: 'text-[#fca5a5]' },
   autopilot: { accent: '#d4a574', glow: 'shadow-[0_0_28px_rgba(212,165,116,0.45)]', bg: 'from-[#d4a574]/15 via-[#d4a574]/5 to-transparent', border: 'border-[#d4a574]/40', text: 'text-[#d4a574]' },
   nurture:   { accent: '#fca5a5', glow: 'shadow-[0_0_28px_rgba(252,165,165,0.45)]', bg: 'from-[#fca5a5]/15 via-[#fca5a5]/5 to-transparent', border: 'border-[#fca5a5]/40', text: 'text-[#fca5a5]' },
+}
+
+function downloadVCard() {
+  const vcard = [
+    'BEGIN:VCARD',
+    'VERSION:3.0',
+    'FN:Kevin Dufraisse',
+    'N:Dufraisse;Kevin;;;',
+    'ORG:Empire Internet',
+    'EMAIL;TYPE=INTERNET:kevin@empire-internet.com',
+    'URL:https://empire-internet.com',
+    'NOTE:Empire Internet - The Content Machine',
+    'END:VCARD',
+  ].join('\r\n')
+  const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = 'Kevin-Dufraisse-Empire.vcf'
+  a.click()
+  URL.revokeObjectURL(url)
 }
 
 export default function QuizResult({ result, email, firstName, answers, onRestart }: Props) {
@@ -638,6 +659,32 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
                 Vérifiez vos spams si vous ne le voyez pas dans 20 minutes.
               </p>
             </div>
+          </div>
+
+          {/* ── ADD TO CONTACTS (email warming) ── */}
+          <div className="mt-4 p-4 rounded-xl bg-gradient-to-br from-empire/5 to-transparent border border-empire/20">
+            <p className="text-xs font-bold text-empire uppercase tracking-widest mb-3">
+              Pour être sûr de recevoir votre plan
+            </p>
+            <div className="flex flex-col sm:flex-row gap-2.5">
+              <button
+                onClick={downloadVCard}
+                className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white/[0.06] border border-white/10 text-sm font-semibold text-white hover:bg-white/[0.1] hover:border-empire/30 transition-all"
+              >
+                <UserPlus size={15} className="text-empire" />
+                Ajouter Kevin aux contacts
+              </button>
+              <a
+                href="mailto:kevin@empire-internet.com?subject=OK%20Kevin&body=OK"
+                className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white/[0.06] border border-white/10 text-sm font-semibold text-white hover:bg-white/[0.1] hover:border-empire/30 transition-all"
+              >
+                <Send size={15} className="text-empire" />
+                Envoyer &quot;OK&quot; à Kevin
+              </a>
+            </div>
+            <p className="text-[11px] text-neutral-500 mt-2 text-center">
+              Ça garantit que nos emails arrivent dans votre boîte principale
+            </p>
           </div>
 
           {onRestart && (
