@@ -9,6 +9,7 @@ interface QuizSubmitBody {
   first_name?: string
   phone?: string
   answers?: QuizAnswers
+  lang?: 'en' | 'fr'
   utm?: Record<string, string>
   referrer?: string
 }
@@ -28,6 +29,7 @@ export async function POST(req: NextRequest) {
   const email = (body.email || '').trim().toLowerCase()
   const firstName = (body.first_name || '').trim()
   const answers = body.answers || {}
+  const lang = body.lang === 'en' ? 'en' : 'fr'
 
   if (!email || !isValidEmail(email)) {
     return NextResponse.json({ error: 'Email invalide' }, { status: 400 })
@@ -61,12 +63,12 @@ export async function POST(req: NextRequest) {
       email,
       firstName: firstName || undefined,
       phoneNumber: body.phone || undefined,
-      locale: 'fr',
+      locale: lang,
       fields: fields.length ? fields : undefined,
     })
     contactId = contact.id
 
-    const tagIds = tagsForResult(result)
+    const tagIds = tagsForResult(result, lang)
     if (tagIds.length) {
       await addTagsToContact(contact.id, tagIds)
     } else {

@@ -4,6 +4,7 @@ import { useRef } from 'react'
 import { User, Users, Check, ArrowRight } from 'lucide-react'
 import BorderBeam from '@/components/magicui/border-beam'
 import { useAcademyPricing } from '@/hooks/useAcademyPricing'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -20,34 +21,54 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
   )
 }
 
-const path1 = {
-  icon: User,
-  tag: 'Option 1 - Tu as un projet',
-  title: 'Tu communiques pour toi',
-  desc: "Tu utilises les compétences du bootcamp pour développer ta propre audience et générer tes clients.",
-  perks: [
-    'Tu maîtrises les mécaniques de la viralité',
-    'Tu sais créer tes hooks, posts et shorts',
-    'Tu construis ton audience et génères tes clients',
-    'Accès à vie aux replays',
-  ],
-}
-
-const path2 = {
-  icon: Users,
-  tag: 'Option 2 - Pas de projet ?',
-  title: 'Tu communiques pour Empire',
-  desc: "On te trouve les clients. On te crée le contenu. Tu coaches et tu es payé. Pas besoin d'avoir un projet à toi.",
-  perks: [
-    'On te trouve les clients',
-    'On te crée ton contenu chaque jour',
-    '500€ par mission - ~4h de coaching',
-    'Objectif : 3 000€/mois en 4h/semaine',
-  ],
-}
-
 export default function AcademyTwoPathsSection() {
+  const { lang } = useLanguage()
+  const fr = lang === 'fr'
   const pricing = useAcademyPricing()
+
+  const path1 = {
+    icon: User,
+    tag: fr ? 'Option 1 - Tu as un projet' : 'Option 1 - You have a project',
+    title: fr ? 'Tu communiques pour toi' : 'You create content for yourself',
+    desc: fr
+      ? "Tu utilises les compétences du bootcamp pour développer ta propre audience et générer tes clients."
+      : "You use the bootcamp skills to grow your own audience and generate clients.",
+    perks: fr
+      ? [
+          'Tu maîtrises les mécaniques de la viralité',
+          'Tu sais créer tes hooks, posts et shorts',
+          'Tu construis ton audience et génères tes clients',
+          'Accès à vie aux replays',
+        ]
+      : [
+          'You master the mechanics of virality',
+          'You know how to create hooks, posts and shorts',
+          'You build your audience and generate clients',
+          'Lifetime access to replays',
+        ],
+  }
+
+  const path2 = {
+    icon: Users,
+    tag: fr ? 'Option 2 - Pas de projet ?' : 'Option 2 - No project?',
+    title: fr ? 'Tu communiques pour Empire' : 'You create content for Empire',
+    desc: fr
+      ? "On te trouve les clients. On te crée le contenu. Tu coaches et tu es payé. Pas besoin d'avoir un projet à toi."
+      : "We find the clients for you. We create the content. You coach and get paid. No need for your own project.",
+    perks: fr
+      ? [
+          'On te trouve les clients',
+          'On te crée ton contenu chaque jour',
+          '500€ par mission - ~4h de coaching',
+          'Objectif : 3 000€/mois en 4h/semaine',
+        ]
+      : [
+          'We find clients for you',
+          'We create your content every day',
+          '€500 per mission - ~4h of coaching',
+          'Goal: €3,000/month in 4h/week',
+        ],
+  }
   return (
     <section className="relative w-full py-20 md:py-28 bg-gradient-to-b from-[#0f0f0f] to-black overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,rgba(252, 165, 165,0.04),transparent)]" />
@@ -56,13 +77,13 @@ export default function AcademyTwoPathsSection() {
 
           <FadeInBlock>
             <div className="text-center mb-14">
-              <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">Même sans projet</p>
+              <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">{fr ? 'Même sans projet' : 'Even without a project'}</p>
               <h2 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
-                2 voies possibles.{' '}
-                <span className="text-academy">Tu choisis.</span>
+                {fr ? '2 voies possibles.' : '2 possible paths.'}{' '}
+                <span className="text-academy">{fr ? 'Tu choisis.' : 'You choose.'}</span>
               </h2>
               <p className="text-neutral-400 text-base md:text-lg max-w-2xl mx-auto">
-                Tu as un projet ? Tu communiques dessus. Tu n'en as pas ? Tu communiques pour Empire et on te paye.
+                {fr ? "Tu as un projet ? Tu communiques dessus. Tu n'en as pas ? Tu communiques pour Empire et on te paye." : "Have a project? Create content for it. Don't have one? Create content for Empire and get paid."}
               </p>
             </div>
           </FadeInBlock>
@@ -107,7 +128,7 @@ export default function AcademyTwoPathsSection() {
                       </div>
                     </div>
                     <span className="text-[10px] font-bold text-black bg-academy rounded-full px-2.5 py-1 leading-none">
-                      RECOMMANDÉ
+                      {fr ? 'RECOMMANDÉ' : 'RECOMMENDED'}
                     </span>
                   </div>
                   <p className="text-neutral-300 text-sm mb-6 leading-relaxed">{path2.desc}</p>
@@ -122,7 +143,7 @@ export default function AcademyTwoPathsSection() {
 
                   <div className="mt-6 p-4 rounded-xl bg-black/30 border border-academy/20">
                     <p className="text-xs text-neutral-400 leading-relaxed">
-                      <span className="text-academy font-semibold">Les missions :</span> 4h de coaching/mois avec un client Empire. Tu lui apprends le système qu'on t'a enseigné. On s'occupe du closing et de la delivery.
+                      <span className="text-academy font-semibold">{fr ? 'Les missions :' : 'The missions:'}</span> {fr ? "4h de coaching/mois avec un client Empire. Tu lui apprends le système qu'on t'a enseigné. On s'occupe du closing et de la delivery." : "4h of coaching/month with an Empire client. You teach them the system we taught you. We handle closing and delivery."}
                     </p>
                   </div>
                 </div>
@@ -139,9 +160,9 @@ export default function AcademyTwoPathsSection() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-8 py-4 bg-academy text-black font-bold text-lg rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(252, 165, 165,0.3)]"
               >
-                Rejoindre le bootcamp - {pricing.price}€ <ArrowRight size={18} />
+                {fr ? 'Rejoindre le bootcamp' : 'Join the bootcamp'} - {pricing.price}€ <ArrowRight size={18} />
               </a>
-              <p className="text-xs text-neutral-400 mt-2">ou 3x 165€/semaine</p>
+              <p className="text-xs text-neutral-400 mt-2">{fr ? 'ou 3x 165€/semaine' : 'or 3x €165/week'}</p>
             </div>
           </FadeInBlock>
 

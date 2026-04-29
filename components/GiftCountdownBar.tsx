@@ -2,6 +2,7 @@
 import { useState, useEffect, useCallback, createContext, useContext } from 'react'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useLanguage } from '@/contexts/LanguageContext'
 import {
   X,
   Gift,
@@ -24,78 +25,91 @@ const GIFT_COUNT = 5
 
 const LINKEDIN_UNLOCK_SECONDS = 300
 
-const gifts = [
-  {
-    id: 'instagram-viral',
-    icon: Instagram,
-    borderColor: 'border-white/10',
-    bgColor: 'bg-white/5',
-    textColor: 'text-empire',
-    title: 'Trouver les Reels viraux',
-    subtitle: "d'un compte Instagram",
-    description: 'Identifiez instantanément les réels les plus viraux de n\'importe quel compte Instagram.',
-    badge: 'Méthode Adley Kinsmann',
-    free: true,
-    link: 'https://join.empire-internet.com/instagram-scrapper',
-    unlockDelay: 0,
-  },
-  {
-    id: 'youtube-summarizer',
-    icon: Youtube,
-    borderColor: 'border-white/10',
-    bgColor: 'bg-white/5',
-    textColor: 'text-empire',
-    title: 'Résumer des vidéos YouTube',
-    subtitle: 'avec l\'IA',
-    description: 'Transformez n\'importe quelle vidéo YouTube en résumé actionnable en quelques secondes.',
-    badge: null,
-    free: true,
-    link: 'https://join.empire-internet.com/youtube-export',
-    unlockDelay: 0,
-  },
-  {
-    id: 'linkedin-autocomment',
-    icon: Linkedin,
-    borderColor: 'border-white/10',
-    bgColor: 'bg-white/5',
-    textColor: 'text-empire',
-    title: 'Auto-commenter sur LinkedIn',
-    subtitle: 'vos posts automatiquement',
-    description: 'Commentez automatiquement les posts de votre réseau pour booster votre visibilité LinkedIn.',
-    badge: 'Méthode Empire Internet',
-    free: true,
-    link: 'https://join.empire-internet.com/post-linkedin',
-    unlockDelay: LINKEDIN_UNLOCK_SECONDS,
-  },
-  {
-    id: 'personal-branding',
-    icon: UserCircle,
-    borderColor: 'border-white/10',
-    bgColor: 'bg-white/5',
-    textColor: 'text-empire',
-    title: '60 min Personal Branding',
-    subtitle: 'cheat sheet par Empire Internet',
-    description: 'La méthode complète de Personal Branding par Empire Internet.',
-    badge: '+1 milliard de vues/mois',
-    free: true,
-    link: 'https://join.empire-internet.com/branding',
-    unlockDelay: 0,
-  },
-  {
-    id: 'viral-copypaste',
-    icon: Copy,
-    borderColor: 'border-white/10',
-    bgColor: 'bg-white/5',
-    textColor: 'text-empire',
-    title: 'Copie-colle mes 3 templates',
-    subtitle: 'les plus viraux sur LinkedIn',
-    description: 'Télécharge les templates de 3 posts parmi les plus viraux que j\'ai jamais faits sur LinkedIn + adapte-les à ton business.',
-    badge: '60 places dispos',
-    free: true,
-    link: 'https://join.empire-internet.com/3-templates-linkedin',
-    unlockDelay: 0,
-  },
-]
+function getGifts(lang: 'en' | 'fr') {
+  const fr = lang === 'fr'
+  return [
+    {
+      id: 'instagram-viral',
+      icon: Instagram,
+      borderColor: 'border-white/10',
+      bgColor: 'bg-white/5',
+      textColor: 'text-empire',
+      title: fr ? 'Trouver les Reels viraux' : 'Find viral Reels',
+      subtitle: fr ? "d'un compte Instagram" : 'from any Instagram account',
+      description: fr
+        ? "Identifiez instantanément les réels les plus viraux de n'importe quel compte Instagram."
+        : "Instantly identify the most viral Reels from any Instagram account.",
+      badge: fr ? 'Méthode Adley Kinsmann' : 'Adley Kinsmann method',
+      free: true,
+      link: 'https://join.empire-internet.com/instagram-scrapper',
+      unlockDelay: 0,
+    },
+    {
+      id: 'youtube-summarizer',
+      icon: Youtube,
+      borderColor: 'border-white/10',
+      bgColor: 'bg-white/5',
+      textColor: 'text-empire',
+      title: fr ? 'Résumer des vidéos YouTube' : 'Summarize YouTube videos',
+      subtitle: fr ? "avec l'IA" : 'with AI',
+      description: fr
+        ? "Transformez n'importe quelle vidéo YouTube en résumé actionnable en quelques secondes."
+        : "Turn any YouTube video into an actionable summary in seconds.",
+      badge: null as string | null,
+      free: true,
+      link: 'https://join.empire-internet.com/youtube-export',
+      unlockDelay: 0,
+    },
+    {
+      id: 'linkedin-autocomment',
+      icon: Linkedin,
+      borderColor: 'border-white/10',
+      bgColor: 'bg-white/5',
+      textColor: 'text-empire',
+      title: fr ? 'Auto-commenter sur LinkedIn' : 'Auto-comment on LinkedIn',
+      subtitle: fr ? 'vos posts automatiquement' : 'your posts automatically',
+      description: fr
+        ? "Commentez automatiquement les posts de votre réseau pour booster votre visibilité LinkedIn."
+        : "Automatically comment on your network's posts to boost your LinkedIn visibility.",
+      badge: fr ? 'Méthode Empire Internet' : 'Empire Internet method',
+      free: true,
+      link: 'https://join.empire-internet.com/post-linkedin',
+      unlockDelay: LINKEDIN_UNLOCK_SECONDS,
+    },
+    {
+      id: 'personal-branding',
+      icon: UserCircle,
+      borderColor: 'border-white/10',
+      bgColor: 'bg-white/5',
+      textColor: 'text-empire',
+      title: fr ? '60 min Personal Branding' : '60 min Personal Branding',
+      subtitle: fr ? 'cheat sheet par Empire Internet' : 'cheat sheet by Empire Internet',
+      description: fr
+        ? 'La méthode complète de Personal Branding par Empire Internet.'
+        : 'The complete Personal Branding method by Empire Internet.',
+      badge: fr ? '+1 milliard de vues/mois' : '+1 billion views/month',
+      free: true,
+      link: 'https://join.empire-internet.com/branding',
+      unlockDelay: 0,
+    },
+    {
+      id: 'viral-copypaste',
+      icon: Copy,
+      borderColor: 'border-white/10',
+      bgColor: 'bg-white/5',
+      textColor: 'text-empire',
+      title: fr ? 'Copie-colle mes 3 templates' : 'Copy-paste my 3 templates',
+      subtitle: fr ? 'les plus viraux sur LinkedIn' : 'most viral on LinkedIn',
+      description: fr
+        ? "Télécharge les templates de 3 posts parmi les plus viraux que j'ai jamais faits sur LinkedIn + adapte-les à ton business."
+        : "Download the templates of 3 of my most viral LinkedIn posts ever + adapt them to your business.",
+      badge: fr ? '60 places dispos' : '60 spots available',
+      free: true,
+      link: 'https://join.empire-internet.com/3-templates-linkedin',
+      unlockDelay: 0,
+    },
+  ]
+}
 
 /* ── Shared state via context ── */
 
@@ -202,6 +216,7 @@ export function GiftCountdownProvider({ children }: { children: React.ReactNode 
 /* ── Header badge (compact, inline in the navbar) ── */
 
 export function GiftHeaderBadge() {
+  const { lang } = useLanguage()
   const { countdown, isReady, dismissed, setShowModal } = useGiftState()
 
   // Once countdown is done, always show the badge so users can claim resources
@@ -230,7 +245,7 @@ export function GiftHeaderBadge() {
             exit={{ opacity: 0 }}
             className="text-[11px]"
           >
-            <span className="text-neutral-300">{GIFT_COUNT} ressources offertes dans </span>
+            <span className="text-neutral-300">{lang === 'fr' ? `${GIFT_COUNT} ressources offertes dans ` : `${GIFT_COUNT} free resources in `}</span>
             <span className="font-mono tabular-nums font-bold text-white">{mins}:{secs}</span>
           </motion.span>
         ) : (
@@ -240,7 +255,7 @@ export function GiftHeaderBadge() {
             animate={{ opacity: 1, scale: 1 }}
             className="text-[11px] md:text-xs"
           >
-            {GIFT_COUNT} ressources débloquées
+            {lang === 'fr' ? `${GIFT_COUNT} ressources débloquées` : `${GIFT_COUNT} resources unlocked`}
           </motion.span>
         )}
       </AnimatePresence>
@@ -258,6 +273,7 @@ export function GiftHeaderBadge() {
 /* ── Footer link (text-only style for footer) ── */
 
 export function GiftFooterLink() {
+  const { lang } = useLanguage()
   const { countdown, isReady, dismissed, setShowModal } = useGiftState()
 
   if (dismissed && !isReady) return null
@@ -271,8 +287,8 @@ export function GiftFooterLink() {
       className="text-sm text-neutral-400 hover:text-empire transition-colors text-left"
     >
       {isReady
-        ? `${GIFT_COUNT} ressources débloquées`
-        : `${GIFT_COUNT} ressources offertes dans ${mins}:${secs}`}
+        ? (lang === 'fr' ? `${GIFT_COUNT} ressources débloquées` : `${GIFT_COUNT} resources unlocked`)
+        : (lang === 'fr' ? `${GIFT_COUNT} ressources offertes dans ${mins}:${secs}` : `${GIFT_COUNT} free resources in ${mins}:${secs}`)}
     </button>
   )
 }
@@ -280,6 +296,9 @@ export function GiftFooterLink() {
 /* ── Modal (rendered once globally via ClientWrappers) ── */
 
 export default function GiftCountdownModal() {
+  const { lang } = useLanguage()
+  const fr = lang === 'fr'
+  const gifts = getGifts(lang)
   const { showModal, setShowModal, dismissed, countdown, linkedinCountdown, isReady, isLinkedinReady } = useGiftState()
 
   if (dismissed && !showModal) return null
@@ -315,10 +334,10 @@ export default function GiftCountdownModal() {
                   </div>
 
                   <h2 className="text-2xl sm:text-3xl font-black text-white mb-3">
-                    Du contenu se débloque
+                    {fr ? 'Du contenu se débloque' : 'Content is unlocking'}
                   </h2>
                   <p className="text-neutral-400 text-sm sm:text-base max-w-md mx-auto mb-8">
-                    Restez sur la page pour accéder à des ressources exclusives.
+                    {fr ? 'Restez sur la page pour accéder à des ressources exclusives.' : 'Stay on the page to access exclusive resources.'}
                   </p>
 
                   <div className="space-y-4 max-w-sm mx-auto mb-8">
@@ -327,8 +346,8 @@ export default function GiftCountdownModal() {
                         <Gift size={16} className="text-empire" />
                       </div>
                       <div className="text-left flex-1">
-                        <p className="text-sm font-semibold text-white">{GIFT_COUNT} ressources gratuites</p>
-                        <p className="text-xs text-neutral-400">Outils, templates, méthodes</p>
+                        <p className="text-sm font-semibold text-white">{fr ? `${GIFT_COUNT} ressources gratuites` : `${GIFT_COUNT} free resources`}</p>
+                        <p className="text-xs text-neutral-400">{fr ? 'Outils, templates, méthodes' : 'Tools, templates, methods'}</p>
                       </div>
                       <span className="font-mono tabular-nums text-sm font-bold text-empire">{mins}:{secs}</span>
                     </div>
@@ -338,7 +357,7 @@ export default function GiftCountdownModal() {
                     onClick={() => setShowModal(false)}
                     className="px-8 py-3 rounded-xl bg-empire text-black font-bold text-sm hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]"
                   >
-                    Continuer à naviguer
+                    {fr ? 'Continuer à naviguer' : 'Continue browsing'}
                   </button>
                 </div>
               </>
@@ -352,14 +371,14 @@ export default function GiftCountdownModal() {
                     className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-empire/20 border border-empire/30 mb-4"
                   >
                     <Sparkles className="text-empire" size={16} />
-                    <span className="text-sm font-bold text-empire">100% GRATUIT</span>
+                    <span className="text-sm font-bold text-empire">{fr ? '100% GRATUIT' : '100% FREE'}</span>
                     <Sparkles className="text-empire" size={16} />
                   </motion.div>
                   <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-2">
-                    Vos {GIFT_COUNT} ressources offertes
+                    {fr ? `Vos ${GIFT_COUNT} ressources offertes` : `Your ${GIFT_COUNT} free resources`}
                   </h2>
                   <p className="text-neutral-400 text-sm sm:text-base max-w-lg mx-auto">
-                    Des outils utilisés par les plus gros créateurs. Récupérez-les avant de partir.
+                    {fr ? 'Des outils utilisés par les plus gros créateurs. Récupérez-les avant de partir.' : 'Tools used by the world\'s top creators. Grab them before you leave.'}
                   </p>
                 </div>
 
@@ -385,7 +404,7 @@ export default function GiftCountdownModal() {
                           </div>
                         ) : gift.free && (
                           <div className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-empire/20 border border-empire/30">
-                            <span className="text-[10px] font-bold text-empire">GRATUIT</span>
+                            <span className="text-[10px] font-bold text-empire">{fr ? 'GRATUIT' : 'FREE'}</span>
                           </div>
                         )}
 
@@ -413,7 +432,7 @@ export default function GiftCountdownModal() {
                         )}
 
                         <div className={`flex items-center gap-1.5 text-xs font-bold ${isLocked ? 'text-neutral-500' : `${gift.textColor} group-hover:underline`}`}>
-                          <span>{isLocked ? `Disponible dans ${liMins}:${liSecs}` : 'Récupérer'}</span>
+                          <span>{isLocked ? (fr ? `Disponible dans ${liMins}:${liSecs}` : `Available in ${liMins}:${liSecs}`) : (fr ? 'Récupérer' : 'Get it')}</span>
                           {!isLocked && <ExternalLink size={12} />}
                         </div>
                       </Wrapper>
@@ -426,10 +445,10 @@ export default function GiftCountdownModal() {
                     onClick={() => setShowModal(false)}
                     className="px-6 py-2.5 rounded-xl bg-white/10 border border-white/10 text-sm text-neutral-300 font-medium hover:bg-white/15 transition-all"
                   >
-                    Continuer à naviguer
+                    {fr ? 'Continuer à naviguer' : 'Continue browsing'}
                   </button>
                   <p className="text-[11px] text-neutral-500">
-                    Vous pourrez revenir à vos ressources depuis le header
+                    {fr ? 'Vous pourrez revenir à vos ressources depuis le header' : 'You can come back to your resources from the header'}
                   </p>
                 </div>
               </>

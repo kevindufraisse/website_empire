@@ -193,19 +193,42 @@ export function computeQuizResult(answers: QuizAnswers): QuizResult {
 }
 
 // ─── Tag mapping (env-driven) ─────────────────────────────────────────────────
+//
+// When lang='en', we look for env vars with an _EN suffix first. If not set,
+// we fall back to the base (FR) tag. This lets you create separate Systeme.io
+// audiences for EN leads (e.g. SYSTEMEIO_TAG_QUIZ_COMPLETED_EN=456).
+//
+// To add EN tags: duplicate each tag in Systeme.io with a "_en" suffix name,
+// then add the corresponding env vars (e.g. SYSTEMEIO_TAG_QUIZ_COMPLETED_EN=456).
 
-export function tagsForResult(result: QuizResult): number[] {
+function tagForLang(baseKey: string, lang: 'en' | 'fr'): number | undefined {
+  if (lang === 'en') {
+    const enVal = parseTag(process.env[`${baseKey}_EN`])
+    if (enVal !== undefined) return enVal
+  }
+  return parseTag(process.env[baseKey])
+}
+
+export function tagsForResult(result: QuizResult, lang: 'en' | 'fr' = 'fr'): number[] {
   const ids: (number | undefined)[] = [
-    parseTag(process.env.SYSTEMEIO_TAG_QUIZ_COMPLETED),
-    parseTag(process.env[`SYSTEMEIO_TAG_ARCHETYPE_${result.archetype.toUpperCase()}`]),
-    parseTag(process.env[`SYSTEMEIO_TAG_SCORE_${result.scoreBand.toUpperCase()}`]),
-    parseTag(process.env[`SYSTEMEIO_TAG_OFFER_${result.recommendedOffer.toUpperCase()}`]),
+    tagForLang('SYSTEMEIO_TAG_QUIZ_COMPLETED', lang),
+    tagForLang(`SYSTEMEIO_TAG_ARCHETYPE_${result.archetype.toUpperCase()}`, lang),
+    tagForLang(`SYSTEMEIO_TAG_SCORE_${result.scoreBand.toUpperCase()}`, lang),
+    tagForLang(`SYSTEMEIO_TAG_OFFER_${result.recommendedOffer.toUpperCase()}`, lang),
   ]
+  // Also add a language-specific tag if configured (for global segmentation).
+  if (lang === 'en') {
+    const langTag = parseTag(process.env.SYSTEMEIO_TAG_LANG_EN)
+    if (langTag !== undefined) ids.push(langTag)
+  } else {
+    const langTag = parseTag(process.env.SYSTEMEIO_TAG_LANG_FR)
+    if (langTag !== undefined) ids.push(langTag)
+  }
   return ids.filter((n): n is number => typeof n === 'number' && !Number.isNaN(n))
 }
 
-export function leadStartTag(): number | null {
-  const v = parseTag(process.env.SYSTEMEIO_TAG_QUIZ_STARTED)
+export function leadStartTag(lang: 'en' | 'fr' = 'fr'): number | null {
+  const v = tagForLang('SYSTEMEIO_TAG_QUIZ_STARTED', lang)
   return typeof v === 'number' ? v : null
 }
 

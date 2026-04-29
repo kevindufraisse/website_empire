@@ -1,18 +1,29 @@
 'use client'
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-
-const pains = [
-  'Tu passes 3h à écrire un post qui fait 200 vues',
-  'Tu vois les autres exploser en ligne et tu comprends pas comment ils font',
-  'Tu as peur de publier, de te ridiculiser devant ton réseau',
-  'Tu sais pas comment transformer des vues en clients concrets',
-  'Tu veux te lancer mais tu sais pas par où commencer',
-]
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function AcademyPainSection() {
+  const { lang } = useLanguage()
+  const fr = lang === 'fr'
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-60px' })
+
+  const pains = fr
+    ? [
+        'Tu passes 3h à écrire un post qui fait 200 vues',
+        'Tu vois les autres exploser en ligne et tu comprends pas comment ils font',
+        'Tu as peur de publier, de te ridiculiser devant ton réseau',
+        'Tu sais pas comment transformer des vues en clients concrets',
+        'Tu veux te lancer mais tu sais pas par où commencer',
+      ]
+    : [
+        'You spend 3 hours writing a post that gets 200 views',
+        "You see others blowing up online and you don't understand how they do it",
+        "You're afraid to post, afraid of looking foolish in front of your network",
+        "You don't know how to turn views into actual clients",
+        "You want to get started but you don't know where to begin",
+      ]
 
   return (
     <section ref={ref} className="relative py-16 md:py-20 bg-[#0a0a0a] overflow-hidden">
@@ -25,7 +36,7 @@ export default function AcademyPainSection() {
             transition={{ duration: 0.5 }}
             className="text-xs font-bold text-neutral-400 tracking-widest uppercase mb-6"
           >
-            Si tu te reconnais
+            {fr ? 'Si tu te reconnais' : 'If this sounds like you'}
           </motion.p>
 
           <div className="space-y-3">
@@ -49,7 +60,7 @@ export default function AcademyPainSection() {
             transition={{ duration: 0.5, delay: 0.5 }}
             className="mt-8 text-base md:text-lg text-white font-semibold"
           >
-            Ce bootcamp existe pour ça.
+            {fr ? 'Ce bootcamp existe pour ça.' : 'This bootcamp was built for this.'}
           </motion.p>
 
         </div>

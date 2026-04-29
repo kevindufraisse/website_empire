@@ -14,7 +14,11 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'Empire Internet - The Content Machine',
-  description: 'Speak 15 minutes. Become omnipresent. Empire Internet.'
+  description: 'Speak 15 minutes. Become omnipresent. Empire Internet.',
+  icons: {
+    icon: '/icon.svg',
+    apple: '/apple-icon.png',
+  },
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {

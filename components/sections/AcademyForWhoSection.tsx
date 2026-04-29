@@ -2,6 +2,7 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { X, Check } from 'lucide-react'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -18,22 +19,39 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
   )
 }
 
-const notFor = [
-  'Tu cherches un résultat sans rien faire',
-  'Tu veux juste "apprendre" sans appliquer',
-  'Tu as déjà une grosse audience et un système qui tourne',
-  "Tu n'es pas prêt à publier chaque jour pendant 21 jours",
-]
-
-const yesFor = [
-  'Tu veux apprendre les mécaniques de la viralité',
-  'Tu veux créer une activité en ligne de zéro',
-  'Tu veux publier sans passer 3h à rédiger et monter',
-  'Tu veux te reconvertir en head of viralité et potentiellement travailler avec nous',
-  "Tu n'as pas encore de projet mais tu es prêt à te lancer",
-]
-
 export default function AcademyForWhoSection() {
+  const { lang } = useLanguage()
+  const fr = lang === 'fr'
+
+  const notFor = fr
+    ? [
+        'Tu cherches un résultat sans rien faire',
+        'Tu veux juste "apprendre" sans appliquer',
+        'Tu as déjà une grosse audience et un système qui tourne',
+        "Tu n'es pas prêt à publier chaque jour pendant 21 jours",
+      ]
+    : [
+        "You're looking for results without doing any work",
+        'You just want to "learn" without applying',
+        'You already have a large audience and a running system',
+        "You're not ready to publish every day for 21 days",
+      ]
+
+  const yesFor = fr
+    ? [
+        'Tu veux apprendre les mécaniques de la viralité',
+        'Tu veux créer une activité en ligne de zéro',
+        'Tu veux publier sans passer 3h à rédiger et monter',
+        'Tu veux te reconvertir en head of viralité et potentiellement travailler avec nous',
+        "Tu n'as pas encore de projet mais tu es prêt à te lancer",
+      ]
+    : [
+        'You want to learn the mechanics of virality',
+        'You want to build an online business from scratch',
+        'You want to publish without spending 3 hours writing and editing',
+        'You want to become a head of virality and potentially work with us',
+        "You don't have a project yet but you're ready to start",
+      ]
   return (
     <section className="relative w-full py-16 md:py-20 overflow-hidden">
       <div className="container">
@@ -41,12 +59,12 @@ export default function AcademyForWhoSection() {
 
           <FadeInBlock>
             <div className="text-center mb-10">
-              <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">Pour qui</p>
+              <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">{fr ? 'Pour qui' : 'Who is it for'}</p>
               <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-3">
-                Ce bootcamp est <span className="text-academy">sélectif.</span>
+                {fr ? 'Ce bootcamp est' : 'This bootcamp is'} <span className="text-academy">{fr ? 'sélectif.' : 'selective.'}</span>
               </h2>
               <p className="text-sm text-neutral-400 max-w-md mx-auto">
-                Sur sélection : tu postules en réservant ta place et on confirme si tu fais partie des sélectionnés.
+                {fr ? 'Sur sélection : tu postules en réservant ta place et on confirme si tu fais partie des sélectionnés.' : "By application only: reserve your spot and we confirm if you're selected."}
               </p>
             </div>
           </FadeInBlock>
@@ -54,7 +72,7 @@ export default function AcademyForWhoSection() {
           <FadeInBlock delay={0.1}>
             <div className="grid md:grid-cols-2 gap-5">
               <div className="p-6 rounded-2xl bg-gradient-to-br from-red-950/30 to-transparent border border-red-500/20">
-                <p className="text-xs font-bold text-red-400 tracking-widest uppercase mb-4">Pas pour toi si...</p>
+                <p className="text-xs font-bold text-red-400 tracking-widest uppercase mb-4">{fr ? 'Pas pour toi si...' : 'Not for you if...'}</p>
                 <div className="space-y-2.5">
                   {notFor.map((item, i) => (
                     <div key={i} className="flex items-start gap-2.5">
@@ -66,7 +84,7 @@ export default function AcademyForWhoSection() {
               </div>
 
               <div className="p-6 rounded-2xl bg-gradient-to-br from-academy/15 to-transparent border border-academy/30">
-                <p className="text-xs font-bold text-academy tracking-widest uppercase mb-4">Pour toi si...</p>
+                <p className="text-xs font-bold text-academy tracking-widest uppercase mb-4">{fr ? 'Pour toi si...' : 'For you if...'}</p>
                 <div className="space-y-2.5">
                   {yesFor.map((item, i) => (
                     <div key={i} className="flex items-start gap-2.5">

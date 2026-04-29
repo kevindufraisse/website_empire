@@ -2,6 +2,7 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { Zap, Lightbulb, Mic, FileText, Send } from 'lucide-react'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -18,34 +19,45 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
   )
 }
 
-const howItWorks = [
-  {
-    icon: Lightbulb,
-    num: '01',
-    title: 'On trouve tes sujets',
-    desc: 'On identifie les thématiques qui marchent dans ta niche. Tu ne pars jamais de zéro - on te donne les angles.',
-  },
-  {
-    icon: Mic,
-    num: '02',
-    title: 'Tu parles 15 minutes',
-    desc: 'Via Empire Alpha, notre outil simplifié. Tu parles comme un vocal - ton point de vue, tes idées, ton expérience. Pas besoin de savoir écrire ou monter.',
-  },
-  {
-    icon: FileText,
-    num: '03',
-    title: 'On écrit tes contenus',
-    desc: 'On récupère ta transcription. On rédige tes posts LinkedIn, on monte tes Shorts. Tout est prêt à publier.',
-  },
-  {
-    icon: Send,
-    num: '04',
-    title: 'Tu publies en 15 min',
-    desc: 'Tu copies, tu colles, tu postes. Chaque jour, du contenu de qualité sur tes réseaux - sans y passer ta vie.',
-  },
-]
-
 export default function AcademyEmpireAlphaSection() {
+  const { lang } = useLanguage()
+  const fr = lang === 'fr'
+
+  const howItWorks = [
+    {
+      icon: Lightbulb,
+      num: '01',
+      title: fr ? 'On trouve tes sujets' : 'We find your topics',
+      desc: fr
+        ? 'On identifie les thématiques qui marchent dans ta niche. Tu ne pars jamais de zéro - on te donne les angles.'
+        : 'We identify the topics that work in your niche. You never start from scratch — we give you the angles.',
+    },
+    {
+      icon: Mic,
+      num: '02',
+      title: fr ? 'Tu parles 15 minutes' : 'You talk for 15 minutes',
+      desc: fr
+        ? 'Via Empire Alpha, notre outil simplifié. Tu parles comme un vocal - ton point de vue, tes idées, ton expérience. Pas besoin de savoir écrire ou monter.'
+        : 'Via Empire Alpha, our simplified tool. You talk like a voice note — your perspective, your ideas, your experience. No writing or editing skills needed.',
+    },
+    {
+      icon: FileText,
+      num: '03',
+      title: fr ? 'On écrit tes contenus' : 'We write your content',
+      desc: fr
+        ? 'On récupère ta transcription. On rédige tes posts LinkedIn, on monte tes Shorts. Tout est prêt à publier.'
+        : 'We take your transcription. We write your LinkedIn posts, we edit your Shorts. Everything is ready to publish.',
+    },
+    {
+      icon: Send,
+      num: '04',
+      title: fr ? 'Tu publies en 15 min' : 'You publish in 15 min',
+      desc: fr
+        ? 'Tu copies, tu colles, tu postes. Chaque jour, du contenu de qualité sur tes réseaux - sans y passer ta vie.'
+        : 'You copy, you paste, you post. Every day, quality content on your channels — without spending your whole day on it.',
+    },
+  ]
+
   return (
     <section className="relative w-full py-20 md:py-28 bg-gradient-to-b from-black to-[#0f0f0f] overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,rgba(252, 165, 165,0.06),transparent)]" />
@@ -57,14 +69,18 @@ export default function AcademyEmpireAlphaSection() {
             <div className="text-center mb-14">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-academy/10 border border-academy/30 mb-5">
                 <Zap className="text-academy" size={14} />
-                <span className="text-xs font-bold text-academy tracking-widest uppercase">Comment ça marche</span>
+                <span className="text-xs font-bold text-academy tracking-widest uppercase">
+                  {fr ? 'Comment ça marche' : 'How it works'}
+                </span>
               </div>
               <h2 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
-                On trouve les sujets. Tu parles.{' '}
-                <span className="text-academy">On écrit tout.</span>
+                {fr ? 'On trouve les sujets. Tu parles.' : 'We find the topics. You talk.'}{' '}
+                <span className="text-academy">{fr ? 'On écrit tout.' : 'We write everything.'}</span>
               </h2>
               <p className="text-neutral-400 text-base md:text-lg max-w-xl mx-auto">
-                Pas de page blanche. Pas de montage. On te donne les thématiques, tu parles 15 min, on fait le reste.
+                {fr
+                  ? 'Pas de page blanche. Pas de montage. On te donne les thématiques, tu parles 15 min, on fait le reste.'
+                  : 'No blank page. No editing. We give you the topics, you talk for 15 min, we do the rest.'}
               </p>
             </div>
           </FadeInBlock>

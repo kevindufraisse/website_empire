@@ -6,32 +6,31 @@ import { SparklesText } from '@/components/magicui/sparkles-text'
 import { COHORT_RANGE_SHORT, ACADEMY_TIERS_SUMMARY } from '@/lib/cohort-config'
 import { useAcademyPricing } from '@/hooks/useAcademyPricing'
 import MediaCredibilityStrip from '@/components/MediaCredibilityStrip'
-
-const founders = [
-  {
-    name: 'Kevin Dufraisse',
-    url: 'https://www.linkedin.com/in/kevin-dufraisse/',
-    img: '/founders/kevin.jpg',
-    stats: [
-      '#48 influenceur LinkedIn France',
-      '2M de vues / mois',
-      '+4 000 clients accompagnés',
-    ],
-  },
-  {
-    name: 'Marc Dufraisse',
-    url: 'https://www.linkedin.com/in/marc-dufraisse/',
-    img: '/founders/marc.jpg',
-    stats: [
-      '40K abonnés LinkedIn',
-      '+4 000 leads en 1 post',
-      'Top 3 expert IA France',
-    ],
-  },
-]
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function AcademyHeroSection() {
+  const { lang } = useLanguage()
+  const fr = lang === 'fr'
   const pricing = useAcademyPricing()
+
+  const founders = [
+    {
+      name: 'Kevin Dufraisse',
+      url: 'https://www.linkedin.com/in/kevin-dufraisse/',
+      img: '/founders/kevin.jpg',
+      stats: fr
+        ? ['#48 influenceur LinkedIn France', '2M de vues / mois', '+4 000 clients accompagnés']
+        : ['#48 LinkedIn influencer in France', '2M views / month', '+4,000 clients coached'],
+    },
+    {
+      name: 'Marc Dufraisse',
+      url: 'https://www.linkedin.com/in/marc-dufraisse/',
+      img: '/founders/marc.jpg',
+      stats: fr
+        ? ['40K abonnés LinkedIn', '+4 000 leads en 1 post', 'Top 3 expert IA France']
+        : ['40K LinkedIn followers', '+4,000 leads in 1 post', 'Top 3 AI expert in France'],
+    },
+  ]
   return (
     <section className="relative w-full py-24 md:py-36 overflow-hidden bg-gradient-to-b from-black via-transparent to-[#0f0f0f]">
       <RetroGrid />
@@ -86,7 +85,7 @@ export default function AcademyHeroSection() {
                   Academy
                 </span>
                 <span className="hidden sm:inline text-[11px] md:text-xs text-neutral-400 font-medium">
-                  21 jours · Contenu produit pour toi
+                  {fr ? '21 jours · Contenu produit pour toi' : '21 days · Content created for you'}
                 </span>
               </div>
             </motion.div>
@@ -113,9 +112,9 @@ export default function AcademyHeroSection() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-5"
             >
-              21 jours pour apprendre la{' '}
+              {fr ? '21 jours pour apprendre la' : '21 days to master'}{' '}
               <SparklesText className="text-academy" sparklesCount={7} colors={{ first: '#fca5a5', second: '#f87171' }}>
-                viralité
+                {fr ? 'viralité' : 'virality'}
               </SparklesText>
               .
             </motion.h1>
@@ -128,7 +127,7 @@ export default function AcademyHeroSection() {
               className="max-w-md mx-auto mb-8"
             >
               <p className="text-lg md:text-xl text-neutral-300 text-center mb-5">
-                <span className="text-white font-semibold">15 min/jour.</span> On écrit et monte ton contenu. Tu publies sur :
+                <span className="text-white font-semibold">{fr ? '15 min/jour.' : '15 min/day.'}</span> {fr ? 'On écrit et monte ton contenu. Tu publies sur :' : 'We write and produce your content. You publish on:'}
               </p>
               <div className="flex items-center justify-center gap-3 mb-5">
                 {[
@@ -147,11 +146,18 @@ export default function AcademyHeroSection() {
                 ))}
               </div>
               <div className="flex flex-col gap-2">
-                {[
-                  'Comprendre pourquoi certains contenus explosent - et le reproduire',
-                  'Maîtriser la viralité sur tous les réseaux en même temps',
-                  'Transformer les vues en clients et en revenus concrets',
-                ].map((line, i) => (
+                {(fr
+                  ? [
+                      'Comprendre pourquoi certains contenus explosent - et le reproduire',
+                      'Maîtriser la viralité sur tous les réseaux en même temps',
+                      'Transformer les vues en clients et en revenus concrets',
+                    ]
+                  : [
+                      'Understand why some content goes viral — and replicate it',
+                      'Master virality across all platforms at once',
+                      'Turn views into clients and real revenue',
+                    ]
+                ).map((line, i) => (
                   <div key={i} className="flex items-start gap-2.5 text-left">
                     <span className="text-academy mt-0.5 flex-shrink-0 font-bold">›</span>
                     <span className="text-base text-neutral-200">{line}</span>
@@ -173,11 +179,11 @@ export default function AcademyHeroSection() {
                 rel="noopener noreferrer"
                 className="px-10 py-4 bg-academy text-black font-bold text-lg rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(252,165,165,0.35)] inline-block"
               >
-                Rejoindre - {pricing.price}€ →
+                {fr ? 'Rejoindre' : 'Join'} - {pricing.price}€ →
               </a>
               {pricing.isUrgent && (
                 <p className="text-xs text-academy font-bold mt-1 animate-pulse">
-                  Le prix augmente dans {pricing.countdown}
+                  {fr ? `Le prix augmente dans ${pricing.countdown}` : `Price increases in ${pricing.countdown}`}
                 </p>
               )}
             </motion.div>
@@ -190,7 +196,7 @@ export default function AcademyHeroSection() {
               className="max-w-md mx-auto mb-10"
             >
               <div className="p-4 rounded-xl bg-white/[0.06] border border-academy/20">
-                <p className="text-xs text-academy font-bold mb-3 text-center">Le prix augmente par palier</p>
+                <p className="text-xs text-academy font-bold mb-3 text-center">{fr ? 'Le prix augmente par palier' : 'Price increases by tier'}</p>
                 <div className="space-y-2">
                   {ACADEMY_TIERS_SUMMARY.map((t, i) => {
                     const isCurrent = t.price === pricing.price
@@ -203,20 +209,20 @@ export default function AcademyHeroSection() {
                             {t.label}
                           </span>
                           {isCurrent && (
-                            <span className="px-1.5 py-0.5 rounded bg-academy/20 text-academy font-bold text-[9px] tracking-wider">EN COURS</span>
+                            <span className="px-1.5 py-0.5 rounded bg-academy/20 text-academy font-bold text-[9px] tracking-wider">{fr ? 'EN COURS' : 'CURRENT'}</span>
                           )}
                         </div>
                         <span className={isCurrent ? 'text-academy font-bold' : isPast ? 'text-neutral-600 line-through' : 'text-neutral-400'}>
-                          {t.price}€ <span className={`font-normal ${isCurrent ? 'text-neutral-500' : 'text-neutral-600'}`}>ou 3x {t.installment}€</span>
+                          {t.price}€ <span className={`font-normal ${isCurrent ? 'text-neutral-500' : 'text-neutral-600'}`}>{fr ? 'ou' : 'or'} 3x {t.installment}€</span>
                         </span>
                       </div>
                     )
                   })}
                 </div>
                 <div className="mt-3 pt-3 border-t border-white/10 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[10px] text-neutral-500">
-                  <span>✓ Pas besoin de projet</span>
+                  <span>{fr ? '✓ Pas besoin de projet' : '✓ No project needed'}</span>
                   <span>·</span>
-                  <span>✓ Inscription sous réserve</span>
+                  <span>{fr ? '✓ Inscription sous réserve' : '✓ Subject to approval'}</span>
                 </div>
               </div>
             </motion.div>

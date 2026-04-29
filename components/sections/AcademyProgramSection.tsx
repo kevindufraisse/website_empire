@@ -4,6 +4,7 @@ import { useRef } from 'react'
 import { Lightbulb, Mic, FileText, Send, PenLine, Users } from 'lucide-react'
 import BorderBeam from '@/components/magicui/border-beam'
 import { DotPattern } from '@/components/magicui/dot-pattern'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -20,13 +21,6 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
   )
 }
 
-const howItWorks = [
-  { icon: Lightbulb, label: 'On trouve tes sujets', desc: 'Les angles qui marchent dans ta niche' },
-  { icon: Mic, label: 'Tu parles 15 min', desc: 'Via Empire Alpha, comme un vocal' },
-  { icon: FileText, label: 'On écrit tout', desc: 'Posts LinkedIn + Shorts montés' },
-  { icon: Send, label: 'Tu publies', desc: 'Copier-coller, 15 min/jour' },
-]
-
 const platforms = [
   { name: 'Instagram', path: 'M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z' },
   { name: 'LinkedIn', path: 'M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z' },
@@ -36,52 +30,74 @@ const platforms = [
   { name: 'Threads', path: 'M141.537 88.988c-.893-.452-1.804-.875-2.732-1.27-1.56-27.306-16.398-42.94-41.457-43.1h-.165c-14.985 0-27.449 6.396-35.12 18.036l13.779 9.452c5.73-8.695 14.724-10.548 21.348-10.548h.077c8.25.053 14.474 2.452 18.503 7.129 2.933 3.405 4.893 8.11 5.865 14.05-7.314-1.243-15.224-1.625-23.68-1.14-23.82 1.372-39.134 15.264-38.105 34.568.519 9.792 5.397 18.216 13.733 23.719 7.047 4.652 16.123 6.927 25.557 6.412 12.457-.683 22.23-5.437 29.048-14.127 5.178-6.601 8.452-15.153 9.899-25.93 5.937 3.583 10.337 8.298 12.767 13.966 4.132 9.635 4.373 25.468-8.547 38.375-11.318 11.309-24.924 16.2-45.587 16.352-22.81-.17-40.06-7.484-51.275-21.742C20.168 139.965 14.74 120.681 14.537 96c.203-24.681 5.631-43.965 16.136-57.314C41.929 24.425 59.179 17.11 81.988 16.94c22.975.17 40.526 7.521 52.171 21.847 5.71 7.025 10.016 15.861 12.853 26.162l17.147-4.308c-3.44-12.7-8.853-23.626-16.22-32.687C133.036 9.641 111.202.196 82.07 0H81.942C52.867.19 31.277 9.642 16.773 28.08 3.867 44.487-2.79 67.316-3.007 95.932L-3 96l-0.007.068c.217 28.616 6.874 51.445 19.78 67.852C31.277 182.358 52.867 191.81 81.942 192h1.112c26.96-.173 44.555-6.708 59.05-21.19C161.08 151.866 160.51 128.12 154.26 113.54c-4.484-10.454-13.033-18.945-24.724-24.553zM98.44 129.507c-10.44.588-21.286-4.098-21.821-14.135-.464-7.441 5.229-15.745 22.394-16.735 1.966-.113 3.895-.168 5.79-.168 6.235 0 12.068.606 17.371 1.766-1.978 24.702-13.58 28.713-23.734 29.272z', viewBox: '0 0 192 192' },
 ]
 
-const weeks = [
-  {
-    num: '01',
-    tag: 'Semaine 1 · Jours 1-7',
-    title: 'Comprendre la viralité',
-    desc: "Psychologie de l'attention, hooks, mécanique des millions de vues. Pourquoi certains contenus explosent - et comment le reproduire.",
-    highlight: false,
-    platforms: false,
-  },
-  {
-    num: '02',
-    tag: 'Semaine 2 · Jours 8-14',
-    title: 'Créer sur tous les réseaux',
-    desc: 'Formats par plateforme, rythme, systèmes de production. Vous créez partout sans vous épuiser.',
-    highlight: false,
-    platforms: true,
-  },
-  {
-    num: '03',
-    tag: 'Semaine 3 · Jours 15-21',
-    title: 'Devenir Head of Viralité',
-    desc: 'Transformer les vues en clients, générer des RDV, construire une activité qui tourne sans vous vendre à plein temps.',
-    highlight: true,
-    platforms: false,
-  },
-]
-
-const tools = [
-  {
-    icon: PenLine,
-    label: 'Défis quotidiens',
-    desc: 'Chaque jour, une action concrète. Vous ne regardez pas - vous faites.',
-  },
-  {
-    icon: Users,
-    label: 'Groupe privé',
-    desc: "Vous postez, vous recevez des feedbacks, vous voyez les résultats des autres.",
-  },
-  {
-    icon: Send,
-    label: 'Contenu créé pour vous',
-    desc: "Vos posts LinkedIn et Shorts sont rédigés et montés par notre équipe.",
-  },
-]
-
 export default function AcademyProgramSection() {
+  const { lang } = useLanguage()
+  const fr = lang === 'fr'
+
+  const howItWorks = [
+    { icon: Lightbulb, label: fr ? 'On trouve tes sujets' : 'We find your topics', desc: fr ? 'Les angles qui marchent dans ta niche' : 'The angles that work in your niche' },
+    { icon: Mic, label: fr ? 'Tu parles 15 min' : 'You talk for 15 min', desc: fr ? 'Via Empire Alpha, comme un vocal' : 'Via Empire Alpha, like a voice note' },
+    { icon: FileText, label: fr ? 'On écrit tout' : 'We write everything', desc: fr ? 'Posts LinkedIn + Shorts montés' : 'LinkedIn posts + edited Shorts' },
+    { icon: Send, label: fr ? 'Tu publies' : 'You publish', desc: fr ? 'Copier-coller, 15 min/jour' : 'Copy-paste, 15 min/day' },
+  ]
+
+  const weeks = [
+    {
+      num: '01',
+      tag: fr ? 'Semaine 1 · Jours 1-7' : 'Week 1 · Days 1-7',
+      title: fr ? 'Comprendre la viralité' : 'Understanding virality',
+      desc: fr
+        ? "Psychologie de l'attention, hooks, mécanique des millions de vues. Pourquoi certains contenus explosent - et comment le reproduire."
+        : "Attention psychology, hooks, mechanics of millions of views. Why some content goes viral - and how to replicate it.",
+      highlight: false,
+      platforms: false,
+    },
+    {
+      num: '02',
+      tag: fr ? 'Semaine 2 · Jours 8-14' : 'Week 2 · Days 8-14',
+      title: fr ? 'Créer sur tous les réseaux' : 'Creating on every platform',
+      desc: fr
+        ? 'Formats par plateforme, rythme, systèmes de production. Vous créez partout sans vous épuiser.'
+        : 'Platform-specific formats, rhythm, production systems. You create everywhere without burning out.',
+      highlight: false,
+      platforms: true,
+    },
+    {
+      num: '03',
+      tag: fr ? 'Semaine 3 · Jours 15-21' : 'Week 3 · Days 15-21',
+      title: fr ? 'Devenir Head of Viralité' : 'Becoming Head of Virality',
+      desc: fr
+        ? 'Transformer les vues en clients, générer des RDV, construire une activité qui tourne sans vous vendre à plein temps.'
+        : 'Turn views into clients, generate appointments, build a business that runs without selling full-time.',
+      highlight: true,
+      platforms: false,
+    },
+  ]
+
+  const tools = [
+    {
+      icon: PenLine,
+      label: fr ? 'Défis quotidiens' : 'Daily challenges',
+      desc: fr
+        ? 'Chaque jour, une action concrète. Vous ne regardez pas - vous faites.'
+        : 'Every day, one concrete action. You don\'t watch - you do.',
+    },
+    {
+      icon: Users,
+      label: fr ? 'Groupe privé' : 'Private group',
+      desc: fr
+        ? "Vous postez, vous recevez des feedbacks, vous voyez les résultats des autres."
+        : "You post, you get feedback, you see others' results.",
+    },
+    {
+      icon: Send,
+      label: fr ? 'Contenu créé pour vous' : 'Content created for you',
+      desc: fr
+        ? "Vos posts LinkedIn et Shorts sont rédigés et montés par notre équipe."
+        : "Your LinkedIn posts and Shorts are written and edited by our team.",
+    },
+  ]
+
   return (
     <section className="relative w-full py-20 md:py-28 bg-gradient-to-b from-black to-[#0f0f0f] overflow-hidden">
       <DotPattern className="opacity-30" />
@@ -93,10 +109,10 @@ export default function AcademyProgramSection() {
           {/* Title */}
           <FadeInBlock>
             <div className="text-center mb-14">
-              <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">Comment ça marche</p>
+              <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">{fr ? 'Comment ça marche' : 'How it works'}</p>
               <h2 className="text-3xl md:text-5xl font-bold leading-tight">
-                On trouve les sujets. Tu parles.{' '}
-                <span className="text-academy">On écrit tout.</span>
+                {fr ? 'On trouve les sujets. Tu parles.' : 'We find the topics. You talk.'}{' '}
+                <span className="text-academy">{fr ? 'On écrit tout.' : 'We write everything.'}</span>
               </h2>
             </div>
           </FadeInBlock>
@@ -126,7 +142,7 @@ export default function AcademyProgramSection() {
 
           {/* Weeks - timeline layout */}
           <FadeInBlock delay={0.1}>
-            <p className="text-center text-xs font-bold text-neutral-400 tracking-widest uppercase mb-6">Le programme semaine par semaine</p>
+            <p className="text-center text-xs font-bold text-neutral-400 tracking-widest uppercase mb-6">{fr ? 'Le programme semaine par semaine' : 'The week-by-week program'}</p>
             <div>
               <div className="grid md:grid-cols-3 gap-5">
                 {weeks.map((week, i) => (

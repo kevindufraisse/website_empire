@@ -43,6 +43,8 @@ export interface IconFigure {
   role: string
   /** Direct image URL override (used when unavatar may not have a clean shot). */
   image?: string
+  /** Total reach across platforms ("4.2M abonnés"). Shown on the intro screen for the primary icon. */
+  stat?: string
 }
 
 export interface WeekPlan {
@@ -50,6 +52,8 @@ export interface WeekPlan {
   title: string
   tasks: string[]
 }
+
+export type IconLang = 'en' | 'fr'
 
 export interface ArchetypeProfile {
   id: ArchetypeId
@@ -60,8 +64,12 @@ export interface ArchetypeProfile {
   strengths: string[]
   watchOuts: string[]
   bestFormats: string[]
-  /** 3 iconic figures - first is the primary "face" of the archetype. */
-  icons: IconFigure[]
+  /**
+   * 3 iconic figures per language - first is the primary "face" of the archetype.
+   * FR audience doesn't recognize Hormozi/Naval/Cardone, EN audience doesn't
+   * recognize Pauline Laigneau/Marc Lou/Oussama Ammar — so we ship two casts.
+   */
+  icons: Record<IconLang, IconFigure[]>
   /** 10 concrete post topics the person can write today. */
   topics: string[]
   /** Diagnostic per blocker ID - explains WHY their posts don't convert. */
@@ -78,6 +86,11 @@ export interface ArchetypeProfile {
 export function iconAvatarUrl(icon: IconFigure): string {
   if (icon.image) return icon.image
   return `https://unavatar.io/x/${encodeURIComponent(icon.handle)}`
+}
+
+/** Pick the right cast for the active language, falling back to EN. */
+export function getArchetypeIcons(profile: ArchetypeProfile, lang: IconLang): IconFigure[] {
+  return profile.icons[lang]?.length ? profile.icons[lang] : profile.icons.en
 }
 
 export const ARCHETYPES: Record<ArchetypeId, ArchetypeProfile> = {
@@ -98,11 +111,18 @@ export const ARCHETYPES: Record<ArchetypeId, ArchetypeProfile> = {
       'Vous avez du mal à structurer une offre claire',
     ],
     bestFormats: ['Posts narratifs LinkedIn', 'Threads X', 'Vidéos talking-head'],
-    icons: [
-      { name: 'Chris Williamson', handle: 'ChrisWillx', role: 'Le storyteller de Modern Wisdom', image: 'https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4d4f950bcf495c7dfb2_Williamson.webp' },
-      { name: 'Casey Neistat', handle: 'CaseyNeistat', role: 'Le maître du vlog cinématique' },
-      { name: 'Brené Brown', handle: 'BreneBrown', role: 'La voix de la vulnérabilité' },
-    ],
+    icons: {
+      en: [
+        { name: 'Chris Williamson', handle: 'ChrisWillx', role: 'Le storyteller de Modern Wisdom', stat: '4.2M abonnés', image: 'https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4d4f950bcf495c7dfb2_Williamson.webp' },
+        { name: 'Casey Neistat', handle: 'CaseyNeistat', role: 'Le maître du vlog cinématique' },
+        { name: 'Brené Brown', handle: 'BreneBrown', role: 'La voix de la vulnérabilité' },
+      ],
+      fr: [
+        { name: 'Pauline Laigneau', handle: 'plaigneau', role: "L'interviewer du Gratin", stat: '1M abonnés' },
+        { name: 'Caroline Mignaux', handle: 'MignauxC', role: 'La storyteller marketing FR' },
+        { name: 'Justine Hutteau', handle: 'JustineHutteau', role: 'La founder de Respire' },
+      ],
+    },
     topics: [
       'Le jour où j\'ai failli tout abandonner (et ce qui m\'a fait rester)',
       'Ce que personne ne dit sur [votre métier] - mon expérience après X ans',
@@ -163,11 +183,18 @@ export const ARCHETYPES: Record<ArchetypeId, ArchetypeProfile> = {
       "Vous publiez en mode 'logbook' au lieu de raconter",
     ],
     bestFormats: ['Build in public X/LinkedIn', 'Newsletter avec metrics', 'Lives produit'],
-    icons: [
-      { name: 'Matt Gray', handle: 'matt_gray_', role: 'Le builder systèmes', image: 'https://yt3.googleusercontent.com/W_GKaSoEuny3REkdSVW-AD6wcB_z5Ltr3hY_Mos94yDKlFLupVnJ6Gf8w1YfjEGps2nr62fB=s800-c-k-c0x00ffffff-no-rj' },
-      { name: 'Pieter Levels', handle: 'levelsio', role: 'Le solopreneur culte' },
-      { name: 'Naval Ravikant', handle: 'naval', role: "Le philosophe-entrepreneur" },
-    ],
+    icons: {
+      en: [
+        { name: 'Matt Gray', handle: 'matt_gray_', role: 'Le builder systèmes', stat: '900k abonnés', image: 'https://yt3.googleusercontent.com/W_GKaSoEuny3REkdSVW-AD6wcB_z5Ltr3hY_Mos94yDKlFLupVnJ6Gf8w1YfjEGps2nr62fB=s800-c-k-c0x00ffffff-no-rj' },
+        { name: 'Pieter Levels', handle: 'levelsio', role: 'Le solopreneur culte' },
+        { name: 'Naval Ravikant', handle: 'naval', role: "Le philosophe-entrepreneur" },
+      ],
+      fr: [
+        { name: 'Théo Lion', handle: 'theo_le_lion', role: 'Le solopreneur build in public', stat: '120k abonnés' },
+        { name: 'Marc Lou', handle: 'marclou', role: "L'indie hacker FR" },
+        { name: 'Kevin Dufraisse', handle: 'kevin_dufraisse', role: "Le founder d'Empire", image: 'https://d1yei2z3i6k35z.cloudfront.net/3647172/695b84b825207_Capturedecran2025-11-29a10.06.24.png' },
+      ],
+    },
     topics: [
       'J\'ai lancé [projet] il y a X mois. Voici mes vrais chiffres.',
       'Ce que j\'ai dépensé vs ce que j\'ai gagné - mois par mois, sans filtre.',
@@ -228,11 +255,18 @@ export const ARCHETYPES: Record<ArchetypeId, ArchetypeProfile> = {
       "Vous sous-monétisez parce que vous donnez trop avant d'oser proposer",
     ],
     bestFormats: ['Carrousels LinkedIn', 'YouTube long-format', 'Threads pédagogiques'],
-    icons: [
-      { name: 'Alex Hormozi', handle: 'AlexHormozi', role: 'Le pragmatique des frameworks', image: 'https://yt3.googleusercontent.com/29XFUn3pc3cC81yUUCFiyCKKdgi856IGMJ4EZBnf53zTfrWWUGvmYnYGx86K08f4XR03UxpWyw=s900-c-k-c0x00ffffff-no-rj' },
-      { name: 'Ali Abdaal', handle: 'aliabdaal', role: 'Le pédagogue moderne', image: 'https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4d436f96370e8ccb7c4_Abdaal.webp' },
-      { name: 'Justin Welsh', handle: 'thejustinwelsh', role: 'Le solopreneur teacher' },
-    ],
+    icons: {
+      en: [
+        { name: 'Alex Hormozi', handle: 'AlexHormozi', role: 'Le pragmatique des frameworks', stat: '4.1M abonnés', image: 'https://yt3.googleusercontent.com/29XFUn3pc3cC81yUUCFiyCKKdgi856IGMJ4EZBnf53zTfrWWUGvmYnYGx86K08f4XR03UxpWyw=s900-c-k-c0x00ffffff-no-rj' },
+        { name: 'Ali Abdaal', handle: 'aliabdaal', role: 'Le pédagogue moderne', image: 'https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4d436f96370e8ccb7c4_Abdaal.webp' },
+        { name: 'Justin Welsh', handle: 'thejustinwelsh', role: 'Le solopreneur teacher' },
+      ],
+      fr: [
+        { name: 'Yomi Denzel', handle: 'YomiDenzel96', role: 'Le pragmatique business FR', stat: '2.5M abonnés' },
+        { name: 'Stan Leloup', handle: 'marketingstan', role: 'Le pédagogue de Marketing Mania' },
+        { name: 'Shubham Sharma', handle: 'shubham_nocode', role: 'Le créateur business mondial' },
+      ],
+    },
     topics: [
       'Le framework en 3 étapes que j\'utilise pour [résultat concret]',
       'Tout le monde fait [erreur commune]. Voici pourquoi c\'est faux.',
@@ -293,11 +327,18 @@ export const ARCHETYPES: Record<ArchetypeId, ArchetypeProfile> = {
       "Difficulté à scaler en B2B sans softener",
     ],
     bestFormats: ['Hot takes X', 'Posts opinion LinkedIn', 'Podcasts en interview'],
-    icons: [
-      { name: 'Grant Cardone', handle: 'GrantCardone', role: 'Le motivateur 10X', image: 'https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4295dabe20aff6b9885_Cardone.webp' },
-      { name: 'Gary Vaynerchuk', handle: 'garyvee', role: 'Le hustler prolifique' },
-      { name: 'Chris Williamson', handle: 'ChrisWillx', role: 'Le penseur tranchant' },
-    ],
+    icons: {
+      en: [
+        { name: 'Grant Cardone', handle: 'GrantCardone', role: 'Le motivateur 10X', stat: '3.1M abonnés', image: 'https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4295dabe20aff6b9885_Cardone.webp' },
+        { name: 'Gary Vaynerchuk', handle: 'garyvee', role: 'Le hustler prolifique' },
+        { name: 'Chris Williamson', handle: 'ChrisWillx', role: 'Le penseur tranchant' },
+      ],
+      fr: [
+        { name: 'Oussama Ammar', handle: 'daedalium', role: "L'ancien de The Family", stat: '200k abonnés' },
+        { name: 'Idriss Aberkane', handle: 'idrissaberkane', role: 'Le contrarian intellectuel' },
+        { name: 'Antoine BM', handle: 'antoinebm', role: 'Le franc-tireur du marketing' },
+      ],
+    },
     topics: [
       'Unpopular opinion : [croyance de votre secteur] est complètement fausse.',
       'Tout le monde fait [pratique commune]. C\'est pour ça que tout le monde galère.',
@@ -493,3 +534,73 @@ export const STEP_MESSAGES: Record<number, { emoji: string; text: string }> = {
 }
 
 export const TOTAL_QUESTIONS = QUESTIONS.length
+
+// ─── Localization helpers ─────────────────────────────────────────────────────
+//
+// FR is the default (stored in this file). EN overrides live in quiz-data-en.ts.
+// Components call these to get fully-localized profiles, questions, and messages.
+
+import {
+  ARCHETYPES_EN,
+  QUESTIONS_EN,
+  STEP_MESSAGES_EN,
+  type ArchetypeTextOverride,
+  type QuestionTextOverride,
+} from './quiz-data-en'
+
+export interface LocalizedArchetypeProfile extends ArchetypeProfile {
+  /** Icons already resolved for the current language. */
+  localIcons: IconFigure[]
+}
+
+/** Returns a fully-localized archetype profile (text + icons). */
+export function getLocalizedArchetype(id: ArchetypeId, lang: IconLang): LocalizedArchetypeProfile {
+  const base = ARCHETYPES[id]
+  const localIcons = getArchetypeIcons(base, lang)
+
+  if (lang === 'en') {
+    const override: ArchetypeTextOverride = ARCHETYPES_EN[id]
+    return {
+      ...base,
+      name: override.name,
+      tagline: override.tagline,
+      description: override.description,
+      strengths: override.strengths,
+      watchOuts: override.watchOuts,
+      bestFormats: override.bestFormats,
+      topics: override.topics,
+      diagnostics: override.diagnostics,
+      plan30: override.plan30,
+      localIcons,
+    }
+  }
+
+  return { ...base, localIcons }
+}
+
+/** Returns the full question array, localized. */
+export function getLocalizedQuestions(lang: IconLang): QuizQuestion[] {
+  if (lang === 'en') {
+    return QUESTIONS.map(q => {
+      const override: QuestionTextOverride | undefined = QUESTIONS_EN.find(qe => qe.id === q.id)
+      if (!override) return q
+      return {
+        ...q,
+        kicker: override.kicker,
+        question: override.question,
+        helper: override.helper,
+        options: q.options.map(opt => {
+          const optOverride = override.options.find(o => o.id === opt.id)
+          return optOverride ? { ...opt, label: optOverride.label } : opt
+        }),
+      }
+    })
+  }
+  return QUESTIONS
+}
+
+/** Returns the step messages for the given language. */
+export function getLocalizedStepMessages(lang: IconLang): Record<number, { emoji: string; text: string }> {
+  if (lang === 'en') return STEP_MESSAGES_EN
+  return STEP_MESSAGES
+}

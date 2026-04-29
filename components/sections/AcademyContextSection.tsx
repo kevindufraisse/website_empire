@@ -2,6 +2,7 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { X, Check } from 'lucide-react'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -18,17 +19,20 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
   )
 }
 
-const deadJobs = [
-  { job: 'Copywriting', stat: 'GPT-4 produit 10 000 mots en 30s' },
-  { job: 'Montage vidéo', stat: 'Runway Gen-3 monte en temps réel' },
-  { job: 'SEO', stat: '90% des articles classés sont générés par IA' },
-  { job: 'Graphisme', stat: 'Midjourney surpasse 90% des designers' },
-  { job: 'Rédaction web', stat: 'Claude écrit mieux que la plupart' },
-  { job: 'Traduction', stat: 'DeepL L2 = niveau professionnel certifié' },
-  { job: 'Community mgmt', stat: 'Des bots gèrent des millions d\'interactions' },
-]
-
 export default function AcademyContextSection() {
+  const { lang } = useLanguage()
+  const fr = lang === 'fr'
+
+  const deadJobs = [
+    { job: 'Copywriting', stat: fr ? 'GPT-4 produit 10 000 mots en 30s' : 'GPT-4 produces 10,000 words in 30s' },
+    { job: fr ? 'Montage vidéo' : 'Video editing', stat: fr ? 'Runway Gen-3 monte en temps réel' : 'Runway Gen-3 edits in real time' },
+    { job: 'SEO', stat: fr ? '90% des articles classés sont générés par IA' : '90% of ranked articles are AI-generated' },
+    { job: fr ? 'Graphisme' : 'Graphic design', stat: fr ? 'Midjourney surpasse 90% des designers' : 'Midjourney outperforms 90% of designers' },
+    { job: fr ? 'Rédaction web' : 'Web writing', stat: fr ? 'Claude écrit mieux que la plupart' : 'Claude writes better than most' },
+    { job: fr ? 'Traduction' : 'Translation', stat: fr ? 'DeepL L2 = niveau professionnel certifié' : 'DeepL L2 = certified professional level' },
+    { job: 'Community mgmt', stat: fr ? 'Des bots gèrent des millions d\'interactions' : 'Bots handle millions of interactions' },
+  ]
+
   return (
     <section className="relative w-full py-20 md:py-28 bg-gradient-to-b from-[#0f0f0f] to-black overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,rgba(252, 165, 165,0.03),transparent)]" />
@@ -38,25 +42,37 @@ export default function AcademyContextSection() {
         <div className="max-w-4xl mx-auto">
           <FadeInBlock>
             <div className="text-center mb-16">
-              <p className="text-sm text-red-400/80 mb-3 tracking-widest uppercase font-bold">Le contexte</p>
+              <p className="text-sm text-red-400/80 mb-3 tracking-widest uppercase font-bold">
+                {fr ? 'Le contexte' : 'The context'}
+              </p>
               <h2 className="text-3xl md:text-5xl font-bold leading-tight mb-6">
-                Des millions de salariés ont perdu leur job en 2024.
+                {fr
+                  ? 'Des millions de salariés ont perdu leur job en 2024.'
+                  : 'Millions of workers lost their jobs in 2024.'}
                 <br />
-                <span className="text-red-400">L'IA n'a pas fini.</span>
+                <span className="text-red-400">{fr ? "L'IA n'a pas fini." : "AI isn't done."}</span>
               </h2>
               <p className="text-neutral-400 text-base md:text-lg max-w-2xl mx-auto">
-                Ce n'est pas une prédiction. C'est ce qui se passe maintenant.{' '}
-                <span className="text-white font-semibold">Les métiers de la connaissance pure disparaissent - remplacés en quelques mois par des modèles entraînés sur tout internet.</span>
+                {fr ? "Ce n'est pas une prédiction. C'est ce qui se passe maintenant. " : "This isn't a prediction. It's happening right now. "}
+                <span className="text-white font-semibold">
+                  {fr
+                    ? 'Les métiers de la connaissance pure disparaissent - remplacés en quelques mois par des modèles entraînés sur tout internet.'
+                    : 'Pure knowledge jobs are disappearing — replaced in months by models trained on the entire internet.'}
+                </span>
               </p>
             </div>
           </FadeInBlock>
 
           <FadeInBlock delay={0.15}>
             <div className="grid md:grid-cols-2 gap-6 items-start">
-              {/* Colonne métiers morts */}
+              {/* Dead jobs column */}
               <div className="p-6 rounded-2xl bg-gradient-to-br from-red-950/40 to-red-900/10 border border-red-500/25">
-                <p className="text-xs font-bold text-red-400 tracking-widest uppercase mb-1">Métiers en cours de destruction</p>
-                <p className="text-neutral-400 text-xs mb-4">Pendant que vous lisez ces lignes.</p>
+                <p className="text-xs font-bold text-red-400 tracking-widest uppercase mb-1">
+                  {fr ? 'Métiers en cours de destruction' : 'Jobs being destroyed'}
+                </p>
+                <p className="text-neutral-400 text-xs mb-4">
+                  {fr ? 'Pendant que vous lisez ces lignes.' : 'While you read these lines.'}
+                </p>
                 <div className="space-y-2">
                   {deadJobs.map((item, i) => (
                     <motion.div
@@ -77,33 +93,43 @@ export default function AcademyContextSection() {
                 </div>
               </div>
 
-              {/* Colonne insight */}
+              {/* Insight column */}
               <div className="flex flex-col gap-4">
                 <div className="p-6 rounded-2xl bg-gradient-to-br from-academy/20 to-academy/5 border border-academy/40 relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-academy/10 rounded-full blur-2xl" />
                   <div className="relative z-10">
                     <div className="flex items-center gap-2 mb-4">
                       <Check className="text-academy" size={16} />
-                      <p className="text-xs font-bold text-academy tracking-widest uppercase">La seule chose qui résiste</p>
+                      <p className="text-xs font-bold text-academy tracking-widest uppercase">
+                        {fr ? 'La seule chose qui résiste' : 'The only thing that endures'}
+                      </p>
                     </div>
                     <p className="text-xl font-black text-white mb-4 leading-snug">
-                      L'IA peut générer du contenu à l'infini. Elle ne peut pas décider pourquoi <em>vous</em> vous vous arrêtez, regardez, partagez.
+                      {fr
+                        ? <>L&apos;IA peut générer du contenu à l&apos;infini. Elle ne peut pas décider pourquoi <em>vous</em> vous vous arrêtez, regardez, partagez.</>
+                        : <>AI can generate infinite content. It cannot decide why <em>you</em> stop, watch, and share.</>}
                     </p>
                     <p className="text-neutral-300 text-sm leading-relaxed">
-                      Comprendre le cerveau humain - la psychologie de l'attention, la mécanique de la viralité - c'est{' '}
-                      <span className="text-white font-semibold">la seule compétence que l'IA ne peut pas reproduire.</span>{' '}
-                      Parce qu'elle ne ressent pas. Elle prédit.
+                      {fr
+                        ? <>Comprendre le cerveau humain - la psychologie de l&apos;attention, la mécanique de la viralité - c&apos;est{' '}<span className="text-white font-semibold">la seule compétence que l&apos;IA ne peut pas reproduire.</span>{' '}Parce qu&apos;elle ne ressent pas. Elle prédit.</>
+                        : <>Understanding the human brain — the psychology of attention, the mechanics of virality — is{' '}<span className="text-white font-semibold">the only skill AI cannot replicate.</span>{' '}Because it doesn&apos;t feel. It predicts.</>}
                     </p>
                   </div>
                 </div>
 
                 <div className="p-5 rounded-2xl bg-white/[0.08] border border-white/15">
-                  <p className="text-neutral-400 text-xs uppercase tracking-widest mb-2 font-bold">La logique qui suit</p>
+                  <p className="text-neutral-400 text-xs uppercase tracking-widest mb-2 font-bold">
+                    {fr ? 'La logique qui suit' : 'The logic that follows'}
+                  </p>
                   <p className="text-neutral-300 text-sm leading-relaxed mb-3">
-                    Dans un monde où la compétence est égale pour tous, les gens choisissent soit le plus visible, soit celui en qui ils ont le plus confiance.
+                    {fr
+                      ? 'Dans un monde où la compétence est égale pour tous, les gens choisissent soit le plus visible, soit celui en qui ils ont le plus confiance.'
+                      : 'In a world where skill is equal for everyone, people choose either the most visible or the most trusted.'}
                   </p>
                   <p className="text-academy text-sm font-semibold">
-                    Construire une audience aujourd'hui, c'est le seul moyen de ne pas être interchangeable demain.
+                    {fr
+                      ? "Construire une audience aujourd'hui, c'est le seul moyen de ne pas être interchangeable demain."
+                      : "Building an audience today is the only way to not be replaceable tomorrow."}
                   </p>
                 </div>
               </div>

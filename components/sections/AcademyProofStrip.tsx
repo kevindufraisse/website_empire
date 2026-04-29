@@ -2,22 +2,7 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import NumberTicker from '@/components/magicui/number-ticker'
-
-const before = [
-  { label: 'Vues', value: '247', raw: null },
-  { label: 'Likes', value: '4', raw: null },
-  { label: 'Abonnés gagnés', value: '0', raw: null },
-  { label: 'RDV générés / mois', value: '0', raw: null },
-  { label: 'Revenus générés', value: '0€', raw: null },
-]
-
-const after = [
-  { label: 'Vues', value: null, raw: 1199942, suffix: '' },
-  { label: 'Likes', value: null, raw: 38391, suffix: '' },
-  { label: 'Abonnés gagnés', value: null, raw: 2099, suffix: '+' },
-  { label: 'RDV générés / mois', value: null, raw: 14, suffix: '+' },
-  { label: 'Revenus générés', value: null, raw: 3200, suffix: '€' },
-]
+import { useLanguage } from '@/contexts/LanguageContext'
 
 function StatCard({
   label,
@@ -61,8 +46,26 @@ function formatBig(n: number) {
 }
 
 export default function AcademyProofStrip() {
+  const { lang } = useLanguage()
+  const fr = lang === 'fr'
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-60px' })
+
+  const before = [
+    { label: fr ? 'Vues' : 'Views', value: '247', raw: null },
+    { label: 'Likes', value: '4', raw: null },
+    { label: fr ? 'Abonnés gagnés' : 'Followers gained', value: '0', raw: null },
+    { label: fr ? 'RDV générés / mois' : 'Meetings booked / month', value: '0', raw: null },
+    { label: fr ? 'Revenus générés' : 'Revenue generated', value: '0€', raw: null },
+  ]
+
+  const after = [
+    { label: fr ? 'Vues' : 'Views', value: null, raw: 1199942, suffix: '' },
+    { label: 'Likes', value: null, raw: 38391, suffix: '' },
+    { label: fr ? 'Abonnés gagnés' : 'Followers gained', value: null, raw: 2099, suffix: '+' },
+    { label: fr ? 'RDV générés / mois' : 'Meetings booked / month', value: null, raw: 14, suffix: '+' },
+    { label: fr ? 'Revenus générés' : 'Revenue generated', value: null, raw: 3200, suffix: '€' },
+  ]
 
   return (
     <section ref={ref} className="relative py-12 md:py-16 bg-[#0a0a0a] border-y border-white/5 overflow-hidden">
@@ -76,7 +79,7 @@ export default function AcademyProofStrip() {
             transition={{ duration: 0.5 }}
             className="text-center text-xs font-bold text-neutral-400 tracking-widest uppercase mb-8"
           >
-            Ce que ça change - en 21 jours
+            {fr ? 'Ce que ça change - en 21 jours' : 'What it changes - in 21 days'}
           </motion.p>
 
           <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-4 md:gap-6">
@@ -92,7 +95,7 @@ export default function AcademyProofStrip() {
                 <div className="w-6 h-6 rounded-full bg-neutral-800 border border-neutral-700 flex items-center justify-center">
                   <span className="text-neutral-400 text-[10px] font-black">↓</span>
                 </div>
-                <span className="text-xs font-semibold text-neutral-400 uppercase tracking-wider">Avant</span>
+                <span className="text-xs font-semibold text-neutral-400 uppercase tracking-wider">{fr ? 'Avant' : 'Before'}</span>
               </div>
               {before.map((s, i) => (
                 <StatCard
@@ -117,7 +120,7 @@ export default function AcademyProofStrip() {
               <div className="w-10 h-10 rounded-full bg-academy/20 border border-academy/40 flex items-center justify-center shadow-[0_0_20px_rgba(252, 165, 165,0.2)]">
                 <span className="text-academy font-black text-lg">→</span>
               </div>
-              <span className="text-[9px] font-bold text-academy/60 uppercase tracking-wider text-center leading-tight">21<br/>jours</span>
+              <span className="text-[9px] font-bold text-academy/60 uppercase tracking-wider text-center leading-tight">21<br/>{fr ? 'jours' : 'days'}</span>
             </motion.div>
 
             {/* APRÈS */}
@@ -131,7 +134,7 @@ export default function AcademyProofStrip() {
                 <div className="w-6 h-6 rounded-full bg-academy/20 border border-academy/40 flex items-center justify-center">
                   <span className="text-academy text-[10px] font-black">↑</span>
                 </div>
-                <span className="text-xs font-semibold text-academy uppercase tracking-wider">Après</span>
+                <span className="text-xs font-semibold text-academy uppercase tracking-wider">{fr ? 'Après' : 'After'}</span>
               </div>
               {after.map((s, i) => (
                 <StatCard
@@ -156,7 +159,9 @@ export default function AcademyProofStrip() {
             transition={{ duration: 0.5, delay: 0.9 }}
             className="text-center text-xs text-neutral-400 mt-8"
           >
-            Résultats de nos clients agence · La méthode exacte qu'on t'enseigne
+            {fr
+              ? "Résultats de nos clients agence · La méthode exacte qu'on t'enseigne"
+              : "Results from our agency clients · The exact method we teach you"}
           </motion.p>
 
         </div>

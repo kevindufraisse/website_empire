@@ -2,10 +2,13 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useAcademyPricing } from '@/hooks/useAcademyPricing'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function AcademyStickyBar() {
   const [visible, setVisible] = useState(false)
   const pricing = useAcademyPricing()
+  const { lang } = useLanguage()
+  const fr = lang === 'fr'
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 400)
@@ -36,11 +39,11 @@ export default function AcademyStickyBar() {
                     <span className="text-white font-semibold">{pricing.price}€</span>
                     {pricing.price < 897 && <span className="text-neutral-500 line-through ml-1.5 text-[10px]">897€</span>}
                     <span className="hidden md:inline text-neutral-400"> · </span>
-                    <span className="hidden md:inline text-neutral-400 text-[10px]">ou 3x {pricing.installment}€</span>
+                    <span className="hidden md:inline text-neutral-400 text-[10px]">{fr ? 'ou' : 'or'} 3x {pricing.installment}€</span>
                   </p>
                   {pricing.isUrgent && (
                     <span className="text-[10px] text-academy font-semibold whitespace-nowrap hidden sm:inline animate-pulse">
-                      Prix augmente dans {pricing.countdown}
+                      {fr ? `Prix augmente dans ${pricing.countdown}` : `Price increases in ${pricing.countdown}`}
                     </span>
                   )}
                 </div>
@@ -52,7 +55,7 @@ export default function AcademyStickyBar() {
                 rel="noopener noreferrer"
                 className="flex-shrink-0 px-3.5 py-1.5 bg-academy text-black font-bold text-xs rounded-lg hover:scale-105 transition-all shadow-[0_0_20px_rgba(252,165,165,0.3)] whitespace-nowrap"
               >
-                Rejoindre - {pricing.price}€
+                {fr ? 'Rejoindre' : 'Join'} - {pricing.price}€
               </a>
             </div>
           </div>

@@ -3,6 +3,7 @@ import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { COHORT_START_TEXT } from '@/lib/cohort-config'
 import { useAcademyPricing } from '@/hooks/useAcademyPricing'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -26,15 +27,17 @@ const founders = [
 
 export default function AcademyWhoSection() {
   const pricing = useAcademyPricing()
+  const { lang } = useLanguage()
+  const fr = lang === 'fr'
   return (
     <section className="container py-20 md:py-28">
       <div className="max-w-4xl mx-auto">
         <FadeInBlock>
           <div className="text-center mb-12">
-            <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">Qui on est</p>
+            <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">{fr ? 'Qui on est' : 'Who we are'}</p>
             <h2 className="text-3xl md:text-5xl font-bold leading-tight">
-              Le bootcamp créé par{' '}
-              <span className="text-academy">ceux qui le font pour vrai.</span>
+              {fr ? 'Le bootcamp créé par' : 'The bootcamp built by'}{' '}
+              <span className="text-academy">{fr ? 'ceux qui le font pour vrai.' : 'people who actually do it.'}</span>
             </h2>
           </div>
         </FadeInBlock>
@@ -51,7 +54,7 @@ export default function AcademyWhoSection() {
                 </div>
                 <div>
                   <p className="text-white font-bold text-sm">Empire Internet</p>
-                  <p className="text-neutral-400 text-xs">10M+ vues/mois</p>
+                  <p className="text-neutral-400 text-xs">{fr ? '10M+ vues/mois' : '10M+ views/month'}</p>
                 </div>
               </div>
               <div className="hidden sm:block w-px h-10 bg-white/10 flex-shrink-0" />
@@ -65,22 +68,28 @@ export default function AcademyWhoSection() {
                   </div>
                 </div>
                 <p className="text-neutral-400 text-sm">
-                  Kevin &amp; Marc Dufraisse <span className="text-neutral-400">- fondateurs</span>
+                  Kevin &amp; Marc Dufraisse <span className="text-neutral-400">{fr ? '- fondateurs' : '- founders'}</span>
                 </p>
               </div>
             </div>
 
             <div className="space-y-5 text-neutral-300 leading-relaxed">
               <p className="text-base md:text-lg">
-                On a commencé en créant du contenu pour nos propres projets. On a testé tout : hooks, formats, rythmes. Beaucoup de ratés. Puis certains contenus ont explosé.{' '}
-                <span className="text-white font-semibold">On a compris pourquoi. Et on a rendu ça systématique.</span>
+                {fr
+                  ? <>On a commencé en créant du contenu pour nos propres projets. On a testé tout : hooks, formats, rythmes. Beaucoup de ratés. Puis certains contenus ont explosé.{' '}<span className="text-white font-semibold">On a compris pourquoi. Et on a rendu ça systématique.</span></>
+                  : <>We started by creating content for our own projects. We tested everything: hooks, formats, rhythms. A lot of failures. Then some content blew up.{' '}<span className="text-white font-semibold">We understood why. And we made it systematic.</span></>
+                }
               </p>
               <p className="text-base md:text-lg">
-                Aujourd'hui on produit du contenu viral pour des entrepreneurs et des marques - 10M+ vues par mois. Ce bootcamp, c'est notre méthode exacte. Pas une théorie.{' '}
-                <span className="text-academy font-semibold">Tu apprends ce qu'on fait nous, cette semaine, pour nos clients.</span>
+                {fr
+                  ? <>Aujourd&#39;hui on produit du contenu viral pour des entrepreneurs et des marques - 10M+ vues par mois. Ce bootcamp, c&#39;est notre méthode exacte. Pas une théorie.{' '}<span className="text-academy font-semibold">Tu apprends ce qu&#39;on fait nous, cette semaine, pour nos clients.</span></>
+                  : <>Today we produce viral content for entrepreneurs and brands - 10M+ views per month. This bootcamp is our exact method. Not theory.{' '}<span className="text-academy font-semibold">You learn what we do ourselves, this week, for our clients.</span></>
+                }
               </p>
               <p className="text-base md:text-lg text-neutral-400">
-                Et pendant que tu apprends, on te crée ton contenu chaque jour. Tu n'as qu'à publier.
+                {fr
+                  ? "Et pendant que tu apprends, on te crée ton contenu chaque jour. Tu n'as qu'à publier."
+                  : 'And while you learn, we create your content every day. All you have to do is publish.'}
               </p>
             </div>
           </div>
@@ -92,7 +101,7 @@ export default function AcademyWhoSection() {
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(252,165,165,0.06),transparent)] pointer-events-none" />
 
             <div className="relative z-10">
-              <p className="text-sm text-academy font-bold tracking-widest uppercase mb-3">Vous rejoignez la promo</p>
+              <p className="text-sm text-academy font-bold tracking-widest uppercase mb-3">{fr ? 'Vous rejoignez la promo' : 'Join the cohort'}</p>
               <p className="text-2xl md:text-3xl font-extrabold text-white mb-6">{COHORT_START_TEXT}</p>
 
               <div className="flex items-center justify-center gap-4 mb-6">
@@ -107,8 +116,7 @@ export default function AcademyWhoSection() {
                   ))}
                 </div>
                 <p className="text-sm text-neutral-400 text-left leading-snug">
-                  Kevin & Marc accompagnent chaque membre{' '}
-                  <span className="text-white font-semibold">personnellement.</span>
+                  {fr ? <>Kevin & Marc accompagnent chaque membre{' '}<span className="text-white font-semibold">personnellement.</span></> : <>Kevin & Marc support every member{' '}<span className="text-white font-semibold">personally.</span></>}
                 </p>
               </div>
 
@@ -118,7 +126,7 @@ export default function AcademyWhoSection() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-8 py-3.5 bg-academy text-black font-bold text-base rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(252,165,165,0.25)]"
               >
-                Rejoindre - {pricing.price}€
+                {fr ? 'Rejoindre' : 'Join'} - {pricing.price}€
                 <span aria-hidden="true">→</span>
               </a>
             </div>

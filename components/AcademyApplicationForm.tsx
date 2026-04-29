@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Check, ArrowRight, Loader2, ChevronLeft, RotateCcw, Copy, CheckCheck, ChevronDown } from 'lucide-react'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 const STORAGE_KEY = 'empire_candidature'
 
@@ -41,17 +42,6 @@ const initial: FormData = {
   social_link: '', motivation: '',
   referral_1: '', referral_2: '', referral_3: '',
 }
-
-// ─── Step config ──────────────────────────────────────────────────────────────
-
-const STEPS = [
-  { num: 1, label: 'Contact' },
-  { num: 2, label: 'Disponibilités' },
-  { num: 3, label: 'Profil' },
-  { num: 4, label: 'Personnalité' },
-  { num: 5, label: 'Finalisation' },
-  { num: 6, label: 'Recommandation' },
-]
 
 const TOTAL_STEPS = 6
 const COUNTDOWN_SECONDS = 15 * 60
@@ -116,12 +106,10 @@ function Textarea({
 // ─── Country codes ────────────────────────────────────────────────────────────
 
 const COUNTRIES = [
-  // Favoris en premier
   { code: '+33',  flag: '🇫🇷', name: 'France' },
   { code: '+32',  flag: '🇧🇪', name: 'Belgique' },
   { code: '+41',  flag: '🇨🇭', name: 'Suisse' },
   { code: '+352', flag: '🇱🇺', name: 'Luxembourg' },
-  // Afrique francophone
   { code: '+212', flag: '🇲🇦', name: 'Maroc' },
   { code: '+213', flag: '🇩🇿', name: 'Algérie' },
   { code: '+216', flag: '🇹🇳', name: 'Tunisie' },
@@ -138,7 +126,6 @@ const COUNTRIES = [
   { code: '+242', flag: '🇨🇬', name: 'Congo' },
   { code: '+243', flag: '🇨🇩', name: 'RD Congo' },
   { code: '+261', flag: '🇲🇬', name: 'Madagascar' },
-  // Europe
   { code: '+1',   flag: '🇺🇸', name: 'États-Unis' },
   { code: '+1',   flag: '🇨🇦', name: 'Canada' },
   { code: '+44',  flag: '🇬🇧', name: 'Royaume-Uni' },
@@ -159,14 +146,12 @@ const COUNTRIES = [
   { code: '+30',  flag: '🇬🇷', name: 'Grèce' },
   { code: '+7',   flag: '🇷🇺', name: 'Russie' },
   { code: '+380', flag: '🇺🇦', name: 'Ukraine' },
-  // Moyen-Orient
   { code: '+971', flag: '🇦🇪', name: 'Émirats Arabes Unis' },
   { code: '+966', flag: '🇸🇦', name: 'Arabie Saoudite' },
   { code: '+974', flag: '🇶🇦', name: 'Qatar' },
   { code: '+965', flag: '🇰🇼', name: 'Koweït' },
   { code: '+972', flag: '🇮🇱', name: 'Israël' },
   { code: '+90',  flag: '🇹🇷', name: 'Turquie' },
-  // Asie
   { code: '+86',  flag: '🇨🇳', name: 'Chine' },
   { code: '+81',  flag: '🇯🇵', name: 'Japon' },
   { code: '+82',  flag: '🇰🇷', name: 'Corée du Sud' },
@@ -176,23 +161,22 @@ const COUNTRIES = [
   { code: '+84',  flag: '🇻🇳', name: 'Vietnam' },
   { code: '+63',  flag: '🇵🇭', name: 'Philippines' },
   { code: '+65',  flag: '🇸🇬', name: 'Singapour' },
-  // Amériques
   { code: '+55',  flag: '🇧🇷', name: 'Brésil' },
   { code: '+52',  flag: '🇲🇽', name: 'Mexique' },
   { code: '+54',  flag: '🇦🇷', name: 'Argentine' },
   { code: '+57',  flag: '🇨🇴', name: 'Colombie' },
   { code: '+56',  flag: '🇨🇱', name: 'Chili' },
   { code: '+51',  flag: '🇵🇪', name: 'Pérou' },
-  // Océanie
   { code: '+61',  flag: '🇦🇺', name: 'Australie' },
   { code: '+64',  flag: '🇳🇿', name: 'Nouvelle-Zélande' },
 ]
 
 function PhoneInput({
-  value, onChange,
+  value, onChange, fr,
 }: {
   value: string
   onChange: (v: string) => void
+  fr: boolean
 }) {
   const [dialCode, setDialCode] = useState('+33')
   const [localNumber, setLocalNumber] = useState('')
@@ -201,16 +185,13 @@ function PhoneInput({
   const ref = useRef<HTMLDivElement>(null)
   const searchRef = useRef<HTMLInputElement>(null)
 
-  // Sync combined value
   useEffect(() => {
     const num = localNumber.replace(/^0/, '')
     onChange(`${dialCode}${num}`)
   }, [dialCode, localNumber]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Pre-fill from existing value (resume)
   useEffect(() => {
     if (!value) return
-    // Sort by code length desc to match longer codes first (+352 before +35)
     const sorted = [...COUNTRIES].sort((a, b) => b.code.length - a.code.length)
     const found = sorted.find(c => value.startsWith(c.code))
     if (found) {
@@ -221,7 +202,6 @@ function PhoneInput({
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Close on outside click
   useEffect(() => {
     function handle(e: MouseEvent) {
       if (ref.current && !ref.current.contains(e.target as Node)) {
@@ -233,7 +213,6 @@ function PhoneInput({
     return () => document.removeEventListener('mousedown', handle)
   }, [])
 
-  // Focus search when dropdown opens
   useEffect(() => {
     if (open) setTimeout(() => searchRef.current?.focus(), 50)
   }, [open])
@@ -250,7 +229,7 @@ function PhoneInput({
   return (
     <div className="flex flex-col gap-1.5">
       <label className="text-sm font-medium text-neutral-300">
-        Téléphone <span className="text-academy">*</span>
+        {fr ? 'Téléphone' : 'Phone'} <span className="text-academy">*</span>
       </label>
       <div className="flex gap-2" ref={ref}>
         {/* Dropdown trigger */}
@@ -267,21 +246,19 @@ function PhoneInput({
 
           {open && (
             <div className="absolute top-full left-0 mt-1 z-50 w-64 rounded-xl bg-[#111] border border-white/10 shadow-2xl overflow-hidden">
-              {/* Search */}
               <div className="p-2 border-b border-white/10">
                 <input
                   ref={searchRef}
                   type="text"
                   value={search}
                   onChange={e => setSearch(e.target.value)}
-                  placeholder="Chercher un pays ou indicatif..."
+                  placeholder={fr ? 'Chercher un pays ou indicatif...' : 'Search country or code...'}
                   className="w-full bg-white/[0.10] border border-white/20 rounded-lg px-3 py-2 text-white placeholder-neutral-400 text-xs focus:outline-none focus:border-academy/50 transition-all"
                 />
               </div>
-              {/* List */}
               <div className="max-h-52 overflow-y-auto">
                 {filtered.length === 0 ? (
-                  <p className="px-4 py-3 text-xs text-neutral-400 text-center">Aucun résultat</p>
+                  <p className="px-4 py-3 text-xs text-neutral-400 text-center">{fr ? 'Aucun résultat' : 'No results'}</p>
                 ) : filtered.map((c, i) => (
                   <button
                     key={`${c.code}-${i}`}
@@ -301,7 +278,6 @@ function PhoneInput({
           )}
         </div>
 
-        {/* Number input */}
         <input
           type="tel"
           value={localNumber}
@@ -352,74 +328,26 @@ function OptionCard({
 
 type DiscType = 'dominant' | 'influent' | 'stable' | 'conforme'
 
-const discConfig: Record<DiscType, {
-  color: string
-  dot: string
-  badge: string
-  badgeStyle: string
-  letter: string
-  title: string
-  sub: string
-  traits: string[]
-  forBootcamp: string
-}> = {
-  dominant: {
-    color: '#ef4444',
-    dot: 'bg-red-500',
-    badge: 'Profil D - Dominant',
-    badgeStyle: 'bg-red-500/15 text-red-400 border-red-500/40',
-    letter: 'D',
-    title: 'Vous avancez. Sans attendre.',
-    sub: 'Vous décidez vite, vous assumez, vous foncez. C\'est exactement le profil qu\'on cherche.',
-    traits: ['Orienté résultats', 'Décide vite', 'Compétitif', 'Aime les défis'],
-    forBootcamp: 'Excellent fit - vous avez le moteur pour créer chaque jour et ne pas lâcher.',
-  },
-  influent: {
-    color: '#eab308',
-    dot: 'bg-yellow-500',
-    badge: 'Profil I - Influent',
-    badgeStyle: 'bg-yellow-500/15 text-yellow-400 border-yellow-500/40',
-    letter: 'I',
-    title: 'Vous créez, vous connectez, vous convainquez.',
-    sub: 'Vous savez naturellement capter l\'attention. Le contenu, c\'est votre terrain.',
-    traits: ['Enthousiaste', 'Persuasif', 'Créatif', 'Social, fédérateur'],
-    forBootcamp: 'Profil idéal pour la viralité - vous avez l\'instinct du créateur de contenu.',
-  },
-  stable: {
-    color: '#22c55e',
-    dot: 'bg-green-500',
-    badge: 'Profil S - Stable',
-    badgeStyle: 'bg-green-500/15 text-green-400 border-green-500/40',
-    letter: 'S',
-    title: 'Vous construisez dans la durée.',
-    sub: 'Vous êtes fiable, méthodique, patient. La régularité - votre super-pouvoir.',
-    traits: ['Régulier', 'Fiable', 'Patient', 'Travail en profondeur'],
-    forBootcamp: 'Bon fit - la régularité quotidienne du bootcamp est faite pour vous.',
-  },
-  conforme: {
-    color: '#3b82f6',
-    dot: 'bg-blue-500',
-    badge: 'Profil C - Conforme',
-    badgeStyle: 'bg-blue-500/15 text-blue-400 border-blue-500/40',
-    letter: 'C',
-    title: 'Vous analysez avant d\'agir.',
-    sub: 'Précis, structuré, logique. Vous voulez comprendre avant de faire.',
-    traits: ['Analytique', 'Précis', 'Qualité', 'Orienté données'],
-    forBootcamp: 'Profil intéressant - vous apporterez de la rigueur, même si la création rapide sera votre défi.',
-  },
-}
-
 const PAGE_URL = 'https://empire-internet.com/candidature'
 
-const shareMessages: Record<DiscType, string> = {
-  dominant: `Je viens de candidater au Bootcamp Head of Viralité d'Empire Internet.\n\nProfil DISC : Dominant - je fonce, je décide, j'avance.\n\n21 jours pour maîtriser la viralité et générer 3 000€/mois.\n\nVous voulez tester votre éligibilité ?`,
-  influent: `Je viens de candidater au Bootcamp Head of Viralité d'Empire Internet.\n\nProfil DISC : Influent - contenu, connexion, conviction.\n\n21 jours pour maîtriser la viralité et générer 3 000€/mois.\n\nVous voulez tester votre éligibilité ?`,
-  stable: `Je viens de candidater au Bootcamp Head of Viralité d'Empire Internet.\n\nProfil DISC : Stable - je construis dans la durée, sans me griller.\n\n21 jours pour maîtriser la viralité et générer 3 000€/mois.\n\nVous voulez tester votre éligibilité ?`,
-  conforme: `Je viens de candidater au Bootcamp Head of Viralité d'Empire Internet.\n\nProfil DISC : Conforme - j'analyse, je structure, je perfectionne.\n\n21 jours pour maîtriser la viralité et générer 3 000€/mois.\n\nVous voulez tester votre éligibilité ?`,
-}
-
-function ShareButtons({ disc }: { disc: DiscType }) {
+function ShareButtons({ disc, fr }: { disc: DiscType; fr: boolean }) {
   const [copied, setCopied] = useState(false)
+
+  const shareMessages: Record<DiscType, string> = {
+    dominant: fr
+      ? `Je viens de candidater au Bootcamp Head of Viralité d'Empire Internet.\n\nProfil DISC : Dominant - je fonce, je décide, j'avance.\n\n21 jours pour maîtriser la viralité et générer 3 000€/mois.\n\nVous voulez tester votre éligibilité ?`
+      : `I just applied to Empire Internet's Head of Virality Bootcamp.\n\nDISC Profile: Dominant — I go for it, I decide, I move forward.\n\n21 days to master virality and generate €3,000/month.\n\nWant to test your eligibility?`,
+    influent: fr
+      ? `Je viens de candidater au Bootcamp Head of Viralité d'Empire Internet.\n\nProfil DISC : Influent - contenu, connexion, conviction.\n\n21 jours pour maîtriser la viralité et générer 3 000€/mois.\n\nVous voulez tester votre éligibilité ?`
+      : `I just applied to Empire Internet's Head of Virality Bootcamp.\n\nDISC Profile: Influential — content, connection, conviction.\n\n21 days to master virality and generate €3,000/month.\n\nWant to test your eligibility?`,
+    stable: fr
+      ? `Je viens de candidater au Bootcamp Head of Viralité d'Empire Internet.\n\nProfil DISC : Stable - je construis dans la durée, sans me griller.\n\n21 jours pour maîtriser la viralité et générer 3 000€/mois.\n\nVous voulez tester votre éligibilité ?`
+      : `I just applied to Empire Internet's Head of Virality Bootcamp.\n\nDISC Profile: Steady — I build for the long term without burning out.\n\n21 days to master virality and generate €3,000/month.\n\nWant to test your eligibility?`,
+    conforme: fr
+      ? `Je viens de candidater au Bootcamp Head of Viralité d'Empire Internet.\n\nProfil DISC : Conforme - j'analyse, je structure, je perfectionne.\n\n21 jours pour maîtriser la viralité et générer 3 000€/mois.\n\nVous voulez tester votre éligibilité ?`
+      : `I just applied to Empire Internet's Head of Virality Bootcamp.\n\nDISC Profile: Conscientious — I analyze, I structure, I perfect.\n\n21 days to master virality and generate €3,000/month.\n\nWant to test your eligibility?`,
+  }
+
   const message = shareMessages[disc]
   const fullMessage = `${message}\n\n${PAGE_URL}`
 
@@ -437,10 +365,9 @@ function ShareButtons({ disc }: { disc: DiscType }) {
   return (
     <div className="mt-8 max-w-sm mx-auto">
       <p className="text-xs font-bold text-neutral-400 uppercase tracking-widest text-center mb-4">
-        Vous connaissez quelqu'un qui devrait postuler ?
+        {fr ? "Vous connaissez quelqu'un qui devrait postuler ?" : 'Know someone who should apply?'}
       </p>
       <div className="grid grid-cols-2 gap-2 mb-2">
-        {/* LinkedIn */}
         <a
           href={linkedinUrl}
           target="_blank"
@@ -453,7 +380,6 @@ function ShareButtons({ disc }: { disc: DiscType }) {
           LinkedIn
         </a>
 
-        {/* WhatsApp */}
         <a
           href={whatsappUrl}
           target="_blank"
@@ -468,7 +394,6 @@ function ShareButtons({ disc }: { disc: DiscType }) {
       </div>
 
       <div className="grid grid-cols-2 gap-2">
-        {/* X / Twitter */}
         <a
           href={twitterUrl}
           target="_blank"
@@ -478,17 +403,16 @@ function ShareButtons({ disc }: { disc: DiscType }) {
           <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 flex-shrink-0">
             <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.259 5.63L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
           </svg>
-          Post sur X
+          {fr ? 'Post sur X' : 'Post on X'}
         </a>
 
-        {/* Copy link */}
         <button
           onClick={copyLink}
           className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white/5 border border-white/15 text-neutral-300 text-xs font-semibold hover:bg-white/10 transition-all"
         >
           {copied
-            ? <><CheckCheck size={14} className="text-academy" /> Copié !</>
-            : <><Copy size={14} /> Copier le lien</>
+            ? <><CheckCheck size={14} className="text-academy" /> {fr ? 'Copié !' : 'Copied!'}</>
+            : <><Copy size={14} /> {fr ? 'Copier le lien' : 'Copy link'}</>
           }
         </button>
       </div>
@@ -496,7 +420,88 @@ function ShareButtons({ disc }: { disc: DiscType }) {
   )
 }
 
-function ResultScreen({ disc }: { disc: DiscType | null }) {
+function ResultScreen({ disc, fr }: { disc: DiscType | null; fr: boolean }) {
+  const discConfig: Record<DiscType, {
+    color: string
+    dot: string
+    badge: string
+    badgeStyle: string
+    letter: string
+    title: string
+    sub: string
+    traits: string[]
+    forBootcamp: string
+  }> = {
+    dominant: {
+      color: '#ef4444',
+      dot: 'bg-red-500',
+      badge: fr ? 'Profil D - Dominant' : 'Profile D - Dominant',
+      badgeStyle: 'bg-red-500/15 text-red-400 border-red-500/40',
+      letter: 'D',
+      title: fr ? 'Vous avancez. Sans attendre.' : 'You move forward. No waiting.',
+      sub: fr
+        ? 'Vous décidez vite, vous assumez, vous foncez. C\'est exactement le profil qu\'on cherche.'
+        : 'You decide fast, you own it, you go for it. Exactly the profile we\'re looking for.',
+      traits: fr
+        ? ['Orienté résultats', 'Décide vite', 'Compétitif', 'Aime les défis']
+        : ['Results-driven', 'Quick decisions', 'Competitive', 'Loves challenges'],
+      forBootcamp: fr
+        ? 'Excellent fit - vous avez le moteur pour créer chaque jour et ne pas lâcher.'
+        : 'Excellent fit — you have the drive to create every day and never quit.',
+    },
+    influent: {
+      color: '#eab308',
+      dot: 'bg-yellow-500',
+      badge: fr ? 'Profil I - Influent' : 'Profile I - Influential',
+      badgeStyle: 'bg-yellow-500/15 text-yellow-400 border-yellow-500/40',
+      letter: 'I',
+      title: fr ? 'Vous créez, vous connectez, vous convainquez.' : 'You create, you connect, you convince.',
+      sub: fr
+        ? 'Vous savez naturellement capter l\'attention. Le contenu, c\'est votre terrain.'
+        : 'You naturally know how to capture attention. Content is your playground.',
+      traits: fr
+        ? ['Enthousiaste', 'Persuasif', 'Créatif', 'Social, fédérateur']
+        : ['Enthusiastic', 'Persuasive', 'Creative', 'Social, unifying'],
+      forBootcamp: fr
+        ? 'Profil idéal pour la viralité - vous avez l\'instinct du créateur de contenu.'
+        : 'Ideal profile for virality — you have the content creator instinct.',
+    },
+    stable: {
+      color: '#22c55e',
+      dot: 'bg-green-500',
+      badge: fr ? 'Profil S - Stable' : 'Profile S - Steady',
+      badgeStyle: 'bg-green-500/15 text-green-400 border-green-500/40',
+      letter: 'S',
+      title: fr ? 'Vous construisez dans la durée.' : 'You build for the long term.',
+      sub: fr
+        ? 'Vous êtes fiable, méthodique, patient. La régularité - votre super-pouvoir.'
+        : 'You\'re reliable, methodical, patient. Consistency is your superpower.',
+      traits: fr
+        ? ['Régulier', 'Fiable', 'Patient', 'Travail en profondeur']
+        : ['Consistent', 'Reliable', 'Patient', 'Deep work'],
+      forBootcamp: fr
+        ? 'Bon fit - la régularité quotidienne du bootcamp est faite pour vous.'
+        : 'Good fit — the daily consistency of the bootcamp is made for you.',
+    },
+    conforme: {
+      color: '#3b82f6',
+      dot: 'bg-blue-500',
+      badge: fr ? 'Profil C - Conforme' : 'Profile C - Conscientious',
+      badgeStyle: 'bg-blue-500/15 text-blue-400 border-blue-500/40',
+      letter: 'C',
+      title: fr ? "Vous analysez avant d'agir." : 'You analyze before you act.',
+      sub: fr
+        ? 'Précis, structuré, logique. Vous voulez comprendre avant de faire.'
+        : 'Precise, structured, logical. You want to understand before you do.',
+      traits: fr
+        ? ['Analytique', 'Précis', 'Qualité', 'Orienté données']
+        : ['Analytical', 'Precise', 'Quality-focused', 'Data-driven'],
+      forBootcamp: fr
+        ? 'Profil intéressant - vous apporterez de la rigueur, même si la création rapide sera votre défi.'
+        : 'Interesting profile — you\'ll bring rigor, even if fast creation will be your challenge.',
+    },
+  }
+
   const d = disc ? discConfig[disc] : discConfig.influent
   const discType = disc ?? 'influent'
 
@@ -507,7 +512,6 @@ function ResultScreen({ disc }: { disc: DiscType | null }) {
       transition={{ duration: 0.5, ease: 'easeOut' }}
       className="text-center py-4"
     >
-      {/* DISC letter badge */}
       <div
         className="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 text-3xl font-black text-white"
         style={{ backgroundColor: `${d.color}25`, border: `2px solid ${d.color}60` }}
@@ -522,7 +526,6 @@ function ResultScreen({ disc }: { disc: DiscType | null }) {
       <h2 className="text-2xl font-bold text-white mb-2">{d.title}</h2>
       <p className="text-neutral-400 text-sm leading-relaxed max-w-xs mx-auto mb-6">{d.sub}</p>
 
-      {/* Traits */}
       <div className="flex flex-wrap justify-center gap-2 mb-6">
         {d.traits.map(t => (
           <span key={t} className="text-xs px-3 py-1 rounded-full bg-white/5 border border-white/10 text-neutral-300">
@@ -531,19 +534,21 @@ function ResultScreen({ disc }: { disc: DiscType | null }) {
         ))}
       </div>
 
-      {/* For bootcamp */}
       <div className="p-4 rounded-2xl bg-academy/5 border border-academy/20 mb-6 max-w-sm mx-auto">
-        <p className="text-xs text-academy font-semibold mb-1">Pour le bootcamp :</p>
+        <p className="text-xs text-academy font-semibold mb-1">{fr ? 'Pour le bootcamp :' : 'For the bootcamp:'}</p>
         <p className="text-xs text-neutral-400 leading-relaxed">{d.forBootcamp}</p>
       </div>
 
       <div className="p-4 rounded-2xl bg-white/[0.10] border border-white/15 max-w-xs mx-auto">
-        <p className="text-sm text-white font-semibold mb-1">Candidature reçue ✓</p>
-        <p className="text-xs text-neutral-400">Kevin & Marc analysent votre profil. Réponse sous 24h.</p>
+        <p className="text-sm text-white font-semibold mb-1">{fr ? 'Candidature reçue ✓' : 'Application received ✓'}</p>
+        <p className="text-xs text-neutral-400">
+          {fr
+            ? 'Kevin & Marc analysent votre profil. Réponse sous 24h.'
+            : 'Kevin & Marc are reviewing your profile. Response within 24h.'}
+        </p>
       </div>
 
-      {/* Share */}
-      <ShareButtons disc={discType} />
+      <ShareButtons disc={discType} fr={fr} />
     </motion.div>
   )
 }
@@ -551,6 +556,18 @@ function ResultScreen({ disc }: { disc: DiscType | null }) {
 // ─── Main Form ─────────────────────────────────────────────────────────────────
 
 export default function AcademyApplicationForm() {
+  const { lang } = useLanguage()
+  const fr = lang === 'fr'
+
+  const STEPS = [
+    { num: 1, label: 'Contact' },
+    { num: 2, label: fr ? 'Disponibilités' : 'Availability' },
+    { num: 3, label: fr ? 'Profil' : 'Profile' },
+    { num: 4, label: fr ? 'Personnalité' : 'Personality' },
+    { num: 5, label: fr ? 'Finalisation' : 'Final step' },
+    { num: 6, label: fr ? 'Recommandation' : 'Referral' },
+  ]
+
   const [step, setStep] = useState(1)
   const [form, setForm] = useState<FormData>(initial)
   const [appId, setAppId] = useState<string | null>(null)
@@ -563,7 +580,7 @@ export default function AcademyApplicationForm() {
   const [timeLeft, setTimeLeft] = useState<number | null>(null)
   const [timerStarted, setTimerStarted] = useState(false)
 
-  // ── 15-min countdown - starts on step 1 first render ────────────────────
+  // ── 15-min countdown ────────────────────────────────────────────────────
   useEffect(() => {
     if (timerStarted || resumeData) return
     setTimerStarted(true)
@@ -590,7 +607,6 @@ export default function AcademyApplicationForm() {
     }
   }, [])
 
-  // ── Persist progress to localStorage ────────────────────────────────────
   function saveProgress(id: string, currentStep: number, name: string) {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify({ id, step: currentStep, name }))
@@ -609,7 +625,6 @@ export default function AcademyApplicationForm() {
       const res = await fetch(`/api/applications/${resumeData.id}`)
       if (!res.ok) throw new Error()
       const data = await res.json()
-      // Restore form data from DB
       setForm({
         first_name: data.first_name ?? '',
         last_name: data.last_name ?? '',
@@ -633,7 +648,6 @@ export default function AcademyApplicationForm() {
       setStep(Math.min(resumeData.step + 1, TOTAL_STEPS))
       setResumeData(null)
     } catch {
-      // If fetch fails, just start fresh
       clearProgress()
       setResumeData(null)
     } finally {
@@ -664,7 +678,7 @@ export default function AcademyApplicationForm() {
       case 5:
         return form.motivation.trim().length > 0
       case 6:
-        return true // all referral fields optional
+        return true
       default:
         return true
     }
@@ -679,7 +693,6 @@ export default function AcademyApplicationForm() {
 
     try {
       if (step === 1) {
-        // Create record in DB - capture email immediately
         const res = await fetch('/api/applications', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -695,9 +708,7 @@ export default function AcademyApplicationForm() {
         setAppId(json.id)
         saveProgress(json.id, 1, form.first_name)
 
-        // If server found an existing application for this email
         if (json.resumed) {
-          // Already fully submitted → show result screen directly
           if (json.completed) {
             const disc = json.disc_profile as string | null
             const validDiscs: DiscType[] = ['dominant', 'influent', 'stable', 'conforme']
@@ -707,7 +718,6 @@ export default function AcademyApplicationForm() {
             return
           }
 
-          // Incomplete application → restore and resume
           if (json.step > 1) {
             try {
               const existing = await fetch(`/api/applications/${json.id}`)
@@ -738,7 +748,6 @@ export default function AcademyApplicationForm() {
           }
         }
       } else {
-        // Update existing record
         const payload: Record<string, unknown> = { step_completed: step }
 
         if (step === 2) {
@@ -759,7 +768,6 @@ export default function AcademyApplicationForm() {
           payload.referral_1 = form.referral_1
           payload.referral_2 = form.referral_2
           payload.referral_3 = form.referral_3
-          // Final step - pass all scoring fields
           payload.hours_per_week = form.hours_per_week
           payload.budget = form.budget
           payload.has_created_content = form.has_created_content
@@ -785,13 +793,12 @@ export default function AcademyApplicationForm() {
           setLoading(false)
           return
         }
-        // Save progress after each successful PATCH
         if (appId) saveProgress(appId, step, form.first_name)
       }
 
       setStep(s => s + 1)
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Une erreur est survenue.')
+      setError(e instanceof Error ? e.message : (fr ? 'Une erreur est survenue.' : 'An error occurred.'))
     } finally {
       setLoading(false)
     }
@@ -799,9 +806,8 @@ export default function AcademyApplicationForm() {
 
   // ── UI ────────────────────────────────────────────────────────────────────
 
-  if (done) return <ResultScreen disc={resultDisc} />
+  if (done) return <ResultScreen disc={resultDisc} fr={fr} />
 
-  // Resume prompt
   if (resumeData) {
     return (
       <motion.div
@@ -813,10 +819,12 @@ export default function AcademyApplicationForm() {
           <RotateCcw className="text-academy" size={22} />
         </div>
         <h2 className="text-xl font-bold text-white mb-2">
-          Vous aviez commencé, {resumeData.name}.
+          {fr ? `Vous aviez commencé, ${resumeData.name}.` : `You started this before, ${resumeData.name}.`}
         </h2>
         <p className="text-sm text-neutral-400 mb-8 max-w-xs mx-auto">
-          On a gardé votre progression. Vous voulez reprendre là où vous vous étiez arrêté ?
+          {fr
+            ? "On a gardé votre progression. Vous voulez reprendre là où vous vous étiez arrêté ?"
+            : "We saved your progress. Want to pick up where you left off?"}
         </p>
         <div className="space-y-3 max-w-xs mx-auto">
           <button
@@ -825,15 +833,15 @@ export default function AcademyApplicationForm() {
             className="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-academy text-black font-bold text-sm rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(252, 165, 165,0.25)]"
           >
             {resumeLoading
-              ? <><Loader2 size={16} className="animate-spin" /> Chargement...</>
-              : <>Reprendre (étape {resumeData.step} / {TOTAL_STEPS}) →</>
+              ? <><Loader2 size={16} className="animate-spin" /> {fr ? 'Chargement...' : 'Loading...'}</>
+              : <>{fr ? `Reprendre (étape ${resumeData.step} / ${TOTAL_STEPS}) →` : `Resume (step ${resumeData.step} / ${TOTAL_STEPS}) →`}</>
             }
           </button>
           <button
             onClick={handleStartFresh}
             className="w-full px-6 py-3 text-sm text-neutral-400 hover:text-neutral-300 transition-colors"
           >
-            Recommencer depuis le début
+            {fr ? 'Recommencer depuis le début' : 'Start from scratch'}
           </button>
         </div>
       </motion.div>
@@ -862,7 +870,9 @@ export default function AcademyApplicationForm() {
           <div className="flex items-center gap-2">
             <span className={`w-2 h-2 rounded-full animate-pulse flex-shrink-0 ${isUrgent ? 'bg-red-400' : 'bg-academy'}`} />
             <p className={`text-xs font-medium ${isUrgent ? 'text-red-400' : 'text-neutral-400'}`}>
-              {isUrgent ? 'Plus que' : 'Ce créneau est réservé pour'}
+              {isUrgent
+                ? (fr ? 'Plus que' : 'Only')
+                : (fr ? 'Ce créneau est réservé pour' : 'This slot is reserved for')}
             </p>
           </div>
           <span className={`text-sm font-black tabular-nums ${isUrgent ? 'text-red-400' : 'text-academy'}`}>
@@ -872,7 +882,11 @@ export default function AcademyApplicationForm() {
       )}
       {timeLeft === 0 && (
         <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl mb-6 bg-white/[0.10] border border-white/15">
-          <span className="text-xs text-neutral-400">Créneau expiré - votre progression est sauvegardée, continuez !</span>
+          <span className="text-xs text-neutral-400">
+            {fr
+              ? 'Créneau expiré - votre progression est sauvegardée, continuez !'
+              : 'Slot expired — your progress is saved, keep going!'}
+          </span>
         </div>
       )}
 
@@ -880,7 +894,7 @@ export default function AcademyApplicationForm() {
       <div className="mb-8">
         <div className="flex justify-between items-center mb-3">
           <p className="text-xs font-bold text-neutral-400 uppercase tracking-widest">
-            Étape {step} / {TOTAL_STEPS}
+            {fr ? `Étape ${step} / ${TOTAL_STEPS}` : `Step ${step} / ${TOTAL_STEPS}`}
           </p>
           <p className="text-xs text-neutral-400">{STEPS[step - 1].label}</p>
         </div>
@@ -916,15 +930,21 @@ export default function AcademyApplicationForm() {
           {step === 1 && (
             <div className="space-y-4">
               <div className="mb-6">
-                <h2 className="text-xl font-bold text-white mb-1">On commence par faire connaissance.</h2>
-                <p className="text-sm text-neutral-400">On ne revend pas vos données. On vous envoie juste une réponse sous 24h.</p>
+                <h2 className="text-xl font-bold text-white mb-1">
+                  {fr ? 'On commence par faire connaissance.' : "Let's get to know each other."}
+                </h2>
+                <p className="text-sm text-neutral-400">
+                  {fr
+                    ? 'On ne revend pas vos données. On vous envoie juste une réponse sous 24h.'
+                    : "We don't sell your data. We just send you a response within 24h."}
+                </p>
               </div>
               <div className="grid grid-cols-2 gap-4">
-                <Input label="Prénom" name="first_name" value={form.first_name} onChange={set('first_name')} placeholder="Kevin" required />
-                <Input label="Nom" name="last_name" value={form.last_name} onChange={set('last_name')} placeholder="Dupont" required />
+                <Input label={fr ? 'Prénom' : 'First name'} name="first_name" value={form.first_name} onChange={set('first_name')} placeholder="Kevin" required />
+                <Input label={fr ? 'Nom' : 'Last name'} name="last_name" value={form.last_name} onChange={set('last_name')} placeholder="Dupont" required />
               </div>
               <Input label="Email" name="email" type="email" value={form.email} onChange={set('email')} placeholder="kevin@exemple.com" required />
-              <PhoneInput value={form.phone} onChange={set('phone')} />
+              <PhoneInput value={form.phone} onChange={set('phone')} fr={fr} />
             </div>
           )}
 
@@ -932,17 +952,25 @@ export default function AcademyApplicationForm() {
           {step === 2 && (
             <div className="space-y-6">
               <div className="mb-2">
-                <h2 className="text-xl font-bold text-white mb-1">Parlons disponibilités.</h2>
-                <p className="text-sm text-neutral-400">Le bootcamp demande de créer chaque jour. On veut savoir si vous avez le temps.</p>
+                <h2 className="text-xl font-bold text-white mb-1">
+                  {fr ? 'Parlons disponibilités.' : "Let's talk availability."}
+                </h2>
+                <p className="text-sm text-neutral-400">
+                  {fr
+                    ? 'Le bootcamp demande de créer chaque jour. On veut savoir si vous avez le temps.'
+                    : 'The bootcamp requires daily creation. We want to know if you have the time.'}
+                </p>
               </div>
               <div>
-                <p className="text-sm font-medium text-neutral-300 mb-3">Combien d'heures par semaine pouvez-vous y consacrer ? <span className="text-academy">*</span></p>
+                <p className="text-sm font-medium text-neutral-300 mb-3">
+                  {fr ? "Combien d'heures par semaine pouvez-vous y consacrer ?" : 'How many hours per week can you dedicate?'} <span className="text-academy">*</span>
+                </p>
                 <div className="space-y-2">
                   {[
-                    { value: '<2h', label: 'Moins de 2h', sub: 'Difficile - le bootcamp demande de la régularité' },
-                    { value: '2-5h', label: '2 à 5h', sub: 'Faisable avec de la discipline' },
-                    { value: '5-10h', label: '5 à 10h', sub: 'Idéal pour progresser vite' },
-                    { value: '10h+', label: '10h et plus', sub: 'Mode intensif - résultats rapides' },
+                    { value: '<2h', label: fr ? 'Moins de 2h' : 'Less than 2h', sub: fr ? 'Difficile - le bootcamp demande de la régularité' : 'Tough — the bootcamp requires consistency' },
+                    { value: '2-5h', label: fr ? '2 à 5h' : '2 to 5h', sub: fr ? 'Faisable avec de la discipline' : 'Doable with discipline' },
+                    { value: '5-10h', label: fr ? '5 à 10h' : '5 to 10h', sub: fr ? 'Idéal pour progresser vite' : 'Ideal for fast progress' },
+                    { value: '10h+', label: fr ? '10h et plus' : '10h or more', sub: fr ? 'Mode intensif - résultats rapides' : 'Intensive mode — fast results' },
                   ].map(opt => (
                     <OptionCard
                       key={opt.value}
@@ -956,13 +984,15 @@ export default function AcademyApplicationForm() {
                 </div>
               </div>
               <div>
-                <p className="text-sm font-medium text-neutral-300 mb-3">Quel est votre budget pour vous former ? <span className="text-academy">*</span></p>
+                <p className="text-sm font-medium text-neutral-300 mb-3">
+                  {fr ? 'Quel est votre budget pour vous former ?' : 'What is your training budget?'} <span className="text-academy">*</span>
+                </p>
                 <div className="space-y-2">
                   {[
-                    { value: '0-400', label: 'Moins de 400€', sub: '' },
+                    { value: '0-400', label: fr ? 'Moins de 400€' : 'Less than €400', sub: '' },
                     { value: '400-1000', label: '400€ – 1 000€', sub: '' },
                     { value: '1000-2000', label: '1 000€ – 2 000€', sub: '' },
-                    { value: '2000+', label: 'Plus de 2 000€', sub: 'Vous visez un résultat sérieux' },
+                    { value: '2000+', label: fr ? 'Plus de 2 000€' : 'More than €2,000', sub: fr ? 'Vous visez un résultat sérieux' : "You're aiming for serious results" },
                   ].map(opt => (
                     <OptionCard
                       key={opt.value}
@@ -982,16 +1012,24 @@ export default function AcademyApplicationForm() {
           {step === 3 && (
             <div className="space-y-6">
               <div className="mb-2">
-                <h2 className="text-xl font-bold text-white mb-1">Votre rapport au contenu.</h2>
-                <p className="text-sm text-neutral-400">Pas besoin d'expérience - on veut juste savoir où vous en êtes.</p>
+                <h2 className="text-xl font-bold text-white mb-1">
+                  {fr ? 'Votre rapport au contenu.' : 'Your relationship with content.'}
+                </h2>
+                <p className="text-sm text-neutral-400">
+                  {fr
+                    ? "Pas besoin d'expérience - on veut juste savoir où vous en êtes."
+                    : "No experience needed — we just want to know where you stand."}
+                </p>
               </div>
               <div>
-                <p className="text-sm font-medium text-neutral-300 mb-3">Avez-vous déjà créé du contenu sur internet ? <span className="text-academy">*</span></p>
+                <p className="text-sm font-medium text-neutral-300 mb-3">
+                  {fr ? 'Avez-vous déjà créé du contenu sur internet ?' : 'Have you ever created content online?'} <span className="text-academy">*</span>
+                </p>
                 <div className="space-y-2">
                   {[
-                    { value: 'non', label: 'Non, jamais', sub: 'C\'est exactement le profil qu\'on prend' },
-                    { value: 'oui_sans_preuve', label: 'Oui, un peu', sub: 'Quelques posts ou vidéos, sans vraie stratégie' },
-                    { value: 'oui_preuve', label: 'Oui, régulièrement', sub: 'J\'ai des résultats à montrer' },
+                    { value: 'non', label: fr ? 'Non, jamais' : 'No, never', sub: fr ? "C'est exactement le profil qu'on prend" : "That's exactly the profile we accept" },
+                    { value: 'oui_sans_preuve', label: fr ? 'Oui, un peu' : 'Yes, a little', sub: fr ? 'Quelques posts ou vidéos, sans vraie stratégie' : 'A few posts or videos, no real strategy' },
+                    { value: 'oui_preuve', label: fr ? 'Oui, régulièrement' : 'Yes, regularly', sub: fr ? "J'ai des résultats à montrer" : 'I have results to show' },
                   ].map(opt => (
                     <OptionCard
                       key={opt.value}
@@ -1007,7 +1045,7 @@ export default function AcademyApplicationForm() {
               {form.has_created_content !== 'non' && (
                 <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
                   <Input
-                    label="Un lien vers un contenu (optionnel)"
+                    label={fr ? 'Un lien vers un contenu (optionnel)' : 'Link to your content (optional)'}
                     name="content_link"
                     value={form.content_link}
                     onChange={set('content_link')}
@@ -1016,11 +1054,11 @@ export default function AcademyApplicationForm() {
                 </motion.div>
               )}
               <Textarea
-                label="Quel est le projet que vous n'avez jamais fini mais qui vous hante encore ? (optionnel)"
+                label={fr ? "Quel est le projet que vous n'avez jamais fini mais qui vous hante encore ? (optionnel)" : "What's the project you never finished but still haunts you? (optional)"}
                 name="haunting_project"
                 value={form.haunting_project}
                 onChange={set('haunting_project')}
-                placeholder="Un projet, une idée, quelque chose que vous auriez voulu lancer..."
+                placeholder={fr ? "Un projet, une idée, quelque chose que vous auriez voulu lancer..." : "A project, an idea, something you wish you had launched..."}
               />
             </div>
           )}
@@ -1029,21 +1067,26 @@ export default function AcademyApplicationForm() {
           {step === 4 && (
             <div className="space-y-7">
               <div className="mb-2">
-                <h2 className="text-xl font-bold text-white mb-1">Comment vous fonctionnez.</h2>
-                <p className="text-sm text-neutral-400">Deux questions. Pas de bonne réponse - juste la plus honnête.</p>
+                <h2 className="text-xl font-bold text-white mb-1">
+                  {fr ? 'Comment vous fonctionnez.' : 'How you operate.'}
+                </h2>
+                <p className="text-sm text-neutral-400">
+                  {fr
+                    ? 'Deux questions. Pas de bonne réponse - juste la plus honnête.'
+                    : 'Two questions. No right answer — just the most honest one.'}
+                </p>
               </div>
 
-              {/* Q1 - Role */}
               <div>
                 <p className="text-sm font-medium text-neutral-300 mb-3">
-                  Dans un projet, vous êtes plutôt : <span className="text-academy">*</span>
+                  {fr ? 'Dans un projet, vous êtes plutôt :' : 'In a project, you tend to be:'} <span className="text-academy">*</span>
                 </p>
                 <div className="space-y-2">
                   {[
-                    { value: 'dominant',  label: 'Le moteur',      sub: 'Vous décidez, vous dirigez, vous avancez - même sans avoir toutes les infos' },
-                    { value: 'influent',  label: "L'ambassadeur",   sub: 'Vous convainquez, vous fédérez, vous mettez de l\'énergie dans le groupe' },
-                    { value: 'stable',    label: 'Le pilier',       sub: 'Vous assurez, vous soutenez, vous construisez dans la durée sans vous griller' },
-                    { value: 'conforme',  label: "L'analyste",      sub: 'Vous structurez, vous vérifiez, vous voulez que ce soit bien fait avant d\'agir' },
+                    { value: 'dominant', label: fr ? 'Le moteur' : 'The driver', sub: fr ? "Vous décidez, vous dirigez, vous avancez - même sans avoir toutes les infos" : "You decide, you lead, you move forward — even without all the info" },
+                    { value: 'influent', label: fr ? "L'ambassadeur" : 'The ambassador', sub: fr ? "Vous convainquez, vous fédérez, vous mettez de l'énergie dans le groupe" : "You convince, you unite, you bring energy to the group" },
+                    { value: 'stable', label: fr ? 'Le pilier' : 'The pillar', sub: fr ? "Vous assurez, vous soutenez, vous construisez dans la durée sans vous griller" : "You deliver, you support, you build long-term without burning out" },
+                    { value: 'conforme', label: fr ? "L'analyste" : 'The analyst', sub: fr ? "Vous structurez, vous vérifiez, vous voulez que ce soit bien fait avant d'agir" : "You structure, you verify, you want it done right before acting" },
                   ].map(opt => (
                     <OptionCard
                       key={opt.value}
@@ -1057,17 +1100,16 @@ export default function AcademyApplicationForm() {
                 </div>
               </div>
 
-              {/* Q2 - Obstacle */}
               <div>
                 <p className="text-sm font-medium text-neutral-300 mb-3">
-                  Face à un obstacle, vous : <span className="text-academy">*</span>
+                  {fr ? 'Face à un obstacle, vous :' : 'When facing an obstacle, you:'} <span className="text-academy">*</span>
                 </p>
                 <div className="space-y-2">
                   {[
-                    { value: 'dominant', label: 'Vous foncez malgré tout',           sub: 'Quitte à ajuster en cours de route' },
-                    { value: 'influent', label: 'Vous trouvez une autre approche',    sub: 'Et vous vous adaptez avec enthousiasme' },
-                    { value: 'stable',   label: 'Vous prenez le temps',               sub: 'Pour trouver la bonne solution sans vous précipiter' },
-                    { value: 'conforme', label: 'Vous analysez pourquoi ça a bloqué', sub: 'Avant de repartir avec une méthode solide' },
+                    { value: 'dominant', label: fr ? 'Vous foncez malgré tout' : 'You push through no matter what', sub: fr ? "Quitte à ajuster en cours de route" : "Even if you have to adjust along the way" },
+                    { value: 'influent', label: fr ? 'Vous trouvez une autre approche' : 'You find another approach', sub: fr ? "Et vous vous adaptez avec enthousiasme" : "And you adapt with enthusiasm" },
+                    { value: 'stable', label: fr ? 'Vous prenez le temps' : 'You take your time', sub: fr ? "Pour trouver la bonne solution sans vous précipiter" : "To find the right solution without rushing" },
+                    { value: 'conforme', label: fr ? "Vous analysez pourquoi ça a bloqué" : 'You analyze why it got stuck', sub: fr ? "Avant de repartir avec une méthode solide" : "Before restarting with a solid method" },
                   ].map(opt => (
                     <OptionCard
                       key={opt.value}
@@ -1082,11 +1124,11 @@ export default function AcademyApplicationForm() {
               </div>
 
               <Textarea
-                label="Que diraient vos amis de vous quand vous quittez un dîner ? (optionnel)"
+                label={fr ? "Que diraient vos amis de vous quand vous quittez un dîner ? (optionnel)" : "What would your friends say about you after you leave a dinner party? (optional)"}
                 name="friends_say"
                 value={form.friends_say}
                 onChange={set('friends_say')}
-                placeholder="Honnêtement. Pas en mode CV."
+                placeholder={fr ? "Honnêtement. Pas en mode CV." : "Honestly. Not in resume mode."}
               />
             </div>
           )}
@@ -1095,28 +1137,35 @@ export default function AcademyApplicationForm() {
           {step === 5 && (
             <div className="space-y-6">
               <div className="mb-2">
-                <h2 className="text-xl font-bold text-white mb-1">Dernier détail.</h2>
-                <p className="text-sm text-neutral-400">Plus c'est spécifique, mieux c'est - ça nous aide à sélectionner les bons profils.</p>
+                <h2 className="text-xl font-bold text-white mb-1">
+                  {fr ? 'Dernier détail.' : 'One last thing.'}
+                </h2>
+                <p className="text-sm text-neutral-400">
+                  {fr
+                    ? "Plus c'est spécifique, mieux c'est - ça nous aide à sélectionner les bons profils."
+                    : "The more specific, the better — it helps us select the right profiles."}
+                </p>
               </div>
               <Input
-                label="Un réseau social ou profil qu'on peut regarder (optionnel)"
+                label={fr ? "Un réseau social ou profil qu'on peut regarder (optionnel)" : "A social profile we can check out (optional)"}
                 name="social_link"
                 value={form.social_link}
                 onChange={set('social_link')}
                 placeholder="LinkedIn, Instagram, TikTok, site perso..."
               />
               <Textarea
-                label="Pourquoi ce bootcamp maintenant - et pas dans 6 mois ?"
+                label={fr ? "Pourquoi ce bootcamp maintenant - et pas dans 6 mois ?" : "Why this bootcamp now — and not in 6 months?"}
                 name="motivation"
                 value={form.motivation}
                 onChange={set('motivation')}
-                placeholder="Qu'est-ce qui se passe dans votre vie en ce moment qui rend ça urgent ?"
+                placeholder={fr ? "Qu'est-ce qui se passe dans votre vie en ce moment qui rend ça urgent ?" : "What's happening in your life right now that makes this urgent?"}
                 required
               />
               <div className="p-4 rounded-xl bg-academy/5 border border-academy/20">
                 <p className="text-xs text-neutral-400 leading-relaxed">
-                  En soumettant, vous acceptez qu'on vous contacte par email ou téléphone pour répondre à votre candidature.
-                  Aucun engagement, aucune vente forcée.
+                  {fr
+                    ? "En soumettant, vous acceptez qu'on vous contacte par email ou téléphone pour répondre à votre candidature. Aucun engagement, aucune vente forcée."
+                    : "By submitting, you agree to be contacted by email or phone regarding your application. No commitment, no pressure."}
                 </p>
               </div>
             </div>
@@ -1126,18 +1175,21 @@ export default function AcademyApplicationForm() {
           {step === 6 && (
             <div className="space-y-6">
               <div className="mb-2">
-                <h2 className="text-xl font-bold text-white mb-1">Vous connaissez des gens qui devraient postuler ?</h2>
+                <h2 className="text-xl font-bold text-white mb-1">
+                  {fr ? 'Vous connaissez des gens qui devraient postuler ?' : 'Know anyone who should apply?'}
+                </h2>
                 <p className="text-sm text-neutral-400">
-                  Si vous pensez à quelqu'un qui serait fait pour ça - salariés, freelances, entrepreneurs -
-                  laissez leur profil LinkedIn. On les contacte de votre part.
+                  {fr
+                    ? "Si vous pensez à quelqu'un qui serait fait pour ça - salariés, freelances, entrepreneurs - laissez leur profil LinkedIn. On les contacte de votre part."
+                    : "If you know someone who'd be a great fit — employees, freelancers, entrepreneurs — leave their LinkedIn profile. We'll reach out on your behalf."}
                 </p>
               </div>
 
               <div className="space-y-3">
                 {([
-                  { field: 'referral_1' as const, placeholder: 'linkedin.com/in/prénom-nom ou @profil' },
-                  { field: 'referral_2' as const, placeholder: 'Un deuxième profil (optionnel)' },
-                  { field: 'referral_3' as const, placeholder: 'Un troisième profil (optionnel)' },
+                  { field: 'referral_1' as const, placeholder: fr ? 'linkedin.com/in/prénom-nom ou @profil' : 'linkedin.com/in/first-last or @profile' },
+                  { field: 'referral_2' as const, placeholder: fr ? 'Un deuxième profil (optionnel)' : 'A second profile (optional)' },
+                  { field: 'referral_3' as const, placeholder: fr ? 'Un troisième profil (optionnel)' : 'A third profile (optional)' },
                 ] as const).map(({ field, placeholder }, i) => (
                   <div key={field} className="flex items-center gap-3">
                     <div className="w-7 h-7 rounded-full bg-[#0A66C2]/15 border border-[#0A66C2]/30 flex items-center justify-center flex-shrink-0">
@@ -1156,7 +1208,9 @@ export default function AcademyApplicationForm() {
 
               <div className="p-4 rounded-xl bg-white/[0.10] border border-white/15">
                 <p className="text-xs text-neutral-400 leading-relaxed">
-                  Tous les champs sont optionnels. Si vous ne pensez à personne maintenant, vous pouvez passer directement.
+                  {fr
+                    ? "Tous les champs sont optionnels. Si vous ne pensez à personne maintenant, vous pouvez passer directement."
+                    : "All fields are optional. If no one comes to mind right now, you can skip this step."}
                 </p>
               </div>
             </div>
@@ -1181,7 +1235,7 @@ export default function AcademyApplicationForm() {
             className="flex items-center gap-2 text-sm text-neutral-400 hover:text-neutral-300 transition-colors"
           >
             <ChevronLeft size={16} />
-            Retour
+            {fr ? 'Retour' : 'Back'}
           </button>
         )}
         <button
@@ -1195,11 +1249,11 @@ export default function AcademyApplicationForm() {
           }`}
         >
           {loading ? (
-            <><Loader2 size={16} className="animate-spin" /> En cours...</>
+            <><Loader2 size={16} className="animate-spin" /> {fr ? 'En cours...' : 'Processing...'}</>
           ) : step === 6 ? (
-            <><Check size={16} /> Envoyer ma candidature</>
+            <><Check size={16} /> {fr ? 'Envoyer ma candidature' : 'Submit my application'}</>
           ) : (
-            <>Continuer <ArrowRight size={16} /></>
+            <>{fr ? 'Continuer' : 'Continue'} <ArrowRight size={16} /></>
           )}
         </button>
       </div>

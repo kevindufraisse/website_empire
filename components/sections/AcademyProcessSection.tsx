@@ -2,6 +2,7 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { Flame, Repeat, Trophy } from 'lucide-react'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -18,38 +19,47 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
   )
 }
 
-const steps = [
-  {
-    icon: Flame,
-    week: 'Jour 1',
-    title: 'Tu rejoins le bootcamp',
-    desc: 'Accès immédiat aux challenges, lives et groupe privé. Ton premier contenu est déjà prêt à publier.',
-  },
-  {
-    icon: Repeat,
-    week: '21 jours',
-    title: 'Tu publies, on te forme',
-    desc: 'Chaque jour : un challenge, ton contenu prêt à poster, et des feedbacks. Tu apprends la viralité en faisant.',
-  },
-  {
-    icon: Trophy,
-    week: 'Après',
-    title: 'Tu maîtrises la viralité',
-    desc: 'Tu sais ce qui fait exploser un contenu. 3 options s\'offrent à toi : solo, licence Empire, ou partenaire.',
-    highlight: true,
-  },
-]
-
 export default function AcademyProcessSection() {
+  const { lang } = useLanguage()
+  const fr = lang === 'fr'
+
+  const steps = [
+    {
+      icon: Flame,
+      week: fr ? 'Jour 1' : 'Day 1',
+      title: fr ? 'Tu rejoins le bootcamp' : 'You join the bootcamp',
+      desc: fr
+        ? 'Accès immédiat aux challenges, lives et groupe privé. Ton premier contenu est déjà prêt à publier.'
+        : 'Immediate access to challenges, live sessions, and the private group. Your first piece of content is ready to publish.',
+    },
+    {
+      icon: Repeat,
+      week: fr ? '21 jours' : '21 days',
+      title: fr ? 'Tu publies, on te forme' : 'You publish, we train you',
+      desc: fr
+        ? 'Chaque jour : un challenge, ton contenu prêt à poster, et des feedbacks. Tu apprends la viralité en faisant.'
+        : 'Every day: a challenge, your content ready to post, and feedback. You learn virality by doing.',
+    },
+    {
+      icon: Trophy,
+      week: fr ? 'Après' : 'After',
+      title: fr ? 'Tu maîtrises la viralité' : 'You master virality',
+      desc: fr
+        ? 'Tu sais ce qui fait exploser un contenu. 3 options s\'offrent à toi : solo, licence Empire, ou partenaire.'
+        : 'You know what makes content go viral. 3 options are available: solo, Empire license, or partner.',
+      highlight: true,
+    },
+  ]
+
   return (
     <section className="container py-20 md:py-28">
       <div className="max-w-3xl mx-auto">
         <FadeInBlock>
           <div className="text-center mb-14">
-            <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">Le déroulé</p>
+            <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">{fr ? 'Le déroulé' : 'The process'}</p>
             <h2 className="text-3xl md:text-5xl font-bold leading-tight">
               Simple.{' '}
-              <span className="text-academy">En 3 étapes.</span>
+              <span className="text-academy">{fr ? 'En 3 étapes.' : 'In 3 steps.'}</span>
             </h2>
           </div>
         </FadeInBlock>

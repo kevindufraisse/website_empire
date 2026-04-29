@@ -108,7 +108,7 @@ export default function HeroSection() {
               }`}
             >
               <span>{heroCta}</span>
-              <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? '300 000 vues/mois garanties · 45 min' : '300 000 vues/mois garanties · 45 min'}</span>
+              <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? '300 000 vues/mois garanties · 45 min' : '300,000 views/month guaranteed · 45 min'}</span>
             </button>
           </motion.div>
             

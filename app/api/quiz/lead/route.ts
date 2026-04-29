@@ -7,6 +7,7 @@ export const runtime = 'nodejs'
 interface LeadBody {
   email?: string
   first_name?: string
+  lang?: 'en' | 'fr'
 }
 
 function isValidEmail(email: string): boolean {
@@ -28,6 +29,7 @@ export async function POST(req: NextRequest) {
 
   const email = (body.email || '').trim().toLowerCase()
   const firstName = (body.first_name || '').trim()
+  const lang = body.lang === 'en' ? 'en' : 'fr'
 
   if (!email || !isValidEmail(email)) {
     return NextResponse.json({ error: 'Email invalide' }, { status: 400 })
@@ -37,10 +39,10 @@ export async function POST(req: NextRequest) {
     const contact = await createOrUpdateContact({
       email,
       firstName: firstName || undefined,
-      locale: 'fr',
+      locale: lang,
     })
 
-    const startTag = leadStartTag()
+    const startTag = leadStartTag(lang)
     if (startTag) {
       await addTagsToContact(contact.id, [startTag])
     }

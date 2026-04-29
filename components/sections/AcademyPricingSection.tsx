@@ -4,6 +4,7 @@ import { useRef } from 'react'
 import { Check, Shield } from 'lucide-react'
 import BorderBeam from '@/components/magicui/border-beam'
 import { useAcademyPricing } from '@/hooks/useAcademyPricing'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -20,41 +21,53 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
   )
 }
 
-const features = [
-  'Accès à Empire Alpha - tes posts LinkedIn + Shorts générés. Rien à rédiger, rien à monter.',
-  '21 défis quotidiens - un par jour, tu postes, tu vois ce qui marche',
-  '6 masterclass lives - psychologie virale, LinkedIn, Instagram, YouTube, IA & automatisation funnel, monétisation 3K€/mois',
-  'Pod LinkedIn - le groupe engage sur tes posts, tes stats décollent',
-  'Certification officielle - Bronze, Argent ou Or selon tes résultats, ajoutable sur LinkedIn',
-  'Premier client garanti après 3 mois*',
-]
-
-const comparison = [
-  {
-    label: 'Tout seul',
-    sub: '21 posts + 21 Shorts par un freelance',
-    price: '3 360€',
-    detail: '160€/jour pendant 21 jours',
-    dim: true,
-  },
-  {
-    label: 'En agence',
-    sub: 'Community manager junior',
-    price: '2-5K€/mois',
-    detail: 'Sans stratégie, sans contrôle',
-    dim: true,
-  },
-  {
-    label: 'Empire Academy',
-    sub: 'Tout inclus + accompagnement',
-    price: '497€',
-    detail: 'Paiement unique ou 3x 165€',
-    dim: false,
-  },
-]
-
 export default function AcademyPricingSection() {
+  const { lang } = useLanguage()
+  const fr = lang === 'fr'
   const pricing = useAcademyPricing()
+
+  const features = fr
+    ? [
+        'Accès à Empire Alpha - tes posts LinkedIn + Shorts générés. Rien à rédiger, rien à monter.',
+        '21 défis quotidiens - un par jour, tu postes, tu vois ce qui marche',
+        '6 masterclass lives - psychologie virale, LinkedIn, Instagram, YouTube, IA & automatisation funnel, monétisation 3K€/mois',
+        'Pod LinkedIn - le groupe engage sur tes posts, tes stats décollent',
+        'Certification officielle - Bronze, Argent ou Or selon tes résultats, ajoutable sur LinkedIn',
+        'Premier client garanti après 3 mois*',
+      ]
+    : [
+        'Access to Empire Alpha - your LinkedIn posts + Shorts generated. Nothing to write, nothing to edit.',
+        '21 daily challenges - one per day, you post, you see what works',
+        '6 live masterclasses - viral psychology, LinkedIn, Instagram, YouTube, AI & funnel automation, 3K€/month monetization',
+        'LinkedIn Pod - the group engages on your posts, your stats take off',
+        'Official certification - Bronze, Silver or Gold based on your results, addable to LinkedIn',
+        'First client guaranteed after 3 months*',
+      ]
+
+  const comparison = [
+    {
+      label: fr ? 'Tout seul' : 'On your own',
+      sub: fr ? '21 posts + 21 Shorts par un freelance' : '21 posts + 21 Shorts from a freelancer',
+      price: '3 360€',
+      detail: fr ? '160€/jour pendant 21 jours' : '160€/day for 21 days',
+      dim: true,
+    },
+    {
+      label: fr ? 'En agence' : 'With an agency',
+      sub: fr ? 'Community manager junior' : 'Junior community manager',
+      price: '2-5K€/mois',
+      detail: fr ? 'Sans stratégie, sans contrôle' : 'No strategy, no control',
+      dim: true,
+    },
+    {
+      label: 'Empire Academy',
+      sub: fr ? 'Tout inclus + accompagnement' : 'All-inclusive + coaching',
+      price: '497€',
+      detail: fr ? 'Paiement unique ou 3x 165€' : 'One-time payment or 3x 165€',
+      dim: false,
+    },
+  ]
+
   return (
     <section id="pricing" className="relative w-full py-20 md:py-28 bg-gradient-to-b from-[#0f0f0f] via-black to-[#0f0f0f] overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_30%,rgba(252,165,165,0.08),transparent)]" />
@@ -65,8 +78,8 @@ export default function AcademyPricingSection() {
           <FadeInBlock>
             <div className="text-center mb-14">
               <h2 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
-                Tout ce qui est inclus.{' '}
-                <span className="text-academy">Un seul prix.</span>
+                {fr ? 'Tout ce qui est inclus.' : 'Everything included.'}{' '}
+                <span className="text-academy">{fr ? 'Un seul prix.' : 'One price.'}</span>
               </h2>
             </div>
           </FadeInBlock>
@@ -80,7 +93,7 @@ export default function AcademyPricingSection() {
 
                 {/* Left - features */}
                 <div>
-                  <p className="text-xs font-bold text-neutral-400 tracking-widest uppercase mb-5">Ce que tu obtiens</p>
+                  <p className="text-xs font-bold text-neutral-400 tracking-widest uppercase mb-5">{fr ? 'Ce que tu obtiens' : 'What you get'}</p>
                   <div className="space-y-3.5">
                     {features.map((feature, i) => (
                       <motion.div
@@ -104,7 +117,7 @@ export default function AcademyPricingSection() {
                 <div className="flex flex-col">
                   <div className="flex-1">
                     {/* Comparison block */}
-                    <p className="text-xs font-bold text-neutral-400 tracking-widest uppercase mb-3">Combien ça coûte ailleurs</p>
+                    <p className="text-xs font-bold text-neutral-400 tracking-widest uppercase mb-3">{fr ? 'Combien ça coûte ailleurs' : 'How much it costs elsewhere'}</p>
                     <div className="space-y-2 mb-6">
                       {comparison.map((item, i) => (
                         <div
@@ -135,11 +148,11 @@ export default function AcademyPricingSection() {
                     rel="noopener noreferrer"
                     className="block w-full text-center px-8 py-4 bg-academy text-black font-bold text-lg rounded-xl hover:scale-[1.02] transition-all shadow-[0_0_40px_rgba(252,165,165,0.35)] hover:shadow-[0_0_60px_rgba(252,165,165,0.5)]"
                   >
-                    Confirmer ma place - {pricing.price}€
+                    {fr ? 'Confirmer ma place' : 'Confirm my spot'} - {pricing.price}€
                   </a>
                   {pricing.isUrgent && (
                     <p className="text-center text-xs text-academy font-bold mt-2 animate-pulse">
-                      Le prix augmente dans {pricing.countdown}
+                      {fr ? `Le prix augmente dans ${pricing.countdown}` : `Price increases in ${pricing.countdown}`}
                     </p>
                   )}
 
@@ -147,13 +160,15 @@ export default function AcademyPricingSection() {
                   <div className="mt-4 flex items-center justify-center gap-3 text-xs text-neutral-500">
                     <div className="flex items-center gap-1.5">
                       <Shield className="w-3.5 h-3.5" />
-                      <span>Paiement sécurisé</span>
+                      <span>{fr ? 'Paiement sécurisé' : 'Secure payment'}</span>
                     </div>
                     <span>·</span>
-                    <span>+3 000€ de contenu inclus</span>
+                    <span>{fr ? '+3 000€ de contenu inclus' : '+3,000€ of content included'}</span>
                   </div>
                   <p className="mt-3 text-[10px] text-neutral-600 text-center leading-relaxed">
-                    *Premier client garanti : réservé au chemin Empire (option 2). Si tu suis la méthode et que tu n'as pas de client après 3 mois, on continue avec toi gratuitement jusqu'à ce que ça arrive.
+                    {fr
+                      ? "*Premier client garanti : réservé au chemin Empire (option 2). Si tu suis la méthode et que tu n'as pas de client après 3 mois, on continue avec toi gratuitement jusqu'à ce que ça arrive."
+                      : "*First client guaranteed: reserved for the Empire path (option 2). If you follow the method and don't have a client after 3 months, we continue with you for free until it happens."}
                   </p>
                 </div>
 

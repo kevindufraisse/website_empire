@@ -8,58 +8,74 @@ import {
   QUESTIONS,
   STEP_MESSAGES,
   TOTAL_QUESTIONS,
+  getArchetypeIcons,
+  getLocalizedArchetype,
+  getLocalizedQuestions,
+  getLocalizedStepMessages,
   iconAvatarUrl,
+  type ArchetypeId,
   type IconFigure,
+  type IconLang,
 } from '@/lib/quiz-data'
 import { computeQuizResult } from '@/lib/quiz-scoring'
+import { useLanguage } from '@/contexts/LanguageContext'
 import QuizResult, { type QuizResultPayload } from './QuizResult'
 
-const INTRO_ARCHETYPES = [
-  {
-    id: 'storyteller',
-    icon: ARCHETYPES.storyteller.icons[0],
-    label: 'Storyteller',
-    stat: '4.2M abonnés',
-    labelClass: 'text-cyan-300',
-    ringClass: 'ring-cyan-400/50',
-  },
-  {
-    id: 'builder',
-    icon: ARCHETYPES.builder.icons[0],
-    label: 'Builder',
-    stat: '900k abonnés',
-    labelClass: 'text-empire',
-    ringClass: 'ring-empire/50',
-  },
-  {
-    id: 'educator',
-    icon: ARCHETYPES.educator.icons[0],
-    label: 'Éducateur',
-    stat: '4.1M abonnés',
-    labelClass: 'text-amber-300',
-    ringClass: 'ring-amber-400/50',
-  },
-  {
-    id: 'provocateur',
-    icon: ARCHETYPES.provocateur.icons[0],
-    label: 'Provocateur',
-    stat: '3.1M abonnés',
-    labelClass: 'text-rose-300',
-    ringClass: 'ring-rose-400/50',
-  },
-] as const
-
-const INTRO_FEATURES = [
-  { title: '10 sujets à poster cette semaine (Instagram, LinkedIn...)' },
-  { title: 'Les raisons pour lesquelles vos posts ne convertissent pas' },
-  { title: 'Votre plan d\'action de 30 jours à copier-coller' },
+// Static visual metadata for the intro screen - merged with the active-language
+// primary icon at render time via getIntroArchetypes(lang). The follower count
+// (stat) lives on the icon itself so it follows whoever is the FR/EN primary.
+const INTRO_ARCHETYPE_META: ReadonlyArray<{
+  id: ArchetypeId
+  label: string
+  fallbackStat: string
+  labelClass: string
+  ringClass: string
+}> = [
+  { id: 'storyteller', label: 'Storyteller', fallbackStat: '1M abonnés',   labelClass: 'text-cyan-300', ringClass: 'ring-cyan-400/50' },
+  { id: 'builder',     label: 'Builder',     fallbackStat: '100k abonnés', labelClass: 'text-empire',    ringClass: 'ring-empire/50' },
+  { id: 'educator',    label: 'Éducateur',   fallbackStat: '1M abonnés',   labelClass: 'text-amber-300', ringClass: 'ring-amber-400/50' },
+  { id: 'provocateur', label: 'Provocateur', fallbackStat: '100k abonnés', labelClass: 'text-rose-300',  ringClass: 'ring-rose-400/50' },
 ]
 
-const INTRO_OUTCOMES = [
-  'Vous savez quoi poster',
-  'Vous produisez 3x plus vite',
-  'Vous convertissez vos lecteurs',
-]
+function getIntroArchetypes(lang: IconLang) {
+  return INTRO_ARCHETYPE_META.map(meta => {
+    const icon = getArchetypeIcons(ARCHETYPES[meta.id], lang)[0]
+    return {
+      id: meta.id,
+      label: meta.label,
+      labelClass: meta.labelClass,
+      ringClass: meta.ringClass,
+      icon,
+      stat: icon.stat ?? meta.fallbackStat,
+    }
+  })
+}
+
+const INTRO_FEATURES: Record<IconLang, { title: string }[]> = {
+  fr: [
+    { title: '10 sujets à poster cette semaine (Instagram, LinkedIn...)' },
+    { title: 'Les raisons pour lesquelles vos posts ne convertissent pas' },
+    { title: 'Votre plan d\'action de 30 jours à copier-coller' },
+  ],
+  en: [
+    { title: '10 topics to post this week (Instagram, LinkedIn...)' },
+    { title: 'Why your posts don\'t convert' },
+    { title: 'Your 30-day copy-paste action plan' },
+  ],
+}
+
+const INTRO_OUTCOMES: Record<IconLang, string[]> = {
+  fr: [
+    'Vous savez quoi poster',
+    'Vous produisez 3x plus vite',
+    'Vous convertissez vos lecteurs',
+  ],
+  en: [
+    'You know what to post',
+    'You produce 3x faster',
+    'You convert your readers',
+  ],
+}
 
 const STORAGE_KEY = 'empire_quiz_v1'
 const ANALYTICS_PREFIX = 'quiz'
@@ -106,6 +122,9 @@ interface Props {
 }
 
 export default function EmpireQuiz({ hookOverride, onCompleted, onDismiss }: Props) {
+  const { lang } = useLanguage()
+  const introArchetypes = getIntroArchetypes(lang)
+
   const [state, setState] = useState<SavedState>(initial)
   const [submitting, setSubmitting] = useState(false)
   const [emailError, setEmailError] = useState<string | null>(null)
@@ -208,7 +227,7 @@ export default function EmpireQuiz({ hookOverride, onCompleted, onDismiss }: Pro
   async function submitEmail() {
     setEmailError(null)
     if (!isValidEmail(state.email)) {
-      setEmailError('Email invalide')
+      setEmailError(lang === 'fr' ? 'Email invalide' : 'Invalid email')
       return
     }
     track('email_submit')
@@ -217,7 +236,7 @@ export default function EmpireQuiz({ hookOverride, onCompleted, onDismiss }: Pro
     fetch('/api/quiz/lead', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: state.email, first_name: state.firstName }),
+      body: JSON.stringify({ email: state.email, first_name: state.firstName, lang }),
     }).catch(() => {})
 
     setSubmitting(true)
@@ -233,6 +252,7 @@ export default function EmpireQuiz({ hookOverride, onCompleted, onDismiss }: Pro
           email: state.email,
           first_name: state.firstName,
           answers: state.answers,
+          lang,
         }),
       })
       const data = await res.json()
@@ -246,7 +266,7 @@ export default function EmpireQuiz({ hookOverride, onCompleted, onDismiss }: Pro
         result = state.preview
       } else {
         setState(s => ({ ...s, stage: 'email' }))
-        setEmailError('Une erreur est survenue. Réessayez dans un instant.')
+        setEmailError(lang === 'fr' ? 'Une erreur est survenue. Réessayez dans un instant.' : 'Something went wrong. Please try again.')
         return
       }
     }
@@ -268,7 +288,9 @@ export default function EmpireQuiz({ hookOverride, onCompleted, onDismiss }: Pro
 
   // ─── Computed ───────────────────────────────────────────────────────────────
 
-  const currentQuestion = QUESTIONS[state.cursor]
+  const localizedQuestions = getLocalizedQuestions(lang)
+  const localizedStepMessages = getLocalizedStepMessages(lang)
+  const currentQuestion = localizedQuestions[state.cursor]
   const completedCount = Object.keys(state.answers).length
   const progressPct = (() => {
     if (state.stage === 'intro') return 0
@@ -337,21 +359,23 @@ export default function EmpireQuiz({ hookOverride, onCompleted, onDismiss }: Pro
                       <span className="relative inline-flex rounded-full h-2 w-2 bg-empire" />
                     </span>
                     <span className="text-[11px] uppercase tracking-widest text-neutral-300 font-medium">
-                      +700 entrepreneurs testés · 90 secondes
+                      {lang === 'fr' ? '+700 entrepreneurs testés · 90 secondes' : '+700 entrepreneurs tested · 90 seconds'}
                     </span>
                   </div>
 
                   <h1 className="text-2xl sm:text-3xl font-black text-white leading-[1.1] mb-2.5">
-                    Découvrez le type de créateur que vous êtes.
+                    {lang === 'fr' ? 'Découvrez le type de créateur que vous êtes.' : 'Discover what type of creator you are.'}
                   </h1>
                   <p className="text-sm sm:text-base text-neutral-300 leading-relaxed max-w-lg mx-auto">
-                    Et recevez un plan d&apos;action de 30 jours pour transformer vos lecteurs en clients payants.
+                    {lang === 'fr'
+                      ? "Et recevez un plan d'action de 30 jours pour transformer vos lecteurs en clients payants."
+                      : 'And get a 30-day action plan to turn your readers into paying clients.'}
                   </p>
                 </div>
 
                 {/* 4 archetype circles */}
                 <div className="grid grid-cols-4 gap-2.5 sm:gap-3 w-full max-w-sm">
-                  {INTRO_ARCHETYPES.map((a, i) => (
+                  {introArchetypes.map((a, i) => (
                     <motion.div
                       key={a.id}
                       initial={{ opacity: 0, y: 16 }}
@@ -383,7 +407,7 @@ export default function EmpireQuiz({ hookOverride, onCompleted, onDismiss }: Pro
               {/* ── Features cards ── */}
               <div className="mb-6 max-w-2xl mx-auto">
                 <div className="grid grid-cols-3 gap-3">
-                  {INTRO_FEATURES.map((f, i) => (
+                  {INTRO_FEATURES[lang].map((f, i) => (
                     <motion.div
                       key={f.title}
                       initial={{ opacity: 0, y: 10 }}
@@ -404,7 +428,7 @@ export default function EmpireQuiz({ hookOverride, onCompleted, onDismiss }: Pro
                 transition={{ delay: 0.5 }}
                 className="mb-5 flex items-center justify-center gap-3 sm:gap-4 flex-wrap"
               >
-                {INTRO_OUTCOMES.map((o) => (
+                {INTRO_OUTCOMES[lang].map((o) => (
                   <span key={o} className="inline-flex items-center gap-1.5 text-xs text-neutral-400">
                     <span className="w-1 h-1 rounded-full bg-empire" />
                     {o}
@@ -418,11 +442,11 @@ export default function EmpireQuiz({ hookOverride, onCompleted, onDismiss }: Pro
                   onClick={start}
                   className="group inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-empire text-black font-bold text-lg hover:scale-[1.03] active:scale-100 transition-all shadow-[0_0_40px_rgb(var(--empire-rgb)_/_0.45)]"
                 >
-                  Découvrir mon archétype
+                  {lang === 'fr' ? 'Découvrir mon archétype' : 'Discover my archetype'}
                   <ArrowRight size={20} className="group-hover:translate-x-0.5 transition-transform" />
                 </button>
                 <p className="text-xs text-neutral-500 mt-2">
-                  10 questions · 90 secondes · Gratuit
+                  {lang === 'fr' ? '10 questions · 90 secondes · Gratuit' : '10 questions · 90 seconds · Free'}
                 </p>
               </div>
             </motion.div>
@@ -441,7 +465,7 @@ export default function EmpireQuiz({ hookOverride, onCompleted, onDismiss }: Pro
             className="w-full max-w-xl mx-auto"
           >
             {/* Encouraging message (Timeleft-style) — appears before specific questions */}
-            {STEP_MESSAGES[currentQuestion.step] && (
+            {localizedStepMessages[currentQuestion.step] && (
               <motion.div
                 key={`msg-${currentQuestion.step}`}
                 initial={{ opacity: 0, y: -6, scale: 0.95 }}
@@ -450,9 +474,9 @@ export default function EmpireQuiz({ hookOverride, onCompleted, onDismiss }: Pro
                 className="flex justify-center mb-4"
               >
                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-empire/15 border border-empire/30">
-                  <span className="text-base">{STEP_MESSAGES[currentQuestion.step].emoji}</span>
+                  <span className="text-base">{localizedStepMessages[currentQuestion.step].emoji}</span>
                   <span className="text-xs sm:text-sm font-semibold text-empire">
-                    {STEP_MESSAGES[currentQuestion.step].text}
+                    {localizedStepMessages[currentQuestion.step].text}
                   </span>
                 </div>
               </motion.div>
@@ -525,11 +549,13 @@ export default function EmpireQuiz({ hookOverride, onCompleted, onDismiss }: Pro
             className="w-full max-w-md mx-auto py-10 text-center"
           >
             <Loader2 className="mx-auto text-empire animate-spin mb-6" size={36} />
-            <p className="text-white font-bold text-xl mb-6">On analyse votre profil…</p>
+            <p className="text-white font-bold text-xl mb-6">
+              {lang === 'fr' ? 'On analyse votre profil…' : 'Analyzing your profile…'}
+            </p>
             <div className="space-y-2.5 max-w-xs mx-auto text-left text-base text-neutral-400">
-              <LoaderTick delay={0.1} text="Analyse de vos réponses" />
-              <LoaderTick delay={0.8} text="Détection de votre archétype" />
-              <LoaderTick delay={1.5} text="Calcul de votre score" />
+              <LoaderTick delay={0.1} text={lang === 'fr' ? 'Analyse de vos réponses' : 'Analyzing your answers'} />
+              <LoaderTick delay={0.8} text={lang === 'fr' ? 'Détection de votre archétype' : 'Detecting your archetype'} />
+              <LoaderTick delay={1.5} text={lang === 'fr' ? 'Calcul de votre score' : 'Calculating your score'} />
             </div>
           </motion.div>
         )}
@@ -545,15 +571,18 @@ export default function EmpireQuiz({ hookOverride, onCompleted, onDismiss }: Pro
             className="w-full max-w-xl mx-auto"
           >
             <p className="text-[11px] uppercase tracking-[0.2em] text-empire font-bold mb-3 text-center">
-              ✓ Analyse terminée
+              {lang === 'fr' ? '✓ Analyse terminée' : '✓ Analysis complete'}
             </p>
             <h2 className="text-3xl sm:text-4xl font-black text-white leading-[1.1] mb-2 text-center">
-              {state.firstName ? `${state.firstName}, votre ` : 'Votre '}
-              <span className="text-empire">résultat est prêt.</span>
+              {lang === 'fr'
+                ? <>{state.firstName ? `${state.firstName}, votre ` : 'Votre '}<span className="text-empire">résultat est prêt.</span></>
+                : <>{state.firstName ? `${state.firstName}, your ` : 'Your '}<span className="text-empire">result is ready.</span></>
+              }
             </h2>
             <p className="text-base text-neutral-400 mb-6 text-center max-w-md mx-auto">
-              On vous l&apos;envoie où ? Votre plan complet + votre archétype + votre tribu de
-              Creators arrivent dans votre boîte.
+              {lang === 'fr'
+                ? "On vous l'envoie où ? Votre plan complet + votre archétype + votre tribu de Creators arrivent dans votre boîte."
+                : "Where should we send it? Your full plan + archetype + Creator tribe are headed to your inbox."}
             </p>
 
             {/* Teaser of the score, blurred to create curiosity */}
@@ -570,12 +599,12 @@ export default function EmpireQuiz({ hookOverride, onCompleted, onDismiss }: Pro
                     <div className="flex items-center justify-between gap-4">
                       <div className="text-left min-w-0">
                         <p className="text-[10px] uppercase tracking-[0.2em] text-neutral-500 font-bold mb-1">
-                          Votre archétype
+                          {lang === 'fr' ? 'Votre archétype' : 'Your archetype'}
                         </p>
                         <p className="text-white font-black text-lg leading-tight truncate">
                           {ARCHETYPES[state.preview.archetype].emoji}{' '}
                           <span className="select-none">
-                            {ARCHETYPES[state.preview.archetype].name}
+                            {getLocalizedArchetype(state.preview.archetype, lang).name}
                           </span>
                         </p>
                       </div>
@@ -584,7 +613,7 @@ export default function EmpireQuiz({ hookOverride, onCompleted, onDismiss }: Pro
                           {sharePct[state.preview.archetype]}%
                         </p>
                         <p className="text-[10px] text-neutral-500 font-medium">
-                          des créateurs Empire
+                          {lang === 'fr' ? 'des créateurs Empire' : 'of Empire creators'}
                         </p>
                       </div>
                     </div>
@@ -595,7 +624,7 @@ export default function EmpireQuiz({ hookOverride, onCompleted, onDismiss }: Pro
                 <div className="mt-4 pt-4 border-t border-white/10">
                   <div className="flex items-center gap-2 text-xs text-neutral-500 mb-2">
                     <Lock size={12} />
-                    <span>Verrouillé · Disponible après votre email</span>
+                    <span>{lang === 'fr' ? 'Verrouillé · Disponible après votre email' : 'Locked · Available after your email'}</span>
                   </div>
                   <div className="space-y-1.5 select-none">
                     <div className="h-3 rounded bg-white/5 w-3/4" />
@@ -609,7 +638,7 @@ export default function EmpireQuiz({ hookOverride, onCompleted, onDismiss }: Pro
             <div className="flex flex-col gap-3">
               <input
                 type="text"
-                placeholder="Votre prénom"
+                placeholder={lang === 'fr' ? 'Votre prénom' : 'Your first name'}
                 value={state.firstName}
                 onChange={e => setState(s => ({ ...s, firstName: e.target.value }))}
                 className="w-full px-5 py-4 rounded-2xl bg-white/5 border-2 border-white/10 text-white text-base placeholder-neutral-500 focus:outline-none focus:border-empire/60 focus:bg-white/[0.07] transition"
@@ -637,13 +666,13 @@ export default function EmpireQuiz({ hookOverride, onCompleted, onDismiss }: Pro
                 disabled={submitting || !state.email}
                 className="mt-2 inline-flex items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-empire text-black font-bold text-base hover:scale-[1.02] active:scale-100 transition-all shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.4)] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
               >
-                Débloquer mon résultat complet
+                {lang === 'fr' ? 'Débloquer mon résultat complet' : 'Unlock my full result'}
                 <ArrowRight size={18} />
               </button>
             </div>
 
             <p className="mt-6 text-center text-xs text-neutral-500">
-              🔒 Aucun spam, désabonnement en 1 clic
+              {lang === 'fr' ? '🔒 Aucun spam, désabonnement en 1 clic' : '🔒 No spam, unsubscribe in 1 click'}
             </p>
           </motion.div>
         )}
@@ -659,7 +688,9 @@ export default function EmpireQuiz({ hookOverride, onCompleted, onDismiss }: Pro
             className="w-full max-w-md mx-auto py-10 text-center"
           >
             <Loader2 className="mx-auto text-empire animate-spin mb-4" size={32} />
-            <p className="text-white font-semibold text-base">Préparation de votre résultat…</p>
+            <p className="text-white font-semibold text-base">
+              {lang === 'fr' ? 'Préparation de votre résultat…' : 'Preparing your result…'}
+            </p>
           </motion.div>
         )}
       </AnimatePresence>

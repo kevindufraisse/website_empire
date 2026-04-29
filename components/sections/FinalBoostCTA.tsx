@@ -27,7 +27,7 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 }
 
 export default function FinalBoostCTA() {
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()
   const { autopilot } = useAutopilot()
   
   const namespace = 'audit-empire'
@@ -80,7 +80,7 @@ export default function FinalBoostCTA() {
                   }`}
                 >
                   <span className="text-lg">{autopilot ? t.autopilot.finalCTA.cta : t.finalCTA.watchDemo}</span>
-                  <span className="text-[11px] font-semibold opacity-70">300 000 vues/mois garanties · 45 min</span>
+                  <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? '300 000 vues/mois garanties · 45 min' : '300,000 views/month guaranteed · 45 min'}</span>
                 </button>
               </div>
             </div>

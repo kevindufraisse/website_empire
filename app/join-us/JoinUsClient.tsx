@@ -2,6 +2,7 @@
 
 import YtLeadForm from '@/components/YtLeadForm'
 import { useAutopilot } from '@/contexts/AutopilotContext'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 const platforms = [
   { name: 'Instagram', svg: 'M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z' },
@@ -24,6 +25,8 @@ const AVATARS = [
 
 export default function JoinUsClient() {
   const { autopilot } = useAutopilot()
+  const { lang } = useLanguage()
+  const fr = lang === 'fr'
 
   const accent = {
     text: autopilot ? 'text-autopilot' : 'text-empire',
@@ -44,14 +47,14 @@ export default function JoinUsClient() {
   }
 
   const headline = autopilot
-    ? 'Déléguez 100% de votre présence en ligne -'
-    : 'Attirez des clients -'
+    ? (fr ? 'Déléguez 100% de votre présence en ligne -' : 'Delegate 100% of your online presence -')
+    : (fr ? 'Attirez des clients -' : 'Attract clients -')
   const headlineAccent = autopilot
-    ? 'un expert dédié prend le contrôle.'
-    : 'sans écrire ni monter votre contenu.'
+    ? (fr ? 'un expert dédié prend le contrôle.' : 'a dedicated expert takes over.')
+    : (fr ? 'sans écrire ni monter votre contenu.' : 'without writing or editing your content.')
   const subtitle = autopilot
-    ? 'Zéro interview, zéro contact. Votre expert trouve vos sujets, écrit dans votre voix, publie pour vous.'
-    : 'Une interview de 15 min par semaine → 30+ posts, reels, vidéos, newsletters.'
+    ? (fr ? 'Zéro interview, zéro contact. Votre expert trouve vos sujets, écrit dans votre voix, publie pour vous.' : 'Zero interview, zero contact. Your expert finds your topics, writes in your voice, publishes for you.')
+    : (fr ? 'Une interview de 15 min par semaine → 30+ posts, reels, vidéos, newsletters.' : 'A 15-min interview per week → 30+ posts, reels, videos, newsletters.')
 
   return (
     <main className="min-h-screen bg-black text-white overflow-x-hidden">
@@ -70,11 +73,11 @@ export default function JoinUsClient() {
                 href="#reserve-form"
                 className={`lg:hidden shrink-0 text-xs font-bold ${accent.text} ${accent.hoverTextSoft} underline-offset-2 hover:underline`}
               >
-                Réserver →
+                {fr ? 'Réserver →' : 'Book →'}
               </a>
               <div className="flex items-center gap-1.5 text-[11px] sm:text-xs text-neutral-400 min-w-0">
                 <span className={`w-1.5 h-1.5 rounded-full ${accent.bg} animate-pulse shrink-0`} />
-                <span className="truncate">Appel gratuit disponible</span>
+                <span className="truncate">{fr ? 'Appel gratuit disponible' : 'Free call available'}</span>
               </div>
             </div>
           </div>
@@ -93,7 +96,7 @@ export default function JoinUsClient() {
             </p>
 
             <div className="flex items-center gap-2 flex-wrap mb-6">
-              <span className="text-[11px] text-neutral-400">Publié sur</span>
+              <span className="text-[11px] text-neutral-400">{fr ? 'Publié sur' : 'Published on'}</span>
               {platforms.map((p) => (
                 <div
                   key={p.name}
@@ -110,7 +113,7 @@ export default function JoinUsClient() {
             <div className="flex items-center gap-2.5">
               <img src={KEVIN_IMG} alt="Kevin Dufraisse" width={32} height={32} className="w-8 h-8 rounded-full border border-white/15 object-cover" />
               <p className="text-neutral-400 text-xs">
-                Créé par <span className="text-white font-semibold">Kevin Dufraisse</span> · Top 48 LinkedIn France
+                {fr ? 'Créé par' : 'Built by'} <span className="text-white font-semibold">Kevin Dufraisse</span> · Top 48 LinkedIn France
               </p>
             </div>
           </div>
@@ -119,7 +122,9 @@ export default function JoinUsClient() {
             <div className={`relative rounded-2xl border ${accent.formBorder} bg-gradient-to-b from-white/[0.08] to-white/[0.04] p-5 sm:p-7 ${accent.formShadow} overflow-hidden`}>
               <div className={`absolute top-0 left-0 right-0 h-0.5 ${accent.formBar}`} />
               <h2 className="text-lg font-bold text-white mb-5">
-                {autopilot ? 'Postulez au mode Autopilot' : 'Réservez votre appel gratuit'}
+                {autopilot
+                  ? (fr ? 'Postulez au mode Autopilot' : 'Apply to Autopilot mode')
+                  : (fr ? 'Réservez votre appel gratuit' : 'Book your free call')}
               </h2>
               <YtLeadForm eventName="organic_lead_form" />
             </div>
@@ -130,14 +135,14 @@ export default function JoinUsClient() {
                   <img key={i} src={url} alt="" width={24} height={24} className="w-6 h-6 rounded-full border-2 border-black object-cover" />
                 ))}
               </div>
-              <p className="text-xs text-neutral-400">+100 entrepreneurs accompagnés</p>
+              <p className="text-xs text-neutral-400">{fr ? '+100 entrepreneurs accompagnés' : '+100 entrepreneurs served'}</p>
             </div>
           </div>
         </div>
 
         <div className="max-w-5xl mx-auto w-full px-4 sm:px-6 pb-12">
           <p className="text-xs text-neutral-400 uppercase tracking-widest font-bold text-center mb-6">
-            Ce qu'en disent ceux qui sont passés par là
+            {fr ? "Ce qu'en disent ceux qui sont passés par là" : 'What people who joined have to say'}
           </p>
           <div
             className="senja-embed"
@@ -151,7 +156,7 @@ export default function JoinUsClient() {
         <div className="border-t border-white/5 py-5 text-center">
           <p className="text-xs text-neutral-400">
             © 2026 Empire Internet ·{' '}
-            <a href="/" className="hover:text-neutral-400 transition-colors">Retour au site</a>
+            <a href="/" className="hover:text-neutral-400 transition-colors">{fr ? 'Retour au site' : 'Back to site'}</a>
           </p>
         </div>
       </div>

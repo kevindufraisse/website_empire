@@ -354,7 +354,7 @@ export default function HowItWorksAccordion() {
                       <span className="text-empire font-bold text-sm">+98</span>
                     </div>
                   </div>
-                  <p className="text-[11px] text-neutral-500">Réseau de 100 experts disponibles</p>
+                  <p className="text-[11px] text-neutral-500">{lang === 'fr' ? 'Réseau de 100 experts disponibles' : 'Network of 100 available experts'}</p>
                 </div>
                 <div className="relative z-10 p-5 pt-3 mt-auto h-[140px] bg-gradient-to-t from-black via-black/90 to-transparent">
                   <div className="flex items-center gap-2 mb-1">
@@ -456,7 +456,7 @@ export default function HowItWorksAccordion() {
                   <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-500/20 border border-green-500/40 backdrop-blur-sm">
                     <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                     <span className="text-[10px] font-semibold text-green-400">
-                      {lang === 'fr' ? '300 000 vues/mois garanties' : '300 000 vues/mois garanties'}
+                      {lang === 'fr' ? '300 000 vues/mois garanties' : '300,000 views/month guaranteed'}
                     </span>
                   </div>
                   <div className="absolute inset-0 pt-10 px-3 [mask-image:linear-gradient(to_top,transparent_20%,#000_100%)]">
@@ -550,7 +550,7 @@ export default function HowItWorksAccordion() {
                 }`}
               >
                 <span className="text-lg">{autopilot ? t.autopilot.hero.cta1 : (lang === 'fr' ? 'Oui, je veux gagner du temps et découvrir le système Empire' : 'Yes, I want to save time and discover the Empire system')}</span>
-                <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? '300 000 vues/mois garanties · 45 min' : '300 000 vues/mois garanties · 45 min'}</span>
+                <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? '300 000 vues/mois garanties · 45 min' : '300,000 views/month guaranteed · 45 min'}</span>
               </button>
           </div>
         </FadeInBlock>

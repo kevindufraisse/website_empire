@@ -1,20 +1,36 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useLanguage } from '@/contexts/LanguageContext'
 
-const applicants = [
-  { name: 'Thomas', city: 'Paris', time: 'à l\'instant' },
+const applicantsFr = [
+  { name: 'Thomas', city: 'Paris', time: "à l'instant" },
   { name: 'Julie', city: 'Lyon', time: 'il y a 2 min' },
   { name: 'Maxime', city: 'Bordeaux', time: 'il y a 4 min' },
   { name: 'Sarah', city: 'Marseille', time: 'il y a 6 min' },
-  { name: 'Antoine', city: 'Nantes', time: 'à l\'instant' },
+  { name: 'Antoine', city: 'Nantes', time: "à l'instant" },
   { name: 'Camille', city: 'Toulouse', time: 'il y a 3 min' },
   { name: 'Lucas', city: 'Lille', time: 'il y a 1 min' },
   { name: 'Emma', city: 'Strasbourg', time: 'il y a 5 min' },
-  { name: 'Hugo', city: 'Rennes', time: 'à l\'instant' },
+  { name: 'Hugo', city: 'Rennes', time: "à l'instant" },
   { name: 'Léa', city: 'Nice', time: 'il y a 2 min' },
   { name: 'Nicolas', city: 'Montpellier', time: 'il y a 7 min' },
   { name: 'Chloé', city: 'Grenoble', time: 'il y a 3 min' },
+]
+
+const applicantsEn = [
+  { name: 'Thomas', city: 'Paris', time: 'just now' },
+  { name: 'Julie', city: 'Lyon', time: '2 min ago' },
+  { name: 'Maxime', city: 'Bordeaux', time: '4 min ago' },
+  { name: 'Sarah', city: 'Marseille', time: '6 min ago' },
+  { name: 'Antoine', city: 'Nantes', time: 'just now' },
+  { name: 'Camille', city: 'Toulouse', time: '3 min ago' },
+  { name: 'Lucas', city: 'Lille', time: '1 min ago' },
+  { name: 'Emma', city: 'Strasbourg', time: '5 min ago' },
+  { name: 'Hugo', city: 'Rennes', time: 'just now' },
+  { name: 'Léa', city: 'Nice', time: '2 min ago' },
+  { name: 'Nicolas', city: 'Montpellier', time: '7 min ago' },
+  { name: 'Chloé', city: 'Grenoble', time: '3 min ago' },
 ]
 
 const SHOW_DURATION = 5000
@@ -22,12 +38,17 @@ const INTERVAL = 28000
 const INITIAL_DELAY = 8000
 
 export default function AcademySocialProofToast() {
-  const [current, setCurrent] = useState<typeof applicants[0] | null>(null)
+  const { lang } = useLanguage()
+  const fr = lang === 'fr'
+  const applicants = fr ? applicantsFr : applicantsEn
+
+  const [current, setCurrent] = useState<typeof applicantsFr[0] | null>(null)
   const [idx, setIdx] = useState(0)
 
   useEffect(() => {
+    const list = fr ? applicantsFr : applicantsEn
     const show = (i: number) => {
-      setCurrent(applicants[i % applicants.length])
+      setCurrent(list[i % list.length])
       setTimeout(() => setCurrent(null), SHOW_DURATION)
     }
 
@@ -35,7 +56,7 @@ export default function AcademySocialProofToast() {
       show(0)
       const interval = setInterval(() => {
         setIdx(prev => {
-          const next = (prev + 1) % applicants.length
+          const next = (prev + 1) % list.length
           show(next)
           return next
         })
@@ -44,7 +65,7 @@ export default function AcademySocialProofToast() {
     }, INITIAL_DELAY)
 
     return () => clearTimeout(t0)
-  }, [])
+  }, [fr])
 
   return (
     <AnimatePresence>
@@ -64,10 +85,10 @@ export default function AcademySocialProofToast() {
             </div>
             <div className="min-w-0">
               <p className="text-white text-xs font-semibold leading-tight truncate">
-                {current.name} de {current.city}
+                {current.name} {fr ? 'de' : 'from'} {current.city}
               </p>
               <p className="text-neutral-400 text-[10px] leading-tight mt-0.5">
-                vient de postuler · {current.time}
+                {fr ? 'vient de postuler' : 'just applied'} · {current.time}
               </p>
             </div>
             {/* Pulse */}
