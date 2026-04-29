@@ -466,7 +466,7 @@ export default function HowItWorksAccordion() {
                 <div className="relative z-10 p-5 pt-3 mt-auto h-[140px] bg-gradient-to-t from-black via-black/90 to-transparent">
                   <div className="flex items-center gap-2 mb-1">
                     <span className={`w-6 h-6 rounded-md flex items-center justify-center text-black font-bold text-sm ${autopilot ? 'bg-autopilot' : 'bg-empire'}`}>3</span>
-                    <h3 className="text-base font-semibold text-white">
+                    <h3 className="text-sm font-semibold text-white whitespace-nowrap">
                       {autopilot
                         ? t.autopilot.howItWorks.b3.title
                         : (lang === 'fr' ? 'On rédige et on monte' : 'We write and edit')}
