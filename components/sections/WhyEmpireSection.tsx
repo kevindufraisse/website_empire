@@ -74,15 +74,15 @@ export default function WhyEmpireSection() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-2xl md:text-4xl font-bold text-white leading-tight text-center max-w-3xl mx-auto mb-14"
         >
-          {fr ? (
-            <>
-              Ce que l&apos;IA ne pourra jamais copier : <span className="text-empire">vous.</span>
-            </>
-          ) : (
-            <>
-              What AI will never be able to copy: <span className="text-empire">you.</span>
-            </>
-          )}
+            {fr ? (
+              <>
+                Ce que l&apos;IA ne pourra jamais copier : <span className="text-empire">votre personnalité.</span>
+              </>
+            ) : (
+              <>
+                What AI will never be able to copy: <span className="text-empire">your personality.</span>
+              </>
+            )}
         </motion.h2>
 
         {/* Two cards side by side — timeline is wider */}
