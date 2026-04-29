@@ -38,44 +38,46 @@ export default function Footer() {
   return (
     <footer className="relative w-full border-t border-white/10 bg-black pb-[env(safe-area-inset-bottom)]">
       <div className="container py-8 md:py-12">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8 mb-6 md:mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           {/* Brand */}
-          <div className="flex flex-col items-center md:items-start w-full md:w-auto">
-            <div className="flex items-center gap-2 mb-3 md:mb-4">
-              <span className="text-lg font-bold text-white">Empire Internet</span>
-            </div>
-            <p className="text-sm text-neutral-400 mb-3 md:mb-4 text-center md:text-left">
+          <div className="flex flex-col items-center md:items-start">
+            <span className="text-lg font-bold text-white mb-2">Empire Internet</span>
+            <p className="text-sm text-neutral-400 mb-3 text-center md:text-left">
               {t.footer.tagline}
             </p>
             <div className="flex items-center gap-2 text-sm text-neutral-400">
-              <Mail size={16} />
+              <Mail size={14} />
               <a href="mailto:kevin@empire-internet.com" className="hover:text-empire transition-colors">
                 kevin@empire-internet.com
               </a>
             </div>
           </div>
 
-          {/* CTAs */}
-          <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
-            {isAcademyPage ? (
-              <a
-                href="/"
-                className="w-full sm:w-auto text-center px-6 py-3.5 min-h-[44px] bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]"
-              >
-                Découvrir Empire Internet →
+          {/* Ressources gratuites */}
+          <div className="flex flex-col items-center md:items-start">
+            <p className="text-sm font-bold text-white mb-3">{lang === 'fr' ? 'Ressources gratuites' : 'Free resources'}</p>
+            <div className="flex flex-col gap-2">
+              <a href="/vsl" className="text-sm text-neutral-400 hover:text-empire transition-colors">
+                {lang === 'fr' ? 'Masterclass : le système Empire (20 min)' : 'Masterclass: the Empire system (20 min)'}
               </a>
-            ) : !isPartnersPage && (
-              <div className="flex flex-col items-center gap-2 w-full sm:w-auto">
-                <button
-                  data-cal-namespace={namespace}
-                  data-cal-link={calLink}
-                  data-cal-config='{"layout":"month_view","theme":"dark"}'
-                  className="w-full sm:w-auto text-center px-6 py-3.5 min-h-[44px] bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]"
-                >
-                  {t.finalCTA.watchDemo}
-                </button>
-                <CtaReassurance className="max-w-xs px-1" />
-              </div>
+              <a href="/quiz" className="text-sm text-neutral-400 hover:text-empire transition-colors">
+                {lang === 'fr' ? 'Quiz : quel créateur êtes-vous ?' : 'Quiz: what creator are you?'}
+              </a>
+            </div>
+          </div>
+
+          {/* CTA */}
+          <div className="flex flex-col items-center md:items-end">
+            {!isPartnersPage && (
+              <button
+                data-cal-namespace={namespace}
+                data-cal-link={calLink}
+                data-cal-config='{"layout":"month_view","theme":"dark"}'
+                className="inline-flex flex-col items-center px-6 py-3.5 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]"
+              >
+                <span>{t.finalCTA.watchDemo}</span>
+                <span className="text-[10px] font-semibold opacity-70">300 000 vues garanties · 45 min</span>
+              </button>
             )}
           </div>
         </div>
@@ -95,12 +97,6 @@ export default function Footer() {
                 {t.footer.privacyPolicy}
               </a>
             </nav>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-empire animate-pulse" />
-            <p className="text-xs text-neutral-400">
-              <span className="text-empire font-semibold">83</span> {t.footer.spotsRemaining}
-            </p>
           </div>
         </div>
       </div>
