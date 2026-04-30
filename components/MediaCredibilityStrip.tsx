@@ -1,5 +1,7 @@
 'use client'
 
+import { useLanguage } from '@/contexts/LanguageContext'
+
 const OUTLETS = [
   'BIG MEDIA',
   'BFM BUSINESS',
@@ -12,23 +14,24 @@ interface MediaCredibilityStripProps {
 }
 
 export default function MediaCredibilityStrip({ className = '' }: MediaCredibilityStripProps) {
+  const { lang } = useLanguage()
+
   return (
     <div className={`relative z-10 w-full ${className}`}>
-      <div className="container">
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 py-3 px-4 rounded-xl bg-white/[0.02] border border-white/5">
-          <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-neutral-500 whitespace-nowrap">
-            Vu sur
-          </span>
-          <div className="flex flex-wrap items-center justify-center gap-x-4 sm:gap-x-6 gap-y-1.5">
-            {OUTLETS.map((outlet) => (
-              <span
-                key={outlet}
-                className="text-[11px] md:text-xs font-bold tracking-[0.12em] uppercase text-neutral-300/80 whitespace-nowrap"
-              >
-                {outlet}
-              </span>
-            ))}
-          </div>
+      <div className="flex items-center justify-center gap-4 sm:gap-6">
+        <span className="text-xs font-bold tracking-[0.15em] uppercase text-neutral-500 whitespace-nowrap">
+          {lang === 'fr' ? 'Vu sur' : 'Featured in'}
+        </span>
+        <div className="h-px w-6 bg-white/10" />
+        <div className="flex flex-wrap items-center justify-center gap-x-5 sm:gap-x-8 gap-y-2">
+          {OUTLETS.map((outlet) => (
+            <span
+              key={outlet}
+              className="text-sm sm:text-base font-bold tracking-wide uppercase text-neutral-300 whitespace-nowrap"
+            >
+              {outlet}
+            </span>
+          ))}
         </div>
       </div>
     </div>
