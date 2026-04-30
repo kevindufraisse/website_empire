@@ -150,10 +150,13 @@ export default function WhyEmpireSection() {
           </p>
           <a
             href="/join-us"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-empire text-black font-bold text-base md:text-lg hover:scale-[1.03] active:scale-100 transition-all shadow-[0_0_40px_rgb(var(--empire-rgb)_/_0.4)]"
+            className="inline-flex flex-col items-center px-8 py-4 rounded-2xl bg-empire text-black font-bold text-base md:text-lg hover:scale-[1.03] active:scale-100 transition-all shadow-[0_0_40px_rgb(var(--empire-rgb)_/_0.4)]"
           >
-            {fr ? 'Je veux profiter de cette opportunité' : 'I want to seize this opportunity'}
-            <span className="text-xl">→</span>
+            <span className="flex items-center gap-2">
+              {fr ? 'Je veux profiter de cette opportunité' : 'I want to seize this opportunity'}
+              <span className="text-xl">→</span>
+            </span>
+            <span className="text-[11px] font-semibold opacity-70">{fr ? '300 000 vues/mois garanties · 45 min' : '300,000 views/month guaranteed · 45 min'}</span>
           </a>
         </motion.div>
       </div>
