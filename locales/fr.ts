@@ -138,7 +138,7 @@ export const fr: Translations = {
   hero: {
     targetAudience: 'Pour freelances, salariés & entrepreneurs',
     title: 'Installez le système de création de contenus <br class="hidden sm:block"/>des <span class="text-empire">futurs leaders</span> de demain.',
-    subtitle: 'Un coach en viralité vous interviewe 15 min/semaine.<br/>On rédige, on monte, on publie sur tous vos réseaux.',
+    subtitle: 'Un expert en viralité vous interviewe 15 min/semaine.<br/>On rédige, on monte, on publie sur tous vos réseaux.',
     description: '',
     cta1: 'Je veux découvrir le système Empire',
     cta2: 'Voir la Démo (20 min)',
@@ -166,12 +166,12 @@ export const fr: Translations = {
   },
   howItWorks: {
     title: 'Comment Ça Marche',
-    subtitle: 'Du coaching à l\'autonomie - en 4 étapes',
+    subtitle: 'De l\'accompagnement à l\'autonomie - en 4 étapes',
     stepLabel: 'ÉTAPE',
     step1: {
       title: 'Mois 1 - On prend en charge',
-      summary: 'Nos coachs analysent votre niche et vous forment à la viralité.',
-      description: 'Pendant le premier mois, nos coachs identifient les sujets les plus viraux de votre niche, vous forment à la viralité et mettent en place vos systèmes d\'acquisition et de conversion.',
+      summary: 'Nos experts analysent votre niche et vous forment à la viralité.',
+      description: 'Pendant le premier mois, nos experts identifient les sujets les plus viraux de votre niche, vous forment à la viralité et mettent en place vos systèmes d\'acquisition et de conversion.',
       badge1: 'Analyse de niche',
       badge1Sub: 'Sujets viraux identifiés',
       badge2: 'Systèmes mis en place',
@@ -180,7 +180,7 @@ export const fr: Translations = {
     step2: {
       title: 'L\'interview (15 min)',
       summary: 'On vous fait une interview. Vous parlez, on crée partout.',
-      description: 'Nos coachs vous interviewent 15 min par semaine. Zéro préparation, zéro script. Votre expertise devient du contenu publié quotidiennement sur tous les réseaux.',
+      description: 'Nos experts vous interviewent 15 min par semaine. Zéro préparation, zéro script. Votre expertise devient du contenu publié quotidiennement sur tous les réseaux.',
       perInterview: 'Par interview, vous obtenez :',
       humanQA: 'Contrôle Qualité Humain',
       humanQASub: 'Chaque pièce vérifiée par un expert',
@@ -203,11 +203,11 @@ export const fr: Translations = {
     step4: {
       title: 'Vous Devenez Autonome',
       summary: 'Vous enregistrez votre propre contenu. On optimise.',
-      description: 'Après le mois 1, vous maîtrisez la viralité. Vous enregistrez votre propre contenu en autonomie - nos coachs restent disponibles pour optimiser vos performances et scaler vos résultats.',
+      description: 'Après le mois 1, vous maîtrisez la viralité. Vous enregistrez votre propre contenu en autonomie - nos experts restent disponibles pour optimiser vos performances et scaler vos résultats.',
       badge1: 'Autonomie totale',
       badge1Sub: 'Vous enregistrez seul',
       badge2: 'Support continu',
-      badge2Sub: 'Coachs disponibles',
+      badge2Sub: 'Experts disponibles',
     },
   },
   features: {
@@ -696,7 +696,7 @@ export const fr: Translations = {
     },
     {
       question: 'Puis-je être accompagné sur ma stratégie de personal branding ?',
-      answer: 'Oui. Nous proposons un coaching personal branding optionnel avec des experts qui ont accompagné les meilleurs créateurs FR et US. Disponible en supplément après souscription, sur devis.',
+      answer: 'Oui. Nous proposons un accompagnement personal branding optionnel avec des experts qui ont accompagné les meilleurs créateurs FR et US. Disponible en supplément après souscription, sur devis.',
     },
     {
       question: 'Comment garantir la visibilité de mes posts ?',

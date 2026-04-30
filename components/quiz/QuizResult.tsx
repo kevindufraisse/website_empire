@@ -61,9 +61,9 @@ const OFFERS: Record<RecommendedOffer, OfferCopy> = {
     kicker: 'Recommandé pour votre profil',
     title: 'Empire',
     pitch:
-      "Vous avez du CA, vous décidez, vous savez ce que ça vous coûte de ne pas avoir d'audience. Empire est fait pour vous : 15 min par semaine avec votre coach, on s'occupe de transformer ça en contenu qui amène des clients.",
+      "Vous avez du CA, vous décidez, vous savez ce que ça vous coûte de ne pas avoir d'audience. Empire est fait pour vous : 15 min par semaine avec votre expert, on s'occupe de transformer ça en contenu qui amène des clients.",
     benefits: [
-      'Un coach senior dédié qui vous interview 15 min/sem',
+      'Un expert senior dédié qui vous interview 15 min/sem',
       'On rédige vos posts LinkedIn + Shorts à partir de vos mots',
       'Un système d\'automatisation qui multi-poste sur tous vos canaux',
       'Calendrier éditorial 4 semaines à l\'avance — vous savez exactement ce qui va sortir',
@@ -79,7 +79,7 @@ const OFFERS: Record<RecommendedOffer, OfferCopy> = {
     kicker: 'Recommandé pour votre profil',
     title: 'Empire Academy · 21 jours',
     pitch:
-      "Pour votre profil, Academy est le bon premier pas : 21 jours pour bâtir vos fondations de contenu, avec 42 publications produites pour vous. Vous repartez avec un système qui tourne et vous pourrez passer à Empire (avec coach dédié) quand vous voudrez accélérer.",
+      "Pour votre profil, Academy est le bon premier pas : 21 jours pour bâtir vos fondations de contenu, avec 42 publications produites pour vous. Vous repartez avec un système qui tourne et vous pourrez passer à Empire (avec expert dédié) quand vous voudrez accélérer.",
     benefits: [
       'Système de viralité copy-paste à appliquer dès le jour 1',
       '21 posts LinkedIn + 21 Shorts produits POUR vous pendant 21 jours',
@@ -99,7 +99,7 @@ const OFFERS: Record<RecommendedOffer, OfferCopy> = {
     pitch:
       "Vous avez du CA, vous décidez, vous savez ce que ça vous coûte de ne pas avoir d'audience. Empire est fait pour vous.",
     benefits: [
-      'Coach senior dédié 15 min/sem',
+      'Expert senior dédié 15 min/sem',
       'Production multi-canal (LinkedIn + Shorts)',
       'Système d\'automatisation clé en main',
       'Calendrier éditorial 4 semaines',
@@ -129,9 +129,9 @@ const OFFERS_EN: Record<RecommendedOffer, OfferCopy> = {
     kicker: 'Recommended for your profile',
     title: 'Empire',
     pitch:
-      "You have revenue, you're a decision-maker, and you know what it costs to not have an audience. Empire is built for you: 15 min/week with your coach, we turn it into content that brings clients.",
+      "You have revenue, you're a decision-maker, and you know what it costs to not have an audience. Empire is built for you: 15 min/week with your expert, we turn it into content that brings clients.",
     benefits: [
-      'A dedicated senior coach who interviews you 15 min/week',
+      'A dedicated senior expert who interviews you 15 min/week',
       'We write your LinkedIn posts + Shorts from your words',
       'An automation system that multi-posts across all your channels',
       'Editorial calendar 4 weeks ahead — you know exactly what goes out',
@@ -147,7 +147,7 @@ const OFFERS_EN: Record<RecommendedOffer, OfferCopy> = {
     kicker: 'Recommended for your profile',
     title: 'Empire Academy · 21 days',
     pitch:
-      "For your profile, Academy is the right first step: 21 days to build your content foundations, with 42 publications produced for you. You leave with a working system and can upgrade to Empire (with a dedicated coach) whenever you want to accelerate.",
+      "For your profile, Academy is the right first step: 21 days to build your content foundations, with 42 publications produced for you. You leave with a working system and can upgrade to Empire (with a dedicated expert) whenever you want to accelerate.",
     benefits: [
       'Copy-paste virality system to apply from day 1',
       '21 LinkedIn posts + 21 Shorts produced FOR you over 21 days',
@@ -167,7 +167,7 @@ const OFFERS_EN: Record<RecommendedOffer, OfferCopy> = {
     pitch:
       "You have revenue, you decide, and you know what it costs to not have an audience. Empire is built for you.",
     benefits: [
-      'Dedicated senior coach 15 min/week',
+      'Dedicated senior expert 15 min/week',
       'Multi-channel production (LinkedIn + Shorts)',
       'Turnkey automation system',
       '4-week editorial calendar',

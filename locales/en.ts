@@ -15,7 +15,7 @@ export const en = {
   hero: {
     targetAudience: 'For freelancers, employees & entrepreneurs',
     title: 'Install the content system used by<br class="hidden sm:block"/>tomorrow\'s <span class="text-empire">future leaders</span>.',
-    subtitle: 'A virality coach interviews you 15 min/week.<br/>We write, edit, and publish on all your channels.',
+    subtitle: 'A virality expert interviews you 15 min/week.<br/>We write, edit, and publish on all your channels.',
     description: '',
     cta1: 'I want to discover the Empire system',
     cta2: 'Watch Demo (20 min)',
@@ -80,11 +80,11 @@ export const en = {
     step4: {
       title: 'You Become Autonomous',
       summary: 'You record your own content. We scale.',
-      description: 'After month 1, you master virality. You record your own content independently - our coaches remain available to optimize your performance and scale your results.',
+      description: 'After month 1, you master virality. You record your own content independently - our experts remain available to optimize your performance and scale your results.',
       badge1: 'Full autonomy',
       badge1Sub: 'You record alone',
       badge2: 'Ongoing support',
-      badge2Sub: 'Coaches on standby',
+      badge2Sub: 'Experts on standby',
     },
   },
   features: {
@@ -573,7 +573,7 @@ export const en = {
     },
     {
       question: 'Can I get help with my personal branding strategy?',
-      answer: 'Yes. We offer optional personal branding coaching with experts who have worked with top-tier creators in France and the US. Available as an add-on after subscription, on custom quote.',
+      answer: 'Yes. We offer optional personal branding guidance with experts who have worked with top-tier creators in France and the US. Available as an add-on after subscription, on custom quote.',
     },
     {
       question: 'How do you guarantee post visibility?',

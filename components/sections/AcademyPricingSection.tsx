@@ -61,7 +61,7 @@ export default function AcademyPricingSection() {
     },
     {
       label: 'Empire Academy',
-      sub: fr ? 'Tout inclus + accompagnement' : 'All-inclusive + coaching',
+      sub: fr ? 'Tout inclus + accompagnement' : 'All-inclusive + expert guidance',
       price: '497€',
       detail: fr ? 'Paiement unique ou 3x 165€' : 'One-time payment or 3x 165€',
       dim: false,

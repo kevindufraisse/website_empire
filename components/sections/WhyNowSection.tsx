@@ -88,7 +88,7 @@ const pillars: Record<string, Pillar[]> = {
       icon: HeadphonesIcon,
       label: 'Accompagnement',
       keyFeatures: [
-        { icon: Mic, title: 'Interview humain ou IA', desc: 'Choisissez : un coach vous interview ou notre IA le fait', value: '2 000€' },
+        { icon: Mic, title: 'Interview humain ou IA', desc: 'Choisissez : un expert vous interview ou notre IA le fait', value: '2 000€' },
         { icon: Zap, title: '1 expert en viralité dédié', desc: 'Trouve les sujets qui vont performer dans votre niche', value: '3 000€' },
         { icon: UserCheck, title: 'Équipe humaine dédiée', desc: 'De vrais humains créent et vérifient chaque contenu', value: '2 000€' },
       ],
@@ -134,7 +134,7 @@ const pillars: Record<string, Pillar[]> = {
       icon: HeadphonesIcon,
       label: 'Support',
       keyFeatures: [
-        { icon: Mic, title: 'Human or AI interview', desc: 'Choose: a coach interviews you or our AI does it' },
+        { icon: Mic, title: 'Human or AI interview', desc: 'Choose: an expert interviews you or our AI does it' },
         { icon: Zap, title: '1 virality expert', desc: 'Finds topics that will perform in your niche' },
         { icon: UserCheck, title: 'Dedicated human team', desc: 'Real humans create and review every piece of content' },
       ],

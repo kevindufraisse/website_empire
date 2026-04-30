@@ -20,7 +20,7 @@ export default function AcademyHeroSection() {
       img: '/founders/kevin.jpg',
       stats: fr
         ? ['#48 influenceur LinkedIn France', '2M de vues / mois', '+4 000 clients accompagnés']
-        : ['#48 LinkedIn influencer in France', '2M views / month', '+4,000 clients coached'],
+        : ['#48 LinkedIn influencer in France', '2M views / month', '+4,000 clients guided'],
     },
     {
       name: 'Marc Dufraisse',
