@@ -7,6 +7,7 @@ import { useAutopilot } from '@/contexts/AutopilotContext'
 import { Mic, ArrowRight } from 'lucide-react'
 import { getCalApi } from "@calcom/embed-react"
 import CallbackButton from '@/components/CallbackButton'
+import { StarRating } from '@/components/ui/star-rating'
 import { CtaReassurance } from '@/components/ui/cta-reassurance'
 import AnimatedList, { AnimatedListItem } from '@/components/magicui/animated-list'
 import { useCalLink } from '@/hooks/useCalLink'
@@ -328,6 +329,13 @@ export default function HowItWorksAccordion() {
                       ? 'Et les mettre dans un système qui produit tout pour vous en 15 min/semaine.'
                       : 'And put them into a system that produces everything for you in 15 min/week.')}
               </p>
+          </div>
+        </FadeInBlock>
+
+        {/* Star Rating */}
+        <FadeInBlock delay={0.05}>
+          <div className="flex justify-center mb-8 md:mb-10">
+            <StarRating />
           </div>
         </FadeInBlock>
 
