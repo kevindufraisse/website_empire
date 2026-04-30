@@ -331,6 +331,55 @@ export default function HowItWorksAccordion() {
           </div>
         </FadeInBlock>
 
+        {/* Creators strip */}
+        <FadeInBlock delay={0.05}>
+          <div className="text-center mb-8 md:mb-12">
+            <p className="text-sm text-neutral-400 mb-2">
+              {lang === 'fr' ? 'Installez le système des meilleurs créateurs mondiaux' : 'Install the system used by the world\'s best creators'}
+            </p>
+            <p className="text-xs text-empire font-semibold mb-4">
+              {lang === 'fr' ? 'Pour 10x moins cher.' : 'For 10x less.'}
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-3 max-w-3xl mx-auto">
+              {(lang === 'fr'
+                ? [
+                    { name: 'Yomi Denzel', revenue: '~€60K/mo', src: 'https://unavatar.io/x/YomiDenzel96' },
+                    { name: 'Pauline Laigneau', revenue: '~€25K/mo', src: 'https://unavatar.io/x/plaigneau' },
+                    { name: 'Stan Leloup', revenue: '~€30K/mo', src: 'https://unavatar.io/x/marketingstan' },
+                    { name: 'Oussama Ammar', revenue: '~€35K/mo', src: 'https://unavatar.io/x/daedalium' },
+                    { name: 'Antoine BM', revenue: '~€15K/mo', src: 'https://unavatar.io/x/antoinebm' },
+                  ]
+                : [
+                    { name: 'Grant Cardone', revenue: '~€100K/mo', src: '/creators/cardone.webp' },
+                    { name: 'Alex Hormozi', revenue: '~€80K/mo', src: '/creators/hormozi.jpg' },
+                    { name: 'Ali Abdaal', revenue: '~€75K/mo', src: '/creators/abdaal.webp' },
+                    { name: 'Matt Gray', revenue: '~€60K/mo', src: '/creators/gray.jpg' },
+                    { name: 'Chris Williamson', revenue: '~€70K/mo', src: '/creators/williamson.webp' },
+                  ]
+              ).map((creator) => (
+                <div
+                  key={creator.name}
+                  className="flex flex-col items-center gap-2 px-3 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group"
+                >
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-neutral-800 overflow-hidden">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={creator.src}
+                      alt={creator.name}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                      referrerPolicy="no-referrer"
+                    />
+                  </div>
+                  <div className="text-center">
+                    <p className="text-[11px] md:text-xs font-bold text-white group-hover:text-empire transition-colors whitespace-nowrap">{creator.name}</p>
+                    <p className="text-[9px] md:text-[10px] text-neutral-400">{creator.revenue}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </FadeInBlock>
 
           {/* 4 Visual Blocks */}
         <FadeInBlock delay={0.1}>
