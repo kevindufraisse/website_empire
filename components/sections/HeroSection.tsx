@@ -92,17 +92,18 @@ export default function HeroSection() {
             />
           </AnimatePresence>
 
+          {/* CTA + Vu sur (side by side on desktop) */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
-            className="mt-6 flex flex-col items-center justify-center gap-2"
+            className="mt-6 flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6"
           >
             <button
               data-cal-namespace={namespace}
               data-cal-link={calLink}
               data-cal-config='{"layout":"month_view","theme":"dark"}'
-              className={`w-full sm:w-auto px-8 py-4 font-bold rounded-xl hover:scale-105 transition-all text-center flex flex-col items-center gap-1 ${
+              className={`w-full sm:w-auto px-8 py-4 font-bold rounded-xl hover:scale-105 transition-all text-center flex flex-col items-center gap-1 shrink-0 ${
                 autopilot
                   ? 'bg-gradient-to-r from-autopilot to-autopilot text-black shadow-[0_0_30px_rgba(212,165,116,0.4)]'
                   : 'bg-empire text-black shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]'
@@ -111,6 +112,7 @@ export default function HeroSection() {
               <span>{heroCta}</span>
               <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? '300 000 vues/mois garanties · 45 min' : '300,000 views/month guaranteed · 45 min'}</span>
             </button>
+            <MediaCredibilityStrip />
           </motion.div>
             
             {/* Star Rating */}
@@ -121,16 +123,6 @@ export default function HeroSection() {
             className="mt-6 flex justify-center"
           >
             <StarRating className="mt-2" />
-          </motion.div>
-
-          {/* Media credibility */}
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.55, duration: 0.6 }}
-            className="mt-8"
-          >
-            <MediaCredibilityStrip />
           </motion.div>
 
           {/* Benefits stats strip */}
