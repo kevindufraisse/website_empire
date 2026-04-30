@@ -145,25 +145,11 @@ export default function AcademyHeroSection() {
                   </div>
                 ))}
               </div>
-              <div className="flex flex-col gap-2">
-                {(fr
-                  ? [
-                      'Comprendre pourquoi certains contenus explosent - et le reproduire',
-                      'Maîtriser la viralité sur tous les réseaux en même temps',
-                      'Transformer les vues en clients et en revenus concrets',
-                    ]
-                  : [
-                      'Understand why some content goes viral — and replicate it',
-                      'Master virality across all platforms at once',
-                      'Turn views into clients and real revenue',
-                    ]
-                ).map((line, i) => (
-                  <div key={i} className="flex items-start gap-2.5 text-left">
-                    <span className="text-academy mt-0.5 flex-shrink-0 font-bold">›</span>
-                    <span className="text-base text-neutral-200">{line}</span>
-                  </div>
-                ))}
-              </div>
+              <p className="text-sm text-neutral-400 text-center leading-relaxed">
+                {fr
+                  ? 'Comprendre la viralité · La reproduire sur tous les réseaux · Transformer les vues en clients'
+                  : 'Understand virality · Replicate it on all platforms · Turn views into clients'}
+              </p>
             </motion.div>
 
             {/* CTA */}
@@ -186,6 +172,9 @@ export default function AcademyHeroSection() {
                   {fr ? `Le prix augmente dans ${pricing.countdown}` : `Price increases in ${pricing.countdown}`}
                 </p>
               )}
+              <div className="mt-4">
+                <MediaCredibilityStrip />
+              </div>
             </motion.div>
 
             {/* Price timeline */}
@@ -287,9 +276,6 @@ export default function AcademyHeroSection() {
           ))}
         </motion.div>
 
-        <div className="mt-10 md:mt-14">
-          <MediaCredibilityStrip />
-        </div>
 
       </div>
     </section>
