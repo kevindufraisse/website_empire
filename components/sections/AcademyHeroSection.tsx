@@ -42,29 +42,6 @@ export default function AcademyHeroSection() {
         {/* 3-column layout: Kevin | Center content | Marc */}
         <div className="relative flex flex-col lg:flex-row items-center lg:items-start justify-center gap-8 lg:gap-6">
 
-          {/* Kevin - left */}
-          <motion.a
-            href={founders[0].url}
-            target="_blank"
-            rel="noopener noreferrer"
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="hidden lg:flex flex-col items-center gap-3 w-48 mt-24 group"
-          >
-            <div className="w-20 h-20 rounded-2xl overflow-hidden border-2 border-academy/40 group-hover:border-academy transition-all shadow-[0_0_25px_rgba(252, 165, 165,0.15)]">
-              <img src={founders[0].img} alt={founders[0].name} className="w-full h-full object-cover" />
-            </div>
-            <p className="text-sm font-bold text-white group-hover:text-academy transition-colors">{founders[0].name}</p>
-            <div className="flex flex-col gap-1.5">
-              {founders[0].stats.map((s, i) => (
-                <div key={i} className="flex items-center gap-1.5">
-                  <span className="w-1 h-1 rounded-full bg-academy flex-shrink-0" />
-                  <span className="text-[11px] text-neutral-400 leading-tight">{s}</span>
-                </div>
-              ))}
-            </div>
-          </motion.a>
 
           {/* Center content */}
           <div className="max-w-3xl text-center flex-1">
@@ -126,9 +103,10 @@ export default function AcademyHeroSection() {
               transition={{ delay: 0.2, duration: 0.6 }}
               className="max-w-lg mx-auto mb-8"
             >
-              <p className="text-lg md:text-xl text-neutral-300 text-center mb-4">
-                <span className="text-white font-semibold">{fr ? '15 min/jour.' : '15 min/day.'}</span> {fr ? 'On écrit et monte ton contenu. Tu publies sur :' : 'We write and produce your content. You publish on:'}
+              <p className="text-lg md:text-xl text-neutral-300 text-center mb-3">
+                <span className="text-white font-semibold">{fr ? '15 min/jour.' : '15 min/day.'}</span> {fr ? 'On écrit et monte ton contenu.' : 'We write and produce your content.'}
               </p>
+              <p className="text-sm text-neutral-400 text-center mb-3">{fr ? 'Tu publies sur :' : 'You publish on:'}</p>
               <div className="flex items-center justify-center gap-2 mb-4">
                 {[
                   { name: 'LinkedIn', path: 'M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z' },
@@ -145,11 +123,25 @@ export default function AcademyHeroSection() {
                   </div>
                 ))}
               </div>
-              <p className="text-sm text-neutral-400 text-center leading-relaxed">
-                {fr
-                  ? 'Comprendre la viralité · La reproduire sur tous les réseaux · Transformer les vues en clients'
-                  : 'Understand virality · Replicate it on all platforms · Turn views into clients'}
-              </p>
+              <div className="flex flex-col gap-2">
+                {(fr
+                  ? [
+                      'Comprendre pourquoi certains contenus explosent - et le reproduire',
+                      'Maîtriser la viralité sur tous les réseaux en même temps',
+                      'Transformer les vues en clients et en revenus concrets',
+                    ]
+                  : [
+                      'Understand why some content goes viral — and replicate it',
+                      'Master virality across all platforms at once',
+                      'Turn views into clients and real revenue',
+                    ]
+                ).map((line, i) => (
+                  <div key={i} className="flex items-start gap-2.5 text-left">
+                    <span className="text-academy mt-0.5 flex-shrink-0 font-bold">›</span>
+                    <span className="text-base text-neutral-200">{line}</span>
+                  </div>
+                ))}
+              </div>
             </motion.div>
 
             {/* CTA */}
@@ -219,29 +211,6 @@ export default function AcademyHeroSection() {
 
           </div>
 
-          {/* Marc - right */}
-          <motion.a
-            href={founders[1].url}
-            target="_blank"
-            rel="noopener noreferrer"
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="hidden lg:flex flex-col items-center gap-3 w-48 mt-24 group"
-          >
-            <div className="w-20 h-20 rounded-2xl overflow-hidden border-2 border-academy/40 group-hover:border-academy transition-all shadow-[0_0_25px_rgba(252, 165, 165,0.15)]">
-              <img src={founders[1].img} alt={founders[1].name} className="w-full h-full object-cover" />
-            </div>
-            <p className="text-sm font-bold text-white group-hover:text-academy transition-colors">{founders[1].name}</p>
-            <div className="flex flex-col gap-1.5">
-              {founders[1].stats.map((s, i) => (
-                <div key={i} className="flex items-center gap-1.5">
-                  <span className="w-1 h-1 rounded-full bg-academy flex-shrink-0" />
-                  <span className="text-[11px] text-neutral-400 leading-tight">{s}</span>
-                </div>
-              ))}
-            </div>
-          </motion.a>
 
         </div>
 
