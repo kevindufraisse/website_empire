@@ -69,7 +69,53 @@ export default function AcademyForWhoSection() {
             </div>
           </FadeInBlock>
 
+          {/* Founders */}
           <FadeInBlock delay={0.1}>
+            <div className="grid grid-cols-2 gap-4 max-w-md mx-auto mb-10">
+              {[
+                {
+                  name: 'Kevin Dufraisse',
+                  url: 'https://www.linkedin.com/in/kevin-dufraisse/',
+                  img: '/founders/kevin.jpg',
+                  stats: fr
+                    ? ['#48 influenceur LinkedIn France', '2M de vues / mois', '+4 000 clients accompagnés']
+                    : ['#48 LinkedIn influencer in France', '2M views / month', '+4,000 clients guided'],
+                },
+                {
+                  name: 'Marc Dufraisse',
+                  url: 'https://www.linkedin.com/in/marc-dufraisse/',
+                  img: '/founders/marc.jpg',
+                  stats: fr
+                    ? ['40K abonnés LinkedIn', '+4 000 leads en 1 post', 'Top 3 expert IA France']
+                    : ['40K LinkedIn followers', '+4,000 leads in 1 post', 'Top 3 AI expert in France'],
+                },
+              ].map((f, idx) => (
+                <a
+                  key={idx}
+                  href={f.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex flex-col items-center gap-2.5 p-4 rounded-2xl bg-white/[0.08] border border-white/15 hover:border-academy/30 transition-all group"
+                >
+                  <div className="w-14 h-14 rounded-xl overflow-hidden border-2 border-academy/30 group-hover:border-academy transition-all">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={f.img} alt={f.name} className="w-full h-full object-cover" />
+                  </div>
+                  <p className="text-xs font-bold text-white group-hover:text-academy transition-colors">{f.name}</p>
+                  <div className="flex flex-col gap-1">
+                    {f.stats.map((s, i) => (
+                      <div key={i} className="flex items-center gap-1.5">
+                        <span className="w-1 h-1 rounded-full bg-academy flex-shrink-0" />
+                        <span className="text-[10px] text-neutral-400 leading-tight">{s}</span>
+                      </div>
+                    ))}
+                  </div>
+                </a>
+              ))}
+            </div>
+          </FadeInBlock>
+
+          <FadeInBlock delay={0.15}>
             <div className="grid md:grid-cols-2 gap-5">
               <div className="p-6 rounded-2xl bg-gradient-to-br from-red-950/30 to-transparent border border-red-500/20">
                 <p className="text-xs font-bold text-red-400 tracking-widest uppercase mb-4">{fr ? 'Pas pour toi si...' : 'Not for you if...'}</p>

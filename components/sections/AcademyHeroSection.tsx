@@ -214,36 +214,6 @@ export default function AcademyHeroSection() {
 
         </div>
 
-        {/* Founders — below CTA on all screens */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.5 }}
-          className="grid grid-cols-2 gap-4 max-w-md mx-auto mt-10"
-        >
-          {founders.map((f, idx) => (
-            <a
-              key={idx}
-              href={f.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex flex-col items-center gap-2.5 p-4 rounded-2xl bg-white/[0.08] border border-white/15 hover:border-academy/30 transition-all group"
-            >
-              <div className="w-14 h-14 rounded-xl overflow-hidden border-2 border-academy/30 group-hover:border-academy transition-all">
-                <img src={f.img} alt={f.name} className="w-full h-full object-cover" />
-              </div>
-              <p className="text-xs font-bold text-white group-hover:text-academy transition-colors">{f.name}</p>
-              <div className="flex flex-col gap-1">
-                {f.stats.map((s, i) => (
-                  <div key={i} className="flex items-center gap-1.5">
-                    <span className="w-1 h-1 rounded-full bg-academy flex-shrink-0" />
-                    <span className="text-[10px] text-neutral-400 leading-tight">{s}</span>
-                  </div>
-                ))}
-              </div>
-            </a>
-          ))}
-        </motion.div>
 
 
       </div>
