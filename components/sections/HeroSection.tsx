@@ -174,7 +174,7 @@ export default function HeroSection() {
               <p className="text-xs text-empire font-semibold mb-4">
                 {t.hero?.creatorsCost || 'We automated them for you - request your custom quote'}
               </p>
-              <Marquee className="max-w-4xl mx-auto" pauseOnHover>
+              <div className="flex flex-wrap items-center justify-center gap-3 max-w-3xl mx-auto">
                 {(lang === 'fr'
                   ? [
                       { name: 'Yomi Denzel', revenue: '~€60K/mo', src: 'https://unavatar.io/x/YomiDenzel96' },
@@ -193,7 +193,7 @@ export default function HeroSection() {
                 ).map((creator) => (
                   <div
                     key={creator.name}
-                    className="flex flex-col items-center gap-2 px-4 py-3 mx-2 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group shrink-0"
+                    className="flex flex-col items-center gap-2 px-3 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group"
                   >
                     <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-neutral-800 overflow-hidden">
                       <img
@@ -210,7 +210,7 @@ export default function HeroSection() {
                     </div>
                   </div>
                 ))}
-              </Marquee>
+              </div>
             </div>
           </motion.div>
 
