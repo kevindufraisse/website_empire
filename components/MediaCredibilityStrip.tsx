@@ -1,6 +1,7 @@
 'use client'
 
 import { useLanguage } from '@/contexts/LanguageContext'
+import Marquee from '@/components/magicui/marquee'
 
 const OUTLETS = [
   'BIG MEDIA',
@@ -17,22 +18,21 @@ export default function MediaCredibilityStrip({ className = '' }: MediaCredibili
   const { lang } = useLanguage()
 
   return (
-    <div className={`relative z-10 w-full ${className}`}>
-      <div className="flex items-center justify-center gap-4 sm:gap-6">
-        <span className="text-xs font-bold tracking-[0.15em] uppercase text-neutral-500 whitespace-nowrap">
+    <div className={`relative z-10 ${className}`}>
+      <div className="flex items-center gap-3">
+        <span className="text-[10px] font-bold tracking-[0.15em] uppercase text-neutral-500 whitespace-nowrap shrink-0">
           {lang === 'fr' ? 'Vu sur' : 'Featured in'}
         </span>
-        <div className="h-px w-6 bg-white/10" />
-        <div className="flex flex-wrap items-center justify-center gap-x-5 sm:gap-x-8 gap-y-2">
+        <Marquee className="max-w-[280px] sm:max-w-[350px]" pauseOnHover>
           {OUTLETS.map((outlet) => (
             <span
               key={outlet}
-              className="text-sm sm:text-base font-bold tracking-wide uppercase text-neutral-300 whitespace-nowrap"
+              className="text-sm font-bold tracking-wide uppercase text-neutral-300 whitespace-nowrap mx-4"
             >
               {outlet}
             </span>
           ))}
-        </div>
+        </Marquee>
       </div>
     </div>
   )
