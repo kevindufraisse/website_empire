@@ -149,10 +149,13 @@ export default function CalStickyBar() {
               data-cal-namespace={namespace}
               data-cal-link={calLink}
               data-cal-config='{"layout":"month_view","theme":"dark"}'
-              className={`flex items-center gap-2 px-4 py-2.5 sm:px-6 sm:py-2.5 ${accent.btnBg} text-black font-bold rounded-lg hover:scale-105 transition-all ${accent.btnShadow} text-sm sm:text-base group whitespace-nowrap`}
+              className={`flex flex-col items-center px-4 py-2 sm:px-6 sm:py-2.5 ${accent.btnBg} text-black font-bold rounded-lg hover:scale-105 transition-all ${accent.btnShadow} text-sm sm:text-base group whitespace-nowrap`}
             >
-              {t.common.startNow}
-              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+              <span className="flex items-center gap-2">
+                {t.common.startNow}
+                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+              </span>
+              <span className="text-[9px] sm:text-[10px] font-semibold opacity-70">{lang === 'fr' ? '300 000 vues/mois garanties · 45 min' : '300,000 views/month guaranteed · 45 min'}</span>
             </button>
           </div>
         </div>
