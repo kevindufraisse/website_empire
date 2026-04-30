@@ -69,9 +69,38 @@ export default function AcademyForWhoSection() {
             </div>
           </FadeInBlock>
 
-          {/* Founders */}
           <FadeInBlock delay={0.1}>
-            <div className="grid grid-cols-2 gap-4 max-w-md mx-auto mb-10">
+            <div className="grid md:grid-cols-2 gap-5">
+              <div className="p-6 rounded-2xl bg-gradient-to-br from-red-950/30 to-transparent border border-red-500/20">
+                <p className="text-xs font-bold text-red-400 tracking-widest uppercase mb-4">{fr ? 'Pas pour toi si...' : 'Not for you if...'}</p>
+                <div className="space-y-2.5">
+                  {notFor.map((item, i) => (
+                    <div key={i} className="flex items-start gap-2.5">
+                      <X className="text-red-400 flex-shrink-0 mt-0.5" size={14} />
+                      <span className="text-neutral-400 text-sm">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="p-6 rounded-2xl bg-gradient-to-br from-academy/15 to-transparent border border-academy/30">
+                <p className="text-xs font-bold text-academy tracking-widest uppercase mb-4">{fr ? 'Pour toi si...' : 'For you if...'}</p>
+                <div className="space-y-2.5">
+                  {yesFor.map((item, i) => (
+                    <div key={i} className="flex items-start gap-2.5">
+                      <Check className="text-academy flex-shrink-0 mt-0.5" size={14} />
+                      <span className="text-white text-sm font-medium">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </FadeInBlock>
+
+          {/* Founders - who does the selection */}
+          <FadeInBlock delay={0.2}>
+            <p className="text-sm text-neutral-400 text-center mt-10 mb-4 tracking-widest uppercase">{fr ? 'Qui fait la sélection :' : 'Who makes the selection:'}</p>
+            <div className="grid grid-cols-2 gap-4 max-w-md mx-auto">
               {[
                 {
                   name: 'Kevin Dufraisse',
@@ -112,34 +141,6 @@ export default function AcademyForWhoSection() {
                   </div>
                 </a>
               ))}
-            </div>
-          </FadeInBlock>
-
-          <FadeInBlock delay={0.15}>
-            <div className="grid md:grid-cols-2 gap-5">
-              <div className="p-6 rounded-2xl bg-gradient-to-br from-red-950/30 to-transparent border border-red-500/20">
-                <p className="text-xs font-bold text-red-400 tracking-widest uppercase mb-4">{fr ? 'Pas pour toi si...' : 'Not for you if...'}</p>
-                <div className="space-y-2.5">
-                  {notFor.map((item, i) => (
-                    <div key={i} className="flex items-start gap-2.5">
-                      <X className="text-red-400 flex-shrink-0 mt-0.5" size={14} />
-                      <span className="text-neutral-400 text-sm">{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="p-6 rounded-2xl bg-gradient-to-br from-academy/15 to-transparent border border-academy/30">
-                <p className="text-xs font-bold text-academy tracking-widest uppercase mb-4">{fr ? 'Pour toi si...' : 'For you if...'}</p>
-                <div className="space-y-2.5">
-                  {yesFor.map((item, i) => (
-                    <div key={i} className="flex items-start gap-2.5">
-                      <Check className="text-academy flex-shrink-0 mt-0.5" size={14} />
-                      <span className="text-white text-sm font-medium">{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
             </div>
           </FadeInBlock>
 
