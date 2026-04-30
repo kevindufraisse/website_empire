@@ -9,6 +9,7 @@ import { StarRating } from '@/components/ui/star-rating'
 import { getCalApi } from "@calcom/embed-react"
 import { useCalLink } from '@/hooks/useCalLink'
 import MediaCredibilityStrip from '@/components/MediaCredibilityStrip'
+import Marquee from '@/components/magicui/marquee'
 
 export default function HeroSection() {
   const { t, lang } = useLanguage()
@@ -181,7 +182,7 @@ export default function HeroSection() {
               <p className="text-xs text-empire font-semibold mb-4">
                 {t.hero?.creatorsCost || 'We automated them for you - request your custom quote'}
               </p>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 max-w-3xl mx-auto">
+              <Marquee className="max-w-4xl mx-auto" pauseOnHover>
                 {(lang === 'fr'
                   ? [
                       { name: 'Yomi Denzel', revenue: '~€60K/mo', src: 'https://unavatar.io/x/YomiDenzel96' },
@@ -197,10 +198,10 @@ export default function HeroSection() {
                       { name: 'Matt Gray', revenue: '~€60K/mo', src: '/creators/gray.jpg' },
                       { name: 'Chris Williamson', revenue: '~€70K/mo', src: '/creators/williamson.webp' },
                     ]
-                ).map((creator, i, arr) => (
+                ).map((creator) => (
                   <div
                     key={creator.name}
-                    className={`flex flex-col items-center gap-2 px-3 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group ${i === arr.length - 1 ? 'col-span-2 sm:col-span-1' : ''}`}
+                    className="flex flex-col items-center gap-2 px-4 py-3 mx-2 rounded-xl bg-white/5 border border-white/10 hover:border-empire/30 transition-all group shrink-0"
                   >
                     <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-neutral-800 overflow-hidden">
                       <img
@@ -212,12 +213,12 @@ export default function HeroSection() {
                       />
                     </div>
                     <div className="text-center">
-                      <p className="text-[11px] md:text-xs font-bold text-white group-hover:text-empire transition-colors">{creator.name}</p>
+                      <p className="text-[11px] md:text-xs font-bold text-white group-hover:text-empire transition-colors whitespace-nowrap">{creator.name}</p>
                       <p className="text-[9px] md:text-[10px] text-neutral-400">{creator.revenue}</p>
                     </div>
                   </div>
                 ))}
-              </div>
+              </Marquee>
             </div>
           </motion.div>
 
