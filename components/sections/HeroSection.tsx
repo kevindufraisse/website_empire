@@ -121,7 +121,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.6 }}
-            className="mt-6"
+            className="mt-10"
           >
             <p className="text-[11px] text-neutral-500 text-center mb-2.5">
               {lang === 'fr' ? 'En moyenne en travaillant leur personal branding, nos créateurs remarquent :' : 'On average by working on their personal brand, our creators notice:'}
