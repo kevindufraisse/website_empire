@@ -214,12 +214,12 @@ export default function AcademyHeroSection() {
 
         </div>
 
-        {/* Mobile founders - shown below center content on small screens */}
+        {/* Founders — below CTA on all screens */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.5 }}
-          className="lg:hidden grid grid-cols-2 gap-4 max-w-md mx-auto mt-10"
+          className="grid grid-cols-2 gap-4 max-w-md mx-auto mt-10"
         >
           {founders.map((f, idx) => (
             <a
