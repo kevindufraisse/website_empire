@@ -19,8 +19,8 @@ export default function MediaCredibilityStrip({ className = '' }: MediaCredibili
 
   return (
     <div className={`relative z-10 ${className}`}>
-      <div className="flex items-center gap-3">
-        <span className="text-[10px] font-bold tracking-[0.15em] uppercase text-neutral-500 whitespace-nowrap shrink-0">
+      <div className="flex flex-col items-center gap-1.5">
+        <span className="text-[10px] font-bold tracking-[0.15em] uppercase text-neutral-500 whitespace-nowrap">
           {lang === 'fr' ? 'Vu sur' : 'Featured in'}
         </span>
         <Marquee className="max-w-[280px] sm:max-w-[350px]" pauseOnHover>
