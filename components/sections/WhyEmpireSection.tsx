@@ -76,11 +76,13 @@ export default function WhyEmpireSection() {
         >
             {fr ? (
               <>
-                Ce que l&apos;IA ne pourra jamais copier : <span className="text-empire">votre personnalité.</span>
+                La barrière à l&apos;entrée n&apos;a jamais été aussi faible.{' '}
+                <span className="text-empire">La concurrence va exploser.</span>
               </>
             ) : (
               <>
-                What AI will never be able to copy: <span className="text-empire">your personality.</span>
+                The barrier to entry has never been lower.{' '}
+                <span className="text-empire">Competition is about to explode.</span>
               </>
             )}
         </motion.h2>
