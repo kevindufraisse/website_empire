@@ -12,6 +12,22 @@ export const supabaseAdmin = createClient(supabaseUrl, supabaseSecretKey)
 
 export type ApplicationStatus = 'new' | 'contacted' | 'accepted' | 'rejected'
 
+export type CertificationTier = 'bronze' | 'silver' | 'gold'
+
+export interface Certification {
+  id?: string
+  created_at?: string
+  first_name: string
+  last_name: string
+  email: string
+  tier: CertificationTier
+  promotion: string
+  verification_code: string
+  issued_at: string
+  linkedin_url?: string
+  photo_url?: string
+}
+
 export interface Application {
   id?: string
   created_at?: string
