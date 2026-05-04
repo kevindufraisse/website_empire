@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Shield, CheckCircle2, XCircle, Loader2, Award, Calendar, Users, ExternalLink, Copy, Check } from 'lucide-react'
+import { Shield, CheckCircle2, XCircle, Loader2, Award, Calendar, Users, ExternalLink, Copy, Check, Download } from 'lucide-react'
 
 interface CertificationData {
   valid: boolean
@@ -60,6 +60,7 @@ export default function VerifyClient() {
   const [notFound, setNotFound] = useState(false)
   const [loading, setLoading] = useState(false)
   const [copied, setCopied] = useState(false)
+  const [verifiedCode, setVerifiedCode] = useState<string | null>(null)
   const inputRefs = useRef<(HTMLInputElement | null)[]>([])
   const [fromUrl, setFromUrl] = useState(false)
 
@@ -67,11 +68,14 @@ export default function VerifyClient() {
     setLoading(true)
     setResult(null)
     setNotFound(false)
+    setVerifiedCode(null)
+    const normalized = code.toUpperCase().trim()
     try {
-      const res = await fetch(`/api/certifications/verify?code=${encodeURIComponent(code)}`)
+      const res = await fetch(`/api/certifications/verify?code=${encodeURIComponent(normalized)}`)
       const data = await res.json()
       if (data.valid) {
         setResult(data)
+        setVerifiedCode(normalized)
       } else {
         setNotFound(true)
       }
@@ -141,10 +145,14 @@ export default function VerifyClient() {
     }
   }
 
-  const fullCode = `EMP-${segments[1]}-${segments[2]}`
+  const fullCode = verifiedCode ?? `EMP-${segments[1]}-${segments[2]}`
   const verifyUrl = typeof window !== 'undefined'
-    ? `${window.location.origin}/verify?code=${fullCode}`
+    ? `${window.location.origin}/verify?code=${encodeURIComponent(fullCode)}`
     : ''
+  const pdfUrl =
+    typeof window !== 'undefined' && verifiedCode
+      ? `${window.location.origin}/api/certifications/pdf?code=${encodeURIComponent(verifiedCode)}`
+      : ''
 
   const handleCopy = () => {
     navigator.clipboard.writeText(verifyUrl)
@@ -320,6 +328,25 @@ export default function VerifyClient() {
                       </button>
                     </div>
                   </div>
+
+                  {pdfUrl ? (
+                    <div className="mb-4 space-y-2">
+                      <a
+                        href={pdfUrl}
+                        download
+                        className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-white/10 border border-white/15 text-white font-medium hover:bg-white/15 transition-colors"
+                      >
+                        <Download className="w-4 h-4" />
+                        Télécharger le certificat (PDF)
+                      </a>
+                      <p className="text-center text-white/35 text-xs px-1 leading-relaxed">
+                        Sur LinkedIn : profil →{' '}
+                        <span className="text-white/50">À la une</span> (média) ou section{' '}
+                        <span className="text-white/50">Licences et certifications</span> — joindre ce PDF ou coller le lien
+                        de vérification.
+                      </p>
+                    </div>
+                  ) : null}
 
                   {result.linkedin_url && (
                     <a
