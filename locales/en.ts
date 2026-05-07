@@ -577,7 +577,7 @@ export const en = {
     },
     {
       question: 'How do you guarantee post visibility?',
-      answer: 'We have a network of partners trained in Empire Internet methods who engage with your posts as soon as they go live. This network boosts initial engagement on every post, sending a strong signal to the algorithms and maximizing your organic reach. Our partners are available and activated automatically with each publication.',
+      answer: 'We activate a network of partners trained in Empire Internet methods on every publication. Here\'s how it works: as soon as a post goes live, they get a notification and engage with it manually (likes, quality comments). This human engagement within the first hour sends a strong signal to the algorithm and maximizes your organic reach.',
     },
   ],
   exitPopup: {

@@ -700,7 +700,7 @@ export const fr: Translations = {
     },
     {
       question: 'Comment garantir la visibilité de mes posts ?',
-      answer: 'Nous disposons d\'un réseau de partenaires formés aux méthodes Empire Internet qui interagissent avec vos publications dès leur sortie. Ce réseau booste l\'engagement initial de chaque post, ce qui envoie un signal fort aux algorithmes et maximise votre portée organique. Nos partenaires sont disponibles et activés automatiquement à chaque publication.',
+      answer: 'Nous activons un réseau de partenaires formés aux méthodes Empire Internet à chaque publication. Concrètement : dès qu\'un post sort, ils reçoivent une notification et viennent y réagir manuellement (likes, commentaires de qualité). Cet engagement humain dans la première heure envoie un signal fort à l\'algorithme et maximise votre portée organique.',
     },
   ],
   demo: {
