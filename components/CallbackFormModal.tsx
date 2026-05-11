@@ -3,9 +3,14 @@
 import { useState, useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, Phone, Loader2, CheckCircle2, XCircle, ChevronDown } from 'lucide-react'
+import { X, Phone, Loader2, XCircle, ChevronDown } from 'lucide-react'
+import Cal, { getCalApi } from '@calcom/embed-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { getEmpParam, useCalLink } from '@/hooks/useCalLink'
+
+const CAL_NAMESPACE = 'callback-modal'
+
+type FormData = { firstName: string; email: string; phone: string; budget: string }
 
 const COUNTRIES = [
   { code: '+33', flag: '🇫🇷', name: 'France' },
@@ -52,6 +57,8 @@ export default function CallbackFormModal({ isOpen, onClose }: CallbackFormModal
   const [countryOpen, setCountryOpen] = useState(false)
   const [errors, setErrors] = useState<Record<string, boolean>>({})
   const dropdownRef = useRef<HTMLDivElement>(null)
+  const bookedRef = useRef(false)
+  const pendingLeadRef = useRef<FormData | null>(null)
 
   const t = {
     fr: {
@@ -102,7 +109,26 @@ export default function CallbackFormModal({ isOpen, onClose }: CallbackFormModal
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
+  function sendAbandonedLeadIfNeeded() {
+    if (bookedRef.current) return
+    if (!pendingLeadRef.current) return
+    const payload = {
+      ...pendingLeadRef.current,
+      emp: getEmpParam() || undefined,
+      status: 'no_booking' as const,
+    }
+    pendingLeadRef.current = null
+    fetch('/api/callback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      keepalive: true,
+    }).catch(() => {})
+  }
+
   function handleClose() {
+    sendAbandonedLeadIfNeeded()
+    bookedRef.current = false
     setStep('form')
     setForm({ firstName: '', email: '', phone: '', budget: '' })
     setErrors({})
@@ -129,27 +155,67 @@ export default function CallbackFormModal({ isOpen, onClose }: CallbackFormModal
       return
     }
 
-    setLoading(true)
     const fullPhone = `${COUNTRIES[countryIdx].code}${form.phone}`
-    try {
-      await fetch('/api/callback', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          firstName: form.firstName,
-          email: form.email,
-          phone: fullPhone,
-          budget: form.budget,
-          emp: getEmpParam() || undefined,
-        }),
-      })
-      setStep('success')
-    } catch {
-      setStep('success')
-    } finally {
-      setLoading(false)
+    pendingLeadRef.current = {
+      firstName: form.firstName,
+      email: form.email,
+      phone: fullPhone,
+      budget: form.budget,
     }
+    bookedRef.current = false
+    setStep('success')
   }
+
+  // Listen for Cal booking confirmation; once it fires we skip the fallback webhook.
+  useEffect(() => {
+    if (step !== 'success') return
+    let cancelled = false
+    ;(async () => {
+      const cal = await getCalApi({ namespace: CAL_NAMESPACE })
+      if (cancelled) return
+      cal('ui', {
+        theme: 'dark',
+        hideEventTypeDetails: false,
+        layout: 'month_view',
+        cssVarsPerTheme: {
+          light: { 'cal-brand': '#dafc68' },
+          dark: { 'cal-brand': '#dafc68' },
+        },
+      })
+      cal('on', {
+        action: 'bookingSuccessful',
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        callback: (_e: any) => {
+          bookedRef.current = true
+          pendingLeadRef.current = null
+        },
+      })
+    })()
+    return () => { cancelled = true }
+  }, [step])
+
+  // Fire the fallback webhook if the tab/page is closed without booking.
+  useEffect(() => {
+    if (!isOpen) return
+    function flushBeacon() {
+      if (bookedRef.current) return
+      if (!pendingLeadRef.current) return
+      const data = JSON.stringify({
+        ...pendingLeadRef.current,
+        emp: getEmpParam() || undefined,
+        status: 'no_booking',
+      })
+      pendingLeadRef.current = null
+      try {
+        const blob = new Blob([data], { type: 'application/json' })
+        navigator.sendBeacon('/api/callback', blob)
+      } catch {
+        // best-effort only
+      }
+    }
+    window.addEventListener('pagehide', flushBeacon)
+    return () => window.removeEventListener('pagehide', flushBeacon)
+  }, [isOpen])
 
   const [mounted, setMounted] = useState(false)
   useEffect(() => { setMounted(true) }, [])
@@ -304,10 +370,17 @@ export default function CallbackFormModal({ isOpen, onClose }: CallbackFormModal
             <div className="py-2">
               <h3 className="text-lg font-bold text-white mb-4 text-center">{txt.successTitle}</h3>
               <div className="rounded-xl overflow-hidden border border-white/10 bg-white/[0.03]">
-                <iframe
-                  src={`https://cal.com/${calLink}?layout=month_view&theme=dark`}
-                  className="w-full h-[500px] border-0"
-                  loading="lazy"
+                <Cal
+                  namespace={CAL_NAMESPACE}
+                  calLink={calLink}
+                  style={{ width: '100%', height: '500px', overflow: 'auto' }}
+                  config={{
+                    layout: 'month_view',
+                    theme: 'dark',
+                    name: pendingLeadRef.current?.firstName ?? '',
+                    email: pendingLeadRef.current?.email ?? '',
+                    smsReminderNumber: pendingLeadRef.current?.phone ?? '',
+                  }}
                 />
               </div>
             </div>

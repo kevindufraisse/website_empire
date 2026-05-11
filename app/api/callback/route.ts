@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server'
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const { firstName, email, phone, budget } = body
+    const { firstName, email, phone, budget, emp, status } = body
 
     if (!firstName || !email || !phone || !budget) {
       return NextResponse.json({ error: 'Missing fields' }, { status: 400 })
@@ -20,6 +20,8 @@ export async function POST(request: Request) {
           email,
           phone,
           budget,
+          emp,
+          status: status || 'no_booking',
           timestamp: new Date().toISOString(),
           source: 'website-callback-form',
         }),
@@ -32,7 +34,7 @@ export async function POST(request: Request) {
 
     if (wahaUrl && notifyPhone) {
       const message =
-        `🔔 Nouveau lead callback\n\n` +
+        `🔔 Lead callback (pas de RDV booké)\n\n` +
         `👤 ${firstName}\n` +
         `📧 ${email}\n` +
         `📱 ${phone}\n` +
