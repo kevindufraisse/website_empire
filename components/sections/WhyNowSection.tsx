@@ -22,6 +22,7 @@ import {
   Sparkles,
   Send,
   HeadphonesIcon,
+  MessageCircle,
 } from 'lucide-react'
 import { useCalLink } from '@/hooks/useCalLink'
 import { CtaReassurance } from '@/components/ui/cta-reassurance'
@@ -41,7 +42,7 @@ function FadeIn({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
   )
 }
 
-type Feature = { icon: React.ComponentType<{ className?: string; size?: number }>; title: string; desc: string; value?: string }
+type Feature = { icon: React.ComponentType<{ className?: string; size?: number }>; title: string; desc: string; value?: string; badge?: string }
 
 type Pillar = {
   id: string
@@ -75,6 +76,7 @@ const pillars: Record<string, Pillar[]> = {
         { icon: Calendar, title: 'Publiez depuis la plateforme', desc: 'Tout est prêt dans votre calendrier, vous publiez en 1 clic', value: '500€' },
         { icon: Bot, title: '1 setter IA LinkedIn', desc: 'Prospection automatisée 24/7', value: '1 500€' },
         { icon: Users, title: 'Employee Advocacy', desc: 'Faites publier vos employés automatiquement', value: '800€' },
+        { icon: MessageCircle, title: 'Idées via Telegram', desc: 'Ajoutez vos idées (reels, posts, captures...) depuis Telegram et récupérez-les dans Empire', badge: 'NEW' },
       ],
       moreFeatures: [
         { icon: Code2, title: 'Multi-comptes', desc: 'Publiez sur plusieurs comptes depuis la même plateforme', value: '300€' },
@@ -121,6 +123,7 @@ const pillars: Record<string, Pillar[]> = {
         { icon: Calendar, title: 'Publish from the platform', desc: 'Everything ready in your calendar, publish in 1 click' },
         { icon: Bot, title: '1 AI LinkedIn setter', desc: 'Automated outreach 24/7' },
         { icon: Users, title: 'Employee Advocacy', desc: 'Get your employees publishing automatically' },
+        { icon: MessageCircle, title: 'Ideas via Telegram', desc: 'Add your ideas (reels, posts, screenshots...) from Telegram and retrieve them in Empire', badge: 'NEW' },
       ],
       moreFeatures: [
         { icon: Code2, title: 'Multi-account', desc: 'Publish on multiple accounts from the same platform' },
@@ -230,12 +233,17 @@ export default function WhyNowSection() {
                     {pillar.keyFeatures.map((f, i) => {
                       const Icon = f.icon
                       return (
-                        <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-empire/5 border border-empire/15">
+                        <div key={i} className={`flex items-center gap-3 p-3 rounded-xl border ${f.badge ? 'bg-empire/8 border-empire/30 ring-1 ring-empire/20' : 'bg-empire/5 border-empire/15'}`}>
                           <div className="w-8 h-8 rounded-lg bg-empire/15 flex items-center justify-center flex-shrink-0">
                             <Icon className="text-empire" size={15} />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className="text-sm font-semibold text-white">{f.title}</p>
+                            <div className="flex items-center gap-2">
+                              <p className="text-sm font-semibold text-white">{f.title}</p>
+                              {f.badge && (
+                                <span className="px-1.5 py-0.5 rounded-full bg-empire text-black text-[9px] font-black tracking-wider uppercase leading-none">{f.badge}</span>
+                              )}
+                            </div>
                             <p className="text-xs text-neutral-400 mt-0.5">{f.desc}</p>
                           </div>
                           {f.value && (

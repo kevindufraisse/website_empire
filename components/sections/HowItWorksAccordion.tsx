@@ -476,7 +476,7 @@ export default function HowItWorksAccordion() {
                     <h3 className="text-base font-semibold text-white">
                       {autopilot
                         ? t.autopilot.howItWorks.b3.title
-                        : (lang === 'fr' ? 'On rédige et on monte' : 'We write and edit')}
+                        : (lang === 'fr' ? 'Rédaction & montage' : 'We write and edit')}
                     </h3>
                   </div>
                   <p className="text-neutral-400 text-sm">

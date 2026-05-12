@@ -76,7 +76,7 @@ export default function WhyEmpireSection() {
         >
             {fr ? (
               <>
-                La barrière à l&apos;entrée n&apos;a jamais été aussi faible.{' '}
+                La barrière à l&apos;entrée pour créer du contenu n&apos;a jamais été aussi faible.{' '}
                 <span className="text-empire">La concurrence va exploser.</span>
               </>
             ) : (

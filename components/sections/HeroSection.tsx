@@ -80,17 +80,34 @@ export default function HeroSection() {
               dangerouslySetInnerHTML={{ __html: heroTitle.replace(/<br\/>/g, '<br>') }}
             />
           </AnimatePresence>
-          <AnimatePresence mode="wait">
-            <motion.p
-              key={heroSubtitle}
+          {/* Benefit pills */}
+          {!autopilot && lang === 'fr' && (
+            <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={{ duration: 0.35 }}
-              className="text-lg md:text-xl text-neutral-300 max-w-2xl mx-auto mt-5 mb-14"
-              dangerouslySetInnerHTML={{ __html: heroSubtitle }}
-            />
-          </AnimatePresence>
+              transition={{ duration: 0.4, delay: 0.15 }}
+              className="mt-6 mb-2 flex flex-wrap items-center justify-center gap-2"
+            >
+              {[
+                'Clients high ticket',
+                'Leads qualifiés',
+                'RDVs sans budget pub',
+                'Tarifs augmentés',
+                'Leader de votre marché',
+              ].map((label) => (
+                <span
+                  key={label}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.05] border border-white/[0.1] text-[12px] sm:text-[13px] text-neutral-300 font-medium"
+                >
+                  <span className="text-empire text-[10px]">✦</span>
+                  {label}
+                </span>
+              ))}
+            </motion.div>
+          )}
+          {!autopilot && lang === 'fr' && (
+            <p className="text-[11px] text-neutral-500 text-center mb-10 mt-2">sans aucune compétence requise ↓</p>
+          )}
 
           {/* CTA + Vu sur side by side */}
           <motion.div
@@ -119,40 +136,6 @@ export default function HeroSection() {
           </motion.div>
             
 
-          {/* Benefits stats strip */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.6 }}
-            className="mt-10"
-          >
-            <p className="text-[11px] text-neutral-500 text-center mb-2.5">
-              {lang === 'fr' ? 'En moyenne en travaillant leur personal branding, nos créateurs remarquent :' : 'On average by working on their personal brand, our creators notice:'}
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
-              {(lang === 'fr'
-                ? [
-                    { stat: '+100%', label: 'Closing' },
-                    { stat: '+400%', label: 'Leads' },
-                    { stat: '+30%', label: 'Tarifs' },
-                    { stat: '+110%', label: 'CA' },
-                    { stat: '+200%', label: 'Recommandations' },
-                  ]
-                : [
-                    { stat: '+100%', label: 'Closing' },
-                    { stat: '+400%', label: 'Leads' },
-                    { stat: '+30%', label: 'Pricing' },
-                    { stat: '+110%', label: 'Revenue' },
-                    { stat: '+200%', label: 'Referrals' },
-                  ]
-              ).map((item) => (
-                <div key={item.label} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08]">
-                  <span className="text-sm sm:text-base font-bold text-white">{item.stat}</span>
-                  <span className="text-[11px] sm:text-xs text-neutral-500 font-medium">{item.label}</span>
-                </div>
-              ))}
-            </div>
-          </motion.div>
 
 
 
