@@ -137,7 +137,7 @@ export const fr: Translations = {
   },
   hero: {
     targetAudience: 'Pour freelances, salariés & entrepreneurs',
-    title: 'Envoyez 15 min de vocal ➔<br class="hidden sm:block"/>On écrit et monte vos posts <span class="text-empire">LinkedIn, newsletter, vidéos courtes</span>',
+    title: 'Envoyez 15 min de vocal ➔<br class="hidden sm:block"/>On écrit et monte <span class="text-empire">vos posts</span>',
     subtitle: 'Avec du contenu de qualité de classe mondial (+8 mois de R&D et 100M de vues générés par le système)',
     description: '',
     cta1: 'Je veux créer ma marque personnelle',
