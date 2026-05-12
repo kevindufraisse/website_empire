@@ -7,6 +7,7 @@ import FAQSection from '@/components/sections/FAQSection'
 import FinalBoostCTA from '@/components/sections/FinalBoostCTA'
 import WhyNowSection from '@/components/sections/WhyNowSection'
 import WhyEmpireSection from '@/components/sections/WhyEmpireSection'
+import QuickWinsSection from '@/components/sections/QuickWinsSection'
 
 export default function Page() {
   return (
@@ -16,6 +17,9 @@ export default function Page() {
 
       {/* How It Works */}
       <HowItWorksAccordion />
+
+      {/* Before/After comparison */}
+      <QuickWinsSection />
 
       {/* Why now - the AI marketing gap */}
       <WhyEmpireSection />

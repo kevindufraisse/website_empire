@@ -53,7 +53,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: 'easeOut' }}
-            className="mb-5 flex justify-center"
+            className="mb-7 flex justify-center"
           >
             <div className="flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
               <img
@@ -88,7 +88,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.15 }}
-              className="mt-4 flex items-center justify-center gap-2"
+              className="mt-6 flex items-center justify-center gap-2"
             >
               <span className="text-[11px] text-neutral-500">{lang === 'fr' ? 'Publié sur' : 'Published on'}</span>
               <div className="flex items-center gap-3 opacity-60">
@@ -108,7 +108,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.25 }}
-              className="mt-5 text-sm sm:text-base text-neutral-400 max-w-2xl mx-auto"
+              className="mt-7 text-sm sm:text-base text-neutral-400 max-w-2xl mx-auto"
             >
               {heroSubtitle}
             </motion.p>
@@ -119,7 +119,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
-            className="mt-6 flex flex-col md:flex-row items-center justify-center gap-5 md:gap-12"
+            className="mt-8 flex flex-col md:flex-row items-center justify-center gap-5 md:gap-12"
           >
             <button
               data-cal-namespace={namespace}
