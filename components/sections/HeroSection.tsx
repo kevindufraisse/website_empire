@@ -99,14 +99,22 @@ export default function HeroSection() {
                   key={label}
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.05] border border-white/[0.1] text-[12px] sm:text-[13px] text-neutral-300 font-medium"
                 >
-                  <span className="text-empire text-[10px]">✦</span>
+                  <span className="text-[10px]">✦</span>
                   {label}
                 </span>
               ))}
             </motion.div>
           )}
-          {!autopilot && lang === 'fr' && (
-            <p className="text-[11px] text-neutral-500 text-center mb-10 mt-2">sans aucune compétence requise ↓</p>
+          {/* Subtitle */}
+          {heroSubtitle && (
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.25 }}
+              className="mt-5 text-sm sm:text-base text-neutral-400 max-w-2xl mx-auto"
+            >
+              {heroSubtitle}
+            </motion.p>
           )}
 
           {/* CTA + Vu sur side by side */}

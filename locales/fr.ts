@@ -137,8 +137,8 @@ export const fr: Translations = {
   },
   hero: {
     targetAudience: 'Pour freelances, salariés & entrepreneurs',
-    title: 'Créer votre personal brand sans écrire ni monter votre contenu <br class="hidden sm:block"/><span class="text-empire">(en 15 min par semaine)</span>',
-    subtitle: '',
+    title: 'Envoyez 15 min de vocal ➔<br class="hidden sm:block"/>On écrit et monte vos posts <span class="text-empire">LinkedIn, newsletter, reels, shorts</span>',
+    subtitle: 'Avec du contenu de qualité de classe mondial (+8 mois de R&D et 100M de vues générés par le système)',
     description: '',
     cta1: 'Je veux créer ma marque personnelle',
     cta2: 'Voir la Démo (20 min)',
