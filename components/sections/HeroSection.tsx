@@ -10,6 +10,7 @@ import { getCalApi } from "@calcom/embed-react"
 import { useCalLink } from '@/hooks/useCalLink'
 import MediaCredibilityStrip from '@/components/MediaCredibilityStrip'
 import Marquee from '@/components/magicui/marquee'
+import { SocialIcons } from '@/components/ui/social-icons'
 
 export default function HeroSection() {
   const { t, lang } = useLanguage()
@@ -115,6 +116,26 @@ export default function HeroSection() {
             >
               {heroSubtitle}
             </motion.p>
+          )}
+
+          {/* Platform logos strip */}
+          {!autopilot && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.3 }}
+              className="mt-5 flex items-center justify-center gap-2"
+            >
+              <span className="text-[11px] text-neutral-500">{lang === 'fr' ? 'Publié sur' : 'Published on'}</span>
+              <div className="flex items-center gap-3 opacity-60">
+                <SocialIcons.linkedin />
+                <SocialIcons.youtube />
+                <SocialIcons.instagram />
+                <SocialIcons.newsletter />
+                <SocialIcons.twitter />
+                <SocialIcons.threads />
+              </div>
+            </motion.div>
           )}
 
           {/* CTA + Vu sur side by side */}
