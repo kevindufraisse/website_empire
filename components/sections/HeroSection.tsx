@@ -81,50 +81,14 @@ export default function HeroSection() {
               dangerouslySetInnerHTML={{ __html: heroTitle.replace(/<br\/>/g, '<br>') }}
             />
           </AnimatePresence>
-          {/* Benefit pills */}
-          {!autopilot && lang === 'fr' && (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.15 }}
-              className="mt-6 mb-2 flex flex-wrap items-center justify-center gap-2"
-            >
-              {[
-                'Clients high ticket',
-                'Leads qualifiés',
-                'RDVs sans budget pub',
-                'Tarifs augmentés',
-                'Leader de votre marché',
-              ].map((label) => (
-                <span
-                  key={label}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.05] border border-white/[0.1] text-[12px] sm:text-[13px] text-neutral-300 font-medium"
-                >
-                  <span className="text-[10px]">✦</span>
-                  {label}
-                </span>
-              ))}
-            </motion.div>
-          )}
-          {/* Subtitle */}
-          {heroSubtitle && (
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.25 }}
-              className="mt-5 text-sm sm:text-base text-neutral-400 max-w-2xl mx-auto"
-            >
-              {heroSubtitle}
-            </motion.p>
-          )}
 
-          {/* Platform logos strip */}
+          {/* Platform logos strip — right under the title */}
           {!autopilot && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.3 }}
-              className="mt-5 flex items-center justify-center gap-2"
+              transition={{ duration: 0.4, delay: 0.15 }}
+              className="mt-4 flex items-center justify-center gap-2"
             >
               <span className="text-[11px] text-neutral-500">{lang === 'fr' ? 'Publié sur' : 'Published on'}</span>
               <div className="flex items-center gap-3 opacity-60">
@@ -136,6 +100,18 @@ export default function HeroSection() {
                 <SocialIcons.threads />
               </div>
             </motion.div>
+          )}
+
+          {/* Subtitle */}
+          {heroSubtitle && (
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.25 }}
+              className="mt-5 text-sm sm:text-base text-neutral-400 max-w-2xl mx-auto"
+            >
+              {heroSubtitle}
+            </motion.p>
           )}
 
           {/* CTA + Vu sur side by side */}
