@@ -111,6 +111,9 @@ export default function Footer() {
               <a href="/privacy" className="hover:text-empire transition-colors">
                 {t.footer.privacyPolicy}
               </a>
+              <a href="/data-deletion" className="hover:text-empire transition-colors">
+                {lang === 'fr' ? 'Suppression des données' : 'Data deletion'}
+              </a>
             </nav>
           </div>
         </div>
