@@ -166,7 +166,7 @@ export default function HeroSection() {
                 {heroCta}
                 <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
               </span>
-              <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? 'Publié tous les jours · 6+ plateformes · Sans engagement' : 'Published daily · 6+ platforms · No commitment'}</span>
+              <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? 'Publié tous les jours · 6+ plateformes' : 'Published daily · 6+ platforms'}</span>
             </button>
             <MediaCredibilityStrip />
           </motion.div>

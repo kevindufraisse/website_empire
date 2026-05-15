@@ -557,7 +557,7 @@ export default function HowItWorksAccordion() {
                 }`}
               >
                 <span className="text-lg">{autopilot ? t.autopilot.hero.cta1 : (lang === 'fr' ? 'Oui, je veux gagner du temps et découvrir le système Empire' : 'Yes, I want to save time and discover the Empire system')}</span>
-                <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? 'Publié tous les jours · 6+ plateformes · Sans engagement' : 'Published daily · 6+ platforms · No commitment'}</span>
+                <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? 'Publié tous les jours · 6+ plateformes' : 'Published daily · 6+ platforms'}</span>
               </button>
           </div>
         </FadeInBlock>

@@ -91,7 +91,7 @@ export default function Footer() {
                 className="inline-flex flex-col items-start text-left px-6 py-3.5 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]"
               >
                 <span className="text-left">{t.finalCTA.watchDemo}</span>
-                <span className="text-[10px] font-semibold opacity-70 text-left">{lang === 'fr' ? 'Publié tous les jours · 6+ plateformes · Sans engagement' : 'Published daily · 6+ platforms · No commitment'}</span>
+                <span className="text-[10px] font-semibold opacity-70 text-left">{lang === 'fr' ? 'Publié tous les jours · 6+ plateformes' : 'Published daily · 6+ platforms'}</span>
               </button>
             )}
           </div>

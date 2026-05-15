@@ -158,7 +158,7 @@ export default function WhyEmpireSection() {
               {fr ? 'Je veux profiter de cette opportunité' : 'I want to seize this opportunity'}
               <span className="text-xl">→</span>
             </span>
-            <span className="text-[11px] font-semibold opacity-70">{fr ? 'Publié tous les jours · 6+ plateformes · Sans engagement' : 'Published daily · 6+ platforms · No commitment'}</span>
+            <span className="text-[11px] font-semibold opacity-70">{fr ? 'Publié tous les jours · 6+ plateformes' : 'Published daily · 6+ platforms'}</span>
           </a>
         </motion.div>
       </div>

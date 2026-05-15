@@ -431,9 +431,9 @@ export const fr: Translations = {
   common: {
     startNow: 'Je veux créer ma marque personnelle',
     watchDemo: 'Je veux créer ma marque personnelle',
-    ctaReassurance: 'Publié tous les jours · 6+ plateformes · Sans engagement',
+    ctaReassurance: 'Publié tous les jours · 6+ plateformes',
     /** Sous-ligne très courte : header, sticky, bannière (évite un bouton énorme) */
-    ctaReassuranceCompact: 'Sans engagement.',
+    ctaReassuranceCompact: 'Publié tous les jours.',
     learnMore: 'En savoir plus',
     perMonth: '/mois',
     perWeek: '/semaine',

@@ -106,7 +106,7 @@ const OFFERS: Record<RecommendedOffer, OfferCopy> = {
       'Communauté privée Empire',
     ],
     cta: { label: 'Réserver un appel découverte →', href: '/' },
-    reassurance: 'Appel gratuit · Sans engagement',
+    reassurance: 'Appel gratuit',
   },
   nurture: {
     kicker: 'Recommandé pour votre profil',
@@ -174,7 +174,7 @@ const OFFERS_EN: Record<RecommendedOffer, OfferCopy> = {
       'Private Empire community',
     ],
     cta: { label: 'Book a discovery call →', href: '/' },
-    reassurance: 'Free call · No commitment',
+    reassurance: 'Free call',
   },
   nurture: {
     kicker: 'Recommended for your profile',
@@ -575,7 +575,7 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
                   <Clock size={11} /> {lang === 'fr' ? 'Appel gratuit' : 'Free call'}
                 </span>
                 <span className="inline-flex items-center gap-1">
-                  <Shield size={11} /> {lang === 'fr' ? 'Sans engagement' : 'No commitment'}
+                  <Shield size={11} /> {lang === 'fr' ? 'Appel gratuit' : 'Free call'}
                 </span>
                 <span className="inline-flex items-center gap-1">
                   <Users size={11} /> {lang === 'fr' ? '+700 entrepreneurs' : '+700 entrepreneurs'}

@@ -308,9 +308,9 @@ export const en = {
   common: {
     startNow: 'I want to discover the Empire system',
     watchDemo: 'I want to discover the Empire system',
-    ctaReassurance: 'Published daily · 6+ platforms · No commitment',
+    ctaReassurance: 'Published daily · 6+ platforms',
     /** Tight subline: header, sticky, banner (keeps the CTA compact) */
-    ctaReassuranceCompact: 'No commitment.',
+    ctaReassuranceCompact: 'Published daily.',
     learnMore: 'Learn more',
     perMonth: '/month',
     perWeek: '/week',

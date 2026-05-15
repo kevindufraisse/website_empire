@@ -122,7 +122,7 @@ export default function CalStickyBar() {
                 {lang === 'fr' ? 'Publié tous les jours · 6+ plateformes' : 'Published daily · 6+ platforms'}
               </p>
               <p className="text-neutral-400 text-xs">
-                {lang === 'fr' ? 'Sans engagement' : 'No commitment'}
+                {lang === 'fr' ? 'Appel gratuit' : 'Free call'}
               </p>
             </div>
           </div>
@@ -155,7 +155,7 @@ export default function CalStickyBar() {
                 {t.common.startNow}
                 <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
               </span>
-              <span className="text-[9px] sm:text-[10px] font-semibold opacity-70">{lang === 'fr' ? 'Publié tous les jours · 6+ plateformes · Sans engagement' : 'Published daily · 6+ platforms · No commitment'}</span>
+              <span className="text-[9px] sm:text-[10px] font-semibold opacity-70">{lang === 'fr' ? 'Publié tous les jours · 6+ plateformes' : 'Published daily · 6+ platforms'}</span>
             </button>
           </div>
         </div>

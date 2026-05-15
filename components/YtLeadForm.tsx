@@ -365,8 +365,8 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
 
         <p className="text-xs text-neutral-400 text-center">
           {lang === 'fr'
-            ? 'Publié tous les jours · 6+ plateformes · Sans engagement'
-            : 'Published daily · 6+ platforms · No commitment'}
+            ? 'Publié tous les jours · 6+ plateformes'
+            : 'Published daily · 6+ platforms'}
         </p>
         <CtaReassurance className="mt-3" />
       </form>
