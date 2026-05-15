@@ -91,7 +91,7 @@ const pillars: Record<string, Pillar[]> = {
       label: 'Accompagnement',
       keyFeatures: [
         { icon: Mic, title: 'Interview humain ou IA', desc: 'Choisissez : un expert vous interview ou notre IA le fait', value: '2 000€' },
-        { icon: Zap, title: '1 expert en viralité dédié', desc: 'Trouve les sujets qui vont performer dans votre niche', value: '3 000€' },
+        { icon: Zap, title: '1 coach dédié', desc: 'Trouve les sujets qui construisent votre autorité dans votre niche', value: '3 000€' },
         { icon: UserCheck, title: 'Équipe humaine dédiée', desc: 'De vrais humains créent et vérifient chaque contenu', value: '2 000€' },
       ],
       moreFeatures: [
@@ -138,7 +138,7 @@ const pillars: Record<string, Pillar[]> = {
       label: 'Support',
       keyFeatures: [
         { icon: Mic, title: 'Human or AI interview', desc: 'Choose: an expert interviews you or our AI does it' },
-        { icon: Zap, title: '1 virality expert', desc: 'Finds topics that will perform in your niche' },
+        { icon: Zap, title: '1 dedicated coach', desc: 'Finds topics that build your authority in your niche' },
         { icon: UserCheck, title: 'Dedicated human team', desc: 'Real humans create and review every piece of content' },
       ],
       moreFeatures: [
@@ -195,8 +195,8 @@ export default function WhyNowSection() {
               {autopilot
                 ? t.autopilot.whyNow.subtitle
                 : (fr
-                    ? '15 minutes d\'interview. Le reste est automatisé.'
-                    : '15 minutes of interview. The rest is automated.')}
+                    ? 'Une interview par semaine. Le reste est automatisé.'
+                    : 'One interview per week. The rest is automated.')}
             </p>
           </div>
         </FadeIn>
@@ -326,7 +326,7 @@ export default function WhyNowSection() {
               <span className="text-lg">{autopilot
                 ? t.autopilot.hero.cta1
                 : (fr ? 'Je veux économiser et découvrir le système Empire' : 'I want to save and discover the Empire system')}</span>
-              <span className="text-[11px] font-semibold opacity-70">{fr ? '300 000 vues/mois garanties · 45 min' : '300,000 views/month guaranteed · 45 min'}</span>
+              <span className="text-[11px] font-semibold opacity-70">{fr ? 'Publié tous les jours · 6+ plateformes · Sans engagement' : 'Published daily · 6+ platforms · No commitment'}</span>
             </button>
 
             {/* Creators strip */}

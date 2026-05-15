@@ -35,7 +35,7 @@ interface Props {
   result: QuizResultPayload
   email: string
   firstName?: string
-  /** Raw answers — used to personalize the result copy with their actual choices. */
+  /** Raw answers - used to personalize the result copy with their actual choices. */
   answers?: Record<string, string>
   onRestart?: () => void
 }
@@ -46,13 +46,13 @@ interface OfferCopy {
   kicker: string
   title: string
   pitch: string
-  /** What they GET out of the call — concrete deliverables, not "we'll talk". */
+  /** What they GET out of the call - concrete deliverables, not "we'll talk". */
   benefits: string[]
   /** Primary CTA button. */
   cta: { label: string; href: string }
   /** Reassurance under the button. */
   reassurance: string
-  /** Loss aversion — what happens if they don't act. */
+  /** Loss aversion - what happens if they don't act. */
   lossLine?: string
 }
 
@@ -61,19 +61,19 @@ const OFFERS: Record<RecommendedOffer, OfferCopy> = {
     kicker: 'Recommandé pour votre profil',
     title: 'Empire',
     pitch:
-      "Vous avez du CA, vous décidez, vous savez ce que ça vous coûte de ne pas avoir d'audience. Empire est fait pour vous : 15 min par semaine avec votre expert, on s'occupe de transformer ça en contenu qui amène des clients.",
+      "Vous avez du CA, vous décidez, vous savez ce que ça vous coûte de ne pas avoir d'audience. Empire est fait pour vous : une interview par semaine avec votre coach, on s'occupe de transformer ça en contenu qui amène des clients.",
     benefits: [
-      'Un expert senior dédié qui vous interview 15 min/sem',
+      'Un coach senior dédié qui vous interviewe chaque semaine',
       'On rédige vos posts LinkedIn + Shorts à partir de vos mots',
       'Un système d\'automatisation qui multi-poste sur tous vos canaux',
-      'Calendrier éditorial 4 semaines à l\'avance — vous savez exactement ce qui va sortir',
+      'Calendrier éditorial 4 semaines à l\'avance - vous savez exactement ce qui va sortir',
       'Accès à la communauté privée Empire',
     ],
     cta: {
       label: 'Réserver un appel découverte →',
       href: '/',
     },
-    reassurance: 'Appel gratuit · 15 minutes · On vous dit si on peut vous aider',
+    reassurance: 'Appel gratuit · On vous dit si on peut vous aider',
   },
   academy: {
     kicker: 'Recommandé pour votre profil',
@@ -99,20 +99,20 @@ const OFFERS: Record<RecommendedOffer, OfferCopy> = {
     pitch:
       "Vous avez du CA, vous décidez, vous savez ce que ça vous coûte de ne pas avoir d'audience. Empire est fait pour vous.",
     benefits: [
-      'Expert senior dédié 15 min/sem',
+      'Coach senior dédié chaque semaine',
       'Production multi-canal (LinkedIn + Shorts)',
       'Système d\'automatisation clé en main',
       'Calendrier éditorial 4 semaines',
       'Communauté privée Empire',
     ],
     cta: { label: 'Réserver un appel découverte →', href: '/' },
-    reassurance: 'Appel gratuit · 15 minutes',
+    reassurance: 'Appel gratuit · Sans engagement',
   },
   nurture: {
     kicker: 'Recommandé pour votre profil',
     title: 'Empire Academy · 21 jours',
     pitch:
-      "Academy est conçu exactement pour vous : 21 jours pour comprendre la puissance du contenu dans votre business — avec 42 publications produites pour vous.",
+      "Academy est conçu exactement pour vous : 21 jours pour comprendre la puissance du contenu dans votre business - avec 42 publications produites pour vous.",
     benefits: [
       '21 jours pour comprendre comment le contenu génère des clients',
       '21 posts LinkedIn + 21 Shorts produits POUR vous',
@@ -129,19 +129,19 @@ const OFFERS_EN: Record<RecommendedOffer, OfferCopy> = {
     kicker: 'Recommended for your profile',
     title: 'Empire',
     pitch:
-      "You have revenue, you're a decision-maker, and you know what it costs to not have an audience. Empire is built for you: 15 min/week with your expert, we turn it into content that brings clients.",
+      "You have revenue, you're a decision-maker, and you know what it costs to not have an audience. Empire is built for you: one interview per week with your coach, we turn it into content that brings clients.",
     benefits: [
-      'A dedicated senior expert who interviews you 15 min/week',
+      'A dedicated senior coach who interviews you every week',
       'We write your LinkedIn posts + Shorts from your words',
       'An automation system that multi-posts across all your channels',
-      'Editorial calendar 4 weeks ahead — you know exactly what goes out',
+      'Editorial calendar 4 weeks ahead - you know exactly what goes out',
       'Access to the private Empire community',
     ],
     cta: {
       label: 'Book a discovery call →',
       href: '/',
     },
-    reassurance: 'Free call · 15 minutes · We tell you if we can help',
+    reassurance: 'Free call · We tell you if we can help',
   },
   academy: {
     kicker: 'Recommended for your profile',
@@ -167,20 +167,20 @@ const OFFERS_EN: Record<RecommendedOffer, OfferCopy> = {
     pitch:
       "You have revenue, you decide, and you know what it costs to not have an audience. Empire is built for you.",
     benefits: [
-      'Dedicated senior expert 15 min/week',
+      'Dedicated senior coach every week',
       'Multi-channel production (LinkedIn + Shorts)',
       'Turnkey automation system',
       '4-week editorial calendar',
       'Private Empire community',
     ],
     cta: { label: 'Book a discovery call →', href: '/' },
-    reassurance: 'Free call · 15 minutes',
+    reassurance: 'Free call · No commitment',
   },
   nurture: {
     kicker: 'Recommended for your profile',
     title: 'Empire Academy · 21 days',
     pitch:
-      "Academy is designed exactly for you: 21 days to understand the power of content in your business — with 42 publications produced for you.",
+      "Academy is designed exactly for you: 21 days to understand the power of content in your business - with 42 publications produced for you.",
     benefits: [
       '21 days to understand how content generates clients',
       '21 LinkedIn posts + 21 Shorts produced FOR you',
@@ -310,7 +310,7 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
   const blocker = answers?.blocker
   const diagnostic = blocker ? profile.diagnostics[blocker] ?? null : null
 
-  // Confetti burst on mount — only fires once.
+  // Confetti burst on mount - only fires once.
   useEffect(() => {
     const t = setTimeout(() => {
       const empire = '#dafc68'
@@ -474,8 +474,8 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
                 </p>
                 <p className="text-[11px] text-neutral-400 mb-2.5">
                   {lang === 'fr'
-                    ? 'Envoyez-moi un "OK" — ça empêche les futurs emails de tomber en spam.'
-                    : 'Send me an "OK" — it prevents future emails from going to spam.'}
+                    ? 'Envoyez-moi un "OK" - ça empêche les futurs emails de tomber en spam.'
+                    : 'Send me an "OK" - it prevents future emails from going to spam.'}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-2">
                   <a
@@ -572,7 +572,7 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
 
               <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 mt-3 text-[11px] sm:text-xs text-neutral-400">
                 <span className="inline-flex items-center gap-1">
-                  <Clock size={11} /> 15 min
+                  <Clock size={11} /> {lang === 'fr' ? 'Appel gratuit' : 'Free call'}
                 </span>
                 <span className="inline-flex items-center gap-1">
                   <Shield size={11} /> {lang === 'fr' ? 'Sans engagement' : 'No commitment'}
@@ -599,7 +599,7 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
               <p className="text-sm text-neutral-200 leading-snug">
                 {lang === 'fr'
                   ? <>Vu votre profil (CA, budget, urgence), vous êtes éligible à notre formule <span className="text-[#d4a574] font-semibold">Done For You</span> : un expert dédié pilote toute votre machine de contenu, vous n&apos;avez plus rien à faire. <span className="text-neutral-400">On en parle pendant l&apos;appel découverte.</span></>
-                  : <>Based on your profile (revenue, budget, urgency), you qualify for our <span className="text-[#d4a574] font-semibold">Done For You</span> plan: a dedicated expert runs your entire content machine — you don&apos;t lift a finger. <span className="text-neutral-400">We&apos;ll discuss it on the discovery call.</span></>
+                  : <>Based on your profile (revenue, budget, urgency), you qualify for our <span className="text-[#d4a574] font-semibold">Done For You</span> plan: a dedicated expert runs your entire content machine - you don&apos;t lift a finger. <span className="text-neutral-400">We&apos;ll discuss it on the discovery call.</span></>
                 }
               </p>
             </div>

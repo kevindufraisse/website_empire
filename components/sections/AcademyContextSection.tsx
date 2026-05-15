@@ -57,7 +57,7 @@ export default function AcademyContextSection() {
                 <span className="text-white font-semibold">
                   {fr
                     ? 'Les métiers de la connaissance pure disparaissent - remplacés en quelques mois par des modèles entraînés sur tout internet.'
-                    : 'Pure knowledge jobs are disappearing — replaced in months by models trained on the entire internet.'}
+                    : 'Pure knowledge jobs are disappearing - replaced in months by models trained on the entire internet.'}
                 </span>
               </p>
             </div>
@@ -112,7 +112,7 @@ export default function AcademyContextSection() {
                     <p className="text-neutral-300 text-sm leading-relaxed">
                       {fr
                         ? <>Comprendre le cerveau humain - la psychologie de l&apos;attention, la mécanique de la viralité - c&apos;est{' '}<span className="text-white font-semibold">la seule compétence que l&apos;IA ne peut pas reproduire.</span>{' '}Parce qu&apos;elle ne ressent pas. Elle prédit.</>
-                        : <>Understanding the human brain — the psychology of attention, the mechanics of virality — is{' '}<span className="text-white font-semibold">the only skill AI cannot replicate.</span>{' '}Because it doesn&apos;t feel. It predicts.</>}
+                        : <>Understanding the human brain - the psychology of attention, the mechanics of virality - is{' '}<span className="text-white font-semibold">the only skill AI cannot replicate.</span>{' '}Because it doesn&apos;t feel. It predicts.</>}
                     </p>
                   </div>
                 </div>

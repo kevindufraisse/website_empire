@@ -146,7 +146,7 @@ export default function AcademyHeroSection() {
                       'Transformer les vues en clients et en revenus concrets',
                     ]
                   : [
-                      'Understand why some content goes viral — and replicate it',
+                      'Understand why some content goes viral - and replicate it',
                       'Master virality across all platforms at once',
                       'Turn views into clients and real revenue',
                     ]

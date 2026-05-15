@@ -205,7 +205,7 @@ export default function HowItWorksSection() {
         <FadeInBlock delay={0.3}>
           <div className="grid md:grid-cols-3 gap-6 mt-16">
             <div className="p-6 rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10">
-              <div className="text-3xl font-bold text-empire mb-2">15 min</div>
+              <div className="text-3xl font-bold text-empire mb-2">1 interview</div>
               <p className="text-neutral-300">{t.howItWorksPage?.stat1 || 'Your time investment per week'}</p>
             </div>
             

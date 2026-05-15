@@ -1,13 +1,15 @@
+import dynamic from 'next/dynamic'
 import HeroSection from '@/components/sections/HeroSection'
 import HowItWorksAccordion from '@/components/sections/HowItWorksAccordion'
-import BentoGridSection from '@/components/sections/BentoGridSection'
-import FounderSection from '@/components/sections/FounderSection'
-import TestimonialsSection from '@/components/sections/TestimonialsSection'
-import FAQSection from '@/components/sections/FAQSection'
-import FinalBoostCTA from '@/components/sections/FinalBoostCTA'
-import WhyNowSection from '@/components/sections/WhyNowSection'
-import WhyEmpireSection from '@/components/sections/WhyEmpireSection'
-import QuickWinsSection from '@/components/sections/QuickWinsSection'
+
+const QuickWinsSection = dynamic(() => import('@/components/sections/QuickWinsSection'))
+const WhyEmpireSection = dynamic(() => import('@/components/sections/WhyEmpireSection'))
+const TestimonialsSection = dynamic(() => import('@/components/sections/TestimonialsSection'))
+const WhyNowSection = dynamic(() => import('@/components/sections/WhyNowSection'))
+const FAQSection = dynamic(() => import('@/components/sections/FAQSection'))
+const FounderSection = dynamic(() => import('@/components/sections/FounderSection'))
+const BentoGridSection = dynamic(() => import('@/components/sections/BentoGridSection'))
+const FinalBoostCTA = dynamic(() => import('@/components/sections/FinalBoostCTA'))
 
 export default function Page() {
   return (

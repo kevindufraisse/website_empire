@@ -318,16 +318,16 @@ export default function HowItWorksAccordion() {
               ) : (
                 <h2 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
                   {lang === 'fr'
-                    ? <>On a passé 1 an à cloner les <span className="text-empire">meilleurs marketers du monde</span></>
-                    : <>We spent 1 year cloning the <span className="text-empire">world&apos;s best marketers</span></>}
+                    ? <>Les meilleurs copywriters et monteurs vidéo.<br className="hidden sm:block"/><span className="text-empire">Dans un seul système.</span></>
+                    : <>The best copywriters and video editors.<br className="hidden sm:block"/><span className="text-empire">In one system.</span></>}
                 </h2>
               )}
               <p className="text-base md:text-lg text-neutral-400 max-w-2xl mx-auto">
                 {autopilot
                   ? t.autopilot.howItWorks.subtitle
                   : (lang === 'fr'
-                      ? 'Et les mettre dans un système qui produit tout pour vous en 15 min/semaine.'
-                      : 'And put them into a system that produces everything for you in 15 min/week.')}
+                      ? '8 mois de R&D. Des millions de vues générées. Posts LinkedIn, Reels, vidéos YouTube longues, newsletters - tout est produit pour vous.'
+                      : '8 months of R&D. Millions of views generated. LinkedIn posts, Reels, long-form YouTube videos, newsletters - all produced for you.')}
               </p>
           </div>
         </FadeInBlock>
@@ -369,15 +369,15 @@ export default function HowItWorksAccordion() {
                     <h3 className="text-base font-semibold text-white">
                       {autopilot
                         ? t.autopilot.howItWorks.b1.title
-                        : (lang === 'fr' ? 'Expert viralité dédié' : 'Dedicated virality expert')}
+                        : (lang === 'fr' ? 'Votre coach dédié' : 'Your dedicated coach')}
                     </h3>
                   </div>
                   <p className="text-neutral-400 text-sm">
                     {autopilot
                       ? t.autopilot.howItWorks.b1.desc
                       : (lang === 'fr'
-                          ? 'On étudie votre niche, vos concurrents et votre ton pour créer une stratégie sur mesure.'
-                          : 'We study your niche, competitors and tone to create a tailored strategy.')}
+                          ? 'Il comprend votre business, vos clients et votre niche. Il vous accompagne sur tous les formats - du post viral aux vidéos YouTube longues.'
+                          : 'Understands your business, clients and niche. Coaches you across all formats - from viral posts to long-form YouTube videos.')}
                   </p>
                 </div>
               </div>
@@ -441,13 +441,13 @@ export default function HowItWorksAccordion() {
                     <div className="flex items-center gap-2 mb-1">
                       <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">2</span>
                       <h3 className="text-base font-semibold text-white">
-                        {lang === 'fr' ? 'Parlez 15 min' : 'Speak 15 min'}
+                        {lang === 'fr' ? 'L\'interview' : 'The interview'}
                       </h3>
                     </div>
                     <p className="text-neutral-400 text-sm">
                       {lang === 'fr'
-                        ? 'Zéro préparation. Vous donnez vos opinions sur des sujets - on fait le reste.'
-                        : 'Zero prep. You share your opinions on topics - we handle the rest.'}
+                        ? 'Zéro préparation. Vous parlez de votre métier, vos clients, vos prises de position. On extrait tout le contenu de la semaine.'
+                        : 'Zero preparation. You talk about your work, clients, opinions. We extract all the content for the week.'}
                     </p>
                   </div>
                 </div>
@@ -463,7 +463,7 @@ export default function HowItWorksAccordion() {
                   <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-500/20 border border-green-500/40 backdrop-blur-sm">
                     <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                     <span className="text-[10px] font-semibold text-green-400">
-                      {lang === 'fr' ? '300 000 vues/mois garanties' : '300,000 views/month guaranteed'}
+                      {lang === 'fr' ? 'Publié tous les jours · 6+ plateformes' : 'Published daily · 6+ platforms'}
                     </span>
                   </div>
                   <div className="absolute inset-0 pt-10 px-3 [mask-image:linear-gradient(to_top,transparent_20%,#000_100%)]">
@@ -476,15 +476,15 @@ export default function HowItWorksAccordion() {
                     <h3 className="text-base font-semibold text-white">
                       {autopilot
                         ? t.autopilot.howItWorks.b3.title
-                        : (lang === 'fr' ? 'Rédaction & montage' : 'We write and edit')}
+                        : (lang === 'fr' ? 'Rédaction & montage' : 'Writing & editing')}
                     </h3>
                   </div>
                   <p className="text-neutral-400 text-sm">
                     {autopilot
                       ? t.autopilot.howItWorks.b3.desc
                       : (lang === 'fr'
-                          ? 'Notre équipe récupère la vidéo et crée vos contenus de la semaine (LinkedIn, IG, TikTok...)'
-                          : 'Our team takes your video and creates your weekly content (LinkedIn, IG, TikTok...)')}
+                          ? 'Nos copywriters rédigent vos posts LinkedIn et newsletters. Nos monteurs créent vos Shorts, Reels et vidéos YouTube longues. Tout est vérifié par un humain.'
+                          : 'Our copywriters write your LinkedIn posts and newsletters. Our editors create your Shorts, Reels and long-form YouTube videos. Everything reviewed by a human.')}
                   </p>
                 </div>
               </div>
@@ -531,11 +531,11 @@ export default function HowItWorksAccordion() {
                     </h3>
                   </div>
                   <p className="text-neutral-400 text-sm">
-                    {autopilot
-                      ? t.autopilot.howItWorks.b4.desc
-                      : (lang === 'fr'
-                          ? 'Nos experts ajoutent votre contenu à votre calendrier. Vous publiez en 1 clic.'
-                          : 'Our experts add your content to the calendar. You publish in 1 click.')}
+                      {autopilot
+                        ? t.autopilot.howItWorks.b4.desc
+                        : (lang === 'fr'
+                          ? 'Tout est ajouté à votre calendrier. Vous validez, vous publiez en 1 clic. Rien à gérer.'
+                          : 'Everything added to your calendar. You approve, you publish in 1 click. Nothing to manage.')}
                   </p>
                 </div>
               </div>
@@ -557,7 +557,7 @@ export default function HowItWorksAccordion() {
                 }`}
               >
                 <span className="text-lg">{autopilot ? t.autopilot.hero.cta1 : (lang === 'fr' ? 'Oui, je veux gagner du temps et découvrir le système Empire' : 'Yes, I want to save time and discover the Empire system')}</span>
-                <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? '300 000 vues/mois garanties · 45 min' : '300,000 views/month guaranteed · 45 min'}</span>
+                <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? 'Publié tous les jours · 6+ plateformes · Sans engagement' : 'Published daily · 6+ platforms · No commitment'}</span>
               </button>
           </div>
         </FadeInBlock>

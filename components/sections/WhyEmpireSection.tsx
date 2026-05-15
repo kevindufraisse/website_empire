@@ -87,9 +87,9 @@ export default function WhyEmpireSection() {
             )}
         </motion.h2>
 
-        {/* Two cards side by side — timeline is wider */}
+        {/* Two cards side by side - timeline is wider */}
         <div className="grid grid-cols-1 md:grid-cols-5 gap-5 md:gap-6 max-w-5xl mx-auto mb-12">
-          {/* Card 1 — skills commoditized (narrower, 2/5) — text on top, chart below */}
+          {/* Card 1 - skills commoditized (narrower, 2/5) - text on top, chart below */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -111,7 +111,7 @@ export default function WhyEmpireSection() {
             </div>
           </motion.div>
 
-          {/* Card 2 — competition exploding (wider, 3/5) */}
+          {/* Card 2 - competition exploding (wider, 3/5) */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -158,7 +158,7 @@ export default function WhyEmpireSection() {
               {fr ? 'Je veux profiter de cette opportunité' : 'I want to seize this opportunity'}
               <span className="text-xl">→</span>
             </span>
-            <span className="text-[11px] font-semibold opacity-70">{fr ? '300 000 vues/mois garanties · 45 min' : '300,000 views/month guaranteed · 45 min'}</span>
+            <span className="text-[11px] font-semibold opacity-70">{fr ? 'Publié tous les jours · 6+ plateformes · Sans engagement' : 'Published daily · 6+ platforms · No commitment'}</span>
           </a>
         </motion.div>
       </div>
@@ -265,7 +265,7 @@ function CompetitionTimeline({ isInView, fr }: { isInView: boolean; fr: boolean 
           </linearGradient>
         </defs>
 
-        {/* Area under curve — gradient green to red */}
+        {/* Area under curve - gradient green to red */}
         <motion.path
           d="M 30 175 C 100 172, 200 160, 300 135 C 400 100, 500 50, 600 18 C 640 8, 660 4, 670 3 L 670 180 L 30 180 Z"
           fill="url(#comp-area-grad)"
@@ -274,7 +274,7 @@ function CompetitionTimeline({ isInView, fr }: { isInView: boolean; fr: boolean 
           transition={{ duration: 1, delay: 0.6 }}
         />
 
-        {/* Exponential curve — gradient stroke green → red */}
+        {/* Exponential curve - gradient stroke green → red */}
         <motion.path
           d="M 30 175 C 100 172, 200 160, 300 135 C 400 100, 500 50, 600 18 C 640 8, 660 4, 670 3"
           stroke="url(#comp-line-grad)"
@@ -301,7 +301,7 @@ function CompetitionTimeline({ isInView, fr }: { isInView: boolean; fr: boolean 
           </motion.g>
         ))}
 
-        {/* "Vous" pill — on the curve at the start (NOW) */}
+        {/* "Vous" pill - on the curve at the start (NOW) */}
         <motion.g
           initial={{ opacity: 0, scale: 0.8 }}
           animate={isInView ? { opacity: 1, scale: 1 } : {}}

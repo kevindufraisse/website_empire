@@ -91,7 +91,7 @@ const getFAQsOld = (t: any) => t.faqItems || [
   },
   {
     question: 'How much time do I need to invest?',
-    answer: 'Just 15 minutes per week for the interview call. That\'s it. We handle everything else - content creation, editing, scheduling, and distribution across all platforms.',
+    answer: 'One interview per week. That\'s it. We handle everything else - content creation, editing, scheduling, and distribution across all platforms.',
   },
   {
     question: 'What if the content doesn\'t sound like me?',

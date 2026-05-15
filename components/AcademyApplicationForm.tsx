@@ -336,16 +336,16 @@ function ShareButtons({ disc, fr }: { disc: DiscType; fr: boolean }) {
   const shareMessages: Record<DiscType, string> = {
     dominant: fr
       ? `Je viens de candidater au Bootcamp Head of Viralité d'Empire Internet.\n\nProfil DISC : Dominant - je fonce, je décide, j'avance.\n\n21 jours pour maîtriser la viralité et générer 3 000€/mois.\n\nVous voulez tester votre éligibilité ?`
-      : `I just applied to Empire Internet's Head of Virality Bootcamp.\n\nDISC Profile: Dominant — I go for it, I decide, I move forward.\n\n21 days to master virality and generate €3,000/month.\n\nWant to test your eligibility?`,
+      : `I just applied to Empire Internet's Head of Virality Bootcamp.\n\nDISC Profile: Dominant - I go for it, I decide, I move forward.\n\n21 days to master virality and generate €3,000/month.\n\nWant to test your eligibility?`,
     influent: fr
       ? `Je viens de candidater au Bootcamp Head of Viralité d'Empire Internet.\n\nProfil DISC : Influent - contenu, connexion, conviction.\n\n21 jours pour maîtriser la viralité et générer 3 000€/mois.\n\nVous voulez tester votre éligibilité ?`
-      : `I just applied to Empire Internet's Head of Virality Bootcamp.\n\nDISC Profile: Influential — content, connection, conviction.\n\n21 days to master virality and generate €3,000/month.\n\nWant to test your eligibility?`,
+      : `I just applied to Empire Internet's Head of Virality Bootcamp.\n\nDISC Profile: Influential - content, connection, conviction.\n\n21 days to master virality and generate €3,000/month.\n\nWant to test your eligibility?`,
     stable: fr
       ? `Je viens de candidater au Bootcamp Head of Viralité d'Empire Internet.\n\nProfil DISC : Stable - je construis dans la durée, sans me griller.\n\n21 jours pour maîtriser la viralité et générer 3 000€/mois.\n\nVous voulez tester votre éligibilité ?`
-      : `I just applied to Empire Internet's Head of Virality Bootcamp.\n\nDISC Profile: Steady — I build for the long term without burning out.\n\n21 days to master virality and generate €3,000/month.\n\nWant to test your eligibility?`,
+      : `I just applied to Empire Internet's Head of Virality Bootcamp.\n\nDISC Profile: Steady - I build for the long term without burning out.\n\n21 days to master virality and generate €3,000/month.\n\nWant to test your eligibility?`,
     conforme: fr
       ? `Je viens de candidater au Bootcamp Head of Viralité d'Empire Internet.\n\nProfil DISC : Conforme - j'analyse, je structure, je perfectionne.\n\n21 jours pour maîtriser la viralité et générer 3 000€/mois.\n\nVous voulez tester votre éligibilité ?`
-      : `I just applied to Empire Internet's Head of Virality Bootcamp.\n\nDISC Profile: Conscientious — I analyze, I structure, I perfect.\n\n21 days to master virality and generate €3,000/month.\n\nWant to test your eligibility?`,
+      : `I just applied to Empire Internet's Head of Virality Bootcamp.\n\nDISC Profile: Conscientious - I analyze, I structure, I perfect.\n\n21 days to master virality and generate €3,000/month.\n\nWant to test your eligibility?`,
   }
 
   const message = shareMessages[disc]
@@ -447,7 +447,7 @@ function ResultScreen({ disc, fr }: { disc: DiscType | null; fr: boolean }) {
         : ['Results-driven', 'Quick decisions', 'Competitive', 'Loves challenges'],
       forBootcamp: fr
         ? 'Excellent fit - vous avez le moteur pour créer chaque jour et ne pas lâcher.'
-        : 'Excellent fit — you have the drive to create every day and never quit.',
+        : 'Excellent fit - you have the drive to create every day and never quit.',
     },
     influent: {
       color: '#eab308',
@@ -464,7 +464,7 @@ function ResultScreen({ disc, fr }: { disc: DiscType | null; fr: boolean }) {
         : ['Enthusiastic', 'Persuasive', 'Creative', 'Social, unifying'],
       forBootcamp: fr
         ? 'Profil idéal pour la viralité - vous avez l\'instinct du créateur de contenu.'
-        : 'Ideal profile for virality — you have the content creator instinct.',
+        : 'Ideal profile for virality - you have the content creator instinct.',
     },
     stable: {
       color: '#22c55e',
@@ -481,7 +481,7 @@ function ResultScreen({ disc, fr }: { disc: DiscType | null; fr: boolean }) {
         : ['Consistent', 'Reliable', 'Patient', 'Deep work'],
       forBootcamp: fr
         ? 'Bon fit - la régularité quotidienne du bootcamp est faite pour vous.'
-        : 'Good fit — the daily consistency of the bootcamp is made for you.',
+        : 'Good fit - the daily consistency of the bootcamp is made for you.',
     },
     conforme: {
       color: '#3b82f6',
@@ -498,7 +498,7 @@ function ResultScreen({ disc, fr }: { disc: DiscType | null; fr: boolean }) {
         : ['Analytical', 'Precise', 'Quality-focused', 'Data-driven'],
       forBootcamp: fr
         ? 'Profil intéressant - vous apporterez de la rigueur, même si la création rapide sera votre défi.'
-        : 'Interesting profile — you\'ll bring rigor, even if fast creation will be your challenge.',
+        : 'Interesting profile - you\'ll bring rigor, even if fast creation will be your challenge.',
     },
   }
 
@@ -885,7 +885,7 @@ export default function AcademyApplicationForm() {
           <span className="text-xs text-neutral-400">
             {fr
               ? 'Créneau expiré - votre progression est sauvegardée, continuez !'
-              : 'Slot expired — your progress is saved, keep going!'}
+              : 'Slot expired - your progress is saved, keep going!'}
           </span>
         </div>
       )}
@@ -967,10 +967,10 @@ export default function AcademyApplicationForm() {
                 </p>
                 <div className="space-y-2">
                   {[
-                    { value: '<2h', label: fr ? 'Moins de 2h' : 'Less than 2h', sub: fr ? 'Difficile - le bootcamp demande de la régularité' : 'Tough — the bootcamp requires consistency' },
+                    { value: '<2h', label: fr ? 'Moins de 2h' : 'Less than 2h', sub: fr ? 'Difficile - le bootcamp demande de la régularité' : 'Tough - the bootcamp requires consistency' },
                     { value: '2-5h', label: fr ? '2 à 5h' : '2 to 5h', sub: fr ? 'Faisable avec de la discipline' : 'Doable with discipline' },
                     { value: '5-10h', label: fr ? '5 à 10h' : '5 to 10h', sub: fr ? 'Idéal pour progresser vite' : 'Ideal for fast progress' },
-                    { value: '10h+', label: fr ? '10h et plus' : '10h or more', sub: fr ? 'Mode intensif - résultats rapides' : 'Intensive mode — fast results' },
+                    { value: '10h+', label: fr ? '10h et plus' : '10h or more', sub: fr ? 'Mode intensif - résultats rapides' : 'Intensive mode - fast results' },
                   ].map(opt => (
                     <OptionCard
                       key={opt.value}
@@ -1018,7 +1018,7 @@ export default function AcademyApplicationForm() {
                 <p className="text-sm text-neutral-400">
                   {fr
                     ? "Pas besoin d'expérience - on veut juste savoir où vous en êtes."
-                    : "No experience needed — we just want to know where you stand."}
+                    : "No experience needed - we just want to know where you stand."}
                 </p>
               </div>
               <div>
@@ -1073,7 +1073,7 @@ export default function AcademyApplicationForm() {
                 <p className="text-sm text-neutral-400">
                   {fr
                     ? 'Deux questions. Pas de bonne réponse - juste la plus honnête.'
-                    : 'Two questions. No right answer — just the most honest one.'}
+                    : 'Two questions. No right answer - just the most honest one.'}
                 </p>
               </div>
 
@@ -1083,7 +1083,7 @@ export default function AcademyApplicationForm() {
                 </p>
                 <div className="space-y-2">
                   {[
-                    { value: 'dominant', label: fr ? 'Le moteur' : 'The driver', sub: fr ? "Vous décidez, vous dirigez, vous avancez - même sans avoir toutes les infos" : "You decide, you lead, you move forward — even without all the info" },
+                    { value: 'dominant', label: fr ? 'Le moteur' : 'The driver', sub: fr ? "Vous décidez, vous dirigez, vous avancez - même sans avoir toutes les infos" : "You decide, you lead, you move forward - even without all the info" },
                     { value: 'influent', label: fr ? "L'ambassadeur" : 'The ambassador', sub: fr ? "Vous convainquez, vous fédérez, vous mettez de l'énergie dans le groupe" : "You convince, you unite, you bring energy to the group" },
                     { value: 'stable', label: fr ? 'Le pilier' : 'The pillar', sub: fr ? "Vous assurez, vous soutenez, vous construisez dans la durée sans vous griller" : "You deliver, you support, you build long-term without burning out" },
                     { value: 'conforme', label: fr ? "L'analyste" : 'The analyst', sub: fr ? "Vous structurez, vous vérifiez, vous voulez que ce soit bien fait avant d'agir" : "You structure, you verify, you want it done right before acting" },
@@ -1143,7 +1143,7 @@ export default function AcademyApplicationForm() {
                 <p className="text-sm text-neutral-400">
                   {fr
                     ? "Plus c'est spécifique, mieux c'est - ça nous aide à sélectionner les bons profils."
-                    : "The more specific, the better — it helps us select the right profiles."}
+                    : "The more specific, the better - it helps us select the right profiles."}
                 </p>
               </div>
               <Input
@@ -1154,7 +1154,7 @@ export default function AcademyApplicationForm() {
                 placeholder="LinkedIn, Instagram, TikTok, site perso..."
               />
               <Textarea
-                label={fr ? "Pourquoi ce bootcamp maintenant - et pas dans 6 mois ?" : "Why this bootcamp now — and not in 6 months?"}
+                label={fr ? "Pourquoi ce bootcamp maintenant - et pas dans 6 mois ?" : "Why this bootcamp now - and not in 6 months?"}
                 name="motivation"
                 value={form.motivation}
                 onChange={set('motivation')}
@@ -1181,7 +1181,7 @@ export default function AcademyApplicationForm() {
                 <p className="text-sm text-neutral-400">
                   {fr
                     ? "Si vous pensez à quelqu'un qui serait fait pour ça - salariés, freelances, entrepreneurs - laissez leur profil LinkedIn. On les contacte de votre part."
-                    : "If you know someone who'd be a great fit — employees, freelancers, entrepreneurs — leave their LinkedIn profile. We'll reach out on your behalf."}
+                    : "If you know someone who'd be a great fit - employees, freelancers, entrepreneurs - leave their LinkedIn profile. We'll reach out on your behalf."}
                 </p>
               </div>
 

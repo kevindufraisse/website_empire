@@ -12,7 +12,7 @@ export default function AutopilotToggle() {
   const fr = lang === 'fr'
   const label = autopilot
     ? fr ? 'Mode Autopilot' : 'Autopilot Mode'
-    : fr ? 'Pas 15 min ?' : 'No 15 min?'
+    : fr ? 'Pas le temps ?' : 'No time?'
   const sublabel = autopilot
     ? fr ? 'On fait tout pour vous' : 'We do it all for you'
     : fr ? 'Activez Autopilot' : 'Activate Autopilot'

@@ -14,7 +14,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'Empire Internet - The Content Machine',
-  description: 'Speak 15 minutes. Become omnipresent. Empire Internet.',
+  description: 'One interview per week. Content published everywhere, every day. Empire Internet.',
   icons: {
     icon: '/icon.svg',
     apple: '/apple-icon.png',
@@ -34,9 +34,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MJCWGM8D');`
         }} />
         {/* End Google Tag Manager */}
-        
-        <script async type="text/javascript" src="https://widget.senja.io/widget/9f0da066-1eac-4c00-9d72-9c47d95d094a/platform.js"></script>
-        <script async type="text/javascript" src="https://widget.senja.io/widget/a7bf7e4a-0f3b-4751-8190-849f83d16306/platform.js"></script>
       </head>
       <body className={inter.className} suppressHydrationWarning>
         {/* Google Tag Manager (noscript) */}

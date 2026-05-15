@@ -119,10 +119,10 @@ export default function CalStickyBar() {
             </div>
             <div>
               <p className="text-white font-semibold text-sm">
-                {lang === 'fr' ? '300 000 vues/mois garanties' : '300,000 views/month guaranteed'}
+                {lang === 'fr' ? 'Publié tous les jours · 6+ plateformes' : 'Published daily · 6+ platforms'}
               </p>
               <p className="text-neutral-400 text-xs">
-                {lang === 'fr' ? '45 min · Sans engagement' : '45 min · No commitment'}
+                {lang === 'fr' ? 'Sans engagement' : 'No commitment'}
               </p>
             </div>
           </div>
@@ -131,7 +131,7 @@ export default function CalStickyBar() {
           <div className="sm:hidden flex items-center gap-2">
             <Calendar className={`${accent.text} flex-shrink-0`} size={18} />
             <p className="text-white font-medium text-sm">
-              {lang === 'fr' ? '300 000 vues/mois garanties' : '300,000 views/month guaranteed'}
+              {lang === 'fr' ? 'Publié tous les jours · 6+ plateformes' : 'Published daily · 6+ platforms'}
             </p>
           </div>
 
@@ -155,7 +155,7 @@ export default function CalStickyBar() {
                 {t.common.startNow}
                 <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
               </span>
-              <span className="text-[9px] sm:text-[10px] font-semibold opacity-70">{lang === 'fr' ? '300 000 vues/mois garanties · 45 min' : '300,000 views/month guaranteed · 45 min'}</span>
+              <span className="text-[9px] sm:text-[10px] font-semibold opacity-70">{lang === 'fr' ? 'Publié tous les jours · 6+ plateformes · Sans engagement' : 'Published daily · 6+ platforms · No commitment'}</span>
             </button>
           </div>
         </div>

@@ -30,7 +30,7 @@ export default function AcademyEmpireAlphaSection() {
       title: fr ? 'On trouve tes sujets' : 'We find your topics',
       desc: fr
         ? 'On identifie les thématiques qui marchent dans ta niche. Tu ne pars jamais de zéro - on te donne les angles.'
-        : 'We identify the topics that work in your niche. You never start from scratch — we give you the angles.',
+        : 'We identify the topics that work in your niche. You never start from scratch - we give you the angles.',
     },
     {
       icon: Mic,
@@ -38,7 +38,7 @@ export default function AcademyEmpireAlphaSection() {
       title: fr ? 'Tu parles 15 minutes' : 'You talk for 15 minutes',
       desc: fr
         ? 'Via Empire Alpha, notre outil simplifié. Tu parles comme un vocal - ton point de vue, tes idées, ton expérience. Pas besoin de savoir écrire ou monter.'
-        : 'Via Empire Alpha, our simplified tool. You talk like a voice note — your perspective, your ideas, your experience. No writing or editing skills needed.',
+        : 'Via Empire Alpha, our simplified tool. You talk like a voice note - your perspective, your ideas, your experience. No writing or editing skills needed.',
     },
     {
       icon: FileText,
@@ -54,7 +54,7 @@ export default function AcademyEmpireAlphaSection() {
       title: fr ? 'Tu publies en 15 min' : 'You publish in 15 min',
       desc: fr
         ? 'Tu copies, tu colles, tu postes. Chaque jour, du contenu de qualité sur tes réseaux - sans y passer ta vie.'
-        : 'You copy, you paste, you post. Every day, quality content on your channels — without spending your whole day on it.',
+        : 'You copy, you paste, you post. Every day, quality content on your channels - without spending your whole day on it.',
     },
   ]
 

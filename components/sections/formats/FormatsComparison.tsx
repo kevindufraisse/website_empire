@@ -28,7 +28,7 @@ export default function FormatsComparison() {
     {
       name: lang === 'fr' ? 'Interview Libre' : 'Free Interview',
       prep: lang === 'fr' ? 'Aucune' : 'None',
-      duration: '15 min',
+      duration: '15-45 min',
       outputs: '30+',
       badge: lang === 'fr' ? 'Plus populaire' : 'Most popular',
     },

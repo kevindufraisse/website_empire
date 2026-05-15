@@ -50,7 +50,7 @@ export default function HiringSection() {
                 {hiring.companyMission?.title || 'Mission de l\'entreprise'}
               </h2>
               <p className="text-neutral-300 mb-4 leading-relaxed">
-                {hiring.companyMission?.description || 'Empire Internet transforme 15 minutes d\'interview en plus de 100 contenus optimisés grâce à une IA propriétaire.'}
+                {hiring.companyMission?.description || 'Empire Internet transforme une interview hebdomadaire en plus de 100 contenus optimisés grâce à une IA propriétaire.'}
               </p>
               <p className="text-neutral-300 mb-4 leading-relaxed">
                 {hiring.companyMission?.vision || 'Nous construisons la machine de contenu la plus rapide du marché pour entrepreneurs, créateurs et CEOs.'}

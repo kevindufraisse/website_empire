@@ -1,6 +1,6 @@
 'use client'
-import { motion, AnimatePresence } from 'framer-motion'
-import { useEffect } from 'react'
+import { motion, AnimatePresence, useInView } from 'framer-motion'
+import { useEffect, useRef } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import RetroGrid from '@/components/magicui/retro-grid'
@@ -11,6 +11,38 @@ import { useCalLink } from '@/hooks/useCalLink'
 import MediaCredibilityStrip from '@/components/MediaCredibilityStrip'
 import Marquee from '@/components/magicui/marquee'
 import { SocialIcons } from '@/components/ui/social-icons'
+
+function LazyLoom() {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: '200px' })
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 20 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.8 }}
+      className="mt-8 w-full max-w-4xl mx-auto"
+    >
+      <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-neutral-900/50 backdrop-blur-sm" style={{ paddingBottom: '56.25%' }}>
+        {isInView ? (
+          <iframe
+            src="https://www.loom.com/embed/9751f76501dc436f8728f46736d7aea8?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_speed=true&hide_title=true&t=0"
+            frameBorder="0"
+            allowFullScreen
+            allow="autoplay"
+            className="absolute inset-0 w-full h-full"
+            loading="lazy"
+          />
+        ) : (
+          <div className="absolute inset-0 bg-neutral-900 animate-pulse" />
+        )}
+        <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-black to-transparent pointer-events-none" />
+        <div className="absolute bottom-0 right-0 w-16 h-16 bg-gradient-to-tl from-black to-transparent pointer-events-none" />
+      </div>
+    </motion.div>
+  )
+}
 
 export default function HeroSection() {
   const { t, lang } = useLanguage()
@@ -82,7 +114,7 @@ export default function HeroSection() {
             />
           </AnimatePresence>
 
-          {/* Platform logos strip — right under the title */}
+          {/* Platform logos strip - right under the title */}
           {!autopilot && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -109,9 +141,8 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.25 }}
               className="mt-7 text-sm sm:text-base text-neutral-400 max-w-2xl mx-auto"
-            >
-              {heroSubtitle}
-            </motion.p>
+              dangerouslySetInnerHTML={{ __html: heroSubtitle }}
+            />
           )}
 
           {/* CTA + Vu sur side by side */}
@@ -135,7 +166,7 @@ export default function HeroSection() {
                 {heroCta}
                 <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
               </span>
-              <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? '300 000 vues/mois garanties · 45 min' : '300,000 views/month guaranteed · 45 min'}</span>
+              <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? 'Publié tous les jours · 6+ plateformes · Sans engagement' : 'Published daily · 6+ platforms · No commitment'}</span>
             </button>
             <MediaCredibilityStrip />
           </motion.div>
@@ -144,29 +175,8 @@ export default function HeroSection() {
 
 
 
-          {/* Video Loom - FR only, hidden in Autopilot */}
-          {lang === 'fr' && !autopilot && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.8 }}
-              className="mt-8 w-full max-w-4xl mx-auto"
-            >
-              <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-neutral-900/50 backdrop-blur-sm" style={{ paddingBottom: '56.25%' }}>
-                <iframe
-                  src="https://www.loom.com/embed/9751f76501dc436f8728f46736d7aea8?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_speed=true&hide_title=true&t=0"
-                  frameBorder="0"
-                  allowFullScreen
-                  allow="autoplay"
-                  className="absolute inset-0 w-full h-full"
-                />
-                {/* Overlay to hide bottom player controls */}
-                <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-black to-transparent pointer-events-none" />
-                {/* Overlay to hide emoji reaction button (bottom-right) */}
-                <div className="absolute bottom-0 right-0 w-16 h-16 bg-gradient-to-tl from-black to-transparent pointer-events-none" />
-              </div>
-            </motion.div>
-          )}
+          {/* Video Loom - FR only, hidden in Autopilot - lazy loaded */}
+          {lang === 'fr' && !autopilot && <LazyLoom />}
         </div>
         </div>
       </section>

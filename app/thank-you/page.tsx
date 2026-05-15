@@ -2,13 +2,76 @@
 
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
-import { CheckCircle2, MessageCircle, Check, ChevronDown } from 'lucide-react'
+import { CheckCircle2, MessageCircle, Check, Plus, Minus } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
+
+const faqObjections = {
+  fr: [
+    {
+      q: "C'est cher / plus que ce que j'attendais",
+      a: "Si vous deviez embaucher un ghostwriter, un monteur vidéo et un community manager, c'est minimum 7 500€/mois. Empire fait tout ça. La question n'est pas le prix - c'est combien vaut un seul client dans votre business. Si Empire vous en amène un dans les 3 prochains mois, vous êtes à combien ?",
+    },
+    {
+      q: "C'est pas le bon moment",
+      a: "Ne pas publier de contenu, c'est comme ouvrir votre boutique une seule fois par semaine. Vos concurrents, eux, sont ouverts tous les jours. Chaque mois sans contenu, c'est des opportunités que vous laissez passer.",
+    },
+    {
+      q: "Je ne sais pas si mon secteur est compatible",
+      a: "Si personne dans votre secteur ne publie de contenu, c'est une opportunité, pas un problème. La place est vide. Le premier qui s'installe devient la référence par défaut. Empire a des clients dans des niches très spécifiques - loss prevention, expertise comptable, conseil en fusion-acquisition.",
+    },
+    {
+      q: "Je n'ai pas le temps",
+      a: "Une interview par semaine. On gère tout le reste : rédaction, montage, planification, publication. Vous avez le temps de passer un coup de fil ? Vous avez le temps pour Empire.",
+    },
+    {
+      q: "Mon contenu ne convertit pas, à quoi bon en faire plus ?",
+      a: "Le contenu seul ne convertit pas - c'est normal. Il faut un système derrière : un lien, une newsletter, un tunnel. C'est exactement ce que votre coach met en place avec vous. Le contenu attire. Le système convertit.",
+    },
+    {
+      q: "J'ai déjà investi dans un accompagnement et ça n'a rien donné",
+      a: "On comprend. La différence : Empire n'est pas un cours ou une formation. C'est une équipe qui produit votre contenu chaque semaine, avec un coach dédié. Si vous parlez, on publie. Pas de promesse vague - du contenu livré.",
+    },
+    {
+      q: "Il faut que j'en parle à mon associé",
+      a: "On peut organiser un appel à trois pour que votre associé pose ses questions directement. Pas besoin de porter le message seul - on préfère répondre nous-mêmes.",
+    },
+  ],
+  en: [
+    {
+      q: "It's too expensive / more than I expected",
+      a: "If you had to hire a ghostwriter, video editor, and community manager, that's at least €7,500/month. Empire does all of that. The question isn't the price - it's how much one client is worth in your business. If Empire brings you one in the next 3 months, what's that worth?",
+    },
+    {
+      q: "It's not the right time",
+      a: "Not publishing content is like opening your shop only once a week. Your competitors are open every day. Every month without content is opportunities you're leaving on the table.",
+    },
+    {
+      q: "I'm not sure my industry is compatible",
+      a: "If nobody in your industry publishes content, that's an opportunity, not a problem. The space is empty. The first one to show up becomes the default authority. Empire has clients in very specific niches - loss prevention, accounting, M&A consulting.",
+    },
+    {
+      q: "I don't have time",
+      a: "One interview per week. We handle everything else: writing, editing, scheduling, publishing. If you have time for a phone call, you have time for Empire.",
+    },
+    {
+      q: "My content doesn't convert, why make more?",
+      a: "Content alone doesn't convert - that's normal. You need a system behind it: a link, a newsletter, a funnel. That's exactly what your coach sets up with you. Content attracts. The system converts.",
+    },
+    {
+      q: "I already invested in coaching and got nothing",
+      a: "We get it. The difference: Empire isn't a course or a program. It's a team that produces your content every week, with a dedicated coach. If you talk, we publish. No vague promises - content delivered.",
+    },
+    {
+      q: "I need to talk to my partner about it",
+      a: "We can set up a three-way call so your partner can ask questions directly. No need to carry the message alone - we'd rather answer ourselves.",
+    },
+  ],
+}
 
 export default function DemoThankYouPage() {
   const { lang } = useLanguage()
   const [confirmed, setConfirmed] = useState(false)
-  const [showFullText, setShowFullText] = useState(false)
+  const [openFaq, setOpenFaq] = useState<number | null>(null)
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -113,83 +176,87 @@ export default function DemoThankYouPage() {
             </button>
           </motion.div>
 
-          {/* Transcript Text */}
+          {/* How it works - compact */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
             className="mb-10"
           >
-            <div className="p-6 md:p-8 rounded-2xl bg-white/5 border border-white/10">
-              <h2 className="text-xl md:text-2xl font-bold text-white mb-6">
-                {lang === 'fr' ? 'Ce que vous allez découvrir' : 'What you\'ll discover'}
+            <div className="p-5 md:p-6 rounded-2xl bg-white/5 border border-white/10">
+              <h2 className="text-lg md:text-xl font-bold text-white mb-4">
+                {lang === 'fr' ? 'Comment ça marche' : 'How it works'}
               </h2>
-
-              <div className={`space-y-5 text-neutral-300 leading-relaxed ${!showFullText ? 'max-h-[600px] overflow-hidden relative' : ''}`}>
-                <p>
-                  <strong className="text-empire">Le problème :</strong> Vous êtes entrepreneur, CEO ou freelance. Vous savez que le contenu est un levier business indispensable, mais entre vos clients, votre delivery et votre quotidien, il ne reste plus d'énergie pour écrire un post ou monter une vidéo. Trouver des idées, rédiger, tourner, monter, programmer, publier - c'est le travail de 5 personnes. Ce n'est pas censé être le vôtre.
-                </p>
-
-                <p>
-                  <strong className="text-empire">Les tentatives classiques :</strong> Vous avez peut-être essayé de déléguer à un freelance - contenu générique, retards, turnover. Ou de tout faire vous-même - motivé 2 semaines, 3 posts, zéro traction, abandon. Ce n'est pas un problème de discipline. Vous n'aviez juste pas de système.
-                </p>
-
-                <p>
-                  <strong className="text-empire">Ce que font les top créateurs :</strong> Grant Cardone, Alex Hormozi, Matt Gray - ils ne créent pas du contenu assis devant un écran. Ils parlent, et une équipe transforme tout derrière. Sauf que ça leur coûte 50 à 100 000€ par mois et 5 ans à mettre en place. Empire reproduit ce système pour vous, clé en main.
-                </p>
-
-                <p>
-                  <strong className="text-empire">Le système Empire en 3 étapes :</strong>
-                </p>
-                <ul className="space-y-2 ml-4">
-                  <li className="flex items-start gap-2">
-                    <span className="text-empire font-bold mt-0.5">1.</span>
-                    <span><strong className="text-white">L'extraction</strong> - Vous parlez 15 minutes lors d'une interview. L'IA, formée sur votre expertise, capture vos meilleures idées, votre vocabulaire, vos angles. Plus vous l'utilisez, plus elle vous connaît.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-empire font-bold mt-0.5">2.</span>
-                    <span><strong className="text-white">La transformation</strong> - Une équipe d'assistants formés pendant des mois prend le relais. Ils coupent vos vidéos, rédigent vos posts LinkedIn, structurent vos newsletters, créent vos Reels et Shorts. Chaque contenu est vérifié : orthographe, ton, qualité.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-empire font-bold mt-0.5">3.</span>
-                    <span><strong className="text-white">La publication</strong> - Une interview génère une semaine entière de contenu sur 6 plateformes : LinkedIn, YouTube, Instagram, Twitter/X, Threads et newsletter. Vous relisez, vous validez, c'est publié.</span>
-                  </li>
-                </ul>
-
-                <p>
-                  <strong className="text-empire">Résultats concrets :</strong> Un copywriter à 2 500€/mois produisait des newsletters. Quand le système Empire a pris le relais, plus de 75% des lecteurs ont préféré la version IA. Un abonné a écrit : "Je ne sais pas ce qui s'est passé, mais ta newsletter s'est tellement améliorée."
-                </p>
-
-                <p>
-                  <strong className="text-empire">Témoignages :</strong> Marguerite, experte marketing B2B, a doublé son pipeline commercial en un mois. Sophie, sparring partner pour fondateurs, est passée de posts aléatoires à 1-3 contenus par jour. Antoine, dirigeant, confirme : "Bizarrement, c'est mon ton naturel."
-                </p>
-
-                <p>
-                  <strong className="text-empire">Avant vs Après Empire :</strong> Avant - 3-4 posts par mois, des heures de travail, une seule plateforme, zéro retour. Après - publication quotidienne sur 6 plateformes, 15 minutes par semaine, calendrier rempli, leads entrants automatiques.
-                </p>
-
-                <p>
-                  <strong className="text-empire">Pour qui c'est fait :</strong> Entrepreneurs, CEOs, freelances qui font plus de 5 000€/mois et qui veulent transformer leur visibilité en ligne en levier business - sans sacrifier leur temps. Limité à 100 clients pour garantir la qualité.
-                </p>
-
-                <p>
-                  <strong className="text-empire">L'appel découverte :</strong> 15 minutes pour analyser votre business, vos plateformes et votre positionnement. On vous dit honnêtement si Empire est adapté ou pas.
-                </p>
-
-                {!showFullText && (
-                  <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0d0d0d] to-transparent pointer-events-none" />
-                )}
+              <div className="space-y-3">
+                <div className="flex items-start gap-3">
+                  <span className="w-7 h-7 rounded-lg bg-empire/20 flex items-center justify-center text-empire font-bold text-sm shrink-0">1</span>
+                  <p className="text-sm text-neutral-300">
+                    {lang === 'fr'
+                      ? 'Vous faites une interview par semaine avec votre coach. Pas de script, pas de préparation.'
+                      : 'You do one interview per week with your coach. No script, no preparation.'}
+                  </p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="w-7 h-7 rounded-lg bg-empire/20 flex items-center justify-center text-empire font-bold text-sm shrink-0">2</span>
+                  <p className="text-sm text-neutral-300">
+                    {lang === 'fr'
+                      ? 'Notre équipe rédige vos posts, monte vos vidéos, structure vos newsletters. Chaque contenu est vérifié par un humain.'
+                      : 'Our team writes your posts, edits your videos, structures your newsletters. Every piece is reviewed by a human.'}
+                  </p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="w-7 h-7 rounded-lg bg-empire/20 flex items-center justify-center text-empire font-bold text-sm shrink-0">3</span>
+                  <p className="text-sm text-neutral-300">
+                    {lang === 'fr'
+                      ? 'Publié tous les jours sur 6 plateformes : LinkedIn, YouTube, Instagram, X, Threads, newsletter. Vous validez, on publie.'
+                      : 'Published daily on 6 platforms: LinkedIn, YouTube, Instagram, X, Threads, newsletter. You approve, we publish.'}
+                  </p>
+                </div>
               </div>
+            </div>
+          </motion.div>
 
-              {!showFullText && (
-                <button
-                  onClick={() => setShowFullText(true)}
-                  className="mt-4 flex items-center gap-2 text-empire font-medium hover:underline mx-auto"
-                >
-                  {lang === 'fr' ? 'Lire la suite' : 'Read more'}
-                  <ChevronDown size={16} />
-                </button>
-              )}
+          {/* FAQ Objections */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.55 }}
+            className="mb-10"
+          >
+            <div className="p-6 md:p-8 rounded-2xl bg-white/5 border border-white/10">
+              <h2 className="text-xl md:text-2xl font-bold text-white mb-2">
+                {lang === 'fr' ? 'Questions fréquentes' : 'Frequently Asked Questions'}
+              </h2>
+              <p className="text-neutral-400 text-sm mb-6">
+                {lang === 'fr'
+                  ? 'Ce que nos prospects demandent le plus souvent avant de démarrer.'
+                  : 'What our prospects ask most often before getting started.'}
+              </p>
+              <div className="space-y-2">
+                {(lang === 'fr' ? faqObjections.fr : faqObjections.en).map((item, i) => (
+                  <div
+                    key={i}
+                    className="rounded-xl border border-white/10 overflow-hidden transition-colors hover:border-empire/30"
+                  >
+                    <button
+                      onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                      className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left"
+                    >
+                      <span className="text-white font-medium text-sm md:text-base">{item.q}</span>
+                      {openFaq === i ? (
+                        <Minus className="text-empire shrink-0" size={18} />
+                      ) : (
+                        <Plus className="text-neutral-500 shrink-0" size={18} />
+                      )}
+                    </button>
+                    {openFaq === i && (
+                      <div className="px-5 pb-4">
+                        <p className="text-neutral-300 text-sm leading-relaxed">{item.a}</p>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
           </motion.div>
 

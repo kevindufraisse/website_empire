@@ -140,7 +140,7 @@ export default function AcademyCertificationSection() {
               <p className="text-neutral-400 text-base md:text-lg max-w-2xl mx-auto">
                 {fr
                   ? 'À la fin du bootcamp, vous pouvez passer les certifications Empire Internet - ajoutables sur votre profil LinkedIn. Les niveaux sont basés sur vos vrais résultats.'
-                  : 'At the end of the bootcamp, you can earn Empire Internet certifications — addable to your LinkedIn profile. Levels are based on your real results.'}
+                  : 'At the end of the bootcamp, you can earn Empire Internet certifications - addable to your LinkedIn profile. Levels are based on your real results.'}
               </p>
             </div>
           </FadeInBlock>

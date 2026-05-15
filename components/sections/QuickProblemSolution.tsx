@@ -48,7 +48,7 @@ export default function QuickProblemSolution() {
                   {t.quickProblem?.solution || 'Empire fixes that.'}
                 </p>
                 <p className="text-xl text-empire font-semibold mb-4">
-                  {t.quickProblem?.hook || '15 minutes of talking = 30+ posts across all platforms.'}
+                  {t.quickProblem?.hook || 'One interview per week = 30+ posts across all platforms.'}
                 </p>
                 <p className="text-base text-neutral-400">
                   {t.quickProblem?.subtext || 'No writing. No editing. No scheduling. Just results.'}

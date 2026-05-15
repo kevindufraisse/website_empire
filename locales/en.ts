@@ -14,8 +14,8 @@ export const en = {
   },
   hero: {
     targetAudience: 'For freelancers, employees & entrepreneurs',
-    title: 'Install the content system used by<br class="hidden sm:block"/>tomorrow\'s <span class="text-empire">future leaders</span>.',
-    subtitle: 'A virality expert interviews you 15 min/week.<br/>We write, edit, and publish on all your channels.',
+    title: 'One interview → content published <span class="text-empire">everywhere, every day</span>.',
+    subtitle: 'Run a media machine. Close leads. Never manage.<br class="hidden sm:block"/>We write your posts, edit your videos and publish on 6+ platforms for you.',
     description: '',
     cta1: 'I want to discover the Empire system',
     cta2: 'Watch Demo (20 min)',
@@ -46,7 +46,7 @@ export const en = {
     subtitle: 'From your voice to published content in 4 simple steps',
     stepLabel: 'STEP',
     step1: {
-      title: 'You Talk (15 min)',
+      title: 'Weekly Interview',
       summary: 'An AI interviews you. You just show up and answer questions.',
       description: 'No prep needed. No script. Our AI asks you the right questions to extract your best insights, stories, and expertise. It feels like talking to a colleague, not a robot.',
       badge1: 'No preparation',
@@ -80,7 +80,7 @@ export const en = {
     step4: {
       title: 'You Become Autonomous',
       summary: 'You record your own content. We scale.',
-      description: 'After month 1, you master virality. You record your own content independently - our experts remain available to optimize your performance and scale your results.',
+      description: 'After month 1, you master the system. You record your own content independently - our experts remain available to optimize your performance and scale your results.',
       badge1: 'Full autonomy',
       badge1Sub: 'You record alone',
       badge2: 'Ongoing support',
@@ -182,7 +182,7 @@ export const en = {
       },
       {
         concern: 'What if I don\'t have time for the interview?',
-        answer: 'You only need 15 minutes per week. That\'s less time than you spend scrolling on your phone. We schedule around your availability. No excuses - if you can talk, you can create content.',
+        answer: 'One interview per week. We schedule around your availability. No excuses - if you can talk, you can create content.',
       },
       {
         concern: 'Is this really better than hiring someone?',
@@ -195,7 +195,7 @@ export const en = {
     ],
   },
   footer: {
-    tagline: 'Your content machine. 15 minutes to omnipresent.',
+    tagline: 'Your content machine. One interview to omnipresent.',
     quickLinks: 'Quick Links',
     product: 'Product',
     about: 'About',
@@ -234,11 +234,11 @@ export const en = {
   },
   multiPlatform: {
     title: 'Before Empire vs After Empire',
-    subtitle: 'From scattered posts to consistent multi-platform presence - in just 15 minutes',
+    subtitle: 'From scattered posts to consistent multi-platform presence - in 1 interview/week',
     without: 'Without Empire',
     withEmpire: 'With Empire',
     doingYourself: 'Doing it yourself',
-    justMinWeek: 'Just 15 min/week',
+    justMinWeek: '1 interview/week',
     postsMonth: 'posts / month',
     platforms: 'platforms',
     publishTo: 'We publish to:',
@@ -308,7 +308,7 @@ export const en = {
   common: {
     startNow: 'I want to discover the Empire system',
     watchDemo: 'I want to discover the Empire system',
-    ctaReassurance: '300,000 views/month guaranteed · 45 min',
+    ctaReassurance: 'Published daily · 6+ platforms · No commitment',
     /** Tight subline: header, sticky, banner (keeps the CTA compact) */
     ctaReassuranceCompact: 'No commitment.',
     learnMore: 'Learn more',
@@ -358,11 +358,11 @@ export const en = {
   },
   featureDetails: {
     title: 'Your Voice → <span class="text-empire">Your Best Content</span>',
-    subtitle: 'We transform your 15-minute interview into content for every platform',
-    you15min: 'You (15 min)',
+    subtitle: 'We transform your interview into content for every platform',
+    you15min: 'You (1 interview)',
     previews: {
       linkedinPost: 'LinkedIn Post',
-      linkedinPostDesc: 'Your 15-minute interview becomes a thought leadership post that positions you as an industry expert.',
+      linkedinPostDesc: 'Your interview becomes a thought leadership post that positions you as an industry expert.',
       newsletter: 'Newsletter',
       newsletterDesc: 'Personal stories and insights transformed into engaging newsletters that readers actually want to open.',
       instagramReel: 'Instagram Reel',
@@ -386,7 +386,7 @@ export const en = {
     line1: 'But between client work, your business, and life... the calendar stays empty.',
     line2: 'You\'re not lazy. The system is broken.',
     solution: 'Empire fixes that.',
-    hook: '15 minutes of talking = content published every day.',
+    hook: 'One interview per week = content published every day.',
     subtext: 'No writing. No editing. No scheduling. Just results.',
     readStory: 'Read the full story',
   },
@@ -525,7 +525,7 @@ export const en = {
     },
     {
       question: 'How much time do I need to invest?',
-      answer: 'Just 15 minutes per week for the interview call. That\'s it. We handle everything else - content creation, editing, scheduling, and distribution across all platforms.',
+      answer: 'One interview per week. That\'s it. We handle everything else - content creation, editing, scheduling, and distribution across all platforms.',
     },
     {
       question: 'What if the content doesn\'t sound like me?',
@@ -679,7 +679,7 @@ export const en = {
     breakthrough: {
       title: 'Today, this same system powers Empire',
       step1Title: '1. You Speak',
-      step1Desc: '15 minutes. No script. Just your expertise.',
+      step1Desc: 'No script. Just your expertise.',
       step2Title: '2. AI + Human',
       step2Desc: 'AI generates. Humans polish. The perfect mix.',
       step3Title: '3. You Grow',
@@ -776,7 +776,7 @@ export const en = {
     bannerButton: 'View positions',
     companyMission: {
       title: 'Company Mission',
-      description: 'Empire Internet transforms 15 minutes of interview into over 100 optimized content pieces thanks to proprietary AI.',
+      description: 'Empire Internet transforms a weekly interview into over 100 optimized content pieces thanks to proprietary AI.',
       vision: 'We\'re building the fastest content machine on the market for entrepreneurs, creators, and CEOs.',
       ambition1: 'Become the #1 global content automation platform',
       ambition2: 'Scale from 1M → 10M → 50M/year',
@@ -943,17 +943,17 @@ export const en = {
   },
   autopilot: {
     toggleLabel: 'Autopilot Mode',
-    toggleHint: 'No 15 min? Activate Autopilot',
+    toggleHint: 'No time? Activate Autopilot',
     hero: {
       targetAudience: 'For CEOs & founders with zero free time',
       title: '30 days to become <br class="hidden sm:block"/>the <span class="text-autopilot">reference</span> in your market, <br class="hidden sm:block"/>without lifting a finger.',
-      subtitle: 'A dedicated virality expert takes full control of your networks. Finds your topics. Writes in your voice. Publishes for you. You? You run your business.',
+      subtitle: 'A dedicated coach takes full control of your networks. Finds your topics. Writes in your voice. Publishes for you. You? You run your business.',
       cta1: 'Apply to Autopilot Mode',
       ctaReassurance: 'Premium tier · Application only',
     },
     howItWorks: {
       badge: 'AUTOPILOT MODE',
-      title: 'Your virality expert takes <span class="text-autopilot">100% control</span>',
+      title: 'Your dedicated coach takes <span class="text-autopilot">100% control</span>',
       subtitle: 'Zero input. Zero effort. Your presence, fully delegated to an expert.',
       b1: {
         title: 'We learn everything about you - no interview',

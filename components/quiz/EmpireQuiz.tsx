@@ -261,7 +261,7 @@ export default function EmpireQuiz({ hookOverride, onCompleted, onDismiss }: Pro
     } catch (err) {
       console.error('[quiz submit]', err)
       setSubmitting(false)
-      // Fall back to the local preview if the server failed — the user still gets a result.
+      // Fall back to the local preview if the server failed - the user still gets a result.
       if (state.preview) {
         result = state.preview
       } else {
@@ -464,7 +464,7 @@ export default function EmpireQuiz({ hookOverride, onCompleted, onDismiss }: Pro
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             className="w-full max-w-xl mx-auto"
           >
-            {/* Encouraging message (Timeleft-style) — appears before specific questions */}
+            {/* Encouraging message (Timeleft-style) - appears before specific questions */}
             {localizedStepMessages[currentQuestion.step] && (
               <motion.div
                 key={`msg-${currentQuestion.step}`}
