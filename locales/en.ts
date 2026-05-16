@@ -15,7 +15,7 @@ export const en = {
   hero: {
     targetAudience: 'For freelancers, employees & entrepreneurs',
     title: 'One interview → content published <span class="text-empire">everywhere, every day</span>.',
-    subtitle: 'Run a media machine. Close leads. Never manage.<br class="hidden sm:block"/>We write your posts, edit your videos and publish on 6+ platforms for you.',
+    subtitle: 'Run your media machine. Attract clients. Close leads. Never manage.',
     description: '',
     cta1: 'I want to discover the Empire system',
     cta2: 'Watch Demo (20 min)',

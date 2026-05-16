@@ -138,7 +138,7 @@ export const fr: Translations = {
   hero: {
     targetAudience: 'Pour freelances, salariés & entrepreneurs',
     title: 'Une interview → du contenu publié <span class="text-empire">partout, tous les jours</span>.',
-    subtitle: 'Lancez votre machine média. Closez des leads. Ne gérez rien.<br class="hidden sm:block"/>On rédige vos posts, monte vos vidéos et publie sur 6+ plateformes pour vous.',
+    subtitle: 'Lancez votre machine média. Attirez des clients. Closez des leads. Ne gérez rien.',
     description: '',
     cta1: 'Je veux découvrir le système Empire',
     cta2: 'Voir la Démo (20 min)',
