@@ -163,8 +163,8 @@ export default function VerifyClient() {
   const tierConfig = result ? TIER_CONFIG[result.tier] : null
 
   return (
-    <div className="min-h-screen bg-black flex flex-col">
-      <div className="flex-1 flex items-center justify-center px-4 py-12">
+    <div className="min-h-screen bg-black flex flex-col overflow-y-auto">
+      <div className="flex-1 flex items-start justify-center px-4 py-12 md:py-20">
         <div className="w-full max-w-lg">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
