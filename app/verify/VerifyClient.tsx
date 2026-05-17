@@ -128,8 +128,8 @@ export default function VerifyClient() {
   const handlePaste = (e: React.ClipboardEvent) => {
     e.preventDefault()
     const text = e.clipboardData.getData('text').toUpperCase().replace(/\s/g, '')
-    const m3 = text.match(/^EMP-?([A-Z0-9]{3})-?([A-Z0-9]{3})$/)
-    const m4 = text.match(/^EMP-?([A-Z0-9]{4})-?([A-Z0-9]{4})$/)
+    const m3 = text.match(/^(?:EMP-?)?([A-Z0-9]{3})-?([A-Z0-9]{3})$/)
+    const m4 = text.match(/^(?:EMP-?)?([A-Z0-9]{4})-?([A-Z0-9]{4})$/)
     if (m3) {
       setSegments(['EMP', m3[1], m3[2]])
       verify(`EMP-${m3[1]}-${m3[2]}`)
