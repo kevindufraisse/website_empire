@@ -30,6 +30,7 @@ const TAGS = [
   { name: 'offer_autopilot', envKey: 'SYSTEMEIO_TAG_OFFER_AUTOPILOT' },
   { name: 'offer_copilot', envKey: 'SYSTEMEIO_TAG_OFFER_COPILOT' },
   { name: 'offer_nurture', envKey: 'SYSTEMEIO_TAG_OFFER_NURTURE' },
+  { name: 'webinar_methode_gourou', envKey: 'SYSTEMEIO_TAG_WEBINAR' },
 ]
 
 async function api(path, init = {}) {

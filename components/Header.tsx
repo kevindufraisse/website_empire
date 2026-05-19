@@ -86,8 +86,8 @@ export default function Header() {
   // Hide entirely on candidature page - after all hooks
   if (isCandidaturePage) return null
 
-  // Minimal header (logo only) on thank-you page
-  if (pathname === '/academy/merci') {
+  // Minimal header (logo only) on thank-you and webinar pages
+  if (pathname === '/academy/merci' || pathname === '/webinar' || pathname === '/webinar/merci' || pathname === '/live') {
     return (
       <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/20 bg-black/95 backdrop-blur-md">
         <nav className="max-w-7xl mx-auto px-4 py-3.5">

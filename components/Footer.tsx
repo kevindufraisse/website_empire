@@ -34,7 +34,7 @@ export default function Footer() {
     })()
   }, [namespace])
 
-  if (isCandidaturePage || pathname === '/academy/merci') return null
+  if (isCandidaturePage || pathname === '/academy/merci' || pathname === '/webinar' || pathname === '/webinar/merci' || pathname === '/live') return null
 
   return (
     <footer className="relative w-full border-t border-white/10 bg-black pb-[env(safe-area-inset-bottom)]">

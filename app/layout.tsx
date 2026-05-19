@@ -1,6 +1,6 @@
 import './globals.css'
 import { ReactNode } from 'react'
-import { Inter } from 'next/font/google'
+import { Inter, Caveat } from 'next/font/google'
 import { LanguageProvider } from '@/contexts/LanguageContext'
 import { AutopilotProvider } from '@/contexts/AutopilotContext'
 import { GiftCountdownProvider } from '@/components/GiftCountdownBar'
@@ -11,6 +11,7 @@ import CalStickyBar from '@/components/CalStickyBar'
 import CalCtaRedirect from '@/components/CalCtaRedirect'
 
 const inter = Inter({ subsets: ['latin'] })
+const caveat = Caveat({ subsets: ['latin'], weight: ['600', '700'], variable: '--font-caveat' })
 
 export const metadata = {
   title: 'Empire Internet - The Content Machine',
@@ -23,7 +24,7 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className={caveat.variable} suppressHydrationWarning>
       <head>
         {/* Google Tag Manager */}
         <script dangerouslySetInnerHTML={{
