@@ -52,8 +52,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <AutopilotProvider>
             <GiftCountdownProvider>
             <div data-chrome="cal-redirect"><CalCtaRedirect /></div>
-            <WebinarBanner />
             <div data-chrome="header"><Header /></div>
+            <WebinarBanner />
             <div data-chrome="popups"><ClientWrappers /></div>
             <div data-chrome="sticky-bar"><CalStickyBar /></div>
             <div suppressHydrationWarning>

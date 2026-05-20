@@ -231,7 +231,7 @@ function RegistrationForm({ id }: { id?: string }) {
               <div className="flex items-center gap-1.5 mt-1.5 pl-1">
                 <Phone size={11} className="text-empire/70" />
                 <p className="text-[10px] text-neutral-300">
-                  Reçois un <span className="text-empire font-semibold">bonus exclusif</span> et les rappels du live par SMS
+                  Reçois notre <span className="text-empire font-semibold">tunnel de vente offert</span> (valeur 500€) + rappels du live par SMS
                 </p>
               </div>
             </div>
