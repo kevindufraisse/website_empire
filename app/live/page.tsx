@@ -1,8 +1,8 @@
 import LiveClient from './LiveClient'
 
 export const metadata = {
-  title: 'Live - La Méthode Gourou | Empire Internet',
-  description: 'Le live de La Méthode Gourou.',
+  title: 'Live - Webinar Empire Internet',
+  description: 'Le live du webinar Empire Internet.',
   robots: { index: false, follow: false },
 }
 

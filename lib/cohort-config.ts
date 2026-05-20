@@ -5,8 +5,7 @@
 const COHORTS: [string, string][] = [
   ['2026-04-25', '2026-05-17'],
   ['2026-05-18', '2026-06-07'],
-  // Add future cohorts below:
-  // ['2026-07-01', '2026-07-21'],
+  ['2026-06-15', '2026-07-05'],
 ]
 
 const MONTHS_SHORT: Record<string, string> = {
@@ -93,8 +92,8 @@ export interface AcademyPricingTier {
  * - Late: until lastChanceDate (exclusive)
  * - Last chance: until cohort start
  */
-const LATE_DATE = '2026-05-10'
-const LAST_CHANCE_DATE = '2026-05-16'
+const LATE_DATE = '2026-06-11'
+const LAST_CHANCE_DATE = '2026-06-13'
 
 const tiers = [
   { price: 497, installment: 165, label: 'Early bird', link: 'https://join.empire-internet.com/academy', until: LATE_DATE },

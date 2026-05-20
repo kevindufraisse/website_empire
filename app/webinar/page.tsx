@@ -1,8 +1,8 @@
 import WebinarClient from './WebinarClient'
 
 export const metadata = {
-  title: 'La Méthode Gourou - Webinar gratuit | Empire Internet',
-  description: 'Comment les personnalités les plus visibles construisent une audience qui les adore, les déteste, et achète tout ce qu\'elles vendent. Webinar gratuit - Places limitées.',
+  title: 'Les secrets des gourous du web - Webinar gratuit | Empire Internet',
+  description: 'Découvrez les secrets psychologiques qu\'utilisent les gourous du web pour avoir une audience qui achète sans poser de questions. Webinar gratuit - Places limitées.',
   robots: { index: true, follow: true },
 }
 

@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect, useCallback, FormEvent } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
-import { ChevronDown, Check, X, Play, Users, Clock, ArrowRight, Quote, Zap, Target, Tv, BookOpen, Mic, Phone, Loader2, Lock } from 'lucide-react'
+import { ChevronDown, Check, X, Play, Users, Clock, ArrowRight, Zap, Tv, BookOpen, Phone, Loader2, Lock } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const CTA_LINK = '#inscription'
@@ -18,9 +18,9 @@ const PERSONALITIES = [
 ]
 
 const HERO_BULLETS = [
-  { text: 'Pourquoi certains deviennent des phénomènes (et pas toi)' },
-  { text: 'Le décryptage complet de La Méthode Gourou' },
-  { text: 'Comment l\'appliquer à ton business sans devenir un imposteur' },
+  { text: 'Comment créer une armée de fans qui achètent TOUS vos produits' },
+  { text: 'Pourquoi il n\'a jamais été aussi simple d\'appliquer ces méthodes en 2026' },
+  { text: 'Pourquoi ces méthodes sont restées secrètes aussi longtemps' },
 ]
 
 /* ── Utilities ── */
@@ -224,14 +224,14 @@ function RegistrationForm({ id }: { id?: string }) {
                 <input
                   type="tel"
                   name="telephone"
-                  placeholder="Numéro (optionnel)"
+                  placeholder="Ton numéro"
                   className="flex-1 px-4 py-2.5 rounded-xl bg-white/[0.06] border border-white/10 text-white placeholder:text-neutral-500 text-sm focus:outline-none focus:border-empire/50 focus:ring-1 focus:ring-empire/30 transition-colors"
                 />
               </div>
               <div className="flex items-center gap-1.5 mt-1.5 pl-1">
                 <Phone size={11} className="text-empire/70" />
                 <p className="text-[10px] text-neutral-300">
-                  <span className="text-empire font-semibold">Bonus VIP</span> + rappels par SMS <span className="text-neutral-500">(pas de spam)</span>
+                  Reçois un <span className="text-empire font-semibold">bonus exclusif</span> et les rappels du live par SMS
                 </p>
               </div>
             </div>
@@ -383,64 +383,56 @@ function HeroSection() {
         <div className="grid grid-cols-1 md:grid-cols-[1fr_380px] lg:grid-cols-[1fr_420px] gap-6 lg:gap-10 items-start">
 
           {/* LEFT: headline + content */}
-          <div className="py-2 md:py-4">
-            <span className="text-[11px] font-black text-empire tracking-[0.2em] uppercase">
-              Webinar gratuit · Mer. 10 juin · 19h
-            </span>
+          <div className="py-2 md:py-6">
+            {/* Top line: date + gratuit */}
+            <div className="flex items-center gap-3 mb-5">
+              <span className="text-[11px] font-black text-empire tracking-[0.2em] uppercase">
+                Webinar gratuit · Mer. 10 juin · 19h
+              </span>
+              <span className="px-2 py-0.5 border border-red-500/60 rounded text-[10px] font-black text-red-400 tracking-wider uppercase bg-red-500/5">
+                100% gratuit
+              </span>
+            </div>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-[3.2rem] font-extrabold leading-[1.1] mt-3 mb-4">
-              La Méthode <span className="text-empire">Gourou</span><span className="text-red-400/70 text-[0.5em] align-super ml-0.5">*</span>
+            {/* H1 */}
+            <h1 className="text-[1.65rem] sm:text-[2rem] lg:text-[2.5rem] font-extrabold leading-[1.18] mb-7 max-w-[520px]">
+              Découvrez les <span className="text-empire">secrets psychologiques</span> qu&apos;utilisent les gourou<span className="text-red-400/70 text-[0.5em] align-super">*</span> du web pour avoir une audience qui achète sans poser de questions.
             </h1>
 
-            <p className="text-base lg:text-lg text-neutral-300 mb-6 leading-relaxed max-w-lg">
-              Pourquoi certains entrepreneurs deviennent des phénomènes pendant que 99% restent invisibles - et comment appliquer <Highlight color="yellow">les mêmes techniques</Highlight> à ton business.
-            </p>
-
             {/* Bullets */}
-            <div className="space-y-3 mb-7">
+            <div className="space-y-2.5 mb-8">
               {HERO_BULLETS.map((b, i) => (
-                <div key={i} className="flex items-start gap-3">
-                  <div className="rounded-full bg-empire flex items-center justify-center flex-shrink-0 mt-0.5" style={{ width: 20, height: 20 }}>
-                    <Check size={11} className="text-black" strokeWidth={3.5} />
+                <div key={i} className="flex items-start gap-2.5">
+                  <div className="rounded-full bg-empire/15 border border-empire/30 flex items-center justify-center flex-shrink-0 mt-0.5" style={{ width: 18, height: 18 }}>
+                    <Check size={10} className="text-empire" strokeWidth={3} />
                   </div>
-                  <span className="text-sm md:text-base text-neutral-200 leading-snug">{b.text}</span>
+                  <span className="text-[13px] md:text-sm text-neutral-300 leading-snug">{b.text}</span>
                 </div>
               ))}
             </div>
 
-            {/* GRATUIT + value anchor */}
-            <div className="flex items-center gap-4 mb-6">
-              <div className="transform -rotate-[6deg]">
-                <div className="px-3 py-1 border-2 border-red-500 rounded bg-red-500/5">
-                  <span className="text-red-500 font-black text-sm tracking-widest" style={{ fontFamily: 'Impact, sans-serif' }}>
-                    100% GRATUIT
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Hosts + "Vu sur" */}
-            <div className="flex items-center gap-4 flex-wrap">
-              <div className="flex items-center gap-2.5">
+            {/* Hosts + credibility */}
+            <div className="flex items-center gap-3 flex-wrap">
+              <div className="flex items-center gap-2">
                 <div className="flex -space-x-2 flex-shrink-0">
-                  <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-empire/50 z-10">
+                  <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-empire/40 z-10">
                     <img src="/founders/kevin.jpg" alt="Kevin" className="w-full h-full object-cover" />
                   </div>
-                  <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-empire/50">
+                  <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-empire/40">
                     <img src="/founders/marc.jpg" alt="Marc" className="w-full h-full object-cover" />
                   </div>
                 </div>
-                <span className="text-xs text-neutral-400">Kevin & Marc Dufraisse</span>
+                <div className="flex flex-col">
+                  <span className="text-xs text-white font-semibold leading-tight">Kevin & Marc Dufraisse</span>
+                  <span className="text-[10px] text-neutral-500 leading-tight">Top 50 LinkedIn · 700M vues · 4 000 clients</span>
+                </div>
               </div>
-              <div className="h-4 w-px bg-white/10" />
-              <div className="flex items-center gap-2 opacity-60">
+              <div className="h-4 w-px bg-white/10 hidden sm:block" />
+              <div className="flex items-center gap-1.5 opacity-50">
                 <span className="text-[9px] text-neutral-500 uppercase tracking-wider">Vu sur</span>
                 <CredibilityStrip />
               </div>
             </div>
-            <p className="text-[11px] text-neutral-500 mt-2.5">
-              Top 50 LinkedIn France - 700M vues - 4 000 clients
-            </p>
           </div>
 
           {/* RIGHT: form sticky */}
@@ -608,8 +600,8 @@ function KeysSection() {
   const keys = [
     {
       number: '01',
-      title: 'Pourquoi certaines personnes deviennent des phénomènes (et pas toi)',
-      description: 'Pourquoi nos cerveaux sont câblés pour suivre ceux qui polarisent - et pourquoi essayer de plaire à tout le monde te rend invisible.',
+      title: 'Comment créer une armée de fans qui achètent TOUS vos produits',
+      description: 'Le mécanisme psychologique qui transforme un simple visiteur en fan inconditionnel - et comment les personnalités les plus visibles l\'exploitent pour vendre sans effort.',
       visual: (
         <div className="flex items-center -space-x-3">
           {PERSONALITIES.slice(0, 3).map((p, i) => (
@@ -623,11 +615,11 @@ function KeysSection() {
     },
     {
       number: '02',
-      title: 'Ce que font les plus gros créateurs-entrepreneurs (et ce que tu ne fais pas)',
-      description: 'Leur hook, leur storytelling, leur fréquence, leur positionnement clivant. On décortique les mécaniques exactes qui transforment un post en machine à clients.',
+      title: 'Pourquoi il n\'a jamais été aussi simple d\'appliquer ces méthodes en 2026',
+      description: 'Les outils, les plateformes et les algorithmes actuels rendent ces techniques accessibles à n\'importe quel entrepreneur. On te montre exactement comment en profiter.',
       visual: (
         <div className="flex items-center gap-2 flex-wrap">
-          {['Hook', 'Storytelling', 'Fréquence', 'Positionnement clivant'].map((tag) => (
+          {['Algorithmes', 'IA', 'Réseaux sociaux', 'Contenu court'].map((tag) => (
             <span key={tag} className="px-2.5 py-1 rounded-full bg-empire/10 border border-empire/20 text-[10px] font-bold text-empire tracking-wide">{tag}</span>
           ))}
         </div>
@@ -635,18 +627,18 @@ function KeysSection() {
     },
     {
       number: '03',
-      title: 'Comment appliquer ça à ton business (sans devenir un imposteur)',
-      description: 'Le système Empire Internet pour transformer des profils inconnus en références de leur niche. Ces techniques marchent dans tous les secteurs - de la tech au coaching en passant par la finance et le conseil. Avec un cas concret.',
+      title: 'Pourquoi ces méthodes sont restées secrètes aussi longtemps',
+      description: 'Ces techniques sont utilisées par les médias, les politiques et les plus grandes marques du monde. On t\'explique pourquoi personne ne les enseigne - et ce que ça change pour toi.',
       visual: (
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10">
-            <div className="w-6 h-6 rounded-full bg-neutral-700 flex items-center justify-center text-[8px] font-bold text-neutral-400">?</div>
-            <span className="text-xs text-neutral-400">Inconnu</span>
+            <div className="w-6 h-6 rounded-full bg-neutral-700 flex items-center justify-center"><Lock size={10} className="text-neutral-400" /></div>
+            <span className="text-xs text-neutral-400">Secret</span>
           </div>
           <ArrowRight size={14} className="text-empire" />
           <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-empire/10 border border-empire/20">
-            <div className="w-6 h-6 rounded-full bg-empire/20 flex items-center justify-center text-[8px] font-bold text-empire">★</div>
-            <span className="text-xs text-empire font-semibold">Référence</span>
+            <div className="w-6 h-6 rounded-full bg-empire/20 flex items-center justify-center"><Zap size={10} className="text-empire" /></div>
+            <span className="text-xs text-empire font-semibold">Révélé</span>
           </div>
         </div>
       ),
@@ -715,7 +707,7 @@ function AboutSection() {
           <div className="text-center mb-14">
             <p className="text-sm text-empire mb-3 tracking-widest uppercase font-bold">Qui on est</p>
             <h2 className="text-3xl md:text-5xl font-bold">Kevin & Marc Dufraisse</h2>
-            <p className="text-neutral-400 mt-3 text-lg">4 ans à tester 1000 techniques marketing. Aujourd'hui :</p>
+            <p className="text-neutral-400 mt-3 text-lg">On a inspiré des centaines de personnes à créer leur marque personnelle. On dévoile les méthodes de ceux qui ont réussi aujourd'hui.</p>
           </div>
         </FadeIn>
 
@@ -790,7 +782,7 @@ function AboutSection() {
 
               <div className="p-4 rounded-xl bg-empire/5 border border-empire/15">
                 <p className="text-sm text-empire font-semibold">
-                  Et oui - on utilise La Méthode Gourou sur nous-mêmes. C'est aussi pour ça qu'on peut l'enseigner honnêtement.
+                  On utilise ces techniques sur nous-mêmes. C'est aussi pour ça qu'on peut les enseigner honnêtement.
                 </p>
               </div>
             </div>
@@ -801,155 +793,6 @@ function AboutSection() {
   )
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   CASE STUDY
-   ═══════════════════════════════════════════════════════════════ */
-function CaseStudySection() {
-  const mediaResults = [
-    { text: 'Invitée chez France 2', icon: <Tv size={16} />, highlight: true },
-    { text: 'Citée dans Cosmopolitan', icon: <BookOpen size={16} />, highlight: true },
-    { text: 'Magazines, podcasts, médias mainstream', icon: <Mic size={16} />, highlight: false },
-    { text: 'LA référence française arrêt alcool < 12 mois', icon: <Target size={16} />, highlight: false },
-  ]
-
-  return (
-    <section className="relative w-full py-20 md:py-32 bg-black">
-      <div className="container relative z-10 max-w-4xl mx-auto">
-        <FadeIn>
-          <div className="text-center mb-14">
-            <p className="text-sm text-empire mb-3 tracking-widest uppercase font-bold">Cas client</p>
-            <h2 className="text-3xl md:text-5xl font-bold leading-tight">
-              La preuve que ça marche <span className="text-empire">pour les inconnus</span>
-            </h2>
-          </div>
-        </FadeIn>
-
-        <FadeIn>
-          <div className="rounded-2xl bg-white/[0.04] border border-white/[0.1] overflow-hidden">
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-0">
-              <div className="md:col-span-2 p-6 md:p-8 flex flex-col items-center justify-center text-center md:border-r border-white/[0.06]">
-                <div className="w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden border-2 border-empire/30 mb-4">
-                  <img src="/webinar/thefrenchsober-logo.jpg" alt="thefrenchsober" className="w-full h-full object-cover" />
-                </div>
-                <h3 className="text-lg font-bold text-white mb-1">Lorraine Vallery-Radot</h3>
-                <p className="text-xs text-empire font-medium mb-4">@thefrenchsober</p>
-                <div className="flex flex-wrap justify-center gap-2">
-                  <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
-                    <Tv size={12} className="text-blue-400" />
-                    <span className="text-[10px] font-bold text-neutral-300">France 2</span>
-                  </div>
-                  <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
-                    <BookOpen size={12} className="text-pink-400" />
-                    <span className="text-[10px] font-bold text-neutral-300">Cosmopolitan</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="md:col-span-3 p-6 md:p-8">
-                <p className="text-sm text-empire font-bold mb-3 tracking-wider uppercase">De zéro à France 2 avec un seul post</p>
-                <div className="space-y-3 mb-6">
-                  <p className="text-neutral-300 text-sm leading-relaxed">
-                    Lorraine partait de rien. Aucune notoriété. Aucune audience. Aucun réseau dans les médias. Elle a appliqué les principes de La Méthode Gourou sur <span className="text-white font-semibold">un seul post LinkedIn</span>.
-                  </p>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-6">
-                  {mediaResults.map((r, i) => (
-                    <div key={i} className={cn(
-                      'flex items-center gap-2.5 p-2.5 rounded-lg',
-                      r.highlight ? 'bg-empire/8 border border-empire/15' : 'bg-white/[0.03] border border-white/[0.06]'
-                    )}>
-                      <span className={r.highlight ? 'text-empire' : 'text-neutral-500'}>{r.icon}</span>
-                      <span className="text-xs text-neutral-200 font-medium">{r.text}</span>
-                    </div>
-                  ))}
-                </div>
-                <div className="relative p-4 rounded-xl bg-black/40 border border-white/[0.08]">
-                  <Quote size={16} className="text-empire/40 absolute top-3 left-3" />
-                  <p className="text-sm text-neutral-200 italic leading-relaxed pl-5">
-                    "Un seul post a tout changé. Maintenant je suis sollicitée par des médias que je n'aurais jamais osé contacter."
-                  </p>
-                  <p className="text-xs text-neutral-500 mt-2 pl-5">- Lorraine Vallery-Radot</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </FadeIn>
-
-        <FadeIn>
-          <div className="text-center mt-10">
-            <CTAButton large />
-          </div>
-        </FadeIn>
-      </div>
-    </section>
-  )
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   FOR WHO
-   ═══════════════════════════════════════════════════════════════ */
-function ForWhoSection() {
-  const forYou = [
-    'Tu es entrepreneur, consultant, coach ou expert avec un vrai produit',
-    'Tu sens que tu mérites plus de visibilité que tu n\'en as',
-    'Tu es fasciné (et un peu agacé) par les personnalités qui dominent leur marché',
-    'Tu veux apprendre les techniques que personne n\'ose enseigner',
-    'Tu refuses de devenir un imposteur mais tu veux les leviers des meilleurs',
-  ]
-  const notForYou = [
-    'Tu cherches un cours de "personal branding gentil"',
-    'Tu penses que la polarisation est immorale par principe',
-    'Tu n\'as pas encore de produit ou service à proposer',
-    'Tu veux des techniques pour arnaquer - on ne joue pas à ce jeu',
-  ]
-
-  return (
-    <section className="relative w-full py-20 md:py-32 bg-[#060606]">
-      <div className="container relative z-10 max-w-4xl mx-auto">
-        <FadeIn>
-          <div className="text-center mb-14">
-            <p className="text-sm text-empire mb-3 tracking-widest uppercase font-bold">Pour qui</p>
-            <h2 className="text-3xl md:text-5xl font-bold">Ce webinar est pour toi si</h2>
-          </div>
-        </FadeIn>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <FadeIn>
-            <div className="p-6 md:p-8 rounded-2xl bg-white/[0.03] border border-empire/15 h-full">
-              <div className="flex items-center gap-2 mb-6">
-                <div className="w-8 h-8 rounded-full bg-empire/20 flex items-center justify-center"><Check size={16} className="text-empire" /></div>
-                <h3 className="text-lg font-bold text-empire">C'est pour toi</h3>
-              </div>
-              <div className="space-y-3">
-                {forYou.map((item, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <Check size={16} className="text-empire mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-neutral-200 leading-relaxed">{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </FadeIn>
-          <FadeIn>
-            <div className="p-6 md:p-8 rounded-2xl bg-white/[0.03] border border-red-500/10 h-full">
-              <div className="flex items-center gap-2 mb-6">
-                <div className="w-8 h-8 rounded-full bg-red-500/20 flex items-center justify-center"><X size={16} className="text-red-400" /></div>
-                <h3 className="text-lg font-bold text-red-400">Reste pas si</h3>
-              </div>
-              <div className="space-y-3">
-                {notForYou.map((item, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <X size={16} className="text-red-400 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-neutral-300 leading-relaxed">{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </FadeIn>
-        </div>
-      </div>
-    </section>
-  )
-}
 
 /* ═══════════════════════════════════════════════════════════════
    FAQ
@@ -957,11 +800,13 @@ function ForWhoSection() {
 function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
   const faqs = [
+    { q: 'C\'est pour qui ce webinar ?', a: 'Tu es entrepreneur, consultant, coach ou expert avec un vrai produit. Tu sens que tu mérites plus de visibilité que tu n\'en as. Tu es fasciné (et un peu agacé) par les personnalités qui dominent leur marché. Tu veux apprendre les techniques que personne n\'ose enseigner.' },
+    { q: 'C\'est PAS pour qui ?', a: 'Si tu veux utiliser ces techniques pour manipuler ou persuader des gens d\'acheter un mauvais produit - on ne joue pas à ce jeu. Ce webinar est fait pour ceux qui ont une vraie valeur à apporter et qui veulent enfin être vus pour ce qu\'ils valent.' },
     { q: 'Le webinar est gratuit ?', a: 'Oui. 100% gratuit. Pas de carte bancaire pour s\'inscrire.' },
     { q: 'Y aura-t-il un replay ?', a: 'Un replay 48h est disponible uniquement pour les inscrits ayant assisté à au moins la moitié du live. Si tu n\'es pas là, tu n\'as pas accès au replay.' },
-    { q: 'Vous allez vendre quelque chose ?', a: 'Oui. À la fin, on présente Empire Internet - le système qu\'on a construit pour appliquer La Méthode Gourou à grande échelle. Tu achètes ou pas. Aucune pression.' },
+    { q: 'Vous allez vendre quelque chose ?', a: 'Oui. À la fin, on présente Empire Internet - le système qu\'on a construit pour appliquer ces techniques à grande échelle. Tu achètes ou pas. Aucune pression.' },
     { q: 'C\'est légal de citer ces personnes ?', a: 'Oui, dans le cadre d\'une analyse critique éducative (droit français). Voir la mention légale en bas de page.' },
-    { q: '"Méthode Gourou" - c\'est éthique ?', a: 'Le mot "gourou" est volontairement direct. La méthode n\'a rien de manipulateur. On parle de techniques marketing publiques, observables, analysables, applicables à n\'importe quel entrepreneur honnête qui veut être vu pour ce qu\'il vaut.' },
+    { q: '"Gourou" - c\'est éthique ?', a: 'Le mot "gourou" est volontairement direct. On parle de techniques marketing publiques, observables, analysables, applicables à n\'importe quel entrepreneur honnête qui veut être vu pour ce qu\'il vaut.' },
     { q: 'Combien de temps dure le webinar ?', a: '90 minutes + 15 minutes de Q&A.' },
   ]
 
@@ -1040,7 +885,7 @@ function FinalCTASection() {
         <FadeIn>
           <div className="text-center mb-8">
             <h2 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
-              Prêt à découvrir <span className="text-empire">La Méthode Gourou</span> ?
+              Prêt à découvrir <span className="text-empire">les secrets des gourous</span> ?
             </h2>
             <div className="flex items-center justify-center gap-3 mb-4 flex-wrap">
               <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10">
@@ -1139,10 +984,6 @@ export default function WebinarClient() {
       <KeysSection />
       <SectionDivider />
       <AboutSection />
-      <SectionDivider />
-      <CaseStudySection />
-      <SectionDivider />
-      <ForWhoSection />
       <SectionDivider />
       <FAQSection />
       <FinalCTASection />

@@ -120,7 +120,7 @@ function BeforeLive() {
         Le live commence dans...
       </h1>
       <p className="text-neutral-400 mt-3 mb-10 text-sm md:text-base">
-        La Méthode Gourou - mercredi 10 juin 2026, 19h00 (Paris).
+        Les secrets des gourous - mercredi 10 juin 2026, 19h00 (Paris).
       </p>
       <CountdownBig />
       <div className="mt-12 rounded-2xl border border-white/10 bg-white/[0.03] p-6 md:p-8 text-left">
@@ -196,7 +196,7 @@ function LiveView() {
         <StateBadge state="live" />
       </div>
       <h1 className="text-2xl md:text-4xl font-black text-white text-center mb-2 leading-tight">
-        La Méthode Gourou - En direct
+        Les secrets des gourous - En direct
       </h1>
       <p className="text-neutral-400 text-center text-sm md:text-base mb-8">
         Si la vidéo ne charge pas,{' '}
@@ -258,7 +258,7 @@ function Expired() {
         La diffusion est terminée
       </h1>
       <p className="text-neutral-400 mt-3 mb-8 text-sm md:text-base">
-        Le replay n'est plus disponible. La prochaine session de La Méthode Gourou arrive bientôt - inscris-toi pour être prévenu en premier.
+        Le replay n'est plus disponible. Le prochain webinar arrive bientôt - inscris-toi pour être prévenu en premier.
       </p>
       <a
         href="/webinar"
