@@ -3,8 +3,8 @@
 import { useEffect, useState, useCallback } from 'react'
 import { ArrowRight, Calendar, Clock, Play, Users } from 'lucide-react'
 
-const WEBINAR_START = new Date('2026-06-10T19:00:00+02:00')
-const WEBINAR_END = new Date('2026-06-10T20:30:00+02:00')
+const WEBINAR_START = new Date('2026-06-18T19:00:00+02:00')
+const WEBINAR_END = new Date('2026-06-18T20:30:00+02:00')
 const REPLAY_DEADLINE = new Date(WEBINAR_END.getTime() + 48 * 3600 * 1000)
 const DOORS_OPEN_BEFORE_MS = 5 * 60 * 1000
 
@@ -120,7 +120,7 @@ function BeforeLive() {
         Le live commence dans...
       </h1>
       <p className="text-neutral-400 mt-3 mb-10 text-sm md:text-base">
-        Les secrets des gourous - mercredi 10 juin 2026, 19h00 (Paris).
+        Les secrets des gourous - jeudi 18 juin 2026, 19h00 (Paris).
       </p>
       <CountdownBig />
       <div className="mt-12 rounded-2xl border border-white/10 bg-white/[0.03] p-6 md:p-8 text-left">

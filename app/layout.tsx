@@ -9,6 +9,7 @@ import Footer from '@/components/Footer'
 import ClientWrappers from '@/components/ClientWrappers'
 import CalStickyBar from '@/components/CalStickyBar'
 import CalCtaRedirect from '@/components/CalCtaRedirect'
+import WebinarBanner from '@/components/WebinarBanner'
 
 const inter = Inter({ subsets: ['latin'] })
 const caveat = Caveat({ subsets: ['latin'], weight: ['600', '700'], variable: '--font-caveat' })
@@ -51,6 +52,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <AutopilotProvider>
             <GiftCountdownProvider>
             <div data-chrome="cal-redirect"><CalCtaRedirect /></div>
+            <WebinarBanner />
             <div data-chrome="header"><Header /></div>
             <div data-chrome="popups"><ClientWrappers /></div>
             <div data-chrome="sticky-bar"><CalStickyBar /></div>

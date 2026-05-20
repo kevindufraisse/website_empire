@@ -3,19 +3,19 @@
 import { Check, CalendarPlus, Mail, Clock, Users, Share2, Linkedin, AlertTriangle, ArrowRight } from 'lucide-react'
 import Image from 'next/image'
 
-const WEBINAR_DATE = '10 juin 2026'
-const WEBINAR_DATE_SHORT = 'mer. 10 juin'
+const WEBINAR_DATE = '18 juin 2026'
+const WEBINAR_DATE_SHORT = 'jeu. 18 juin'
 const WEBINAR_TIME = '19h00'
 const WEBINAR_DURATION = '90 min'
 
 const CAL_TITLE = encodeURIComponent('Les secrets des gourous - Webinar Empire Internet')
 const CAL_DESC = encodeURIComponent('Webinar gratuit avec Kevin & Marc Dufraisse.\nDécouvre les techniques des personnalités les plus visibles et comment les appliquer à ton business.\n\nLien : https://empire-internet.com/live')
-const CAL_START = '20260610T170000Z'
-const CAL_END = '20260610T183000Z'
+const CAL_START = '20260618T170000Z'
+const CAL_END = '20260618T183000Z'
 
 const CALENDAR_LINKS = {
   google: `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${CAL_TITLE}&dates=${CAL_START}/${CAL_END}&details=${CAL_DESC}`,
-  outlook: `https://outlook.live.com/calendar/0/action/compose?subject=${CAL_TITLE}&startdt=2026-06-10T17:00:00Z&enddt=2026-06-10T18:30:00Z&body=${CAL_DESC}`,
+  outlook: `https://outlook.live.com/calendar/0/action/compose?subject=${CAL_TITLE}&startdt=2026-06-18T17:00:00Z&enddt=2026-06-18T18:30:00Z&body=${CAL_DESC}`,
   yahoo: `https://calendar.yahoo.com/?v=60&title=${CAL_TITLE}&st=${CAL_START}&et=${CAL_END}&desc=${CAL_DESC}`,
 }
 
@@ -30,7 +30,7 @@ const WEBINAR_BULLETS = [
 
 const SHARE_URL = 'https://empire-internet.com/webinar'
 const SHARE_TITLE = 'Les secrets des gourous du web - Webinar gratuit (Empire Internet)'
-const SHARE_TEXT = 'Les secrets psychologiques qu\'utilisent les gourous du web pour avoir une audience qui achète sans poser de questions. Webinar gratuit le 10 juin, animé par Kevin & Marc Dufraisse.'
+const SHARE_TEXT = 'Les secrets psychologiques qu\'utilisent les gourous du web pour avoir une audience qui achète sans poser de questions. Webinar gratuit le 18 juin, animé par Kevin & Marc Dufraisse.'
 
 function generateICS(): string {
   const lines = [
@@ -40,8 +40,8 @@ function generateICS(): string {
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
     'BEGIN:VEVENT',
-    'DTSTART:20260610T170000Z',
-    'DTEND:20260610T183000Z',
+    'DTSTART:20260618T170000Z',
+    'DTEND:20260618T183000Z',
     'SUMMARY:Les secrets des gourous - Webinar Empire Internet',
     'DESCRIPTION:Webinar gratuit avec Kevin & Marc Dufraisse.\\nDécouvre les techniques des personnalités les plus visibles et comment les appliquer à ton business.\\n\\nLien : https://empire-internet.com/webinar',
     'URL:https://empire-internet.com/webinar',

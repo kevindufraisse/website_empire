@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils'
 
 const CTA_LINK = '#inscription'
 
-const WEBINAR_DATE = new Date('2026-06-10T19:00:00+02:00')
+const WEBINAR_DATE = new Date('2026-06-18T19:00:00+02:00')
 
 const PERSONALITIES = [
   { name: 'Idriss Aberkane', role: 'Essayiste · Conférencier', img: '/webinar/idriss-aberkane.jpg' },
@@ -175,7 +175,7 @@ function RegistrationForm({ id }: { id?: string }) {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500" />
             </span>
-            <span className="text-[11px] font-bold text-white tracking-wide uppercase">10 juin · 19h</span>
+            <span className="text-[11px] font-bold text-white tracking-wide uppercase">18 juin · 19h</span>
           </div>
           <CountdownTimer compact />
         </div>
@@ -387,7 +387,7 @@ function HeroSection() {
             {/* Top line: date + gratuit */}
             <div className="flex items-center gap-3 mb-5">
               <span className="text-[11px] font-black text-empire tracking-[0.2em] uppercase">
-                Webinar gratuit · Mer. 10 juin · 19h
+                Webinar gratuit · Jeu. 18 juin · 19h
               </span>
               <span className="px-2 py-0.5 border border-red-500/60 rounded text-[10px] font-black text-red-400 tracking-wider uppercase bg-red-500/5">
                 100% gratuit
@@ -890,7 +890,7 @@ function FinalCTASection() {
             <div className="flex items-center justify-center gap-3 mb-4 flex-wrap">
               <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10">
                 <Clock size={14} className="text-empire" />
-                <span className="text-sm text-neutral-200 font-medium">10 juin à 19h</span>
+                <span className="text-sm text-neutral-200 font-medium">18 juin à 19h</span>
               </div>
               <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10">
                 <Play size={14} className="text-empire" />
