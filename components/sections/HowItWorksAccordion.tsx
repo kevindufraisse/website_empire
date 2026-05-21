@@ -483,8 +483,8 @@ export default function HowItWorksAccordion() {
                     {autopilot
                       ? t.autopilot.howItWorks.b3.desc
                       : (lang === 'fr'
-                          ? 'Nos copywriters rédigent vos posts LinkedIn et newsletters. Nos monteurs créent vos Shorts, Reels et vidéos YouTube longues. Tout est vérifié par un humain.'
-                          : 'Our copywriters write your LinkedIn posts and newsletters. Our editors create your Shorts, Reels and long-form YouTube videos. Everything reviewed by a human.')}
+                          ? 'Notre équipe écrit, découpe et monte tout votre contenu à partir de votre interview. Posts, newsletters, Shorts, Reels, vidéos longues. Tout est vérifié par un humain.'
+                          : 'Our team writes, cuts and edits all your content from your interview. Posts, newsletters, Shorts, Reels, long-form videos. Everything reviewed by a human.')}
                   </p>
                 </div>
               </div>
