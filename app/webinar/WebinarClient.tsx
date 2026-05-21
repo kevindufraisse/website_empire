@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { ChevronDown, Check, X, Play, Users, Clock, ArrowRight, Zap, Tv, BookOpen, Phone, Loader2, Lock } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import TestimonialsSection from '@/components/sections/TestimonialsSection'
 
 const CTA_LINK = '#inscription'
 
@@ -18,7 +19,7 @@ const PERSONALITIES = [
 ]
 
 const HERO_BULLETS = [
-  { text: 'Comment créer une armée de fans qui achètent TOUS vos produits' },
+  { text: 'Les secrets psychologiques qu\'utilisent les "gourou" du web pour avoir une audience qui achète sans poser de questions' },
   { text: 'Pourquoi il n\'a jamais été aussi simple d\'appliquer ces méthodes en 2026' },
   { text: 'Pourquoi ces méthodes sont restées secrètes aussi longtemps' },
 ]
@@ -70,6 +71,8 @@ function CountdownTimer({ compact }: { compact?: boolean }) {
   const { mounted, ...t } = useCountdown(WEBINAR_DATE)
   const pad = (n: number) => String(n).padStart(2, '0')
   const placeholder = '--'
+
+  if (mounted && t.days > 10) return null
 
   if (compact) {
     return (
@@ -254,7 +257,7 @@ function RegistrationForm({ id }: { id?: string }) {
           </button>
 
           <p className="text-[10px] text-neutral-500 text-center mt-2">
-            500 places en live · premier arrivé, premier servi
+            Replay 48h uniquement pour les présents au live
           </p>
 
           {/* Trust line under CTA */}
@@ -394,9 +397,9 @@ function HeroSection() {
               </span>
             </div>
 
-            {/* H1 */}
-            <h1 className="text-[1.65rem] sm:text-[2rem] lg:text-[2.5rem] font-extrabold leading-[1.18] mb-7 max-w-[520px]">
-              Découvrez les <span className="text-empire">secrets psychologiques</span> qu&apos;utilisent les gourou<span className="text-red-400/70 text-[0.5em] align-super">*</span> du web pour avoir une audience qui achète sans poser de questions.
+            {/* H1 - result-driven */}
+            <h1 className="text-[1.75rem] sm:text-[2.2rem] lg:text-[2.8rem] font-extrabold leading-[1.12] mb-7 max-w-[520px]">
+              Comment créer une armée de fans qui achètent <span className="text-empire">TOUS</span> vos produits
             </h1>
 
             {/* Bullets */}
@@ -410,6 +413,20 @@ function HeroSection() {
                 </div>
               ))}
             </div>
+
+            {/* Video teaser (conditional) */}
+            {process.env.NEXT_PUBLIC_WEBINAR_TEASER_VIDEO_URL && (
+              <div className="mb-6 rounded-xl overflow-hidden border border-white/10 bg-black/50">
+                <video
+                  src={process.env.NEXT_PUBLIC_WEBINAR_TEASER_VIDEO_URL}
+                  controls
+                  playsInline
+                  preload="metadata"
+                  className="w-full aspect-video"
+                  poster="/webinar/teaser-poster.jpg"
+                />
+              </div>
+            )}
 
             {/* Hosts + credibility */}
             <div className="flex items-center gap-3 flex-wrap">
@@ -600,8 +617,8 @@ function KeysSection() {
   const keys = [
     {
       number: '01',
-      title: 'Comment créer une armée de fans qui achètent TOUS vos produits',
-      description: 'Le mécanisme psychologique qui transforme un simple visiteur en fan inconditionnel - et comment les personnalités les plus visibles l\'exploitent pour vendre sans effort.',
+      title: 'Les secrets psychologiques qu\'utilisent les "gourou" du web',
+      description: 'Comment ils construisent une audience qui achète sans poser de questions - et pourquoi essayer de plaire à tout le monde te rend invisible.',
       visual: (
         <div className="flex items-center -space-x-3">
           {PERSONALITIES.slice(0, 3).map((p, i) => (
@@ -633,7 +650,7 @@ function KeysSection() {
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10">
             <div className="w-6 h-6 rounded-full bg-neutral-700 flex items-center justify-center"><Lock size={10} className="text-neutral-400" /></div>
-            <span className="text-xs text-neutral-400">Secret</span>
+            <span className="text-xs text-neutral-400">Caché</span>
           </div>
           <ArrowRight size={14} className="text-empire" />
           <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-empire/10 border border-empire/20">
@@ -652,7 +669,7 @@ function KeysSection() {
           <div className="text-center mb-6">
             <p className="text-sm text-empire mb-3 tracking-widest uppercase font-bold">Ce que tu vas découvrir</p>
             <h2 className="text-3xl md:text-5xl font-bold leading-tight">
-              3 secrets décortiqués <span className="text-empire">en 90 minutes</span>
+              3 leviers décortiqués <span className="text-empire">en 90 minutes</span>
             </h2>
           </div>
         </FadeIn>
@@ -668,7 +685,7 @@ function KeysSection() {
                         {key.number}
                       </div>
                       <div className="mt-1.5">
-                        <span className="text-[10px] font-black text-empire tracking-[0.2em]">SECRET</span>
+                        <span className="text-[10px] font-black text-empire tracking-[0.2em]">LEVIER</span>
                       </div>
                     </div>
                     <div className="flex-1 min-w-0">
@@ -885,7 +902,7 @@ function FinalCTASection() {
         <FadeIn>
           <div className="text-center mb-8">
             <h2 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
-              Prêt à découvrir <span className="text-empire">les secrets des gourous</span> ?
+              Prêt à découvrir <span className="text-empire">les codes des meilleurs</span> ?
             </h2>
             <div className="flex items-center justify-center gap-3 mb-4 flex-wrap">
               <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10">
@@ -984,6 +1001,8 @@ export default function WebinarClient() {
       <KeysSection />
       <SectionDivider />
       <AboutSection />
+      <SectionDivider />
+      <TestimonialsSection />
       <SectionDivider />
       <FAQSection />
       <FinalCTASection />

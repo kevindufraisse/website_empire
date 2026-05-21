@@ -29,7 +29,7 @@ export default function WebinarBanner() {
         <div className="max-w-7xl mx-auto flex items-center justify-center gap-3 text-center text-xs pr-6">
           <span className="text-neutral-400">
             Webinar gratuit le <span className="text-white font-semibold">18 juin à 19h</span> -
-            Les secrets psychologiques des gourous du web
+            Créer une armée de fans qui achètent tous vos produits
           </span>
           <a
             href="/webinar"
