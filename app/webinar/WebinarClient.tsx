@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useState, useEffect, useCallback, FormEvent } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { ChevronDown, Check, X, Play, Users, Clock, ArrowRight, Zap, Tv, BookOpen, Phone, Loader2, Lock } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -131,6 +131,8 @@ const COUNTRY_CODES = [
 
 function RegistrationForm({ id }: { id?: string }) {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const ref = searchParams.get('ref') || ''
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [countryCode, setCountryCode] = useState('+33')
@@ -150,7 +152,7 @@ function RegistrationForm({ id }: { id?: string }) {
       const res = await fetch('/api/webinar', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prenom, email, telephone }),
+        body: JSON.stringify({ prenom, email, telephone, ref }),
       })
       const data = await res.json()
       if (!res.ok) {

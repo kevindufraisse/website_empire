@@ -8,6 +8,11 @@ interface WebinarBody {
   prenom?: string
   email?: string
   telephone?: string
+  ref?: string
+}
+
+const REF_TAG_MAP: Record<string, string | undefined> = {
+  marc: process.env.SYSTEMEIO_TAG_WEBINAR_MARC,
 }
 
 function isValidEmail(email: string): boolean {
@@ -23,6 +28,7 @@ async function backupToSupabase(args: {
   prenom: string
   telephone: string
   systemeContactId: number
+  source: string
   req: NextRequest
 }) {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL
@@ -38,7 +44,7 @@ async function backupToSupabase(args: {
           email: args.email,
           first_name: args.prenom,
           phone: args.telephone || null,
-          source: 'webinar_methode_gourou',
+          source: args.source,
           systeme_contact_id: args.systemeContactId,
           user_agent: args.req.headers.get('user-agent'),
           ip: args.req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || null,
@@ -62,6 +68,7 @@ export async function POST(req: NextRequest) {
   const email = (body.email || '').trim().toLowerCase()
   const prenom = (body.prenom || '').trim()
   const telephone = (body.telephone || '').trim()
+  const ref = (body.ref || '').trim().toLowerCase()
 
   if (!prenom) {
     return NextResponse.json({ error: 'Prénom requis' }, { status: 400 })
@@ -69,6 +76,8 @@ export async function POST(req: NextRequest) {
   if (!email || !isValidEmail(email)) {
     return NextResponse.json({ error: 'Email invalide' }, { status: 400 })
   }
+
+  const source = ref ? `webinar_${ref}` : 'webinar_methode_gourou'
 
   try {
     const contact = await createOrUpdateContact({
@@ -78,12 +87,19 @@ export async function POST(req: NextRequest) {
       locale: 'fr',
     })
 
-    const tagEnv = process.env.SYSTEMEIO_TAG_WEBINAR
-    if (tagEnv) {
-      const tagIds = tagEnv.split(',').map(Number).filter(Boolean)
-      if (tagIds.length) {
-        await addTagsToContact(contact.id, tagIds)
-      }
+    const refTagEnv = ref ? REF_TAG_MAP[ref] : undefined
+    const baseTagEnv = process.env.SYSTEMEIO_TAG_WEBINAR
+    const allTagIds: number[] = []
+
+    if (baseTagEnv) {
+      allTagIds.push(...baseTagEnv.split(',').map(Number).filter(Boolean))
+    }
+    if (refTagEnv) {
+      allTagIds.push(...refTagEnv.split(',').map(Number).filter(Boolean))
+    }
+
+    if (allTagIds.length) {
+      await addTagsToContact(contact.id, allTagIds)
     }
 
     await backupToSupabase({
@@ -91,6 +107,7 @@ export async function POST(req: NextRequest) {
       prenom,
       telephone,
       systemeContactId: contact.id,
+      source,
       req,
     })
 
