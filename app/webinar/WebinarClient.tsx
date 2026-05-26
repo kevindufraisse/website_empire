@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useState, useEffect, useCallback, FormEvent } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { ChevronDown, Check, X, Play, Users, Clock, ArrowRight, Zap, Tv, BookOpen, Phone, Loader2, Lock } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -131,11 +131,15 @@ const COUNTRY_CODES = [
 
 function RegistrationForm({ id }: { id?: string }) {
   const router = useRouter()
-  const searchParams = useSearchParams()
-  const ref = searchParams.get('ref') || ''
+  const [ref, setRef] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [countryCode, setCountryCode] = useState('+33')
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    setRef(params.get('ref') || '')
+  }, [])
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -187,7 +191,7 @@ function RegistrationForm({ id }: { id?: string }) {
 
         <div className="p-5">
           {/* Title inside the form */}
-          <div className="mb-4 text-center">
+          <div className="mb-3 text-center">
             <p className="text-lg font-extrabold text-white leading-tight">Réserve ta place gratuite</p>
             <div className="flex items-center justify-center gap-3 mt-1.5">
               <span className="text-[10px] text-neutral-400">90 min en live</span>
@@ -195,6 +199,21 @@ function RegistrationForm({ id }: { id?: string }) {
               <span className="text-[10px] text-neutral-400">Replay 48h</span>
               <span className="w-1 h-1 rounded-full bg-neutral-600" />
               <span className="text-[10px] text-empire font-bold">100% gratuit</span>
+            </div>
+          </div>
+
+          {/* Gift banner */}
+          <div className="mb-4 px-3 py-2.5 rounded-xl bg-empire/[0.08] border border-empire/20">
+            <div className="flex items-center gap-2.5">
+              <span className="text-xl leading-none">🎁</span>
+              <div>
+                <p className="text-xs font-bold text-white leading-snug">
+                  Tunnel de vente offert <span className="text-empire">(valeur 500€)</span>
+                </p>
+                <p className="text-[10px] text-neutral-400 mt-0.5">
+                  Envoyé par email après ton inscription + rappels du live par SMS
+                </p>
+              </div>
             </div>
           </div>
 
@@ -235,8 +254,8 @@ function RegistrationForm({ id }: { id?: string }) {
               </div>
               <div className="flex items-center gap-1.5 mt-1.5 pl-1">
                 <Phone size={11} className="text-empire/70" />
-                <p className="text-[10px] text-neutral-300">
-                  Reçois notre <span className="text-empire font-semibold">tunnel de vente offert</span> (valeur 500€) + rappels du live par SMS
+                <p className="text-[10px] text-neutral-400">
+                  Pour recevoir les rappels du live par SMS
                 </p>
               </div>
             </div>

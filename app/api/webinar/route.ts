@@ -78,6 +78,8 @@ export async function POST(req: NextRequest) {
   }
 
   const source = ref ? `webinar_${ref}` : 'webinar_methode_gourou'
+  console.log(`[POST /api/webinar] ref="${ref}" source="${source}" email="${email}"`)
+
 
   try {
     const contact = await createOrUpdateContact({
