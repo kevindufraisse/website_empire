@@ -19,9 +19,9 @@ const PERSONALITIES = [
 ]
 
 const HERO_BULLETS = [
-  { text: 'Les secrets psychologiques qu\'utilisent les "gourou" du web pour avoir une audience qui achète sans poser de questions' },
-  { text: 'Pourquoi il n\'a jamais été aussi simple d\'appliquer ces méthodes en 2026' },
-  { text: 'Pourquoi ces méthodes sont restées secrètes aussi longtemps' },
+  { text: 'Le mécanisme utilisé par 90% des personnalités les plus visibles du web' },
+  { text: 'Les 3 leviers pour transformer un inconnu en référence de sa niche' },
+  { text: 'Le système qui nous a permis de passer de 0 à 4 000 clients en 2 ans' },
 ]
 
 /* ── Utilities ── */
@@ -106,7 +106,7 @@ function CountdownTimer({ compact }: { compact?: boolean }) {
           <span className="w-12 h-12 md:w-14 md:h-14 rounded-lg bg-white/[0.06] border border-white/10 flex items-center justify-center font-mono text-xl md:text-2xl font-black text-empire tabular-nums">
             {b.v}
           </span>
-          <span className="text-[9px] text-neutral-500 mt-1 uppercase tracking-wider">{b.l}</span>
+          <span className="text-[9px] text-neutral-300 mt-1 uppercase tracking-wider">{b.l}</span>
         </div>
       ))}
     </div>
@@ -175,43 +175,21 @@ function RegistrationForm({ id }: { id?: string }) {
     <div id={id} className="relative">
       <form
         onSubmit={handleSubmit}
-        className="relative overflow-hidden rounded-2xl bg-white/[0.04] border border-white/[0.12]"
+        className="relative overflow-hidden rounded-2xl bg-white border border-neutral-200 shadow-xl"
       >
-        {/* Top "ticket" band - live + compact countdown */}
-        <div className="flex items-center justify-between px-4 py-2 bg-white/[0.04] border-b border-white/10">
-          <div className="flex items-center gap-1.5">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500" />
-            </span>
-            <span className="text-[11px] font-bold text-white tracking-wide uppercase">18 juin · 19h</span>
-          </div>
-          <CountdownTimer compact />
-        </div>
-
         <div className="p-5">
           {/* Title inside the form */}
           <div className="mb-3 text-center">
-            <p className="text-lg font-extrabold text-white leading-tight">Réserve ta place gratuite</p>
-            <div className="flex items-center justify-center gap-3 mt-1.5">
-              <span className="text-[10px] text-neutral-400">90 min en live</span>
-              <span className="w-1 h-1 rounded-full bg-neutral-600" />
-              <span className="text-[10px] text-neutral-400">Replay 48h</span>
-              <span className="w-1 h-1 rounded-full bg-neutral-600" />
-              <span className="text-[10px] text-empire font-bold">100% gratuit</span>
-            </div>
+            <p className="text-lg font-extrabold text-black leading-tight">Inscription</p>
           </div>
 
           {/* Gift banner */}
-          <div className="mb-4 px-3 py-2.5 rounded-xl bg-empire/[0.08] border border-empire/20">
+          <div className="mb-4 px-3 py-2.5 rounded-xl bg-emerald-50 border border-emerald-200">
             <div className="flex items-center gap-2.5">
               <span className="text-xl leading-none">🎁</span>
               <div>
-                <p className="text-xs font-bold text-white leading-snug">
-                  Tunnel de vente offert <span className="text-empire">(valeur 500€)</span>
-                </p>
-                <p className="text-[10px] text-neutral-400 mt-0.5">
-                  Envoyé par email après ton inscription + rappels du live par SMS
+                <p className="text-xs font-bold text-black leading-snug">
+                  Tunnel de vente offert <span className="text-emerald-600 font-extrabold">(valeur 500€)</span>
                 </p>
               </div>
             </div>
@@ -223,24 +201,24 @@ function RegistrationForm({ id }: { id?: string }) {
               name="prenom"
               required
               placeholder="Ton prénom"
-              className="w-full px-4 py-2.5 rounded-xl bg-white/[0.06] border border-white/10 text-white placeholder:text-neutral-500 text-sm focus:outline-none focus:border-empire/50 focus:ring-1 focus:ring-empire/30 transition-colors"
+              className="w-full px-4 py-2.5 rounded-xl bg-neutral-100 border border-neutral-300 text-black placeholder:text-neutral-400 text-sm focus:outline-none focus:border-empire/60 focus:ring-1 focus:ring-empire/30 transition-colors"
             />
             <input
               type="email"
               name="email"
               required
               placeholder="Ton email"
-              className="w-full px-4 py-2.5 rounded-xl bg-white/[0.06] border border-white/10 text-white placeholder:text-neutral-500 text-sm focus:outline-none focus:border-empire/50 focus:ring-1 focus:ring-empire/30 transition-colors"
+              className="w-full px-4 py-2.5 rounded-xl bg-neutral-100 border border-neutral-300 text-black placeholder:text-neutral-400 text-sm focus:outline-none focus:border-empire/60 focus:ring-1 focus:ring-empire/30 transition-colors"
             />
             <div>
               <div className="flex gap-2">
                 <select
                   value={countryCode}
                   onChange={(e) => setCountryCode(e.target.value)}
-                  className="w-[95px] px-2 py-2.5 rounded-xl bg-white/[0.06] border border-white/10 text-white text-sm focus:outline-none focus:border-empire/50 cursor-pointer"
+                  className="w-[95px] px-2 py-2.5 rounded-xl bg-neutral-100 border border-neutral-300 text-black text-sm focus:outline-none focus:border-empire/60 cursor-pointer"
                 >
                   {COUNTRY_CODES.map((c) => (
-                    <option key={c.code} value={c.code} className="bg-neutral-900">
+                    <option key={c.code} value={c.code} className="bg-white text-black">
                       {c.flag} {c.code}
                     </option>
                   ))}
@@ -249,12 +227,12 @@ function RegistrationForm({ id }: { id?: string }) {
                   type="tel"
                   name="telephone"
                   placeholder="Ton numéro"
-                  className="flex-1 px-4 py-2.5 rounded-xl bg-white/[0.06] border border-white/10 text-white placeholder:text-neutral-500 text-sm focus:outline-none focus:border-empire/50 focus:ring-1 focus:ring-empire/30 transition-colors"
+                  className="flex-1 px-4 py-2.5 rounded-xl bg-neutral-100 border border-neutral-300 text-black placeholder:text-neutral-400 text-sm focus:outline-none focus:border-empire/60 focus:ring-1 focus:ring-empire/30 transition-colors"
                 />
               </div>
               <div className="flex items-center gap-1.5 mt-1.5 pl-1">
-                <Phone size={11} className="text-empire/70" />
-                <p className="text-[10px] text-neutral-400">
+                <Phone size={11} className="text-neutral-400" />
+                <p className="text-[10px] text-neutral-500">
                   Pour recevoir les rappels du live par SMS
                 </p>
               </div>
@@ -273,18 +251,18 @@ function RegistrationForm({ id }: { id?: string }) {
             {loading ? (
               <><Loader2 size={18} className="animate-spin" /> Inscription en cours...</>
             ) : (
-              <>Réserver ma place gratuite <ArrowRight size={17} /></>
+              <>M&apos;inscrire au webinar <ArrowRight size={17} /></>
             )}
           </button>
 
-          <p className="text-[10px] text-neutral-500 text-center mt-2">
+          <p className="text-[10px] text-neutral-400 text-center mt-2">
             Replay 48h uniquement pour les présents au live
           </p>
 
           {/* Trust line under CTA */}
           <div className="flex items-center justify-center gap-1.5 mt-2.5">
-            <Lock size={10} className="text-neutral-600" />
-            <p className="text-[10px] text-neutral-500">Tes infos restent privées · Désinscription en 1 clic</p>
+            <Lock size={10} className="text-neutral-400" />
+            <p className="text-[10px] text-neutral-400">Tes infos restent privées · Désinscription en 1 clic</p>
           </div>
         </div>
       </form>
@@ -302,7 +280,7 @@ function CTAButton({ large, className }: { large?: boolean; className?: string }
         className
       )}
     >
-      Oui, je réserve ma place
+      M&apos;inscrire au webinar
       <ArrowRight size={large ? 20 : 18} />
     </a>
   )
@@ -363,9 +341,9 @@ function CredibilityStrip() {
   ]
   return (
     <div className="w-full">
-      <div className="flex items-center justify-center gap-x-4 gap-y-2 flex-wrap opacity-70">
+      <div className="flex items-center justify-center gap-x-4 gap-y-2 flex-wrap">
         {logos.map((l) => (
-          <div key={l.name} className="flex items-center gap-1 text-neutral-400">
+          <div key={l.name} className="flex items-center gap-1 text-neutral-200">
             {l.icon}
             <span className="text-[10px] font-bold tracking-wider uppercase">{l.name}</span>
           </div>
@@ -402,20 +380,20 @@ function Highlight({ children, color = 'yellow' }: { children: React.ReactNode; 
 
 function HeroSection() {
   return (
-    <section className="relative w-full pt-16 md:pt-20 pb-6 md:pb-8 bg-black">
+    <section className="relative w-full pt-16 md:pt-20 pb-6 md:pb-8 bg-black overflow-hidden">
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(218,252,104,0.06)_0%,transparent_70%)] pointer-events-none" />
       <div className="container relative z-10 max-w-6xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-[1fr_380px] lg:grid-cols-[1fr_420px] gap-6 lg:gap-10 items-start">
 
           {/* LEFT: headline + content */}
           <div className="py-2 md:py-6">
-            {/* Top line: date + gratuit */}
-            <div className="flex items-center gap-3 mb-5">
-              <span className="text-[11px] font-black text-empire tracking-[0.2em] uppercase">
-                Webinar gratuit · Jeu. 18 juin · 19h
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-empire/10 border border-empire/30 mb-5">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-empire opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-empire" />
               </span>
-              <span className="px-2 py-0.5 border border-red-500/60 rounded text-[10px] font-black text-red-400 tracking-wider uppercase bg-red-500/5">
-                100% gratuit
-              </span>
+              <span className="text-xs font-bold text-empire uppercase tracking-wider">Webinar gratuit · 18 juin · 19h</span>
             </div>
 
             {/* H1 - result-driven */}
@@ -434,6 +412,7 @@ function HeroSection() {
                 </div>
               ))}
             </div>
+
 
             {/* Video teaser (conditional) */}
             {process.env.NEXT_PUBLIC_WEBINAR_TEASER_VIDEO_URL && (
@@ -462,12 +441,12 @@ function HeroSection() {
                 </div>
                 <div className="flex flex-col">
                   <span className="text-xs text-white font-semibold leading-tight">Kevin & Marc Dufraisse</span>
-                  <span className="text-[10px] text-neutral-500 leading-tight">Top 50 LinkedIn · 700M vues · 4 000 clients</span>
+                  <span className="text-[10px] text-neutral-300 leading-tight">Top 50 LinkedIn · 700M vues · 4 000 clients</span>
                 </div>
               </div>
-              <div className="h-4 w-px bg-white/10 hidden sm:block" />
-              <div className="flex items-center gap-1.5 opacity-50">
-                <span className="text-[9px] text-neutral-500 uppercase tracking-wider">Vu sur</span>
+              <div className="h-4 w-px bg-white/20 hidden sm:block" />
+              <div className="flex items-center gap-1.5">
+                <span className="text-[9px] text-neutral-300 uppercase tracking-wider font-bold">Vu sur</span>
                 <CredibilityStrip />
               </div>
             </div>
@@ -481,7 +460,7 @@ function HeroSection() {
 
         {/* Personality strip inline */}
         <div className="mt-8">
-          <p className="text-xs text-neutral-500 uppercase tracking-[0.2em] font-bold mb-3">
+          <p className="text-xs text-neutral-300 uppercase tracking-[0.2em] font-bold mb-3">
             On va décortiquer leurs techniques
           </p>
           <div
@@ -525,10 +504,18 @@ function HeroSection() {
 
         {/* Disclaimer */}
         <div id="disclaimer" className="mt-6 scroll-mt-24 rounded-xl border border-white/10 bg-white/[0.02] px-5 py-4 max-w-3xl">
-          <p className="text-xs text-neutral-400 leading-relaxed">
+          <p className="text-xs text-neutral-300 leading-relaxed">
             <span className="text-red-400 font-bold">*</span> <span className="text-neutral-300 font-semibold">Disclaimer obligatoire :</span> nous ne sommes pas responsables de ce que tu feras avec les techniques enseignées dans ce webinar. Chacun a son libre arbitre. Notre intérêt est d'aider les personnes avec un produit qui apporte de la vraie valeur à leurs clients à se faire connaître à travers les réseaux sociaux.{' '}
             <a href="#legal" className="text-neutral-500 underline hover:text-white transition-colors">Mention légale</a>
           </p>
+        </div>
+
+        {/* Scroll indicator */}
+        <div className="flex justify-center mt-8">
+          <div className="flex flex-col items-center gap-1 text-neutral-400 animate-bounce">
+            <span className="text-[10px] uppercase tracking-widest font-bold">Découvrir</span>
+            <ChevronDown size={20} />
+          </div>
         </div>
       </div>
     </section>
@@ -825,7 +812,14 @@ function AboutSection() {
               </div>
             </div>
           </FadeIn>
+
         </div>
+
+        <FadeIn>
+          <div className="flex justify-center mt-10">
+            <CTAButton large />
+          </div>
+        </FadeIn>
       </div>
     </section>
   )
@@ -939,16 +933,13 @@ function FinalCTASection() {
 
           <div className="max-w-md mx-auto">
             <div className="mb-4 text-center">
-              <p className="text-[10px] text-neutral-500 mb-2 uppercase tracking-widest">Début dans</p>
+              <p className="text-[10px] text-neutral-300 mb-2 uppercase tracking-widest">Début dans</p>
               <CountdownTimer />
             </div>
             <RegistrationForm />
           </div>
 
-          <div className="mt-10">
-            <p className="text-[10px] text-neutral-600 text-center mb-3 tracking-widest uppercase">Kevin a été vu sur</p>
-            <CredibilityStrip />
-          </div>
+          
         </FadeIn>
       </div>
     </section>
@@ -962,7 +953,7 @@ function LegalSection() {
   return (
     <section id="legal" className="w-full py-10 bg-[#050505] border-t border-white/[0.05]">
       <div className="container max-w-3xl mx-auto">
-        <p className="text-[10px] md:text-xs text-neutral-600 leading-relaxed text-center">
+        <p className="text-[10px] md:text-xs text-neutral-400 leading-relaxed text-center">
           Ce webinar contient une analyse marketing de personnalités publiques à des fins éducatives. Les références à Idriss Aberkane, Anthony Bourbon, Oussama Ammar et autres figures citées relèvent du droit à l'information et à la critique tel que défini par la jurisprudence française. Aucune affiliation, partenariat ou endorsement n'est sous-entendu (sauf pour Lorraine Vallery-Radot, citée avec son accord). Toutes les opinions exprimées sont celles de l'auteur. Empire Internet - Kevin & Marc Dufraisse.
         </p>
       </div>
@@ -996,7 +987,7 @@ function StickyWebinarBar() {
     >
       <div className="bg-black border-t border-empire/30 px-4 py-3 flex items-center justify-between gap-3">
         <div className="flex flex-col min-w-0">
-          <span className="text-[9px] text-neutral-500 uppercase tracking-wider">Début dans</span>
+          <span className="text-[9px] text-neutral-300 uppercase tracking-wider">Début dans</span>
           <CountdownTimer compact />
         </div>
         <a
@@ -1017,15 +1008,12 @@ export default function WebinarClient() {
   return (
     <main className="relative min-h-screen bg-black text-white overflow-x-hidden">
       <HeroSection />
-      <WhySection />
       <SectionDivider />
       <KeysSection />
       <SectionDivider />
       <AboutSection />
       <SectionDivider />
       <TestimonialsSection />
-      <SectionDivider />
-      <FAQSection />
       <FinalCTASection />
       <LegalSection />
       <StickyWebinarBar />
