@@ -91,35 +91,35 @@ function OutlookIcon({ className }: { className?: string }) {
 
 export default function WebinarMerciClient() {
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className="min-h-screen bg-neutral-50 text-black">
       {/* ═══ HERO CONFIRMATION + 3 STEPS ═══ */}
       <section className="pt-24 md:pt-28 pb-12 md:pb-16">
         <div className="container max-w-2xl mx-auto text-center px-4">
-          <div className="w-14 h-14 rounded-full bg-empire/20 flex items-center justify-center mx-auto mb-4">
-            <Check size={28} className="text-empire" />
+          <div className="w-14 h-14 rounded-full bg-emerald-100 flex items-center justify-center mx-auto mb-4">
+            <Check size={28} className="text-emerald-600" />
           </div>
 
           <h1 className="text-3xl md:text-4xl font-extrabold mb-2">
             C&apos;est confirmé.
           </h1>
-          <p className="text-neutral-400 text-base mb-1.5">
-            Ta place est réservée pour le <span className="text-white font-semibold">{WEBINAR_DATE_SHORT} à {WEBINAR_TIME}</span>.
+          <p className="text-neutral-600 text-base mb-1.5">
+            Ta place est réservée pour le <span className="text-black font-semibold">{WEBINAR_DATE_SHORT} à {WEBINAR_TIME}</span>.
           </p>
 
           {/* Hosts inline */}
           <div className="flex items-center justify-center gap-2.5 mb-3">
             <div className="flex -space-x-1.5 flex-shrink-0">
-              <div className="w-7 h-7 rounded-full overflow-hidden border-2 border-empire/40 z-10">
+              <div className="w-7 h-7 rounded-full overflow-hidden border-2 border-white z-10 shadow-sm">
                 <Image src="/founders/kevin.jpg" alt="Kevin" width={28} height={28} className="w-full h-full object-cover" />
               </div>
-              <div className="w-7 h-7 rounded-full overflow-hidden border-2 border-empire/40">
+              <div className="w-7 h-7 rounded-full overflow-hidden border-2 border-white shadow-sm">
                 <Image src="/founders/marc.jpg" alt="Marc" width={28} height={28} className="w-full h-full object-cover" />
               </div>
             </div>
             <span className="text-xs text-neutral-500">Kevin & Marc Dufraisse · {WEBINAR_DURATION} en live</span>
           </div>
 
-          <p className="text-empire text-sm font-semibold mb-6">
+          <p className="text-red-600 text-sm font-bold mb-6">
             Fais ces 3 étapes maintenant pour ne rien rater.
           </p>
 
@@ -127,19 +127,19 @@ export default function WebinarMerciClient() {
           <div className="space-y-3 text-left">
 
           {/* Step 1: Calendar */}
-          <div className="rounded-2xl bg-white/[0.03] border border-white/[0.08] p-5 md:p-6">
+          <div className="rounded-2xl bg-white border border-neutral-200 shadow-sm p-5 md:p-6">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-8 h-8 rounded-full bg-empire flex items-center justify-center flex-shrink-0">
-                <span className="text-sm font-black text-black">1</span>
+              <div className="w-8 h-8 rounded-full bg-black flex items-center justify-center flex-shrink-0">
+                <span className="text-sm font-black text-white">1</span>
               </div>
-              <p className="text-base font-bold text-white">Bloque la date dans ton calendrier</p>
+              <p className="text-base font-bold text-black">Bloque la date dans ton calendrier</p>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               <a
                 href={CALENDAR_LINKS.google}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-col items-center gap-1.5 px-3 py-3 rounded-xl bg-white/[0.06] border border-white/10 hover:bg-white/[0.1] hover:border-empire/30 transition-all"
+                className="flex flex-col items-center gap-1.5 px-3 py-3 rounded-xl bg-neutral-50 border border-neutral-200 hover:bg-neutral-100 hover:border-neutral-300 transition-all"
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                   <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1Z" fill="#4285F4" />
@@ -147,57 +147,56 @@ export default function WebinarMerciClient() {
                   <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18A11.96 11.96 0 0 0 1 12c0 1.94.46 3.77 1.18 5.07l3.66-2.98Z" fill="#FBBC05" />
                   <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53Z" fill="#EA4335" />
                 </svg>
-                <span className="text-xs font-semibold text-white">Google</span>
+                <span className="text-xs font-semibold text-black">Google</span>
               </a>
               <button
                 onClick={downloadICS}
-                className="flex flex-col items-center gap-1.5 px-3 py-3 rounded-xl bg-white/[0.06] border border-white/10 hover:bg-white/[0.1] hover:border-empire/30 transition-all cursor-pointer"
+                className="flex flex-col items-center gap-1.5 px-3 py-3 rounded-xl bg-neutral-50 border border-neutral-200 hover:bg-neutral-100 hover:border-neutral-300 transition-all cursor-pointer"
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83Z" fill="#fff" />
-                  <path d="M15.47 3.55c.74-.9 1.23-2.14 1.1-3.39-1.06.05-2.33.71-3.09 1.6-.68.78-1.27 2.05-1.11 3.26 1.17.09 2.37-.6 3.1-1.47Z" fill="#fff" />
+                  <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83Z" fill="#333" />
+                  <path d="M15.47 3.55c.74-.9 1.23-2.14 1.1-3.39-1.06.05-2.33.71-3.09 1.6-.68.78-1.27 2.05-1.11 3.26 1.17.09 2.37-.6 3.1-1.47Z" fill="#333" />
                 </svg>
-                <span className="text-xs font-semibold text-white">Apple</span>
+                <span className="text-xs font-semibold text-black">Apple</span>
               </button>
               <a
                 href={CALENDAR_LINKS.outlook}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-col items-center gap-1.5 px-3 py-3 rounded-xl bg-white/[0.06] border border-white/10 hover:bg-white/[0.1] hover:border-empire/30 transition-all"
+                className="flex flex-col items-center gap-1.5 px-3 py-3 rounded-xl bg-neutral-50 border border-neutral-200 hover:bg-neutral-100 hover:border-neutral-300 transition-all"
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                   <path d="M24 7.387v10.478c0 .914-.742 1.656-1.656 1.656H8.22a1.656 1.656 0 0 1-1.656-1.656V7.387l8.718 5.06L24 7.387Z" fill="#0078D4" />
                   <path d="M16.29 4.48H24v2.906l-8.718 5.06-8.718-5.06V6.135c0-.914.742-1.656 1.656-1.656Z" fill="#0078D4" />
-                  <path opacity=".5" d="M24 7.387v.544l-8.718 5.06-8.718-5.06v-.544L16.29 4.48H24v2.906Z" fill="#000" />
                   <rect x="0" y="4.5" width="7" height="12.5" rx="1" fill="#0078D4" />
                 </svg>
-                <span className="text-xs font-semibold text-white">Outlook</span>
+                <span className="text-xs font-semibold text-black">Outlook</span>
               </a>
               <a
                 href={CALENDAR_LINKS.yahoo}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-col items-center gap-1.5 px-3 py-3 rounded-xl bg-white/[0.06] border border-white/10 hover:bg-white/[0.1] hover:border-empire/30 transition-all"
+                className="flex flex-col items-center gap-1.5 px-3 py-3 rounded-xl bg-neutral-50 border border-neutral-200 hover:bg-neutral-100 hover:border-neutral-300 transition-all"
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                   <path d="M13.622 12.002 18.5 2.4h-3.56l-2.903 6.088L9.07 2.4H5.5l4.908 9.61v6.83h3.214v-6.838Z" fill="#6001D2" />
                   <circle cx="11.8" cy="21" r="1.8" fill="#6001D2" />
                 </svg>
-                <span className="text-xs font-semibold text-white">Yahoo</span>
+                <span className="text-xs font-semibold text-black">Yahoo</span>
               </a>
             </div>
           </div>
 
           {/* Step 2: Email warming */}
-          <div className="rounded-2xl p-5 md:p-6 bg-gradient-to-br from-empire/10 via-empire/5 to-transparent border border-empire/30">
+          <div className="rounded-2xl p-5 md:p-6 bg-blue-50 border border-blue-200">
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-8 h-8 rounded-full bg-empire flex items-center justify-center flex-shrink-0">
-                <span className="text-sm font-black text-black">2</span>
+              <div className="w-8 h-8 rounded-full bg-black flex items-center justify-center flex-shrink-0">
+                <span className="text-sm font-black text-white">2</span>
               </div>
-              <p className="text-base font-bold text-white">Envoie-moi un "OK" pour recevoir tes rappels</p>
+              <p className="text-base font-bold text-black">Envoie-moi un &quot;OK&quot; pour recevoir tes rappels</p>
             </div>
-            <p className="text-neutral-300 text-sm mb-4 leading-relaxed pl-11">
-              Je vais t&apos;envoyer le lien du live et 2 rappels. Pour qu&apos;ils arrivent bien (et pas en spam), envoie-moi juste <span className="text-empire font-semibold">&quot;OK&quot;</span> par email.
+            <p className="text-neutral-600 text-sm mb-4 leading-relaxed pl-11">
+              Je vais t&apos;envoyer le lien du live et 2 rappels. Pour qu&apos;ils arrivent bien (et pas en spam), envoie-moi juste <span className="text-blue-600 font-bold">&quot;OK&quot;</span> par email.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-2 pl-11">
@@ -205,7 +204,7 @@ export default function WebinarMerciClient() {
                 href="https://mail.google.com/mail/?view=cm&fs=1&to=kevin@empire-internet.com&su=OK%20Kevin&body=OK"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-white/[0.06] border border-white/10 text-sm font-semibold text-white hover:bg-white/[0.1] hover:border-empire/30 transition-all"
+                className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-white border border-neutral-200 text-sm font-semibold text-black hover:bg-neutral-50 hover:border-neutral-300 transition-all shadow-sm"
               >
                 <GmailIcon className="flex-shrink-0" />
                 Gmail
@@ -214,26 +213,26 @@ export default function WebinarMerciClient() {
                 href="https://outlook.office.com/mail/deeplink/compose?to=kevin@empire-internet.com&subject=OK%20Kevin&body=OK"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-white/[0.06] border border-white/10 text-sm font-semibold text-white hover:bg-white/[0.1] hover:border-empire/30 transition-all"
+                className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-white border border-neutral-200 text-sm font-semibold text-black hover:bg-neutral-50 hover:border-neutral-300 transition-all shadow-sm"
               >
                 <OutlookIcon className="flex-shrink-0" />
                 Outlook
               </a>
             </div>
             <p className="text-[10px] text-neutral-500 mt-2 pl-11">
-              Ou envoie &quot;OK&quot; à <span className="text-neutral-400">kevin@empire-internet.com</span>
+              Ou envoie &quot;OK&quot; à <span className="text-neutral-700 font-semibold">kevin@empire-internet.com</span>
             </p>
           </div>
 
           {/* Step 3: Check email */}
-          <div className="rounded-2xl bg-white/[0.03] border border-white/[0.08] p-5 md:p-6">
+          <div className="rounded-2xl bg-white border border-neutral-200 shadow-sm p-5 md:p-6">
             <div className="flex items-center gap-3 mb-2">
-              <div className="w-8 h-8 rounded-full bg-empire flex items-center justify-center flex-shrink-0">
-                <span className="text-sm font-black text-black">3</span>
+              <div className="w-8 h-8 rounded-full bg-black flex items-center justify-center flex-shrink-0">
+                <span className="text-sm font-black text-white">3</span>
               </div>
-              <p className="text-base font-bold text-white">Check ta boîte mail</p>
+              <p className="text-base font-bold text-black">Check ta boîte mail</p>
             </div>
-            <p className="text-sm text-neutral-400 leading-relaxed pl-11">
+            <p className="text-sm text-neutral-600 leading-relaxed pl-11">
               Tu vas recevoir un email de confirmation avec le lien pour le jour J. Pense à vérifier tes spams.
             </p>
           </div>
@@ -242,39 +241,39 @@ export default function WebinarMerciClient() {
       </section>
 
       {/* ═══ WHAT TO EXPECT (teaser) ═══ */}
-      <section className="py-10 md:py-14 border-t border-white/[0.06]">
+      <section className="py-10 md:py-14 border-t border-neutral-200">
         <div className="container max-w-2xl mx-auto px-4">
-          <p className="text-xs text-empire tracking-widest uppercase font-bold mb-5">
+          <p className="text-xs text-red-600 tracking-widest uppercase font-bold mb-5">
             Ce qui t&apos;attend le {WEBINAR_DATE_SHORT}
           </p>
           <ul className="space-y-2.5 mb-6">
             {WEBINAR_BULLETS.map((b, i) => (
               <li key={i} className="flex items-start gap-2.5">
-                <ArrowRight size={14} className="text-empire flex-shrink-0 mt-1" />
-                <span className="text-sm text-neutral-300 leading-relaxed">{b}</span>
+                <ArrowRight size={14} className="text-red-500 flex-shrink-0 mt-1" />
+                <span className="text-sm text-neutral-700 leading-relaxed">{b}</span>
               </li>
             ))}
           </ul>
 
-          <div className="flex items-start gap-2.5 px-4 py-3 rounded-xl border border-red-500/20 bg-red-950/10">
-            <AlertTriangle size={16} className="text-red-400 flex-shrink-0 mt-0.5" />
-            <p className="text-xs text-neutral-300 leading-relaxed">
-              <span className="font-bold text-red-400">Pas de replay public.</span> Si tu veux ce contenu, sois là le {WEBINAR_DATE_SHORT} à {WEBINAR_TIME}.
+          <div className="flex items-start gap-2.5 px-4 py-3 rounded-xl border border-red-200 bg-red-50">
+            <AlertTriangle size={16} className="text-red-500 flex-shrink-0 mt-0.5" />
+            <p className="text-xs text-neutral-700 leading-relaxed">
+              <span className="font-bold text-red-600">Pas de replay public.</span> Si tu veux ce contenu, sois là le {WEBINAR_DATE_SHORT} à {WEBINAR_TIME}.
             </p>
           </div>
         </div>
       </section>
 
       {/* ═══ OPTIONAL SECTIONS ═══ */}
-      <section className="pb-16 md:pb-24 border-t border-white/[0.06]">
+      <section className="pb-16 md:pb-24 border-t border-neutral-200">
         <div className="container max-w-2xl mx-auto px-4 pt-10 md:pt-14">
-          <p className="text-[10px] text-neutral-600 uppercase tracking-widest font-bold mb-6">Optionnel</p>
+          <p className="text-[10px] text-neutral-400 uppercase tracking-widest font-bold mb-6">Optionnel</p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Book a call */}
-            <div className="rounded-2xl bg-white/[0.03] border border-white/10 p-5">
-              <CalendarPlus size={18} className="text-empire mb-3" />
-              <p className="font-bold text-white text-sm mb-1.5">
+            <div className="rounded-2xl bg-white border border-neutral-200 shadow-sm p-5">
+              <CalendarPlus size={18} className="text-black mb-3" />
+              <p className="font-bold text-black text-sm mb-1.5">
                 On installe le système pour toi ?
               </p>
               <p className="text-neutral-500 text-xs leading-relaxed mb-4">
@@ -284,16 +283,16 @@ export default function WebinarMerciClient() {
                 href="https://cal.com/team/empire-internet/audit-empire"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-empire text-xs font-bold hover:underline"
+                className="inline-flex items-center gap-1.5 text-red-600 text-xs font-bold hover:underline"
               >
                 Réserver un appel <ArrowRight size={12} />
               </a>
             </div>
 
             {/* Share */}
-            <div className="rounded-2xl bg-white/[0.03] border border-white/10 p-5">
-              <Share2 size={18} className="text-empire mb-3" />
-              <p className="font-bold text-white text-sm mb-1.5">
+            <div className="rounded-2xl bg-white border border-neutral-200 shadow-sm p-5">
+              <Share2 size={18} className="text-black mb-3" />
+              <p className="font-bold text-black text-sm mb-1.5">
                 Tu connais quelqu&apos;un que ça intéresserait ?
               </p>
               <p className="text-neutral-500 text-xs leading-relaxed mb-4">
@@ -302,7 +301,7 @@ export default function WebinarMerciClient() {
               <div className="flex gap-2">
                 <a
                   href={`mailto:?subject=${encodeURIComponent(SHARE_TITLE)}&body=${encodeURIComponent(SHARE_TEXT + '\n\n' + SHARE_URL)}`}
-                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-white/[0.06] border border-white/10 text-xs font-semibold text-white hover:bg-white/[0.1] transition-all"
+                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-neutral-50 border border-neutral-200 text-xs font-semibold text-black hover:bg-neutral-100 transition-all"
                 >
                   <Mail size={12} />
                   Email
@@ -311,7 +310,7 @@ export default function WebinarMerciClient() {
                   href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(SHARE_URL)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-white/[0.06] border border-white/10 text-xs font-semibold text-white hover:bg-white/[0.1] transition-all"
+                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-neutral-50 border border-neutral-200 text-xs font-semibold text-black hover:bg-neutral-100 transition-all"
                 >
                   <Linkedin size={12} />
                   LinkedIn

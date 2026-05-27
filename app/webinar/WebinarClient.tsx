@@ -129,9 +129,21 @@ const COUNTRY_CODES = [
 
 /* ── Registration Form ── */
 
+const PROBLEMATIQUES = [
+  'Je n\'arrive pas à me rendre visible',
+  'J\'ai du mal à convertir mon audience en clients',
+  'Je ne sais pas quel contenu créer',
+  'Je manque de temps pour publier régulièrement',
+  'Je veux lancer ma marque personnelle',
+  'Autre',
+]
+
 function RegistrationForm({ id }: { id?: string }) {
   const router = useRouter()
   const [ref, setRef] = useState('')
+  const [step, setStep] = useState<1 | 2>(1)
+  const [contactId, setContactId] = useState<number | null>(null)
+  const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [countryCode, setCountryCode] = useState('+33')
@@ -141,22 +153,20 @@ function RegistrationForm({ id }: { id?: string }) {
     setRef(params.get('ref') || '')
   }, [])
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleStep1 = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setError(null)
     setLoading(true)
 
     const form = e.currentTarget
     const prenom = (form.elements.namedItem('prenom') as HTMLInputElement).value.trim()
-    const email = (form.elements.namedItem('email') as HTMLInputElement).value.trim()
-    const phoneRaw = (form.elements.namedItem('telephone') as HTMLInputElement).value.trim()
-    const telephone = phoneRaw ? `${countryCode}${phoneRaw}` : ''
+    const emailVal = (form.elements.namedItem('email') as HTMLInputElement).value.trim()
 
     try {
       const res = await fetch('/api/webinar', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prenom, email, telephone, ref }),
+        body: JSON.stringify({ prenom, email: emailVal, ref }),
       })
       const data = await res.json()
       if (!res.ok) {
@@ -164,34 +174,139 @@ function RegistrationForm({ id }: { id?: string }) {
         setLoading(false)
         return
       }
-      router.push('/webinar/merci')
+      setContactId(data.contactId)
+      setEmail(emailVal)
+      setStep(2)
+      setLoading(false)
     } catch {
       setError('Erreur réseau, réessaie.')
       setLoading(false)
     }
   }
 
+  const handleStep2 = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setLoading(true)
+
+    const form = e.currentTarget
+    const phoneRaw = (form.elements.namedItem('telephone') as HTMLInputElement).value.trim()
+    const problematique = (form.elements.namedItem('problematique') as HTMLSelectElement)?.value || ''
+    const telephone = phoneRaw ? `${countryCode}${phoneRaw}` : ''
+
+    if (!telephone && !problematique) {
+      router.push('/webinar/merci')
+      return
+    }
+
+    try {
+      await fetch('/api/webinar/phone', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ contactId, email, telephone: telephone || undefined, problematique: problematique || undefined }),
+      })
+    } catch { /* best effort */ }
+    router.push('/webinar/merci')
+  }
+
+  if (step === 2) {
+    return (
+      <div id={id} className="relative">
+        <form
+          onSubmit={handleStep2}
+          className="relative overflow-hidden rounded-2xl bg-white border border-neutral-200 shadow-xl"
+        >
+          <div className="p-5">
+            <div className="mb-4 text-center">
+              <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center mx-auto mb-2">
+                <Check size={20} className="text-emerald-600" />
+              </div>
+              <p className="text-lg font-extrabold text-black leading-tight">Tu es inscrit(e) !</p>
+              <p className="text-xs text-neutral-500 mt-1">Une dernière chose (optionnel)</p>
+            </div>
+
+            <div className="space-y-3">
+              <div>
+                <p className="text-xs font-bold text-black mb-1.5">Quel est ton plus gros challenge aujourd&apos;hui ?</p>
+                <select
+                  name="problematique"
+                  defaultValue=""
+                  className="w-full px-4 py-2.5 rounded-xl bg-neutral-100 border border-neutral-300 text-black text-sm focus:outline-none focus:border-empire/60 focus:ring-1 focus:ring-empire/30 transition-colors appearance-none cursor-pointer"
+                >
+                  <option value="" disabled className="text-neutral-400">Choisis une option</option>
+                  {PROBLEMATIQUES.map((p) => (
+                    <option key={p} value={p} className="bg-white text-black">{p}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <div className="flex gap-2">
+                  <select
+                    value={countryCode}
+                    onChange={(e) => setCountryCode(e.target.value)}
+                    className="w-[95px] px-2 py-2.5 rounded-xl bg-neutral-100 border border-neutral-300 text-black text-sm focus:outline-none focus:border-empire/60 cursor-pointer"
+                  >
+                    {COUNTRY_CODES.map((c) => (
+                      <option key={c.code} value={c.code} className="bg-white text-black">
+                        {c.flag} {c.code}
+                      </option>
+                    ))}
+                  </select>
+                  <input
+                    type="tel"
+                    name="telephone"
+                    placeholder="Ton numéro"
+                    className="flex-1 px-4 py-2.5 rounded-xl bg-neutral-100 border border-neutral-300 text-black placeholder:text-neutral-400 text-sm focus:outline-none focus:border-empire/60 focus:ring-1 focus:ring-empire/30 transition-colors"
+                  />
+                </div>
+                <div className="flex items-center gap-1.5 mt-1.5 pl-1">
+                  <Phone size={11} className="text-neutral-400" />
+                  <p className="text-[10px] text-neutral-500">
+                    Pour recevoir des rappels SMS et des bonus dont le template funnel
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full mt-4 py-3.5 rounded-xl bg-black text-white font-black text-base flex items-center justify-center gap-2 transition-colors hover:bg-neutral-800 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              {loading ? <Loader2 size={18} className="animate-spin" /> : <>Recevoir les bonus et rappels SMS <ArrowRight size={17} /></>}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => router.push('/webinar/merci')}
+              className="w-full mt-2 py-2 text-xs text-neutral-400 hover:text-neutral-600 transition-colors cursor-pointer"
+            >
+              Passer cette étape
+            </button>
+          </div>
+        </form>
+      </div>
+    )
+  }
+
   return (
     <div id={id} className="relative">
       <form
-        onSubmit={handleSubmit}
+        onSubmit={handleStep1}
         className="relative overflow-hidden rounded-2xl bg-white border border-neutral-200 shadow-xl"
       >
         <div className="p-5">
-          {/* Title inside the form */}
           <div className="mb-3 text-center">
             <p className="text-lg font-extrabold text-black leading-tight">Inscription</p>
           </div>
 
           {/* Gift banner */}
-          <div className="mb-4 px-3 py-2.5 rounded-xl bg-emerald-50 border border-emerald-200">
+          <div className="mb-4 px-3 py-2.5 rounded-xl bg-black/5 border border-neutral-200">
             <div className="flex items-center gap-2.5">
               <span className="text-xl leading-none">🎁</span>
-              <div>
-                <p className="text-xs font-bold text-black leading-snug">
-                  Tunnel de vente offert <span className="text-emerald-600 font-extrabold">(valeur 500€)</span>
-                </p>
-              </div>
+              <p className="text-xs font-bold text-black leading-snug">
+                Tunnel de vente offert <span className="text-red-600 font-extrabold">(valeur 500€)</span>
+              </p>
             </div>
           </div>
 
@@ -210,43 +325,16 @@ function RegistrationForm({ id }: { id?: string }) {
               placeholder="Ton email"
               className="w-full px-4 py-2.5 rounded-xl bg-neutral-100 border border-neutral-300 text-black placeholder:text-neutral-400 text-sm focus:outline-none focus:border-empire/60 focus:ring-1 focus:ring-empire/30 transition-colors"
             />
-            <div>
-              <div className="flex gap-2">
-                <select
-                  value={countryCode}
-                  onChange={(e) => setCountryCode(e.target.value)}
-                  className="w-[95px] px-2 py-2.5 rounded-xl bg-neutral-100 border border-neutral-300 text-black text-sm focus:outline-none focus:border-empire/60 cursor-pointer"
-                >
-                  {COUNTRY_CODES.map((c) => (
-                    <option key={c.code} value={c.code} className="bg-white text-black">
-                      {c.flag} {c.code}
-                    </option>
-                  ))}
-                </select>
-                <input
-                  type="tel"
-                  name="telephone"
-                  placeholder="Ton numéro"
-                  className="flex-1 px-4 py-2.5 rounded-xl bg-neutral-100 border border-neutral-300 text-black placeholder:text-neutral-400 text-sm focus:outline-none focus:border-empire/60 focus:ring-1 focus:ring-empire/30 transition-colors"
-                />
-              </div>
-              <div className="flex items-center gap-1.5 mt-1.5 pl-1">
-                <Phone size={11} className="text-neutral-400" />
-                <p className="text-[10px] text-neutral-500">
-                  Pour recevoir les rappels du live par SMS
-                </p>
-              </div>
-            </div>
           </div>
 
           {error && (
-            <p className="text-xs text-red-400 px-1 mt-3 text-center">{error}</p>
+            <p className="text-xs text-red-500 px-1 mt-3 text-center">{error}</p>
           )}
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full mt-4 py-3.5 rounded-xl bg-empire text-black font-black text-base flex items-center justify-center gap-2 transition-colors hover:bg-empire/90 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+            className="w-full mt-4 py-3.5 rounded-xl bg-black text-white font-black text-base flex items-center justify-center gap-2 transition-colors hover:bg-neutral-800 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
           >
             {loading ? (
               <><Loader2 size={18} className="animate-spin" /> Inscription en cours...</>
@@ -255,12 +343,7 @@ function RegistrationForm({ id }: { id?: string }) {
             )}
           </button>
 
-          <p className="text-[10px] text-neutral-400 text-center mt-2">
-            Replay 48h uniquement pour les présents au live
-          </p>
-
-          {/* Trust line under CTA */}
-          <div className="flex items-center justify-center gap-1.5 mt-2.5">
+          <div className="flex items-center justify-center gap-1.5 mt-3">
             <Lock size={10} className="text-neutral-400" />
             <p className="text-[10px] text-neutral-400">Tes infos restent privées · Désinscription en 1 clic</p>
           </div>
@@ -387,13 +470,13 @@ function HeroSection() {
 
           {/* LEFT: headline + content */}
           <div className="py-2 md:py-6">
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-empire/10 border border-empire/30 mb-5">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-empire opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-empire" />
+            {/* Badge - live style */}
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-lg bg-red-600 mb-5 shadow-[0_0_20px_rgba(220,38,38,0.3)]">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75" />
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-white" />
               </span>
-              <span className="text-xs font-bold text-empire uppercase tracking-wider">Webinar gratuit · 18 juin · 19h</span>
+              <span className="text-sm font-extrabold text-white uppercase tracking-wider">Webinar gratuit · 18 juin · 19h</span>
             </div>
 
             {/* H1 - result-driven */}

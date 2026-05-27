@@ -9,6 +9,7 @@ interface WebinarBody {
   email?: string
   telephone?: string
   ref?: string
+  problematique?: string
 }
 
 const REF_TAG_MAP: Record<string, string | undefined> = {
@@ -27,6 +28,7 @@ async function backupToSupabase(args: {
   email: string
   prenom: string
   telephone: string
+  problematique: string
   systemeContactId: number
   source: string
   req: NextRequest
@@ -44,6 +46,7 @@ async function backupToSupabase(args: {
           email: args.email,
           first_name: args.prenom,
           phone: args.telephone || null,
+          problematique: args.problematique || null,
           source: args.source,
           systeme_contact_id: args.systemeContactId,
           user_agent: args.req.headers.get('user-agent'),
@@ -69,6 +72,7 @@ export async function POST(req: NextRequest) {
   const prenom = (body.prenom || '').trim()
   const telephone = (body.telephone || '').trim()
   const ref = (body.ref || '').trim().toLowerCase()
+  const problematique = (body.problematique || '').trim()
 
   if (!prenom) {
     return NextResponse.json({ error: 'Prénom requis' }, { status: 400 })
@@ -108,6 +112,7 @@ export async function POST(req: NextRequest) {
       email,
       prenom,
       telephone,
+      problematique,
       systemeContactId: contact.id,
       source,
       req,
