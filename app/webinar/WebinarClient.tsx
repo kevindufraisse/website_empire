@@ -320,14 +320,14 @@ function RegistrationForm({ id }: { id?: string }) {
               name="prenom"
               required
               placeholder="Ton prénom"
-              className="w-full px-4 py-2.5 rounded-xl bg-neutral-100 border border-neutral-300 text-black placeholder:text-neutral-400 text-sm focus:outline-none focus:border-empire/60 focus:ring-1 focus:ring-empire/30 transition-colors"
+              className="w-full px-4 py-3 rounded-xl bg-white border-2 border-neutral-300 text-black placeholder:text-neutral-400 text-sm font-medium focus:outline-none focus:border-black focus:ring-1 focus:ring-black/10 transition-colors"
             />
             <input
               type="email"
               name="email"
               required
               placeholder="Ton email"
-              className="w-full px-4 py-2.5 rounded-xl bg-neutral-100 border border-neutral-300 text-black placeholder:text-neutral-400 text-sm focus:outline-none focus:border-empire/60 focus:ring-1 focus:ring-empire/30 transition-colors"
+              className="w-full px-4 py-3 rounded-xl bg-white border-2 border-neutral-300 text-black placeholder:text-neutral-400 text-sm font-medium focus:outline-none focus:border-black focus:ring-1 focus:ring-black/10 transition-colors"
             />
           </div>
 
