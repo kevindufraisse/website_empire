@@ -1,6 +1,7 @@
 'use client'
 
-import { Check, CalendarPlus, Mail, Clock, Users, Share2, Linkedin, AlertTriangle, ArrowRight } from 'lucide-react'
+import { useState, useEffect, type FormEvent } from 'react'
+import { Check, CalendarPlus, Mail, Phone, Share2, Linkedin, AlertTriangle, ArrowRight, Loader2 } from 'lucide-react'
 import Image from 'next/image'
 
 const WEBINAR_DATE = '18 juin 2026'
@@ -89,14 +90,109 @@ function OutlookIcon({ className }: { className?: string }) {
   )
 }
 
+const COUNTRY_CODES = [
+  { code: '+33', flag: '🇫🇷' },
+  { code: '+32', flag: '🇧🇪' },
+  { code: '+41', flag: '🇨🇭' },
+  { code: '+1',  flag: '🇺🇸' },
+  { code: '+44', flag: '🇬🇧' },
+  { code: '+352', flag: '🇱🇺' },
+  { code: '+377', flag: '🇲🇨' },
+]
+
+function PhoneBlock({ email }: { email: string }) {
+  const [countryCode, setCountryCode] = useState('+33')
+  const [phone, setPhone] = useState('')
+  const [sent, setSent] = useState(false)
+  const [loading, setLoading] = useState(false)
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault()
+    if (!phone.trim()) return
+    setLoading(true)
+    try {
+      await fetch('/api/webinar/phone', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, telephone: `${countryCode}${phone.trim()}` }),
+      })
+    } catch { /* best effort */ }
+    setSent(true)
+    setLoading(false)
+  }
+
+  if (sent) {
+    return (
+      <div className="rounded-2xl bg-emerald-50 border border-emerald-200 p-5 md:p-6">
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded-full bg-emerald-600 flex items-center justify-center flex-shrink-0">
+            <Check size={16} className="text-white" strokeWidth={3} />
+          </div>
+          <p className="text-sm font-bold text-emerald-800">Numéro enregistré, tu recevras les rappels SMS.</p>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="rounded-2xl bg-white border border-neutral-200 shadow-sm p-5 md:p-6">
+      <div className="flex items-center gap-3 mb-3">
+        <div className="w-8 h-8 rounded-full bg-black flex items-center justify-center flex-shrink-0">
+          <Phone size={14} className="text-white" />
+        </div>
+        <div>
+          <p className="text-base font-bold text-black">Recevoir les rappels par SMS</p>
+          <p className="text-xs text-neutral-500">+ le template de funnel offert</p>
+        </div>
+      </div>
+      <form onSubmit={handleSubmit} className="pl-11">
+        <div className="flex gap-2 mb-2">
+          <select
+            value={countryCode}
+            onChange={(e) => setCountryCode(e.target.value)}
+            className="w-[90px] px-2 py-2.5 rounded-xl bg-neutral-50 border border-neutral-200 text-black text-sm focus:outline-none focus:border-neutral-400 cursor-pointer"
+          >
+            {COUNTRY_CODES.map((c) => (
+              <option key={c.code} value={c.code}>{c.flag} {c.code}</option>
+            ))}
+          </select>
+          <input
+            type="tel"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder="Ton numéro"
+            className="flex-1 px-4 py-2.5 rounded-xl bg-neutral-50 border border-neutral-200 text-black placeholder:text-neutral-400 text-sm focus:outline-none focus:border-neutral-400 transition-colors"
+          />
+        </div>
+        <button
+          type="submit"
+          disabled={loading || !phone.trim()}
+          className="w-full py-2.5 rounded-xl bg-black text-white font-bold text-sm flex items-center justify-center gap-2 hover:bg-neutral-800 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {loading ? <Loader2 size={16} className="animate-spin" /> : <>Activer les rappels SMS <ArrowRight size={14} /></>}
+        </button>
+      </form>
+    </div>
+  )
+}
+
 export default function WebinarMerciClient() {
+  const [email, setEmail] = useState('')
+  const [hasPhone, setHasPhone] = useState(false)
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    setEmail(params.get('e') || '')
+    setHasPhone(params.get('p') === '1')
+  }, [])
+
   return (
     <main className="min-h-screen bg-neutral-50 text-black">
       {/* ═══ HERO CONFIRMATION + 3 STEPS ═══ */}
       <section className="pt-24 md:pt-28 pb-12 md:pb-16">
         <div className="container max-w-2xl mx-auto text-center px-4">
-          <div className="w-14 h-14 rounded-full bg-emerald-100 flex items-center justify-center mx-auto mb-4">
-            <Check size={28} className="text-emerald-600" />
+          <div className="w-14 h-14 rounded-full bg-emerald-50 border-2 border-emerald-200 flex items-center justify-center mx-auto mb-4">
+            <Check size={28} className="text-emerald-600" strokeWidth={3} />
           </div>
 
           <h1 className="text-3xl md:text-4xl font-extrabold mb-2">
@@ -188,7 +284,7 @@ export default function WebinarMerciClient() {
           </div>
 
           {/* Step 2: Email warming */}
-          <div className="rounded-2xl p-5 md:p-6 bg-blue-50 border border-blue-200">
+          <div className="rounded-2xl p-5 md:p-6 bg-white border border-neutral-200 shadow-sm">
             <div className="flex items-center gap-3 mb-3">
               <div className="w-8 h-8 rounded-full bg-black flex items-center justify-center flex-shrink-0">
                 <span className="text-sm font-black text-white">2</span>
@@ -196,7 +292,7 @@ export default function WebinarMerciClient() {
               <p className="text-base font-bold text-black">Envoie-moi un &quot;OK&quot; pour recevoir tes rappels</p>
             </div>
             <p className="text-neutral-600 text-sm mb-4 leading-relaxed pl-11">
-              Je vais t&apos;envoyer le lien du live et 2 rappels. Pour qu&apos;ils arrivent bien (et pas en spam), envoie-moi juste <span className="text-blue-600 font-bold">&quot;OK&quot;</span> par email.
+              Je vais t&apos;envoyer le lien du live et 2 rappels. Pour qu&apos;ils arrivent bien (et pas en spam), envoie-moi juste <span className="text-emerald-600 font-bold">&quot;OK&quot;</span> par email.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-2 pl-11">
@@ -236,6 +332,8 @@ export default function WebinarMerciClient() {
               Tu vas recevoir un email de confirmation avec le lien pour le jour J. Pense à vérifier tes spams.
             </p>
           </div>
+
+          {email && !hasPhone && <PhoneBlock email={email} />}
           </div>
         </div>
       </section>
