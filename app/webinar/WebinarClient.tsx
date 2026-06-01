@@ -144,6 +144,7 @@ function RegistrationForm({ id }: { id?: string }) {
   const [step, setStep] = useState<1 | 2>(1)
   const [contactId, setContactId] = useState<number | null>(null)
   const [email, setEmail] = useState('')
+  const [prenom, setPrenom] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [countryCode, setCountryCode] = useState('+33')
@@ -176,6 +177,7 @@ function RegistrationForm({ id }: { id?: string }) {
       }
       setContactId(data.contactId)
       setEmail(emailVal)
+      setPrenom(prenom)
       setStep(2)
       setLoading(false)
     } catch {
@@ -193,8 +195,8 @@ function RegistrationForm({ id }: { id?: string }) {
     const problematique = (form.elements.namedItem('problematique') as HTMLSelectElement)?.value || ''
     const telephone = phoneRaw ? `${countryCode}${phoneRaw}` : ''
 
-    const merciParams = new URLSearchParams({ e: email })
-    if (telephone) merciParams.set('p', '1')
+    const merciParams = new URLSearchParams({ e: email, n: prenom })
+    if (telephone) { merciParams.set('p', '1'); merciParams.set('t', telephone) }
 
     if (!telephone && !problematique) {
       router.push(`/webinar/merci?${merciParams}`)
@@ -208,7 +210,6 @@ function RegistrationForm({ id }: { id?: string }) {
         body: JSON.stringify({ contactId, email, telephone: telephone || undefined, problematique: problematique || undefined }),
       })
     } catch { /* best effort */ }
-    if (telephone) merciParams.set('p', '1')
     router.push(`/webinar/merci?${merciParams}`)
   }
 
@@ -282,7 +283,7 @@ function RegistrationForm({ id }: { id?: string }) {
 
             <button
               type="button"
-              onClick={() => router.push(`/webinar/merci?e=${encodeURIComponent(email)}`)}
+              onClick={() => router.push(`/webinar/merci?e=${encodeURIComponent(email)}&n=${encodeURIComponent(prenom)}`)}
               className="w-full mt-2 py-2 text-xs text-neutral-400 hover:text-neutral-600 transition-colors cursor-pointer"
             >
               Passer cette étape

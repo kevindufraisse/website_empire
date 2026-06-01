@@ -3,6 +3,7 @@ import HeroSection from '@/components/sections/HeroSection'
 import HowItWorksAccordion from '@/components/sections/HowItWorksAccordion'
 
 const QuickWinsSection = dynamic(() => import('@/components/sections/QuickWinsSection'))
+const VolumeSection = dynamic(() => import('@/components/sections/VolumeSection'))
 const WhyEmpireSection = dynamic(() => import('@/components/sections/WhyEmpireSection'))
 const TestimonialsSection = dynamic(() => import('@/components/sections/TestimonialsSection'))
 const WhyNowSection = dynamic(() => import('@/components/sections/WhyNowSection'))
@@ -22,6 +23,9 @@ export default function Page() {
 
       {/* Before/After comparison */}
       <QuickWinsSection />
+
+      {/* Volume = Probability */}
+      <VolumeSection />
 
       {/* Why now - the AI marketing gap */}
       <WhyEmpireSection />

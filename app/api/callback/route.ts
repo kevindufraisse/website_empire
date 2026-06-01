@@ -3,11 +3,13 @@ import { NextResponse } from 'next/server'
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const { firstName, email, phone, budget, emp, status } = body
+    const { firstName, email, phone, budget, emp, status, statut } = body
 
     if (!firstName || !email || !phone || !budget) {
       return NextResponse.json({ error: 'Missing fields' }, { status: 400 })
     }
+
+    const resolvedStatut = statut || status || 'no_booking'
 
     const webhookUrl = process.env.CALLBACK_WEBHOOK_URL || 'https://hook.eu1.make.com/kte7swdmp4hvdqe06hnq43nv3h1w9qnt'
 
@@ -21,7 +23,8 @@ export async function POST(request: Request) {
           phone,
           budget,
           emp,
-          status: status || 'no_booking',
+          status: resolvedStatut,
+          statut: resolvedStatut,
           timestamp: new Date().toISOString(),
           source: 'website-callback-form',
         }),
@@ -32,7 +35,9 @@ export async function POST(request: Request) {
     const wahaSession = process.env.WAHA_SESSION || 'default'
     const notifyPhone = process.env.NOTIFY_PHONE_NUMBER
 
-    if (wahaUrl && notifyPhone) {
+    const isBooked = resolvedStatut === 'RDV confirmé'
+
+    if (wahaUrl && notifyPhone && !isBooked) {
       const message =
         `🔔 Lead callback (pas de RDV booké)\n\n` +
         `👤 ${firstName}\n` +

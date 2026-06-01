@@ -141,8 +141,8 @@ function PhoneBlock({ email }: { email: string }) {
           <Phone size={14} className="text-white" />
         </div>
         <div>
-          <p className="text-base font-bold text-black">Recevoir les rappels par SMS</p>
-          <p className="text-xs text-neutral-500">+ le template de funnel offert</p>
+          <p className="text-base font-bold text-black">Tu veux qu&apos;on te rappelle le jour J ?</p>
+          <p className="text-xs text-neutral-500">Juste 2 rappels SMS + le template funnel offert. Pas de spam, promis.</p>
         </div>
       </div>
       <form onSubmit={handleSubmit} className="pl-11">
@@ -221,6 +221,8 @@ export default function WebinarMerciClient() {
 
           {/* Steps */}
           <div className="space-y-3 text-left">
+
+          {email && !hasPhone && <PhoneBlock email={email} />}
 
           {/* Step 1: Calendar */}
           <div className="rounded-2xl bg-white border border-neutral-200 shadow-sm p-5 md:p-6">
@@ -333,7 +335,6 @@ export default function WebinarMerciClient() {
             </p>
           </div>
 
-          {email && !hasPhone && <PhoneBlock email={email} />}
           </div>
         </div>
       </section>
@@ -368,7 +369,6 @@ export default function WebinarMerciClient() {
           <p className="text-[10px] text-neutral-400 uppercase tracking-widest font-bold mb-6">Optionnel</p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Book a call */}
             <div className="rounded-2xl bg-white border border-neutral-200 shadow-sm p-5">
               <CalendarPlus size={18} className="text-black mb-3" />
               <p className="font-bold text-black text-sm mb-1.5">
@@ -387,7 +387,6 @@ export default function WebinarMerciClient() {
               </a>
             </div>
 
-            {/* Share */}
             <div className="rounded-2xl bg-white border border-neutral-200 shadow-sm p-5">
               <Share2 size={18} className="text-black mb-3" />
               <p className="font-bold text-black text-sm mb-1.5">

@@ -109,13 +109,13 @@ export default function CallbackFormModal({ isOpen, onClose }: CallbackFormModal
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
-  function sendAbandonedLeadIfNeeded() {
-    if (bookedRef.current) return
+  function sendLead(statut: string) {
     if (!pendingLeadRef.current) return
     const payload = {
       ...pendingLeadRef.current,
       emp: getEmpParam() || undefined,
-      status: 'no_booking' as const,
+      status: statut,
+      statut,
     }
     pendingLeadRef.current = null
     fetch('/api/callback', {
@@ -124,6 +124,11 @@ export default function CallbackFormModal({ isOpen, onClose }: CallbackFormModal
       body: JSON.stringify(payload),
       keepalive: true,
     }).catch(() => {})
+  }
+
+  function sendAbandonedLeadIfNeeded() {
+    if (bookedRef.current) return
+    sendLead('RDV NON CONFIRMÉ RAPPELER LE PROSPECT')
   }
 
   function handleClose() {
@@ -187,7 +192,7 @@ export default function CallbackFormModal({ isOpen, onClose }: CallbackFormModal
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         callback: (_e: any) => {
           bookedRef.current = true
-          pendingLeadRef.current = null
+          sendLead('RDV confirmé')
         },
       })
     })()
@@ -200,10 +205,12 @@ export default function CallbackFormModal({ isOpen, onClose }: CallbackFormModal
     function flushBeacon() {
       if (bookedRef.current) return
       if (!pendingLeadRef.current) return
+      const statut = 'RDV NON CONFIRMÉ RAPPELER LE PROSPECT'
       const data = JSON.stringify({
         ...pendingLeadRef.current,
         emp: getEmpParam() || undefined,
-        status: 'no_booking',
+        status: statut,
+        statut,
       })
       pendingLeadRef.current = null
       try {
