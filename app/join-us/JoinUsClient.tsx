@@ -121,11 +121,18 @@ export default function JoinUsClient() {
           <div id="reserve-form" className="order-1 lg:order-2 scroll-mt-6">
             <div className={`relative rounded-2xl border ${accent.formBorder} bg-gradient-to-b from-white/[0.08] to-white/[0.04] p-5 sm:p-7 ${accent.formShadow} overflow-hidden`}>
               <div className={`absolute top-0 left-0 right-0 h-0.5 ${accent.formBar}`} />
-              <h2 className="text-lg font-bold text-white mb-5">
-                {autopilot
-                  ? (fr ? 'Postulez au mode Autopilot' : 'Apply to Autopilot mode')
-                  : (fr ? 'Réservez votre appel gratuit' : 'Book your free call')}
-              </h2>
+              <div className="mb-5">
+                <h2 className="text-lg font-bold text-white">
+                  {autopilot
+                    ? (fr ? 'Postulez au mode Autopilot' : 'Apply to Autopilot mode')
+                    : (fr ? 'Réservez votre appel gratuit' : 'Book your free call')}
+                </h2>
+                <p className="text-xs text-neutral-400 mt-1">
+                  {autopilot
+                    ? (fr ? '30 secondes — on revient vers vous sous 24h.' : '30 seconds — we get back to you within 24h.')
+                    : (fr ? '30 secondes — choisissez ensuite votre créneau.' : '30 seconds — then pick your slot.')}
+                </p>
+              </div>
               <YtLeadForm eventName="organic_lead_form" />
             </div>
 

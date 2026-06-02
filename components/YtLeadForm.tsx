@@ -35,18 +35,10 @@ const COUNTRIES = [
   { code: '+971', flag: '🇦🇪', name: 'UAE' },
 ]
 
-// Map our budget values to Cal.com radio option labels (identifier: "price")
-const BUDGET_MAP: Record<string, string> = {
-  '1000-5000': '+1000€ - 5000€',
-  '5000+':     '5000€ - 10 000€',
-  '10000+':    '+10 000€',
-}
-
 interface Lead {
   firstName: string
   email: string
   phone: string
-  budget: string
 }
 
 // ── Cal.com full-screen modal ─────────────────────────────────────────────────
@@ -125,7 +117,6 @@ function CalModal({ lead, countryCode, onClose }: { lead: Lead; countryCode: str
               name: lead.firstName,
               email: lead.email,
               smsReminderNumber: fullPhone,
-              price: BUDGET_MAP[lead.budget] ?? '',
             }}
           />
         </div>
@@ -141,27 +132,22 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
   const { autopilot } = useAutopilot()
   const accent = autopilot
     ? {
-        ring: 'focus:ring-autopilot/30',
-        border: 'focus:border-autopilot/50',
-        focusWithin: 'focus-within:border-autopilot/50 focus-within:ring-autopilot/30',
+        ring: 'focus:ring-autopilot/40',
+        border: 'focus:border-autopilot/60',
+        focusWithin: 'focus-within:border-autopilot/60 focus-within:ring-autopilot/40',
         dropdownActive: 'bg-autopilot/10 text-autopilot',
-        chipActive: 'bg-autopilot/15 border-autopilot/50 text-autopilot shadow-[0_0_12px_-4px_rgba(212,165,116,0.25)]',
-        chipIdle: 'hover:border-autopilot/30',
         submit: 'bg-autopilot text-black shadow-[0_0_20px_-4px_rgba(212,165,116,0.35)] hover:shadow-[0_0_28px_-4px_rgba(212,165,116,0.5)]',
       }
     : {
-        ring: 'focus:ring-empire/30',
-        border: 'focus:border-empire/50',
-        focusWithin: 'focus-within:border-empire/50 focus-within:ring-empire/30',
+        ring: 'focus:ring-empire/40',
+        border: 'focus:border-empire/60',
+        focusWithin: 'focus-within:border-empire/60 focus-within:ring-empire/40',
         dropdownActive: 'bg-empire/10 text-empire',
-        chipActive: 'bg-empire/15 border-empire/50 text-empire shadow-[0_0_12px_-4px_rgb(var(--empire-rgb)_/_0.2)]',
-        chipIdle: 'hover:border-empire/30',
         submit: 'bg-empire text-black shadow-[0_0_20px_-4px_rgb(var(--empire-rgb)_/_0.35)] hover:shadow-[0_0_28px_-4px_rgb(var(--empire-rgb)_/_0.5)]',
       }
   const [loading, setLoading] = useState(false)
-  const [submitted, setSubmitted] = useState(false)
   const [showCal, setShowCal] = useState(false)
-  const [form, setForm] = useState<Lead>({ firstName: '', email: '', phone: '', budget: '' })
+  const [form, setForm] = useState<Lead>({ firstName: '', email: '', phone: '' })
   const [countryIdx, setCountryIdx] = useState(0)
   const [countryOpen, setCountryOpen] = useState(false)
   const [errors, setErrors] = useState<Record<string, boolean>>({})
@@ -184,7 +170,6 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
     if (!form.firstName.trim()) e.firstName = true
     if (!form.email.trim() || !form.email.includes('@')) e.email = true
     if (!form.phone.trim()) e.phone = true
-    if (!form.budget) e.budget = true
     setErrors(e)
     return Object.keys(e).length === 0
   }
@@ -192,11 +177,6 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
   async function handleSubmit(ev: React.FormEvent) {
     ev.preventDefault()
     if (!validate()) return
-
-    if (form.budget === 'none') {
-      setSubmitted(true)
-      return
-    }
 
     setLoading(true)
     const fullPhone = `${COUNTRIES[countryIdx].code}${form.phone}`
@@ -208,7 +188,6 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
           firstName: form.firstName,
           email: form.email,
           phone: fullPhone,
-          budget: form.budget,
           emp: getEmpParam() || undefined,
         }),
       })
@@ -217,40 +196,12 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
 
     // Fire GA4 conversion event via GTM dataLayer
     if (typeof window !== 'undefined') {
-      const payload = {
-        value: form.budget === '5000+' ? 5000 : 1000,
-        currency: 'EUR',
-      }
+      const payload = { value: 1000, currency: 'EUR' }
       window.dataLayer = window.dataLayer || []
       window.dataLayer.push({ event: eventName, ...payload })
     }
 
     setShowCal(true)
-  }
-
-  if (submitted) {
-    return (
-      <div className="text-center py-8 space-y-4">
-        <p className="text-lg font-bold text-white">Pas encore le budget pour un accompagnement complet ?</p>
-        <p className="text-neutral-400 text-sm max-w-sm mx-auto">
-          <span className="text-white font-semibold">Empire Academy</span> est fait pour toi : 21 jours pour maîtriser la viralité. On produit ton contenu pendant que tu apprends. Lance ton projet ou deviens coach Empire (500€/mission).
-        </p>
-        <a
-          href="/academy"
-          className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#fca5a5] text-black font-bold text-sm hover:bg-[#fca5a5]/90 transition-colors"
-        >
-          Découvrir le bootcamp →
-        </a>
-        <div>
-          <button
-            onClick={() => { setForm({ ...form, budget: '' }); setSubmitted(false) }}
-            className="text-xs text-neutral-400 hover:text-neutral-400 transition-colors underline"
-          >
-            Revenir au formulaire
-          </button>
-        </div>
-      </div>
-    )
   }
 
   return (
@@ -262,7 +213,7 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
           placeholder="Votre prénom *"
           value={form.firstName}
           onChange={(e) => { setForm({ ...form, firstName: e.target.value }); setErrors({ ...errors, firstName: false }) }}
-          className={`w-full px-4 py-3.5 rounded-xl bg-white/[0.12] border text-white placeholder:text-neutral-400 focus:outline-none focus:ring-1 ${accent.ring} transition-all text-base ${errors.firstName ? 'border-red-500' : `border-white/20 ${accent.border}`}`}
+          className={`w-full px-4 py-3.5 rounded-xl bg-white/[0.06] border text-white placeholder:text-neutral-400 focus:outline-none focus:ring-1 ${accent.ring} transition-all text-sm ${errors.firstName ? 'border-red-500' : `border-white/40 ${accent.border}`}`}
         />
 
         <input
@@ -272,16 +223,15 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
           onChange={(e) => { setForm({ ...form, email: e.target.value }); setErrors({ ...errors, email: false }) }}
           autoComplete="email"
           inputMode="email"
-          className={`w-full px-4 py-3.5 rounded-xl bg-white/[0.12] border text-white placeholder:text-neutral-400 focus:outline-none focus:ring-1 ${accent.ring} transition-all text-base ${errors.email ? 'border-red-500' : `border-white/20 ${accent.border}`}`}
+          className={`w-full px-4 py-3.5 rounded-xl bg-white/[0.06] border text-white placeholder:text-neutral-400 focus:outline-none focus:ring-1 ${accent.ring} transition-all text-sm ${errors.email ? 'border-red-500' : `border-white/40 ${accent.border}`}`}
         />
 
-        {/* Phone with country code */}
-        <div className={`flex rounded-xl bg-white/[0.12] border overflow-hidden transition-all ${errors.phone ? 'border-red-500' : `border-white/20 ${accent.focusWithin} focus-within:ring-1`}`}>
+        <div className={`flex rounded-xl bg-white/[0.06] border overflow-hidden transition-all ${errors.phone ? 'border-red-500' : `border-white/40 ${accent.focusWithin} focus-within:ring-1`}`}>
           <div ref={dropdownRef} className="relative">
             <button
               type="button"
               onClick={() => setCountryOpen(!countryOpen)}
-              className="flex items-center gap-1.5 px-3 py-4 text-white hover:bg-white/5 transition-colors border-r border-white/10 whitespace-nowrap"
+              className="flex items-center gap-1.5 px-3 py-3.5 text-white hover:bg-white/5 transition-colors border-r border-white/25 whitespace-nowrap"
             >
               <span className="text-base">{COUNTRIES[countryIdx].flag}</span>
               <span className="text-sm text-neutral-300">{COUNTRIES[countryIdx].code}</span>
@@ -306,43 +256,13 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
           </div>
           <input
             type="tel"
-              placeholder="Votre téléphone *"
+            placeholder="Votre téléphone *"
             value={form.phone}
             onChange={(e) => { setForm({ ...form, phone: e.target.value }); setErrors({ ...errors, phone: false }) }}
             autoComplete="tel"
             inputMode="tel"
-            className="flex-1 px-3 py-4 bg-transparent text-white placeholder:text-neutral-400 focus:outline-none min-w-0 text-base"
+            className="flex-1 px-3 py-3.5 bg-transparent text-white placeholder:text-neutral-400 focus:outline-none min-w-0 text-sm"
           />
-        </div>
-
-        {/* Budget */}
-        <div>
-          <p className={`text-xs mb-2 ${errors.budget ? 'text-red-400' : 'text-neutral-400'}`}>
-            Budget mensuel pour résoudre ce problème *
-
-          </p>
-          <div className="grid grid-cols-3 gap-2">
-            {[
-              { value: '1000-5000', label: '1k – 5k€' },
-              { value: '5000+',    label: '5 000€+' },
-              { value: 'none',     label: 'Pas encore' },
-            ].map(({ value, label }) => (
-              <button
-                key={value}
-                type="button"
-                onClick={() => { setForm({ ...form, budget: value }); setErrors({ ...errors, budget: false }) }}
-                className={`py-3 rounded-xl border text-sm font-medium transition-all cursor-pointer ${
-                  form.budget === value
-                    ? value === 'none'
-                      ? 'bg-red-500/10 border-red-500/30 text-red-400'
-                      : accent.chipActive
-                    : `bg-white/[0.10] border-white/20 text-neutral-300 ${accent.chipIdle} hover:bg-white/[0.1]`
-                }`}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
         </div>
 
         <button
@@ -363,11 +283,6 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
           }
         </button>
 
-        <p className="text-xs text-neutral-400 text-center">
-          {lang === 'fr'
-            ? 'Publié tous les jours · 6+ plateformes'
-            : 'Published daily · 6+ platforms'}
-        </p>
         <CtaReassurance className="mt-3" />
       </form>
 
