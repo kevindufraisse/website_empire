@@ -10,13 +10,7 @@ import {
   Check,
   ArrowRight,
   ArrowLeft,
-  Film,
   FileText,
-  Mail,
-  Video,
-  Layers,
-  Scissors,
-  Infinity as InfinityIcon,
   X,
 } from 'lucide-react'
 import { getEmpParam } from '@/hooks/useCalLink'
@@ -62,13 +56,8 @@ const PLATFORMS = [
   { id: 'x', label: 'X (Twitter)', svg: 'M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z' },
 ]
 
-const CONTENT_TYPES = [
-  { id: 'reels_montes', label: 'Reel monté', icon: Scissors, cost: CREDIT_COSTS.reels_montes },
-  { id: 'youtube', label: 'Vidéo YouTube', icon: Video, cost: CREDIT_COSTS.youtube },
-  { id: 'carrousels', label: 'Carrousel', icon: Layers, cost: CREDIT_COSTS.carrousels },
-  { id: 'newsletters', label: 'Newsletter', icon: Mail, cost: CREDIT_COSTS.newsletters },
-  { id: 'posts', label: 'Post LI / X', icon: FileText, cost: CREDIT_COSTS.posts },
-  { id: 'reels', label: 'Reel auto', icon: Film, cost: CREDIT_COSTS.reels },
+const CONTENT_TYPE_IDS = [
+  'reels_montes', 'youtube', 'carrousels', 'newsletters', 'posts', 'reels',
 ] as const
 
 type Pack = {
@@ -177,7 +166,7 @@ export default function PaygClient() {
   }, [])
 
   const selectedPack = PAYG_TIERS.find((t) => t.id === form.packId)
-  const isUnlimitedSelected = selectedPack?.id === 'illimite'
+  const isUnlimitedSelected = false
 
   function togglePlatform(id: string) {
     setForm((f) => ({
@@ -187,15 +176,6 @@ export default function PaygClient() {
         : [...f.platforms, id],
     }))
     setErrors((e) => ({ ...e, platforms: false }))
-  }
-
-  function toggleContent(id: string) {
-    setForm((f) => ({
-      ...f,
-      contentTypes: f.contentTypes.includes(id)
-        ? f.contentTypes.filter((c) => c !== id)
-        : [...f.contentTypes, id],
-    }))
   }
 
   function validateStep1() {
@@ -314,61 +294,32 @@ export default function PaygClient() {
           <div className="lg:sticky lg:top-8">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-empire/10 border border-empire/30 text-empire text-xs font-bold uppercase tracking-wider mb-5">
               <Sparkles size={12} />
-              Pay As You Go · Beta privée
+              Beta · 50 places
             </div>
 
             <h1 className="text-3xl sm:text-4xl font-extrabold leading-tight mb-4">
               1 interview ={' '}
-              <span className="text-empire">1 semaine de contenu</span> sur tous tes
-              réseaux.
+              <span className="text-empire">1 semaine de contenu</span>.
             </h1>
 
-            <p className="text-neutral-400 text-base mb-6 leading-relaxed">
-              Choisis le volume de contenu qu&apos;il te faut. On produit tout à partir
-              d&apos;une simple interview caméra, et on publie partout pour toi.
+            <p className="text-neutral-400 text-base mb-8 leading-relaxed">
+              On produit tout à partir d&apos;une interview caméra et on publie
+              partout pour toi. Choisis juste le volume.
             </p>
 
-            <ul className="space-y-3 mb-6">
+            <div className="space-y-4">
               {[
-                { strong: '21 contenus', rest: ' produits à partir d\'une seule interview' },
-                { strong: 'Publié partout', rest: ' — LinkedIn, X, Insta, TikTok, YouTube...' },
-                { strong: 'Flexible', rest: ' — change de volume quand tu veux' },
-                { strong: 'Pas de perte', rest: ' — crédits non utilisés reportés au mois suivant' },
-                { strong: 'Sans engagement', rest: ' — résilie quand tu veux' },
-              ].map((b) => (
-                <li key={b.strong} className="flex items-start gap-2.5 text-sm text-neutral-300">
-                  <Check size={16} className="text-empire shrink-0 mt-0.5" />
-                  <span>
-                    <span className="text-white font-semibold">{b.strong}</span>
-                    {b.rest}
-                  </span>
-                </li>
+                { icon: FileText, value: '21', label: 'contenus par interview' },
+                { icon: Check, value: '0', label: 'engagement · résilie quand tu veux' },
+                { icon: ArrowRight, value: '∞', label: 'crédits non utilisés reportés' },
+              ].map((item) => (
+                <div key={item.label} className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-empire/10 border border-empire/30 flex items-center justify-center">
+                    <span className="text-empire text-sm font-extrabold">{item.value}</span>
+                  </div>
+                  <span className="text-sm text-neutral-300">{item.label}</span>
+                </div>
               ))}
-            </ul>
-
-            <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4 mb-4">
-              <p className="text-[11px] uppercase tracking-widest text-neutral-400 font-bold mb-3">
-                1 interview = 1 semaine de contenu
-              </p>
-              <div className="space-y-1.5 text-sm">
-                {[
-                  { icon: FileText, label: '7 posts LinkedIn / X' },
-                  { icon: Mail, label: '7 newsletters' },
-                  { icon: Film, label: '7 Reels sous-titrés' },
-                ].map((item) => {
-                  const Icon = item.icon
-                  return (
-                    <div key={item.label} className="flex items-center gap-2">
-                      <Icon size={13} className="text-empire" />
-                      <span className="text-neutral-300 flex-1">{item.label}</span>
-                    </div>
-                  )
-                })}
-              </div>
-              <p className="text-xs text-neutral-400 mt-3 pt-3 border-t border-white/10">
-                <span className="text-white font-semibold">21 contenus</span> produits et
-                publiés sur tous tes réseaux en une seule session.
-              </p>
             </div>
           </div>
 
@@ -429,36 +380,7 @@ export default function PaygClient() {
                     </div>
                   </div>
 
-                  {/* Content types (optional, for personalization) */}
-                  <div>
-                    <p className="text-xs mb-2 font-medium text-neutral-400">
-                      Quels contenus t&apos;intéressent le plus ?{' '}
-                      <span className="text-neutral-500 font-normal">(optionnel)</span>
-                    </p>
-                    <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
-                      {CONTENT_TYPES.map((c) => {
-                        const Icon = c.icon
-                        const selected = form.contentTypes.includes(c.id)
-                        return (
-                          <button
-                            key={c.id}
-                            type="button"
-                            onClick={() => toggleContent(c.id)}
-                            className={`flex flex-col items-center gap-1 px-2 py-2.5 rounded-xl border text-[10px] font-medium transition-all text-center ${
-                              selected
-                                ? 'bg-empire/15 border-empire/50 text-empire'
-                                : 'bg-white/[0.06] border-white/15 text-neutral-300 hover:border-empire/30'
-                            }`}
-                          >
-                            <Icon size={14} />
-                            <span className="leading-tight">{c.label}</span>
-                          </button>
-                        )
-                      })}
-                    </div>
-                  </div>
-
-                  {/* Pack selection — ClassPass-style horizontal cards */}
+                  {/* Pack selection */}
                   <div>
                     <p
                       className={`text-xs mb-3 font-medium ${
@@ -476,7 +398,6 @@ export default function PaygClient() {
                     <div className="grid grid-cols-3 gap-2">
                       {PAYG_TIERS.map((tier) => {
                         const selected = form.packId === tier.id
-                        const isUnlimited = tier.credits === -1
                         return (
                           <button
                             key={tier.id}
@@ -502,24 +423,18 @@ export default function PaygClient() {
                                 {tier.badge === 'best' ? 'Best' : 'Populaire'}
                               </span>
                             )}
+                            <span className="text-[10px] text-neutral-500">
+                              ~ {tier.contentsPerMonth} contenus
+                            </span>
                             <span
-                              className={`text-2xl font-extrabold leading-none ${
+                              className={`text-2xl font-extrabold leading-none mt-1 ${
                                 selected ? 'text-empire' : 'text-white'
                               }`}
                             >
-                              {isUnlimited ? (
-                                <InfinityIcon size={28} />
-                              ) : (
-                                tier.credits.toLocaleString('fr-FR')
-                              )}
+                              {tier.credits.toLocaleString('fr-FR')}
                             </span>
-                            <span className="text-[10px] text-neutral-400 mt-1">
-                              {isUnlimited ? 'illimité' : 'crédits'}
-                            </span>
-                            <span className="text-[10px] text-neutral-500 mt-1.5">
-                              {isUnlimited
-                                ? 'Contenus illimités'
-                                : `~ ${tier.contentsPerMonth} contenus`}
+                            <span className="text-[10px] text-neutral-400 mt-0.5">
+                              crédits
                             </span>
                             <span
                               className={`text-sm font-bold mt-2 ${
@@ -533,56 +448,6 @@ export default function PaygClient() {
                       })}
                     </div>
                   </div>
-
-                  {/* Light preview when a pack is selected */}
-                  {selectedPack && !isUnlimitedSelected && (
-                    <div className="rounded-xl border border-empire/30 bg-empire/[0.06] px-4 py-3 space-y-2">
-                      <p className="text-[10px] uppercase tracking-widest text-empire font-bold">
-                        Exemple d&apos;utilisation
-                      </p>
-                      <div className="text-xs text-neutral-300 space-y-1">
-                        <p>
-                          <span className="text-white font-semibold">
-                            ~{Math.floor(selectedPack.credits / INTERVIEW_BUNDLE_CREDITS)} interview{Math.floor(selectedPack.credits / INTERVIEW_BUNDLE_CREDITS) > 1 ? 's' : ''}
-                          </span>{' '}
-                          caméra ({CONTENTS_PER_INTERVIEW} contenus chacune)
-                        </p>
-                        <p className="text-neutral-400">
-                          ou mix interviews + vidéos YouTube + carrousels + contenus à l&apos;unité
-                        </p>
-                      </div>
-                      <p className="text-[10px] text-neutral-500 pt-1 border-t border-white/10">
-                        Crédits non utilisés reportés. Tu dépenses comme tu veux.
-                      </p>
-                    </div>
-                  )}
-
-                  {/* Illimité preview */}
-                  {isUnlimitedSelected && (
-                    <div className="rounded-xl border border-empire/30 bg-empire/[0.06] px-4 py-3 space-y-2.5">
-                      <p className="text-[10px] uppercase tracking-widest text-empire font-bold">
-                        Ce qui change vs les packs
-                      </p>
-                      <ul className="space-y-1.5">
-                        {[
-                          'Pas de crédits · production sans limite',
-                          'YouTube + carrousel inclus dans chaque interview',
-                          'Communauté Empire privée',
-                          'Replays Bootcamp Empire',
-                          'Support prioritaire',
-                        ].map((b) => (
-                          <li key={b} className="flex items-start gap-2 text-xs text-neutral-200">
-                            <Check size={12} className="text-empire shrink-0 mt-0.5" />
-                            <span>{b}</span>
-                          </li>
-                        ))}
-                      </ul>
-                      <p className="text-[10px] text-neutral-400 pt-2 border-t border-white/10">
-                        Premier mois : <span className="text-white font-semibold">1 499€</span>{' '}
-                        (4h coaching 1:1 + setup complet). Puis 999€/mois.
-                      </p>
-                    </div>
-                  )}
 
                   <button
                     type="submit"
