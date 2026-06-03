@@ -307,20 +307,35 @@ export default function PaygClient() {
               partout pour toi. Choisis juste le volume.
             </p>
 
-            <div className="space-y-4">
+            {/* Stats */}
+            <div className="grid grid-cols-3 gap-3 mb-8">
               {[
-                { icon: FileText, value: '21', label: 'contenus par interview' },
-                { icon: Check, value: '0', label: 'engagement · résilie quand tu veux' },
-                { icon: ArrowRight, value: '∞', label: 'crédits non utilisés reportés' },
-              ].map((item) => (
-                <div key={item.label} className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-empire/10 border border-empire/30 flex items-center justify-center">
-                    <span className="text-empire text-sm font-extrabold">{item.value}</span>
-                  </div>
-                  <span className="text-sm text-neutral-300">{item.label}</span>
+                { value: '8 mois', label: 'de R&D' },
+                { value: '1M+', label: 'vues générées' },
+                { value: '150h', label: 'sauvées / semaine' },
+              ].map((s) => (
+                <div key={s.label} className="text-center">
+                  <p className="text-xl font-extrabold text-empire leading-none">{s.value}</p>
+                  <p className="text-[10px] text-neutral-400 mt-1">{s.label}</p>
                 </div>
               ))}
             </div>
+
+            {/* Features */}
+            <ul className="space-y-2.5">
+              {[
+                'Tout est vérifié par des humains',
+                'Hook travaillé pour chaque contenu',
+                'Orthographe et style corrigés',
+                'Interview découpée intelligemment',
+                'Crédits cumulables · sans engagement',
+              ].map((f) => (
+                <li key={f} className="flex items-center gap-2.5 text-sm text-neutral-300">
+                  <Check size={14} className="text-empire shrink-0" />
+                  {f}
+                </li>
+              ))}
+            </ul>
           </div>
 
           {/* ── Right column : form ─────────────────────────────── */}
