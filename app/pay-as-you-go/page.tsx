@@ -1,9 +1,9 @@
 import PaygClient from './PaygClient'
 
 export const metadata = {
-  title: 'Empire PAYG (Beta) - Le contenu à la carte, sans abonnement',
+  title: 'Recrutez votre équipe contenu | Empire Internet (Beta)',
   description:
-    "Beta privée : payez à la création, pas au mois. 50 places ouvertes. Rejoignez la liste d'attente.",
+    'On crée vos contenus LinkedIn, Instagram, TikTok, YouTube pour vous. 8 mois de R&D sur la viralité. Économisez +10 000€/mois vs une équipe interne.',
   robots: 'noindex, nofollow',
 }
 

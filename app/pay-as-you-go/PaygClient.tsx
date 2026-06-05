@@ -6,30 +6,22 @@ import Cal, { getCalApi } from '@calcom/embed-react'
 import {
   ChevronDown,
   Loader2,
-  Sparkles,
   Check,
   ArrowRight,
   ArrowLeft,
-  FileText,
   X,
+  Scissors,
+  Film,
+  PenLine,
+  Share2,
+  Users,
+  TrendingUp,
+  Zap,
+  FlaskConical,
 } from 'lucide-react'
 import { getEmpParam } from '@/hooks/useCalLink'
 
 const CAL_LINK = 'team/empire-internet/audit-empire'
-
-// 1 interview camera = 1 week of content (7 posts + 7 NL + 7 reels)
-// 7×85 + 7×115 + 7×29 = 1 603 crédits
-const INTERVIEW_BUNDLE_CREDITS = 1603
-
-// ── Credit costs per content type (matches canvas grille tarifaire) ───
-const CREDIT_COSTS: Record<string, number> = {
-  reels_montes: 350,
-  youtube: 275,
-  carrousels: 180,
-  newsletters: 115,
-  posts: 85,
-  reels: 29,
-}
 
 const COUNTRIES = [
   { code: '+33', flag: '🇫🇷', name: 'France' },
@@ -56,25 +48,18 @@ const PLATFORMS = [
   { id: 'x', label: 'X (Twitter)', svg: 'M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z' },
 ]
 
-const CONTENT_TYPE_IDS = [
-  'reels_montes', 'youtube', 'carrousels', 'newsletters', 'posts', 'reels',
-] as const
-
 type Pack = {
   id: string
   name: string
   badge?: 'populaire' | 'best'
   monthlyPrice: number
-  credits: number // -1 = unlimited
-  interviews: number // how many interview bundles fit (-1 = unlimited)
-  weeksCovered: number // how many weeks of content (-1 = unlimited)
-  contentsPerMonth: number // total content pieces produced (-1 = unlimited)
+  credits: number
+  interviews: number
+  weeksCovered: number
+  contentsPerMonth: number
   tagline: string
 }
 
-const CONTENTS_PER_INTERVIEW = 21 // 7 posts + 7 NL + 7 Reels
-
-// Single source of truth (mirror in app/api/payg-waitlist/route.ts: TIER_PACKS).
 const PAYG_TIERS: Pack[] = [
   {
     id: 'starter',
@@ -105,7 +90,7 @@ const PAYG_TIERS: Pack[] = [
     interviews: 6,
     weeksCovered: 4,
     contentsPerMonth: 126,
-    tagline: 'Le mois entier couvert + du stock d\'avance',
+    tagline: "Le mois entier couvert + du stock d'avance",
   },
 ]
 
@@ -115,6 +100,37 @@ const SITUATIONS = [
   { value: 'freelance', label: "J'ai un freelance / créateur" },
   { value: 'agence', label: "J'ai une agence" },
   { value: 'in_house', label: "J'ai une équipe in-house" },
+]
+
+const REPLACED_ROLES = [
+  { role: 'Monteur vidéo', cost: '2 500' },
+  { role: 'Community Manager', cost: '2 800' },
+  { role: 'Ghostwriter LinkedIn', cost: '1 500' },
+  { role: 'Graphiste / DA', cost: '2 000' },
+  { role: 'Stratège contenu', cost: '3 000' },
+]
+
+const SERVICES = [
+  {
+    icon: Scissors,
+    title: 'On découpe vos interviews',
+    desc: 'Vos interviews caméra sont découpées en clips viraux, prêts à publier.',
+  },
+  {
+    icon: Film,
+    title: 'On monte vos Reels',
+    desc: "Montage pro avec hooks, sous-titres et transitions qui captent l'attention.",
+  },
+  {
+    icon: PenLine,
+    title: 'On écrit vos posts & newsletters',
+    desc: 'Posts LinkedIn, newsletters… rédigés avec votre voix, votre style.',
+  },
+  {
+    icon: Share2,
+    title: 'On multiplie sur tous les réseaux',
+    desc: 'Un contenu = LinkedIn, Instagram, TikTok, YouTube, X. Partout, en même temps.',
+  },
 ]
 
 interface FormState {
@@ -150,6 +166,7 @@ export default function PaygClient() {
   const [showCal, setShowCal] = useState(false)
   const [mounted, setMounted] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
+  const formRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     setMounted(true)
@@ -166,7 +183,6 @@ export default function PaygClient() {
   }, [])
 
   const selectedPack = PAYG_TIERS.find((t) => t.id === form.packId)
-  const isUnlimitedSelected = false
 
   function togglePlatform(id: string) {
     setForm((f) => ({
@@ -204,6 +220,10 @@ export default function PaygClient() {
     }
   }
 
+  function scrollToForm() {
+    formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
   async function handleStep2Submit(ev: React.FormEvent) {
     ev.preventDefault()
     if (!validateStep2() || !selectedPack) return
@@ -236,9 +256,7 @@ export default function PaygClient() {
       if (typeof window !== 'undefined') {
         ;(window as any).dataLayer = (window as any).dataLayer || []
         ;(window as any).dataLayer.push({
-          event: isUnlimitedSelected
-            ? 'payg_unlimited_book_call'
-            : 'payg_waitlist_join',
+          event: 'payg_waitlist_join',
           pack_id: selectedPack.id,
           estimated_monthly_price: selectedPack.monthlyPrice,
           credits_per_month: selectedPack.credits,
@@ -248,14 +266,9 @@ export default function PaygClient() {
         })
       }
 
-      // Illimité tier → open Cal directly so the high-ticket lead can book a call with Kevin.
-      if (isUnlimitedSelected) {
-        setShowCal(true)
-      } else {
-        setStep('done')
-        if (typeof window !== 'undefined') {
-          window.scrollTo({ top: 0, behavior: 'smooth' })
-        }
+      setStep('done')
+      if (typeof window !== 'undefined') {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
       }
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Erreur serveur'
@@ -265,6 +278,11 @@ export default function PaygClient() {
     }
   }
 
+  const totalReplacedCost = REPLACED_ROLES.reduce(
+    (sum, r) => sum + parseInt(r.cost.replace(/\s/g, ''), 10),
+    0,
+  )
+
   return (
     <main className="min-h-screen bg-black text-white overflow-x-hidden">
       <div className="fixed inset-0 pointer-events-none">
@@ -272,483 +290,707 @@ export default function PaygClient() {
       </div>
 
       <div className="relative z-10 flex flex-col min-h-screen">
+        {/* ── Navbar ── */}
         <div className="border-b border-white/5">
-          <div className="flex items-center justify-between max-w-5xl mx-auto w-full px-4 sm:px-6 py-4">
+          <div className="flex items-center justify-between max-w-6xl mx-auto w-full px-4 sm:px-6 py-4">
             <a
               href="/"
               className="text-white font-bold text-base tracking-tight hover:text-empire transition-colors"
             >
               Empire Internet
             </a>
-            <div className="flex items-center gap-1.5 text-xs">
-              <span className="w-1.5 h-1.5 rounded-full bg-empire animate-pulse" />
-              <span className="text-empire font-semibold uppercase tracking-wider">
-                Beta · 50 places
-              </span>
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-1.5 text-xs">
+                <span className="w-1.5 h-1.5 rounded-full bg-empire animate-pulse" />
+                <span className="text-empire font-semibold uppercase tracking-wider">
+                  Beta · 50 places
+                </span>
+              </div>
+              <button
+                onClick={scrollToForm}
+                className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-empire text-black font-bold text-xs hover:brightness-110 transition-all"
+              >
+                Installer ma content machine
+                <ArrowRight size={14} />
+              </button>
             </div>
           </div>
         </div>
 
-        <div className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 py-8 md:py-14 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
-          {/* ── Left column : pitch ─────────────────────────────── */}
-          <div className="lg:sticky lg:top-8">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-empire/10 border border-empire/30 text-empire text-xs font-bold uppercase tracking-wider mb-5">
-              <Sparkles size={12} />
-              Beta · 50 places
+        {/* ── Hero ── */}
+        <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 pt-12 md:pt-20 pb-10 md:pb-16">
+          <div className="text-center max-w-3xl mx-auto">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-empire/10 border border-empire/30 text-empire text-xs font-bold uppercase tracking-wider mb-6">
+              <FlaskConical size={14} />
+              8 mois de R&D sur la viralité
             </div>
 
-            <h1 className="text-3xl sm:text-4xl font-extrabold leading-tight mb-4">
-              1 interview ={' '}
-              <span className="text-empire">1 semaine de contenu</span>.
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-[1.1] mb-5">
+              Installez votre{' '}
+              <span className="text-empire">content machine</span>
             </h1>
 
-            <p className="text-neutral-400 text-base mb-8 leading-relaxed">
-              On produit tout à partir d&apos;une interview caméra et on publie
-              partout pour toi. Choisis juste le volume.
+            <p className="text-neutral-400 text-lg sm:text-xl leading-relaxed mb-4 max-w-2xl mx-auto">
+              On crée vos contenus pour vous — LinkedIn, Instagram, TikTok, YouTube —
+              avec les systèmes des meilleurs entrepreneurs du web.
             </p>
 
-            {/* Stats */}
-            <div className="grid grid-cols-3 gap-3 mb-8">
+            <p className="text-neutral-500 text-sm mb-8 max-w-xl mx-auto">
+              Chaque contenu est vérifié et validé par des humains avant publication.
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-10">
+              <button
+                onClick={scrollToForm}
+                className="w-full sm:w-auto px-8 py-4 rounded-xl bg-empire text-black font-bold text-base hover:brightness-110 transition-all flex items-center justify-center gap-2 shadow-[0_0_30px_-6px_rgb(var(--empire-rgb)_/_0.4)]"
+              >
+                Installer ma content machine
+                <ArrowRight size={18} />
+              </button>
+              <span className="text-xs text-neutral-500">
+                50 places en beta · Accès immédiat
+              </span>
+            </div>
+
+            {/* Stats bar */}
+            <div className="inline-flex items-center gap-6 sm:gap-10 px-6 py-4 rounded-2xl bg-white/[0.04] border border-white/10">
               {[
-                { value: '8 mois', label: 'de R&D' },
+                { value: '8 mois', label: 'de R&D viralité' },
                 { value: '1M+', label: 'vues générées' },
-                { value: '150h', label: 'sauvées / semaine' },
+                { value: '+10 000€', label: 'sauvés / mois' },
               ].map((s) => (
                 <div key={s.label} className="text-center">
-                  <p className="text-xl font-extrabold text-empire leading-none">{s.value}</p>
-                  <p className="text-[10px] text-neutral-400 mt-1">{s.label}</p>
+                  <p className="text-lg sm:text-xl font-extrabold text-empire leading-none">{s.value}</p>
+                  <p className="text-[10px] sm:text-xs text-neutral-500 mt-1">{s.label}</p>
                 </div>
               ))}
             </div>
+          </div>
+        </section>
 
-            {/* Features */}
-            <ul className="space-y-2.5">
-              {[
-                'Tout est vérifié par des humains',
-                'Hook travaillé pour chaque contenu',
-                'Orthographe et style corrigés',
-                'Interview découpée intelligemment',
-                'Crédits cumulables · sans engagement',
-              ].map((f) => (
-                <li key={f} className="flex items-center gap-2.5 text-sm text-neutral-300">
-                  <Check size={14} className="text-empire shrink-0" />
-                  {f}
-                </li>
-              ))}
-            </ul>
+        {/* ── Services ── */}
+        <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 py-12 md:py-16">
+          <div className="text-center mb-10">
+            <p className="text-empire text-xs font-bold uppercase tracking-widest mb-3">
+              Votre content machine
+            </p>
+            <h2 className="text-2xl sm:text-3xl font-extrabold">
+              On s&apos;occupe de tout. Vous, vous parlez.
+            </h2>
+            <p className="text-neutral-400 text-sm mt-3 max-w-lg mx-auto">
+              Tous les contenus sont vérifiés et validés par des humains avant publication.
+            </p>
           </div>
 
-          {/* ── Right column : form ─────────────────────────────── */}
-          <div>
-            <div className="relative rounded-2xl border border-empire/30 bg-gradient-to-b from-white/[0.08] to-white/[0.04] p-5 sm:p-7 shadow-[0_0_60px_-20px_rgb(var(--empire-rgb)_/_0.30)] overflow-hidden">
-              <div className="absolute top-0 left-0 right-0 h-0.5 bg-empire" />
-
-              {step !== 'done' && (
-                <div className="flex items-center gap-2 mb-5">
-                  <StepDot active={step === 1} done={step === 2} number={1} label="Pack & cadence" />
-                  <div className="flex-1 h-px bg-white/10" />
-                  <StepDot active={step === 2} done={false} number={2} label="Coordonnées" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {SERVICES.map((s) => (
+              <div
+                key={s.title}
+                className="group relative p-5 sm:p-6 rounded-2xl border border-white/10 bg-white/[0.03] hover:border-empire/30 hover:bg-empire/[0.04] transition-all"
+              >
+                <div className="w-10 h-10 rounded-xl bg-empire/10 border border-empire/20 flex items-center justify-center mb-4">
+                  <s.icon size={20} className="text-empire" />
                 </div>
-              )}
+                <h3 className="text-base font-bold text-white mb-1.5">{s.title}</h3>
+                <p className="text-sm text-neutral-400 leading-relaxed">{s.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
 
-              {step === 1 && (
-                <form onSubmit={handleStep1Submit} className="space-y-5">
-                  <div>
-                    <h2 className="text-lg font-bold text-white mb-1">
-                      Combien de contenu tu veux ?
-                    </h2>
-                    <p className="text-xs text-neutral-400">
-                      Pas d&apos;email demandé tout de suite. 3 questions rapides.
-                    </p>
+        {/* ── On remplace ── */}
+        <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 py-12 md:py-16">
+          <div className="rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.05] to-transparent overflow-hidden">
+            <div className="p-6 sm:p-10">
+              <div className="flex flex-col lg:flex-row lg:items-start gap-8 lg:gap-12">
+                <div className="flex-1">
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-bold uppercase tracking-wider mb-5">
+                    <Users size={12} />
+                    On remplace
                   </div>
 
-                  {/* Platforms */}
-                  <div>
-                    <p
-                      className={`text-xs mb-2 font-medium ${
-                        errors.platforms ? 'text-red-400' : 'text-neutral-400'
-                      }`}
-                    >
-                      Sur quels réseaux tu veux être présent ? *
-                    </p>
-                    <div className="grid grid-cols-3 gap-2">
-                      {PLATFORMS.map((p) => {
-                        const selected = form.platforms.includes(p.id)
-                        return (
-                          <button
-                            key={p.id}
-                            type="button"
-                            onClick={() => togglePlatform(p.id)}
-                            className={`flex items-center gap-2 px-3 py-2.5 rounded-xl border text-xs font-medium transition-all ${
-                              selected
-                                ? 'bg-empire/15 border-empire/50 text-empire shadow-[0_0_12px_-4px_rgb(var(--empire-rgb)_/_0.25)]'
-                                : 'bg-white/[0.06] border-white/15 text-neutral-300 hover:border-empire/30'
-                            }`}
-                          >
-                            <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5">
-                              <path d={p.svg} />
-                            </svg>
-                            <span className="truncate">{p.label}</span>
-                          </button>
-                        )
-                      })}
-                    </div>
-                  </div>
+                  <h2 className="text-2xl sm:text-3xl font-extrabold mb-3">
+                    5 postes remplacés.{' '}
+                    <span className="text-empire">+{totalReplacedCost.toLocaleString('fr-FR')}€ sauvés / mois.</span>
+                  </h2>
 
-                  {/* Pack selection */}
-                  <div>
-                    <p
-                      className={`text-xs mb-3 font-medium ${
-                        errors.packId ? 'text-red-400' : 'text-neutral-400'
-                      }`}
-                    >
-                      Combien de contenu par mois ? *{' '}
-                      <a
-                        href="/pay-as-you-go/credits"
-                        className="text-empire font-normal hover:underline"
-                      >
-                        Comment ça marche ?
-                      </a>
-                    </p>
-                    <div className="grid grid-cols-3 gap-2">
-                      {PAYG_TIERS.map((tier) => {
-                        const selected = form.packId === tier.id
-                        return (
-                          <button
-                            key={tier.id}
-                            type="button"
-                            onClick={() => {
-                              setForm((s) => ({ ...s, packId: tier.id }))
-                              setErrors((e) => ({ ...e, packId: false }))
-                            }}
-                            className={`relative flex flex-col items-center text-center px-2 py-4 rounded-xl border transition-all ${
-                              selected
-                                ? 'bg-empire/[0.08] border-empire/50 shadow-[0_0_16px_-6px_rgb(var(--empire-rgb)_/_0.35)]'
-                                : 'bg-white/[0.04] border-white/15 hover:border-empire/30'
-                            }`}
-                          >
-                            {tier.badge && (
-                              <span
-                                className={`absolute -top-2 left-1/2 -translate-x-1/2 text-[8px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider whitespace-nowrap ${
-                                  tier.badge === 'best'
-                                    ? 'bg-empire text-black'
-                                    : 'bg-empire/20 text-empire border border-empire/40'
-                                }`}
-                              >
-                                {tier.badge === 'best' ? 'Best' : 'Populaire'}
-                              </span>
-                            )}
-                            <span className="text-[10px] text-neutral-500">
-                              ~ {tier.contentsPerMonth} contenus
-                            </span>
-                            <span
-                              className={`text-2xl font-extrabold leading-none mt-1 ${
-                                selected ? 'text-empire' : 'text-white'
-                              }`}
-                            >
-                              {tier.credits.toLocaleString('fr-FR')}
-                            </span>
-                            <span className="text-[10px] text-neutral-400 mt-0.5">
-                              crédits
-                            </span>
-                            <span
-                              className={`text-sm font-bold mt-2 ${
-                                selected ? 'text-empire' : 'text-neutral-300'
-                              }`}
-                            >
-                              {tier.monthlyPrice}€
-                            </span>
-                          </button>
-                        )
-                      })}
-                    </div>
-                  </div>
-
-                  <button
-                    type="submit"
-                    className="w-full py-4 rounded-xl bg-empire text-black font-bold text-base hover:brightness-110 transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_-4px_rgb(var(--empire-rgb)_/_0.35)]"
-                  >
-                    Continuer
-                    <ArrowRight size={18} />
-                  </button>
-
-                  <p className="text-[11px] text-neutral-500 text-center">
-                    Étape 2 = juste tes coordonnées. Pas de spam.
+                  <p className="text-neutral-400 text-sm leading-relaxed mb-6 max-w-md">
+                    Recruter en interne pour produire du contenu sur tous vos réseaux
+                    coûte une fortune. Avec Empire, vous avez toute l&apos;équipe
+                    intégrée dès le premier jour.
                   </p>
-                </form>
-              )}
 
-              {step === 2 && (
-                <form onSubmit={handleStep2Submit} className="space-y-4">
-                  <div>
-                    <h2 className="text-lg font-bold text-white mb-1">
-                      Tu y es presque.
-                    </h2>
-                    <p className="text-xs text-neutral-400">
-                      {isUnlimitedSelected
-                        ? 'Laisse tes coordonnées, tu choisis ton créneau avec Kevin juste après.'
-                        : 'On a 50 places en beta — laisse tes coordonnées pour réserver la tienne.'}
-                    </p>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-3xl sm:text-4xl font-extrabold text-empire">
+                      +{totalReplacedCost.toLocaleString('fr-FR')}€
+                    </span>
+                    <span className="text-neutral-400 text-sm">économisés / mois</span>
                   </div>
+                </div>
 
-                  {selectedPack && (
-                    <div className="rounded-xl border border-empire/30 bg-empire/[0.06] px-4 py-3 flex items-center justify-between">
-                      <div>
-                        <p className="text-[10px] uppercase tracking-widest text-empire font-bold">
-                          Ta sélection
-                        </p>
-                        <p className="text-sm text-white font-semibold mt-0.5">
-                          {selectedPack.name}
-                        </p>
-                        <p className="text-[11px] text-neutral-400 mt-0.5">
-                          {selectedPack.credits === -1
-                            ? 'Crédits illimités'
-                            : `${selectedPack.credits.toLocaleString('fr-FR')} crédits / mois`}
-                        </p>
+                <div className="flex-1 space-y-2">
+                  {REPLACED_ROLES.map((r) => (
+                    <div
+                      key={r.role}
+                      className="flex items-center justify-between px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10"
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-2 h-2 rounded-full bg-red-400/60" />
+                        <span className="text-sm text-white font-medium">{r.role}</span>
                       </div>
-                      <div className="text-right">
-                        <div className="text-xl font-extrabold text-empire leading-none">
-                          {selectedPack.monthlyPrice}€
-                        </div>
-                        <div className="text-[10px] text-neutral-400 mt-0.5">/mois</div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm text-neutral-500 line-through">
+                          {r.cost}€/mois
+                        </span>
+                        <span className="text-xs font-bold text-empire px-2 py-0.5 rounded-full bg-empire/10">
+                          Inclus
+                        </span>
                       </div>
                     </div>
-                  )}
+                  ))}
 
-                  <input
-                    type="text"
-                    placeholder="Votre prénom *"
-                    value={form.firstName}
-                    onChange={(e) => {
-                      setForm({ ...form, firstName: e.target.value })
-                      setErrors({ ...errors, firstName: false })
-                    }}
-                    className={`w-full px-4 py-3.5 rounded-xl bg-white/[0.12] border text-white placeholder:text-neutral-400 focus:outline-none focus:ring-1 focus:ring-empire/30 transition-all text-base ${
-                      errors.firstName
-                        ? 'border-red-500'
-                        : 'border-white/20 focus:border-empire/50'
-                    }`}
-                  />
+                  <div className="flex items-center justify-between px-4 py-3 rounded-xl bg-empire/[0.08] border border-empire/30">
+                    <span className="text-sm text-white font-bold">Total remplacé</span>
+                    <span className="text-lg font-extrabold text-empire">
+                      {totalReplacedCost.toLocaleString('fr-FR')}€/mois
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
-                  <input
-                    type="email"
-                    placeholder="Votre email *"
-                    value={form.email}
-                    onChange={(e) => {
-                      setForm({ ...form, email: e.target.value })
-                      setErrors({ ...errors, email: false })
-                    }}
-                    autoComplete="email"
-                    inputMode="email"
-                    className={`w-full px-4 py-3.5 rounded-xl bg-white/[0.12] border text-white placeholder:text-neutral-400 focus:outline-none focus:ring-1 focus:ring-empire/30 transition-all text-base ${
-                      errors.email
-                        ? 'border-red-500'
-                        : 'border-white/20 focus:border-empire/50'
-                    }`}
-                  />
+        {/* ── Comment ça marche ── */}
+        <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 py-12 md:py-16">
+          <div className="text-center mb-10">
+            <p className="text-empire text-xs font-bold uppercase tracking-widest mb-3">
+              Le process
+            </p>
+            <h2 className="text-2xl sm:text-3xl font-extrabold">
+              3 étapes. Zéro prise de tête.
+            </h2>
+          </div>
 
-                  <div
-                    className={`flex rounded-xl bg-white/[0.12] border overflow-hidden transition-all ${
-                      errors.phone
-                        ? 'border-red-500'
-                        : 'border-white/20 focus-within:border-empire/50 focus-within:ring-1 focus-within:ring-empire/30'
-                    }`}
-                  >
-                    <div ref={dropdownRef} className="relative">
-                      <button
-                        type="button"
-                        onClick={() => setCountryOpen(!countryOpen)}
-                        className="flex items-center gap-1.5 px-3 py-4 text-white hover:bg-white/5 transition-colors border-r border-white/10 whitespace-nowrap"
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[
+              {
+                step: '01',
+                icon: Zap,
+                title: "Vous passez l'interview",
+                desc: '30 min face caméra. On vous guide avec des questions calibrées pour générer du contenu viral.',
+              },
+              {
+                step: '02',
+                icon: TrendingUp,
+                title: 'On produit tout',
+                desc: 'Notre équipe découpe, monte, rédige et adapte pour chaque plateforme. Vérifié par des humains.',
+              },
+              {
+                step: '03',
+                icon: Share2,
+                title: 'On publie partout',
+                desc: 'LinkedIn, Instagram, TikTok, YouTube, Newsletter. Tout est posté, optimisé pour chaque algorithme.',
+              },
+            ].map((s) => (
+              <div
+                key={s.step}
+                className="relative p-6 rounded-2xl border border-white/10 bg-white/[0.03]"
+              >
+                <span className="text-5xl font-extrabold text-white/[0.06] absolute top-4 right-5">
+                  {s.step}
+                </span>
+                <div className="w-10 h-10 rounded-xl bg-empire/10 border border-empire/20 flex items-center justify-center mb-4">
+                  <s.icon size={20} className="text-empire" />
+                </div>
+                <h3 className="text-base font-bold text-white mb-2">{s.title}</h3>
+                <p className="text-sm text-neutral-400 leading-relaxed">{s.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── R&D badge section ── */}
+        <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 py-8 md:py-12">
+          <div className="rounded-2xl border border-empire/20 bg-empire/[0.04] p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6 text-center sm:text-left">
+            <div className="w-16 h-16 shrink-0 rounded-2xl bg-empire/10 border border-empire/30 flex items-center justify-center">
+              <FlaskConical size={28} className="text-empire" />
+            </div>
+            <div className="flex-1">
+              <h3 className="text-lg font-bold text-white mb-1">
+                8 mois de R&D sur la viralité
+              </h3>
+              <p className="text-sm text-neutral-400 leading-relaxed max-w-xl">
+                On ne devine pas ce qui marche. On a analysé des milliers de contenus viraux
+                pendant 8 mois pour construire nos systèmes de production. Hooks, structures,
+                formats — tout est optimisé pour maximiser votre reach sur chaque plateforme.
+              </p>
+            </div>
+            <button
+              onClick={scrollToForm}
+              className="shrink-0 px-6 py-3 rounded-xl bg-empire text-black font-bold text-sm hover:brightness-110 transition-all"
+            >
+              Installer ma content machine
+            </button>
+          </div>
+        </section>
+
+        {/* ── Pricing + Form ── */}
+        <section
+          ref={formRef}
+          className="w-full max-w-6xl mx-auto px-4 sm:px-6 py-12 md:py-16 scroll-mt-8"
+        >
+          <div className="text-center mb-10">
+            <p className="text-empire text-xs font-bold uppercase tracking-widest mb-3">
+              Prêt à lancer ?
+            </p>
+            <h2 className="text-2xl sm:text-3xl font-extrabold">
+              Choisissez votre volume.{' '}
+              <span className="text-neutral-400">On s&apos;occupe du reste.</span>
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+            {/* ── Left column : trust + features ── */}
+            <div className="lg:sticky lg:top-8 space-y-6">
+              {/* Human-verified badge */}
+              <div className="flex items-center gap-4 p-4 rounded-xl border border-empire/20 bg-empire/[0.04]">
+                <div className="w-12 h-12 shrink-0 rounded-xl bg-empire/10 border border-empire/30 flex items-center justify-center">
+                  <Users size={22} className="text-empire" />
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-white">100% vérifié par des humains</p>
+                  <p className="text-xs text-neutral-400 mt-0.5">
+                    Chaque contenu est relu, corrigé et validé par notre équipe avant publication. Zéro robot, zéro approximation.
+                  </p>
+                </div>
+              </div>
+
+              {/* What's included */}
+              <div className="p-5 rounded-xl border border-white/10 bg-white/[0.03]">
+                <p className="text-xs font-bold text-empire uppercase tracking-widest mb-3">
+                  Votre content machine inclut
+                </p>
+                <ul className="space-y-2.5">
+                  {[
+                    'Découpage intelligent de vos interviews',
+                    'Montage pro de vos Reels & Shorts',
+                    'Rédaction de vos posts LinkedIn',
+                    'Rédaction de vos newsletters',
+                    'Multiplication sur tous les réseaux',
+                    'Hooks travaillés pour chaque contenu',
+                    'Orthographe et style corrigés',
+                    'Stratégie basée sur 8 mois de R&D viralité',
+                    'Crédits cumulables · sans engagement',
+                  ].map((f) => (
+                    <li key={f} className="flex items-start gap-2.5 text-sm text-neutral-300">
+                      <Check size={14} className="text-empire shrink-0 mt-0.5" />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Quick savings reminder */}
+              <div className="flex items-center justify-between p-4 rounded-xl bg-white/[0.03] border border-white/10">
+                <div>
+                  <p className="text-xs text-neutral-500">Vs. recruter en interne</p>
+                  <p className="text-sm font-bold text-white">Vous économisez</p>
+                </div>
+                <p className="text-2xl font-extrabold text-empire">+{totalReplacedCost.toLocaleString('fr-FR')}€<span className="text-sm font-medium text-neutral-400">/mois</span></p>
+              </div>
+            </div>
+
+            {/* ── Right column : form ── */}
+            <div>
+              <div className="relative rounded-2xl border border-empire/30 bg-gradient-to-b from-white/[0.08] to-white/[0.04] p-5 sm:p-7 shadow-[0_0_60px_-20px_rgb(var(--empire-rgb)_/_0.30)] overflow-hidden">
+                <div className="absolute top-0 left-0 right-0 h-0.5 bg-empire" />
+
+                {step !== 'done' && (
+                  <div className="flex items-center gap-2 mb-5">
+                    <StepDot active={step === 1} done={step === 2} number={1} label="Réseaux & pack" />
+                    <div className="flex-1 h-px bg-white/10" />
+                    <StepDot active={step === 2} done={false} number={2} label="Coordonnées" />
+                  </div>
+                )}
+
+                {step === 1 && (
+                  <form onSubmit={handleStep1Submit} className="space-y-5">
+                    <div>
+                      <h2 className="text-lg font-bold text-white mb-1">
+                        Installez votre content machine
+                      </h2>
+                      <p className="text-xs text-neutral-400">
+                        Dites-nous où vous voulez être présent et on lance la machine.
+                      </p>
+                    </div>
+
+                    {/* Platforms */}
+                    <div>
+                      <p
+                        className={`text-xs mb-2 font-medium ${
+                          errors.platforms ? 'text-red-400' : 'text-neutral-400'
+                        }`}
                       >
-                        <span className="text-base">{COUNTRIES[countryIdx].flag}</span>
-                        <span className="text-sm text-neutral-300">
-                          {COUNTRIES[countryIdx].code}
-                        </span>
-                        <ChevronDown size={12} className="text-neutral-400" />
-                      </button>
-                      {countryOpen && (
-                        <div className="absolute top-full left-0 mt-1 w-56 max-h-52 overflow-y-auto bg-[#1a1a1a] border border-white/10 rounded-xl shadow-2xl z-20">
-                          {COUNTRIES.map((c, i) => (
+                        Où voulez-vous publier ? *
+                      </p>
+                      <div className="grid grid-cols-3 gap-2">
+                        {PLATFORMS.map((p) => {
+                          const selected = form.platforms.includes(p.id)
+                          return (
                             <button
-                              key={`${c.code}-${c.name}`}
+                              key={p.id}
+                              type="button"
+                              onClick={() => togglePlatform(p.id)}
+                              className={`flex items-center gap-2 px-3 py-2.5 rounded-xl border text-xs font-medium transition-all ${
+                                selected
+                                  ? 'bg-empire/15 border-empire/50 text-empire shadow-[0_0_12px_-4px_rgb(var(--empire-rgb)_/_0.25)]'
+                                  : 'bg-white/[0.06] border-white/15 text-neutral-300 hover:border-empire/30'
+                              }`}
+                            >
+                              <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5">
+                                <path d={p.svg} />
+                              </svg>
+                              <span className="truncate">{p.label}</span>
+                            </button>
+                          )
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Pack selection */}
+                    <div>
+                      <p
+                        className={`text-xs mb-3 font-medium ${
+                          errors.packId ? 'text-red-400' : 'text-neutral-400'
+                        }`}
+                      >
+                        Quel volume voulez-vous ? *{' '}
+                        <a
+                          href="/pay-as-you-go/credits"
+                          className="text-empire font-normal hover:underline"
+                        >
+                          Détails
+                        </a>
+                      </p>
+                      <div className="space-y-2">
+                        {PAYG_TIERS.map((tier) => {
+                          const selected = form.packId === tier.id
+                          return (
+                            <button
+                              key={tier.id}
                               type="button"
                               onClick={() => {
-                                setCountryIdx(i)
-                                setCountryOpen(false)
+                                setForm((s) => ({ ...s, packId: tier.id }))
+                                setErrors((e) => ({ ...e, packId: false }))
                               }}
-                              className={`w-full flex items-center gap-2 px-3 py-2 text-left hover:bg-white/10 transition-colors ${
-                                i === countryIdx ? 'bg-empire/10 text-empire' : 'text-white'
+                              className={`relative w-full flex items-center justify-between px-4 py-3.5 rounded-xl border transition-all text-left ${
+                                selected
+                                  ? 'bg-empire/[0.08] border-empire/50 shadow-[0_0_16px_-6px_rgb(var(--empire-rgb)_/_0.35)]'
+                                  : 'bg-white/[0.04] border-white/15 hover:border-empire/30'
                               }`}
                             >
-                              <span>{c.flag}</span>
-                              <span className="text-sm flex-1">{c.name}</span>
-                              <span className="text-xs text-neutral-400">{c.code}</span>
+                              {tier.badge && (
+                                <span className="absolute -top-2 left-4 text-[8px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider whitespace-nowrap bg-empire/20 text-empire border border-empire/40">
+                                  Populaire
+                                </span>
+                              )}
+                              <div className="flex items-center gap-3">
+                                <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${selected ? 'border-empire' : 'border-white/20'}`}>
+                                  {selected && <div className="w-2 h-2 rounded-full bg-empire" />}
+                                </div>
+                                <div>
+                                  <p className={`text-sm font-bold ${selected ? 'text-empire' : 'text-white'}`}>
+                                    {tier.name} · ~{tier.contentsPerMonth} contenus/mois
+                                  </p>
+                                  <p className="text-[11px] text-neutral-500 mt-0.5">
+                                    {tier.tagline}
+                                  </p>
+                                </div>
+                              </div>
+                              <span className={`text-base font-extrabold shrink-0 ${selected ? 'text-empire' : 'text-neutral-400'}`}>
+                                {tier.monthlyPrice}€
+                              </span>
                             </button>
-                          ))}
-                        </div>
-                      )}
+                          )
+                        })}
+                      </div>
                     </div>
-                    <input
-                      type="tel"
-                      placeholder="Votre téléphone *"
-                      value={form.phone}
-                      onChange={(e) => {
-                        setForm({ ...form, phone: e.target.value })
-                        setErrors({ ...errors, phone: false })
-                      }}
-                      autoComplete="tel"
-                      inputMode="tel"
-                      className="flex-1 px-3 py-4 bg-transparent text-white placeholder:text-neutral-400 focus:outline-none min-w-0 text-base"
-                    />
-                  </div>
 
-                  <div>
-                    <p className="text-xs mb-2 text-neutral-400">
-                      Ta situation actuelle (optionnel)
-                    </p>
-                    <select
-                      value={form.currentSituation}
-                      onChange={(e) =>
-                        setForm({ ...form, currentSituation: e.target.value })
-                      }
-                      className="w-full px-4 py-3.5 rounded-xl bg-white/[0.12] border border-white/20 text-white focus:outline-none focus:ring-1 focus:ring-empire/30 focus:border-empire/50 transition-all text-base appearance-none cursor-pointer"
-                    >
-                      <option value="" className="bg-[#1a1a1a]">
-                        — choisir —
-                      </option>
-                      {SITUATIONS.map((s) => (
-                        <option key={s.value} value={s.value} className="bg-[#1a1a1a]">
-                          {s.label}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  {submitError && (
-                    <p className="text-xs text-red-400 text-center">{submitError}</p>
-                  )}
-
-                  <div className="flex gap-2 pt-1">
-                    <button
-                      type="button"
-                      onClick={() => setStep(1)}
-                      className="px-4 py-4 rounded-xl bg-white/5 border border-white/15 text-neutral-300 font-medium text-sm hover:bg-white/10 transition-all flex items-center gap-2"
-                    >
-                      <ArrowLeft size={16} />
-                      Retour
-                    </button>
                     <button
                       type="submit"
-                      disabled={loading}
-                      className="flex-1 py-4 rounded-xl bg-empire text-black font-bold text-base hover:brightness-110 transition-all flex items-center justify-center gap-2 disabled:opacity-70 shadow-[0_0_20px_-4px_rgb(var(--empire-rgb)_/_0.35)]"
+                      className="w-full py-4 rounded-xl bg-empire text-black font-bold text-base hover:brightness-110 transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_-4px_rgb(var(--empire-rgb)_/_0.35)]"
                     >
-                      {loading ? (
-                        <>
-                          <Loader2 size={18} className="animate-spin" />
-                          Envoi en cours...
-                        </>
-                      ) : isUnlimitedSelected ? (
-                        <>
-                          Réserver mon appel
-                          <ArrowRight size={18} />
-                        </>
-                      ) : (
-                        <>
-                          Rejoindre la beta
-                          <ArrowRight size={18} />
-                        </>
-                      )}
+                      Installer ma content machine
+                      <ArrowRight size={18} />
                     </button>
-                  </div>
 
-                  <p className="text-[11px] text-neutral-500 text-center pt-1">
-                    {isUnlimitedSelected
-                      ? 'Tu choisis ton créneau juste après. 15 min, gratuit, sans engagement.'
-                      : 'On te contacte sous 48h. Tes infos ne seront jamais revendues.'}
-                  </p>
-                </form>
-              )}
+                    <p className="text-[11px] text-neutral-500 text-center">
+                      Étape 2 = juste vos coordonnées. Pas de spam.
+                    </p>
+                  </form>
+                )}
 
-              {step === 'done' && submittedPack && (
-                <div className="text-center py-4 space-y-5">
-                  <div className="mx-auto w-14 h-14 rounded-full bg-empire/15 border border-empire/40 flex items-center justify-center">
-                    <Check size={28} className="text-empire" />
-                  </div>
-                  <div>
-                    <h2 className="text-2xl font-extrabold text-white mb-1">
-                      Tu es sur la liste, {form.firstName}.
-                    </h2>
-                    {position !== null && (
-                      <p className="text-sm text-neutral-400">
-                        Tu es <span className="text-empire font-bold">#{position}</span> sur
-                        la waitlist beta.
+                {step === 2 && (
+                  <form onSubmit={handleStep2Submit} className="space-y-4">
+                    <div>
+                      <h2 className="text-lg font-bold text-white mb-1">
+                        Vous y êtes presque.
+                      </h2>
+                      <p className="text-xs text-neutral-400">
+                        On a 50 places en beta — laissez vos coordonnées pour réserver la vôtre.
                       </p>
-                    )}
-                  </div>
-
-                  <div className="rounded-xl border border-empire/30 bg-empire/[0.06] p-4 text-left space-y-2">
-                    <div className="flex items-baseline justify-between">
-                      <p className="text-xs uppercase tracking-widest text-empire font-bold">
-                        Pack réservé
-                      </p>
-                      <span className="text-xl font-extrabold text-empire">
-                        {submittedPack.monthlyPrice}€/mois
-                      </span>
                     </div>
-                    <p className="text-sm text-white font-semibold">{submittedPack.name}</p>
-                    <p className="text-xs text-neutral-300">
-                      {submittedPack.credits === -1
-                        ? 'Crédits illimités'
-                        : `${submittedPack.credits.toLocaleString('fr-FR')} crédits / mois`}
-                    </p>
-                    <p className="text-xs text-neutral-400 pt-2 border-t border-white/10">
-                      📡{' '}
-                      {form.platforms
-                        .map((id) => PLATFORMS.find((p) => p.id === id)?.label ?? id)
-                        .join(', ')}
-                    </p>
-                  </div>
 
-                  <div className="space-y-2 text-sm text-neutral-300">
-                    <p>
-                      On te contacte sous{' '}
-                      <span className="text-white font-semibold">48h</span> au{' '}
-                      {COUNTRIES[countryIdx].code}
-                      {form.phone}.
-                    </p>
-                    <p className="text-xs text-neutral-400">
-                      Tu veux qu&apos;on discute plus tôt ? Réserve un créneau direct :
-                    </p>
-                  </div>
+                    {selectedPack && (
+                      <div className="rounded-xl border border-empire/30 bg-empire/[0.06] px-4 py-3 flex items-center justify-between">
+                        <div>
+                          <p className="text-[10px] uppercase tracking-widest text-empire font-bold">
+                            Votre content machine
+                          </p>
+                          <p className="text-sm text-white font-semibold mt-0.5">
+                            Pack {selectedPack.name}
+                          </p>
+                          <p className="text-[11px] text-neutral-400 mt-0.5">
+                            {selectedPack.credits.toLocaleString('fr-FR')} crédits / mois · ~{selectedPack.contentsPerMonth} contenus
+                          </p>
+                        </div>
+                        <div className="text-right">
+                          <div className="text-xl font-extrabold text-empire leading-none">
+                            {selectedPack.monthlyPrice}€
+                          </div>
+                          <div className="text-[10px] text-neutral-400 mt-0.5">/mois</div>
+                        </div>
+                      </div>
+                    )}
 
-                  <div className="flex flex-col gap-2">
-                    <button
-                      type="button"
-                      onClick={() => setShowCal(true)}
-                      className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-empire text-black font-bold text-sm hover:brightness-110 transition-colors"
+                    <input
+                      type="text"
+                      placeholder="Votre prénom *"
+                      value={form.firstName}
+                      onChange={(e) => {
+                        setForm({ ...form, firstName: e.target.value })
+                        setErrors({ ...errors, firstName: false })
+                      }}
+                      className={`w-full px-4 py-3.5 rounded-xl bg-white/[0.12] border text-white placeholder:text-neutral-400 focus:outline-none focus:ring-1 focus:ring-empire/30 transition-all text-base ${
+                        errors.firstName
+                          ? 'border-red-500'
+                          : 'border-white/20 focus:border-empire/50'
+                      }`}
+                    />
+
+                    <input
+                      type="email"
+                      placeholder="Votre email *"
+                      value={form.email}
+                      onChange={(e) => {
+                        setForm({ ...form, email: e.target.value })
+                        setErrors({ ...errors, email: false })
+                      }}
+                      autoComplete="email"
+                      inputMode="email"
+                      className={`w-full px-4 py-3.5 rounded-xl bg-white/[0.12] border text-white placeholder:text-neutral-400 focus:outline-none focus:ring-1 focus:ring-empire/30 transition-all text-base ${
+                        errors.email
+                          ? 'border-red-500'
+                          : 'border-white/20 focus:border-empire/50'
+                      }`}
+                    />
+
+                    <div
+                      className={`flex rounded-xl bg-white/[0.12] border overflow-hidden transition-all ${
+                        errors.phone
+                          ? 'border-red-500'
+                          : 'border-white/20 focus-within:border-empire/50 focus-within:ring-1 focus-within:ring-empire/30'
+                      }`}
                     >
-                      Réserver un appel avec Kevin →
-                    </button>
-                    <a
-                      href="/"
-                      className="text-xs text-neutral-400 hover:text-white transition-colors underline"
-                    >
-                      Retour à l&apos;accueil
-                    </a>
+                      <div ref={dropdownRef} className="relative">
+                        <button
+                          type="button"
+                          onClick={() => setCountryOpen(!countryOpen)}
+                          className="flex items-center gap-1.5 px-3 py-4 text-white hover:bg-white/5 transition-colors border-r border-white/10 whitespace-nowrap"
+                        >
+                          <span className="text-base">{COUNTRIES[countryIdx].flag}</span>
+                          <span className="text-sm text-neutral-300">
+                            {COUNTRIES[countryIdx].code}
+                          </span>
+                          <ChevronDown size={12} className="text-neutral-400" />
+                        </button>
+                        {countryOpen && (
+                          <div className="absolute top-full left-0 mt-1 w-56 max-h-52 overflow-y-auto bg-[#1a1a1a] border border-white/10 rounded-xl shadow-2xl z-20">
+                            {COUNTRIES.map((c, i) => (
+                              <button
+                                key={`${c.code}-${c.name}`}
+                                type="button"
+                                onClick={() => {
+                                  setCountryIdx(i)
+                                  setCountryOpen(false)
+                                }}
+                                className={`w-full flex items-center gap-2 px-3 py-2 text-left hover:bg-white/10 transition-colors ${
+                                  i === countryIdx ? 'bg-empire/10 text-empire' : 'text-white'
+                                }`}
+                              >
+                                <span>{c.flag}</span>
+                                <span className="text-sm flex-1">{c.name}</span>
+                                <span className="text-xs text-neutral-400">{c.code}</span>
+                              </button>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                      <input
+                        type="tel"
+                        placeholder="Votre téléphone *"
+                        value={form.phone}
+                        onChange={(e) => {
+                          setForm({ ...form, phone: e.target.value })
+                          setErrors({ ...errors, phone: false })
+                        }}
+                        autoComplete="tel"
+                        inputMode="tel"
+                        className="flex-1 px-3 py-4 bg-transparent text-white placeholder:text-neutral-400 focus:outline-none min-w-0 text-base"
+                      />
+                    </div>
+
+                    <div>
+                      <p className="text-xs mb-2 text-neutral-400">
+                        Votre situation actuelle (optionnel)
+                      </p>
+                      <select
+                        value={form.currentSituation}
+                        onChange={(e) =>
+                          setForm({ ...form, currentSituation: e.target.value })
+                        }
+                        className="w-full px-4 py-3.5 rounded-xl bg-white/[0.12] border border-white/20 text-white focus:outline-none focus:ring-1 focus:ring-empire/30 focus:border-empire/50 transition-all text-base appearance-none cursor-pointer"
+                      >
+                        <option value="" className="bg-[#1a1a1a]">
+                          — choisir —
+                        </option>
+                        {SITUATIONS.map((s) => (
+                          <option key={s.value} value={s.value} className="bg-[#1a1a1a]">
+                            {s.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    {submitError && (
+                      <p className="text-xs text-red-400 text-center">{submitError}</p>
+                    )}
+
+                    <div className="flex gap-2 pt-1">
+                      <button
+                        type="button"
+                        onClick={() => setStep(1)}
+                        className="px-4 py-4 rounded-xl bg-white/5 border border-white/15 text-neutral-300 font-medium text-sm hover:bg-white/10 transition-all flex items-center gap-2"
+                      >
+                        <ArrowLeft size={16} />
+                        Retour
+                      </button>
+                      <button
+                        type="submit"
+                        disabled={loading}
+                        className="flex-1 py-4 rounded-xl bg-empire text-black font-bold text-base hover:brightness-110 transition-all flex items-center justify-center gap-2 disabled:opacity-70 shadow-[0_0_20px_-4px_rgb(var(--empire-rgb)_/_0.35)]"
+                      >
+                        {loading ? (
+                          <>
+                            <Loader2 size={18} className="animate-spin" />
+                            Envoi en cours...
+                          </>
+                        ) : (
+                          <>
+                            Rejoindre la beta
+                            <ArrowRight size={18} />
+                          </>
+                        )}
+                      </button>
+                    </div>
+
+                    <p className="text-[11px] text-neutral-500 text-center pt-1">
+                      On vous contacte sous 48h. Vos infos ne seront jamais revendues.
+                    </p>
+                  </form>
+                )}
+
+                {step === 'done' && submittedPack && (
+                  <div className="text-center py-4 space-y-5">
+                    <div className="mx-auto w-14 h-14 rounded-full bg-empire/15 border border-empire/40 flex items-center justify-center">
+                      <Check size={28} className="text-empire" />
+                    </div>
+                    <div>
+                      <h2 className="text-2xl font-extrabold text-white mb-1">
+                        Votre content machine est réservée, {form.firstName}.
+                      </h2>
+                      {position !== null && (
+                        <p className="text-sm text-neutral-400">
+                          Vous êtes <span className="text-empire font-bold">#{position}</span> sur
+                          la waitlist beta.
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="rounded-xl border border-empire/30 bg-empire/[0.06] p-4 text-left space-y-2">
+                      <div className="flex items-baseline justify-between">
+                        <p className="text-xs uppercase tracking-widest text-empire font-bold">
+                          Pack réservé
+                        </p>
+                        <span className="text-xl font-extrabold text-empire">
+                          {submittedPack.monthlyPrice}€/mois
+                        </span>
+                      </div>
+                      <p className="text-sm text-white font-semibold">{submittedPack.name}</p>
+                      <p className="text-xs text-neutral-300">
+                        {submittedPack.credits.toLocaleString('fr-FR')} crédits / mois · ~{submittedPack.contentsPerMonth} contenus
+                      </p>
+                      <p className="text-xs text-neutral-400 pt-2 border-t border-white/10">
+                        {form.platforms
+                          .map((id) => PLATFORMS.find((p) => p.id === id)?.label ?? id)
+                          .join(', ')}
+                      </p>
+                    </div>
+
+                    <div className="space-y-2 text-sm text-neutral-300">
+                      <p>
+                        On vous contacte sous{' '}
+                        <span className="text-white font-semibold">48h</span> au{' '}
+                        {COUNTRIES[countryIdx].code}
+                        {form.phone}.
+                      </p>
+                      <p className="text-xs text-neutral-400">
+                        Vous voulez qu&apos;on discute plus tôt ? Réservez un créneau direct :
+                      </p>
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setShowCal(true)}
+                        className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-empire text-black font-bold text-sm hover:brightness-110 transition-colors"
+                      >
+                        Réserver un appel avec Kevin
+                        <ArrowRight size={16} />
+                      </button>
+                      <a
+                        href="/"
+                        className="text-xs text-neutral-400 hover:text-white transition-colors underline"
+                      >
+                        Retour à l&apos;accueil
+                      </a>
+                    </div>
                   </div>
-                </div>
+                )}
+              </div>
+
+              {step !== 'done' && (
+                <p className="text-xs text-neutral-500 text-center mt-3">
+                  Beta lancée juin 2026 · Limitée à 50 créateurs
+                </p>
               )}
             </div>
-
-            {step !== 'done' && (
-              <p className="text-xs text-neutral-500 text-center mt-3">
-                Beta lancée juin 2026 · Limitée à 50 créateurs
-              </p>
-            )}
           </div>
-        </div>
+        </section>
 
-        <div className="border-t border-white/5 py-5 text-center">
+        {/* ── Footer ── */}
+        <div className="border-t border-white/5 py-5 text-center mt-auto">
           <p className="text-xs text-neutral-400">
             © 2026 Empire Internet ·{' '}
             <a href="/" className="hover:text-white transition-colors">
@@ -769,8 +1011,6 @@ export default function PaygClient() {
     </main>
   )
 }
-
-// ── Helpers ────────────────────────────────────────────────────────────────
 
 function StepDot({
   active,
@@ -866,10 +1106,10 @@ function CalModal({
         <div className="flex items-center justify-between px-5 py-4 border-b border-white/8">
           <div>
             <p className="text-sm font-semibold text-white">
-              {firstName ? `C'est noté, ${firstName} 👋` : 'Réserve ton appel'}
+              {firstName ? `C'est noté, ${firstName}` : 'Réservez votre appel'}
             </p>
             <p className="text-xs text-neutral-400">
-              Choisis ton créneau avec Kevin · 15 min, sans engagement.
+              Choisissez votre créneau avec Kevin · 15 min, sans engagement.
             </p>
           </div>
           <button
