@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import { X } from 'lucide-react'
 
-const HIDDEN_ON = ['/webinar', '/webinar/merci', '/live']
+const HIDDEN_ON = ['/webinar', '/webinar/merci', '/live', '/pay-as-you-go']
 
 export default function WebinarBanner() {
   const [dismissed, setDismissed] = useState(false)
