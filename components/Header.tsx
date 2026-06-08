@@ -38,7 +38,7 @@ export default function Header() {
       : (lang === 'fr' ? 'Quiz : quel créateur êtes-vous ?' : 'Quiz: what creator are you?')
 
   // Hide default CTA button on partners and academy pages
-  const isCandidaturePage = pathname === '/candidature' || pathname === '/decouverte' || pathname === '/join-us'
+  const isCandidaturePage = pathname === '/candidature' || pathname === '/decouverte' || pathname === '/join-us' || pathname?.startsWith('/pay-as-you-go')
   const hideCTA = pathname === '/partners' || isCandidaturePage
   // Show partner CTA on partners page
   const isPartnersPage = pathname === '/partners'

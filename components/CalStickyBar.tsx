@@ -37,6 +37,7 @@ export default function CalStickyBar() {
   const isPartnersPage = pathname === '/partners'
   const isAcademyPage = pathname === '/academy'
   const isCandidaturePage = pathname === '/candidature' || pathname === '/decouverte' || pathname === '/join-us' || pathname === '/vsl' || pathname === '/webinar' || pathname === '/webinar/merci' || pathname === '/live'
+  const isPaygPage = pathname?.startsWith('/pay-as-you-go')
 
   const namespace = 'audit-empire'
   const calLink = useCalLink()
@@ -97,7 +98,7 @@ export default function CalStickyBar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [isPartnersPage])
 
-  if (isPartnersPage || isAcademyPage || isCandidaturePage || pathname === '/academy/merci') return null
+  if (isPartnersPage || isAcademyPage || isCandidaturePage || isPaygPage || pathname === '/academy/merci') return null
 
   return (
     <div 

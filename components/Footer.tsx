@@ -14,7 +14,7 @@ export default function Footer() {
   
   const isPartnersPage = pathname === '/partners'
   const isAcademyPage = pathname === '/academy'
-  const isCandidaturePage = pathname === '/candidature' || pathname === '/decouverte' || pathname === '/join-us'
+  const isCandidaturePage = pathname === '/candidature' || pathname === '/decouverte' || pathname === '/join-us' || pathname?.startsWith('/pay-as-you-go')
 
   const namespace = 'audit-empire'
   const calLink = useCalLink()
