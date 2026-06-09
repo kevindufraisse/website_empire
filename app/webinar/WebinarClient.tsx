@@ -225,8 +225,8 @@ function RegistrationForm({ id }: { id?: string }) {
               <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center mx-auto mb-2">
                 <Check size={20} className="text-emerald-600" />
               </div>
-              <p className="text-lg font-extrabold text-black leading-tight">Tu es inscrit(e) !</p>
-              <p className="text-xs text-neutral-500 mt-1">Une dernière chose (optionnel)</p>
+              <p className="text-lg font-extrabold text-black leading-tight">Une dernière étape</p>
+              <p className="text-xs text-neutral-500 mt-1">Confirme ton inscription</p>
             </div>
 
             <div className="space-y-3">
@@ -278,7 +278,7 @@ function RegistrationForm({ id }: { id?: string }) {
               disabled={loading}
               className="w-full mt-4 py-3.5 rounded-xl bg-black text-white font-black text-base flex items-center justify-center gap-2 transition-colors hover:bg-neutral-800 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              {loading ? <Loader2 size={18} className="animate-spin" /> : <>Recevoir les bonus et rappels SMS <ArrowRight size={17} /></>}
+              {loading ? <Loader2 size={18} className="animate-spin" /> : <>Confirmer mon inscription <ArrowRight size={17} /></>}
             </button>
 
             <button
@@ -344,7 +344,7 @@ function RegistrationForm({ id }: { id?: string }) {
             {loading ? (
               <><Loader2 size={18} className="animate-spin" /> Inscription en cours...</>
             ) : (
-              <>M&apos;inscrire au webinar <ArrowRight size={17} /></>
+              <>Passer à l&apos;étape suivante <ArrowRight size={17} /></>
             )}
           </button>
 
