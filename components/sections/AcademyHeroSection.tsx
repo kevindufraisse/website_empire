@@ -47,26 +47,6 @@ export default function AcademyHeroSection() {
           <div className="max-w-3xl text-center flex-1">
 
             {/* Tier kicker - positions Academy against Copilot/Autopilot */}
-            <motion.div
-              initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-              className="mb-5 flex justify-center"
-            >
-              <div className="inline-flex items-center gap-2 px-3 md:px-4 py-1.5 rounded-full border bg-academy/10 border-academy/40 shadow-[0_0_20px_rgba(252,165,165,0.2)]">
-                <span className="relative flex h-2 w-2 flex-shrink-0">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60 bg-academy" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-academy" />
-                </span>
-                <span className="text-[11px] md:text-xs font-black tracking-[0.18em] uppercase text-academy flex-shrink-0">
-                  Academy
-                </span>
-                <span className="hidden sm:inline text-[11px] md:text-xs text-neutral-400 font-medium">
-                  {fr ? '21 jours · Contenu produit pour toi' : '21 days · Content created for you'}
-                </span>
-              </div>
-            </motion.div>
-
             {/* Date */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}

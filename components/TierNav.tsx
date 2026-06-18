@@ -50,7 +50,7 @@ export default function TierNav() {
   }
 
   return (
-    <div className="flex items-center gap-0.5 p-0.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md shrink-0">
+    <div className="flex items-center gap-0.5 p-0.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md shrink-0 overflow-hidden">
       {tiers.map((tier) => {
         const isActive = activeTier === tier.id
         const activeStyle: CSSProperties = isActive
