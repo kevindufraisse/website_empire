@@ -16,6 +16,8 @@ export default function Footer() {
   const isAcademyPage = pathname === '/academy'
   const isCandidaturePage = pathname === '/candidature' || pathname === '/decouverte' || pathname === '/join-us' || pathname?.startsWith('/pay-as-you-go')
 
+  if (pathname === '/live') return null
+
   const namespace = 'audit-empire'
   const calLink = useCalLink()
 
