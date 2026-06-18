@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useState, useCallback, FormEvent } from 'react'
-import { ArrowRight, Calendar, Clock, Play, Users, X, Mail, Loader2 } from 'lucide-react'
+import { useEffect, useState, useCallback, useRef, FormEvent } from 'react'
+import { ArrowRight, Calendar, Clock, Play, Users, X, Mail, Loader2, Eye } from 'lucide-react'
 
 const WEBINAR_START = new Date('2026-06-18T19:00:00+02:00')
 const WEBINAR_END = new Date('2026-06-18T20:30:00+02:00')
@@ -15,6 +15,8 @@ const YOUTUBE_CHAT_URL = `https://www.youtube.com/live_chat?v=${YOUTUBE_VIDEO_ID
 const REPLAY_URL = process.env.NEXT_PUBLIC_WEBINAR_REPLAY_URL || ''
 
 const EMAIL_STORAGE_KEY = 'empire_live_email'
+const VIEWERS_MIN = 478
+const VIEWERS_MAX = 894
 
 type LiveState = 'before' | 'doors-open' | 'live' | 'replay' | 'expired'
 
@@ -54,6 +56,43 @@ function useCountdown(target: Date) {
     return () => clearInterval(id)
   }, [calc])
   return { ...t, mounted }
+}
+
+function useViewerCount() {
+  const [count, setCount] = useState(() =>
+    Math.floor(VIEWERS_MIN + Math.random() * (VIEWERS_MAX - VIEWERS_MIN))
+  )
+  const target = useRef(count)
+
+  useEffect(() => {
+    const pickNewTarget = () => {
+      const drift = Math.floor(Math.random() * 30) - 12
+      target.current = Math.min(VIEWERS_MAX, Math.max(VIEWERS_MIN, target.current + drift))
+    }
+
+    const tick = setInterval(() => {
+      setCount((prev) => {
+        if (prev === target.current) {
+          pickNewTarget()
+          return prev
+        }
+        const step = prev < target.current ? 1 : -1
+        return prev + step
+      })
+    }, 2000 + Math.random() * 3000)
+
+    const bigShift = setInterval(() => {
+      const jump = Math.floor(Math.random() * 60) - 20
+      target.current = Math.min(VIEWERS_MAX, Math.max(VIEWERS_MIN, target.current + jump))
+    }, 15000 + Math.random() * 20000)
+
+    return () => {
+      clearInterval(tick)
+      clearInterval(bigShift)
+    }
+  }, [])
+
+  return count
 }
 
 function useEmailGate() {
@@ -265,6 +304,7 @@ function DoorsOpen() {
 
 function LiveView() {
   const { hasEmail, loading, saveEmail } = useEmailGate()
+  const viewerCount = useViewerCount()
   const [showPopup, setShowPopup] = useState(false)
   const [chatUrl, setChatUrl] = useState('')
 
@@ -298,9 +338,16 @@ function LiveView() {
 
       <div className="flex items-center justify-between mb-3 px-1">
         <StateBadge state="live" />
-        <h1 className="text-sm md:text-lg font-bold text-white leading-tight">
-          Les secrets des gourous
-        </h1>
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-1.5 text-neutral-400 text-xs md:text-sm">
+            <Eye size={14} className="text-red-400" />
+            <span className="font-mono tabular-nums font-bold text-white">{viewerCount.toLocaleString('fr-FR')}</span>
+            <span className="hidden sm:inline">en ligne</span>
+          </div>
+          <h1 className="text-sm md:text-lg font-bold text-white leading-tight">
+            Les secrets des gourous
+          </h1>
+        </div>
       </div>
 
       <div className={`flex flex-col xl:flex-row gap-3 transition-all duration-500 ${!hasEmail ? 'pointer-events-none' : ''}`}>
