@@ -52,7 +52,7 @@ export default function AcademyHeroSection() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
-              className="flex items-center justify-center mb-5"
+              className="flex items-center justify-center mb-3"
             >
               <div className="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-white/5 border border-white/15">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-3 h-3 text-academy flex-shrink-0">
@@ -75,21 +75,6 @@ export default function AcademyHeroSection() {
               </SparklesText>
               {fr ? ' en 21 jours.' : ' in 21 days.'}
             </motion.h1>
-
-            {/* 1-year research credibility */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.15, duration: 0.5 }}
-              className="max-w-xl mx-auto mb-6"
-            >
-              <p className="text-sm md:text-base text-neutral-400 text-center">
-                {fr
-                  ? <>On a passé <span className="text-white font-semibold">1 an</span> à analyser des milliers de contenus pour identifier les <span className="text-white font-semibold">patterns de viralité</span>. On te les transmet en 21 jours.</>
-                  : <>We spent <span className="text-white font-semibold">1 year</span> analyzing thousands of posts to identify <span className="text-white font-semibold">virality patterns</span>. We teach them to you in 21 days.</>
-                }
-              </p>
-            </motion.div>
 
             {/* Value prop - compact */}
             <motion.div
