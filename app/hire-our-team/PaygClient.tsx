@@ -385,6 +385,11 @@ export default function PaygClient() {
                   'Hooks travaillés pour chaque contenu',
                   'Orthographe et style corrigés',
                   'Stratégie optimisée pour chaque plateforme',
+                  'Personnalisation dans votre style',
+                  'B-roll IA',
+                  'Miniatures IA',
+                  'Cerveau Empire',
+                  'Veille concurrents et sujets viraux',
                 ].map((f) => (
                   <li key={f} className="flex items-start gap-2 text-sm text-neutral-300">
                     <Check size={14} className="text-empire shrink-0 mt-0.5" />
