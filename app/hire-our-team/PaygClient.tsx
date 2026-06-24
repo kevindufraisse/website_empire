@@ -143,7 +143,7 @@ export default function PaygClient() {
                 href={ONBOARDING_URL}
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-empire text-black font-bold text-xs hover:brightness-110 transition-all"
               >
-                Recruter mon équipe
+                Installer Empire Internet
                 <ArrowRight size={14} />
               </a>
             </div>
@@ -192,9 +192,10 @@ export default function PaygClient() {
                 href={ONBOARDING_URL}
                 className="w-full sm:w-auto px-10 py-4 rounded-xl bg-empire text-black font-bold text-base hover:brightness-110 transition-all inline-flex items-center justify-center gap-2 shadow-[0_0_40px_-8px_rgb(var(--empire-rgb)_/_0.5)]"
               >
-                Recruter mon équipe
+                Installer Empire Internet
                 <ArrowRight size={18} />
               </a>
+              <p className="text-xs text-neutral-400 mt-1">et recruter mon équipe contenu</p>
               <span className="text-xs text-neutral-500">
                 En 5 minutes, c'est lancé · 50 places en beta
               </span>
@@ -415,10 +416,11 @@ export default function PaygClient() {
                     href={ONBOARDING_URL}
                     className="w-full sm:w-auto px-10 py-4 rounded-xl bg-empire text-black font-bold text-base hover:brightness-110 transition-all inline-flex items-center justify-center gap-2 shadow-[0_0_40px_-8px_rgb(var(--empire-rgb)_/_0.5)]"
                   >
-                    Recruter mon équipe
+                    Installer Empire Internet
                     <ArrowRight size={18} />
                   </a>
-                  <p className="text-xs text-neutral-500 mt-3">
+                  <p className="text-xs text-neutral-400 mt-2">et recruter mon équipe contenu</p>
+                  <p className="text-xs text-neutral-500 mt-1">
                     Sans engagement · Accès immédiat
                   </p>
                 </div>
