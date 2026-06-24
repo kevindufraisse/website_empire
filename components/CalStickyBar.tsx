@@ -37,7 +37,7 @@ export default function CalStickyBar() {
   const isPartnersPage = pathname === '/partners'
   const isAcademyPage = pathname === '/academy'
   const isCandidaturePage = pathname === '/candidature' || pathname === '/decouverte' || pathname === '/join-us' || pathname === '/vsl' || pathname === '/webinar' || pathname === '/webinar/merci' || pathname === '/live'
-  const isPaygPage = pathname?.startsWith('/pay-as-you-go')
+  const isPaygPage = pathname?.startsWith('/hire-our-team')
 
   const namespace = 'audit-empire'
   const calLink = useCalLink()
