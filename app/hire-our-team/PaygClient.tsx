@@ -17,6 +17,7 @@ import {
   Gift,
   Copy,
 } from 'lucide-react'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 const ONBOARDING_URL = 'https://app.empire-internet.com/onboarding'
 
@@ -30,52 +31,7 @@ const PLATFORMS = [
   { label: 'X', svg: 'M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z', color: '#ffffff' },
 ]
 
-const REPLACED_ROLES = [
-  { role: 'Monteur vidéo', cost: '2 500' },
-  { role: 'Community Manager', cost: '2 800' },
-  { role: 'Ghostwriter LinkedIn', cost: '1 500' },
-  { role: 'Stratège contenu', cost: '3 000' },
-]
-
-const SERVICES = [
-  {
-    icon: Scissors,
-    title: 'On découpe vos interviews',
-    desc: 'Vos interviews caméra sont découpées en clips viraux, prêts à publier.',
-  },
-  {
-    icon: Film,
-    title: 'On monte vos Reels',
-    desc: "Montage pro avec hooks, sous-titres et transitions qui captent l'attention.",
-  },
-  {
-    icon: PenLine,
-    title: 'On écrit vos posts & newsletters',
-    desc: 'Posts LinkedIn, newsletters… rédigés avec votre voix, votre style.',
-  },
-  {
-    icon: Share2,
-    title: 'On multiplie sur tous les réseaux',
-    desc: 'Un contenu = LinkedIn, Instagram, TikTok, YouTube, X, Threads, Facebook. Partout, en même temps.',
-  },
-  {
-    icon: Bot,
-    title: 'Cerveau Empire',
-    desc: 'Nos agents IA trouvent les sujets les plus viraux pour votre niche. Le format le plus simple pour créer du contenu.',
-  },
-]
-
-const PAIN_POINTS = [
-  'Apprendre le copywriting',
-  'Écrire vos contenus vous-même',
-  'Découper vos vidéos pendant des heures',
-  'Chercher un hook pour chaque post',
-  'Recruter des freelances',
-  'Virer des freelances qui ne livrent pas',
-  'Payer 2 000€/mois pour monter des Reels',
-]
-
-function PromoCode() {
+function PromoCode({ fr }: { fr: boolean }) {
   const [copied, setCopied] = useState(false)
   const code = '660738'
 
@@ -89,10 +45,12 @@ function PromoCode() {
     <div className="rounded-xl bg-empire/[0.08] border border-empire/30 p-4">
       <div className="flex items-center gap-3 mb-3">
         <Gift size={16} className="text-empire" />
-        <p className="text-sm font-bold text-white">20€ de crédits offerts</p>
+        <p className="text-sm font-bold text-white">
+          {fr ? '20€ de crédits offerts' : '€20 in free credits'}
+        </p>
       </div>
       <p className="text-xs text-neutral-400 mb-3">
-        Utilisez ce code lors de votre premier achat de crédits.
+        {fr ? 'Utilisez ce code lors de votre premier achat de crédits.' : 'Use this code on your first credit purchase.'}
       </p>
       <button
         onClick={handleCopy}
@@ -101,7 +59,7 @@ function PromoCode() {
         <span className="font-mono text-lg font-bold text-empire tracking-widest">{code}</span>
         <span className="flex items-center gap-1.5 text-xs text-neutral-400 group-hover:text-empire transition-colors">
           <Copy size={12} />
-          {copied ? 'Copié !' : 'Copier'}
+          {copied ? (fr ? 'Copié !' : 'Copied!') : (fr ? 'Copier' : 'Copy')}
         </span>
       </button>
     </div>
@@ -109,10 +67,88 @@ function PromoCode() {
 }
 
 export default function PaygClient() {
-  const totalReplacedCost = REPLACED_ROLES.reduce(
-    (sum, r) => sum + parseInt(r.cost.replace(/\s/g, ''), 10),
-    0,
-  )
+  const { lang } = useLanguage()
+  const fr = lang === 'fr'
+
+  const SERVICES = [
+    {
+      icon: Scissors,
+      title: fr ? 'On découpe vos interviews' : 'We cut your interviews',
+      desc: fr ? 'Vos interviews caméra sont découpées en clips viraux, prêts à publier.' : 'Your camera interviews are cut into viral clips, ready to publish.',
+    },
+    {
+      icon: Film,
+      title: fr ? 'On monte vos Reels' : 'We edit your Reels',
+      desc: fr ? "Montage pro avec hooks, sous-titres et transitions qui captent l'attention." : 'Pro editing with hooks, subtitles and transitions that grab attention.',
+    },
+    {
+      icon: PenLine,
+      title: fr ? 'On écrit vos posts & newsletters' : 'We write your posts & newsletters',
+      desc: fr ? 'Posts LinkedIn, newsletters… rédigés avec votre voix, votre style.' : 'LinkedIn posts, newsletters… written in your voice, your style.',
+    },
+    {
+      icon: Share2,
+      title: fr ? 'On multiplie sur tous les réseaux' : 'We multiply across all platforms',
+      desc: fr
+        ? 'Un contenu = LinkedIn, Instagram, TikTok, YouTube, X, Threads, Facebook. Partout, en même temps.'
+        : 'One piece of content = LinkedIn, Instagram, TikTok, YouTube, X, Threads, Facebook. Everywhere, at the same time.',
+    },
+    {
+      icon: Bot,
+      title: 'Cerveau Empire',
+      desc: fr
+        ? 'Nos agents IA trouvent les sujets les plus viraux pour votre niche. Le format le plus simple pour créer du contenu.'
+        : 'Our AI agents find the most viral topics for your niche. The simplest format to create content.',
+    },
+  ]
+
+  const STEPS = [
+    {
+      step: '1',
+      icon: Zap,
+      title: fr ? "Vous passez l'interview" : 'You do the interview',
+      desc: fr ? '30 min face caméra' : '30 min on camera',
+    },
+    {
+      step: '2',
+      icon: TrendingUp,
+      title: fr ? 'On produit tout' : 'We produce everything',
+      desc: fr ? 'Découpe, montage, rédaction' : 'Cutting, editing, writing',
+    },
+    {
+      step: '3',
+      icon: Share2,
+      title: fr ? 'On publie partout' : 'We publish everywhere',
+      desc: fr ? '7+ plateformes, chaque jour' : '7+ platforms, every day',
+    },
+  ]
+
+  const TIME_SAVINGS = [
+    { task: 'Post LinkedIn', before: '1h', after: '2 min' },
+    { task: 'Reel Instagram', before: '1h', after: '2 min' },
+    { task: 'Newsletter', before: '2h', after: '2 min' },
+    { task: fr ? 'Carrousel' : 'Carousel', before: '2h', after: '2 min' },
+    { task: fr ? 'Vidéo YouTube' : 'YouTube Video', before: '5h', after: '15 min' },
+    { task: fr ? 'Veille & idées' : 'Research & ideas', before: '1h', after: '1 min' },
+    { task: 'Community management', before: '1h', after: '1 min' },
+    { task: fr ? 'Miniatures' : 'Thumbnails', before: '1h', after: '1 min' },
+  ]
+
+  const INCLUDED = [
+    fr ? 'Découpage intelligent de vos interviews' : 'Smart cutting of your interviews',
+    fr ? 'Montage pro de vos Reels & Shorts' : 'Pro editing of your Reels & Shorts',
+    fr ? 'Rédaction de vos posts LinkedIn' : 'Writing your LinkedIn posts',
+    fr ? 'Rédaction de vos newsletters' : 'Writing your newsletters',
+    fr ? 'Multiplication sur tous les réseaux' : 'Multiplication across all platforms',
+    fr ? 'Hooks travaillés pour chaque contenu' : 'Crafted hooks for every piece of content',
+    fr ? 'Orthographe et style corrigés' : 'Spelling and style corrected',
+    fr ? 'Stratégie optimisée pour chaque plateforme' : 'Strategy optimized for each platform',
+    fr ? 'Personnalisation dans votre style' : 'Personalized in your style',
+    fr ? 'B-roll IA' : 'AI B-roll',
+    fr ? 'Miniatures IA' : 'AI Thumbnails',
+    'Cerveau Empire',
+    fr ? 'Veille concurrents et sujets viraux' : 'Competitor & viral topic monitoring',
+  ]
 
   return (
     <main className="min-h-screen bg-black text-white overflow-x-hidden">
@@ -143,7 +179,7 @@ export default function PaygClient() {
                 href={ONBOARDING_URL}
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-empire text-black font-bold text-xs hover:brightness-110 transition-all"
               >
-                Installer Empire Internet
+                {fr ? 'Installer Empire Internet' : 'Install Empire Internet'}
                 <ArrowRight size={14} />
               </a>
             </div>
@@ -164,12 +200,15 @@ export default function PaygClient() {
             </h1>
 
             <p className="text-neutral-400 text-lg sm:text-xl leading-relaxed mb-4 max-w-2xl mx-auto">
-              Envoyez-nous une interview de 15 min et on crée vos contenus —
-              LinkedIn, Instagram, TikTok, YouTube — avec les systèmes des meilleurs entrepreneurs du web.
+              {fr
+                ? 'Envoyez-nous une interview de 15 min et on crée vos contenus — LinkedIn, Instagram, TikTok, YouTube — avec les systèmes des meilleurs entrepreneurs du web.'
+                : 'Send us a 15-min interview and we create your content — LinkedIn, Instagram, TikTok, YouTube — using the systems of the best web entrepreneurs.'}
             </p>
 
             <p className="text-neutral-500 text-sm mb-10 max-w-xl mx-auto">
-              Chaque contenu est vérifié et validé par des humains avant publication.
+              {fr
+                ? 'Chaque contenu est vérifié et validé par des humains avant publication.'
+                : 'Every piece of content is verified and approved by humans before publishing.'}
             </p>
 
             {/* Platform logos */}
@@ -192,22 +231,38 @@ export default function PaygClient() {
                 href={ONBOARDING_URL}
                 className="w-full sm:w-auto px-10 py-4 rounded-xl bg-empire text-black font-bold text-base hover:brightness-110 transition-all inline-flex items-center justify-center gap-2 shadow-[0_0_40px_-8px_rgb(var(--empire-rgb)_/_0.5)]"
               >
-                Installer Empire Internet
+                {fr ? 'Installer Empire Internet' : 'Install Empire Internet'}
                 <ArrowRight size={18} />
               </a>
-              <p className="text-xs text-neutral-400 mt-1">et recruter mon équipe contenu</p>
+              <p className="text-xs text-neutral-400 mt-1">
+                {fr ? 'et recruter mon équipe contenu' : 'and hire my content team'}
+              </p>
               <span className="text-xs text-neutral-500">
-                En 5 minutes, c'est lancé · 50 places en beta
+                {fr ? "En 5 minutes, c'est lancé · 50 places en beta" : 'Up and running in 5 minutes · 50 beta spots'}
               </span>
+            </div>
+
+            {/* Video présentation */}
+            <div className="w-full max-w-3xl mx-auto mb-12">
+              <div className="relative aspect-video rounded-2xl overflow-hidden border border-white/10 bg-black shadow-[0_0_60px_-12px_rgb(var(--empire-rgb)_/_0.2)]">
+                <iframe
+                  src="https://www.loom.com/embed/0290d22cf59c4b5a9e7391ffb473fa85?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true"
+                  allowFullScreen
+                  className="absolute inset-0 w-full h-full"
+                />
+              </div>
+              <p className="text-center text-neutral-500 text-xs mt-3">
+                {fr ? 'Regardez la présentation complète (30 min)' : 'Watch the full presentation (30 min)'}
+              </p>
             </div>
 
             {/* Stats bar */}
             <div className="inline-flex items-center gap-8 sm:gap-12 px-8 py-5 rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-sm">
               {[
-                { value: '6+', label: 'plateformes couvertes' },
-                { value: '1M+', label: 'vues générées' },
-                { value: '+9 800€', label: 'sauvés / mois' },
-              ].map((s, i) => (
+                { value: '6+', label: fr ? 'plateformes couvertes' : 'platforms covered' },
+                { value: '1M+', label: fr ? 'vues générées' : 'views generated' },
+                { value: '+9 800€', label: fr ? 'sauvés / mois' : 'saved / month' },
+              ].map((s) => (
                 <div key={s.label} className="text-center">
                   <p className="text-xl sm:text-2xl font-extrabold text-empire leading-none">{s.value}</p>
                   <p className="text-[10px] sm:text-xs text-neutral-500 mt-1.5">{s.label}</p>
@@ -220,14 +275,10 @@ export default function PaygClient() {
         {/* ── Comment ça marche ── */}
         <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 py-10 md:py-14">
           <p className="text-center text-neutral-500 text-xs uppercase tracking-widest font-bold mb-6">
-            3 étapes. Zéro prise de tête.
+            {fr ? '3 étapes. Zéro prise de tête.' : '3 steps. Zero hassle.'}
           </p>
           <div className="flex flex-col sm:flex-row items-stretch justify-center gap-3">
-            {[
-              { step: '1', icon: Zap, title: "Vous passez l'interview", desc: '30 min face caméra' },
-              { step: '2', icon: TrendingUp, title: 'On produit tout', desc: 'Découpe, montage, rédaction' },
-              { step: '3', icon: Share2, title: 'On publie partout', desc: '7+ plateformes, chaque jour' },
-            ].map((s, i) => (
+            {STEPS.map((s, i) => (
               <div key={s.step} className="flex items-center gap-3 sm:gap-2.5">
                 <div className="flex items-center gap-3 px-4 py-3 rounded-xl border border-white/10 bg-white/[0.03] flex-1 sm:flex-initial">
                   <div className="w-8 h-8 rounded-lg bg-empire/10 border border-empire/20 flex items-center justify-center flex-shrink-0">
@@ -255,10 +306,10 @@ export default function PaygClient() {
         <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 py-12 md:py-16">
           <div className="text-center mb-10">
             <p className="text-empire text-xs font-bold uppercase tracking-widest mb-3">
-              Votre content machine
+              {fr ? 'Votre content machine' : 'Your content machine'}
             </p>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold">
-              On s&apos;occupe de tout. Vous, vous parlez.
+              {fr ? "On s'occupe de tout. Vous, vous parlez." : 'We handle everything. You just talk.'}
             </h2>
           </div>
 
@@ -282,7 +333,9 @@ export default function PaygClient() {
           </div>
 
           <p className="text-center text-neutral-600 text-xs mt-5">
-            Tous les contenus sont vérifiés et validés par des humains avant publication.
+            {fr
+              ? 'Tous les contenus sont vérifiés et validés par des humains avant publication.'
+              : 'All content is verified and approved by humans before publishing.'}
           </p>
         </section>
 
@@ -290,33 +343,26 @@ export default function PaygClient() {
         <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 py-12 md:py-16">
           <div className="text-center mb-10">
             <p className="text-empire text-xs font-bold uppercase tracking-widest mb-3">
-              Avant / Après
+              {fr ? 'Avant / Après' : 'Before / After'}
             </p>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold">
-              Économisez{' '}
-              <span className="text-empire">14h par jour.</span>
+              {fr ? 'Économisez ' : 'Save '}
+              <span className="text-empire">{fr ? '14h par jour.' : '14h per day.'}</span>
             </h2>
             <p className="text-neutral-400 text-sm mt-3 max-w-lg mx-auto">
-              Le temps que vous passez à produire du contenu vs. ce qu&apos;il vous reste avec Empire.
+              {fr
+                ? "Le temps que vous passez à produire du contenu vs. ce qu'il vous reste avec Empire."
+                : 'Time you spend producing content vs. what you have left with Empire.'}
             </p>
           </div>
 
           <div className="max-w-2xl mx-auto space-y-2">
             <div className="grid grid-cols-[1fr_auto_auto] items-center gap-3 px-4 py-2 text-xs text-neutral-500 font-bold uppercase tracking-wider">
-              <span>Tâche</span>
-              <span className="w-16 text-center">Avant</span>
-              <span className="w-16 text-center">Après</span>
+              <span>{fr ? 'Tâche' : 'Task'}</span>
+              <span className="w-16 text-center">{fr ? 'Avant' : 'Before'}</span>
+              <span className="w-16 text-center">{fr ? 'Après' : 'After'}</span>
             </div>
-            {[
-              { task: 'Post LinkedIn', before: '1h', after: '2 min' },
-              { task: 'Reel Instagram', before: '1h', after: '2 min' },
-              { task: 'Newsletter', before: '2h', after: '2 min' },
-              { task: 'Carrousel', before: '2h', after: '2 min' },
-              { task: 'Vidéo YouTube', before: '5h', after: '15 min' },
-              { task: 'Veille & idées', before: '1h', after: '1 min' },
-              { task: 'Community management', before: '1h', after: '1 min' },
-              { task: 'Miniatures', before: '1h', after: '1 min' },
-            ].map((row) => (
+            {TIME_SAVINGS.map((row) => (
               <div
                 key={row.task}
                 className="grid grid-cols-[1fr_auto_auto] items-center gap-3 px-4 py-3 rounded-xl border border-white/10 bg-white/[0.03]"
@@ -327,7 +373,7 @@ export default function PaygClient() {
               </div>
             ))}
             <div className="grid grid-cols-[1fr_auto_auto] items-center gap-3 px-4 py-3.5 rounded-xl bg-empire/[0.08] border border-empire/30">
-              <span className="text-sm text-white font-bold">Total / jour</span>
+              <span className="text-sm text-white font-bold">{fr ? 'Total / jour' : 'Total / day'}</span>
               <span className="w-16 text-center text-sm text-red-400 font-bold line-through">14h</span>
               <span className="w-16 text-center text-sm text-empire font-extrabold">26 min</span>
             </div>
@@ -341,11 +387,15 @@ export default function PaygClient() {
               Pricing
             </p>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold">
-              Payez avec des crédits.{' '}
-              <span className="text-empire">Publiez autant que vous voulez.</span>
+              {fr ? 'Payez avec des crédits. ' : 'Pay with credits. '}
+              <span className="text-empire">
+                {fr ? 'Publiez autant que vous voulez.' : 'Publish as much as you want.'}
+              </span>
             </h2>
             <p className="text-neutral-400 text-sm mt-3 max-w-lg mx-auto">
-              Achetez des crédits, utilisez-les pour produire et publier vos contenus sur toutes les plateformes.
+              {fr
+                ? 'Achetez des crédits, utilisez-les pour produire et publier vos contenus sur toutes les plateformes.'
+                : 'Buy credits, use them to produce and publish your content across all platforms.'}
             </p>
           </div>
 
@@ -357,12 +407,18 @@ export default function PaygClient() {
                   <Coins size={18} className="text-empire" />
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-white">Système de crédits</p>
-                  <p className="text-xs text-neutral-500">Chaque contenu produit consomme des crédits — publiez autant que vous le souhaitez</p>
+                  <p className="text-sm font-bold text-white">
+                    {fr ? 'Système de crédits' : 'Credit system'}
+                  </p>
+                  <p className="text-xs text-neutral-500">
+                    {fr
+                      ? 'Chaque contenu produit consomme des crédits — publiez autant que vous le souhaitez'
+                      : 'Each piece of content uses credits — publish as much as you want'}
+                  </p>
                 </div>
               </div>
 
-              <PromoCode />
+              <PromoCode fr={fr} />
 
               <div className="h-px bg-white/10 my-6" />
 
@@ -372,26 +428,16 @@ export default function PaygClient() {
                   <Users size={18} className="text-empire" />
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-white">100% vérifié par des humains</p>
-                  <p className="text-xs text-neutral-500">Zéro robot, zéro approximation.</p>
+                  <p className="text-sm font-bold text-white">
+                    {fr ? '100% vérifié par des humains' : '100% verified by humans'}
+                  </p>
+                  <p className="text-xs text-neutral-500">
+                    {fr ? 'Zéro robot, zéro approximation.' : 'Zero bots, zero guesswork.'}
+                  </p>
                 </div>
               </div>
               <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-6">
-                {[
-                  'Découpage intelligent de vos interviews',
-                  'Montage pro de vos Reels & Shorts',
-                  'Rédaction de vos posts LinkedIn',
-                  'Rédaction de vos newsletters',
-                  'Multiplication sur tous les réseaux',
-                  'Hooks travaillés pour chaque contenu',
-                  'Orthographe et style corrigés',
-                  'Stratégie optimisée pour chaque plateforme',
-                  'Personnalisation dans votre style',
-                  'B-roll IA',
-                  'Miniatures IA',
-                  'Cerveau Empire',
-                  'Veille concurrents et sujets viraux',
-                ].map((f) => (
+                {INCLUDED.map((f) => (
                   <li key={f} className="flex items-start gap-2 text-sm text-neutral-300">
                     <Check size={14} className="text-empire shrink-0 mt-0.5" />
                     {f}
@@ -405,10 +451,14 @@ export default function PaygClient() {
               <div className="text-center">
                 <div className="inline-flex items-center justify-between p-4 rounded-xl bg-white/[0.04] border border-white/10 mb-5 w-full max-w-sm">
                   <div className="text-left">
-                    <p className="text-xs text-neutral-500">Vs. recruter en interne</p>
-                    <p className="text-sm font-bold text-white">Vous économisez</p>
+                    <p className="text-xs text-neutral-500">
+                      {fr ? 'Vs. recruter en interne' : 'Vs. hiring in-house'}
+                    </p>
+                    <p className="text-sm font-bold text-white">
+                      {fr ? 'Vous économisez' : 'You save'}
+                    </p>
                   </div>
-                  <p className="text-2xl font-extrabold text-empire">+9 800€<span className="text-sm font-medium text-neutral-400">/mois</span></p>
+                  <p className="text-2xl font-extrabold text-empire">+9 800€<span className="text-sm font-medium text-neutral-400">{fr ? '/mois' : '/mo'}</span></p>
                 </div>
 
                 <div>
@@ -416,12 +466,14 @@ export default function PaygClient() {
                     href={ONBOARDING_URL}
                     className="w-full sm:w-auto px-10 py-4 rounded-xl bg-empire text-black font-bold text-base hover:brightness-110 transition-all inline-flex items-center justify-center gap-2 shadow-[0_0_40px_-8px_rgb(var(--empire-rgb)_/_0.5)]"
                   >
-                    Installer Empire Internet
+                    {fr ? 'Installer Empire Internet' : 'Install Empire Internet'}
                     <ArrowRight size={18} />
                   </a>
-                  <p className="text-xs text-neutral-400 mt-2">et recruter mon équipe contenu</p>
+                  <p className="text-xs text-neutral-400 mt-2">
+                    {fr ? 'et recruter mon équipe contenu' : 'and hire my content team'}
+                  </p>
                   <p className="text-xs text-neutral-500 mt-1">
-                    Sans engagement · Accès immédiat
+                    {fr ? 'Sans engagement · Accès immédiat' : 'No commitment · Instant access'}
                   </p>
                 </div>
               </div>
@@ -436,9 +488,9 @@ export default function PaygClient() {
               © 2026 Empire Internet
             </p>
             <div className="flex items-center gap-4 text-xs text-neutral-500">
-              <a href="/" className="hover:text-white transition-colors">Accueil</a>
-              <a href="/terms" className="hover:text-white transition-colors">CGV</a>
-              <a href="/privacy" className="hover:text-white transition-colors">Confidentialité</a>
+              <a href="/" className="hover:text-white transition-colors">{fr ? 'Accueil' : 'Home'}</a>
+              <a href="/terms" className="hover:text-white transition-colors">{fr ? 'CGV' : 'Terms'}</a>
+              <a href="/privacy" className="hover:text-white transition-colors">{fr ? 'Confidentialité' : 'Privacy'}</a>
             </div>
           </div>
         </div>
