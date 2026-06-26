@@ -2,6 +2,7 @@ import dynamic from 'next/dynamic'
 import HeroSection from '@/components/sections/HeroSection'
 import HowItWorksAccordion from '@/components/sections/HowItWorksAccordion'
 
+const ContentMachineSection = dynamic(() => import('@/components/sections/ContentMachineSection'))
 const QuickWinsSection = dynamic(() => import('@/components/sections/QuickWinsSection'))
 const VolumeSection = dynamic(() => import('@/components/sections/VolumeSection'))
 const WhyEmpireSection = dynamic(() => import('@/components/sections/WhyEmpireSection'))
@@ -20,6 +21,9 @@ export default function Page() {
 
       {/* How It Works */}
       <HowItWorksAccordion />
+
+      {/* Content Machine - services bento */}
+      <ContentMachineSection />
 
       {/* Before/After comparison */}
       <QuickWinsSection />

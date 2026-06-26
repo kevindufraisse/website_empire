@@ -325,8 +325,8 @@ export default function WhyNowSection() {
             >
               <span className="text-lg">{autopilot
                 ? t.autopilot.hero.cta1
-                : (fr ? 'Je veux économiser et découvrir le système Empire' : 'I want to save and discover the Empire system')}</span>
-              <span className="text-[11px] font-semibold opacity-70">{fr ? 'Publié tous les jours · 6+ plateformes' : 'Published daily · 6+ platforms'}</span>
+                : (fr ? 'Installer Empire Internet' : 'Install Empire Internet')}</span>
+              <span className="text-[11px] font-semibold opacity-70">{fr ? 'Satisfait ou remboursé' : 'Satisfaction guaranteed'}</span>
             </button>
 
             {/* Creators strip */}

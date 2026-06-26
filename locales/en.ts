@@ -1,9 +1,9 @@
 export const en = {
   header: {
     spots: '83/100 spots',
-    watchDemo: 'I want to discover the Empire system',
+    watchDemo: 'Get started now',
     getAccess: 'Get Access',
-    joinQA: 'I want to discover the Empire system',
+    joinQA: 'Get started now',
     formats: 'Formats',
     product: 'Product',
     howItWorks: 'How It Works',
@@ -17,7 +17,7 @@ export const en = {
     title: 'One interview → content published <span class="text-empire">everywhere, every day</span>.',
     subtitle: 'Run your media machine. Attract clients. Close leads. Never manage.',
     description: '',
-    cta1: 'I want to discover the Empire system',
+    cta1: 'Install Empire Internet',
     cta2: 'Watch Demo (20 min)',
     rating: 'Based on 20 reviews',
     creatorsTitle: 'Install the system used by the world\'s best creators',
@@ -88,8 +88,8 @@ export const en = {
     },
   },
   features: {
-    title: 'What You Actually Get',
-    subtitle: 'Everything automated, personalized, and ready to go.',
+    title: 'What Empire creates for you every month',
+    subtitle: 'One interview per week. The rest is automated.',
     items: [
       {
         title: '30 LinkedIn Posts',
@@ -148,8 +148,8 @@ export const en = {
     limited: '',
     title: 'Ready to take action?',
     subtitle: '',
-    startNow: 'I want to discover the Empire system',
-    watchDemo: 'I want to discover the Empire system',
+    startNow: 'Get started now',
+    watchDemo: 'Get started now',
     details: 'Pay monthly · Cancel anytime · Start immediately',
     seeContentPlan: 'See Your Content Plan',
     startThisWeek: 'Start This Week',
@@ -207,8 +207,8 @@ export const en = {
   },
   videoDialog: {
     readyToJoin: 'Ready to join?',
-    startNow: 'I want to discover the Empire system',
-    joinQA: 'I want to discover the Empire system',
+    startNow: 'Get started now',
+    joinQA: 'Get started now',
   },
   stickyBar: {
     spotsLeft: 'spots left',
@@ -306,11 +306,11 @@ export const en = {
     included: 'Included',
   },
   common: {
-    startNow: 'I want to discover the Empire system',
-    watchDemo: 'I want to discover the Empire system',
-    ctaReassurance: 'Published daily · 6+ platforms',
+    startNow: 'Get started now',
+    watchDemo: 'Get started now',
+    ctaReassurance: 'Satisfaction guaranteed',
     /** Tight subline: header, sticky, banner (keeps the CTA compact) */
-    ctaReassuranceCompact: 'Published daily.',
+    ctaReassuranceCompact: 'Satisfaction guaranteed',
     learnMore: 'Learn more',
     perMonth: '/month',
     perWeek: '/week',
@@ -757,7 +757,7 @@ export const en = {
       title: 'Share the good news! 🚀',
       desc: 'Know other creators who might be interested? Share this link and invite them to join the demo!',
       button: 'Share link',
-      watchDemo: 'I want to discover the Empire system',
+      watchDemo: 'Get started now',
       shareTitle: 'Demo Empire internet with Kevin Dufraisse',
       shareText: 'Book a one-to-one meeting to discover Empire Internet! 🎉',
       copied: 'Link copied to clipboard!',

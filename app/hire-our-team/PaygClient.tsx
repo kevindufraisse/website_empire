@@ -84,7 +84,7 @@ export default function PaygClient() {
     {
       icon: PenLine,
       title: fr ? 'On écrit vos posts & newsletters' : 'We write your posts & newsletters',
-      desc: fr ? 'Posts LinkedIn, newsletters… rédigés avec votre voix, votre style.' : 'LinkedIn posts, newsletters… written in your voice, your style.',
+      desc: fr ? 'Posts LinkedIn, newsletters… rédigés avec votre voix, votre style. On trouve les sujets viraux pour vous.' : 'LinkedIn posts, newsletters… written in your voice, your style. We find viral topics for you.',
     },
     {
       icon: Share2,

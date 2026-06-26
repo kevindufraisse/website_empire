@@ -2,17 +2,10 @@
 
 import { useEffect } from 'react'
 
-function getDecouverteUrl() {
-  const params = new URLSearchParams(window.location.search)
-  const empFromUrl = params.get('emp')
-  if (empFromUrl) {
-    sessionStorage.setItem('emp', empFromUrl)
-  }
+const ONBOARDING_URL = 'https://app.empire-internet.com/onboarding'
 
-  const emp = empFromUrl || sessionStorage.getItem('emp')
-  if (!emp) return '/join-us'
-
-  return `/join-us?emp=${encodeURIComponent(emp)}`
+function getRedirectUrl() {
+  return ONBOARDING_URL
 }
 
 export default function CalCtaRedirect() {
@@ -24,7 +17,7 @@ export default function CalCtaRedirect() {
 
       event.preventDefault()
       event.stopPropagation()
-      window.location.href = getDecouverteUrl()
+      window.location.href = getRedirectUrl()
     }
 
     document.addEventListener('click', onClick, true)

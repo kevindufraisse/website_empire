@@ -124,9 +124,9 @@ export const fr: Translations = {
   },
   header: {
     spots: '83/100 places',
-    watchDemo: 'Je veux créer ma marque personnelle',
+    watchDemo: 'Commencer maintenant',
     getAccess: 'Obtenir l\'Accès',
-    joinQA: 'Je veux créer ma marque personnelle',
+    joinQA: 'Commencer maintenant',
     formats: 'Formats',
     product: 'Produit',
     howItWorks: 'Comment Ça Marche',
@@ -140,7 +140,7 @@ export const fr: Translations = {
     title: 'Une interview → du contenu publié <span class="text-empire">partout, tous les jours</span>.',
     subtitle: 'Lancez votre machine média. Attirez des clients. Closez des leads. Ne gérez rien.',
     description: '',
-    cta1: 'Je veux découvrir le système Empire',
+    cta1: 'Installer Empire Internet',
     cta2: 'Voir la Démo (20 min)',
     rating: 'Basé sur 20 avis',
     creatorsTitle: 'Installez le système des meilleurs créateurs mondiaux',
@@ -211,8 +211,8 @@ export const fr: Translations = {
     },
   },
   features: {
-    title: 'Ce Que Vous Obtenez',
-    subtitle: 'Tout automatisé, personnalisé, prêt à publier.',
+    title: "Ce qu'Empire crée pour vous chaque mois",
+    subtitle: 'Une interview par semaine. Le reste est automatisé.',
     items: [
       {
         title: '30 Posts LinkedIn',
@@ -271,8 +271,8 @@ export const fr: Translations = {
     limited: '',
     title: 'Prêt à passer à l\'action ?',
     subtitle: '',
-    startNow: 'Je veux créer ma marque personnelle',
-    watchDemo: 'Je veux créer ma marque personnelle',
+    startNow: 'Commencer maintenant',
+    watchDemo: 'Commencer maintenant',
     details: 'Paiement mensuel · Annulez quand vous voulez · Démarrage immédiat',
     seeContentPlan: 'Voir Votre Plan de Contenu',
     startThisWeek: 'Commencer Cette Semaine',
@@ -330,8 +330,8 @@ export const fr: Translations = {
   },
   videoDialog: {
     readyToJoin: 'Prêt à rejoindre ?',
-    startNow: 'Je veux créer ma marque personnelle',
-    joinQA: 'Je veux créer ma marque personnelle',
+    startNow: 'Commencer maintenant',
+    joinQA: 'Commencer maintenant',
   },
   stickyBar: {
     spotsLeft: 'places restantes',
@@ -429,11 +429,11 @@ export const fr: Translations = {
     included: 'Inclus',
   },
   common: {
-    startNow: 'Je veux créer ma marque personnelle',
-    watchDemo: 'Je veux créer ma marque personnelle',
-    ctaReassurance: 'Publié tous les jours · 6+ plateformes',
+    startNow: 'Commencer maintenant',
+    watchDemo: 'Commencer maintenant',
+    ctaReassurance: 'Satisfait ou remboursé',
     /** Sous-ligne très courte : header, sticky, bannière (évite un bouton énorme) */
-    ctaReassuranceCompact: 'Publié tous les jours.',
+    ctaReassuranceCompact: 'Satisfait ou remboursé',
     learnMore: 'En savoir plus',
     perMonth: '/mois',
     perWeek: '/semaine',
@@ -759,7 +759,7 @@ export const fr: Translations = {
       title: 'Partagez la bonne nouvelle ! 🚀',
       desc: 'Connaissez-vous d\'autres créateurs qui pourraient être intéressés ? Partagez ce lien et invitez-les à rejoindre la démo !',
       button: 'Partager le lien',
-      watchDemo: 'Je veux créer ma marque personnelle',
+      watchDemo: 'Commencer maintenant',
       shareTitle: 'Demo Empire internet avec Kevin Dufraisse',
       shareText: 'Réservez un rendez-vous one-to-one pour découvrir Empire Internet ! 🎉',
       copied: 'Lien copié dans le presse-papier !',
