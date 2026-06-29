@@ -4,7 +4,6 @@ import { useRef, useEffect } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { CheckCircle2, ArrowRight, X } from 'lucide-react'
 import { getCalApi } from "@calcom/embed-react"
-import CallbackButton from '@/components/CallbackButton'
 import { CtaReassurance } from '@/components/ui/cta-reassurance'
 import { useCalLink } from '@/hooks/useCalLink'
 import { SocialIcons } from '@/components/ui/social-icons'
@@ -238,9 +237,6 @@ export default function QuickWinsSection() {
             {t.common.startNow}
             <ArrowRight size={20} />
           </button>
-          <div className="mt-3">
-            <CallbackButton variant="subtle" />
-          </div>
           <CtaReassurance className="mt-4 px-2" />
         </motion.div>
       </div>

@@ -3,7 +3,6 @@ import { useEffect } from 'react'
 import { ArrowRight, Calendar } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { getCalApi } from "@calcom/embed-react"
-import CallbackButton from '@/components/CallbackButton'
 import { CtaReassurance } from '@/components/ui/cta-reassurance'
 import { useCalLink } from '@/hooks/useCalLink'
 
@@ -57,9 +56,6 @@ export function InlineCTA({
         >
           {resolvedPrimary} <ArrowRight size={18} />
         </button>
-        <div className="mt-3">
-          <CallbackButton variant="subtle" />
-        </div>
         <CtaReassurance className="mt-3" />
       </div>
     )
@@ -82,9 +78,6 @@ export function InlineCTA({
         >
           {resolvedPrimary}
         </button>
-        <div className="mt-3">
-          <CallbackButton variant="subtle" />
-        </div>
         <CtaReassurance className="mt-3" />
       </div>
     )
@@ -102,9 +95,6 @@ export function InlineCTA({
       >
         {resolvedPrimary}
       </button>
-      <div className="mt-3">
-        <CallbackButton variant="subtle" />
-      </div>
       <CtaReassurance className="mt-3" />
     </div>
   )
