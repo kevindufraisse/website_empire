@@ -130,6 +130,7 @@ export default function HeroSection() {
                 <SocialIcons.newsletter />
                 <SocialIcons.twitter />
                 <SocialIcons.threads />
+                <SocialIcons.facebook />
               </div>
             </motion.div>
           )}

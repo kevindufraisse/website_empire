@@ -9,7 +9,7 @@ import { getCalApi } from "@calcom/embed-react"
 import { Phone } from 'lucide-react'
 import CallbackFormModal from '@/components/CallbackFormModal'
 import { useCalLink } from '@/hooks/useCalLink'
-import TierNav from '@/components/TierNav'
+
 import { GiftHeaderBadge } from '@/components/GiftCountdownBar'
 
 export default function Header() {
@@ -42,8 +42,6 @@ export default function Header() {
   const hideCTA = pathname === '/partners' || isCandidaturePage
   // Show partner CTA on partners page
   const isPartnersPage = pathname === '/partners'
-  // Tier nav shown on main landing and academy page (unified tier navigation)
-  const showTierNav = pathname === '/' || pathname === '/academy'
 
   const namespace = 'audit-empire'
   const calLink = useCalLink()
@@ -116,17 +114,9 @@ export default function Header() {
           </a>
 
           {/* Center - absolutely positioned for true centering (lg+ to avoid iPad overlap) */}
-          {showTierNav && (
-            <div className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-2.5">
-              <GiftHeaderBadge />
-              <TierNav />
-            </div>
-          )}
-          {!showTierNav && (
-            <div className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center">
-              <GiftHeaderBadge />
-            </div>
-          )}
+          <div className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center">
+            <GiftHeaderBadge />
+          </div>
 
           {/* Right side */}
           <div className="flex items-center justify-end gap-2 lg:gap-3 min-w-0">
@@ -165,12 +155,6 @@ export default function Header() {
           </div>
         </div>
 
-        {/* TierNav second row (mobile + tablet, hidden on lg+ where it's in center) */}
-        {showTierNav && (
-          <div className="lg:hidden flex justify-center pt-3">
-            <TierNav />
-          </div>
-        )}
       </nav>
 
       {/* Mobile Menu Drawer */}
