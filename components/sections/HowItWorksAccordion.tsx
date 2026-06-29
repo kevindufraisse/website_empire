@@ -5,12 +5,9 @@ import { useRef, useEffect, useState } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import { Mic, ArrowRight } from 'lucide-react'
-import { getCalApi } from "@calcom/embed-react"
-import CallbackButton from '@/components/CallbackButton'
 import { StarRating } from '@/components/ui/star-rating'
-import { CtaReassurance } from '@/components/ui/cta-reassurance'
 import AnimatedList, { AnimatedListItem } from '@/components/magicui/animated-list'
-import { useCalLink } from '@/hooks/useCalLink'
+import CalendarGrid from '@/components/magicui/calendar-grid'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -274,23 +271,6 @@ export default function HowItWorksAccordion() {
   const { autopilot } = useAutopilot()
   const notifications = lang === 'fr' ? getNotificationsFr(SocialIcon) : getNotificationsEn(SocialIcon)
 
-  const namespace = 'audit-empire'
-  const calLink = useCalLink()
-
-  useEffect(() => {
-    (async function () {
-      const cal = await getCalApi({ namespace })
-      cal("ui", { 
-        hideEventTypeDetails: false, 
-        layout: "month_view",
-        theme: "dark",
-        cssVarsPerTheme: {
-          light: { "cal-brand": "#dafc68" },
-          dark: { "cal-brand": "#dafc68" }
-        }
-      })
-    })()
-  }, [namespace])
 
   return (
     <section id="how-it-works" className="relative w-full py-16 md:py-28 overflow-hidden bg-[#0a0a0a]">
@@ -494,25 +474,11 @@ export default function HowItWorksAccordion() {
                   ? 'bg-gradient-to-br from-autopilot/10 to-white/[0.02] border border-autopilot/30 hover:border-autopilot/60'
                   : 'bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30'
               }`}>
-                <div className="h-[200px] flex flex-col items-center justify-center p-5 gap-2">
-                  <div className="flex flex-col items-start w-full max-w-[170px]">
-                    {['LinkedIn', 'Instagram', 'TikTok', 'YouTube', 'X', 'Threads', 'Facebook'].map((platform, i) => (
-                      <motion.div
-                        key={platform}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.6 + i * 0.12, duration: 0.3 }}
-                        className={`flex items-center gap-2 px-3 py-1 rounded-md text-xs font-semibold ${
-                          autopilot ? 'text-autopilot' : 'text-empire'
-                        }`}
-                        style={{ marginLeft: `${i * 6}px` }}
-                      >
-                        <span className={`w-1.5 h-1.5 rounded-full ${autopilot ? 'bg-autopilot' : 'bg-empire'}`} />
-                        {platform}
-                        <span className="text-neutral-500 font-normal">✓</span>
-                      </motion.div>
-                    ))}
-                  </div>
+                <div className="h-[200px] flex items-center justify-center p-4">
+                  <CalendarGrid
+                    className="max-w-[180px]"
+                    label={lang === 'fr' ? '1 clic pour publier' : '1 click to publish'}
+                  />
                 </div>
                 <div className="relative z-10 p-5 pt-3 mt-auto h-[140px] bg-gradient-to-t from-black via-black/90 to-transparent">
                   <div className="flex items-center gap-2 mb-1">
@@ -536,24 +502,6 @@ export default function HowItWorksAccordion() {
             </div>
           </FadeInBlock>
 
-          {/* CTA Button */}
-          <FadeInBlock delay={0.15}>
-            <div className="mt-10 md:mt-14 text-center">
-              <button
-                data-cal-namespace={namespace}
-                data-cal-link={calLink}
-                data-cal-config='{"layout":"month_view","theme":"dark"}'
-                className={`inline-flex flex-col items-center px-8 py-4 rounded-xl font-bold hover:scale-105 transition-all ${
-                  autopilot
-                    ? 'bg-gradient-to-r from-autopilot to-autopilot text-black shadow-[0_0_30px_rgba(212,165,116,0.4)]'
-                    : 'bg-empire text-black shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.3)]'
-                }`}
-              >
-                <span className="text-lg">{autopilot ? t.autopilot.hero.cta1 : (lang === 'fr' ? 'Essai gratuit 3 jours' : '3-day free trial')}</span>
-                <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? 'Satisfait ou remboursé' : 'Satisfaction guaranteed'}</span>
-              </button>
-          </div>
-        </FadeInBlock>
 
       </div>
       </div>

@@ -1,16 +1,27 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import { usePathname } from 'next/navigation'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import { getCalApi } from "@calcom/embed-react"
-import { Calendar, ArrowRight } from 'lucide-react'
+import { Users, ArrowRight, Flame } from 'lucide-react'
 import { useCalLink } from '@/hooks/useCalLink'
 
 export default function CalStickyBar() {
   const { t, lang } = useLanguage()
   const { autopilot } = useAutopilot()
   const [isVisible, setIsVisible] = useState(false)
+
+  const socialProof = useMemo(() => {
+    const base = 47
+    const jitter = Math.floor(Math.random() * 7) - 3
+    const count = base + jitter
+    return {
+      count,
+      text: lang === 'fr' ? `${count} créateurs actifs ce mois` : `${count} active creators this month`,
+      spotsText: lang === 'fr' ? `Plus que ${100 - count} places` : `Only ${100 - count} spots left`,
+    }
+  }, [lang])
 
   const pathname = usePathname()
 
@@ -112,26 +123,27 @@ export default function CalStickyBar() {
       {/* Content */}
       <div className="relative max-w-7xl mx-auto px-4 py-3">
         <div className="flex items-center justify-between gap-4">
-          {/* Left side - Text (Desktop) */}
+          {/* Left side - Social proof (Desktop) */}
           <div className="hidden sm:flex items-center gap-3">
             <div className={`w-10 h-10 rounded-full ${accent.bgSoft} flex items-center justify-center`}>
-              <Calendar className={accent.text} size={20} />
+              <Users className={accent.text} size={20} />
             </div>
             <div>
               <p className="text-white font-semibold text-sm">
-                {lang === 'fr' ? 'Satisfait ou remboursé' : 'Satisfaction guaranteed'}
+                {socialProof.text}
               </p>
-              <p className="text-neutral-400 text-xs">
-                {lang === 'fr' ? 'Appel gratuit' : 'Free call'}
+              <p className={`text-xs flex items-center gap-1 ${accent.text}`}>
+                <Flame size={12} />
+                {socialProof.spotsText}
               </p>
             </div>
           </div>
 
-          {/* Mobile - Compact text */}
+          {/* Mobile - Compact social proof */}
           <div className="sm:hidden flex items-center gap-2">
-            <Calendar className={`${accent.text} flex-shrink-0`} size={18} />
-            <p className="text-white font-medium text-sm">
-              {lang === 'fr' ? 'Satisfait ou remboursé' : 'Satisfaction guaranteed'}
+            <Flame className={`${accent.text} flex-shrink-0`} size={16} />
+            <p className="text-white font-medium text-xs">
+              {socialProof.spotsText}
             </p>
           </div>
 
@@ -148,7 +160,6 @@ export default function CalStickyBar() {
                 {t.common.startNow}
                 <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
               </span>
-              <span className="text-[9px] sm:text-[10px] font-semibold opacity-70">{lang === 'fr' ? 'Satisfait ou remboursé' : 'Satisfaction guaranteed'}</span>
             </button>
           </div>
         </div>

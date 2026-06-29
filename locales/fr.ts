@@ -211,8 +211,8 @@ export const fr: Translations = {
     },
   },
   features: {
-    title: "Ce qu'Empire crée pour vous chaque mois",
-    subtitle: 'Une interview par semaine. Le reste est automatisé.',
+    title: 'Le système en action',
+    subtitle: 'Votre interview se transforme en contenu pour chaque plateforme.',
     items: [
       {
         title: '30 Posts LinkedIn',
@@ -287,11 +287,11 @@ export const fr: Translations = {
       },
       whatIfDontLike: {
         question: 'Et si je n\'aime pas le contenu ?',
-        answer: 'Le contenu suit des formats standardisés et est vérifié par un humain avant publication. Vous choisissez quoi publier dans votre calendrier, mais nous ne proposons pas de modifications sur mesure.',
+        answer: 'Les premières semaines servent de calibration : on apprend votre ton, vos sujets, votre style. Plus vous publiez, plus le contenu vous ressemble. Et vous gardez toujours le contrôle : vous choisissez quoi publier dans votre calendrier.',
       },
       canRequestChanges: {
         question: 'Puis-je demander des modifications au contenu ?',
-        answer: 'Tout le contenu est standardisé et vérifié par notre équipe avant publication. Vous le retrouvez dans votre calendrier et choisissez quoi publier, mais nous ne proposons pas de modifications sur mesure.',
+        answer: 'Le contenu s\'affine au fil du temps grâce à notre processus de calibration. Chaque feedback est intégré pour que le ton et le style collent de mieux en mieux à votre voix. Vous validez tout avant publication dans votre calendrier.',
       },
     },
   },
@@ -667,8 +667,8 @@ export const fr: Translations = {
       answer: 'Oui. Pas de contrat long terme. Annulez avec 30 jours de préavis. Mais la plupart restent car ils voient les résultats et adorent récupérer leur temps.',
     },
     {
-      question: 'Pourquoi pas d\'essai gratuit ou garantie satisfait ou remboursé ?',
-      answer: 'On a une vraie équipe qui travaille dès le jour 1 - rédacteurs, éditeurs, QA. Un essai gratuit = ils travaillent gratuitement, pas durable. À la place : paiement mensuel et annulation à tout moment. Vous voyez la qualité immédiatement sans engagement.',
+      question: 'Comment fonctionne l\'essai gratuit de 3 jours ?',
+      answer: 'Vous accédez à la plateforme pendant 3 jours sans payer. Vous voyez le calendrier, les prompts IA, les premiers contenus générés. Si ça ne vous convient pas, vous annulez avant la fin de l\'essai et vous ne payez rien. Zéro risque.',
     },
     {
       question: 'Sur quelles plateformes publiez-vous ?',

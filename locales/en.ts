@@ -88,8 +88,8 @@ export const en = {
     },
   },
   features: {
-    title: 'What Empire creates for you every month',
-    subtitle: 'One interview per week. The rest is automated.',
+    title: 'The system in action',
+    subtitle: 'Your interview transforms into content for every platform.',
     items: [
       {
         title: '30 LinkedIn Posts',
@@ -164,11 +164,11 @@ export const en = {
       },
       whatIfDontLike: {
         question: 'What if I don\'t like the content?',
-        answer: 'Content follows standardized templates and is reviewed by a real human before it goes live. You decide what to publish from your calendar, but we don\'t offer custom edits.',
+        answer: 'The first few weeks are a calibration phase: we learn your tone, topics, and style. The more you publish, the more the content sounds like you. And you always stay in control — you choose what to publish from your calendar.',
       },
       canRequestChanges: {
         question: 'Can I request changes to the content?',
-        answer: 'All content is standardized and quality-checked by our team before publication. You receive everything in your calendar and choose what to publish, but we don\'t offer custom edits.',
+        answer: 'Content improves over time through our calibration process. Every piece of feedback is integrated so the tone and style match your voice better and better. You approve everything before it goes live from your calendar.',
       },
     },
   },
@@ -544,8 +544,8 @@ export const en = {
       answer: 'Yes. No long-term contract. You can cancel with 30 days notice. But most clients stay because they see the results and love getting their time back.',
     },
     {
-      question: 'Why no free trial or money-back guarantee?',
-      answer: 'We have a real team working on your content from day 1 - writers, editors, QA specialists. A free trial would mean they work for free, which isn\'t sustainable. Instead, we offer monthly payment and cancel anytime. You see the quality immediately without long-term commitment.',
+      question: 'How does the 3-day free trial work?',
+      answer: 'You get full access to the platform for 3 days at no cost. You can see the calendar, the AI prompts, and the first generated content. If it\'s not for you, cancel before the trial ends and you pay nothing. Zero risk.',
     },
     {
       question: 'What platforms do you publish to?',
