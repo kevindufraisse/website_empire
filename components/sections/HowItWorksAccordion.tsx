@@ -458,24 +458,18 @@ export default function HowItWorksAccordion() {
               }`}>
                 <div className="h-[200px] flex flex-col items-center justify-center p-6 gap-4">
                   <div className="grid grid-cols-7 gap-1.5 p-3 rounded-xl bg-white/5 border border-white/10">
-                    {Array.from({ length: 28 }).map((_, i) => {
-                      const dayOfWeek = i % 7
-                      const isWeekday = dayOfWeek < 5
-                      return (
+                    {Array.from({ length: 28 }).map((_, i) => (
                         <div
                           key={i}
                           className={`w-5 h-5 rounded text-[9px] flex items-center justify-center ${
-                            isWeekday
-                              ? autopilot
-                                ? 'bg-autopilot/30 text-autopilot font-bold'
-                                : 'bg-empire/30 text-empire font-bold'
-                              : 'bg-white/5 text-neutral-400'
+                            autopilot
+                              ? 'bg-autopilot/30 text-autopilot font-bold'
+                              : 'bg-empire/30 text-empire font-bold'
                           }`}
                         >
                           {i + 1}
                         </div>
-                      )
-                    })}
+                    ))}
                   </div>
                   <p className={`text-xs font-semibold tracking-wider uppercase ${autopilot ? 'text-autopilot' : 'text-empire'}`}>
                     {autopilot
