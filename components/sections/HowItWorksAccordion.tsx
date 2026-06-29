@@ -12,29 +12,6 @@ import { CtaReassurance } from '@/components/ui/cta-reassurance'
 import AnimatedList, { AnimatedListItem } from '@/components/magicui/animated-list'
 import { useCalLink } from '@/hooks/useCalLink'
 
-function Tooltip({ term, explanation }: { term: string; explanation: string }) {
-  const [open, setOpen] = useState(false)
-  return (
-    <span className="relative inline-flex items-center gap-1">
-      <span className="font-medium text-white">{term}</span>
-      <button
-        type="button"
-        onClick={() => setOpen(!open)}
-        onMouseEnter={() => setOpen(true)}
-        onMouseLeave={() => setOpen(false)}
-        className="inline-flex items-center justify-center w-3.5 h-3.5 rounded-full bg-white/15 text-[9px] font-bold text-neutral-300 hover:bg-white/25 transition-colors cursor-help"
-      >
-        ?
-      </button>
-      {open && (
-        <span className="absolute bottom-full left-0 mb-1.5 px-2.5 py-1.5 rounded-lg bg-neutral-800 border border-white/10 text-[11px] text-neutral-200 whitespace-nowrap shadow-lg z-50">
-          {explanation}
-        </span>
-      )}
-    </span>
-  )
-}
-
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-50px' })
@@ -364,9 +341,47 @@ export default function HowItWorksAccordion() {
 
           {/* 4 Visual Blocks */}
         <FadeInBlock delay={0.1}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 items-stretch">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 items-stretch">
 
-              {/* BLOCK 1 - L'interview (or Expert dédié in autopilot) */}
+              {/* BLOCK 1 - On trouve vos sujets viraux */}
+              <div className={`group relative flex flex-col overflow-hidden rounded-xl transition-all min-h-[340px] ${
+                autopilot
+                  ? 'bg-gradient-to-br from-autopilot/10 to-white/[0.02] border border-autopilot/30 hover:border-autopilot/60'
+                  : 'bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30'
+              }`}>
+                <div className="h-[200px] flex flex-col items-center justify-center p-5 gap-3">
+                  <div className="flex flex-col gap-2 w-full max-w-[180px]">
+                    {[
+                      { platform: 'LinkedIn', color: 'bg-blue-500/20 text-blue-400' },
+                      { platform: 'YouTube', color: 'bg-red-500/20 text-red-400' },
+                      { platform: 'Reddit', color: 'bg-orange-500/20 text-orange-400' },
+                    ].map((s) => (
+                      <div key={s.platform} className={`flex items-center gap-2 px-3 py-2 rounded-lg ${s.color} text-xs font-semibold`}>
+                        <div className="w-2 h-2 rounded-full bg-current animate-pulse" />
+                        {s.platform}
+                      </div>
+                    ))}
+                  </div>
+                  <p className={`text-xs font-semibold tracking-wider uppercase ${autopilot ? 'text-autopilot' : 'text-empire'}`}>
+                    {lang === 'fr' ? 'Veille en cours...' : 'Scanning...'}
+                  </p>
+                </div>
+                <div className="relative z-10 p-5 pt-3 mt-auto h-[140px] bg-gradient-to-t from-black via-black/90 to-transparent">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className={`w-6 h-6 rounded-md flex items-center justify-center text-black font-bold text-sm ${autopilot ? 'bg-autopilot' : 'bg-empire'}`}>1</span>
+                    <h3 className="text-base font-semibold text-white">
+                      {lang === 'fr' ? 'On trouve vos sujets' : 'We find your topics'}
+                    </h3>
+                  </div>
+                  <p className="text-neutral-400 text-sm">
+                    {lang === 'fr'
+                      ? 'On analyse les comptes concurrents, les commentaires YouTube et Reddit pour trouver les sujets viraux de votre niche.'
+                      : 'We analyze competitor accounts, YouTube comments and Reddit to find viral topics in your niche.'}
+                  </p>
+                </div>
+              </div>
+
+              {/* BLOCK 2 - Vous enregistrez */}
               {autopilot ? (
                 <div className="group relative flex flex-col overflow-hidden rounded-xl bg-gradient-to-br from-autopilot/10 to-white/[0.02] border border-autopilot/30 hover:border-autopilot/60 transition-all min-h-[340px]">
                   <div className="h-[200px] flex flex-col items-center justify-center p-6 gap-5">
@@ -423,19 +438,15 @@ export default function HowItWorksAccordion() {
                   </div>
                   <div className="relative z-10 p-5 pt-3 mt-auto h-[140px] bg-gradient-to-t from-black via-black/90 to-transparent">
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">1</span>
+                      <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">2</span>
                       <h3 className="text-base font-semibold text-white">
-                        {lang === 'fr' ? '3 formats pour créer' : '3 formats to create'}
+                        {lang === 'fr' ? 'Vous enregistrez' : 'You record'}
                       </h3>
                     </div>
                     <p className="text-neutral-400 text-sm">
                       {lang === 'fr'
-                        ? <>
-                            <Tooltip term="Yapping" explanation="Parler librement face caméra sans script ni préparation" /> face caméra, interviews guidées ou faux QA clients. Zéro préparation, on extrait tout le contenu.
-                          </>
-                        : <>
-                            <Tooltip term="Yapping" explanation="Speaking freely on camera with no script or preparation" /> on camera, guided interviews, or fake client Q&amp;A. Zero prep, we extract all the content.
-                          </>}
+                        ? 'Yapping face caméra, interviews guidées ou faux QA clients. Zéro préparation, on extrait tout le contenu.'
+                        : 'Yapping on camera, guided interviews, or fake client Q&A. Zero prep, we extract all the content.'}
                     </p>
                   </div>
                 </div>
@@ -451,7 +462,7 @@ export default function HowItWorksAccordion() {
                   <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-500/20 border border-green-500/40 backdrop-blur-sm">
                     <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                     <span className="text-[10px] font-semibold text-green-400">
-                      {lang === 'fr' ? 'Publié tous les jours · 6+ plateformes' : 'Published daily · 6+ platforms'}
+                      {lang === 'fr' ? 'Vérifié par des humains' : 'Verified by humans'}
                     </span>
                   </div>
                   <div className="absolute inset-0 pt-10 px-3 [mask-image:linear-gradient(to_top,transparent_20%,#000_100%)]">
@@ -460,24 +471,24 @@ export default function HowItWorksAccordion() {
                 </div>
                 <div className="relative z-10 p-5 pt-3 mt-auto h-[140px] bg-gradient-to-t from-black via-black/90 to-transparent">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className={`w-6 h-6 rounded-md flex items-center justify-center text-black font-bold text-sm ${autopilot ? 'bg-autopilot' : 'bg-empire'}`}>2</span>
+                    <span className={`w-6 h-6 rounded-md flex items-center justify-center text-black font-bold text-sm ${autopilot ? 'bg-autopilot' : 'bg-empire'}`}>3</span>
                     <h3 className="text-base font-semibold text-white">
                       {autopilot
                         ? t.autopilot.howItWorks.b3.title
-                        : (lang === 'fr' ? 'Rédaction & montage' : 'Writing & editing')}
+                        : (lang === 'fr' ? 'On rédige et monte' : 'We write & edit')}
                     </h3>
                   </div>
                   <p className="text-neutral-400 text-sm">
                     {autopilot
                       ? t.autopilot.howItWorks.b3.desc
                       : (lang === 'fr'
-                          ? 'Notre équipe écrit, découpe et monte tout votre contenu à partir de votre interview. Posts, newsletters, Shorts, Reels, vidéos longues. Tout est vérifié par un humain.'
-                          : 'Our team writes, cuts and edits all your content from your interview. Posts, newsletters, Shorts, Reels, long-form videos. Everything reviewed by a human.')}
+                          ? 'Posts, newsletters, Shorts, Reels, vidéos longues. Tout est découpé, monté et vérifié par un humain.'
+                          : 'Posts, newsletters, Shorts, Reels, long-form videos. Everything cut, edited and reviewed by a human.')}
                   </p>
                 </div>
               </div>
 
-              {/* BLOCK 4 - Publiez (or Safety net in autopilot) */}
+              {/* BLOCK 4 - Vous publiez */}
               <div className={`group relative flex flex-col overflow-hidden rounded-xl transition-all min-h-[340px] ${
                 autopilot
                   ? 'bg-gradient-to-br from-autopilot/10 to-white/[0.02] border border-autopilot/30 hover:border-autopilot/60'
@@ -501,16 +512,16 @@ export default function HowItWorksAccordion() {
                   <p className={`text-xs font-semibold tracking-wider uppercase ${autopilot ? 'text-autopilot' : 'text-empire'}`}>
                     {autopilot
                       ? (lang === 'fr' ? 'Publié automatiquement' : 'Published automatically')
-                      : (lang === 'fr' ? '1 clic pour publier' : '1 click to publish')}
+                      : (lang === 'fr' ? '7 plateformes · tous les jours' : '7 platforms · every day')}
                   </p>
                 </div>
                 <div className="relative z-10 p-5 pt-3 mt-auto h-[140px] bg-gradient-to-t from-black via-black/90 to-transparent">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className={`w-6 h-6 rounded-md flex items-center justify-center text-black font-bold text-sm ${autopilot ? 'bg-autopilot' : 'bg-empire'}`}>3</span>
+                    <span className={`w-6 h-6 rounded-md flex items-center justify-center text-black font-bold text-sm ${autopilot ? 'bg-autopilot' : 'bg-empire'}`}>4</span>
                     <h3 className="text-base font-semibold text-white">
                       {autopilot
                         ? t.autopilot.howItWorks.b4.title
-                        : (lang === 'fr' ? 'On multiplie partout' : 'Multiply everywhere')}
+                        : (lang === 'fr' ? 'Vous publiez' : 'You publish')}
                     </h3>
                   </div>
                   <p className="text-neutral-400 text-sm">
