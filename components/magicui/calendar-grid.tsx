@@ -5,7 +5,7 @@ const days = ['M', 'T', 'W', 'T', 'F', 'S', 'S']
 
 export default function CalendarGrid({ className, label = 'Content scheduled' }: { className?: string; label?: string }) {
   // Generate random content days
-  const contentDays = [3, 5, 7, 10, 12, 14, 17, 19, 21, 24, 26, 28]
+  const contentDays = [1, 2, 3, 4, 5, 8, 9, 10, 11, 12, 15, 16, 17, 18, 19, 22, 23, 24, 25, 26]
 
   return (
     <div className={`w-full ${className || ''}`}>

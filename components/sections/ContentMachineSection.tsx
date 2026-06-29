@@ -3,7 +3,7 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { Scissors, Film, PenLine, Share2, Bot, ShieldCheck } from 'lucide-react'
+import { Scissors, Film, PenLine, Share2, Bot, ShieldCheck, UserCheck } from 'lucide-react'
 
 function FadeIn({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -59,6 +59,13 @@ export default function ContentMachineSection() {
       desc: fr
         ? 'Nos agents IA trouvent les sujets les plus viraux pour votre niche. Le format le plus simple pour créer du contenu.'
         : 'Our AI agents find the most viral topics for your niche. The simplest format to create content.',
+    },
+    {
+      icon: UserCheck,
+      title: fr ? 'Votre coach dédié' : 'Your dedicated coach',
+      desc: fr
+        ? 'Il comprend votre business, vos clients et votre niche. Il vous accompagne sur tous les formats — du post viral aux vidéos YouTube longues.'
+        : 'They understand your business, your clients and your niche. They guide you on every format — from viral posts to long-form YouTube videos.',
     },
   ]
 
