@@ -14,7 +14,7 @@ export default function CallbackButton({ className = '', variant = 'default' }: 
   const [isOpen, setIsOpen] = useState(false)
   const { lang } = useLanguage()
 
-  const label = lang === 'fr' ? 'Je veux créer ma marque personnelle' : 'I want to discover the Empire system'
+  const label = lang === 'fr' ? 'Commencer maintenant' : 'Get started now'
 
   return (
     <>

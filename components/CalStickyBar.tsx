@@ -4,15 +4,14 @@ import { usePathname } from 'next/navigation'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import { getCalApi } from "@calcom/embed-react"
-import { Calendar, ArrowRight, Phone } from 'lucide-react'
-import CallbackFormModal from '@/components/CallbackFormModal'
+import { Calendar, ArrowRight } from 'lucide-react'
 import { useCalLink } from '@/hooks/useCalLink'
 
 export default function CalStickyBar() {
   const { t, lang } = useLanguage()
   const { autopilot } = useAutopilot()
   const [isVisible, setIsVisible] = useState(false)
-  const [callbackOpen, setCallbackOpen] = useState(false)
+
   const pathname = usePathname()
 
   const accent = autopilot
@@ -139,13 +138,6 @@ export default function CalStickyBar() {
           {/* Buttons */}
           <div className="flex items-center gap-2">
             <button
-              onClick={() => setCallbackOpen(true)}
-              className={`flex items-center gap-2 px-4 py-2.5 sm:px-6 sm:py-2.5 bg-white/10 border border-white/20 text-white font-bold rounded-lg ${accent.btnBorderHover} transition-all text-sm sm:text-base whitespace-nowrap`}
-            >
-              <Phone size={16} />
-              <span>{lang === 'fr' ? 'On vous rappelle' : 'We call you'}</span>
-            </button>
-            <button
               type="button"
               data-cal-namespace={namespace}
               data-cal-link={calLink}
@@ -161,7 +153,6 @@ export default function CalStickyBar() {
           </div>
         </div>
       </div>
-      <CallbackFormModal isOpen={callbackOpen} onClose={() => setCallbackOpen(false)} />
     </div>
   )
 }
