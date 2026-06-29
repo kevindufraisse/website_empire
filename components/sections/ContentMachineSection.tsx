@@ -3,7 +3,7 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { Scissors, Film, PenLine, Share2, Bot, ShieldCheck, UserCheck } from 'lucide-react'
+import { Scissors, Film, PenLine, Share2, Bot, ShieldCheck, GraduationCap } from 'lucide-react'
 
 function FadeIn({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -24,7 +24,7 @@ export default function ContentMachineSection() {
   const { lang } = useLanguage()
   const fr = lang === 'fr'
 
-  const services = [
+  const services: { icon: React.ComponentType<{ size?: number; className?: string }>; title: string; desc: string; option?: boolean }[] = [
     {
       icon: Scissors,
       title: fr ? 'On découpe vos interviews' : 'We cut your interviews',
@@ -61,11 +61,12 @@ export default function ContentMachineSection() {
         : 'Our AI agents find the most viral topics for your niche. The simplest format to create content.',
     },
     {
-      icon: UserCheck,
-      title: fr ? 'Votre coach dédié' : 'Your dedicated coach',
+      icon: GraduationCap,
+      title: fr ? 'Apprenez la viralité' : 'Learn virality',
       desc: fr
-        ? 'Il comprend votre business, vos clients et votre niche. Il vous accompagne sur tous les formats — du post viral aux vidéos YouTube longues.'
-        : 'They understand your business, your clients and your niche. They guide you on every format — from viral posts to long-form YouTube videos.',
+        ? 'Bootcamp avec un coach dédié. Il comprend votre business et vous forme aux formats qui performent dans votre niche.'
+        : 'Bootcamp with a dedicated coach. They understand your business and train you on the formats that perform in your niche.',
+      option: true,
     },
   ]
 
@@ -102,6 +103,11 @@ export default function ContentMachineSection() {
                       <s.icon size={18} className="text-empire" />
                     </div>
                     <h3 className="font-semibold text-white text-sm">{s.title}</h3>
+                    {s.option && (
+                      <span className="ml-auto px-2 py-0.5 rounded-full bg-white/10 border border-white/20 text-[10px] font-bold text-neutral-300 uppercase tracking-wider">
+                        Option
+                      </span>
+                    )}
                   </div>
                   <p className="text-sm text-neutral-400 leading-relaxed">{s.desc}</p>
                 </div>
