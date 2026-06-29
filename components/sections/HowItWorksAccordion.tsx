@@ -12,6 +12,29 @@ import { CtaReassurance } from '@/components/ui/cta-reassurance'
 import AnimatedList, { AnimatedListItem } from '@/components/magicui/animated-list'
 import { useCalLink } from '@/hooks/useCalLink'
 
+function Tooltip({ term, explanation }: { term: string; explanation: string }) {
+  const [open, setOpen] = useState(false)
+  return (
+    <span className="relative inline-flex items-center gap-1">
+      <span className="font-medium text-white">{term}</span>
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        onMouseEnter={() => setOpen(true)}
+        onMouseLeave={() => setOpen(false)}
+        className="inline-flex items-center justify-center w-3.5 h-3.5 rounded-full bg-white/15 text-[9px] font-bold text-neutral-300 hover:bg-white/25 transition-colors cursor-help"
+      >
+        ?
+      </button>
+      {open && (
+        <span className="absolute bottom-full left-0 mb-1.5 px-2.5 py-1.5 rounded-lg bg-neutral-800 border border-white/10 text-[11px] text-neutral-200 whitespace-nowrap shadow-lg z-50">
+          {explanation}
+        </span>
+      )}
+    </span>
+  )
+}
+
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-50px' })
@@ -407,8 +430,12 @@ export default function HowItWorksAccordion() {
                     </div>
                     <p className="text-neutral-400 text-sm">
                       {lang === 'fr'
-                        ? 'Yapping face caméra, interviews guidées ou faux QA clients. Zéro préparation, on extrait tout le contenu.'
-                        : 'Yapping on camera, guided interviews, or fake client Q&A. Zero prep, we extract all the content.'}
+                        ? <>
+                            <Tooltip term="Yapping" explanation="Parler librement face caméra sans script ni préparation" /> face caméra, interviews guidées ou faux QA clients. Zéro préparation, on extrait tout le contenu.
+                          </>
+                        : <>
+                            <Tooltip term="Yapping" explanation="Speaking freely on camera with no script or preparation" /> on camera, guided interviews, or fake client Q&amp;A. Zero prep, we extract all the content.
+                          </>}
                     </p>
                   </div>
                 </div>
