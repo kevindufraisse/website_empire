@@ -74,7 +74,7 @@ const pillars: Record<string, Pillar[]> = {
       label: 'Distribution',
       keyFeatures: [
         { icon: Calendar, title: 'Publiez depuis la plateforme', desc: 'Tout est prêt dans votre calendrier, vous publiez en 1 clic', value: '500€' },
-        { icon: Bot, title: '1 setter IA LinkedIn', desc: 'Prospection automatisée 24/7', value: '1 500€' },
+
         { icon: Users, title: 'Employee Advocacy', desc: 'Faites publier vos employés automatiquement', value: '800€' },
         { icon: MessageCircle, title: 'Idées via Telegram', desc: 'Ajoutez vos idées (reels, posts, captures...) depuis Telegram et récupérez-les dans Empire', badge: 'NEW' },
       ],
@@ -120,7 +120,7 @@ const pillars: Record<string, Pillar[]> = {
       label: 'Distribution',
       keyFeatures: [
         { icon: Calendar, title: 'Publish from the platform', desc: 'Everything ready in your calendar, publish in 1 click' },
-        { icon: Bot, title: '1 AI LinkedIn setter', desc: 'Automated outreach 24/7' },
+
         { icon: Users, title: 'Employee Advocacy', desc: 'Get your employees publishing automatically' },
         { icon: MessageCircle, title: 'Ideas via Telegram', desc: 'Add your ideas (reels, posts, screenshots...) from Telegram and retrieve them in Empire', badge: 'NEW' },
       ],
