@@ -59,13 +59,13 @@ const pillars: Record<string, Pillar[]> = {
       icon: Sparkles,
       label: 'Contenu',
       keyFeatures: [
-        { icon: FileText, title: '30+ posts LinkedIn', desc: 'Rédigés, optimisés et planifiés. Ajout automatique de vos lead magnets.', value: '1 500€' },
-        { icon: Mail, title: '30 newsletters/mois', desc: 'Qui sonnent comme vous, en mieux', value: '1 200€' },
+        { icon: FileText, title: '30+ posts LinkedIn', desc: 'Rédigés, optimisés et planifiés. Ajout automatique de vos lead magnets. Disponible en FR, EN, ES.', value: '1 500€' },
+        { icon: Mail, title: '30 newsletters/mois', desc: 'Qui sonnent comme vous, en mieux. Disponible en FR, EN, ES.', value: '1 200€' },
         { icon: Video, title: '30+ Reels & Shorts', desc: 'Option sans caméra - pas besoin de montrer votre visage', value: '3 000€' },
       ],
       moreFeatures: [
         { icon: Video, title: 'Vidéos longues YouTube', desc: 'On crée vos vidéos longues de A à Z. Personnalisation des couleurs, textes et format.', value: '2 000€' },
-        { icon: ImageIcon, title: 'Carrousels illimités', desc: 'LinkedIn + Instagram', value: '800€' },
+        { icon: ImageIcon, title: 'Carrousels automatiques', desc: 'Générés automatiquement pour LinkedIn + Instagram', value: '800€' },
         { icon: ImageIcon, title: 'Miniatures', desc: 'Création des miniatures pour Instagram, YouTube et LinkedIn', value: '500€' },
       ],
     },
@@ -84,6 +84,7 @@ const pillars: Record<string, Pillar[]> = {
         { icon: Mail, title: 'Substack automatique', desc: 'Vos newsletters publiées automatiquement sur Substack', value: '200€' },
         { icon: Users, title: 'Diffusion Skool', desc: 'Contenu partagé automatiquement dans votre communauté Skool', value: '200€' },
         { icon: Zap, title: 'Deeplinks de tracking', desc: 'Liens trackés pour mesurer la performance de chaque contenu', value: '300€' },
+        { icon: Code2, title: 'API & Automations', desc: 'Connectez Empire à vos outils (Notion, Airtable, Google Drive). Automatisez vos workflows.', value: '500€' },
       ],
     },
     {
@@ -106,13 +107,13 @@ const pillars: Record<string, Pillar[]> = {
       icon: Sparkles,
       label: 'Content',
       keyFeatures: [
-        { icon: FileText, title: '30+ LinkedIn posts', desc: 'Written, optimized, scheduled. Auto-embed your lead magnets.' },
-        { icon: Mail, title: '30 newsletters/mo', desc: 'Sound like you, but better' },
+        { icon: FileText, title: '30+ LinkedIn posts', desc: 'Written, optimized, scheduled. Auto-embed your lead magnets. Available in FR, EN, ES.' },
+        { icon: Mail, title: '30 newsletters/mo', desc: 'Sound like you, but better. Available in FR, EN, ES.' },
         { icon: Video, title: '30+ Reels & Shorts', desc: 'No-camera option - no need to show your face' },
       ],
       moreFeatures: [
         { icon: Video, title: 'Long-form YouTube videos', desc: 'We create your long videos from A to Z. Custom colors, text and format.' },
-        { icon: ImageIcon, title: 'Unlimited carousels', desc: 'LinkedIn + Instagram' },
+        { icon: ImageIcon, title: 'Auto carousels', desc: 'Automatically generated for LinkedIn + Instagram' },
         { icon: ImageIcon, title: 'Thumbnails', desc: 'Custom thumbnails for Instagram, YouTube and LinkedIn' },
       ],
     },
@@ -131,6 +132,7 @@ const pillars: Record<string, Pillar[]> = {
         { icon: Mail, title: 'Auto Substack', desc: 'Your newsletters automatically published on Substack' },
         { icon: Users, title: 'Skool distribution', desc: 'Content automatically shared in your Skool community' },
         { icon: Zap, title: 'Tracking deeplinks', desc: 'Tracked links to measure each content performance' },
+        { icon: Code2, title: 'API & Automations', desc: 'Connect Empire to your tools (Notion, Airtable, Google Drive). Automate your workflows.' },
       ],
     },
     {
