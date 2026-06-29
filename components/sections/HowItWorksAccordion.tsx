@@ -341,48 +341,9 @@ export default function HowItWorksAccordion() {
 
           {/* 4 Visual Blocks */}
         <FadeInBlock delay={0.1}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 items-stretch">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 items-stretch">
 
-              {/* BLOCK 1 - Expert viralité */}
-              <div className={`group relative flex flex-col overflow-hidden rounded-xl transition-all min-h-[340px] ${
-                autopilot
-                  ? 'bg-gradient-to-br from-autopilot/10 to-white/[0.02] border border-autopilot/30 hover:border-autopilot/60'
-                  : 'bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30'
-              }`}>
-                <div className="h-[200px] flex flex-col items-center justify-center p-5 gap-3">
-                  <div className="flex -space-x-3">
-                    <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-empire/40 relative z-20">
-                      <img src="/founders/kevin.jpg" alt="Kevin" className="w-full h-full object-cover" />
-                    </div>
-                    <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-empire/40 relative z-10">
-                      <img src="/founders/marc.jpg" alt="Marc" className="w-full h-full object-cover" />
-                    </div>
-                    <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-black bg-empire/20 flex items-center justify-center relative z-0">
-                      <span className="text-empire font-bold text-sm">+98</span>
-                    </div>
-                  </div>
-                  <p className="text-[11px] text-neutral-500">{lang === 'fr' ? 'Réseau de 100 experts disponibles' : 'Network of 100 available experts'}</p>
-                </div>
-                <div className="relative z-10 p-5 pt-3 mt-auto h-[140px] bg-gradient-to-t from-black via-black/90 to-transparent">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className={`w-6 h-6 rounded-md flex items-center justify-center text-black font-bold text-sm ${autopilot ? 'bg-autopilot' : 'bg-empire'}`}>1</span>
-                    <h3 className="text-base font-semibold text-white">
-                      {autopilot
-                        ? t.autopilot.howItWorks.b1.title
-                        : (lang === 'fr' ? 'Votre coach dédié' : 'Your dedicated coach')}
-                    </h3>
-                  </div>
-                  <p className="text-neutral-400 text-sm">
-                    {autopilot
-                      ? t.autopilot.howItWorks.b1.desc
-                      : (lang === 'fr'
-                          ? 'Il comprend votre business, vos clients et votre niche. Il vous accompagne sur tous les formats - du post viral aux vidéos YouTube longues.'
-                          : 'Understands your business, clients and niche. Coaches you across all formats - from viral posts to long-form YouTube videos.')}
-                  </p>
-                </div>
-              </div>
-
-              {/* BLOCK 2 - Parlez 15 min (or Expert dédié in autopilot) */}
+              {/* BLOCK 1 - L'interview (or Expert dédié in autopilot) */}
               {autopilot ? (
                 <div className="group relative flex flex-col overflow-hidden rounded-xl bg-gradient-to-br from-autopilot/10 to-white/[0.02] border border-autopilot/30 hover:border-autopilot/60 transition-all min-h-[340px]">
                   <div className="h-[200px] flex flex-col items-center justify-center p-6 gap-5">
@@ -439,15 +400,15 @@ export default function HowItWorksAccordion() {
                   </div>
                   <div className="relative z-10 p-5 pt-3 mt-auto h-[140px] bg-gradient-to-t from-black via-black/90 to-transparent">
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">2</span>
+                      <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">1</span>
                       <h3 className="text-base font-semibold text-white">
-                        {lang === 'fr' ? 'L\'interview' : 'The interview'}
+                        {lang === 'fr' ? '3 formats pour créer' : '3 formats to create'}
                       </h3>
                     </div>
                     <p className="text-neutral-400 text-sm">
                       {lang === 'fr'
-                        ? 'Zéro préparation. Vous parlez de votre métier, vos clients, vos prises de position. On extrait tout le contenu de la semaine.'
-                        : 'Zero preparation. You talk about your work, clients, opinions. We extract all the content for the week.'}
+                        ? 'Yapping face caméra, interviews guidées ou faux QA clients. Zéro préparation, on extrait tout le contenu.'
+                        : 'Yapping on camera, guided interviews, or fake client Q&A. Zero prep, we extract all the content.'}
                     </p>
                   </div>
                 </div>
@@ -472,7 +433,7 @@ export default function HowItWorksAccordion() {
                 </div>
                 <div className="relative z-10 p-5 pt-3 mt-auto h-[140px] bg-gradient-to-t from-black via-black/90 to-transparent">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className={`w-6 h-6 rounded-md flex items-center justify-center text-black font-bold text-sm ${autopilot ? 'bg-autopilot' : 'bg-empire'}`}>3</span>
+                    <span className={`w-6 h-6 rounded-md flex items-center justify-center text-black font-bold text-sm ${autopilot ? 'bg-autopilot' : 'bg-empire'}`}>2</span>
                     <h3 className="text-base font-semibold text-white">
                       {autopilot
                         ? t.autopilot.howItWorks.b3.title
@@ -498,12 +459,13 @@ export default function HowItWorksAccordion() {
                 <div className="h-[200px] flex flex-col items-center justify-center p-6 gap-4">
                   <div className="grid grid-cols-7 gap-1.5 p-3 rounded-xl bg-white/5 border border-white/10">
                     {Array.from({ length: 28 }).map((_, i) => {
-                      const highlight = [2, 5, 9, 12, 16, 19, 23, 26].includes(i)
+                      const dayOfWeek = i % 7
+                      const isWeekday = dayOfWeek < 5
                       return (
                         <div
                           key={i}
                           className={`w-5 h-5 rounded text-[9px] flex items-center justify-center ${
-                            highlight
+                            isWeekday
                               ? autopilot
                                 ? 'bg-autopilot/30 text-autopilot font-bold'
                                 : 'bg-empire/30 text-empire font-bold'
@@ -523,19 +485,19 @@ export default function HowItWorksAccordion() {
                 </div>
                 <div className="relative z-10 p-5 pt-3 mt-auto h-[140px] bg-gradient-to-t from-black via-black/90 to-transparent">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className={`w-6 h-6 rounded-md flex items-center justify-center text-black font-bold text-sm ${autopilot ? 'bg-autopilot' : 'bg-empire'}`}>4</span>
+                    <span className={`w-6 h-6 rounded-md flex items-center justify-center text-black font-bold text-sm ${autopilot ? 'bg-autopilot' : 'bg-empire'}`}>3</span>
                     <h3 className="text-base font-semibold text-white">
                       {autopilot
                         ? t.autopilot.howItWorks.b4.title
-                        : (lang === 'fr' ? 'Publiez en 1 clic' : 'Publish in 1 click')}
+                        : (lang === 'fr' ? 'On multiplie partout' : 'Multiply everywhere')}
                     </h3>
                   </div>
                   <p className="text-neutral-400 text-sm">
                       {autopilot
                         ? t.autopilot.howItWorks.b4.desc
                         : (lang === 'fr'
-                          ? 'Tout est ajouté à votre calendrier. Vous validez, vous publiez en 1 clic. Rien à gérer.'
-                          : 'Everything added to your calendar. You approve, you publish in 1 click. Nothing to manage.')}
+                          ? 'LinkedIn, Instagram, TikTok, YouTube, X, Threads, Facebook. Vous validez, vous publiez en 1 clic.'
+                          : 'LinkedIn, Instagram, TikTok, YouTube, X, Threads, Facebook. You approve, publish in 1 click.')}
                   </p>
                 </div>
               </div>
