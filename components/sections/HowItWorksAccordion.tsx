@@ -494,26 +494,31 @@ export default function HowItWorksAccordion() {
                   ? 'bg-gradient-to-br from-autopilot/10 to-white/[0.02] border border-autopilot/30 hover:border-autopilot/60'
                   : 'bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30'
               }`}>
-                <div className="h-[200px] flex flex-col items-center justify-center p-6 gap-4">
-                  <div className="grid grid-cols-7 gap-1.5 p-3 rounded-xl bg-white/5 border border-white/10">
-                    {Array.from({ length: 28 }).map((_, i) => (
-                        <div
-                          key={i}
-                          className={`w-5 h-5 rounded text-[9px] flex items-center justify-center ${
-                            autopilot
-                              ? 'bg-autopilot/30 text-autopilot font-bold'
-                              : 'bg-empire/30 text-empire font-bold'
-                          }`}
-                        >
-                          {i + 1}
-                        </div>
+                <div className="h-[200px] flex items-center justify-center p-5 overflow-hidden">
+                  <div className="relative w-full max-w-[170px] h-[170px]">
+                    {['LinkedIn', 'YouTube', 'Instagram', 'TikTok', 'X', 'Threads', 'Facebook'].map((platform, i) => (
+                      <motion.div
+                        key={platform}
+                        initial={{ opacity: 0, x: -20, y: -10 }}
+                        animate={{ opacity: 1, x: 0, y: 0 }}
+                        transition={{ delay: i * 0.12, duration: 0.4 }}
+                        className={`absolute flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-semibold whitespace-nowrap ${
+                          autopilot
+                            ? 'bg-autopilot/10 border-autopilot/30 text-autopilot'
+                            : 'bg-empire/10 border-empire/30 text-empire'
+                        }`}
+                        style={{
+                          top: `${i * 22}px`,
+                          left: `${(i % 3) * 12}px`,
+                          zIndex: 7 - i,
+                        }}
+                      >
+                        <div className={`w-1.5 h-1.5 rounded-full ${autopilot ? 'bg-autopilot' : 'bg-empire'}`} />
+                        {platform}
+                        <span className="text-[9px] opacity-60">✓</span>
+                      </motion.div>
                     ))}
                   </div>
-                  <p className={`text-xs font-semibold tracking-wider uppercase ${autopilot ? 'text-autopilot' : 'text-empire'}`}>
-                    {autopilot
-                      ? (lang === 'fr' ? 'Publié automatiquement' : 'Published automatically')
-                      : (lang === 'fr' ? '7 plateformes · tous les jours' : '7 platforms · every day')}
-                  </p>
                 </div>
                 <div className="relative z-10 p-5 pt-3 mt-auto h-[140px] bg-gradient-to-t from-black via-black/90 to-transparent">
                   <div className="flex items-center gap-2 mb-1">
@@ -521,15 +526,15 @@ export default function HowItWorksAccordion() {
                     <h3 className="text-base font-semibold text-white">
                       {autopilot
                         ? t.autopilot.howItWorks.b4.title
-                        : (lang === 'fr' ? 'Vous publiez' : 'You publish')}
+                        : (lang === 'fr' ? 'On duplique partout' : 'We duplicate everywhere')}
                     </h3>
                   </div>
                   <p className="text-neutral-400 text-sm">
                       {autopilot
                         ? t.autopilot.howItWorks.b4.desc
                         : (lang === 'fr'
-                          ? 'LinkedIn, Instagram, TikTok, YouTube, X, Threads, Facebook. Vous validez, vous publiez en 1 clic.'
-                          : 'LinkedIn, Instagram, TikTok, YouTube, X, Threads, Facebook. You approve, publish in 1 click.')}
+                          ? 'Chaque contenu est dupliqué et adapté pour chaque plateforme. Vous validez, vous publiez en 1 clic.'
+                          : 'Each piece of content is duplicated and adapted for every platform. You approve, publish in 1 click.')}
                   </p>
                 </div>
               </div>
