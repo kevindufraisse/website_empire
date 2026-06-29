@@ -282,8 +282,8 @@ export const fr: Translations = {
     subtitle: 'Tout ce qu\'il faut savoir sur Empire',
     specific: {
       howManyPosts: {
-        question: 'Combien de posts j\'obtiens exactement ?',
-        answer: '30 posts LinkedIn, 30 newsletters, 30 Reels/Shorts, 30 posts Instagram, 30 posts Twitter, des carrousels illimités et 4 podcasts MP3 par mois. Suffisant pour publier tous les jours sur toutes les plateformes.',
+        question: 'Combien de contenus j\'obtiens exactement ?',
+        answer: 'Ça dépend de votre plan. Starter : ~20 contenus/mois (2 200 crédits). Growth : ~60 contenus/mois (6 600 crédits). Scale : ~110 contenus/mois (12 000 crédits). Il existe aussi un plan Illimité pour les gros volumes — prenez rendez-vous sur /join-us pour en discuter. Vos crédits sont cumulables et sans expiration.',
       },
       whatIfDontLike: {
         question: 'Et si je n\'aime pas le contenu ?',
@@ -644,7 +644,7 @@ export const fr: Translations = {
   faqItems: [
     {
       question: 'Comment je commence ?',
-      answer: 'Réservez un rendez-vous one-to-one pour tout découvrir et choisir le plan qui vous convient. Votre premier contenu est prêt 24h après votre interview.',
+      answer: 'Lancez votre essai gratuit de 3 jours. Vous accédez immédiatement à la plateforme, vous choisissez votre plan et vous enregistrez votre première interview. Votre premier contenu est prêt sous 24h.',
     },
     {
       question: 'Combien de temps dois-je investir ?',

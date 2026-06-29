@@ -10,7 +10,6 @@ import { Phone } from 'lucide-react'
 import CallbackFormModal from '@/components/CallbackFormModal'
 import { useCalLink } from '@/hooks/useCalLink'
 
-import { GiftHeaderBadge } from '@/components/GiftCountdownBar'
 
 export default function Header() {
   const { t, lang } = useLanguage()
@@ -113,10 +112,6 @@ export default function Header() {
             </span>
           </a>
 
-          {/* Center - absolutely positioned for true centering (lg+ to avoid iPad overlap) */}
-          <div className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center">
-            <GiftHeaderBadge />
-          </div>
 
           {/* Right side */}
           <div className="flex items-center justify-end gap-2 lg:gap-3 min-w-0">

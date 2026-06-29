@@ -159,8 +159,8 @@ export const en = {
     subtitle: 'Everything you need to know about Empire',
     specific: {
       howManyPosts: {
-        question: 'How many posts do I get exactly?',
-        answer: '30 LinkedIn posts, 30 newsletters, 30 Reels/Shorts, 30 Instagram posts, 30 Twitter posts, unlimited carousels, and 4 MP3 podcasts per month. Enough to publish every day on every platform.',
+        question: 'How many pieces of content do I get exactly?',
+        answer: 'It depends on your plan. Starter: ~20 pieces/month (2,200 credits). Growth: ~60 pieces/month (6,600 credits). Scale: ~110 pieces/month (12,000 credits). There\'s also an Unlimited plan for high volume — book a call at /join-us to discuss. Your credits roll over and never expire.',
       },
       whatIfDontLike: {
         question: 'What if I don\'t like the content?',
@@ -521,7 +521,7 @@ export const en = {
   faqItems: [
     {
       question: 'How do I get started?',
-      answer: 'Book a one-to-one meeting to discover everything and choose the plan that fits you best. Your first content is ready within 24 hours of your interview.',
+      answer: 'Start your free 3-day trial. You get immediate access to the platform, choose your plan, and record your first interview. Your first content is ready within 24 hours.',
     },
     {
       question: 'How much time do I need to invest?',

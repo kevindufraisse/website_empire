@@ -146,12 +146,12 @@ export default function HeroSection() {
             />
           )}
 
-          {/* CTA + Vu sur side by side */}
+          {/* CTA centered + Vu sur below */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
-            className="mt-8 flex flex-col md:flex-row items-center justify-center gap-5 md:gap-12"
+            className="mt-8 flex flex-col items-center gap-6"
           >
             <button
               data-cal-namespace={namespace}

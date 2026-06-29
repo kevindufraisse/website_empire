@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import { getCalApi } from "@calcom/embed-react"
-import { Users, ArrowRight, Flame } from 'lucide-react'
+import { Users, ArrowRight } from 'lucide-react'
 import { useCalLink } from '@/hooks/useCalLink'
 
 export default function CalStickyBar() {
@@ -19,7 +19,6 @@ export default function CalStickyBar() {
     return {
       count,
       text: lang === 'fr' ? `${count} créateurs actifs ce mois` : `${count} active creators this month`,
-      spotsText: lang === 'fr' ? `Plus que ${100 - count} places` : `Only ${100 - count} spots left`,
     }
   }, [lang])
 
@@ -128,22 +127,16 @@ export default function CalStickyBar() {
             <div className={`w-10 h-10 rounded-full ${accent.bgSoft} flex items-center justify-center`}>
               <Users className={accent.text} size={20} />
             </div>
-            <div>
-              <p className="text-white font-semibold text-sm">
-                {socialProof.text}
-              </p>
-              <p className={`text-xs flex items-center gap-1 ${accent.text}`}>
-                <Flame size={12} />
-                {socialProof.spotsText}
-              </p>
-            </div>
+            <p className="text-white font-semibold text-sm">
+              {socialProof.text}
+            </p>
           </div>
 
           {/* Mobile - Compact social proof */}
           <div className="sm:hidden flex items-center gap-2">
-            <Flame className={`${accent.text} flex-shrink-0`} size={16} />
+            <Users className={`${accent.text} flex-shrink-0`} size={16} />
             <p className="text-white font-medium text-xs">
-              {socialProof.spotsText}
+              {socialProof.text}
             </p>
           </div>
 
