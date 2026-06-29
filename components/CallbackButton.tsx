@@ -14,7 +14,7 @@ export default function CallbackButton({ className = '', variant = 'default' }: 
   const [isOpen, setIsOpen] = useState(false)
   const { lang } = useLanguage()
 
-  const label = lang === 'fr' ? 'Commencer maintenant' : 'Get started now'
+  const label = lang === 'fr' ? 'Essai gratuit 3 jours' : '3-day free trial'
 
   return (
     <>

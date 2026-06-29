@@ -1,9 +1,9 @@
 export const en = {
   header: {
     spots: '83/100 spots',
-    watchDemo: 'Get started now',
+    watchDemo: '3-day free trial',
     getAccess: 'Get Access',
-    joinQA: 'Get started now',
+    joinQA: '3-day free trial',
     formats: 'Formats',
     product: 'Product',
     howItWorks: 'How It Works',
@@ -17,7 +17,7 @@ export const en = {
     title: 'One interview → content published <span class="text-empire">everywhere, every day</span>.',
     subtitle: 'Run your media machine. Attract clients. Close leads. Never manage.',
     description: '',
-    cta1: 'Install Empire Internet',
+    cta1: '3-day free trial',
     cta2: 'Watch Demo (20 min)',
     rating: 'Based on 20 reviews',
     creatorsTitle: 'Install the system used by the world\'s best creators',
@@ -148,8 +148,8 @@ export const en = {
     limited: '',
     title: 'Ready to take action?',
     subtitle: '',
-    startNow: 'Get started now',
-    watchDemo: 'Get started now',
+    startNow: '3-day free trial',
+    watchDemo: '3-day free trial',
     details: 'Pay monthly · Cancel anytime · Start immediately',
     seeContentPlan: 'See Your Content Plan',
     startThisWeek: 'Start This Week',
@@ -207,8 +207,8 @@ export const en = {
   },
   videoDialog: {
     readyToJoin: 'Ready to join?',
-    startNow: 'Get started now',
-    joinQA: 'Get started now',
+    startNow: '3-day free trial',
+    joinQA: '3-day free trial',
   },
   stickyBar: {
     spotsLeft: 'spots left',
@@ -306,8 +306,8 @@ export const en = {
     included: 'Included',
   },
   common: {
-    startNow: 'Get started now',
-    watchDemo: 'Get started now',
+    startNow: '3-day free trial',
+    watchDemo: '3-day free trial',
     ctaReassurance: 'Satisfaction guaranteed',
     /** Tight subline: header, sticky, banner (keeps the CTA compact) */
     ctaReassuranceCompact: 'Satisfaction guaranteed',
@@ -757,7 +757,7 @@ export const en = {
       title: 'Share the good news! 🚀',
       desc: 'Know other creators who might be interested? Share this link and invite them to join the demo!',
       button: 'Share link',
-      watchDemo: 'Get started now',
+      watchDemo: '3-day free trial',
       shareTitle: 'Demo Empire internet with Kevin Dufraisse',
       shareText: 'Book a one-to-one meeting to discover Empire Internet! 🎉',
       copied: 'Link copied to clipboard!',

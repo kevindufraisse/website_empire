@@ -512,7 +512,7 @@ export default function HowItWorksAccordion() {
                     : 'bg-empire text-black shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.3)]'
                 }`}
               >
-                <span className="text-lg">{autopilot ? t.autopilot.hero.cta1 : (lang === 'fr' ? 'Installer Empire Internet' : 'Install Empire Internet')}</span>
+                <span className="text-lg">{autopilot ? t.autopilot.hero.cta1 : (lang === 'fr' ? 'Essai gratuit 3 jours' : '3-day free trial')}</span>
                 <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? 'Satisfait ou remboursé' : 'Satisfaction guaranteed'}</span>
               </button>
           </div>
