@@ -11,6 +11,7 @@ import { useCalLink } from '@/hooks/useCalLink'
 import MediaCredibilityStrip from '@/components/MediaCredibilityStrip'
 import Marquee from '@/components/magicui/marquee'
 import { SocialIcons } from '@/components/ui/social-icons'
+import posthog from 'posthog-js'
 
 function LazyLoom() {
   const ref = useRef(null)
@@ -154,6 +155,7 @@ export default function HeroSection() {
             className="mt-8 flex flex-col items-center gap-6"
           >
             <button
+              onClick={() => posthog.__loaded && posthog.capture('hero_cta_click')}
               data-cal-namespace={namespace}
               data-cal-link={calLink}
               data-cal-config='{"layout":"month_view","theme":"dark"}'

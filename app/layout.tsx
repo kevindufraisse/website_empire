@@ -10,6 +10,7 @@ import ClientWrappers from '@/components/ClientWrappers'
 import CalStickyBar from '@/components/CalStickyBar'
 import CalCtaRedirect from '@/components/CalCtaRedirect'
 import WebinarBanner from '@/components/WebinarBanner'
+import PostHogInit from '@/components/PostHogInit'
 
 const inter = Inter({ subsets: ['latin'] })
 const caveat = Caveat({ subsets: ['latin'], weight: ['600', '700'], variable: '--font-caveat' })
@@ -48,6 +49,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           />
         </noscript>
         {/* End Google Tag Manager (noscript) */}
+        <PostHogInit />
         <LanguageProvider>
           <AutopilotProvider>
             <GiftCountdownProvider>

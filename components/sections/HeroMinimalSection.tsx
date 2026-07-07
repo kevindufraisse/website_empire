@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { getCalApi } from '@calcom/embed-react'
 import { useCalLink } from '@/hooks/useCalLink'
+import posthog from 'posthog-js'
 
 const namespace = 'audit-empire'
 
@@ -83,6 +84,7 @@ export default function HeroMinimalSection() {
             className="mt-10 flex justify-center"
           >
             <button
+              onClick={() => posthog.__loaded && posthog.capture('hero_cta_click')}
               data-cal-namespace={namespace}
               data-cal-link={calLink}
               data-cal-config='{"layout":"month_view","theme":"dark"}'
