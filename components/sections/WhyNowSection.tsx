@@ -95,7 +95,7 @@ const pillars: Record<string, Pillar[]> = {
       keyFeatures: [
         { icon: Mic, title: '3 formats pour créer du contenu', desc: 'Yapping face caméra, interviews guidées, ou faux QA clients — choisissez ce qui vous convient', value: '2 000€' },
         { icon: UserCheck, title: 'Équipe humaine dédiée', desc: 'De vrais humains créent et vérifient chaque contenu', value: '2 000€' },
-        { icon: GraduationCap, title: 'Bootcamp viralité', desc: 'Un coach dédié comprend votre business et vous forme aux formats qui performent dans votre niche', value: '2 500€' },
+        { icon: GraduationCap, title: 'Bootcamp viralité', desc: 'Un coach dédié comprend votre business et vous forme aux formats qui performent dans votre niche', badge: 'OPTION' },
       ],
       moreFeatures: [
         { icon: Users, title: 'Communauté privée', desc: 'Réseau de fondateurs et créateurs', value: '500€' },
@@ -145,7 +145,7 @@ const pillars: Record<string, Pillar[]> = {
       keyFeatures: [
         { icon: Mic, title: '3 formats to create content', desc: 'Yapping on camera, guided interviews, or fake client Q&A — pick what suits you' },
         { icon: UserCheck, title: 'Dedicated human team', desc: 'Real humans create and review every piece of content' },
-        { icon: GraduationCap, title: 'Virality bootcamp', desc: 'A dedicated coach understands your business and trains you on the formats that perform in your niche' },
+        { icon: GraduationCap, title: 'Virality bootcamp', desc: 'A dedicated coach understands your business and trains you on the formats that perform in your niche', badge: 'OPTION' },
       ],
       moreFeatures: [
         { icon: Users, title: 'Private community', desc: 'Founder & creator network' },
