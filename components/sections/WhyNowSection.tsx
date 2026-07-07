@@ -23,6 +23,7 @@ import {
   HeadphonesIcon,
   MessageCircle,
   GraduationCap,
+  Share2,
 } from 'lucide-react'
 import { CtaReassurance } from '@/components/ui/cta-reassurance'
 import OnboardingLink from '@/components/OnboardingLink'
@@ -61,7 +62,7 @@ const pillars: Record<string, Pillar[]> = {
       keyFeatures: [
         { icon: FileText, title: '30+ posts LinkedIn', desc: 'Rédigés, optimisés et planifiés. Ajout automatique de vos lead magnets. Disponible en FR, EN, ES.', value: '1 500€' },
         { icon: Mail, title: '30 newsletters/mois', desc: 'Qui sonnent comme vous, en mieux. Disponible en FR, EN, ES.', value: '1 200€' },
-        { icon: Video, title: '30+ Reels & Shorts', desc: 'Option sans caméra - pas besoin de montrer votre visage', value: '3 000€' },
+        { icon: Video, title: '30+ Reels & Shorts', desc: 'Vos vidéos découpées aux meilleurs moments. Montage pro : hooks, sous-titres, transitions. Option sans caméra.', value: '3 000€' },
       ],
       moreFeatures: [
         { icon: Video, title: 'Vidéos longues YouTube', desc: 'On crée vos vidéos longues de A à Z. Personnalisation des couleurs, textes et format.', value: '2 000€' },
@@ -75,8 +76,8 @@ const pillars: Record<string, Pillar[]> = {
       icon: Send,
       label: 'Distribution',
       keyFeatures: [
+        { icon: Share2, title: 'Un contenu → tous les réseaux', desc: 'LinkedIn, Instagram, TikTok, YouTube, X, Threads, Facebook. Partout, en même temps.', value: '1 000€' },
         { icon: Calendar, title: 'Publiez depuis la plateforme', desc: 'Tout est prêt dans votre calendrier, vous publiez en 1 clic', value: '500€' },
-
         { icon: Users, title: 'Employee Advocacy', desc: 'Faites publier vos employés automatiquement', value: '800€' },
         { icon: MessageCircle, title: 'Idées via Telegram', desc: 'Ajoutez vos idées (reels, posts, captures...) depuis Telegram et récupérez-les dans Empire', badge: 'NEW' },
       ],
@@ -111,7 +112,7 @@ const pillars: Record<string, Pillar[]> = {
       keyFeatures: [
         { icon: FileText, title: '30+ LinkedIn posts', desc: 'Written, optimized, scheduled. Auto-embed your lead magnets. Available in FR, EN, ES.' },
         { icon: Mail, title: '30 newsletters/mo', desc: 'Sound like you, but better. Available in FR, EN, ES.' },
-        { icon: Video, title: '30+ Reels & Shorts', desc: 'No-camera option - no need to show your face' },
+        { icon: Video, title: '30+ Reels & Shorts', desc: 'Your videos cut at their best moments. Pro editing: hooks, subtitles, transitions. No-camera option.' },
       ],
       moreFeatures: [
         { icon: Video, title: 'Long-form YouTube videos', desc: 'We create your long videos from A to Z. Custom colors, text and format.' },
@@ -125,8 +126,8 @@ const pillars: Record<string, Pillar[]> = {
       icon: Send,
       label: 'Distribution',
       keyFeatures: [
+        { icon: Share2, title: 'One piece of content → every platform', desc: 'LinkedIn, Instagram, TikTok, YouTube, X, Threads, Facebook. Everywhere, at the same time.' },
         { icon: Calendar, title: 'Publish from the platform', desc: 'Everything ready in your calendar, publish in 1 click' },
-
         { icon: Users, title: 'Employee Advocacy', desc: 'Get your employees publishing automatically' },
         { icon: MessageCircle, title: 'Ideas via Telegram', desc: 'Add your ideas (reels, posts, screenshots...) from Telegram and retrieve them in Empire', badge: 'NEW' },
       ],
