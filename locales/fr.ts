@@ -137,8 +137,8 @@ export const fr: Translations = {
   },
   hero: {
     targetAudience: 'Pour freelances, salariés & entrepreneurs',
-    title: 'Une interview → du contenu publié <span class="text-empire">partout, tous les jours</span>.',
-    subtitle: 'Lancez votre machine média. Attirez des clients. Closez des leads. Ne gérez rien.',
+    title: 'Vous parlez 1h par semaine. <span class="text-empire">Vous êtes partout, tous les jours.</span>',
+    subtitle: 'N\'être que sur un réseau, c\'est laisser vos clients aux concurrents. On transforme 1 interview par semaine en posts, vidéos et newsletters publiés sur 7 plateformes. Vous ne gérez rien.',
     description: '',
     cta1: 'Essai gratuit 3 jours',
     cta2: 'Voir la Démo (20 min)',
@@ -269,8 +269,8 @@ export const fr: Translations = {
   },
   finalCTA: {
     limited: '',
-    title: 'Prêt à passer à l\'action ?',
-    subtitle: '',
+    title: 'Dans 3 jours, votre contenu est déjà en ligne.',
+    subtitle: 'Enregistrez votre première interview cette semaine. Publiez partout la semaine prochaine.',
     startNow: 'Essai gratuit 3 jours',
     watchDemo: 'Essai gratuit 3 jours',
     details: 'Paiement mensuel · Annulez quand vous voulez · Démarrage immédiat',
@@ -660,11 +660,11 @@ export const fr: Translations = {
     },
     {
       question: 'Qu\'est-ce qui rend ceci différent d\'une agence de contenu ?',
-      answer: 'Vitesse, coût et qualité. Les agences = €5-15K/mois, semaines à livrer, et ratent votre voix. Empire = contenu publié quotidiennement, contrôle qualité humain sur tout, sur devis personnalisé.',
+      answer: 'Vitesse, coût et qualité. Les agences = €5-15K/mois, semaines à livrer, et ratent votre voix. Empire = contenu publié quotidiennement, contrôle qualité humain sur tout, pour une fraction du prix et sans engagement.',
     },
     {
       question: 'Puis-je annuler à tout moment ?',
-      answer: 'Oui. Pas de contrat long terme. Annulez avec 30 jours de préavis. Mais la plupart restent car ils voient les résultats et adorent récupérer leur temps.',
+      answer: 'Oui, à tout moment depuis votre espace client. Pas de contrat, pas de préavis. Mais la plupart restent car ils voient les résultats et adorent récupérer leur temps.',
     },
     {
       question: 'Comment fonctionne l\'essai gratuit de 3 jours ?',
@@ -675,20 +675,12 @@ export const fr: Translations = {
       answer: 'Toutes les plateformes principales : LinkedIn, YouTube, Instagram, Twitter/X, Threads, et newsletters email. Vous choisissez sur lesquelles vous concentrer.',
     },
     {
-      question: 'Pourquoi si peu de témoignages ?',
-      answer: 'Empire a lancé il y a moins de 2 mois. On le garde petit - max 100 clients - pour maintenir qualité et attention personnelle. Les clients actuels voient déjà des résultats, on collecte les témoignages au fur et à mesure.',
-    },
-    {
       question: 'Ai-je besoin d\'être devant la caméra ou d\'avoir du matériel vidéo ?',
-      answer: 'Pas de caméra nécessaire. On enregistre l\'audio et on crée du contenu vidéo avec b-roll, images stock et montage pro. Vous avez juste besoin de parler.',
+      answer: 'Les deux fonctionnent. Face caméra si vous êtes à l\'aise (idéal pour les Reels), ou audio seul : on crée vos vidéos avec b-roll, images et montage pro. Aucun matériel requis, votre téléphone suffit.',
     },
     {
       question: 'Écrivez-vous dans d\'autres langues que l\'anglais ?',
       answer: 'Oui ! Avec le bonus API, traduction automatique en 10+ langues (français, espagnol, allemand, etc.). Parfait pour étendre votre portée internationale.',
-    },
-    {
-      question: 'L\'AI Setter est-il inclus ou en supplément ?',
-      answer: 'Inclus en bonus. L\'IA engage des prospects sur LinkedIn, qualifie les leads, et vous les transfère quand prêts à parler.',
     },
     {
       question: 'Pourquoi seulement 100 places ?',
@@ -699,8 +691,8 @@ export const fr: Translations = {
       answer: 'Oui. Nous proposons un accompagnement personal branding optionnel avec des experts qui ont accompagné les meilleurs créateurs FR et US. Disponible en supplément après souscription, sur devis.',
     },
     {
-      question: 'Comment garantir la visibilité de mes posts ?',
-      answer: 'Nous activons un réseau de partenaires formés aux méthodes Empire Internet à chaque publication. Concrètement : dès qu\'un post sort, ils reçoivent une notification et viennent y réagir manuellement (likes, commentaires de qualité). Cet engagement humain dans la première heure envoie un signal fort à l\'algorithme et maximise votre portée organique.',
+      question: 'Comment maximisez-vous la portée de mes posts ?',
+      answer: 'Trois leviers : des formats éprouvés sur des millions de vues, une publication aux heures optimales de chaque plateforme, et la communauté de créateurs Empire qui soutient vos publications dès la première heure - le signal le plus fort pour l\'algorithme.',
     },
   ],
   demo: {

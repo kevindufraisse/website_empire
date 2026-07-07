@@ -138,13 +138,13 @@ export default function WhyEmpireSection() {
           <p className="text-base md:text-lg text-neutral-400 max-w-2xl mx-auto leading-relaxed mb-6">
             {fr ? (
               <>
-                Empire = <span className="text-white font-semibold">18 mois de R&amp;D marketing</span> déjà injectés dans le système.
+                Empire = <span className="text-white font-semibold">8 mois de R&amp;D marketing</span> déjà injectés dans le système.
                 <br />
                 Ne perdez pas 1 an à tester seul - ce sera trop tard.
               </>
             ) : (
               <>
-                Empire = <span className="text-white font-semibold">18 months of marketing R&amp;D</span> already baked into the system.
+                Empire = <span className="text-white font-semibold">8 months of marketing R&amp;D</span> already baked into the system.
                 <br />
                 Don&apos;t spend 1 year testing alone - it&apos;ll be too late.
               </>

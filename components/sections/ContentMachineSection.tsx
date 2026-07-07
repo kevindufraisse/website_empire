@@ -78,12 +78,12 @@ export default function ContentMachineSection() {
           <FadeIn>
             <div className="text-center mb-12 md:mb-16">
               <h2 className="text-3xl md:text-5xl font-bold mb-3">
-                {fr ? 'Votre content machine' : 'Your content machine'}
+                {fr ? 'Tout ce qu\'on fait à votre place' : 'Everything we do for you'}
               </h2>
               <p className="text-lg md:text-xl text-neutral-400">
                 {fr
-                  ? "On s'occupe de tout. Vous, vous parlez."
-                  : 'We handle everything. You just talk.'}
+                  ? 'Une équipe et des IA entraînées sur les meilleurs créateurs, derrière chaque contenu.'
+                  : 'A team and AI trained on the best creators, behind every piece of content.'}
               </p>
             </div>
           </FadeIn>

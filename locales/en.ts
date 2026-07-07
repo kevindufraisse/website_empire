@@ -14,8 +14,8 @@ export const en = {
   },
   hero: {
     targetAudience: 'For freelancers, employees & entrepreneurs',
-    title: 'One interview → content published <span class="text-empire">everywhere, every day</span>.',
-    subtitle: 'Run your media machine. Attract clients. Close leads. Never manage.',
+    title: 'You talk 1 hour a week. <span class="text-empire">You\'re everywhere, every day.</span>',
+    subtitle: 'Being on one platform means leaving your clients to competitors. We turn 1 weekly interview into posts, videos and newsletters published across 7 platforms. You manage nothing.',
     description: '',
     cta1: '3-day free trial',
     cta2: 'Watch Demo (20 min)',
@@ -146,8 +146,8 @@ export const en = {
   },
   finalCTA: {
     limited: '',
-    title: 'Ready to take action?',
-    subtitle: '',
+    title: 'In 3 days, your content is already live.',
+    subtitle: 'Record your first interview this week. Publish everywhere next week.',
     startNow: '3-day free trial',
     watchDemo: '3-day free trial',
     details: 'Pay monthly · Cancel anytime · Start immediately',
@@ -537,11 +537,11 @@ export const en = {
     },
     {
       question: 'What makes this different from hiring a content agency?',
-      answer: 'Speed, cost, and quality. Agencies cost €5K-15K/month, take weeks to deliver, and often miss your voice. Empire publishes daily content with human QA on everything, on a custom quote.',
+      answer: 'Speed, cost, and quality. Agencies cost €5K-15K/month, take weeks to deliver, and often miss your voice. Empire publishes daily content with human QA on everything, for a fraction of the price and no commitment.',
     },
     {
       question: 'Can I cancel anytime?',
-      answer: 'Yes. No long-term contract. You can cancel with 30 days notice. But most clients stay because they see the results and love getting their time back.',
+      answer: 'Yes, anytime from your client dashboard. No contract, no notice period. But most clients stay because they see the results and love getting their time back.',
     },
     {
       question: 'How does the 3-day free trial work?',
@@ -552,20 +552,12 @@ export const en = {
       answer: 'We cover all major platforms: LinkedIn, YouTube, Instagram, Twitter/X, Threads, and email newsletters. You can choose which ones you want to focus on.',
     },
     {
-      question: 'Why are there only a few testimonials?',
-      answer: 'Empire Internet launched less than 2 months ago. We\'re intentionally keeping it small - maximum 100 clients total - to maintain quality and personal attention. Current clients are already seeing results, and we\'re collecting testimonials as we grow.',
-    },
-    {
       question: 'Do I need to be on camera or have video equipment?',
-      answer: 'No camera needed for the interview. We record the audio and create video content using b-roll, stock footage, and professional editing. You just need to talk.',
+      answer: 'Both work. On camera if you\'re comfortable (ideal for Reels), or audio only: we create your videos with b-roll, stock footage and pro editing. No equipment needed, your phone is enough.',
     },
     {
       question: 'Do you write in languages other than English?',
       answer: 'Yes! With the API bonus, you get auto-translation to 10+ languages including French, Spanish, German, and more. Perfect for expanding your international reach.',
-    },
-    {
-      question: 'Is the AI Setter included or extra?',
-      answer: 'It\'s included as a bonus. The AI engages with prospects on LinkedIn, qualifies leads, and hands them off to you when they\'re ready to talk.',
     },
     {
       question: 'Why are there only 100 spots?',
@@ -576,8 +568,8 @@ export const en = {
       answer: 'Yes. We offer optional personal branding guidance with experts who have worked with top-tier creators in France and the US. Available as an add-on after subscription, on custom quote.',
     },
     {
-      question: 'How do you guarantee post visibility?',
-      answer: 'We activate a network of partners trained in Empire Internet methods on every publication. Here\'s how it works: as soon as a post goes live, they get a notification and engage with it manually (likes, quality comments). This human engagement within the first hour sends a strong signal to the algorithm and maximizes your organic reach.',
+      question: 'How do you maximize the reach of my posts?',
+      answer: 'Three levers: formats proven across millions of views, publishing at each platform\'s optimal times, and the Empire creator community supporting your posts within the first hour - the strongest signal for the algorithm.',
     },
   ],
   exitPopup: {

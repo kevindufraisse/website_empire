@@ -78,13 +78,13 @@ export default function QuickWinsSection() {
         >
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
             {fr
-              ? <>Une interview. <span className="text-empire">Tout le reste est géré.</span></>
-              : <>One interview. <span className="text-empire">Everything else is handled.</span></>}
+              ? <>Faire ça vous-même : <span className="text-empire">298h et 14 860€ par mois.</span></>
+              : <>Doing this yourself: <span className="text-empire">298h and €14,860 per month.</span></>}
           </h2>
           <p className="text-neutral-400 text-lg max-w-2xl mx-auto">
             {fr
-              ? "Ne pas publier de contenu, c'est comme ouvrir votre boutique 1 fois par semaine. Vos concurrents sont ouverts tous les jours."
-              : 'Not publishing content is like opening your shop once a week. Your competitors are open every day.'}
+              ? "Être présent sur un seul réseau, c'est ouvrir votre boutique 1 jour sur 7. Voici ce que coûte l'omniprésence sans Empire."
+              : 'Being on one platform is opening your shop 1 day out of 7. Here\'s what omnipresence costs without Empire.'}
           </p>
         </motion.div>
 

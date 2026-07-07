@@ -311,9 +311,6 @@ export default function WhyNowSection() {
               <p className="text-2xl font-black text-neutral-400 line-through">
                 {fr ? '20 300€/mois' : '€20,300/mo'}
               </p>
-              <p className="text-sm text-empire font-bold mt-1">
-                {fr ? 'En moyenne, nos clients économisent 146 000€/an.' : 'On average, our clients save €146,000/year.'}
-              </p>
             </div>
             <button
               data-cal-namespace={namespace}
@@ -334,10 +331,10 @@ export default function WhyNowSection() {
             {/* Creators strip */}
             <div className="mt-8">
               <p className="text-sm text-neutral-400 mb-2">
-                {fr ? 'Installez le système des meilleurs créateurs mondiaux' : 'Install the system used by the world\'s best creators'}
+                {fr ? 'Un système inspiré des méthodes des créateurs qui dominent' : 'A system inspired by the methods of the creators who dominate'}
               </p>
               <p className="text-xs text-empire font-semibold mb-4">
-                {fr ? 'Pour 10x moins cher.' : 'For 10x less.'}
+                {fr ? 'Ils paient des équipes entières. Vous, non.' : 'They pay entire teams. You don\'t.'}
               </p>
               <div className="flex flex-wrap items-center justify-center gap-3 max-w-3xl mx-auto">
                 {(fr
