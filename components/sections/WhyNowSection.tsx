@@ -1,10 +1,9 @@
 'use client'
 import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
-import { getCalApi } from '@calcom/embed-react'
 import {
   ArrowRight,
   FileText,
@@ -24,8 +23,8 @@ import {
   HeadphonesIcon,
   MessageCircle,
 } from 'lucide-react'
-import { useCalLink } from '@/hooks/useCalLink'
 import { CtaReassurance } from '@/components/ui/cta-reassurance'
+import OnboardingLink from '@/components/OnboardingLink'
 
 function FadeIn({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -154,24 +153,8 @@ const pillars: Record<string, Pillar[]> = {
 export default function WhyNowSection() {
   const { lang, t } = useLanguage()
   const { autopilot } = useAutopilot()
-  const namespace = 'audit-empire'
-  const calLink = useCalLink()
   const fr = lang === 'fr'
   const [expandedPillar, setExpandedPillar] = useState<string | null>(null)
-
-  useEffect(() => {
-    ;(async () => {
-      const cal = await getCalApi({ namespace })
-      cal('ui', {
-        layout: 'month_view',
-        theme: 'dark',
-        cssVarsPerTheme: {
-          light: { 'cal-brand': '#dafc68' },
-          dark: { 'cal-brand': '#dafc68' },
-        },
-      })
-    })()
-  }, [namespace])
 
   if (autopilot) return null
 
@@ -312,10 +295,7 @@ export default function WhyNowSection() {
                 {fr ? '20 300€/mois' : '€20,300/mo'}
               </p>
             </div>
-            <button
-              data-cal-namespace={namespace}
-              data-cal-link={calLink}
-              data-cal-config='{"layout":"month_view","theme":"dark"}'
+            <OnboardingLink
               className={`inline-flex flex-col items-center px-7 py-3.5 rounded-xl font-bold hover:scale-105 transition-all ${
                 autopilot
                   ? 'bg-gradient-to-r from-autopilot to-autopilot text-black shadow-[0_0_30px_rgba(212,165,116,0.35)]'
@@ -324,9 +304,9 @@ export default function WhyNowSection() {
             >
               <span className="text-lg">{autopilot
                 ? t.autopilot.hero.cta1
-                : (fr ? 'Essai gratuit 3 jours' : '3-day free trial')}</span>
+                : (fr ? 'Essai gratuit 7 jours' : '7-day free trial')}</span>
               <span className="text-[11px] font-semibold opacity-70">{fr ? 'Satisfait ou remboursé' : 'Satisfaction guaranteed'}</span>
-            </button>
+            </OnboardingLink>
 
             {/* Creators strip */}
             <div className="mt-8">

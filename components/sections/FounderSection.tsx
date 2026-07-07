@@ -5,10 +5,9 @@ import { useRef, useEffect } from 'react'
 import Image from 'next/image'
 import { Award, TrendingUp, Code2, ArrowRight } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { getCalApi } from "@calcom/embed-react"
 import CallbackButton from '@/components/CallbackButton'
 import { CtaReassurance } from '@/components/ui/cta-reassurance'
-import { useCalLink } from '@/hooks/useCalLink'
+import OnboardingLink from '@/components/OnboardingLink'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -28,25 +27,6 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 
 export default function FounderSection() {
   const { t, lang } = useLanguage()
-
-  const namespace = 'audit-empire'
-  const calLink = useCalLink()
-
-  // Load Cal.com
-  useEffect(() => {
-    (async function () {
-      const cal = await getCalApi({ namespace })
-      cal("ui", { 
-        hideEventTypeDetails: false, 
-        layout: "month_view",
-        theme: "dark",
-        cssVarsPerTheme: {
-          light: { "cal-brand": "#dafc68" },
-          dark: { "cal-brand": "#dafc68" }
-        }
-      })
-    })()
-  }, [namespace])
 
   // Load Senja widget script for French version
   useEffect(() => {
@@ -75,7 +55,7 @@ export default function FounderSection() {
     },
     {
       icon: Award,
-      stat: '#55',
+      stat: '#48',
       label: 'LinkedIn Influence France',
       color: 'from-white/10 to-white/5',
       borderColor: 'border-white/20',
@@ -105,7 +85,7 @@ export default function FounderSection() {
     },
     {
       icon: Award,
-      stat: '#55',
+      stat: '#48',
       label: 'LinkedIn Influence France',
       color: 'from-white/10 to-white/5',
       borderColor: 'border-white/20',
@@ -232,15 +212,10 @@ export default function FounderSection() {
           {/* CTA - Talk to Kevin */}
           <FadeInBlock delay={0.4}>
             <div className="mt-12 text-center">
-              <button
-                data-cal-namespace={namespace}
-                data-cal-link={calLink}
-                data-cal-config='{"layout":"month_view","theme":"dark"}'
-                className="inline-flex flex-col items-center px-8 py-4 rounded-xl bg-empire text-black font-bold hover:scale-105 transition-transform shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.3)]"
-              >
+              <OnboardingLink className="inline-flex flex-col items-center px-8 py-4 rounded-xl bg-empire text-black font-bold hover:scale-105 transition-transform shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.3)]">
                 <span className="text-lg">{t.common.startNow}</span>
                 <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? 'Satisfait ou remboursé' : 'Satisfaction guaranteed'}</span>
-              </button>
+              </OnboardingLink>
             </div>
           </FadeInBlock>
         </div>

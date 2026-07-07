@@ -1,12 +1,10 @@
 'use client'
-import { useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { Mail } from 'lucide-react'
-import { getCalApi } from "@calcom/embed-react"
-import { useCalLink } from '@/hooks/useCalLink'
 import { CtaReassurance } from '@/components/ui/cta-reassurance'
 import { GiftFooterLink } from '@/components/GiftCountdownBar'
+import OnboardingLink from '@/components/OnboardingLink'
 
 export default function Footer() {
   const { t, lang } = useLanguage()
@@ -17,24 +15,6 @@ export default function Footer() {
   const isCandidaturePage = pathname === '/candidature' || pathname === '/decouverte' || pathname === '/join-us' || pathname?.startsWith('/hire-our-team')
 
   if (pathname === '/live') return null
-
-  const namespace = 'audit-empire'
-  const calLink = useCalLink()
-
-  useEffect(() => {
-    (async function () {
-      const cal = await getCalApi({ namespace })
-      cal("ui", { 
-        hideEventTypeDetails: false, 
-        layout: "month_view",
-        theme: "dark",
-        cssVarsPerTheme: {
-          light: { "cal-brand": "#dafc68" },
-          dark: { "cal-brand": "#dafc68" }
-        }
-      })
-    })()
-  }, [namespace])
 
   if (isCandidaturePage || pathname === '/academy/merci' || pathname === '/webinar' || pathname === '/webinar/merci' || pathname === '/live') return null
 
@@ -86,15 +66,10 @@ export default function Footer() {
           {/* CTA */}
           <div className="flex flex-col items-center md:items-end">
             {!isPartnersPage && (
-              <button
-                data-cal-namespace={namespace}
-                data-cal-link={calLink}
-                data-cal-config='{"layout":"month_view","theme":"dark"}'
-                className="inline-flex flex-col items-start text-left px-6 py-3.5 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]"
-              >
+              <OnboardingLink className="inline-flex flex-col items-start text-left px-6 py-3.5 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]">
                 <span className="text-left">{t.finalCTA.watchDemo}</span>
                 <span className="text-[10px] font-semibold opacity-70 text-left">{lang === 'fr' ? 'Satisfait ou remboursé' : 'Satisfaction guaranteed'}</span>
-              </button>
+              </OnboardingLink>
             )}
           </div>
         </div>

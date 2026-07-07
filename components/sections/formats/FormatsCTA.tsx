@@ -1,11 +1,10 @@
 'use client'
 import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
-import { useRef, useEffect } from 'react'
+import { useRef } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { getCalApi } from "@calcom/embed-react"
-import { useCalLink } from '@/hooks/useCalLink'
 import { CtaReassurance } from '@/components/ui/cta-reassurance'
+import OnboardingLink from '@/components/OnboardingLink'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -26,24 +25,6 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 export default function FormatsCTA() {
   const { t } = useLanguage()
 
-  const namespace = 'audit-empire'
-  const calLink = useCalLink()
-
-  useEffect(() => {
-    (async function () {
-      const cal = await getCalApi({ namespace })
-      cal("ui", { 
-        hideEventTypeDetails: false, 
-        layout: "month_view",
-        theme: "dark",
-        cssVarsPerTheme: {
-          light: { "cal-brand": "#dafc68" },
-          dark: { "cal-brand": "#dafc68" }
-        }
-      })
-    })()
-  }, [namespace])
-
   return (
     <section className="container section-spacing">
       <div className="max-w-4xl mx-auto">
@@ -60,14 +41,9 @@ export default function FormatsCTA() {
             </p>
 
             <div className="flex flex-col items-center justify-center gap-4 pt-4">
-              <button
-                data-cal-namespace={namespace}
-                data-cal-link={calLink}
-                data-cal-config='{"layout":"month_view","theme":"dark"}'
-                className="px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)] text-center"
-              >
+              <OnboardingLink className="inline-block px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)] text-center">
                 {t.finalCTA.watchDemo}
-              </button>
+              </OnboardingLink>
               <CtaReassurance className="px-2" />
             </div>
           </div>

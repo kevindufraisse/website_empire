@@ -5,9 +5,8 @@ import { useRef, useEffect } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import BorderBeam from '@/components/magicui/border-beam'
 import { MessageSquare, Sparkles, TrendingUp } from 'lucide-react'
-import { getCalApi } from "@calcom/embed-react"
-import { useCalLink } from '@/hooks/useCalLink'
 import { CtaReassurance } from '@/components/ui/cta-reassurance'
+import OnboardingLink from '@/components/OnboardingLink'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -28,24 +27,6 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 export default function StoryBreakthrough() {
   const { t, lang } = useLanguage()
 
-  const namespace = 'audit-empire'
-  const calLink = useCalLink()
-
-  useEffect(() => {
-    (async function () {
-      const cal = await getCalApi({ namespace })
-      cal("ui", { 
-        hideEventTypeDetails: false, 
-        layout: "month_view",
-        theme: "dark",
-        cssVarsPerTheme: {
-          light: { "cal-brand": "#dafc68" },
-          dark: { "cal-brand": "#dafc68" }
-        }
-      })
-    })()
-  }, [namespace])
-  
   return (
     <section className="container py-20 md:py-32 bg-gradient-to-b from-black via-[#0a0a0a] to-black">
       <div className="max-w-6xl mx-auto">
@@ -96,14 +77,11 @@ export default function StoryBreakthrough() {
                 <p className="text-lg text-neutral-300 mb-8">
                   {t.story.breakthrough.subtitle}
                 </p>
-                <button
-                  data-cal-namespace={namespace}
-                  data-cal-link={calLink}
-                  data-cal-config='{"layout":"month_view","theme":"dark"}'
+                <OnboardingLink
                   className="inline-block px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]"
                 >
                   {t.story.breakthrough.cta}
-                </button>
+                </OnboardingLink>
                 <CtaReassurance className="mt-4 px-2" />
               </div>
             </div>

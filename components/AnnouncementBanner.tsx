@@ -1,34 +1,15 @@
 'use client'
 import { X, Phone } from 'lucide-react'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { LAUNCH_OFFER_ACTIVE } from '@/lib/pricing-config'
-import { getCalApi } from "@calcom/embed-react"
 import CallbackFormModal from '@/components/CallbackFormModal'
-import { useCalLink } from '@/hooks/useCalLink'
+import OnboardingLink from '@/components/OnboardingLink'
 
 export default function AnnouncementBanner() {
   const [dismissed, setDismissed] = useState(false)
   const [callbackOpen, setCallbackOpen] = useState(false)
   const { lang, t } = useLanguage()
-
-  const namespace = 'audit-empire'
-  const calLink = useCalLink()
-
-  useEffect(() => {
-    (async function () {
-      const cal = await getCalApi({ namespace })
-      cal("ui", { 
-        hideEventTypeDetails: false, 
-        layout: "month_view",
-        theme: "dark",
-        cssVarsPerTheme: {
-          light: { "cal-brand": "#dafc68" },
-          dark: { "cal-brand": "#dafc68" }
-        }
-      })
-    })()
-  }, [namespace])
 
   // Ne pas afficher si pas en mode lancement ou si déjà fermé
   if (!LAUNCH_OFFER_ACTIVE || dismissed) return null
@@ -45,21 +26,14 @@ export default function AnnouncementBanner() {
               ? `Offre limitée - demandez votre devis personnalisé`
               : `Limited-time offer - request your personalized quote`}
           </span>
-          <button 
-            type="button"
-            title={t.common.ctaReassurance}
-            data-cal-namespace={namespace}
-            data-cal-link={calLink}
-            data-cal-config='{"layout":"month_view","theme":"dark"}'
-            className="flex flex-col items-center gap-0 px-2 py-1 bg-black text-empire font-bold rounded hover:scale-105 transition-all ml-1"
-          >
+          <OnboardingLink className="flex flex-col items-center gap-0 px-2 py-1 bg-black text-empire font-bold rounded hover:scale-105 transition-all ml-1">
             <span className="leading-none text-[10px] sm:text-xs whitespace-nowrap">
               {t.common.startNow} →
             </span>
             <span className="text-[7px] sm:text-[8px] font-semibold text-empire/90 leading-tight text-center max-w-[8rem] sm:max-w-[10rem]">
               {lang === 'fr' ? 'Audit gratuit' : 'Free audit'}
             </span>
-          </button>
+          </OnboardingLink>
           <button
             onClick={() => setCallbackOpen(true)}
             className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 bg-black/80 text-white font-semibold rounded hover:scale-105 transition-all whitespace-nowrap ml-1"

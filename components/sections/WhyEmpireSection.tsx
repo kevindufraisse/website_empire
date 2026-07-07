@@ -3,6 +3,7 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
+import OnboardingLink from '@/components/OnboardingLink'
 
 export default function WhyEmpireSection() {
   const { lang } = useLanguage()
@@ -150,16 +151,13 @@ export default function WhyEmpireSection() {
               </>
             )}
           </p>
-          <a
-            href="https://app.empire-internet.com/onboarding"
-            className="inline-flex flex-col items-center px-8 py-4 rounded-2xl bg-empire text-black font-bold text-base md:text-lg hover:scale-[1.03] active:scale-100 transition-all shadow-[0_0_40px_rgb(var(--empire-rgb)_/_0.4)]"
-          >
+          <OnboardingLink className="inline-flex flex-col items-center px-8 py-4 rounded-2xl bg-empire text-black font-bold text-base md:text-lg hover:scale-[1.03] active:scale-100 transition-all shadow-[0_0_40px_rgb(var(--empire-rgb)_/_0.4)]">
             <span className="flex items-center gap-2">
-              {fr ? 'Essai gratuit 3 jours' : '3-day free trial'}
+              {fr ? 'Essai gratuit 7 jours' : '7-day free trial'}
               <span className="text-xl">→</span>
             </span>
             <span className="text-[11px] font-semibold opacity-70">{fr ? 'Satisfait ou remboursé' : 'Satisfaction guaranteed'}</span>
-          </a>
+          </OnboardingLink>
         </motion.div>
       </div>
     </section>

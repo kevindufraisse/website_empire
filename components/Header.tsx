@@ -5,10 +5,7 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import { LanguageSwitcher } from '@/components/LanguageSwitcher'
 import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { getCalApi } from "@calcom/embed-react"
-import { Phone } from 'lucide-react'
 import CallbackFormModal from '@/components/CallbackFormModal'
-import { useCalLink } from '@/hooks/useCalLink'
 
 
 export default function Header() {
@@ -41,44 +38,6 @@ export default function Header() {
   const hideCTA = pathname === '/partners' || isCandidaturePage
   // Show partner CTA on partners page
   const isPartnersPage = pathname === '/partners'
-
-  const namespace = 'audit-empire'
-  const calLink = useCalLink()
-
-  useEffect(() => {
-    (async function () {
-      const cal = await getCalApi({ namespace })
-      cal("ui", { 
-        hideEventTypeDetails: false, 
-        layout: "month_view",
-        theme: "dark",
-        cssVarsPerTheme: {
-          light: { "cal-brand": "#dafc68" },
-          dark: { "cal-brand": "#dafc68" }
-        }
-      })
-      
-      // Facebook Pixel tracking for booking confirmation
-      cal("on", {
-        action: "bookingSuccessful",
-        callback: (e: any) => {
-          console.log('Cal.com booking successful!', e)
-          // Via GTM dataLayer
-          if (typeof window !== 'undefined') {
-            (window as any).dataLayer = (window as any).dataLayer || [];
-            (window as any).dataLayer.push({
-              'event': 'cal_booking_confirmed',
-              'booking_data': e
-            });
-            // Direct fbq call (fallback)
-            if ((window as any).fbq) {
-              (window as any).fbq('track', 'Schedule')
-            }
-          }
-        }
-      })
-    })()
-  }, [namespace])
 
   // Hide entirely on candidature page - after all hooks
   if (isCandidaturePage) return null

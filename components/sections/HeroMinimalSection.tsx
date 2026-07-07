@@ -1,31 +1,11 @@
 'use client'
 
-import { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { getCalApi } from '@calcom/embed-react'
-import { useCalLink } from '@/hooks/useCalLink'
-
-const namespace = 'audit-empire'
+import OnboardingLink from '@/components/OnboardingLink'
 
 export default function HeroMinimalSection() {
   const { lang } = useLanguage()
-  const calLink = useCalLink()
-
-  useEffect(() => {
-    ;(async function () {
-      const cal = await getCalApi({ namespace })
-      cal('ui', {
-        hideEventTypeDetails: false,
-        layout: 'month_view',
-        theme: 'dark',
-        cssVarsPerTheme: {
-          light: { 'cal-brand': '#dafc68' },
-          dark: { 'cal-brand': '#dafc68' },
-        },
-      })
-    })()
-  }, [])
 
   const copy =
     lang === 'fr'
@@ -33,14 +13,14 @@ export default function HeroMinimalSection() {
           title: 'Parlez. On publie.',
           line1: '1 interview par semaine → LinkedIn, Instagram, TikTok, YouTube, X, newsletter.',
           line2: 'Rédigé, monté, planifié, vérifié par des humains.',
-          cta: 'Essayer 3 jours',
+          cta: 'Essayer 7 jours',
           guarantee: 'Satisfait ou remboursé',
         }
       : {
           title: 'You talk. We publish.',
           line1: '1 interview a week → LinkedIn, Instagram, TikTok, YouTube, X, newsletter.',
           line2: 'Written, edited, scheduled, reviewed by humans.',
-          cta: 'Try 3 days',
+          cta: 'Try 7 days',
           guarantee: 'Satisfaction guaranteed',
         }
 
@@ -82,18 +62,13 @@ export default function HeroMinimalSection() {
             transition={{ duration: 0.4, delay: 0.3, ease: 'easeOut' }}
             className="mt-10 flex justify-center"
           >
-            <button
-              data-cal-namespace={namespace}
-              data-cal-link={calLink}
-              data-cal-config='{"layout":"month_view","theme":"dark"}'
-              className="group flex w-full shrink-0 flex-col items-center gap-1 rounded-xl bg-empire px-8 py-4 text-center font-bold text-black shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)] transition-all hover:scale-105 sm:w-auto"
-            >
+            <OnboardingLink className="group flex w-full shrink-0 flex-col items-center gap-1 rounded-xl bg-empire px-8 py-4 text-center font-bold text-black shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)] transition-all hover:scale-105 sm:w-auto">
               <span className="flex items-center gap-2">
                 {copy.cta}
                 <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
               </span>
               <span className="text-[11px] font-semibold opacity-70">{copy.guarantee}</span>
-            </button>
+            </OnboardingLink>
           </motion.div>
         </div>
       </div>

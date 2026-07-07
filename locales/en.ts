@@ -1,9 +1,9 @@
 export const en = {
   header: {
     spots: '83/100 spots',
-    watchDemo: '3-day free trial',
+    watchDemo: '7-day free trial',
     getAccess: 'Get Access',
-    joinQA: '3-day free trial',
+    joinQA: '7-day free trial',
     formats: 'Formats',
     product: 'Product',
     howItWorks: 'How It Works',
@@ -14,10 +14,10 @@ export const en = {
   },
   hero: {
     targetAudience: 'For freelancers, employees & entrepreneurs',
-    title: 'You talk 1 hour a week. <span class="text-empire">You\'re everywhere, every day.</span>',
-    subtitle: 'Being on one platform means leaving your clients to competitors. We turn 1 weekly interview into posts, videos and newsletters published across 7 platforms. You manage nothing.',
+    title: 'One interview → content published <span class="text-empire">everywhere, every day</span>.',
+    subtitle: 'Run your media machine. Attract clients. Close leads. Never manage.',
     description: '',
-    cta1: '3-day free trial',
+    cta1: '7-day free trial',
     cta2: 'Watch Demo (20 min)',
     rating: 'Based on 20 reviews',
     creatorsTitle: 'Install the system used by the world\'s best creators',
@@ -146,10 +146,10 @@ export const en = {
   },
   finalCTA: {
     limited: '',
-    title: 'In 3 days, your content is already live.',
-    subtitle: 'Record your first interview this week. Publish everywhere next week.',
-    startNow: '3-day free trial',
-    watchDemo: '3-day free trial',
+    title: 'Ready to take action?',
+    subtitle: '',
+    startNow: '7-day free trial',
+    watchDemo: '7-day free trial',
     details: 'Pay monthly · Cancel anytime · Start immediately',
     seeContentPlan: 'See Your Content Plan',
     startThisWeek: 'Start This Week',
@@ -207,8 +207,8 @@ export const en = {
   },
   videoDialog: {
     readyToJoin: 'Ready to join?',
-    startNow: '3-day free trial',
-    joinQA: '3-day free trial',
+    startNow: '7-day free trial',
+    joinQA: '7-day free trial',
   },
   stickyBar: {
     spotsLeft: 'spots left',
@@ -306,8 +306,8 @@ export const en = {
     included: 'Included',
   },
   common: {
-    startNow: '3-day free trial',
-    watchDemo: '3-day free trial',
+    startNow: '7-day free trial',
+    watchDemo: '7-day free trial',
     ctaReassurance: 'Satisfaction guaranteed',
     /** Tight subline: header, sticky, banner (keeps the CTA compact) */
     ctaReassuranceCompact: 'Satisfaction guaranteed',
@@ -521,7 +521,7 @@ export const en = {
   faqItems: [
     {
       question: 'How do I get started?',
-      answer: 'Start your free 3-day trial. You get immediate access to the platform, choose your plan, and record your first interview. Your first content is ready within 24 hours.',
+      answer: 'Start your free 7-day trial. You get immediate access to the platform, choose your plan, and record your first interview. Your first content is ready within 24 hours.',
     },
     {
       question: 'How much time do I need to invest?',
@@ -544,8 +544,8 @@ export const en = {
       answer: 'Yes, anytime from your client dashboard. No contract, no notice period. But most clients stay because they see the results and love getting their time back.',
     },
     {
-      question: 'How does the 3-day free trial work?',
-      answer: 'You get full access to the platform for 3 days at no cost. You can see the calendar, the AI prompts, and the first generated content. If it\'s not for you, cancel before the trial ends and you pay nothing. Zero risk.',
+      question: 'How does the 7-day free trial work?',
+      answer: 'You get full access to the platform for 7 days at no cost. You can see the calendar, the AI prompts, and the first generated content. If it\'s not for you, cancel before the trial ends and you pay nothing. Zero risk.',
     },
     {
       question: 'What platforms do you publish to?',
@@ -749,7 +749,7 @@ export const en = {
       title: 'Share the good news! 🚀',
       desc: 'Know other creators who might be interested? Share this link and invite them to join the demo!',
       button: 'Share link',
-      watchDemo: '3-day free trial',
+      watchDemo: '7-day free trial',
       shareTitle: 'Demo Empire internet with Kevin Dufraisse',
       shareText: 'Book a one-to-one meeting to discover Empire Internet! 🎉',
       copied: 'Link copied to clipboard!',

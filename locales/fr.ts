@@ -10,8 +10,8 @@ export const fr: Translations = {
     bonus2Desc: 'Inclus · On analyse votre contenu actuel',
     bonus3Title: '10 Posts Bonus Premier Mois',
     bonus3Desc: '40 posts au lieu de 30',
-    ctaButton: 'Essai gratuit 3 jours',
-    ctaSchedule: 'Essai gratuit 3 jours',
+    ctaButton: 'Essai gratuit 7 jours',
+    ctaSchedule: 'Essai gratuit 7 jours',
     ctaSecondary: 'Ou commencer immédiatement',
     footer: 'Les bonus expirent quand on atteint 100 clients',
   },
@@ -124,9 +124,9 @@ export const fr: Translations = {
   },
   header: {
     spots: '83/100 places',
-    watchDemo: 'Essai gratuit 3 jours',
+    watchDemo: 'Essai gratuit 7 jours',
     getAccess: 'Obtenir l\'Accès',
-    joinQA: 'Essai gratuit 3 jours',
+    joinQA: 'Essai gratuit 7 jours',
     formats: 'Formats',
     product: 'Produit',
     howItWorks: 'Comment Ça Marche',
@@ -137,10 +137,10 @@ export const fr: Translations = {
   },
   hero: {
     targetAudience: 'Pour freelances, salariés & entrepreneurs',
-    title: 'Vous parlez 1h par semaine. <span class="text-empire">Vous êtes partout, tous les jours.</span>',
-    subtitle: 'N\'être que sur un réseau, c\'est laisser vos clients aux concurrents. On transforme 1 interview par semaine en posts, vidéos et newsletters publiés sur 7 plateformes. Vous ne gérez rien.',
+    title: 'Une interview → du contenu publié <span class="text-empire">partout, tous les jours</span>.',
+    subtitle: 'Lancez votre machine média. Attirez des clients. Closez des leads. Ne gérez rien.',
     description: '',
-    cta1: 'Essai gratuit 3 jours',
+    cta1: 'Essai gratuit 7 jours',
     cta2: 'Voir la Démo (20 min)',
     rating: 'Basé sur 20 avis',
     creatorsTitle: 'Installez le système des meilleurs créateurs mondiaux',
@@ -269,10 +269,10 @@ export const fr: Translations = {
   },
   finalCTA: {
     limited: '',
-    title: 'Dans 3 jours, votre contenu est déjà en ligne.',
-    subtitle: 'Enregistrez votre première interview cette semaine. Publiez partout la semaine prochaine.',
-    startNow: 'Essai gratuit 3 jours',
-    watchDemo: 'Essai gratuit 3 jours',
+    title: 'Prêt à passer à l\'action ?',
+    subtitle: '',
+    startNow: 'Essai gratuit 7 jours',
+    watchDemo: 'Essai gratuit 7 jours',
     details: 'Paiement mensuel · Annulez quand vous voulez · Démarrage immédiat',
     seeContentPlan: 'Voir Votre Plan de Contenu',
     startThisWeek: 'Commencer Cette Semaine',
@@ -330,8 +330,8 @@ export const fr: Translations = {
   },
   videoDialog: {
     readyToJoin: 'Prêt à rejoindre ?',
-    startNow: 'Essai gratuit 3 jours',
-    joinQA: 'Essai gratuit 3 jours',
+    startNow: 'Essai gratuit 7 jours',
+    joinQA: 'Essai gratuit 7 jours',
   },
   stickyBar: {
     spotsLeft: 'places restantes',
@@ -345,7 +345,7 @@ export const fr: Translations = {
     systemTitle: 'Le Système de Prompts IA',
     systemDescription: 'On a passé des mois à reverse-engineer les patterns, accroches et structures qui rendent les meilleurs créateurs viraux. Puis on a tout codé dans des prompts IA personnalisés.',
     cta: 'Vous voulez du contenu qui performe comme les meilleurs ?',
-    ctaButton: 'Essai gratuit 3 jours',
+    ctaButton: 'Essai gratuit 7 jours',
     frameworks: [
       { name: "Structure de Justin Welsh", pattern: '"Problème → Histoire → Solution → CTA"' },
       { name: "Montages Vidéo d\'Hormozi", pattern: '"Coupe rapide toutes les 3s + rupture de pattern"' },
@@ -429,8 +429,8 @@ export const fr: Translations = {
     included: 'Inclus',
   },
   common: {
-    startNow: 'Essai gratuit 3 jours',
-    watchDemo: 'Essai gratuit 3 jours',
+    startNow: 'Essai gratuit 7 jours',
+    watchDemo: 'Essai gratuit 7 jours',
     ctaReassurance: 'Satisfait ou remboursé',
     /** Sous-ligne très courte : header, sticky, bannière (évite un bouton énorme) */
     ctaReassuranceCompact: 'Satisfait ou remboursé',
@@ -644,7 +644,7 @@ export const fr: Translations = {
   faqItems: [
     {
       question: 'Comment je commence ?',
-      answer: 'Lancez votre essai gratuit de 3 jours. Vous accédez immédiatement à la plateforme, vous choisissez votre plan et vous enregistrez votre première interview. Votre premier contenu est prêt sous 24h.',
+      answer: 'Lancez votre essai gratuit de 7 jours. Vous accédez immédiatement à la plateforme, vous choisissez votre plan et vous enregistrez votre première interview. Votre premier contenu est prêt sous 24h.',
     },
     {
       question: 'Combien de temps dois-je investir ?',
@@ -667,8 +667,8 @@ export const fr: Translations = {
       answer: 'Oui, à tout moment depuis votre espace client. Pas de contrat, pas de préavis. Mais la plupart restent car ils voient les résultats et adorent récupérer leur temps.',
     },
     {
-      question: 'Comment fonctionne l\'essai gratuit de 3 jours ?',
-      answer: 'Vous accédez à la plateforme pendant 3 jours sans payer. Vous voyez le calendrier, les prompts IA, les premiers contenus générés. Si ça ne vous convient pas, vous annulez avant la fin de l\'essai et vous ne payez rien. Zéro risque.',
+      question: 'Comment fonctionne l\'essai gratuit de 7 jours ?',
+      answer: 'Vous accédez à la plateforme pendant 7 jours sans payer. Vous voyez le calendrier, les prompts IA, les premiers contenus générés. Si ça ne vous convient pas, vous annulez avant la fin de l\'essai et vous ne payez rien. Zéro risque.',
     },
     {
       question: 'Sur quelles plateformes publiez-vous ?',
@@ -751,7 +751,7 @@ export const fr: Translations = {
       title: 'Partagez la bonne nouvelle ! 🚀',
       desc: 'Connaissez-vous d\'autres créateurs qui pourraient être intéressés ? Partagez ce lien et invitez-les à rejoindre la démo !',
       button: 'Partager le lien',
-      watchDemo: 'Essai gratuit 3 jours',
+      watchDemo: 'Essai gratuit 7 jours',
       shareTitle: 'Demo Empire internet avec Kevin Dufraisse',
       shareText: 'Réservez un rendez-vous one-to-one pour découvrir Empire Internet ! 🎉',
       copied: 'Lien copié dans le presse-papier !',

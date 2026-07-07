@@ -1,16 +1,15 @@
 'use client'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import RetroGrid from '@/components/magicui/retro-grid'
 import { Meteors } from '@/components/magicui/meteors'
 import { StarRating } from '@/components/ui/star-rating'
-import { getCalApi } from "@calcom/embed-react"
-import { useCalLink } from '@/hooks/useCalLink'
 import MediaCredibilityStrip from '@/components/MediaCredibilityStrip'
 import Marquee from '@/components/magicui/marquee'
 import { SocialIcons } from '@/components/ui/social-icons'
+import OnboardingLink from '@/components/OnboardingLink'
 
 function LazyLoom() {
   const ref = useRef(null)
@@ -47,28 +46,11 @@ function LazyLoom() {
 export default function HeroSection() {
   const { t, lang } = useLanguage()
   const { autopilot } = useAutopilot()
-  
-  const namespace = 'audit-empire'
-  const calLink = useCalLink()
 
   const heroTitle = autopilot ? t.autopilot.hero.title : t.hero.title
   const heroSubtitle = autopilot ? t.autopilot.hero.subtitle : t.hero.subtitle
   const heroCta = autopilot ? t.autopilot.hero.cta1 : t.hero.cta1
 
-  useEffect(() => {
-    (async function () {
-      const cal = await getCalApi({ namespace })
-      cal("ui", { 
-        hideEventTypeDetails: false, 
-        layout: "month_view",
-        theme: "dark",
-        cssVarsPerTheme: {
-          light: { "cal-brand": "#dafc68" },
-          dark: { "cal-brand": "#dafc68" }
-        }
-      })
-    })()
-  }, [namespace])
   return (
     <>
       <section className="relative w-full pt-20 md:pt-24 pb-20 md:pb-28 overflow-hidden bg-gradient-to-b from-black via-transparent to-[#0f0f0f]">
@@ -153,10 +135,7 @@ export default function HeroSection() {
             transition={{ delay: 0.4, duration: 0.6 }}
             className="mt-8 flex flex-col items-center gap-6"
           >
-            <button
-              data-cal-namespace={namespace}
-              data-cal-link={calLink}
-              data-cal-config='{"layout":"month_view","theme":"dark"}'
+            <OnboardingLink
               className={`group w-full sm:w-auto px-8 py-4 font-bold rounded-xl hover:scale-105 transition-all text-center flex flex-col items-center gap-1 shrink-0 ${
                 autopilot
                   ? 'bg-gradient-to-r from-autopilot to-autopilot text-black shadow-[0_0_30px_rgba(212,165,116,0.4)]'
@@ -168,7 +147,7 @@ export default function HeroSection() {
                 <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
               </span>
               <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? 'Satisfait ou remboursé' : 'Satisfaction guaranteed'}</span>
-            </button>
+            </OnboardingLink>
             <MediaCredibilityStrip />
           </motion.div>
             

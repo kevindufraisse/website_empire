@@ -78,6 +78,8 @@ export default function CalCalendar() {
               'event': 'cal_booking_confirmed',
               'booking_data': e
             });
+            // PostHog (exposed on window by PostHogInit)
+            if (window.posthog) { window.posthog.capture('cal_booking_confirmed'); }
             // Direct fbq call (fallback)
             if (typeof fbq !== 'undefined') {
               fbq('track', 'Schedule');

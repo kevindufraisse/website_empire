@@ -38,6 +38,10 @@ export default function CalPopupButton({ children, className }: CalPopupButtonPr
               'event': 'cal_booking_confirmed',
               'booking_data': e
             });
+            // PostHog (exposed on window by PostHogInit)
+            if ((window as any).posthog) {
+              (window as any).posthog.capture('cal_booking_confirmed')
+            }
             // Direct fbq call (fallback)
             if ((window as any).fbq) {
               (window as any).fbq('track', 'Schedule')

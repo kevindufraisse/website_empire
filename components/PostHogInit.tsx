@@ -3,7 +3,6 @@
 import { useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import posthog from 'posthog-js'
-import { getCalApi } from '@calcom/embed-react'
 
 const POSTHOG_KEY = process.env.NEXT_PUBLIC_POSTHOG_KEY
 
@@ -25,7 +24,7 @@ export default function PostHogInit() {
       persistence: 'localStorage+cookie',
     })
 
-    // Expose for inline scripts (e.g. Cal.com embed callbacks)
+    // Expose for inline scripts (e.g. Cal.com embed callbacks on booking pages)
     ;(window as unknown as { posthog?: typeof posthog }).posthog = posthog
 
     // Attach the A/B variant to every event of this visitor
@@ -33,15 +32,6 @@ export default function PostHogInit() {
     if (variant) {
       posthog.register({ hero_ab: variant })
     }
-
-    // Conversion: Cal.com booking confirmed (popup embeds share this namespace)
-    ;(async () => {
-      const cal = await getCalApi({ namespace: 'audit-empire' })
-      cal('on', {
-        action: 'bookingSuccessful',
-        callback: () => posthog.capture('cal_booking_confirmed'),
-      })
-    })()
   }, [])
 
   useEffect(() => {

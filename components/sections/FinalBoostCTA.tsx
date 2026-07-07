@@ -1,14 +1,13 @@
 'use client'
 import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
-import { useRef, useEffect } from 'react'
+import { useRef } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import { Zap } from 'lucide-react'
-import { getCalApi } from "@calcom/embed-react"
 import CallbackButton from '@/components/CallbackButton'
 import { CtaReassurance } from '@/components/ui/cta-reassurance'
-import { useCalLink } from '@/hooks/useCalLink'
+import OnboardingLink from '@/components/OnboardingLink'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -29,25 +28,7 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 export default function FinalBoostCTA() {
   const { t, lang } = useLanguage()
   const { autopilot } = useAutopilot()
-  
-  const namespace = 'audit-empire'
-  const calLink = useCalLink()
 
-  useEffect(() => {
-    (async function () {
-      const cal = await getCalApi({ namespace })
-      cal("ui", { 
-        hideEventTypeDetails: false, 
-        layout: "month_view",
-        theme: "dark",
-        cssVarsPerTheme: {
-          light: { "cal-brand": "#dafc68" },
-          dark: { "cal-brand": "#dafc68" }
-        }
-      })
-    })()
-  }, [namespace])
-  
   return (
     <section className="relative w-full pb-20 md:pb-32 bg-gradient-to-b from-black to-[#0f0f0f]">
       <div className="container">
@@ -69,10 +50,7 @@ export default function FinalBoostCTA() {
                   {autopilot ? t.autopilot.finalCTA.subtitle : t.finalCTA.subtitle}
                 </p>
 
-                <button
-                  data-cal-namespace={namespace}
-                  data-cal-link={calLink}
-                  data-cal-config='{"layout":"month_view","theme":"dark"}'
+                <OnboardingLink
                   className={`inline-flex flex-col items-center w-full sm:w-auto px-8 py-4 font-bold rounded-xl hover:scale-105 transition-all text-center ${
                     autopilot
                       ? 'bg-gradient-to-r from-autopilot to-autopilot text-black shadow-[0_0_30px_rgba(212,165,116,0.4)]'
@@ -81,7 +59,7 @@ export default function FinalBoostCTA() {
                 >
                   <span className="text-lg">{autopilot ? t.autopilot.finalCTA.cta : t.finalCTA.watchDemo}</span>
                   <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? 'Satisfait ou remboursé' : 'Satisfaction guaranteed'}</span>
-                </button>
+                </OnboardingLink>
               </div>
             </div>
           </FadeInBlock>

@@ -179,7 +179,7 @@ export default function PaygClient() {
                 href={ONBOARDING_URL}
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-empire text-black font-bold text-xs hover:brightness-110 transition-all"
               >
-                {fr ? 'Essai gratuit 3 jours' : '3-day free trial'}
+                {fr ? 'Essai gratuit 7 jours' : '7-day free trial'}
                 <ArrowRight size={14} />
               </a>
             </div>
@@ -231,7 +231,7 @@ export default function PaygClient() {
                 href={ONBOARDING_URL}
                 className="w-full sm:w-auto px-10 py-4 rounded-xl bg-empire text-black font-bold text-base hover:brightness-110 transition-all inline-flex items-center justify-center gap-2 shadow-[0_0_40px_-8px_rgb(var(--empire-rgb)_/_0.5)]"
               >
-                {fr ? 'Essai gratuit 3 jours' : '3-day free trial'}
+                {fr ? 'Essai gratuit 7 jours' : '7-day free trial'}
                 <ArrowRight size={18} />
               </a>
               <p className="text-xs text-neutral-400 mt-1">
@@ -466,7 +466,7 @@ export default function PaygClient() {
                     href={ONBOARDING_URL}
                     className="w-full sm:w-auto px-10 py-4 rounded-xl bg-empire text-black font-bold text-base hover:brightness-110 transition-all inline-flex items-center justify-center gap-2 shadow-[0_0_40px_-8px_rgb(var(--empire-rgb)_/_0.5)]"
                   >
-                    {fr ? 'Essai gratuit 3 jours' : '3-day free trial'}
+                    {fr ? 'Essai gratuit 7 jours' : '7-day free trial'}
                     <ArrowRight size={18} />
                   </a>
                   <p className="text-xs text-neutral-400 mt-2">

@@ -3,9 +3,8 @@ import { useEffect, useState, useMemo } from 'react'
 import { usePathname } from 'next/navigation'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
-import { getCalApi } from "@calcom/embed-react"
 import { Users, ArrowRight } from 'lucide-react'
-import { useCalLink } from '@/hooks/useCalLink'
+import OnboardingLink from '@/components/OnboardingLink'
 
 export default function CalStickyBar() {
   const { t, lang } = useLanguage()
@@ -47,46 +46,6 @@ export default function CalStickyBar() {
   const isAcademyPage = pathname === '/academy'
   const isCandidaturePage = pathname === '/candidature' || pathname === '/decouverte' || pathname === '/join-us' || pathname === '/vsl' || pathname === '/webinar' || pathname === '/webinar/merci' || pathname === '/live'
   const isPaygPage = pathname?.startsWith('/hire-our-team')
-
-  const namespace = 'audit-empire'
-  const calLink = useCalLink()
-
-  useEffect(() => {
-    if (isPartnersPage || isAcademyPage) return
-    
-    (async function () {
-      const cal = await getCalApi({ namespace })
-      cal("ui", { 
-        hideEventTypeDetails: false, 
-        layout: "month_view",
-        theme: "dark",
-        cssVarsPerTheme: {
-          light: { "cal-brand": "#dafc68" },
-          dark: { "cal-brand": "#dafc68" }
-        }
-      })
-      
-      // Facebook Pixel tracking for booking confirmation
-      cal("on", {
-        action: "bookingSuccessful",
-        callback: (e: any) => {
-          console.log('Cal.com booking successful!', e)
-          // Via GTM dataLayer
-          if (typeof window !== 'undefined') {
-            (window as any).dataLayer = (window as any).dataLayer || [];
-            (window as any).dataLayer.push({
-              'event': 'cal_booking_confirmed',
-              'booking_data': e
-            });
-            // Direct fbq call (fallback)
-            if ((window as any).fbq) {
-              (window as any).fbq('track', 'Schedule')
-            }
-          }
-        }
-      })
-    })()
-  }, [namespace, isPartnersPage])
 
   useEffect(() => {
     if (isPartnersPage || isAcademyPage) return
@@ -142,18 +101,14 @@ export default function CalStickyBar() {
 
           {/* Buttons */}
           <div className="flex items-center gap-2">
-            <button
-              type="button"
-              data-cal-namespace={namespace}
-              data-cal-link={calLink}
-              data-cal-config='{"layout":"month_view","theme":"dark"}'
+            <OnboardingLink
               className={`flex flex-col items-center px-4 py-1.5 sm:px-6 sm:py-2 ${accent.btnBg} text-black font-bold rounded-lg hover:scale-105 transition-all ${accent.btnShadow} text-sm sm:text-base group whitespace-nowrap`}
             >
               <span className="flex items-center gap-2">
                 {t.common.startNow}
                 <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
               </span>
-            </button>
+            </OnboardingLink>
           </div>
         </div>
       </div>

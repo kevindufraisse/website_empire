@@ -1,12 +1,11 @@
 'use client'
 import { motion, useInView } from 'framer-motion'
-import { useRef, useEffect } from 'react'
+import { useRef } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { CheckCircle2, ArrowRight, X } from 'lucide-react'
-import { getCalApi } from "@calcom/embed-react"
 import { CtaReassurance } from '@/components/ui/cta-reassurance'
-import { useCalLink } from '@/hooks/useCalLink'
 import { SocialIcons } from '@/components/ui/social-icons'
+import OnboardingLink from '@/components/OnboardingLink'
 
 const platforms = [
   { id: 'linkedin', name: 'LinkedIn', icon: <SocialIcons.linkedin />, pieces: 30 },
@@ -43,24 +42,6 @@ export default function QuickWinsSection() {
   const fr = lang === 'fr'
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
-
-  const namespace = 'audit-empire'
-  const calLink = useCalLink()
-
-  useEffect(() => {
-    (async function () {
-      const cal = await getCalApi({ namespace })
-      cal("ui", {
-        hideEventTypeDetails: false,
-        layout: "month_view",
-        theme: "dark",
-        cssVarsPerTheme: {
-          light: { "cal-brand": "#dafc68" },
-          dark: { "cal-brand": "#dafc68" }
-        }
-      })
-    })()
-  }, [namespace])
 
   const totalPieces = platforms.reduce((s, p) => s + p.pieces, 0)
 
@@ -228,15 +209,10 @@ export default function QuickWinsSection() {
           transition={{ duration: 0.6, delay: 0.5 }}
           className="text-center"
         >
-          <button
-            data-cal-namespace={namespace}
-            data-cal-link={calLink}
-            data-cal-config='{"layout":"month_view","theme":"dark"}'
-            className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-empire text-black font-bold text-lg hover:scale-105 transition-transform shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.3)]"
-          >
+          <OnboardingLink className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-empire text-black font-bold text-lg hover:scale-105 transition-transform shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.3)]">
             {t.common.startNow}
             <ArrowRight size={20} />
-          </button>
+          </OnboardingLink>
           <CtaReassurance className="mt-4 px-2" />
         </motion.div>
       </div>
