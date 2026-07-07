@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
+import posthog from 'posthog-js'
 
 const ONBOARDING_URL = 'https://app.empire-internet.com/onboarding'
 
@@ -17,6 +18,19 @@ export default function CalCtaRedirect() {
 
       event.preventDefault()
       event.stopPropagation()
+
+      // sendBeacon so the event survives the navigation that follows
+      if (posthog.__loaded) {
+        posthog.capture(
+          'cta_click',
+          {
+            cta_text: (trigger.textContent || '').trim().slice(0, 80),
+            path: window.location.pathname,
+          },
+          { transport: 'sendBeacon' }
+        )
+      }
+
       window.location.href = getRedirectUrl()
     }
 

@@ -12,15 +12,15 @@ export default function CalStickyBar() {
   const { autopilot } = useAutopilot()
   const [isVisible, setIsVisible] = useState(false)
 
-  const socialProof = useMemo(() => {
-    const base = 47
-    const jitter = Math.floor(Math.random() * 7) - 3
-    const count = base + jitter
-    return {
-      count,
-      text: lang === 'fr' ? `${count} créateurs actifs ce mois` : `${count} active creators this month`,
-    }
-  }, [lang])
+  // Randomized only after mount: Math.random() during render caused a hydration mismatch (SSR vs client)
+  const [socialProofCount, setSocialProofCount] = useState(47)
+  useEffect(() => {
+    setSocialProofCount(47 + Math.floor(Math.random() * 7) - 3)
+  }, [])
+  const socialProof = useMemo(() => ({
+    count: socialProofCount,
+    text: lang === 'fr' ? `${socialProofCount} créateurs actifs ce mois` : `${socialProofCount} active creators this month`,
+  }), [lang, socialProofCount])
 
   const pathname = usePathname()
 
