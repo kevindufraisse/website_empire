@@ -22,6 +22,7 @@ import {
   Send,
   HeadphonesIcon,
   MessageCircle,
+  GraduationCap,
 } from 'lucide-react'
 import { CtaReassurance } from '@/components/ui/cta-reassurance'
 import OnboardingLink from '@/components/OnboardingLink'
@@ -66,6 +67,7 @@ const pillars: Record<string, Pillar[]> = {
         { icon: Video, title: 'Vidéos longues YouTube', desc: 'On crée vos vidéos longues de A à Z. Personnalisation des couleurs, textes et format.', value: '2 000€' },
         { icon: ImageIcon, title: 'Carrousels automatiques', desc: 'Générés automatiquement pour LinkedIn + Instagram', value: '800€' },
         { icon: ImageIcon, title: 'Miniatures', desc: 'Création des miniatures pour Instagram, YouTube et LinkedIn', value: '500€' },
+        { icon: Bot, title: 'Cerveau Empire', desc: 'Nos agents IA trouvent les sujets les plus viraux pour votre niche', value: '1 000€' },
       ],
     },
     {
@@ -93,6 +95,7 @@ const pillars: Record<string, Pillar[]> = {
       keyFeatures: [
         { icon: Mic, title: '3 formats pour créer du contenu', desc: 'Yapping face caméra, interviews guidées, ou faux QA clients — choisissez ce qui vous convient', value: '2 000€' },
         { icon: UserCheck, title: 'Équipe humaine dédiée', desc: 'De vrais humains créent et vérifient chaque contenu', value: '2 000€' },
+        { icon: GraduationCap, title: 'Bootcamp viralité', desc: 'Un coach dédié comprend votre business et vous forme aux formats qui performent dans votre niche', value: '2 500€' },
       ],
       moreFeatures: [
         { icon: Users, title: 'Communauté privée', desc: 'Réseau de fondateurs et créateurs', value: '500€' },
@@ -114,6 +117,7 @@ const pillars: Record<string, Pillar[]> = {
         { icon: Video, title: 'Long-form YouTube videos', desc: 'We create your long videos from A to Z. Custom colors, text and format.' },
         { icon: ImageIcon, title: 'Auto carousels', desc: 'Automatically generated for LinkedIn + Instagram' },
         { icon: ImageIcon, title: 'Thumbnails', desc: 'Custom thumbnails for Instagram, YouTube and LinkedIn' },
+        { icon: Bot, title: 'Empire Brain', desc: 'Our AI agents find the most viral topics for your niche' },
       ],
     },
     {
@@ -141,6 +145,7 @@ const pillars: Record<string, Pillar[]> = {
       keyFeatures: [
         { icon: Mic, title: '3 formats to create content', desc: 'Yapping on camera, guided interviews, or fake client Q&A — pick what suits you' },
         { icon: UserCheck, title: 'Dedicated human team', desc: 'Real humans create and review every piece of content' },
+        { icon: GraduationCap, title: 'Virality bootcamp', desc: 'A dedicated coach understands your business and trains you on the formats that perform in your niche' },
       ],
       moreFeatures: [
         { icon: Users, title: 'Private community', desc: 'Founder & creator network' },

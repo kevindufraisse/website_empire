@@ -3,7 +3,6 @@ import HeroSection from '@/components/sections/HeroSection'
 import HowItWorksAccordion from '@/components/sections/HowItWorksAccordion'
 import AbVariantTracker from '@/components/AbVariantTracker'
 
-const ContentMachineSection = dynamic(() => import('@/components/sections/ContentMachineSection'))
 const TestimonialsSection = dynamic(() => import('@/components/sections/TestimonialsSection'))
 const QuickWinsSection = dynamic(() => import('@/components/sections/QuickWinsSection'))
 const FounderSection = dynamic(() => import('@/components/sections/FounderSection'))
@@ -24,10 +23,10 @@ export default function Page() {
       {/* How It Works - 4 steps */}
       <HowItWorksAccordion />
 
-      {/* Content Machine - services bento */}
-      <ContentMachineSection />
+      {/* Deliverables - what Empire creates every month (3 pillars) */}
+      <WhyNowSection />
 
-      {/* Testimonials - social proof early */}
+      {/* Testimonials - social proof after the mechanism */}
       <TestimonialsSection />
 
       {/* Before/After comparison */}
@@ -41,9 +40,6 @@ export default function Page() {
 
       {/* Pour qui / Pas pour qui */}
       <ForWhoSection />
-
-      {/* Features - 3 pillars */}
-      <WhyNowSection />
 
       {/* FAQ */}
       <FAQSection variant="home" />
