@@ -25,7 +25,7 @@ export default function HeroMinimalSection() {
         }
 
   return (
-    <section className="relative flex min-h-[85vh] w-full items-center justify-center overflow-hidden bg-gradient-to-b from-black via-transparent to-[#0f0f0f]">
+    <section className="relative flex min-h-[85vh] w-full items-center justify-center overflow-hidden bg-gradient-to-b from-black via-transparent to-[#0f0f0f] pt-28 pb-16">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgb(var(--empire-rgb)_/_0.12),transparent)]" />
       <div className="container relative z-10">
         <div className="mx-auto max-w-2xl text-center">
