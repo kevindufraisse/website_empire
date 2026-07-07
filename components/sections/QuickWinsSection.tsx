@@ -174,10 +174,10 @@ export default function QuickWinsSection() {
               {/* Interview badge */}
               <div className="flex justify-center mb-6">
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-empire/10 border border-empire/30">
-                  <span className="text-2xl font-black text-empire">1</span>
+                  <span className="text-2xl font-black text-empire">1h</span>
                   <div>
                     <p className="text-xs font-bold text-white leading-tight">
-                      {fr ? 'interview / semaine' : 'interview / week'}
+                      {fr ? 'de parole / semaine' : 'of talking / week'}
                     </p>
                     <p className="text-[10px] text-neutral-500">
                       {fr ? "c'est tout ce qu'on vous demande" : "that's all we ask"}

@@ -17,7 +17,7 @@ const COPILOT_RESULTS = [
     detail: 'Coach business · Contenu organique uniquement',
   },
   {
-    stat: '1 interview',
+    stat: '1h de parole',
     unit: 'par semaine',
     context: 'de temps investi',
     detail: 'Au lieu de 21h+ de rédaction/montage',

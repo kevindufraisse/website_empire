@@ -14,7 +14,7 @@ export const en = {
   },
   hero: {
     targetAudience: 'For freelancers, employees & entrepreneurs',
-    title: 'One interview → content published <span class="text-empire">everywhere, every day</span>.',
+    title: '1 hour of talking = <span class="text-empire">30 days of content on every platform</span>.',
     subtitle: 'Run your media machine. Attract clients. Close leads. Never manage.',
     description: '',
     cta1: '7-day free trial',
@@ -27,8 +27,8 @@ export const en = {
   },
   howItWorksPage: {
     title: 'How Empire Works',
-    subtitle: 'One interview a week → content published everywhere, every day',
-    step1Title: 'Interview',
+    subtitle: '1 hour of talking a week → content published everywhere, every day',
+    step1Title: 'You talk',
     step1Desc: '30 min call, just talking',
     step2Title: 'AI Processing',
     step2Desc: 'Extract insights & ideas',
@@ -46,8 +46,8 @@ export const en = {
     subtitle: 'From your voice to published content in 4 simple steps',
     stepLabel: 'STEP',
     step1: {
-      title: 'Weekly Interview',
-      summary: 'An AI interviews you. You just show up and answer questions.',
+      title: 'Weekly Recording',
+      summary: 'You talk for 1 hour. We create everywhere.',
       description: 'No prep needed. No script. Our AI asks you the right questions to extract your best insights, stories, and expertise. It feels like talking to a colleague, not a robot.',
       badge1: 'No preparation',
       badge1Sub: 'Just show up',
@@ -58,7 +58,7 @@ export const en = {
       title: 'AI + Human Create',
       summary: 'AI generates your content, then a real human polishes everything.',
       description: 'AI generates the content, then a real human editor reviews and polishes every single piece before it goes to you.',
-      perInterview: 'Per interview, you get:',
+      perInterview: 'Per session, you get:',
       humanQA: 'Human Quality Check',
       humanQASub: 'Every piece reviewed by a real person',
       rawAI: 'Raw AI',
@@ -89,7 +89,7 @@ export const en = {
   },
   features: {
     title: 'The system in action',
-    subtitle: 'Your interview transforms into content for every platform.',
+    subtitle: 'Your recording transforms into content for every platform.',
     items: [
       {
         title: '30 LinkedIn Posts',
@@ -178,11 +178,11 @@ export const en = {
     concerns: [
       {
         concern: 'Will it sound like me?',
-        answer: 'Yes. We train custom AI prompts on your unique tone, voice, and style from your first interview. Plus, a real human editor reviews and polishes every piece. If it doesn\'t sound like you, we revise it until it does.',
+        answer: 'Yes. We train custom AI prompts on your unique tone, voice, and style from your first recording. Plus, a real human editor reviews and polishes every piece. If it doesn\'t sound like you, we revise it until it does.',
       },
       {
-        concern: 'What if I don\'t have time for the interview?',
-        answer: 'One interview per week. We schedule around your availability. No excuses - if you can talk, you can create content.',
+        concern: 'What if I don\'t have time to record?',
+        answer: 'One session per week. We schedule around your availability. No excuses - if you can talk, you can create content.',
       },
       {
         concern: 'Is this really better than hiring someone?',
@@ -195,7 +195,7 @@ export const en = {
     ],
   },
   footer: {
-    tagline: 'Your content machine. One interview to omnipresent.',
+    tagline: 'Your content machine. One hour of talking to omnipresent.',
     quickLinks: 'Quick Links',
     product: 'Product',
     about: 'About',
@@ -234,11 +234,11 @@ export const en = {
   },
   multiPlatform: {
     title: 'Before Empire vs After Empire',
-    subtitle: 'From scattered posts to consistent multi-platform presence - in 1 interview/week',
+    subtitle: 'From scattered posts to consistent multi-platform presence - in 1 hour of talking/week',
     without: 'Without Empire',
     withEmpire: 'With Empire',
     doingYourself: 'Doing it yourself',
-    justMinWeek: '1 interview/week',
+    justMinWeek: '1 hour of talking/week',
     postsMonth: 'posts / month',
     platforms: 'platforms',
     publishTo: 'We publish to:',
@@ -358,11 +358,11 @@ export const en = {
   },
   featureDetails: {
     title: 'Your Voice → <span class="text-empire">Your Best Content</span>',
-    subtitle: 'We transform your interview into content for every platform',
-    you15min: 'You (1 interview)',
+    subtitle: 'We transform 1 hour of talking into content for every platform',
+    you15min: 'You (1 hour of talking)',
     previews: {
       linkedinPost: 'LinkedIn Post',
-      linkedinPostDesc: 'Your interview becomes a thought leadership post that positions you as an industry expert.',
+      linkedinPostDesc: 'Your words become a thought leadership post that positions you as an industry expert.',
       newsletter: 'Newsletter',
       newsletterDesc: 'Personal stories and insights transformed into engaging newsletters that readers actually want to open.',
       instagramReel: 'Instagram Reel',
@@ -378,7 +378,7 @@ export const en = {
       linkedinCarousel: 'LinkedIn Carousel',
       linkedinCarouselDesc: 'Professional multi-slide presentations that showcase expertise and generate leads.',
       mp3Podcast: 'MP3 Podcast',
-      mp3PodcastDesc: 'Audio extracted from your interview and edited into podcast episodes ready for Spotify, Apple Podcasts, and more.',
+      mp3PodcastDesc: 'Audio extracted from your recording and edited into podcast episodes ready for Spotify, Apple Podcasts, and more.',
     },
   },
   quickProblem: {
@@ -386,7 +386,7 @@ export const en = {
     line1: 'But between client work, your business, and life... the calendar stays empty.',
     line2: 'You\'re not lazy. The system is broken.',
     solution: 'Empire fixes that.',
-    hook: 'One interview per week = content published every day.',
+    hook: '1 hour of talking per week = content published every day.',
     subtext: 'No writing. No editing. No scheduling. Just results.',
     readStory: 'Read the full story',
   },
@@ -521,11 +521,11 @@ export const en = {
   faqItems: [
     {
       question: 'How do I get started?',
-      answer: 'Start your free 7-day trial. You get immediate access to the platform, choose your plan, and record your first interview. Your first content is ready within 24 hours.',
+      answer: 'Start your free 7-day trial. You get immediate access to the platform, choose your plan, and record your first session. Your first content is ready within 24 hours.',
     },
     {
       question: 'How much time do I need to invest?',
-      answer: 'One interview per week. That\'s it. We handle everything else - content creation, editing, scheduling, and distribution across all platforms.',
+      answer: 'One hour of talking per week. That\'s it. We handle everything else - content creation, editing, scheduling, and distribution across all platforms.',
     },
     {
       question: 'What if the content doesn\'t sound like me?',
@@ -533,7 +533,7 @@ export const en = {
     },
     {
       question: 'How quickly will I see results?',
-      answer: 'Your first batch of content is ready within 24-48 hours of your first interview. Most clients see their first engagement spike within 2 weeks, and significant growth by month 2-3.',
+      answer: 'Your first batch of content is ready within 24-48 hours of your first recording. Most clients see their first engagement spike within 2 weeks, and significant growth by month 2-3.',
     },
     {
       question: 'What makes this different from hiring a content agency?',
@@ -639,7 +639,7 @@ export const en = {
         title: 'The System',
         lines: [
           'I stopped writing from scratch. I built a process.',
-          'One interview → AI writes → Humans polish → Content explodes.',
+          '1 hour of talking → AI writes → Humans polish → Content explodes.',
           'At first, it sucked. I threw prompts at ChatGPT, and got garbage.',
           'But I didn\'t quit.',
           'I spent months refining every word, every structure, every transition.',
@@ -768,7 +768,7 @@ export const en = {
     bannerButton: 'View positions',
     companyMission: {
       title: 'Company Mission',
-      description: 'Empire Internet transforms a weekly interview into over 100 optimized content pieces thanks to proprietary AI.',
+      description: 'Empire Internet transforms 1 hour of talking per week into over 100 optimized content pieces thanks to proprietary AI.',
       vision: 'We\'re building the fastest content machine on the market for entrepreneurs, creators, and CEOs.',
       ambition1: 'Become the #1 global content automation platform',
       ambition2: 'Scale from 1M → 10M → 50M/year',

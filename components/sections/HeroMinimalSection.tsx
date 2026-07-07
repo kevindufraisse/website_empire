@@ -11,14 +11,14 @@ export default function HeroMinimalSection() {
     lang === 'fr'
       ? {
           title: 'Parlez. On publie.',
-          line1: '1 interview par semaine → LinkedIn, Instagram, TikTok, YouTube, X, newsletter.',
+          line1: '1h de parole par semaine → LinkedIn, Instagram, TikTok, YouTube, X, newsletter.',
           line2: 'Rédigé, monté, planifié, vérifié par des humains.',
           cta: 'Essayer 7 jours',
           guarantee: 'Satisfait ou remboursé',
         }
       : {
           title: 'You talk. We publish.',
-          line1: '1 interview a week → LinkedIn, Instagram, TikTok, YouTube, X, newsletter.',
+          line1: '1 hour of talking a week → LinkedIn, Instagram, TikTok, YouTube, X, newsletter.',
           line2: 'Written, edited, scheduled, reviewed by humans.',
           cta: 'Try 7 days',
           guarantee: 'Satisfaction guaranteed',

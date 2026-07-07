@@ -27,10 +27,10 @@ export default function ContentMachineSection() {
   const services: { icon: React.ComponentType<{ size?: number; className?: string }>; title: string; desc: string; option?: boolean }[] = [
     {
       icon: Scissors,
-      title: fr ? 'On découpe vos interviews' : 'We cut your interviews',
+      title: fr ? 'On découpe vos enregistrements' : 'We cut your recordings',
       desc: fr
-        ? 'Vos interviews caméra sont découpées en clips viraux, prêts à publier.'
-        : 'Your camera interviews are cut into viral clips, ready to publish.',
+        ? 'Vos enregistrements caméra sont découpés en clips viraux, prêts à publier.'
+        : 'Your camera recordings are cut into viral clips, ready to publish.',
     },
     {
       icon: Film,

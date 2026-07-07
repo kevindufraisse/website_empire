@@ -54,7 +54,7 @@ export default function JoinUsClient() {
     : (fr ? 'sans écrire ni monter votre contenu.' : 'without writing or editing your content.')
   const subtitle = autopilot
     ? (fr ? 'Zéro interview, zéro contact. Votre expert trouve vos sujets, écrit dans votre voix, publie pour vous.' : 'Zero interview, zero contact. Your expert finds your topics, writes in your voice, publishes for you.')
-    : (fr ? 'Une interview de 15 min par semaine → 30+ posts, reels, vidéos, newsletters.' : 'A 15-min interview per week → 30+ posts, reels, videos, newsletters.')
+    : (fr ? '15 min de parole par semaine → 30+ posts, reels, vidéos, newsletters.' : '15 min of talking per week → 30+ posts, reels, videos, newsletters.')
 
   return (
     <main className="min-h-screen bg-black text-white overflow-x-hidden">

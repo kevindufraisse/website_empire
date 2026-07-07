@@ -21,7 +21,7 @@ const faqObjections = {
     },
     {
       q: "Je n'ai pas le temps",
-      a: "Une interview par semaine. On gère tout le reste : rédaction, montage, planification, publication. Vous avez le temps de passer un coup de fil ? Vous avez le temps pour Empire.",
+      a: "1h de parole par semaine. On gère tout le reste : rédaction, montage, planification, publication. Vous avez le temps de passer un coup de fil ? Vous avez le temps pour Empire.",
     },
     {
       q: "Mon contenu ne convertit pas, à quoi bon en faire plus ?",

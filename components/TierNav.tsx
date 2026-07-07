@@ -35,7 +35,7 @@ export default function TierNav() {
     {
       id: 'copilot',
       label: 'Empire',
-      sublabel: lang === 'fr' ? '1 interview → omniprésent' : '1 interview → omnipresent',
+      sublabel: lang === 'fr' ? '1h de parole → omniprésent' : '1h of talking → omnipresent',
       color: '#DAFC68',
     },
   ]

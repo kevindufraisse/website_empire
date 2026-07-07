@@ -68,7 +68,7 @@ export const fr: Translations = {
         title: 'Le Système',
         lines: [
           'J\'ai arrêté d\'écrire from scratch. J\'ai construit un processus.',
-          'Une interview → L\'IA écrit → Les humains polissent → Le contenu explose.',
+          '1h de parole → L\'IA écrit → Les humains polissent → Le contenu explose.',
           'Au début, c\'était nul. Je balançais des prompts à ChatGPT, et je recevais de la merde.',
           'Mais je n\'ai pas lâché.',
           'J\'ai passé des mois à affiner chaque mot, chaque structure, chaque transition.',
@@ -137,7 +137,7 @@ export const fr: Translations = {
   },
   hero: {
     targetAudience: 'Pour freelances, salariés & entrepreneurs',
-    title: 'Une interview → du contenu publié <span class="text-empire">partout, tous les jours</span>.',
+    title: '1h de parole = <span class="text-empire">30 jours de contenu sur toutes les plateformes</span>.',
     subtitle: 'Lancez votre machine média. Attirez des clients. Closez des leads. Ne gérez rien.',
     description: '',
     cta1: 'Essai gratuit 7 jours',
@@ -150,9 +150,9 @@ export const fr: Translations = {
   },
   howItWorksPage: {
     title: 'Comment Fonctionne Empire',
-    subtitle: '1 interview/semaine → contenu publié partout, tous les jours',
-    step1Title: 'Interview',
-    step1Desc: '1 interview/semaine, vous parlez',
+    subtitle: '1h de parole par semaine → contenu publié partout, tous les jours',
+    step1Title: 'Vous parlez',
+    step1Desc: '1h par semaine, vous parlez',
     step2Title: 'Traitement IA',
     step2Desc: 'Extraction insights et idées',
     step3Title: 'Création Contenu',
@@ -178,10 +178,10 @@ export const fr: Translations = {
       badge2Sub: 'Acquisition + conversion',
     },
     step2: {
-      title: 'L\'interview hebdomadaire',
-      summary: 'On vous fait une interview. Vous parlez, on crée partout.',
-      description: 'Votre coach vous interviewe chaque semaine. Zéro préparation, zéro script. Votre expertise devient du contenu publié quotidiennement sur tous les réseaux.',
-      perInterview: 'Par interview, vous obtenez :',
+      title: 'L\'enregistrement hebdomadaire',
+      summary: 'Vous parlez 1h. On crée partout.',
+      description: 'Vous parlez 1h par semaine avec votre coach - interview guidée, yapping face caméra ou vocal. Zéro préparation, zéro script. Votre expertise devient du contenu publié quotidiennement sur tous les réseaux.',
+      perInterview: 'Par session, vous obtenez :',
       humanQA: 'Contrôle Qualité Humain',
       humanQASub: 'Chaque pièce vérifiée par un expert',
       rawAI: 'IA Brute',
@@ -212,7 +212,7 @@ export const fr: Translations = {
   },
   features: {
     title: 'Le système en action',
-    subtitle: 'Votre interview se transforme en contenu pour chaque plateforme.',
+    subtitle: 'Votre enregistrement se transforme en contenu pour chaque plateforme.',
     items: [
       {
         title: '30 Posts LinkedIn',
@@ -301,11 +301,11 @@ export const fr: Translations = {
     concerns: [
       {
         concern: 'Ça sonnera comme moi ?',
-        answer: 'Oui. On entraîne des prompts IA sur votre ton unique dès la première interview. Un humain révise tout. Si ça ne sonne pas comme vous, on révise jusqu\'à ce que ce soit bon.',
+        answer: 'Oui. On entraîne des prompts IA sur votre ton unique dès le premier enregistrement. Un humain révise tout. Si ça ne sonne pas comme vous, on révise jusqu\'à ce que ce soit bon.',
       },
       {
-        concern: 'Je n\'ai pas le temps pour l\'interview.',
-        answer: 'Une interview par semaine. Selon le format : 15 min de vocal ou 45 min de conversation guidée. C\'est moins que ce que vous passez à hésiter devant une page blanche. On s\'adapte à votre planning.',
+        concern: 'Je n\'ai pas le temps d\'enregistrer.',
+        answer: 'Une session par semaine. Selon le format : 15 min de vocal ou 45 min de conversation guidée. C\'est moins que ce que vous passez à hésiter devant une page blanche. On s\'adapte à votre planning.',
       },
       {
         concern: 'C\'est vraiment mieux qu\'embaucher ?',
@@ -357,11 +357,11 @@ export const fr: Translations = {
   },
   multiPlatform: {
     title: 'Avant Empire vs Après Empire',
-    subtitle: 'De posts éparpillés à présence multi-plateforme cohérente - en 1 interview/semaine',
+    subtitle: 'De posts éparpillés à présence multi-plateforme cohérente - en 1h de parole/semaine',
     without: 'Sans Empire',
     withEmpire: 'Avec Empire',
     doingYourself: 'Vous le faites vous-même',
-    justMinWeek: '1 interview/semaine',
+    justMinWeek: '1h de parole/semaine',
     postsMonth: 'posts / mois',
     platforms: 'plateformes',
     publishTo: 'Prêt à publier sur :',
@@ -481,11 +481,11 @@ export const fr: Translations = {
   },
   featureDetails: {
     title: 'Votre Voix → <span class="text-empire">Vos Meilleurs Contenus</span>',
-    subtitle: 'On transforme votre interview en contenu pour chaque plateforme',
-    you15min: 'Vous (1 interview)',
+    subtitle: 'On transforme 1h de parole en contenu pour chaque plateforme',
+    you15min: 'Vous (1h de parole)',
     previews: {
       linkedinPost: 'Post LinkedIn',
-      linkedinPostDesc: 'Votre interview devient un post de thought leadership qui vous positionne comme expert.',
+      linkedinPostDesc: 'Vos mots deviennent un post de thought leadership qui vous positionne comme expert.',
       newsletter: 'Newsletter',
       newsletterDesc: 'Histoires et insights transformés en newsletters que vos lecteurs veulent vraiment ouvrir.',
       instagramReel: 'Reel Instagram',
@@ -509,7 +509,7 @@ export const fr: Translations = {
     line1: 'Mais entre clients, business, et vie... le calendrier reste vide.',
     line2: 'Vous n\'êtes pas paresseux. Le système est cassé.',
     solution: 'Empire corrige ça.',
-    hook: 'Une interview par semaine = du contenu publié tous les jours.',
+    hook: '1h de parole par semaine = du contenu publié tous les jours.',
     subtext: 'Pas d\'écriture. Pas de montage. Pas de planification. Juste des résultats.',
     readStory: 'Lire l\'histoire',
   },
@@ -644,11 +644,11 @@ export const fr: Translations = {
   faqItems: [
     {
       question: 'Comment je commence ?',
-      answer: 'Lancez votre essai gratuit de 7 jours. Vous accédez immédiatement à la plateforme, vous choisissez votre plan et vous enregistrez votre première interview. Votre premier contenu est prêt sous 24h.',
+      answer: 'Lancez votre essai gratuit de 7 jours. Vous accédez immédiatement à la plateforme, vous choisissez votre plan et vous enregistrez votre première session. Votre premier contenu est prêt sous 24h.',
     },
     {
       question: 'Combien de temps dois-je investir ?',
-      answer: 'Une interview par semaine. C\'est tout. On gère le reste - création, édition, planification et distribution partout.',
+      answer: '1h de parole par semaine. C\'est tout. On gère le reste - création, édition, planification et distribution partout.',
     },
     {
       question: 'Et si le contenu ne sonne pas comme moi ?',
@@ -656,7 +656,7 @@ export const fr: Translations = {
     },
     {
       question: 'Combien de temps avant de voir des résultats ?',
-      answer: 'Votre premier lot de contenu est prêt en 24-48h après votre première interview. La plupart des clients voient leur premier pic d\'engagement en 2 semaines, et une croissance significative au bout de 2-3 mois.',
+      answer: 'Votre premier lot de contenu est prêt en 24-48h après votre premier enregistrement. La plupart des clients voient leur premier pic d\'engagement en 2 semaines, et une croissance significative au bout de 2-3 mois.',
     },
     {
       question: 'Qu\'est-ce qui rend ceci différent d\'une agence de contenu ?',
@@ -770,7 +770,7 @@ export const fr: Translations = {
     bannerButton: 'Voir les postes',
     companyMission: {
       title: 'Mission de l\'entreprise',
-      description: 'Empire Internet transforme une interview hebdomadaire en plus de 100 contenus optimisés grâce à une IA propriétaire.',
+      description: 'Empire Internet transforme 1h de parole par semaine en plus de 100 contenus optimisés grâce à une IA propriétaire.',
       vision: 'Nous construisons la machine de contenu la plus rapide du marché pour entrepreneurs, créateurs et CEOs.',
       ambition1: 'Devenir la plateforme n°1 mondiale du content automation',
       ambition2: 'Passer de 1M → 10M → 50M/an',

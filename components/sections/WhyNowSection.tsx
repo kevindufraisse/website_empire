@@ -180,8 +180,8 @@ export default function WhyNowSection() {
               {autopilot
                 ? t.autopilot.whyNow.subtitle
                 : (fr
-                    ? 'Une interview par semaine. Le reste est automatisé.'
-                    : 'One interview per week. The rest is automated.')}
+                    ? '1h de parole par semaine. Le reste est automatisé.'
+                    : '1 hour of talking per week. The rest is automated.')}
             </p>
           </div>
         </FadeIn>

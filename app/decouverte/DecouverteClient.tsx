@@ -49,7 +49,7 @@ export default function DecouverteClient() {
     : 'sans écrire ni monter votre contenu.'
   const subtitle = autopilot
     ? 'Zéro interview, zéro contact. Votre expert trouve vos sujets, écrit dans votre voix, publie pour vous.'
-    : 'Une interview de 15 min par semaine → 30+ posts, reels, vidéos, newsletters.'
+    : '15 min de parole par semaine → 30+ posts, reels, vidéos, newsletters.'
   const formTitle = autopilot
     ? 'Postulez au mode Autopilot'
     : 'Réservez votre appel gratuit'
