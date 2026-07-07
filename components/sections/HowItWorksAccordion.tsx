@@ -298,16 +298,16 @@ export default function HowItWorksAccordion() {
               ) : (
                 <h2 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
                   {lang === 'fr'
-                    ? <>Lancez votre machine média : on a passé 8 mois à cloner les meilleurs copywriters et monteurs vidéo.<br className="hidden md:block" /> Dans un seul système : <span className="text-empire">Empire Internet</span>.</>
-                    : <>Launch your media machine: we spent 8 months cloning the best copywriters and video editors.<br className="hidden md:block" /> In one single system: <span className="text-empire">Empire Internet</span>.</>}
+                    ? <>Lancez votre <span className="text-empire">machine média</span></>
+                    : <>Launch your <span className="text-empire">media machine</span></>}
                 </h2>
               )}
               <p className="text-base md:text-lg text-neutral-400 max-w-2xl mx-auto">
                 {autopilot
                   ? t.autopilot.howItWorks.subtitle
                   : (lang === 'fr'
-                      ? 'Posts LinkedIn, Reels, vidéos YouTube, newsletters - tout est produit, vérifié par des humains et prêt à publier.'
-                      : 'LinkedIn posts, Reels, YouTube videos, newsletters - everything produced, human-verified and ready to publish.')}
+                      ? 'On a passé 8 mois à cloner les meilleurs copywriters et monteurs vidéo. Dans un seul système : Empire Internet.'
+                      : 'We spent 8 months cloning the best copywriters and video editors. In one single system: Empire Internet.')}
               </p>
           </div>
         </FadeInBlock>
