@@ -1,12 +1,12 @@
 import dynamic from 'next/dynamic'
 import HeroSection from '@/components/sections/HeroSection'
 import HowItWorksAccordion from '@/components/sections/HowItWorksAccordion'
+import AbVariantTracker from '@/components/AbVariantTracker'
 
 const ContentMachineSection = dynamic(() => import('@/components/sections/ContentMachineSection'))
 const TestimonialsSection = dynamic(() => import('@/components/sections/TestimonialsSection'))
 const QuickWinsSection = dynamic(() => import('@/components/sections/QuickWinsSection'))
 const FounderSection = dynamic(() => import('@/components/sections/FounderSection'))
-const VolumeSection = dynamic(() => import('@/components/sections/VolumeSection'))
 const WhyEmpireSection = dynamic(() => import('@/components/sections/WhyEmpireSection'))
 const ForWhoSection = dynamic(() => import('@/components/sections/ForWhoSection'))
 const WhyNowSection = dynamic(() => import('@/components/sections/WhyNowSection'))
@@ -16,6 +16,8 @@ const FinalBoostCTA = dynamic(() => import('@/components/sections/FinalBoostCTA'
 export default function Page() {
   return (
     <main className="relative">
+      <AbVariantTracker experiment="hero_minimal" />
+
       {/* Hero with VSL */}
       <HeroSection />
 
@@ -33,9 +35,6 @@ export default function Page() {
 
       {/* Founder Credibility - trust before urgency */}
       <FounderSection />
-
-      {/* Volume = Probability */}
-      <VolumeSection />
 
       {/* Why now - the AI marketing gap */}
       <WhyEmpireSection />
