@@ -306,8 +306,8 @@ export default function HowItWorksAccordion() {
                 {autopilot
                   ? t.autopilot.howItWorks.subtitle
                   : (lang === 'fr'
-                      ? 'On a passé 8 mois à cloner les meilleurs copywriters et monteurs vidéo. Dans un seul système : Empire Internet.'
-                      : 'We spent 8 months cloning the best copywriters and video editors. In one single system: Empire Internet.')}
+                      ? 'Multipliez les canaux de diffusion, soyez omniprésent.'
+                      : 'Multiply your distribution channels, be omnipresent.')}
               </p>
           </div>
         </FadeInBlock>
@@ -355,8 +355,8 @@ export default function HowItWorksAccordion() {
                   </div>
                   <p className="text-neutral-400 text-sm">
                     {lang === 'fr'
-                      ? 'On analyse les comptes concurrents, les commentaires YouTube et Reddit pour trouver les sujets viraux de votre niche.'
-                      : 'We analyze competitor accounts, YouTube comments and Reddit to find viral topics in your niche.'}
+                      ? 'On scanne vos concurrents, YouTube et Reddit. Vous recevez les sujets qui marchent dans votre niche.'
+                      : 'We scan your competitors, YouTube and Reddit. You get the topics that work in your niche.'}
                   </p>
                 </div>
               </div>
@@ -425,8 +425,8 @@ export default function HowItWorksAccordion() {
                     </div>
                     <p className="text-neutral-400 text-sm">
                       {lang === 'fr'
-                        ? 'Yapping face caméra, interviews guidées ou faux QA clients. Zéro préparation, on extrait tout le contenu.'
-                        : 'Yapping on camera, guided interviews, or fake client Q&A. Zero prep, we extract all the content.'}
+                        ? 'Vous parlez face caméra sur ces sujets, seul ou guidé par nos questions. Zéro préparation.'
+                        : 'You talk on camera about those topics, freely or guided by our questions. Zero prep.'}
                     </p>
                   </div>
                 </div>
@@ -462,8 +462,8 @@ export default function HowItWorksAccordion() {
                     {autopilot
                       ? t.autopilot.howItWorks.b3.desc
                       : (lang === 'fr'
-                          ? 'Posts, newsletters, Shorts, Reels, vidéos longues. Tout est découpé, monté et vérifié par un humain.'
-                          : 'Posts, newsletters, Shorts, Reels, long-form videos. Everything cut, edited and reviewed by a human.')}
+                          ? 'Notre équipe découpe et monte vos Reels, rédige vos posts LinkedIn et vos newsletters. Chaque contenu est vérifié par un humain.'
+                          : 'Our team cuts and edits your Reels, writes your LinkedIn posts and newsletters. Every piece is reviewed by a human.')}
                   </p>
                 </div>
               </div>
@@ -493,8 +493,8 @@ export default function HowItWorksAccordion() {
                       {autopilot
                         ? t.autopilot.howItWorks.b4.desc
                         : (lang === 'fr'
-                          ? 'Chaque contenu est adapté et dupliqué pour chaque plateforme. Vous validez, vous publiez en 1 clic.'
-                          : 'Each piece of content is adapted and duplicated for every platform. You approve, publish in 1 click.')}
+                          ? 'Chaque contenu est adapté aux 7 plateformes. Vous validez, ça part en 1 clic.'
+                          : 'Each piece is adapted to all 7 platforms. You approve, it goes out in 1 click.')}
                   </p>
                 </div>
               </div>

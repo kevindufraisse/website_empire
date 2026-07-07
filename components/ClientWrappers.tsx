@@ -3,6 +3,7 @@
 import { GlobalLumaCalendar } from '@/components/GlobalLumaCalendar'
 import GiftCountdownModal from '@/components/GiftCountdownBar'
 import QuizHomePopup from '@/components/quiz/QuizHomePopup'
+import ViralPostsOverlay from '@/components/ViralPostsOverlay'
 
 export default function ClientWrappers() {
   return (
@@ -10,6 +11,7 @@ export default function ClientWrappers() {
       <QuizHomePopup />
       <GlobalLumaCalendar />
       <GiftCountdownModal />
+      <ViralPostsOverlay />
     </>
   )
 }

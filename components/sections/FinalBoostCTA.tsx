@@ -53,7 +53,7 @@ export default function FinalBoostCTA() {
 
                 {/* Ce qui se passe après le clic : désamorce l'onboarding long */}
                 {!autopilot && (
-                  <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-6 mb-8 text-sm text-neutral-300">
+                  <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-6 mb-6 text-sm text-neutral-300">
                     {(lang === 'fr'
                       ? ['Créez votre compte (2 min)', 'Enregistrez votre 1ère session', 'Premier contenu sous 24h']
                       : ['Create your account (2 min)', 'Record your 1st session', 'First content within 24h']
@@ -64,6 +64,26 @@ export default function FinalBoostCTA() {
                         {i < 2 && <span className="hidden sm:inline text-neutral-600 ml-4">→</span>}
                       </span>
                     ))}
+                  </div>
+                )}
+
+                {/* Ce qui se passe après l'onboarding : la boucle du système */}
+                {!autopilot && (
+                  <div className="mb-8">
+                    <p className="text-[11px] uppercase tracking-wider font-semibold text-neutral-500 mb-2">
+                      {lang === 'fr' ? 'Et ensuite ?' : 'And then?'}
+                    </p>
+                    <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1.5 text-xs text-neutral-400 max-w-2xl mx-auto">
+                      {(lang === 'fr'
+                        ? ['Vous entrez votre positionnement et vos concurrents', 'Notre système trouve les sujets', 'Vous parlez', 'Notre équipe crée les contenus', 'Vous publiez partout']
+                        : ['You enter your positioning and competitors', 'Our system finds the topics', 'You talk', 'Our team creates the content', 'You publish everywhere']
+                      ).map((step, i, arr) => (
+                        <span key={i} className="flex items-center gap-2">
+                          {step}
+                          {i < arr.length - 1 && <span className="text-empire/60">→</span>}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 )}
 

@@ -24,6 +24,8 @@ import {
   MessageCircle,
   GraduationCap,
   Share2,
+  Globe,
+  Palette,
 } from 'lucide-react'
 import { CtaReassurance } from '@/components/ui/cta-reassurance'
 import OnboardingLink from '@/components/OnboardingLink'
@@ -60,13 +62,15 @@ const pillars: Record<string, Pillar[]> = {
       icon: Sparkles,
       label: 'Contenu',
       keyFeatures: [
-        { icon: FileText, title: '30+ posts LinkedIn', desc: 'Rédigés, optimisés et planifiés. Ajout automatique de vos lead magnets. Disponible en FR, EN, ES.', value: '1 500€' },
-        { icon: Mail, title: '30 newsletters/mois', desc: 'Qui sonnent comme vous, en mieux. Disponible en FR, EN, ES.', value: '1 200€' },
+        { icon: FileText, title: '30+ posts LinkedIn', desc: 'Rédigés, optimisés et planifiés. Ajout automatique de vos lead magnets.', value: '1 500€' },
+        { icon: Mail, title: '30 newsletters/mois', desc: 'Qui sonnent comme vous, en mieux.', value: '1 200€' },
         { icon: Video, title: '30+ Reels & Shorts', desc: 'Vos vidéos découpées aux meilleurs moments. Montage pro : hooks, sous-titres, transitions. Option sans caméra.', value: '3 000€' },
+        { icon: Palette, title: 'Personnalisation complète', desc: 'Sous-titres (45 styles), transitions, vos couleurs, vos b-rolls, votre photo, votre branding — chaque contenu à votre image.' },
+        { icon: Globe, title: 'Multilingue : FR, EN, ES', desc: 'Tous vos contenus dans 3 langues — même pipeline, même qualité.' },
       ],
       moreFeatures: [
         { icon: Video, title: 'Vidéos longues YouTube', desc: 'On crée vos vidéos longues de A à Z. Personnalisation des couleurs, textes et format.', value: '2 000€' },
-        { icon: ImageIcon, title: 'Carrousels automatiques', desc: 'Générés automatiquement pour LinkedIn + Instagram', value: '800€' },
+        { icon: ImageIcon, title: 'Carrousels automatiques', desc: 'Générés depuis vos posts pour LinkedIn + Instagram.', value: '800€' },
         { icon: ImageIcon, title: 'Miniatures', desc: 'Création des miniatures pour Instagram, YouTube et LinkedIn', value: '500€' },
         { icon: Bot, title: 'Cerveau Empire', desc: 'Nos agents IA trouvent les sujets les plus viraux pour votre niche', value: '1 000€' },
       ],
@@ -83,7 +87,7 @@ const pillars: Record<string, Pillar[]> = {
       ],
       moreFeatures: [
         { icon: Code2, title: 'Multi-comptes', desc: 'Publiez sur plusieurs comptes depuis la même plateforme', value: '300€' },
-        { icon: Mail, title: 'Substack automatique', desc: 'Vos newsletters publiées automatiquement sur Substack', value: '200€' },
+        { icon: Mail, title: 'Substack automatique', desc: 'Vos notes publiées automatiquement sur Substack', value: '200€' },
         { icon: Users, title: 'Diffusion Skool', desc: 'Contenu partagé automatiquement dans votre communauté Skool', value: '200€' },
         { icon: Zap, title: 'Deeplinks de tracking', desc: 'Liens trackés pour mesurer la performance de chaque contenu', value: '300€' },
         { icon: Code2, title: 'API & Automations', desc: 'Connectez Empire à vos outils (Notion, Airtable, Google Drive). Automatisez vos workflows.', value: '500€' },
@@ -94,13 +98,12 @@ const pillars: Record<string, Pillar[]> = {
       icon: HeadphonesIcon,
       label: 'Accompagnement',
       keyFeatures: [
-        { icon: Mic, title: '3 formats pour créer du contenu', desc: 'Yapping face caméra, interviews guidées, ou faux QA clients — choisissez ce qui vous convient', value: '2 000€' },
         { icon: UserCheck, title: 'Équipe humaine dédiée', desc: 'De vrais humains créent et vérifient chaque contenu', value: '2 000€' },
         { icon: GraduationCap, title: 'Bootcamp viralité', desc: 'Un coach dédié comprend votre business et vous forme aux formats qui performent dans votre niche', badge: 'OPTION' },
       ],
       moreFeatures: [
-        { icon: Users, title: 'Communauté privée', desc: 'Réseau de fondateurs et créateurs', value: '500€' },
-        { icon: Mic, title: 'Lives de groupe', desc: 'Sessions collectives pour progresser ensemble', value: '500€' },
+        { icon: Users, title: 'Communauté privée', desc: 'Réseau de fondateurs et créateurs', badge: 'OPTION' },
+        { icon: Mic, title: 'Lives de groupe', desc: 'Sessions collectives pour progresser ensemble', badge: 'OPTION' },
       ],
     },
   ],
@@ -110,13 +113,15 @@ const pillars: Record<string, Pillar[]> = {
       icon: Sparkles,
       label: 'Content',
       keyFeatures: [
-        { icon: FileText, title: '30+ LinkedIn posts', desc: 'Written, optimized, scheduled. Auto-embed your lead magnets. Available in FR, EN, ES.' },
-        { icon: Mail, title: '30 newsletters/mo', desc: 'Sound like you, but better. Available in FR, EN, ES.' },
+        { icon: FileText, title: '30+ LinkedIn posts', desc: 'Written, optimized, scheduled. Auto-embed your lead magnets.' },
+        { icon: Mail, title: '30 newsletters/mo', desc: 'Sound like you, but better.' },
         { icon: Video, title: '30+ Reels & Shorts', desc: 'Your videos cut at their best moments. Pro editing: hooks, subtitles, transitions. No-camera option.' },
+        { icon: Palette, title: 'Full customization', desc: 'Subtitles (45 styles), transitions, your colors, your b-rolls, your photo, your branding — every piece of content in your image.' },
+        { icon: Globe, title: 'Multilingual: FR, EN, ES', desc: 'All your content in 3 languages — same pipeline, same quality.' },
       ],
       moreFeatures: [
         { icon: Video, title: 'Long-form YouTube videos', desc: 'We create your long videos from A to Z. Custom colors, text and format.' },
-        { icon: ImageIcon, title: 'Auto carousels', desc: 'Automatically generated for LinkedIn + Instagram' },
+        { icon: ImageIcon, title: 'Auto carousels', desc: 'Generated from your posts for LinkedIn + Instagram.' },
         { icon: ImageIcon, title: 'Thumbnails', desc: 'Custom thumbnails for Instagram, YouTube and LinkedIn' },
         { icon: Bot, title: 'Empire Brain', desc: 'Our AI agents find the most viral topics for your niche' },
       ],
@@ -133,7 +138,7 @@ const pillars: Record<string, Pillar[]> = {
       ],
       moreFeatures: [
         { icon: Code2, title: 'Multi-account', desc: 'Publish on multiple accounts from the same platform' },
-        { icon: Mail, title: 'Auto Substack', desc: 'Your newsletters automatically published on Substack' },
+        { icon: Mail, title: 'Auto Substack', desc: 'Your notes automatically published on Substack' },
         { icon: Users, title: 'Skool distribution', desc: 'Content automatically shared in your Skool community' },
         { icon: Zap, title: 'Tracking deeplinks', desc: 'Tracked links to measure each content performance' },
         { icon: Code2, title: 'API & Automations', desc: 'Connect Empire to your tools (Notion, Airtable, Google Drive). Automate your workflows.' },
@@ -144,13 +149,12 @@ const pillars: Record<string, Pillar[]> = {
       icon: HeadphonesIcon,
       label: 'Support',
       keyFeatures: [
-        { icon: Mic, title: '3 formats to create content', desc: 'Yapping on camera, guided interviews, or fake client Q&A — pick what suits you' },
         { icon: UserCheck, title: 'Dedicated human team', desc: 'Real humans create and review every piece of content' },
         { icon: GraduationCap, title: 'Virality bootcamp', desc: 'A dedicated coach understands your business and trains you on the formats that perform in your niche', badge: 'OPTION' },
       ],
       moreFeatures: [
-        { icon: Users, title: 'Private community', desc: 'Founder & creator network' },
-        { icon: Mic, title: 'Group live sessions', desc: 'Collective sessions to grow together' },
+        { icon: Users, title: 'Private community', desc: 'Founder & creator network', badge: 'OPTION' },
+        { icon: Mic, title: 'Group live sessions', desc: 'Collective sessions to grow together', badge: 'OPTION' },
       ],
     },
   ],
@@ -261,7 +265,12 @@ export default function WhyNowSection() {
                                     <Icon className="text-neutral-400" size={15} />
                                   </div>
                                   <div className="flex-1 min-w-0">
-                                    <p className="text-sm font-semibold text-white">{f.title}</p>
+                                    <div className="flex items-center gap-2">
+                                      <p className="text-sm font-semibold text-white">{f.title}</p>
+                                      {f.badge && (
+                                        <span className="px-1.5 py-0.5 rounded-full bg-empire text-black text-[9px] font-black tracking-wider uppercase leading-none">{f.badge}</span>
+                                      )}
+                                    </div>
                                     <p className="text-xs text-neutral-400 mt-0.5">{f.desc}</p>
                                   </div>
                                   {f.value && (
@@ -298,7 +307,7 @@ export default function WhyNowSection() {
                 {fr ? 'Valeur totale en agence :' : 'Total agency value:'}
               </p>
               <p className="text-2xl font-black text-neutral-400 line-through">
-                {fr ? '20 300€/mois' : '€20,300/mo'}
+                {fr ? '15 800€/mois' : '€15,800/mo'}
               </p>
             </div>
             <OnboardingLink

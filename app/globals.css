@@ -124,7 +124,7 @@ body {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
 }
 
-/* Voice note bars (VoiceToContentSection) */
+/* Voice note bars (VoiceToContentAnimation) */
 @keyframes voicebar-bounce {
   0%, 100% { transform: scaleY(0.45); }
   50% { transform: scaleY(1); }
