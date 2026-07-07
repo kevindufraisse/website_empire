@@ -58,7 +58,7 @@ export default function FinalBoostCTA() {
                   }`}
                 >
                   <span className="text-lg">{autopilot ? t.autopilot.finalCTA.cta : t.finalCTA.watchDemo}</span>
-                  <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? 'Satisfait ou remboursé' : 'Satisfaction guaranteed'}</span>
+                  <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? 'Sans engagement · Annulez en 1 clic' : 'No commitment · Cancel in 1 click'}</span>
                 </OnboardingLink>
               </div>
             </div>

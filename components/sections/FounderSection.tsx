@@ -214,7 +214,7 @@ export default function FounderSection() {
             <div className="mt-12 text-center">
               <OnboardingLink className="inline-flex flex-col items-center px-8 py-4 rounded-xl bg-empire text-black font-bold hover:scale-105 transition-transform shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.3)]">
                 <span className="text-lg">{t.common.startNow}</span>
-                <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? 'Satisfait ou remboursé' : 'Satisfaction guaranteed'}</span>
+                <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? 'Sans engagement · Annulez en 1 clic' : 'No commitment · Cancel in 1 click'}</span>
               </OnboardingLink>
             </div>
           </FadeInBlock>

@@ -431,9 +431,9 @@ export const fr: Translations = {
   common: {
     startNow: 'Essai gratuit 7 jours',
     watchDemo: 'Essai gratuit 7 jours',
-    ctaReassurance: 'Satisfait ou remboursé',
+    ctaReassurance: 'Sans engagement · Annulez en 1 clic',
     /** Sous-ligne très courte : header, sticky, bannière (évite un bouton énorme) */
-    ctaReassuranceCompact: 'Satisfait ou remboursé',
+    ctaReassuranceCompact: 'Sans engagement',
     learnMore: 'En savoir plus',
     perMonth: '/mois',
     perWeek: '/semaine',

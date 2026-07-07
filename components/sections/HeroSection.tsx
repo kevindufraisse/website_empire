@@ -146,7 +146,7 @@ export default function HeroSection() {
                 {heroCta}
                 <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
               </span>
-              <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? 'Satisfait ou remboursé' : 'Satisfaction guaranteed'}</span>
+              <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? 'Sans engagement · Annulez en 1 clic' : 'No commitment · Cancel in 1 click'}</span>
             </OnboardingLink>
             <MediaCredibilityStrip />
           </motion.div>

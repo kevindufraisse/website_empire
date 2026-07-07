@@ -308,9 +308,9 @@ export const en = {
   common: {
     startNow: '7-day free trial',
     watchDemo: '7-day free trial',
-    ctaReassurance: 'Satisfaction guaranteed',
+    ctaReassurance: 'No commitment · Cancel in 1 click',
     /** Tight subline: header, sticky, banner (keeps the CTA compact) */
-    ctaReassuranceCompact: 'Satisfaction guaranteed',
+    ctaReassuranceCompact: 'No commitment',
     learnMore: 'Learn more',
     perMonth: '/month',
     perWeek: '/week',
