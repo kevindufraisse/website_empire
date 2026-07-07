@@ -12,11 +12,12 @@
  * (LAUNCH_OFFER_ACTIVE). Ici : uniquement l'affichage urgence/deadline.
  */
 
-// Affiche ou masque le compteur de places partout d'un coup
+// Affiche ou masque la mention de places partout d'un coup
 export const SPOTS_ENABLED = true
 
-// 👇 À METTRE À JOUR CHAQUE SEMAINE (places d'onboarding réellement dispo)
-export const SPOTS_LEFT = 7
+// Mention volontairement vague (pas de faux compteur précis)
+export const SPOTS_LABEL_FR = 'quelques places restantes'
+export const SPOTS_LABEL_EN = 'a few spots left'
 
 // Deadline de l'offre de lancement (affichage uniquement)
 export const OFFER_DEADLINE_LABEL_FR = '31 juillet'

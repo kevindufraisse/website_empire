@@ -6,7 +6,7 @@ import { useAutopilot } from '@/contexts/AutopilotContext'
 import { Users, ArrowRight } from 'lucide-react'
 import OnboardingLink from '@/components/OnboardingLink'
 import { LAUNCH_OFFER_ACTIVE } from '@/lib/pricing-config'
-import { SPOTS_ENABLED, SPOTS_LEFT } from '@/lib/launch-offer'
+import { SPOTS_ENABLED, SPOTS_LABEL_FR, SPOTS_LABEL_EN } from '@/lib/launch-offer'
 
 export default function CalStickyBar() {
   const { t, lang } = useLanguage()
@@ -22,7 +22,7 @@ export default function CalStickyBar() {
   const socialProof = useMemo(() => ({
     count: socialProofCount,
     text: lang === 'fr' ? `${socialProofCount} créateurs actifs ce mois` : `${socialProofCount} active creators this month`,
-    spots: lang === 'fr' ? `${SPOTS_LEFT} places restantes` : `${SPOTS_LEFT} spots left`,
+    spots: lang === 'fr' ? SPOTS_LABEL_FR : SPOTS_LABEL_EN,
   }), [lang, socialProofCount])
 
   const pathname = usePathname()

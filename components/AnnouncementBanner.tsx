@@ -3,7 +3,7 @@ import { X, Phone } from 'lucide-react'
 import { useState } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { LAUNCH_OFFER_ACTIVE } from '@/lib/pricing-config'
-import { SPOTS_ENABLED, SPOTS_LEFT, OFFER_DEADLINE_LABEL_FR, OFFER_DEADLINE_LABEL_EN, OFFER_DISCOUNT_LABEL } from '@/lib/launch-offer'
+import { SPOTS_ENABLED, SPOTS_LABEL_FR, SPOTS_LABEL_EN, OFFER_DEADLINE_LABEL_FR, OFFER_DEADLINE_LABEL_EN, OFFER_DISCOUNT_LABEL } from '@/lib/launch-offer'
 import CallbackFormModal from '@/components/CallbackFormModal'
 import OnboardingLink from '@/components/OnboardingLink'
 
@@ -24,8 +24,8 @@ export default function AnnouncementBanner() {
           </span>
           <span className="font-semibold">
             {lang === 'fr'
-              ? `${OFFER_DISCOUNT_LABEL} jusqu'au ${OFFER_DEADLINE_LABEL_FR}${SPOTS_ENABLED ? ` · ${SPOTS_LEFT} places restantes ce mois` : ''}`
-              : `${OFFER_DISCOUNT_LABEL} until ${OFFER_DEADLINE_LABEL_EN}${SPOTS_ENABLED ? ` · ${SPOTS_LEFT} spots left this month` : ''}`}
+              ? `${OFFER_DISCOUNT_LABEL} jusqu'au ${OFFER_DEADLINE_LABEL_FR}${SPOTS_ENABLED ? ` · ${SPOTS_LABEL_FR} ce mois` : ''}`
+              : `${OFFER_DISCOUNT_LABEL} until ${OFFER_DEADLINE_LABEL_EN}${SPOTS_ENABLED ? ` · ${SPOTS_LABEL_EN} this month` : ''}`}
           </span>
           <OnboardingLink className="flex flex-col items-center gap-0 px-2 py-1 bg-black text-empire font-bold rounded hover:scale-105 transition-all ml-1">
             <span className="leading-none text-[10px] sm:text-xs whitespace-nowrap">

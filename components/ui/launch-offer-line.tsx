@@ -4,7 +4,8 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import { LAUNCH_OFFER_ACTIVE } from '@/lib/pricing-config'
 import {
   SPOTS_ENABLED,
-  SPOTS_LEFT,
+  SPOTS_LABEL_FR,
+  SPOTS_LABEL_EN,
   OFFER_DEADLINE_LABEL_FR,
   OFFER_DEADLINE_LABEL_EN,
   OFFER_DISCOUNT_LABEL,
@@ -27,7 +28,7 @@ export function LaunchOfferLine({ className = '' }: { className?: string }) {
         : `Launch offer ${OFFER_DISCOUNT_LABEL} until ${deadline}`}
       {SPOTS_ENABLED && (
         <span className="text-neutral-400 font-medium">
-          {' '}· {SPOTS_LEFT} {fr ? 'places restantes ce mois' : 'spots left this month'}
+          {' '}· {fr ? `${SPOTS_LABEL_FR} ce mois` : `${SPOTS_LABEL_EN} this month`}
         </span>
       )}
     </p>
