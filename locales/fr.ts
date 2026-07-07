@@ -138,7 +138,7 @@ export const fr: Translations = {
   hero: {
     targetAudience: 'Pour freelances, salariés & entrepreneurs',
     title: '1h de parole = <span class="text-empire">30 jours de contenu sur toutes les plateformes</span>.',
-    subtitle: 'Lancez votre machine média. Attirez des clients. Closez des leads. Ne gérez rien.',
+    subtitle: 'Attirez des clients. Closez des leads. Ne gérez rien.',
     description: '',
     cta1: 'Essai gratuit 7 jours',
     cta2: 'Voir la Démo (20 min)',

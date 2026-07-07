@@ -15,7 +15,7 @@ export const en = {
   hero: {
     targetAudience: 'For freelancers, employees & entrepreneurs',
     title: '1 hour of talking = <span class="text-empire">30 days of content on every platform</span>.',
-    subtitle: 'Run your media machine. Attract clients. Close leads. Never manage.',
+    subtitle: 'Attract clients. Close leads. Never manage.',
     description: '',
     cta1: '7-day free trial',
     cta2: 'Watch Demo (20 min)',

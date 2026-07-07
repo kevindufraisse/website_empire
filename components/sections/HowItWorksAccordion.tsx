@@ -298,8 +298,8 @@ export default function HowItWorksAccordion() {
               ) : (
                 <h2 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
                   {lang === 'fr'
-                    ? <>1 heure de votre voix devient <span className="text-empire">30 jours de contenu.</span></>
-                    : <>1 hour of your voice becomes <span className="text-empire">30 days of content.</span></>}
+                    ? <>Lancez votre machine média : on a passé 8 mois à cloner les meilleurs copywriters et monteurs vidéo.<br className="hidden md:block" /> Dans un seul système : <span className="text-empire">Empire Internet</span>.</>
+                    : <>Launch your media machine: we spent 8 months cloning the best copywriters and video editors.<br className="hidden md:block" /> In one single system: <span className="text-empire">Empire Internet</span>.</>}
                 </h2>
               )}
               <p className="text-base md:text-lg text-neutral-400 max-w-2xl mx-auto">
