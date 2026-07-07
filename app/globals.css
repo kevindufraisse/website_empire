@@ -124,6 +124,18 @@ body {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
 }
 
+/* Voice note bars (VoiceToContentSection) */
+@keyframes voicebar-bounce {
+  0%, 100% { transform: scaleY(0.45); }
+  50% { transform: scaleY(1); }
+}
+.voicebar {
+  animation-name: voicebar-bounce;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  transform-origin: center;
+}
+
 /* Animation utilities */
 @keyframes fadeIn {
   from {

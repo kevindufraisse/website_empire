@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic'
 import HeroSection from '@/components/sections/HeroSection'
-import HowItWorksAccordion from '@/components/sections/HowItWorksAccordion'
+import VoiceToContentSection from '@/components/sections/VoiceToContentSection'
 import AbVariantTracker from '@/components/AbVariantTracker'
 
 const TestimonialsSection = dynamic(() => import('@/components/sections/TestimonialsSection'))
@@ -20,8 +20,8 @@ export default function Page() {
       {/* Hero with VSL */}
       <HeroSection />
 
-      {/* How It Works - 4 steps */}
-      <HowItWorksAccordion />
+      {/* How It Works - you talk, we publish (voice-to-content animation) */}
+      <VoiceToContentSection />
 
       {/* Deliverables - what Empire creates every month (3 pillars) */}
       <WhyNowSection />
