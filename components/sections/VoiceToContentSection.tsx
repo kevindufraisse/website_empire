@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { Clock } from 'lucide-react'
+import { Brain, Clock } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { SocialIcons } from '@/components/ui/social-icons'
 
@@ -181,6 +181,26 @@ export default function VoiceToContentSection() {
                       style={{ height: bar.h, animationDuration: `${bar.d}s`, animationDelay: `${bar.delay}s` }}
                     />
                   ))}
+                </div>
+              </div>
+
+              {/* Empire brain: the system that transforms voice into content */}
+              <div className="relative z-10 flex shrink-0 flex-col items-center gap-2.5 py-2 md:px-2">
+                <div className="relative flex h-20 w-20 items-center justify-center md:h-24 md:w-24">
+                  <span className="absolute inset-0 rounded-full bg-empire/20 blur-xl" />
+                  <span className="brainpulse absolute inset-0 rounded-full border border-empire/40" />
+                  <div className="relative flex h-16 w-16 items-center justify-center rounded-full border border-empire/50 bg-gradient-to-br from-empire/25 to-empire/5 shadow-lg shadow-empire/20 md:h-20 md:w-20">
+                    <Brain className="text-empire" size={34} />
+                  </div>
+                </div>
+                <p className="text-xs font-bold uppercase tracking-wider text-empire">
+                  {fr ? 'Cerveau Empire' : 'Empire Brain'}
+                </p>
+                <div className="flex items-center gap-1.5 rounded-full border border-green-500/40 bg-green-500/15 px-2.5 py-1 backdrop-blur-sm">
+                  <span className="h-2 w-2 animate-pulse rounded-full bg-green-500" />
+                  <span className="text-[10px] font-semibold text-green-400">
+                    {fr ? 'Vérifié par des humains' : 'Verified by humans'}
+                  </span>
                 </div>
               </div>
 

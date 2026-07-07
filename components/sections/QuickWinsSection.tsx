@@ -17,7 +17,7 @@ const platforms = [
 ]
 
 const withoutEmpireTasks = [
-  { fr: 'Interviewer', en: 'Interviewer', qty: 7, hours: '7h', cost: '1 400€' },
+  { fr: 'Tournage & cadrage', en: 'Filming & framing', qty: 7, hours: '7h', cost: '1 400€' },
   { fr: 'Scripts vidéos', en: 'Video scripts', qty: 30, hours: '30h', cost: '1 500€' },
   { fr: 'Posts LinkedIn', en: 'LinkedIn posts', qty: 30, hours: '30h', cost: '3 000€' },
   { fr: 'Posts Instagram', en: 'Instagram posts', qty: 30, hours: '30h', cost: '600€' },
@@ -74,18 +74,25 @@ export default function QuickWinsSection() {
           initial={{ opacity: 0, y: 10 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.25 }}
-          className="flex flex-wrap justify-center gap-2 mb-12"
+          className="mb-12"
         >
-          {platforms.map(p => (
-            <div
-              key={p.id}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl border bg-empire/10 border-empire/40"
-            >
-              <span className="opacity-100">{p.icon}</span>
-              <span className="text-[13px] font-medium text-white">{p.name}</span>
-              <span className="text-[11px] text-empire font-mono font-bold">{p.pieces}</span>
-            </div>
-          ))}
+          <p className="text-center text-xs text-neutral-500 uppercase tracking-wider font-semibold mb-3">
+            {fr
+              ? `Être omniprésent = ${totalPieces} contenus à publier chaque mois`
+              : `Being omnipresent = ${totalPieces} pieces of content to publish every month`}
+          </p>
+          <div className="flex flex-wrap justify-center gap-2">
+            {platforms.map(p => (
+              <div
+                key={p.id}
+                className="flex items-center gap-1.5 px-3 py-2 rounded-xl border bg-empire/10 border-empire/40"
+              >
+                <span className="opacity-100">{p.icon}</span>
+                <span className="text-[13px] font-medium text-white">{p.name}</span>
+                <span className="text-[11px] text-empire font-mono font-bold">{p.pieces}{fr ? '/mois' : '/mo'}</span>
+              </div>
+            ))}
+          </div>
         </motion.div>
 
         {/* Before / After grid */}
@@ -102,17 +109,17 @@ export default function QuickWinsSection() {
                 {fr ? 'Sans Empire' : 'Without Empire'}
               </p>
               <p className="text-xs text-neutral-600 mt-0.5">
-                {fr ? 'Seul ou en externalisant' : 'Alone or outsourcing'}
+                {fr ? 'Produire ce volume seul ou avec des freelances' : 'Producing this volume alone or with freelancers'}
               </p>
             </div>
 
             <div className="px-6 py-4">
               {/* Table header */}
               <div className="grid grid-cols-[1fr_auto_auto_auto] gap-x-3 pb-2 border-b border-white/10 mb-1">
-                <span className="text-[11px] text-neutral-600 font-medium" />
+                <span className="text-[11px] text-neutral-600 font-medium">{fr ? 'Chaque mois' : 'Every month'}</span>
                 <span className="text-[11px] text-neutral-600 font-medium text-right w-8">{fr ? 'Qté' : 'Qty'}</span>
-                <span className="text-[11px] text-neutral-600 font-medium text-right w-10">H</span>
-                <span className="text-[11px] text-neutral-600 font-medium text-right w-16">{fr ? 'Coût' : 'Cost'}</span>
+                <span className="text-[11px] text-neutral-600 font-medium text-right w-10">{fr ? 'Temps' : 'Time'}</span>
+                <span className="text-[11px] text-neutral-600 font-medium text-right w-16">{fr ? 'En freelance' : 'Freelance'}</span>
               </div>
 
               {/* Table rows */}
@@ -127,11 +134,14 @@ export default function QuickWinsSection() {
 
               {/* Total */}
               <div className="grid grid-cols-[1fr_auto_auto_auto] gap-x-3 pt-3 mt-2 border-t border-white/20">
-                <span className="text-sm font-bold text-white">TOTAL</span>
-                <span className="text-sm font-bold text-white text-right w-8 font-mono">203</span>
+                <span className="text-sm font-bold text-white">{fr ? 'TOTAL / mois' : 'TOTAL / month'}</span>
+                <span className="w-8" />
                 <span className="text-sm font-bold text-white text-right w-10 font-mono">298h</span>
                 <span className="text-sm font-bold text-red-400 text-right w-16 font-mono">14 860€</span>
               </div>
+              <p className="text-[11px] text-neutral-600 mt-2 text-right">
+                {fr ? '= presque 2 temps pleins, ou le salaire d\u2019une équipe' : '= almost 2 full-time jobs, or a whole team\u2019s salary'}
+              </p>
             </div>
 
             {/* Pain points */}
@@ -167,7 +177,9 @@ export default function QuickWinsSection() {
               <div className="text-center mb-6">
                 <p className="text-4xl md:text-5xl font-black text-empire font-mono">{totalPieces}+</p>
                 <p className="text-neutral-500 text-sm mt-1">
-                  {fr ? 'contenus publiés par mois' : 'pieces of content per month'}
+                  {fr
+                    ? 'contenus publiés par mois — le même volume, géré pour vous'
+                    : 'pieces published per month — the same volume, handled for you'}
                 </p>
               </div>
 
