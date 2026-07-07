@@ -3,6 +3,7 @@ import { X, Phone } from 'lucide-react'
 import { useState } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { LAUNCH_OFFER_ACTIVE } from '@/lib/pricing-config'
+import { SPOTS_ENABLED, SPOTS_LEFT, OFFER_DEADLINE_LABEL_FR, OFFER_DEADLINE_LABEL_EN, OFFER_DISCOUNT_LABEL } from '@/lib/launch-offer'
 import CallbackFormModal from '@/components/CallbackFormModal'
 import OnboardingLink from '@/components/OnboardingLink'
 
@@ -19,12 +20,12 @@ export default function AnnouncementBanner() {
       <div className="max-w-7xl mx-auto relative">
         <div className="relative flex items-center justify-center gap-2 text-center text-xs flex-wrap px-8 pr-10 py-0.5">
           <span className="font-bold">
-            🔥 {lang === 'fr' ? 'LANCEMENT' : 'LAUNCH'}:
+            🔥 {lang === 'fr' ? 'OFFRE DE LANCEMENT' : 'LAUNCH OFFER'}:
           </span>
           <span className="font-semibold">
-            {lang === 'fr' 
-              ? `Offre limitée - demandez votre devis personnalisé`
-              : `Limited-time offer - request your personalized quote`}
+            {lang === 'fr'
+              ? `${OFFER_DISCOUNT_LABEL} jusqu'au ${OFFER_DEADLINE_LABEL_FR}${SPOTS_ENABLED ? ` · ${SPOTS_LEFT} places restantes ce mois` : ''}`
+              : `${OFFER_DISCOUNT_LABEL} until ${OFFER_DEADLINE_LABEL_EN}${SPOTS_ENABLED ? ` · ${SPOTS_LEFT} spots left this month` : ''}`}
           </span>
           <OnboardingLink className="flex flex-col items-center gap-0 px-2 py-1 bg-black text-empire font-bold rounded hover:scale-105 transition-all ml-1">
             <span className="leading-none text-[10px] sm:text-xs whitespace-nowrap">

@@ -160,7 +160,7 @@ export const en = {
     specific: {
       howManyPosts: {
         question: 'How many pieces of content do I get exactly?',
-        answer: 'It depends on your plan. Starter: ~20 pieces/month (2,200 credits). Growth: ~60 pieces/month (6,600 credits). Scale: ~110 pieces/month (12,000 credits). There\'s also an Unlimited plan for high volume — book a call at /join-us to discuss. Your credits roll over and never expire.',
+        answer: 'It depends on your plan. Starter: ~20 pieces/month. Growth: ~60 pieces/month. Scale: ~110 pieces/month. There\'s also an Unlimited plan for high volume — book a call at /join-us to discuss. Unused volume rolls over and never expires.',
       },
       whatIfDontLike: {
         question: 'What if I don\'t like the content?',

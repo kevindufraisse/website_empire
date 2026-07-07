@@ -8,6 +8,7 @@ import { Zap } from 'lucide-react'
 import CallbackButton from '@/components/CallbackButton'
 import { CtaReassurance } from '@/components/ui/cta-reassurance'
 import OnboardingLink from '@/components/OnboardingLink'
+import { LaunchOfferLine } from '@/components/ui/launch-offer-line'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -50,6 +51,22 @@ export default function FinalBoostCTA() {
                   {autopilot ? t.autopilot.finalCTA.subtitle : t.finalCTA.subtitle}
                 </p>
 
+                {/* Ce qui se passe après le clic : désamorce l'onboarding long */}
+                {!autopilot && (
+                  <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-6 mb-8 text-sm text-neutral-300">
+                    {(lang === 'fr'
+                      ? ['Créez votre compte (2 min)', 'Enregistrez votre 1ère session', 'Premier contenu sous 24h']
+                      : ['Create your account (2 min)', 'Record your 1st session', 'First content within 24h']
+                    ).map((step, i) => (
+                      <span key={i} className="flex items-center gap-2">
+                        <span className="flex items-center justify-center w-5 h-5 rounded-full bg-empire/15 text-empire text-[11px] font-bold shrink-0">{i + 1}</span>
+                        {step}
+                        {i < 2 && <span className="hidden sm:inline text-neutral-600 ml-4">→</span>}
+                      </span>
+                    ))}
+                  </div>
+                )}
+
                 <OnboardingLink
                   className={`inline-flex flex-col items-center w-full sm:w-auto px-8 py-4 font-bold rounded-xl hover:scale-105 transition-all text-center ${
                     autopilot
@@ -57,9 +74,19 @@ export default function FinalBoostCTA() {
                       : 'bg-empire text-black shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]'
                   }`}
                 >
-                  <span className="text-lg">{autopilot ? t.autopilot.finalCTA.cta : t.finalCTA.watchDemo}</span>
-                  <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? 'Sans engagement · Annulez en 1 clic' : 'No commitment · Cancel in 1 click'}</span>
+                  <span className="text-lg">
+                    {autopilot
+                      ? t.autopilot.finalCTA.cta
+                      : (lang === 'fr' ? 'Lancer ma machine média' : 'Launch my media machine')}
+                  </span>
+                  <span className="text-[11px] font-semibold opacity-70">
+                    {lang === 'fr'
+                      ? 'Essai gratuit 7 jours · Sans engagement'
+                      : '7-day free trial · No commitment'}
+                  </span>
                 </OnboardingLink>
+
+                {!autopilot && <LaunchOfferLine className="mt-4" />}
               </div>
             </div>
           </FadeInBlock>

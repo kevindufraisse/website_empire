@@ -5,6 +5,8 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import { Users, ArrowRight } from 'lucide-react'
 import OnboardingLink from '@/components/OnboardingLink'
+import { LAUNCH_OFFER_ACTIVE } from '@/lib/pricing-config'
+import { SPOTS_ENABLED, SPOTS_LEFT } from '@/lib/launch-offer'
 
 export default function CalStickyBar() {
   const { t, lang } = useLanguage()
@@ -16,9 +18,11 @@ export default function CalStickyBar() {
   useEffect(() => {
     setSocialProofCount(47 + Math.floor(Math.random() * 7) - 3)
   }, [])
+  const showSpots = LAUNCH_OFFER_ACTIVE && SPOTS_ENABLED
   const socialProof = useMemo(() => ({
     count: socialProofCount,
     text: lang === 'fr' ? `${socialProofCount} créateurs actifs ce mois` : `${socialProofCount} active creators this month`,
+    spots: lang === 'fr' ? `${SPOTS_LEFT} places restantes` : `${SPOTS_LEFT} spots left`,
   }), [lang, socialProofCount])
 
   const pathname = usePathname()
@@ -88,6 +92,7 @@ export default function CalStickyBar() {
             </div>
             <p className="text-white font-semibold text-sm">
               {socialProof.text}
+              {showSpots && <span className={`${accent.text} font-bold`}> · {socialProof.spots}</span>}
             </p>
           </div>
 
@@ -95,7 +100,7 @@ export default function CalStickyBar() {
           <div className="sm:hidden flex items-center gap-2">
             <Users className={`${accent.text} flex-shrink-0`} size={16} />
             <p className="text-white font-medium text-xs">
-              {socialProof.text}
+              {showSpots ? <span className={`${accent.text} font-bold`}>{socialProof.spots}</span> : socialProof.text}
             </p>
           </div>
 

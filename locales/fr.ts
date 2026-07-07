@@ -283,7 +283,7 @@ export const fr: Translations = {
     specific: {
       howManyPosts: {
         question: 'Combien de contenus j\'obtiens exactement ?',
-        answer: 'Ça dépend de votre plan. Starter : ~20 contenus/mois (2 200 crédits). Growth : ~60 contenus/mois (6 600 crédits). Scale : ~110 contenus/mois (12 000 crédits). Il existe aussi un plan Illimité pour les gros volumes — prenez rendez-vous sur /join-us pour en discuter. Vos crédits sont cumulables et sans expiration.',
+        answer: 'Ça dépend de votre plan. Starter : ~20 contenus/mois. Growth : ~60 contenus/mois. Scale : ~110 contenus/mois. Il existe aussi un plan Illimité pour les gros volumes — prenez rendez-vous sur /join-us pour en discuter. Le volume non utilisé est cumulable et sans expiration.',
       },
       whatIfDontLike: {
         question: 'Et si je n\'aime pas le contenu ?',

@@ -10,6 +10,7 @@ import MediaCredibilityStrip from '@/components/MediaCredibilityStrip'
 import Marquee from '@/components/magicui/marquee'
 import { SocialIcons } from '@/components/ui/social-icons'
 import OnboardingLink from '@/components/OnboardingLink'
+import { LaunchOfferLine } from '@/components/ui/launch-offer-line'
 
 function LazyLoom() {
   const ref = useRef(null)
@@ -148,6 +149,7 @@ export default function HeroSection() {
               </span>
               <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? 'Sans engagement · Annulez en 1 clic' : 'No commitment · Cancel in 1 click'}</span>
             </OnboardingLink>
+            <LaunchOfferLine className="-mt-3" />
             <MediaCredibilityStrip />
           </motion.div>
             
