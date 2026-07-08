@@ -2,13 +2,13 @@
 
 import { GlobalLumaCalendar } from '@/components/GlobalLumaCalendar'
 import GiftCountdownModal from '@/components/GiftCountdownBar'
-import QuizHomePopup from '@/components/quiz/QuizHomePopup'
+import QuizFloatingButton from '@/components/quiz/QuizFloatingButton'
 import ViralPostsOverlay from '@/components/ViralPostsOverlay'
 
 export default function ClientWrappers() {
   return (
     <>
-      <QuizHomePopup />
+      <QuizFloatingButton />
       <GlobalLumaCalendar />
       <GiftCountdownModal />
       <ViralPostsOverlay />
