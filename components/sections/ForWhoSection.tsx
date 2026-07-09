@@ -16,14 +16,14 @@ export default function ForWhoSection() {
         'Entrepreneurs, freelances, consultants, coachs',
         'Vous avez une expertise mais pas le temps de créer du contenu',
         'Vous voulez attirer des clients via LinkedIn, YouTube, Instagram',
-        'Vous êtes prêt à parler 1h par semaine',
+        'Vous êtes prêt à parler 15 min par semaine',
         'Vous voulez déléguer le contenu et vous concentrer sur votre business',
       ]
     : [
         'Entrepreneurs, freelancers, consultants, coaches',
         'You have expertise but no time to create content',
         'You want to attract clients via LinkedIn, YouTube, Instagram',
-        'You\'re ready to talk 1 hour per week',
+        'You\'re ready to talk 15 min per week',
         'You want to delegate content and focus on your business',
       ]
 

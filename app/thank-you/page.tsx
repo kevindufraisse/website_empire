@@ -21,7 +21,7 @@ const faqObjections = {
     },
     {
       q: "Je n'ai pas le temps",
-      a: "1h de parole par semaine. On gère tout le reste : rédaction, montage, planification, publication. Vous avez le temps de passer un coup de fil ? Vous avez le temps pour Empire.",
+      a: "15 min de parole par semaine. On gère tout le reste : rédaction, montage, planification, publication. Vous avez le temps de passer un coup de fil ? Vous avez le temps pour Empire.",
     },
     {
       q: "Mon contenu ne convertit pas, à quoi bon en faire plus ?",
@@ -51,7 +51,7 @@ const faqObjections = {
     },
     {
       q: "I don't have time",
-      a: "One interview per week. We handle everything else: writing, editing, scheduling, publishing. If you have time for a phone call, you have time for Empire.",
+      a: "15 minutes of talking a week. We handle everything else: writing, editing, scheduling, publishing. If you have time for a phone call, you have time for Empire.",
     },
     {
       q: "My content doesn't convert, why make more?",

@@ -150,9 +150,9 @@ export const fr: Translations = {
   },
   howItWorksPage: {
     title: 'Comment Fonctionne Empire',
-    subtitle: '1h de parole par semaine → contenu publié partout, tous les jours',
+    subtitle: '15 min de parole par semaine → contenu publié partout, tous les jours',
     step1Title: 'Vous parlez',
-    step1Desc: '1h par semaine, vous parlez',
+    step1Desc: '15 min par semaine, vous parlez',
     step2Title: 'Traitement IA',
     step2Desc: 'Extraction insights et idées',
     step3Title: 'Création Contenu',
@@ -179,8 +179,8 @@ export const fr: Translations = {
     },
     step2: {
       title: 'L\'enregistrement hebdomadaire',
-      summary: 'Vous parlez 1h. On crée partout.',
-      description: 'Vous parlez 1h par semaine avec votre coach - interview guidée, yapping face caméra ou vocal. Zéro préparation, zéro script. Votre expertise devient du contenu publié quotidiennement sur tous les réseaux.',
+      summary: 'Vous parlez 15 min. On crée partout.',
+      description: 'Vous parlez 15 min par semaine avec votre coach - interview guidée, yapping face caméra ou vocal. Zéro préparation, zéro script. Votre expertise devient du contenu publié quotidiennement sur tous les réseaux.',
       perInterview: 'Par session, vous obtenez :',
       humanQA: 'Contrôle Qualité Humain',
       humanQASub: 'Chaque pièce vérifiée par un expert',
@@ -283,7 +283,7 @@ export const fr: Translations = {
     specific: {
       howManyPosts: {
         question: 'Combien de contenus j\'obtiens exactement ?',
-        answer: 'Ça dépend de votre plan. Starter : ~20 contenus/mois. Growth : ~60 contenus/mois. Scale : ~110 contenus/mois. Il existe aussi un plan Illimité pour les gros volumes — prenez rendez-vous sur /join-us pour en discuter. Le volume non utilisé est cumulable et sans expiration.',
+        answer: 'Ça dépend de votre plan. Starter : ~22 contenus/mois. Growth : ~89 contenus/mois. Scale : ~177 contenus/mois. Il existe aussi un plan Illimité pour les gros volumes — prenez rendez-vous sur /join-us pour en discuter. Le volume non utilisé est cumulable et sans expiration.',
       },
       whatIfDontLike: {
         question: 'Et si je n\'aime pas le contenu ?',
@@ -305,11 +305,11 @@ export const fr: Translations = {
       },
       {
         concern: 'Je n\'ai pas le temps d\'enregistrer.',
-        answer: 'Une session par semaine. Selon le format : 15 min de vocal ou 45 min de conversation guidée. C\'est moins que ce que vous passez à hésiter devant une page blanche. On s\'adapte à votre planning.',
+        answer: 'Une session de 15 min par semaine — soit 1h de parole par mois. C\'est moins que ce que vous passez à hésiter devant une page blanche. On s\'adapte à votre planning.',
       },
       {
         concern: 'C\'est vraiment mieux qu\'embaucher ?',
-        answer: 'Oui. Embaucher = €12K+/mois, semaines d\'intégration, et vous devez les gérer. Empire = contenu quotidien sur toutes les plateformes sur devis, zéro gestion. Même résultat, fraction du coût.',
+        answer: 'Oui. Embaucher = €12K+/mois, semaines d\'intégration, et vous devez les gérer. Empire = contenu quotidien sur toutes les plateformes à partir de 175€/mois, zéro gestion. Même résultat, fraction du coût.',
       },
       {
         concern: 'Et si ça ne performe pas ?',
@@ -357,11 +357,11 @@ export const fr: Translations = {
   },
   multiPlatform: {
     title: 'Avant Empire vs Après Empire',
-    subtitle: 'De posts éparpillés à présence multi-plateforme cohérente - en 1h de parole/semaine',
+    subtitle: 'De posts éparpillés à présence multi-plateforme cohérente - en 15 min de parole/semaine',
     without: 'Sans Empire',
     withEmpire: 'Avec Empire',
     doingYourself: 'Vous le faites vous-même',
-    justMinWeek: '1h de parole/semaine',
+    justMinWeek: '15 min de parole/semaine',
     postsMonth: 'posts / mois',
     platforms: 'plateformes',
     publishTo: 'Prêt à publier sur :',
@@ -509,7 +509,7 @@ export const fr: Translations = {
     line1: 'Mais entre clients, business, et vie... le calendrier reste vide.',
     line2: 'Vous n\'êtes pas paresseux. Le système est cassé.',
     solution: 'Empire corrige ça.',
-    hook: '1h de parole par semaine = du contenu publié tous les jours.',
+    hook: '15 min de parole par semaine = du contenu publié tous les jours.',
     subtext: 'Pas d\'écriture. Pas de montage. Pas de planification. Juste des résultats.',
     readStory: 'Lire l\'histoire',
   },
@@ -648,7 +648,7 @@ export const fr: Translations = {
     },
     {
       question: 'Combien de temps dois-je investir ?',
-      answer: '1h de parole par semaine. C\'est tout. On gère le reste - création, édition, planification et distribution partout.',
+      answer: '15 min par semaine — soit 1h de parole par mois. C\'est tout. On gère le reste - création, édition, planification et distribution partout.',
     },
     {
       question: 'Et si le contenu ne sonne pas comme moi ?',
@@ -672,7 +672,7 @@ export const fr: Translations = {
     },
     {
       question: 'Sur quelles plateformes publiez-vous ?',
-      answer: 'Toutes les plateformes principales : LinkedIn, YouTube, Instagram, Twitter/X, Threads, et newsletters email. Vous choisissez sur lesquelles vous concentrer.',
+      answer: 'Toutes les plateformes principales : LinkedIn, Instagram, TikTok, YouTube, Twitter/X, Threads, Facebook et newsletters email. Vous choisissez sur lesquelles vous concentrer.',
     },
     {
       question: 'Ai-je besoin d\'être devant la caméra ou d\'avoir du matériel vidéo ?',
@@ -770,7 +770,7 @@ export const fr: Translations = {
     bannerButton: 'Voir les postes',
     companyMission: {
       title: 'Mission de l\'entreprise',
-      description: 'Empire Internet transforme 1h de parole par semaine en plus de 100 contenus optimisés grâce à une IA propriétaire.',
+      description: 'Empire Internet transforme 1h de parole par mois en plus de 100 contenus optimisés grâce à une IA propriétaire.',
       vision: 'Nous construisons la machine de contenu la plus rapide du marché pour entrepreneurs, créateurs et CEOs.',
       ambition1: 'Devenir la plateforme n°1 mondiale du content automation',
       ambition2: 'Passer de 1M → 10M → 50M/an',

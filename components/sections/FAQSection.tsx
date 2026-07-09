@@ -36,7 +36,8 @@ const getFAQs = (t: any, variant: string = 'all') => {
     allFAQs[3], // How quickly will I see results?
     allFAQs[4], // What makes this different from hiring an agency?
     allFAQs[5], // Can I cancel anytime?
-    allFAQs[14], // How do you guarantee post visibility?
+    allFAQs[6], // How does the 7-day free trial work?
+    allFAQs[12], // How do you maximize the reach of my posts?
   ].filter(Boolean)
   
   // FAQ PRICING : Questions sur prix/achat + nouvelles FAQs spécifiques

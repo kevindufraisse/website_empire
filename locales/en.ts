@@ -27,9 +27,9 @@ export const en = {
   },
   howItWorksPage: {
     title: 'How Empire Works',
-    subtitle: '1 hour of talking a week → content published everywhere, every day',
+    subtitle: '15 min of talking a week → content published everywhere, every day',
     step1Title: 'You talk',
-    step1Desc: '30 min call, just talking',
+    step1Desc: '15 min a week, just talking',
     step2Title: 'AI Processing',
     step2Desc: 'Extract insights & ideas',
     step3Title: 'Content Creation',
@@ -47,7 +47,7 @@ export const en = {
     stepLabel: 'STEP',
     step1: {
       title: 'Weekly Recording',
-      summary: 'You talk for 1 hour. We create everywhere.',
+      summary: 'You talk for 15 minutes. We create everywhere.',
       description: 'No prep needed. No script. Our AI asks you the right questions to extract your best insights, stories, and expertise. It feels like talking to a colleague, not a robot.',
       badge1: 'No preparation',
       badge1Sub: 'Just show up',
@@ -160,7 +160,7 @@ export const en = {
     specific: {
       howManyPosts: {
         question: 'How many pieces of content do I get exactly?',
-        answer: 'It depends on your plan. Starter: ~20 pieces/month. Growth: ~60 pieces/month. Scale: ~110 pieces/month. There\'s also an Unlimited plan for high volume — book a call at /join-us to discuss. Unused volume rolls over and never expires.',
+        answer: 'It depends on your plan. Starter: ~22 pieces/month. Growth: ~89 pieces/month. Scale: ~177 pieces/month. There\'s also an Unlimited plan for high volume — book a call at /join-us to discuss. Unused volume rolls over and never expires.',
       },
       whatIfDontLike: {
         question: 'What if I don\'t like the content?',
@@ -182,11 +182,11 @@ export const en = {
       },
       {
         concern: 'What if I don\'t have time to record?',
-        answer: 'One session per week. We schedule around your availability. No excuses - if you can talk, you can create content.',
+        answer: 'One 15-minute session per week — about 1 hour of talking a month. We schedule around your availability. No excuses - if you can talk, you can create content.',
       },
       {
         concern: 'Is this really better than hiring someone?',
-        answer: 'Yes. Hiring someone costs €12K+/month, takes weeks to onboard, and you still manage them. Empire delivers daily content on every platform on a custom quote, with zero management. Same results, fraction of the cost.',
+        answer: 'Yes. Hiring someone costs €12K+/month, takes weeks to onboard, and you still manage them. Empire delivers daily content on every platform from €175/mo, with zero management. Same results, fraction of the cost.',
       },
       {
         concern: 'What if the content doesn\'t perform?',
@@ -234,11 +234,11 @@ export const en = {
   },
   multiPlatform: {
     title: 'Before Empire vs After Empire',
-    subtitle: 'From scattered posts to consistent multi-platform presence - in 1 hour of talking/week',
+    subtitle: 'From scattered posts to consistent multi-platform presence - in 15 min of talking/week',
     without: 'Without Empire',
     withEmpire: 'With Empire',
     doingYourself: 'Doing it yourself',
-    justMinWeek: '1 hour of talking/week',
+    justMinWeek: '15 min of talking/week',
     postsMonth: 'posts / month',
     platforms: 'platforms',
     publishTo: 'We publish to:',
@@ -386,7 +386,7 @@ export const en = {
     line1: 'But between client work, your business, and life... the calendar stays empty.',
     line2: 'You\'re not lazy. The system is broken.',
     solution: 'Empire fixes that.',
-    hook: '1 hour of talking per week = content published every day.',
+    hook: '15 min of talking a week = content published every day.',
     subtext: 'No writing. No editing. No scheduling. Just results.',
     readStory: 'Read the full story',
   },
@@ -525,7 +525,7 @@ export const en = {
     },
     {
       question: 'How much time do I need to invest?',
-      answer: 'One hour of talking per week. That\'s it. We handle everything else - content creation, editing, scheduling, and distribution across all platforms.',
+      answer: '15 minutes a week — about 1 hour of talking a month. That\'s it. We handle everything else - content creation, editing, scheduling, and distribution across all platforms.',
     },
     {
       question: 'What if the content doesn\'t sound like me?',
@@ -549,7 +549,7 @@ export const en = {
     },
     {
       question: 'What platforms do you publish to?',
-      answer: 'We cover all major platforms: LinkedIn, YouTube, Instagram, Twitter/X, Threads, and email newsletters. You can choose which ones you want to focus on.',
+      answer: 'We cover all major platforms: LinkedIn, Instagram, TikTok, YouTube, Twitter/X, Threads, Facebook and email newsletters. You can choose which ones you want to focus on.',
     },
     {
       question: 'Do I need to be on camera or have video equipment?',
@@ -768,7 +768,7 @@ export const en = {
     bannerButton: 'View positions',
     companyMission: {
       title: 'Company Mission',
-      description: 'Empire Internet transforms 1 hour of talking per week into over 100 optimized content pieces thanks to proprietary AI.',
+      description: 'Empire Internet transforms 1 hour of talking a month into over 100 optimized content pieces thanks to proprietary AI.',
       vision: 'We\'re building the fastest content machine on the market for entrepreneurs, creators, and CEOs.',
       ambition1: 'Become the #1 global content automation platform',
       ambition2: 'Scale from 1M → 10M → 50M/year',

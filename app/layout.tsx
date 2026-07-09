@@ -17,7 +17,7 @@ const caveat = Caveat({ subsets: ['latin'], weight: ['600', '700'], variable: '-
 
 export const metadata = {
   title: 'Empire Internet - The Content Machine',
-  description: 'One hour of talking per week. Content published everywhere, every day. Empire Internet.',
+  description: 'One hour of talking per month. Content published everywhere, every day. Empire Internet.',
   icons: {
     icon: '/icon.svg',
     apple: '/apple-icon.png',

@@ -84,7 +84,7 @@ export default function QuickWinsSection() {
               <span className="text-sm font-bold text-white">{fr ? 'TOTAL chaque mois' : 'TOTAL every month'}</span>
               <span className="text-sm font-bold text-white text-right w-12 md:w-16 font-mono">288h</span>
               <span className="text-sm font-bold text-red-400 text-right w-16 md:w-20 font-mono">15 410€</span>
-              <span className="text-sm font-bold text-empire text-right w-16 md:w-20 font-mono whitespace-nowrap">{fr ? '1h / sem' : '1h / wk'}</span>
+              <span className="text-sm font-bold text-empire text-right w-16 md:w-20 font-mono whitespace-nowrap">{fr ? '1h / mois' : '1h / mo'}</span>
             </div>
             <p className="text-[11px] text-neutral-600 text-right">
               {fr ? '= presque 2 temps pleins, ou le salaire d\u2019une équipe' : '= almost 2 full-time jobs, or a whole team\u2019s salary'}
@@ -100,13 +100,13 @@ export default function QuickWinsSection() {
                 </p>
                 <p className="text-[13px] text-neutral-300">
                   {fr
-                    ? '166+ contenus publiés par mois. Vous ? 1h de parole par semaine — c\u2019est tout.'
-                    : '166+ pieces published per month. You? 1 hour of talking a week — that\u2019s it.'}
+                    ? 'Jusqu\u2019à 166+ contenus publiés par mois. Vous ? 15 min de parole par semaine — c\u2019est tout.'
+                    : 'Up to 166+ pieces published per month. You? 15 min of talking a week — that\u2019s it.'}
                 </p>
               </div>
               <div className="flex items-center gap-4 shrink-0">
                 <div className="text-right">
-                  <p className="text-2xl font-black text-empire font-mono leading-none">1h</p>
+                  <p className="text-2xl font-black text-empire font-mono leading-none">15 min</p>
                   <p className="text-[10px] text-neutral-500">{fr ? 'de parole / semaine' : 'of talking / week'}</p>
                 </div>
                 <div className="text-right">
@@ -118,8 +118,8 @@ export default function QuickWinsSection() {
 
             <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1.5">
               {(fr
-                ? ['Posts LinkedIn rédigés à votre voix', 'Vidéos montées + Shorts découpés', 'Newsletters écrites et envoyées', 'Publié quotidiennement sur 6+ plateformes']
-                : ['LinkedIn posts written in your voice', 'Videos edited + Shorts cut', 'Newsletters written and sent', 'Published daily on 6+ platforms']
+                ? ['Posts LinkedIn rédigés à votre voix', 'Vidéos montées + Shorts découpés', 'Newsletters écrites et envoyées', 'Publié quotidiennement sur 7 plateformes']
+                : ['LinkedIn posts written in your voice', 'Videos edited + Shorts cut', 'Newsletters written and sent', 'Published daily on 7 platforms']
               ).map((item, i) => (
                 <div key={i} className="flex items-center gap-2">
                   <Check className="text-empire shrink-0" size={14} />

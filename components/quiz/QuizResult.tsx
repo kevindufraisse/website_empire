@@ -61,7 +61,7 @@ const OFFERS: Record<RecommendedOffer, OfferCopy> = {
     kicker: 'Recommandé pour votre profil',
     title: 'Empire',
     pitch:
-      "Vous avez du CA, vous décidez, vous savez ce que ça vous coûte de ne pas avoir d'audience. Empire est fait pour vous : une interview par semaine avec votre coach, on s'occupe de transformer ça en contenu qui amène des clients.",
+      "Vous avez du CA, vous décidez, vous savez ce que ça vous coûte de ne pas avoir d'audience. Empire est fait pour vous : une session de 15 min par semaine avec votre coach, on s'occupe de transformer ça en contenu qui amène des clients.",
     benefits: [
       'Un coach senior dédié qui vous interviewe chaque semaine',
       'On rédige vos posts LinkedIn + Shorts à partir de vos mots',
@@ -129,7 +129,7 @@ const OFFERS_EN: Record<RecommendedOffer, OfferCopy> = {
     kicker: 'Recommended for your profile',
     title: 'Empire',
     pitch:
-      "You have revenue, you're a decision-maker, and you know what it costs to not have an audience. Empire is built for you: one interview per week with your coach, we turn it into content that brings clients.",
+      "You have revenue, you're a decision-maker, and you know what it costs to not have an audience. Empire is built for you: one 15-minute session per week with your coach, we turn it into content that brings clients.",
     benefits: [
       'A dedicated senior coach who interviews you every week',
       'We write your LinkedIn posts + Shorts from your words',

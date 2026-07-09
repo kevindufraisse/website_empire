@@ -194,8 +194,8 @@ export default function WhyNowSection() {
               {autopilot
                 ? t.autopilot.whyNow.subtitle
                 : (fr
-                    ? '1h de parole par semaine. Le reste est automatisé.'
-                    : '1 hour of talking per week. The rest is automated.')}
+                    ? '15 min de parole par semaine. Le reste est automatisé.'
+                    : '15 min of talking a week. The rest is automated.')}
             </p>
           </div>
         </FadeIn>
