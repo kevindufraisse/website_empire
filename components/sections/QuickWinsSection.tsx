@@ -84,7 +84,7 @@ export default function QuickWinsSection() {
               <span className="text-sm font-bold text-white">{fr ? 'TOTAL chaque mois' : 'TOTAL every month'}</span>
               <span className="text-sm font-bold text-white text-right w-12 md:w-16 font-mono">288h</span>
               <span className="text-sm font-bold text-red-400 text-right w-16 md:w-20 font-mono">15 410€</span>
-              <span className="text-sm font-bold text-empire text-right w-16 md:w-20 font-mono whitespace-nowrap">{fr ? '1h / mois' : '1h / mo'}</span>
+              <span className="text-sm font-bold text-empire text-right w-16 md:w-20 font-mono whitespace-nowrap">{fr ? 'dès 175€' : 'from €175'}</span>
             </div>
             <p className="text-[11px] text-neutral-600 text-right">
               {fr ? '= presque 2 temps pleins, ou le salaire d\u2019une équipe' : '= almost 2 full-time jobs, or a whole team\u2019s salary'}
@@ -93,30 +93,47 @@ export default function QuickWinsSection() {
 
           {/* Empire row — the better solution */}
           <div className="border-t border-empire/30 bg-empire/[0.07] px-5 md:px-8 py-5">
-            <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-              <div className="flex-1">
-                <p className="text-base font-bold text-empire mb-1">
-                  {fr ? 'Avec Empire : le même volume, géré pour vous' : 'With Empire: the same volume, handled for you'}
+            <p className="text-base font-bold text-empire mb-1">
+              {fr ? 'Avec Empire : le même volume, géré pour vous' : 'With Empire: the same volume, handled for you'}
+            </p>
+            <p className="text-[13px] text-neutral-300">
+              {fr
+                ? 'Jusqu\u2019à 166+ contenus publiés par mois. Vous ? 15 min de parole par semaine — c\u2019est tout.'
+                : 'Up to 166+ pieces published per month. You? 15 min of talking a week — that\u2019s it.'}
+            </p>
+
+            {/* Comparison scale: freelance vs Empire */}
+            <div className="mt-4 grid grid-cols-[1fr_auto_1fr] items-stretch gap-2 sm:gap-3">
+              <div className="rounded-xl border border-white/10 bg-black/40 p-3 sm:p-4 text-center">
+                <p className="text-[10px] font-semibold uppercase tracking-wider text-neutral-500 mb-1.5">
+                  {fr ? 'En freelance' : 'With freelancers'}
                 </p>
-                <p className="text-[13px] text-neutral-300">
-                  {fr
-                    ? 'Jusqu\u2019à 166+ contenus publiés par mois. Vous ? 15 min de parole par semaine — c\u2019est tout.'
-                    : 'Up to 166+ pieces published per month. You? 15 min of talking a week — that\u2019s it.'}
-                </p>
+                <p className="text-lg sm:text-2xl font-black text-red-400 font-mono leading-none">15 410€<span className="text-xs font-bold text-neutral-500">{fr ? '/mois' : '/mo'}</span></p>
+                <p className="text-[11px] text-neutral-500 mt-1.5">{fr ? '+ 288h de votre temps' : '+ 288h of your time'}</p>
+                <p className="text-[11px] text-neutral-600">{fr ? '~93€ par contenu' : '~€93 per piece'}</p>
               </div>
-              <div className="flex items-center gap-4 shrink-0">
-                <div className="text-right">
-                  <p className="text-2xl font-black text-empire font-mono leading-none">15 min</p>
-                  <p className="text-[10px] text-neutral-500">{fr ? 'de parole / semaine' : 'of talking / week'}</p>
-                </div>
-                <div className="text-right">
-                  <p className="text-2xl font-black text-empire font-mono leading-none">166+</p>
-                  <p className="text-[10px] text-neutral-500">{fr ? 'contenus / mois' : 'pieces / month'}</p>
-                </div>
+
+              <div className="flex items-center justify-center">
+                <ArrowRight className="text-empire" size={18} />
+              </div>
+
+              <div className="rounded-xl border border-empire/40 bg-empire/10 p-3 sm:p-4 text-center">
+                <p className="text-[10px] font-semibold uppercase tracking-wider text-empire mb-1.5">
+                  {fr ? 'Avec Empire' : 'With Empire'}
+                </p>
+                <p className="text-lg sm:text-2xl font-black text-empire font-mono leading-none">{fr ? 'dès 175€' : 'from €175'}<span className="text-xs font-bold text-empire/60">{fr ? '/mois' : '/mo'}</span></p>
+                <p className="text-[11px] text-neutral-300 mt-1.5">{fr ? '+ 1h de parole par mois' : '+ 1h of talking a month'}</p>
+                <p className="text-[11px] text-neutral-400">{fr ? '~7€ par contenu' : '~€7 per piece'}</p>
               </div>
             </div>
 
-            <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1.5">
+            <p className="mt-3 text-center text-[12px] font-semibold text-white">
+              {fr
+                ? <>Vous économisez <span className="text-empire">{'jusqu\u2019à 15 000€ et 287h'}</span> chaque mois</>
+                : <>You save <span className="text-empire">up to €15,000 and 287h</span> every month</>}
+            </p>
+
+            <div className="mt-4 pt-4 border-t border-empire/20 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1.5">
               {(fr
                 ? ['Posts LinkedIn rédigés à votre voix', 'Vidéos montées + Shorts découpés', 'Newsletters écrites et envoyées', 'Publié quotidiennement sur 7 plateformes']
                 : ['LinkedIn posts written in your voice', 'Videos edited + Shorts cut', 'Newsletters written and sent', 'Published daily on 7 platforms']
@@ -126,18 +143,6 @@ export default function QuickWinsSection() {
                   <span className="text-[12px] text-neutral-300">{item}</span>
                 </div>
               ))}
-            </div>
-
-            {/* Price teaser: shown right against the 15 410€ freelance anchor */}
-            <div className="mt-4 pt-4 border-t border-empire/20 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
-              <p className="text-sm font-bold text-white">
-                {fr ? 'À partir de ' : 'From '}
-                <span className="text-empire">{fr ? '175€/mois' : '€175/mo'}</span>
-                {fr ? ' · ~7€ par contenu' : ' · ~€7 per piece'}
-              </p>
-              <p className="text-[12px] text-neutral-500">
-                {fr ? 'Le même contenu en freelance : ~93€ pièce' : 'The same piece from a freelancer: ~€93'}
-              </p>
             </div>
           </div>
         </motion.div>
