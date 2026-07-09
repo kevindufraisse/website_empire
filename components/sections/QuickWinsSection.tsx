@@ -127,6 +127,18 @@ export default function QuickWinsSection() {
                 </div>
               ))}
             </div>
+
+            {/* Price teaser: shown right against the 15 410€ freelance anchor */}
+            <div className="mt-4 pt-4 border-t border-empire/20 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
+              <p className="text-sm font-bold text-white">
+                {fr ? 'À partir de ' : 'From '}
+                <span className="text-empire">{fr ? '175€/mois' : '€175/mo'}</span>
+                {fr ? ' · ~7€ par contenu' : ' · ~€7 per piece'}
+              </p>
+              <p className="text-[12px] text-neutral-500">
+                {fr ? 'Le même contenu en freelance : ~93€ pièce' : 'The same piece from a freelancer: ~€93'}
+              </p>
+            </div>
           </div>
         </motion.div>
 
