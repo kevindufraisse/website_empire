@@ -1,4 +1,5 @@
 import HeroSection from '@/components/sections/HeroSection'
+import BetaHeroExtras from '@/components/sections/BetaHeroExtras'
 import AbVariantTracker from '@/components/AbVariantTracker'
 
 // Variant "minimal" of the hero_minimal A/B test.
@@ -13,6 +14,7 @@ export default function HeroMinimalPage() {
     <main className="relative min-h-screen">
       <AbVariantTracker experiment="hero_minimal" />
       <HeroSection />
+      <BetaHeroExtras />
     </main>
   )
 }

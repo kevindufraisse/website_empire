@@ -15,21 +15,16 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Language>('en')
-
-  useEffect(() => {
-    // Check localStorage
-    const savedLang = localStorage.getItem('empire-lang') as Language
-    if (savedLang) {
-      setLangState(savedLang)
-    } else {
-      // Detect browser language
-      const browserLang = navigator.language.toLowerCase()
-      if (browserLang.startsWith('fr')) {
-        setLangState('fr')
-      }
-    }
-  }, [])
+  // Initialize language on the first client render to avoid a visible "flash"
+  // (default lang → then replaced after useEffect).
+  const [lang, setLangState] = useState<Language>(() => {
+    if (typeof window === 'undefined') return 'en'
+    const savedLang = window.localStorage.getItem('empire-lang') as Language | null
+    if (savedLang === 'fr' || savedLang === 'en') return savedLang
+    const browserLang = (window.navigator.language || '').toLowerCase()
+    if (browserLang.startsWith('fr')) return 'fr'
+    return 'en'
+  })
 
   const setLang = (newLang: Language) => {
     setLangState(newLang)

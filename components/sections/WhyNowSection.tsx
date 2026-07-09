@@ -99,11 +99,13 @@ const pillars: Record<string, Pillar[]> = {
       label: 'Accompagnement',
       keyFeatures: [
         { icon: UserCheck, title: 'Équipe humaine dédiée', desc: 'De vrais humains créent et vérifient chaque contenu', value: '2 000€' },
-        { icon: GraduationCap, title: 'Bootcamp viralité', desc: 'Un coach dédié comprend votre business et vous forme aux formats qui performent dans votre niche', badge: 'OPTION' },
-      ],
-      moreFeatures: [
+        { icon: GraduationCap, title: 'Coaching dédié', desc: 'Un coach dédié comprend votre business et vous forme aux formats qui performent dans votre niche', badge: 'OPTION' },
+        { icon: GraduationCap, title: 'Bootcamp viralité', desc: '21 jours pour maîtriser la viralité et exécuter les formats qui performent dans votre niche', badge: 'OPTION' },
         { icon: Users, title: 'Communauté privée', desc: 'Réseau de fondateurs et créateurs', badge: 'OPTION' },
         { icon: Mic, title: 'Lives de groupe', desc: 'Sessions collectives pour progresser ensemble', badge: 'OPTION' },
+      ],
+      moreFeatures: [
+        // (intentionally empty — all support options are visible by default)
       ],
     },
   ],
@@ -150,11 +152,13 @@ const pillars: Record<string, Pillar[]> = {
       label: 'Support',
       keyFeatures: [
         { icon: UserCheck, title: 'Dedicated human team', desc: 'Real humans create and review every piece of content' },
-        { icon: GraduationCap, title: 'Virality bootcamp', desc: 'A dedicated coach understands your business and trains you on the formats that perform in your niche', badge: 'OPTION' },
-      ],
-      moreFeatures: [
+        { icon: GraduationCap, title: 'Dedicated coaching', desc: 'A dedicated coach understands your business and trains you on the formats that perform in your niche', badge: 'OPTION' },
+        { icon: GraduationCap, title: 'Virality bootcamp', desc: '21 days to master virality and execute the formats that perform in your niche', badge: 'OPTION' },
         { icon: Users, title: 'Private community', desc: 'Founder & creator network', badge: 'OPTION' },
         { icon: Mic, title: 'Group live sessions', desc: 'Collective sessions to grow together', badge: 'OPTION' },
+      ],
+      moreFeatures: [
+        // (intentionally empty — all support options are visible by default)
       ],
     },
   ],

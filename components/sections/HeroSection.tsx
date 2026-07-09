@@ -1,12 +1,11 @@
 'use client'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import RetroGrid from '@/components/magicui/retro-grid'
 import { Meteors } from '@/components/magicui/meteors'
 import { StarRating } from '@/components/ui/star-rating'
-import MediaCredibilityStrip from '@/components/MediaCredibilityStrip'
 import Marquee from '@/components/magicui/marquee'
 import { SocialIcons } from '@/components/ui/social-icons'
 import OnboardingLink from '@/components/OnboardingLink'
@@ -53,6 +52,11 @@ export default function HeroSection() {
   const { t, lang } = useLanguage()
   const { autopilot } = useAutopilot()
   const [showDemo, setShowDemo] = useState(false)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const heroTitle = autopilot ? t.autopilot.hero.title : t.hero.title
   const heroSubtitle = autopilot ? t.autopilot.hero.subtitle : t.hero.subtitle
@@ -69,12 +73,12 @@ export default function HeroSection() {
         
         <div className="relative z-10 text-center max-w-4xl mx-auto">
 
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="wait" initial={false}>
             <motion.h1
               key={heroTitle}
-              initial={{ opacity: 0, y: 20 }}
+              initial={mounted ? { opacity: 0, y: 20 } : false}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
+              exit={{ opacity: 0, y: 0 }}
               transition={{ duration: 0.4, ease: 'easeOut' }}
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight"
               dangerouslySetInnerHTML={{ __html: heroTitle.replace(/<br\/>/g, '<br>') }}
@@ -84,7 +88,7 @@ export default function HeroSection() {
           {/* Platform logos strip - right under the title */}
           {!autopilot && (
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
+              initial={mounted ? { opacity: 0, y: 10 } : false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.15 }}
               className="mt-6 flex items-center justify-center gap-2"
@@ -105,7 +109,7 @@ export default function HeroSection() {
           {/* Subtitle */}
           {heroSubtitle && (
             <motion.p
-              initial={{ opacity: 0, y: 10 }}
+              initial={mounted ? { opacity: 0, y: 10 } : false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.25 }}
               className="mt-7 text-sm sm:text-base text-neutral-400 max-w-2xl mx-auto"
@@ -115,7 +119,7 @@ export default function HeroSection() {
 
           {/* CTA centered + Vu sur below */}
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
+            initial={mounted ? { opacity: 0, y: 10 } : false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
             className="mt-8 flex flex-col items-center gap-6"
@@ -165,7 +169,7 @@ export default function HeroSection() {
           {/* Voice-to-content animation in place of the video */}
           {!autopilot && (
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={mounted ? { opacity: 0, y: 20 } : false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
               className="mt-10 w-full max-w-4xl mx-auto"
@@ -174,15 +178,6 @@ export default function HeroSection() {
             </motion.div>
           )}
 
-          {/* Vu sur — media credibility below the animation */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.6 }}
-            className="mt-10 flex justify-center"
-          >
-            <MediaCredibilityStrip />
-          </motion.div>
         </div>
         </div>
       </section>
