@@ -22,11 +22,11 @@ export default function Page() {
       {/* How It Works - 4 steps */}
       <HowItWorksAccordion />
 
+      {/* Testimonials (Senja) - social proof right after the mechanism */}
+      <TestimonialsSection />
+
       {/* Deliverables - what Empire creates every month (3 pillars) */}
       <WhyNowSection />
-
-      {/* Testimonials - social proof after the mechanism */}
-      <TestimonialsSection />
 
       {/* Before/After comparison */}
       <QuickWinsSection />
