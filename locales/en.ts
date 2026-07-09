@@ -533,7 +533,7 @@ export const en = {
     },
     {
       question: 'How quickly will I see results?',
-      answer: 'Your first batch of content is ready within 24-48 hours of your first recording. Most clients see their first engagement spike within 2 weeks, and significant growth by month 2-3.',
+      answer: 'From the very first week. Our clients typically go from a few posts on one platform to content published every day on every platform - with less effort than before.',
     },
     {
       question: 'What makes this different from hiring a content agency?',

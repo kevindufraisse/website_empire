@@ -656,7 +656,7 @@ export const fr: Translations = {
     },
     {
       question: 'Combien de temps avant de voir des résultats ?',
-      answer: 'Votre premier lot de contenu est prêt en 24-48h après votre premier enregistrement. La plupart des clients voient leur premier pic d\'engagement en 2 semaines, et une croissance significative au bout de 2-3 mois.',
+      answer: 'Dès la première semaine. Nos clients passent en général de quelques posts sur un seul réseau à du contenu publié tous les jours sur tous les réseaux - avec moins d\'effort qu\'avant.',
     },
     {
       question: 'Qu\'est-ce qui rend ceci différent d\'une agence de contenu ?',
