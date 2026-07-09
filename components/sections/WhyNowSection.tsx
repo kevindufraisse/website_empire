@@ -323,7 +323,7 @@ export default function WhyNowSection() {
             >
               <span className="text-lg">{autopilot
                 ? t.autopilot.hero.cta1
-                : (fr ? 'Essai gratuit 7 jours' : '7-day free trial')}</span>
+                : (fr ? 'Commencer gratuitement' : 'Start for free')}</span>
               <span className="text-[11px] font-semibold opacity-70">{fr ? 'Sans engagement · Annulez en 1 clic' : 'No commitment · Cancel in 1 click'}</span>
             </OnboardingLink>
 

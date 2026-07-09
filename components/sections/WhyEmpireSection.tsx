@@ -153,7 +153,7 @@ export default function WhyEmpireSection() {
           </p>
           <OnboardingLink className="inline-flex flex-col items-center px-8 py-4 rounded-2xl bg-empire text-black font-bold text-base md:text-lg hover:scale-[1.03] active:scale-100 transition-all shadow-[0_0_40px_rgb(var(--empire-rgb)_/_0.4)]">
             <span className="flex items-center gap-2">
-              {fr ? 'Essai gratuit 7 jours' : '7-day free trial'}
+              {fr ? 'Commencer gratuitement' : 'Start for free'}
               <span className="text-xl">→</span>
             </span>
             <span className="text-[11px] font-semibold opacity-70">{fr ? 'Sans engagement · Annulez en 1 clic' : 'No commitment · Cancel in 1 click'}</span>

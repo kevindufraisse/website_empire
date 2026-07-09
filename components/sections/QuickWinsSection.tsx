@@ -6,17 +6,16 @@ import { ArrowRight, Check } from 'lucide-react'
 import { CtaReassurance } from '@/components/ui/cta-reassurance'
 import OnboardingLink from '@/components/OnboardingLink'
 
-const TASKS: { fr: string; en: string; hours: string; cost: string; empire?: { fr: string; en: string } }[] = [
+const TASKS: { fr: string; en: string; hours: string; cost: string }[] = [
   { fr: '30 sujets viraux prouvés', en: '30 proven viral topics', hours: '12h', cost: '600€' },
-  { fr: '7 tournages vidéo (setup, lumière, cadrage)', en: '7 video shoots (setup, lighting, framing)', hours: '7h', cost: '1 400€' },
-  { fr: 'Découpage des vidéos', en: 'Video cutting', hours: '15h', cost: '750€' },
+  { fr: 'Découpage des vidéos', en: 'Video cutting & clipping', hours: '15h', cost: '750€' },
   { fr: 'Ajout de b-rolls', en: 'Adding b-rolls', hours: '10h', cost: '500€' },
   { fr: '30 Shorts / Reels / TikTok', en: '30 Shorts / Reels / TikToks', hours: '90h', cost: '3 000€' },
-  { fr: '4 montages YouTube (20 min)', en: '4 YouTube edits (20 min)', hours: '12h', cost: '800€', empire: { fr: 'Illimité', en: 'Unlimited' } },
+  { fr: '4 montages YouTube (20 min)', en: '4 YouTube edits (20 min)', hours: '12h', cost: '800€' },
   { fr: '30 posts LinkedIn', en: '30 LinkedIn posts', hours: '30h', cost: '3 000€' },
-  { fr: '12 carrousels', en: '12 carousels', hours: '24h', cost: '960€', empire: { fr: 'Illimité', en: 'Unlimited' } },
+  { fr: '12 carrousels', en: '12 carousels', hours: '24h', cost: '960€' },
   { fr: '30 newsletters', en: '30 newsletters', hours: '60h', cost: '3 000€' },
-  { fr: 'Correction des fautes', en: 'Proofreading', hours: '8h', cost: '400€' },
+  { fr: 'Correction et relecture', en: 'Proofreading & QA', hours: '8h', cost: '400€' },
   { fr: 'Community management', en: 'Community management', hours: '20h', cost: '1 000€' },
 ]
 
@@ -40,8 +39,8 @@ export default function QuickWinsSection() {
         >
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
             {fr
-              ? <>Économisez <span className="text-empire">288h et 15 410€ par mois.</span></>
-              : <>Save <span className="text-empire">288h and €15,410 per month.</span></>}
+              ? <>Économisez <span className="text-empire">281h et 14 010€ par mois.</span></>
+              : <>Save <span className="text-empire">281h and €14,010 per month.</span></>}
           </h2>
           <p className="text-neutral-400 text-lg max-w-2xl mx-auto">
             {fr
@@ -50,100 +49,52 @@ export default function QuickWinsSection() {
           </p>
         </motion.div>
 
-        {/* Single comparison table */}
+        {/* Comparison table */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.25 }}
           className="rounded-2xl border border-white/10 bg-neutral-950 overflow-hidden mb-10"
         >
-          <div className="px-5 md:px-8 py-5">
-            {/* Header */}
-            <div className="grid grid-cols-[1fr_auto_auto_auto] gap-x-3 md:gap-x-6 pb-2 border-b border-white/10 mb-1">
-              <span className="text-[11px] text-neutral-500 font-semibold uppercase tracking-wider">{fr ? 'À produire chaque mois' : 'To produce every month'}</span>
-              <span className="text-[11px] text-neutral-500 font-semibold uppercase tracking-wider text-right w-12 md:w-16">{fr ? 'Votre temps' : 'Your time'}</span>
-              <span className="text-[11px] text-neutral-500 font-semibold uppercase tracking-wider text-right w-16 md:w-20">{fr ? 'Coût freelance' : 'Freelance cost'}</span>
-              <span className="text-[11px] text-empire font-semibold uppercase tracking-wider text-right w-16 md:w-20">{fr ? 'Avec Empire' : 'With Empire'}</span>
-            </div>
+          <div className="px-4 md:px-8 py-5">
+            <div className="grid grid-cols-[minmax(0,1fr)_auto_auto] gap-x-3 md:gap-x-6">
+              {/* Header */}
+              <span className="pb-2.5 border-b border-white/10 text-[11px] text-neutral-500 font-semibold uppercase tracking-wider">{fr ? 'À produire chaque mois' : 'To produce every month'}</span>
+              <span className="pb-2.5 border-b border-white/10 text-[11px] text-neutral-500 font-semibold uppercase tracking-wider text-right whitespace-nowrap">{fr ? 'En freelance' : 'Freelance'}</span>
+              <span className="pb-2.5 border-b border-white/10 text-[11px] text-empire font-semibold uppercase tracking-wider text-right whitespace-nowrap">{fr ? 'Avec Empire' : 'With Empire'}</span>
 
-            {/* Task rows */}
-            {TASKS.map((task, i) => (
-              <div key={i} className="grid grid-cols-[1fr_auto_auto_auto] gap-x-3 md:gap-x-6 py-1.5 border-b border-white/[0.04] last:border-0">
-                <span className="text-[13px] text-neutral-300">{fr ? task.fr : task.en}</span>
-                <span className="text-[13px] text-neutral-500 text-right w-12 md:w-16 font-mono">{task.hours}</span>
-                <span className="text-[13px] text-neutral-500 text-right w-16 md:w-20 font-mono">{task.cost}</span>
-                <span className="inline-flex items-center justify-end gap-1 text-[12px] text-empire text-right w-16 md:w-20 whitespace-nowrap">
-                  <Check size={12} className="shrink-0" />
-                  {task.empire ? (fr ? task.empire.fr : task.empire.en) : fr ? 'Inclus' : 'Included'}
-                </span>
-              </div>
-            ))}
-
-            {/* Total */}
-            <div className="grid grid-cols-[1fr_auto_auto_auto] gap-x-3 md:gap-x-6 pt-3 mt-2 border-t border-white/20 pb-1">
-              <span className="text-sm font-bold text-white">{fr ? 'TOTAL chaque mois' : 'TOTAL every month'}</span>
-              <span className="text-sm font-bold text-white text-right w-12 md:w-16 font-mono">288h</span>
-              <span className="text-sm font-bold text-red-400 text-right w-16 md:w-20 font-mono">15 410€</span>
-              <span className="text-sm font-bold text-empire text-right w-16 md:w-20 font-mono whitespace-nowrap">{fr ? 'dès 175€' : 'from €175'}</span>
-            </div>
-            <p className="text-[11px] text-neutral-600 text-right">
-              {fr ? '= presque 2 temps pleins, ou le salaire d\u2019une équipe' : '= almost 2 full-time jobs, or a whole team\u2019s salary'}
-            </p>
-          </div>
-
-          {/* Empire row — the better solution */}
-          <div className="border-t border-empire/30 bg-empire/[0.07] px-5 md:px-8 py-5">
-            <p className="text-base font-bold text-empire mb-1">
-              {fr ? 'Avec Empire : le même volume, géré pour vous' : 'With Empire: the same volume, handled for you'}
-            </p>
-            <p className="text-[13px] text-neutral-300">
-              {fr
-                ? 'Jusqu\u2019à 166+ contenus publiés par mois. Vous ? 15 min de parole par semaine — c\u2019est tout.'
-                : 'Up to 166+ pieces published per month. You? 15 min of talking a week — that\u2019s it.'}
-            </p>
-
-            {/* Comparison scale: freelance vs Empire */}
-            <div className="mt-4 grid grid-cols-[1fr_auto_1fr] items-stretch gap-2 sm:gap-3">
-              <div className="rounded-xl border border-white/10 bg-black/40 p-3 sm:p-4 text-center">
-                <p className="text-[10px] font-semibold uppercase tracking-wider text-neutral-500 mb-1.5">
-                  {fr ? 'En freelance' : 'With freelancers'}
-                </p>
-                <p className="text-lg sm:text-2xl font-black text-red-400 font-mono leading-none">15 410€<span className="text-xs font-bold text-neutral-500">{fr ? '/mois' : '/mo'}</span></p>
-                <p className="text-[11px] text-neutral-500 mt-1.5">{fr ? '+ 288h de votre temps' : '+ 288h of your time'}</p>
-                <p className="text-[11px] text-neutral-600">{fr ? '~93€ par contenu' : '~€93 per piece'}</p>
-              </div>
-
-              <div className="flex items-center justify-center">
-                <ArrowRight className="text-empire" size={18} />
-              </div>
-
-              <div className="rounded-xl border border-empire/40 bg-empire/10 p-3 sm:p-4 text-center">
-                <p className="text-[10px] font-semibold uppercase tracking-wider text-empire mb-1.5">
-                  {fr ? 'Avec Empire' : 'With Empire'}
-                </p>
-                <p className="text-lg sm:text-2xl font-black text-empire font-mono leading-none">{fr ? 'dès 175€' : 'from €175'}<span className="text-xs font-bold text-empire/60">{fr ? '/mois' : '/mo'}</span></p>
-                <p className="text-[11px] text-neutral-300 mt-1.5">{fr ? '+ 1h de parole par mois' : '+ 1h of talking a month'}</p>
-                <p className="text-[11px] text-neutral-400">{fr ? '~7€ par contenu' : '~€7 per piece'}</p>
-              </div>
-            </div>
-
-            <p className="mt-3 text-center text-[12px] font-semibold text-white">
-              {fr
-                ? <>Vous économisez <span className="text-empire">{'jusqu\u2019à 15 000€ et 287h'}</span> chaque mois</>
-                : <>You save <span className="text-empire">up to €15,000 and 287h</span> every month</>}
-            </p>
-
-            <div className="mt-4 pt-4 border-t border-empire/20 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1.5">
-              {(fr
-                ? ['Posts LinkedIn rédigés à votre voix', 'Vidéos montées + Shorts découpés', 'Newsletters écrites et envoyées', 'Publié quotidiennement sur 7 plateformes']
-                : ['LinkedIn posts written in your voice', 'Videos edited + Shorts cut', 'Newsletters written and sent', 'Published daily on 7 platforms']
-              ).map((item, i) => (
-                <div key={i} className="flex items-center gap-2">
-                  <Check className="text-empire shrink-0" size={14} />
-                  <span className="text-[12px] text-neutral-300">{item}</span>
+              {/* All rows — no collapse */}
+              {TASKS.map((task, i) => (
+                <div key={i} className="contents">
+                  <span className="py-2 border-b border-white/[0.04] text-[13px] text-neutral-300 self-center">{fr ? task.fr : task.en}</span>
+                  <span className="py-2 border-b border-white/[0.04] text-[12px] text-neutral-500 text-right font-mono whitespace-nowrap self-center">{task.hours} · <span className="line-through decoration-red-400/40">{task.cost}</span></span>
+                  <span className="py-2 border-b border-white/[0.04] inline-flex items-center justify-end gap-1 text-[12px] text-empire whitespace-nowrap">
+                    <Check size={12} className="shrink-0" />
+                    {fr ? 'Inclus' : 'Included'}
+                  </span>
                 </div>
               ))}
             </div>
+
+            {/* Total row */}
+            <div className="grid grid-cols-2 gap-4 pt-4 mt-2 border-t border-white/10">
+              <div>
+                <p className="text-[11px] text-neutral-500 font-semibold uppercase tracking-wider mb-1">{fr ? 'En freelance' : 'Freelance'}</p>
+                <p className="text-lg md:text-xl font-bold text-red-400 font-mono leading-tight">14 010€<span className="text-[11px] font-medium text-neutral-500">{fr ? '/mois' : '/mo'}</span></p>
+                <p className="text-[11px] text-neutral-600 mt-0.5">{fr ? '+ 281h de votre temps' : '+ 281h of your time'}</p>
+              </div>
+              <div className="text-right">
+                <p className="text-[11px] text-empire font-semibold uppercase tracking-wider mb-1">{fr ? 'Avec Empire' : 'With Empire'}</p>
+                <p className="text-lg md:text-xl font-bold text-empire leading-tight">{fr ? 'Tout inclus' : 'All included'}</p>
+                <p className="text-[11px] text-neutral-400 mt-0.5">{fr ? '1h de parole par mois — c\'est tout' : '1h of talking a month — that\'s it'}</p>
+              </div>
+            </div>
+
+            <p className="mt-3 text-center text-[13px] text-white">
+              {fr
+                ? <>Vous économisez <span className="font-bold text-empire">plus de 13 800€ et 280h</span> chaque mois.</>
+                : <>You save <span className="font-bold text-empire">over €13,800 and 280h</span> every month.</>}
+            </p>
           </div>
         </motion.div>
 

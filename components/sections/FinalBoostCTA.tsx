@@ -101,8 +101,8 @@ export default function FinalBoostCTA() {
                   </span>
                   <span className="text-[11px] font-semibold opacity-70">
                     {lang === 'fr'
-                      ? 'Essai gratuit 7 jours · Sans engagement'
-                      : '7-day free trial · No commitment'}
+                      ? '7 jours gratuits · Sans engagement'
+                      : '7 days free · No commitment'}
                   </span>
                 </OnboardingLink>
 

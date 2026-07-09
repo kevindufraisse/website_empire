@@ -1,9 +1,9 @@
 export const en = {
   header: {
     spots: '83/100 spots',
-    watchDemo: '7-day free trial',
+    watchDemo: 'Start for free',
     getAccess: 'Get Access',
-    joinQA: '7-day free trial',
+    joinQA: 'Start for free',
     formats: 'Formats',
     product: 'Product',
     howItWorks: 'How It Works',
@@ -17,7 +17,7 @@ export const en = {
     title: 'Talk 1 hour and our team <span class="text-empire">edits and writes</span> a month of content on 7 platforms.',
     subtitle: '',
     description: '',
-    cta1: '7-day free trial',
+    cta1: 'Start for free',
     cta2: 'Watch Demo (1 min)',
     rating: 'Based on 20 reviews',
     creatorsTitle: 'Install the system used by the world\'s best creators',
@@ -148,8 +148,8 @@ export const en = {
     limited: '',
     title: 'Ready to take action?',
     subtitle: '',
-    startNow: '7-day free trial',
-    watchDemo: '7-day free trial',
+    startNow: 'Start for free',
+    watchDemo: 'Start for free',
     details: 'Pay monthly · Cancel anytime · Start immediately',
     seeContentPlan: 'See Your Content Plan',
     startThisWeek: 'Start This Week',
@@ -207,8 +207,8 @@ export const en = {
   },
   videoDialog: {
     readyToJoin: 'Ready to join?',
-    startNow: '7-day free trial',
-    joinQA: '7-day free trial',
+    startNow: 'Start for free',
+    joinQA: 'Start for free',
   },
   stickyBar: {
     spotsLeft: 'spots left',
@@ -306,8 +306,8 @@ export const en = {
     included: 'Included',
   },
   common: {
-    startNow: '7-day free trial',
-    watchDemo: '7-day free trial',
+    startNow: 'Start for free',
+    watchDemo: 'Start for free',
     ctaReassurance: 'No commitment · Cancel in 1 click',
     /** Tight subline: header, sticky, banner (keeps the CTA compact) */
     ctaReassuranceCompact: 'No commitment',
@@ -544,7 +544,7 @@ export const en = {
       answer: 'Yes, anytime from your client dashboard. No contract, no notice period. But most clients stay because they see the results and love getting their time back.',
     },
     {
-      question: 'How does the 7-day free trial work?',
+      question: 'How does the Start for free work?',
       answer: 'You get full access to the platform for 7 days at no cost. You can see the calendar, the AI prompts, and the first generated content. If it\'s not for you, cancel before the trial ends and you pay nothing. Zero risk.',
     },
     {
@@ -749,7 +749,7 @@ export const en = {
       title: 'Share the good news! 🚀',
       desc: 'Know other creators who might be interested? Share this link and invite them to join the demo!',
       button: 'Share link',
-      watchDemo: '7-day free trial',
+      watchDemo: 'Start for free',
       shareTitle: 'Demo Empire internet with Kevin Dufraisse',
       shareText: 'Book a one-to-one meeting to discover Empire Internet! 🎉',
       copied: 'Link copied to clipboard!',
