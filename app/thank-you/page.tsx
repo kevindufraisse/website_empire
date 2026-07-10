@@ -200,8 +200,8 @@ export default function DemoThankYouPage() {
                   <span className="w-7 h-7 rounded-lg bg-empire/20 flex items-center justify-center text-empire font-bold text-sm shrink-0">2</span>
                   <p className="text-sm text-neutral-300">
                     {lang === 'fr'
-                      ? 'Notre équipe rédige vos posts, monte vos vidéos, structure vos newsletters. Chaque contenu est vérifié par un humain.'
-                      : 'Our team writes your posts, edits your videos, structures your newsletters. Every piece is reviewed by a human.'}
+                      ? 'Notre équipe rédige vos posts, monte vos vidéos, structure vos newsletters.'
+                      : 'Our team writes your posts, edits your videos, structures your newsletters.'}
                   </p>
                 </div>
                 <div className="flex items-start gap-3">

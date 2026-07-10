@@ -85,8 +85,8 @@ export default function QuickWinsSection() {
               </div>
               <div className="text-right">
                 <p className="text-[11px] text-empire font-semibold uppercase tracking-wider mb-1">{fr ? 'Avec Empire' : 'With Empire'}</p>
-                <p className="text-lg md:text-xl font-bold text-empire leading-tight">{fr ? 'Tout inclus' : 'All included'}</p>
-                <p className="text-[11px] text-neutral-400 mt-0.5">{fr ? '1h de parole par mois — c\'est tout' : '1h of talking a month — that\'s it'}</p>
+                <p className="text-lg md:text-xl font-bold text-empire font-mono leading-tight">{fr ? 'dès 175€' : 'from €175'}<span className="text-[11px] font-medium text-empire/60">{fr ? '/mois' : '/mo'}</span></p>
+                <p className="text-[11px] text-neutral-400 mt-0.5">{fr ? '+ 1h de parole par mois' : '+ 1h of talking a month'}</p>
               </div>
             </div>
 

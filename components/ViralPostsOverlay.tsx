@@ -1,22 +1,16 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { X, Eye, Heart, MessageCircle, ExternalLink, Loader2 } from 'lucide-react'
+import { X, Loader2, ArrowRight } from 'lucide-react'
 import { SocialIcons } from '@/components/ui/social-icons'
+import OnboardingLink from '@/components/OnboardingLink'
 
-type ViralPost = {
-  id: string
-  platform: string
-  permalink: string | null
-  body: string
-  impressions: number
-  likes: number
-  comments: number
-  createdAt: string
-  hasStats?: boolean
+type StatsWindow = {
+  totalImpressions: number
+  totalPosts: number
+  platforms: Record<string, { impressions: number; posts: number }>
 }
-
-type Payload = { updatedAt: string; platforms: Record<string, ViralPost[]> }
+type StatsPayload = { updatedAt: string; workspaces: number; week: StatsWindow; month: StatsWindow }
 
 const PLATFORM_ORDER = ['linkedin', 'instagram', 'threads', 'tiktok', 'youtube', 'twitter', 'facebook']
 
@@ -38,9 +32,8 @@ function formatCount(n: number) {
 
 export default function ViralPostsOverlay() {
   const [open, setOpen] = useState(false)
-  const [data, setData] = useState<Payload | null>(null)
+  const [stats, setStats] = useState<StatsPayload | null>(null)
   const [error, setError] = useState<string | null>(null)
-  const [activePlatform, setActivePlatform] = useState<string | null>(null)
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -56,121 +49,96 @@ export default function ViralPostsOverlay() {
   }, [])
 
   useEffect(() => {
-    if (!open || data) return
+    if (!open || stats) return
     setError(null)
-    fetch('/api/viral-posts')
+    fetch('/api/stats')
       .then(async (res) => {
         const json = await res.json()
         if (!res.ok) throw new Error(json.error ?? `HTTP ${res.status}`)
-        setData(json)
+        setStats(json)
       })
       .catch((err) => setError(err.message))
-  }, [open, data])
+  }, [open, stats])
 
-  if (!open) return null
+  const month = stats?.month
+  const platforms = month ? PLATFORM_ORDER.filter((p) => (month.platforms[p]?.impressions ?? 0) >= 10_000) : []
 
-  const platformKeys = data
-    ? PLATFORM_ORDER.filter((p) => data.platforms[p]?.length).concat(
-        Object.keys(data.platforms).filter((p) => !PLATFORM_ORDER.includes(p) && data.platforms[p].length),
-      )
-    : []
-  const current = activePlatform && platformKeys.includes(activePlatform) ? activePlatform : platformKeys[0]
+  if (!open) {
+    return (
+      <button
+        onClick={() => setOpen(true)}
+        aria-label="Voir les stats"
+        className="group fixed bottom-16 right-4 z-[150] flex items-center gap-2.5 rounded-xl border border-white/10 bg-black/70 py-2 pl-2 pr-3.5 backdrop-blur-md transition-colors hover:border-white/25"
+      >
+        <span className="flex h-7 w-7 items-center justify-center rounded-md border border-white/20 bg-[#1a1b1e] text-sm font-bold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_2px_0_rgba(0,0,0,0.7)] transition-transform group-active:translate-y-[1px] group-active:shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_1px_0_rgba(0,0,0,0.7)]">
+          L
+        </span>
+        <span className="text-xs font-semibold text-neutral-300 group-hover:text-white">Voir les stats</span>
+      </button>
+    )
+  }
 
   return (
     <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4" onClick={() => setOpen(false)}>
       <div
-        className="flex h-[85vh] w-full max-w-3xl flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#101112] shadow-2xl"
+        className="w-full max-w-md overflow-hidden rounded-2xl border border-white/10 bg-[#101112] shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
         <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
-          <div>
-            <h2 className="text-base font-bold text-white">Top 3 posts les plus viraux</h2>
-          </div>
+          <h2 className="text-base font-bold text-white">Stats de nos clients — 28 derniers jours</h2>
           <button onClick={() => setOpen(false)} className="rounded-lg p-2 text-neutral-400 hover:bg-white/10 hover:text-white">
             <X size={18} />
           </button>
         </div>
 
         {/* Loading / error */}
-        {!data && !error && (
-          <div className="flex flex-1 flex-col items-center justify-center gap-3 text-neutral-400">
+        {!stats && !error && (
+          <div className="flex flex-col items-center justify-center gap-3 p-10 text-neutral-400">
             <Loader2 className="animate-spin" size={28} />
-            <p className="text-sm">Analyse des stats de vos posts…</p>
-            <p className="text-xs text-neutral-600">(la première ouverture peut prendre quelques secondes)</p>
+            <p className="text-sm">Chargement des stats…</p>
           </div>
         )}
-        {error && (
-          <div className="flex flex-1 items-center justify-center p-6 text-center text-sm text-red-400">{error}</div>
-        )}
+        {error && <div className="p-6 text-center text-sm text-red-400">{error}</div>}
 
-        {data && (
-          <>
-            {/* Platform tabs */}
-            <div className="flex gap-1.5 overflow-x-auto border-b border-white/10 px-4 py-3">
-              {platformKeys.map((p) => {
+        {month && (
+          <div className="px-5 py-5">
+            <div className="mb-4 flex items-baseline gap-4">
+              <p className="text-3xl font-bold text-empire">
+                {formatCount(month.totalImpressions)}
+                <span className="ml-1.5 text-sm font-medium text-neutral-400">vues</span>
+              </p>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              {platforms.map((p) => {
                 const Icon = SocialIcons[p as keyof typeof SocialIcons]
                 return (
-                  <button
-                    key={p}
-                    onClick={() => setActivePlatform(p)}
-                    className={`flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${
-                      p === current ? 'bg-empire text-black' : 'bg-white/5 text-neutral-300 hover:bg-white/10'
-                    }`}
-                  >
+                  <div key={p} className="flex items-center gap-2.5 rounded-xl border border-white/[0.06] bg-white/[0.03] px-3 py-2.5">
                     {Icon && (
-                      <span className={`[&_svg]:h-3.5 [&_svg]:w-3.5 ${p === current ? '[&_path]:fill-black [&_circle]:fill-black' : ''}`}>
+                      <span className="flex h-5 w-5 shrink-0 items-center justify-center [&_svg]:h-4 [&_svg]:w-4">
                         <Icon />
                       </span>
                     )}
-                    {PLATFORM_LABELS[p] ?? p}
-                  </button>
+                    <div className="min-w-0">
+                      <p className="text-sm font-bold text-white">{formatCount(month.platforms[p].impressions)}</p>
+                      <p className="truncate text-[11px] text-neutral-500">
+                        {PLATFORM_LABELS[p] ?? p} · {month.platforms[p].posts} posts
+                      </p>
+                    </div>
+                  </div>
                 )
               })}
             </div>
 
-            {/* Posts list */}
-            <div className="flex-1 overflow-y-auto p-4">
-              {current &&
-                data.platforms[current]?.map((post, i) => (
-                  <a
-                    key={`${post.id}-${i}`}
-                    href={post.permalink ?? undefined}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`mb-2 block rounded-xl border border-white/[0.06] bg-white/[0.03] p-3.5 transition-colors ${
-                      post.permalink ? 'hover:border-empire/40 hover:bg-white/[0.06]' : 'cursor-default'
-                    }`}
-                  >
-                    <div className="mb-1.5 flex items-center gap-2">
-                      <span className="w-5 text-right font-mono text-xs text-neutral-600">#{i + 1}</span>
-                      {post.hasStats !== false && post.impressions > 0 ? (
-                        <span className="inline-flex items-center gap-1 text-[13px] font-bold text-empire">
-                          <Eye size={13} />
-                          {formatCount(post.impressions)}
-                        </span>
-                      ) : (
-                        <span className="text-[11px] font-medium text-neutral-500">Post récent</span>
-                      )}
-                      {post.likes > 0 && (
-                        <span className="inline-flex items-center gap-1 text-xs text-neutral-400">
-                          <Heart size={12} />
-                          {formatCount(post.likes)}
-                        </span>
-                      )}
-                      {post.comments > 0 && (
-                        <span className="inline-flex items-center gap-1 text-xs text-neutral-400">
-                          <MessageCircle size={12} />
-                          {formatCount(post.comments)}
-                        </span>
-                      )}
-                      {post.permalink && <ExternalLink size={12} className="ml-auto text-neutral-500" />}
-                    </div>
-                    <p className="line-clamp-3 whitespace-pre-line text-[13px] leading-snug text-neutral-300">{post.body}</p>
-                  </a>
-                ))}
-            </div>
-          </>
+            <p className="mt-4 text-center text-[11px] leading-relaxed text-neutral-600">
+              Synchronisé toutes les 23h
+            </p>
+
+            <OnboardingLink className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl bg-empire px-6 py-3.5 font-bold text-black transition-transform hover:scale-[1.02]">
+              Rejoindre ces stats
+              <ArrowRight size={18} />
+            </OnboardingLink>
+          </div>
         )}
       </div>
     </div>

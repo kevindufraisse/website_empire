@@ -92,8 +92,8 @@ export default function VoiceToContentAnimation() {
     <div className="flex flex-col items-center gap-2 md:flex-row md:gap-6">
       {/* Voice flowing along the curve */}
       <div className="relative h-[340px] w-full min-w-0 md:h-auto md:flex-1" style={{ aspectRatio: '2101 / 666' }}>
-        <div className="absolute inset-0 flex items-center justify-center [mask-image:linear-gradient(to_bottom,black_0%,black_70%,transparent_100%)] md:[mask-image:linear-gradient(to_right,black_0%,black_70%,transparent_100%)]">
-          <div className="h-[110px] w-[340px] shrink-0 rotate-90 overflow-hidden md:h-full md:w-full md:rotate-0 md:overflow-visible">
+        <div className="absolute inset-0 flex items-center justify-center [mask-image:radial-gradient(ellipse_55%_48%_at_50%_38%,black_50%,transparent_100%)] md:[mask-image:linear-gradient(to_right,black_0%,black_70%,transparent_100%)]">
+          <div className="h-[110px] w-[340px] shrink-0 translate-x-[38px] rotate-90 md:h-full md:w-full md:translate-x-0 md:rotate-0">
             <svg
               aria-hidden="true"
               viewBox="0 0 2101 666"
