@@ -283,11 +283,11 @@ export const fr: Translations = {
     specific: {
       howManyPosts: {
         question: 'Combien de contenus j\'obtiens exactement ?',
-        answer: 'Ça dépend de votre plan. Starter : ~22 contenus/mois. Growth : ~89 contenus/mois. Scale : ~177 contenus/mois. Il existe aussi un plan Illimité pour les gros volumes — prenez rendez-vous sur /join-us pour en discuter. Le volume non utilisé est cumulable et sans expiration.',
+        answer: 'Vous payez à l\'usage avec des crédits. Chaque crédit correspond à un contenu (post, reel, newsletter…). Vous achetez un pack de crédits et vous les utilisez à votre rythme. Besoin de plus ? Rachetez-en à tout moment. Aucun crédit n\'expire.',
       },
       whatIfDontLike: {
-        question: 'Et si je n\'aime pas le contenu ?',
-        answer: 'Les premières semaines servent de calibration : on apprend votre ton, vos sujets, votre style. Plus vous publiez, plus le contenu vous ressemble. Et vous gardez toujours le contrôle : vous choisissez quoi publier dans votre calendrier.',
+        question: 'Et si je n\'ai pas d\'idée de contenu ?',
+        answer: 'C\'est notre job. On scanne les sujets viraux d\'actualité chez vos concurrents, sur YouTube et Reddit, et on vous propose les meilleurs angles. Vous pouvez aussi envoyer vos notes, captures et idées de reels via Telegram — on récupère tout et on en fait du contenu prêt à publier.',
       },
       canRequestChanges: {
         question: 'Puis-je demander des modifications au contenu ?',

@@ -20,14 +20,6 @@ function clientIp(request: Request): string {
   )
 }
 
-/**
- * POST /api/promo-deadline
- * Body: { promoId, fingerprint, email? }
- *
- * Looks up an existing deadline by (promoId + fingerprint), then by IP,
- * then by email. If none found, creates one. Returns { deadline } ISO string
- * or { expired: true }.
- */
 export async function POST(request: Request) {
   try {
     const body = await request.json()
@@ -44,13 +36,13 @@ export async function POST(request: Request) {
     const ip = clientIp(request)
     const now = new Date().toISOString()
 
-    // 1. Look up by fingerprint (primary key)
+    // 1. Look up by fingerprint
     const { data: byFp } = await supabaseAdmin
       .from('promo_deadlines')
       .select('deadline')
       .eq('promo_id', promoId)
       .eq('fingerprint', fingerprint)
-      .single()
+      .maybeSingle()
 
     if (byFp) {
       if (new Date(byFp.deadline) < new Date(now)) {
@@ -59,18 +51,18 @@ export async function POST(request: Request) {
       return NextResponse.json({ deadline: byFp.deadline })
     }
 
-    // 2. Look up by IP (catches incognito / cleared storage)
+    // 2. Look up by IP
     if (ip !== 'unknown') {
       const { data: byIp } = await supabaseAdmin
         .from('promo_deadlines')
-        .select('deadline, fingerprint')
+        .select('deadline')
         .eq('promo_id', promoId)
         .eq('ip_address', ip)
+        .order('created_at', { ascending: true })
         .limit(1)
-        .single()
+        .maybeSingle()
 
       if (byIp) {
-        // Upsert a row for this fingerprint pointing to the same deadline
         await supabaseAdmin.from('promo_deadlines').upsert(
           { promo_id: promoId, fingerprint, ip_address: ip, deadline: byIp.deadline, email: email || null },
           { onConflict: 'promo_id,fingerprint' },
@@ -89,8 +81,9 @@ export async function POST(request: Request) {
         .select('deadline')
         .eq('promo_id', promoId)
         .eq('email', email)
+        .order('created_at', { ascending: true })
         .limit(1)
-        .single()
+        .maybeSingle()
 
       if (byEmail) {
         await supabaseAdmin.from('promo_deadlines').upsert(
@@ -104,7 +97,7 @@ export async function POST(request: Request) {
       }
     }
 
-    // 4. No match anywhere → create new deadline
+    // 4. No match → create new deadline
     const deadline = generateDeadline()
     await supabaseAdmin.from('promo_deadlines').insert({
       promo_id: promoId,

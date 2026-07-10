@@ -160,11 +160,11 @@ export const en = {
     specific: {
       howManyPosts: {
         question: 'How many pieces of content do I get exactly?',
-        answer: 'It depends on your plan. Starter: ~22 pieces/month. Growth: ~89 pieces/month. Scale: ~177 pieces/month. There\'s also an Unlimited plan for high volume — book a call at /join-us to discuss. Unused volume rolls over and never expires.',
+        answer: 'You pay as you go with credits. Each credit equals one piece of content (post, reel, newsletter…). Buy a credit pack and use them at your own pace. Need more? Top up anytime. Credits never expire.',
       },
       whatIfDontLike: {
-        question: 'What if I don\'t like the content?',
-        answer: 'The first few weeks are a calibration phase: we learn your tone, topics, and style. The more you publish, the more the content sounds like you. And you always stay in control — you choose what to publish from your calendar.',
+        question: 'What if I have no content ideas?',
+        answer: 'That\'s our job. We scan trending viral topics from your competitors, YouTube and Reddit, and suggest the best angles for your niche. You can also send notes, screenshots and reel ideas via Telegram — we turn everything into publish-ready content.',
       },
       canRequestChanges: {
         question: 'Can I request changes to the content?',
