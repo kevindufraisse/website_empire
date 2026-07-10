@@ -14,7 +14,7 @@ export const en = {
   },
   hero: {
     targetAudience: 'For freelancers, employees & entrepreneurs',
-    title: 'Install your content machine: close more deals, find more clients, <b>manage nothing.</b>',
+    title: 'Run a media machine. Close leads. <b>Never manage.</b>',
     subtitle: 'Talk for 1 hour and our team edits and writes a month of content on 7 platforms.',
     description: '',
     cta1: 'Start for free',

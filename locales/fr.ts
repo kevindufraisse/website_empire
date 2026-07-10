@@ -137,7 +137,7 @@ export const fr: Translations = {
   },
   hero: {
     targetAudience: 'Pour freelances, salariés & entrepreneurs',
-    title: 'Installez votre machine à contenu: signez plus de deals, trouvez plus de clients, <b>ne gérez rien.</b>',
+    title: 'Installez votre machine à contenu. Closez plus de deals. <b>Ne gérez rien.</b>',
     subtitle: 'Parlez 1h et notre équipe monte et écrit un mois de contenus sur 7 plateformes.',
     description: '',
     cta1: 'Commencer gratuitement',
