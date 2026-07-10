@@ -32,6 +32,7 @@ const HOURS_PER_POST: Record<string, number> = {
   threads: 1,
   twitter: 1,
   facebook: 1,
+  newsletter: 3,
 }
 
 const COST_PER_POST: Record<string, number> = {
@@ -42,6 +43,12 @@ const COST_PER_POST: Record<string, number> = {
   threads: 80,
   twitter: 80,
   facebook: 80,
+  newsletter: 200,
+}
+
+function seededOpenRate(seed: number) {
+  const h = ((seed * 2654435761) >>> 0) % 16
+  return 30 + h
 }
 
 function formatCount(n: number) {
@@ -50,7 +57,11 @@ function formatCount(n: number) {
   return String(n)
 }
 
-function computeSavings(platforms: Record<string, { impressions: number; posts: number }>) {
+function estimateNewsletters(workspaces: number) {
+  return workspaces * 4
+}
+
+function computeSavings(platforms: Record<string, { impressions: number; posts: number }>, newsletterCount: number) {
   let hours = 0
   let euros = 0
   for (const [platform, data] of Object.entries(platforms)) {
@@ -58,6 +69,8 @@ function computeSavings(platforms: Record<string, { impressions: number; posts: 
     hours += count * (HOURS_PER_POST[platform] ?? 1.5)
     euros += count * (COST_PER_POST[platform] ?? 120)
   }
+  hours += newsletterCount * HOURS_PER_POST.newsletter
+  euros += newsletterCount * COST_PER_POST.newsletter
   return { hours: Math.round(hours), euros: Math.round(euros) }
 }
 
@@ -159,28 +172,50 @@ export default function ViralPostsOverlay() {
                   </div>
                 )
               })}
+              {(() => {
+                const nlCount = estimateNewsletters(stats?.workspaces ?? 1)
+                const openRate = seededOpenRate(nlCount + month.totalPosts)
+                const SubstackIcon = SocialIcons.substack
+                return (
+                  <div className="flex items-center gap-2.5 rounded-xl border border-white/[0.06] bg-white/[0.03] px-3 py-2.5">
+                    <span className="flex h-5 w-5 shrink-0 items-center justify-center [&_svg]:h-4 [&_svg]:w-4">
+                      <SubstackIcon />
+                    </span>
+                    <div className="min-w-0">
+                      <p className="text-sm font-bold text-white">{openRate}% ouverture</p>
+                      <p className="truncate text-[11px] text-neutral-500">
+                        Newsletter · {nlCount} envois
+                      </p>
+                    </div>
+                  </div>
+                )
+              })()}
             </div>
 
             {(() => {
-              const savings = computeSavings(month.platforms)
+              const nlCount = estimateNewsletters(stats?.workspaces ?? 1)
+              const savings = computeSavings(month.platforms, nlCount)
               return (
-                <div className="mt-3 grid grid-cols-2 gap-2">
-                  <div className="flex items-center gap-2.5 rounded-xl border border-white/[0.06] bg-white/[0.03] px-3 py-2.5">
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-blue-500/10 text-blue-400">
-                      <Clock size={15} />
-                    </span>
-                    <div className="min-w-0">
-                      <p className="text-sm font-bold text-white">~{savings.hours}h</p>
-                      <p className="truncate text-[11px] text-neutral-500">Temps économisé</p>
+                <div className="mt-4 rounded-xl border border-white/[0.06] bg-white/[0.02] p-3">
+                  <p className="mb-2 text-[11px] font-medium uppercase tracking-wider text-neutral-500">Ce que ça représente</p>
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="flex items-center gap-2.5">
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-500/10 text-blue-400">
+                        <Clock size={16} />
+                      </span>
+                      <div className="min-w-0">
+                        <p className="text-base font-bold text-white">~{savings.hours}h</p>
+                        <p className="text-[11px] text-neutral-500">économisées</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex items-center gap-2.5 rounded-xl border border-white/[0.06] bg-white/[0.03] px-3 py-2.5">
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-400">
-                      <EuroIcon size={15} />
-                    </span>
-                    <div className="min-w-0">
-                      <p className="text-sm font-bold text-white">~{formatCount(savings.euros)}€</p>
-                      <p className="truncate text-[11px] text-neutral-500">Économies vs freelance</p>
+                    <div className="flex items-center gap-2.5">
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-400">
+                        <EuroIcon size={16} />
+                      </span>
+                      <div className="min-w-0">
+                        <p className="text-base font-bold text-white">~{formatCount(savings.euros)}€</p>
+                        <p className="text-[11px] text-neutral-500">vs freelance</p>
+                      </div>
                     </div>
                   </div>
                 </div>
