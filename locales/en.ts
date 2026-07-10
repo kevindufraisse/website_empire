@@ -14,7 +14,7 @@ export const en = {
   },
   hero: {
     targetAudience: 'For freelancers, employees & entrepreneurs',
-    title: 'Run a media machine. Close leads. <b>Never manage.</b>',
+    title: 'Run a media machine. Close leads. <span class="text-empire">Never manage.</span>',
     subtitle: 'Talk for 1 hour and our team edits and writes a month of content on 7 platforms.',
     description: '',
     cta1: 'Start for free',
