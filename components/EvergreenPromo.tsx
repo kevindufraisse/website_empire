@@ -1,11 +1,10 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 const STORAGE_KEY = 'empire_promo'
-const DEADLINE_HOURS = 23
-const DEADLINE_EXTRA_MIN_RANGE = [12, 47] as const
+const FP_KEY = 'empire_fp'
 
 type Promo = {
   id: string
@@ -33,24 +32,40 @@ function getSeasonalPromo(date: Date): Promo {
   return { id: 'spring-2026', code: 'SPRING', discount: '-25%', labelFr: 'Offre printemps', labelEn: 'Spring deal', emoji: '🌱' }
 }
 
-function getOrCreateDeadline(promoId: string): number | null {
+function getBrowserFingerprint(): string {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY)
-    if (raw) {
-      const data = JSON.parse(raw)
-      if (data.promoId === promoId) {
-        if (Date.now() > data.deadline) return null
-        return data.deadline
-      }
+    const stored = localStorage.getItem(FP_KEY)
+    if (stored) return stored
+
+    const canvas = document.createElement('canvas')
+    const ctx = canvas.getContext('2d')
+    let canvasHash = ''
+    if (ctx) {
+      ctx.textBaseline = 'top'
+      ctx.font = '14px Arial'
+      ctx.fillText('fp', 2, 2)
+      canvasHash = canvas.toDataURL().slice(-32)
     }
-    const extraMin =
-      DEADLINE_EXTRA_MIN_RANGE[0] +
-      Math.floor(Math.random() * (DEADLINE_EXTRA_MIN_RANGE[1] - DEADLINE_EXTRA_MIN_RANGE[0] + 1))
-    const deadline = Date.now() + DEADLINE_HOURS * 3600_000 + extraMin * 60_000
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ promoId, deadline }))
-    return deadline
+
+    const components = [
+      navigator.language,
+      screen.width,
+      screen.height,
+      screen.colorDepth,
+      new Date().getTimezoneOffset(),
+      navigator.hardwareConcurrency || 0,
+      canvasHash,
+    ].join('|')
+
+    let hash = 0
+    for (let i = 0; i < components.length; i++) {
+      hash = ((hash << 5) - hash + components.charCodeAt(i)) | 0
+    }
+    const fp = 'fp_' + Math.abs(hash).toString(36) + '_' + Date.now().toString(36)
+    localStorage.setItem(FP_KEY, fp)
+    return fp
   } catch {
-    return Date.now() + DEADLINE_HOURS * 3600_000
+    return 'fp_' + Math.random().toString(36).slice(2)
   }
 }
 
@@ -69,18 +84,71 @@ export default function EvergreenPromo() {
   const [timeLeft, setTimeLeft] = useState<string | null>(null)
   const [promo, setPromo] = useState<Promo | null>(null)
   const [ready, setReady] = useState(false)
+  const deadlineRef = useRef<number | null>(null)
 
   useEffect(() => {
     const currentPromo = getSeasonalPromo(new Date())
-    const deadline = getOrCreateDeadline(currentPromo.id)
-    if (!deadline) {
+    const fingerprint = getBrowserFingerprint()
+
+    async function init() {
+      let deadlineMs: number | null = null
+
+      // Try server first
+      try {
+        const res = await fetch('/api/promo-deadline', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ promoId: currentPromo.id, fingerprint }),
+        })
+        const data = await res.json()
+        if (data.expired) {
+          setReady(true)
+          return
+        }
+        if (data.deadline) {
+          deadlineMs = new Date(data.deadline).getTime()
+          localStorage.setItem(STORAGE_KEY, JSON.stringify({ promoId: currentPromo.id, deadline: deadlineMs }))
+        }
+      } catch {
+        // Server unreachable: fall back to localStorage
+      }
+
+      // Fallback to localStorage if server didn't return
+      if (!deadlineMs) {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY)
+          if (raw) {
+            const data = JSON.parse(raw)
+            if (data.promoId === currentPromo.id) {
+              if (Date.now() > data.deadline) {
+                setReady(true)
+                return
+              }
+              deadlineMs = data.deadline
+            }
+          }
+        } catch {}
+
+        if (!deadlineMs) {
+          const extra = 12 + Math.floor(Math.random() * 36)
+          deadlineMs = Date.now() + 23 * 3600_000 + extra * 60_000
+          localStorage.setItem(STORAGE_KEY, JSON.stringify({ promoId: currentPromo.id, deadline: deadlineMs }))
+        }
+      }
+
+      deadlineRef.current = deadlineMs
+      setPromo(currentPromo)
       setReady(true)
-      return
     }
-    setPromo(currentPromo)
+
+    init()
+  }, [])
+
+  useEffect(() => {
+    if (!ready || !promo || deadlineRef.current === null) return
 
     const tick = () => {
-      const remaining = deadline - Date.now()
+      const remaining = (deadlineRef.current ?? 0) - Date.now()
       if (remaining <= 0) {
         setTimeLeft(null)
         setPromo(null)
@@ -89,10 +157,9 @@ export default function EvergreenPromo() {
       setTimeLeft(formatTime(remaining))
     }
     tick()
-    setReady(true)
     const id = setInterval(tick, 1000)
     return () => clearInterval(id)
-  }, [])
+  }, [ready, promo])
 
   if (!ready || !promo || !timeLeft) return null
 
