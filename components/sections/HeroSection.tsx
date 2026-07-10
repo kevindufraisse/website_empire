@@ -10,7 +10,6 @@ import Marquee from '@/components/magicui/marquee'
 import { SocialIcons } from '@/components/ui/social-icons'
 import OnboardingLink from '@/components/OnboardingLink'
 import VoiceToContentAnimation from '@/components/VoiceToContentAnimation'
-import EvergreenPromo from '@/components/EvergreenPromo'
 import { Play, X } from 'lucide-react'
 
 const DEMO_URL =
@@ -73,8 +72,6 @@ export default function HeroSection() {
         <div className={`absolute inset-0 transition-opacity duration-500 ${autopilot ? 'opacity-100' : 'opacity-0'} bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(212,165,116,0.18),transparent)]`} />
         
         <div className="relative z-10 text-center max-w-4xl mx-auto">
-
-          {!autopilot && <EvergreenPromo />}
 
           <AnimatePresence mode="wait" initial={false}>
             <motion.h1

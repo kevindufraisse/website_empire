@@ -79,7 +79,7 @@ function formatTime(ms: number) {
   return `${pad(h)}:${pad(m)}:${pad(s)}`
 }
 
-export default function EvergreenPromo() {
+export default function EvergreenPromo({ variant = 'hero' }: { variant?: 'hero' | 'header' }) {
   const { lang } = useLanguage()
   const [timeLeft, setTimeLeft] = useState<string | null>(null)
   const [promo, setPromo] = useState<Promo | null>(null)
@@ -165,6 +165,19 @@ export default function EvergreenPromo() {
 
   const label = lang === 'fr' ? promo.labelFr : promo.labelEn
   const expireLabel = lang === 'fr' ? 'Expire dans' : 'Expires in'
+
+  if (variant === 'header') {
+    return (
+      <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.08] px-3 py-1.5">
+        <span className="text-xs leading-none">{promo.emoji}</span>
+        <span className="text-[13px] font-bold text-empire whitespace-nowrap">
+          {promo.discount}
+        </span>
+        <span className="text-neutral-600">·</span>
+        <span className="font-mono text-[13px] font-bold tabular-nums text-white whitespace-nowrap">{timeLeft}</span>
+      </div>
+    )
+  }
 
   return (
     <div className="mb-6 flex justify-center">
