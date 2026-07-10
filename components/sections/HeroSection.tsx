@@ -112,7 +112,7 @@ export default function HeroSection() {
               initial={mounted ? { opacity: 0, y: 10 } : false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.25 }}
-              className="mt-7 text-sm sm:text-base text-neutral-400 max-w-2xl mx-auto"
+              className="mt-7 text-base sm:text-lg text-neutral-300 max-w-2xl mx-auto"
               dangerouslySetInnerHTML={{ __html: heroSubtitle }}
             />
           )}

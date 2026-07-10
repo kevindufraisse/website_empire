@@ -137,8 +137,8 @@ export const fr: Translations = {
   },
   hero: {
     targetAudience: 'Pour freelances, salariés & entrepreneurs',
-    title: 'Parlez 1h et notre équipe <span class="text-empire">monte et écrit</span> un mois de contenus sur 7 plateformes.',
-    subtitle: '',
+    title: 'Installez votre machine à contenu: signez plus de deals, trouvez plus de clients, <b>ne gérez rien.</b>',
+    subtitle: 'Parlez 1h et notre équipe monte et écrit un mois de contenus sur 7 plateformes.',
     description: '',
     cta1: 'Commencer gratuitement',
     cta2: 'Voir la Démo (1 min)',

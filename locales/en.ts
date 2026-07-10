@@ -14,8 +14,8 @@ export const en = {
   },
   hero: {
     targetAudience: 'For freelancers, employees & entrepreneurs',
-    title: 'Talk 1 hour and our team <span class="text-empire">edits and writes</span> a month of content on 7 platforms.',
-    subtitle: '',
+    title: 'Install your content machine: close more deals, find more clients, <b>manage nothing.</b>',
+    subtitle: 'Talk for 1 hour and our team edits and writes a month of content on 7 platforms.',
     description: '',
     cta1: 'Start for free',
     cta2: 'Watch Demo (1 min)',
