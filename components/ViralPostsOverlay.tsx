@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { X, Loader2, ArrowRight } from 'lucide-react'
+import { X, Loader2, ArrowRight, Clock, EuroIcon } from 'lucide-react'
 import { SocialIcons } from '@/components/ui/social-icons'
 import OnboardingLink from '@/components/OnboardingLink'
 
@@ -24,10 +24,41 @@ const PLATFORM_LABELS: Record<string, string> = {
   facebook: 'Facebook',
 }
 
+const HOURS_PER_POST: Record<string, number> = {
+  linkedin: 1.5,
+  instagram: 3,
+  tiktok: 2.5,
+  youtube: 2.5,
+  threads: 1,
+  twitter: 1,
+  facebook: 1,
+}
+
+const COST_PER_POST: Record<string, number> = {
+  linkedin: 120,
+  instagram: 200,
+  tiktok: 180,
+  youtube: 180,
+  threads: 80,
+  twitter: 80,
+  facebook: 80,
+}
+
 function formatCount(n: number) {
   if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1).replace('.0', '')}M`
   if (n >= 1_000) return `${(n / 1_000).toFixed(1).replace('.0', '')}K`
   return String(n)
+}
+
+function computeSavings(platforms: Record<string, { impressions: number; posts: number }>) {
+  let hours = 0
+  let euros = 0
+  for (const [platform, data] of Object.entries(platforms)) {
+    const count = data.posts
+    hours += count * (HOURS_PER_POST[platform] ?? 1.5)
+    euros += count * (COST_PER_POST[platform] ?? 120)
+  }
+  return { hours: Math.round(hours), euros: Math.round(euros) }
 }
 
 export default function ViralPostsOverlay() {
@@ -129,6 +160,32 @@ export default function ViralPostsOverlay() {
                 )
               })}
             </div>
+
+            {(() => {
+              const savings = computeSavings(month.platforms)
+              return (
+                <div className="mt-3 grid grid-cols-2 gap-2">
+                  <div className="flex items-center gap-2.5 rounded-xl border border-white/[0.06] bg-white/[0.03] px-3 py-2.5">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-blue-500/10 text-blue-400">
+                      <Clock size={15} />
+                    </span>
+                    <div className="min-w-0">
+                      <p className="text-sm font-bold text-white">~{savings.hours}h</p>
+                      <p className="truncate text-[11px] text-neutral-500">Temps économisé</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2.5 rounded-xl border border-white/[0.06] bg-white/[0.03] px-3 py-2.5">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-400">
+                      <EuroIcon size={15} />
+                    </span>
+                    <div className="min-w-0">
+                      <p className="text-sm font-bold text-white">~{formatCount(savings.euros)}€</p>
+                      <p className="truncate text-[11px] text-neutral-500">Économies vs freelance</p>
+                    </div>
+                  </div>
+                </div>
+              )
+            })()}
 
             <p className="mt-4 text-center text-[11px] leading-relaxed text-neutral-600">
               Synchronisé toutes les 23h
