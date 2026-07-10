@@ -668,7 +668,7 @@ export const fr: Translations = {
     },
     {
       question: 'Comment fonctionne l\'essai gratuit de 7 jours ?',
-      answer: 'Vous accédez à la plateforme pendant 7 jours sans payer. Vous voyez le calendrier, les prompts IA, les premiers contenus générés. Si ça ne vous convient pas, vous annulez avant la fin de l\'essai et vous ne payez rien. Zéro risque.',
+      answer: 'Vous accédez à la plateforme pendant 7 jours sans payer. Si ça ne vous convient pas, vous annulez avant la fin de l\'essai et vous ne payez rien. Zéro risque.',
     },
     {
       question: 'Sur quelles plateformes publiez-vous ?',

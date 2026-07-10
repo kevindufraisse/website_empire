@@ -545,7 +545,7 @@ export const en = {
     },
     {
       question: 'How does the Start for free work?',
-      answer: 'You get full access to the platform for 7 days at no cost. You can see the calendar, the AI prompts, and the first generated content. If it\'s not for you, cancel before the trial ends and you pay nothing. Zero risk.',
+      answer: 'You get full access to the platform for 7 days at no cost. If it\'s not for you, cancel before the trial ends and you pay nothing. Zero risk.',
     },
     {
       question: 'What platforms do you publish to?',
