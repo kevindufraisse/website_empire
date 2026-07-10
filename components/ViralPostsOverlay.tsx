@@ -70,7 +70,7 @@ export default function ViralPostsOverlay() {
         aria-label="Voir les stats"
         className="group fixed bottom-16 right-4 z-[150] flex items-center gap-2.5 rounded-xl border border-white/10 bg-black/70 py-2 pl-2 pr-3.5 backdrop-blur-md transition-colors hover:border-white/25"
       >
-        <span className="flex h-7 w-7 items-center justify-center rounded-md border border-white/20 bg-[#1a1b1e] text-sm font-bold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_2px_0_rgba(0,0,0,0.7)] transition-transform group-active:translate-y-[1px] group-active:shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_1px_0_rgba(0,0,0,0.7)]">
+        <span className="relative flex h-8 w-8 items-center justify-center rounded-[5px] border border-[#3a3a3f] bg-gradient-to-b from-[#2c2d31] to-[#1e1f23] text-[13px] font-semibold tracking-wide text-neutral-200 shadow-[0_1px_0_1px_#0d0d0f,0_3px_0_0_#17181b,0_3.5px_0_0_#0d0d0f,inset_0_1px_1px_rgba(255,255,255,0.08)] transition-all group-hover:text-white group-active:translate-y-[2px] group-active:shadow-[0_0px_0_1px_#0d0d0f,0_1px_0_0_#17181b,0_1px_0_0_#0d0d0f,inset_0_1px_1px_rgba(255,255,255,0.08)]">
           L
         </span>
         <span className="text-xs font-semibold text-neutral-300 group-hover:text-white">Voir les stats</span>
