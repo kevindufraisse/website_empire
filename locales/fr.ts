@@ -692,7 +692,15 @@ export const fr: Translations = {
     },
     {
       question: 'Comment maximisez-vous la portée de mes posts ?',
-      answer: 'Trois leviers : des formats éprouvés sur des millions de vues, une publication aux heures optimales de chaque plateforme, et la communauté de créateurs Empire qui soutient vos publications dès la première heure - le signal le plus fort pour l\'algorithme.',
+      answer: 'Deux leviers : des formats éprouvés sur des millions de vues, et une publication aux heures optimales de chaque plateforme. On ajoute aussi un lien tracké vers votre site sur chaque contenu — plus vous publiez, plus de gens vous découvrent. C\'est comme ouvrir votre magasin 24/24 alors qu\'avant vous l\'ouvriez le lundi de 9h à 10h.',
+    },
+    {
+      question: 'Comment garantir que ça va marcher pour moi ?',
+      answer: 'On promouvoit votre site en permanence via des liens trackés sur chaque contenu publié. Plus vous publiez, plus vous générez de visites. C\'est mathématique : plus de contenus = plus de visibilité = plus de clients potentiels. On ne peut pas garantir des résultats magiques, mais on garantit que vous serez visible partout, tout le temps.',
+    },
+    {
+      question: 'Et si je n\'ai pas de rendez-vous malgré le contenu ?',
+      answer: 'Si vous avez 1 000 visites sur votre site et aucun rendez-vous, c\'est que votre offre n\'est pas claire ou mal marketée — pas un problème de contenu. Pour ça, prenez rendez-vous avec un de nos spécialistes directement depuis la plateforme : il vous aidera à améliorer votre offre et votre positionnement.',
     },
   ],
   demo: {

@@ -569,7 +569,15 @@ export const en = {
     },
     {
       question: 'How do you maximize the reach of my posts?',
-      answer: 'Three levers: formats proven across millions of views, publishing at each platform\'s optimal times, and the Empire creator community supporting your posts within the first hour - the strongest signal for the algorithm.',
+      answer: 'Two levers: formats proven across millions of views, and publishing at each platform\'s optimal times. We also include a tracked link to your website on every piece of content — the more you publish, the more people discover you. It\'s like keeping your store open 24/7 instead of just Monday from 9 to 10 AM.',
+    },
+    {
+      question: 'How can you guarantee this will work for me?',
+      answer: 'We constantly promote your website through tracked links on every published piece of content. The more you publish, the more traffic you generate. It\'s simple math: more content = more visibility = more potential clients. We can\'t promise magic results, but we guarantee you\'ll be visible everywhere, all the time.',
+    },
+    {
+      question: 'What if I\'m not getting appointments despite the content?',
+      answer: 'If you have 1,000 visits to your website and zero appointments, the issue is likely your offer or positioning — not the content. For that, book a call with one of our specialists directly from the platform: they\'ll help you improve your offer and messaging.',
     },
   ],
   exitPopup: {
