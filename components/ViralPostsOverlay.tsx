@@ -70,9 +70,9 @@ export default function ViralPostsOverlay() {
         aria-label="Voir les stats"
         className="group fixed bottom-16 right-4 z-[150] flex items-center gap-2.5 rounded-xl border border-white/10 bg-black/70 py-2 pl-2 pr-3.5 backdrop-blur-md transition-colors hover:border-white/25"
       >
-        <span className="relative flex h-8 w-8 items-center justify-center rounded-[5px] border border-[#3a3a3f] bg-gradient-to-b from-[#2c2d31] to-[#1e1f23] text-[13px] font-semibold tracking-wide text-neutral-200 shadow-[0_1px_0_1px_#0d0d0f,0_3px_0_0_#17181b,0_3.5px_0_0_#0d0d0f,inset_0_1px_1px_rgba(255,255,255,0.08)] transition-all group-hover:text-white group-active:translate-y-[2px] group-active:shadow-[0_0px_0_1px_#0d0d0f,0_1px_0_0_#17181b,0_1px_0_0_#0d0d0f,inset_0_1px_1px_rgba(255,255,255,0.08)]">
+        <kbd className="relative flex h-[30px] w-[30px] items-center justify-center rounded-[6px] border border-[#4a4a50]/80 bg-gradient-to-b from-[#3c3d42] via-[#303136] to-[#27282c] text-[12px] font-medium text-neutral-300 shadow-[0_0_0_1px_#18191b,0_4px_0_0_#1a1b1e,0_4px_0_1px_#111214,0_5px_2px_1px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.07),inset_0_-1px_1px_rgba(0,0,0,0.3)] transition-all group-hover:text-white group-active:translate-y-[3px] group-active:shadow-[0_0_0_1px_#18191b,0_1px_0_0_#1a1b1e,0_1px_0_1px_#111214,inset_0_1px_0_rgba(255,255,255,0.07),inset_0_-1px_1px_rgba(0,0,0,0.3)]" style={{fontFamily: '-apple-system, "SF Pro Text", system-ui, sans-serif', textShadow: '0 1px 1px rgba(0,0,0,0.5)'}}>
           L
-        </span>
+        </kbd>
         <span className="text-xs font-semibold text-neutral-300 group-hover:text-white">Voir les stats</span>
       </button>
     )
