@@ -239,7 +239,7 @@ export default function HomePricingSection() {
                 </div>
 
                 <p className="mt-1.5 text-sm text-neutral-500">
-                  {plan.contents} {fr ? 'contenus finis/mois' : 'finished contents/month'}
+                  {plan.contents} {fr ? 'contenus/mois' : 'contents/month'}
                   {billing !== 'monthly' && (
                     <>
                       {' · '}
