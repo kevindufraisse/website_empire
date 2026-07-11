@@ -91,16 +91,51 @@ export default function WhyEmpireSection() {
           })}
         </div>
 
+        {/* Team */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.7 }}
+          className="mb-12"
+        >
+          <p className="text-center text-sm font-bold text-neutral-500 uppercase tracking-wider mb-6">
+            {fr ? 'Votre équipe dédiée' : 'Your dedicated team'}
+          </p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {[
+              { name: 'Manon', role: fr ? 'COO' : 'COO', desc: fr ? 'Opérations et coordination de votre production' : 'Operations and production coordination' },
+              { name: 'Pierre', role: fr ? 'Head of Content' : 'Head of Content', desc: fr ? 'Rédaction, positionnement et stratégie éditoriale' : 'Writing, positioning and editorial strategy' },
+              { name: 'Chloé', role: fr ? 'Head of Production' : 'Head of Production', desc: fr ? 'Montage, sous-titrage et qualité visuelle' : 'Editing, subtitling and visual quality' },
+              { name: 'Marc', role: fr ? 'Head of Viralité' : 'Head of Virality', desc: fr ? 'Formats, hooks et optimisation algorithmique' : 'Formats, hooks and algorithm optimization' },
+            ].map((member, i) => (
+              <motion.div
+                key={member.name}
+                initial={{ opacity: 0, y: 12 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.4, delay: 0.8 + i * 0.08 }}
+                className="rounded-xl border border-white/10 bg-white/[0.03] p-4 text-center"
+              >
+                <div className="w-12 h-12 rounded-full bg-empire/15 flex items-center justify-center mx-auto mb-2 text-lg font-bold text-empire">
+                  {member.name[0]}
+                </div>
+                <p className="text-sm font-bold text-white">{member.name}</p>
+                <p className="text-[11px] font-semibold text-empire mb-1">{member.role}</p>
+                <p className="text-[11px] text-neutral-500 leading-snug">{member.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.7 }}
+          transition={{ duration: 0.6, delay: 1.0 }}
           className="text-center"
         >
           <p className="text-[13px] text-neutral-500 italic max-w-2xl mx-auto mb-8">
             {fr
-              ? 'Ne demandez pas a ChatGPT de vous rendre viral. Il ecrit du texte. Empire, c\'est une equipe formee, un systeme teste sur +10 000 contenus, et 700M+ de vues generees. Vous n\'avez pas besoin de recruter, former ou manager. Juste de parler 1h par mois.'
-              : 'Don\'t ask ChatGPT to make you go viral. It writes text. Empire is a trained team, a system tested on 10,000+ contents, and 700M+ views generated. You don\'t need to hire, train or manage. Just talk 1h per month.'}
+              ? 'Pas besoin de recruter, former ou manager une équipe contenu. La nôtre est déjà formée, déjà rodée, et travaille sur votre marque dès le premier jour.'
+              : 'No need to hire, train or manage a content team. Ours is already trained, already battle-tested, and works on your brand from day one.'}
           </p>
 
           <OnboardingLink className="inline-flex flex-col items-center px-8 py-4 rounded-2xl bg-empire text-black font-bold text-base md:text-lg hover:scale-[1.03] active:scale-100 transition-all shadow-[0_0_40px_rgb(var(--empire-rgb)_/_0.4)]">
