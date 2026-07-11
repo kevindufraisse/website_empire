@@ -353,15 +353,26 @@ export default function HomePricingSection() {
 
               <div className="rounded-xl border border-empire/30 bg-empire/[0.06] p-4 mb-4">
                 <p className="text-sm font-semibold text-white mb-1">
-                  {fr ? '4h de coaching avec un expert en viralité' : '4h of coaching with a virality expert'}
+                  {fr ? '4h de coaching avec un expert Empire' : '4h of coaching with an Empire expert'}
                   <span className="ml-2 font-bold text-empire">{COACHING_PRICE}€</span>
                   <span className="ml-1 text-neutral-500 font-normal">{fr ? '· une seule fois' : '· one-time'}</span>
                 </p>
-                <p className="text-[13px] text-neutral-400">
+                <p className="text-[13px] text-neutral-400 mb-2">
                   {fr
-                    ? 'Stratégie personnalisée, positionnement et formats gagnants — recommandé pour démarrer vite.'
-                    : 'Personalized strategy, positioning and winning formats — recommended to start fast.'}
+                    ? 'Nos coachs génèrent minimum 100K vues par semaine et ont été formés par nos équipes. Ils comprennent votre business et vous donnent la stratégie exacte pour performer dans votre niche.'
+                    : 'Our coaches generate 100K+ views per week and have been trained by our team. They understand your business and give you the exact strategy to perform in your niche.'}
                 </p>
+                <ul className="space-y-1">
+                  {(fr
+                    ? ['Positionnement et formats gagnants', 'Stratégie de contenu personnalisée', 'Analyse de vos concurrents et opportunités']
+                    : ['Positioning and winning formats', 'Personalized content strategy', 'Competitor analysis and opportunities']
+                  ).map((item) => (
+                    <li key={item} className="flex items-center gap-1.5 text-[12px] text-neutral-300">
+                      <Check size={12} className="shrink-0 text-empire" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
               </div>
 
               <div className="space-y-2.5">
