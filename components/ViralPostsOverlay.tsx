@@ -112,10 +112,24 @@ export default function ViralPostsOverlay() {
       <button
         onClick={() => setOpen(true)}
         aria-label="Voir les stats"
-        className="group fixed bottom-6 right-4 z-[150] flex items-center gap-2.5 rounded-full bg-empire px-5 py-3 shadow-[0_4px_20px_rgb(var(--empire-rgb)_/_0.4)] transition-all hover:scale-105 hover:shadow-[0_4px_30px_rgb(var(--empire-rgb)_/_0.5)] active:scale-100"
+        className="group fixed bottom-6 right-4 z-[150] flex items-center gap-3 rounded-2xl border border-white/20 bg-black/95 py-3.5 pl-3.5 pr-6 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.6)] transition-all hover:border-empire/50 hover:shadow-[0_4px_24px_rgb(var(--empire-rgb)_/_0.25)]"
       >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-black"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
-        <span className="text-sm font-bold text-black">Voir les stats</span>
+        <span className="relative flex h-[52px] w-[52px] items-center justify-center rounded-xl p-[3px] shadow-[0_4px_12px_rgba(0,0,0,0.7)] transition-transform group-hover:translate-y-[-1px] group-hover:shadow-[0_6px_16px_rgba(0,0,0,0.8)] group-active:translate-y-[2px] group-active:shadow-[0_1px_4px_rgba(0,0,0,0.5)]"
+          style={{ background: 'linear-gradient(to bottom, #3a3b42, #1c1d20)' }}
+        >
+          <span
+            className="flex h-full w-full items-center justify-center rounded-[9px] border border-white/25 text-[20px] font-bold text-white"
+            style={{
+              background: 'linear-gradient(to bottom, #707178, #525358 40%, #3e3f44)',
+              boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.3), inset 0 -2px 4px rgba(0,0,0,0.35)',
+              fontFamily: '-apple-system, "SF Pro Display", system-ui, sans-serif',
+              letterSpacing: '0.02em',
+            }}
+          >
+            L
+          </span>
+        </span>
+        <span className="text-[15px] font-bold text-white group-hover:text-empire transition-colors">Voir les stats</span>
       </button>
     )
   }

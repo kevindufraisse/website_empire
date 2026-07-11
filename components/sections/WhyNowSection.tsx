@@ -230,7 +230,7 @@ export default function WhyNowSection() {
                             <p className="text-xs text-neutral-400 mt-0.5">{f.desc}</p>
                           </div>
                           {f.stat && (
-                            <span className="px-3 py-1.5 rounded-lg bg-empire text-black text-xs font-black whitespace-nowrap shadow-[0_2px_0_0_rgba(0,0,0,0.3)]">{f.stat}</span>
+                            <span className="px-2.5 py-1 rounded-lg bg-empire/15 border border-empire/30 text-[11px] font-bold text-empire whitespace-nowrap shadow-[0_2px_0_0_rgba(var(--empire-rgb),0.2)]">{f.stat}</span>
                           )}
                         </div>
                       )
@@ -262,7 +262,7 @@ export default function WhyNowSection() {
                                     <p className="text-xs text-neutral-400 mt-0.5">{f.desc}</p>
                                   </div>
                                   {f.stat && (
-                                    <span className="px-3 py-1.5 rounded-lg bg-empire text-black text-xs font-black whitespace-nowrap shadow-[0_2px_0_0_rgba(0,0,0,0.3)]">{f.stat}</span>
+                                    <span className="px-2.5 py-1 rounded-lg bg-empire/15 border border-empire/30 text-[11px] font-bold text-empire whitespace-nowrap shadow-[0_2px_0_0_rgba(var(--empire-rgb),0.2)]">{f.stat}</span>
                                   )}
                                 </div>
                               )
