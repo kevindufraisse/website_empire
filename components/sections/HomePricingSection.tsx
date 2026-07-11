@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
-import { Check, Zap, TrendingUp, Crown, ChevronDown, Scissors, CalendarCheck, ShieldCheck, Loader2, GraduationCap } from 'lucide-react'
+import { Check, X, Zap, TrendingUp, Crown, ChevronDown, Scissors, CalendarCheck, ShieldCheck, Loader2, GraduationCap, Star } from 'lucide-react'
 import posthog from 'posthog-js'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { trackAmplitude, withAmplitudeDeviceId, getAmplitudeDeviceId } from '@/lib/amplitude'
@@ -35,6 +35,10 @@ type Plan = {
   featuresEn: string[]
   bonusesFr?: string[]
   bonusesEn?: string[]
+  // Decoy effect: limites visibles du plan (grisées) pour rendre le plan
+  // supérieur évident. Utilisé sur Starter uniquement.
+  notIncludedFr?: string[]
+  notIncludedEn?: string[]
   highlighted?: boolean
 }
 
@@ -52,6 +56,8 @@ const PLANS: Plan[] = [
     descEn: 'Post consistently without thinking about it',
     featuresFr: ['15 posts LinkedIn / mois', '15 Reels & Shorts / mois', '4 newsletters / mois', 'Publication automatique partout'],
     featuresEn: ['15 LinkedIn posts / month', '15 Reels & Shorts / month', '4 newsletters / month', 'Auto-publish everywhere'],
+    notIncludedFr: ['Pas de Reels montés pro', 'Pas de vidéo YouTube', 'Pas de carrousel'],
+    notIncludedEn: ['No pro-edited Reels', 'No YouTube video', 'No carousel'],
   },
   {
     id: 'growth',
@@ -212,6 +218,21 @@ export default function HomePricingSection() {
               : 'A community manager costs €2,000–3,000/month. Empire produces more, for a fraction of the price.'}
           </p>
 
+          {/* Preuve sociale au point de décision — les témoignages complets sont
+              juste au-dessus, ici on rappelle juste la confiance près des CTA. */}
+          <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-1.5">
+            <span className="flex text-empire">
+              {[0, 1, 2, 3, 4].map((i) => (
+                <Star key={i} size={13} className="fill-empire" />
+              ))}
+            </span>
+            <span className="text-xs text-neutral-300">
+              {fr
+                ? 'Ils délèguent déjà leur contenu à Empire'
+                : 'They already trust Empire with their content'}
+            </span>
+          </div>
+
           {/* Billing period toggle */}
           <div className="mt-8 inline-flex items-center rounded-full border border-white/10 bg-white/[0.04] p-1">
             {BILLING_PERIODS.map((p) => (
@@ -313,6 +334,12 @@ export default function HomePricingSection() {
                     <li key={b} className="flex items-start gap-2 text-sm font-medium text-empire">
                       <Check size={15} className="mt-0.5 shrink-0" />
                       {b}
+                    </li>
+                  ))}
+                  {(fr ? plan.notIncludedFr : plan.notIncludedEn)?.map((n) => (
+                    <li key={n} className="flex items-start gap-2 text-sm text-neutral-600 line-through">
+                      <X size={15} className="mt-0.5 shrink-0" />
+                      {n}
                     </li>
                   ))}
                 </ul>
