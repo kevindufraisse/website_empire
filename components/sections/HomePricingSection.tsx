@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
-import { Check, Scissors, CalendarCheck, ShieldCheck, Loader2, GraduationCap, Building2 } from 'lucide-react'
+import { Check, Scissors, CalendarCheck, ShieldCheck, Loader2, GraduationCap } from 'lucide-react'
 import posthog from 'posthog-js'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { trackAmplitude, withAmplitudeDeviceId, getAmplitudeDeviceId } from '@/lib/amplitude'
@@ -294,14 +294,11 @@ export default function HomePricingSection() {
           className="mt-6 max-w-5xl mx-auto"
         >
           <div className="flex flex-col md:flex-row items-center gap-6 rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-5">
-            <div className="flex items-center gap-3 shrink-0">
-              <Building2 size={24} className="text-empire" />
-              <div>
-                <h3 className="text-lg font-bold">Enterprise</h3>
-                <p className="text-sm text-neutral-400">
-                  {fr ? 'Pour les agences et entreprises' : 'For agencies and companies'}
-                </p>
-              </div>
+            <div className="shrink-0">
+              <h3 className="text-lg font-bold">{fr ? 'Agence / Entreprise' : 'Agency / Enterprise'}</h3>
+              <p className="text-sm text-neutral-400">
+                {fr ? 'Volumes et tarifs sur mesure' : 'Custom volumes and pricing'}
+              </p>
             </div>
 
             <ul className="flex flex-wrap gap-x-6 gap-y-1.5 flex-1">
