@@ -87,29 +87,7 @@ const PLANS: Plan[] = [
 ]
 
 // Credit cost per content type (empire-tracking src/lib/hooks/useCredits.ts CREDIT_COSTS)
-const CONTENT_COSTS: { credits: number; labelFr: string; labelEn: string; detailsFr?: string; detailsEn?: string }[] = [
-  // Interview bundles (same rows/wording as the app's pricing grid)
-  {
-    credits: 2458,
-    labelFr: 'Interview IA à thème',
-    labelEn: 'Themed AI interview',
-    detailsFr: '7 LI + 7 NL + 7 reels + vidéo YouTube + carrousel',
-    detailsEn: '7 LinkedIn + 7 newsletters + 7 reels + YouTube video + carousel',
-  },
-  {
-    credits: 2278,
-    labelFr: 'Interview libre / à deux',
-    labelEn: 'Free or two-person interview',
-    detailsFr: '7 LI + 7 NL + 7 reels + vidéo YouTube',
-    detailsEn: '7 LinkedIn + 7 newsletters + 7 reels + YouTube video',
-  },
-  {
-    credits: 1803,
-    labelFr: 'Quick Create',
-    labelEn: 'Quick Create',
-    detailsFr: '7 LI + 7 NL + 7 reels',
-    detailsEn: '7 LinkedIn + 7 newsletters + 7 reels',
-  },
+const CONTENT_COSTS: { credits: number; labelFr: string; labelEn: string }[] = [
   { credits: 85, labelFr: 'Post LinkedIn', labelEn: 'LinkedIn post' },
   { credits: 115, labelFr: 'Newsletter', labelEn: 'Newsletter' },
   { credits: 29, labelFr: 'Reel / Short', labelEn: 'Reel / Short' },
@@ -420,11 +398,6 @@ export default function HomePricingSection() {
                     <tr key={row.labelEn} className="border-b border-white/5 last:border-0">
                       <td className="px-4 py-2.5 text-neutral-300">
                         {fr ? row.labelFr : row.labelEn}
-                        {(fr ? row.detailsFr : row.detailsEn) && (
-                          <span className="mt-0.5 block text-[11px] text-neutral-500">
-                            {fr ? row.detailsFr : row.detailsEn}
-                          </span>
-                        )}
                       </td>
                       {PLANS.map((p) => {
                         const pricePerCredit = monthlyPrice(p.price, billing) / p.credits
