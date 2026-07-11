@@ -7,7 +7,6 @@ import { Check, Scissors, CalendarCheck, ShieldCheck, Loader2, GraduationCap } f
 import posthog from 'posthog-js'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { trackAmplitude, withAmplitudeDeviceId, getAmplitudeDeviceId } from '@/lib/amplitude'
-import { getCurrentSeasonalPromo, getAnchorPrice } from '@/lib/seasonal-promo'
 
 const APP_ONBOARDING_URL = 'https://app.empire-internet.com/onboarding'
 
@@ -121,8 +120,6 @@ export default function HomePricingSection() {
 
   const [loadingPlan, setLoadingPlan] = useState<PlanId | null>(null)
   const [withCoaching, setWithCoaching] = useState(false)
-  const [promo] = useState(() => getCurrentSeasonalPromo())
-
   // Pay-first flow: create a Stripe trial checkout with no account, the app
   // claims it after signup. Falls back to the app onboarding link if Stripe
   // isn't configured on the site (env vars missing) or the API fails.
@@ -241,12 +238,7 @@ export default function HomePricingSection() {
                 <h3 className="text-lg font-bold">{fr ? plan.nameFr : plan.nameEn}</h3>
                 <p className="mt-1 text-sm text-neutral-400">{fr ? plan.descFr : plan.descEn}</p>
 
-                {/* Un seul signal de remise (prix barré promo saisonnière) et une
-                    seule ligne d'info : le prix doit respirer. */}
                 <div className="mt-5 flex items-baseline gap-1.5">
-                  <span className="text-lg font-semibold text-neutral-500 line-through">
-                    {getAnchorPrice(monthly, promo)}€
-                  </span>
                   <span className="text-4xl font-extrabold">{monthly}€</span>
                   <span className="text-sm text-neutral-400">{fr ? '/mois' : '/month'}</span>
                 </div>
