@@ -112,18 +112,10 @@ export default function ViralPostsOverlay() {
       <button
         onClick={() => setOpen(true)}
         aria-label="Voir les stats"
-        className="group fixed bottom-16 right-4 z-[150] flex items-center gap-2 rounded-2xl border border-white/10 bg-black/80 py-2.5 pl-2.5 pr-4 backdrop-blur-xl transition-all hover:border-white/20 hover:bg-black/90"
+        className="group fixed bottom-6 right-4 z-[150] flex items-center gap-2.5 rounded-full bg-empire px-5 py-3 shadow-[0_4px_20px_rgb(var(--empire-rgb)_/_0.4)] transition-all hover:scale-105 hover:shadow-[0_4px_30px_rgb(var(--empire-rgb)_/_0.5)] active:scale-100"
       >
-        {/* Keycap */}
-        <span className="relative flex h-[40px] w-[40px] items-center justify-center rounded-lg bg-gradient-to-b from-[#2a2b30] to-[#18191c] p-[3px] shadow-[0_1px_0_rgba(255,255,255,0.06),0_4px_8px_rgba(0,0,0,0.5)] transition-transform group-active:translate-y-[2px] group-active:shadow-[0_1px_0_rgba(255,255,255,0.06),0_1px_2px_rgba(0,0,0,0.5)]">
-          <span
-            className="flex h-full w-full items-center justify-center rounded-[5px] border border-[#555] bg-gradient-to-b from-[#58595f] via-[#434449] to-[#343539] text-[14px] font-bold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.2),inset_0_-1px_2px_rgba(0,0,0,0.25)]"
-            style={{ fontFamily: '-apple-system, "SF Pro Display", system-ui, sans-serif', letterSpacing: '0.02em' }}
-          >
-            L
-          </span>
-        </span>
-        <span className="text-[13px] font-medium text-neutral-400 group-hover:text-neutral-200">Voir les stats</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-black"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+        <span className="text-sm font-bold text-black">Voir les stats</span>
       </button>
     )
   }

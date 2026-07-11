@@ -64,8 +64,8 @@ const PLANS: Plan[] = [
     contents: '~89',
     nameFr: 'Growth',
     nameEn: 'Growth',
-    descFr: 'Pour devenir une référence de votre niche',
-    descEn: 'Become a reference in your niche',
+    descFr: 'Pour devenir une référence',
+    descEn: 'Become the reference',
     featuresFr: ['25 posts LinkedIn / mois', '33 Reels & Shorts / mois dont 8 montés pro', '4 newsletters / mois', '1 vidéo YouTube + 1 carrousel / mois'],
     featuresEn: ['25 LinkedIn posts / month', '33 Reels & Shorts / month incl. 8 pro-edited', '4 newsletters / month', '1 YouTube video + 1 carousel / month'],
     bonusesFr: ['Bonus : Loom stratégique personnalisé'],
@@ -119,17 +119,15 @@ export default function HomePricingSection() {
   }, [isInView])
 
   const [loadingPlan, setLoadingPlan] = useState<PlanId | null>(null)
-  const [withCoaching, setWithCoaching] = useState(false)
-  // Pay-first flow: create a Stripe trial checkout with no account, the app
-  // claims it after signup. Falls back to the app onboarding link if Stripe
-  // isn't configured on the site (env vars missing) or the API fails.
-  const handlePlanClick = async (plan: Plan) => {
+  const [coachingModal, setCoachingModal] = useState<Plan | null>(null)
+
+  const startCheckout = async (plan: Plan, coaching: boolean) => {
     if (loadingPlan) return
     const props = {
       plan: plan.id,
       billing_period: billing,
       price_monthly: monthlyPrice(plan.price, billing),
-      coaching_addon: withCoaching,
+      coaching_addon: coaching,
       location: 'home',
     }
     trackAmplitude('pricing_plan_click', props)
@@ -146,7 +144,7 @@ export default function HomePricingSection() {
           plan: plan.id,
           billing,
           lang,
-          coaching: withCoaching,
+          coaching,
           ampDeviceId: getAmplitudeDeviceId(),
         }),
       })
@@ -161,6 +159,10 @@ export default function HomePricingSection() {
     }
     setLoadingPlan(null)
     window.location.href = planUrl(plan.id, billing)
+  }
+
+  const handlePlanClick = (plan: Plan) => {
+    setCoachingModal(plan)
   }
 
   const fr = lang === 'fr'
@@ -206,7 +208,7 @@ export default function HomePricingSection() {
           </div>
         </motion.div>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto items-stretch">
+        <div className="mt-10 grid gap-6 md:grid-cols-3 max-w-5xl mx-auto items-stretch">
           {PLANS.map((plan, i) => {
             const monthly = monthlyPrice(plan.price, billing)
             const total = monthly * period.months
@@ -282,48 +284,33 @@ export default function HomePricingSection() {
             )
           })}
 
-          {/* Enterprise card */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.4, ease: 'easeOut' }}
-            className="relative flex flex-col rounded-2xl border border-white/10 bg-white/[0.03] p-6"
-          >
-            <div className="flex items-center gap-2">
-              <Building2 size={20} className="text-empire" />
-              <h3 className="text-lg font-bold">Enterprise</h3>
+        </div>
+
+        {/* Enterprise banner */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.35, ease: 'easeOut' }}
+          className="mt-6 max-w-5xl mx-auto"
+        >
+          <div className="flex flex-col md:flex-row items-center gap-6 rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-5">
+            <div className="flex items-center gap-3 shrink-0">
+              <Building2 size={24} className="text-empire" />
+              <div>
+                <h3 className="text-lg font-bold">Enterprise</h3>
+                <p className="text-sm text-neutral-400">
+                  {fr ? 'Pour les agences et entreprises' : 'For agencies and companies'}
+                </p>
+              </div>
             </div>
-            <p className="mt-1 text-sm text-neutral-400">
-              {fr ? 'Pour les agences et entreprises' : 'For agencies and companies'}
-            </p>
 
-            <div className="mt-5 flex items-baseline gap-1.5">
-              <span className="text-3xl font-extrabold">{fr ? 'Sur mesure' : 'Custom'}</span>
-            </div>
-
-            <p className="mt-1.5 text-sm text-neutral-500">
-              {fr ? 'Volumes et tarifs adaptés' : 'Tailored volumes and pricing'}
-            </p>
-
-            <ul className="mt-5 space-y-2.5 flex-1">
+            <ul className="flex flex-wrap gap-x-6 gap-y-1.5 flex-1">
               {(fr
-                ? [
-                    'Volumes illimités de contenus',
-                    'Multi-comptes et multi-marques',
-                    'Account manager dédié',
-                    'Onboarding personnalisé',
-                    'SLA et facturation sur mesure',
-                  ]
-                : [
-                    'Unlimited content volumes',
-                    'Multi-account and multi-brand',
-                    'Dedicated account manager',
-                    'Custom onboarding',
-                    'Custom SLA and billing',
-                  ]
+                ? ['Volumes illimités', 'Multi-comptes et multi-marques', 'Account manager dédié', 'Onboarding personnalisé', 'SLA sur mesure']
+                : ['Unlimited volumes', 'Multi-account & multi-brand', 'Dedicated account manager', 'Custom onboarding', 'Custom SLA']
               ).map((f) => (
-                <li key={f} className="flex items-start gap-2 text-sm text-neutral-300">
-                  <Check size={15} className="mt-0.5 shrink-0 text-empire" />
+                <li key={f} className="flex items-center gap-1.5 text-sm text-neutral-300">
+                  <Check size={14} className="shrink-0 text-empire" />
                   {f}
                 </li>
               ))}
@@ -331,49 +318,73 @@ export default function HomePricingSection() {
 
             <Link
               href="/join-us"
-              className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-center text-sm font-bold text-white transition-all hover:scale-[1.02] hover:bg-white/10"
+              className="shrink-0 rounded-xl border border-white/15 bg-white/5 px-6 py-2.5 text-sm font-bold text-white transition-all hover:scale-[1.02] hover:bg-white/10"
             >
               {fr ? 'Parlons-en' : 'Let\u2019s talk'}
             </Link>
-            <p className="mt-2 text-center text-[11px] text-neutral-500">
-              {fr ? 'Réponse sous 24h' : 'Response within 24h'}
-            </p>
-          </motion.div>
-        </div>
-
-        {/* Coaching add-on — same upsell as the app's pre-checkout popup */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.35, ease: 'easeOut' }}
-          className="mt-8 max-w-6xl mx-auto"
-        >
-          <label
-            className={`flex cursor-pointer items-start gap-3 rounded-2xl border px-5 py-4 transition-colors ${
-              withCoaching ? 'border-empire/50 bg-empire/[0.06]' : 'border-white/10 bg-white/[0.03] hover:border-white/20'
-            }`}
-          >
-            <input
-              type="checkbox"
-              checked={withCoaching}
-              onChange={(e) => setWithCoaching(e.target.checked)}
-              className="mt-1 h-4 w-4 shrink-0 accent-[rgb(var(--empire-rgb))]"
-            />
-            <GraduationCap size={20} className="mt-0.5 shrink-0 text-empire" />
-            <span className="flex-1 text-sm">
-              <span className="font-semibold text-white">
-                {fr ? 'Ajouter 4h de coaching avec un expert en viralité' : 'Add 4h of coaching with a virality expert'}
-              </span>
-              <span className="ml-2 font-bold text-empire">{COACHING_PRICE}€</span>
-              <span className="ml-1 text-neutral-500">{fr ? '· une seule fois' : '· one-time'}</span>
-              <span className="mt-0.5 block text-neutral-400">
-                {fr
-                  ? 'Stratégie personnalisée, positionnement et formats gagnants pour votre niche — recommandé pour démarrer vite.'
-                  : 'Personalized strategy, positioning and winning formats for your niche — recommended to start fast.'}
-              </span>
-            </span>
-          </label>
+          </div>
         </motion.div>
+
+        {/* Coaching modal */}
+        {coachingModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={() => { setCoachingModal(null); setLoadingPlan(null) }} />
+            <div className="relative w-full max-w-md rounded-2xl border border-white/10 bg-[#111] p-6 shadow-2xl">
+              <button
+                onClick={() => { setCoachingModal(null); setLoadingPlan(null) }}
+                className="absolute top-4 right-4 text-neutral-500 hover:text-white transition-colors text-lg"
+              >
+                &times;
+              </button>
+
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-xl bg-empire/15 flex items-center justify-center">
+                  <GraduationCap size={20} className="text-empire" />
+                </div>
+                <div>
+                  <p className="font-bold text-white">
+                    {fr ? 'Ajouter le coaching ?' : 'Add coaching?'}
+                  </p>
+                  <p className="text-sm text-neutral-400">
+                    {fr ? `Plan ${coachingModal.nameFr}` : `${coachingModal.nameEn} plan`}
+                  </p>
+                </div>
+              </div>
+
+              <div className="rounded-xl border border-empire/30 bg-empire/[0.06] p-4 mb-4">
+                <p className="text-sm font-semibold text-white mb-1">
+                  {fr ? '4h de coaching avec un expert en viralité' : '4h of coaching with a virality expert'}
+                  <span className="ml-2 font-bold text-empire">{COACHING_PRICE}€</span>
+                  <span className="ml-1 text-neutral-500 font-normal">{fr ? '· une seule fois' : '· one-time'}</span>
+                </p>
+                <p className="text-[13px] text-neutral-400">
+                  {fr
+                    ? 'Stratégie personnalisée, positionnement et formats gagnants — recommandé pour démarrer vite.'
+                    : 'Personalized strategy, positioning and winning formats — recommended to start fast.'}
+                </p>
+              </div>
+
+              <div className="space-y-2.5">
+                <button
+                  onClick={() => { setCoachingModal(null); startCheckout(coachingModal, true) }}
+                  disabled={loadingPlan !== null}
+                  className="w-full flex items-center justify-center gap-2 rounded-xl bg-empire px-4 py-3 text-sm font-bold text-black transition-all hover:scale-[1.02] disabled:opacity-60"
+                >
+                  {loadingPlan && <Loader2 size={15} className="animate-spin" />}
+                  {fr ? `Oui, ajouter le coaching (+${COACHING_PRICE}€)` : `Yes, add coaching (+€${COACHING_PRICE})`}
+                </button>
+                <button
+                  onClick={() => { setCoachingModal(null); startCheckout(coachingModal, false) }}
+                  disabled={loadingPlan !== null}
+                  className="w-full flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-sm font-bold text-white transition-all hover:scale-[1.02] hover:bg-white/10 disabled:opacity-60"
+                >
+                  {loadingPlan && <Loader2 size={15} className="animate-spin" />}
+                  {fr ? 'Non merci, continuer sans' : 'No thanks, continue without'}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Human team reassurance strip */}
         <motion.div
