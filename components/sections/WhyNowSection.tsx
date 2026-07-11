@@ -85,7 +85,8 @@ const pillars: Record<string, Pillar[]> = {
         { icon: MessageCircle, title: 'Idées via Telegram', desc: 'Ajoutez vos idées depuis Telegram et récupérez-les dans Empire', badge: 'NEW' },
       ],
       moreFeatures: [
-        { icon: Code2, title: 'Multi-comptes', desc: 'Publiez sur plusieurs comptes depuis la même plateforme' },
+        { icon: Code2, title: 'Multi-comptes', desc: 'Compte perso + entreprise, plusieurs marques depuis la même plateforme' },
+        { icon: Zap, title: '+10 tunnels de conversion', desc: 'N8N, Make, ManyChat - prêts à dupliquer pour convertir votre audience' },
         { icon: Mail, title: 'Substack automatique', desc: 'Vos notes publiées automatiquement sur Substack' },
         { icon: Users, title: 'Diffusion Skool', desc: 'Contenu partagé automatiquement dans votre communauté Skool' },
         { icon: Zap, title: 'Deeplinks de tracking', desc: 'Liens trackés pour mesurer la performance de chaque contenu' },
@@ -135,7 +136,8 @@ const pillars: Record<string, Pillar[]> = {
         { icon: MessageCircle, title: 'Ideas via Telegram', desc: 'Add your ideas from Telegram and retrieve them in Empire', badge: 'NEW' },
       ],
       moreFeatures: [
-        { icon: Code2, title: 'Multi-account', desc: 'Publish on multiple accounts from the same platform' },
+        { icon: Code2, title: 'Multi-account', desc: 'Personal + business, multiple brands from the same platform' },
+        { icon: Zap, title: '10+ conversion funnels', desc: 'N8N, Make, ManyChat - ready to duplicate and convert your audience' },
         { icon: Mail, title: 'Auto Substack', desc: 'Your notes automatically published on Substack' },
         { icon: Users, title: 'Skool distribution', desc: 'Content automatically shared in your Skool community' },
         { icon: Zap, title: 'Tracking deeplinks', desc: 'Tracked links to measure each content performance' },

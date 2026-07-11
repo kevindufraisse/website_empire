@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
-import { Check, Scissors, CalendarCheck, ShieldCheck, Loader2, GraduationCap } from 'lucide-react'
+import { Check, Scissors, CalendarCheck, ShieldCheck, Loader2, GraduationCap, Building2 } from 'lucide-react'
 import posthog from 'posthog-js'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { trackAmplitude, withAmplitudeDeviceId, getAmplitudeDeviceId } from '@/lib/amplitude'
@@ -206,7 +206,7 @@ export default function HomePricingSection() {
           </div>
         </motion.div>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-3 max-w-5xl mx-auto items-stretch">
+        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto items-stretch">
           {PLANS.map((plan, i) => {
             const monthly = monthlyPrice(plan.price, billing)
             const total = monthly * period.months
@@ -281,6 +281,64 @@ export default function HomePricingSection() {
               </motion.div>
             )
           })}
+
+          {/* Enterprise card */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.4, ease: 'easeOut' }}
+            className="relative flex flex-col rounded-2xl border border-white/10 bg-white/[0.03] p-6"
+          >
+            <div className="flex items-center gap-2">
+              <Building2 size={20} className="text-empire" />
+              <h3 className="text-lg font-bold">Enterprise</h3>
+            </div>
+            <p className="mt-1 text-sm text-neutral-400">
+              {fr ? 'Pour les agences et entreprises' : 'For agencies and companies'}
+            </p>
+
+            <div className="mt-5 flex items-baseline gap-1.5">
+              <span className="text-3xl font-extrabold">{fr ? 'Sur mesure' : 'Custom'}</span>
+            </div>
+
+            <p className="mt-1.5 text-sm text-neutral-500">
+              {fr ? 'Volumes et tarifs adaptés' : 'Tailored volumes and pricing'}
+            </p>
+
+            <ul className="mt-5 space-y-2.5 flex-1">
+              {(fr
+                ? [
+                    'Volumes illimités de contenus',
+                    'Multi-comptes et multi-marques',
+                    'Account manager dédié',
+                    'Onboarding personnalisé',
+                    'SLA et facturation sur mesure',
+                  ]
+                : [
+                    'Unlimited content volumes',
+                    'Multi-account and multi-brand',
+                    'Dedicated account manager',
+                    'Custom onboarding',
+                    'Custom SLA and billing',
+                  ]
+              ).map((f) => (
+                <li key={f} className="flex items-start gap-2 text-sm text-neutral-300">
+                  <Check size={15} className="mt-0.5 shrink-0 text-empire" />
+                  {f}
+                </li>
+              ))}
+            </ul>
+
+            <Link
+              href="/join-us"
+              className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-center text-sm font-bold text-white transition-all hover:scale-[1.02] hover:bg-white/10"
+            >
+              {fr ? 'Parlons-en' : 'Let\u2019s talk'}
+            </Link>
+            <p className="mt-2 text-center text-[11px] text-neutral-500">
+              {fr ? 'Réponse sous 24h' : 'Response within 24h'}
+            </p>
+          </motion.div>
         </div>
 
         {/* Coaching add-on — same upsell as the app's pre-checkout popup */}
@@ -288,7 +346,7 @@ export default function HomePricingSection() {
           initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.35, ease: 'easeOut' }}
-          className="mt-8 max-w-5xl mx-auto"
+          className="mt-8 max-w-6xl mx-auto"
         >
           <label
             className={`flex cursor-pointer items-start gap-3 rounded-2xl border px-5 py-4 transition-colors ${
@@ -348,23 +406,7 @@ export default function HomePricingSection() {
           ))}
         </motion.div>
 
-        <p className="mt-8 text-center text-sm text-neutral-500">
-          {fr ? (
-            <>
-              Besoin de volumes illimités, multi-comptes ou account manager ?{' '}
-              <Link href="/join-us" className="text-empire underline-offset-2 hover:underline">
-                Parlons-en
-              </Link>
-            </>
-          ) : (
-            <>
-              Need unlimited volume, multi-accounts or an account manager?{' '}
-              <Link href="/join-us" className="text-empire underline-offset-2 hover:underline">
-                Let’s talk
-              </Link>
-            </>
-          )}
-        </p>
+
       </div>
     </section>
   )

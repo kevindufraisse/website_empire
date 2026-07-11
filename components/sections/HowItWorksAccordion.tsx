@@ -306,8 +306,13 @@ export default function HowItWorksAccordion() {
                 {autopilot
                   ? t.autopilot.howItWorks.subtitle
                   : (lang === 'fr'
-                      ? 'Multipliez les canaux de diffusion, soyez omniprésent.'
-                      : 'Multiply your distribution channels, be omnipresent.')}
+                      ? 'Vous ne manquez pas de temps. Vous manquez de système.'
+                      : 'You don\'t lack time. You lack a system.')}
+              </p>
+              <p className="text-sm text-neutral-500 max-w-2xl mx-auto mt-2">
+                {lang === 'fr'
+                  ? 'Déléguez votre création de contenu, devenez omniprésent et ne passez plus un jour sans contenu sur vos réseaux.'
+                  : 'Delegate your content creation, become omnipresent and never go a day without content on your channels.'}
               </p>
           </div>
         </FadeInBlock>
@@ -333,6 +338,7 @@ export default function HowItWorksAccordion() {
                   <div className="flex flex-col gap-2 w-full max-w-[180px]">
                     {[
                       { platform: 'LinkedIn', color: 'bg-blue-500/20 text-blue-400' },
+                      { platform: 'Instagram', color: 'bg-pink-500/20 text-pink-400' },
                       { platform: 'YouTube', color: 'bg-red-500/20 text-red-400' },
                       { platform: 'X / Twitter', color: 'bg-neutral-500/20 text-neutral-400' },
                     ].map((s) => (
