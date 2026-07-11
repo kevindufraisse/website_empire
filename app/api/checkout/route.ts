@@ -42,6 +42,7 @@ export async function POST(request: Request) {
       plan?: string
       billing?: string
       lang?: string
+      coaching?: boolean
       ampDeviceId?: string
     }
     const plan = body.plan ?? ''
@@ -64,9 +65,26 @@ export async function POST(request: Request) {
     const ampParam = body.ampDeviceId ? `&amp_device_id=${encodeURIComponent(body.ampDeviceId)}` : ''
     const origin = new URL(request.url).origin
 
+    const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = [
+      { price: priceId, quantity: 1 },
+    ]
+
+    // Coaching add-on: one-time item charged at checkout (same offer as the
+    // app's trial flow, empire-tracking create-credit-checkout FORMATION_FULL_PRICES)
+    if (body.coaching) {
+      lineItems.push({
+        price_data: {
+          currency: 'eur',
+          product_data: { name: 'Coaching 4h – Expert en viralité' },
+          unit_amount: 50000,
+        },
+        quantity: 1,
+      })
+    }
+
     const session = await stripe.checkout.sessions.create({
       mode: 'subscription',
-      line_items: [{ price: priceId, quantity: 1 }],
+      line_items: lineItems,
       subscription_data: {
         trial_period_days: 7,
         // No workspace_id yet: the claim step adds it after signup
@@ -77,6 +95,7 @@ export async function POST(request: Request) {
         credits: String(credits),
         checkout_type: 'trial',
         source: 'marketing_site',
+        formations: body.coaching ? 'coaching' : '',
       },
       success_url: `${APP_URL}/onboarding?claim_session={CHECKOUT_SESSION_ID}${ampParam}`,
       cancel_url: `${origin}/?checkout=canceled#pricing`,

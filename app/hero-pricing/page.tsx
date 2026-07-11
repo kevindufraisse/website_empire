@@ -3,6 +3,7 @@ import HeroSection from '@/components/sections/HeroSection'
 import HowItWorksAccordion from '@/components/sections/HowItWorksAccordion'
 import AbVariantTracker from '@/components/AbVariantTracker'
 import HomePricingSection from '@/components/sections/HomePricingSection'
+import PricingVariantCtaRedirect from '@/components/PricingVariantCtaRedirect'
 
 const TestimonialsSection = dynamic(() => import('@/components/sections/TestimonialsSection'))
 const QuickWinsSection = dynamic(() => import('@/components/sections/QuickWinsSection'))
@@ -23,6 +24,8 @@ export default function HeroPricingPage() {
   return (
     <main className="relative">
       <AbVariantTracker experiment="hero_minimal" />
+      {/* Pay-first: all onboarding CTAs scroll to the pricing section instead */}
+      <PricingVariantCtaRedirect />
 
       {/* Hero with VSL */}
       <HeroSection />

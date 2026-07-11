@@ -3,10 +3,11 @@
 import { useRef, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
-import { Check, Zap, TrendingUp, Crown, ChevronDown, Scissors, CalendarCheck, ShieldCheck, Loader2 } from 'lucide-react'
+import { Check, Zap, TrendingUp, Crown, ChevronDown, Scissors, CalendarCheck, ShieldCheck, Loader2, GraduationCap } from 'lucide-react'
 import posthog from 'posthog-js'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { trackAmplitude, withAmplitudeDeviceId, getAmplitudeDeviceId } from '@/lib/amplitude'
+import { getCurrentSeasonalPromo, getAnchorPrice } from '@/lib/seasonal-promo'
 
 const APP_ONBOARDING_URL = 'https://app.empire-internet.com/onboarding'
 
@@ -86,7 +87,29 @@ const PLANS: Plan[] = [
 ]
 
 // Credit cost per content type (empire-tracking src/lib/hooks/useCredits.ts CREDIT_COSTS)
-const CONTENT_COSTS: { credits: number; labelFr: string; labelEn: string }[] = [
+const CONTENT_COSTS: { credits: number; labelFr: string; labelEn: string; detailsFr?: string; detailsEn?: string }[] = [
+  // Interview bundles (same rows/wording as the app's pricing grid)
+  {
+    credits: 2458,
+    labelFr: 'Interview IA à thème',
+    labelEn: 'Themed AI interview',
+    detailsFr: '7 LI + 7 NL + 7 reels + vidéo YouTube + carrousel',
+    detailsEn: '7 LinkedIn + 7 newsletters + 7 reels + YouTube video + carousel',
+  },
+  {
+    credits: 2278,
+    labelFr: 'Interview libre / à deux',
+    labelEn: 'Free or two-person interview',
+    detailsFr: '7 LI + 7 NL + 7 reels + vidéo YouTube',
+    detailsEn: '7 LinkedIn + 7 newsletters + 7 reels + YouTube video',
+  },
+  {
+    credits: 1803,
+    labelFr: 'Quick Create',
+    labelEn: 'Quick Create',
+    detailsFr: '7 LI + 7 NL + 7 reels',
+    detailsEn: '7 LinkedIn + 7 newsletters + 7 reels',
+  },
   { credits: 85, labelFr: 'Post LinkedIn', labelEn: 'LinkedIn post' },
   { credits: 115, labelFr: 'Newsletter', labelEn: 'Newsletter' },
   { credits: 29, labelFr: 'Reel / Short', labelEn: 'Reel / Short' },
@@ -94,6 +117,9 @@ const CONTENT_COSTS: { credits: number; labelFr: string; labelEn: string }[] = [
   { credits: 180, labelFr: 'Carrousel', labelEn: 'Carousel' },
   { credits: 350, labelFr: 'Reel monté pro', labelEn: 'Pro-edited Reel' },
 ]
+
+// Coaching add-on, same offer as the app's pre-checkout popup (500€ one-time)
+const COACHING_PRICE = 500
 
 function monthlyPrice(base: number, billing: BillingId): number {
   const period = BILLING_PERIODS.find((p) => p.id === billing)!
@@ -126,6 +152,8 @@ export default function HomePricingSection() {
   }, [isInView])
 
   const [loadingPlan, setLoadingPlan] = useState<PlanId | null>(null)
+  const [withCoaching, setWithCoaching] = useState(false)
+  const [promo] = useState(() => getCurrentSeasonalPromo())
 
   // Pay-first flow: create a Stripe trial checkout with no account, the app
   // claims it after signup. Falls back to the app onboarding link if Stripe
@@ -136,6 +164,7 @@ export default function HomePricingSection() {
       plan: plan.id,
       billing_period: billing,
       price_monthly: monthlyPrice(plan.price, billing),
+      coaching_addon: withCoaching,
       location: 'home',
     }
     trackAmplitude('pricing_plan_click', props)
@@ -152,6 +181,7 @@ export default function HomePricingSection() {
           plan: plan.id,
           billing,
           lang,
+          coaching: withCoaching,
           ampDeviceId: getAmplitudeDeviceId(),
         }),
       })
@@ -240,11 +270,15 @@ export default function HomePricingSection() {
                 <p className="mt-1 text-sm text-neutral-400">{fr ? plan.descFr : plan.descEn}</p>
 
                 <div className="mt-5 flex items-baseline gap-1.5">
-                  {billing !== 'monthly' && (
-                    <span className="text-lg font-semibold text-neutral-500 line-through">{plan.price}€</span>
-                  )}
+                  {/* Anchor barré aligné sur la promo saisonnière du bandeau (-30% SUMMER, etc.) */}
+                  <span className="text-lg font-semibold text-neutral-500 line-through">
+                    {getAnchorPrice(monthly, promo)}€
+                  </span>
                   <span className="text-4xl font-extrabold">{monthly}€</span>
                   <span className="text-sm text-neutral-400">{fr ? '/mois' : '/month'}</span>
+                  <span className="ml-1 rounded-full bg-empire/15 px-2 py-0.5 text-[11px] font-bold text-empire">
+                    -{Math.round(promo.discount * 100)}%
+                  </span>
                 </div>
                 <p className="mt-1 text-xs text-neutral-500">
                   {plan.contents} {fr ? 'contenus créés chaque mois' : 'contents created every month'}
@@ -292,6 +326,40 @@ export default function HomePricingSection() {
             )
           })}
         </div>
+
+        {/* Coaching add-on — same upsell as the app's pre-checkout popup */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.35, ease: 'easeOut' }}
+          className="mt-8 max-w-5xl mx-auto"
+        >
+          <label
+            className={`flex cursor-pointer items-start gap-3 rounded-2xl border px-5 py-4 transition-colors ${
+              withCoaching ? 'border-empire/50 bg-empire/[0.06]' : 'border-white/10 bg-white/[0.03] hover:border-white/20'
+            }`}
+          >
+            <input
+              type="checkbox"
+              checked={withCoaching}
+              onChange={(e) => setWithCoaching(e.target.checked)}
+              className="mt-1 h-4 w-4 shrink-0 accent-[rgb(var(--empire-rgb))]"
+            />
+            <GraduationCap size={20} className="mt-0.5 shrink-0 text-empire" />
+            <span className="flex-1 text-sm">
+              <span className="font-semibold text-white">
+                {fr ? 'Ajouter 4h de coaching avec un expert en viralité' : 'Add 4h of coaching with a virality expert'}
+              </span>
+              <span className="ml-2 font-bold text-empire">{COACHING_PRICE}€</span>
+              <span className="ml-1 text-neutral-500">{fr ? '· une seule fois' : '· one-time'}</span>
+              <span className="mt-0.5 block text-neutral-400">
+                {fr
+                  ? 'Stratégie personnalisée, positionnement et formats gagnants pour votre niche — recommandé pour démarrer vite.'
+                  : 'Personalized strategy, positioning and winning formats for your niche — recommended to start fast.'}
+              </span>
+            </span>
+          </label>
+        </motion.div>
 
         {/* Human team reassurance strip */}
         <motion.div
@@ -350,11 +418,18 @@ export default function HomePricingSection() {
                 <tbody>
                   {CONTENT_COSTS.map((row) => (
                     <tr key={row.labelEn} className="border-b border-white/5 last:border-0">
-                      <td className="px-4 py-2.5 text-neutral-300">{fr ? row.labelFr : row.labelEn}</td>
+                      <td className="px-4 py-2.5 text-neutral-300">
+                        {fr ? row.labelFr : row.labelEn}
+                        {(fr ? row.detailsFr : row.detailsEn) && (
+                          <span className="mt-0.5 block text-[11px] text-neutral-500">
+                            {fr ? row.detailsFr : row.detailsEn}
+                          </span>
+                        )}
+                      </td>
                       {PLANS.map((p) => {
                         const pricePerCredit = monthlyPrice(p.price, billing) / p.credits
                         return (
-                          <td key={p.id} className={`px-4 py-2.5 text-right tabular-nums ${p.highlighted ? 'font-semibold text-white' : 'text-neutral-400'}`}>
+                          <td key={p.id} className={`px-4 py-2.5 text-right align-top tabular-nums ${p.highlighted ? 'font-semibold text-white' : 'text-neutral-400'}`}>
                             {formatEuro(row.credits * pricePerCredit)}
                           </td>
                         )
