@@ -4,7 +4,7 @@ import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import OnboardingLink from '@/components/OnboardingLink'
-import { Clock, TrendingDown, Flame, Eye, ArrowRight } from 'lucide-react'
+import { Clock, TrendingDown, Flame, Eye, ArrowRight, X, Check } from 'lucide-react'
 
 export default function WhyEmpireSection() {
   const { lang } = useLanguage()
@@ -134,11 +134,94 @@ export default function WhyEmpireSection() {
           })}
         </div>
 
+        {/* ChatGPT objection debunk */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          className="max-w-4xl mx-auto mb-12"
+        >
+          <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 md:p-8">
+            <p className="text-lg md:text-xl font-bold text-white mb-2 text-center">
+              {fr
+                ? '"Et si je le fais moi-même avec ChatGPT ?"'
+                : '"What if I do it myself with ChatGPT?"'}
+            </p>
+            <p className="text-sm text-neutral-400 text-center mb-6 max-w-2xl mx-auto">
+              {fr
+                ? 'On nous pose la question toutes les semaines. Voici la réalité :'
+                : 'We get this question every week. Here\'s the reality:'}
+            </p>
+
+            <div className="grid md:grid-cols-2 gap-4 mb-6">
+              <div className="rounded-xl border border-red-500/20 bg-red-500/[0.04] p-4">
+                <p className="text-sm font-bold text-red-400 mb-3">{fr ? 'ChatGPT seul' : 'ChatGPT alone'}</p>
+                <ul className="space-y-2">
+                  {(fr
+                    ? [
+                        'Vous passez encore 1h/jour à prompter, corriger, adapter',
+                        'Personne ne monte vos Reels, ni ne sous-titre vos vidéos',
+                        'Vous publiez sur 1 réseau au lieu de 7',
+                        'Aucune donnée sur ce qui marche dans votre niche',
+                        'Vous testez seul pendant des mois sans résultat',
+                      ]
+                    : [
+                        'You still spend 1h/day prompting, editing, adapting',
+                        'Nobody edits your Reels or subtitles your videos',
+                        'You post on 1 platform instead of 7',
+                        'No data on what works in your niche',
+                        'You test alone for months with no results',
+                      ]
+                  ).map((item) => (
+                    <li key={item} className="flex items-start gap-2 text-[13px] text-neutral-400">
+                      <X size={14} className="shrink-0 mt-0.5 text-red-400" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="rounded-xl border border-empire/30 bg-empire/[0.04] p-4">
+                <p className="text-sm font-bold text-empire mb-3">Empire</p>
+                <ul className="space-y-2">
+                  {(fr
+                    ? [
+                        'Vous parlez 1h par mois, on fait le reste',
+                        'Montage pro, sous-titrage, publication sur 7 réseaux',
+                        '1 an de tests et des centaines de formats optimisés',
+                        '700M+ de vues générées, on sait ce qui marche',
+                        'Pas besoin de recruter ou former une équipe',
+                      ]
+                    : [
+                        'You talk 1h per month, we do the rest',
+                        'Pro editing, subtitling, publishing on 7 platforms',
+                        '1 year of testing and hundreds of optimized formats',
+                        '700M+ views generated, we know what works',
+                        'No need to hire or train a team',
+                      ]
+                  ).map((item) => (
+                    <li key={item} className="flex items-start gap-2 text-[13px] text-neutral-300">
+                      <Check size={14} className="shrink-0 mt-0.5 text-empire" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <p className="text-[13px] text-neutral-500 text-center italic max-w-2xl mx-auto">
+              {fr
+                ? 'Si vous n\'avez jamais fait 1M de vues sur une vidéo, ne demandez pas à ChatGPT de le faire pour vous. Il faut des mois de tests, des centaines de contenus analysés et un savoir-faire que l\'IA seule ne remplace pas. C\'est exactement ce qu\'Empire intègre dans son système.'
+                : 'If you\'ve never hit 1M views on a video, don\'t ask ChatGPT to do it for you. It takes months of testing, hundreds of analyzed pieces of content, and expertise that AI alone can\'t replace. That\'s exactly what Empire builds into its system.'}
+            </p>
+          </div>
+        </motion.div>
+
         {/* Solution flip */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.8 }}
+          transition={{ duration: 0.6, delay: 1.0 }}
           className="text-center max-w-2xl mx-auto"
         >
           <div className="rounded-2xl border border-empire/30 bg-empire/[0.06] p-6 mb-6">
