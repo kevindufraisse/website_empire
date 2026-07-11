@@ -15,7 +15,7 @@ export default function WhyEmpireSection() {
   const cascadeSteps = fr
     ? [
         { icon: Layers, stat: '1 an', label: 'pour créer le système de cascade', desc: 'Une action de votre part se transforme en dizaines de contenus sur 7 réseaux. Cet effet de levier a nécessité 1 an de développement.' },
-        { icon: Users, stat: '8 mois', label: 'pour former les équipes production', desc: 'Nos monteurs, rédacteurs et community managers sont formés aux formats viraux. Pas des freelances génériques.' },
+        { icon: Users, stat: '8 mois', label: 'pour former les équipes production', desc: 'Nos monteurs, rédacteurs et community managers sont formés aux formats viraux.' },
         { icon: FlaskConical, stat: '+10 000', label: 'posts testés avant de trouver les formats', desc: 'Des milliers de contenus analysés, optimisés, jetés. Chaque format dans Empire est le résultat de tests massifs.' },
         { icon: GraduationCap, stat: '+20 000€', label: 'investis en formation algorithmes', desc: 'Suivi par Kevin Dufraisse (48e influenceur LinkedIn France). Notre compréhension des algorithmes n\'est pas théorique.' },
         { icon: Cpu, stat: 'En continu', label: 'nouveaux formats détectés et intégrés', desc: 'Les formats qui marchent changent chaque mois. Nos agents IA et notre équipe identifient et intègrent les tendances en temps réel.' },
@@ -103,6 +103,7 @@ export default function WhyEmpireSection() {
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
             {[
+              { name: 'Kevin', seed: 'KevinEmpireCEO', role: 'CEO & Founder', desc: fr ? '48e influenceur LinkedIn France · 700M+ vues générées' : '48th LinkedIn influencer in France · 700M+ views generated' },
               { name: 'Manon', seed: 'ManonEmpireCOO', role: 'COO', desc: fr ? 'Opérations et coordination de votre production' : 'Operations and production coordination' },
               { name: 'Pierre', seed: 'PierreEmpireContent', role: 'Head of Content', desc: fr ? 'Rédaction, positionnement et stratégie éditoriale' : 'Writing, positioning and editorial strategy' },
               { name: 'Chloé', seed: 'ChloeEmpireProd', role: 'Head of Production', desc: fr ? 'Montage, sous-titrage et qualité visuelle' : 'Editing, subtitling and visual quality' },
