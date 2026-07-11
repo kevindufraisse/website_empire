@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
-import { Check, X, Zap, TrendingUp, Crown, Scissors, CalendarCheck, ShieldCheck, Loader2, GraduationCap, Star } from 'lucide-react'
+import { Check, X, Zap, TrendingUp, Crown, Scissors, CalendarCheck, ShieldCheck, Loader2, GraduationCap } from 'lucide-react'
 import posthog from 'posthog-js'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { trackAmplitude, withAmplitudeDeviceId, getAmplitudeDeviceId } from '@/lib/amplitude'
@@ -66,8 +66,8 @@ const PLANS: Plan[] = [
     descEn: 'Post consistently without thinking about it',
     featuresFr: ['15 posts LinkedIn / mois', '15 Reels & Shorts / mois', '4 newsletters / mois', 'Publication automatique partout'],
     featuresEn: ['15 LinkedIn posts / month', '15 Reels & Shorts / month', '4 newsletters / month', 'Auto-publish everywhere'],
-    notIncludedFr: ['Pas de Reels montés pro', 'Pas de vidéo YouTube', 'Pas de carrousel'],
-    notIncludedEn: ['No pro-edited Reels', 'No YouTube video', 'No carousel'],
+    notIncludedFr: ['Reels montés pro', 'vidéo YouTube', 'carrousels'],
+    notIncludedEn: ['pro-edited Reels', 'YouTube videos', 'carousels'],
   },
   {
     id: 'growth',
@@ -112,11 +112,6 @@ function monthlyPrice(base: number, billing: BillingId): number {
 
 function planUrl(planId: PlanId, billing: BillingId): string {
   return withAmplitudeDeviceId(`${APP_ONBOARDING_URL}?plan=${planId}&billing=${billing}&intent=trial`)
-}
-
-// Prix par jour (base 30j), affiché comme ancrage "petite dépense quotidienne".
-function perDay(monthly: number): string {
-  return (Math.round((monthly / 30) * 100) / 100).toFixed(2).replace('.', ',')
 }
 
 export default function HomePricingSection() {
@@ -213,21 +208,6 @@ export default function HomePricingSection() {
               : 'A community manager costs €2,000–3,000/month. Empire produces more, for a fraction of the price.'}
           </p>
 
-          {/* Preuve sociale au point de décision — les témoignages complets sont
-              juste au-dessus, ici on rappelle juste la confiance près des CTA. */}
-          <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-1.5">
-            <span className="flex text-empire">
-              {[0, 1, 2, 3, 4].map((i) => (
-                <Star key={i} size={13} className="fill-empire" />
-              ))}
-            </span>
-            <span className="text-xs text-neutral-300">
-              {fr
-                ? 'Ils délèguent déjà leur contenu à Empire'
-                : 'They already trust Empire with their content'}
-            </span>
-          </div>
-
           {/* Billing period toggle */}
           <div className="mt-8 inline-flex items-center rounded-full border border-white/10 bg-white/[0.04] p-1">
             {BILLING_PERIODS.map((p) => (
@@ -278,45 +258,27 @@ export default function HomePricingSection() {
                 </div>
                 <p className="mt-1 text-sm text-neutral-400">{fr ? plan.descFr : plan.descEn}</p>
 
+                {/* Un seul signal de remise (prix barré promo saisonnière) et une
+                    seule ligne d'info : le prix doit respirer. */}
                 <div className="mt-5 flex items-baseline gap-1.5">
-                  {/* Anchor barré aligné sur la promo saisonnière du bandeau (-30% SUMMER, etc.) */}
                   <span className="text-lg font-semibold text-neutral-500 line-through">
                     {getAnchorPrice(monthly, promo)}€
                   </span>
                   <span className="text-4xl font-extrabold">{monthly}€</span>
                   <span className="text-sm text-neutral-400">{fr ? '/mois' : '/month'}</span>
-                  <span className="ml-1 rounded-full bg-empire/15 px-2 py-0.5 text-[11px] font-bold text-empire">
-                    -{Math.round(promo.discount * 100)}%
-                  </span>
                 </div>
 
-                {/* Ancrages compactés sur 2 lignes max pour ne pas noyer le prix :
-                    ligne 1 = valeur (prix/jour + contenus), ligne 2 = facturation. */}
-                <p className="mt-1.5 text-sm">
-                  <span className="font-medium text-empire">
-                    {fr ? `Soit ${perDay(monthly)}€/jour` : `That's ${perDay(monthly)}€/day`}
-                  </span>
-                  <span className="text-neutral-500">
-                    {' · '}
-                    {plan.contents} {fr ? 'contenus finis/mois' : 'finished contents/month'}
-                  </span>
+                <p className="mt-1.5 text-sm text-neutral-500">
+                  {plan.contents} {fr ? 'contenus finis/mois' : 'finished contents/month'}
+                  {billing !== 'monthly' && (
+                    <>
+                      {' · '}
+                      {fr
+                        ? `facturé ${total}€${billing === 'quarterly' ? '/trim.' : '/an'}`
+                        : `billed ${total}€${billing === 'quarterly' ? '/qtr' : '/yr'}`}
+                    </>
+                  )}
                 </p>
-
-                {billing !== 'monthly' && (
-                  <p className="mt-1 text-xs text-neutral-500">
-                    {fr
-                      ? `Facturé ${total}€ ${billing === 'quarterly' ? 'tous les 3 mois' : 'par an'}`
-                      : `Billed ${total}€ ${billing === 'quarterly' ? 'every 3 months' : 'yearly'}`}
-                    {billing === 'yearly' && (
-                      <span className="font-semibold text-emerald-400">
-                        {' · '}
-                        {fr
-                          ? `vous économisez ${(plan.price - monthly) * 12}€`
-                          : `you save ${(plan.price - monthly) * 12}€`}
-                      </span>
-                    )}
-                  </p>
-                )}
 
                 <ul className="mt-5 space-y-2.5 flex-1">
                   {(fr ? plan.featuresFr : plan.featuresEn).map((f) => (
@@ -331,12 +293,14 @@ export default function HomePricingSection() {
                       {b}
                     </li>
                   ))}
-                  {(fr ? plan.notIncludedFr : plan.notIncludedEn)?.map((n) => (
-                    <li key={n} className="flex items-start gap-2 text-sm text-neutral-600 line-through">
+                  {/* Decoy Starter condensé en une ligne discrète */}
+                  {(fr ? plan.notIncludedFr : plan.notIncludedEn) && (
+                    <li className="flex items-start gap-2 text-sm text-neutral-600">
                       <X size={15} className="mt-0.5 shrink-0" />
-                      {n}
+                      {fr ? 'Sans ' : 'No '}
+                      {(fr ? plan.notIncludedFr : plan.notIncludedEn)!.join(', ')}
                     </li>
-                  ))}
+                  )}
                 </ul>
 
                 <button
