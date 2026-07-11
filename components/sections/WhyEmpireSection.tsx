@@ -4,7 +4,7 @@ import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import OnboardingLink from '@/components/OnboardingLink'
-import { X, Check, ArrowRight } from 'lucide-react'
+import { ArrowRight, Clock, FlaskConical, GraduationCap, Cpu, Users, Layers } from 'lucide-react'
 
 export default function WhyEmpireSection() {
   const { lang } = useLanguage()
@@ -12,40 +12,22 @@ export default function WhyEmpireSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
 
-  const without = fr
+  const cascadeSteps = fr
     ? [
-        '1h pour un post. 3h pour un Reel. 200 vues.',
-        'Vous abandonnez après 3 semaines, vos concurrents non.',
-        'Vous testez seul pendant des mois sans savoir ce qui marche.',
-        'ChatGPT écrit le texte, mais personne ne monte, sous-titre ou publie.',
-        'Vous gérez clients, produit, admin... et en plus 7 réseaux ?',
-        'Pas d\'équipe, pas de données, pas de système.',
+        { icon: Layers, stat: '1 an', label: 'pour créer le système de cascade', desc: 'Une action de votre part se transforme en dizaines de contenus sur 7 réseaux. Cet effet de levier a nécessité 1 an de développement.' },
+        { icon: Users, stat: '8 mois', label: 'pour former les équipes production', desc: 'Nos monteurs, rédacteurs et community managers sont formés aux formats viraux. Pas des freelances génériques.' },
+        { icon: FlaskConical, stat: '+10 000', label: 'posts testés avant de trouver les formats', desc: 'Des milliers de contenus analysés, optimisés, jetés. Chaque format dans Empire est le résultat de tests massifs.' },
+        { icon: GraduationCap, stat: '+20 000€', label: 'investis en formation algorithmes', desc: 'Suivi par Kevin Dufraisse (48e influenceur LinkedIn France). Notre compréhension des algorithmes n\'est pas théorique.' },
+        { icon: Cpu, stat: 'En continu', label: 'nouveaux formats détectés et intégrés', desc: 'Les formats qui marchent changent chaque mois. Nos agents IA et notre équipe identifient et intègrent les tendances en temps réel.' },
+        { icon: Clock, stat: '1h/mois', label: 'c\'est tout ce qu\'on vous demande', desc: 'Vous parlez, on transforme. Le système fait le reste : rédaction, montage, sous-titrage, planification, publication.' },
       ]
     : [
-        '1h for a post. 3h for a Reel. 200 views.',
-        'You give up after 3 weeks, your competitors don\'t.',
-        'You test alone for months without knowing what works.',
-        'ChatGPT writes the text, but nobody edits, subtitles or publishes.',
-        'You manage clients, product, admin... and 7 platforms on top?',
-        'No team, no data, no system.',
-      ]
-
-  const withEmpire = fr
-    ? [
-        'Vous parlez 1h par mois. On fait le reste.',
-        '700M+ de vues générées. On sait ce qui marche.',
-        '1 an de tests, des centaines de formats optimisés dans le système.',
-        'Montage pro, sous-titrage, publication sur 7 réseaux.',
-        'Pas besoin de recruter ou former une équipe.',
-        'Vous restez focus sur votre business.',
-      ]
-    : [
-        'You talk 1h per month. We do the rest.',
-        '700M+ views generated. We know what works.',
-        '1 year of testing, hundreds of formats optimized in the system.',
-        'Pro editing, subtitling, publishing on 7 platforms.',
-        'No need to hire or train a team.',
-        'You stay focused on your business.',
+        { icon: Layers, stat: '1 year', label: 'to build the cascade system', desc: 'One action from you turns into dozens of content pieces on 7 platforms. This leverage took 1 year to develop.' },
+        { icon: Users, stat: '8 months', label: 'to train the production teams', desc: 'Our editors, writers and community managers are trained on viral formats. Not generic freelancers.' },
+        { icon: FlaskConical, stat: '10,000+', label: 'posts tested to find the right formats', desc: 'Thousands of contents analyzed, optimized, discarded. Every format in Empire is the result of massive testing.' },
+        { icon: GraduationCap, stat: '€20,000+', label: 'invested in algorithm training', desc: 'Led by Kevin Dufraisse (48th LinkedIn influencer in France). Our understanding of algorithms isn\'t theoretical.' },
+        { icon: Cpu, stat: 'Ongoing', label: 'new formats detected and integrated', desc: 'Winning formats change every month. Our AI agents and team identify and integrate trends in real time.' },
+        { icon: Clock, stat: '1h/mo', label: 'that\'s all we ask from you', desc: 'You talk, we transform. The system handles the rest: writing, editing, subtitling, scheduling, publishing.' },
       ]
 
   return (
@@ -58,73 +40,67 @@ export default function WhyEmpireSection() {
           initial={{ opacity: 0, y: 12 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-10"
+          className="text-center mb-12"
         >
+          <div className="inline-block px-4 py-2 rounded-full bg-empire/10 border border-empire/30 mb-4">
+            <p className="text-sm font-bold text-empire">
+              {fr ? 'POURQUOI EMPIRE' : 'WHY EMPIRE'}
+            </p>
+          </div>
           <h2 className="text-2xl md:text-4xl font-bold text-white leading-tight max-w-3xl mx-auto mb-3">
             {fr ? (
               <>
-                Vous déléguez votre compta, votre juridique, votre recrutement.{' '}
-                <span className="text-empire">Pourquoi pas votre contenu ?</span>
+                ChatGPT ecrit un post en 30 secondes.{' '}
+                <span className="text-empire">Empire transforme 1h de parole en un mois de contenus sur 7 reseaux.</span>
               </>
             ) : (
               <>
-                You delegate your accounting, legal, hiring.{' '}
-                <span className="text-empire">Why not your content?</span>
+                ChatGPT writes a post in 30 seconds.{' '}
+                <span className="text-empire">Empire turns 1h of talking into a month of content on 7 platforms.</span>
               </>
             )}
           </h2>
           <p className="text-neutral-400 max-w-2xl mx-auto">
             {fr
-              ? '"Je vais le faire moi-même avec ChatGPT." On nous le dit toutes les semaines.'
-              : '"I\'ll do it myself with ChatGPT." We hear this every week.'}
+              ? 'L\'IA generative resout 20% du probleme. Voici ce qu\'il a fallu construire pour les 80% restants :'
+              : 'Generative AI solves 20% of the problem. Here\'s what it took to build the other 80%:'}
           </p>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="grid md:grid-cols-2 gap-4 mb-10"
-        >
-          <div className="rounded-2xl border border-red-500/20 bg-red-500/[0.03] p-5 md:p-6">
-            <p className="text-sm font-bold text-red-400 mb-4">
-              {fr ? 'Sans système' : 'Without a system'}
-            </p>
-            <ul className="space-y-3">
-              {without.map((item) => (
-                <li key={item} className="flex items-start gap-2.5 text-[13px] text-neutral-400 leading-relaxed">
-                  <X size={15} className="shrink-0 mt-0.5 text-red-400/70" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="rounded-2xl border border-empire/30 bg-empire/[0.03] p-5 md:p-6">
-            <p className="text-sm font-bold text-empire mb-4">
-              {fr ? 'Avec Empire' : 'With Empire'}
-            </p>
-            <ul className="space-y-3">
-              {withEmpire.map((item) => (
-                <li key={item} className="flex items-start gap-2.5 text-[13px] text-neutral-300 leading-relaxed">
-                  <Check size={15} className="shrink-0 mt-0.5 text-empire" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </motion.div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+          {cascadeSteps.map((step, i) => {
+            const Icon = step.icon
+            return (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.15 + i * 0.08 }}
+                className="rounded-2xl border border-white/10 bg-white/[0.02] p-5"
+              >
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-9 h-9 rounded-lg bg-empire/15 flex items-center justify-center shrink-0">
+                    <Icon size={18} className="text-empire" />
+                  </div>
+                  <span className="text-xl font-black text-empire">{step.stat}</span>
+                </div>
+                <p className="text-sm font-bold text-white mb-1">{step.label}</p>
+                <p className="text-[13px] text-neutral-400 leading-relaxed">{step.desc}</p>
+              </motion.div>
+            )
+          })}
+        </div>
 
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{ duration: 0.6, delay: 0.7 }}
           className="text-center"
         >
           <p className="text-[13px] text-neutral-500 italic max-w-2xl mx-auto mb-8">
             {fr
-              ? 'Si vous n\'avez jamais fait 1M de vues sur une vidéo, ne demandez pas à ChatGPT de le faire pour vous. Il faut des mois de tests, des centaines de contenus analysés et un savoir-faire que l\'IA seule ne remplace pas. C\'est exactement ce qu\'Empire intègre dans son système.'
-              : 'If you\'ve never hit 1M views on a video, don\'t ask ChatGPT to do it for you. It takes months of testing, hundreds of analyzed contents, and expertise that AI alone can\'t replace. That\'s exactly what Empire builds into its system.'}
+              ? 'Ne demandez pas a ChatGPT de vous rendre viral. Il ecrit du texte. Empire, c\'est une equipe formee, un systeme teste sur +10 000 contenus, et 700M+ de vues generees. Vous n\'avez pas besoin de recruter, former ou manager. Juste de parler 1h par mois.'
+              : 'Don\'t ask ChatGPT to make you go viral. It writes text. Empire is a trained team, a system tested on 10,000+ contents, and 700M+ views generated. You don\'t need to hire, train or manage. Just talk 1h per month.'}
           </p>
 
           <OnboardingLink className="inline-flex flex-col items-center px-8 py-4 rounded-2xl bg-empire text-black font-bold text-base md:text-lg hover:scale-[1.03] active:scale-100 transition-all shadow-[0_0_40px_rgb(var(--empire-rgb)_/_0.4)]">
