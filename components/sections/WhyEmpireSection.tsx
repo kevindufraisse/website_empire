@@ -101,12 +101,15 @@ export default function WhyEmpireSection() {
           <p className="text-center text-sm font-bold text-neutral-500 uppercase tracking-wider mb-6">
             {fr ? 'Votre équipe dédiée' : 'Your dedicated team'}
           </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
             {[
-              { name: 'Manon', role: fr ? 'COO' : 'COO', desc: fr ? 'Opérations et coordination de votre production' : 'Operations and production coordination' },
-              { name: 'Pierre', role: fr ? 'Head of Content' : 'Head of Content', desc: fr ? 'Rédaction, positionnement et stratégie éditoriale' : 'Writing, positioning and editorial strategy' },
-              { name: 'Chloé', role: fr ? 'Head of Production' : 'Head of Production', desc: fr ? 'Montage, sous-titrage et qualité visuelle' : 'Editing, subtitling and visual quality' },
+              { name: 'Manon', role: 'COO', desc: fr ? 'Opérations et coordination de votre production' : 'Operations and production coordination' },
+              { name: 'Pierre', role: 'Head of Content', desc: fr ? 'Rédaction, positionnement et stratégie éditoriale' : 'Writing, positioning and editorial strategy' },
+              { name: 'Chloé', role: 'Head of Production', desc: fr ? 'Montage, sous-titrage et qualité visuelle' : 'Editing, subtitling and visual quality' },
               { name: 'Marc', role: fr ? 'Head of Viralité' : 'Head of Virality', desc: fr ? 'Formats, hooks et optimisation algorithmique' : 'Formats, hooks and algorithm optimization' },
+              { name: 'Stan', role: 'Virality Expert', desc: fr ? 'Analyse des tendances et formats performants' : 'Trend analysis and high-performing formats' },
+              { name: 'Sébastien', role: fr ? 'Équipe Production' : 'Production Team', desc: fr ? 'Montage vidéo et post-production' : 'Video editing and post-production' },
+              { name: 'Zahia', role: fr ? 'Équipe Production' : 'Production Team', desc: fr ? 'Création de contenus et adaptation multi-plateformes' : 'Content creation and multi-platform adaptation' },
             ].map((member, i) => (
               <motion.div
                 key={member.name}
