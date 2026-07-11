@@ -15,10 +15,20 @@ type PlanId = 'starter' | 'growth' | 'scale'
 type BillingId = 'monthly' | 'quarterly' | 'yearly'
 
 // Mirrors the app's billing periods (empire-tracking src/pages/Pricing.tsx BILLING_PERIODS)
-const BILLING_PERIODS: { id: BillingId; discount: number; months: number; labelFr: string; labelEn: string }[] = [
+// Le badge annuel est cadré en "mois offerts" (concret) plutôt qu'en % abstrait :
+// -18% sur 12 mois ≈ 2,2 mois gratuits, on affiche "2 mois offerts" (sous-promesse).
+const BILLING_PERIODS: {
+  id: BillingId
+  discount: number
+  months: number
+  labelFr: string
+  labelEn: string
+  badgeFr?: string
+  badgeEn?: string
+}[] = [
   { id: 'monthly', discount: 0, months: 1, labelFr: 'Mensuel', labelEn: 'Monthly' },
-  { id: 'quarterly', discount: 0.12, months: 3, labelFr: 'Trimestriel', labelEn: 'Quarterly' },
-  { id: 'yearly', discount: 0.18, months: 12, labelFr: 'Annuel', labelEn: 'Yearly' },
+  { id: 'quarterly', discount: 0.12, months: 3, labelFr: 'Trimestriel', labelEn: 'Quarterly', badgeFr: '-12%', badgeEn: '-12%' },
+  { id: 'yearly', discount: 0.18, months: 12, labelFr: 'Annuel', labelEn: 'Yearly', badgeFr: '2 mois offerts', badgeEn: '2 months free' },
 ]
 
 type Plan = {
@@ -244,9 +254,9 @@ export default function HomePricingSection() {
                 }`}
               >
                 {fr ? p.labelFr : p.labelEn}
-                {p.discount > 0 && (
+                {p.badgeFr && (
                   <span className={`ml-1.5 text-[11px] font-bold ${billing === p.id ? 'text-black/70' : 'text-empire'}`}>
-                    -{Math.round(p.discount * 100)}%
+                    {fr ? p.badgeFr : p.badgeEn}
                   </span>
                 )}
               </button>
