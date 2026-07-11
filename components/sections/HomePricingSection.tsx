@@ -184,12 +184,10 @@ export default function HomePricingSection() {
               : '7-day free trial on every plan. No commitment, cancel in 1 click.'}
           </p>
 
-          {/* Ancrage comparatif — le prospect compare avec l'alternative réelle,
-              pas avec le prix unitaire. */}
           <p className="mt-2 text-sm text-neutral-500">
             {fr
-              ? 'Un community manager coûte 2 000 à 3 000€/mois. Empire produit plus, pour une fraction du prix.'
-              : 'A community manager costs €2,000–3,000/month. Empire produces more, for a fraction of the price.'}
+              ? 'Chaque contenu est créé, monté et vérifié par notre équipe. Pas de l\u2019IA brute.'
+              : 'Every piece of content is created, edited and verified by our team. Not raw AI.'}
           </p>
 
           {/* Billing period toggle */}
