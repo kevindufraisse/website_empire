@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react'
 import posthog from 'posthog-js'
+import { trackAmplitude } from '@/lib/amplitude'
 
 function getCookie(name: string): string | null {
   const match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'))
@@ -26,6 +27,9 @@ export default function AbVariantTracker({ experiment }: { experiment: string })
     if (posthog.__loaded) {
       posthog.capture('experiment_viewed', { experiment, variant })
     }
+
+    // Amplitude: same exposure event (variant is also a super property, see AmplitudeInit)
+    trackAmplitude('experiment_viewed', { experiment, variant })
   }, [experiment])
 
   return null
