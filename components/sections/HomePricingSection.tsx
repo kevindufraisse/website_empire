@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
-import { Check, Zap, TrendingUp, Crown, Scissors, CalendarCheck, ShieldCheck, Loader2, GraduationCap } from 'lucide-react'
+import { Check, Scissors, CalendarCheck, ShieldCheck, Loader2, GraduationCap } from 'lucide-react'
 import posthog from 'posthog-js'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { trackAmplitude, withAmplitudeDeviceId, getAmplitudeDeviceId } from '@/lib/amplitude'
@@ -30,7 +30,6 @@ const BILLING_PERIODS: {
 
 type Plan = {
   id: PlanId
-  icon: typeof Zap
   price: number
   credits: number
   contents: string
@@ -49,7 +48,6 @@ type Plan = {
 const PLANS: Plan[] = [
   {
     id: 'starter',
-    icon: Zap,
     price: 199,
     credits: 2200,
     contents: '~22',
@@ -62,7 +60,6 @@ const PLANS: Plan[] = [
   },
   {
     id: 'growth',
-    icon: TrendingUp,
     price: 499,
     credits: 6600,
     contents: '~89',
@@ -78,7 +75,6 @@ const PLANS: Plan[] = [
   },
   {
     id: 'scale',
-    icon: Crown,
     price: 799,
     credits: 12000,
     contents: '~177',
@@ -222,7 +218,6 @@ export default function HomePricingSection() {
 
         <div className="mt-10 grid gap-6 md:grid-cols-3 max-w-5xl mx-auto items-stretch">
           {PLANS.map((plan, i) => {
-            const Icon = plan.icon
             const monthly = monthlyPrice(plan.price, billing)
             const total = monthly * period.months
             return (
@@ -243,10 +238,7 @@ export default function HomePricingSection() {
                   </span>
                 )}
 
-                <div className="flex items-center gap-2">
-                  <Icon size={18} className="text-empire" />
-                  <h3 className="text-lg font-bold">{fr ? plan.nameFr : plan.nameEn}</h3>
-                </div>
+                <h3 className="text-lg font-bold">{fr ? plan.nameFr : plan.nameEn}</h3>
                 <p className="mt-1 text-sm text-neutral-400">{fr ? plan.descFr : plan.descEn}</p>
 
                 {/* Un seul signal de remise (prix barré promo saisonnière) et une
