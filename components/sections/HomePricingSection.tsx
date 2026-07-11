@@ -24,7 +24,7 @@ const BILLING_PERIODS: {
   badgeEn?: string
 }[] = [
   { id: 'monthly', discount: 0, months: 1, labelFr: 'Mensuel', labelEn: 'Monthly' },
-  { id: 'quarterly', discount: 0.12, months: 3, labelFr: 'Trimestriel', labelEn: 'Quarterly' },
+  { id: 'quarterly', discount: 0.12, months: 3, labelFr: 'Trimestriel', labelEn: 'Quarterly', badgeFr: '11 jours offerts', badgeEn: '11 days free' },
   { id: 'yearly', discount: 0.18, months: 12, labelFr: 'Annuel', labelEn: 'Yearly', badgeFr: '2 mois offerts', badgeEn: '2 months free' },
 ]
 
