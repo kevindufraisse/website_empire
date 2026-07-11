@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
-import { Check, X, Zap, TrendingUp, Crown, ChevronDown, Scissors, CalendarCheck, ShieldCheck, Loader2, GraduationCap, Star } from 'lucide-react'
+import { Check, X, Zap, TrendingUp, Crown, Scissors, CalendarCheck, ShieldCheck, Loader2, GraduationCap, Star } from 'lucide-react'
 import posthog from 'posthog-js'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { trackAmplitude, withAmplitudeDeviceId, getAmplitudeDeviceId } from '@/lib/amplitude'
@@ -102,16 +102,6 @@ const PLANS: Plan[] = [
   },
 ]
 
-// Credit cost per content type (empire-tracking src/lib/hooks/useCredits.ts CREDIT_COSTS)
-const CONTENT_COSTS: { credits: number; labelFr: string; labelEn: string }[] = [
-  { credits: 85, labelFr: 'Post LinkedIn', labelEn: 'LinkedIn post' },
-  { credits: 115, labelFr: 'Newsletter', labelEn: 'Newsletter' },
-  { credits: 29, labelFr: 'Reel / Short', labelEn: 'Reel / Short' },
-  { credits: 275, labelFr: 'Vidéo YouTube', labelEn: 'YouTube video' },
-  { credits: 180, labelFr: 'Carrousel', labelEn: 'Carousel' },
-  { credits: 350, labelFr: 'Reel monté pro', labelEn: 'Pro-edited Reel' },
-]
-
 // Coaching add-on, same offer as the app's pre-checkout popup (500€ one-time)
 const COACHING_PRICE = 500
 
@@ -122,10 +112,6 @@ function monthlyPrice(base: number, billing: BillingId): number {
 
 function planUrl(planId: PlanId, billing: BillingId): string {
   return withAmplitudeDeviceId(`${APP_ONBOARDING_URL}?plan=${planId}&billing=${billing}&intent=trial`)
-}
-
-function formatEuro(n: number): string {
-  return (Math.round(n * 100) / 100).toFixed(2).replace('.', ',').replace(/,00$/, '') + '€'
 }
 
 // Prix par jour (base 30j), affiché comme ancrage "petite dépense quotidienne".
@@ -141,7 +127,6 @@ export default function HomePricingSection() {
   // Annual by default: the single highest-impact pricing-page lever
   // (~15-20% more annual mix, ~2x lower churn) — verified across SaaS benchmarks.
   const [billing, setBilling] = useState<BillingId>('yearly')
-  const [showCosts, setShowCosts] = useState(false)
 
   useEffect(() => {
     if (!isInView || viewedRef.current) return
@@ -438,56 +423,6 @@ export default function HomePricingSection() {
             </div>
           ))}
         </motion.div>
-
-        {/* Per-content price grid (mirrors the app's pricing grid tab) */}
-        <div className="mt-10 max-w-3xl mx-auto">
-          <button
-            onClick={() => setShowCosts((v) => !v)}
-            className="mx-auto flex items-center gap-1.5 text-sm text-neutral-400 hover:text-white transition-colors"
-          >
-            {fr ? 'Voir le prix par contenu' : 'See price per content'}
-            <ChevronDown size={15} className={`transition-transform ${showCosts ? 'rotate-180' : ''}`} />
-          </button>
-
-          {showCosts && (
-            <div className="mt-4 overflow-x-auto rounded-2xl border border-white/10 bg-white/[0.03]">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-white/10 text-left text-neutral-400">
-                    <th className="px-4 py-3 font-medium">{fr ? 'Contenu' : 'Content'}</th>
-                    {PLANS.map((p) => (
-                      <th key={p.id} className={`px-4 py-3 text-right font-medium ${p.highlighted ? 'text-empire' : ''}`}>
-                        {fr ? p.nameFr : p.nameEn}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {CONTENT_COSTS.map((row) => (
-                    <tr key={row.labelEn} className="border-b border-white/5 last:border-0">
-                      <td className="px-4 py-2.5 text-neutral-300">
-                        {fr ? row.labelFr : row.labelEn}
-                      </td>
-                      {PLANS.map((p) => {
-                        const pricePerCredit = monthlyPrice(p.price, billing) / p.credits
-                        return (
-                          <td key={p.id} className={`px-4 py-2.5 text-right align-top tabular-nums ${p.highlighted ? 'font-semibold text-white' : 'text-neutral-400'}`}>
-                            {formatEuro(row.credits * pricePerCredit)}
-                          </td>
-                        )
-                      })}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              <p className="px-4 py-3 text-[11px] text-neutral-500">
-                {fr
-                  ? 'Chaque plan inclut des crédits (Starter 2 200 · Growth 6 600 · Scale 12 000 par mois) que vous utilisez librement sur les contenus de votre choix.'
-                  : 'Each plan includes credits (Starter 2,200 · Growth 6,600 · Scale 12,000 per month) that you spend freely on the contents you want.'}
-              </p>
-            </div>
-          )}
-        </div>
 
         <p className="mt-8 text-center text-sm text-neutral-500">
           {fr ? (
