@@ -305,31 +305,31 @@ export default function HomePricingSection() {
                   </span>
                 </div>
 
-                {/* Prix par jour — ancrage psychologique (perçu comme une petite dépense) */}
-                <p className="mt-1.5 text-sm font-medium text-empire">
-                  {fr
-                    ? `Soit ${perDay(monthly)}€/jour`
-                    : `That's ${perDay(monthly)}€/day`}
+                {/* Ancrages compactés sur 2 lignes max pour ne pas noyer le prix :
+                    ligne 1 = valeur (prix/jour + contenus), ligne 2 = facturation. */}
+                <p className="mt-1.5 text-sm">
+                  <span className="font-medium text-empire">
+                    {fr ? `Soit ${perDay(monthly)}€/jour` : `That's ${perDay(monthly)}€/day`}
+                  </span>
+                  <span className="text-neutral-500">
+                    {' · '}
+                    {plan.contents} {fr ? 'contenus finis/mois' : 'finished contents/month'}
+                  </span>
                 </p>
 
-                <p className="mt-1 text-xs text-neutral-500">
-                  {plan.contents} {fr ? 'contenus finis chaque mois' : 'finished contents every month'}
-                  {billing !== 'monthly' && (
-                    <>
-                      {' · '}
-                      {fr
-                        ? `facturé ${total}€ ${billing === 'quarterly' ? 'tous les 3 mois' : 'par an'}`
-                        : `billed ${total}€ ${billing === 'quarterly' ? 'every 3 months' : 'yearly'}`}
-                    </>
-                  )}
-                </p>
-
-                {/* Économies annuelles — affichées en vert, framing "dollars saved" */}
-                {billing === 'yearly' && (
-                  <p className="mt-1 text-xs font-semibold text-emerald-400">
+                {billing !== 'monthly' && (
+                  <p className="mt-1 text-xs text-neutral-500">
                     {fr
-                      ? `Économisez ${(plan.price - monthly) * 12}€ par an`
-                      : `Save ${(plan.price - monthly) * 12}€ per year`}
+                      ? `Facturé ${total}€ ${billing === 'quarterly' ? 'tous les 3 mois' : 'par an'}`
+                      : `Billed ${total}€ ${billing === 'quarterly' ? 'every 3 months' : 'yearly'}`}
+                    {billing === 'yearly' && (
+                      <span className="font-semibold text-emerald-400">
+                        {' · '}
+                        {fr
+                          ? `vous économisez ${(plan.price - monthly) * 12}€`
+                          : `you save ${(plan.price - monthly) * 12}€`}
+                      </span>
+                    )}
                   </p>
                 )}
 
