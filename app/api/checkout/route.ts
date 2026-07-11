@@ -28,9 +28,6 @@ const PLAN_CONFIG: Record<string, Record<string, { envKey: string; credits: numb
   },
 }
 
-// Prepaid cycles must grant the full cycle of credits (mirrors create-credit-checkout)
-const CYCLE_MONTHS: Record<string, number> = { monthly: 1, quarterly: 3, yearly: 12 }
-
 export async function POST(request: Request) {
   try {
     const stripeKey = process.env.STRIPE_SECRET_KEY
@@ -60,7 +57,10 @@ export async function POST(request: Request) {
 
     const stripe = new Stripe(stripeKey)
     const pack = `${plan}_${billing}`
-    const credits = config.credits * CYCLE_MONTHS[billing]
+    // Crédits d'essai = 1 mois seulement (comme le flow trial de l'app).
+    // Le cycle complet est crédité par le webhook à la 1re facture payée ;
+    // multiplier ici ferait double compte sur les cycles prépayés.
+    const credits = config.credits
 
     const ampParam = body.ampDeviceId ? `&amp_device_id=${encodeURIComponent(body.ampDeviceId)}` : ''
     const origin = new URL(request.url).origin
