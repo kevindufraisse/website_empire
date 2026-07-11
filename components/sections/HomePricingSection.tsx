@@ -303,8 +303,8 @@ export default function HomePricingSection() {
 
             <ul className="flex flex-wrap gap-x-6 gap-y-1.5 flex-1">
               {(fr
-                ? ['Volumes illimités', 'Multi-comptes et multi-marques', 'Account manager dédié', 'Onboarding personnalisé', 'SLA sur mesure']
-                : ['Unlimited volumes', 'Multi-account & multi-brand', 'Dedicated account manager', 'Custom onboarding', 'Custom SLA']
+                ? ['Volumes illimités', 'Multi-comptes et multi-marques', 'Account manager dédié', 'Onboarding personnalisé', 'Facturation sur mesure']
+                : ['Unlimited volumes', 'Multi-account & multi-brand', 'Dedicated account manager', 'Custom onboarding', 'Custom billing']
               ).map((f) => (
                 <li key={f} className="flex items-center gap-1.5 text-sm text-neutral-300">
                   <Check size={14} className="shrink-0 text-empire" />
