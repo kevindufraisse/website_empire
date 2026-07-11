@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
-import { Check, X, Zap, TrendingUp, Crown, Scissors, CalendarCheck, ShieldCheck, Loader2, GraduationCap } from 'lucide-react'
+import { Check, Zap, TrendingUp, Crown, Scissors, CalendarCheck, ShieldCheck, Loader2, GraduationCap } from 'lucide-react'
 import posthog from 'posthog-js'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { trackAmplitude, withAmplitudeDeviceId, getAmplitudeDeviceId } from '@/lib/amplitude'
@@ -42,10 +42,6 @@ type Plan = {
   featuresEn: string[]
   bonusesFr?: string[]
   bonusesEn?: string[]
-  // Decoy effect: limites visibles du plan (grisées) pour rendre le plan
-  // supérieur évident. Utilisé sur Starter uniquement.
-  notIncludedFr?: string[]
-  notIncludedEn?: string[]
   highlighted?: boolean
 }
 
@@ -61,10 +57,8 @@ const PLANS: Plan[] = [
     nameEn: 'Starter',
     descFr: 'Pour poster régulièrement sans y penser',
     descEn: 'Post consistently without thinking about it',
-    featuresFr: ['15 posts LinkedIn / mois', '15 Reels & Shorts / mois', '4 newsletters / mois', 'Publication automatique partout'],
-    featuresEn: ['15 LinkedIn posts / month', '15 Reels & Shorts / month', '4 newsletters / month', 'Auto-publish everywhere'],
-    notIncludedFr: ['Reels montés pro', 'vidéo YouTube', 'carrousels'],
-    notIncludedEn: ['pro-edited Reels', 'YouTube videos', 'carousels'],
+    featuresFr: ['15 posts LinkedIn / mois', '15 Reels & Shorts / mois', '4 newsletters / mois'],
+    featuresEn: ['15 LinkedIn posts / month', '15 Reels & Shorts / month', '4 newsletters / month'],
   },
   {
     id: 'growth',
@@ -290,14 +284,6 @@ export default function HomePricingSection() {
                       {b}
                     </li>
                   ))}
-                  {/* Decoy Starter condensé en une ligne discrète */}
-                  {(fr ? plan.notIncludedFr : plan.notIncludedEn) && (
-                    <li className="flex items-start gap-2 text-sm text-neutral-600">
-                      <X size={15} className="mt-0.5 shrink-0" />
-                      {fr ? 'Sans ' : 'No '}
-                      {(fr ? plan.notIncludedFr : plan.notIncludedEn)!.join(', ')}
-                    </li>
-                  )}
                 </ul>
 
                 <button
