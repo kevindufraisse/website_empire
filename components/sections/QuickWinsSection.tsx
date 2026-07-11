@@ -1,29 +1,86 @@
 'use client'
 import { motion, useInView } from 'framer-motion'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { ArrowRight, Check } from 'lucide-react'
 import { CtaReassurance } from '@/components/ui/cta-reassurance'
 import OnboardingLink from '@/components/OnboardingLink'
 
-const TASKS: { fr: string; en: string; hours: string; cost: string }[] = [
-  { fr: '30 sujets viraux prouvés', en: '30 proven viral topics', hours: '12h', cost: '600€' },
-  { fr: 'Découpage des vidéos', en: 'Video cutting & clipping', hours: '15h', cost: '750€' },
-  { fr: 'Ajout de b-rolls', en: 'Adding b-rolls', hours: '10h', cost: '500€' },
-  { fr: '30 Shorts / Reels / TikTok', en: '30 Shorts / Reels / TikToks', hours: '90h', cost: '3 000€' },
-  { fr: '4 montages YouTube (20 min)', en: '4 YouTube edits (20 min)', hours: '12h', cost: '800€' },
-  { fr: '30 posts LinkedIn', en: '30 LinkedIn posts', hours: '30h', cost: '3 000€' },
-  { fr: '12 carrousels', en: '12 carousels', hours: '24h', cost: '960€' },
-  { fr: '30 newsletters', en: '30 newsletters', hours: '60h', cost: '3 000€' },
-  { fr: 'Correction et relecture', en: 'Proofreading & QA', hours: '8h', cost: '400€' },
-  { fr: 'Community management', en: 'Community management', hours: '20h', cost: '1 000€' },
-]
+type PlanId = 'starter' | 'growth' | 'scale'
+
+type Task = { fr: string; en: string; hours: string; cost: string }
+
+const PLAN_TASKS: Record<PlanId, { tasks: Task[]; totalHours: string; totalCost: string; price: number }> = {
+  starter: {
+    tasks: [
+      { fr: '15 posts LinkedIn', en: '15 LinkedIn posts', hours: '15h', cost: '1 500€' },
+      { fr: '15 Reels & Shorts', en: '15 Reels & Shorts', hours: '30h', cost: '750€' },
+      { fr: '4 newsletters', en: '4 newsletters', hours: '8h', cost: '400€' },
+      { fr: 'Miniatures (Instagram, YouTube, LinkedIn)', en: 'Thumbnails (Instagram, YouTube, LinkedIn)', hours: '4h', cost: '200€' },
+      { fr: 'Sous-titrage vidéos', en: 'Video subtitling', hours: '5h', cost: '250€' },
+      { fr: 'Adaptation multi-plateformes (7 réseaux)', en: 'Multi-platform adaptation (7 networks)', hours: '10h', cost: '500€' },
+      { fr: 'Stratégie éditoriale et calendrier', en: 'Editorial strategy & calendar', hours: '6h', cost: '500€' },
+      { fr: 'Adaptation multilingue (FR, EN, ES)', en: 'Multilingual adaptation (FR, EN, ES)', hours: '12h', cost: '600€' },
+      { fr: 'Veille sujets viraux', en: 'Viral topic research', hours: '6h', cost: '300€' },
+      { fr: 'Community manager (montage, correction, planification)', en: 'Community manager (editing, QA, scheduling)', hours: '15h', cost: '750€' },
+    ],
+    totalHours: '111h',
+    totalCost: '5 750€',
+    price: 199,
+  },
+  growth: {
+    tasks: [
+      { fr: '25 posts LinkedIn', en: '25 LinkedIn posts', hours: '25h', cost: '2 500€' },
+      { fr: '33 Reels & Shorts (dont 8 montés pro)', en: '33 Reels & Shorts (incl. 8 pro-edited)', hours: '66h', cost: '1 650€' },
+      { fr: '4 newsletters', en: '4 newsletters', hours: '8h', cost: '400€' },
+      { fr: '1 vidéo YouTube + 1 carrousel', en: '1 YouTube video + 1 carousel', hours: '6h', cost: '280€' },
+      { fr: 'Miniatures (Instagram, YouTube, LinkedIn)', en: 'Thumbnails (Instagram, YouTube, LinkedIn)', hours: '6h', cost: '300€' },
+      { fr: 'Sous-titrage vidéos', en: 'Video subtitling', hours: '10h', cost: '500€' },
+      { fr: 'Adaptation multi-plateformes (7 réseaux)', en: 'Multi-platform adaptation (7 networks)', hours: '16h', cost: '800€' },
+      { fr: 'Stratégie éditoriale et calendrier', en: 'Editorial strategy & calendar', hours: '8h', cost: '700€' },
+      { fr: 'Adaptation multilingue (FR, EN, ES)', en: 'Multilingual adaptation (FR, EN, ES)', hours: '20h', cost: '1 000€' },
+      { fr: 'Veille sujets viraux', en: 'Viral topic research', hours: '6h', cost: '300€' },
+      { fr: 'Community manager (montage, correction, planification)', en: 'Community manager (editing, QA, scheduling)', hours: '25h', cost: '1 250€' },
+    ],
+    totalHours: '196h',
+    totalCost: '9 680€',
+    price: 499,
+  },
+  scale: {
+    tasks: [
+      { fr: '30 posts LinkedIn', en: '30 LinkedIn posts', hours: '30h', cost: '3 000€' },
+      { fr: '48 Reels & Shorts (dont 18 montés pro)', en: '48 Reels & Shorts (incl. 18 pro-edited)', hours: '96h', cost: '2 400€' },
+      { fr: '4 newsletters', en: '4 newsletters', hours: '8h', cost: '400€' },
+      { fr: '4 vidéos YouTube', en: '4 YouTube videos', hours: '12h', cost: '800€' },
+      { fr: '4 carrousels', en: '4 carousels', hours: '8h', cost: '320€' },
+      { fr: 'Miniatures (Instagram, YouTube, LinkedIn)', en: 'Thumbnails (Instagram, YouTube, LinkedIn)', hours: '8h', cost: '400€' },
+      { fr: 'Sous-titrage vidéos', en: 'Video subtitling', hours: '16h', cost: '800€' },
+      { fr: 'Adaptation multi-plateformes (7 réseaux)', en: 'Multi-platform adaptation (7 networks)', hours: '24h', cost: '1 200€' },
+      { fr: 'Stratégie éditoriale et calendrier', en: 'Editorial strategy & calendar', hours: '10h', cost: '900€' },
+      { fr: 'Adaptation multilingue (FR, EN, ES)', en: 'Multilingual adaptation (FR, EN, ES)', hours: '30h', cost: '1 500€' },
+      { fr: 'Veille sujets viraux', en: 'Viral topic research', hours: '6h', cost: '300€' },
+      { fr: 'Community manager (montage, correction, planification)', en: 'Community manager (editing, QA, scheduling)', hours: '40h', cost: '2 000€' },
+    ],
+    totalHours: '288h',
+    totalCost: '14 020€',
+    price: 799,
+  },
+}
+
+const PLAN_LABELS: Record<PlanId, string> = {
+  starter: 'Starter',
+  growth: 'Growth',
+  scale: 'Scale',
+}
 
 export default function QuickWinsSection() {
   const { lang, t } = useLanguage()
   const fr = lang === 'fr'
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const [selectedPlan, setSelectedPlan] = useState<PlanId>('growth')
+
+  const plan = PLAN_TASKS[selectedPlan]
 
   return (
     <section className="relative w-full py-20 md:py-32 overflow-hidden bg-[#0a0a0a]">
@@ -39,14 +96,28 @@ export default function QuickWinsSection() {
         >
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
             {fr
-              ? <>Économisez <span className="text-empire">281h et 14 010€ par mois.</span></>
-              : <>Save <span className="text-empire">281h and €14,010 per month.</span></>}
+              ? <>Économisez <span className="text-empire">{plan.totalHours} et {plan.totalCost} par mois.</span></>
+              : <>Save <span className="text-empire">{plan.totalHours} and {plan.totalCost} per month.</span></>}
           </h2>
           <p className="text-neutral-400 text-lg max-w-2xl mx-auto">
             {fr
-              ? "Être présent sur un seul réseau, c'est ouvrir votre boutique 1 jour sur 7. Voici ce que coûte l'omniprésence — et la meilleure façon de l'obtenir."
-              : 'Being on one platform is opening your shop 1 day out of 7. Here\u2019s what omnipresence costs — and the best way to get it.'}
+              ? "Dès la première semaine. Nos clients passent en général de quelques posts sur un seul réseau à du contenu publié tous les jours sur tous les réseaux - avec moins d'effort qu'avant et plus de performance (parfois jusqu'à 10 000% de plus)."
+              : 'From the first week. Our clients typically go from a few posts on one network to daily content across all platforms - with less effort than before and more performance (sometimes up to 10,000% more).'}
           </p>
+
+          <div className="mt-6 inline-flex items-center rounded-full border border-white/10 bg-white/[0.04] p-1">
+            {(Object.keys(PLAN_LABELS) as PlanId[]).map((id) => (
+              <button
+                key={id}
+                onClick={() => setSelectedPlan(id)}
+                className={`rounded-full px-4 py-1.5 text-sm font-semibold transition-colors ${
+                  selectedPlan === id ? 'bg-empire text-black' : 'text-neutral-400 hover:text-white'
+                }`}
+              >
+                {PLAN_LABELS[id]}
+              </button>
+            ))}
+          </div>
         </motion.div>
 
         {/* Comparison table */}
@@ -63,9 +134,8 @@ export default function QuickWinsSection() {
               <span className="pb-2.5 border-b border-white/10 text-[11px] text-neutral-500 font-semibold uppercase tracking-wider text-right whitespace-nowrap">{fr ? 'En freelance' : 'Freelance'}</span>
               <span className="pb-2.5 border-b border-white/10 text-[11px] text-empire font-semibold uppercase tracking-wider text-right whitespace-nowrap">{fr ? 'Avec Empire' : 'With Empire'}</span>
 
-              {/* All rows — no collapse */}
-              {TASKS.map((task, i) => (
-                <div key={i} className="contents">
+              {plan.tasks.map((task, i) => (
+                <div key={`${selectedPlan}-${i}`} className="contents">
                   <span className="py-2 border-b border-white/[0.04] text-[13px] text-neutral-300 self-center">{fr ? task.fr : task.en}</span>
                   <span className="py-2 border-b border-white/[0.04] text-[12px] text-neutral-500 text-right font-mono whitespace-nowrap self-center">{task.hours} · <span className="line-through decoration-red-400/40">{task.cost}</span></span>
                   <span className="py-2 border-b border-white/[0.04] inline-flex items-center justify-end gap-1 text-[12px] text-empire whitespace-nowrap">
@@ -77,24 +147,16 @@ export default function QuickWinsSection() {
             </div>
 
             {/* Total row */}
-            <div className="grid grid-cols-2 gap-4 pt-4 mt-2 border-t border-white/10">
-              <div>
-                <p className="text-[11px] text-neutral-500 font-semibold uppercase tracking-wider mb-1">{fr ? 'En freelance' : 'Freelance'}</p>
-                <p className="text-lg md:text-xl font-bold text-red-400 font-mono leading-tight">14 010€<span className="text-[11px] font-medium text-neutral-500">{fr ? '/mois' : '/mo'}</span></p>
-                <p className="text-[11px] text-neutral-600 mt-0.5">{fr ? '+ 281h de votre temps' : '+ 281h of your time'}</p>
-              </div>
-              <div className="text-right">
-                <p className="text-[11px] text-empire font-semibold uppercase tracking-wider mb-1">{fr ? 'Avec Empire' : 'With Empire'}</p>
-                <p className="text-lg md:text-xl font-bold text-empire font-mono leading-tight">{fr ? 'dès 175€' : 'from €175'}<span className="text-[11px] font-medium text-empire/60">{fr ? '/mois' : '/mo'}</span></p>
-                <p className="text-[11px] text-neutral-400 mt-0.5">{fr ? '+ 1h de parole par mois' : '+ 1h of talking a month'}</p>
-              </div>
+            <div className="pt-4 mt-2 border-t border-white/10 text-center">
+              <p className="text-[11px] text-neutral-500 font-semibold uppercase tracking-wider mb-1">{fr ? 'Total en freelance' : 'Total as freelance'}</p>
+              <p className="text-lg md:text-xl font-bold text-red-400 font-mono leading-tight">{plan.totalCost}<span className="text-[11px] font-medium text-neutral-500">{fr ? '/mois' : '/mo'}</span></p>
+              <p className="text-[11px] text-neutral-600 mt-0.5">{fr ? `+ ${plan.totalHours} de votre temps` : `+ ${plan.totalHours} of your time`}</p>
+              <p className="mt-2 text-[13px] text-white">
+                {fr
+                  ? <>Avec {PLAN_LABELS[selectedPlan]} : <span className="font-bold text-empire">{plan.price}€/mois</span> - et 1h de votre temps.</>
+                  : <>With {PLAN_LABELS[selectedPlan]}: <span className="font-bold text-empire">€{plan.price}/mo</span> - and 1h of your time.</>}
+              </p>
             </div>
-
-            <p className="mt-3 text-center text-[13px] text-white">
-              {fr
-                ? <>Vous économisez <span className="font-bold text-empire">plus de 13 800€ et 280h</span> chaque mois.</>
-                : <>You save <span className="font-bold text-empire">over €13,800 and 280h</span> every month.</>}
-            </p>
           </div>
         </motion.div>
 

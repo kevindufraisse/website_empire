@@ -14,8 +14,8 @@ export const en = {
   },
   hero: {
     targetAudience: 'For freelancers, employees & entrepreneurs',
-    title: 'Run a media machine. Close leads. <span class="text-empire">Never manage.</span>',
-    subtitle: 'Talk for 1 hour and our team edits and writes a month of content on 7 platforms.',
+    title: 'Talk for 1 hour. Our team edits and writes <span class="text-empire">a month of content on 7 platforms.</span>',
+    subtitle: 'Close faster. Attract more clients. Raise your prices. Become the leader.',
     description: '',
     cta1: 'Start for free',
     cta2: 'Watch Demo (1 min)',
@@ -160,11 +160,11 @@ export const en = {
     specific: {
       howManyPosts: {
         question: 'How many pieces of content do I get exactly?',
-        answer: 'You pay as you go with credits. Each credit equals one piece of content (post, reel, newsletter…). Buy a credit pack and use them at your own pace. Need more? Top up anytime. Credits never expire.',
+        answer: 'Each plan includes a monthly content volume: ~22 for Starter, ~89 for Growth, ~177 for Scale. You choose how to split them between LinkedIn posts, reels, newsletters, YouTube videos and carousels. Need more occasionally? You can top up anytime.',
       },
       whatIfDontLike: {
         question: 'What if I have no content ideas?',
-        answer: 'That\'s our job. We scan trending viral topics from your competitors, YouTube and Reddit, and suggest the best angles for your niche. You can also send notes, screenshots and reel ideas via Telegram — we turn everything into publish-ready content.',
+        answer: 'That\'s our job. We scan trending viral topics from your competitors, YouTube and X, and suggest the best angles for your niche. You can also send notes, screenshots and reel ideas via Telegram — we turn everything into publish-ready content.',
       },
       canRequestChanges: {
         question: 'Can I request changes to the content?',
@@ -186,7 +186,7 @@ export const en = {
       },
       {
         concern: 'Is this really better than hiring someone?',
-        answer: 'Yes. Hiring someone costs €12K+/month, takes weeks to onboard, and you still manage them. Empire delivers daily content on every platform from €175/mo, with zero management. Same results, fraction of the cost.',
+        answer: 'Yes. Hiring someone costs €12K+/month, takes weeks to onboard, and you still manage them. Empire delivers daily content on every platform from €199/mo, with zero management. Same results, fraction of the cost.',
       },
       {
         concern: 'What if the content doesn\'t perform?',

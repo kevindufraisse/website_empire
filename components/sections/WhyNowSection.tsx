@@ -45,7 +45,7 @@ function FadeIn({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
   )
 }
 
-type Feature = { icon: React.ComponentType<{ className?: string; size?: number }>; title: string; desc: string; value?: string; badge?: string }
+type Feature = { icon: React.ComponentType<{ className?: string; size?: number }>; title: string; desc: string; stat?: string; badge?: string }
 
 type Pillar = {
   id: string
@@ -62,17 +62,16 @@ const pillars: Record<string, Pillar[]> = {
       icon: Sparkles,
       label: 'Contenu',
       keyFeatures: [
-        { icon: FileText, title: '30+ posts LinkedIn', desc: 'Rédigés, optimisés et planifiés. Ajout automatique de vos lead magnets.', value: '1 500€' },
-        { icon: Mail, title: '30 newsletters/mois', desc: 'Qui sonnent comme vous, en mieux.', value: '1 200€' },
-        { icon: Video, title: '30+ Reels & Shorts', desc: 'Vos vidéos découpées aux meilleurs moments. Montage pro : hooks, sous-titres, transitions. Option sans caméra.', value: '3 000€' },
-        { icon: Palette, title: 'Personnalisation complète', desc: 'Sous-titres (45 styles), transitions, vos couleurs, vos b-rolls, votre photo, votre branding — chaque contenu à votre image.' },
-        { icon: Globe, title: 'Multilingue : FR, EN, ES', desc: 'Tous vos contenus dans 3 langues — même pipeline, même qualité.' },
+        { icon: FileText, title: 'Posts LinkedIn', desc: 'Rédigés, optimisés et planifiés. Ajout automatique de vos lead magnets.', stat: '~1M vues/mois' },
+        { icon: Video, title: 'Reels & Shorts', desc: 'Hooks, sous-titres et transitions. Option sans caméra.', stat: '~6M vues/mois' },
+        { icon: Mail, title: 'Newsletters', desc: 'Qui sonnent comme vous, en mieux.', stat: '~35% taux d\'ouverture' },
+        { icon: Palette, title: 'Personnalisation complète', desc: 'Sous-titres (45 styles), transitions, vos couleurs, vos b-rolls, votre branding.' },
+        { icon: Globe, title: 'Multilingue : FR, EN, ES', desc: 'Tous vos contenus dans 3 langues.' },
       ],
       moreFeatures: [
-        { icon: Video, title: 'Vidéos longues YouTube', desc: 'On crée vos vidéos longues de A à Z. Personnalisation des couleurs, textes et format.', value: '2 000€' },
-        { icon: ImageIcon, title: 'Carrousels automatiques', desc: 'Générés depuis vos posts pour LinkedIn + Instagram.', value: '800€' },
-        { icon: ImageIcon, title: 'Miniatures', desc: 'Création des miniatures pour Instagram, YouTube et LinkedIn', value: '500€' },
-        { icon: Bot, title: 'Cerveau Empire', desc: 'Nos agents IA trouvent les sujets les plus viraux pour votre niche', value: '1 000€' },
+        { icon: ImageIcon, title: 'Carrousels', desc: 'Générés depuis vos posts pour LinkedIn + Instagram.' },
+        { icon: ImageIcon, title: 'Miniatures', desc: 'Création des miniatures pour Instagram, YouTube et LinkedIn' },
+        { icon: Bot, title: 'Cerveau Empire', desc: 'Nos agents IA trouvent les sujets les plus viraux pour votre niche' },
       ],
     },
     {
@@ -80,17 +79,17 @@ const pillars: Record<string, Pillar[]> = {
       icon: Send,
       label: 'Distribution',
       keyFeatures: [
-        { icon: Share2, title: 'Un contenu → tous les réseaux', desc: 'LinkedIn, Instagram, TikTok, YouTube, X, Threads, Facebook. Partout, en même temps.', value: '1 000€' },
-        { icon: Calendar, title: 'Publiez depuis la plateforme', desc: 'Tout est prêt dans votre calendrier, vous publiez en 1 clic', value: '500€' },
-        { icon: Users, title: 'Employee Advocacy', desc: 'Faites publier vos employés automatiquement', value: '800€' },
-        { icon: MessageCircle, title: 'Idées via Telegram', desc: 'Ajoutez vos idées (reels, posts, captures...) depuis Telegram et récupérez-les dans Empire', badge: 'NEW' },
+        { icon: Share2, title: '7 réseaux en même temps', desc: 'LinkedIn, Instagram, TikTok, YouTube, X, Threads, Facebook.', stat: '7 plateformes' },
+        { icon: Calendar, title: 'Publiez en 1 clic', desc: 'Tout est prêt dans votre calendrier.' },
+        { icon: Users, title: 'Employee Advocacy', desc: 'Faites publier vos employés automatiquement' },
+        { icon: MessageCircle, title: 'Idées via Telegram', desc: 'Ajoutez vos idées depuis Telegram et récupérez-les dans Empire', badge: 'NEW' },
       ],
       moreFeatures: [
-        { icon: Code2, title: 'Multi-comptes', desc: 'Publiez sur plusieurs comptes depuis la même plateforme', value: '300€' },
-        { icon: Mail, title: 'Substack automatique', desc: 'Vos notes publiées automatiquement sur Substack', value: '200€' },
-        { icon: Users, title: 'Diffusion Skool', desc: 'Contenu partagé automatiquement dans votre communauté Skool', value: '200€' },
-        { icon: Zap, title: 'Deeplinks de tracking', desc: 'Liens trackés pour mesurer la performance de chaque contenu', value: '300€' },
-        { icon: Code2, title: 'API & Automations', desc: 'Connectez Empire à vos outils (Notion, Airtable, Google Drive). Automatisez vos workflows.', value: '500€' },
+        { icon: Code2, title: 'Multi-comptes', desc: 'Publiez sur plusieurs comptes depuis la même plateforme' },
+        { icon: Mail, title: 'Substack automatique', desc: 'Vos notes publiées automatiquement sur Substack' },
+        { icon: Users, title: 'Diffusion Skool', desc: 'Contenu partagé automatiquement dans votre communauté Skool' },
+        { icon: Zap, title: 'Deeplinks de tracking', desc: 'Liens trackés pour mesurer la performance de chaque contenu' },
+        { icon: Code2, title: 'API & Automations', desc: 'Connectez Empire à vos outils (Notion, Airtable, Google Drive).' },
       ],
     },
     {
@@ -98,15 +97,13 @@ const pillars: Record<string, Pillar[]> = {
       icon: HeadphonesIcon,
       label: 'Accompagnement',
       keyFeatures: [
-        { icon: UserCheck, title: 'Équipe humaine dédiée', desc: 'De vrais humains créent et vérifient chaque contenu', value: '2 000€' },
+        { icon: UserCheck, title: 'Équipe humaine dédiée', desc: 'De vrais humains créent et vérifient chaque contenu', stat: '0 erreur publiée' },
         { icon: GraduationCap, title: 'Coaching dédié', desc: 'Un coach dédié comprend votre business et vous forme aux formats qui performent dans votre niche', badge: 'OPTION' },
-        { icon: GraduationCap, title: 'Bootcamp viralité', desc: '21 jours pour maîtriser la viralité et exécuter les formats qui performent dans votre niche', badge: 'OPTION' },
-        { icon: Users, title: 'Communauté privée', desc: 'Réseau de fondateurs et créateurs', badge: 'OPTION' },
-        { icon: Mic, title: 'Lives de groupe', desc: 'Sessions collectives pour progresser ensemble', badge: 'OPTION' },
+        { icon: GraduationCap, title: 'Bootcamp viralité', desc: '21 jours pour maîtriser la viralité et exécuter les formats qui performent dans votre niche', badge: 'DÈS SCALE' },
+        { icon: Users, title: 'Communauté privée', desc: 'Réseau de fondateurs et créateurs', badge: 'DÈS GROWTH' },
+        { icon: Mic, title: 'Lives de groupe', desc: 'Sessions collectives pour progresser ensemble', badge: 'DÈS SCALE' },
       ],
-      moreFeatures: [
-        // (intentionally empty — all support options are visible by default)
-      ],
+      moreFeatures: [],
     },
   ],
   en: [
@@ -115,15 +112,14 @@ const pillars: Record<string, Pillar[]> = {
       icon: Sparkles,
       label: 'Content',
       keyFeatures: [
-        { icon: FileText, title: '30+ LinkedIn posts', desc: 'Written, optimized, scheduled. Auto-embed your lead magnets.' },
-        { icon: Mail, title: '30 newsletters/mo', desc: 'Sound like you, but better.' },
-        { icon: Video, title: '30+ Reels & Shorts', desc: 'Your videos cut at their best moments. Pro editing: hooks, subtitles, transitions. No-camera option.' },
-        { icon: Palette, title: 'Full customization', desc: 'Subtitles (45 styles), transitions, your colors, your b-rolls, your photo, your branding — every piece of content in your image.' },
-        { icon: Globe, title: 'Multilingual: FR, EN, ES', desc: 'All your content in 3 languages — same pipeline, same quality.' },
+        { icon: FileText, title: 'LinkedIn posts', desc: 'Written, optimized, scheduled. Auto-embed your lead magnets.', stat: '~1M views/mo' },
+        { icon: Video, title: 'Reels & Shorts', desc: 'Hooks, subtitles and transitions. No-camera option.', stat: '~6M views/mo' },
+        { icon: Mail, title: 'Newsletters', desc: 'Sound like you, but better.', stat: '~35% open rate' },
+        { icon: Palette, title: 'Full customization', desc: 'Subtitles (45 styles), transitions, your colors, your b-rolls, your branding.' },
+        { icon: Globe, title: 'Multilingual: FR, EN, ES', desc: 'All your content in 3 languages.' },
       ],
       moreFeatures: [
-        { icon: Video, title: 'Long-form YouTube videos', desc: 'We create your long videos from A to Z. Custom colors, text and format.' },
-        { icon: ImageIcon, title: 'Auto carousels', desc: 'Generated from your posts for LinkedIn + Instagram.' },
+        { icon: ImageIcon, title: 'Carousels', desc: 'Generated from your posts for LinkedIn + Instagram.' },
         { icon: ImageIcon, title: 'Thumbnails', desc: 'Custom thumbnails for Instagram, YouTube and LinkedIn' },
         { icon: Bot, title: 'Empire Brain', desc: 'Our AI agents find the most viral topics for your niche' },
       ],
@@ -133,17 +129,17 @@ const pillars: Record<string, Pillar[]> = {
       icon: Send,
       label: 'Distribution',
       keyFeatures: [
-        { icon: Share2, title: 'One piece of content → every platform', desc: 'LinkedIn, Instagram, TikTok, YouTube, X, Threads, Facebook. Everywhere, at the same time.' },
-        { icon: Calendar, title: 'Publish from the platform', desc: 'Everything ready in your calendar, publish in 1 click' },
+        { icon: Share2, title: '7 platforms at once', desc: 'LinkedIn, Instagram, TikTok, YouTube, X, Threads, Facebook.', stat: '7 platforms' },
+        { icon: Calendar, title: 'Publish in 1 click', desc: 'Everything ready in your calendar.' },
         { icon: Users, title: 'Employee Advocacy', desc: 'Get your employees publishing automatically' },
-        { icon: MessageCircle, title: 'Ideas via Telegram', desc: 'Add your ideas (reels, posts, screenshots...) from Telegram and retrieve them in Empire', badge: 'NEW' },
+        { icon: MessageCircle, title: 'Ideas via Telegram', desc: 'Add your ideas from Telegram and retrieve them in Empire', badge: 'NEW' },
       ],
       moreFeatures: [
         { icon: Code2, title: 'Multi-account', desc: 'Publish on multiple accounts from the same platform' },
         { icon: Mail, title: 'Auto Substack', desc: 'Your notes automatically published on Substack' },
         { icon: Users, title: 'Skool distribution', desc: 'Content automatically shared in your Skool community' },
         { icon: Zap, title: 'Tracking deeplinks', desc: 'Tracked links to measure each content performance' },
-        { icon: Code2, title: 'API & Automations', desc: 'Connect Empire to your tools (Notion, Airtable, Google Drive). Automate your workflows.' },
+        { icon: Code2, title: 'API & Automations', desc: 'Connect Empire to your tools (Notion, Airtable, Google Drive).' },
       ],
     },
     {
@@ -151,15 +147,13 @@ const pillars: Record<string, Pillar[]> = {
       icon: HeadphonesIcon,
       label: 'Support',
       keyFeatures: [
-        { icon: UserCheck, title: 'Dedicated human team', desc: 'Real humans create and review every piece of content' },
+        { icon: UserCheck, title: 'Dedicated human team', desc: 'Real humans create and review every piece of content', stat: '0 errors published' },
         { icon: GraduationCap, title: 'Dedicated coaching', desc: 'A dedicated coach understands your business and trains you on the formats that perform in your niche', badge: 'OPTION' },
-        { icon: GraduationCap, title: 'Virality bootcamp', desc: '21 days to master virality and execute the formats that perform in your niche', badge: 'OPTION' },
-        { icon: Users, title: 'Private community', desc: 'Founder & creator network', badge: 'OPTION' },
-        { icon: Mic, title: 'Group live sessions', desc: 'Collective sessions to grow together', badge: 'OPTION' },
+        { icon: GraduationCap, title: 'Virality bootcamp', desc: '21 days to master virality and execute the formats that perform in your niche', badge: 'FROM SCALE' },
+        { icon: Users, title: 'Private community', desc: 'Founder & creator network', badge: 'FROM GROWTH' },
+        { icon: Mic, title: 'Group live sessions', desc: 'Collective sessions to grow together', badge: 'FROM SCALE' },
       ],
-      moreFeatures: [
-        // (intentionally empty — all support options are visible by default)
-      ],
+      moreFeatures: [],
     },
   ],
 }
@@ -191,11 +185,9 @@ export default function WhyNowSection() {
                 : <>What Empire <span className="text-empire">creates for you</span> every month</>}
             </h2>
             <p className="text-neutral-400 text-lg max-w-2xl mx-auto">
-              {autopilot
-                ? t.autopilot.whyNow.subtitle
-                : (fr
-                    ? '15 min de parole par semaine. Le reste est automatisé.'
-                    : '15 min of talking a week. The rest is automated.')}
+              {fr
+                ? '15 min de parole par semaine. Le reste est automatisé.'
+                : '15 min of talking a week. The rest is automated.'}
             </p>
           </div>
         </FadeIn>
@@ -205,24 +197,14 @@ export default function WhyNowSection() {
             const PillarIcon = pillar.icon
             const isExpanded = expandedPillar === pillar.id
             const hasMore = pillar.moreFeatures.length > 0
-            const highlighted = autopilot && pillar.id === 'accompagnement'
 
             return (
               <FadeIn key={pillar.id} delay={pi * 0.1}>
-                <div className={`relative rounded-2xl border overflow-hidden transition-all ${
-                  highlighted
-                    ? 'border-autopilot/60 bg-gradient-to-br from-autopilot/10 to-white/[0.02] shadow-[0_0_30px_rgba(212,165,116,0.15)]'
-                    : 'border-white/10 bg-white/[0.02]'
-                }`}>
-                  {highlighted && (
-                    <div className="absolute top-3 right-3 z-10 px-2 py-1 rounded-full bg-autopilot text-black text-[10px] font-bold tracking-wider uppercase shadow-md">
-                      {fr ? 'Autopilot' : 'Autopilot'}
-                    </div>
-                  )}
+                <div className="relative rounded-2xl border border-white/10 bg-white/[0.02] overflow-hidden transition-all">
                   <div className="p-5 pb-4 border-b border-white/5">
                     <div className="flex items-center gap-3 mb-1">
-                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${highlighted ? 'bg-autopilot/20' : 'bg-empire/15'}`}>
-                        <PillarIcon className={highlighted ? 'text-autopilot' : 'text-empire'} size={16} />
+                      <div className="w-8 h-8 rounded-lg bg-empire/15 flex items-center justify-center">
+                        <PillarIcon className="text-empire" size={16} />
                       </div>
                       <h3 className="text-lg font-bold text-white">{pillar.label}</h3>
                     </div>
@@ -245,8 +227,8 @@ export default function WhyNowSection() {
                             </div>
                             <p className="text-xs text-neutral-400 mt-0.5">{f.desc}</p>
                           </div>
-                          {f.value && (
-                            <span className="text-xs font-bold text-neutral-500 line-through whitespace-nowrap">{f.value}</span>
+                          {f.stat && (
+                            <span className="text-xs font-bold text-empire whitespace-nowrap">{f.stat}</span>
                           )}
                         </div>
                       )
@@ -277,8 +259,8 @@ export default function WhyNowSection() {
                                     </div>
                                     <p className="text-xs text-neutral-400 mt-0.5">{f.desc}</p>
                                   </div>
-                                  {f.value && (
-                                    <span className="text-xs font-bold text-neutral-500 line-through whitespace-nowrap">{f.value}</span>
+                                  {f.stat && (
+                                    <span className="text-xs font-bold text-empire whitespace-nowrap">{f.stat}</span>
                                   )}
                                 </div>
                               )
@@ -306,24 +288,10 @@ export default function WhyNowSection() {
 
         <FadeIn delay={0.3}>
           <div className="text-center">
-            <div className="mb-4">
-              <p className="text-sm text-neutral-500 mb-1">
-                {fr ? 'Valeur totale en agence :' : 'Total agency value:'}
-              </p>
-              <p className="text-2xl font-black text-neutral-400 line-through">
-                {fr ? '15 800€/mois' : '€15,800/mo'}
-              </p>
-            </div>
             <OnboardingLink
-              className={`inline-flex flex-col items-center px-7 py-3.5 rounded-xl font-bold hover:scale-105 transition-all ${
-                autopilot
-                  ? 'bg-gradient-to-r from-autopilot to-autopilot text-black shadow-[0_0_30px_rgba(212,165,116,0.35)]'
-                  : 'bg-empire text-black shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.25)]'
-              }`}
+              className="inline-flex flex-col items-center px-7 py-3.5 rounded-xl font-bold hover:scale-105 transition-all bg-empire text-black shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.25)]"
             >
-              <span className="text-lg">{autopilot
-                ? t.autopilot.hero.cta1
-                : (fr ? 'Commencer gratuitement' : 'Start for free')}</span>
+              <span className="text-lg">{fr ? 'Commencer gratuitement' : 'Start for free'}</span>
               <span className="text-[11px] font-semibold opacity-70">{fr ? 'Sans engagement · Annulez en 1 clic' : 'No commitment · Cancel in 1 click'}</span>
             </OnboardingLink>
 
@@ -338,18 +306,18 @@ export default function WhyNowSection() {
               <div className="flex flex-wrap items-center justify-center gap-3 max-w-3xl mx-auto">
                 {(fr
                   ? [
-                      { name: 'Yomi Denzel', revenue: '~€60K/mo', src: 'https://unavatar.io/x/YomiDenzel96' },
-                      { name: 'Pauline Laigneau', revenue: '~€25K/mo', src: 'https://unavatar.io/x/plaigneau' },
-                      { name: 'Stan Leloup', revenue: '~€30K/mo', src: 'https://unavatar.io/x/marketingstan' },
-                      { name: 'Oussama Ammar', revenue: '~€35K/mo', src: 'https://unavatar.io/x/daedalium' },
-                      { name: 'Antoine BM', revenue: '~€15K/mo', src: 'https://unavatar.io/x/antoinebm' },
+                      { name: 'Yomi Denzel', src: 'https://unavatar.io/x/YomiDenzel96' },
+                      { name: 'Pauline Laigneau', src: 'https://unavatar.io/x/plaigneau' },
+                      { name: 'Stan Leloup', src: 'https://unavatar.io/x/marketingstan' },
+                      { name: 'Oussama Ammar', src: 'https://unavatar.io/x/daedalium' },
+                      { name: 'Antoine BM', src: 'https://unavatar.io/x/antoinebm' },
                     ]
                   : [
-                      { name: 'Grant Cardone', revenue: '~€100K/mo', src: '/creators/cardone.webp' },
-                      { name: 'Alex Hormozi', revenue: '~€80K/mo', src: '/creators/hormozi.jpg' },
-                      { name: 'Ali Abdaal', revenue: '~€75K/mo', src: '/creators/abdaal.webp' },
-                      { name: 'Matt Gray', revenue: '~€60K/mo', src: '/creators/gray.jpg' },
-                      { name: 'Chris Williamson', revenue: '~€70K/mo', src: '/creators/williamson.webp' },
+                      { name: 'Grant Cardone', src: '/creators/cardone.webp' },
+                      { name: 'Alex Hormozi', src: '/creators/hormozi.jpg' },
+                      { name: 'Ali Abdaal', src: '/creators/abdaal.webp' },
+                      { name: 'Matt Gray', src: '/creators/gray.jpg' },
+                      { name: 'Chris Williamson', src: '/creators/williamson.webp' },
                     ]
                 ).map((creator) => (
                   <div
@@ -366,10 +334,7 @@ export default function WhyNowSection() {
                         referrerPolicy="no-referrer"
                       />
                     </div>
-                    <div className="text-center">
-                      <p className="text-[11px] md:text-xs font-bold text-white group-hover:text-empire transition-colors whitespace-nowrap">{creator.name}</p>
-                      <p className="text-[9px] md:text-[10px] text-neutral-400">{creator.revenue}</p>
-                    </div>
+                    <p className="text-[11px] md:text-xs font-bold text-white group-hover:text-empire transition-colors whitespace-nowrap">{creator.name}</p>
                   </div>
                 ))}
               </div>

@@ -64,8 +64,8 @@ export default function FounderSection() {
     },
     {
       icon: TrendingUp,
-      stat: '+€3M',
-      label: 'Générés en Ligne',
+      stat: '700M+',
+      label: 'Vues générées pour nos clients',
       color: 'from-white/10 to-white/5',
       borderColor: 'border-white/20',
       textColor: 'text-empire',
@@ -94,8 +94,8 @@ export default function FounderSection() {
     },
     {
       icon: TrendingUp,
-      stat: '+€3M',
-      label: 'Generated Online',
+      stat: '700M+',
+      label: 'Views generated for our clients',
       color: 'from-white/10 to-white/5',
       borderColor: 'border-white/20',
       textColor: 'text-empire',

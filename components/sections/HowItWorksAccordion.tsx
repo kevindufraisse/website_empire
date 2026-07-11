@@ -334,7 +334,7 @@ export default function HowItWorksAccordion() {
                     {[
                       { platform: 'LinkedIn', color: 'bg-blue-500/20 text-blue-400' },
                       { platform: 'YouTube', color: 'bg-red-500/20 text-red-400' },
-                      { platform: 'Reddit', color: 'bg-orange-500/20 text-orange-400' },
+                      { platform: 'X / Twitter', color: 'bg-neutral-500/20 text-neutral-400' },
                     ].map((s) => (
                       <div key={s.platform} className={`flex items-center gap-2 px-3 py-2 rounded-lg ${s.color} text-xs font-semibold`}>
                         <div className="w-2 h-2 rounded-full bg-current animate-pulse" />
@@ -355,8 +355,8 @@ export default function HowItWorksAccordion() {
                   </div>
                   <p className="text-neutral-400 text-sm">
                     {lang === 'fr'
-                      ? 'On scanne vos concurrents, YouTube et Reddit. Vous recevez les sujets qui marchent dans votre niche.'
-                      : 'We scan your competitors, YouTube and Reddit. You get the topics that work in your niche.'}
+                      ? 'On scanne vos concurrents, YouTube et X. Vous recevez les sujets qui marchent dans votre niche.'
+                      : 'We scan your competitors, YouTube and X. You get the topics that work in your niche.'}
                   </p>
                 </div>
               </div>

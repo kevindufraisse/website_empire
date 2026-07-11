@@ -66,8 +66,8 @@ const PLANS: Plan[] = [
     nameEn: 'Growth',
     descFr: 'Pour devenir une référence de votre niche',
     descEn: 'Become a reference in your niche',
-    featuresFr: ['25 posts LinkedIn / mois', '25 Reels + 8 Reels montés pro / mois', '4 newsletters / mois', '1 vidéo YouTube + 1 carrousel / mois'],
-    featuresEn: ['25 LinkedIn posts / month', '25 Reels + 8 pro-edited Reels / month', '4 newsletters / month', '1 YouTube video + 1 carousel / month'],
+    featuresFr: ['25 posts LinkedIn / mois', '33 Reels & Shorts / mois dont 8 montés pro', '4 newsletters / mois', '1 vidéo YouTube + 1 carrousel / mois'],
+    featuresEn: ['25 LinkedIn posts / month', '33 Reels & Shorts / month incl. 8 pro-edited', '4 newsletters / month', '1 YouTube video + 1 carousel / month'],
     bonusesFr: ['Bonus : Loom stratégique personnalisé'],
     bonusesEn: ['Bonus: personalized strategy Loom'],
     highlighted: true,
@@ -81,8 +81,8 @@ const PLANS: Plan[] = [
     nameEn: 'Scale',
     descFr: 'Pour saturer votre marché de contenu',
     descEn: 'Saturate your market with content',
-    featuresFr: ['30 posts LinkedIn / mois', '30 Reels + 18 Reels montés pro / mois', '4 newsletters + 4 vidéos YouTube / mois', '4 carrousels / mois'],
-    featuresEn: ['30 LinkedIn posts / month', '30 Reels + 18 pro-edited Reels / month', '4 newsletters + 4 YouTube videos / month', '4 carousels / month'],
+    featuresFr: ['30 posts LinkedIn / mois', '48 Reels & Shorts / mois dont 18 montés pro', '4 newsletters + 4 vidéos YouTube / mois', '4 carrousels / mois'],
+    featuresEn: ['30 LinkedIn posts / month', '48 Reels & Shorts / month incl. 18 pro-edited', '4 newsletters + 4 YouTube videos / month', '4 carousels / month'],
     bonusesFr: ['Bonus : call stratégique avec Kevin', 'Bonus : replays des masterclass'],
     bonusesEn: ['Bonus: strategy call with Kevin', 'Bonus: masterclass replays'],
   },
@@ -184,11 +184,6 @@ export default function HomePricingSection() {
               : '7-day free trial on every plan. No commitment, cancel in 1 click.'}
           </p>
 
-          <p className="mt-2 text-sm text-neutral-500">
-            {fr
-              ? 'Chaque contenu est créé, monté et vérifié par notre équipe. Pas de l\u2019IA brute.'
-              : 'Every piece of content is created, edited and verified by our team. Not raw AI.'}
-          </p>
 
           {/* Billing period toggle */}
           <div className="mt-8 inline-flex items-center rounded-full border border-white/10 bg-white/[0.04] p-1">

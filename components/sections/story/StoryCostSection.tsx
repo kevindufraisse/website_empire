@@ -26,27 +26,22 @@ const topCreators = [
   {
     name: 'Grant Cardone',
     image: 'https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4295dabe20aff6b9885_Cardone.webp',
-    cost: '~€100K/mo',
   },
   {
     name: 'Alex Hormozi',
     image: 'https://yt3.googleusercontent.com/29XFUn3pc3cC81yUUCFiyCKKdgi856IGMJ4EZBnf53zTfrWWUGvmYnYGx86K08f4XR03UxpWyw=s900-c-k-c0x00ffffff-no-rj',
-    cost: '~€80K/mo',
   },
   {
     name: 'Ali Abdaal',
     image: 'https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4d436f96370e8ccb7c4_Abdaal.webp',
-    cost: '~€75K/mo',
   },
   {
     name: 'Matt Gray',
     image: 'https://yt3.googleusercontent.com/W_GKaSoEuny3REkdSVW-AD6wcB_z5Ltr3hY_Mos94yDKlFLupVnJ6Gf8w1YfjEGps2nr62fB=s160-c-k-c0x00ffffff-no-rj',
-    cost: '~€60K/mo',
   },
   {
     name: 'Chris Williamson',
     image: 'https://cdn.prod.website-files.com/6469e2294ac68c3d5caea327/677fc4d4f950bcf495c7dfb2_Williamson.webp',
-    cost: '~€70K/mo',
   },
 ]
 
@@ -80,10 +75,7 @@ export default function StoryCostSection() {
                   alt={creator.name}
                   className="w-12 h-12 rounded-full object-cover"
                 />
-                <div className="text-center">
-                  <p className="text-xs font-bold text-white group-hover:text-empire transition-colors">{creator.name}</p>
-                  <p className="text-[10px] text-neutral-400">{creator.cost}</p>
-                </div>
+                <p className="text-xs font-bold text-white group-hover:text-empire transition-colors">{creator.name}</p>
               </div>
             ))}
           </div>

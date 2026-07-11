@@ -6,7 +6,6 @@ import { LanguageSwitcher } from '@/components/LanguageSwitcher'
 import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import CallbackFormModal from '@/components/CallbackFormModal'
-import EvergreenPromo from '@/components/EvergreenPromo'
 
 
 export default function Header() {
@@ -51,10 +50,7 @@ export default function Header() {
           </a>
 
 
-          {/* Promo banner - center */}
-          <div className="flex flex-1 justify-center min-w-0">
-            <EvergreenPromo variant="header" />
-          </div>
+          <div className="flex-1" />
 
           {/* Right side */}
           <div className="flex items-center justify-end gap-2 lg:gap-3 min-w-0">

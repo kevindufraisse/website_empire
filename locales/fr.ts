@@ -137,8 +137,8 @@ export const fr: Translations = {
   },
   hero: {
     targetAudience: 'Pour freelances, salariés & entrepreneurs',
-    title: 'Installez votre machine à contenu. Closez plus de deals. <span class="text-empire">Ne gérez rien.</span>',
-    subtitle: 'Parlez 1h et notre équipe monte et écrit un mois de contenus sur 7 plateformes.',
+    title: 'Parlez 1h. Notre équipe monte et écrit <span class="text-empire">un mois de contenus sur 7 plateformes.</span>',
+    subtitle: 'Closez plus rapidement. Attirez plus de clients. Augmentez vos prix. Devenez leader.',
     description: '',
     cta1: 'Commencer gratuitement',
     cta2: 'Voir la Démo (1 min)',
@@ -283,11 +283,11 @@ export const fr: Translations = {
     specific: {
       howManyPosts: {
         question: 'Combien de contenus j\'obtiens exactement ?',
-        answer: 'Vous payez à l\'usage avec des crédits. Chaque crédit correspond à un contenu (post, reel, newsletter…). Vous achetez un pack de crédits et vous les utilisez à votre rythme. Besoin de plus ? Rachetez-en à tout moment. Aucun crédit n\'expire.',
+        answer: 'Chaque plan inclut un volume mensuel de contenus : ~22 pour Starter, ~89 pour Growth, ~177 pour Scale. Vous choisissez comment les répartir entre posts LinkedIn, reels, newsletters, vidéos YouTube et carrousels. Besoin de plus ponctuellement ? Vous pouvez recharger à tout moment.',
       },
       whatIfDontLike: {
         question: 'Et si je n\'ai pas d\'idée de contenu ?',
-        answer: 'C\'est notre job. On scanne les sujets viraux d\'actualité chez vos concurrents, sur YouTube et Reddit, et on vous propose les meilleurs angles. Vous pouvez aussi envoyer vos notes, captures et idées de reels via Telegram — on récupère tout et on en fait du contenu prêt à publier.',
+        answer: 'C\'est notre job. On scanne les sujets viraux d\'actualité chez vos concurrents, sur YouTube et X, et on vous propose les meilleurs angles. Vous pouvez aussi envoyer vos notes, captures et idées de reels via Telegram — on récupère tout et on en fait du contenu prêt à publier.',
       },
       canRequestChanges: {
         question: 'Puis-je demander des modifications au contenu ?',
@@ -309,7 +309,7 @@ export const fr: Translations = {
       },
       {
         concern: 'C\'est vraiment mieux qu\'embaucher ?',
-        answer: 'Oui. Embaucher = €12K+/mois, semaines d\'intégration, et vous devez les gérer. Empire = contenu quotidien sur toutes les plateformes à partir de 175€/mois, zéro gestion. Même résultat, fraction du coût.',
+        answer: 'Oui. Embaucher = €12K+/mois, semaines d\'intégration, et vous devez les gérer. Empire = contenu quotidien sur toutes les plateformes à partir de 199€/mois, zéro gestion. Même résultat, fraction du coût.',
       },
       {
         concern: 'Et si ça ne performe pas ?',
