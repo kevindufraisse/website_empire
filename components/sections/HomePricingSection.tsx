@@ -166,7 +166,6 @@ export default function HomePricingSection() {
   }
 
   const fr = lang === 'fr'
-  const period = BILLING_PERIODS.find((p) => p.id === billing)!
 
   return (
     <section ref={ref} id="pricing" className="relative w-full py-20 md:py-28 bg-[#0a0a0a]">
@@ -211,7 +210,6 @@ export default function HomePricingSection() {
         <div className="mt-10 grid gap-6 md:grid-cols-3 max-w-5xl mx-auto items-stretch">
           {PLANS.map((plan, i) => {
             const monthly = monthlyPrice(plan.price, billing)
-            const total = monthly * period.months
             return (
               <motion.div
                 key={plan.id}
@@ -237,18 +235,6 @@ export default function HomePricingSection() {
                   <span className="text-4xl font-extrabold">{monthly}€</span>
                   <span className="text-sm text-neutral-400">{fr ? '/mois' : '/month'}</span>
                 </div>
-
-                <p className="mt-1.5 text-sm text-neutral-500">
-                  {plan.contents} {fr ? 'contenus/mois' : 'contents/month'}
-                  {billing !== 'monthly' && (
-                    <>
-                      {' · '}
-                      {fr
-                        ? `facturé ${total}€${billing === 'quarterly' ? '/trim.' : '/an'}`
-                        : `billed ${total}€${billing === 'quarterly' ? '/qtr' : '/yr'}`}
-                    </>
-                  )}
-                </p>
 
                 <ul className="mt-5 space-y-2.5 flex-1">
                   {(fr ? plan.featuresFr : plan.featuresEn).map((f) => (
