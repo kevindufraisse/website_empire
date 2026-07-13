@@ -171,7 +171,7 @@ export default function WhyNowSection() {
   const currentPillars = pillars[fr ? 'fr' : 'en']
 
   return (
-    <section className="relative w-full py-16 md:py-28 overflow-hidden bg-[#0a0a0a]">
+    <section id="features" className="relative w-full py-16 md:py-28 overflow-hidden bg-[#0a0a0a]">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_100%,rgb(var(--empire-rgb)_/_0.06),transparent)]" />
 
       <div className="container relative z-10 max-w-5xl mx-auto">

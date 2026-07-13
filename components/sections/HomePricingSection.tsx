@@ -36,14 +36,12 @@ type Plan = {
   nameEn: string
   descFr: string
   descEn: string
-  featuresFr: string[]
-  featuresEn: string[]
-  bonusesFr?: string[]
-  bonusesEn?: string[]
   highlighted?: boolean
 }
 
-// Mirrors the app's pricing (empire-tracking src/pages/Pricing.tsx PACKS + MONTH_EXAMPLES)
+// Mirrors the app's pricing (empire-tracking src/pages/Pricing.tsx PACKS).
+// Cartes minimalistes façon lemlist : le détail des contenus vit dans la
+// section Fonctionnalités (#features), pas dans les cartes.
 const PLANS: Plan[] = [
   {
     id: 'starter',
@@ -54,8 +52,6 @@ const PLANS: Plan[] = [
     nameEn: 'Starter',
     descFr: 'Pour poster régulièrement sans y penser',
     descEn: 'Post consistently without thinking about it',
-    featuresFr: ['15 posts LinkedIn / mois', '15 Reels & Shorts / mois', '4 newsletters / mois'],
-    featuresEn: ['15 LinkedIn posts / month', '15 Reels & Shorts / month', '4 newsletters / month'],
   },
   {
     id: 'growth',
@@ -66,8 +62,6 @@ const PLANS: Plan[] = [
     nameEn: 'Growth',
     descFr: 'Pour devenir une référence',
     descEn: 'Become the reference',
-    featuresFr: ['25 posts LinkedIn / mois', '33 Reels & Shorts / mois dont 8 montés pro', '4 newsletters / mois', '1 vidéo YouTube + 1 carrousel / mois'],
-    featuresEn: ['25 LinkedIn posts / month', '33 Reels & Shorts / month incl. 8 pro-edited', '4 newsletters / month', '1 YouTube video + 1 carousel / month'],
     highlighted: true,
   },
   {
@@ -79,10 +73,6 @@ const PLANS: Plan[] = [
     nameEn: 'Scale',
     descFr: 'Pour saturer votre marché de contenu',
     descEn: 'Saturate your market with content',
-    featuresFr: ['30 posts LinkedIn / mois', '48 Reels & Shorts / mois dont 18 montés pro', '4 newsletters + 4 vidéos YouTube / mois', '4 carrousels / mois'],
-    featuresEn: ['30 LinkedIn posts / month', '48 Reels & Shorts / month incl. 18 pro-edited', '4 newsletters + 4 YouTube videos / month', '4 carousels / month'],
-    bonusesFr: ['Bonus : call stratégique avec Kevin', 'Bonus : replays des masterclass'],
-    bonusesEn: ['Bonus: strategy call with Kevin', 'Bonus: masterclass replays'],
   },
 ]
 
@@ -234,20 +224,7 @@ export default function HomePricingSection() {
                   <span className="text-sm text-neutral-400">{fr ? '/mois' : '/month'}</span>
                 </div>
 
-                <ul className="mt-5 space-y-2.5 flex-1">
-                  {(fr ? plan.featuresFr : plan.featuresEn).map((f) => (
-                    <li key={f} className="flex items-start gap-2 text-sm text-neutral-300">
-                      <Check size={15} className="mt-0.5 shrink-0 text-empire" />
-                      {f}
-                    </li>
-                  ))}
-                  {(fr ? plan.bonusesFr : plan.bonusesEn)?.map((b) => (
-                    <li key={b} className="flex items-start gap-2 text-sm font-medium text-empire">
-                      <Check size={15} className="mt-0.5 shrink-0" />
-                      {b}
-                    </li>
-                  ))}
-                </ul>
+                <div className="flex-1" />
 
                 <button
                   onClick={() => handlePlanClick(plan)}
@@ -255,7 +232,7 @@ export default function HomePricingSection() {
                   className={`mt-6 flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3 text-center text-sm font-bold transition-all hover:scale-[1.02] disabled:opacity-60 disabled:hover:scale-100 ${
                     plan.highlighted
                       ? 'bg-empire text-black shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]'
-                      : 'border border-white/15 bg-white/5 text-white hover:bg-white/10'
+                      : 'bg-empire/90 text-black hover:bg-empire'
                   }`}
                 >
                   {loadingPlan === plan.id && <Loader2 size={15} className="animate-spin" />}
@@ -269,6 +246,21 @@ export default function HomePricingSection() {
           })}
 
         </div>
+
+        {/* Lien vers le détail des contenus/features (section Fonctionnalités) */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.6, delay: 0.3, ease: 'easeOut' }}
+          className="mt-6 text-center"
+        >
+          <a
+            href="#features"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-empire hover:underline"
+          >
+            {fr ? 'Explorer tout ce qui est inclus dans chaque plan ↓' : 'Explore everything included in each plan ↓'}
+          </a>
+        </motion.div>
 
         {/* Enterprise banner */}
         <motion.div
