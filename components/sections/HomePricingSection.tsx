@@ -68,8 +68,6 @@ const PLANS: Plan[] = [
     descEn: 'Become the reference',
     featuresFr: ['25 posts LinkedIn / mois', '33 Reels & Shorts / mois dont 8 montés pro', '4 newsletters / mois', '1 vidéo YouTube + 1 carrousel / mois'],
     featuresEn: ['25 LinkedIn posts / month', '33 Reels & Shorts / month incl. 8 pro-edited', '4 newsletters / month', '1 YouTube video + 1 carousel / month'],
-    bonusesFr: ['Bonus : Loom stratégique personnalisé'],
-    bonusesEn: ['Bonus: personalized strategy Loom'],
     highlighted: true,
   },
   {
