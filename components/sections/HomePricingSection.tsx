@@ -36,6 +36,8 @@ type Plan = {
   nameEn: string
   descFr: string
   descEn: string
+  featuresFr: string[]
+  featuresEn: string[]
   highlighted?: boolean
 }
 
@@ -52,6 +54,16 @@ const PLANS: Plan[] = [
     nameEn: 'Starter',
     descFr: 'Pour poster régulièrement sans y penser',
     descEn: 'Post consistently without thinking about it',
+    featuresFr: [
+      'Posts LinkedIn + Reels',
+      'Cerveau Empire — mémoire IA de votre business',
+      'Communauté Slack',
+    ],
+    featuresEn: [
+      'LinkedIn posts + Reels',
+      'Empire Brain — AI memory of your business',
+      'Slack community',
+    ],
   },
   {
     id: 'growth',
@@ -62,6 +74,16 @@ const PLANS: Plan[] = [
     nameEn: 'Growth',
     descFr: 'Pour devenir une référence',
     descEn: 'Become the reference',
+    featuresFr: [
+      'Tout Starter, plus :',
+      'Newsletters, vidéos YouTube, carrousels',
+      'Replays masterclass inclus (197€ offerts)',
+    ],
+    featuresEn: [
+      'Everything in Starter, plus:',
+      'Newsletters, YouTube videos, carousels',
+      'Masterclass replays included (€197 value)',
+    ],
     highlighted: true,
   },
   {
@@ -73,6 +95,18 @@ const PLANS: Plan[] = [
     nameEn: 'Scale',
     descFr: 'Pour saturer votre marché de contenu',
     descEn: 'Saturate your market with content',
+    featuresFr: [
+      'Tout Growth, plus :',
+      'Sièges & multi-comptes (agence/équipe)',
+      'Analytics avancés',
+      'Priorité de production',
+    ],
+    featuresEn: [
+      'Everything in Growth, plus:',
+      'Seats & multi-accounts (agency/team)',
+      'Advanced analytics',
+      'Production priority',
+    ],
   },
 ]
 
@@ -223,6 +257,18 @@ export default function HomePricingSection() {
                   <span className="text-4xl font-extrabold">{monthly}€</span>
                   <span className="text-sm text-neutral-400">{fr ? '/mois' : '/month'}</span>
                 </div>
+                <p className="mt-1.5 text-[12px] text-neutral-500">
+                  {plan.credits.toLocaleString()} {fr ? 'crédits' : 'credits'} · {plan.contents} {fr ? 'contenus/mois' : 'contents/mo'}
+                </p>
+
+                <ul className="mt-4 space-y-1.5">
+                  {(fr ? plan.featuresFr : plan.featuresEn).map((f) => (
+                    <li key={f} className="flex items-start gap-1.5 text-[13px] text-neutral-300">
+                      <Check size={14} className="mt-0.5 shrink-0 text-empire" />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
 
                 <div className="flex-1" />
 
