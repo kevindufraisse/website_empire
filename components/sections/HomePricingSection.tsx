@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
-import { Check, Scissors, CalendarCheck, ShieldCheck, Loader2, GraduationCap } from 'lucide-react'
+import { Check, Scissors, CalendarCheck, ShieldCheck, Loader2, GraduationCap, Minus, Plus, Calculator } from 'lucide-react'
 import posthog from 'posthog-js'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { trackAmplitude, withAmplitudeDeviceId, getAmplitudeDeviceId } from '@/lib/amplitude'
@@ -113,6 +113,34 @@ const PLANS: Plan[] = [
 // Coaching add-on, same offer as the app's pre-checkout popup (500€ one-time)
 const COACHING_PRICE = 500
 
+// Coûts crédits par contenu (miroir de l'app : src/lib/hooks/useCredits.ts CREDIT_COSTS)
+const ESTIMATOR_ITEMS: { key: string; labelFr: string; labelEn: string; cost: number }[] = [
+  { key: 'linkedin', labelFr: 'Posts LinkedIn (+ reel viral auto)', labelEn: 'LinkedIn posts (+ auto viral reel)', cost: 85 + 29 },
+  { key: 'frontcam', labelFr: 'Reels front-cam montés', labelEn: 'Edited front-cam reels', cost: 350 },
+  { key: 'newsletter', labelFr: 'Newsletters', labelEn: 'Newsletters', cost: 115 },
+  { key: 'youtube', labelFr: 'Vidéos YouTube', labelEn: 'YouTube videos', cost: 275 },
+  { key: 'carousel', labelFr: 'Carrousels', labelEn: 'Carousels', cost: 180 },
+]
+
+// Table de comparaison des plans (aligné sur le gating in-app)
+const COMPARE_ROWS: { labelFr: string; labelEn: string; values: (string | boolean)[] }[] = [
+  { labelFr: 'Prix (base mensuelle)', labelEn: 'Price (monthly base)', values: ['199€', '499€', '799€', '__custom__'] },
+  { labelFr: 'Crédits / mois', labelEn: 'Credits / mo', values: ['2 200', '6 600', '12 000', '__unlimited__'] },
+  { labelFr: 'Contenus / mois', labelEn: 'Contents / mo', values: ['~22', '~89', '~177', '__custom__'] },
+  { labelFr: 'Posts LinkedIn + Reels', labelEn: 'LinkedIn posts + Reels', values: [true, true, true, true] },
+  { labelFr: 'Cerveau Empire (IA)', labelEn: 'Empire Brain (AI)', values: [true, true, true, true] },
+  { labelFr: 'Communauté Slack', labelEn: 'Slack community', values: [true, true, true, true] },
+  { labelFr: 'Publication sur 7 réseaux', labelEn: 'Publishing to 7 networks', values: [true, true, true, true] },
+  { labelFr: 'Newsletters', labelEn: 'Newsletters', values: [false, true, true, true] },
+  { labelFr: 'Vidéos YouTube', labelEn: 'YouTube videos', values: [false, true, true, true] },
+  { labelFr: 'Carrousels', labelEn: 'Carousels', values: [false, true, true, true] },
+  { labelFr: 'Replays masterclass (197€)', labelEn: 'Masterclass replays (€197)', values: [false, true, true, true] },
+  { labelFr: 'Sièges & multi-comptes', labelEn: 'Seats & multi-accounts', values: [false, false, true, true] },
+  { labelFr: 'Analytics avancés', labelEn: 'Advanced analytics', values: [false, false, true, true] },
+  { labelFr: 'Priorité de production', labelEn: 'Production priority', values: [false, false, true, true] },
+  { labelFr: 'Account manager dédié', labelEn: 'Dedicated account manager', values: [false, false, false, true] },
+]
+
 function monthlyPrice(base: number, billing: BillingId): number {
   const period = BILLING_PERIODS.find((p) => p.id === billing)!
   return Math.round(base * (1 - period.discount))
@@ -142,6 +170,10 @@ export default function HomePricingSection() {
 
   const [loadingPlan, setLoadingPlan] = useState<PlanId | null>(null)
   const [coachingModal, setCoachingModal] = useState<Plan | null>(null)
+  // Estimateur de crédits (sélectionneur façon lemlist)
+  const [estimator, setEstimator] = useState<Record<string, number>>({ linkedin: 12, frontcam: 1, newsletter: 4, youtube: 0, carousel: 0 })
+  const totalEstimate = ESTIMATOR_ITEMS.reduce((sum, it) => sum + (estimator[it.key] || 0) * it.cost, 0)
+  const recommendedPlan = totalEstimate <= 2200 ? PLANS[0] : totalEstimate <= 6600 ? PLANS[1] : totalEstimate <= 12000 ? PLANS[2] : null
 
   const startCheckout = async (plan: Plan, coaching: boolean) => {
     if (loadingPlan) return
@@ -306,6 +338,123 @@ export default function HomePricingSection() {
           >
             {fr ? 'Explorer tout ce qui est inclus dans chaque plan ↓' : 'Explore everything included in each plan ↓'}
           </a>
+        </motion.div>
+
+        {/* Estimateur de crédits — sélectionneur façon lemlist */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.32, ease: 'easeOut' }}
+          className="mt-10 max-w-5xl mx-auto rounded-2xl border border-white/10 bg-white/[0.03] p-6 space-y-5"
+        >
+          <div className="flex items-center gap-2.5">
+            <Calculator size={18} className="text-empire shrink-0" />
+            <div>
+              <h3 className="text-base font-bold">
+                {fr ? 'De combien de crédits avez-vous besoin ?' : 'How many credits do you need?'}
+              </h3>
+              <p className="text-sm text-neutral-400">
+                {fr
+                  ? 'Composez votre mois type — on vous recommande le plan adapté.'
+                  : "Build your typical month — we'll recommend the right plan."}
+              </p>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+            {ESTIMATOR_ITEMS.map((it) => (
+              <div key={it.key} className="rounded-xl border border-white/10 bg-white/[0.02] p-3 space-y-2">
+                <p className="text-xs font-medium text-neutral-200 leading-tight min-h-8">
+                  {fr ? it.labelFr : it.labelEn}
+                </p>
+                <div className="flex items-center justify-between gap-2">
+                  <button
+                    type="button"
+                    aria-label="-"
+                    onClick={() => setEstimator((prev) => ({ ...prev, [it.key]: Math.max(0, (prev[it.key] || 0) - 1) }))}
+                    className="flex h-7 w-7 items-center justify-center rounded-md border border-white/15 text-neutral-400 transition-colors hover:bg-white/10"
+                  >
+                    <Minus size={12} />
+                  </button>
+                  <span className="text-sm font-bold tabular-nums">{estimator[it.key] || 0}</span>
+                  <button
+                    type="button"
+                    aria-label="+"
+                    onClick={() => setEstimator((prev) => ({ ...prev, [it.key]: Math.min(60, (prev[it.key] || 0) + 1) }))}
+                    className="flex h-7 w-7 items-center justify-center rounded-md border border-white/15 text-neutral-400 transition-colors hover:bg-white/10"
+                  >
+                    <Plus size={12} />
+                  </button>
+                </div>
+                <p className="text-center text-[10px] text-neutral-500">{it.cost} cr. / u</p>
+              </div>
+            ))}
+          </div>
+          <div className="flex flex-col items-center justify-between gap-3 rounded-xl border border-empire/30 bg-empire/10 px-4 py-3 sm:flex-row">
+            <p className="text-sm text-neutral-200">
+              Total : <span className="font-bold text-empire">{totalEstimate.toLocaleString(fr ? 'fr-FR' : 'en-US')}</span>{' '}
+              <span className="text-xs text-neutral-400">{fr ? 'crédits/mois' : 'credits/mo'}</span>
+            </p>
+            {recommendedPlan ? (
+              <p className="text-sm font-semibold">
+                {fr ? 'Plan recommandé :' : 'Recommended plan:'}{' '}
+                <span className="font-bold text-empire">{fr ? recommendedPlan.nameFr : recommendedPlan.nameEn}</span>
+                <span className="ml-1.5 text-xs text-neutral-400">
+                  ({recommendedPlan.credits.toLocaleString(fr ? 'fr-FR' : 'en-US')} cr. — {recommendedPlan.price}€{fr ? '/mois' : '/mo'})
+                </span>
+              </p>
+            ) : (
+              <p className="text-sm font-semibold text-empire">
+                {fr ? 'Volume élevé — parlons-en (Agence & Entreprise)' : "High volume — let's talk (Agency & Enterprise)"}
+              </p>
+            )}
+          </div>
+        </motion.div>
+
+        {/* Table de comparaison des plans */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.34, ease: 'easeOut' }}
+          className="mt-6 max-w-5xl mx-auto overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03]"
+        >
+          <div className="border-b border-white/10 px-6 py-4">
+            <h3 className="text-base font-bold">{fr ? 'Comparer les plans' : 'Compare plans'}</h3>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-white/10">
+                  <th className="min-w-44 px-6 py-2.5 text-left text-xs font-medium text-neutral-500"></th>
+                  <th className="px-4 py-2.5 text-xs font-bold text-white">Starter</th>
+                  <th className="px-4 py-2.5 text-xs font-bold text-empire">Growth</th>
+                  <th className="px-4 py-2.5 text-xs font-bold text-white">Scale</th>
+                  <th className="whitespace-nowrap px-4 py-2.5 text-xs font-bold text-white">
+                    {fr ? 'Agence & Entreprise' : 'Agency & Enterprise'}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {COMPARE_ROWS.map((row, i) => (
+                  <tr key={i} className={i % 2 === 0 ? 'bg-white/[0.02]' : ''}>
+                    <td className="px-6 py-2 text-xs text-neutral-400">{fr ? row.labelFr : row.labelEn}</td>
+                    {row.values.map((v, j) => (
+                      <td key={j} className={`px-4 py-2 text-center text-xs ${j === 1 ? 'bg-empire/5' : ''}`}>
+                        {typeof v === 'string' ? (
+                          <span className="font-semibold text-neutral-200">
+                            {v === '__custom__' ? (fr ? 'Sur mesure' : 'Custom') : v === '__unlimited__' ? (fr ? 'Illimités' : 'Unlimited') : v}
+                          </span>
+                        ) : v ? (
+                          <Check size={14} className="inline text-empire" />
+                        ) : (
+                          <Minus size={14} className="inline text-neutral-700" />
+                        )}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </motion.div>
 
         {/* Enterprise banner */}
