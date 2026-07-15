@@ -7,6 +7,7 @@ import { Check, Scissors, CalendarCheck, ShieldCheck, Loader2, GraduationCap, Mi
 import posthog from 'posthog-js'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { trackAmplitude, withAmplitudeDeviceId, getAmplitudeDeviceId } from '@/lib/amplitude'
+import { FLASH_PROMO_ID, fetchFlashPromo, getBrowserFingerprint, formatCountdown } from '@/lib/flash-promo'
 
 const APP_ONBOARDING_URL = 'https://app.empire-internet.com/onboarding'
 
@@ -198,6 +199,40 @@ export default function HomePricingSection() {
 
   const [loadingPlan, setLoadingPlan] = useState<PlanId | null>(null)
   const [coachingModal, setCoachingModal] = useState<Plan | null>(null)
+  // Promo flash — deadline par visiteur (fingerprint + IP), partagée avec l'app
+  const [flashPromo, setFlashPromo] = useState<{ deadline: number; plan: PlanId; promoMonthly: number; baseMonthly: number } | null>(null)
+  const [flashPromoLeft, setFlashPromoLeft] = useState<string | null>(null)
+  useEffect(() => {
+    let cancelled = false
+    fetchFlashPromo().then((status) => {
+      if (cancelled || !status || status.expired) return
+      setFlashPromo({
+        deadline: new Date(status.deadline).getTime(),
+        plan: status.promo.plan as PlanId,
+        promoMonthly: status.promo.promoMonthly,
+        baseMonthly: status.promo.baseMonthly,
+      })
+    })
+    return () => { cancelled = true }
+  }, [])
+  useEffect(() => {
+    if (!flashPromo) return
+    const tick = () => {
+      const remaining = flashPromo.deadline - Date.now()
+      if (remaining <= 0) {
+        setFlashPromo(null)
+        setFlashPromoLeft(null)
+        return
+      }
+      setFlashPromoLeft(formatCountdown(remaining))
+    }
+    tick()
+    const id = setInterval(tick, 1000)
+    return () => clearInterval(id)
+  }, [flashPromo])
+  const promoOn = !!flashPromo && !!flashPromoLeft
+  // Prix mensuel de base d'un palier, promo flash appliquée sur le plan visé
+  const planBase = (p: Plan) => (promoOn && flashPromo && p.id === flashPromo.plan ? flashPromo.promoMonthly : p.price)
   // Palier de volume sélectionné sur la carte Créateur
   const [selectedTier, setSelectedTier] = useState<PlanId>('growth')
   // Estimateur de crédits (sélectionneur façon lemlist)
@@ -230,6 +265,9 @@ export default function HomePricingSection() {
           lang,
           coaching,
           ampDeviceId: getAmplitudeDeviceId(),
+          ...(promoOn && flashPromo && plan.id === flashPromo.plan
+            ? { promoId: FLASH_PROMO_ID, fingerprint: getBrowserFingerprint() }
+            : {}),
         }),
       })
       const data = await res.json()
@@ -270,6 +308,23 @@ export default function HomePricingSection() {
           </p>
 
 
+          {/* Promo flash — compte à rebours par visiteur (IP + cookie) */}
+          {promoOn && flashPromo && flashPromoLeft && (
+            <div className="mt-6 flex justify-center">
+              <div className="inline-flex flex-wrap items-center justify-center gap-2 rounded-full border border-red-500/30 bg-red-500/[0.08] px-4 py-2">
+                <span className="text-sm">🔥</span>
+                <span className="text-sm font-semibold text-white">
+                  {fr
+                    ? `Promo flash : 12 000 crédits à ${flashPromo.promoMonthly}€/mois au lieu de ${flashPromo.baseMonthly}€`
+                    : `Flash deal: 12,000 credits at €${flashPromo.promoMonthly}/mo instead of €${flashPromo.baseMonthly}`}
+                </span>
+                <span className="text-xs text-neutral-500">·</span>
+                <span className="text-[11px] text-neutral-400">{fr ? 'Expire dans' : 'Expires in'}</span>
+                <span className="font-mono text-sm font-bold tabular-nums text-red-400">{flashPromoLeft}</span>
+              </div>
+            </div>
+          )}
+
           {/* Billing period toggle */}
           <div className="mt-8 inline-flex items-center rounded-full border border-white/10 bg-white/[0.04] p-1">
             {BILLING_PERIODS.map((p) => (
@@ -294,7 +349,9 @@ export default function HomePricingSection() {
         <div className="mt-10 grid gap-6 lg:grid-cols-3 max-w-5xl mx-auto items-stretch">
           {(() => {
             const plan = PLANS.find((p) => p.id === selectedTier)!
-            const monthly = monthlyPrice(plan.price, billing)
+            const isPromoPlan = promoOn && !!flashPromo && plan.id === flashPromo.plan
+            const monthly = monthlyPrice(planBase(plan), billing)
+            const catalogMonthly = monthlyPrice(plan.price, billing)
             const stack = VALUE_STACK[selectedTier]
             return (
               <motion.div
@@ -320,17 +377,22 @@ export default function HomePricingSection() {
                   >
                     {PLANS.map((p) => (
                       <option key={p.id} value={p.id}>
-                        {p.credits.toLocaleString(fr ? 'fr-FR' : 'en-US')} cr. · {p.contents} {fr ? 'contenus/mois' : 'contents/mo'} — {monthlyPrice(p.price, billing)}€{fr ? '/mois' : '/mo'}{p.highlighted ? (fr ? ' · Le plus populaire' : ' · Most popular') : ''}
+                        {p.credits.toLocaleString(fr ? 'fr-FR' : 'en-US')} cr. · {p.contents} {fr ? 'contenus/mois' : 'contents/mo'} — {monthlyPrice(planBase(p), billing)}€{fr ? '/mois' : '/mo'}{promoOn && flashPromo && p.id === flashPromo.plan ? (fr ? ` (promo, au lieu de ${monthlyPrice(p.price, billing)}€)` : ` (deal, was €${monthlyPrice(p.price, billing)})`) : ''}{p.highlighted ? (fr ? ' · Le plus populaire' : ' · Most popular') : ''}
                       </option>
                     ))}
                   </select>
                   <ChevronDown size={16} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400" />
                 </div>
                 <div className="mt-3 flex items-baseline gap-2">
-                  {billing !== 'monthly' && (
-                    <span className="text-lg font-semibold text-neutral-600 line-through tabular-nums">{plan.price}€{fr ? '/mois' : '/mo'}</span>
+                  {(billing !== 'monthly' || isPromoPlan) && (
+                    <span className="text-lg font-semibold text-neutral-600 line-through tabular-nums">{isPromoPlan ? catalogMonthly : plan.price}€{fr ? '/mois' : '/mo'}</span>
                   )}
-                  <span className="text-3xl font-bold tabular-nums">{monthly}€{fr ? '/mois' : '/mo'}</span>
+                  <span className={`text-3xl font-bold tabular-nums ${isPromoPlan ? 'text-empire' : ''}`}>{monthly}€{fr ? '/mois' : '/mo'}</span>
+                  {isPromoPlan && flashPromoLeft && (
+                    <span className="rounded-full border border-red-500/30 bg-red-500/10 px-2 py-0.5 font-mono text-[11px] font-bold tabular-nums text-red-400 whitespace-nowrap">
+                      🔥 {flashPromoLeft}
+                    </span>
+                  )}
                   {billing !== 'monthly' && (
                     <span className="text-[11px] text-neutral-500">
                       {fr ? `Facturé ${(monthly * (billing === 'quarterly' ? 3 : 12)).toLocaleString('fr-FR')}€${billing === 'quarterly' ? '/trim' : '/an'}` : `Billed €${(monthly * (billing === 'quarterly' ? 3 : 12)).toLocaleString('en-US')}${billing === 'quarterly' ? '/qtr' : '/yr'}`}
