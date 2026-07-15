@@ -62,9 +62,9 @@ const pillars: Record<string, Pillar[]> = {
       icon: Sparkles,
       label: 'Contenu',
       keyFeatures: [
-        { icon: FileText, title: 'Posts LinkedIn', desc: 'Rédigés, optimisés et planifiés. Ajout automatique de vos lead magnets.', stat: '~1M vues/mois' },
-        { icon: Video, title: 'Reels & Shorts', desc: 'Hooks, sous-titres et transitions. Option sans caméra.', stat: '~6M vues/mois' },
-        { icon: Mail, title: 'Newsletters', desc: 'Qui sonnent comme vous, en mieux.', stat: '~35% taux d\'ouverture' },
+        { icon: FileText, title: 'Posts LinkedIn', desc: 'Rédigés, optimisés et planifiés. Ajout automatique de vos lead magnets.' },
+        { icon: Video, title: 'Reels & Shorts', desc: 'Hooks, sous-titres et transitions. Option sans caméra.' },
+        { icon: Mail, title: 'Newsletters', desc: 'Qui sonnent comme vous, en mieux.' },
         { icon: Palette, title: 'Personnalisation complète', desc: 'Sous-titres (45 styles), transitions, vos couleurs, vos b-rolls, votre branding.' },
         { icon: Globe, title: 'Multilingue : FR, EN, ES', desc: 'Tous vos contenus dans 3 langues.' },
       ],
@@ -79,7 +79,7 @@ const pillars: Record<string, Pillar[]> = {
       icon: Send,
       label: 'Distribution',
       keyFeatures: [
-        { icon: Share2, title: '7 réseaux en même temps', desc: 'LinkedIn, Instagram, TikTok, YouTube, X, Threads, Facebook.', stat: '7 plateformes' },
+        { icon: Share2, title: '7 réseaux en même temps', desc: 'LinkedIn, Instagram, TikTok, YouTube, X, Threads, Facebook.' },
         { icon: Calendar, title: 'Publiez en 1 clic', desc: 'Tout est prêt dans votre calendrier.' },
         { icon: Users, title: 'Employee Advocacy', desc: 'Faites publier vos employés automatiquement' },
         { icon: MessageCircle, title: 'Idées via Telegram', desc: 'Ajoutez vos idées depuis Telegram et récupérez-les dans Empire', badge: 'NEW' },
@@ -98,7 +98,7 @@ const pillars: Record<string, Pillar[]> = {
       icon: HeadphonesIcon,
       label: 'Accompagnement',
       keyFeatures: [
-        { icon: UserCheck, title: 'Équipe humaine dédiée', desc: 'De vrais humains créent et vérifient chaque contenu', stat: '0 erreur publiée' },
+        { icon: UserCheck, title: 'Équipe humaine dédiée', desc: 'De vrais humains créent et vérifient chaque contenu' },
         { icon: GraduationCap, title: 'Coaching dédié', desc: 'Un coach dédié comprend votre business et vous forme aux formats qui performent dans votre niche', badge: 'OPTION' },
         { icon: GraduationCap, title: 'Bootcamp viralité', desc: '21 jours pour maîtriser la viralité et exécuter les formats qui performent dans votre niche', badge: 'DÈS SCALE' },
         { icon: Users, title: 'Communauté privée', desc: 'Réseau de fondateurs et créateurs', badge: 'DÈS GROWTH' },
@@ -113,9 +113,9 @@ const pillars: Record<string, Pillar[]> = {
       icon: Sparkles,
       label: 'Content',
       keyFeatures: [
-        { icon: FileText, title: 'LinkedIn posts', desc: 'Written, optimized, scheduled. Auto-embed your lead magnets.', stat: '~1M views/mo' },
-        { icon: Video, title: 'Reels & Shorts', desc: 'Hooks, subtitles and transitions. No-camera option.', stat: '~6M views/mo' },
-        { icon: Mail, title: 'Newsletters', desc: 'Sound like you, but better.', stat: '~35% open rate' },
+        { icon: FileText, title: 'LinkedIn posts', desc: 'Written, optimized, scheduled. Auto-embed your lead magnets.' },
+        { icon: Video, title: 'Reels & Shorts', desc: 'Hooks, subtitles and transitions. No-camera option.' },
+        { icon: Mail, title: 'Newsletters', desc: 'Sound like you, but better.' },
         { icon: Palette, title: 'Full customization', desc: 'Subtitles (45 styles), transitions, your colors, your b-rolls, your branding.' },
         { icon: Globe, title: 'Multilingual: FR, EN, ES', desc: 'All your content in 3 languages.' },
       ],
@@ -130,7 +130,7 @@ const pillars: Record<string, Pillar[]> = {
       icon: Send,
       label: 'Distribution',
       keyFeatures: [
-        { icon: Share2, title: '7 platforms at once', desc: 'LinkedIn, Instagram, TikTok, YouTube, X, Threads, Facebook.', stat: '7 platforms' },
+        { icon: Share2, title: '7 platforms at once', desc: 'LinkedIn, Instagram, TikTok, YouTube, X, Threads, Facebook.' },
         { icon: Calendar, title: 'Publish in 1 click', desc: 'Everything ready in your calendar.' },
         { icon: Users, title: 'Employee Advocacy', desc: 'Get your employees publishing automatically' },
         { icon: MessageCircle, title: 'Ideas via Telegram', desc: 'Add your ideas from Telegram and retrieve them in Empire', badge: 'NEW' },
@@ -149,7 +149,7 @@ const pillars: Record<string, Pillar[]> = {
       icon: HeadphonesIcon,
       label: 'Support',
       keyFeatures: [
-        { icon: UserCheck, title: 'Dedicated human team', desc: 'Real humans create and review every piece of content', stat: '0 errors published' },
+        { icon: UserCheck, title: 'Dedicated human team', desc: 'Real humans create and review every piece of content' },
         { icon: GraduationCap, title: 'Dedicated coaching', desc: 'A dedicated coach understands your business and trains you on the formats that perform in your niche', badge: 'OPTION' },
         { icon: GraduationCap, title: 'Virality bootcamp', desc: '21 days to master virality and execute the formats that perform in your niche', badge: 'FROM SCALE' },
         { icon: Users, title: 'Private community', desc: 'Founder & creator network', badge: 'FROM GROWTH' },
