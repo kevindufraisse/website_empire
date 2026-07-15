@@ -439,7 +439,6 @@ export default function HomePricingSection() {
             const plan = PLANS.find((p) => p.id === selectedTier)!
             const isPromoPlan = promoOn && !!flashPromo && plan.id === flashPromo.plan
             const monthly = monthlyPrice(planBase(plan), billing)
-            const stack = VALUE_STACK[selectedTier]
             return (
               <motion.div
                 initial={{ opacity: 0, y: 24 }}
@@ -565,28 +564,6 @@ export default function HomePricingSection() {
                   {fr ? '7 jours gratuits · Annulez en 1 clic' : '7 days free · Cancel in 1 click'}
                 </p>
 
-                {/* Value stack (collapsible) */}
-                <details className="mt-5 group">
-                  <summary className="flex cursor-pointer items-center gap-1.5 text-[12px] font-semibold text-neutral-500 select-none">
-                    <ChevronDown size={14} className="transition-transform group-open:rotate-180" />
-                    {fr ? 'Ce que ça remplace chaque mois' : 'What it replaces every month'}
-                  </summary>
-                  <div className="mt-3 rounded-xl border border-white/10 bg-white/[0.03] p-3 space-y-1.5">
-                    {stack.items.map((it) => (
-                      <div key={it.fr} className="flex items-center justify-between text-[12px] text-neutral-400">
-                        <span>{fr ? it.fr : it.en}</span>
-                        <span className="tabular-nums">{it.amount.toLocaleString(fr ? 'fr-FR' : 'en-US')}€</span>
-                      </div>
-                    ))}
-                    <div className="flex items-center justify-between border-t border-white/10 pt-1.5 text-[13px]">
-                      <span className="text-neutral-400">{fr ? 'Valeur réelle' : 'Real value'}</span>
-                      <span className="font-semibold">
-                        <span className="mr-1.5 text-neutral-500 line-through">{stack.total.toLocaleString(fr ? 'fr-FR' : 'en-US')}€{fr ? '/mois' : '/mo'}</span>
-                        <span className="text-empire">{monthly}€{fr ? '/mois' : '/mo'}</span>
-                      </span>
-                    </div>
-                  </div>
-                </details>
               </motion.div>
             )
           })()}
@@ -719,12 +696,39 @@ export default function HomePricingSection() {
           </motion.div>
         </div>
 
+        {/* What happens next — 4 steps */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.25, ease: 'easeOut' }}
+          className="mt-14 max-w-4xl mx-auto"
+        >
+          <h3 className="text-center text-lg font-bold mb-8">
+            {fr ? 'Comment ça se passe ?' : 'What happens next?'}
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {([
+              { step: 1, fr: 'Créez votre compte et connectez vos réseaux', en: 'Create your account and connect your channels' },
+              { step: 2, fr: 'On identifie les sujets viraux de votre niche chaque jour', en: 'We find the viral topics in your niche every day' },
+              { step: 3, fr: 'Vous enregistrez 7 sujets en 15 min', en: 'You record 7 topics in 15 min' },
+              { step: 4, fr: 'Notre équipe produit et ajoute vos contenus — vous publiez en 1 clic', en: 'Our team produces and delivers your content — you publish in 1 click' },
+            ] as const).map((s) => (
+              <div key={s.step} className="flex flex-col items-center text-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-empire/15 text-sm font-bold text-empire">
+                  {s.step}
+                </div>
+                <p className="text-sm text-neutral-300 leading-relaxed">{fr ? s.fr : s.en}</p>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
         {/* Lien vers le détail des contenus/features (section Fonctionnalités) */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.6, delay: 0.3, ease: 'easeOut' }}
-          className="mt-6 text-center"
+          className="mt-8 text-center"
         >
           <a
             href="#features"
