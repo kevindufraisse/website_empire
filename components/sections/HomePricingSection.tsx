@@ -86,7 +86,7 @@ const PLANS: Plan[] = [
 
 // Inclus à tous les paliers du plan Créateur
 const CREATOR_FEATURES: { fr: string; en: string }[] = [
-  { fr: 'Tous les formats : posts LinkedIn, reels, newsletters, YouTube, carrousels', en: 'All formats: LinkedIn posts, reels, newsletters, YouTube, carousels' },
+  { fr: 'Tous les formats : posts LinkedIn, reels, faux Q&A, yapping, newsletters, YouTube, carrousels', en: 'All formats: LinkedIn posts, reels, fake Q&A, yapping, newsletters, YouTube, carousels' },
   { fr: 'Veille & identification quotidienne des sujets viraux de votre niche', en: 'Daily trend watch & viral topic detection for your niche' },
   { fr: 'Découpage & montage humain de vos vidéos (intro, sous-titres, b-rolls)', en: 'Human video cutting & editing (intro, subtitles, b-rolls)' },
   { fr: 'Relecture & corrections par notre équipe avant livraison', en: 'Proofreading & corrections by our team before delivery' },
@@ -162,15 +162,10 @@ const ESTIMATOR_ITEMS: { key: string; labelFr: string; labelEn: string; cost: nu
 const COMPARE_ROWS: { labelFr: string; labelEn: string; values: (string | boolean)[] }[] = [
   { labelFr: 'Prix (base mensuelle)', labelEn: 'Price (monthly base)', values: ['199€', '499€', '799€', '__custom__'] },
   { labelFr: 'Contenus / mois', labelEn: 'Contents / mo', values: ['~22', '~89', '~177', '__custom__'] },
-  { labelFr: 'Tous les formats (LinkedIn, reels, newsletters, YouTube, carrousels)', labelEn: 'All formats (LinkedIn, reels, newsletters, YouTube, carousels)', values: [true, true, true, true] },
-  { labelFr: 'Analytics & CRM leads', labelEn: 'Analytics & lead CRM', values: [true, true, true, true] },
-  { labelFr: 'Cerveau Empire (IA)', labelEn: 'Empire Brain (AI)', values: [true, true, true, true] },
-  { labelFr: 'Communauté Slack', labelEn: 'Slack community', values: [true, true, true, true] },
-  { labelFr: 'Publication sur 7 réseaux', labelEn: 'Publishing to 7 networks', values: [true, true, true, true] },
   { labelFr: 'Replays masterclass (197€)', labelEn: 'Masterclass replays (€197)', values: [false, true, true, true] },
   { labelFr: 'Live sessions hebdomadaires', labelEn: 'Weekly live sessions', values: [false, true, true, true] },
-  { labelFr: 'Sièges & multi-comptes', labelEn: 'Seats & multi-accounts', values: [false, false, false, true] },
   { labelFr: 'Priorité de traitement', labelEn: 'Priority processing', values: [false, false, true, true] },
+  { labelFr: 'Sièges & multi-comptes', labelEn: 'Seats & multi-accounts', values: [false, false, false, true] },
   { labelFr: 'Account manager dédié', labelEn: 'Dedicated account manager', values: [false, false, false, true] },
 ]
 
@@ -390,8 +385,8 @@ export default function HomePricingSection() {
                     <div className="flex items-center justify-between border-t border-white/10 pt-1.5 text-[13px]">
                       <span className="text-neutral-400">{fr ? 'Valeur réelle' : 'Real value'}</span>
                       <span className="font-semibold">
-                        <span className="mr-1.5 text-neutral-500 line-through">{stack.total.toLocaleString(fr ? 'fr-FR' : 'en-US')}€</span>
-                        <span className="text-empire">{monthly}€{fr ? '/mois' : '/mo'}</span>
+                        <span className="mr-1.5 text-neutral-500 line-through">{stack.total.toLocaleString(fr ? 'fr-FR' : 'en-US')}€{fr ? '/mois' : '/mo'}</span>
+                        <span className="text-empire">{monthly}€{fr ? '/mois' : '/mo'} {fr ? 'votre prix' : 'your price'}</span>
                       </span>
                     </div>
                   </div>
@@ -553,11 +548,21 @@ export default function HomePricingSection() {
               <thead>
                 <tr className="border-b border-white/10">
                   <th className="min-w-44 px-6 py-2.5 text-left text-xs font-medium text-neutral-500"></th>
-                  <th className="whitespace-nowrap px-4 py-2.5 text-xs font-bold text-white">2 200 cr.</th>
-                  <th className="whitespace-nowrap px-4 py-2.5 text-xs font-bold text-empire">6 600 cr.</th>
-                  <th className="whitespace-nowrap px-4 py-2.5 text-xs font-bold text-white">12 000 cr.</th>
-                  <th className="whitespace-nowrap px-4 py-2.5 text-xs font-bold text-white">
-                    {fr ? 'Équipe & Agence' : 'Team & Agency'}
+                  <th className="whitespace-nowrap px-4 py-2.5">
+                    <span className="block text-xs font-bold text-white">Starter</span>
+                    <span className="block text-[10px] font-normal text-neutral-500">2 200 cr.</span>
+                  </th>
+                  <th className="whitespace-nowrap px-4 py-2.5">
+                    <span className="block text-xs font-bold text-empire">Growth</span>
+                    <span className="block text-[10px] font-normal text-neutral-500">6 600 cr.</span>
+                  </th>
+                  <th className="whitespace-nowrap px-4 py-2.5">
+                    <span className="block text-xs font-bold text-white">Scale</span>
+                    <span className="block text-[10px] font-normal text-neutral-500">12 000 cr.</span>
+                  </th>
+                  <th className="whitespace-nowrap px-4 py-2.5">
+                    <span className="block text-xs font-bold text-white">{fr ? 'Équipe & Agence' : 'Team & Agency'}</span>
+                    <span className="block text-[10px] font-normal text-neutral-500">{fr ? 'Sur mesure' : 'Custom'}</span>
                   </th>
                 </tr>
               </thead>
@@ -582,6 +587,14 @@ export default function HomePricingSection() {
                 ))}
               </tbody>
             </table>
+          </div>
+          <div className="border-t border-white/10 bg-white/[0.02] px-6 py-3">
+            <p className="text-[11px] text-neutral-500">
+              <Check size={12} className="mr-1 inline text-empire" />
+              {fr
+                ? 'Inclus dans tous les plans : tous les formats, analytics & CRM leads, Cerveau Empire (IA), communauté Slack, publication sur 7 réseaux'
+                : 'Included in every plan: all formats, analytics & lead CRM, Empire Brain (AI), Slack community, publishing to 7 networks'}
+            </p>
           </div>
         </motion.div>
 
