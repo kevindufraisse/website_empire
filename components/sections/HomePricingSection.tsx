@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
-import { Check, Scissors, CalendarCheck, ShieldCheck, Loader2, GraduationCap, Minus, Plus, Calculator } from 'lucide-react'
+import { Check, Scissors, CalendarCheck, ShieldCheck, Loader2, GraduationCap, Minus, Plus, Calculator, ChevronDown } from 'lucide-react'
 import posthog from 'posthog-js'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { trackAmplitude, withAmplitudeDeviceId, getAmplitudeDeviceId } from '@/lib/amplitude'
@@ -87,7 +87,12 @@ const PLANS: Plan[] = [
 // Inclus à tous les paliers du plan Créateur
 const CREATOR_FEATURES: { fr: string; en: string }[] = [
   { fr: 'Tous les formats : posts LinkedIn, reels, newsletters, YouTube, carrousels', en: 'All formats: LinkedIn posts, reels, newsletters, YouTube, carousels' },
+  { fr: 'Veille & identification quotidienne des sujets viraux de votre niche', en: 'Daily trend watch & viral topic detection for your niche' },
+  { fr: 'Découpage & montage humain de vos vidéos (intro, sous-titres, b-rolls)', en: 'Human video cutting & editing (intro, subtitles, b-rolls)' },
+  { fr: 'Relecture & corrections par notre équipe avant livraison', en: 'Proofreading & corrections by our team before delivery' },
+  { fr: 'Miniatures personnalisées (Instagram, YouTube, LinkedIn)', en: 'Custom thumbnails (Instagram, YouTube, LinkedIn)' },
   { fr: 'Analytics & CRM leads', en: 'Analytics & lead CRM' },
+  { fr: 'API & intégrations', en: 'API & integrations' },
   { fr: 'Cerveau Empire — mémoire IA de votre business', en: 'Empire Brain — AI memory of your business' },
   { fr: 'Communauté Slack', en: 'Slack community' },
   { fr: 'Publication sur 7 réseaux', en: 'Publishing to 7 networks' },
@@ -98,26 +103,35 @@ const VALUE_STACK: Record<PlanId, { items: { fr: string; en: string; amount: num
   starter: {
     items: [
       { fr: 'Ghostwriter LinkedIn', en: 'LinkedIn ghostwriter', amount: 800 },
+      { fr: 'Ghostwriter newsletter', en: 'Newsletter ghostwriter', amount: 480 },
       { fr: 'Monteur vidéo', en: 'Video editor', amount: 600 },
+      { fr: 'Graphiste (miniatures, carrousels)', en: 'Graphic designer (thumbnails, carousels)', amount: 300 },
+      { fr: 'Photographe / DA visuels', en: 'Photographer / visual AD', amount: 200 },
       { fr: 'Community manager', en: 'Community manager', amount: 500 },
     ],
-    total: 1900,
+    total: 2880,
   },
   growth: {
     items: [
       { fr: 'Ghostwriter LinkedIn', en: 'LinkedIn ghostwriter', amount: 1500 },
+      { fr: 'Ghostwriter newsletter', en: 'Newsletter ghostwriter', amount: 960 },
       { fr: 'Monteur vidéo', en: 'Video editor', amount: 1200 },
+      { fr: 'Graphiste (miniatures, carrousels)', en: 'Graphic designer (thumbnails, carousels)', amount: 600 },
+      { fr: 'Photographe / DA visuels', en: 'Photographer / visual AD', amount: 400 },
       { fr: 'Community manager', en: 'Community manager', amount: 800 },
     ],
-    total: 3500,
+    total: 5460,
   },
   scale: {
     items: [
       { fr: 'Ghostwriter LinkedIn', en: 'LinkedIn ghostwriter', amount: 2500 },
+      { fr: 'Ghostwriter newsletter', en: 'Newsletter ghostwriter', amount: 1440 },
       { fr: 'Monteur vidéo', en: 'Video editor', amount: 2000 },
+      { fr: 'Graphiste (miniatures, carrousels)', en: 'Graphic designer (thumbnails, carousels)', amount: 900 },
+      { fr: 'Photographe / DA visuels', en: 'Photographer / visual AD', amount: 600 },
       { fr: 'Community manager', en: 'Community manager', amount: 1200 },
     ],
-    total: 5700,
+    total: 8640,
   },
 }
 
@@ -125,6 +139,7 @@ const VALUE_STACK: Record<PlanId, { items: { fr: string; en: string; amount: num
 const TEAM_FEATURES: { fr: string; en: string }[] = [
   { fr: '1 à 20 sièges — dégressif dès 3 sièges', en: '1 to 20 seats — volume discount from 3 seats' },
   { fr: 'Chaque siège : son calendrier + ses crédits', en: 'Each seat: its own calendar + credits' },
+  { fr: 'Volume au choix par siège : 2 200, 6 600 ou 12 000 crédits/mois', en: 'Volume of your choice per seat: 2,200, 6,600 or 12,000 credits/mo' },
   { fr: 'Account manager dédié', en: 'Dedicated account manager' },
   { fr: 'Priorité de traitement', en: 'Priority processing' },
   { fr: 'Onboarding personnalisé', en: 'Personalized onboarding' },
@@ -153,8 +168,9 @@ const COMPARE_ROWS: { labelFr: string; labelEn: string; values: (string | boolea
   { labelFr: 'Communauté Slack', labelEn: 'Slack community', values: [true, true, true, true] },
   { labelFr: 'Publication sur 7 réseaux', labelEn: 'Publishing to 7 networks', values: [true, true, true, true] },
   { labelFr: 'Replays masterclass (197€)', labelEn: 'Masterclass replays (€197)', values: [false, true, true, true] },
+  { labelFr: 'Live sessions hebdomadaires', labelEn: 'Weekly live sessions', values: [false, true, true, true] },
   { labelFr: 'Sièges & multi-comptes', labelEn: 'Seats & multi-accounts', values: [false, false, false, true] },
-  { labelFr: 'Priorité de traitement', labelEn: 'Priority processing', values: [false, false, false, true] },
+  { labelFr: 'Priorité de traitement', labelEn: 'Priority processing', values: [false, false, true, true] },
   { labelFr: 'Account manager dédié', labelEn: 'Dedicated account manager', values: [false, false, false, true] },
 ]
 
@@ -297,35 +313,31 @@ export default function HomePricingSection() {
                   {fr ? 'Tout Empire, au volume que vous choisissez' : 'All of Empire, at the volume you choose'}
                 </p>
 
-                {/* Sélecteur de volume */}
+                {/* Sélecteur de volume (liste déroulante façon lemlist) */}
                 <p className="mt-5 text-[11px] font-semibold uppercase tracking-wide text-neutral-500">
                   {fr ? 'Votre volume mensuel' : 'Your monthly volume'}
                 </p>
-                <div className="mt-2 grid grid-cols-3 gap-2">
-                  {PLANS.map((p) => {
-                    const isSelected = selectedTier === p.id
-                    return (
-                      <button
-                        key={p.id}
-                        type="button"
-                        onClick={() => setSelectedTier(p.id)}
-                        className={`relative rounded-xl border-2 p-3 text-left transition-all ${
-                          isSelected ? 'border-empire bg-empire/10' : 'border-white/10 hover:border-empire/40'
-                        }`}
-                      >
-                        {p.highlighted && (
-                          <span className="absolute -top-2 left-2 rounded-full bg-empire px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-black whitespace-nowrap">
-                            {fr ? 'Le plus populaire' : 'Most popular'}
-                          </span>
-                        )}
-                        <p className="text-sm font-bold">{p.credits.toLocaleString(fr ? 'fr-FR' : 'en-US')} cr.</p>
-                        <p className="text-[10px] text-neutral-400">{p.contents} {fr ? 'contenus/mois' : 'contents/mo'}</p>
-                        <p className="mt-1 text-xs font-semibold text-empire">
-                          {monthlyPrice(p.price, billing)}€{fr ? '/mois' : '/mo'}
-                        </p>
-                      </button>
-                    )
-                  })}
+                <div className="relative mt-2">
+                  <select
+                    value={selectedTier}
+                    onChange={(e) => setSelectedTier(e.target.value as PlanId)}
+                    className="w-full appearance-none rounded-xl border-2 border-white/10 bg-neutral-900 px-4 py-3 pr-10 text-sm font-semibold text-white transition-colors hover:border-empire/40 focus:border-empire focus:outline-none"
+                  >
+                    {PLANS.map((p) => (
+                      <option key={p.id} value={p.id}>
+                        {p.credits.toLocaleString(fr ? 'fr-FR' : 'en-US')} cr. · {p.contents} {fr ? 'contenus/mois' : 'contents/mo'} — {monthlyPrice(p.price, billing)}€{fr ? '/mois' : '/mo'}{p.highlighted ? (fr ? ' · Le plus populaire' : ' · Most popular') : ''}
+                      </option>
+                    ))}
+                  </select>
+                  <ChevronDown size={16} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400" />
+                </div>
+                <div className="mt-3 flex items-baseline gap-2">
+                  <span className="text-3xl font-bold tabular-nums">{monthly}€{fr ? '/mois' : '/mo'}</span>
+                  {billing !== 'monthly' && (
+                    <span className="text-[11px] text-neutral-500">
+                      {fr ? `Facturé ${(monthly * (billing === 'quarterly' ? 3 : 12)).toLocaleString('fr-FR')}€${billing === 'quarterly' ? '/trim' : '/an'}` : `Billed €${(monthly * (billing === 'quarterly' ? 3 : 12)).toLocaleString('en-US')}${billing === 'quarterly' ? '/qtr' : '/yr'}`}
+                    </span>
+                  )}
                 </div>
 
                 <div className="mt-4 grid gap-4 sm:grid-cols-2 flex-1">
@@ -343,6 +355,22 @@ export default function HomePricingSection() {
                         <Check size={14} className="mt-0.5 shrink-0 text-empire" />
                       )}
                       {fr ? 'Replays masterclass inclus (valeur 197€)' : 'Masterclass replays included (€197 value)'}
+                    </li>
+                    <li className={`flex items-start gap-1.5 text-[13px] ${selectedTier === 'starter' ? 'text-neutral-600' : 'text-neutral-300'}`}>
+                      {selectedTier === 'starter' ? (
+                        <Minus size={14} className="mt-0.5 shrink-0" />
+                      ) : (
+                        <Check size={14} className="mt-0.5 shrink-0 text-empire" />
+                      )}
+                      {fr ? 'Live sessions chaque semaine avec l\'équipe' : 'Weekly live sessions with the team'}
+                    </li>
+                    <li className={`flex items-start gap-1.5 text-[13px] ${selectedTier !== 'scale' ? 'text-neutral-600' : 'text-neutral-300'}`}>
+                      {selectedTier !== 'scale' ? (
+                        <Minus size={14} className="mt-0.5 shrink-0" />
+                      ) : (
+                        <Check size={14} className="mt-0.5 shrink-0 text-empire" />
+                      )}
+                      {fr ? 'Support prioritaire' : 'Priority support'}
                     </li>
                   </ul>
                   {/* Value stack */}
@@ -398,7 +426,10 @@ export default function HomePricingSection() {
               <span className="text-sm text-neutral-400">{fr ? '/siège/mois' : '/seat/mo'}</span>
             </div>
 
-            <ul className="mt-4 space-y-1.5 flex-1">
+            <p className="mt-4 text-[12px] font-semibold text-white">
+              {fr ? 'Tout du plan Créateur, plus :' : 'Everything in Creator, plus:'}
+            </p>
+            <ul className="mt-2 space-y-1.5 flex-1">
               {TEAM_FEATURES.map((f) => (
                 <li key={f.fr} className="flex items-start gap-1.5 text-[13px] text-neutral-300">
                   <Check size={14} className="mt-0.5 shrink-0 text-empire" />
