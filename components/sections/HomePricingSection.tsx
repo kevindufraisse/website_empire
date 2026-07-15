@@ -420,7 +420,10 @@ export default function HomePricingSection() {
             </p>
 
             <div className="mt-5 flex items-baseline gap-1.5">
-              <span className="text-4xl font-extrabold">{fr ? 'dès 179€' : 'from €179'}</span>
+              {/* Starter avec remise volume -10% (dès 3 sièges), sur le prix d'engagement sélectionné */}
+              <span className="text-4xl font-extrabold">
+                {fr ? `dès ${Math.round(monthlyPrice(199, billing) * 0.9)}€` : `from €${Math.round(monthlyPrice(199, billing) * 0.9)}`}
+              </span>
               <span className="text-sm text-neutral-400">{fr ? '/siège/mois' : '/seat/mo'}</span>
             </div>
 
