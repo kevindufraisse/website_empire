@@ -20,8 +20,8 @@ const WHATS_INCLUDED = [
 ]
 
 const TIMELINE = [
-  { day: 'Jour 1', text: 'Onboarding priv\u00e9. On cale ton positionnement, ta cible, ton angle.' },
-  { day: 'Jour 2', text: 'Tes sujets sont trouv\u00e9s. Notre syst\u00e8me analyse ta niche.' },
+  { day: 'Lundi 12h', text: 'Session d\u2019onboarding collective en live. On cale ton positionnement, ta cible, ton angle. Places limit\u00e9es chaque semaine.' },
+  { day: 'Jour 2', text: 'Tes sujets sont trouv\u00e9s. Notre syst\u00e8me analyse ta niche et tes concurrents.' },
   { day: 'Jour 3\u20135', text: 'Tu enregistres 15 min. On \u00e9crit, on monte, on adapte \u00e0 7 r\u00e9seaux.' },
   { day: 'Jour 7', text: 'Tes premiers contenus sont en ligne.' },
 ]
@@ -136,6 +136,12 @@ export default function FinalOfferClient() {
             <p className="mt-3 text-xs text-neutral-500">
               7 jours d&rsquo;essai gratuit &middot; Annulez en 1 clic &middot; Paiement s&eacute;curis&eacute; par Stripe
             </p>
+            <div className="mt-5 flex items-center justify-center gap-2 rounded-lg bg-empire/10 border border-empire/20 px-4 py-2.5">
+              <Clock size={14} className="text-empire shrink-0" />
+              <p className="text-xs text-neutral-300">
+                Prochaine session d&rsquo;onboarding : <span className="font-bold text-white">lundi &agrave; 12h</span> &mdash; places limit&eacute;es
+              </p>
+            </div>
           </div>
         </div>
       </section>
