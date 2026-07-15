@@ -332,6 +332,9 @@ export default function HomePricingSection() {
                   <ChevronDown size={16} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400" />
                 </div>
                 <div className="mt-3 flex items-baseline gap-2">
+                  {billing !== 'monthly' && (
+                    <span className="text-lg font-semibold text-neutral-600 line-through tabular-nums">{plan.price}€{fr ? '/mois' : '/mo'}</span>
+                  )}
                   <span className="text-3xl font-bold tabular-nums">{monthly}€{fr ? '/mois' : '/mo'}</span>
                   {billing !== 'monthly' && (
                     <span className="text-[11px] text-neutral-500">
