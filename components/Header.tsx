@@ -77,8 +77,8 @@ export default function Header() {
             <a href="#pricing" className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
               <span className="text-sm sm:text-base font-bold">
                 🔥 {fr
-                  ? `Offre flash : ${promoInfo.promoMonthly}€/mois au lieu de ${promoInfo.baseMonthly}€`
-                  : `Flash deal: €${promoInfo.promoMonthly}/mo instead of €${promoInfo.baseMonthly}`}
+                  ? `Offre flash : ${promoInfo.promoMonthly}€/mois à vie au lieu de ${promoInfo.baseMonthly}€`
+                  : `Flash deal: €${promoInfo.promoMonthly}/mo forever instead of €${promoInfo.baseMonthly}`}
               </span>
               <span className="inline-flex items-center gap-1.5 rounded-full bg-black/20 px-3 py-0.5">
                 <span className="text-[10px] font-semibold uppercase tracking-wider text-white/80">{fr ? 'Expire' : 'Ends'}</span>

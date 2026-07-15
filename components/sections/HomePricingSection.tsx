@@ -382,8 +382,8 @@ export default function HomePricingSection() {
                   <div className="text-center sm:text-left">
                     <p className="text-base font-bold text-white">
                       {fr
-                        ? `Offre flash : ${flashPromo.promoMonthly}€/mois au lieu de ${flashPromo.baseMonthly}€`
-                        : `Flash deal: €${flashPromo.promoMonthly}/mo instead of €${flashPromo.baseMonthly}`}
+                        ? `Offre flash : ${flashPromo.promoMonthly}€/mois à vie au lieu de ${flashPromo.baseMonthly}€`
+                        : `Flash deal: €${flashPromo.promoMonthly}/mo forever instead of €${flashPromo.baseMonthly}`}
                     </p>
                     <p className="text-sm text-neutral-300">
                       {fr ? '12 000 crédits · ~177 contenus/mois' : '12,000 credits · ~177 pieces/mo'}
@@ -436,7 +436,7 @@ export default function HomePricingSection() {
                 {/* Header */}
                 {isPromoPlan && (
                   <span className="mb-4 inline-flex items-center gap-1.5 rounded-full bg-red-500/15 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-red-400">
-                    {fr ? 'Offre flash' : 'Flash deal'}
+                    {fr ? 'Offre flash — prix à vie' : 'Flash deal — price locked forever'}
                   </span>
                 )}
                 <h3 className="text-lg font-bold">{fr ? 'Créateur' : 'Creator'}</h3>
