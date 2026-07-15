@@ -136,16 +136,28 @@ const VALUE_STACK: Record<PlanId, { items: { fr: string; en: string; amount: num
   },
 }
 
-// Carte Équipe & Agence (sièges — flux enterprise de l'app)
+// Carte Équipe & Agence (sièges — flux enterprise de l'app, mêmes paliers
+// et remises volume que app /pricing et /upgrade/enterprise)
 const TEAM_FEATURES: { fr: string; en: string }[] = [
-  { fr: '1 à 20 sièges — dégressif dès 3 sièges', en: '1 to 20 seats — volume discount from 3 seats' },
   { fr: 'Chaque siège : son calendrier + ses crédits', en: 'Each seat: its own calendar + credits' },
-  { fr: 'Volume au choix par siège : 2 200, 6 600 ou 12 000 crédits/mois', en: 'Volume of your choice per seat: 2,200, 6,600 or 12,000 credits/mo' },
   { fr: 'Account manager dédié', en: 'Dedicated account manager' },
   { fr: 'Priorité de traitement', en: 'Priority processing' },
   { fr: 'Onboarding personnalisé', en: 'Personalized onboarding' },
   { fr: 'Facturation sur mesure', en: 'Custom billing' },
 ]
+
+const TEAM_TIER_PRICES: Record<PlanId, { price: number; credits: number }> = {
+  starter: { price: 199, credits: 2200 },
+  growth: { price: 499, credits: 6600 },
+  scale: { price: 799, credits: 12000 },
+}
+
+function teamVolumeDiscount(seats: number): { label: string; percent: number } | null {
+  if (seats >= 10) return { label: '-20%', percent: 20 }
+  if (seats >= 5) return { label: '-15%', percent: 15 }
+  if (seats >= 3) return { label: '-10%', percent: 10 }
+  return null
+}
 
 // Coaching add-on, same offer as the app's pre-checkout popup (500€ one-time)
 const COACHING_PRICE = 500
@@ -233,6 +245,25 @@ export default function HomePricingSection() {
   const promoOn = !!flashPromo && !!flashPromoLeft
   // Prix mensuel de base d'un palier, promo flash appliquée sur le plan visé
   const planBase = (p: Plan) => (promoOn && flashPromo && p.id === flashPromo.plan ? flashPromo.promoMonthly : p.price)
+
+  // Équipe & Agence : crédits par siège + nombre de sièges (miroir de l'app)
+  const [teamTier, setTeamTier] = useState<PlanId>('starter')
+  const [teamSeats, setTeamSeats] = useState(3)
+  const teamDiscount = teamVolumeDiscount(teamSeats)
+  const teamEngagedPrice = monthlyPrice(TEAM_TIER_PRICES[teamTier].price, billing)
+  const teamSeatPrice = Math.round(teamEngagedPrice * (1 - (teamDiscount?.percent || 0) / 100))
+  const teamBillingBadge = BILLING_PERIODS.find((p) => p.id === billing)?.badgeFr || null
+
+  const handleTeamConfigure = () => {
+    const props = { plan: teamTier, seats: teamSeats, billing_period: billing, location: 'home' }
+    trackAmplitude('pricing_team_configure_click', props)
+    if (posthog.__loaded) {
+      posthog.capture('pricing_team_configure_click', props, { transport: 'sendBeacon' })
+    }
+    window.location.href = withAmplitudeDeviceId(
+      `${APP_ONBOARDING_URL}?intent=enterprise&plan=${teamTier}&seats=${teamSeats}&billing=${billing}`,
+    )
+  }
   // Palier de volume sélectionné sur la carte Créateur
   const [selectedTier, setSelectedTier] = useState<PlanId>('growth')
   // Estimateur de crédits (sélectionneur façon lemlist)
@@ -481,12 +512,63 @@ export default function HomePricingSection() {
               {fr ? 'Plusieurs créateurs, une seule facturation' : 'Several creators, one billing'}
             </p>
 
-            <div className="mt-5 flex items-baseline gap-1.5">
-              {/* Starter avec remise volume -10% (dès 3 sièges), sur le prix d'engagement sélectionné */}
-              <span className="text-4xl font-extrabold">
-                {fr ? `dès ${Math.round(monthlyPrice(199, billing) * 0.9)}€` : `from €${Math.round(monthlyPrice(199, billing) * 0.9)}`}
-              </span>
-              <span className="text-sm text-neutral-400">{fr ? '/siège/mois' : '/seat/mo'}</span>
+            {/* Sélecteur crédits par siège + nombre de sièges (miroir de l'app) */}
+            <div className="mt-5 rounded-xl border border-white/10 bg-white/[0.02] p-3 space-y-2">
+              <p className="text-[11px] font-semibold uppercase tracking-wide text-neutral-500">
+                {fr ? 'Crédits par siège' : 'Credits per seat'}
+              </p>
+              <div className="relative">
+                <select
+                  value={teamTier}
+                  onChange={(e) => setTeamTier(e.target.value as PlanId)}
+                  className="w-full appearance-none rounded-lg border border-white/10 bg-neutral-900 px-3 py-2 pr-9 text-xs font-semibold text-white transition-colors hover:border-empire/40 focus:border-empire focus:outline-none"
+                >
+                  {(Object.keys(TEAM_TIER_PRICES) as PlanId[]).map((tierId) => (
+                    <option key={tierId} value={tierId}>
+                      {TEAM_TIER_PRICES[tierId].credits.toLocaleString(fr ? 'fr-FR' : 'en-US')} cr. — {monthlyPrice(TEAM_TIER_PRICES[tierId].price, billing)}€{fr ? '/siège/mois' : '/seat/mo'}
+                    </option>
+                  ))}
+                </select>
+                <ChevronDown size={14} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400" />
+              </div>
+              <p className="text-[11px] font-semibold uppercase tracking-wide text-neutral-500 pt-1">
+                {fr ? 'Nombre de sièges' : 'Number of seats'}
+              </p>
+              <div className="flex items-center justify-center gap-4">
+                <button
+                  type="button"
+                  onClick={() => setTeamSeats((s) => Math.max(1, s - 1))}
+                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 transition-colors hover:border-empire/50"
+                >
+                  <Minus size={14} />
+                </button>
+                <span className="w-10 text-center text-2xl font-bold tabular-nums">{teamSeats}</span>
+                <button
+                  type="button"
+                  onClick={() => setTeamSeats((s) => Math.min(20, s + 1))}
+                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 transition-colors hover:border-empire/50"
+                >
+                  <Plus size={14} />
+                </button>
+              </div>
+              <div className="text-center">
+                {teamSeatPrice < TEAM_TIER_PRICES[teamTier].price && (
+                  <span className="mr-1.5 text-xs text-neutral-500 line-through tabular-nums">{TEAM_TIER_PRICES[teamTier].price.toLocaleString(fr ? 'fr-FR' : 'en-US')}€</span>
+                )}
+                <span className="text-xl font-bold tabular-nums">{teamSeatPrice.toLocaleString(fr ? 'fr-FR' : 'en-US')}€</span>
+                <span className="text-xs text-neutral-400">{fr ? '/siège/mois' : '/seat/mo'}</span>
+                {teamBillingBadge && (
+                  <span className="ml-1.5 rounded-full bg-green-500/15 px-1.5 py-0.5 text-[10px] font-bold text-green-400">{teamBillingBadge}</span>
+                )}
+                {teamDiscount && (
+                  <span className="ml-1 rounded-full bg-empire/10 px-1.5 py-0.5 text-[10px] font-bold text-empire">{teamDiscount.label}</span>
+                )}
+              </div>
+              <p className="text-center text-[10px] text-neutral-500">
+                {fr
+                  ? `≈ ${(teamSeatPrice * teamSeats).toLocaleString('fr-FR')}€/mois au total — ${(TEAM_TIER_PRICES[teamTier].credits * teamSeats).toLocaleString('fr-FR')} crédits/mois pour l'équipe`
+                  : `≈ €${(teamSeatPrice * teamSeats).toLocaleString('en-US')}/mo total — ${(TEAM_TIER_PRICES[teamTier].credits * teamSeats).toLocaleString('en-US')} credits/mo for the team`}
+              </p>
             </div>
 
             <p className="mt-4 text-[12px] font-semibold text-white">
@@ -501,15 +583,18 @@ export default function HomePricingSection() {
               ))}
             </ul>
 
-            <Link
-              href="/join-us"
+            <button
+              onClick={handleTeamConfigure}
               className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-center text-sm font-bold text-white transition-all hover:scale-[1.02] hover:bg-white/10"
             >
-              {fr ? 'Parlons-en' : 'Let’s talk'}
+              {fr ? `Configurer ${teamSeats} siège${teamSeats > 1 ? 's' : ''}` : `Configure ${teamSeats} seat${teamSeats > 1 ? 's' : ''}`}
+            </button>
+            <Link
+              href="/join-us"
+              className="mt-2 text-center text-[11px] text-neutral-500 underline underline-offset-2 transition-colors hover:text-empire"
+            >
+              {fr ? 'Volume illimité ? Parlons-en' : 'Unlimited volume? Let’s talk'}
             </Link>
-            <p className="mt-2 text-center text-[11px] text-neutral-500">
-              {fr ? 'Gestion des sièges en libre-service dans l’app' : 'Self-service seat management in the app'}
-            </p>
           </motion.div>
         </div>
 
