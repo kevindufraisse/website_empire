@@ -178,6 +178,16 @@ export default function FinalOfferClient() {
             </div>
           </div>
 
+          {/* "If all it did" close (Brunson) */}
+          <div className="mt-8 space-y-3 text-center">
+            <p className="text-sm text-neutral-400 leading-relaxed">
+              Si tout ce que &ccedil;a faisait, c&rsquo;&eacute;tait de te lib&eacute;rer des <span className="text-white font-semibold">10 heures par semaine</span> que tu perds &agrave; cr&eacute;er du contenu&hellip; est-ce que &ccedil;a vaudrait 499&euro; ?
+            </p>
+            <p className="text-sm text-neutral-400 leading-relaxed">
+              Si tout ce que &ccedil;a faisait, c&rsquo;&eacute;tait de t&rsquo;amener <span className="text-white font-semibold">un seul client par mois</span>&hellip; est-ce que &ccedil;a vaudrait 499&euro; ?
+            </p>
+          </div>
+
           <div className="mt-8">
             <CTABlock />
           </div>
@@ -233,6 +243,33 @@ export default function FinalOfferClient() {
                 <p className="text-sm text-neutral-400 leading-relaxed">{faq.a}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── TWO CHOICES (Brunson close) ── */}
+      <section className="py-16 border-t border-white/5">
+        <div className="container max-w-2xl mx-auto px-4">
+          <h2 className="text-xl font-bold text-center mb-8">L&agrave;, tu as deux options</h2>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="rounded-xl border border-white/10 bg-white/[0.02] p-5">
+              <div className="flex items-center gap-2 mb-3">
+                <X size={16} className="text-neutral-600" />
+                <p className="text-sm font-bold text-neutral-400">Option 1 : ne rien faire</p>
+              </div>
+              <p className="text-sm text-neutral-500 leading-relaxed">
+                Dans 3 mois, tu postes toujours 2 fois par semaine avec 300 vues. Tes concurrents moins bons que toi continuent de signer les clients que tu m&eacute;rites.
+              </p>
+            </div>
+            <div className="rounded-xl border border-empire/30 bg-empire/[0.05] p-5">
+              <div className="flex items-center gap-2 mb-3">
+                <Check size={16} className="text-empire" />
+                <p className="text-sm font-bold text-white">Option 2 : d&eacute;marrer lundi</p>
+              </div>
+              <p className="text-sm text-neutral-300 leading-relaxed">
+                Lundi 12h tu fais ton onboarding. Dans 7 jours tes premiers contenus sont en ligne sur 7 r&eacute;seaux. Dans 3 mois tu es LA r&eacute;f&eacute;rence de ta niche.
+              </p>
+            </div>
           </div>
         </div>
       </section>
