@@ -254,18 +254,51 @@ export default function HomePricingSection() {
   const teamSeatPrice = Math.round(teamEngagedPrice * (1 - (teamDiscount?.percent || 0) / 100))
   const teamBillingBadge = BILLING_PERIODS.find((p) => p.id === billing)?.badgeFr || null
 
-  const handleTeamConfigure = () => {
+  const [loadingTeam, setLoadingTeam] = useState(false)
+  const handleTeamCheckout = async () => {
+    if (loadingTeam) return
     const props = { plan: teamTier, seats: teamSeats, billing_period: billing, location: 'home' }
     trackAmplitude('pricing_team_configure_click', props)
     if (posthog.__loaded) {
       posthog.capture('pricing_team_configure_click', props, { transport: 'sendBeacon' })
     }
+    setLoadingTeam(true)
+    try {
+      const res = await fetch('/api/checkout-enterprise', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          plan: teamTier,
+          billing,
+          seats: teamSeats,
+          lang,
+          ampDeviceId: getAmplitudeDeviceId(),
+        }),
+      })
+      const data = await res.json()
+      if (data.url) {
+        trackAmplitude('enterprise_checkout_started', { ...props, flow: 'pay_first' })
+        window.location.href = data.url
+        return
+      }
+    } catch {
+      // fall through to onboarding fallback
+    }
+    setLoadingTeam(false)
     window.location.href = withAmplitudeDeviceId(
       `${APP_ONBOARDING_URL}?intent=enterprise&plan=${teamTier}&seats=${teamSeats}&billing=${billing}`,
     )
   }
   // Palier de volume sélectionné sur la carte Créateur
   const [selectedTier, setSelectedTier] = useState<PlanId>('growth')
+  // Dès que la promo est chargée, forcer la sélection sur le plan promo
+  const promoAutoSelected = useRef(false)
+  useEffect(() => {
+    if (flashPromo && !promoAutoSelected.current) {
+      promoAutoSelected.current = true
+      setSelectedTier(flashPromo.plan as PlanId)
+    }
+  }, [flashPromo])
   // Estimateur de crédits (sélectionneur façon lemlist)
   const [estimator, setEstimator] = useState<Record<string, number>>({ linkedin: 12, frontcam: 1, newsletter: 4, youtube: 0, carousel: 0 })
   const totalEstimate = ESTIMATOR_ITEMS.reduce((sum, it) => sum + (estimator[it.key] || 0) * it.cost, 0)
@@ -341,17 +374,26 @@ export default function HomePricingSection() {
 
           {/* Promo flash — compte à rebours par visiteur (IP + cookie) */}
           {promoOn && flashPromo && flashPromoLeft && (
-            <div className="mt-6 flex justify-center">
-              <div className="inline-flex flex-wrap items-center justify-center gap-2 rounded-full border border-red-500/30 bg-red-500/[0.08] px-4 py-2">
-                <span className="text-sm">🔥</span>
-                <span className="text-sm font-semibold text-white">
-                  {fr
-                    ? `Promo flash : 12 000 crédits à ${flashPromo.promoMonthly}€/mois au lieu de ${flashPromo.baseMonthly}€`
-                    : `Flash deal: 12,000 credits at €${flashPromo.promoMonthly}/mo instead of €${flashPromo.baseMonthly}`}
-                </span>
-                <span className="text-xs text-neutral-500">·</span>
-                <span className="text-[11px] text-neutral-400">{fr ? 'Expire dans' : 'Expires in'}</span>
-                <span className="font-mono text-sm font-bold tabular-nums text-red-400">{flashPromoLeft}</span>
+            <div className="mt-8 flex justify-center">
+              <div className="relative overflow-hidden rounded-2xl border border-red-500/40 bg-gradient-to-r from-red-500/[0.12] via-orange-500/[0.08] to-red-500/[0.12] px-6 py-4 shadow-[0_0_30px_rgb(239_68_68_/_0.15)]">
+                <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMSIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjAzKSIvPjwvc3ZnPg==')] opacity-50" />
+                <div className="relative flex flex-col items-center gap-2 sm:flex-row sm:gap-4">
+                  <span className="text-2xl">🔥</span>
+                  <div className="text-center sm:text-left">
+                    <p className="text-base font-bold text-white">
+                      {fr
+                        ? `Offre flash : ${flashPromo.promoMonthly}€/mois au lieu de ${flashPromo.baseMonthly}€`
+                        : `Flash deal: €${flashPromo.promoMonthly}/mo instead of €${flashPromo.baseMonthly}`}
+                    </p>
+                    <p className="text-sm text-neutral-300">
+                      {fr ? '12 000 crédits · ~177 contenus/mois' : '12,000 credits · ~177 pieces/mo'}
+                    </p>
+                  </div>
+                  <div className="flex flex-col items-center rounded-xl border border-red-500/30 bg-black/30 px-4 py-2">
+                    <span className="text-[10px] font-semibold uppercase tracking-wider text-red-300">{fr ? 'Expire dans' : 'Expires in'}</span>
+                    <span className="font-mono text-xl font-bold tabular-nums text-red-400">{flashPromoLeft}</span>
+                  </div>
+                </div>
               </div>
             </div>
           )}
@@ -377,26 +419,32 @@ export default function HomePricingSection() {
           </div>
         </motion.div>
 
-        <div className="mt-10 grid gap-6 lg:grid-cols-3 max-w-5xl mx-auto items-stretch">
+        <div className="mt-10 grid gap-6 lg:grid-cols-2 max-w-4xl mx-auto items-start">
+          {/* Créateur */}
           {(() => {
             const plan = PLANS.find((p) => p.id === selectedTier)!
             const isPromoPlan = promoOn && !!flashPromo && plan.id === flashPromo.plan
             const monthly = monthlyPrice(planBase(plan), billing)
-            const catalogMonthly = monthlyPrice(plan.price, billing)
             const stack = VALUE_STACK[selectedTier]
             return (
               <motion.div
                 initial={{ opacity: 0, y: 24 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
-                className="relative flex flex-col rounded-2xl border border-empire/50 bg-empire/[0.06] p-6 shadow-[0_0_40px_rgb(var(--empire-rgb)_/_0.12)] lg:col-span-2"
+                className={`rounded-2xl p-6 lg:p-8 ${isPromoPlan ? 'border border-red-500/40 bg-white/[0.03]' : 'border border-empire/50 bg-white/[0.03]'}`}
               >
+                {/* Header */}
+                {isPromoPlan && (
+                  <span className="mb-4 inline-flex items-center gap-1.5 rounded-full bg-red-500/15 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-red-400">
+                    {fr ? 'Offre flash' : 'Flash deal'}
+                  </span>
+                )}
                 <h3 className="text-lg font-bold">{fr ? 'Créateur' : 'Creator'}</h3>
                 <p className="mt-1 text-sm text-neutral-400">
                   {fr ? 'Tout Empire, au volume que vous choisissez' : 'All of Empire, at the volume you choose'}
                 </p>
 
-                {/* Sélecteur de volume (liste déroulante façon lemlist) */}
+                {/* Selector */}
                 <p className="mt-5 text-[11px] font-semibold uppercase tracking-wide text-neutral-500">
                   {fr ? 'Votre volume mensuel' : 'Your monthly volume'}
                 </p>
@@ -404,71 +452,80 @@ export default function HomePricingSection() {
                   <select
                     value={selectedTier}
                     onChange={(e) => setSelectedTier(e.target.value as PlanId)}
-                    className="w-full appearance-none rounded-xl border-2 border-white/10 bg-neutral-900 px-4 py-3 pr-10 text-sm font-semibold text-white transition-colors hover:border-empire/40 focus:border-empire focus:outline-none"
+                    className={`w-full appearance-none rounded-xl border bg-neutral-900 px-4 py-3 pr-10 text-sm font-semibold text-white transition-colors hover:border-empire/40 focus:border-empire focus:outline-none ${isPromoPlan ? 'border-red-500/30' : 'border-white/10'}`}
                   >
                     {PLANS.map((p) => (
                       <option key={p.id} value={p.id}>
-                        {p.credits.toLocaleString(fr ? 'fr-FR' : 'en-US')} cr. · {p.contents} {fr ? 'contenus/mois' : 'contents/mo'} — {monthlyPrice(planBase(p), billing)}€{fr ? '/mois' : '/mo'}{promoOn && flashPromo && p.id === flashPromo.plan ? (fr ? ` (promo, au lieu de ${monthlyPrice(p.price, billing)}€)` : ` (deal, was €${monthlyPrice(p.price, billing)})`) : ''}{p.highlighted ? (fr ? ' · Le plus populaire' : ' · Most popular') : ''}
+                        {promoOn && flashPromo && p.id === flashPromo.plan ? '🔥 ' : ''}{p.credits.toLocaleString(fr ? 'fr-FR' : 'en-US')} cr. · {p.contents} {fr ? 'contenus/mois' : 'contents/mo'} — {monthlyPrice(planBase(p), billing)}€{fr ? '/mois' : '/mo'}{promoOn && flashPromo && p.id === flashPromo.plan ? (fr ? ` · DEAL (au lieu de ${monthlyPrice(p.price, billing)}€)` : ` · DEAL (was €${monthlyPrice(p.price, billing)})`) : ''}{p.highlighted ? (fr ? ' · Le plus populaire' : ' · Most popular') : ''}
                       </option>
                     ))}
                   </select>
                   <ChevronDown size={16} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400" />
                 </div>
-                <div className="mt-3 flex items-baseline gap-2">
+
+                {/* Price */}
+                <div className="mt-4 flex flex-wrap items-baseline gap-2">
                   {(billing !== 'monthly' || isPromoPlan) && (
-                    <span className="text-lg font-semibold text-neutral-600 line-through tabular-nums">{isPromoPlan ? catalogMonthly : plan.price}€{fr ? '/mois' : '/mo'}</span>
+                    <span className="text-lg text-neutral-600 line-through tabular-nums">{isPromoPlan ? flashPromo!.baseMonthly : plan.price}€</span>
                   )}
-                  <span className={`text-3xl font-bold tabular-nums ${isPromoPlan ? 'text-empire' : ''}`}>{monthly}€{fr ? '/mois' : '/mo'}</span>
+                  <span className="text-4xl font-extrabold tabular-nums">{monthly}€</span>
+                  <span className="text-sm text-neutral-400">{fr ? '/mois' : '/mo'}</span>
                   {isPromoPlan && flashPromoLeft && (
-                    <span className="rounded-full border border-red-500/30 bg-red-500/10 px-2 py-0.5 font-mono text-[11px] font-bold tabular-nums text-red-400 whitespace-nowrap">
-                      🔥 {flashPromoLeft}
-                    </span>
-                  )}
-                  {billing !== 'monthly' && (
-                    <span className="text-[11px] text-neutral-500">
-                      {fr ? `Facturé ${(monthly * (billing === 'quarterly' ? 3 : 12)).toLocaleString('fr-FR')}€${billing === 'quarterly' ? '/trim' : '/an'}` : `Billed €${(monthly * (billing === 'quarterly' ? 3 : 12)).toLocaleString('en-US')}${billing === 'quarterly' ? '/qtr' : '/yr'}`}
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-red-500/40 bg-red-500/15 px-3 py-1">
+                      <span className="font-mono text-sm font-bold tabular-nums text-red-400">{flashPromoLeft}</span>
                     </span>
                   )}
                 </div>
+                {billing !== 'monthly' && (
+                  <p className="mt-1 text-[11px] text-neutral-500">
+                    {fr ? `Facturé ${(monthly * (billing === 'quarterly' ? 3 : 12)).toLocaleString('fr-FR')}€${billing === 'quarterly' ? '/trim' : '/an'}` : `Billed €${(monthly * (billing === 'quarterly' ? 3 : 12)).toLocaleString('en-US')}${billing === 'quarterly' ? '/qtr' : '/yr'}`}
+                  </p>
+                )}
 
-                <div className="mt-4 grid gap-4 sm:grid-cols-2 flex-1">
-                  <ul className="space-y-1.5">
-                    {CREATOR_FEATURES.map((f) => (
-                      <li key={f.fr} className="flex items-start gap-1.5 text-[13px] text-neutral-300">
-                        <Check size={14} className="mt-0.5 shrink-0 text-empire" />
-                        {fr ? f.fr : f.en}
-                      </li>
-                    ))}
-                    <li className={`flex items-start gap-1.5 text-[13px] ${selectedTier === 'starter' ? 'text-neutral-600' : 'text-neutral-300'}`}>
-                      {selectedTier === 'starter' ? (
-                        <Minus size={14} className="mt-0.5 shrink-0" />
-                      ) : (
-                        <Check size={14} className="mt-0.5 shrink-0 text-empire" />
-                      )}
-                      {fr ? 'Replays masterclass inclus (valeur 197€)' : 'Masterclass replays included (€197 value)'}
+                <div className="my-5 h-px bg-white/10" />
+
+                {/* Features */}
+                <ul className="space-y-2">
+                  {CREATOR_FEATURES.map((f) => (
+                    <li key={f.fr} className="flex items-start gap-2 text-[13px] text-neutral-300">
+                      <Check size={14} className="mt-0.5 shrink-0 text-empire" />
+                      {fr ? f.fr : f.en}
                     </li>
-                    <li className={`flex items-start gap-1.5 text-[13px] ${selectedTier === 'starter' ? 'text-neutral-600' : 'text-neutral-300'}`}>
-                      {selectedTier === 'starter' ? (
-                        <Minus size={14} className="mt-0.5 shrink-0" />
-                      ) : (
-                        <Check size={14} className="mt-0.5 shrink-0 text-empire" />
-                      )}
-                      {fr ? 'Live sessions chaque semaine avec l\'équipe' : 'Weekly live sessions with the team'}
-                    </li>
-                    <li className={`flex items-start gap-1.5 text-[13px] ${selectedTier !== 'scale' ? 'text-neutral-600' : 'text-neutral-300'}`}>
-                      {selectedTier !== 'scale' ? (
-                        <Minus size={14} className="mt-0.5 shrink-0" />
-                      ) : (
-                        <Check size={14} className="mt-0.5 shrink-0 text-empire" />
-                      )}
-                      {fr ? 'Support prioritaire' : 'Priority support'}
-                    </li>
-                  </ul>
-                  {/* Value stack */}
-                  <div className="self-start w-full rounded-xl border border-white/10 bg-white/[0.03] p-3 space-y-1.5">
-                    <p className="text-[10px] font-semibold uppercase tracking-wide text-neutral-500">
-                      {fr ? 'Ce que ça remplace chaque mois :' : 'What it replaces every month:'}
-                    </p>
+                  ))}
+                  <li className={`flex items-start gap-2 text-[13px] ${selectedTier === 'starter' ? 'text-neutral-600' : 'text-neutral-300'}`}>
+                    {selectedTier === 'starter' ? <Minus size={14} className="mt-0.5 shrink-0" /> : <Check size={14} className="mt-0.5 shrink-0 text-empire" />}
+                    {fr ? 'Replays masterclass inclus (valeur 197€)' : 'Masterclass replays included (€197 value)'}
+                  </li>
+                  <li className={`flex items-start gap-2 text-[13px] ${selectedTier === 'starter' ? 'text-neutral-600' : 'text-neutral-300'}`}>
+                    {selectedTier === 'starter' ? <Minus size={14} className="mt-0.5 shrink-0" /> : <Check size={14} className="mt-0.5 shrink-0 text-empire" />}
+                    {fr ? 'Live sessions chaque semaine avec l\u2019équipe' : 'Weekly live sessions with the team'}
+                  </li>
+                  <li className={`flex items-start gap-2 text-[13px] ${selectedTier !== 'scale' ? 'text-neutral-600' : 'text-neutral-300'}`}>
+                    {selectedTier !== 'scale' ? <Minus size={14} className="mt-0.5 shrink-0" /> : <Check size={14} className="mt-0.5 shrink-0 text-empire" />}
+                    {fr ? 'Support prioritaire' : 'Priority support'}
+                  </li>
+                </ul>
+
+                {/* CTA */}
+                <button
+                  onClick={() => handlePlanClick(plan)}
+                  disabled={loadingPlan !== null}
+                  className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-empire px-4 py-3.5 text-center text-sm font-bold text-black transition-all hover:brightness-110 disabled:opacity-60"
+                >
+                  {loadingPlan === plan.id && <Loader2 size={15} className="animate-spin" />}
+                  {fr ? 'Démarrer l\u2019essai gratuit' : 'Start free trial'}
+                </button>
+                <p className="mt-2 text-center text-[11px] text-neutral-500">
+                  {fr ? '7 jours gratuits · Annulez en 1 clic' : '7 days free · Cancel in 1 click'}
+                </p>
+
+                {/* Value stack (collapsible) */}
+                <details className="mt-5 group">
+                  <summary className="flex cursor-pointer items-center gap-1.5 text-[12px] font-semibold text-neutral-500 select-none">
+                    <ChevronDown size={14} className="transition-transform group-open:rotate-180" />
+                    {fr ? 'Ce que ça remplace chaque mois' : 'What it replaces every month'}
+                  </summary>
+                  <div className="mt-3 rounded-xl border border-white/10 bg-white/[0.03] p-3 space-y-1.5">
                     {stack.items.map((it) => (
                       <div key={it.fr} className="flex items-center justify-between text-[12px] text-neutral-400">
                         <span>{fr ? it.fr : it.en}</span>
@@ -479,121 +536,118 @@ export default function HomePricingSection() {
                       <span className="text-neutral-400">{fr ? 'Valeur réelle' : 'Real value'}</span>
                       <span className="font-semibold">
                         <span className="mr-1.5 text-neutral-500 line-through">{stack.total.toLocaleString(fr ? 'fr-FR' : 'en-US')}€{fr ? '/mois' : '/mo'}</span>
-                        <span className="text-empire">{monthly}€{fr ? '/mois' : '/mo'} {fr ? 'votre prix' : 'your price'}</span>
+                        <span className="text-empire">{monthly}€{fr ? '/mois' : '/mo'}</span>
                       </span>
                     </div>
                   </div>
-                </div>
-
-                <button
-                  onClick={() => handlePlanClick(plan)}
-                  disabled={loadingPlan !== null}
-                  className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-empire px-4 py-3 text-center text-sm font-bold text-black shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)] transition-all hover:scale-[1.02] disabled:opacity-60 disabled:hover:scale-100"
-                >
-                  {loadingPlan === plan.id && <Loader2 size={15} className="animate-spin" />}
-                  {fr ? 'Démarrer l’essai gratuit' : 'Start free trial'}
-                </button>
-                <p className="mt-2 text-center text-[11px] text-neutral-500">
-                  {fr ? '7 jours gratuits · Annulez en 1 clic' : '7 days free · Cancel in 1 click'}
-                </p>
+                </details>
               </motion.div>
             )
           })()}
 
-          {/* Équipe & Agence — sièges */}
+          {/* Équipe & Agence */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
-            className="relative flex flex-col rounded-2xl border border-white/10 bg-white/[0.03] p-6"
+            className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 lg:p-8"
           >
+            {/* Header */}
             <h3 className="text-lg font-bold">{fr ? 'Équipe & Agence' : 'Team & Agency'}</h3>
             <p className="mt-1 text-sm text-neutral-400">
               {fr ? 'Plusieurs créateurs, une seule facturation' : 'Several creators, one billing'}
             </p>
 
-            {/* Sélecteur crédits par siège + nombre de sièges (miroir de l'app) */}
-            <div className="mt-5 rounded-xl border border-white/10 bg-white/[0.02] p-3 space-y-2">
-              <p className="text-[11px] font-semibold uppercase tracking-wide text-neutral-500">
-                {fr ? 'Crédits par siège' : 'Credits per seat'}
-              </p>
-              <div className="relative">
-                <select
-                  value={teamTier}
-                  onChange={(e) => setTeamTier(e.target.value as PlanId)}
-                  className="w-full appearance-none rounded-lg border border-white/10 bg-neutral-900 px-3 py-2 pr-9 text-xs font-semibold text-white transition-colors hover:border-empire/40 focus:border-empire focus:outline-none"
-                >
-                  {(Object.keys(TEAM_TIER_PRICES) as PlanId[]).map((tierId) => (
-                    <option key={tierId} value={tierId}>
-                      {TEAM_TIER_PRICES[tierId].credits.toLocaleString(fr ? 'fr-FR' : 'en-US')} cr. — {monthlyPrice(TEAM_TIER_PRICES[tierId].price, billing)}€{fr ? '/siège/mois' : '/seat/mo'}
-                    </option>
-                  ))}
-                </select>
-                <ChevronDown size={14} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400" />
-              </div>
-              <p className="text-[11px] font-semibold uppercase tracking-wide text-neutral-500 pt-1">
-                {fr ? 'Nombre de sièges' : 'Number of seats'}
-              </p>
-              <div className="flex items-center justify-center gap-4">
-                <button
-                  type="button"
-                  onClick={() => setTeamSeats((s) => Math.max(1, s - 1))}
-                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 transition-colors hover:border-empire/50"
-                >
-                  <Minus size={14} />
-                </button>
-                <span className="w-10 text-center text-2xl font-bold tabular-nums">{teamSeats}</span>
-                <button
-                  type="button"
-                  onClick={() => setTeamSeats((s) => Math.min(20, s + 1))}
-                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 transition-colors hover:border-empire/50"
-                >
-                  <Plus size={14} />
-                </button>
-              </div>
-              <div className="text-center">
-                {teamSeatPrice < TEAM_TIER_PRICES[teamTier].price && (
-                  <span className="mr-1.5 text-xs text-neutral-500 line-through tabular-nums">{TEAM_TIER_PRICES[teamTier].price.toLocaleString(fr ? 'fr-FR' : 'en-US')}€</span>
-                )}
-                <span className="text-xl font-bold tabular-nums">{teamSeatPrice.toLocaleString(fr ? 'fr-FR' : 'en-US')}€</span>
-                <span className="text-xs text-neutral-400">{fr ? '/siège/mois' : '/seat/mo'}</span>
-                {teamBillingBadge && (
-                  <span className="ml-1.5 rounded-full bg-green-500/15 px-1.5 py-0.5 text-[10px] font-bold text-green-400">{teamBillingBadge}</span>
-                )}
-                {teamDiscount && (
-                  <span className="ml-1 rounded-full bg-empire/10 px-1.5 py-0.5 text-[10px] font-bold text-empire">{teamDiscount.label}</span>
-                )}
-              </div>
-              <p className="text-center text-[10px] text-neutral-500">
-                {fr
-                  ? `≈ ${(teamSeatPrice * teamSeats).toLocaleString('fr-FR')}€/mois au total — ${(TEAM_TIER_PRICES[teamTier].credits * teamSeats).toLocaleString('fr-FR')} crédits/mois pour l'équipe`
-                  : `≈ €${(teamSeatPrice * teamSeats).toLocaleString('en-US')}/mo total — ${(TEAM_TIER_PRICES[teamTier].credits * teamSeats).toLocaleString('en-US')} credits/mo for the team`}
-              </p>
+            {/* Selector: credits per seat */}
+            <p className="mt-5 text-[11px] font-semibold uppercase tracking-wide text-neutral-500">
+              {fr ? 'Crédits par siège' : 'Credits per seat'}
+            </p>
+            <div className="relative mt-2">
+              <select
+                value={teamTier}
+                onChange={(e) => setTeamTier(e.target.value as PlanId)}
+                className="w-full appearance-none rounded-xl border border-white/10 bg-neutral-900 px-4 py-3 pr-10 text-sm font-semibold text-white transition-colors hover:border-empire/40 focus:border-empire focus:outline-none"
+              >
+                {(Object.keys(TEAM_TIER_PRICES) as PlanId[]).map((tierId) => (
+                  <option key={tierId} value={tierId}>
+                    {TEAM_TIER_PRICES[tierId].credits.toLocaleString(fr ? 'fr-FR' : 'en-US')} cr. — {monthlyPrice(TEAM_TIER_PRICES[tierId].price, billing)}€{fr ? '/siège/mois' : '/seat/mo'}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown size={16} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400" />
             </div>
 
-            <p className="mt-4 text-[12px] font-semibold text-white">
+            {/* Seat counter: horizontal inline */}
+            <div className="mt-4 flex items-center gap-3">
+              <span className="text-[11px] font-semibold uppercase tracking-wide text-neutral-500">
+                {fr ? 'Sièges' : 'Seats'}
+              </span>
+              <button
+                type="button"
+                onClick={() => setTeamSeats((s) => Math.max(1, s - 1))}
+                className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 transition-colors hover:border-empire/50"
+              >
+                <Minus size={14} />
+              </button>
+              <span className="w-8 text-center text-lg font-bold tabular-nums">{teamSeats}</span>
+              <button
+                type="button"
+                onClick={() => setTeamSeats((s) => Math.min(20, s + 1))}
+                className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 transition-colors hover:border-empire/50"
+              >
+                <Plus size={14} />
+              </button>
+              {teamDiscount && (
+                <span className="rounded-full bg-empire/10 px-2 py-0.5 text-[10px] font-bold text-empire">{teamDiscount.label}</span>
+              )}
+            </div>
+
+            {/* Price */}
+            <div className="mt-4 flex flex-wrap items-baseline gap-2">
+              {teamSeatPrice < TEAM_TIER_PRICES[teamTier].price && (
+                <span className="text-lg text-neutral-600 line-through tabular-nums">{TEAM_TIER_PRICES[teamTier].price.toLocaleString(fr ? 'fr-FR' : 'en-US')}€</span>
+              )}
+              <span className="text-4xl font-extrabold tabular-nums">{teamSeatPrice.toLocaleString(fr ? 'fr-FR' : 'en-US')}€</span>
+              <span className="text-sm text-neutral-400">{fr ? '/siège/mois' : '/seat/mo'}</span>
+              {teamBillingBadge && (
+                <span className="rounded-full bg-green-500/15 px-2 py-0.5 text-[10px] font-bold text-green-400">{teamBillingBadge}</span>
+              )}
+            </div>
+            <p className="mt-1 text-[11px] text-neutral-500">
+              {fr
+                ? `≈ ${(teamSeatPrice * teamSeats).toLocaleString('fr-FR')}€/mois au total — ${(TEAM_TIER_PRICES[teamTier].credits * teamSeats).toLocaleString('fr-FR')} crédits/mois`
+                : `≈ €${(teamSeatPrice * teamSeats).toLocaleString('en-US')}/mo total — ${(TEAM_TIER_PRICES[teamTier].credits * teamSeats).toLocaleString('en-US')} credits/mo`}
+            </p>
+
+            <div className="my-5 h-px bg-white/10" />
+
+            {/* Features */}
+            <p className="text-[12px] font-semibold text-white">
               {fr ? 'Tout du plan Créateur, plus :' : 'Everything in Creator, plus:'}
             </p>
-            <ul className="mt-2 space-y-1.5 flex-1">
+            <ul className="mt-2 space-y-2">
               {TEAM_FEATURES.map((f) => (
-                <li key={f.fr} className="flex items-start gap-1.5 text-[13px] text-neutral-300">
+                <li key={f.fr} className="flex items-start gap-2 text-[13px] text-neutral-300">
                   <Check size={14} className="mt-0.5 shrink-0 text-empire" />
                   {fr ? f.fr : f.en}
                 </li>
               ))}
             </ul>
 
+            {/* CTA */}
             <button
-              onClick={handleTeamConfigure}
-              className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-center text-sm font-bold text-white transition-all hover:scale-[1.02] hover:bg-white/10"
+              onClick={handleTeamCheckout}
+              disabled={loadingTeam}
+              className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-4 py-3.5 text-center text-sm font-bold text-white transition-all hover:brightness-110 hover:bg-white/10 disabled:opacity-60"
             >
+              {loadingTeam && <Loader2 size={15} className="animate-spin" />}
               {fr ? `Configurer ${teamSeats} siège${teamSeats > 1 ? 's' : ''}` : `Configure ${teamSeats} seat${teamSeats > 1 ? 's' : ''}`}
             </button>
             <Link
               href="/join-us"
-              className="mt-2 text-center text-[11px] text-neutral-500 underline underline-offset-2 transition-colors hover:text-empire"
+              className="mt-2 block text-center text-[11px] text-neutral-500 underline underline-offset-2 transition-colors hover:text-empire"
             >
-              {fr ? 'Volume illimité ? Parlons-en' : 'Unlimited volume? Let’s talk'}
+              {fr ? 'Volume illimité ? Parlons-en' : 'Unlimited volume? Let\u2019s talk'}
             </Link>
           </motion.div>
         </div>

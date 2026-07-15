@@ -8,7 +8,7 @@
  */
 
 // Affiche ou masque la mention de places partout d'un coup
-export const SPOTS_ENABLED = true
+export const SPOTS_ENABLED = false
 
 // Mention alignée sur l'offre de lancement (50 places au total)
 export const SPOTS_LABEL_FR = 'Seulement 50 places disponibles'

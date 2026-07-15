@@ -4,6 +4,7 @@ import HowItWorksAccordion from '@/components/sections/HowItWorksAccordion'
 import AbVariantTracker from '@/components/AbVariantTracker'
 
 const TestimonialsSection = dynamic(() => import('@/components/sections/TestimonialsSection'))
+const HomePricingSection = dynamic(() => import('@/components/sections/HomePricingSection'))
 const QuickWinsSection = dynamic(() => import('@/components/sections/QuickWinsSection'))
 const FounderSection = dynamic(() => import('@/components/sections/FounderSection'))
 const WhyEmpireSection = dynamic(() => import('@/components/sections/WhyEmpireSection'))
@@ -24,6 +25,9 @@ export default function Page() {
 
       {/* Testimonials (Senja) - social proof right after the mechanism */}
       <TestimonialsSection />
+
+      {/* Pricing */}
+      <HomePricingSection />
 
       {/* Deliverables - what Empire creates every month (3 pillars) */}
       <WhyNowSection />

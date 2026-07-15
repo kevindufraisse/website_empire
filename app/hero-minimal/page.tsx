@@ -1,6 +1,9 @@
+import dynamic from 'next/dynamic'
 import HeroSection from '@/components/sections/HeroSection'
 import BetaHeroExtras from '@/components/sections/BetaHeroExtras'
 import AbVariantTracker from '@/components/AbVariantTracker'
+
+const HomePricingSection = dynamic(() => import('@/components/sections/HomePricingSection'))
 
 // Variant "minimal" of the hero_minimal A/B test.
 // Users land here via the middleware rewrite (URL stays "/").
@@ -15,6 +18,7 @@ export default function HeroMinimalPage() {
       <AbVariantTracker experiment="hero_minimal" />
       <HeroSection />
       <BetaHeroExtras />
+      <HomePricingSection />
     </main>
   )
 }
