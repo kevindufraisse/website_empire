@@ -289,6 +289,20 @@ export default function HomePricingSection() {
       `${APP_ONBOARDING_URL}?intent=enterprise&plan=${teamTier}&seats=${teamSeats}&billing=${billing}`,
     )
   }
+  // Custom dropdown open states
+  const [creatorDropOpen, setCreatorDropOpen] = useState(false)
+  const [teamDropOpen, setTeamDropOpen] = useState(false)
+  const creatorDropRef = useRef<HTMLDivElement>(null)
+  const teamDropRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (creatorDropRef.current && !creatorDropRef.current.contains(e.target as Node)) setCreatorDropOpen(false)
+      if (teamDropRef.current && !teamDropRef.current.contains(e.target as Node)) setTeamDropOpen(false)
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [])
+
   // Palier de volume sélectionné sur la carte Créateur
   const [selectedTier, setSelectedTier] = useState<PlanId>('growth')
   // Dès que la promo est chargée, forcer la sélection sur le plan promo
@@ -448,19 +462,51 @@ export default function HomePricingSection() {
                 <p className="mt-5 text-[11px] font-semibold uppercase tracking-wide text-neutral-500">
                   {fr ? 'Votre volume mensuel' : 'Your monthly volume'}
                 </p>
-                <div className="relative mt-2">
-                  <select
-                    value={selectedTier}
-                    onChange={(e) => setSelectedTier(e.target.value as PlanId)}
-                    className={`w-full appearance-none rounded-xl border bg-neutral-900 px-4 py-3 pr-10 text-sm font-semibold text-white transition-colors hover:border-empire/40 focus:border-empire focus:outline-none ${isPromoPlan ? 'border-red-500/30' : 'border-white/10'}`}
+                <div ref={creatorDropRef} className="relative mt-2">
+                  <button
+                    type="button"
+                    onClick={() => setCreatorDropOpen((o) => !o)}
+                    className={`flex w-full items-center justify-between rounded-xl border bg-neutral-900 px-4 py-3 text-left text-sm font-semibold text-white transition-colors hover:border-empire/40 ${isPromoPlan ? 'border-red-500/30' : 'border-white/10'}`}
                   >
-                    {PLANS.map((p) => (
-                      <option key={p.id} value={p.id}>
-                        {promoOn && flashPromo && p.id === flashPromo.plan ? '🔥 ' : ''}{p.credits.toLocaleString(fr ? 'fr-FR' : 'en-US')} cr. · {p.contents} {fr ? 'contenus/mois' : 'contents/mo'} — {monthlyPrice(planBase(p), billing)}€{fr ? '/mois' : '/mo'}{promoOn && flashPromo && p.id === flashPromo.plan ? (fr ? ` · DEAL (au lieu de ${monthlyPrice(p.price, billing)}€)` : ` · DEAL (was €${monthlyPrice(p.price, billing)})`) : ''}{p.highlighted ? (fr ? ' · Le plus populaire' : ' · Most popular') : ''}
-                      </option>
-                    ))}
-                  </select>
-                  <ChevronDown size={16} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400" />
+                    <span className="truncate">
+                      {plan.credits.toLocaleString(fr ? 'fr-FR' : 'en-US')} cr. · {plan.contents} {fr ? 'contenus/mois' : 'pieces/mo'} — {monthly}€{fr ? '/mois' : '/mo'}
+                    </span>
+                    <ChevronDown size={16} className={`shrink-0 ml-2 text-neutral-400 transition-transform ${creatorDropOpen ? 'rotate-180' : ''}`} />
+                  </button>
+                  {creatorDropOpen && (
+                    <div className="absolute left-0 right-0 top-full z-30 mt-1 overflow-hidden rounded-xl border border-white/10 bg-neutral-900 shadow-2xl">
+                      {PLANS.map((p) => {
+                        const mp = monthlyPrice(planBase(p), billing)
+                        const isPromo = promoOn && flashPromo && p.id === flashPromo.plan
+                        const active = p.id === selectedTier
+                        return (
+                          <button
+                            key={p.id}
+                            type="button"
+                            onClick={() => { setSelectedTier(p.id); setCreatorDropOpen(false) }}
+                            className={`flex w-full items-center justify-between gap-3 px-4 py-3 text-left text-sm transition-colors ${active ? 'bg-empire/10 text-white' : 'text-neutral-300 hover:bg-white/5'}`}
+                          >
+                            <div className="flex flex-col gap-0.5 min-w-0">
+                              <span className="font-semibold">
+                                {p.credits.toLocaleString(fr ? 'fr-FR' : 'en-US')} {fr ? 'crédits' : 'credits'} · {p.contents} {fr ? 'contenus/mois' : 'pieces/mo'}
+                              </span>
+                              {isPromo && (
+                                <span className="text-xs text-red-400">
+                                  {fr ? `${mp}€/mois à vie au lieu de ${monthlyPrice(p.price, billing)}€` : `€${mp}/mo forever instead of €${monthlyPrice(p.price, billing)}`}
+                                </span>
+                              )}
+                            </div>
+                            <div className="flex shrink-0 items-center gap-2">
+                              <span className="font-bold tabular-nums">{mp}€<span className="text-xs font-normal text-neutral-500">{fr ? '/mois' : '/mo'}</span></span>
+                              {isPromo && <span className="rounded-full bg-red-500/15 px-2 py-0.5 text-[10px] font-bold text-red-400">DEAL</span>}
+                              {p.highlighted && !isPromo && <span className="rounded-full bg-empire/15 px-2 py-0.5 text-[10px] font-bold text-empire">{fr ? 'Populaire' : 'Popular'}</span>}
+                              {active && <Check size={14} className="text-empire" />}
+                            </div>
+                          </button>
+                        )
+                      })}
+                    </div>
+                  )}
                 </div>
 
                 {/* Price */}
@@ -562,19 +608,40 @@ export default function HomePricingSection() {
             <p className="mt-5 text-[11px] font-semibold uppercase tracking-wide text-neutral-500">
               {fr ? 'Crédits par siège' : 'Credits per seat'}
             </p>
-            <div className="relative mt-2">
-              <select
-                value={teamTier}
-                onChange={(e) => setTeamTier(e.target.value as PlanId)}
-                className="w-full appearance-none rounded-xl border border-white/10 bg-neutral-900 px-4 py-3 pr-10 text-sm font-semibold text-white transition-colors hover:border-empire/40 focus:border-empire focus:outline-none"
+            <div ref={teamDropRef} className="relative mt-2">
+              <button
+                type="button"
+                onClick={() => setTeamDropOpen((o) => !o)}
+                className="flex w-full items-center justify-between rounded-xl border border-white/10 bg-neutral-900 px-4 py-3 text-left text-sm font-semibold text-white transition-colors hover:border-empire/40"
               >
-                {(Object.keys(TEAM_TIER_PRICES) as PlanId[]).map((tierId) => (
-                  <option key={tierId} value={tierId}>
-                    {TEAM_TIER_PRICES[tierId].credits.toLocaleString(fr ? 'fr-FR' : 'en-US')} cr. — {monthlyPrice(TEAM_TIER_PRICES[tierId].price, billing)}€{fr ? '/siège/mois' : '/seat/mo'}
-                  </option>
-                ))}
-              </select>
-              <ChevronDown size={16} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400" />
+                <span className="truncate">
+                  {TEAM_TIER_PRICES[teamTier].credits.toLocaleString(fr ? 'fr-FR' : 'en-US')} {fr ? 'crédits/siège' : 'credits/seat'} — {monthlyPrice(TEAM_TIER_PRICES[teamTier].price, billing)}€{fr ? '/mois' : '/mo'}
+                </span>
+                <ChevronDown size={16} className={`shrink-0 ml-2 text-neutral-400 transition-transform ${teamDropOpen ? 'rotate-180' : ''}`} />
+              </button>
+              {teamDropOpen && (
+                <div className="absolute left-0 right-0 top-full z-30 mt-1 overflow-hidden rounded-xl border border-white/10 bg-neutral-900 shadow-2xl">
+                  {(Object.keys(TEAM_TIER_PRICES) as PlanId[]).map((tierId) => {
+                    const t = TEAM_TIER_PRICES[tierId]
+                    const mp = monthlyPrice(t.price, billing)
+                    const active = tierId === teamTier
+                    return (
+                      <button
+                        key={tierId}
+                        type="button"
+                        onClick={() => { setTeamTier(tierId); setTeamDropOpen(false) }}
+                        className={`flex w-full items-center justify-between gap-3 px-4 py-3 text-left text-sm transition-colors ${active ? 'bg-empire/10 text-white' : 'text-neutral-300 hover:bg-white/5'}`}
+                      >
+                        <span className="font-semibold">{t.credits.toLocaleString(fr ? 'fr-FR' : 'en-US')} {fr ? 'crédits/siège' : 'credits/seat'}</span>
+                        <div className="flex shrink-0 items-center gap-2">
+                          <span className="font-bold tabular-nums">{mp}€<span className="text-xs font-normal text-neutral-500">{fr ? '/mois' : '/mo'}</span></span>
+                          {active && <Check size={14} className="text-empire" />}
+                        </div>
+                      </button>
+                    )
+                  })}
+                </div>
+              )}
             </div>
 
             {/* Seat counter: horizontal inline */}
