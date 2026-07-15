@@ -42,48 +42,32 @@ type Plan = {
 }
 
 // Mirrors the app's pricing (empire-tracking src/pages/Pricing.tsx PACKS).
-// Cartes minimalistes façon lemlist : le détail des contenus vit dans la
-// section Fonctionnalités (#features), pas dans les cartes.
+// Un seul plan "Créateur" avec sélecteur de volume : les 3 entrées ci-dessous
+// sont les paliers de crédits (ils mappent sur les abonnements Stripe existants).
 const PLANS: Plan[] = [
   {
     id: 'starter',
     price: 199,
     credits: 2200,
     contents: '~22',
-    nameFr: 'Starter',
-    nameEn: 'Starter',
+    nameFr: '2 200 crédits',
+    nameEn: '2,200 credits',
     descFr: 'Pour poster régulièrement sans y penser',
     descEn: 'Post consistently without thinking about it',
-    featuresFr: [
-      'Posts LinkedIn + Reels',
-      'Cerveau Empire — mémoire IA de votre business',
-      'Communauté Slack',
-    ],
-    featuresEn: [
-      'LinkedIn posts + Reels',
-      'Empire Brain — AI memory of your business',
-      'Slack community',
-    ],
+    featuresFr: [],
+    featuresEn: [],
   },
   {
     id: 'growth',
     price: 499,
     credits: 6600,
     contents: '~89',
-    nameFr: 'Growth',
-    nameEn: 'Growth',
+    nameFr: '6 600 crédits',
+    nameEn: '6,600 credits',
     descFr: 'Pour devenir une référence',
     descEn: 'Become the reference',
-    featuresFr: [
-      'Tout Starter, plus :',
-      'Newsletters, vidéos YouTube, carrousels',
-      'Replays masterclass inclus (197€ offerts)',
-    ],
-    featuresEn: [
-      'Everything in Starter, plus:',
-      'Newsletters, YouTube videos, carousels',
-      'Masterclass replays included (€197 value)',
-    ],
+    featuresFr: [],
+    featuresEn: [],
     highlighted: true,
   },
   {
@@ -91,23 +75,60 @@ const PLANS: Plan[] = [
     price: 799,
     credits: 12000,
     contents: '~177',
-    nameFr: 'Scale',
-    nameEn: 'Scale',
+    nameFr: '12 000 crédits',
+    nameEn: '12,000 credits',
     descFr: 'Pour saturer votre marché de contenu',
     descEn: 'Saturate your market with content',
-    featuresFr: [
-      'Tout Growth, plus :',
-      'Sièges & multi-comptes (agence/équipe)',
-      'Analytics avancés',
-      'Priorité de production',
-    ],
-    featuresEn: [
-      'Everything in Growth, plus:',
-      'Seats & multi-accounts (agency/team)',
-      'Advanced analytics',
-      'Production priority',
-    ],
+    featuresFr: [],
+    featuresEn: [],
   },
+]
+
+// Inclus à tous les paliers du plan Créateur
+const CREATOR_FEATURES: { fr: string; en: string }[] = [
+  { fr: 'Tous les formats : posts LinkedIn, reels, newsletters, YouTube, carrousels', en: 'All formats: LinkedIn posts, reels, newsletters, YouTube, carousels' },
+  { fr: 'Analytics & CRM leads', en: 'Analytics & lead CRM' },
+  { fr: 'Cerveau Empire — mémoire IA de votre business', en: 'Empire Brain — AI memory of your business' },
+  { fr: 'Communauté Slack', en: 'Slack community' },
+  { fr: 'Publication sur 7 réseaux', en: 'Publishing to 7 networks' },
+]
+
+// Value stack façon Brunson : ce que chaque palier remplace chaque mois (indicatif)
+const VALUE_STACK: Record<PlanId, { items: { fr: string; en: string; amount: number }[]; total: number }> = {
+  starter: {
+    items: [
+      { fr: 'Ghostwriter LinkedIn', en: 'LinkedIn ghostwriter', amount: 800 },
+      { fr: 'Monteur vidéo', en: 'Video editor', amount: 600 },
+      { fr: 'Community manager', en: 'Community manager', amount: 500 },
+    ],
+    total: 1900,
+  },
+  growth: {
+    items: [
+      { fr: 'Ghostwriter LinkedIn', en: 'LinkedIn ghostwriter', amount: 1500 },
+      { fr: 'Monteur vidéo', en: 'Video editor', amount: 1200 },
+      { fr: 'Community manager', en: 'Community manager', amount: 800 },
+    ],
+    total: 3500,
+  },
+  scale: {
+    items: [
+      { fr: 'Ghostwriter LinkedIn', en: 'LinkedIn ghostwriter', amount: 2500 },
+      { fr: 'Monteur vidéo', en: 'Video editor', amount: 2000 },
+      { fr: 'Community manager', en: 'Community manager', amount: 1200 },
+    ],
+    total: 5700,
+  },
+}
+
+// Carte Équipe & Agence (sièges — flux enterprise de l'app)
+const TEAM_FEATURES: { fr: string; en: string }[] = [
+  { fr: '1 à 20 sièges — dégressif dès 3 sièges', en: '1 to 20 seats — volume discount from 3 seats' },
+  { fr: 'Chaque siège : son calendrier + ses crédits', en: 'Each seat: its own calendar + credits' },
+  { fr: 'Account manager dédié', en: 'Dedicated account manager' },
+  { fr: 'Priorité de traitement', en: 'Priority processing' },
+  { fr: 'Onboarding personnalisé', en: 'Personalized onboarding' },
+  { fr: 'Facturation sur mesure', en: 'Custom billing' },
 ]
 
 // Coaching add-on, same offer as the app's pre-checkout popup (500€ one-time)
@@ -122,22 +143,18 @@ const ESTIMATOR_ITEMS: { key: string; labelFr: string; labelEn: string; cost: nu
   { key: 'carousel', labelFr: 'Carrousels', labelEn: 'Carousels', cost: 180 },
 ]
 
-// Table de comparaison des plans (aligné sur le gating in-app)
+// Table de comparaison des paliers de volume + Équipe & Agence
 const COMPARE_ROWS: { labelFr: string; labelEn: string; values: (string | boolean)[] }[] = [
   { labelFr: 'Prix (base mensuelle)', labelEn: 'Price (monthly base)', values: ['199€', '499€', '799€', '__custom__'] },
-  { labelFr: 'Crédits / mois', labelEn: 'Credits / mo', values: ['2 200', '6 600', '12 000', '__unlimited__'] },
   { labelFr: 'Contenus / mois', labelEn: 'Contents / mo', values: ['~22', '~89', '~177', '__custom__'] },
-  { labelFr: 'Posts LinkedIn + Reels', labelEn: 'LinkedIn posts + Reels', values: [true, true, true, true] },
+  { labelFr: 'Tous les formats (LinkedIn, reels, newsletters, YouTube, carrousels)', labelEn: 'All formats (LinkedIn, reels, newsletters, YouTube, carousels)', values: [true, true, true, true] },
+  { labelFr: 'Analytics & CRM leads', labelEn: 'Analytics & lead CRM', values: [true, true, true, true] },
   { labelFr: 'Cerveau Empire (IA)', labelEn: 'Empire Brain (AI)', values: [true, true, true, true] },
   { labelFr: 'Communauté Slack', labelEn: 'Slack community', values: [true, true, true, true] },
   { labelFr: 'Publication sur 7 réseaux', labelEn: 'Publishing to 7 networks', values: [true, true, true, true] },
-  { labelFr: 'Newsletters', labelEn: 'Newsletters', values: [false, true, true, true] },
-  { labelFr: 'Vidéos YouTube', labelEn: 'YouTube videos', values: [false, true, true, true] },
-  { labelFr: 'Carrousels', labelEn: 'Carousels', values: [false, true, true, true] },
   { labelFr: 'Replays masterclass (197€)', labelEn: 'Masterclass replays (€197)', values: [false, true, true, true] },
-  { labelFr: 'Sièges & multi-comptes', labelEn: 'Seats & multi-accounts', values: [false, false, true, true] },
-  { labelFr: 'Analytics avancés', labelEn: 'Advanced analytics', values: [false, false, true, true] },
-  { labelFr: 'Priorité de production', labelEn: 'Production priority', values: [false, false, true, true] },
+  { labelFr: 'Sièges & multi-comptes', labelEn: 'Seats & multi-accounts', values: [false, false, false, true] },
+  { labelFr: 'Priorité de traitement', labelEn: 'Priority processing', values: [false, false, false, true] },
   { labelFr: 'Account manager dédié', labelEn: 'Dedicated account manager', values: [false, false, false, true] },
 ]
 
@@ -170,6 +187,8 @@ export default function HomePricingSection() {
 
   const [loadingPlan, setLoadingPlan] = useState<PlanId | null>(null)
   const [coachingModal, setCoachingModal] = useState<Plan | null>(null)
+  // Palier de volume sélectionné sur la carte Créateur
+  const [selectedTier, setSelectedTier] = useState<PlanId>('growth')
   // Estimateur de crédits (sélectionneur façon lemlist)
   const [estimator, setEstimator] = useState<Record<string, number>>({ linkedin: 12, frontcam: 1, newsletter: 4, youtube: 0, carousel: 0 })
   const totalEstimate = ESTIMATOR_ITEMS.reduce((sum, it) => sum + (estimator[it.key] || 0) * it.cost, 0)
@@ -235,8 +254,8 @@ export default function HomePricingSection() {
           </h2>
           <p className="mt-4 text-neutral-400">
             {fr
-              ? '7 jours d’essai gratuit sur tous les plans. Sans engagement, annulez en 1 clic.'
-              : '7-day free trial on every plan. No commitment, cancel in 1 click.'}
+              ? '7 jours d’essai gratuit, quel que soit le volume. Sans engagement, annulez en 1 clic.'
+              : '7-day free trial at any volume. No commitment, cancel in 1 click.'}
           </p>
 
 
@@ -261,57 +280,96 @@ export default function HomePricingSection() {
           </div>
         </motion.div>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-3 max-w-5xl mx-auto items-stretch">
-          {PLANS.map((plan, i) => {
+        <div className="mt-10 grid gap-6 lg:grid-cols-3 max-w-5xl mx-auto items-stretch">
+          {(() => {
+            const plan = PLANS.find((p) => p.id === selectedTier)!
             const monthly = monthlyPrice(plan.price, billing)
+            const stack = VALUE_STACK[selectedTier]
             return (
               <motion.div
-                key={plan.id}
                 initial={{ opacity: 0, y: 24 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.1 * i, ease: 'easeOut' }}
-                className={`relative flex flex-col rounded-2xl border p-6 ${
-                  plan.highlighted
-                    ? 'border-empire/50 bg-empire/[0.06] shadow-[0_0_40px_rgb(var(--empire-rgb)_/_0.12)]'
-                    : 'border-white/10 bg-white/[0.03]'
-                }`}
+                transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
+                className="relative flex flex-col rounded-2xl border border-empire/50 bg-empire/[0.06] p-6 shadow-[0_0_40px_rgb(var(--empire-rgb)_/_0.12)] lg:col-span-2"
               >
-                {plan.highlighted && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-empire px-3 py-1 text-[11px] font-bold text-black whitespace-nowrap">
-                    {fr ? 'Le plus populaire' : 'Most popular'}
-                  </span>
-                )}
-
-                <h3 className="text-lg font-bold">{fr ? plan.nameFr : plan.nameEn}</h3>
-                <p className="mt-1 text-sm text-neutral-400">{fr ? plan.descFr : plan.descEn}</p>
-
-                <div className="mt-5 flex items-baseline gap-1.5">
-                  <span className="text-4xl font-extrabold">{monthly}€</span>
-                  <span className="text-sm text-neutral-400">{fr ? '/mois' : '/month'}</span>
-                </div>
-                <p className="mt-1.5 text-[12px] text-neutral-500">
-                  {plan.credits.toLocaleString()} {fr ? 'crédits' : 'credits'} · {plan.contents} {fr ? 'contenus/mois' : 'contents/mo'}
+                <h3 className="text-lg font-bold">{fr ? 'Créateur' : 'Creator'}</h3>
+                <p className="mt-1 text-sm text-neutral-400">
+                  {fr ? 'Tout Empire, au volume que vous choisissez' : 'All of Empire, at the volume you choose'}
                 </p>
 
-                <ul className="mt-4 space-y-1.5">
-                  {(fr ? plan.featuresFr : plan.featuresEn).map((f) => (
-                    <li key={f} className="flex items-start gap-1.5 text-[13px] text-neutral-300">
-                      <Check size={14} className="mt-0.5 shrink-0 text-empire" />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
+                {/* Sélecteur de volume */}
+                <p className="mt-5 text-[11px] font-semibold uppercase tracking-wide text-neutral-500">
+                  {fr ? 'Votre volume mensuel' : 'Your monthly volume'}
+                </p>
+                <div className="mt-2 grid grid-cols-3 gap-2">
+                  {PLANS.map((p) => {
+                    const isSelected = selectedTier === p.id
+                    return (
+                      <button
+                        key={p.id}
+                        type="button"
+                        onClick={() => setSelectedTier(p.id)}
+                        className={`relative rounded-xl border-2 p-3 text-left transition-all ${
+                          isSelected ? 'border-empire bg-empire/10' : 'border-white/10 hover:border-empire/40'
+                        }`}
+                      >
+                        {p.highlighted && (
+                          <span className="absolute -top-2 left-2 rounded-full bg-empire px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-black whitespace-nowrap">
+                            {fr ? 'Le plus populaire' : 'Most popular'}
+                          </span>
+                        )}
+                        <p className="text-sm font-bold">{p.credits.toLocaleString(fr ? 'fr-FR' : 'en-US')} cr.</p>
+                        <p className="text-[10px] text-neutral-400">{p.contents} {fr ? 'contenus/mois' : 'contents/mo'}</p>
+                        <p className="mt-1 text-xs font-semibold text-empire">
+                          {monthlyPrice(p.price, billing)}€{fr ? '/mois' : '/mo'}
+                        </p>
+                      </button>
+                    )
+                  })}
+                </div>
 
-                <div className="flex-1" />
+                <div className="mt-4 grid gap-4 sm:grid-cols-2 flex-1">
+                  <ul className="space-y-1.5">
+                    {CREATOR_FEATURES.map((f) => (
+                      <li key={f.fr} className="flex items-start gap-1.5 text-[13px] text-neutral-300">
+                        <Check size={14} className="mt-0.5 shrink-0 text-empire" />
+                        {fr ? f.fr : f.en}
+                      </li>
+                    ))}
+                    <li className={`flex items-start gap-1.5 text-[13px] ${selectedTier === 'starter' ? 'text-neutral-600' : 'text-neutral-300'}`}>
+                      {selectedTier === 'starter' ? (
+                        <Minus size={14} className="mt-0.5 shrink-0" />
+                      ) : (
+                        <Check size={14} className="mt-0.5 shrink-0 text-empire" />
+                      )}
+                      {fr ? 'Replays masterclass inclus (valeur 197€)' : 'Masterclass replays included (€197 value)'}
+                    </li>
+                  </ul>
+                  {/* Value stack */}
+                  <div className="self-start w-full rounded-xl border border-white/10 bg-white/[0.03] p-3 space-y-1.5">
+                    <p className="text-[10px] font-semibold uppercase tracking-wide text-neutral-500">
+                      {fr ? 'Ce que ça remplace chaque mois :' : 'What it replaces every month:'}
+                    </p>
+                    {stack.items.map((it) => (
+                      <div key={it.fr} className="flex items-center justify-between text-[12px] text-neutral-400">
+                        <span>{fr ? it.fr : it.en}</span>
+                        <span className="tabular-nums">{it.amount.toLocaleString(fr ? 'fr-FR' : 'en-US')}€</span>
+                      </div>
+                    ))}
+                    <div className="flex items-center justify-between border-t border-white/10 pt-1.5 text-[13px]">
+                      <span className="text-neutral-400">{fr ? 'Valeur réelle' : 'Real value'}</span>
+                      <span className="font-semibold">
+                        <span className="mr-1.5 text-neutral-500 line-through">{stack.total.toLocaleString(fr ? 'fr-FR' : 'en-US')}€</span>
+                        <span className="text-empire">{monthly}€{fr ? '/mois' : '/mo'}</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
 
                 <button
                   onClick={() => handlePlanClick(plan)}
                   disabled={loadingPlan !== null}
-                  className={`mt-6 flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3 text-center text-sm font-bold transition-all hover:scale-[1.02] disabled:opacity-60 disabled:hover:scale-100 ${
-                    plan.highlighted
-                      ? 'bg-empire text-black shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]'
-                      : 'bg-empire/90 text-black hover:bg-empire'
-                  }`}
+                  className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-empire px-4 py-3 text-center text-sm font-bold text-black shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)] transition-all hover:scale-[1.02] disabled:opacity-60 disabled:hover:scale-100"
                 >
                   {loadingPlan === plan.id && <Loader2 size={15} className="animate-spin" />}
                   {fr ? 'Démarrer l’essai gratuit' : 'Start free trial'}
@@ -321,8 +379,44 @@ export default function HomePricingSection() {
                 </p>
               </motion.div>
             )
-          })}
+          })()}
 
+          {/* Équipe & Agence — sièges */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
+            className="relative flex flex-col rounded-2xl border border-white/10 bg-white/[0.03] p-6"
+          >
+            <h3 className="text-lg font-bold">{fr ? 'Équipe & Agence' : 'Team & Agency'}</h3>
+            <p className="mt-1 text-sm text-neutral-400">
+              {fr ? 'Plusieurs créateurs, une seule facturation' : 'Several creators, one billing'}
+            </p>
+
+            <div className="mt-5 flex items-baseline gap-1.5">
+              <span className="text-4xl font-extrabold">{fr ? 'dès 179€' : 'from €179'}</span>
+              <span className="text-sm text-neutral-400">{fr ? '/siège/mois' : '/seat/mo'}</span>
+            </div>
+
+            <ul className="mt-4 space-y-1.5 flex-1">
+              {TEAM_FEATURES.map((f) => (
+                <li key={f.fr} className="flex items-start gap-1.5 text-[13px] text-neutral-300">
+                  <Check size={14} className="mt-0.5 shrink-0 text-empire" />
+                  {fr ? f.fr : f.en}
+                </li>
+              ))}
+            </ul>
+
+            <Link
+              href="/join-us"
+              className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-center text-sm font-bold text-white transition-all hover:scale-[1.02] hover:bg-white/10"
+            >
+              {fr ? 'Parlons-en' : 'Let’s talk'}
+            </Link>
+            <p className="mt-2 text-center text-[11px] text-neutral-500">
+              {fr ? 'Gestion des sièges en libre-service dans l’app' : 'Self-service seat management in the app'}
+            </p>
+          </motion.div>
         </div>
 
         {/* Lien vers le détail des contenus/features (section Fonctionnalités) */}
@@ -336,7 +430,7 @@ export default function HomePricingSection() {
             href="#features"
             className="inline-flex items-center gap-1.5 text-sm font-semibold text-empire hover:underline"
           >
-            {fr ? 'Explorer tout ce qui est inclus dans chaque plan ↓' : 'Explore everything included in each plan ↓'}
+            {fr ? 'Explorer tout ce qui est inclus ↓' : 'Explore everything included ↓'}
           </a>
         </motion.div>
 
@@ -396,15 +490,15 @@ export default function HomePricingSection() {
             </p>
             {recommendedPlan ? (
               <p className="text-sm font-semibold">
-                {fr ? 'Plan recommandé :' : 'Recommended plan:'}{' '}
-                <span className="font-bold text-empire">{fr ? recommendedPlan.nameFr : recommendedPlan.nameEn}</span>
+                {fr ? 'Palier recommandé :' : 'Recommended tier:'}{' '}
+                <span className="font-bold text-empire">{recommendedPlan.credits.toLocaleString(fr ? 'fr-FR' : 'en-US')} cr.</span>
                 <span className="ml-1.5 text-xs text-neutral-400">
-                  ({recommendedPlan.credits.toLocaleString(fr ? 'fr-FR' : 'en-US')} cr. — {recommendedPlan.price}€{fr ? '/mois' : '/mo'})
+                  ({recommendedPlan.price}€{fr ? '/mois' : '/mo'})
                 </span>
               </p>
             ) : (
               <p className="text-sm font-semibold text-empire">
-                {fr ? 'Volume élevé — parlons-en (Agence & Entreprise)' : "High volume — let's talk (Agency & Enterprise)"}
+                {fr ? 'Volume élevé — parlons-en (Équipe & Agence)' : "High volume — let's talk (Team & Agency)"}
               </p>
             )}
           </div>
@@ -418,18 +512,18 @@ export default function HomePricingSection() {
           className="mt-6 max-w-5xl mx-auto overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03]"
         >
           <div className="border-b border-white/10 px-6 py-4">
-            <h3 className="text-base font-bold">{fr ? 'Comparer les plans' : 'Compare plans'}</h3>
+            <h3 className="text-base font-bold">{fr ? 'Comparer les paliers' : 'Compare tiers'}</h3>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-white/10">
                   <th className="min-w-44 px-6 py-2.5 text-left text-xs font-medium text-neutral-500"></th>
-                  <th className="px-4 py-2.5 text-xs font-bold text-white">Starter</th>
-                  <th className="px-4 py-2.5 text-xs font-bold text-empire">Growth</th>
-                  <th className="px-4 py-2.5 text-xs font-bold text-white">Scale</th>
+                  <th className="whitespace-nowrap px-4 py-2.5 text-xs font-bold text-white">2 200 cr.</th>
+                  <th className="whitespace-nowrap px-4 py-2.5 text-xs font-bold text-empire">6 600 cr.</th>
+                  <th className="whitespace-nowrap px-4 py-2.5 text-xs font-bold text-white">12 000 cr.</th>
                   <th className="whitespace-nowrap px-4 py-2.5 text-xs font-bold text-white">
-                    {fr ? 'Agence & Entreprise' : 'Agency & Enterprise'}
+                    {fr ? 'Équipe & Agence' : 'Team & Agency'}
                   </th>
                 </tr>
               </thead>
@@ -457,42 +551,6 @@ export default function HomePricingSection() {
           </div>
         </motion.div>
 
-        {/* Enterprise banner */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.35, ease: 'easeOut' }}
-          className="mt-6 max-w-5xl mx-auto"
-        >
-          <div className="flex flex-col md:flex-row items-center gap-6 rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-5">
-            <div className="shrink-0">
-              <h3 className="text-lg font-bold">{fr ? 'Agence / Entreprise' : 'Agency / Enterprise'}</h3>
-              <p className="text-sm text-neutral-400">
-                {fr ? 'Volumes et tarifs sur mesure' : 'Custom volumes and pricing'}
-              </p>
-            </div>
-
-            <ul className="flex flex-wrap gap-x-6 gap-y-1.5 flex-1">
-              {(fr
-                ? ['Volumes illimités', 'Multi-comptes et multi-marques', 'Account manager dédié', 'Onboarding personnalisé', 'Facturation sur mesure']
-                : ['Unlimited volumes', 'Multi-account & multi-brand', 'Dedicated account manager', 'Custom onboarding', 'Custom billing']
-              ).map((f) => (
-                <li key={f} className="flex items-center gap-1.5 text-sm text-neutral-300">
-                  <Check size={14} className="shrink-0 text-empire" />
-                  {f}
-                </li>
-              ))}
-            </ul>
-
-            <Link
-              href="/join-us"
-              className="shrink-0 rounded-xl border border-white/15 bg-white/5 px-6 py-2.5 text-sm font-bold text-white transition-all hover:scale-[1.02] hover:bg-white/10"
-            >
-              {fr ? 'Parlons-en' : 'Let\u2019s talk'}
-            </Link>
-          </div>
-        </motion.div>
-
         {/* Coaching modal */}
         {coachingModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -514,7 +572,7 @@ export default function HomePricingSection() {
                     {fr ? 'Ajouter le coaching ?' : 'Add coaching?'}
                   </p>
                   <p className="text-sm text-neutral-400">
-                    {fr ? `Plan ${coachingModal.nameFr}` : `${coachingModal.nameEn} plan`}
+                    {fr ? `Palier ${coachingModal.nameFr}` : `${coachingModal.nameEn} tier`}
                   </p>
                 </div>
               </div>
