@@ -229,7 +229,7 @@ export default function HomePricingSection() {
 
   // Équipe & Agence : crédits par siège + nombre de sièges (miroir de l'app)
   const [teamTier, setTeamTier] = useState<PlanId>('starter')
-  const [teamSeats, setTeamSeats] = useState(3)
+  const [teamSeats, setTeamSeats] = useState(2)
   const teamDiscount = teamVolumeDiscount(teamSeats)
   const teamEngagedPrice = monthlyPrice(TEAM_TIER_PRICES[teamTier].price, billing)
   const teamSeatPrice = Math.round(teamEngagedPrice * (1 - (teamDiscount?.percent || 0) / 100))
@@ -429,60 +429,69 @@ export default function HomePricingSection() {
                     {fr ? 'Offre flash — prix à vie' : 'Flash deal — price locked forever'}
                   </span>
                 )}
-                <h3 className="text-lg font-bold">{fr ? 'Créateur' : 'Creator'}</h3>
+                <div className="flex items-center gap-2">
+                  <h3 className="text-lg font-bold">{fr ? 'Créateur' : 'Creator'}</h3>
+                  {selectedTier === 'growth' && !isPromoPlan && (
+                    <span className="rounded-full bg-empire/15 border border-empire/30 px-2.5 py-0.5 text-[10px] font-bold text-empire uppercase tracking-wider">
+                      {fr ? 'Populaire' : 'Popular'}
+                    </span>
+                  )}
+                </div>
                 <p className="mt-1 text-sm text-neutral-400">
                   {fr ? 'Tout Empire, au volume que vous choisissez' : 'All of Empire, at the volume you choose'}
                 </p>
 
                 {/* Selector */}
-                <p className="mt-5 text-[11px] font-semibold uppercase tracking-wide text-neutral-500">
-                  {fr ? 'Votre volume mensuel' : 'Your monthly volume'}
-                </p>
-                <div ref={creatorDropRef} className="relative mt-2">
-                  <button
-                    type="button"
-                    onClick={() => setCreatorDropOpen((o) => !o)}
-                    className={`flex w-full items-center justify-between rounded-xl border bg-neutral-900 px-4 py-3 text-left text-sm font-semibold text-white transition-colors hover:border-empire/40 ${isPromoPlan ? 'border-red-500/30' : 'border-white/10'}`}
-                  >
-                    <span className="truncate">
-                      {plan.credits.toLocaleString(fr ? 'fr-FR' : 'en-US')} cr. · {plan.contents} {fr ? 'contenus/mois' : 'pieces/mo'} — {monthly}€{fr ? '/mois' : '/mo'}
-                    </span>
-                    <ChevronDown size={16} className={`shrink-0 ml-2 text-neutral-400 transition-transform ${creatorDropOpen ? 'rotate-180' : ''}`} />
-                  </button>
-                  {creatorDropOpen && (
-                    <div className="absolute left-0 right-0 top-full z-30 mt-1 overflow-hidden rounded-xl border border-white/10 bg-neutral-900 shadow-2xl">
-                      {PLANS.map((p) => {
-                        const mp = monthlyPrice(planBase(p), billing)
-                        const isPromo = promoOn && flashPromo && p.id === flashPromo.plan
-                        const active = p.id === selectedTier
-                        return (
-                          <button
-                            key={p.id}
-                            type="button"
-                            onClick={() => { setSelectedTier(p.id); setCreatorDropOpen(false) }}
-                            className={`flex w-full items-center justify-between gap-3 px-4 py-3 text-left text-sm transition-colors ${active ? 'bg-empire/10 text-white' : 'text-neutral-300 hover:bg-white/5'}`}
-                          >
-                            <div className="flex flex-col gap-0.5 min-w-0">
-                              <span className="font-semibold">
-                                {p.credits.toLocaleString(fr ? 'fr-FR' : 'en-US')} {fr ? 'crédits' : 'credits'} · {p.contents} {fr ? 'contenus/mois' : 'pieces/mo'}
-                              </span>
-                              {isPromo && (
-                                <span className="text-xs text-red-400">
-                                  {fr ? `${mp}€/mois à vie au lieu de ${monthlyPrice(p.price, billing)}€` : `€${mp}/mo forever instead of €${monthlyPrice(p.price, billing)}`}
+                <div className="min-h-[120px]">
+                  <p className="mt-5 text-[11px] font-semibold uppercase tracking-wide text-neutral-500">
+                    {fr ? 'Votre volume mensuel' : 'Your monthly volume'}
+                  </p>
+                  <div ref={creatorDropRef} className="relative mt-2">
+                    <button
+                      type="button"
+                      onClick={() => setCreatorDropOpen((o) => !o)}
+                      className={`flex w-full items-center justify-between rounded-xl border bg-neutral-900 px-4 py-3 text-left text-sm font-semibold text-white transition-colors hover:border-empire/40 ${isPromoPlan ? 'border-red-500/30' : 'border-white/10'}`}
+                    >
+                      <span className="truncate">
+                        {plan.credits.toLocaleString(fr ? 'fr-FR' : 'en-US')} cr. · {plan.contents} {fr ? 'contenus/mois' : 'pieces/mo'} — {monthly}€{fr ? '/mois' : '/mo'}
+                      </span>
+                      <ChevronDown size={16} className={`shrink-0 ml-2 text-neutral-400 transition-transform ${creatorDropOpen ? 'rotate-180' : ''}`} />
+                    </button>
+                    {creatorDropOpen && (
+                      <div className="absolute left-0 right-0 top-full z-30 mt-1 overflow-hidden rounded-xl border border-white/10 bg-neutral-900 shadow-2xl">
+                        {PLANS.map((p) => {
+                          const mp = monthlyPrice(planBase(p), billing)
+                          const isPromo = promoOn && flashPromo && p.id === flashPromo.plan
+                          const active = p.id === selectedTier
+                          return (
+                            <button
+                              key={p.id}
+                              type="button"
+                              onClick={() => { setSelectedTier(p.id); setCreatorDropOpen(false) }}
+                              className={`flex w-full items-center justify-between gap-3 px-4 py-3 text-left text-sm transition-colors ${active ? 'bg-empire/10 text-white' : 'text-neutral-300 hover:bg-white/5'}`}
+                            >
+                              <div className="flex flex-col gap-0.5 min-w-0">
+                                <span className="font-semibold">
+                                  {p.credits.toLocaleString(fr ? 'fr-FR' : 'en-US')} {fr ? 'crédits' : 'credits'} · {p.contents} {fr ? 'contenus/mois' : 'pieces/mo'}
                                 </span>
-                              )}
-                            </div>
-                            <div className="flex shrink-0 items-center gap-2">
-                              <span className="font-bold tabular-nums">{mp}€<span className="text-xs font-normal text-neutral-500">{fr ? '/mois' : '/mo'}</span></span>
-                              {isPromo && <span className="rounded-full bg-red-500/15 px-2 py-0.5 text-[10px] font-bold text-red-400">DEAL</span>}
-                              {p.highlighted && !isPromo && <span className="rounded-full bg-empire/15 px-2 py-0.5 text-[10px] font-bold text-empire">{fr ? 'Populaire' : 'Popular'}</span>}
-                              {active && <Check size={14} className="text-empire" />}
-                            </div>
-                          </button>
-                        )
-                      })}
-                    </div>
-                  )}
+                                {isPromo && (
+                                  <span className="text-xs text-red-400">
+                                    {fr ? `${mp}€/mois à vie au lieu de ${monthlyPrice(p.price, billing)}€` : `€${mp}/mo forever instead of €${monthlyPrice(p.price, billing)}`}
+                                  </span>
+                                )}
+                              </div>
+                              <div className="flex shrink-0 items-center gap-2">
+                                <span className="font-bold tabular-nums">{mp}€<span className="text-xs font-normal text-neutral-500">{fr ? '/mois' : '/mo'}</span></span>
+                                {isPromo && <span className="rounded-full bg-red-500/15 px-2 py-0.5 text-[10px] font-bold text-red-400">DEAL</span>}
+                                {p.highlighted && !isPromo && <span className="rounded-full bg-empire/15 px-2 py-0.5 text-[10px] font-bold text-empire">{fr ? 'Populaire' : 'Popular'}</span>}
+                                {active && <Check size={14} className="text-empire" />}
+                              </div>
+                            </button>
+                          )
+                        })}
+                      </div>
+                    )}
+                  </div>
                 </div>
 
                 {/* Price */}
@@ -556,69 +565,71 @@ export default function HomePricingSection() {
               {fr ? 'Plusieurs créateurs, une seule facturation' : 'Several creators, one billing'}
             </p>
 
-            {/* Selector: credits per seat */}
-            <p className="mt-5 text-[11px] font-semibold uppercase tracking-wide text-neutral-500">
-              {fr ? 'Crédits par siège' : 'Credits per seat'}
-            </p>
-            <div ref={teamDropRef} className="relative mt-2">
-              <button
-                type="button"
-                onClick={() => setTeamDropOpen((o) => !o)}
-                className="flex w-full items-center justify-between rounded-xl border border-white/10 bg-neutral-900 px-4 py-3 text-left text-sm font-semibold text-white transition-colors hover:border-empire/40"
-              >
-                <span className="truncate">
-                  {TEAM_TIER_PRICES[teamTier].credits.toLocaleString(fr ? 'fr-FR' : 'en-US')} {fr ? 'crédits/siège' : 'credits/seat'} — {monthlyPrice(TEAM_TIER_PRICES[teamTier].price, billing)}€{fr ? '/mois' : '/mo'}
-                </span>
-                <ChevronDown size={16} className={`shrink-0 ml-2 text-neutral-400 transition-transform ${teamDropOpen ? 'rotate-180' : ''}`} />
-              </button>
-              {teamDropOpen && (
-                <div className="absolute left-0 right-0 top-full z-30 mt-1 overflow-hidden rounded-xl border border-white/10 bg-neutral-900 shadow-2xl">
-                  {(Object.keys(TEAM_TIER_PRICES) as PlanId[]).map((tierId) => {
-                    const t = TEAM_TIER_PRICES[tierId]
-                    const mp = monthlyPrice(t.price, billing)
-                    const active = tierId === teamTier
-                    return (
-                      <button
-                        key={tierId}
-                        type="button"
-                        onClick={() => { setTeamTier(tierId); setTeamDropOpen(false) }}
-                        className={`flex w-full items-center justify-between gap-3 px-4 py-3 text-left text-sm transition-colors ${active ? 'bg-empire/10 text-white' : 'text-neutral-300 hover:bg-white/5'}`}
-                      >
-                        <span className="font-semibold">{t.credits.toLocaleString(fr ? 'fr-FR' : 'en-US')} {fr ? 'crédits/siège' : 'credits/seat'}</span>
-                        <div className="flex shrink-0 items-center gap-2">
-                          <span className="font-bold tabular-nums">{mp}€<span className="text-xs font-normal text-neutral-500">{fr ? '/mois' : '/mo'}</span></span>
-                          {active && <Check size={14} className="text-empire" />}
-                        </div>
-                      </button>
-                    )
-                  })}
-                </div>
-              )}
-            </div>
+            {/* Selector: credits per seat + seats */}
+            <div className="min-h-[120px]">
+              <p className="mt-5 text-[11px] font-semibold uppercase tracking-wide text-neutral-500">
+                {fr ? 'Crédits par siège' : 'Credits per seat'}
+              </p>
+              <div ref={teamDropRef} className="relative mt-2">
+                <button
+                  type="button"
+                  onClick={() => setTeamDropOpen((o) => !o)}
+                  className="flex w-full items-center justify-between rounded-xl border border-white/10 bg-neutral-900 px-4 py-3 text-left text-sm font-semibold text-white transition-colors hover:border-empire/40"
+                >
+                  <span className="truncate">
+                    {TEAM_TIER_PRICES[teamTier].credits.toLocaleString(fr ? 'fr-FR' : 'en-US')} {fr ? 'crédits/siège' : 'credits/seat'} — {monthlyPrice(TEAM_TIER_PRICES[teamTier].price, billing)}€{fr ? '/mois' : '/mo'}
+                  </span>
+                  <ChevronDown size={16} className={`shrink-0 ml-2 text-neutral-400 transition-transform ${teamDropOpen ? 'rotate-180' : ''}`} />
+                </button>
+                {teamDropOpen && (
+                  <div className="absolute left-0 right-0 top-full z-30 mt-1 overflow-hidden rounded-xl border border-white/10 bg-neutral-900 shadow-2xl">
+                    {(Object.keys(TEAM_TIER_PRICES) as PlanId[]).map((tierId) => {
+                      const t = TEAM_TIER_PRICES[tierId]
+                      const mp = monthlyPrice(t.price, billing)
+                      const active = tierId === teamTier
+                      return (
+                        <button
+                          key={tierId}
+                          type="button"
+                          onClick={() => { setTeamTier(tierId); setTeamDropOpen(false) }}
+                          className={`flex w-full items-center justify-between gap-3 px-4 py-3 text-left text-sm transition-colors ${active ? 'bg-empire/10 text-white' : 'text-neutral-300 hover:bg-white/5'}`}
+                        >
+                          <span className="font-semibold">{t.credits.toLocaleString(fr ? 'fr-FR' : 'en-US')} {fr ? 'crédits/siège' : 'credits/seat'}</span>
+                          <div className="flex shrink-0 items-center gap-2">
+                            <span className="font-bold tabular-nums">{mp}€<span className="text-xs font-normal text-neutral-500">{fr ? '/mois' : '/mo'}</span></span>
+                            {active && <Check size={14} className="text-empire" />}
+                          </div>
+                        </button>
+                      )
+                    })}
+                  </div>
+                )}
+              </div>
 
-            {/* Seat counter: horizontal inline */}
-            <div className="mt-4 flex items-center gap-3">
-              <span className="text-[11px] font-semibold uppercase tracking-wide text-neutral-500">
-                {fr ? 'Sièges' : 'Seats'}
-              </span>
-              <button
-                type="button"
-                onClick={() => setTeamSeats((s) => Math.max(1, s - 1))}
-                className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 transition-colors hover:border-empire/50"
-              >
-                <Minus size={14} />
-              </button>
-              <span className="w-8 text-center text-lg font-bold tabular-nums">{teamSeats}</span>
-              <button
-                type="button"
-                onClick={() => setTeamSeats((s) => Math.min(20, s + 1))}
-                className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 transition-colors hover:border-empire/50"
-              >
-                <Plus size={14} />
-              </button>
-              {teamDiscount && (
-                <span className="rounded-full bg-empire/10 px-2 py-0.5 text-[10px] font-bold text-empire">{teamDiscount.label}</span>
-              )}
+              {/* Seat counter */}
+              <div className="mt-3 flex items-center gap-3">
+                <span className="text-[11px] font-semibold uppercase tracking-wide text-neutral-500">
+                  {fr ? 'Sièges' : 'Seats'}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setTeamSeats((s) => Math.max(1, s - 1))}
+                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 transition-colors hover:border-empire/50"
+                >
+                  <Minus size={14} />
+                </button>
+                <span className="w-8 text-center text-lg font-bold tabular-nums">{teamSeats}</span>
+                <button
+                  type="button"
+                  onClick={() => setTeamSeats((s) => Math.min(20, s + 1))}
+                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 transition-colors hover:border-empire/50"
+                >
+                  <Plus size={14} />
+                </button>
+                {teamDiscount && (
+                  <span className="rounded-full bg-empire/10 px-2 py-0.5 text-[10px] font-bold text-empire">{teamDiscount.label}</span>
+                )}
+              </div>
             </div>
 
             {/* Price */}
@@ -678,8 +689,13 @@ export default function HomePricingSection() {
                 : 'Custom volume, support and integrations'}
             </p>
 
-            <div className="mt-5 flex items-baseline gap-2">
-              <span className="text-2xl font-extrabold">{fr ? 'Sur mesure' : 'Custom'}</span>
+            <div className="min-h-[120px] flex flex-col justify-end">
+              <div className="mt-5" />
+            </div>
+
+            {/* Price - aligned with other cards */}
+            <div className="mt-4 flex flex-wrap items-baseline gap-2">
+              <span className="text-4xl font-extrabold">{fr ? 'Sur mesure' : 'Custom'}</span>
             </div>
             <p className="mt-1 text-[11px] text-neutral-500">
               {fr ? 'Tarif adapté à vos besoins' : 'Pricing adapted to your needs'}
