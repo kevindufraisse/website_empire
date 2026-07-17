@@ -442,7 +442,7 @@ export default function HomePricingSection() {
                 </p>
 
                 {/* Selector */}
-                <div className="min-h-[120px]">
+                <div className="min-h-[155px]">
                   <p className="mt-5 text-[11px] font-semibold uppercase tracking-wide text-neutral-500">
                     {fr ? 'Votre volume mensuel' : 'Your monthly volume'}
                   </p>
@@ -566,7 +566,7 @@ export default function HomePricingSection() {
             </p>
 
             {/* Selector: credits per seat + seats */}
-            <div className="min-h-[120px]">
+            <div className="min-h-[155px]">
               <p className="mt-5 text-[11px] font-semibold uppercase tracking-wide text-neutral-500">
                 {fr ? 'Crédits par siège' : 'Credits per seat'}
               </p>
@@ -689,9 +689,7 @@ export default function HomePricingSection() {
                 : 'Custom volume, support and integrations'}
             </p>
 
-            <div className="min-h-[120px] flex flex-col justify-end">
-              <div className="mt-5" />
-            </div>
+            <div className="min-h-[155px]" />
 
             {/* Price - aligned with other cards */}
             <div className="mt-4 flex flex-wrap items-baseline gap-2">
