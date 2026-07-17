@@ -3,8 +3,9 @@ import HeroSection from '@/components/sections/HeroSection'
 import HowItWorksAccordion from '@/components/sections/HowItWorksAccordion'
 import AbVariantTracker from '@/components/AbVariantTracker'
 
-const TestimonialsSection = dynamic(() => import('@/components/sections/TestimonialsSection'))
+const CaseStudiesSection = dynamic(() => import('@/components/sections/CaseStudiesSection'))
 const HomePricingSection = dynamic(() => import('@/components/sections/HomePricingSection'))
+const TestimonialsSection = dynamic(() => import('@/components/sections/TestimonialsSection'))
 const QuickWinsSection = dynamic(() => import('@/components/sections/QuickWinsSection'))
 const FounderSection = dynamic(() => import('@/components/sections/FounderSection'))
 const WhyEmpireSection = dynamic(() => import('@/components/sections/WhyEmpireSection'))
@@ -23,11 +24,14 @@ export default function Page() {
       {/* How It Works - 4 steps */}
       <HowItWorksAccordion />
 
-      {/* Testimonials (Senja) - social proof right after the mechanism */}
-      <TestimonialsSection />
+      {/* Case Studies - real client results with numbers */}
+      <CaseStudiesSection />
 
       {/* Pricing */}
       <HomePricingSection />
+
+      {/* Testimonials (Senja) - social proof after pricing to reassure */}
+      <TestimonialsSection />
 
       {/* Deliverables - what Empire creates every month (3 pillars) */}
       <WhyNowSection />

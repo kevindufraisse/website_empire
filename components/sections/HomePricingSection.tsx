@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
-import { Check, Scissors, CalendarCheck, ShieldCheck, Loader2, GraduationCap, Minus, Plus, Calculator, ChevronDown } from 'lucide-react'
+import { Check, Scissors, CalendarCheck, ShieldCheck, Loader2, GraduationCap, Minus, Plus, ChevronDown, MessageCircle } from 'lucide-react'
 import posthog from 'posthog-js'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { trackAmplitude, withAmplitudeDeviceId, getAmplitudeDeviceId } from '@/lib/amplitude'
@@ -85,18 +85,18 @@ const PLANS: Plan[] = [
   },
 ]
 
-// Inclus à tous les paliers du plan Créateur
-const CREATOR_FEATURES: { fr: string; en: string }[] = [
-  { fr: 'Tous les formats : posts LinkedIn, reels, faux Q&A, yapping, newsletters, YouTube, carrousels', en: 'All formats: LinkedIn posts, reels, fake Q&A, yapping, newsletters, YouTube, carousels' },
-  { fr: 'Veille & identification quotidienne des sujets viraux de votre niche', en: 'Daily trend watch & viral topic detection for your niche' },
-  { fr: 'Découpage & montage humain de vos vidéos (intro, sous-titres, b-rolls)', en: 'Human video cutting & editing (intro, subtitles, b-rolls)' },
-  { fr: 'Relecture & corrections par notre équipe avant livraison', en: 'Proofreading & corrections by our team before delivery' },
-  { fr: 'Miniatures personnalisées (Instagram, YouTube, LinkedIn)', en: 'Custom thumbnails (Instagram, YouTube, LinkedIn)' },
+// Inclus dans tous les plans — affiché sous les cartes
+const ALL_PLANS_FEATURES: { fr: string; en: string }[] = [
+  { fr: 'Tous les formats (posts, reels, newsletters, YouTube, carrousels)', en: 'All formats (posts, reels, newsletters, YouTube, carousels)' },
+  { fr: 'Veille quotidienne des sujets viraux', en: 'Daily viral topic detection' },
+  { fr: 'Montage humain de vos vidéos', en: 'Human video editing' },
+  { fr: 'Relecture & corrections avant livraison', en: 'Proofreading & corrections before delivery' },
+  { fr: 'Miniatures personnalisées', en: 'Custom thumbnails' },
+  { fr: 'Publication sur 7 réseaux', en: 'Publishing to 7 networks' },
   { fr: 'Analytics & CRM leads', en: 'Analytics & lead CRM' },
   { fr: 'API & intégrations', en: 'API & integrations' },
-  { fr: 'Cerveau Empire — mémoire IA de votre business', en: 'Empire Brain — AI memory of your business' },
+  { fr: 'Cerveau Empire — mémoire IA', en: 'Empire Brain — AI memory' },
   { fr: 'Communauté Slack', en: 'Slack community' },
-  { fr: 'Publication sur 7 réseaux', en: 'Publishing to 7 networks' },
 ]
 
 // Value stack façon Brunson : ce que chaque palier remplace chaque mois (indicatif)
@@ -162,25 +162,6 @@ function teamVolumeDiscount(seats: number): { label: string; percent: number } |
 // Coaching add-on, same offer as the app's pre-checkout popup (500€ one-time)
 const COACHING_PRICE = 500
 
-// Coûts crédits par contenu (miroir de l'app : src/lib/hooks/useCredits.ts CREDIT_COSTS)
-const ESTIMATOR_ITEMS: { key: string; labelFr: string; labelEn: string; cost: number }[] = [
-  { key: 'linkedin', labelFr: 'Posts LinkedIn (+ reel viral auto)', labelEn: 'LinkedIn posts (+ auto viral reel)', cost: 85 + 29 },
-  { key: 'frontcam', labelFr: 'Reels front-cam montés', labelEn: 'Edited front-cam reels', cost: 350 },
-  { key: 'newsletter', labelFr: 'Newsletters', labelEn: 'Newsletters', cost: 115 },
-  { key: 'youtube', labelFr: 'Vidéos YouTube', labelEn: 'YouTube videos', cost: 275 },
-  { key: 'carousel', labelFr: 'Carrousels', labelEn: 'Carousels', cost: 180 },
-]
-
-// Table de comparaison des paliers de volume + Équipe & Agence
-const COMPARE_ROWS: { labelFr: string; labelEn: string; values: (string | boolean)[] }[] = [
-  { labelFr: 'Prix (base mensuelle)', labelEn: 'Price (monthly base)', values: ['199€', '499€', '799€', '__custom__'] },
-  { labelFr: 'Contenus / mois', labelEn: 'Contents / mo', values: ['~22', '~89', '~177', '__custom__'] },
-  { labelFr: 'Replays masterclass (197€)', labelEn: 'Masterclass replays (€197)', values: [false, true, true, true] },
-  { labelFr: 'Live sessions hebdomadaires', labelEn: 'Weekly live sessions', values: [false, true, true, true] },
-  { labelFr: 'Priorité de traitement', labelEn: 'Priority processing', values: [false, false, true, true] },
-  { labelFr: 'Sièges & multi-comptes', labelEn: 'Seats & multi-accounts', values: [false, false, false, true] },
-  { labelFr: 'Account manager dédié', labelEn: 'Dedicated account manager', values: [false, false, false, true] },
-]
 
 function monthlyPrice(base: number, billing: BillingId): number {
   const period = BILLING_PERIODS.find((p) => p.id === billing)!
@@ -313,10 +294,6 @@ export default function HomePricingSection() {
       setSelectedTier(flashPromo.plan as PlanId)
     }
   }, [flashPromo])
-  // Estimateur de crédits (sélectionneur façon lemlist)
-  const [estimator, setEstimator] = useState<Record<string, number>>({ linkedin: 12, frontcam: 1, newsletter: 4, youtube: 0, carousel: 0 })
-  const totalEstimate = ESTIMATOR_ITEMS.reduce((sum, it) => sum + (estimator[it.key] || 0) * it.cost, 0)
-  const recommendedPlan = totalEstimate <= 2200 ? PLANS[0] : totalEstimate <= 6600 ? PLANS[1] : totalEstimate <= 12000 ? PLANS[2] : null
 
   const startCheckout = async (plan: Plan, coaching: boolean) => {
     if (loadingPlan) return
@@ -433,7 +410,7 @@ export default function HomePricingSection() {
           </div>
         </motion.div>
 
-        <div className="mt-10 grid gap-6 lg:grid-cols-2 max-w-4xl mx-auto items-start">
+        <div className="mt-10 grid gap-6 lg:grid-cols-3 max-w-6xl mx-auto items-stretch">
           {/* Créateur */}
           {(() => {
             const plan = PLANS.find((p) => p.id === selectedTier)!
@@ -444,7 +421,7 @@ export default function HomePricingSection() {
                 initial={{ opacity: 0, y: 24 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
-                className={`rounded-2xl p-6 lg:p-8 ${isPromoPlan ? 'border border-red-500/40 bg-white/[0.03]' : 'border border-empire/50 bg-white/[0.03]'}`}
+                className={`rounded-2xl p-6 lg:p-8 flex flex-col ${isPromoPlan ? 'border border-red-500/40 bg-white/[0.03]' : 'border border-empire/50 bg-white/[0.03]'}`}
               >
                 {/* Header */}
                 {isPromoPlan && (
@@ -530,20 +507,18 @@ export default function HomePricingSection() {
                 <div className="my-5 h-px bg-white/10" />
 
                 {/* Features */}
-                <ul className="space-y-2">
-                  {CREATOR_FEATURES.map((f) => (
-                    <li key={f.fr} className="flex items-start gap-2 text-[13px] text-neutral-300">
-                      <Check size={14} className="mt-0.5 shrink-0 text-empire" />
-                      {fr ? f.fr : f.en}
-                    </li>
-                  ))}
-                  <li className={`flex items-start gap-2 text-[13px] ${selectedTier === 'starter' ? 'text-neutral-600' : 'text-neutral-300'}`}>
-                    {selectedTier === 'starter' ? <Minus size={14} className="mt-0.5 shrink-0" /> : <Check size={14} className="mt-0.5 shrink-0 text-empire" />}
-                    {fr ? 'Replays masterclass inclus (valeur 197€)' : 'Masterclass replays included (€197 value)'}
+                <ul className="space-y-2 flex-1">
+                  <li className="flex items-start gap-2 text-[13px] text-neutral-300">
+                    <Check size={14} className="mt-0.5 shrink-0 text-empire" />
+                    {fr ? 'Tout inclus (voir ci-dessous)' : 'Everything included (see below)'}
                   </li>
                   <li className={`flex items-start gap-2 text-[13px] ${selectedTier === 'starter' ? 'text-neutral-600' : 'text-neutral-300'}`}>
                     {selectedTier === 'starter' ? <Minus size={14} className="mt-0.5 shrink-0" /> : <Check size={14} className="mt-0.5 shrink-0 text-empire" />}
-                    {fr ? 'Live sessions chaque semaine avec l\u2019équipe' : 'Weekly live sessions with the team'}
+                    {fr ? 'Replays masterclass (valeur 197€)' : 'Masterclass replays (€197 value)'}
+                  </li>
+                  <li className={`flex items-start gap-2 text-[13px] ${selectedTier === 'starter' ? 'text-neutral-600' : 'text-neutral-300'}`}>
+                    {selectedTier === 'starter' ? <Minus size={14} className="mt-0.5 shrink-0" /> : <Check size={14} className="mt-0.5 shrink-0 text-empire" />}
+                    {fr ? 'Live sessions hebdomadaires' : 'Weekly live sessions'}
                   </li>
                   <li className={`flex items-start gap-2 text-[13px] ${selectedTier !== 'scale' ? 'text-neutral-600' : 'text-neutral-300'}`}>
                     {selectedTier !== 'scale' ? <Minus size={14} className="mt-0.5 shrink-0" /> : <Check size={14} className="mt-0.5 shrink-0 text-empire" />}
@@ -573,7 +548,7 @@ export default function HomePricingSection() {
             initial={{ opacity: 0, y: 24 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
-            className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 lg:p-8"
+            className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 lg:p-8 flex flex-col"
           >
             {/* Header */}
             <h3 className="text-lg font-bold">{fr ? 'Équipe & Agence' : 'Team & Agency'}</h3>
@@ -669,7 +644,7 @@ export default function HomePricingSection() {
             <p className="text-[12px] font-semibold text-white">
               {fr ? 'Tout du plan Créateur, plus :' : 'Everything in Creator, plus:'}
             </p>
-            <ul className="mt-2 space-y-2">
+            <ul className="mt-2 space-y-2 flex-1">
               {TEAM_FEATURES.map((f) => (
                 <li key={f.fr} className="flex items-start gap-2 text-[13px] text-neutral-300">
                   <Check size={14} className="mt-0.5 shrink-0 text-empire" />
@@ -687,21 +662,96 @@ export default function HomePricingSection() {
               {loadingTeam && <Loader2 size={15} className="animate-spin" />}
               {fr ? `Configurer ${teamSeats} siège${teamSeats > 1 ? 's' : ''}` : `Configure ${teamSeats} seat${teamSeats > 1 ? 's' : ''}`}
             </button>
+          </motion.div>
+
+          {/* Plan personnalisé */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.3, ease: 'easeOut' }}
+            className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 lg:p-8 flex flex-col"
+          >
+            <h3 className="text-lg font-bold">{fr ? 'Plan personnalisé' : 'Custom Plan'}</h3>
+            <p className="mt-1 text-sm text-neutral-400">
+              {fr
+                ? 'Volume, accompagnement et intégrations sur mesure'
+                : 'Custom volume, support and integrations'}
+            </p>
+
+            <div className="mt-5 flex items-baseline gap-2">
+              <span className="text-2xl font-extrabold">{fr ? 'Sur mesure' : 'Custom'}</span>
+            </div>
+            <p className="mt-1 text-[11px] text-neutral-500">
+              {fr ? 'Tarif adapté à vos besoins' : 'Pricing adapted to your needs'}
+            </p>
+
+            <div className="my-5 h-px bg-white/10" />
+
+            <p className="text-[12px] font-semibold text-white mb-2">
+              {fr ? 'Tout du plan Créateur, plus :' : 'Everything in Creator, plus:'}
+            </p>
+            <ul className="space-y-2 flex-1">
+              {(fr
+                ? [
+                    'Volume de crédits sur mesure',
+                    'Account manager dédié',
+                    'Onboarding personnalisé',
+                    'Intégrations & API avancées',
+                    'Facturation adaptée',
+                    'SLA & support prioritaire',
+                  ]
+                : [
+                    'Custom credit volume',
+                    'Dedicated account manager',
+                    'Personalized onboarding',
+                    'Advanced integrations & API',
+                    'Custom billing',
+                    'SLA & priority support',
+                  ]
+              ).map((f) => (
+                <li key={f} className="flex items-start gap-2 text-[13px] text-neutral-300">
+                  <Check size={14} className="mt-0.5 shrink-0 text-empire" />
+                  {f}
+                </li>
+              ))}
+            </ul>
+
             <Link
               href="/join-us"
-              className="mt-2 block text-center text-[11px] text-neutral-500 underline underline-offset-2 transition-colors hover:text-empire"
+              className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-4 py-3.5 text-center text-sm font-bold text-white transition-all hover:brightness-110 hover:bg-white/10"
             >
-              {fr ? 'Volume illimité ? Parlons-en' : 'Unlimited volume? Let\u2019s talk'}
+              <MessageCircle size={15} />
+              {fr ? 'Contactez-nous' : 'Contact us'}
             </Link>
           </motion.div>
         </div>
+
+        {/* Inclus dans tous les plans */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.35, ease: 'easeOut' }}
+          className="mt-6 max-w-6xl mx-auto rounded-2xl border border-white/10 bg-white/[0.02] px-6 py-5"
+        >
+          <p className="text-sm font-bold text-white mb-3">
+            {fr ? 'Inclus dans tous les plans :' : 'Included in every plan:'}
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-4 gap-y-2">
+            {ALL_PLANS_FEATURES.map((f) => (
+              <div key={f.fr} className="flex items-start gap-1.5 text-[12px] text-neutral-400">
+                <Check size={12} className="mt-0.5 shrink-0 text-empire" />
+                {fr ? f.fr : f.en}
+              </div>
+            ))}
+          </div>
+        </motion.div>
 
         {/* What happens next — 4 steps */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.25, ease: 'easeOut' }}
-          className="mt-14 max-w-4xl mx-auto"
+          className="mt-14 max-w-6xl mx-auto"
         >
           <h3 className="text-center text-lg font-bold mb-8">
             {fr ? 'Comment ça se passe ?' : 'What happens next?'}
@@ -738,140 +788,6 @@ export default function HomePricingSection() {
           </a>
         </motion.div>
 
-        {/* Estimateur de crédits — sélectionneur façon lemlist */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.32, ease: 'easeOut' }}
-          className="mt-10 max-w-5xl mx-auto rounded-2xl border border-white/10 bg-white/[0.03] p-6 space-y-5"
-        >
-          <div className="flex items-center gap-2.5">
-            <Calculator size={18} className="text-empire shrink-0" />
-            <div>
-              <h3 className="text-base font-bold">
-                {fr ? 'De combien de crédits avez-vous besoin ?' : 'How many credits do you need?'}
-              </h3>
-              <p className="text-sm text-neutral-400">
-                {fr
-                  ? 'Composez votre mois type — on vous recommande le plan adapté.'
-                  : "Build your typical month — we'll recommend the right plan."}
-              </p>
-            </div>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
-            {ESTIMATOR_ITEMS.map((it) => (
-              <div key={it.key} className="rounded-xl border border-white/10 bg-white/[0.02] p-3 space-y-2">
-                <p className="text-xs font-medium text-neutral-200 leading-tight min-h-8">
-                  {fr ? it.labelFr : it.labelEn}
-                </p>
-                <div className="flex items-center justify-between gap-2">
-                  <button
-                    type="button"
-                    aria-label="-"
-                    onClick={() => setEstimator((prev) => ({ ...prev, [it.key]: Math.max(0, (prev[it.key] || 0) - 1) }))}
-                    className="flex h-7 w-7 items-center justify-center rounded-md border border-white/15 text-neutral-400 transition-colors hover:bg-white/10"
-                  >
-                    <Minus size={12} />
-                  </button>
-                  <span className="text-sm font-bold tabular-nums">{estimator[it.key] || 0}</span>
-                  <button
-                    type="button"
-                    aria-label="+"
-                    onClick={() => setEstimator((prev) => ({ ...prev, [it.key]: Math.min(60, (prev[it.key] || 0) + 1) }))}
-                    className="flex h-7 w-7 items-center justify-center rounded-md border border-white/15 text-neutral-400 transition-colors hover:bg-white/10"
-                  >
-                    <Plus size={12} />
-                  </button>
-                </div>
-                <p className="text-center text-[10px] text-neutral-500">{it.cost} cr. / u</p>
-              </div>
-            ))}
-          </div>
-          <div className="flex flex-col items-center justify-between gap-3 rounded-xl border border-empire/30 bg-empire/10 px-4 py-3 sm:flex-row">
-            <p className="text-sm text-neutral-200">
-              Total : <span className="font-bold text-empire">{totalEstimate.toLocaleString(fr ? 'fr-FR' : 'en-US')}</span>{' '}
-              <span className="text-xs text-neutral-400">{fr ? 'crédits/mois' : 'credits/mo'}</span>
-            </p>
-            {recommendedPlan ? (
-              <p className="text-sm font-semibold">
-                {fr ? 'Palier recommandé :' : 'Recommended tier:'}{' '}
-                <span className="font-bold text-empire">{recommendedPlan.credits.toLocaleString(fr ? 'fr-FR' : 'en-US')} cr.</span>
-                <span className="ml-1.5 text-xs text-neutral-400">
-                  ({recommendedPlan.price}€{fr ? '/mois' : '/mo'})
-                </span>
-              </p>
-            ) : (
-              <p className="text-sm font-semibold text-empire">
-                {fr ? 'Volume élevé — parlons-en (Équipe & Agence)' : "High volume — let's talk (Team & Agency)"}
-              </p>
-            )}
-          </div>
-        </motion.div>
-
-        {/* Table de comparaison des plans */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.34, ease: 'easeOut' }}
-          className="mt-6 max-w-5xl mx-auto overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03]"
-        >
-          <div className="border-b border-white/10 px-6 py-4">
-            <h3 className="text-base font-bold">{fr ? 'Comparer les paliers' : 'Compare tiers'}</h3>
-          </div>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-white/10">
-                  <th className="min-w-44 px-6 py-2.5 text-left text-xs font-medium text-neutral-500"></th>
-                  <th className="whitespace-nowrap px-4 py-2.5">
-                    <span className="block text-xs font-bold text-white">Starter</span>
-                    <span className="block text-[10px] font-normal text-neutral-500">2 200 cr.</span>
-                  </th>
-                  <th className="whitespace-nowrap px-4 py-2.5">
-                    <span className="block text-xs font-bold text-empire">Growth</span>
-                    <span className="block text-[10px] font-normal text-neutral-500">6 600 cr.</span>
-                  </th>
-                  <th className="whitespace-nowrap px-4 py-2.5">
-                    <span className="block text-xs font-bold text-white">Scale</span>
-                    <span className="block text-[10px] font-normal text-neutral-500">12 000 cr.</span>
-                  </th>
-                  <th className="whitespace-nowrap px-4 py-2.5">
-                    <span className="block text-xs font-bold text-white">{fr ? 'Équipe & Agence' : 'Team & Agency'}</span>
-                    <span className="block text-[10px] font-normal text-neutral-500">{fr ? 'Sur mesure' : 'Custom'}</span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {COMPARE_ROWS.map((row, i) => (
-                  <tr key={i} className={i % 2 === 0 ? 'bg-white/[0.02]' : ''}>
-                    <td className="px-6 py-2 text-xs text-neutral-400">{fr ? row.labelFr : row.labelEn}</td>
-                    {row.values.map((v, j) => (
-                      <td key={j} className={`px-4 py-2 text-center text-xs ${j === 1 ? 'bg-empire/5' : ''}`}>
-                        {typeof v === 'string' ? (
-                          <span className="font-semibold text-neutral-200">
-                            {v === '__custom__' ? (fr ? 'Sur mesure' : 'Custom') : v === '__unlimited__' ? (fr ? 'Illimités' : 'Unlimited') : v}
-                          </span>
-                        ) : v ? (
-                          <Check size={14} className="inline text-empire" />
-                        ) : (
-                          <Minus size={14} className="inline text-neutral-700" />
-                        )}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="border-t border-white/10 bg-white/[0.02] px-6 py-3">
-            <p className="text-[11px] text-neutral-500">
-              <Check size={12} className="mr-1 inline text-empire" />
-              {fr
-                ? 'Inclus dans tous les plans : tous les formats, analytics & CRM leads, Cerveau Empire (IA), communauté Slack, publication sur 7 réseaux'
-                : 'Included in every plan: all formats, analytics & lead CRM, Empire Brain (AI), Slack community, publishing to 7 networks'}
-            </p>
-          </div>
-        </motion.div>
 
         {/* Coaching modal */}
         {coachingModal && (
@@ -950,7 +866,7 @@ export default function HomePricingSection() {
           initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.4, ease: 'easeOut' }}
-          className="mt-10 grid gap-4 sm:grid-cols-3 max-w-4xl mx-auto"
+          className="mt-10 grid gap-4 sm:grid-cols-3 max-w-6xl mx-auto"
         >
           {([
             {

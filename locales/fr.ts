@@ -451,6 +451,11 @@ export const fr: Translations = {
     carousels: 'Carrousels',
     podcast: 'Podcast MP3',
   },
+  caseStudies: {
+    title: 'Des résultats concrets,',
+    titleHighlight: 'dès le premier mois',
+    subtitle: 'Pas des promesses. Des chiffres partagés par nos clients.',
+  },
   testimonials: {
     title: 'Ce Que Disent les Créateurs',
     subtitle: 'Résultats réels de créateurs qui utilisent Empire',

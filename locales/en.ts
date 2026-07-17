@@ -328,6 +328,11 @@ export const en = {
     carousels: 'Carousels',
     podcast: 'MP3 Podcast',
   },
+  caseStudies: {
+    title: 'Real results,',
+    titleHighlight: 'from month one',
+    subtitle: 'Not promises. Numbers shared by our clients.',
+  },
   testimonials: {
     title: 'What Creators Say',
     subtitle: 'Real results from creators who joined Empire',
