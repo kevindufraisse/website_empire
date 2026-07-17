@@ -105,6 +105,20 @@ export default function Header() {
               </span>
             </a>
 
+            {/* Webinar banner */}
+            <a
+              href="https://join.empire-internet.com/masterclass-empire-internet"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden sm:inline-flex items-center gap-2 rounded-full bg-empire/10 border border-empire/30 px-4 py-1.5 text-sm font-semibold text-empire hover:bg-empire/20 transition-colors"
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-empire opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-empire" />
+              </span>
+              {fr ? 'Webinar : devenir une référence en partant de zéro' : 'Webinar: become a reference starting from zero'}
+            </a>
+
             <div className="flex-1" />
 
             {/* Right side */}
@@ -143,6 +157,22 @@ export default function Header() {
               className="sm:hidden border-t border-white/10 bg-black/98"
             >
               <div className="px-4 py-5 space-y-4">
+                <motion.a
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.05 }}
+                  href="https://join.empire-internet.com/masterclass-empire-internet"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="flex items-center justify-center gap-2 w-full py-3 rounded-lg border border-empire/30 bg-empire/10 text-empire font-semibold text-sm"
+                >
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-empire opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-empire" />
+                  </span>
+                  {fr ? 'Webinar : devenir une référence en partant de zéro' : 'Webinar: become a reference from zero'}
+                </motion.a>
                 {isPartnersPage && (
                   <motion.button
                     initial={{ opacity: 0, y: 10 }}
