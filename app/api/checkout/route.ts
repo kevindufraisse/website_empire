@@ -105,9 +105,14 @@ export async function POST(request: Request) {
       ampDeviceId?: string
       promoId?: string
       fingerprint?: string
+      offer?: string
     }
     const plan = body.plan ?? ''
     const billing = body.billing ?? 'monthly'
+    // Offre webinar (/final-offer) : prix promo TOUJOURS appliqué (pas de
+    // deadline par visiteur — l'accès à la page vaut éligibilité) et pas
+    // d'essai gratuit : le participant paie 499€ immédiatement.
+    const isWebinarOffer = body.offer === 'webinar' && plan === 'scale' && billing === 'monthly'
 
     const config = PLAN_CONFIG[plan]?.[billing]
     if (!config) {
@@ -146,30 +151,34 @@ export async function POST(request: Request) {
       })
     }
 
-    // Promo flash : revalidée côté serveur, coupon appliqué au checkout
+    // Promo flash : revalidée côté serveur, coupon appliqué au checkout.
+    // Pour l'offre webinar le coupon est appliqué sans condition de deadline.
     let promoDiscounts: Stripe.Checkout.SessionCreateParams.Discount[] | undefined
     const promoDef = body.promoId ? PROMOS[body.promoId] : undefined
-    if (promoDef && promoDef.plan === plan && body.fingerprint) {
-      const active = await promoIsActive(body.promoId!, body.fingerprint)
+    if (promoDef && promoDef.plan === plan) {
+      const active = isWebinarOffer
+        || (!!body.fingerprint && await promoIsActive(body.promoId!, body.fingerprint))
       if (active) {
         const couponId = await ensurePromoCoupon(stripe, body.promoId!, priceId, promoDef.promoMonthly, billing)
         if (couponId) promoDiscounts = [{ coupon: couponId }]
       }
     }
 
+    const checkoutType = isWebinarOffer ? 'paid' : 'trial'
     const session = await stripe.checkout.sessions.create({
       mode: 'subscription',
       line_items: lineItems,
       ...(promoDiscounts ? { discounts: promoDiscounts } : {}),
       subscription_data: {
-        trial_period_days: 7,
+        // Offre webinar : paiement immédiat, pas d'essai
+        ...(isWebinarOffer ? {} : { trial_period_days: 7 }),
         // No workspace_id yet: the claim step adds it after signup
-        metadata: { pack, checkout_type: 'trial', source: 'marketing_site', ...(promoDiscounts ? { promo_id: body.promoId! } : {}) },
+        metadata: { pack, checkout_type: checkoutType, source: 'marketing_site', ...(promoDiscounts ? { promo_id: body.promoId! } : {}) },
       },
       metadata: {
         pack,
         credits: String(credits),
-        checkout_type: 'trial',
+        checkout_type: checkoutType,
         source: 'marketing_site',
         formations: body.coaching ? 'coaching' : '',
         ...(promoDiscounts ? { promo_id: body.promoId! } : {}),

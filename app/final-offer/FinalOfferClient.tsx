@@ -71,6 +71,8 @@ export default function FinalOfferClient() {
           ampDeviceId: getAmplitudeDeviceId(),
           promoId: FLASH_PROMO_ID,
           fingerprint: getBrowserFingerprint(),
+          // Offre webinar : 499€ garanti (pas de deadline) + paiement immédiat sans essai
+          offer: 'webinar',
         }),
       })
       const data = await res.json()
@@ -97,7 +99,7 @@ export default function FinalOfferClient() {
         {loading ? <Loader2 size={18} className="animate-spin" /> : <>Activer mon compte Empire <ArrowRight size={18} /></>}
       </button>
       <p className="mt-2.5 text-center text-xs text-neutral-500">
-        7 jours d&rsquo;essai gratuit &middot; Annulez en 1 clic &middot; Paiement s&eacute;curis&eacute; par Stripe
+        Acc&egrave;s imm&eacute;diat &middot; Annulez en 1 clic &middot; Paiement s&eacute;curis&eacute; par Stripe
       </p>
     </div>
   )
@@ -238,7 +240,7 @@ export default function FinalOfferClient() {
               { q: '\u00c7a va sonner comme un robot ?', a: 'Non. Le contenu part de TA voix : tu enregistres 15 min, nos \u00e9quipes \u00e9crivent et montent \u00e0 partir de tes mots, tes exemples, tes expressions. Tu valides avant publication.' },
               { q: 'Je n\u2019ai pas le temps.', a: '15 min d\u2019enregistrement par semaine. Tout le reste \u2014 \u00e9criture, montage, newsletters, publication sur 7 r\u00e9seaux \u2014 c\u2019est nous.' },
               { q: '\u00c7a marchera dans ma niche ?', a: 'Nos clients vont du coaching au conseil en passant par l\u2019e-commerce. Si tu as une expertise et un produit, on produit ton contenu.' },
-              { q: 'Et si \u00e7a me pla\u00eet pas ?', a: '7 jours d\u2019essai gratuit. Annule en 1 clic, rien n\u2019est d\u00e9bit\u00e9. Apr\u00e8s \u00e7a, tu peux annuler \u00e0 tout moment.' },
+              { q: 'Et si \u00e7a me pla\u00eet pas ?', a: 'Sans engagement : tu peux annuler \u00e0 tout moment en 1 clic depuis ton dashboard. Et ton tarif de 499\u20ac reste verrouill\u00e9 \u00e0 vie tant que tu restes.' },
             ].map((faq) => (
               <div key={faq.q}>
                 <p className="text-sm font-bold text-white mb-1">&laquo; {faq.q} &raquo;</p>
