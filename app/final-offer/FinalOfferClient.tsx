@@ -21,10 +21,50 @@ const STACK_ITEMS = [
   { name: 'Live toutes les semaines pendant 6 mois', desc: 'Coaching de groupe hebdo : feedback sur tes contenus, r\u00e9ponses \u00e0 tes questions', value: 1000 },
 ]
 
+// Études de cas réelles (mêmes assets que la landing page)
 const RESULTS = [
-  { name: 'Walid, CEO', result: '80K\u20ac de contrats sign\u00e9s' },
-  { name: 'Am\u00e9lie', result: '130K vues en 3 semaines' },
-  { name: 'Julien', result: '100K vues sur son premier post Instagram' },
+  {
+    name: 'Evelyne Guitard',
+    role: 'Formatrice',
+    stat: '100K vues',
+    detail: '0 \u2192 100 000 vues en 21 jours apr\u00e8s son onboarding',
+    photo: '/case-studies/evelyne-guitard.jpg',
+  },
+  {
+    name: 'Caroline Blivet',
+    role: 'Cr\u00e9atrice de contenu',
+    stat: '+2 116%',
+    detail: '361 \u2192 8 000 impressions d\u00e8s son premier post',
+    photo: '/case-studies/caroline-blivet.jpg',
+  },
+  {
+    name: 'Marguerite Demoures',
+    role: 'Experte CRM B2B',
+    stat: '+100%',
+    detail: 'Pipeline commercial doubl\u00e9 en 1 mois',
+    photo: '/case-studies/marguerite-demoures.png',
+  },
+  {
+    name: 'Walid',
+    role: 'CEO',
+    stat: '80K\u20ac',
+    detail: 'De contrats sign\u00e9s gr\u00e2ce \u00e0 son contenu',
+    photo: '/case-studies/walid.jpg',
+  },
+  {
+    name: 'Deborah Guillotin',
+    role: 'MyES France',
+    stat: '10K abonn\u00e9s',
+    detail: '0 \u2192 10 000 abonn\u00e9s Substack en moins d\u2019un mois',
+    photo: '/case-studies/deborah-guillotin.png',
+  },
+  {
+    name: 'Olivier Sarezinski',
+    role: 'G\u00e9rant Associ\u00e9',
+    stat: '1h/semaine',
+    detail: 'Contenus quotidiens partout, sans freelances',
+    photo: '/case-studies/olivier-sarezinski.jpg',
+  },
 ]
 
 export default function FinalOfferClient() {
@@ -135,14 +175,23 @@ export default function FinalOfferClient() {
         </div>
       </section>
 
-      {/* ── SOCIAL PROOF ── */}
+      {/* ── SOCIAL PROOF (études de cas de la landing) ── */}
       <section className="py-12 border-t border-white/5">
-        <div className="container max-w-2xl mx-auto px-4">
-          <div className="grid gap-4 sm:grid-cols-3">
+        <div className="container max-w-3xl mx-auto px-4">
+          <h2 className="text-xl font-bold text-center mb-2">Ils sont pass&eacute;s par l&agrave; avant toi</h2>
+          <p className="text-sm text-neutral-500 text-center mb-8">Des r&eacute;sultats r&eacute;els, d&egrave;s le premier mois</p>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {RESULTS.map((r) => (
-              <div key={r.name} className="rounded-xl border border-white/10 bg-white/[0.02] p-4 text-center">
-                <p className="text-xl font-extrabold text-empire mb-1">{r.result}</p>
-                <p className="text-xs text-neutral-500">{r.name}</p>
+              <div key={r.name} className="rounded-xl border border-white/10 bg-white/[0.02] p-4">
+                <div className="flex items-center gap-3 mb-3">
+                  <img src={r.photo} alt={r.name} className="w-10 h-10 rounded-full object-cover" loading="lazy" />
+                  <div className="min-w-0">
+                    <p className="text-sm font-semibold text-white truncate">{r.name}</p>
+                    <p className="text-xs text-neutral-500 truncate">{r.role}</p>
+                  </div>
+                </div>
+                <p className="text-2xl font-extrabold text-empire mb-1">{r.stat}</p>
+                <p className="text-xs text-neutral-400 leading-relaxed">{r.detail}</p>
               </div>
             ))}
           </div>
@@ -278,14 +327,26 @@ export default function FinalOfferClient() {
         </div>
       </section>
 
+      {/* ── RISK REVERSAL (Brunson) ── */}
+      <section className="py-14 border-t border-white/5">
+        <div className="container max-w-xl mx-auto px-4">
+          <div className="rounded-xl border border-empire/25 bg-empire/[0.04] p-6 text-center">
+            <p className="text-sm font-bold text-empire uppercase tracking-widest mb-3">Z&eacute;ro risque</p>
+            <p className="text-base text-white font-semibold mb-2">
+              Sans engagement. Annule en 1 clic, quand tu veux.
+            </p>
+            <p className="text-sm text-neutral-400 leading-relaxed">
+              Et tant que tu restes, ton tarif de 499&euro;/mois est <span className="text-white font-semibold">verrouill&eacute; &agrave; vie</span> &mdash; m&ecirc;me quand le prix public augmentera.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* ── FINAL CTA ── */}
       <section className="py-20 border-t border-white/5">
         <div className="container max-w-md mx-auto px-4 text-center">
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="flex -space-x-2">
-              <img src="/founders/kevin.jpg" alt="Kevin" className="w-12 h-12 rounded-full border-2 border-black object-cover" />
-              <img src="/founders/marc.jpg" alt="Marc" className="w-12 h-12 rounded-full border-2 border-black object-cover" />
-            </div>
+          <div className="flex items-center justify-center mb-6">
+            <img src="/founders/kevin.jpg" alt="Kevin" className="w-14 h-14 rounded-full border-2 border-black object-cover" />
           </div>
 
           <p className="text-lg font-semibold text-white mb-2 leading-snug">
