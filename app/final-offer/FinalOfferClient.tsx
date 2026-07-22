@@ -12,11 +12,13 @@ const BILLING = 'monthly'
 
 const STACK_ITEMS = [
   { name: 'Plan Empire 12 000 cr\u00e9dits/mois', desc: 'Posts LinkedIn, reels, newsletters, YouTube, carrousels \u2014 \u00e9crits et mont\u00e9s pour toi sur 7 r\u00e9seaux', value: 799 },
-  { name: 'Session d\u2019onboarding priv\u00e9e en live', desc: 'On construit ton syst\u00e8me ensemble : positionnement, cible, angle', value: 500 },
-  { name: 'Bootcamps Viralit\u00e9 offerts', desc: 'Tous les r\u00e9seaux couverts \u2014 LinkedIn, Instagram, YouTube, TikTok', value: 497 },
-  { name: 'Communaut\u00e9 Slack priv\u00e9e', desc: 'R\u00e9seau de fondateurs et cr\u00e9ateurs qui s\u2019entraident', value: 0 },
-  { name: 'Cerveau Empire (IA)', desc: 'Notre IA trouve les sujets viraux de ta niche chaque jour', value: 0 },
-  { name: '\u00c9quipe humaine d\u00e9di\u00e9e', desc: 'Relecture, corrections, montage \u2014 z\u00e9ro publication sans validation', value: 0 },
+  { name: 'Onboarding en groupe', desc: 'Session live chaque lundi : on cale ton positionnement, ta cible, ton angle', value: 300 },
+  { name: 'Masterclass personal branding (live)', desc: 'La m\u00e9thode compl\u00e8te pour devenir LA r\u00e9f\u00e9rence de ta niche', value: 500 },
+  { name: 'Replay Academy', desc: 'Toutes les masterclass et bootcamps en replay, acc\u00e8s illimit\u00e9', value: 800 },
+  { name: 'Cerveau Empire (IA)', desc: 'Notre IA scanne ta niche et tes concurrents pour trouver tes sujets viraux chaque jour', value: 500 },
+  { name: 'Mise \u00e0 jour des formats', desc: 'Nouveaux formats ajout\u00e9s en continu \u2014 tu profites de chaque \u00e9volution sans payer plus', value: 1000 },
+  { name: 'Communaut\u00e9 de cr\u00e9ateurs', desc: 'R\u00e9seau priv\u00e9 de fondateurs et cr\u00e9ateurs qui s\u2019entraident', value: 1000 },
+  { name: 'Live toutes les semaines pendant 6 mois', desc: 'Coaching de groupe hebdo : feedback sur tes contenus, r\u00e9ponses \u00e0 tes questions', value: 1000 },
 ]
 
 const RESULTS = [
