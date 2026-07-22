@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { Check, Loader2, Clock, ArrowRight, X } from 'lucide-react'
 import { trackAmplitude, getAmplitudeDeviceId } from '@/lib/amplitude'
-import { FLASH_PROMO_ID, fetchFlashPromo, getBrowserFingerprint, formatCountdown } from '@/lib/flash-promo'
+import { FLASH_PROMO_ID, getBrowserFingerprint, formatCountdown } from '@/lib/flash-promo'
 
 const PROMO_PRICE = 499
 const BASE_PRICE = 799
@@ -67,6 +67,29 @@ const RESULTS = [
   },
 ]
 
+// Chrono propre à la page webinar : 30 min à partir de la première visite,
+// persisté en localStorage. Indépendant de la promo flash du site (dont la
+// deadline par visiteur peut être expirée — le prix 499€ reste garanti par
+// le serveur pour cette page, le chrono matérialise l'urgence post-live).
+const WEBINAR_DEADLINE_KEY = 'empire_final_offer_deadline'
+const WEBINAR_COUNTDOWN_MS = 30 * 60 * 1000
+
+function getWebinarDeadline(): number {
+  try {
+    const stored = localStorage.getItem(WEBINAR_DEADLINE_KEY)
+    if (stored) {
+      const ts = parseInt(stored, 10)
+      if (Number.isFinite(ts) && ts > Date.now()) return ts
+      if (Number.isFinite(ts)) return ts // expiré : on le garde (pas de reset au refresh)
+    }
+    const deadline = Date.now() + WEBINAR_COUNTDOWN_MS
+    localStorage.setItem(WEBINAR_DEADLINE_KEY, String(deadline))
+    return deadline
+  } catch {
+    return Date.now() + WEBINAR_COUNTDOWN_MS
+  }
+}
+
 export default function FinalOfferClient() {
   const [loading, setLoading] = useState(false)
   const [promoLeft, setPromoLeft] = useState<string | null>(null)
@@ -76,10 +99,7 @@ export default function FinalOfferClient() {
   useEffect(() => {
     if (fetched.current) return
     fetched.current = true
-    fetchFlashPromo().then((status) => {
-      if (!status || status.expired) return
-      setPromoDeadline(new Date(status.deadline).getTime())
-    })
+    setPromoDeadline(getWebinarDeadline())
   }, [])
 
   useEffect(() => {
