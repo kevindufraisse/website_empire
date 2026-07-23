@@ -29,8 +29,16 @@ const COMPARISONS: ComparisonRow[] = [
     dimensionEn: 'Authenticity',
     oldFr: 'Copié-collé de ChatGPT, voix générique',
     oldEn: 'ChatGPT copy-paste, generic voice',
-    newFr: 'Votre voix, vos idées, amplifiées',
-    newEn: 'Your voice, your ideas, amplified',
+    newFr: 'Entraîné sur des millions de données virales',
+    newEn: 'Trained on millions of viral data points',
+  },
+  {
+    dimensionFr: 'Sujets',
+    dimensionEn: 'Topics',
+    oldFr: 'Trouver les sujets soi-même',
+    oldEn: 'Find topics yourself',
+    newFr: 'Des sujets viraux toutes les semaines',
+    newEn: 'Viral topics delivered every week',
   },
   {
     dimensionFr: 'Temps investi',
@@ -47,14 +55,6 @@ const COMPARISONS: ComparisonRow[] = [
     oldEn: 'Multiple freelancers: €5,000+/mo',
     newFr: 'À partir de 199€/mois, tout inclus',
     newEn: 'From €199/mo, all-inclusive',
-  },
-  {
-    dimensionFr: 'Qualité',
-    dimensionEn: 'Quality',
-    oldFr: 'Output IA brut, sans stratégie virale',
-    oldEn: 'Raw AI output, no viral strategy',
-    newFr: '10 000+ formats testés, optimisés',
-    newEn: '10,000+ formats tested & optimized',
   },
   {
     dimensionFr: 'Scalabilité',
