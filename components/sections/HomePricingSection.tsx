@@ -536,14 +536,17 @@ export default function HomePricingSection() {
                 </ul>
 
                 {/* CTA */}
-                <button
-                  onClick={() => handlePlanClick(plan)}
-                  disabled={loadingPlan !== null}
-                  className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-empire px-4 py-3.5 text-center text-sm font-bold text-black transition-all hover:brightness-110 disabled:opacity-60"
+                <a
+                  href={planUrl(plan.id, billing)}
+                  onClick={() => {
+                    const props = { plan: plan.id, billing_period: billing, price_monthly: monthlyPrice(planBase(plan), billing), location: 'home' }
+                    trackAmplitude('pricing_plan_click', props)
+                    if (posthog.__loaded) posthog.capture('pricing_plan_click', props, { transport: 'sendBeacon' })
+                  }}
+                  className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-empire px-4 py-3.5 text-center text-sm font-bold text-black transition-all hover:brightness-110"
                 >
-                  {loadingPlan === plan.id && <Loader2 size={15} className="animate-spin" />}
                   {fr ? 'Démarrer l\u2019essai gratuit' : 'Start free trial'}
-                </button>
+                </a>
                 <p className="mt-2 text-center text-[11px] text-neutral-500">
                   {fr ? '7 jours gratuits · Annulez en 1 clic' : '7 days free · Cancel in 1 click'}
                 </p>
@@ -665,14 +668,17 @@ export default function HomePricingSection() {
             </ul>
 
             {/* CTA */}
-            <button
-              onClick={handleTeamCheckout}
-              disabled={loadingTeam}
-              className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-4 py-3.5 text-center text-sm font-bold text-white transition-all hover:brightness-110 hover:bg-white/10 disabled:opacity-60"
+            <a
+              href={withAmplitudeDeviceId(`${APP_ONBOARDING_URL}?intent=enterprise&plan=${teamTier}&seats=${teamSeats}&billing=${billing}`)}
+              onClick={() => {
+                const props = { plan: teamTier, seats: teamSeats, billing_period: billing, location: 'home' }
+                trackAmplitude('pricing_team_configure_click', props)
+                if (posthog.__loaded) posthog.capture('pricing_team_configure_click', props, { transport: 'sendBeacon' })
+              }}
+              className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-4 py-3.5 text-center text-sm font-bold text-white transition-all hover:brightness-110 hover:bg-white/10"
             >
-              {loadingTeam && <Loader2 size={15} className="animate-spin" />}
               {fr ? `Configurer ${teamSeats} siège${teamSeats > 1 ? 's' : ''}` : `Configure ${teamSeats} seat${teamSeats > 1 ? 's' : ''}`}
-            </button>
+            </a>
           </motion.div>
 
           {/* Plan personnalisé */}
