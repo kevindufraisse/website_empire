@@ -3,11 +3,11 @@
 import { useRef, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
-import { Check, Scissors, CalendarCheck, ShieldCheck, Loader2, GraduationCap, Minus, Plus, ChevronDown, MessageCircle } from 'lucide-react'
+import { Check, Scissors, CalendarCheck, ShieldCheck, Minus, Plus, ChevronDown, MessageCircle } from 'lucide-react'
 import posthog from 'posthog-js'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { trackAmplitude, withAmplitudeDeviceId, getAmplitudeDeviceId } from '@/lib/amplitude'
-import { FLASH_PROMO_ID, fetchFlashPromo, getBrowserFingerprint, formatCountdown } from '@/lib/flash-promo'
+import { fetchFlashPromo, formatCountdown } from '@/lib/flash-promo'
 
 const APP_ONBOARDING_URL = 'https://app.empire-internet.com/onboarding'
 
@@ -190,8 +190,6 @@ export default function HomePricingSection() {
     }
   }, [isInView])
 
-  const [loadingPlan, setLoadingPlan] = useState<PlanId | null>(null)
-  const [coachingModal, setCoachingModal] = useState<Plan | null>(null)
   // Promo flash — deadline par visiteur (fingerprint + IP), partagée avec l'app
   const [flashPromo, setFlashPromo] = useState<{ deadline: number; plan: PlanId; promoMonthly: number; baseMonthly: number } | null>(null)
   const [flashPromoLeft, setFlashPromoLeft] = useState<string | null>(null)
@@ -235,41 +233,6 @@ export default function HomePricingSection() {
   const teamSeatPrice = Math.round(teamEngagedPrice * (1 - (teamDiscount?.percent || 0) / 100))
   const teamBillingBadge = BILLING_PERIODS.find((p) => p.id === billing)?.badgeFr || null
 
-  const [loadingTeam, setLoadingTeam] = useState(false)
-  const handleTeamCheckout = async () => {
-    if (loadingTeam) return
-    const props = { plan: teamTier, seats: teamSeats, billing_period: billing, location: 'home' }
-    trackAmplitude('pricing_team_configure_click', props)
-    if (posthog.__loaded) {
-      posthog.capture('pricing_team_configure_click', props, { transport: 'sendBeacon' })
-    }
-    setLoadingTeam(true)
-    try {
-      const res = await fetch('/api/checkout-enterprise', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          plan: teamTier,
-          billing,
-          seats: teamSeats,
-          lang,
-          ampDeviceId: getAmplitudeDeviceId(),
-        }),
-      })
-      const data = await res.json()
-      if (data.url) {
-        trackAmplitude('enterprise_checkout_started', { ...props, flow: 'pay_first' })
-        window.location.href = data.url
-        return
-      }
-    } catch {
-      // fall through to onboarding fallback
-    }
-    setLoadingTeam(false)
-    window.location.href = withAmplitudeDeviceId(
-      `${APP_ONBOARDING_URL}?intent=enterprise&plan=${teamTier}&seats=${teamSeats}&billing=${billing}`,
-    )
-  }
   // Custom dropdown open states
   const [creatorDropOpen, setCreatorDropOpen] = useState(false)
   const [teamDropOpen, setTeamDropOpen] = useState(false)
@@ -294,53 +257,6 @@ export default function HomePricingSection() {
       setSelectedTier(flashPromo.plan as PlanId)
     }
   }, [flashPromo])
-
-  const startCheckout = async (plan: Plan, coaching: boolean) => {
-    if (loadingPlan) return
-    const props = {
-      plan: plan.id,
-      billing_period: billing,
-      price_monthly: monthlyPrice(plan.price, billing),
-      coaching_addon: coaching,
-      location: 'home',
-    }
-    trackAmplitude('pricing_plan_click', props)
-    if (posthog.__loaded) {
-      posthog.capture('pricing_plan_click', props, { transport: 'sendBeacon' })
-    }
-
-    setLoadingPlan(plan.id)
-    try {
-      const res = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          plan: plan.id,
-          billing,
-          lang,
-          coaching,
-          ampDeviceId: getAmplitudeDeviceId(),
-          ...(promoOn && flashPromo && plan.id === flashPromo.plan
-            ? { promoId: FLASH_PROMO_ID, fingerprint: getBrowserFingerprint() }
-            : {}),
-        }),
-      })
-      const data = await res.json()
-      if (data.url) {
-        trackAmplitude('trial_checkout_started', { ...props, flow: 'pay_first' })
-        window.location.href = data.url
-        return
-      }
-    } catch {
-      // fall through to the onboarding fallback
-    }
-    setLoadingPlan(null)
-    window.location.href = planUrl(plan.id, billing)
-  }
-
-  const handlePlanClick = (plan: Plan) => {
-    setCoachingModal(plan)
-  }
 
   const fr = lang === 'fr'
 
@@ -808,78 +724,6 @@ export default function HomePricingSection() {
           </a>
         </motion.div>
 
-
-        {/* Coaching modal */}
-        {coachingModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={() => { setCoachingModal(null); setLoadingPlan(null) }} />
-            <div className="relative w-full max-w-md rounded-2xl border border-white/10 bg-[#111] p-6 shadow-2xl">
-              <button
-                onClick={() => { setCoachingModal(null); setLoadingPlan(null) }}
-                className="absolute top-4 right-4 text-neutral-500 hover:text-white transition-colors text-lg"
-              >
-                &times;
-              </button>
-
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-xl bg-empire/15 flex items-center justify-center">
-                  <GraduationCap size={20} className="text-empire" />
-                </div>
-                <div>
-                  <p className="font-bold text-white">
-                    {fr ? 'Ajouter le coaching ?' : 'Add coaching?'}
-                  </p>
-                  <p className="text-sm text-neutral-400">
-                    {fr ? `Palier ${coachingModal.nameFr}` : `${coachingModal.nameEn} tier`}
-                  </p>
-                </div>
-              </div>
-
-              <div className="rounded-xl border border-empire/30 bg-empire/[0.06] p-4 mb-4">
-                <p className="text-sm font-semibold text-white mb-1">
-                  {fr ? '4h de coaching avec un expert Empire' : '4h of coaching with an Empire expert'}
-                  <span className="ml-2 font-bold text-empire">{COACHING_PRICE}€</span>
-                  <span className="ml-1 text-neutral-500 font-normal">{fr ? '· une seule fois' : '· one-time'}</span>
-                </p>
-                <p className="text-[13px] text-neutral-400 mb-2">
-                  {fr
-                    ? 'Nos coachs génèrent minimum 100K vues par semaine et ont été formés par nos équipes. Ils comprennent votre business et vous donnent la stratégie exacte pour performer dans votre niche.'
-                    : 'Our coaches generate 100K+ views per week and have been trained by our team. They understand your business and give you the exact strategy to perform in your niche.'}
-                </p>
-                <ul className="space-y-1">
-                  {(fr
-                    ? ['Positionnement et formats gagnants', 'Stratégie de contenu personnalisée', 'Analyse de vos concurrents et opportunités']
-                    : ['Positioning and winning formats', 'Personalized content strategy', 'Competitor analysis and opportunities']
-                  ).map((item) => (
-                    <li key={item} className="flex items-center gap-1.5 text-[12px] text-neutral-300">
-                      <Check size={12} className="shrink-0 text-empire" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="space-y-2.5">
-                <button
-                  onClick={() => { setCoachingModal(null); startCheckout(coachingModal, true) }}
-                  disabled={loadingPlan !== null}
-                  className="w-full flex items-center justify-center gap-2 rounded-xl bg-empire px-4 py-3 text-sm font-bold text-black transition-all hover:scale-[1.02] disabled:opacity-60"
-                >
-                  {loadingPlan && <Loader2 size={15} className="animate-spin" />}
-                  {fr ? `Oui, ajouter le coaching (+${COACHING_PRICE}€)` : `Yes, add coaching (+€${COACHING_PRICE})`}
-                </button>
-                <button
-                  onClick={() => { setCoachingModal(null); startCheckout(coachingModal, false) }}
-                  disabled={loadingPlan !== null}
-                  className="w-full flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-sm font-bold text-white transition-all hover:scale-[1.02] hover:bg-white/10 disabled:opacity-60"
-                >
-                  {loadingPlan && <Loader2 size={15} className="animate-spin" />}
-                  {fr ? 'Non merci, continuer sans' : 'No thanks, continue without'}
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
 
         {/* Human team reassurance strip */}
         <motion.div
