@@ -3,11 +3,12 @@
 import { useRef, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
-import { Check, Scissors, CalendarCheck, ShieldCheck, Minus, Plus, ChevronDown, MessageCircle } from 'lucide-react'
+import { Check, Scissors, CalendarCheck, ShieldCheck, Minus, Plus, ChevronDown, MessageCircle, GraduationCap } from 'lucide-react'
 import posthog from 'posthog-js'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { trackAmplitude, withAmplitudeDeviceId, getAmplitudeDeviceId } from '@/lib/amplitude'
+import { trackAmplitude, withAmplitudeDeviceId } from '@/lib/amplitude'
 import { fetchFlashPromo, formatCountdown } from '@/lib/flash-promo'
+import { useAcademyPricing } from '@/hooks/useAcademyPricing'
 
 const APP_ONBOARDING_URL = 'https://app.empire-internet.com/onboarding'
 
@@ -20,12 +21,10 @@ const BILLING_PERIODS: {
   months: number
   labelFr: string
   labelEn: string
-  badgeFr?: string
-  badgeEn?: string
 }[] = [
   { id: 'monthly', discount: 0, months: 1, labelFr: 'Mensuel', labelEn: 'Monthly' },
-  { id: 'quarterly', discount: 0.12, months: 3, labelFr: 'Trimestriel', labelEn: 'Quarterly', badgeFr: '-12%', badgeEn: '-12%' },
-  { id: 'yearly', discount: 0.18, months: 12, labelFr: 'Annuel', labelEn: 'Yearly', badgeFr: '-18%', badgeEn: '-18%' },
+  { id: 'quarterly', discount: 0.12, months: 3, labelFr: 'Trimestriel', labelEn: 'Quarterly' },
+  { id: 'yearly', discount: 0.18, months: 12, labelFr: 'Annuel', labelEn: 'Yearly' },
 ]
 
 type Plan = {
@@ -33,59 +32,15 @@ type Plan = {
   price: number
   credits: number
   contents: string
-  nameFr: string
-  nameEn: string
-  descFr: string
-  descEn: string
-  featuresFr: string[]
-  featuresEn: string[]
   highlighted?: boolean
 }
 
-// Mirrors the app's pricing (empire-tracking src/pages/Pricing.tsx PACKS).
-// Un seul plan "Créateur" avec sélecteur de volume : les 3 entrées ci-dessous
-// sont les paliers de crédits (ils mappent sur les abonnements Stripe existants).
 const PLANS: Plan[] = [
-  {
-    id: 'starter',
-    price: 199,
-    credits: 2200,
-    contents: '~22',
-    nameFr: '2 200 crédits',
-    nameEn: '2,200 credits',
-    descFr: 'Pour poster régulièrement sans y penser',
-    descEn: 'Post consistently without thinking about it',
-    featuresFr: [],
-    featuresEn: [],
-  },
-  {
-    id: 'growth',
-    price: 499,
-    credits: 6600,
-    contents: '~89',
-    nameFr: '6 600 crédits',
-    nameEn: '6,600 credits',
-    descFr: 'Pour devenir une référence',
-    descEn: 'Become the reference',
-    featuresFr: [],
-    featuresEn: [],
-    highlighted: true,
-  },
-  {
-    id: 'scale',
-    price: 799,
-    credits: 12000,
-    contents: '~177',
-    nameFr: '12 000 crédits',
-    nameEn: '12,000 credits',
-    descFr: 'Pour saturer votre marché de contenu',
-    descEn: 'Saturate your market with content',
-    featuresFr: [],
-    featuresEn: [],
-  },
+  { id: 'starter', price: 199, credits: 2200, contents: '~22' },
+  { id: 'growth', price: 499, credits: 6600, contents: '~89', highlighted: true },
+  { id: 'scale', price: 799, credits: 12000, contents: '~177' },
 ]
 
-// Inclus dans tous les plans — affiché sous les cartes
 const ALL_PLANS_FEATURES: { fr: string; en: string }[] = [
   { fr: 'Tous les formats (posts, reels, newsletters, YouTube, carrousels)', en: 'All formats (posts, reels, newsletters, YouTube, carousels)' },
   { fr: 'Veille quotidienne des sujets viraux', en: 'Daily viral topic detection' },
@@ -99,87 +54,42 @@ const ALL_PLANS_FEATURES: { fr: string; en: string }[] = [
   { fr: 'Communauté Slack', en: 'Slack community' },
 ]
 
-// Value stack façon Brunson : ce que chaque palier remplace chaque mois (indicatif)
-const VALUE_STACK: Record<PlanId, { items: { fr: string; en: string; amount: number }[]; total: number }> = {
-  starter: {
-    items: [
-      { fr: 'Ghostwriter LinkedIn', en: 'LinkedIn ghostwriter', amount: 800 },
-      { fr: 'Ghostwriter newsletter', en: 'Newsletter ghostwriter', amount: 480 },
-      { fr: 'Monteur vidéo', en: 'Video editor', amount: 600 },
-      { fr: 'Graphiste (miniatures, carrousels)', en: 'Graphic designer (thumbnails, carousels)', amount: 300 },
-      { fr: 'Photographe / DA visuels', en: 'Photographer / visual AD', amount: 200 },
-      { fr: 'Community manager', en: 'Community manager', amount: 500 },
-    ],
-    total: 2880,
-  },
-  growth: {
-    items: [
-      { fr: 'Ghostwriter LinkedIn', en: 'LinkedIn ghostwriter', amount: 1500 },
-      { fr: 'Ghostwriter newsletter', en: 'Newsletter ghostwriter', amount: 960 },
-      { fr: 'Monteur vidéo', en: 'Video editor', amount: 1200 },
-      { fr: 'Graphiste (miniatures, carrousels)', en: 'Graphic designer (thumbnails, carousels)', amount: 600 },
-      { fr: 'Photographe / DA visuels', en: 'Photographer / visual AD', amount: 400 },
-      { fr: 'Community manager', en: 'Community manager', amount: 800 },
-    ],
-    total: 5460,
-  },
-  scale: {
-    items: [
-      { fr: 'Ghostwriter LinkedIn', en: 'LinkedIn ghostwriter', amount: 2500 },
-      { fr: 'Ghostwriter newsletter', en: 'Newsletter ghostwriter', amount: 1440 },
-      { fr: 'Monteur vidéo', en: 'Video editor', amount: 2000 },
-      { fr: 'Graphiste (miniatures, carrousels)', en: 'Graphic designer (thumbnails, carousels)', amount: 900 },
-      { fr: 'Photographe / DA visuels', en: 'Photographer / visual AD', amount: 600 },
-      { fr: 'Community manager', en: 'Community manager', amount: 1200 },
-    ],
-    total: 8640,
-  },
+function volumeDiscount(seats: number): number {
+  if (seats >= 10) return 0.20
+  if (seats >= 5) return 0.15
+  if (seats >= 3) return 0.10
+  return 0
 }
 
-// Carte Équipe & Agence (sièges — flux enterprise de l'app, mêmes paliers
-// et remises volume que app /pricing et /upgrade/enterprise)
-const TEAM_FEATURES: { fr: string; en: string }[] = [
-  { fr: 'Chaque siège : son calendrier + ses crédits', en: 'Each seat: its own calendar + credits' },
-  { fr: 'Account manager dédié', en: 'Dedicated account manager' },
-  { fr: 'Priorité de traitement', en: 'Priority processing' },
-  { fr: 'Onboarding personnalisé', en: 'Personalized onboarding' },
-  { fr: 'Facturation sur mesure', en: 'Custom billing' },
-]
-
-const TEAM_TIER_PRICES: Record<PlanId, { price: number; credits: number }> = {
-  starter: { price: 199, credits: 2200 },
-  growth: { price: 499, credits: 6600 },
-  scale: { price: 799, credits: 12000 },
+function combinedDiscount(billing: BillingId, seats: number): number {
+  const billingD = BILLING_PERIODS.find(p => p.id === billing)!.discount
+  const volumeD = volumeDiscount(seats)
+  return 1 - (1 - billingD) * (1 - volumeD)
 }
 
-function teamVolumeDiscount(seats: number): { label: string; percent: number } | null {
-  if (seats >= 10) return { label: '-20%', percent: 20 }
-  if (seats >= 5) return { label: '-15%', percent: 15 }
-  if (seats >= 3) return { label: '-10%', percent: 10 }
-  return null
+function finalPrice(base: number, billing: BillingId, seats: number): number {
+  return Math.round(base * (1 - combinedDiscount(billing, seats)))
 }
 
-// Coaching add-on, same offer as the app's pre-checkout popup (500€ one-time)
-const COACHING_PRICE = 500
-
-
-function monthlyPrice(base: number, billing: BillingId): number {
-  const period = BILLING_PERIODS.find((p) => p.id === billing)!
-  return Math.round(base * (1 - period.discount))
-}
-
-function planUrl(planId: PlanId, billing: BillingId): string {
-  return withAmplitudeDeviceId(`${APP_ONBOARDING_URL}?plan=${planId}&billing=${billing}&intent=trial`)
+function planUrl(planId: PlanId, billing: BillingId, seats: number): string {
+  const base = `${APP_ONBOARDING_URL}?plan=${planId}&billing=${billing}&intent=${seats > 1 ? 'enterprise' : 'trial'}`
+  const withSeats = seats > 1 ? `${base}&seats=${seats}` : base
+  return withAmplitudeDeviceId(withSeats)
 }
 
 export default function HomePricingSection() {
   const { lang } = useLanguage()
+  const fr = lang === 'fr'
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
   const viewedRef = useRef(false)
-  // Annual by default: the single highest-impact pricing-page lever
-  // (~15-20% more annual mix, ~2x lower churn) — verified across SaaS benchmarks.
-  const [billing, setBilling] = useState<BillingId>('yearly')
+
+  const academyPricing = useAcademyPricing()
+
+  const [billing] = useState<BillingId>('yearly')
+  const [selectedTier, setSelectedTier] = useState<PlanId>('growth')
+  const [seats, setSeats] = useState(1)
+  const [showSeats, setShowSeats] = useState(false)
 
   useEffect(() => {
     if (!isInView || viewedRef.current) return
@@ -190,7 +100,7 @@ export default function HomePricingSection() {
     }
   }, [isInView])
 
-  // Promo flash — deadline par visiteur (fingerprint + IP), partagée avec l'app
+  // Promo flash
   const [flashPromo, setFlashPromo] = useState<{ deadline: number; plan: PlanId; promoMonthly: number; baseMonthly: number } | null>(null)
   const [flashPromoLeft, setFlashPromoLeft] = useState<string | null>(null)
   useEffect(() => {
@@ -210,11 +120,7 @@ export default function HomePricingSection() {
     if (!flashPromo) return
     const tick = () => {
       const remaining = flashPromo.deadline - Date.now()
-      if (remaining <= 0) {
-        setFlashPromo(null)
-        setFlashPromoLeft(null)
-        return
-      }
+      if (remaining <= 0) { setFlashPromo(null); setFlashPromoLeft(null); return }
       setFlashPromoLeft(formatCountdown(remaining))
     }
     tick()
@@ -222,34 +128,7 @@ export default function HomePricingSection() {
     return () => clearInterval(id)
   }, [flashPromo])
   const promoOn = !!flashPromo && !!flashPromoLeft
-  // Prix mensuel de base d'un palier, promo flash appliquée sur le plan visé
-  const planBase = (p: Plan) => (promoOn && flashPromo && p.id === flashPromo.plan ? flashPromo.promoMonthly : p.price)
 
-  // Équipe & Agence : crédits par siège + nombre de sièges (miroir de l'app)
-  const [teamTier, setTeamTier] = useState<PlanId>('starter')
-  const [teamSeats, setTeamSeats] = useState(2)
-  const teamDiscount = teamVolumeDiscount(teamSeats)
-  const teamEngagedPrice = monthlyPrice(TEAM_TIER_PRICES[teamTier].price, billing)
-  const teamSeatPrice = Math.round(teamEngagedPrice * (1 - (teamDiscount?.percent || 0) / 100))
-  const teamBillingBadge = BILLING_PERIODS.find((p) => p.id === billing)?.badgeFr || null
-
-  // Custom dropdown open states
-  const [creatorDropOpen, setCreatorDropOpen] = useState(false)
-  const [teamDropOpen, setTeamDropOpen] = useState(false)
-  const creatorDropRef = useRef<HTMLDivElement>(null)
-  const teamDropRef = useRef<HTMLDivElement>(null)
-  useEffect(() => {
-    const handler = (e: MouseEvent) => {
-      if (creatorDropRef.current && !creatorDropRef.current.contains(e.target as Node)) setCreatorDropOpen(false)
-      if (teamDropRef.current && !teamDropRef.current.contains(e.target as Node)) setTeamDropOpen(false)
-    }
-    document.addEventListener('mousedown', handler)
-    return () => document.removeEventListener('mousedown', handler)
-  }, [])
-
-  // Palier de volume sélectionné sur la carte Créateur
-  const [selectedTier, setSelectedTier] = useState<PlanId>('growth')
-  // Dès que la promo est chargée, forcer la sélection sur le plan promo
   const promoAutoSelected = useRef(false)
   useEffect(() => {
     if (flashPromo && !promoAutoSelected.current) {
@@ -258,7 +137,25 @@ export default function HomePricingSection() {
     }
   }, [flashPromo])
 
-  const fr = lang === 'fr'
+  const planBase = (p: Plan) => (promoOn && flashPromo && p.id === flashPromo.plan ? flashPromo.promoMonthly : p.price)
+
+  // Dropdown
+  const [dropOpen, setDropOpen] = useState(false)
+  const dropRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (dropRef.current && !dropRef.current.contains(e.target as Node)) setDropOpen(false)
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [])
+
+  // Computed prices for card 2
+  const plan = PLANS.find(p => p.id === selectedTier)!
+  const isPromoPlan = promoOn && !!flashPromo && plan.id === flashPromo.plan
+  const monthly = finalPrice(planBase(plan), billing, seats)
+  const discount = combinedDiscount(billing, seats)
+  const discountPct = Math.round(discount * 100)
 
   return (
     <section ref={ref} id="pricing" className="relative w-full py-20 md:py-28 bg-[#0a0a0a]">
@@ -270,16 +167,15 @@ export default function HomePricingSection() {
           className="text-center max-w-2xl mx-auto"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold">
-            {fr ? 'Un tarif simple, sans surprise' : 'Simple, transparent pricing'}
+            {fr ? 'Choisissez votre approche' : 'Choose your approach'}
           </h2>
           <p className="mt-4 text-neutral-400">
             {fr
-              ? '7 jours d’essai gratuit, quel que soit le volume. Sans engagement, annulez en 1 clic.'
-              : '7-day free trial at any volume. No commitment, cancel in 1 click.'}
+              ? 'Apprenez à le faire, faites-le avec nous, ou laissez-nous tout gérer.'
+              : 'Learn to do it, do it with us, or let us handle everything.'}
           </p>
 
-
-          {/* Promo flash — compte à rebours par visiteur (IP + cookie) */}
+          {/* Promo flash */}
           {promoOn && flashPromo && flashPromoLeft && (
             <div className="mt-8 flex justify-center">
               <div className="relative overflow-hidden rounded-2xl border border-red-500/40 bg-gradient-to-r from-red-500/[0.12] via-orange-500/[0.08] to-red-500/[0.12] px-6 py-4 shadow-[0_0_30px_rgb(239_68_68_/_0.15)]">
@@ -304,344 +200,308 @@ export default function HomePricingSection() {
               </div>
             </div>
           )}
-
-          {/* Billing period toggle */}
-          <div className="mt-8 inline-flex items-center rounded-full border border-white/10 bg-white/[0.04] p-1">
-            {BILLING_PERIODS.map((p) => (
-              <button
-                key={p.id}
-                onClick={() => setBilling(p.id)}
-                className={`rounded-full px-4 py-1.5 text-sm font-semibold transition-colors ${
-                  billing === p.id ? 'bg-empire text-black' : 'text-neutral-400 hover:text-white'
-                }`}
-              >
-                {fr ? p.labelFr : p.labelEn}
-                {p.badgeFr && (
-                  <span className={`ml-1.5 text-[11px] font-bold ${billing === p.id ? 'text-black/70' : 'text-empire'}`}>
-                    {fr ? p.badgeFr : p.badgeEn}
-                  </span>
-                )}
-              </button>
-            ))}
-          </div>
         </motion.div>
 
         <div className="mt-10 grid gap-6 lg:grid-cols-3 max-w-6xl mx-auto items-stretch">
-          {/* Créateur */}
-          {(() => {
-            const plan = PLANS.find((p) => p.id === selectedTier)!
-            const isPromoPlan = promoOn && !!flashPromo && plan.id === flashPromo.plan
-            const monthly = monthlyPrice(planBase(plan), billing)
-            return (
-              <motion.div
-                initial={{ opacity: 0, y: 24 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
-                className={`rounded-2xl p-6 lg:p-8 flex flex-col ${isPromoPlan ? 'border border-red-500/40 bg-white/[0.03]' : 'border border-empire/50 bg-white/[0.03]'}`}
-              >
-                {/* Header */}
-                {isPromoPlan && (
-                  <span className="mb-4 inline-flex items-center gap-1.5 rounded-full bg-red-500/15 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-red-400">
-                    {fr ? 'Offre flash — prix à vie' : 'Flash deal — price locked forever'}
-                  </span>
-                )}
-                <div className="flex items-center gap-2">
-                  <h3 className="text-lg font-bold">{fr ? 'Créateur' : 'Creator'}</h3>
-                  {selectedTier === 'growth' && !isPromoPlan && (
-                    <span className="rounded-full bg-empire/15 border border-empire/30 px-2.5 py-0.5 text-[10px] font-bold text-empire uppercase tracking-wider">
-                      {fr ? 'Populaire' : 'Popular'}
-                    </span>
-                  )}
-                </div>
-                <p className="mt-1 text-sm text-neutral-400">
-                  {fr ? 'Tout Empire, au volume que vous choisissez' : 'All of Empire, at the volume you choose'}
-                </p>
 
-                {/* Selector */}
-                <div className="min-h-[155px]">
-                  <p className="mt-5 text-[11px] font-semibold uppercase tracking-wide text-neutral-500">
-                    {fr ? 'Votre volume mensuel' : 'Your monthly volume'}
-                  </p>
-                  <div ref={creatorDropRef} className="relative mt-2">
-                    <button
-                      type="button"
-                      onClick={() => setCreatorDropOpen((o) => !o)}
-                      className={`flex w-full items-center justify-between rounded-xl border bg-neutral-900 px-4 py-3 text-left text-sm font-semibold text-white transition-colors hover:border-empire/40 ${isPromoPlan ? 'border-red-500/30' : 'border-white/10'}`}
-                    >
-                      <span className="truncate">
-                        {plan.credits.toLocaleString(fr ? 'fr-FR' : 'en-US')} cr. · {plan.contents} {fr ? 'contenus/mois' : 'pieces/mo'} — {monthly}€{fr ? '/mois' : '/mo'}
-                      </span>
-                      <ChevronDown size={16} className={`shrink-0 ml-2 text-neutral-400 transition-transform ${creatorDropOpen ? 'rotate-180' : ''}`} />
-                    </button>
-                    {creatorDropOpen && (
-                      <div className="absolute left-0 right-0 top-full z-30 mt-1 overflow-hidden rounded-xl border border-white/10 bg-neutral-900 shadow-2xl">
-                        {PLANS.map((p) => {
-                          const mp = monthlyPrice(planBase(p), billing)
-                          const isPromo = promoOn && flashPromo && p.id === flashPromo.plan
-                          const active = p.id === selectedTier
-                          return (
-                            <button
-                              key={p.id}
-                              type="button"
-                              onClick={() => { setSelectedTier(p.id); setCreatorDropOpen(false) }}
-                              className={`flex w-full items-center justify-between gap-3 px-4 py-3 text-left text-sm transition-colors ${active ? 'bg-empire/10 text-white' : 'text-neutral-300 hover:bg-white/5'}`}
-                            >
-                              <div className="flex flex-col gap-0.5 min-w-0">
-                                <span className="font-semibold">
-                                  {p.credits.toLocaleString(fr ? 'fr-FR' : 'en-US')} {fr ? 'crédits' : 'credits'} · {p.contents} {fr ? 'contenus/mois' : 'pieces/mo'}
-                                </span>
-                                {isPromo && (
-                                  <span className="text-xs text-red-400">
-                                    {fr ? `${mp}€/mois à vie au lieu de ${monthlyPrice(p.price, billing)}€` : `€${mp}/mo forever instead of €${monthlyPrice(p.price, billing)}`}
-                                  </span>
-                                )}
-                              </div>
-                              <div className="flex shrink-0 items-center gap-2">
-                                <span className="font-bold tabular-nums">{mp}€<span className="text-xs font-normal text-neutral-500">{fr ? '/mois' : '/mo'}</span></span>
-                                {isPromo && <span className="rounded-full bg-red-500/15 px-2 py-0.5 text-[10px] font-bold text-red-400">DEAL</span>}
-                                {p.highlighted && !isPromo && <span className="rounded-full bg-empire/15 px-2 py-0.5 text-[10px] font-bold text-empire">{fr ? 'Populaire' : 'Popular'}</span>}
-                                {active && <Check size={14} className="text-empire" />}
-                              </div>
-                            </button>
-                          )
-                        })}
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                {/* Price */}
-                <div className="mt-4 flex flex-wrap items-baseline gap-2">
-                  {(billing !== 'monthly' || isPromoPlan) && (
-                    <span className="text-lg text-neutral-600 line-through tabular-nums">{isPromoPlan ? flashPromo!.baseMonthly : plan.price}€</span>
-                  )}
-                  <span className="text-4xl font-extrabold tabular-nums">{monthly}€</span>
-                  <span className="text-sm text-neutral-400">{fr ? '/mois' : '/mo'}</span>
-                  {isPromoPlan && flashPromoLeft && (
-                    <span className="inline-flex items-center gap-1.5 rounded-full border border-red-500/40 bg-red-500/15 px-3 py-1">
-                      <span className="font-mono text-sm font-bold tabular-nums text-red-400">{flashPromoLeft}</span>
-                    </span>
-                  )}
-                </div>
-                {billing !== 'monthly' && (
-                  <p className="mt-1 text-[11px] text-neutral-500">
-                    {fr ? `Facturé ${(monthly * (billing === 'quarterly' ? 3 : 12)).toLocaleString('fr-FR')}€${billing === 'quarterly' ? '/trim' : '/an'}` : `Billed €${(monthly * (billing === 'quarterly' ? 3 : 12)).toLocaleString('en-US')}${billing === 'quarterly' ? '/qtr' : '/yr'}`}
-                  </p>
-                )}
-
-                <div className="my-5 h-px bg-white/10" />
-
-                {/* Features */}
-                <ul className="space-y-2 flex-1">
-                  <li className="flex items-start gap-2 text-[13px] text-neutral-300">
-                    <Check size={14} className="mt-0.5 shrink-0 text-empire" />
-                    {fr ? 'Tout inclus (voir ci-dessous)' : 'Everything included (see below)'}
-                  </li>
-                  <li className={`flex items-start gap-2 text-[13px] ${selectedTier === 'starter' ? 'text-neutral-600' : 'text-neutral-300'}`}>
-                    {selectedTier === 'starter' ? <Minus size={14} className="mt-0.5 shrink-0" /> : <Check size={14} className="mt-0.5 shrink-0 text-empire" />}
-                    {fr ? 'Replays masterclass (valeur 197€)' : 'Masterclass replays (€197 value)'}
-                  </li>
-                  <li className={`flex items-start gap-2 text-[13px] ${selectedTier === 'starter' ? 'text-neutral-600' : 'text-neutral-300'}`}>
-                    {selectedTier === 'starter' ? <Minus size={14} className="mt-0.5 shrink-0" /> : <Check size={14} className="mt-0.5 shrink-0 text-empire" />}
-                    {fr ? 'Live sessions hebdomadaires' : 'Weekly live sessions'}
-                  </li>
-                  <li className={`flex items-start gap-2 text-[13px] ${selectedTier !== 'scale' ? 'text-neutral-600' : 'text-neutral-300'}`}>
-                    {selectedTier !== 'scale' ? <Minus size={14} className="mt-0.5 shrink-0" /> : <Check size={14} className="mt-0.5 shrink-0 text-empire" />}
-                    {fr ? 'Support prioritaire' : 'Priority support'}
-                  </li>
-                </ul>
-
-                {/* CTA */}
-                <a
-                  href={planUrl(plan.id, billing)}
-                  onClick={() => {
-                    const props = { plan: plan.id, billing_period: billing, price_monthly: monthlyPrice(planBase(plan), billing), location: 'home' }
-                    trackAmplitude('pricing_plan_click', props)
-                    if (posthog.__loaded) posthog.capture('pricing_plan_click', props, { transport: 'sendBeacon' })
-                  }}
-                  className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-empire px-4 py-3.5 text-center text-sm font-bold text-black transition-all hover:brightness-110"
-                >
-                  {fr ? 'Démarrer l\u2019essai gratuit' : 'Start free trial'}
-                </a>
-                <p className="mt-2 text-center text-[11px] text-neutral-500">
-                  {fr ? '7 jours gratuits · Annulez en 1 clic' : '7 days free · Cancel in 1 click'}
-                </p>
-
-              </motion.div>
-            )
-          })()}
-
-          {/* Équipe & Agence */}
+          {/* ── Card 1: Devenez Head of Virality (Academy) ── */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
+            transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
             className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 lg:p-8 flex flex-col"
           >
-            {/* Header */}
-            <h3 className="text-lg font-bold">{fr ? 'Équipe & Agence' : 'Team & Agency'}</h3>
+            <div className="flex items-center gap-2">
+              <GraduationCap size={20} className="text-empire" />
+              <h3 className="text-lg font-bold">{fr ? 'Devenez Head of Virality' : 'Become Head of Virality'}</h3>
+            </div>
             <p className="mt-1 text-sm text-neutral-400">
-              {fr ? 'Plusieurs créateurs, une seule facturation' : 'Several creators, one billing'}
+              {fr ? 'Apprenez à le faire vous-même' : 'Learn to do it yourself'}
             </p>
 
-            {/* Selector: credits per seat + seats */}
-            <div className="min-h-[155px]">
-              <p className="mt-5 text-[11px] font-semibold uppercase tracking-wide text-neutral-500">
-                {fr ? 'Crédits par siège' : 'Credits per seat'}
-              </p>
-              <div ref={teamDropRef} className="relative mt-2">
-                <button
-                  type="button"
-                  onClick={() => setTeamDropOpen((o) => !o)}
-                  className="flex w-full items-center justify-between rounded-xl border border-white/10 bg-neutral-900 px-4 py-3 text-left text-sm font-semibold text-white transition-colors hover:border-empire/40"
-                >
-                  <span className="truncate">
-                    {TEAM_TIER_PRICES[teamTier].credits.toLocaleString(fr ? 'fr-FR' : 'en-US')} {fr ? 'crédits/siège' : 'credits/seat'} — {monthlyPrice(TEAM_TIER_PRICES[teamTier].price, billing)}€{fr ? '/mois' : '/mo'}
-                  </span>
-                  <ChevronDown size={16} className={`shrink-0 ml-2 text-neutral-400 transition-transform ${teamDropOpen ? 'rotate-180' : ''}`} />
-                </button>
-                {teamDropOpen && (
-                  <div className="absolute left-0 right-0 top-full z-30 mt-1 overflow-hidden rounded-xl border border-white/10 bg-neutral-900 shadow-2xl">
-                    {(Object.keys(TEAM_TIER_PRICES) as PlanId[]).map((tierId) => {
-                      const t = TEAM_TIER_PRICES[tierId]
-                      const mp = monthlyPrice(t.price, billing)
-                      const active = tierId === teamTier
-                      return (
-                        <button
-                          key={tierId}
-                          type="button"
-                          onClick={() => { setTeamTier(tierId); setTeamDropOpen(false) }}
-                          className={`flex w-full items-center justify-between gap-3 px-4 py-3 text-left text-sm transition-colors ${active ? 'bg-empire/10 text-white' : 'text-neutral-300 hover:bg-white/5'}`}
-                        >
-                          <span className="font-semibold">{t.credits.toLocaleString(fr ? 'fr-FR' : 'en-US')} {fr ? 'crédits/siège' : 'credits/seat'}</span>
-                          <div className="flex shrink-0 items-center gap-2">
-                            <span className="font-bold tabular-nums">{mp}€<span className="text-xs font-normal text-neutral-500">{fr ? '/mois' : '/mo'}</span></span>
-                            {active && <Check size={14} className="text-empire" />}
-                          </div>
-                        </button>
-                      )
-                    })}
-                  </div>
-                )}
-              </div>
-
-              {/* Seat counter */}
-              <div className="mt-3 flex items-center gap-3">
-                <span className="text-[11px] font-semibold uppercase tracking-wide text-neutral-500">
-                  {fr ? 'Sièges' : 'Seats'}
-                </span>
-                <button
-                  type="button"
-                  onClick={() => setTeamSeats((s) => Math.max(1, s - 1))}
-                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 transition-colors hover:border-empire/50"
-                >
-                  <Minus size={14} />
-                </button>
-                <span className="w-8 text-center text-lg font-bold tabular-nums">{teamSeats}</span>
-                <button
-                  type="button"
-                  onClick={() => setTeamSeats((s) => Math.min(20, s + 1))}
-                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 transition-colors hover:border-empire/50"
-                >
-                  <Plus size={14} />
-                </button>
-                {teamDiscount && (
-                  <span className="rounded-full bg-empire/10 px-2 py-0.5 text-[10px] font-bold text-empire">{teamDiscount.label}</span>
-                )}
-              </div>
-            </div>
-
-            {/* Price */}
-            <div className="mt-4 flex flex-wrap items-baseline gap-2">
-              {teamSeatPrice < TEAM_TIER_PRICES[teamTier].price && (
-                <span className="text-lg text-neutral-600 line-through tabular-nums">{TEAM_TIER_PRICES[teamTier].price.toLocaleString(fr ? 'fr-FR' : 'en-US')}€</span>
-              )}
-              <span className="text-4xl font-extrabold tabular-nums">{teamSeatPrice.toLocaleString(fr ? 'fr-FR' : 'en-US')}€</span>
-              <span className="text-sm text-neutral-400">{fr ? '/siège/mois' : '/seat/mo'}</span>
-              {teamBillingBadge && (
-                <span className="rounded-full bg-green-500/15 px-2 py-0.5 text-[10px] font-bold text-green-400">{teamBillingBadge}</span>
-              )}
+            <div className="mt-6 flex flex-wrap items-baseline gap-2">
+              <span className="text-4xl font-extrabold tabular-nums">{academyPricing.price}€</span>
+              <span className="text-sm text-neutral-400">{fr ? 'paiement unique' : 'one-time'}</span>
             </div>
             <p className="mt-1 text-[11px] text-neutral-500">
-              {fr
-                ? `≈ ${(teamSeatPrice * teamSeats).toLocaleString('fr-FR')}€/mois au total — ${(TEAM_TIER_PRICES[teamTier].credits * teamSeats).toLocaleString('fr-FR')} crédits/mois`
-                : `≈ €${(teamSeatPrice * teamSeats).toLocaleString('en-US')}/mo total — ${(TEAM_TIER_PRICES[teamTier].credits * teamSeats).toLocaleString('en-US')} credits/mo`}
+              {fr ? 'ou 3x 165€' : 'or 3x €165'}
             </p>
 
             <div className="my-5 h-px bg-white/10" />
 
-            {/* Features */}
-            <p className="text-[12px] font-semibold text-white">
-              {fr ? 'Tout du plan Créateur, plus :' : 'Everything in Creator, plus:'}
-            </p>
-            <ul className="mt-2 space-y-2 flex-1">
-              {TEAM_FEATURES.map((f) => (
-                <li key={f.fr} className="flex items-start gap-2 text-[13px] text-neutral-300">
+            <ul className="space-y-2 flex-1">
+              {(fr
+                ? [
+                    'Accès à Empire Alpha — posts + Shorts générés',
+                    '21 défis quotidiens pour lancer votre marque',
+                    '6 masterclass lives (viralité, IA, monétisation)',
+                    'Pod LinkedIn — le groupe engage sur vos posts',
+                    'Certification officielle (Bronze, Argent, Or)',
+                    'Premier client garanti après 3 mois*',
+                  ]
+                : [
+                    'Access to Empire Alpha — posts + Shorts generated',
+                    '21 daily challenges to launch your brand',
+                    '6 live masterclasses (virality, AI, monetization)',
+                    'LinkedIn Pod — the group engages on your posts',
+                    'Official certification (Bronze, Silver, Gold)',
+                    'First client guaranteed after 3 months*',
+                  ]
+              ).map((f) => (
+                <li key={f} className="flex items-start gap-2 text-[13px] text-neutral-300">
                   <Check size={14} className="mt-0.5 shrink-0 text-empire" />
-                  {fr ? f.fr : f.en}
+                  {f}
                 </li>
               ))}
             </ul>
 
-            {/* CTA */}
-            <a
-              href={withAmplitudeDeviceId(`${APP_ONBOARDING_URL}?intent=enterprise&plan=${teamTier}&seats=${teamSeats}&billing=${billing}`)}
+            <Link
+              href="/academy"
+              target="_blank"
               onClick={() => {
-                const props = { plan: teamTier, seats: teamSeats, billing_period: billing, location: 'home' }
-                trackAmplitude('pricing_team_configure_click', props)
-                if (posthog.__loaded) posthog.capture('pricing_team_configure_click', props, { transport: 'sendBeacon' })
+                trackAmplitude('pricing_academy_click', { price: academyPricing.price, location: 'home' })
+                if (posthog.__loaded) posthog.capture('pricing_academy_click', { price: academyPricing.price }, { transport: 'sendBeacon' })
               }}
               className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-4 py-3.5 text-center text-sm font-bold text-white transition-all hover:brightness-110 hover:bg-white/10"
             >
-              {fr ? `Configurer ${teamSeats} siège${teamSeats > 1 ? 's' : ''}` : `Configure ${teamSeats} seat${teamSeats > 1 ? 's' : ''}`}
-            </a>
+              {fr ? 'Découvrir l\'Academy' : 'Discover the Academy'}
+            </Link>
+            {academyPricing.isUrgent && (
+              <p className="text-center text-[11px] text-empire font-bold mt-2 animate-pulse">
+                {fr ? `Le prix augmente dans ${academyPricing.countdown}` : `Price increases in ${academyPricing.countdown}`}
+              </p>
+            )}
           </motion.div>
 
-          {/* Plan personnalisé */}
+          {/* ── Card 2: Créez votre marque (merged Créateur + Équipe) ── */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
+            className={`rounded-2xl p-6 lg:p-8 flex flex-col ${isPromoPlan ? 'border border-red-500/40 bg-white/[0.03]' : 'border border-empire/50 bg-white/[0.03]'}`}
+          >
+            {isPromoPlan && (
+              <span className="mb-4 inline-flex items-center gap-1.5 rounded-full bg-red-500/15 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-red-400">
+                {fr ? 'Offre flash — prix à vie' : 'Flash deal — price locked forever'}
+              </span>
+            )}
+            <div className="flex items-center gap-2">
+              <h3 className="text-lg font-bold">{fr ? 'Créez votre marque' : 'Build your brand'}</h3>
+              <span className="rounded-full bg-empire/15 border border-empire/30 px-2.5 py-0.5 text-[10px] font-bold text-empire uppercase tracking-wider">
+                {fr ? 'Populaire' : 'Popular'}
+              </span>
+            </div>
+            <p className="mt-1 text-sm text-neutral-400">
+              {fr ? 'On le fait avec vous' : 'We do it with you'}
+            </p>
+
+            {/* Volume dropdown */}
+            <p className="mt-5 text-[11px] font-semibold uppercase tracking-wide text-neutral-500">
+              {fr ? 'Volume mensuel' : 'Monthly volume'}
+            </p>
+            <div ref={dropRef} className="relative mt-2">
+              <button
+                type="button"
+                onClick={() => setDropOpen(o => !o)}
+                className={`flex w-full items-center justify-between rounded-xl border bg-neutral-900 px-4 py-3 text-left text-sm font-semibold text-white transition-colors hover:border-empire/40 ${isPromoPlan ? 'border-red-500/30' : 'border-white/10'}`}
+              >
+                <span className="truncate">
+                  {plan.credits.toLocaleString(fr ? 'fr-FR' : 'en-US')} cr. · {plan.contents} {fr ? 'contenus/mois' : 'pieces/mo'}
+                </span>
+                <ChevronDown size={16} className={`shrink-0 ml-2 text-neutral-400 transition-transform ${dropOpen ? 'rotate-180' : ''}`} />
+              </button>
+              {dropOpen && (
+                <div className="absolute left-0 right-0 top-full z-30 mt-1 overflow-hidden rounded-xl border border-white/10 bg-neutral-900 shadow-2xl">
+                  {PLANS.map((p) => {
+                    const active = p.id === selectedTier
+                    return (
+                      <button
+                        key={p.id}
+                        type="button"
+                        onClick={() => { setSelectedTier(p.id); setDropOpen(false) }}
+                        className={`flex w-full items-center justify-between gap-3 px-4 py-3 text-left text-sm transition-colors ${active ? 'bg-empire/10 text-white' : 'text-neutral-300 hover:bg-white/5'}`}
+                      >
+                        <span className="font-semibold">
+                          {p.credits.toLocaleString(fr ? 'fr-FR' : 'en-US')} {fr ? 'crédits' : 'credits'} · {p.contents} {fr ? 'contenus/mois' : 'pieces/mo'}
+                        </span>
+                        <div className="flex shrink-0 items-center gap-2">
+                          <span className="font-bold tabular-nums">{finalPrice(planBase(p), billing, seats)}€<span className="text-xs font-normal text-neutral-500">{fr ? '/mois' : '/mo'}</span></span>
+                          {p.highlighted && <span className="rounded-full bg-empire/15 px-2 py-0.5 text-[10px] font-bold text-empire">{fr ? 'Populaire' : 'Popular'}</span>}
+                          {active && <Check size={14} className="text-empire" />}
+                        </div>
+                      </button>
+                    )
+                  })}
+                </div>
+              )}
+            </div>
+
+            {/* Multi-seat toggle */}
+            {!showSeats ? (
+              <button
+                type="button"
+                onClick={() => { setShowSeats(true); setSeats(2) }}
+                className="mt-3 text-[12px] text-empire font-semibold hover:underline text-left"
+              >
+                {fr ? 'Besoin de plusieurs places ?' : 'Need multiple seats?'}
+              </button>
+            ) : (
+              <div className="mt-3 flex items-center gap-3">
+                <span className="text-[11px] font-semibold uppercase tracking-wide text-neutral-500">
+                  {fr ? 'Places' : 'Seats'}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => { const n = Math.max(1, seats - 1); setSeats(n); if (n === 1) setShowSeats(false) }}
+                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 transition-colors hover:border-empire/50"
+                >
+                  <Minus size={14} />
+                </button>
+                <span className="w-8 text-center text-lg font-bold tabular-nums">{seats}</span>
+                <button
+                  type="button"
+                  onClick={() => setSeats(s => Math.min(20, s + 1))}
+                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 transition-colors hover:border-empire/50"
+                >
+                  <Plus size={14} />
+                </button>
+              </div>
+            )}
+
+            {/* Price */}
+            <div className="mt-4 flex flex-wrap items-baseline gap-2">
+              {(discountPct > 0 || isPromoPlan) && (
+                <span className="text-lg text-neutral-600 line-through tabular-nums">{isPromoPlan ? flashPromo!.baseMonthly : plan.price}€</span>
+              )}
+              <span className="text-4xl font-extrabold tabular-nums">{monthly}€</span>
+              <span className="text-sm text-neutral-400">{seats > 1 ? (fr ? '/place/mois' : '/seat/mo') : (fr ? '/mois' : '/mo')}</span>
+              {discountPct > 0 && (
+                <span className="rounded-full bg-green-500/15 px-2 py-0.5 text-[10px] font-bold text-green-400">-{discountPct}%</span>
+              )}
+              {isPromoPlan && flashPromoLeft && (
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-red-500/40 bg-red-500/15 px-3 py-1">
+                  <span className="font-mono text-sm font-bold tabular-nums text-red-400">{flashPromoLeft}</span>
+                </span>
+              )}
+            </div>
+            {seats > 1 && (
+              <p className="mt-1 text-[11px] text-neutral-500">
+                {fr
+                  ? `≈ ${(monthly * seats).toLocaleString('fr-FR')}€/mois au total — ${(plan.credits * seats).toLocaleString('fr-FR')} crédits/mois`
+                  : `≈ €${(monthly * seats).toLocaleString('en-US')}/mo total — ${(plan.credits * seats).toLocaleString('en-US')} credits/mo`}
+              </p>
+            )}
+            {billing !== 'monthly' && seats <= 1 && (
+              <p className="mt-1 text-[11px] text-neutral-500">
+                {fr ? `Facturé ${(monthly * (billing === 'quarterly' ? 3 : 12)).toLocaleString('fr-FR')}€${billing === 'quarterly' ? '/trim' : '/an'}` : `Billed €${(monthly * (billing === 'quarterly' ? 3 : 12)).toLocaleString('en-US')}${billing === 'quarterly' ? '/qtr' : '/yr'}`}
+              </p>
+            )}
+
+            <div className="my-5 h-px bg-white/10" />
+
+            {/* Features: conditional on seats */}
+            <ul className="space-y-2 flex-1">
+              <li className="flex items-start gap-2 text-[13px] text-neutral-300">
+                <Check size={14} className="mt-0.5 shrink-0 text-empire" />
+                {fr ? 'Tout inclus (voir ci-dessous)' : 'Everything included (see below)'}
+              </li>
+              <li className={`flex items-start gap-2 text-[13px] ${selectedTier === 'starter' ? 'text-neutral-600' : 'text-neutral-300'}`}>
+                {selectedTier === 'starter' ? <Minus size={14} className="mt-0.5 shrink-0" /> : <Check size={14} className="mt-0.5 shrink-0 text-empire" />}
+                {fr ? 'Replays masterclass (valeur 197€)' : 'Masterclass replays (€197 value)'}
+              </li>
+              <li className={`flex items-start gap-2 text-[13px] ${selectedTier === 'starter' ? 'text-neutral-600' : 'text-neutral-300'}`}>
+                {selectedTier === 'starter' ? <Minus size={14} className="mt-0.5 shrink-0" /> : <Check size={14} className="mt-0.5 shrink-0 text-empire" />}
+                {fr ? 'Live sessions hebdomadaires' : 'Weekly live sessions'}
+              </li>
+              {seats > 1 && (
+                <>
+                  <li className="flex items-start gap-2 text-[13px] text-neutral-300">
+                    <Check size={14} className="mt-0.5 shrink-0 text-empire" />
+                    {fr ? 'Chaque place : son calendrier + ses crédits' : 'Each seat: its own calendar + credits'}
+                  </li>
+                  <li className="flex items-start gap-2 text-[13px] text-neutral-300">
+                    <Check size={14} className="mt-0.5 shrink-0 text-empire" />
+                    {fr ? 'Account manager dédié' : 'Dedicated account manager'}
+                  </li>
+                  <li className="flex items-start gap-2 text-[13px] text-neutral-300">
+                    <Check size={14} className="mt-0.5 shrink-0 text-empire" />
+                    {fr ? 'Onboarding personnalisé' : 'Personalized onboarding'}
+                  </li>
+                  <li className="flex items-start gap-2 text-[13px] text-neutral-300">
+                    <Check size={14} className="mt-0.5 shrink-0 text-empire" />
+                    {fr ? 'Facturation sur mesure' : 'Custom billing'}
+                  </li>
+                </>
+              )}
+              <li className={`flex items-start gap-2 text-[13px] ${selectedTier !== 'scale' && seats <= 1 ? 'text-neutral-600' : 'text-neutral-300'}`}>
+                {selectedTier !== 'scale' && seats <= 1 ? <Minus size={14} className="mt-0.5 shrink-0" /> : <Check size={14} className="mt-0.5 shrink-0 text-empire" />}
+                {fr ? 'Support prioritaire' : 'Priority support'}
+              </li>
+            </ul>
+
+            <a
+              href={planUrl(plan.id, billing, seats)}
+              onClick={() => {
+                const props = { plan: plan.id, billing_period: billing, seats, price_monthly: monthly, location: 'home' }
+                trackAmplitude('pricing_plan_click', props)
+                if (posthog.__loaded) posthog.capture('pricing_plan_click', props, { transport: 'sendBeacon' })
+              }}
+              className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-empire px-4 py-3.5 text-center text-sm font-bold text-black transition-all hover:brightness-110"
+            >
+              {fr ? 'Démarrer l\u2019essai gratuit' : 'Start free trial'}
+            </a>
+            <p className="mt-2 text-center text-[11px] text-neutral-500">
+              {fr ? '7 jours gratuits · Annulez en 1 clic' : '7 days free · Cancel in 1 click'}
+            </p>
+          </motion.div>
+
+          {/* ── Card 3: On la crée pour vous (done-for-you) ── */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.3, ease: 'easeOut' }}
             className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 lg:p-8 flex flex-col"
           >
-            <h3 className="text-lg font-bold">{fr ? 'Plan personnalisé' : 'Custom Plan'}</h3>
+            <h3 className="text-lg font-bold">{fr ? 'On la crée pour vous' : 'We build it for you'}</h3>
             <p className="mt-1 text-sm text-neutral-400">
               {fr
-                ? 'Volume, accompagnement et intégrations sur mesure'
-                : 'Custom volume, support and integrations'}
+                ? 'Kevin Dufraisse crée votre marque de A à Z. Vous ne vous occupez de rien.'
+                : 'Kevin Dufraisse builds your brand from A to Z. You handle nothing.'}
             </p>
 
-            <div className="min-h-[155px]" />
-
-            {/* Price - aligned with other cards */}
-            <div className="mt-4 flex flex-wrap items-baseline gap-2">
+            <div className="mt-6 flex flex-wrap items-baseline gap-2">
               <span className="text-4xl font-extrabold">{fr ? 'Sur mesure' : 'Custom'}</span>
             </div>
-            <p className="mt-1 text-[11px] text-neutral-500">
-              {fr ? 'Tarif adapté à vos besoins' : 'Pricing adapted to your needs'}
-            </p>
+            <div className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-orange-500/10 border border-orange-500/30 px-3 py-1 self-start">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-400" />
+              </span>
+              <span className="text-[11px] font-bold text-orange-400">
+                {fr ? '10 places disponibles' : '10 spots available'}
+              </span>
+            </div>
 
             <div className="my-5 h-px bg-white/10" />
 
-            <p className="text-[12px] font-semibold text-white mb-2">
-              {fr ? 'Tout du plan Créateur, plus :' : 'Everything in Creator, plus:'}
-            </p>
             <ul className="space-y-2 flex-1">
               {(fr
                 ? [
+                    'Stratégie de marque complète par Kevin',
+                    'Création de contenu 100% done-for-you',
                     'Volume de crédits sur mesure',
                     'Account manager dédié',
                     'Onboarding personnalisé',
                     'Intégrations & API avancées',
-                    'Facturation adaptée',
                     'SLA & support prioritaire',
                   ]
                 : [
+                    'Full brand strategy by Kevin',
+                    '100% done-for-you content creation',
                     'Custom credit volume',
                     'Dedicated account manager',
                     'Personalized onboarding',
                     'Advanced integrations & API',
-                    'Custom billing',
                     'SLA & priority support',
                   ]
               ).map((f) => (
@@ -682,7 +542,7 @@ export default function HomePricingSection() {
           </div>
         </motion.div>
 
-        {/* What happens next — 4 steps */}
+        {/* What happens next */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -709,7 +569,6 @@ export default function HomePricingSection() {
           </div>
         </motion.div>
 
-        {/* Lien vers le détail des contenus/features (section Fonctionnalités) */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
@@ -723,7 +582,6 @@ export default function HomePricingSection() {
             {fr ? 'Explorer tout ce qui est inclus ↓' : 'Explore everything included ↓'}
           </a>
         </motion.div>
-
 
         {/* Human team reassurance strip */}
         <motion.div
@@ -755,7 +613,6 @@ export default function HomePricingSection() {
             </div>
           ))}
         </motion.div>
-
 
       </div>
     </section>
