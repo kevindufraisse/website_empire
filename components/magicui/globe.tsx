@@ -19,8 +19,20 @@ export function Globe({ className }: GlobeProps) {
 
     let animationFrameId: number
     let rotation = 0
+    let visible = true
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        visible = entry.isIntersecting
+        if (visible && !animationFrameId) drawGlobe()
+      },
+      { threshold: 0 },
+    )
+    observer.observe(canvas)
 
     const drawGlobe = () => {
+      if (!visible) { animationFrameId = 0; return }
+
       const width = canvas.width
       const height = canvas.height
       const centerX = width / 2
@@ -29,25 +41,22 @@ export function Globe({ className }: GlobeProps) {
 
       ctx.clearRect(0, 0, width, height)
 
-      // Draw globe circle
       ctx.beginPath()
       ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI)
       ctx.strokeStyle = 'rgba(218, 252, 104, 0.2)'
       ctx.lineWidth = 2
       ctx.stroke()
 
-      // Draw latitude lines
       for (let i = -2; i <= 2; i++) {
         ctx.beginPath()
         const y = centerY + (i * radius) / 3
-        const width = Math.sqrt(radius * radius - ((i * radius) / 3) ** 2)
-        ctx.ellipse(centerX, y, width, width / 4, 0, 0, 2 * Math.PI)
+        const w = Math.sqrt(radius * radius - ((i * radius) / 3) ** 2)
+        ctx.ellipse(centerX, y, w, w / 4, 0, 0, 2 * Math.PI)
         ctx.strokeStyle = 'rgba(218, 252, 104, 0.15)'
         ctx.lineWidth = 1
         ctx.stroke()
       }
 
-      // Draw longitude lines
       for (let i = 0; i < 6; i++) {
         ctx.save()
         ctx.translate(centerX, centerY)
@@ -60,7 +69,6 @@ export function Globe({ className }: GlobeProps) {
         ctx.restore()
       }
 
-      // Draw dots (representing global reach)
       const dots = 30
       for (let i = 0; i < dots; i++) {
         const angle = (i / dots) * Math.PI * 2 + rotation
@@ -78,7 +86,6 @@ export function Globe({ className }: GlobeProps) {
       animationFrameId = requestAnimationFrame(drawGlobe)
     }
 
-    // Set canvas size
     const resizeCanvas = () => {
       canvas.width = canvas.offsetWidth * 2
       canvas.height = canvas.offsetHeight * 2
@@ -90,6 +97,7 @@ export function Globe({ className }: GlobeProps) {
     drawGlobe()
 
     return () => {
+      observer.disconnect()
       window.removeEventListener('resize', resizeCanvas)
       cancelAnimationFrame(animationFrameId)
     }

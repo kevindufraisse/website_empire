@@ -1,13 +1,15 @@
 'use client'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useEffect, useState } from 'react'
+import dynamic from 'next/dynamic'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
-import RetroGrid from '@/components/magicui/retro-grid'
 import { Meteors } from '@/components/magicui/meteors'
 import { SocialIcons } from '@/components/ui/social-icons'
 import OnboardingLink from '@/components/OnboardingLink'
-import VoiceToContentAnimation from '@/components/VoiceToContentAnimation'
+
+const RetroGrid = dynamic(() => import('@/components/magicui/retro-grid'), { ssr: false })
+const VoiceToContentAnimation = dynamic(() => import('@/components/VoiceToContentAnimation'), { ssr: false })
 
 export default function HeroSection() {
   const { t, lang } = useLanguage()

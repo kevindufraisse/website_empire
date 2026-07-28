@@ -1,17 +1,19 @@
 import './globals.css'
 import { ReactNode } from 'react'
+import dynamic from 'next/dynamic'
 import { Inter, Caveat } from 'next/font/google'
 import { LanguageProvider } from '@/contexts/LanguageContext'
 import { AutopilotProvider } from '@/contexts/AutopilotContext'
 import { GiftCountdownProvider } from '@/components/GiftCountdownBar'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
-import ClientWrappers from '@/components/ClientWrappers'
-import CalStickyBar from '@/components/CalStickyBar'
-import CalCtaRedirect from '@/components/CalCtaRedirect'
-import WebinarBanner from '@/components/WebinarBanner'
-import PostHogInit from '@/components/PostHogInit'
-import AmplitudeInit from '@/components/AmplitudeInit'
+
+const ClientWrappers = dynamic(() => import('@/components/ClientWrappers'), { ssr: false })
+const CalStickyBar = dynamic(() => import('@/components/CalStickyBar'), { ssr: false })
+const CalCtaRedirect = dynamic(() => import('@/components/CalCtaRedirect'), { ssr: false })
+const WebinarBanner = dynamic(() => import('@/components/WebinarBanner'), { ssr: false })
+const PostHogInit = dynamic(() => import('@/components/PostHogInit'), { ssr: false })
+const AmplitudeInit = dynamic(() => import('@/components/AmplitudeInit'), { ssr: false })
 
 const inter = Inter({ subsets: ['latin'] })
 const caveat = Caveat({ subsets: ['latin'], weight: ['600', '700'], variable: '--font-caveat' })

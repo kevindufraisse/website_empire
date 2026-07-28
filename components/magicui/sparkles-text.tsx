@@ -1,6 +1,6 @@
 'use client'
 
-import { CSSProperties, ReactElement, useEffect, useState } from 'react'
+import { CSSProperties, ReactElement, useMemo } from 'react'
 import { cn } from '@/lib/utils'
 
 interface SparklesTextProps {
@@ -13,14 +13,13 @@ interface SparklesTextProps {
   }
 }
 
-interface Sparkle {
-  id: number
+interface SparkleData {
   x: string
   y: string
   color: string
   delay: number
   scale: number
-  lifespan: number
+  duration: number
 }
 
 export function SparklesText({
@@ -32,67 +31,41 @@ export function SparklesText({
     second: '#7be0ff',
   },
 }: SparklesTextProps): ReactElement {
-  const [sparkles, setSparkles] = useState<Sparkle[]>([])
-
-  useEffect(() => {
-    const generateStar = (): Sparkle => {
-      return {
-        id: Math.random(),
+  const sparkles = useMemo<SparkleData[]>(
+    () =>
+      Array.from({ length: sparklesCount }, () => ({
         x: `${Math.random() * 100}%`,
         y: `${Math.random() * 100}%`,
         color: Math.random() > 0.5 ? colors.first : colors.second,
-        delay: Math.random() * 2,
+        delay: Math.random() * 4,
         scale: Math.random() * 1 + 0.3,
-        lifespan: Math.random() * 10 + 5,
-      }
-    }
-
-    const initializeStars = () => {
-      return Array.from({ length: sparklesCount }, generateStar)
-    }
-
-    setSparkles(initializeStars())
-
-    const interval = setInterval(() => {
-      setSparkles((currentSparkles) => {
-        return currentSparkles.map((sparkle) => {
-          if (sparkle.lifespan <= 0) {
-            return generateStar()
-          }
-          return {
-            ...sparkle,
-            lifespan: sparkle.lifespan - 0.1,
-          }
-        })
-      })
-    }, 100)
-
-    return () => clearInterval(interval)
-  }, [sparklesCount, colors.first, colors.second])
+        duration: 2 + Math.random() * 3,
+      })),
+    [sparklesCount, colors.first, colors.second],
+  )
 
   return (
     <div className={cn('relative inline-block', className)}>
       <span className="relative z-10 inline-block">{children}</span>
       <span className="pointer-events-none absolute inset-0">
-        {sparkles.map((sparkle) => (
-          <Sparkle key={sparkle.id} {...sparkle} />
+        {sparkles.map((s, i) => (
+          <Sparkle key={i} {...s} />
         ))}
       </span>
     </div>
   )
 }
 
-function Sparkle({ x, y, color, delay, scale }: Sparkle) {
+function Sparkle({ x, y, color, delay, scale, duration }: SparkleData) {
   return (
     <span
-      className="pointer-events-none absolute animate-sparkle"
+      className="pointer-events-none absolute"
       style={
         {
           left: x,
           top: y,
-          '--sparkle-delay': `${delay}s`,
-          '--sparkle-scale': scale,
           transform: 'translate(-50%, -50%)',
+          animation: `sparkle-fade ${duration}s ${delay}s ease-in-out infinite`,
         } as CSSProperties
       }
     >
@@ -102,10 +75,10 @@ function Sparkle({ x, y, color, delay, scale }: Sparkle) {
         viewBox="0 0 21 21"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="animate-sparkle-rotate"
         style={
           {
-            animationDelay: `${delay}s`,
+            animation: `sparkle-spin ${duration * 1.5}s ${delay}s linear infinite`,
+            transform: `scale(${scale})`,
           } as CSSProperties
         }
       >

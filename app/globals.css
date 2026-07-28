@@ -264,33 +264,14 @@ a {
   transition: all 0.3s ease-out;
 }
 
-/* Sparkles animation */
-@keyframes sparkle {
-  0%, 100% {
-    opacity: 0;
-    scale: 0;
-  }
-  50% {
-    opacity: 1;
-    scale: var(--sparkle-scale, 1);
-  }
+/* Sparkles animation (pure CSS, no JS timers) */
+@keyframes sparkle-fade {
+  0%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 }
 
-@keyframes sparkle-rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(180deg);
-  }
-}
-
-.animate-sparkle {
-  animation: sparkle 2s ease-in-out var(--sparkle-delay, 0s) infinite;
-}
-
-.animate-sparkle-rotate {
-  animation: sparkle-rotate 2s linear infinite;
+@keyframes sparkle-spin {
+  to { transform: rotate(360deg); }
 }
 
 /* Orbiting animation */
