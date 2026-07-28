@@ -19,7 +19,7 @@ export default function AcademyTestimonialsSection() {
 
         <Script
           src="https://widget.senja.io/widget/dbb797c0-9c9f-491d-8b35-7bb197153711/platform.js"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
       </div>
     </section>

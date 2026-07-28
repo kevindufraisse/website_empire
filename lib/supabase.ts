@@ -1,14 +1,27 @@
-import { createClient } from '@supabase/supabase-js'
+import { createClient, SupabaseClient } from '@supabase/supabase-js'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-const supabaseSecretKey = process.env.SUPABASE_SECRET_KEY!
+// Lazy init so importing this module never crashes at build time
+// (page-data collection runs without env vars locally).
+function lazyClient(factory: () => SupabaseClient): SupabaseClient {
+  let client: SupabaseClient | null = null
+  return new Proxy({} as SupabaseClient, {
+    get(_target, prop) {
+      if (!client) client = factory()
+      const value = (client as any)[prop]
+      return typeof value === 'function' ? value.bind(client) : value
+    },
+  })
+}
 
 // Client-side (anon - used in browser)
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+export const supabase = lazyClient(() =>
+  createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!)
+)
 
 // Server-side only (service role - bypasses RLS, never import this client-side)
-export const supabaseAdmin = createClient(supabaseUrl, supabaseSecretKey)
+export const supabaseAdmin = lazyClient(() =>
+  createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SECRET_KEY!)
+)
 
 export type ApplicationStatus = 'new' | 'contacted' | 'accepted' | 'rejected'
 

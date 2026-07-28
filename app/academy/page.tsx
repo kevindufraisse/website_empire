@@ -1,4 +1,5 @@
 import AcademyHeroSection from '@/components/sections/AcademyHeroSection'
+import AcademyHowItWorksSection from '@/components/sections/AcademyHowItWorksSection'
 import AcademyTwoPathsSection from '@/components/sections/AcademyTwoPathsSection'
 import AcademyProgramSection from '@/components/sections/AcademyProgramSection'
 import AcademyProofStrip from '@/components/sections/AcademyProofStrip'
@@ -6,7 +7,6 @@ import AcademyTestimonialsSection from '@/components/sections/AcademyTestimonial
 import AcademyWhoSection from '@/components/sections/AcademyWhoSection'
 import AcademyPricingSection from '@/components/sections/AcademyPricingSection'
 import AcademyFAQSection from '@/components/sections/AcademyFAQSection'
-import AcademyStickyBar from '@/components/sections/AcademyStickyBar'
 import AcademySocialProofToast from '@/components/sections/AcademySocialProofToast'
 
 export const metadata = {
@@ -19,6 +19,9 @@ export default function AcademyPage() {
     <main className="relative">
       {/* Hero */}
       <AcademyHeroSection />
+
+      {/* Comment ça marche */}
+      <AcademyHowItWorksSection />
 
       {/* 2 voies */}
       <AcademyTwoPathsSection />
@@ -41,8 +44,6 @@ export default function AcademyPage() {
       {/* FAQ */}
       <AcademyFAQSection />
 
-      {/* Sticky CTA */}
-      <AcademyStickyBar />
 
       {/* Toast candidatures */}
       <AcademySocialProofToast />

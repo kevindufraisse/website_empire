@@ -25,27 +25,37 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 export default function TestimonialsSection() {
   const { t } = useLanguage()
   const { autopilot } = useAutopilot()
+  const sectionRef = useRef<HTMLElement | null>(null)
 
   useEffect(() => {
-    // Load Senja script
-    const script = document.createElement('script')
-    script.src = 'https://widget.senja.io/widget/a7bf7e4a-0f3b-4751-8190-849f83d16306/platform.js'
-    script.type = 'text/javascript'
-    script.async = true
-    document.body.appendChild(script)
+    if (autopilot) return
+    const el = sectionRef.current
+    if (!el) return
+
+    let script: HTMLScriptElement | null = null
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries[0].isIntersecting || script) return
+        script = document.createElement('script')
+        script.src = 'https://widget.senja.io/widget/a7bf7e4a-0f3b-4751-8190-849f83d16306/platform.js'
+        script.async = true
+        document.body.appendChild(script)
+        observer.disconnect()
+      },
+      { rootMargin: '600px' }
+    )
+    observer.observe(el)
 
     return () => {
-      // Cleanup script on unmount
-      if (script.parentNode) {
-        script.parentNode.removeChild(script)
-      }
+      observer.disconnect()
+      if (script?.parentNode) script.parentNode.removeChild(script)
     }
-  }, [])
+  }, [autopilot])
 
   if (autopilot) return null
 
   return (
-    <section className="relative w-full py-20 md:py-32 overflow-hidden bg-gradient-to-b from-black via-[#0f0f0f] to-black">
+    <section ref={sectionRef} className="relative w-full py-20 md:py-32 overflow-hidden bg-gradient-to-b from-black via-[#0f0f0f] to-black">
       <DotPattern className="opacity-60" width={20} height={20} cr={1.5} />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgba(123,224,255,0.08),transparent)]" />
       <div className="container">

@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { X, Loader2, ArrowRight, Clock, EuroIcon } from 'lucide-react'
 import { SocialIcons } from '@/components/ui/social-icons'
 import OnboardingLink from '@/components/OnboardingLink'
@@ -107,8 +108,11 @@ export default function ViralPostsOverlay() {
   const [stats, setStats] = useState<StatsPayload | null>(null)
   const [error, setError] = useState<string | null>(null)
   const { autopilot } = useAutopilot()
+  const pathname = usePathname()
+  const hidden = pathname?.startsWith('/academy')
 
   useEffect(() => {
+    if (hidden) return
     const onKey = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement
       const typing = target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable
@@ -119,7 +123,7 @@ export default function ViralPostsOverlay() {
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [])
+  }, [hidden])
 
   useEffect(() => {
     if (!open || stats) return
@@ -135,6 +139,8 @@ export default function ViralPostsOverlay() {
 
   const month = stats?.month
   const platforms = month ? PLATFORM_ORDER.filter((p) => (month.platforms[p]?.impressions ?? 0) >= 10_000) : []
+
+  if (hidden) return null
 
   if (!open) {
     return <StatsButton onClick={() => setOpen(true)} />
