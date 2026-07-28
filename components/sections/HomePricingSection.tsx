@@ -2,13 +2,20 @@
 
 import { useRef, useEffect, useState } from 'react'
 import Link from 'next/link'
-import { motion, useInView } from 'framer-motion'
-import { Check, Scissors, CalendarCheck, ShieldCheck, Minus, Plus, ChevronDown, MessageCircle, GraduationCap } from 'lucide-react'
+import { AnimatePresence, motion, useInView } from 'framer-motion'
+import {
+  Check, Scissors, Minus, Plus, ChevronDown, MessageCircle, GraduationCap,
+  FileText, Video, Mail, ImageIcon, Palette, Globe, Bot, Share2, Users, Zap,
+  UserPlus, CalendarPlus, Compass, Mic, Send, Sparkles, Code2, UserCheck,
+  HeadphonesIcon, Handshake, type LucideIcon,
+} from 'lucide-react'
 import posthog from 'posthog-js'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { useAutopilot } from '@/contexts/AutopilotContext'
 import { trackAmplitude, withAmplitudeDeviceId } from '@/lib/amplitude'
 import { fetchFlashPromo, formatCountdown } from '@/lib/flash-promo'
-import { useAcademyPricing } from '@/hooks/useAcademyPricing'
+import { ACADEMY_ENTRY_PRICE } from '@/lib/cohort-config'
+import WhyEmpireCompact from '@/components/sections/WhyEmpireCompact'
 
 const APP_ONBOARDING_URL = 'https://app.empire-internet.com/onboarding'
 
@@ -41,18 +48,84 @@ const PLANS: Plan[] = [
   { id: 'scale', price: 799, credits: 12000, contents: '~177' },
 ]
 
-const ALL_PLANS_FEATURES: { fr: string; en: string }[] = [
-  { fr: 'Tous les formats (posts, reels, newsletters, YouTube, carrousels)', en: 'All formats (posts, reels, newsletters, YouTube, carousels)' },
-  { fr: 'Veille quotidienne des sujets viraux', en: 'Daily viral topic detection' },
-  { fr: 'Montage humain de vos vidéos', en: 'Human video editing' },
-  { fr: 'Relecture & corrections avant livraison', en: 'Proofreading & corrections before delivery' },
-  { fr: 'Miniatures personnalisées', en: 'Custom thumbnails' },
-  { fr: 'Publication sur 7 réseaux', en: 'Publishing to 7 networks' },
-  { fr: 'Analytics & CRM leads', en: 'Analytics & lead CRM' },
-  { fr: 'API & intégrations', en: 'API & integrations' },
-  { fr: 'Cerveau Empire — mémoire IA', en: 'Empire Brain — AI memory' },
-  { fr: 'Communauté Slack', en: 'Slack community' },
+type PlanFeature = { fr: string; en: string; on?: false }
+
+// Identical whatever the pack — only the credit volume moves.
+const PLAN_BASE_FEATURES: PlanFeature[] = [
+  { fr: '4 sessions d\'enregistrement par mois', en: '4 recording sessions per month' },
+  { fr: 'Les 7 réseaux inclus', en: 'All 7 networks included' },
+  { fr: 'Support prioritaire sous 4h', en: 'Priority support within 4h' },
 ]
+
+const REPLAYS: PlanFeature = { fr: 'Replays masterclass (valeur 197€)', en: 'Masterclass replays (€197 value)' }
+const LIVES: PlanFeature = { fr: 'Lives hebdomadaires', en: 'Weekly live sessions' }
+const REVIEW: PlanFeature = { fr: 'Revue stratégique mensuelle (retours Loom)', en: 'Monthly strategy review (Loom feedback)' }
+
+// What actually changes from one pack to the next. `on: false` renders as excluded.
+const PLAN_FEATURES: Record<PlanId, PlanFeature[]> = {
+  starter: [...PLAN_BASE_FEATURES, { ...REPLAYS, on: false }, { ...LIVES, on: false }, { ...REVIEW, on: false }],
+  growth: [...PLAN_BASE_FEATURES, REPLAYS, LIVES, { ...REVIEW, on: false }],
+  scale: [...PLAN_BASE_FEATURES, REPLAYS, LIVES, REVIEW],
+}
+
+type DetailFeature = { fr: string; en: string; descFr: string; descEn: string; icon: LucideIcon; badge?: string }
+type Pillar = { id: string; labelFr: string; labelEn: string; icon: LucideIcon; features: DetailFeature[] }
+
+// Every feature of the offer, grouped the way a buyer reads them. Lives here so
+// the full list is one click from the price instead of a separate section.
+const PILLARS: Pillar[] = [
+  {
+    id: 'contenu',
+    labelFr: 'Contenu',
+    labelEn: 'Content',
+    icon: Sparkles,
+    features: [
+      { fr: 'Posts LinkedIn', en: 'LinkedIn posts', descFr: 'Rédigés, optimisés et planifiés. Ajout automatique de vos lead magnets.', descEn: 'Written, optimized, scheduled. Auto-embed your lead magnets.', icon: FileText },
+      { fr: 'Reels & Shorts', en: 'Reels & Shorts', descFr: 'Hooks, sous-titres et transitions. Option sans caméra.', descEn: 'Hooks, subtitles and transitions. No-camera option.', icon: Video },
+      { fr: 'Newsletters', en: 'Newsletters', descFr: 'Qui sonnent comme vous, en mieux.', descEn: 'Sound like you, but better.', icon: Mail },
+      { fr: 'Carrousels', en: 'Carousels', descFr: 'Générés depuis vos posts pour LinkedIn + Instagram.', descEn: 'Generated from your posts for LinkedIn + Instagram.', icon: ImageIcon },
+      { fr: 'Miniatures', en: 'Thumbnails', descFr: 'Créées pour Instagram, YouTube et LinkedIn.', descEn: 'Made for Instagram, YouTube and LinkedIn.', icon: ImageIcon },
+      { fr: 'Personnalisation complète', en: 'Full customization', descFr: 'Sous-titres (45 styles), transitions, vos couleurs, vos b-rolls, votre branding.', descEn: 'Subtitles (45 styles), transitions, your colors, your b-rolls, your branding.', icon: Palette },
+      { fr: 'Multilingue : FR, EN, ES', en: 'Multilingual: FR, EN, ES', descFr: 'Tous vos contenus dans 3 langues.', descEn: 'All your content in 3 languages.', icon: Globe },
+      { fr: 'Cerveau Empire', en: 'Empire Brain', descFr: 'Nos agents IA trouvent les sujets les plus viraux de votre niche.', descEn: 'Our AI agents find the most viral topics in your niche.', icon: Bot },
+      { fr: 'Montage humain', en: 'Human editing', descFr: 'De vrais monteurs découpent vos vidéos et relisent chaque contenu.', descEn: 'Real editors cut your videos and proofread every piece.', icon: Scissors },
+    ],
+  },
+  {
+    id: 'distribution',
+    labelFr: 'Distribution',
+    labelEn: 'Distribution',
+    icon: Send,
+    features: [
+      { fr: '7 réseaux en même temps', en: '7 platforms at once', descFr: 'LinkedIn, Instagram, TikTok, YouTube, X, Threads, Facebook.', descEn: 'LinkedIn, Instagram, TikTok, YouTube, X, Threads, Facebook.', icon: Share2 },
+      { fr: 'Publiez en 1 clic', en: 'Publish in 1 click', descFr: 'Tout est prêt dans votre calendrier, aux bons horaires.', descEn: 'Everything ready in your calendar, at the right times.', icon: CalendarPlus },
+      { fr: 'Employee Advocacy', en: 'Employee advocacy', descFr: 'Faites publier vos employés automatiquement.', descEn: 'Get your employees publishing automatically.', icon: Users },
+      { fr: 'Idées via Telegram', en: 'Ideas via Telegram', descFr: 'Envoyez une idée depuis Telegram, retrouvez-la dans Empire.', descEn: 'Send an idea from Telegram, find it in Empire.', icon: MessageCircle, badge: 'NEW' },
+      { fr: 'Multi-comptes', en: 'Multi-account', descFr: 'Compte perso + entreprise, plusieurs marques sur la même plateforme.', descEn: 'Personal + business, multiple brands on the same platform.', icon: Users },
+      { fr: '+10 tunnels de conversion', en: '10+ conversion funnels', descFr: 'N8N, Make, ManyChat — prêts à dupliquer.', descEn: 'N8N, Make, ManyChat — ready to duplicate.', icon: Zap },
+      { fr: 'Substack & Skool automatiques', en: 'Auto Substack & Skool', descFr: 'Vos contenus publiés aussi sur Substack et dans votre communauté Skool.', descEn: 'Your content also published on Substack and in your Skool community.', icon: Mail },
+      { fr: 'Analytics & CRM leads', en: 'Analytics & lead CRM', descFr: 'Liens trackés et suivi des leads générés par chaque contenu.', descEn: 'Tracked links and follow-up on the leads each piece generates.', icon: Zap },
+      { fr: 'API & intégrations', en: 'API & integrations', descFr: 'Connectez Empire à Notion, Airtable, Google Drive.', descEn: 'Connect Empire to Notion, Airtable, Google Drive.', icon: Code2 },
+    ],
+  },
+  {
+    id: 'accompagnement',
+    labelFr: 'Accompagnement',
+    labelEn: 'Support',
+    icon: HeadphonesIcon,
+    features: [
+      { fr: '4 sessions d\'enregistrement par mois', en: '4 recording sessions per month', descFr: 'Vous parlez, on transforme. C\'est la seule chose qu\'on vous demande.', descEn: 'You talk, we transform. The only thing we ask of you.', icon: Mic },
+      { fr: 'Équipe humaine dédiée', en: 'Dedicated human team', descFr: 'De vrais humains créent et vérifient chaque contenu avant livraison.', descEn: 'Real humans create and check every piece before delivery.', icon: UserCheck },
+      { fr: 'Support prioritaire sous 4h', en: 'Priority support within 4h', descFr: 'Une question, une correction : réponse le jour même.', descEn: 'A question, a fix: same-day answer.', icon: HeadphonesIcon },
+      { fr: 'Communauté privée Slack', en: 'Private Slack community', descFr: 'Réseau de fondateurs et de créateurs.', descEn: 'Founder and creator network.', icon: Users, badge: 'DÈS GROWTH' },
+      { fr: 'Lives hebdomadaires', en: 'Weekly live sessions', descFr: 'Sessions collectives pour progresser sur vos formats.', descEn: 'Group sessions to sharpen your formats.', icon: Mic, badge: 'DÈS GROWTH' },
+      { fr: 'Replays masterclass', en: 'Masterclass replays', descFr: 'Tout le système Empire en vidéo (valeur 197€).', descEn: 'The whole Empire system on video (€197 value).', icon: GraduationCap, badge: 'DÈS GROWTH' },
+      { fr: 'Revue stratégique mensuelle', en: 'Monthly strategy review', descFr: 'Vos retours et vos axes d\'amélioration en vidéo Loom.', descEn: 'Your feedback and improvement areas as a Loom video.', icon: Compass, badge: 'DÈS SCALE' },
+    ],
+  },
+]
+
+const TOTAL_FEATURES = PILLARS.reduce((n, p) => n + p.features.length, 0)
 
 function volumeDiscount(seats: number): number {
   if (seats >= 10) return 0.20
@@ -79,14 +152,13 @@ function planUrl(planId: PlanId, billing: BillingId, seats: number): string {
 
 export default function HomePricingSection() {
   const { lang } = useLanguage()
+  const { autopilot } = useAutopilot()
   const fr = lang === 'fr'
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
   const viewedRef = useRef(false)
 
-  const academyPricing = useAcademyPricing()
-
-  const [billing] = useState<BillingId>('yearly')
+  const [billing, setBilling] = useState<BillingId>('yearly')
   const [selectedTier, setSelectedTier] = useState<PlanId>('growth')
   const [seats, setSeats] = useState(1)
   const [showSeats, setShowSeats] = useState(false)
@@ -157,6 +229,9 @@ export default function HomePricingSection() {
   const discount = combinedDiscount(billing, seats)
   const discountPct = Math.round(discount * 100)
 
+  // Done-for-you is application-only: no self-serve pricing.
+  if (autopilot) return null
+
   return (
     <section ref={ref} id="pricing" className="relative w-full py-20 md:py-28 bg-[#0a0a0a]">
       <div className="container">
@@ -202,78 +277,9 @@ export default function HomePricingSection() {
           )}
         </motion.div>
 
-        <div className="mt-10 grid gap-6 lg:grid-cols-3 max-w-6xl mx-auto items-stretch">
+        <div className="mt-10 max-w-xl mx-auto">
 
-          {/* ── Card 1: Devenez Head of Virality (Academy) ── */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
-            className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 lg:p-8 flex flex-col"
-          >
-            <div className="flex items-center gap-2">
-              <GraduationCap size={20} className="text-empire" />
-              <h3 className="text-lg font-bold">{fr ? 'Devenez Head of Virality' : 'Become Head of Virality'}</h3>
-            </div>
-            <p className="mt-1 text-sm text-neutral-400">
-              {fr ? 'Apprenez à le faire vous-même' : 'Learn to do it yourself'}
-            </p>
-
-            <div className="mt-6 flex flex-wrap items-baseline gap-2">
-              <span className="text-4xl font-extrabold tabular-nums">{academyPricing.price}€</span>
-              <span className="text-sm text-neutral-400">{fr ? 'paiement unique' : 'one-time'}</span>
-            </div>
-            <p className="mt-1 text-[11px] text-neutral-500">
-              {fr ? 'ou 3x 165€' : 'or 3x €165'}
-            </p>
-
-            <div className="my-5 h-px bg-white/10" />
-
-            <ul className="space-y-2 flex-1">
-              {(fr
-                ? [
-                    'Accès à Empire Alpha — posts + Shorts générés',
-                    '21 défis quotidiens pour lancer votre marque',
-                    '6 masterclass lives (viralité, IA, monétisation)',
-                    'Pod LinkedIn — le groupe engage sur vos posts',
-                    'Certification officielle (Bronze, Argent, Or)',
-                    'Premier client garanti après 3 mois*',
-                  ]
-                : [
-                    'Access to Empire Alpha — posts + Shorts generated',
-                    '21 daily challenges to launch your brand',
-                    '6 live masterclasses (virality, AI, monetization)',
-                    'LinkedIn Pod — the group engages on your posts',
-                    'Official certification (Bronze, Silver, Gold)',
-                    'First client guaranteed after 3 months*',
-                  ]
-              ).map((f) => (
-                <li key={f} className="flex items-start gap-2 text-[13px] text-neutral-300">
-                  <Check size={14} className="mt-0.5 shrink-0 text-empire" />
-                  {f}
-                </li>
-              ))}
-            </ul>
-
-            <Link
-              href="/academy"
-              target="_blank"
-              onClick={() => {
-                trackAmplitude('pricing_academy_click', { price: academyPricing.price, location: 'home' })
-                if (posthog.__loaded) posthog.capture('pricing_academy_click', { price: academyPricing.price }, { transport: 'sendBeacon' })
-              }}
-              className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-4 py-3.5 text-center text-sm font-bold text-white transition-all hover:brightness-110 hover:bg-white/10"
-            >
-              {fr ? 'Découvrir l\'Academy' : 'Discover the Academy'}
-            </Link>
-            {academyPricing.isUrgent && (
-              <p className="text-center text-[11px] text-empire font-bold mt-2 animate-pulse">
-                {fr ? `Le prix augmente dans ${academyPricing.countdown}` : `Price increases in ${academyPricing.countdown}`}
-              </p>
-            )}
-          </motion.div>
-
-          {/* ── Card 2: Créez votre marque (merged Créateur + Équipe) ── */}
+          {/* ── Créez votre marque — the only self-serve offer ── */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -295,8 +301,36 @@ export default function HomePricingSection() {
               {fr ? 'On le fait avec vous' : 'We do it with you'}
             </p>
 
-            {/* Volume dropdown */}
+            {/* Billing period */}
             <p className="mt-5 text-[11px] font-semibold uppercase tracking-wide text-neutral-500">
+              {fr ? 'Facturation' : 'Billing'}
+            </p>
+            <div className="mt-2 flex rounded-xl border border-white/10 bg-neutral-900 p-1">
+              {BILLING_PERIODS.map((p) => {
+                const active = p.id === billing
+                return (
+                  <button
+                    key={p.id}
+                    type="button"
+                    onClick={() => setBilling(p.id)}
+                    aria-pressed={active}
+                    className={`flex flex-1 items-center justify-center gap-1.5 rounded-lg px-2 py-2 text-[12px] font-semibold transition-colors ${
+                      active ? 'bg-empire text-black' : 'text-neutral-400 hover:text-white'
+                    }`}
+                  >
+                    {fr ? p.labelFr : p.labelEn}
+                    {p.discount > 0 && (
+                      <span className={active ? 'text-black/70' : 'text-empire'}>
+                        -{Math.round(p.discount * 100)}%
+                      </span>
+                    )}
+                  </button>
+                )
+              })}
+            </div>
+
+            {/* Volume dropdown */}
+            <p className="mt-4 text-[11px] font-semibold uppercase tracking-wide text-neutral-500">
               {fr ? 'Volume mensuel' : 'Monthly volume'}
             </p>
             <div ref={dropRef} className="relative mt-2">
@@ -399,20 +433,28 @@ export default function HomePricingSection() {
 
             <div className="my-5 h-px bg-white/10" />
 
-            {/* Features: conditional on seats */}
-            <ul className="space-y-2 flex-1">
+            {/* What this pack gets you */}
+            <p className="text-[11px] font-semibold uppercase tracking-wide text-neutral-500 mb-3">
+              {fr ? 'Dans ce pack' : 'In this pack'}
+            </p>
+            <ul className="space-y-2">
               <li className="flex items-start gap-2 text-[13px] text-neutral-300">
                 <Check size={14} className="mt-0.5 shrink-0 text-empire" />
-                {fr ? 'Tout inclus (voir ci-dessous)' : 'Everything included (see below)'}
+                {fr
+                  ? `${plan.credits.toLocaleString('fr-FR')} crédits — environ ${plan.contents} contenus par mois`
+                  : `${plan.credits.toLocaleString('en-US')} credits — about ${plan.contents} pieces per month`}
               </li>
-              <li className={`flex items-start gap-2 text-[13px] ${selectedTier === 'starter' ? 'text-neutral-600' : 'text-neutral-300'}`}>
-                {selectedTier === 'starter' ? <Minus size={14} className="mt-0.5 shrink-0" /> : <Check size={14} className="mt-0.5 shrink-0 text-empire" />}
-                {fr ? 'Replays masterclass (valeur 197€)' : 'Masterclass replays (€197 value)'}
-              </li>
-              <li className={`flex items-start gap-2 text-[13px] ${selectedTier === 'starter' ? 'text-neutral-600' : 'text-neutral-300'}`}>
-                {selectedTier === 'starter' ? <Minus size={14} className="mt-0.5 shrink-0" /> : <Check size={14} className="mt-0.5 shrink-0 text-empire" />}
-                {fr ? 'Live sessions hebdomadaires' : 'Weekly live sessions'}
-              </li>
+              {PLAN_FEATURES[selectedTier].map((f) => (
+                <li
+                  key={f.en}
+                  className={`flex items-start gap-2 text-[13px] ${f.on === false ? 'text-neutral-600' : 'text-neutral-300'}`}
+                >
+                  {f.on === false
+                    ? <Minus size={14} className="mt-0.5 shrink-0" />
+                    : <Check size={14} className="mt-0.5 shrink-0 text-empire" />}
+                  {fr ? f.fr : f.en}
+                </li>
+              ))}
               {seats > 1 && (
                 <>
                   <li className="flex items-start gap-2 text-[13px] text-neutral-300">
@@ -425,18 +467,10 @@ export default function HomePricingSection() {
                   </li>
                   <li className="flex items-start gap-2 text-[13px] text-neutral-300">
                     <Check size={14} className="mt-0.5 shrink-0 text-empire" />
-                    {fr ? 'Onboarding personnalisé' : 'Personalized onboarding'}
-                  </li>
-                  <li className="flex items-start gap-2 text-[13px] text-neutral-300">
-                    <Check size={14} className="mt-0.5 shrink-0 text-empire" />
-                    {fr ? 'Facturation sur mesure' : 'Custom billing'}
+                    {fr ? 'Onboarding personnalisé et facturation sur mesure' : 'Personalized onboarding and custom billing'}
                   </li>
                 </>
               )}
-              <li className={`flex items-start gap-2 text-[13px] ${selectedTier !== 'scale' && seats <= 1 ? 'text-neutral-600' : 'text-neutral-300'}`}>
-                {selectedTier !== 'scale' && seats <= 1 ? <Minus size={14} className="mt-0.5 shrink-0" /> : <Check size={14} className="mt-0.5 shrink-0 text-empire" />}
-                {fr ? 'Support prioritaire' : 'Priority support'}
-              </li>
             </ul>
 
             <a
@@ -446,7 +480,7 @@ export default function HomePricingSection() {
                 trackAmplitude('pricing_plan_click', props)
                 if (posthog.__loaded) posthog.capture('pricing_plan_click', props, { transport: 'sendBeacon' })
               }}
-              className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-empire px-4 py-3.5 text-center text-sm font-bold text-black transition-all hover:brightness-110"
+              className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-empire px-4 py-3.5 text-center text-sm font-bold text-black transition-all hover:brightness-110"
             >
               {fr ? 'Démarrer l\u2019essai gratuit' : 'Start free trial'}
             </a>
@@ -455,166 +489,197 @@ export default function HomePricingSection() {
             </p>
           </motion.div>
 
-          {/* ── Card 3: On la crée pour vous (done-for-you) ── */}
+          {/* Secondary paths: learn it, or delegate everything */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.3, ease: 'easeOut' }}
-            className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 lg:p-8 flex flex-col"
+            transition={{ duration: 0.5, delay: 0.3, ease: 'easeOut' }}
+            className="mt-5 grid gap-3 sm:grid-cols-2"
           >
-            <h3 className="text-lg font-bold">{fr ? 'On la crée pour vous' : 'We build it for you'}</h3>
-            <p className="mt-1 text-sm text-neutral-400">
-              {fr
-                ? 'Kevin Dufraisse crée votre marque de A à Z. Vous ne vous occupez de rien.'
-                : 'Kevin Dufraisse builds your brand from A to Z. You handle nothing.'}
-            </p>
-
-            <div className="mt-6 flex flex-wrap items-baseline gap-2">
-              <span className="text-4xl font-extrabold">{fr ? 'Sur mesure' : 'Custom'}</span>
-            </div>
-            <div className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-orange-500/10 border border-orange-500/30 px-3 py-1 self-start">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-400" />
+            <Link
+              href="/academy"
+              target="_blank"
+              onClick={() => {
+                trackAmplitude('pricing_academy_click', { price: ACADEMY_ENTRY_PRICE, location: 'home' })
+                if (posthog.__loaded) posthog.capture('pricing_academy_click', { price: ACADEMY_ENTRY_PRICE }, { transport: 'sendBeacon' })
+              }}
+              className="group flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3.5 transition-all hover:border-academy/40 hover:bg-white/[0.04]"
+            >
+              <GraduationCap size={18} className="shrink-0 text-academy" />
+              <span className="min-w-0">
+                <span className="block text-[13px] font-bold text-white">Academy</span>
+                <span className="block text-[11px] text-neutral-500">
+                  {fr
+                    ? `Apprendre à le faire · dès ${ACADEMY_ENTRY_PRICE}€`
+                    : `Learn to do it · from €${ACADEMY_ENTRY_PRICE}`}
+                </span>
               </span>
-              <span className="text-[11px] font-bold text-orange-400">
-                {fr ? '10 places disponibles' : '10 spots available'}
-              </span>
-            </div>
-
-            <div className="my-5 h-px bg-white/10" />
-
-            <ul className="space-y-2 flex-1">
-              {(fr
-                ? [
-                    'Stratégie de marque complète par Kevin',
-                    'Création de contenu 100% done-for-you',
-                    'Volume de crédits sur mesure',
-                    'Account manager dédié',
-                    'Onboarding personnalisé',
-                    'Intégrations & API avancées',
-                    'SLA & support prioritaire',
-                  ]
-                : [
-                    'Full brand strategy by Kevin',
-                    '100% done-for-you content creation',
-                    'Custom credit volume',
-                    'Dedicated account manager',
-                    'Personalized onboarding',
-                    'Advanced integrations & API',
-                    'SLA & priority support',
-                  ]
-              ).map((f) => (
-                <li key={f} className="flex items-start gap-2 text-[13px] text-neutral-300">
-                  <Check size={14} className="mt-0.5 shrink-0 text-empire" />
-                  {f}
-                </li>
-              ))}
-            </ul>
+            </Link>
 
             <Link
               href="/join-us"
-              className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-4 py-3.5 text-center text-sm font-bold text-white transition-all hover:brightness-110 hover:bg-white/10"
+              className="group flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3.5 transition-all hover:border-autopilot/40 hover:bg-white/[0.04]"
             >
-              <MessageCircle size={15} />
-              {fr ? 'Contactez-nous' : 'Contact us'}
+              <MessageCircle size={18} className="shrink-0 text-autopilot" />
+              <span className="min-w-0">
+                <span className="block text-[13px] font-bold text-white">
+                  {fr ? 'Légende' : 'Legend'}
+                </span>
+                <span className="block text-[11px] text-neutral-500">
+                  {fr ? 'Déléguer à 100% · 10 places, sur sélection' : 'Delegate 100% · 10 spots, application only'}
+                </span>
+              </span>
             </Link>
           </motion.div>
         </div>
 
-        {/* Inclus dans tous les plans */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.35, ease: 'easeOut' }}
-          className="mt-6 max-w-6xl mx-auto rounded-2xl border border-white/10 bg-white/[0.02] px-6 py-5"
+          className="mt-6"
         >
-          <p className="text-sm font-bold text-white mb-3">
-            {fr ? 'Inclus dans tous les plans :' : 'Included in every plan:'}
-          </p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-4 gap-y-2">
-            {ALL_PLANS_FEATURES.map((f) => (
-              <div key={f.fr} className="flex items-start gap-1.5 text-[12px] text-neutral-400">
-                <Check size={12} className="mt-0.5 shrink-0 text-empire" />
-                {fr ? f.fr : f.en}
-              </div>
-            ))}
-          </div>
+          <AllFeatures fr={fr} />
         </motion.div>
 
-        {/* What happens next */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.25, ease: 'easeOut' }}
-          className="mt-14 max-w-6xl mx-auto"
-        >
-          <h3 className="text-center text-lg font-bold mb-8">
-            {fr ? 'Comment ça se passe ?' : 'What happens next?'}
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {([
-              { step: 1, fr: 'Créez votre compte et connectez vos réseaux', en: 'Create your account and connect your channels' },
-              { step: 2, fr: 'On identifie les sujets viraux de votre niche chaque jour', en: 'We find the viral topics in your niche every day' },
-              { step: 3, fr: 'Vous enregistrez 7 sujets en 15 min', en: 'You record 7 topics in 15 min' },
-              { step: 4, fr: 'Notre équipe produit et ajoute vos contenus — vous publiez en 1 clic', en: 'Our team produces and delivers your content — you publish in 1 click' },
-            ] as const).map((s) => (
-              <div key={s.step} className="flex flex-col items-center text-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-empire/15 text-sm font-bold text-empire">
-                  {s.step}
-                </div>
-                <p className="text-sm text-neutral-300 leading-relaxed">{fr ? s.fr : s.en}</p>
-              </div>
-            ))}
-          </div>
-        </motion.div>
+        <WhyEmpireCompact />
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6, delay: 0.3, ease: 'easeOut' }}
-          className="mt-8 text-center"
-        >
-          <a
-            href="#features"
-            className="inline-flex items-center gap-1.5 text-sm font-semibold text-empire hover:underline"
-          >
-            {fr ? 'Explorer tout ce qui est inclus ↓' : 'Explore everything included ↓'}
-          </a>
-        </motion.div>
-
-        {/* Human team reassurance strip */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.4, ease: 'easeOut' }}
-          className="mt-10 grid gap-4 sm:grid-cols-3 max-w-6xl mx-auto"
-        >
-          {([
-            {
-              icon: Scissors,
-              textFr: 'Notre équipe découpe et monte vos Reels, rédige vos posts LinkedIn et vos newsletters.',
-              textEn: 'Our team cuts and edits your Reels, writes your LinkedIn posts and newsletters.',
-            },
-            {
-              icon: CalendarCheck,
-              textFr: 'Vos contenus sont ajoutés à votre calendrier — vous publiez en 1 clic.',
-              textEn: 'Your content is added to your calendar — publish in 1 click.',
-            },
-            {
-              icon: ShieldCheck,
-              textFr: 'Chaque contenu est vérifié par des humains formés à la viralité.',
-              textEn: 'Every piece of content is verified by humans trained in virality.',
-            },
-          ] as const).map((item) => (
-            <div key={item.textEn} className="flex items-start gap-3 rounded-xl border border-white/8 bg-white/[0.03] px-4 py-3.5">
-              <item.icon size={18} className="mt-0.5 shrink-0 text-empire" />
-              <p className="text-sm text-neutral-300">{fr ? item.textFr : item.textEn}</p>
-            </div>
-          ))}
-        </motion.div>
+        <WhatHappensNext fr={fr} />
 
       </div>
     </section>
+  )
+}
+
+/**
+ * Full feature list, collapsed by default. Sits right under the price so the
+ * buyer never has to leave the pricing section to know what they get.
+ */
+function AllFeatures({ fr }: { fr: boolean }) {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <div className="max-w-4xl mx-auto overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02]">
+      <button
+        type="button"
+        onClick={() => {
+          setOpen((v) => !v)
+          if (!open) trackAmplitude('pricing_features_expand', { location: 'home' })
+        }}
+        aria-expanded={open}
+        className="flex w-full items-center gap-3 px-5 py-4 text-left transition-colors hover:bg-white/[0.03]"
+      >
+        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-empire/15 text-empire">
+          <Check size={16} />
+        </span>
+        <span className="min-w-0 flex-1">
+          <span className="block text-sm font-bold text-white">
+            {fr
+              ? `Tout ce qui est inclus — ${TOTAL_FEATURES} fonctionnalités`
+              : `Everything included — ${TOTAL_FEATURES} features`}
+          </span>
+          <span className="block text-[11px] text-neutral-500">
+            {fr
+              ? 'Le volume de contenus change selon le pack. Les mentions Growth et Scale indiquent le pack minimum.'
+              : 'Content volume depends on the pack. Growth and Scale tags mark the minimum pack.'}
+          </span>
+        </span>
+        <span className="flex shrink-0 items-center gap-1.5 text-[12px] font-semibold text-empire">
+          {open ? (fr ? 'Replier' : 'Collapse') : (fr ? 'Tout voir' : 'See all')}
+          <ChevronDown size={16} className={`transition-transform ${open ? 'rotate-180' : ''}`} />
+        </span>
+      </button>
+
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            key="features"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+          >
+            <div className="grid gap-6 border-t border-white/10 p-5 md:grid-cols-3">
+              {PILLARS.map((pillar) => (
+                <div key={pillar.id}>
+                  <div className="mb-3 flex items-center gap-2">
+                    <pillar.icon size={14} className="text-empire" />
+                    <h4 className="text-[11px] font-bold uppercase tracking-wider text-neutral-400">
+                      {fr ? pillar.labelFr : pillar.labelEn}
+                    </h4>
+                  </div>
+                  <ul className="space-y-3">
+                    {pillar.features.map((f) => (
+                      <li key={f.en} className="flex items-start gap-2.5">
+                        <f.icon size={14} className="mt-0.5 shrink-0 text-empire" />
+                        <span className="min-w-0">
+                          <span className="flex flex-wrap items-center gap-1.5">
+                            <span className="text-[13px] font-semibold text-white">{fr ? f.fr : f.en}</span>
+                            {f.badge && (
+                              <span className="rounded-full bg-empire/15 px-1.5 py-0.5 text-[9px] font-black uppercase leading-none tracking-wider text-empire">
+                                {f.badge}
+                              </span>
+                            )}
+                          </span>
+                          <span className="mt-0.5 block text-[11px] leading-relaxed text-neutral-500">
+                            {fr ? f.descFr : f.descEn}
+                          </span>
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
+
+/** Vertical timeline showing the first weeks after sign-up. */
+function WhatHappensNext({ fr }: { fr: boolean }) {
+  const steps = [
+    { icon: UserPlus, fr: 'Créez votre compte', en: 'Create your account' },
+    { icon: CalendarPlus, fr: 'Ajoutez le prochain live à votre calendrier', en: 'Add the next live to your calendar' },
+    { icon: Compass, fr: 'Explorez la plateforme', en: 'Explore the platform' },
+    { icon: Mic, fr: 'Enregistrez votre interview', en: 'Record your interview' },
+    { icon: Send, fr: 'Publiez sur 7 réseaux et soyez omniprésent', en: 'Publish on 7 networks and be everywhere' },
+    { icon: Handshake, fr: 'Recevez des RDVs et signez des clients', en: 'Get meetings and sign clients' },
+  ]
+
+  return (
+    <div className="mt-12 max-w-2xl mx-auto">
+      <h3 className="text-center text-xl md:text-2xl font-bold text-white">
+        {fr ? 'Et ensuite, il se passe quoi ?' : 'So what happens next?'}
+      </h3>
+
+      <ol className="relative mt-8 ml-4 border-l border-empire/30 pl-0">
+        {steps.map((step, i) => {
+          const isLast = i === steps.length - 1
+          return (
+            <li key={step.en} className={`relative pl-8 ${isLast ? 'pb-0' : 'pb-6'}`}>
+              {/* Dot on the timeline */}
+              <span
+                className={`absolute -left-[13px] top-0.5 flex h-[26px] w-[26px] items-center justify-center rounded-full ${
+                  isLast
+                    ? 'bg-empire text-black'
+                    : 'border border-empire/40 bg-empire/15 text-empire'
+                }`}
+              >
+                <step.icon size={13} />
+              </span>
+              <span className="block text-[10px] font-bold uppercase tracking-wider text-neutral-500">
+                {fr ? `Étape ${i + 1}` : `Step ${i + 1}`}
+              </span>
+              <span className={`block text-[14px] font-semibold ${isLast ? 'text-empire' : 'text-white'}`}>
+                {fr ? step.fr : step.en}
+              </span>
+            </li>
+          )
+        })}
+      </ol>
+    </div>
   )
 }

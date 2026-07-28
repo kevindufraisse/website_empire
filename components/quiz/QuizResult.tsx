@@ -4,7 +4,7 @@ import { motion, useMotionValue, useTransform, animate } from 'framer-motion'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import confetti from 'canvas-confetti'
-import { Check, Mail, Sparkles, ArrowRight, RotateCcw, Clock, Shield, Calendar, Users } from 'lucide-react'
+import { Mail, Sparkles, ArrowRight, RotateCcw, Clock, Shield, Users } from 'lucide-react'
 import {
   ARCHETYPES,
   getArchetypeIcons,
@@ -16,8 +16,8 @@ import {
   type RecommendedOffer,
   type ScoreBand,
 } from '@/lib/quiz-data'
-import { COHORT_RANGE_LONG } from '@/lib/cohort-config'
 import { useLanguage } from '@/contexts/LanguageContext'
+import LoomEmbed from '@/components/LoomEmbed'
 import QuizShareButtons from './QuizShareButtons'
 
 export interface QuizResultPayload {
@@ -527,39 +527,24 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
 
             <div className="relative">
               <p className={`text-[10px] uppercase tracking-[0.2em] font-black mb-2 ${offerColor.text}`}>
-                {offer.kicker}
+                {lang === 'fr' ? 'À regarder maintenant' : 'Watch this now'}
               </p>
               <h3 className="text-2xl sm:text-3xl font-black text-white mb-2 leading-tight">
-                {offer.title}
+                {lang === 'fr'
+                  ? 'Comment Empire fonctionne, en 20 minutes'
+                  : 'How Empire works, in 20 minutes'}
               </h3>
               <p className="text-neutral-200 text-[15px] mb-5 leading-relaxed">
-                {offer.pitch}
+                {lang === 'fr'
+                  ? <>{greeting}voici le système exact qu&apos;on installe chez nos clients pour transformer leur expertise en clients. Regardez-la avant de réserver votre appel.</>
+                  : <>{greeting}here&apos;s the exact system we install for our clients to turn their expertise into customers. Watch it before booking your call.</>
+                }
               </p>
 
-              <ul className="space-y-2 mb-6">
-                {offer.benefits.map((b, i) => (
-                  <motion.li
-                    key={b}
-                    initial={{ opacity: 0, x: -8 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 1.4 + i * 0.06 }}
-                    className="flex items-start gap-3 text-sm text-neutral-100"
-                  >
-                    <Check size={16} className={`${offerColor.text} mt-0.5 flex-shrink-0`} />
-                    <span>{b}</span>
-                  </motion.li>
-                ))}
-              </ul>
-
-              {(result.recommendedOffer === 'academy' || result.recommendedOffer === 'nurture') && (
-                <div className="flex items-center gap-2 mb-5 px-3 py-2 rounded-lg bg-amber-500/10 border border-amber-500/30">
-                  <Calendar size={14} className="text-amber-400 flex-shrink-0" />
-                  <p className="text-xs sm:text-sm text-amber-200">
-                    {lang === 'fr' ? 'Cohorte en cours : ' : 'Current cohort: '}
-                    <span className="font-bold text-amber-300">{COHORT_RANGE_LONG}</span>
-                  </p>
-                </div>
-              )}
+              <LoomEmbed
+                className="mb-6"
+                title={lang === 'fr' ? 'Comment Empire fonctionne' : 'How Empire works'}
+              />
 
               <Link
                 href={offer.cta.href}
@@ -617,18 +602,6 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
               </span>
             </Link>
           )}
-          {(result.recommendedOffer === 'academy' || result.recommendedOffer === 'nurture') && (
-            <Link
-              href="/vsl"
-              className="block text-center text-sm text-neutral-400 hover:text-empire transition mb-6"
-            >
-              {lang === 'fr' ? 'Voir comment Empire fonctionne en ' : 'See how Empire works in a '}
-              <span className="underline underline-offset-2">
-                {lang === 'fr' ? 'vidéo de 20 min →' : '20-min video →'}
-              </span>
-            </Link>
-          )}
-
           {/* ── SHARE ── */}
           <QuizShareButtons archetype={result.archetype} score={result.score} />
 

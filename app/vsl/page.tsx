@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Script from 'next/script'
 import { getEmpParam } from '@/hooks/useCalLink'
+import LoomEmbed from '@/components/LoomEmbed'
 import YtLeadForm from '@/components/YtLeadForm'
 
 const CREATORS = [
@@ -98,15 +99,7 @@ export default function VslPage() {
                 transition={{ delay: 0.2, duration: 0.6 }}
                 className="mb-6"
               >
-                <div className="relative rounded-2xl overflow-hidden border border-white/15 shadow-2xl bg-neutral-900/50" style={{ paddingBottom: '56.25%' }}>
-                  <iframe
-                    src="https://www.loom.com/embed/184e8823d9154d74aeca55a5cd488f08?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_speed=true&hide_title=true&t=0"
-                    frameBorder="0"
-                    allowFullScreen
-                    allow="autoplay"
-                    className="absolute inset-0 w-full h-full"
-                  />
-                </div>
+                <LoomEmbed title="Installez le système des plus gros créateurs business mondiaux" />
               </motion.div>
 
               {/* Form after video */}

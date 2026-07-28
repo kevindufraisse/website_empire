@@ -4,10 +4,13 @@ import { useInView } from 'framer-motion'
 import { useRef, useEffect, useState } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
-import { Mic, ArrowRight } from 'lucide-react'
+import { Mic, ArrowRight, Check } from 'lucide-react'
 import { StarRating } from '@/components/ui/star-rating'
 import AnimatedList, { AnimatedListItem } from '@/components/magicui/animated-list'
 import CalendarGrid from '@/components/magicui/calendar-grid'
+import OrbitingCircles from '@/components/magicui/orbiting-circles'
+import BorderBeam from '@/components/magicui/border-beam'
+import NumberTicker from '@/components/magicui/number-ticker'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -25,29 +28,31 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
   )
 }
 
-// Voice Animation Component
-function VoiceAnimation() {
-  const [bars, setBars] = useState<number[]>([])
-  
-  useEffect(() => {
-    const generateBars = () => {
-      const newBars = Array.from({ length: 30 }, () => 20 + Math.random() * 80)
-      setBars(newBars)
-    }
-    generateBars()
-    const interval = setInterval(generateBars, 150)
-    return () => clearInterval(interval)
-  }, [])
+// Voice Animation Component — pure CSS, no JS intervals
+const VOICE_BARS = Array.from({ length: 24 }, (_, i) => ({
+  h: 25 + ((i * 37 + 13) % 60),
+  delay: (i * 0.12) % 1.8,
+}))
 
+function VoiceAnimation() {
   return (
     <div className="flex items-center justify-center gap-[2px] w-full max-w-xs h-20">
-      {bars.map((height, i) => (
+      {VOICE_BARS.map((bar, i) => (
         <div
           key={i}
-          className="w-1 bg-gradient-to-t from-empire/80 to-empire/40 rounded-full transition-all duration-150"
-          style={{ height: `${height}%` }}
+          className="w-1 rounded-full bg-gradient-to-t from-empire/80 to-empire/40"
+          style={{
+            animation: `voice-bar 1.2s ease-in-out ${bar.delay}s infinite alternate`,
+            height: `${bar.h}%`,
+          }}
         />
       ))}
+      <style jsx>{`
+        @keyframes voice-bar {
+          0% { transform: scaleY(0.3); }
+          100% { transform: scaleY(1); }
+        }
+      `}</style>
     </div>
   )
 }
@@ -216,6 +221,16 @@ const getNotificationsEn = (SocialIconComponent: typeof SocialIcon): AnimatedLis
   ]
 
 // Social Icons
+const ZoomLogo = () => (
+  <svg viewBox="0 0 32 32" className="h-5 w-5 flex-shrink-0" aria-label="Zoom" role="img">
+    <circle cx="16" cy="16" r="16" fill="#2D8CFF" />
+    <path
+      d="M8.5 12.2c0-.66.54-1.2 1.2-1.2h7.4c1.1 0 2 .9 2 2v6.8c0 .66-.54 1.2-1.2 1.2h-7.4c-1.1 0-2-.9-2-2v-6.8zm12.1 2.6 2.6-1.9c.5-.37 1.2-.01 1.2.6v5c0 .61-.7.97-1.2.6l-2.6-1.9v-2.4z"
+      fill="#fff"
+    />
+  </svg>
+)
+
 const SocialIcon = ({ type }: { type: string }) => {
   switch (type) {
     case 'linkedin':
@@ -266,48 +281,247 @@ const SocialIcon = ({ type }: { type: string }) => {
   }
 }
 
+/** Step 1 — OrbitingCircles with strategy icons around a crown. */
+function LegendAuditVisual() {
+  return (
+    <div className="relative flex h-full w-full items-center justify-center overflow-hidden">
+      {/* Central icon */}
+      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-autopilot/20 border border-autopilot/40 z-10">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-autopilot">
+          <path d="M2 4l3 12h14l3-12-5.5 6L12 2l-4.5 8L2 4z" />
+          <path d="M5 16l-1 4h16l-1-4" />
+        </svg>
+      </div>
+      <OrbitingCircles radius={52} duration={25} delay={0} path>
+        <div className="flex h-7 w-7 items-center justify-center rounded-full bg-autopilot/15 border border-autopilot/30 text-autopilot">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg>
+        </div>
+      </OrbitingCircles>
+      <OrbitingCircles radius={52} duration={25} delay={8} path={false}>
+        <div className="flex h-7 w-7 items-center justify-center rounded-full bg-autopilot/15 border border-autopilot/30 text-autopilot">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg>
+        </div>
+      </OrbitingCircles>
+      <OrbitingCircles radius={52} duration={25} delay={16} path={false}>
+        <div className="flex h-7 w-7 items-center justify-center rounded-full bg-autopilot/15 border border-autopilot/30 text-autopilot">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 20h9" /><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4 12.5-12.5z" /></svg>
+        </div>
+      </OrbitingCircles>
+    </div>
+  )
+}
+
+/** Step 2 — Experts with pulsing ring + border beam card feel. */
+function LegendExpertsVisual() {
+  const { lang } = useLanguage()
+  return (
+    <div className="flex h-full flex-col items-center justify-center gap-3">
+      <div className="relative">
+        <div className="absolute -inset-3 rounded-full bg-autopilot/10 animate-pulse opacity-40" style={{ animationDuration: '3s' }} />
+        <div className="relative flex -space-x-3">
+          <img
+            src="/founders/kevin.jpg"
+            alt="Kevin Dufraisse"
+            className="h-12 w-12 rounded-full border-2 border-autopilot object-cover object-top ring-2 ring-black"
+            loading="lazy"
+          />
+          <img
+            src="/founders/marc.jpg"
+            alt="Marc"
+            className="h-12 w-12 rounded-full border-2 border-autopilot object-cover ring-2 ring-black"
+            loading="lazy"
+          />
+          <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-autopilot bg-autopilot/20 text-xs font-bold text-autopilot ring-2 ring-black">
+            +3
+          </div>
+        </div>
+      </div>
+      <p className="text-center text-[10px] font-bold uppercase tracking-wider text-autopilot">
+        {lang === 'fr' ? '1M+ vues/mois · Top 55 LinkedIn FR' : '1M+ views/mo · Top 55 LinkedIn FR'}
+      </p>
+    </div>
+  )
+}
+
+/** Platform logo SVGs for orbiting circles. */
+const PlatformLogos = {
+  linkedin: (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff">
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+    </svg>
+  ),
+  instagram: (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff">
+      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.17.054 1.97.24 2.43.403a4.088 4.088 0 011.523.99 4.088 4.088 0 01.99 1.523c.163.46.35 1.26.403 2.43.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.054 1.17-.24 1.97-.403 2.43a4.088 4.088 0 01-.99 1.523 4.088 4.088 0 01-1.523.99c-.46.163-1.26.35-2.43.403-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.17-.054-1.97-.24-2.43-.403a4.088 4.088 0 01-1.523-.99 4.088 4.088 0 01-.99-1.523c-.163-.46-.35-1.26-.403-2.43C2.175 15.747 2.163 15.367 2.163 12s.012-3.584.07-4.85c.054-1.17.24-1.97.403-2.43a4.088 4.088 0 01.99-1.523A4.088 4.088 0 015.15 2.207c.46-.163 1.26-.35 2.43-.403C8.846 2.175 9.227 2.163 12 2.163M12 0C8.741 0 8.333.014 7.053.072 5.775.13 4.903.333 4.14.63a6.21 6.21 0 00-2.244 1.46A6.21 6.21 0 00.436 4.334C.139 5.097-.064 5.969.006 7.247.014 8.527 0 8.935 0 12.194s.014 3.668.072 4.948c.058 1.277.26 2.15.558 2.913a6.21 6.21 0 001.46 2.244 6.21 6.21 0 002.244 1.46c.763.297 1.636.5 2.913.558C8.527 23.986 8.935 24 12 24s3.668-.014 4.948-.072c1.277-.058 2.15-.26 2.913-.558a6.21 6.21 0 002.244-1.46 6.21 6.21 0 001.46-2.244c.297-.763.5-1.636.558-2.913.058-1.28.072-1.688.072-4.948s-.014-3.668-.072-4.948c-.058-1.277-.26-2.15-.558-2.913a6.21 6.21 0 00-1.46-2.244A6.21 6.21 0 0019.86.63C19.097.333 18.225.13 16.948.072 15.668.014 15.26 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+    </svg>
+  ),
+  tiktok: (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff">
+      <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9a6.27 6.27 0 00-.79-.05A6.34 6.34 0 003.15 15.4a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V9.17a8.16 8.16 0 004.76 1.52v-3.4a4.85 4.85 0 01-1-.6z"/>
+    </svg>
+  ),
+  youtube: (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff">
+      <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+    </svg>
+  ),
+  x: (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="#fff">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  ),
+  threads: (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="#fff">
+      <path d="M17.688 10.939c-.1-.044-.2-.085-.3-.124-.174-3.4-1.934-5.34-4.992-5.36h-.026c-1.83 0-3.35.79-4.282 2.23l1.684 1.154c.695-1.064 1.79-1.292 2.598-1.292h.018c1.003.007 1.762.298 2.256.866.36.414.6.987.72 1.717a12.64 12.64 0 00-2.9-.187c-2.898.168-4.762 1.854-4.636 4.194.064 1.196.66 2.224 1.676 2.896.86.57 1.967.853 3.115.796 1.516-.075 2.705-.636 3.534-1.668.63-.783 1.03-1.8 1.22-3.116.73.44 1.273.99 1.575 1.647.51 1.12.54 2.958-.66 4.156-1.05 1.049-2.313 1.503-4.222 1.518-2.12-.016-3.73-.695-4.784-2.02-1.016-1.278-1.54-3.117-1.558-5.465.018-2.348.542-4.188 1.558-5.466C8.563 5.193 10.173 4.513 12.292 4.497c2.135.017 3.774.699 4.87 2.026.54.654.94 1.46 1.2 2.393l1.903-.51a8.578 8.578 0 00-1.595-3.167C17.114 3.382 14.926 2.514 12.3 2.494h-.016c-2.618.02-4.786.888-6.45 2.583C4.216 6.829 3.511 9.143 3.49 12.006l-.001.06.001.06c.021 2.863.726 5.177 2.344 6.929 1.664 1.8 3.832 2.564 6.45 2.583h.016c2.324-.017 4.036-.64 5.406-1.965 1.75-1.692 1.802-3.905 1.108-5.44-.498-1.1-1.408-2.003-2.625-2.627-.082.584-.196 1.131-.344 1.638.652.352 1.113.79 1.372 1.324.38.78.395 2.134-.575 3.101-.85.847-1.88 1.207-3.38 1.218-1.674-.013-2.925-.548-3.865-1.67-.862-1.03-1.314-2.515-1.345-4.417.031-1.902.483-3.387 1.345-4.417.94-1.122 2.19-1.657 3.866-1.67h.013c.967.006 1.81.172 2.515.493z"/>
+    </svg>
+  ),
+}
+
+/** Step 3 — Orbiting platform logos around a central "publish" button. */
+function LegendPublishVisual() {
+  const items: { key: string; icon: React.ReactNode; bg: string }[] = [
+    { key: 'li', icon: PlatformLogos.linkedin, bg: '#0A66C2' },
+    { key: 'ig', icon: PlatformLogos.instagram, bg: '#E1306C' },
+    { key: 'tk', icon: PlatformLogos.tiktok, bg: '#000' },
+    { key: 'yt', icon: PlatformLogos.youtube, bg: '#FF0000' },
+    { key: 'x', icon: PlatformLogos.x, bg: '#000' },
+    { key: 'th', icon: PlatformLogos.threads, bg: '#000' },
+  ]
+  return (
+    <div className="relative flex h-full w-full items-center justify-center overflow-hidden">
+      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-autopilot text-black font-bold text-sm z-10 shadow-[0_0_20px_rgba(212,165,116,0.5)]">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+      {items.map((p, i) => (
+        <OrbitingCircles key={p.key} radius={48} duration={22} delay={i * (22 / items.length)} path={i === 0}>
+          <div
+            className="flex h-7 w-7 items-center justify-center rounded-full shadow-lg border border-white/20"
+            style={{ background: p.bg }}
+          >
+            {p.icon}
+          </div>
+        </OrbitingCircles>
+      ))}
+    </div>
+  )
+}
+
+/** Step 4 — Animated stats going up. */
+function LegendIterateVisual() {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true })
+  return (
+    <div ref={ref} className="flex h-full flex-col items-center justify-center gap-2">
+      <div className="flex items-end gap-[3px]">
+        {[35, 50, 42, 65, 58, 80, 75, 95].map((h, i) => (
+          <motion.div
+            key={i}
+            className="w-[6px] rounded-t bg-gradient-to-t from-autopilot/60 to-autopilot"
+            initial={{ height: 0 }}
+            animate={isInView ? { height: h * 0.55 } : { height: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 * i, ease: 'easeOut' }}
+          />
+        ))}
+      </div>
+      {isInView && (
+        <div className="flex items-baseline gap-1 text-autopilot">
+          <span className="text-xl font-bold">+</span>
+          <NumberTicker value={340} className="text-xl font-bold text-autopilot" />
+          <span className="text-[10px] font-bold uppercase tracking-wider">%</span>
+        </div>
+      )}
+    </div>
+  )
+}
+
+/** Légende: four short steps with Magic UI animations. */
+function LegendHowItWorks() {
+  const { t, lang } = useLanguage()
+  const steps = [t.autopilot.howItWorks.b1, t.autopilot.howItWorks.b2, t.autopilot.howItWorks.b3, t.autopilot.howItWorks.b4]
+
+  const visuals = [
+    <LegendAuditVisual key="audit" />,
+    <LegendExpertsVisual key="experts" />,
+    <LegendPublishVisual key="publish" />,
+    <LegendIterateVisual key="iterate" />,
+  ]
+
+  return (
+    <section id="how-it-works" className="relative w-full py-12 md:py-16 overflow-hidden bg-[#0a0a0a]">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(212,165,116,0.08),transparent)]" />
+
+      <div className="container relative z-10">
+        <div className="max-w-5xl mx-auto">
+          <FadeInBlock>
+            <div className="text-center mb-10">
+              <div className="inline-block mb-4 px-4 py-2 rounded-full bg-autopilot/10 border border-autopilot/40">
+                <p className="text-sm font-bold text-autopilot">{t.autopilot.howItWorks.badge}</p>
+              </div>
+              <h2
+                className="text-3xl md:text-4xl font-bold leading-tight"
+                dangerouslySetInnerHTML={{ __html: t.autopilot.howItWorks.title }}
+              />
+              <p className="mt-3 text-base text-neutral-400 max-w-xl mx-auto">
+                {t.autopilot.howItWorks.subtitle}
+              </p>
+            </div>
+          </FadeInBlock>
+
+          <div className="grid gap-5 grid-cols-2 lg:grid-cols-4">
+            {steps.map((step, i) => (
+              <FadeInBlock key={step.title} delay={0.1 + i * 0.1}>
+                <div className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-autopilot/25 bg-gradient-to-br from-autopilot/10 to-white/[0.02]">
+                  <BorderBeam size={120} duration={8 + i * 2} delay={i * 1.5} colorFrom="var(--autopilot-hex, #d4a574)" colorTo="rgba(212,165,116,0.2)" />
+                  <div className="h-[160px] flex items-center justify-center p-4">{visuals[i]}</div>
+                  <div className="relative mt-auto bg-gradient-to-t from-black via-black/90 to-transparent p-5 pt-4">
+                    <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-autopilot text-sm font-bold text-black">
+                      {i + 1}
+                    </span>
+                    <p className="mt-2.5 text-base font-bold text-white leading-snug">{step.title}</p>
+                    <p className="mt-1.5 text-sm leading-relaxed text-neutral-400">{step.desc}</p>
+                  </div>
+                </div>
+              </FadeInBlock>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 export default function HowItWorksAccordion() {
   const { t, lang } = useLanguage()
   const { autopilot } = useAutopilot()
   const notifications = lang === 'fr' ? getNotificationsFr(SocialIcon) : getNotificationsEn(SocialIcon)
 
+  // Légende buyers don't need the product demo — they're delegating, not using it.
+  if (autopilot) return <LegendHowItWorks />
 
   return (
     <section id="how-it-works" className="relative w-full py-16 md:py-28 overflow-hidden bg-[#0a0a0a]">
       {/* Background gradient */}
-      <div className={`absolute inset-0 transition-opacity duration-500 ${autopilot ? 'opacity-0' : 'opacity-100'} bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgb(var(--empire-rgb)_/_0.08),transparent)]`} />
-      <div className={`absolute inset-0 transition-opacity duration-500 ${autopilot ? 'opacity-100' : 'opacity-0'} bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(212,165,116,0.08),transparent)]`} />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgb(var(--empire-rgb)_/_0.08),transparent)]" />
 
       <div className="container relative z-10">
         <div className="max-w-6xl mx-auto">
         {/* Title */}
         <FadeInBlock>
             <div className="text-center mb-6 md:mb-10">
-              <div className={`inline-block mb-4 px-4 py-2 rounded-full transition-colors ${autopilot ? 'bg-autopilot/10 border border-autopilot/40' : 'bg-empire/10 border border-empire/30'}`}>
-                <p className={`text-sm font-bold ${autopilot ? 'text-autopilot' : 'text-empire'}`}>
-                  {autopilot
-                    ? t.autopilot.howItWorks.badge
-                    : (lang === 'fr' ? 'COMMENT ÇA MARCHE' : 'HOW IT WORKS')}
+              <div className="inline-block mb-4 px-4 py-2 rounded-full bg-empire/10 border border-empire/30">
+                <p className="text-sm font-bold text-empire">
+                  {lang === 'fr' ? 'COMMENT ÇA MARCHE' : 'HOW IT WORKS'}
                 </p>
               </div>
-              {autopilot ? (
-                <h2
-                  className="text-3xl md:text-5xl font-bold mb-4 leading-tight"
-                  dangerouslySetInnerHTML={{ __html: t.autopilot.howItWorks.title }}
-                />
-              ) : (
-                <h2 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
-                  {lang === 'fr'
-                    ? <>Lancez votre <span className="text-empire">machine média</span></>
-                    : <>Launch your <span className="text-empire">media machine</span></>}
-                </h2>
-              )}
+              <h2 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
+                {lang === 'fr'
+                  ? <>Lancez votre <span className="text-empire">machine média</span></>
+                  : <>Launch your <span className="text-empire">media machine</span></>}
+              </h2>
               <p className="text-base md:text-lg text-neutral-400 max-w-2xl mx-auto">
-                {autopilot
-                  ? t.autopilot.howItWorks.subtitle
-                  : (lang === 'fr'
-                      ? 'Vous ne manquez pas de temps. Vous manquez de système.'
-                      : 'You don\'t lack time. You lack a system.')}
+                {lang === 'fr'
+                  ? 'Vous ne manquez pas de temps. Vous manquez de système.'
+                  : 'You don\'t lack time. You lack a system.'}
               </p>
               <p className="text-sm text-neutral-500 max-w-2xl mx-auto mt-2">
                 {lang === 'fr'
@@ -329,121 +543,90 @@ export default function HowItWorksAccordion() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 items-stretch">
 
               {/* BLOCK 1 - On trouve vos sujets viraux */}
-              <div className={`group relative flex flex-col overflow-hidden rounded-xl transition-all min-h-[340px] ${
-                autopilot
-                  ? 'bg-gradient-to-br from-autopilot/10 to-white/[0.02] border border-autopilot/30 hover:border-autopilot/60'
-                  : 'bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30'
-              }`}>
+              <div className="group relative flex flex-col overflow-hidden rounded-xl transition-all min-h-[340px] bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30">
                 <div className="h-[200px] flex flex-col items-center justify-center p-5 gap-3">
-                  <div className="flex flex-col gap-2 w-full max-w-[180px]">
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-red-500/20 border border-red-500/40">
+                      <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                      <span className="text-[10px] font-bold text-red-400 tracking-wider uppercase">Live</span>
+                    </div>
+                    <span className="text-xs text-neutral-400 font-medium">
+                      {lang === 'fr' ? '47 en ligne' : '47 online'}
+                    </span>
+                  </div>
+                  <div className="flex -space-x-3">
+                    <img
+                      src="/founders/kevin.jpg"
+                      alt="Kevin Dufraisse"
+                      className="w-10 h-10 rounded-full object-cover object-top border-2 border-empire ring-2 ring-black"
+                      loading="lazy"
+                    />
                     {[
-                      { platform: 'LinkedIn', color: 'bg-blue-500/20 text-blue-400' },
-                      { platform: 'Instagram', color: 'bg-pink-500/20 text-pink-400' },
-                      { platform: 'YouTube', color: 'bg-red-500/20 text-red-400' },
-                      { platform: 'X / Twitter', color: 'bg-neutral-500/20 text-neutral-400' },
-                    ].map((s) => (
-                      <div key={s.platform} className={`flex items-center gap-2 px-3 py-2 rounded-lg ${s.color} text-xs font-semibold`}>
-                        <div className="w-2 h-2 rounded-full bg-current animate-pulse" />
-                        {s.platform}
+                      { initials: 'ML', color: 'bg-blue-500/30 text-blue-300' },
+                      { initials: 'SB', color: 'bg-pink-500/30 text-pink-300' },
+                      { initials: 'JR', color: 'bg-purple-500/30 text-purple-300' },
+                    ].map((a) => (
+                      <div key={a.initials} className={`w-10 h-10 rounded-full ${a.color} border-2 border-white/20 ring-2 ring-black flex items-center justify-center text-[10px] font-bold`}>
+                        {a.initials}
                       </div>
                     ))}
+                    <div className="w-10 h-10 rounded-full bg-white/10 border-2 border-white/20 ring-2 ring-black flex items-center justify-center text-[10px] font-bold text-neutral-300">
+                      +43
+                    </div>
                   </div>
-                  <p className={`text-xs font-semibold tracking-wider uppercase ${autopilot ? 'text-autopilot' : 'text-empire'}`}>
-                    {lang === 'fr' ? 'Veille en cours...' : 'Scanning...'}
+                  <div className="flex items-center gap-2.5 px-3 py-2 rounded-lg bg-white/[0.06] border border-white/15 w-full max-w-[210px]">
+                    <ZoomLogo />
+                    <p className="text-[11px] text-neutral-300 font-medium truncate">
+                      {lang === 'fr' ? 'Live Zoom hebdomadaire' : 'Weekly Zoom live'}
+                    </p>
+                  </div>
+                  <p className="text-xs font-semibold tracking-wider uppercase text-empire">
+                    {lang === 'fr' ? 'Live hebdo...' : 'Weekly live...'}
                   </p>
                 </div>
                 <div className="relative z-10 p-5 pt-3 mt-auto h-[140px] bg-gradient-to-t from-black via-black/90 to-transparent">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className={`w-6 h-6 rounded-md flex items-center justify-center text-black font-bold text-sm ${autopilot ? 'bg-autopilot' : 'bg-empire'}`}>1</span>
+                    <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">1</span>
                     <h3 className="text-base font-semibold text-white">
                       {lang === 'fr' ? 'On trouve vos sujets' : 'We find your topics'}
                     </h3>
                   </div>
                   <p className="text-neutral-400 text-sm">
                     {lang === 'fr'
-                      ? 'On scanne vos concurrents, YouTube et X. Vous recevez les sujets qui marchent dans votre niche.'
-                      : 'We scan your competitors, YouTube and X. You get the topics that work in your niche.'}
+                      ? 'En live toutes les semaines, on identifie avec vous les sujets qui marchent dans votre niche.'
+                      : 'Every week in live sessions, we pinpoint with you the topics that work in your niche.'}
                   </p>
                 </div>
               </div>
 
               {/* BLOCK 2 - Vous enregistrez */}
-              {autopilot ? (
-                <div className="group relative flex flex-col overflow-hidden rounded-xl bg-gradient-to-br from-autopilot/10 to-white/[0.02] border border-autopilot/30 hover:border-autopilot/60 transition-all min-h-[340px]">
-                  <div className="h-[200px] flex flex-col items-center justify-center p-6 gap-5">
-                    <div className="flex -space-x-4">
-                      <img
-                        src="/founders/kevin.jpg"
-                        alt="Kevin Dufraisse"
-                        className="w-16 h-16 rounded-full object-cover object-top border-2 border-autopilot ring-2 ring-black"
-                        loading="lazy"
-                      />
-                      <img
-                        src="/founders/marc.jpg"
-                        alt="Marc"
-                        className="w-16 h-16 rounded-full object-cover border-2 border-autopilot ring-2 ring-black"
-                        loading="lazy"
-                      />
-                      <div className="w-16 h-16 rounded-full bg-autopilot/20 border-2 border-autopilot ring-2 ring-black flex items-center justify-center text-autopilot text-sm font-bold">
-                        +3
-                      </div>
-                    </div>
-                    <div className="flex flex-col items-center gap-1.5">
-                      <p className="text-xs text-autopilot font-bold tracking-wider uppercase text-center">
-                        {lang === 'fr' ? '1M+ vues/mois · Top 50 LinkedIn FR' : '1M+ views/mo · Top 50 LinkedIn FR'}
-                      </p>
-                      <p className="text-xs text-neutral-400 text-center px-2">
-                        {lang === 'fr'
-                          ? 'Votre expert formé par cette équipe'
-                          : 'Your expert trained by this team'}
-                      </p>
-                    </div>
+              <div className="group relative flex flex-col overflow-hidden rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30 transition-all min-h-[340px]">
+                <div className="h-[200px] flex flex-col items-center justify-center p-6 gap-4">
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-empire/30 to-empire/10 border-2 border-empire flex items-center justify-center">
+                    <Mic className="text-empire" size={24} />
                   </div>
-                  <div className="relative z-10 p-5 pt-3 mt-auto h-[140px] bg-gradient-to-t from-black via-black/90 to-transparent">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="w-6 h-6 rounded-md bg-autopilot flex items-center justify-center text-black font-bold text-sm">2</span>
-                      <h3 className="text-base font-semibold text-white">
-                        {t.autopilot.howItWorks.b2.title}
-                      </h3>
-                    </div>
-                    <p className="text-neutral-400 text-sm">
-                      {t.autopilot.howItWorks.b2.desc}
-                    </p>
-                  </div>
+                  <VoiceAnimation />
+                  <p className="text-xs text-empire font-semibold tracking-wider uppercase">
+                    {lang === 'fr' ? 'Enregistrement...' : 'Recording...'}
+                  </p>
                 </div>
-              ) : (
-                <div className="group relative flex flex-col overflow-hidden rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30 transition-all min-h-[340px]">
-                  <div className="h-[200px] flex flex-col items-center justify-center p-6 gap-4">
-                    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-empire/30 to-empire/10 border-2 border-empire flex items-center justify-center">
-                      <Mic className="text-empire" size={24} />
-                    </div>
-                    <VoiceAnimation />
-                    <p className="text-xs text-empire font-semibold tracking-wider uppercase">
-                      {lang === 'fr' ? 'Enregistrement...' : 'Recording...'}
-                    </p>
+                <div className="relative z-10 p-5 pt-3 mt-auto h-[140px] bg-gradient-to-t from-black via-black/90 to-transparent">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">2</span>
+                    <h3 className="text-base font-semibold text-white">
+                      {lang === 'fr' ? 'Vous enregistrez' : 'You record'}
+                    </h3>
                   </div>
-                  <div className="relative z-10 p-5 pt-3 mt-auto h-[140px] bg-gradient-to-t from-black via-black/90 to-transparent">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">2</span>
-                      <h3 className="text-base font-semibold text-white">
-                        {lang === 'fr' ? 'Vous enregistrez' : 'You record'}
-                      </h3>
-                    </div>
-                    <p className="text-neutral-400 text-sm">
-                      {lang === 'fr'
-                        ? 'Vous parlez face caméra sur ces sujets, seul ou guidé par nos questions. Zéro préparation.'
-                        : 'You talk on camera about those topics, freely or guided by our questions. Zero prep.'}
-                    </p>
-                  </div>
+                  <p className="text-neutral-400 text-sm">
+                    {lang === 'fr'
+                      ? 'Vous parlez face caméra sur ces sujets, seul ou guidé par nos questions. Zéro préparation.'
+                      : 'You talk on camera about those topics, freely or guided by our questions. Zero prep.'}
+                  </p>
                 </div>
-              )}
+              </div>
 
               {/* BLOCK 3 - On rédige et on monte */}
-              <div className={`group relative flex flex-col overflow-hidden rounded-xl transition-all min-h-[340px] ${
-                autopilot
-                  ? 'bg-gradient-to-br from-autopilot/10 to-white/[0.02] border border-autopilot/30 hover:border-autopilot/60'
-                  : 'bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30'
-              }`}>
+              <div className="group relative flex flex-col overflow-hidden rounded-xl transition-all min-h-[340px] bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30">
                 <div className="h-[200px] relative overflow-hidden">
                   <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-500/20 border border-green-500/40 backdrop-blur-sm">
                     <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
@@ -457,29 +640,21 @@ export default function HowItWorksAccordion() {
                 </div>
                 <div className="relative z-10 p-5 pt-3 mt-auto h-[140px] bg-gradient-to-t from-black via-black/90 to-transparent">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className={`w-6 h-6 rounded-md flex items-center justify-center text-black font-bold text-sm ${autopilot ? 'bg-autopilot' : 'bg-empire'}`}>3</span>
+                    <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">3</span>
                     <h3 className="text-base font-semibold text-white">
-                      {autopilot
-                        ? t.autopilot.howItWorks.b3.title
-                        : (lang === 'fr' ? 'On rédige et monte' : 'We write & edit')}
+                      {lang === 'fr' ? 'On rédige et monte' : 'We write & edit'}
                     </h3>
                   </div>
                   <p className="text-neutral-400 text-sm">
-                    {autopilot
-                      ? t.autopilot.howItWorks.b3.desc
-                      : (lang === 'fr'
-                          ? 'Notre équipe découpe et monte vos Reels, rédige vos posts LinkedIn et vos newsletters.'
-                          : 'Our team cuts and edits your Reels, writes your LinkedIn posts and newsletters.')}
+                    {lang === 'fr'
+                      ? 'Notre équipe découpe et monte vos Reels, rédige vos posts LinkedIn et vos newsletters.'
+                      : 'Our team cuts and edits your Reels, writes your LinkedIn posts and newsletters.'}
                   </p>
                 </div>
               </div>
 
               {/* BLOCK 4 - On duplique partout */}
-              <div className={`group relative flex flex-col overflow-hidden rounded-xl transition-all min-h-[340px] ${
-                autopilot
-                  ? 'bg-gradient-to-br from-autopilot/10 to-white/[0.02] border border-autopilot/30 hover:border-autopilot/60'
-                  : 'bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30'
-              }`}>
+              <div className="group relative flex flex-col overflow-hidden rounded-xl transition-all min-h-[340px] bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30">
                 <div className="h-[200px] flex items-center justify-center p-4">
                   <CalendarGrid
                     className="max-w-[180px]"
@@ -488,19 +663,15 @@ export default function HowItWorksAccordion() {
                 </div>
                 <div className="relative z-10 p-5 pt-3 mt-auto h-[140px] bg-gradient-to-t from-black via-black/90 to-transparent">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className={`w-6 h-6 rounded-md flex items-center justify-center text-black font-bold text-sm ${autopilot ? 'bg-autopilot' : 'bg-empire'}`}>4</span>
+                    <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">4</span>
                     <h3 className="text-base font-semibold text-white">
-                      {autopilot
-                        ? t.autopilot.howItWorks.b4.title
-                        : (lang === 'fr' ? 'On duplique partout' : 'We duplicate everywhere')}
+                      {lang === 'fr' ? 'On duplique partout' : 'We duplicate everywhere'}
                     </h3>
                   </div>
                   <p className="text-neutral-400 text-sm">
-                      {autopilot
-                        ? t.autopilot.howItWorks.b4.desc
-                        : (lang === 'fr'
-                          ? 'Chaque contenu est adapté aux 7 plateformes. Vous validez, ça part en 1 clic.'
-                          : 'Each piece is adapted to all 7 platforms. You approve, it goes out in 1 click.')}
+                    {lang === 'fr'
+                      ? 'Chaque contenu est adapté aux 7 plateformes. Vous validez, ça part en 1 clic.'
+                      : 'Each piece is adapted to all 7 platforms. You approve, it goes out in 1 click.'}
                   </p>
                 </div>
               </div>

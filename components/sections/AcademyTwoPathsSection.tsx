@@ -3,7 +3,8 @@ import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { User, Users, Check, ArrowRight } from 'lucide-react'
 import BorderBeam from '@/components/magicui/border-beam'
-import { useAcademyPricing } from '@/hooks/useAcademyPricing'
+import AcademyWaitlistCta from '@/components/AcademyWaitlistCta'
+import { ACADEMY_ENTRY_PRICE } from '@/lib/cohort-config'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
@@ -24,7 +25,6 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 export default function AcademyTwoPathsSection() {
   const { lang } = useLanguage()
   const fr = lang === 'fr'
-  const pricing = useAcademyPricing()
 
   const path1 = {
     icon: User,
@@ -154,15 +154,17 @@ export default function AcademyTwoPathsSection() {
 
           <FadeInBlock delay={0.2}>
             <div className="mt-10 text-center">
-              <a
-                href={pricing.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-academy text-black font-bold text-lg rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(252, 165, 165,0.3)]"
+              <AcademyWaitlistCta
+                source="two-paths"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-academy text-black font-bold text-lg rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(252,165,165,0.3)]"
+                sublabel={
+                  <p className="text-xs text-neutral-400 mt-2">
+                    {fr ? `Places limitées · à partir de ${ACADEMY_ENTRY_PRICE}€` : `Limited spots · from €${ACADEMY_ENTRY_PRICE}`}
+                  </p>
+                }
               >
-                {fr ? 'Rejoindre le bootcamp' : 'Join the bootcamp'} - {pricing.price}€ <ArrowRight size={18} />
-              </a>
-              <p className="text-xs text-neutral-400 mt-2">{fr ? 'ou 3x 165€/semaine' : 'or 3x €165/week'}</p>
+                {fr ? 'Rejoindre la liste d\'attente' : 'Join the waitlist'} <ArrowRight size={18} />
+              </AcademyWaitlistCta>
             </div>
           </FadeInBlock>
 

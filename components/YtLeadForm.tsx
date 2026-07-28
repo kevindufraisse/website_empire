@@ -277,13 +277,21 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
                 {lang === 'fr' ? 'Envoi en cours...' : 'Sending...'}
               </>
             )
-            : lang === 'fr'
-              ? 'Valider et planifier un RDV →'
-              : 'Submit and book a call →'
+            : autopilot
+              ? (lang === 'fr' ? 'Vérifier mon éligibilité →' : 'Check my eligibility →')
+              : (lang === 'fr' ? 'Valider et planifier un RDV →' : 'Submit and book a call →')
           }
         </button>
 
-        <CtaReassurance className="mt-3" />
+        {autopilot ? (
+          <p className="mt-3 text-xs text-neutral-400 text-center">
+            {lang === 'fr'
+              ? '10 places disponibles · On revient vers vous sous 24h'
+              : '10 spots available · We get back to you within 24h'}
+          </p>
+        ) : (
+          <CtaReassurance className="mt-3" />
+        )}
       </form>
 
       {/* ── Cal.com modal portal ── */}

@@ -107,8 +107,8 @@ export default function AcademyForWhoSection() {
                   url: 'https://www.linkedin.com/in/kevin-dufraisse/',
                   img: '/founders/kevin.jpg',
                   stats: fr
-                    ? ['#48 influenceur LinkedIn France', '2M de vues / mois', '+4 000 clients accompagnés']
-                    : ['#48 LinkedIn influencer in France', '2M views / month', '+4,000 clients guided'],
+                    ? ['#55 influenceur LinkedIn France', '2M de vues / mois', '+4 000 clients accompagnés']
+                    : ['#55 LinkedIn influencer in France', '2M views / month', '+4,000 clients guided'],
                 },
                 {
                   name: 'Marc Dufraisse',

@@ -17,13 +17,11 @@ export function AutopilotProvider({ children }: { children: ReactNode }) {
   const [autopilot, setAutopilotState] = useState<boolean>(false)
   const pathname = usePathname()
 
-  // Autopilot is disabled for now — always force copilot mode.
-  // Clear any stale localStorage so returning visitors don't get stuck.
   useEffect(() => {
     try {
-      localStorage.removeItem(STORAGE_KEY)
+      const stored = localStorage.getItem(STORAGE_KEY)
+      if (stored === 'true') setAutopilotState(true)
     } catch {}
-    setAutopilotState(false)
   }, [])
 
   // Sync data-autopilot & data-tier on <html> so CSS (globals.css) can flip

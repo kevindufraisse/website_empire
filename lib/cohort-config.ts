@@ -101,6 +101,9 @@ const tiers = [
   { price: 897, installment: 299, label: 'Prix final', link: 'https://join.empire-internet.com/last-chance', until: null },
 ]
 
+/** Cheapest tier — what "à partir de X€" refers to outside an open cohort. */
+export const ACADEMY_ENTRY_PRICE = Math.min(...tiers.map(t => t.price))
+
 export function getAcademyPricing(now?: Date): AcademyPricingTier {
   const d = now ?? new Date()
   for (const tier of tiers) {

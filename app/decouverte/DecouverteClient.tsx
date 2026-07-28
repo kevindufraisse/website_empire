@@ -103,7 +103,7 @@ export default function DecouverteClient() {
             <div className="flex items-center gap-2.5">
               <img src={KEVIN_IMG} alt="Kevin Dufraisse" width={32} height={32} className="w-8 h-8 rounded-full border border-white/15 object-cover" />
               <p className="text-neutral-400 text-xs">
-                Créé par <span className="text-white font-semibold">Kevin Dufraisse</span> · Top 48 LinkedIn France
+                Créé par <span className="text-white font-semibold">Kevin Dufraisse</span> · Top 55 LinkedIn France
               </p>
             </div>
           </div>

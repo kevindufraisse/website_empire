@@ -8,8 +8,6 @@ import PricingVariantCtaRedirect from '@/components/PricingVariantCtaRedirect'
 const TestimonialsSection = dynamic(() => import('@/components/sections/TestimonialsSection'))
 const QuickWinsSection = dynamic(() => import('@/components/sections/QuickWinsSection'))
 const FounderSection = dynamic(() => import('@/components/sections/FounderSection'))
-const WhyEmpireSection = dynamic(() => import('@/components/sections/WhyEmpireSection'))
-const WhyNowSection = dynamic(() => import('@/components/sections/WhyNowSection'))
 const FAQSection = dynamic(() => import('@/components/sections/FAQSection'))
 const FinalBoostCTA = dynamic(() => import('@/components/sections/FinalBoostCTA'))
 
@@ -39,17 +37,11 @@ export default function HeroPricingPage() {
       {/* Pricing - classic SaaS placement, trial CTA per plan */}
       <HomePricingSection />
 
-      {/* Deliverables - what Empire creates every month (3 pillars) */}
-      <WhyNowSection />
-
       {/* Before/After comparison */}
       <QuickWinsSection />
 
       {/* Founder Credibility - trust before urgency */}
       <FounderSection />
-
-      {/* Why now - the AI marketing gap */}
-      <WhyEmpireSection />
 
       {/* FAQ */}
       <FAQSection variant="home" />

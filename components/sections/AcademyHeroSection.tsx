@@ -3,24 +3,22 @@ import { motion } from 'framer-motion'
 import RetroGrid from '@/components/magicui/retro-grid'
 import { Meteors } from '@/components/magicui/meteors'
 import { SparklesText } from '@/components/magicui/sparkles-text'
-import { COHORT_RANGE_SHORT, ACADEMY_TIERS_SUMMARY } from '@/lib/cohort-config'
-import { useAcademyPricing } from '@/hooks/useAcademyPricing'
+
+import AcademyWaitlistCta from '@/components/AcademyWaitlistCta'
 import MediaCredibilityStrip from '@/components/MediaCredibilityStrip'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function AcademyHeroSection() {
   const { lang } = useLanguage()
   const fr = lang === 'fr'
-  const pricing = useAcademyPricing()
-
   const founders = [
     {
       name: 'Kevin Dufraisse',
       url: 'https://www.linkedin.com/in/kevin-dufraisse/',
       img: '/founders/kevin.jpg',
       stats: fr
-        ? ['#48 influenceur LinkedIn France', '2M de vues / mois', '+4 000 clients accompagnés']
-        : ['#48 LinkedIn influencer in France', '2M views / month', '+4,000 clients guided'],
+        ? ['#55 influenceur LinkedIn France', '2M de vues / mois', '+4 000 clients accompagnés']
+        : ['#55 LinkedIn influencer in France', '2M views / month', '+4,000 clients guided'],
     },
     {
       name: 'Marc Dufraisse',
@@ -54,11 +52,12 @@ export default function AcademyHeroSection() {
               transition={{ duration: 0.4 }}
               className="flex items-center justify-center mb-3"
             >
-              <div className="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-white/5 border border-white/15">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-3 h-3 text-academy flex-shrink-0">
-                  <rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" />
-                </svg>
-                <span className="text-xs text-academy font-bold">{COHORT_RANGE_SHORT}</span>
+              <div className="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-academy/10 border border-academy/30">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-academy opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-academy" />
+                </span>
+                <span className="text-xs text-academy font-bold">{fr ? 'Liste d\'attente ouverte' : 'Waitlist open'}</span>
               </div>
             </motion.div>
 
@@ -69,11 +68,11 @@ export default function AcademyHeroSection() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-5"
             >
-              {fr ? 'Apprends les secrets de la' : 'Learn the secrets of'}{' '}
+              {fr ? 'Deviens expert en' : 'Become a'}{' '}
               <SparklesText className="text-academy" sparklesCount={7} colors={{ first: '#fca5a5', second: '#f87171' }}>
                 {fr ? 'viralité' : 'virality'}
               </SparklesText>
-              {fr ? ' en 21 jours.' : ' in 21 days.'}
+              {fr ? ' en 21 jours.' : ' expert in 21 days.'}
             </motion.h1>
 
             {/* Value prop - compact */}
@@ -83,9 +82,6 @@ export default function AcademyHeroSection() {
               transition={{ delay: 0.2, duration: 0.6 }}
               className="max-w-lg mx-auto mb-8"
             >
-              <p className="text-lg md:text-xl text-neutral-300 text-center mb-3">
-                <span className="text-white font-semibold">{fr ? '15 min/jour.' : '15 min/day.'}</span> {fr ? 'On écrit et monte ton contenu.' : 'We write and produce your content.'}
-              </p>
               <p className="text-sm text-neutral-400 text-center mb-3">{fr ? 'Tu publies sur :' : 'You publish on:'}</p>
               <div className="flex items-center justify-center gap-2 mb-4">
                 {[
@@ -124,67 +120,36 @@ export default function AcademyHeroSection() {
               </div>
             </motion.div>
 
-            {/* CTA */}
+            {/* Waitlist CTA button */}
             <motion.div
+              id="academy-waitlist"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.5 }}
-              className="flex flex-col items-center gap-1 mb-8"
+              className="max-w-sm mx-auto mb-8 scroll-mt-24 flex flex-col items-center gap-4"
             >
-              <a
-                href={pricing.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-10 py-4 bg-academy text-black font-bold text-lg rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(252,165,165,0.35)] inline-block"
+              <AcademyWaitlistCta
+                source="academy-hero"
+                className="w-full flex items-center justify-center gap-2 rounded-xl bg-academy px-8 py-4 text-base font-bold text-black transition-all hover:brightness-110 hover:scale-[1.02]"
               >
-                {fr ? 'Rejoindre' : 'Join'} - {pricing.price}€ →
-              </a>
-              {pricing.isUrgent && (
-                <p className="text-xs text-academy font-bold mt-1 animate-pulse">
-                  {fr ? `Le prix augmente dans ${pricing.countdown}` : `Price increases in ${pricing.countdown}`}
-                </p>
-              )}
-              <div className="mt-4">
-                <MediaCredibilityStrip />
-              </div>
+                {fr ? 'Rejoindre la liste d\'attente →' : 'Join the waitlist →'}
+              </AcademyWaitlistCta>
+              <MediaCredibilityStrip />
             </motion.div>
 
-            {/* Price timeline */}
+            {/* Waitlist reassurance */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.5 }}
               className="max-w-md mx-auto mb-10"
             >
-              <div className="p-4 rounded-xl bg-white/[0.06] border border-academy/20">
-                <p className="text-xs text-academy font-bold mb-3 text-center">{fr ? 'Le prix augmente par palier' : 'Price increases by tier'}</p>
-                <div className="space-y-2">
-                  {ACADEMY_TIERS_SUMMARY.map((t, i) => {
-                    const isCurrent = t.price === pricing.price
-                    const isPast = t.price < pricing.price
-                    return (
-                      <div key={i} className="flex items-center justify-between text-xs">
-                        <div className="flex items-center gap-2">
-                          <span className={`w-1.5 h-1.5 rounded-full ${isCurrent ? 'bg-academy' : isPast ? 'bg-neutral-600' : 'bg-neutral-500'}`} />
-                          <span className={isCurrent ? 'text-white font-semibold' : isPast ? 'text-neutral-500 line-through' : 'text-neutral-300'}>
-                            {t.label}
-                          </span>
-                          {isCurrent && (
-                            <span className="px-1.5 py-0.5 rounded bg-academy/20 text-academy font-bold text-[9px] tracking-wider">{fr ? 'EN COURS' : 'CURRENT'}</span>
-                          )}
-                        </div>
-                        <span className={isCurrent ? 'text-academy font-bold' : isPast ? 'text-neutral-600 line-through' : 'text-neutral-400'}>
-                          {t.price}€ <span className={`font-normal ${isCurrent ? 'text-neutral-500' : 'text-neutral-600'}`}>{fr ? 'ou' : 'or'} 3x {t.installment}€</span>
-                        </span>
-                      </div>
-                    )
-                  })}
-                </div>
-                <div className="mt-3 pt-3 border-t border-white/10 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[10px] text-neutral-500">
-                  <span>{fr ? '✓ Pas besoin de projet' : '✓ No project needed'}</span>
-                  <span>·</span>
-                  <span>{fr ? '✓ Inscription sous réserve' : '✓ Subject to approval'}</span>
-                </div>
+              <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[10px] text-neutral-500">
+                <span>{fr ? '✓ Pas besoin de projet' : '✓ No project needed'}</span>
+                <span>·</span>
+                <span>{fr ? '✓ Inscription sous réserve' : '✓ Subject to approval'}</span>
+                <span>·</span>
+                <span>{fr ? '✓ On vous contacte dès l\'ouverture' : '✓ We contact you when spots open'}</span>
               </div>
             </motion.div>
 

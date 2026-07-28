@@ -29,6 +29,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={caveat.variable} suppressHydrationWarning>
       <head>
+        {/* Apply the saved tier before first paint, otherwise Légende flashes copilot green. */}
+        <script dangerouslySetInnerHTML={{
+          __html: `(function(){try{var a=localStorage.getItem('empire-autopilot')==='true';var p=location.pathname;var t=(p==='/academy'||p==='/candidature')?'academy':(a?'autopilot':'copilot');var r=document.documentElement;r.setAttribute('data-autopilot',a?'true':'false');r.setAttribute('data-tier',t);}catch(e){}})();`
+        }} />
         {/* Google Tag Manager */}
         <script dangerouslySetInnerHTML={{
           __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

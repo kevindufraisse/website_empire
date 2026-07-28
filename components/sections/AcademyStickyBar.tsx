@@ -1,12 +1,12 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useAcademyPricing } from '@/hooks/useAcademyPricing'
+import AcademyWaitlistCta from '@/components/AcademyWaitlistCta'
+import { ACADEMY_ENTRY_PRICE } from '@/lib/cohort-config'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function AcademyStickyBar() {
   const [visible, setVisible] = useState(false)
-  const pricing = useAcademyPricing()
   const { lang } = useLanguage()
   const fr = lang === 'fr'
 
@@ -34,29 +34,23 @@ export default function AcademyStickyBar() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-academy opacity-60" />
                   <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-academy" />
                 </span>
-                <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2 min-w-0">
-                  <p className="text-xs text-neutral-300 whitespace-nowrap">
-                    <span className="text-white font-semibold">{pricing.price}€</span>
-                    {pricing.price < 897 && <span className="text-neutral-500 line-through ml-1.5 text-[10px]">897€</span>}
-                    <span className="hidden md:inline text-neutral-400"> · </span>
-                    <span className="hidden md:inline text-neutral-400 text-[10px]">{fr ? 'ou' : 'or'} 3x {pricing.installment}€</span>
-                  </p>
-                  {pricing.isUrgent && (
-                    <span className="text-[10px] text-academy font-semibold whitespace-nowrap hidden sm:inline animate-pulse">
-                      {fr ? `Prix augmente dans ${pricing.countdown}` : `Price increases in ${pricing.countdown}`}
-                    </span>
-                  )}
-                </div>
+                <p className="text-xs text-neutral-300">
+                  <span className="text-white font-semibold">
+                    {fr ? 'Liste d\'attente ouverte' : 'Waitlist open'}
+                  </span>
+                  <span className="hidden md:inline text-neutral-400"> · </span>
+                  <span className="hidden md:inline text-neutral-400 text-[10px]">
+                    {fr ? `à partir de ${ACADEMY_ENTRY_PRICE}€` : `from €${ACADEMY_ENTRY_PRICE}`}
+                  </span>
+                </p>
               </div>
 
-              <a
-                href={pricing.link}
-                target="_blank"
-                rel="noopener noreferrer"
+              <AcademyWaitlistCta
+                source="sticky-bar"
                 className="flex-shrink-0 px-3.5 py-1.5 bg-academy text-black font-bold text-xs rounded-lg hover:scale-105 transition-all shadow-[0_0_20px_rgba(252,165,165,0.3)] whitespace-nowrap"
               >
-                {fr ? 'Rejoindre' : 'Join'} - {pricing.price}€
-              </a>
+                {fr ? 'Rejoindre' : 'Join'}
+              </AcademyWaitlistCta>
             </div>
           </div>
         </motion.div>

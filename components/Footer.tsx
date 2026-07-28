@@ -1,6 +1,7 @@
 'use client'
 import { usePathname } from 'next/navigation'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { useAutopilot } from '@/contexts/AutopilotContext'
 import { Mail } from 'lucide-react'
 import { CtaReassurance } from '@/components/ui/cta-reassurance'
 import { GiftFooterLink } from '@/components/GiftCountdownBar'
@@ -8,6 +9,7 @@ import OnboardingLink from '@/components/OnboardingLink'
 
 export default function Footer() {
   const { t, lang } = useLanguage()
+  const { autopilot } = useAutopilot()
   const pathname = usePathname()
   
   const isPartnersPage = pathname === '/partners'
@@ -49,23 +51,27 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Ressources gratuites */}
+          {/* Ressources gratuites — self-serve funnel, off-topic for Légende */}
           <div className="flex flex-col items-center md:items-start">
-            <p className="text-sm font-bold text-white mb-3">{lang === 'fr' ? 'Ressources gratuites' : 'Free resources'}</p>
-            <div className="flex flex-col gap-2 items-center md:items-start">
-              <a href="/vsl" className="text-sm text-neutral-400 hover:text-empire transition-colors">
-                {lang === 'fr' ? 'Masterclass : le système Empire (20 min)' : 'Masterclass: the Empire system (20 min)'}
-              </a>
-              <a href="/quiz" className="text-sm text-neutral-400 hover:text-empire transition-colors">
-                {lang === 'fr' ? 'Quiz : quel créateur êtes-vous ?' : 'Quiz: what creator are you?'}
-              </a>
-              <GiftFooterLink />
-            </div>
+            {!autopilot && (
+              <>
+                <p className="text-sm font-bold text-white mb-3">{lang === 'fr' ? 'Ressources gratuites' : 'Free resources'}</p>
+                <div className="flex flex-col gap-2 items-center md:items-start">
+                  <a href="/vsl" className="text-sm text-neutral-400 hover:text-empire transition-colors">
+                    {lang === 'fr' ? 'Masterclass : le système Empire (20 min)' : 'Masterclass: the Empire system (20 min)'}
+                  </a>
+                  <a href="/quiz" className="text-sm text-neutral-400 hover:text-empire transition-colors">
+                    {lang === 'fr' ? 'Quiz : quel créateur êtes-vous ?' : 'Quiz: what creator are you?'}
+                  </a>
+                  <GiftFooterLink />
+                </div>
+              </>
+            )}
           </div>
 
           {/* CTA */}
           <div className="flex flex-col items-center md:items-end">
-            {!isPartnersPage && (
+            {!isPartnersPage && !autopilot && (
               <OnboardingLink className="inline-flex flex-col items-start text-left px-6 py-3.5 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]">
                 <span className="text-left">{t.finalCTA.watchDemo}</span>
                 <span className="text-[10px] font-semibold opacity-70 text-left">{lang === 'fr' ? 'Sans engagement' : 'No commitment'}</span>

@@ -2,7 +2,7 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { Check, X } from 'lucide-react'
-import { COHORT_START_TEXT } from '@/lib/cohort-config'
+
 import { useLanguage } from '@/contexts/LanguageContext'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
@@ -35,7 +35,7 @@ export default function AcademySelectionSection() {
   const steps = [
     { num: '01', title: fr ? 'Vous passez le test' : 'You take the test', desc: fr ? '2 minutes. On vérifie que le profil et les objectifs sont alignés. Plus vous candidatez tôt, plus vous avez de chances.' : '2 minutes. We verify your profile and goals are aligned. The sooner you apply, the better your chances.' },
     { num: '02', title: fr ? 'On vous répond sous 48h' : 'We respond within 48h', desc: fr ? "Admis ou pas - pour les 20 profils retenus. Si c'est non, on vous dit pourquoi et ce qu'on conseille." : "Accepted or not - for the 20 selected profiles. If it's a no, we tell you why and what we recommend." },
-    { num: '03', title: fr ? 'Vous rejoignez la promotion' : 'You join the cohort', desc: fr ? `Accès immédiat au programme. ${COHORT_START_TEXT}` : `Immediate access to the program. ${COHORT_START_TEXT}` },
+    { num: '03', title: fr ? 'Vous rejoignez la prochaine promotion' : 'You join the next cohort', desc: fr ? 'On vous contacte dès l\'ouverture des inscriptions.' : 'We contact you as soon as registration opens.' },
   ]
 
   return (

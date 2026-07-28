@@ -2,10 +2,10 @@
 import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { LanguageSwitcher } from '@/components/LanguageSwitcher'
 import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import CallbackFormModal from '@/components/CallbackFormModal'
+import TierNav from '@/components/TierNav'
 import { fetchFlashPromo, formatCountdown } from '@/lib/flash-promo'
 
 
@@ -105,34 +105,39 @@ export default function Header() {
               </span>
             </a>
 
-            {/* Webinar banner */}
-            <a
-              href="https://join.empire-internet.com/masterclass-empire-internet"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden sm:inline-flex items-center gap-2 rounded-full bg-empire/10 border border-empire/30 px-4 py-1.5 text-sm font-semibold text-empire hover:bg-empire/20 transition-colors"
-            >
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-empire opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-empire" />
-              </span>
-              {fr ? 'Webinar : devenir une référence en partant de zéro' : 'Webinar: become a reference starting from zero'}
-            </a>
-
-            <div className="flex-1" />
+            {/* Tier navigation — centered */}
+            <div className="hidden sm:flex absolute left-1/2 -translate-x-1/2">
+              <TierNav />
+            </div>
 
             {/* Right side */}
-            <div className="flex items-center justify-end gap-2 lg:gap-3 min-w-0">
+            <div className="flex items-center justify-end gap-1.5 lg:gap-2.5 min-w-0 ml-auto">
               {isPartnersPage && (
                 <button
                   type="button"
                   className="systeme-show-popup-5606340 hidden sm:block px-4 md:px-5 py-2 md:py-2.5 rounded-lg bg-empire text-black font-semibold hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.2)] text-sm md:text-base cursor-pointer"
                 >
-                  {lang === 'fr' ? 'Obtenir mon lien' : 'Get my sharable link'}
+                  {fr ? 'Obtenir mon lien' : 'Get my sharable link'}
                 </button>
               )}
-              <LanguageSwitcher />
-
+              {!isPartnersPage && (
+                <>
+                  <a
+                    href="/quiz"
+                    className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13px] font-medium text-neutral-400 hover:text-white transition-colors"
+                  >
+                    {fr ? 'Quiz' : 'Quiz'}
+                  </a>
+                  <a
+                    href="https://join.empire-internet.com/masterclass-empire-internet"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13px] font-medium text-neutral-400 hover:text-white transition-colors"
+                  >
+                    Webinar
+                  </a>
+                </>
+              )}
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -157,22 +162,40 @@ export default function Header() {
               className="sm:hidden border-t border-white/10 bg-black/98"
             >
               <div className="px-4 py-5 space-y-4">
-                <motion.a
+                <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.05 }}
-                  href="https://join.empire-internet.com/masterclass-empire-internet"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  className="flex justify-center"
                   onClick={() => setIsMenuOpen(false)}
-                  className="flex items-center justify-center gap-2 w-full py-3 rounded-lg border border-empire/30 bg-empire/10 text-empire font-semibold text-sm"
                 >
-                  <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-empire opacity-75" />
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-empire" />
-                  </span>
-                  {fr ? 'Webinar : devenir une référence en partant de zéro' : 'Webinar: become a reference from zero'}
-                </motion.a>
+                  <TierNav />
+                </motion.div>
+                {!isPartnersPage && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }}
+                    className="flex gap-3"
+                  >
+                    <a
+                      href="/quiz"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="flex-1 flex items-center justify-center py-3 rounded-xl border border-white/10 bg-white/5 text-sm font-semibold text-white"
+                    >
+                      Quiz
+                    </a>
+                    <a
+                      href="https://join.empire-internet.com/masterclass-empire-internet"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="flex-1 flex items-center justify-center py-3 rounded-xl border border-white/10 bg-white/5 text-sm font-semibold text-white"
+                    >
+                      Webinar
+                    </a>
+                  </motion.div>
+                )}
                 {isPartnersPage && (
                   <motion.button
                     initial={{ opacity: 0, y: 10 }}
@@ -182,7 +205,7 @@ export default function Header() {
                     onClick={() => setIsMenuOpen(false)}
                     className="systeme-show-popup-5606340 w-full py-3.5 rounded-lg bg-empire text-black font-bold hover:scale-[1.02] transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.2)] cursor-pointer"
                   >
-                    {lang === 'fr' ? 'Obtenir mon lien' : 'Get my sharable link'}
+                    {fr ? 'Obtenir mon lien' : 'Get my sharable link'}
                   </motion.button>
                 )}
               </div>
@@ -191,6 +214,7 @@ export default function Header() {
         </AnimatePresence>
         <CallbackFormModal isOpen={callbackOpen} onClose={() => setCallbackOpen(false)} />
       </header>
+
     </>
   )
 }

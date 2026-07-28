@@ -1,5 +1,4 @@
 import AcademyHeroSection from '@/components/sections/AcademyHeroSection'
-import AcademyForWhoSection from '@/components/sections/AcademyForWhoSection'
 import AcademyTwoPathsSection from '@/components/sections/AcademyTwoPathsSection'
 import AcademyProgramSection from '@/components/sections/AcademyProgramSection'
 import AcademyProofStrip from '@/components/sections/AcademyProofStrip'
@@ -21,8 +20,7 @@ export default function AcademyPage() {
       {/* Hero */}
       <AcademyHeroSection />
 
-      {/* Pour qui + 2 voies */}
-      <AcademyForWhoSection />
+      {/* 2 voies */}
       <AcademyTwoPathsSection />
 
       {/* Pricing - paiement direct */}

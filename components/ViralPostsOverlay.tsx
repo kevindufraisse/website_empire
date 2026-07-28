@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { X, Loader2, ArrowRight, Clock, EuroIcon } from 'lucide-react'
 import { SocialIcons } from '@/components/ui/social-icons'
 import OnboardingLink from '@/components/OnboardingLink'
+import { useAutopilot } from '@/contexts/AutopilotContext'
 
 type StatsWindow = {
   totalImpressions: number
@@ -74,10 +75,38 @@ function computeSavings(platforms: Record<string, { impressions: number; posts: 
   return { hours: Math.round(hours), euros: Math.round(euros) }
 }
 
+function StatsButton({ onClick }: { onClick: () => void }) {
+  return (
+    <button
+      onClick={onClick}
+      aria-label="Voir les stats"
+      className="group fixed bottom-6 right-4 z-[150] flex items-center gap-3 rounded-2xl border border-white/20 bg-black/95 py-3.5 pl-3.5 pr-6 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.6)] transition-all hover:border-empire/50 hover:shadow-[0_4px_24px_rgb(var(--empire-rgb)_/_0.25)]"
+    >
+      <span className="relative flex h-[52px] w-[52px] items-center justify-center rounded-xl p-[3px] shadow-[0_4px_12px_rgba(0,0,0,0.7)] transition-transform group-hover:translate-y-[-1px] group-hover:shadow-[0_6px_16px_rgba(0,0,0,0.8)] group-active:translate-y-[2px] group-active:shadow-[0_1px_4px_rgba(0,0,0,0.5)]"
+        style={{ background: 'linear-gradient(to bottom, #3a3b42, #1c1d20)' }}
+      >
+        <span
+          className="flex h-full w-full items-center justify-center rounded-[9px] border border-white/25 text-[20px] font-bold text-white"
+          style={{
+            background: 'linear-gradient(to bottom, #707178, #525358 40%, #3e3f44)',
+            boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.3), inset 0 -2px 4px rgba(0,0,0,0.35)',
+            fontFamily: '-apple-system, "SF Pro Display", system-ui, sans-serif',
+            letterSpacing: '0.02em',
+          }}
+        >
+          L
+        </span>
+      </span>
+      <span className="text-[15px] font-bold text-white group-hover:text-empire transition-colors">Voir les stats</span>
+    </button>
+  )
+}
+
 export default function ViralPostsOverlay() {
   const [open, setOpen] = useState(false)
   const [stats, setStats] = useState<StatsPayload | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const { autopilot } = useAutopilot()
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -108,30 +137,7 @@ export default function ViralPostsOverlay() {
   const platforms = month ? PLATFORM_ORDER.filter((p) => (month.platforms[p]?.impressions ?? 0) >= 10_000) : []
 
   if (!open) {
-    return (
-      <button
-        onClick={() => setOpen(true)}
-        aria-label="Voir les stats"
-        className="group fixed bottom-6 right-4 z-[150] flex items-center gap-3 rounded-2xl border border-white/20 bg-black/95 py-3.5 pl-3.5 pr-6 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.6)] transition-all hover:border-empire/50 hover:shadow-[0_4px_24px_rgb(var(--empire-rgb)_/_0.25)]"
-      >
-        <span className="relative flex h-[52px] w-[52px] items-center justify-center rounded-xl p-[3px] shadow-[0_4px_12px_rgba(0,0,0,0.7)] transition-transform group-hover:translate-y-[-1px] group-hover:shadow-[0_6px_16px_rgba(0,0,0,0.8)] group-active:translate-y-[2px] group-active:shadow-[0_1px_4px_rgba(0,0,0,0.5)]"
-          style={{ background: 'linear-gradient(to bottom, #3a3b42, #1c1d20)' }}
-        >
-          <span
-            className="flex h-full w-full items-center justify-center rounded-[9px] border border-white/25 text-[20px] font-bold text-white"
-            style={{
-              background: 'linear-gradient(to bottom, #707178, #525358 40%, #3e3f44)',
-              boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.3), inset 0 -2px 4px rgba(0,0,0,0.35)',
-              fontFamily: '-apple-system, "SF Pro Display", system-ui, sans-serif',
-              letterSpacing: '0.02em',
-            }}
-          >
-            L
-          </span>
-        </span>
-        <span className="text-[15px] font-bold text-white group-hover:text-empire transition-colors">Voir les stats</span>
-      </button>
-    )
+    return <StatsButton onClick={() => setOpen(true)} />
   }
 
   return (

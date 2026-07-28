@@ -1,7 +1,7 @@
 'use client'
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-import { Lightbulb, Mic, FileText, Send, PenLine, Users } from 'lucide-react'
+import { Send, PenLine, Users } from 'lucide-react'
 import BorderBeam from '@/components/magicui/border-beam'
 import { DotPattern } from '@/components/magicui/dot-pattern'
 import { useLanguage } from '@/contexts/LanguageContext'
@@ -33,13 +33,6 @@ const platforms = [
 export default function AcademyProgramSection() {
   const { lang } = useLanguage()
   const fr = lang === 'fr'
-
-  const howItWorks = [
-    { icon: Lightbulb, label: fr ? 'On trouve tes sujets' : 'We find your topics', desc: fr ? 'Les angles qui marchent dans ta niche' : 'The angles that work in your niche' },
-    { icon: Mic, label: fr ? 'Tu parles 15 min' : 'You talk for 15 min', desc: fr ? 'Via Empire Alpha, comme un vocal' : 'Via Empire Alpha, like a voice note' },
-    { icon: FileText, label: fr ? 'On écrit tout' : 'We write everything', desc: fr ? 'Posts LinkedIn + Shorts montés' : 'LinkedIn posts + edited Shorts' },
-    { icon: Send, label: fr ? 'Tu publies' : 'You publish', desc: fr ? 'Copier-coller, 15 min/jour' : 'Copy-paste, 15 min/day' },
-  ]
 
   const weeks = [
     {
@@ -109,40 +102,16 @@ export default function AcademyProgramSection() {
           {/* Title */}
           <FadeInBlock>
             <div className="text-center mb-14">
-              <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">{fr ? 'Comment ça marche' : 'How it works'}</p>
+              <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">{fr ? 'Le programme' : 'The program'}</p>
               <h2 className="text-3xl md:text-5xl font-bold leading-tight">
-                {fr ? 'On trouve les sujets. Tu parles.' : 'We find the topics. You talk.'}{' '}
-                <span className="text-academy">{fr ? 'On écrit tout.' : 'We write everything.'}</span>
+                {fr ? '21 jours,' : '21 days,'}{' '}
+                <span className="text-academy">{fr ? 'semaine par semaine.' : 'week by week.'}</span>
               </h2>
-            </div>
-          </FadeInBlock>
-
-          {/* 4 steps - how content creation works */}
-          <FadeInBlock delay={0.05}>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-14">
-              {howItWorks.map((step, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.08, duration: 0.4 }}
-                  viewport={{ once: true }}
-                  className="flex flex-col items-center text-center p-5 rounded-2xl bg-gradient-to-br from-white/8 to-white/[0.02] border border-white/10"
-                >
-                  <div className="w-11 h-11 rounded-xl bg-academy/15 border border-academy/30 flex items-center justify-center mb-3">
-                    <step.icon className="text-academy" size={20} />
-                  </div>
-                  <p className="text-[10px] font-bold text-academy/60 tracking-widest uppercase mb-1">0{i + 1}</p>
-                  <p className="text-sm font-bold text-white mb-1">{step.label}</p>
-                  <p className="text-xs text-neutral-400 leading-relaxed">{step.desc}</p>
-                </motion.div>
-              ))}
             </div>
           </FadeInBlock>
 
           {/* Weeks - timeline layout */}
           <FadeInBlock delay={0.1}>
-            <p className="text-center text-xs font-bold text-neutral-400 tracking-widest uppercase mb-6">{fr ? 'Le programme semaine par semaine' : 'The week-by-week program'}</p>
             <div>
               <div className="grid md:grid-cols-3 gap-5">
                 {weeks.map((week, i) => (

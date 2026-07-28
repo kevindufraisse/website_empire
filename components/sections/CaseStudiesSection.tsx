@@ -5,6 +5,7 @@ import { useRef } from 'react'
 import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { useAutopilot } from '@/contexts/AutopilotContext'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -138,10 +139,14 @@ const CASE_STUDIES: CaseStudy[] = [
 
 export default function CaseStudiesSection() {
   const { lang, t } = useLanguage()
+  const { autopilot } = useAutopilot()
   const fr = lang === 'fr'
 
+  // Légende keeps a single aggregate proof point instead of individual stories.
+  if (autopilot) return null
+
   return (
-    <section className="relative w-full py-20 md:py-28 overflow-hidden bg-gradient-to-b from-black via-[#0a0a0a] to-black">
+    <section className="relative w-full py-12 md:py-16 overflow-hidden bg-gradient-to-b from-black via-[#0a0a0a] to-black">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgb(var(--empire-rgb)_/_0.04),transparent)]" />
 
       <div className="container relative z-10">

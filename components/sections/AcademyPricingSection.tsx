@@ -3,7 +3,8 @@ import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { Check, Shield } from 'lucide-react'
 import BorderBeam from '@/components/magicui/border-beam'
-import { useAcademyPricing } from '@/hooks/useAcademyPricing'
+import AcademyWaitlistCta from '@/components/AcademyWaitlistCta'
+import { ACADEMY_ENTRY_PRICE } from '@/lib/cohort-config'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
@@ -24,7 +25,6 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 export default function AcademyPricingSection() {
   const { lang } = useLanguage()
   const fr = lang === 'fr'
-  const pricing = useAcademyPricing()
 
   const features = fr
     ? [
@@ -62,8 +62,8 @@ export default function AcademyPricingSection() {
     {
       label: 'Empire Academy',
       sub: fr ? 'Tout inclus + accompagnement' : 'All-inclusive + expert guidance',
-      price: '497€',
-      detail: fr ? 'Paiement unique ou 3x 165€' : 'One-time payment or 3x 165€',
+      price: `${ACADEMY_ENTRY_PRICE}€`,
+      detail: fr ? 'Paiement unique ou 3x 165€' : 'One-time payment or 3x €165',
       dim: false,
     },
   ]
@@ -142,25 +142,18 @@ export default function AcademyPricingSection() {
                   </div>
 
                   {/* CTA */}
-                  <a
-                    href={pricing.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <AcademyWaitlistCta
+                    source="pricing"
                     className="block w-full text-center px-8 py-4 bg-academy text-black font-bold text-lg rounded-xl hover:scale-[1.02] transition-all shadow-[0_0_40px_rgba(252,165,165,0.35)] hover:shadow-[0_0_60px_rgba(252,165,165,0.5)]"
                   >
-                    {fr ? 'Confirmer ma place' : 'Confirm my spot'} - {pricing.price}€
-                  </a>
-                  {pricing.isUrgent && (
-                    <p className="text-center text-xs text-academy font-bold mt-2 animate-pulse">
-                      {fr ? `Le prix augmente dans ${pricing.countdown}` : `Price increases in ${pricing.countdown}`}
-                    </p>
-                  )}
+                    {fr ? 'Rejoindre la liste d\'attente' : 'Join the waitlist'}
+                  </AcademyWaitlistCta>
 
                   {/* Trust badges */}
                   <div className="mt-4 flex items-center justify-center gap-3 text-xs text-neutral-500">
                     <div className="flex items-center gap-1.5">
                       <Shield className="w-3.5 h-3.5" />
-                      <span>{fr ? 'Paiement sécurisé' : 'Secure payment'}</span>
+                      <span>{fr ? 'Sans engagement' : 'No commitment'}</span>
                     </div>
                     <span>·</span>
                     <span>{fr ? '+3 000€ de contenu inclus' : '+3,000€ of content included'}</span>

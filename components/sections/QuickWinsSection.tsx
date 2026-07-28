@@ -2,6 +2,7 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { useAutopilot } from '@/contexts/AutopilotContext'
 import { ArrowRight, X, Check } from 'lucide-react'
 import { CtaReassurance } from '@/components/ui/cta-reassurance'
 import OnboardingLink from '@/components/OnboardingLink'
@@ -68,9 +69,13 @@ const COMPARISONS: ComparisonRow[] = [
 
 export default function QuickWinsSection() {
   const { lang, t } = useLanguage()
+  const { autopilot } = useAutopilot()
   const fr = lang === 'fr'
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
+
+  // The comparison is built around the self-serve offer (price, time invested).
+  if (autopilot) return null
 
   return (
     <section className="relative w-full py-20 md:py-32 overflow-hidden bg-[#0a0a0a]">

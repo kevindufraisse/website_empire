@@ -21,6 +21,8 @@ export default function TierNav() {
   const { lang } = useLanguage()
   const { autopilot, setAutopilot } = useAutopilot()
 
+  const fr = lang === 'fr'
+
   const activeTier: TierId = pathname === '/academy'
     ? 'academy'
     : autopilot ? 'autopilot' : 'copilot'
@@ -29,14 +31,20 @@ export default function TierNav() {
     {
       id: 'academy',
       label: 'Academy',
-      sublabel: lang === 'fr' ? 'Se former' : 'Learn',
+      sublabel: fr ? 'Se former' : 'Learn',
       color: '#fca5a5',
     },
     {
       id: 'copilot',
       label: 'Empire',
-      sublabel: lang === 'fr' ? '1h de parole → omniprésent' : '1h of talking → omnipresent',
+      sublabel: fr ? 'On le fait avec vous' : 'We do it with you',
       color: '#DAFC68',
+    },
+    {
+      id: 'autopilot',
+      label: 'Légende',
+      sublabel: fr ? 'On gère tout' : 'We handle everything',
+      color: '#d4a574',
     },
   ]
 
@@ -45,6 +53,9 @@ export default function TierNav() {
       router.push('/academy')
     } else if (tier === 'copilot') {
       setAutopilot(false)
+      if (pathname !== '/') router.push('/')
+    } else if (tier === 'autopilot') {
+      setAutopilot(true)
       if (pathname !== '/') router.push('/')
     }
   }

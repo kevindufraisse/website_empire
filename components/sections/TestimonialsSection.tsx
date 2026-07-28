@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef, useEffect } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { useAutopilot } from '@/contexts/AutopilotContext'
 import { DotPattern } from '@/components/magicui/dot-pattern'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
@@ -23,7 +24,8 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 
 export default function TestimonialsSection() {
   const { t } = useLanguage()
-  
+  const { autopilot } = useAutopilot()
+
   useEffect(() => {
     // Load Senja script
     const script = document.createElement('script')
@@ -39,6 +41,8 @@ export default function TestimonialsSection() {
       }
     }
   }, [])
+
+  if (autopilot) return null
 
   return (
     <section className="relative w-full py-20 md:py-32 overflow-hidden bg-gradient-to-b from-black via-[#0f0f0f] to-black">

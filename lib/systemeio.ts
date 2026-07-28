@@ -51,7 +51,9 @@ async function request<T>(
         if (isDuplicate) {
           throw new ConflictError(text || 'conflict')
         }
-        throw new Error(`systeme.io ${res.status} on ${path}: ${text}`)
+        // Bad user input (unroutable email domain, malformed field...). Retrying
+        // won't help, so callers should surface it instead of a generic failure.
+        throw new ValidationError(`systeme.io ${res.status} on ${path}: ${text}`)
       }
 
       if (!res.ok) {
@@ -65,7 +67,7 @@ async function request<T>(
     } catch (err) {
       clearTimeout(timer)
       lastError = err
-      if (err instanceof ConflictError) throw err
+      if (err instanceof ConflictError || err instanceof ValidationError) throw err
       if (attempt === retries) break
       await new Promise(r => setTimeout(r, 250 * (attempt + 1)))
     }
@@ -77,6 +79,14 @@ export class ConflictError extends Error {
   constructor(message: string) {
     super(message)
     this.name = 'ConflictError'
+  }
+}
+
+/** Systeme.io rejected the payload (422). Not retryable — surface it to the user. */
+export class ValidationError extends Error {
+  constructor(message: string) {
+    super(message)
+    this.name = 'ValidationError'
   }
 }
 
@@ -199,15 +209,15 @@ export async function addTagsToContact(
 }
 
 export async function listAllTags(): Promise<SystemeTag[]> {
-  const all: SystemeTag[] = []
+  // Systeme.io caps the page size server-side, so a short page doesn't mean it's
+  // the last one — only an empty page does. Defensive cap so we never loop forever.
+  const byId = new Map<number, SystemeTag>()
   let page = 1
-  // Defensive cap so we never loop forever.
   while (page <= 50) {
     const data = await request<{ items: SystemeTag[] }>(`/tags?page=${page}`)
     if (!data.items?.length) break
-    all.push(...data.items)
-    if (data.items.length < 25) break
+    for (const tag of data.items) byId.set(tag.id, tag)
     page++
   }
-  return all
+  return [...byId.values()]
 }

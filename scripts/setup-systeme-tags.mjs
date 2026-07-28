@@ -32,6 +32,8 @@ const TAGS = [
   { name: 'offer_nurture', envKey: 'SYSTEMEIO_TAG_OFFER_NURTURE' },
   { name: 'webinar_methode_gourou', envKey: 'SYSTEMEIO_TAG_WEBINAR' },
   { name: 'webinar_ref_marc', envKey: 'SYSTEMEIO_TAG_WEBINAR_MARC' },
+  { name: 'academy_waitlist', envKey: 'SYSTEMEIO_TAG_ACADEMY_WAITLIST' },
+  { name: 'academy_waitlist_en', envKey: 'SYSTEMEIO_TAG_ACADEMY_WAITLIST_EN' },
 ]
 
 async function api(path, init = {}) {
@@ -54,17 +56,18 @@ async function api(path, init = {}) {
 }
 
 async function fetchAllTags() {
-  const all = []
+  // Systeme.io caps itemsPerPage server-side, so we can't infer "last page" from
+  // the item count — only an empty page reliably means we're done.
+  const byId = new Map()
   let page = 1
   while (page <= 50) {
     const { data } = await api(`/tags?itemsPerPage=100&page=${page}`)
     const items = data?.items ?? []
     if (!items.length) break
-    all.push(...items)
-    if (items.length < 100) break
+    for (const t of items) if (t?.id) byId.set(t.id, t)
     page++
   }
-  return all
+  return [...byId.values()]
 }
 
 async function createTag(name) {

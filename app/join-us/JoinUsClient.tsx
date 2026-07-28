@@ -47,13 +47,13 @@ export default function JoinUsClient() {
   }
 
   const headline = autopilot
-    ? (fr ? 'Déléguez 100% de votre présence en ligne -' : 'Delegate 100% of your online presence -')
+    ? (fr ? 'Kevin Dufraisse ou un expert en viralité' : 'Kevin Dufraisse or a virality expert')
     : (fr ? 'Attirez des clients -' : 'Attract clients -')
   const headlineAccent = autopilot
-    ? (fr ? 'un expert dédié prend le contrôle.' : 'a dedicated expert takes over.')
+    ? (fr ? 'crée votre marque de A à Z.' : 'builds your brand from A to Z.')
     : (fr ? 'sans écrire ni monter votre contenu.' : 'without writing or editing your content.')
   const subtitle = autopilot
-    ? (fr ? 'Zéro interview, zéro contact. Votre expert trouve vos sujets, écrit dans votre voix, publie pour vous.' : 'Zero interview, zero contact. Your expert finds your topics, writes in your voice, publishes for you.')
+    ? (fr ? 'Vous ne vous occupez de rien. On trouve vos sujets, on écrit dans votre voix, on produit et on publie. 10 places disponibles.' : 'You don\'t lift a finger. We find your topics, write in your voice, produce and publish. 10 spots available.')
     : (fr ? '15 min de parole par semaine → 30+ posts, reels, vidéos, newsletters.' : '15 min of talking per week → 30+ posts, reels, videos, newsletters.')
 
   return (
@@ -113,7 +113,7 @@ export default function JoinUsClient() {
             <div className="flex items-center gap-2.5">
               <img src={KEVIN_IMG} alt="Kevin Dufraisse" width={32} height={32} className="w-8 h-8 rounded-full border border-white/15 object-cover" />
               <p className="text-neutral-400 text-xs">
-                {fr ? 'Créé par' : 'Built by'} <span className="text-white font-semibold">Kevin Dufraisse</span> · Top 48 LinkedIn France
+                {fr ? 'Créé par' : 'Built by'} <span className="text-white font-semibold">Kevin Dufraisse</span> · Top 55 LinkedIn France
               </p>
             </div>
           </div>
@@ -124,7 +124,7 @@ export default function JoinUsClient() {
               <div className="mb-5">
                 <h2 className="text-lg font-bold text-white">
                   {autopilot
-                    ? (fr ? 'Postulez au mode Autopilot' : 'Apply to Autopilot mode')
+                    ? (fr ? 'Vérifiez votre éligibilité' : 'Check your eligibility')
                     : (fr ? 'Réservez votre appel gratuit' : 'Book your free call')}
                 </h2>
                 <p className="text-xs text-neutral-400 mt-1">
@@ -147,18 +147,31 @@ export default function JoinUsClient() {
           </div>
         </div>
 
-        <div className="max-w-5xl mx-auto w-full px-4 sm:px-6 pb-12">
-          <p className="text-xs text-neutral-400 uppercase tracking-widest font-bold text-center mb-6">
-            {fr ? "Ce qu'en disent ceux qui sont passés par là" : 'What people who joined have to say'}
-          </p>
-          <div
-            className="senja-embed"
-            data-id="a7bf7e4a-0f3b-4751-8190-849f83d16306"
-            data-mode="shadow"
-            data-lazyload="false"
-            style={{ display: 'block', width: '100%' }}
-          />
-        </div>
+        {autopilot ? (
+          <div className="max-w-5xl mx-auto w-full px-4 sm:px-6 pb-12 text-center">
+            <p className="text-4xl md:text-5xl font-black text-autopilot leading-none">
+              {fr ? '1 à 100M€' : '€1M to €100M'}
+            </p>
+            <p className="mt-3 text-sm text-neutral-400">
+              {fr
+                ? 'de chiffre d\'affaires par an en moyenne chez nos clients.'
+                : 'in annual revenue on average across our clients.'}
+            </p>
+          </div>
+        ) : (
+          <div className="max-w-5xl mx-auto w-full px-4 sm:px-6 pb-12">
+            <p className="text-xs text-neutral-400 uppercase tracking-widest font-bold text-center mb-6">
+              {fr ? "Ce qu'en disent ceux qui sont passés par là" : 'What people who joined have to say'}
+            </p>
+            <div
+              className="senja-embed"
+              data-id="a7bf7e4a-0f3b-4751-8190-849f83d16306"
+              data-mode="shadow"
+              data-lazyload="false"
+              style={{ display: 'block', width: '100%' }}
+            />
+          </div>
+        )}
 
         <div className="border-t border-white/5 py-5 text-center">
           <p className="text-xs text-neutral-400">

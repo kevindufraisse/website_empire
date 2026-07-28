@@ -30,6 +30,9 @@ export default function FinalBoostCTA() {
   const { t, lang } = useLanguage()
   const { autopilot } = useAutopilot()
 
+  // Légende already closes on the founder section — repeating the pitch here adds nothing.
+  if (autopilot) return null
+
   return (
     <section className="relative w-full pb-20 md:pb-32 bg-gradient-to-b from-black to-[#0f0f0f]">
       <div className="container">
@@ -87,24 +90,28 @@ export default function FinalBoostCTA() {
                   </div>
                 )}
 
-                <OnboardingLink
-                  className={`inline-flex flex-col items-center w-full sm:w-auto px-8 py-4 font-bold rounded-xl hover:scale-105 transition-all text-center ${
-                    autopilot
-                      ? 'bg-gradient-to-r from-autopilot to-autopilot text-black shadow-[0_0_30px_rgba(212,165,116,0.4)]'
-                      : 'bg-empire text-black shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]'
-                  }`}
-                >
-                  <span className="text-lg">
-                    {autopilot
-                      ? t.autopilot.finalCTA.cta
-                      : (lang === 'fr' ? 'Lancer ma machine média' : 'Launch my media machine')}
-                  </span>
-                  <span className="text-[11px] font-semibold opacity-70">
-                    {lang === 'fr'
-                      ? '7 jours gratuits · Sans engagement'
-                      : '7 days free · No commitment'}
-                  </span>
-                </OnboardingLink>
+                {autopilot ? (
+                  <a
+                    href="/join-us"
+                    className="inline-flex flex-col items-center w-full sm:w-auto px-8 py-4 font-bold rounded-xl hover:scale-105 transition-all text-center bg-autopilot text-black shadow-[0_0_30px_rgba(212,165,116,0.4)]"
+                  >
+                    <span className="text-lg">{t.autopilot.finalCTA.cta}</span>
+                    <span className="text-[11px] font-semibold opacity-70">
+                      {t.autopilot.hero.ctaReassurance}
+                    </span>
+                  </a>
+                ) : (
+                  <OnboardingLink className="inline-flex flex-col items-center w-full sm:w-auto px-8 py-4 font-bold rounded-xl hover:scale-105 transition-all text-center bg-empire text-black shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]">
+                    <span className="text-lg">
+                      {lang === 'fr' ? 'Lancer ma machine média' : 'Launch my media machine'}
+                    </span>
+                    <span className="text-[11px] font-semibold opacity-70">
+                      {lang === 'fr'
+                        ? '7 jours gratuits · Sans engagement'
+                        : '7 days free · No commitment'}
+                    </span>
+                  </OnboardingLink>
+                )}
 
                 {!autopilot && <LaunchOfferLine className="mt-4" />}
               </div>

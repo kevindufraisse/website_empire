@@ -5,53 +5,13 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import RetroGrid from '@/components/magicui/retro-grid'
 import { Meteors } from '@/components/magicui/meteors'
-import { StarRating } from '@/components/ui/star-rating'
-import Marquee from '@/components/magicui/marquee'
 import { SocialIcons } from '@/components/ui/social-icons'
 import OnboardingLink from '@/components/OnboardingLink'
 import VoiceToContentAnimation from '@/components/VoiceToContentAnimation'
-import { Play, X } from 'lucide-react'
-
-const DEMO_URL =
-  'https://www.loom.com/embed/9751f76501dc436f8728f46736d7aea8?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_speed=true&hide_title=true&t=0'
-
-function DemoModal({ onClose }: { onClose: () => void }) {
-  return (
-    <div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
-      onClick={onClose}
-      role="dialog"
-      aria-modal="true"
-    >
-      <div
-        className="relative w-full max-w-4xl rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-neutral-950"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <button
-          onClick={onClose}
-          aria-label="Close"
-          className="absolute top-3 right-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-white hover:bg-black/80 transition-colors"
-        >
-          <X size={18} />
-        </button>
-        <div className="relative" style={{ paddingBottom: '56.25%' }}>
-          <iframe
-            src={DEMO_URL}
-            frameBorder="0"
-            allowFullScreen
-            allow="autoplay"
-            className="absolute inset-0 w-full h-full"
-          />
-        </div>
-      </div>
-    </div>
-  )
-}
 
 export default function HeroSection() {
   const { t, lang } = useLanguage()
   const { autopilot } = useAutopilot()
-  const [showDemo, setShowDemo] = useState(false)
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -67,11 +27,24 @@ export default function HeroSection() {
       <section className="relative w-full pt-20 md:pt-24 pb-20 md:pb-28 overflow-hidden bg-gradient-to-b from-black via-transparent to-[#0f0f0f]">
         <div className="container">
         <RetroGrid />
-        <Meteors number={15} />
+        <Meteors number={8} />
         <div className={`absolute inset-0 transition-opacity duration-500 ${autopilot ? 'opacity-0' : 'opacity-100'} bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgb(var(--empire-rgb)_/_0.15),transparent)]`} />
         <div className={`absolute inset-0 transition-opacity duration-500 ${autopilot ? 'opacity-100' : 'opacity-0'} bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(212,165,116,0.18),transparent)]`} />
         
         <div className="relative z-10 text-center max-w-4xl mx-auto">
+
+          {autopilot && (
+            <motion.div
+              initial={mounted ? { opacity: 0, y: 10 } : false}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              className="mb-5 flex justify-center"
+            >
+              <span className="inline-flex items-center gap-2 rounded-full border border-autopilot/40 bg-autopilot/10 px-4 py-1.5 text-xs font-bold text-autopilot">
+                {t.autopilot.hero.targetAudience}
+              </span>
+            </motion.div>
+          )}
 
           <AnimatePresence mode="wait" initial={false}>
             <motion.h1
@@ -125,27 +98,25 @@ export default function HeroSection() {
             className="mt-8 flex flex-col items-center gap-6"
           >
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full sm:w-auto">
-              <OnboardingLink
-                className={`group w-full sm:w-auto px-8 py-4 font-bold rounded-xl hover:scale-105 transition-all text-center flex flex-col items-center gap-1 shrink-0 ${
-                  autopilot
-                    ? 'bg-gradient-to-r from-autopilot to-autopilot text-black shadow-[0_0_30px_rgba(212,165,116,0.4)]'
-                    : 'bg-empire text-black shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]'
-                }`}
-              >
-                <span className="flex items-center gap-2">
-                  {heroCta}
-                  <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
-                </span>
-                <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? 'Sans engagement · Annulez en 1 clic' : 'No commitment · Cancel in 1 click'}</span>
-              </OnboardingLink>
-              {lang === 'fr' && !autopilot && (
-                <button
-                  onClick={() => setShowDemo(true)}
-                  className="group w-full sm:w-auto px-8 py-4 font-bold rounded-xl border border-white/15 bg-white/5 text-white hover:bg-white/10 hover:scale-105 transition-all flex items-center justify-center gap-2 self-stretch"
+              {autopilot ? (
+                <a
+                  href="/join-us"
+                  className="group w-full sm:w-auto px-8 py-4 font-bold rounded-xl hover:scale-105 transition-all text-center flex flex-col items-center gap-1 shrink-0 bg-autopilot text-black shadow-[0_0_30px_rgba(212,165,116,0.4)]"
                 >
-                  <Play size={16} className="text-empire" />
-                  {t.hero.cta2}
-                </button>
+                  <span className="flex items-center gap-2">
+                    {heroCta}
+                    <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
+                  </span>
+                  <span className="text-[11px] font-semibold opacity-70">{t.autopilot.hero.ctaReassurance}</span>
+                </a>
+              ) : (
+                <OnboardingLink className="group w-full sm:w-auto px-8 py-4 font-bold rounded-xl hover:scale-105 transition-all text-center flex flex-col items-center gap-1 shrink-0 bg-empire text-black shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]">
+                  <span className="flex items-center gap-2">
+                    {heroCta}
+                    <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
+                  </span>
+                  <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? 'Sans engagement · Annulez en 1 clic' : 'No commitment · Cancel in 1 click'}</span>
+                </OnboardingLink>
               )}
             </div>
             {/* Creator badge */}
@@ -159,11 +130,28 @@ export default function HeroSection() {
                 />
                 <span className="text-xs text-neutral-300">
                   {lang === 'fr'
-                    ? 'Créé par Kevin Dufraisse · Top 48 LinkedIn France'
-                    : 'Built by Kevin Dufraisse · Top 48 LinkedIn France'}
+                    ? 'Créé par Kevin Dufraisse · Top 55 LinkedIn France'
+                    : 'Built by Kevin Dufraisse · Top 55 LinkedIn France'}
                 </span>
               </div>
             </div>
+            {autopilot && (
+              <div className="flex items-center justify-center gap-6">
+                {[
+                  { name: 'Ippon Technologies', src: '/logos/ippon.png' },
+                  { name: 'Socratiz', src: '/logos/presse-agence.png' },
+                  { name: 'The Sanctuary Group', src: '/logos/sanctuary.png' },
+                ].map((l) => (
+                  <img
+                    key={l.name}
+                    src={l.src}
+                    alt={l.name}
+                    className="h-5 w-auto object-contain brightness-0 invert opacity-40"
+                    loading="lazy"
+                  />
+                ))}
+              </div>
+            )}
           </motion.div>
 
           {/* Voice-to-content animation in place of the video */}
@@ -182,7 +170,6 @@ export default function HeroSection() {
         </div>
       </section>
 
-      {showDemo && <DemoModal onClose={() => setShowDemo(false)} />}
     </>
   )
 }

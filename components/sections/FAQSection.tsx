@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { useAutopilot } from '@/contexts/AutopilotContext'
 import { ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -138,8 +139,12 @@ const getFAQsOld = (t: any) => t.faqItems || [
 
 export default function FAQSection({ variant = 'all' }: { variant?: 'all' | 'home' | 'pricing' | 'formats' }) {
   const { t } = useLanguage()
+  const { autopilot } = useAutopilot()
   const [openIndex, setOpenIndex] = useState<number | null>(0)
   const faqs = getFAQs(t, variant)
+
+  // Home FAQ answers self-serve questions (trial, cancellation, time to invest).
+  if (autopilot && variant === 'home') return null
 
   return (
     <section id="faq" className="relative w-full py-12 md:py-32 bg-gradient-to-b from-black via-[#0f0f0f] to-black overflow-hidden">

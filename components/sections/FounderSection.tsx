@@ -3,8 +3,8 @@ import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef, useEffect } from 'react'
 import Image from 'next/image'
-import { Award, TrendingUp, Code2, ArrowRight } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { useAutopilot } from '@/contexts/AutopilotContext'
 import CallbackButton from '@/components/CallbackButton'
 import { CtaReassurance } from '@/components/ui/cta-reassurance'
 import OnboardingLink from '@/components/OnboardingLink'
@@ -27,6 +27,7 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 
 export default function FounderSection() {
   const { t, lang } = useLanguage()
+  const { autopilot } = useAutopilot()
 
   // Load Senja widget script for French version
   useEffect(() => {
@@ -44,63 +45,15 @@ export default function FounderSection() {
 
   // Different credentials for FR vs EN
   const credentialsFr = [
-    {
-      icon: Code2,
-      stat: '#1',
-      label: 'Lead Generation France',
-      color: 'from-white/10 to-white/5',
-      borderColor: 'border-white/20',
-      textColor: 'text-empire',
-      shadow: ''
-    },
-    {
-      icon: Award,
-      stat: '#48',
-      label: 'LinkedIn Influence France',
-      color: 'from-white/10 to-white/5',
-      borderColor: 'border-white/20',
-      textColor: 'text-empire',
-      shadow: ''
-    },
-    {
-      icon: TrendingUp,
-      stat: '700M+',
-      label: 'Vues générées pour nos clients',
-      color: 'from-white/10 to-white/5',
-      borderColor: 'border-white/20',
-      textColor: 'text-empire',
-      shadow: ''
-    }
+    { stat: '#1', label: 'Lead Generation France' },
+    { stat: '#55', label: 'LinkedIn Influence France' },
+    { stat: '700M+', label: 'Vues générées pour nos clients' },
   ]
 
   const credentialsEn = [
-    {
-      icon: Code2,
-      stat: '#9',
-      label: 'Lead Generation Worldwide',
-      color: 'from-white/10 to-white/5',
-      borderColor: 'border-white/20',
-      textColor: 'text-empire',
-      shadow: ''
-    },
-    {
-      icon: Award,
-      stat: '#48',
-      label: 'LinkedIn Influence France',
-      color: 'from-white/10 to-white/5',
-      borderColor: 'border-white/20',
-      textColor: 'text-empire',
-      shadow: ''
-    },
-    {
-      icon: TrendingUp,
-      stat: '700M+',
-      label: 'Views generated for our clients',
-      color: 'from-white/10 to-white/5',
-      borderColor: 'border-white/20',
-      textColor: 'text-empire',
-      shadow: ''
-    }
+    { stat: '#9', label: 'Lead Generation Worldwide' },
+    { stat: '#55', label: 'LinkedIn Influence France' },
+    { stat: '700M+', label: 'Views generated for our clients' },
   ]
 
   const credentials = lang === 'fr' ? credentialsFr : credentialsEn
@@ -154,15 +107,15 @@ export default function FounderSection() {
             <FadeInBlock delay={0.2}>
               <div className="space-y-6">
                 {/* Credentials */}
-                <div className="grid grid-cols-3 gap-3">
-                  {credentials.map((cred, idx) => (
-                    <div 
-                      key={idx}
-                      className={`text-center p-4 rounded-xl bg-gradient-to-br ${cred.color} border ${cred.borderColor} ${cred.shadow}`}
-                    >
-                      <cred.icon className={`${cred.textColor} mx-auto mb-2`} size={24} />
-                      <p className={`text-2xl md:text-3xl font-bold ${cred.textColor}`}>{cred.stat}</p>
-                      <p className="text-[10px] md:text-xs text-neutral-400 mt-1">{cred.label}</p>
+                <div className="flex divide-x divide-white/10 border-y border-white/10 py-5">
+                  {credentials.map((cred) => (
+                    <div key={cred.label} className="flex-1 px-3 first:pl-0 last:pr-0">
+                      <p className="text-2xl md:text-3xl font-bold tracking-tight text-white tabular-nums">
+                        {cred.stat}
+                      </p>
+                      <p className="mt-1.5 text-[11px] md:text-xs leading-snug text-neutral-500">
+                        {cred.label}
+                      </p>
                     </div>
                   ))}
                 </div>
@@ -212,10 +165,20 @@ export default function FounderSection() {
           {/* CTA - Talk to Kevin */}
           <FadeInBlock delay={0.4}>
             <div className="mt-12 text-center">
-              <OnboardingLink className="inline-flex flex-col items-center px-8 py-4 rounded-xl bg-empire text-black font-bold hover:scale-105 transition-transform shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.3)]">
-                <span className="text-lg">{t.common.startNow}</span>
-                <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? 'Sans engagement · Annulez en 1 clic' : 'No commitment · Cancel in 1 click'}</span>
-              </OnboardingLink>
+              {autopilot ? (
+                <a
+                  href="/join-us"
+                  className="inline-flex flex-col items-center px-8 py-4 rounded-xl bg-autopilot text-black font-bold hover:scale-105 transition-transform shadow-[0_0_30px_rgba(212,165,116,0.3)]"
+                >
+                  <span className="text-lg">{t.autopilot.hero.cta1}</span>
+                  <span className="text-[11px] font-semibold opacity-70">{t.autopilot.hero.ctaReassurance}</span>
+                </a>
+              ) : (
+                <OnboardingLink className="inline-flex flex-col items-center px-8 py-4 rounded-xl bg-empire text-black font-bold hover:scale-105 transition-transform shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.3)]">
+                  <span className="text-lg">{t.common.startNow}</span>
+                  <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? 'Sans engagement · Annulez en 1 clic' : 'No commitment · Cancel in 1 click'}</span>
+                </OnboardingLink>
+              )}
             </div>
           </FadeInBlock>
         </div>

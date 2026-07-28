@@ -3,7 +3,8 @@ import { motion, useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
 import { ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { useAcademyPricing } from '@/hooks/useAcademyPricing'
+import AcademyWaitlistCta from '@/components/AcademyWaitlistCta'
+import { ACADEMY_ENTRY_PRICE } from '@/lib/cohort-config'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
@@ -24,7 +25,6 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 export default function AcademyFAQSection() {
   const { lang } = useLanguage()
   const fr = lang === 'fr'
-  const pricing = useAcademyPricing()
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   const faqs = fr
@@ -39,7 +39,7 @@ export default function AcademyFAQSection() {
         },
         {
           q: 'Combien ça coûte ?',
-          a: "497€ en early bird (jusqu'au 9 mai), puis 697€, puis 897€ à partir du 16 mai. Paiement en 3x possible (165€/semaine en early bird). Pour te donner un repère : si tu fais tout seul (21 posts + 21 Shorts), ça revient à 3 360€ minimum. Le bootcamp coûte une fraction de ça.",
+          a: "Le tarif d'entrée est de 497€, avec un paiement en 3x possible (165€/semaine). Les inscriptions ouvrent par vagues et le prix monte à mesure que les places partent : la liste d'attente te garantit d'être prévenu au tarif le plus bas. Pour te donner un repère : si tu fais tout seul (21 posts + 21 Shorts), ça revient à 3 360€ minimum. Le bootcamp coûte une fraction de ça.",
         },
         {
           q: "J'ai pas de projet, c'est pour moi ?",
@@ -73,7 +73,7 @@ export default function AcademyFAQSection() {
         },
         {
           q: 'How much does it cost?',
-          a: "497€ early bird (until May 9), then 697€, then 897€ from May 16. 3x payment available (165€/week early bird). For reference: if you do it yourself (21 posts + 21 Shorts), it costs at least 3,360€. The bootcamp costs a fraction of that.",
+          a: "The entry price is €497, with a 3x payment option (€165/week). Enrolment opens in waves and the price goes up as spots fill: the waitlist guarantees you get notified at the lowest price. For reference: if you do it yourself (21 posts + 21 Shorts), it costs at least €3,360. The bootcamp costs a fraction of that.",
         },
         {
           q: "I don't have a project, is this for me?",
@@ -165,15 +165,17 @@ export default function AcademyFAQSection() {
 
           <FadeInBlock delay={0.3}>
             <div className="mt-14 text-center">
-              <a
-                href={pricing.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-academy text-black font-bold text-lg rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(252, 165, 165,0.3)]"
+              <AcademyWaitlistCta
+                source="faq"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-academy text-black font-bold text-lg rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(252,165,165,0.3)]"
+                sublabel={
+                  <p className="text-xs text-neutral-400 mt-2">
+                    {fr ? `Places limitées · à partir de ${ACADEMY_ENTRY_PRICE}€` : `Limited spots · from €${ACADEMY_ENTRY_PRICE}`}
+                  </p>
+                }
               >
-                {fr ? 'Confirmer ma place' : 'Confirm my spot'} - {pricing.price}€
-              </a>
-              <p className="text-xs text-neutral-400 mt-2">{fr ? 'ou 3x 165€/semaine' : 'or 3x 165€/week'}</p>
+                {fr ? 'Rejoindre la liste d\'attente' : 'Join the waitlist'}
+              </AcademyWaitlistCta>
             </div>
           </FadeInBlock>
 
