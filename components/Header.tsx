@@ -127,7 +127,7 @@ export default function Header() {
                     className="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-white/15 bg-white/5 text-[13px] font-semibold text-white hover:bg-white/10 hover:border-white/25 transition-all"
                   >
                     <span className="text-empire text-[11px]">✦</span>
-                    {fr ? 'Trouver mon offre' : 'Find my plan'}
+                    {fr ? 'Quel créateur es-tu ?' : 'What creator are you?'}
                   </a>
                   <a
                     href="https://join.empire-internet.com/masterclass-empire-internet"
@@ -136,7 +136,7 @@ export default function Header() {
                     className="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-empire/15 border border-empire/30 text-[13px] font-semibold text-empire hover:bg-empire/25 transition-all"
                   >
                     <span className="text-[11px]">▶</span>
-                    {fr ? 'Webinar gratuit' : 'Free webinar'}
+                    {fr ? 'Webinar · lundi 12h' : 'Webinar · Mon 12pm'}
                   </a>
                 </>
               )}
@@ -186,7 +186,7 @@ export default function Header() {
                       className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-white/15 bg-white/5 text-sm font-semibold text-white"
                     >
                       <span className="text-empire text-xs">✦</span>
-                      {fr ? 'Trouver mon offre' : 'Find my plan'}
+                      {fr ? 'Quel créateur es-tu ?' : 'What creator are you?'}
                     </a>
                     <a
                       href="https://join.empire-internet.com/masterclass-empire-internet"
@@ -196,7 +196,7 @@ export default function Header() {
                       className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-empire/15 border border-empire/30 text-sm font-semibold text-empire"
                     >
                       <span className="text-xs">▶</span>
-                      {fr ? 'Webinar gratuit' : 'Free webinar'}
+                      {fr ? 'Webinar · lundi 12h' : 'Webinar · Mon 12pm'}
                     </a>
                   </motion.div>
                 )}

@@ -80,7 +80,7 @@ function StatsButton({ onClick }: { onClick: () => void }) {
     <button
       onClick={onClick}
       aria-label="Voir les stats"
-      className="group fixed bottom-6 right-4 z-[150] flex items-center gap-3 rounded-2xl border border-white/20 bg-black/95 py-3.5 pl-3.5 pr-6 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.6)] transition-all hover:border-empire/50 hover:shadow-[0_4px_24px_rgb(var(--empire-rgb)_/_0.25)]"
+      className="group fixed bottom-6 left-4 z-[150] flex items-center gap-3 rounded-2xl border border-white/20 bg-black/95 py-3.5 pl-3.5 pr-6 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.6)] transition-all hover:border-empire/50 hover:shadow-[0_4px_24px_rgb(var(--empire-rgb)_/_0.25)]"
     >
       <span className="relative flex h-[52px] w-[52px] items-center justify-center rounded-xl p-[3px] shadow-[0_4px_12px_rgba(0,0,0,0.7)] transition-transform group-hover:translate-y-[-1px] group-hover:shadow-[0_6px_16px_rgba(0,0,0,0.8)] group-active:translate-y-[2px] group-active:shadow-[0_1px_4px_rgba(0,0,0,0.5)]"
         style={{ background: 'linear-gradient(to bottom, #3a3b42, #1c1d20)' }}
