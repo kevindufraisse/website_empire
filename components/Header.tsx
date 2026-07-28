@@ -124,17 +124,19 @@ export default function Header() {
                 <>
                   <a
                     href="/quiz"
-                    className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13px] font-medium text-neutral-400 hover:text-white transition-colors"
+                    className="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-white/15 bg-white/5 text-[13px] font-semibold text-white hover:bg-white/10 hover:border-white/25 transition-all"
                   >
-                    {fr ? 'Quiz' : 'Quiz'}
+                    <span className="text-empire text-[11px]">✦</span>
+                    {fr ? 'Trouver mon offre' : 'Find my plan'}
                   </a>
                   <a
                     href="https://join.empire-internet.com/masterclass-empire-internet"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13px] font-medium text-neutral-400 hover:text-white transition-colors"
+                    className="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-empire/15 border border-empire/30 text-[13px] font-semibold text-empire hover:bg-empire/25 transition-all"
                   >
-                    Webinar
+                    <span className="text-[11px]">▶</span>
+                    {fr ? 'Webinar gratuit' : 'Free webinar'}
                   </a>
                 </>
               )}
@@ -181,18 +183,20 @@ export default function Header() {
                     <a
                       href="/quiz"
                       onClick={() => setIsMenuOpen(false)}
-                      className="flex-1 flex items-center justify-center py-3 rounded-xl border border-white/10 bg-white/5 text-sm font-semibold text-white"
+                      className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-white/15 bg-white/5 text-sm font-semibold text-white"
                     >
-                      Quiz
+                      <span className="text-empire text-xs">✦</span>
+                      {fr ? 'Trouver mon offre' : 'Find my plan'}
                     </a>
                     <a
                       href="https://join.empire-internet.com/masterclass-empire-internet"
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => setIsMenuOpen(false)}
-                      className="flex-1 flex items-center justify-center py-3 rounded-xl border border-white/10 bg-white/5 text-sm font-semibold text-white"
+                      className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-empire/15 border border-empire/30 text-sm font-semibold text-empire"
                     >
-                      Webinar
+                      <span className="text-xs">▶</span>
+                      {fr ? 'Webinar gratuit' : 'Free webinar'}
                     </a>
                   </motion.div>
                 )}
