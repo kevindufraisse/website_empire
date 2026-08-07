@@ -14,8 +14,8 @@ export const en = {
   },
   hero: {
     targetAudience: 'For freelancers, employees & entrepreneurs',
-    title: 'Build a personal brand <span class="text-empire">that attracts clients.</span>',
-    subtitle: 'Talk for 1 hour. We create a month of content. Your brand attracts clients all year long.',
+    title: 'Talk for 1 hour. We create a month of content. <span class="text-empire">Your brand attracts clients all year long.</span>',
+    subtitle: 'Install the Empire System: join our weekly live masterclasses, find your best topics with our experts, and let our team turn 1 hour of talking into a month of content across 7 platforms.',
     description: '',
     cta1: 'Start for free',
     cta2: 'Watch Demo (1 min)',
@@ -160,7 +160,7 @@ export const en = {
     specific: {
       howManyPosts: {
         question: 'How many pieces of content do I get exactly?',
-        answer: 'Each plan includes a monthly content volume: ~22 for Starter, ~89 for Growth, ~177 for Scale. You choose how to split them between LinkedIn posts, reels, newsletters, YouTube videos and carousels. Need more occasionally? You can top up anytime.',
+        answer: 'Each pack includes a monthly content volume: about 22 on Starter, 89 on Intermediate, 177 on Expert. You choose how to split them between LinkedIn posts, reels, newsletters, YouTube videos and carousels. Need more occasionally? You can add volume anytime.',
       },
       whatIfDontLike: {
         question: 'What if I have no content ideas?',
@@ -952,8 +952,8 @@ export const en = {
     toggleHint: 'No time? We handle everything',
     hero: {
       targetAudience: 'For CEOs who want to delegate · 10 spots',
-      title: 'Delegate your personal brand <span class="text-autopilot">to the best virality experts.</span>',
-      subtitle: 'You run your business. We run your image.',
+      title: 'You run your business. <span class="text-autopilot">We run your image.</span>',
+      subtitle: 'Kevin Dufraisse or a dedicated expert defines your strategy, creates your content and builds your reputation while you run your company.',
       cta1: 'Check my eligibility',
       ctaReassurance: '10 spots available · Application only',
     },

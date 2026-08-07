@@ -137,8 +137,8 @@ export const fr: Translations = {
   },
   hero: {
     targetAudience: 'Pour freelances, salariés & entrepreneurs',
-    title: 'Développez une marque personnelle <span class="text-empire">qui attire des clients.</span>',
-    subtitle: 'Parlez 1 heure. Nous créons un mois de contenus. Votre marque attire des clients toute l\'année.',
+    title: 'Parlez 1 heure. Nous créons un mois de contenus. <span class="text-empire">Votre marque attire des clients toute l\'année.</span>',
+    subtitle: 'Installez le Système Empire : participez à nos masterclass live hebdomadaires, trouvez les meilleurs sujets avec nos experts et laissez notre équipe transformer 1 heure de parole en un mois de contenus sur 7 plateformes.',
     description: '',
     cta1: 'Commencer gratuitement',
     cta2: 'Voir la Démo (1 min)',
@@ -283,7 +283,7 @@ export const fr: Translations = {
     specific: {
       howManyPosts: {
         question: 'Combien de contenus j\'obtiens exactement ?',
-        answer: 'Chaque plan inclut un volume mensuel de contenus : ~22 pour Starter, ~89 pour Growth, ~177 pour Scale. Vous choisissez comment les répartir entre posts LinkedIn, reels, newsletters, vidéos YouTube et carrousels. Besoin de plus ponctuellement ? Vous pouvez recharger à tout moment.',
+        answer: 'Chaque pack inclut un volume mensuel de contenus : environ 22 en Débutant, 89 en Intermédiaire, 177 en Expert. Vous choisissez comment les répartir entre posts LinkedIn, reels, newsletters, vidéos YouTube et carrousels. Besoin de plus ponctuellement ? Vous pouvez ajouter du volume à tout moment.',
       },
       whatIfDontLike: {
         question: 'Et si je n\'ai pas d\'idée de contenu ?',
@@ -954,8 +954,8 @@ export const fr: Translations = {
     toggleHint: 'Pas le temps ? On gère tout',
     hero: {
       targetAudience: 'Pour les CEO qui veulent déléguer · 10 places',
-      title: 'Déléguez votre marque personnelle <span class="text-autopilot">aux meilleurs experts en viralité.</span>',
-      subtitle: 'Vous dirigez votre entreprise. Nous dirigeons votre image.',
+      title: 'Vous dirigez votre entreprise. <span class="text-autopilot">Nous dirigeons votre image.</span>',
+      subtitle: 'Kevin Dufraisse ou un expert dédié définit votre stratégie, crée vos contenus et construit votre réputation pendant que vous dirigez votre entreprise.',
       cta1: 'Vérifier mon éligibilité',
       ctaReassurance: '10 places disponibles · Sur sélection',
     },

@@ -91,10 +91,10 @@ const PILLARS: Pillar[] = [
       { fr: '4 sessions d\'enregistrement par mois', en: '4 recording sessions per month', descFr: 'Vous parlez, on transforme. C\'est la seule chose qu\'on vous demande.', descEn: 'You talk, we transform. The only thing we ask of you.', icon: Mic },
       { fr: 'Équipe humaine dédiée', en: 'Dedicated human team', descFr: 'De vrais humains créent et vérifient chaque contenu avant livraison.', descEn: 'Real humans create and check every piece before delivery.', icon: UserCheck },
       { fr: 'Support prioritaire sous 4h', en: 'Priority support within 4h', descFr: 'Une question, une correction : réponse le jour même.', descEn: 'A question, a fix: same-day answer.', icon: HeadphonesIcon },
-      { fr: 'Communauté privée Slack', en: 'Private Slack community', descFr: 'Réseau de fondateurs et de créateurs.', descEn: 'Founder and creator network.', icon: Users, badge: 'DÈS GROWTH' },
-      { fr: 'Lives hebdomadaires', en: 'Weekly live sessions', descFr: 'Sessions collectives pour progresser sur vos formats.', descEn: 'Group sessions to sharpen your formats.', icon: Mic, badge: 'DÈS GROWTH' },
-      { fr: 'Replays masterclass', en: 'Masterclass replays', descFr: 'Tout le système Empire en vidéo (valeur 197€).', descEn: 'The whole Empire system on video (€197 value).', icon: GraduationCap, badge: 'DÈS GROWTH' },
-      { fr: 'Revue stratégique mensuelle', en: 'Monthly strategy review', descFr: 'Vos retours et vos axes d\'amélioration en vidéo Loom.', descEn: 'Your feedback and improvement areas as a Loom video.', icon: Compass, badge: 'DÈS SCALE' },
+      { fr: 'Communauté privée Slack', en: 'Private Slack community', descFr: 'Réseau de fondateurs et de créateurs.', descEn: 'Founder and creator network.', icon: Users, badge: 'DÈS INTERMÉDIAIRE' },
+      { fr: 'Lives hebdomadaires', en: 'Weekly live sessions', descFr: 'Sessions collectives pour progresser sur vos formats.', descEn: 'Group sessions to sharpen your formats.', icon: Mic, badge: 'DÈS INTERMÉDIAIRE' },
+      { fr: 'Replays masterclass', en: 'Masterclass replays', descFr: 'Tout le système Empire en vidéo (valeur 197€).', descEn: 'The whole Empire system on video (€197 value).', icon: GraduationCap, badge: 'DÈS INTERMÉDIAIRE' },
+      { fr: 'Revue stratégique mensuelle', en: 'Monthly strategy review', descFr: 'Vos retours et vos axes d\'amélioration en vidéo Loom.', descEn: 'Your feedback and improvement areas as a Loom video.', icon: Compass, badge: 'DÈS EXPERT' },
     ],
   },
 ]
@@ -221,7 +221,7 @@ export default function HomePricingSection() {
                         : `Flash deal: €${flashPromo.promoMonthly}/mo forever instead of €${flashPromo.baseMonthly}`}
                     </p>
                     <p className="text-sm text-neutral-300">
-                      {fr ? '12 000 crédits · ~177 contenus/mois' : '12,000 credits · ~177 pieces/mo'}
+                      {fr ? 'Pack Expert · ~177 contenus/mois' : 'Expert pack · ~177 pieces/mo'}
                     </p>
                   </div>
                   <div className="flex flex-col items-center rounded-xl border border-red-500/30 bg-black/30 px-4 py-2">
@@ -378,8 +378,8 @@ export default function HomePricingSection() {
             {seats > 1 && (
               <p className="mt-1 text-[11px] text-neutral-500">
                 {fr
-                  ? `≈ ${(monthly * seats).toLocaleString('fr-FR')}€/mois au total — ${(plan.credits * seats).toLocaleString('fr-FR')} crédits/mois`
-                  : `≈ €${(monthly * seats).toLocaleString('en-US')}/mo total — ${(plan.credits * seats).toLocaleString('en-US')} credits/mo`}
+                  ? `≈ ${(monthly * seats).toLocaleString('fr-FR')}€/mois au total pour ${seats} places`
+                  : `≈ €${(monthly * seats).toLocaleString('en-US')}/mo total for ${seats} seats`}
               </p>
             )}
             {billing !== 'monthly' && seats <= 1 && (
@@ -398,8 +398,8 @@ export default function HomePricingSection() {
               <li className="flex items-start gap-2 text-[13px] text-neutral-300">
                 <Check size={14} className="mt-0.5 shrink-0 text-empire" />
                 {fr
-                  ? `${plan.credits.toLocaleString('fr-FR')} crédits — environ ${plan.contents} contenus par mois`
-                  : `${plan.credits.toLocaleString('en-US')} credits — about ${plan.contents} pieces per month`}
+                  ? `Environ ${plan.contents.replace('~', '')} contenus par mois`
+                  : `About ${plan.contents.replace('~', '')} pieces per month`}
               </li>
               {PLAN_FEATURES[selectedTier].map((f) => (
                 <li
@@ -416,7 +416,7 @@ export default function HomePricingSection() {
                 <>
                   <li className="flex items-start gap-2 text-[13px] text-neutral-300">
                     <Check size={14} className="mt-0.5 shrink-0 text-empire" />
-                    {fr ? 'Chaque place : son calendrier + ses crédits' : 'Each seat: its own calendar + credits'}
+                    {fr ? 'Chaque place : son calendrier et son volume de contenus' : 'Each seat: its own calendar and content volume'}
                   </li>
                   <li className="flex items-start gap-2 text-[13px] text-neutral-300">
                     <Check size={14} className="mt-0.5 shrink-0 text-empire" />
@@ -495,8 +495,8 @@ function AllFeatures({ fr }: { fr: boolean }) {
           </span>
           <span className="block text-[11px] text-neutral-500">
             {fr
-              ? 'Le volume de contenus change selon le pack. Les mentions Growth et Scale indiquent le pack minimum.'
-              : 'Content volume depends on the pack. Growth and Scale tags mark the minimum pack.'}
+              ? 'Le volume de contenus change selon le pack. Les mentions « dès… » indiquent le pack minimum.'
+              : 'Content volume depends on the pack. The “from…” tags mark the minimum pack.'}
           </span>
         </span>
         <span className="flex shrink-0 items-center gap-1.5 text-[12px] font-semibold text-empire">
