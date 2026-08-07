@@ -6,11 +6,6 @@ import posthog from 'posthog-js'
 
 const POSTHOG_KEY = process.env.NEXT_PUBLIC_POSTHOG_KEY
 
-function getCookie(name: string): string | null {
-  const match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'))
-  return match ? decodeURIComponent(match[1]) : null
-}
-
 export default function PostHogInit() {
   const pathname = usePathname()
 
@@ -26,12 +21,6 @@ export default function PostHogInit() {
 
     // Expose for inline scripts (e.g. Cal.com embed callbacks on booking pages)
     ;(window as unknown as { posthog?: typeof posthog }).posthog = posthog
-
-    // Attach the A/B variant to every event of this visitor
-    const variant = getCookie('hero_ab')
-    if (variant) {
-      posthog.register({ hero_ab: variant })
-    }
   }, [])
 
   useEffect(() => {

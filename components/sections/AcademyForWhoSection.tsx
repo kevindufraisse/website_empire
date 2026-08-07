@@ -25,10 +25,10 @@ export default function AcademyForWhoSection() {
 
   const notFor = fr
     ? [
-        'Tu cherches un résultat sans rien faire',
-        'Tu veux juste "apprendre" sans appliquer',
-        'Tu as déjà une grosse audience et un système qui tourne',
-        "Tu n'es pas prêt à publier chaque jour pendant 21 jours",
+        'Vous cherchez un résultat sans rien faire',
+        'Vous voulez juste "apprendre" sans appliquer',
+        'Vous avez déjà une grosse audience et un système qui tourne',
+        "Vous n'êtes pas prêt à publier chaque jour pendant 21 jours",
       ]
     : [
         "You're looking for results without doing any work",
@@ -39,11 +39,11 @@ export default function AcademyForWhoSection() {
 
   const yesFor = fr
     ? [
-        'Tu veux apprendre les mécaniques de la viralité',
-        'Tu veux créer une activité en ligne de zéro',
-        'Tu veux publier sans passer 3h à rédiger et monter',
-        'Tu veux te reconvertir en head of viralité et potentiellement travailler avec nous',
-        "Tu n'as pas encore de projet mais tu es prêt à te lancer",
+        'Vous voulez apprendre les mécaniques de la viralité',
+        'Vous voulez créer une activité en ligne de zéro',
+        'Vous voulez publier sans passer 3h à rédiger et monter',
+        'Vous voulez vous reconvertir en head of viralité et potentiellement travailler avec nous',
+        "Vous n'avez pas encore de projet mais vous êtes prêt à vous lancer",
       ]
     : [
         'You want to learn the mechanics of virality',
@@ -64,7 +64,7 @@ export default function AcademyForWhoSection() {
                 {fr ? 'Ce bootcamp est' : 'This bootcamp is'} <span className="text-academy">{fr ? 'sélectif.' : 'selective.'}</span>
               </h2>
               <p className="text-sm text-neutral-400 max-w-md mx-auto">
-                {fr ? 'Sur sélection : tu postules en réservant ta place et on confirme si tu fais partie des sélectionnés.' : "By application only: reserve your spot and we confirm if you're selected."}
+                {fr ? 'Sur sélection : vous postulez en réservant votre place et on confirme si vous faites partie des sélectionnés.' : "By application only: reserve your spot and we confirm if you're selected."}
               </p>
             </div>
           </FadeInBlock>
@@ -72,7 +72,7 @@ export default function AcademyForWhoSection() {
           <FadeInBlock delay={0.1}>
             <div className="grid md:grid-cols-2 gap-5">
               <div className="p-6 rounded-2xl bg-gradient-to-br from-red-950/30 to-transparent border border-red-500/20">
-                <p className="text-xs font-bold text-red-400 tracking-widest uppercase mb-4">{fr ? 'Pas pour toi si...' : 'Not for you if...'}</p>
+                <p className="text-xs font-bold text-red-400 tracking-widest uppercase mb-4">{fr ? 'Pas pour vous si...' : 'Not for you if...'}</p>
                 <div className="space-y-2.5">
                   {notFor.map((item, i) => (
                     <div key={i} className="flex items-start gap-2.5">
@@ -84,7 +84,7 @@ export default function AcademyForWhoSection() {
               </div>
 
               <div className="p-6 rounded-2xl bg-gradient-to-br from-academy/15 to-transparent border border-academy/30">
-                <p className="text-xs font-bold text-academy tracking-widest uppercase mb-4">{fr ? 'Pour toi si...' : 'For you if...'}</p>
+                <p className="text-xs font-bold text-academy tracking-widest uppercase mb-4">{fr ? 'Pour vous si...' : 'For you if...'}</p>
                 <div className="space-y-2.5">
                   {yesFor.map((item, i) => (
                     <div key={i} className="flex items-start gap-2.5">

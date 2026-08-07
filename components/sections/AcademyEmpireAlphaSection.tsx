@@ -27,33 +27,33 @@ export default function AcademyEmpireAlphaSection() {
     {
       icon: Lightbulb,
       num: '01',
-      title: fr ? 'On trouve tes sujets' : 'We find your topics',
+      title: fr ? 'On trouve vos sujets' : 'We find your topics',
       desc: fr
-        ? 'On identifie les thématiques qui marchent dans ta niche. Tu ne pars jamais de zéro - on te donne les angles.'
+        ? 'On identifie les thématiques qui marchent dans votre niche. Vous ne partez jamais de zéro - on vous donne les angles.'
         : 'We identify the topics that work in your niche. You never start from scratch - we give you the angles.',
     },
     {
       icon: Mic,
       num: '02',
-      title: fr ? 'Tu parles 15 minutes' : 'You talk for 15 minutes',
+      title: fr ? 'Vous parlez 15 minutes' : 'You talk for 15 minutes',
       desc: fr
-        ? 'Via Empire Alpha, notre outil simplifié. Tu parles comme un vocal - ton point de vue, tes idées, ton expérience. Pas besoin de savoir écrire ou monter.'
+        ? 'Via Empire Alpha, notre outil simplifié. Vous parlez comme un vocal - votre point de vue, vos idées, votre expérience. Pas besoin de savoir écrire ou monter.'
         : 'Via Empire Alpha, our simplified tool. You talk like a voice note - your perspective, your ideas, your experience. No writing or editing skills needed.',
     },
     {
       icon: FileText,
       num: '03',
-      title: fr ? 'On écrit tes contenus' : 'We write your content',
+      title: fr ? 'On écrit vos contenus' : 'We write your content',
       desc: fr
-        ? 'On récupère ta transcription. On rédige tes posts LinkedIn, on monte tes Shorts. Tout est prêt à publier.'
+        ? 'On récupère votre transcription. On rédige vos posts LinkedIn, on monte vos Shorts. Tout est prêt à publier.'
         : 'We take your transcription. We write your LinkedIn posts, we edit your Shorts. Everything is ready to publish.',
     },
     {
       icon: Send,
       num: '04',
-      title: fr ? 'Tu publies en 15 min' : 'You publish in 15 min',
+      title: fr ? 'Vous publiez en 15 min' : 'You publish in 15 min',
       desc: fr
-        ? 'Tu copies, tu colles, tu postes. Chaque jour, du contenu de qualité sur tes réseaux - sans y passer ta vie.'
+        ? 'Vous copiez, vous collez, vous postez. Chaque jour, du contenu de qualité sur vos réseaux - sans y passer votre vie.'
         : 'You copy, you paste, you post. Every day, quality content on your channels - without spending your whole day on it.',
     },
   ]
@@ -74,12 +74,12 @@ export default function AcademyEmpireAlphaSection() {
                 </span>
               </div>
               <h2 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
-                {fr ? 'On trouve les sujets. Tu parles.' : 'We find the topics. You talk.'}{' '}
+                {fr ? 'On trouve les sujets. Vous parlez.' : 'We find the topics. You talk.'}{' '}
                 <span className="text-academy">{fr ? 'On écrit tout.' : 'We write everything.'}</span>
               </h2>
               <p className="text-neutral-400 text-base md:text-lg max-w-xl mx-auto">
                 {fr
-                  ? 'Pas de page blanche. Pas de montage. On te donne les thématiques, tu parles 15 min, on fait le reste.'
+                  ? 'Pas de page blanche. Pas de montage. On vous donne les thématiques, vous parlez 15 min, on fait le reste.'
                   : 'No blank page. No editing. We give you the topics, you talk for 15 min, we do the rest.'}
               </p>
             </div>

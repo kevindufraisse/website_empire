@@ -137,8 +137,8 @@ export const fr: Translations = {
   },
   hero: {
     targetAudience: 'Pour freelances, salariés & entrepreneurs',
-    title: 'Parlez 1h. Notre équipe monte et écrit <span class="text-empire">un mois de contenus sur 7 plateformes.</span>',
-    subtitle: 'Closez plus rapidement. Attirez plus de clients. Augmentez vos prix. Devenez leader.',
+    title: 'Développez une marque personnelle <span class="text-empire">qui attire des clients.</span>',
+    subtitle: 'Parlez 1 heure. Nous créons un mois de contenus. Votre marque attire des clients toute l\'année.',
     description: '',
     cta1: 'Commencer gratuitement',
     cta2: 'Voir la Démo (1 min)',
@@ -305,7 +305,7 @@ export const fr: Translations = {
       },
       {
         concern: 'Je n\'ai pas le temps d\'enregistrer.',
-        answer: 'Une session de 15 min par semaine — soit 1h de parole par mois. C\'est moins que ce que vous passez à hésiter devant une page blanche. On s\'adapte à votre planning.',
+        answer: 'Une session d\u20191h par semaine — c\u2019est moins que ce que vous passez à hésiter devant une page blanche. On s\u2019adapte à votre planning.',
       },
       {
         concern: 'C\'est vraiment mieux qu\'embaucher ?',
@@ -653,7 +653,7 @@ export const fr: Translations = {
     },
     {
       question: 'Combien de temps dois-je investir ?',
-      answer: '15 min par semaine — soit 1h de parole par mois. C\'est tout. On gère le reste - création, édition, planification et distribution partout.',
+      answer: '1h par semaine. C\u2019est tout. On gère le reste — création, édition, planification et distribution partout.',
     },
     {
       question: 'Et si le contenu ne sonne pas comme moi ?',
@@ -783,7 +783,7 @@ export const fr: Translations = {
     bannerButton: 'Voir les postes',
     companyMission: {
       title: 'Mission de l\'entreprise',
-      description: 'Empire Internet transforme 1h de parole par mois en plus de 100 contenus optimisés grâce à une IA propriétaire.',
+      description: 'Empire Internet transforme 1h de parole par semaine en plus de 100 contenus optimisés grâce à une IA propriétaire.',
       vision: 'Nous construisons la machine de contenu la plus rapide du marché pour entrepreneurs, créateurs et CEOs.',
       ambition1: 'Devenir la plateforme n°1 mondiale du content automation',
       ambition2: 'Passer de 1M → 10M → 50M/an',
@@ -943,31 +943,32 @@ export const fr: Translations = {
     viewCertificate: 'Voir le Certificat Favikon',
     name: 'Kevin Dufraisse',
     bio: 'Après avoir généré plus de 3M€ en ligne grâce au content marketing et au copywriting, j\'ai passé 1 an à étudier les meilleurs créateurs mondiaux et à décrypter ce qui rend un contenu viral. Puis j\'ai cloné ces insights dans des systèmes que tout le monde peut utiliser.',
+    bioLegende: 'Chez The Family, je devais rendre chaque entrepreneur inoubliable du jour au lendemain — trouver les bons angles, générer des milliers de rendez-vous, transformer des histoires ordinaires en légendes. Je crée les légendes de mes amis et entrepreneurs célèbres depuis des années. Puis j\'ai cloné ces méthodes dans un système que tout le monde peut utiliser.',
     tagline: '→ Empire est le système que j\'aurais voulu avoir quand j\'ai commencé.',
-    keyPoint: 'La différence :',
-    keyMessage: 'Ce ne sont pas des templates IA génériques. Ils sont entraînés sur les frameworks exacts qui ont généré des millions de vues et d\'euros de revenus.',
+    keyPoint: '',
+    keyMessage: '',
     top1Badge: 'Mis en avant dans le Top 1% des meilleurs entrepreneurs FR',
   },
   autopilot: {
     toggleLabel: 'Légende',
     toggleHint: 'Pas le temps ? On gère tout',
     hero: {
-      targetAudience: 'Sur sélection · 10 places',
-      title: 'Créez <span class="text-autopilot">votre marque personnelle</span><br class="hidden sm:block"/> sans lever le petit doigt.',
-      subtitle: 'Trouvez plus de clients, recrutez les meilleurs, lancez de nouveaux business, déclenchez des opportunités.',
+      targetAudience: 'Pour les CEO qui veulent déléguer · 10 places',
+      title: 'Déléguez votre marque personnelle <span class="text-autopilot">aux meilleurs experts en viralité.</span>',
+      subtitle: 'Vous dirigez votre entreprise. Nous dirigeons votre image.',
       cta1: 'Vérifier mon éligibilité',
       ctaReassurance: '10 places disponibles · Sur sélection',
     },
     howItWorks: {
       badge: 'LÉGENDE',
       title: 'On gère <span class="text-autopilot">100% de votre marque</span>',
-      subtitle: 'Kevin Dufraisse (en fonction des places) ou un expert en viralité s\'occupe de toute votre présence en ligne.',
+      subtitle: 'Kevin créait les légendes des entrepreneurs chez The Family. Aujourd\u2019hui, il le fait pour vous.',
       b1: {
         title: 'On crée votre légende',
-        desc: 'On audite votre profil. Positionnement, formats, calendrier éditorial — votre stratégie de A à Z.',
+        desc: 'On audite votre profil et trouve les angles qui rendent votre histoire irrésistible.',
       },
       b2: {
-        title: 'On s\'appelle 1h par mois',
+        title: 'Un appel d\u20191h par mois',
         desc: 'Kevin Dufraisse ou un expert en viralité vous interviewe. Vous parlez, c\'est tout.',
       },
       b3: {

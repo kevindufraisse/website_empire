@@ -160,7 +160,7 @@ export default function AcademyProofStrip() {
             className="text-center text-xs text-neutral-400 mt-8"
           >
             {fr
-              ? "Résultats de nos clients agence · La méthode exacte qu'on t'enseigne"
+              ? "Résultats de nos clients agence · La méthode exacte qu'on vous enseigne"
               : "Results from our agency clients · The exact method we teach you"}
           </motion.p>
 

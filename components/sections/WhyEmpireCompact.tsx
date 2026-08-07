@@ -21,7 +21,7 @@ export default function WhyEmpireCompact() {
         { stat: '+10 000', label: 'posts testés avant de figer les formats' },
         { stat: '+20 000€', label: 'investis en formation algorithmes' },
         { stat: 'En continu', label: 'nouveaux formats détectés et intégrés chaque mois' },
-        { stat: '1h/mois', label: 'c\u2019est tout ce qu\u2019on vous demande' },
+        { stat: '1h/semaine', label: 'c\u2019est tout ce qu\u2019on vous demande' },
       ]
     : [
         { stat: '1 year', label: 'of development for the cascade system' },
@@ -29,7 +29,7 @@ export default function WhyEmpireCompact() {
         { stat: '10,000+', label: 'posts tested before locking the formats' },
         { stat: '€20,000+', label: 'invested in algorithm training' },
         { stat: 'Ongoing', label: 'new formats detected and integrated every month' },
-        { stat: '1h/mo', label: 'that\u2019s all we ask from you' },
+        { stat: '1h/week', label: 'that\u2019s all we ask from you' },
       ]
 
   const team = 'Kevin (CEO) · Manon (COO) · Pierre (Content) · Chloé (Production) · Marc (Viralité) · Stan · Sébastien · Zahia'

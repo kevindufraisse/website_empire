@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
 
-// Pay-first flow (hero_ab "pricing" variant): the visitor starts their 7-day
-// trial straight from the home pricing, with no account. The Stripe session
-// carries NO workspace_id, so the app's stripe-webhook ignores it; after
-// signup the app claims it via the claim-marketing-checkout edge function.
+// Pay-first flow (used by /final-offer): the visitor pays before creating an
+// account. The Stripe session carries NO workspace_id, so the app's
+// stripe-webhook ignores it; after signup the app claims it via the
+// claim-marketing-checkout edge function.
 
 const APP_URL = 'https://app.empire-internet.com'
 

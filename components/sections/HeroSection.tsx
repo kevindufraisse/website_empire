@@ -35,18 +35,20 @@ export default function HeroSection() {
         
         <div className="relative z-10 text-center max-w-4xl mx-auto">
 
-          {autopilot && (
-            <motion.div
-              initial={mounted ? { opacity: 0, y: 10 } : false}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-              className="mb-5 flex justify-center"
-            >
-              <span className="inline-flex items-center gap-2 rounded-full border border-autopilot/40 bg-autopilot/10 px-4 py-1.5 text-xs font-bold text-autopilot">
-                {t.autopilot.hero.targetAudience}
-              </span>
-            </motion.div>
-          )}
+          <motion.div
+            initial={mounted ? { opacity: 0, y: 10 } : false}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="mb-5 flex justify-center"
+          >
+            <span className={`inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-bold ${
+              autopilot
+                ? 'border-autopilot/40 bg-autopilot/10 text-autopilot'
+                : 'border-empire/40 bg-empire/10 text-empire'
+            }`}>
+              {autopilot ? t.autopilot.hero.targetAudience : t.hero.targetAudience}
+            </span>
+          </motion.div>
 
           <AnimatePresence mode="wait" initial={false}>
             <motion.h1
@@ -117,7 +119,7 @@ export default function HeroSection() {
                     {heroCta}
                     <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
                   </span>
-                  <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? 'Sans engagement · Annulez en 1 clic' : 'No commitment · Cancel in 1 click'}</span>
+                  <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? 'À partir de 199\u202F€/mois · 7 jours d\u2019essai gratuit' : 'From €199/month · 7-day free trial'}</span>
                 </OnboardingLink>
               )}
             </div>

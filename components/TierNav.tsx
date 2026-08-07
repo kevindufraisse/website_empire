@@ -31,19 +31,19 @@ export default function TierNav() {
     {
       id: 'academy',
       label: 'Academy',
-      sublabel: fr ? 'Se former' : 'Learn',
+      sublabel: fr ? 'Maîtrisez le Système' : 'Master the System',
       color: '#fca5a5',
     },
     {
       id: 'copilot',
       label: 'Empire',
-      sublabel: fr ? 'On le fait avec vous' : 'We do it with you',
+      sublabel: fr ? 'Installez le Système' : 'Install the System',
       color: '#DAFC68',
     },
     {
       id: 'autopilot',
       label: 'Légende',
-      sublabel: fr ? 'On gère tout' : 'We handle everything',
+      sublabel: fr ? 'Confiez le Système' : 'Entrust the System',
       color: '#d4a574',
     },
   ]

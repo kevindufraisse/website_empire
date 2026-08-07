@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useEffect, useState } from 'react'
-import Link from 'next/link'
+
 import { AnimatePresence, motion, useInView } from 'framer-motion'
 import {
   Check, Scissors, Minus, Plus, ChevronDown, MessageCircle, GraduationCap,
@@ -14,39 +14,13 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import { trackAmplitude, withAmplitudeDeviceId } from '@/lib/amplitude'
 import { fetchFlashPromo, formatCountdown } from '@/lib/flash-promo'
-import { ACADEMY_ENTRY_PRICE } from '@/lib/cohort-config'
+import {
+  APP_ONBOARDING_URL, BILLING_PERIODS, PLANS, PLAN_LABELS,
+  combinedDiscount, finalPrice,
+  type BillingId, type Plan, type PlanId,
+} from '@/lib/plans'
+
 import WhyEmpireCompact from '@/components/sections/WhyEmpireCompact'
-
-const APP_ONBOARDING_URL = 'https://app.empire-internet.com/onboarding'
-
-type PlanId = 'starter' | 'growth' | 'scale'
-type BillingId = 'monthly' | 'quarterly' | 'yearly'
-
-const BILLING_PERIODS: {
-  id: BillingId
-  discount: number
-  months: number
-  labelFr: string
-  labelEn: string
-}[] = [
-  { id: 'monthly', discount: 0, months: 1, labelFr: 'Mensuel', labelEn: 'Monthly' },
-  { id: 'quarterly', discount: 0.12, months: 3, labelFr: 'Trimestriel', labelEn: 'Quarterly' },
-  { id: 'yearly', discount: 0.18, months: 12, labelFr: 'Annuel', labelEn: 'Yearly' },
-]
-
-type Plan = {
-  id: PlanId
-  price: number
-  credits: number
-  contents: string
-  highlighted?: boolean
-}
-
-const PLANS: Plan[] = [
-  { id: 'starter', price: 199, credits: 2200, contents: '~22' },
-  { id: 'growth', price: 499, credits: 6600, contents: '~89', highlighted: true },
-  { id: 'scale', price: 799, credits: 12000, contents: '~177' },
-]
 
 type PlanFeature = { fr: string; en: string; on?: false }
 
@@ -126,23 +100,6 @@ const PILLARS: Pillar[] = [
 ]
 
 const TOTAL_FEATURES = PILLARS.reduce((n, p) => n + p.features.length, 0)
-
-function volumeDiscount(seats: number): number {
-  if (seats >= 10) return 0.20
-  if (seats >= 5) return 0.15
-  if (seats >= 3) return 0.10
-  return 0
-}
-
-function combinedDiscount(billing: BillingId, seats: number): number {
-  const billingD = BILLING_PERIODS.find(p => p.id === billing)!.discount
-  const volumeD = volumeDiscount(seats)
-  return 1 - (1 - billingD) * (1 - volumeD)
-}
-
-function finalPrice(base: number, billing: BillingId, seats: number): number {
-  return Math.round(base * (1 - combinedDiscount(billing, seats)))
-}
 
 function planUrl(planId: PlanId, billing: BillingId, seats: number): string {
   const base = `${APP_ONBOARDING_URL}?plan=${planId}&billing=${billing}&intent=${seats > 1 ? 'enterprise' : 'trial'}`
@@ -331,7 +288,7 @@ export default function HomePricingSection() {
 
             {/* Volume dropdown */}
             <p className="mt-4 text-[11px] font-semibold uppercase tracking-wide text-neutral-500">
-              {fr ? 'Volume mensuel' : 'Monthly volume'}
+              {fr ? 'Votre niveau' : 'Your level'}
             </p>
             <div ref={dropRef} className="relative mt-2">
               <button
@@ -340,7 +297,7 @@ export default function HomePricingSection() {
                 className={`flex w-full items-center justify-between rounded-xl border bg-neutral-900 px-4 py-3 text-left text-sm font-semibold text-white transition-colors hover:border-empire/40 ${isPromoPlan ? 'border-red-500/30' : 'border-white/10'}`}
               >
                 <span className="truncate">
-                  {plan.credits.toLocaleString(fr ? 'fr-FR' : 'en-US')} cr. · {plan.contents} {fr ? 'contenus/mois' : 'pieces/mo'}
+                  {fr ? PLAN_LABELS[selectedTier].fr : PLAN_LABELS[selectedTier].en} · {plan.contents} {fr ? 'contenus/mois' : 'pieces/mo'}
                 </span>
                 <ChevronDown size={16} className={`shrink-0 ml-2 text-neutral-400 transition-transform ${dropOpen ? 'rotate-180' : ''}`} />
               </button>
@@ -356,7 +313,7 @@ export default function HomePricingSection() {
                         className={`flex w-full items-center justify-between gap-3 px-4 py-3 text-left text-sm transition-colors ${active ? 'bg-empire/10 text-white' : 'text-neutral-300 hover:bg-white/5'}`}
                       >
                         <span className="font-semibold">
-                          {p.credits.toLocaleString(fr ? 'fr-FR' : 'en-US')} {fr ? 'crédits' : 'credits'} · {p.contents} {fr ? 'contenus/mois' : 'pieces/mo'}
+                          {fr ? PLAN_LABELS[p.id].fr : PLAN_LABELS[p.id].en} · {p.contents} {fr ? 'contenus/mois' : 'pieces/mo'}
                         </span>
                         <div className="flex shrink-0 items-center gap-2">
                           <span className="font-bold tabular-nums">{finalPrice(planBase(p), billing, seats)}€<span className="text-xs font-normal text-neutral-500">{fr ? '/mois' : '/mo'}</span></span>
@@ -489,48 +446,6 @@ export default function HomePricingSection() {
             </p>
           </motion.div>
 
-          {/* Secondary paths: learn it, or delegate everything */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.3, ease: 'easeOut' }}
-            className="mt-5 grid gap-3 sm:grid-cols-2"
-          >
-            <Link
-              href="/academy"
-              target="_blank"
-              onClick={() => {
-                trackAmplitude('pricing_academy_click', { price: ACADEMY_ENTRY_PRICE, location: 'home' })
-                if (posthog.__loaded) posthog.capture('pricing_academy_click', { price: ACADEMY_ENTRY_PRICE }, { transport: 'sendBeacon' })
-              }}
-              className="group flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3.5 transition-all hover:border-academy/40 hover:bg-white/[0.04]"
-            >
-              <GraduationCap size={18} className="shrink-0 text-academy" />
-              <span className="min-w-0">
-                <span className="block text-[13px] font-bold text-white">Academy</span>
-                <span className="block text-[11px] text-neutral-500">
-                  {fr
-                    ? `Apprendre à le faire · dès ${ACADEMY_ENTRY_PRICE}€`
-                    : `Learn to do it · from €${ACADEMY_ENTRY_PRICE}`}
-                </span>
-              </span>
-            </Link>
-
-            <Link
-              href="/join-us"
-              className="group flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3.5 transition-all hover:border-autopilot/40 hover:bg-white/[0.04]"
-            >
-              <MessageCircle size={18} className="shrink-0 text-autopilot" />
-              <span className="min-w-0">
-                <span className="block text-[13px] font-bold text-white">
-                  {fr ? 'Légende' : 'Legend'}
-                </span>
-                <span className="block text-[11px] text-neutral-500">
-                  {fr ? 'Déléguer à 100% · 10 places, sur sélection' : 'Delegate 100% · 10 spots, application only'}
-                </span>
-              </span>
-            </Link>
-          </motion.div>
         </div>
 
         <motion.div

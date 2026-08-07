@@ -11,11 +11,11 @@ export default function AcademyPainSection() {
 
   const pains = fr
     ? [
-        'Tu passes 3h à écrire un post qui fait 200 vues',
-        'Tu vois les autres exploser en ligne et tu comprends pas comment ils font',
-        'Tu as peur de publier, de te ridiculiser devant ton réseau',
-        'Tu sais pas comment transformer des vues en clients concrets',
-        'Tu veux te lancer mais tu sais pas par où commencer',
+        'Vous passez 3h à écrire un post qui fait 200 vues',
+        'Vous voyez les autres exploser en ligne sans comprendre comment ils font',
+        'Vous avez peur de publier, de vous ridiculiser devant votre réseau',
+        'Vous ne savez pas comment transformer des vues en clients concrets',
+        'Vous voulez vous lancer mais vous ne savez pas par où commencer',
       ]
     : [
         'You spend 3 hours writing a post that gets 200 views',
@@ -36,7 +36,7 @@ export default function AcademyPainSection() {
             transition={{ duration: 0.5 }}
             className="text-xs font-bold text-neutral-400 tracking-widest uppercase mb-6"
           >
-            {fr ? 'Si tu te reconnais' : 'If this sounds like you'}
+            {fr ? 'Si vous vous reconnaissez' : 'If this sounds like you'}
           </motion.p>
 
           <div className="space-y-3">

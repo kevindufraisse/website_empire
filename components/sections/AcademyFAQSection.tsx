@@ -31,35 +31,35 @@ export default function AcademyFAQSection() {
     ? [
         {
           q: "Concrètement, comment ça marche ?",
-          a: "Tu parles 15 minutes - comme un vocal. De tes sujets, de tes idées. On récupère la transcription. Nos assistantes créent ton calendrier de publication. On rédige tes posts et on monte tes Shorts. Toi tu publies en 15 min. Pas de page blanche. Pas de montage. Tu parles, on fait le reste.",
+          a: "Vous parlez 15 minutes - comme un vocal. De vos sujets, de vos idées. On récupère la transcription. Nos assistantes créent votre calendrier de publication. On rédige vos posts et on monte vos Shorts. Vous, vous publiez en 15 min. Pas de page blanche. Pas de montage. Vous parlez, on fait le reste.",
         },
         {
           q: "C'est quoi la différence avec les autres bootcamps LinkedIn ?",
-          a: "Les autres te donnent des templates et tu te débrouilles. Résultat : page blanche, 45 min/post, tu lâches au bout d'une semaine. Nous on écrit le contenu À TA place. Tu reçois tes posts et tes Shorts prêts à publier. Tu publies en 15 min. C'est le seul bootcamp où la production est gérée par notre équipe.",
+          a: "Les autres vous donnent des templates et vous vous débrouillez. Résultat : page blanche, 45 min/post, vous lâchez au bout d'une semaine. Nous, on écrit le contenu À VOTRE place. Vous recevez vos posts et vos Shorts prêts à publier. Vous publiez en 15 min. C'est le seul bootcamp où la production est gérée par notre équipe.",
         },
         {
           q: 'Combien ça coûte ?',
-          a: "Le tarif d'entrée est de 497€, avec un paiement en 3x possible (165€/semaine). Les inscriptions ouvrent par vagues et le prix monte à mesure que les places partent : la liste d'attente te garantit d'être prévenu au tarif le plus bas. Pour te donner un repère : si tu fais tout seul (21 posts + 21 Shorts), ça revient à 3 360€ minimum. Le bootcamp coûte une fraction de ça.",
+          a: "Le tarif d'entrée est de 497€, avec un paiement en 3x possible (165€/semaine). Les inscriptions ouvrent par vagues et le prix monte à mesure que les places partent : la liste d'attente vous garantit d'être prévenu au tarif le plus bas. Pour vous donner un repère : si vous faites tout seul (21 posts + 21 Shorts), ça revient à 3 360€ minimum. Le bootcamp coûte une fraction de ça.",
         },
         {
           q: "J'ai pas de projet, c'est pour moi ?",
-          a: "Oui. Tu n'as pas besoin d'avoir un projet ou un business. On te trouve un sujet, on te crée ton contenu, et si tu choisis le chemin Empire, on te met en relation avec des clients (500€/mission). Le bootcamp est fait pour démarrer de zéro.",
+          a: "Oui. Vous n'avez pas besoin d'avoir un projet ou un business. On vous trouve un sujet, on vous crée votre contenu, et si vous choisissez le chemin Empire, on vous met en relation avec des clients (500€/mission). Le bootcamp est fait pour démarrer de zéro.",
         },
         {
           q: 'Ça marche pour mon secteur ?',
-          a: "Si tu vends un savoir-faire, c'est fait pour toi. Freelances, dirigeants, coachs, consultants, formateurs, fondateurs SaaS, e-commerçants. La méthode est universelle : on adapte les angles à ta niche.",
+          a: "Si vous vendez un savoir-faire, c'est fait pour vous. Freelances, dirigeants, coachs, consultants, formateurs, fondateurs SaaS, e-commerçants. La méthode est universelle : on adapte les angles à votre niche.",
         },
         {
           q: 'Ça prend combien de temps par jour ?',
-          a: "15 minutes pour publier. 15 minutes une fois par semaine pour nous parler. Moins de 2h/semaine au total. Le reste du temps, tu fais les challenges et tu absorbes les mécaniques.",
+          a: "15 minutes pour publier. 15 minutes une fois par semaine pour nous parler. Moins de 2h/semaine au total. Le reste du temps, vous faites les challenges et vous absorbez les mécaniques.",
         },
         {
           q: "C'est garanti ?",
-          a: "Personne ne devrait te garantir des résultats. Ce qui est garanti : on se réserve le droit de refuser des inscriptions si le profil n'est pas adapté (remboursement intégral sous 48h). Et dans le pire des cas, tu repars avec +3 000€ de contenu créé pour toi. Tu ne perds jamais.",
+          a: "Personne ne devrait vous garantir des résultats. Ce qui est garanti : on se réserve le droit de refuser des inscriptions si le profil n'est pas adapté (remboursement intégral sous 48h). Et dans le pire des cas, vous repartez avec +3 000€ de contenu créé pour vous. Vous ne perdez jamais.",
         },
         {
           q: "Après les 21 jours, j'ai encore accès à quoi ?",
-          a: "Les replays et les challenges sont accessibles à vie. Si tu deviens partenaire Empire, on continue de te créer ton contenu. Sinon, tu repars avec les compétences et tout le contenu produit pendant le bootcamp.",
+          a: "Les replays et les challenges sont accessibles à vie. Si vous devenez partenaire Empire, on continue de vous créer votre contenu. Sinon, vous repartez avec les compétences et tout le contenu produit pendant le bootcamp.",
         },
       ]
     : [
@@ -106,7 +106,7 @@ export default function AcademyFAQSection() {
             <div className="text-center mb-16">
               <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">FAQ</p>
               <h2 className="text-3xl md:text-5xl font-bold leading-tight">
-                {fr ? 'Toutes tes questions.' : 'All your questions.'}{' '}
+                {fr ? 'Toutes vos questions.' : 'All your questions.'}{' '}
                 <span className="text-academy">{fr ? 'Réponses honnêtes.' : 'Honest answers.'}</span>
               </h2>
             </div>

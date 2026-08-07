@@ -105,13 +105,15 @@ export default function Header() {
               </span>
             </a>
 
-            {/* Tier navigation — centered */}
-            <div className="hidden sm:flex absolute left-1/2 -translate-x-1/2">
+            {/* Tier navigation — centred in the remaining space. Kept in the
+                flow so longer labels push the side actions instead of
+                overlapping them. */}
+            <div className="hidden sm:flex mx-auto">
               <TierNav />
             </div>
 
             {/* Right side */}
-            <div className="flex items-center justify-end gap-1.5 lg:gap-2.5 min-w-0 ml-auto">
+            <div className="flex items-center justify-end gap-1.5 lg:gap-2.5 min-w-0">
               {isPartnersPage && (
                 <button
                   type="button"
@@ -122,18 +124,19 @@ export default function Header() {
               )}
               {!isPartnersPage && (
                 <>
-                  <a
-                    href="/quiz"
-                    className="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-white/15 bg-white/5 text-[13px] font-semibold text-white hover:bg-white/10 hover:border-white/25 transition-all"
+                  <button
+                    type="button"
+                    onClick={() => window.dispatchEvent(new Event('open-offer-quiz'))}
+                    className="hidden lg:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-white/15 bg-white/5 text-[13px] font-semibold text-white hover:bg-white/10 hover:border-white/25 transition-all"
                   >
                     <span className="text-[#DAFC68] text-[11px]">✦</span>
-                    {fr ? 'Quel créateur es-tu ?' : 'What creator are you?'}
-                  </a>
+                    {fr ? 'Quelle offre pour vous ?' : 'Which offer for you?'}
+                  </button>
                   <a
                     href="https://join.empire-internet.com/masterclass-empire-internet"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#DAFC68]/15 border border-[#DAFC68]/30 text-[13px] font-semibold text-[#DAFC68] hover:bg-[#DAFC68]/25 transition-all"
+                    className="hidden md:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#DAFC68]/15 border border-[#DAFC68]/30 text-[13px] font-semibold text-[#DAFC68] hover:bg-[#DAFC68]/25 transition-all"
                   >
                     <span className="text-[11px]">▶</span>
                     {fr ? 'Webinar · lundi 12h' : 'Webinar · Mon 12pm'}
@@ -143,7 +146,7 @@ export default function Header() {
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="sm:hidden p-2 text-white hover:text-empire transition-colors"
+                className="md:hidden p-2 text-white hover:text-empire transition-colors"
                 aria-label="Menu"
               >
                 {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -161,14 +164,14 @@ export default function Header() {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.2 }}
-              className="sm:hidden border-t border-white/10 bg-black/98"
+              className="md:hidden border-t border-white/10 bg-black/98"
             >
               <div className="px-4 py-5 space-y-4">
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.05 }}
-                  className="flex justify-center"
+                  className="flex justify-center sm:hidden"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <TierNav />
@@ -180,14 +183,14 @@ export default function Header() {
                     transition={{ delay: 0.1 }}
                     className="flex gap-3"
                   >
-                    <a
-                      href="/quiz"
-                      onClick={() => setIsMenuOpen(false)}
+                    <button
+                      type="button"
+                      onClick={() => { setIsMenuOpen(false); window.dispatchEvent(new Event('open-offer-quiz')) }}
                       className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-white/15 bg-white/5 text-sm font-semibold text-white"
                     >
                       <span className="text-[#DAFC68] text-xs">✦</span>
-                      {fr ? 'Quel créateur es-tu ?' : 'What creator are you?'}
-                    </a>
+                      {fr ? 'Quelle offre pour vous ?' : 'Which offer for you?'}
+                    </button>
                     <a
                       href="https://join.empire-internet.com/masterclass-empire-internet"
                       target="_blank"

@@ -28,11 +28,11 @@ export default function AcademyPricingSection() {
 
   const features = fr
     ? [
-        'Accès à Empire Alpha - tes posts LinkedIn + Shorts générés. Rien à rédiger, rien à monter.',
-        '21 défis quotidiens - un par jour, tu postes, tu vois ce qui marche',
+        'Accès à Empire Alpha - vos posts LinkedIn + Shorts générés. Rien à rédiger, rien à monter.',
+        '21 défis quotidiens - un par jour, vous postez, vous voyez ce qui marche',
         '6 masterclass lives - psychologie virale, LinkedIn, Instagram, YouTube, IA & automatisation funnel, monétisation 3K€/mois',
-        'Pod LinkedIn - le groupe engage sur tes posts, tes stats décollent',
-        'Certification officielle - Bronze, Argent ou Or selon tes résultats, ajoutable sur LinkedIn',
+        'Pod LinkedIn - le groupe engage sur vos posts, vos stats décollent',
+        'Certification officielle - Bronze, Argent ou Or selon vos résultats, ajoutable sur LinkedIn',
         'Premier client garanti après 3 mois*',
       ]
     : [
@@ -93,7 +93,7 @@ export default function AcademyPricingSection() {
 
                 {/* Left - features */}
                 <div>
-                  <p className="text-xs font-bold text-neutral-400 tracking-widest uppercase mb-5">{fr ? 'Ce que tu obtiens' : 'What you get'}</p>
+                  <p className="text-xs font-bold text-neutral-400 tracking-widest uppercase mb-5">{fr ? 'Ce que vous obtenez' : 'What you get'}</p>
                   <div className="space-y-3.5">
                     {features.map((feature, i) => (
                       <motion.div
@@ -160,7 +160,7 @@ export default function AcademyPricingSection() {
                   </div>
                   <p className="mt-3 text-[10px] text-neutral-600 text-center leading-relaxed">
                     {fr
-                      ? "*Premier client garanti : réservé au chemin Empire (option 2). Si tu suis la méthode et que tu n'as pas de client après 3 mois, on continue avec toi gratuitement jusqu'à ce que ça arrive."
+                      ? "*Premier client garanti : réservé au chemin Empire (option 2). Si vous suivez la méthode et que vous n'avez pas de client après 3 mois, on continue avec vous gratuitement jusqu'à ce que ça arrive."
                       : "*First client guaranteed: reserved for the Empire path (option 2). If you follow the method and don't have a client after 3 months, we continue with you for free until it happens."}
                   </p>
                 </div>

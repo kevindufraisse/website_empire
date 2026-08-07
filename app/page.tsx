@@ -1,22 +1,18 @@
-import dynamic from 'next/dynamic'
 import HeroSection from '@/components/sections/HeroSection'
-import AbVariantTracker from '@/components/AbVariantTracker'
-
-const HowItWorksAccordion = dynamic(() => import('@/components/sections/HowItWorksAccordion'))
-const CaseStudiesSection = dynamic(() => import('@/components/sections/CaseStudiesSection'))
-const LegendProofSection = dynamic(() => import('@/components/sections/LegendProofSection'))
-const HomePricingSection = dynamic(() => import('@/components/sections/HomePricingSection'))
-const TestimonialsSection = dynamic(() => import('@/components/sections/TestimonialsSection'))
-const QuickWinsSection = dynamic(() => import('@/components/sections/QuickWinsSection'))
-const FounderSection = dynamic(() => import('@/components/sections/FounderSection'))
-const FAQSection = dynamic(() => import('@/components/sections/FAQSection'))
-const FinalBoostCTA = dynamic(() => import('@/components/sections/FinalBoostCTA'))
+import HowItWorksAccordion from '@/components/sections/HowItWorksAccordion'
+import CaseStudiesSection from '@/components/sections/CaseStudiesSection'
+import LegendProofSection from '@/components/sections/LegendProofSection'
+import HomePricingSection from '@/components/sections/HomePricingSection'
+import TestimonialsSection from '@/components/sections/TestimonialsSection'
+import QuickWinsSection from '@/components/sections/QuickWinsSection'
+import FounderSection from '@/components/sections/FounderSection'
+import FAQSection from '@/components/sections/FAQSection'
+import FinalBoostCTA from '@/components/sections/FinalBoostCTA'
+import CrossSellCTA from '@/components/sections/CrossSellCTA'
 
 export default function Page() {
   return (
     <main className="relative">
-      <AbVariantTracker experiment="hero_minimal" />
-
       {/* Hero with VSL */}
       <HeroSection />
 
@@ -43,6 +39,9 @@ export default function Page() {
 
       {/* FAQ */}
       <FAQSection variant="home" />
+
+      {/* Cross-sell Empire → Légende */}
+      <CrossSellCTA variant="empire-to-legende" />
 
       {/* Final CTA */}
       <FinalBoostCTA />

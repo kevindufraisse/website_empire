@@ -69,7 +69,7 @@ function ApplyVisual() {
       </div>
       <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-500/20 border border-green-500/40">
         <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-        <span className="text-[10px] font-semibold text-green-400">{fr ? 'On étudie ton profil' : 'We review your profile'}</span>
+        <span className="text-[10px] font-semibold text-green-400">{fr ? 'On étudie votre profil' : 'We review your profile'}</span>
       </div>
       <p className="text-center text-[10px] font-bold uppercase tracking-wider text-academy">
         {fr ? '20 places · sur sélection' : '20 spots · by selection'}
@@ -194,10 +194,10 @@ export default function AcademyHowItWorksSection() {
 
   const steps = fr
     ? [
-        { title: 'Candidate au programme', desc: 'Remplis ta candidature. Si tu es sélectionné, tu accèdes au programme.' },
-        { title: 'Suis le programme 21 jours', desc: 'Publie sur tes comptes en utilisant nos méthodes. 15 min/jour.' },
-        { title: 'Reçois ta certification Empire', desc: 'Bronze, Argent ou Or selon tes résultats. Un badge LinkedIn officiel.' },
-        { title: 'On te trouve tes clients', desc: 'Ton contenu attire des leads. On t\'aide à les convertir en clients.' },
+        { title: 'Candidatez au programme', desc: 'Remplissez votre candidature. Si vous êtes sélectionné, vous accédez au programme.' },
+        { title: 'Suivez le programme 21 jours', desc: 'Publiez sur vos comptes en utilisant nos méthodes. 15 min/jour.' },
+        { title: 'Recevez votre certification Empire', desc: 'Bronze, Argent ou Or selon vos résultats. Un badge LinkedIn officiel.' },
+        { title: 'On vous trouve vos clients', desc: 'Votre contenu attire des leads. On vous aide à les convertir en clients.' },
       ]
     : [
         { title: 'Apply to the program', desc: 'Fill out your application. If selected, you access the program.' },

@@ -28,16 +28,16 @@ export default function AcademyTwoPathsSection() {
 
   const path1 = {
     icon: User,
-    tag: fr ? 'Option 1 - Tu as un projet' : 'Option 1 - You have a project',
-    title: fr ? 'Tu communiques pour toi' : 'You create content for yourself',
+    tag: fr ? 'Option 1 - Vous avez un projet' : 'Option 1 - You have a project',
+    title: fr ? 'Vous communiquez pour vous' : 'You create content for yourself',
     desc: fr
-      ? "Tu utilises les compétences du bootcamp pour développer ta propre audience et générer tes clients."
+      ? "Vous utilisez les compétences du bootcamp pour développer votre propre audience et générer vos clients."
       : "You use the bootcamp skills to grow your own audience and generate clients.",
     perks: fr
       ? [
-          'Tu maîtrises les mécaniques de la viralité',
-          'Tu sais créer tes hooks, posts et shorts',
-          'Tu construis ton audience et génères tes clients',
+          'Vous maîtrisez les mécaniques de la viralité',
+          'Vous savez créer vos hooks, posts et shorts',
+          'Vous construisez votre audience et générez vos clients',
           'Accès à vie aux replays',
         ]
       : [
@@ -51,14 +51,14 @@ export default function AcademyTwoPathsSection() {
   const path2 = {
     icon: Users,
     tag: fr ? 'Option 2 - Pas de projet ?' : 'Option 2 - No project?',
-    title: fr ? 'Tu communiques pour Empire' : 'You create content for Empire',
+    title: fr ? 'Vous communiquez pour Empire' : 'You create content for Empire',
     desc: fr
-      ? "On te trouve les clients. On te crée le contenu. Tu coaches et tu es payé. Pas besoin d'avoir un projet à toi."
+      ? "On vous trouve les clients. On vous crée le contenu. Vous coachez et vous êtes payé. Pas besoin d'avoir un projet à vous."
       : "We find the clients for you. We create the content. You coach and get paid. No need for your own project.",
     perks: fr
       ? [
-          'On te trouve les clients',
-          'On te crée ton contenu chaque jour',
+          'On vous trouve les clients',
+          'On vous crée votre contenu chaque jour',
           '500€ par mission - ~4h de coaching',
           'Objectif : 3 000€/mois en 4h/semaine',
         ]
@@ -80,10 +80,10 @@ export default function AcademyTwoPathsSection() {
               <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">{fr ? 'Même sans projet' : 'Even without a project'}</p>
               <h2 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
                 {fr ? '2 voies possibles.' : '2 possible paths.'}{' '}
-                <span className="text-academy">{fr ? 'Tu choisis.' : 'You choose.'}</span>
+                <span className="text-academy">{fr ? 'Vous choisissez.' : 'You choose.'}</span>
               </h2>
               <p className="text-neutral-400 text-base md:text-lg max-w-2xl mx-auto">
-                {fr ? "Tu as un projet ? Tu communiques dessus. Tu n'en as pas ? Tu communiques pour Empire et on te paye." : "Have a project? Create content for it. Don't have one? Create content for Empire and get paid."}
+                {fr ? "Vous avez un projet ? Vous communiquez dessus. Vous n'en avez pas ? Vous communiquez pour Empire et on vous paye." : "Have a project? Create content for it. Don't have one? Create content for Empire and get paid."}
               </p>
             </div>
           </FadeInBlock>
@@ -143,7 +143,7 @@ export default function AcademyTwoPathsSection() {
 
                   <div className="mt-6 p-4 rounded-xl bg-black/30 border border-academy/20">
                     <p className="text-xs text-neutral-400 leading-relaxed">
-                      <span className="text-academy font-semibold">{fr ? 'Les missions :' : 'The missions:'}</span> {fr ? "4h de coaching/mois avec un client Empire. Tu lui apprends le système qu'on t'a enseigné. On s'occupe du closing et de la delivery." : "4h of coaching/month with an Empire client. You teach them the system we taught you. We handle closing and delivery."}
+                      <span className="text-academy font-semibold">{fr ? 'Les missions :' : 'The missions:'}</span> {fr ? "4h de coaching/mois avec un client Empire. Vous lui apprenez le système qu'on vous a enseigné. On s'occupe du closing et de la delivery." : "4h of coaching/month with an Empire client. You teach them the system we taught you. We handle closing and delivery."}
                     </p>
                   </div>
                 </div>

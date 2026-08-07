@@ -14,8 +14,8 @@ export const en = {
   },
   hero: {
     targetAudience: 'For freelancers, employees & entrepreneurs',
-    title: 'Talk for 1 hour. Our team edits and writes <span class="text-empire">a month of content on 7 platforms.</span>',
-    subtitle: 'Close faster. Attract more clients. Raise your prices. Become the leader.',
+    title: 'Build a personal brand <span class="text-empire">that attracts clients.</span>',
+    subtitle: 'Talk for 1 hour. We create a month of content. Your brand attracts clients all year long.',
     description: '',
     cta1: 'Start for free',
     cta2: 'Watch Demo (1 min)',
@@ -182,7 +182,7 @@ export const en = {
       },
       {
         concern: 'What if I don\'t have time to record?',
-        answer: 'One 15-minute session per week — about 1 hour of talking a month. We schedule around your availability. No excuses - if you can talk, you can create content.',
+        answer: 'One hour per week. We schedule around your availability. No excuses — if you can talk, you can create content.',
       },
       {
         concern: 'Is this really better than hiring someone?',
@@ -530,7 +530,7 @@ export const en = {
     },
     {
       question: 'How much time do I need to invest?',
-      answer: '15 minutes a week — about 1 hour of talking a month. That\'s it. We handle everything else - content creation, editing, scheduling, and distribution across all platforms.',
+      answer: '1 hour a week. That\u2019s it. We handle everything else — content creation, editing, scheduling, and distribution across all platforms.',
     },
     {
       question: 'What if the content doesn\'t sound like me?',
@@ -781,7 +781,7 @@ export const en = {
     bannerButton: 'View positions',
     companyMission: {
       title: 'Company Mission',
-      description: 'Empire Internet transforms 1 hour of talking a month into over 100 optimized content pieces thanks to proprietary AI.',
+      description: 'Empire Internet transforms 1 hour of talking a week into over 100 optimized content pieces thanks to proprietary AI.',
       vision: 'We\'re building the fastest content machine on the market for entrepreneurs, creators, and CEOs.',
       ambition1: 'Become the #1 global content automation platform',
       ambition2: 'Scale from 1M → 10M → 50M/year',
@@ -941,31 +941,32 @@ export const en = {
     viewCertificate: 'View Favikon Certificate',
     name: 'Kevin Dufraisse',
     bio: 'After generating over €3M online through content marketing and copywriting, I spent 1 year studying the world\'s best creators and reverse-engineering what makes content go viral. Then I cloned those insights into systems that anyone can use.',
+    bioLegende: 'At The Family, I had to make every entrepreneur unforgettable overnight — find the right angles, generate thousands of meetings, turn ordinary stories into legends. I\'ve been building the legends of my friends and famous entrepreneurs for years. Then I cloned those methods into a system anyone can use.',
     tagline: '→ Empire is the system I wish I had when I started.',
-    keyPoint: 'The difference:',
-    keyMessage: 'These aren\'t generic AI templates. They\'re trained on the exact frameworks that generated millions of views and euros in revenue.',
+    keyPoint: '',
+    keyMessage: '',
     top1Badge: 'Featured in the Top 1% of French Entrepreneurs',
   },
   autopilot: {
     toggleLabel: 'Legend',
     toggleHint: 'No time? We handle everything',
     hero: {
-      targetAudience: 'Application only · 10 spots',
-      title: 'Build <span class="text-autopilot">your personal brand</span><br class="hidden sm:block"/> without lifting a finger.',
-      subtitle: 'Find more clients, recruit the best people, launch new ventures, unlock opportunities.',
+      targetAudience: 'For CEOs who want to delegate · 10 spots',
+      title: 'Delegate your personal brand <span class="text-autopilot">to the best virality experts.</span>',
+      subtitle: 'You run your business. We run your image.',
       cta1: 'Check my eligibility',
       ctaReassurance: '10 spots available · Application only',
     },
     howItWorks: {
       badge: 'LEGEND',
       title: 'We manage <span class="text-autopilot">100% of your brand</span>',
-      subtitle: 'Kevin Dufraisse (subject to availability) or a virality expert handles your entire online presence.',
+      subtitle: 'Kevin built the legends of entrepreneurs at The Family. Now he does it for you.',
       b1: {
         title: 'We build your legend',
-        desc: 'We audit your profile. Positioning, formats, editorial calendar — your strategy from A to Z.',
+        desc: 'We audit your profile and find the angles that make your story irresistible.',
       },
       b2: {
-        title: 'We call you 1 hour per month',
+        title: 'One call per month, 1 hour',
         desc: 'Kevin Dufraisse or a virality expert interviews you. You talk, that\'s it.',
       },
       b3: {

@@ -46,8 +46,8 @@ const COMPARISONS: ComparisonRow[] = [
     dimensionEn: 'Time investment',
     oldFr: '10 à 15h par semaine minimum',
     oldEn: '10–15h per week minimum',
-    newFr: '1h par mois, on gère le reste',
-    newEn: '1h per month, we handle the rest',
+    newFr: '1h par semaine, on gère le reste',
+    newEn: '1h per week, we handle the rest',
   },
   {
     dimensionFr: 'Coût',

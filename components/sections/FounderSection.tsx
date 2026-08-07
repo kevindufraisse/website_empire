@@ -126,7 +126,7 @@ export default function FounderSection() {
                     {t.founder?.name || 'Kevin Dufraisse'}
                   </p>
                   <p className="text-neutral-300 leading-relaxed mb-4">
-                    {t.founder?.bio || 'After generating over €3M online through content marketing and copywriting, I spent 6 months studying the world\'s top creators and reverse-engineering what makes content go viral. Then I cloned those insights into AI systems that anyone can use.'}
+                    {autopilot ? (t.founder?.bioLegende || t.founder?.bio) : t.founder?.bio}
                   </p>
                   <p className="text-empire font-medium">
                     {t.founder?.tagline || '→ Empire is the system I wish I had when I started.'}
@@ -134,12 +134,14 @@ export default function FounderSection() {
                 </div>
 
                 {/* Key message */}
-                <div className="p-4 rounded-xl bg-empire/10 border border-empire/30">
-                  <p className="text-sm text-neutral-300">
-                    <span className="text-empire font-semibold">{t.founder?.keyPoint || 'The difference:'}</span>{' '}
-                    {t.founder?.keyMessage || 'These aren\'t generic AI templates. They\'re trained on the exact frameworks that generated millions of views and euros in revenue.'}
-                  </p>
-                </div>
+                {t.founder?.keyMessage && (
+                  <div className="p-4 rounded-xl bg-empire/10 border border-empire/30">
+                    <p className="text-sm text-neutral-300">
+                      {t.founder?.keyPoint && <span className="text-empire font-semibold">{t.founder.keyPoint} </span>}
+                      {t.founder.keyMessage}
+                    </p>
+                  </div>
+                )}
               </div>
             </FadeInBlock>
           </div>

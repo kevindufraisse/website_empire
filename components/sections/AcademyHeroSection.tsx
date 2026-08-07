@@ -30,7 +30,7 @@ export default function AcademyHeroSection() {
     },
   ]
   return (
-    <section className="relative w-full py-24 md:py-36 overflow-hidden bg-gradient-to-b from-black via-transparent to-[#0f0f0f]">
+    <section className="relative w-full pt-20 md:pt-24 pb-20 md:pb-28 overflow-hidden bg-gradient-to-b from-black via-transparent to-[#0f0f0f]">
       <RetroGrid />
       <Meteors number={12} />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(252, 165, 165,0.12),transparent)]" />
@@ -57,7 +57,7 @@ export default function AcademyHeroSection() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-academy opacity-75" />
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-academy" />
                 </span>
-                <span className="text-xs text-academy font-bold">{fr ? 'Liste d\'attente ouverte' : 'Waitlist open'}</span>
+                <span className="text-xs text-academy font-bold">{fr ? 'Pour ceux qui veulent se reconvertir dans le contenu' : 'For those who want to switch to content'}</span>
               </div>
             </motion.div>
 
@@ -66,13 +66,13 @@ export default function AcademyHeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-5"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-5"
             >
-              {fr ? 'Deviens expert en' : 'Become a'}{' '}
+              {fr ? 'Devenez ' : 'Become '}{' '}
               <SparklesText className="text-academy" sparklesCount={7} colors={{ first: '#fca5a5', second: '#f87171' }}>
-                {fr ? 'viralité' : 'virality'}
+                {fr ? 'Head of Viralité' : 'Head of Virality'}
               </SparklesText>
-              {fr ? ' en 21 jours.' : ' expert in 21 days.'}
+              {fr ? ' en 21 jours.' : ' in 21 days.'}
             </motion.h1>
 
             {/* Value prop - compact */}
@@ -82,42 +82,12 @@ export default function AcademyHeroSection() {
               transition={{ delay: 0.2, duration: 0.6 }}
               className="max-w-lg mx-auto mb-8"
             >
-              <p className="text-sm text-neutral-400 text-center mb-3">{fr ? 'Tu publies sur :' : 'You publish on:'}</p>
-              <div className="flex items-center justify-center gap-2 mb-4">
-                {[
-                  { name: 'LinkedIn', path: 'M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z' },
-                  { name: 'YouTube', path: 'M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z' },
-                  { name: 'Instagram', path: 'M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z' },
-                  { name: 'TikTok', path: 'M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.31 6.31 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z' },
-                  { name: 'X', path: 'M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z' },
-                  { name: 'Threads', path: 'M141.537 88.988c-.893-.452-1.804-.875-2.732-1.27-1.56-27.306-16.398-42.94-41.457-43.1h-.165c-14.985 0-27.449 6.396-35.12 18.036l13.779 9.452c5.73-8.695 14.724-10.548 21.348-10.548h.077c8.25.053 14.474 2.452 18.503 7.129 2.933 3.405 4.893 8.11 5.865 14.05-7.314-1.243-15.224-1.625-23.68-1.14-23.82 1.372-39.134 15.264-38.105 34.568.519 9.792 5.397 18.216 13.733 23.719 7.047 4.652 16.123 6.927 25.557 6.412 12.457-.683 22.23-5.437 29.048-14.127 5.178-6.601 8.452-15.153 9.899-25.93 5.937 3.583 10.337 8.298 12.767 13.966 4.132 9.635 4.373 25.468-8.547 38.375-11.318 11.309-24.924 16.2-45.587 16.352-22.81-.17-40.06-7.484-51.275-21.742C20.168 139.965 14.74 120.681 14.537 96c.203-24.681 5.631-43.965 16.136-57.314C41.929 24.425 59.179 17.11 81.988 16.94c22.975.17 40.526 7.521 52.171 21.847 5.71 7.025 10.016 15.861 12.853 26.162l17.147-4.308c-3.44-12.7-8.853-23.626-16.22-32.687C133.036 9.641 111.202.196 82.07 0H81.942C52.867.19 31.277 9.642 16.773 28.08 3.867 44.487-2.79 67.316-3.007 95.932L-3 96l-0.007.068c.217 28.616 6.874 51.445 19.78 67.852C31.277 182.358 52.867 191.81 81.942 192h1.112c26.96-.173 44.555-6.708 59.05-21.19C161.08 151.866 160.51 128.12 154.26 113.54c-4.484-10.454-13.033-18.945-24.724-24.553zM98.44 129.507c-10.44.588-21.286-4.098-21.821-14.135-.464-7.441 5.229-15.745 22.394-16.735 1.966-.113 3.895-.168 5.79-.168 6.235 0 12.068.606 17.371 1.766-1.978 24.702-13.58 28.713-23.734 29.272z', viewBox: '0 0 192 192' },
-                ].map((p, i) => (
-                  <div key={i} className="w-7 h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center" title={p.name}>
-                    <svg viewBox={p.viewBox || '0 0 24 24'} fill="currentColor" className="w-3.5 h-3.5 text-neutral-400">
-                      <path d={p.path} />
-                    </svg>
-                  </div>
-                ))}
-              </div>
-              <div className="flex flex-col gap-2">
-                {(fr
-                  ? [
-                      'Comprendre pourquoi certains contenus explosent - et le reproduire',
-                      'Maîtriser la viralité sur tous les réseaux en même temps',
-                      'Transformer les vues en clients et en revenus concrets',
-                    ]
-                  : [
-                      'Understand why some content goes viral - and replicate it',
-                      'Master virality across all platforms at once',
-                      'Turn views into clients and real revenue',
-                    ]
-                ).map((line, i) => (
-                  <div key={i} className="flex items-start gap-2.5 text-left">
-                    <span className="text-academy mt-0.5 flex-shrink-0 font-bold">›</span>
-                    <span className="text-base text-neutral-200">{line}</span>
-                  </div>
-                ))}
-              </div>
+              <p className="text-lg sm:text-xl text-neutral-200 leading-relaxed">
+                {fr
+                  ? 'Apprenez le métier, obtenez votre certification, et gagnez vos premiers 3\u202F000\u202F€/mois. Même sans projet à vous.'
+                  : 'Learn the craft, get certified, and earn your first €3,000/month. Even without your own project.'}
+              </p>
+
             </motion.div>
 
             {/* Waitlist CTA button */}
@@ -130,9 +100,10 @@ export default function AcademyHeroSection() {
             >
               <AcademyWaitlistCta
                 source="academy-hero"
-                className="w-full flex items-center justify-center gap-2 rounded-xl bg-academy px-8 py-4 text-base font-bold text-black transition-all hover:brightness-110 hover:scale-[1.02]"
+                className="w-full flex items-center justify-center gap-2 rounded-xl bg-academy px-8 py-4 text-base font-bold text-black transition-all hover:brightness-110 hover:scale-[1.02] flex-col"
               >
-                {fr ? 'Rejoindre la liste d\'attente →' : 'Join the waitlist →'}
+                <span>{fr ? 'Rejoindre la liste d\'attente →' : 'Join the waitlist →'}</span>
+                <span className="text-[11px] font-semibold opacity-70">{fr ? 'À partir de 497\u202F€ · 20 places sur sélection' : 'From €497 · 20 spots, application only'}</span>
               </AcademyWaitlistCta>
               <MediaCredibilityStrip />
             </motion.div>
@@ -162,6 +133,7 @@ export default function AcademyHeroSection() {
 
 
       </div>
+
     </section>
   )
 }

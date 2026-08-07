@@ -27,25 +27,25 @@ export default function AcademyProcessSection() {
     {
       icon: Flame,
       week: fr ? 'Jour 1' : 'Day 1',
-      title: fr ? 'Tu rejoins le bootcamp' : 'You join the bootcamp',
+      title: fr ? 'Vous rejoignez le bootcamp' : 'You join the bootcamp',
       desc: fr
-        ? 'Accès immédiat aux challenges, lives et groupe privé. Ton premier contenu est déjà prêt à publier.'
+        ? 'Accès immédiat aux challenges, lives et groupe privé. Votre premier contenu est déjà prêt à publier.'
         : 'Immediate access to challenges, live sessions, and the private group. Your first piece of content is ready to publish.',
     },
     {
       icon: Repeat,
       week: fr ? '21 jours' : '21 days',
-      title: fr ? 'Tu publies, on te forme' : 'You publish, we train you',
+      title: fr ? 'Vous publiez, on vous forme' : 'You publish, we train you',
       desc: fr
-        ? 'Chaque jour : un challenge, ton contenu prêt à poster, et des feedbacks. Tu apprends la viralité en faisant.'
+        ? 'Chaque jour : un challenge, votre contenu prêt à poster, et des feedbacks. Vous apprenez la viralité en faisant.'
         : 'Every day: a challenge, your content ready to post, and feedback. You learn virality by doing.',
     },
     {
       icon: Trophy,
       week: fr ? 'Après' : 'After',
-      title: fr ? 'Tu maîtrises la viralité' : 'You master virality',
+      title: fr ? 'Vous maîtrisez la viralité' : 'You master virality',
       desc: fr
-        ? 'Tu sais ce qui fait exploser un contenu. 3 options s\'offrent à toi : solo, licence Empire, ou partenaire.'
+        ? 'Vous savez ce qui fait exploser un contenu. 3 options s\'offrent à vous : solo, licence Empire, ou partenaire.'
         : 'You know what makes content go viral. 3 options are available: solo, Empire license, or partner.',
       highlight: true,
     },
