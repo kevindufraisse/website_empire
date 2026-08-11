@@ -56,7 +56,7 @@ export default function VoiceToContentAnimation() {
         { icon: 'twitter', name: 'X', text: 'Le secret, c\u2019est pas le talent. C\u2019est la régularité.\n\nComment tenir 12 mois sans s\u2019épuiser 🧵 (1/8)', tag: 'Thread', tagColor: '#e5e7eb', views: 'jusqu\u2019à 100K vues/mois' },
         { icon: 'threads', name: 'Threads', text: 'Poster sans stratégie, c\u2019est l\u2019erreur n°1 sur LinkedIn. La preuve en chiffres \u2193', tag: 'Threads', tagColor: '#e5e7eb', views: 'jusqu\u2019à 1M vues/mois' },
         { icon: 'newsletter', name: 'Newsletter', text: 'Objet : Mon premier client à 10K (sans un euro de pub)', tag: 'Email', tagColor: '#DAFC68', views: '30 newsletters/mois' },
-        { icon: 'youtube', name: 'YouTube', text: '\u25B6 « Le secret c\u2019est pas le talent, c\u2019est la régularité » — 0:34', tag: 'Short', tagColor: '#f87171', views: 'jusqu\u2019à 200K vues/mois' },
+        { icon: 'youtube', name: 'YouTube', text: '\u25B6 « Le secret c\u2019est pas le talent, c\u2019est la régularité » - 0:34', tag: 'Short', tagColor: '#f87171', views: 'jusqu\u2019à 200K vues/mois' },
       ]
     : [
         { icon: 'linkedin', name: 'LinkedIn', text: 'I signed my first 10K client without spending a euro on ads.\n\nHere are the 3 things I did differently \u2193', tag: 'Post', tagColor: '#5eb0ef', views: '1M+ views/mo on average' },
@@ -64,7 +64,7 @@ export default function VoiceToContentAnimation() {
         { icon: 'twitter', name: 'X', text: 'The secret isn\u2019t talent. It\u2019s consistency.\n\nHow to keep going 12 months without burning out 🧵 (1/8)', tag: 'Thread', tagColor: '#e5e7eb', views: 'up to 100K views/mo' },
         { icon: 'threads', name: 'Threads', text: 'Posting without a strategy is mistake #1 on LinkedIn. Here\u2019s the proof in numbers \u2193', tag: 'Threads', tagColor: '#e5e7eb', views: 'up to 1M views/mo' },
         { icon: 'newsletter', name: 'Newsletter', text: 'Subject: My first 10K client (without a euro in ads)', tag: 'Email', tagColor: '#DAFC68', views: '30 newsletters/mo' },
-        { icon: 'youtube', name: 'YouTube', text: '\u25B6 \u201cThe secret isn\u2019t talent, it\u2019s consistency\u201d — 0:34', tag: 'Short', tagColor: '#f87171', views: 'up to 200K views/mo' },
+        { icon: 'youtube', name: 'YouTube', text: '\u25B6 \u201cThe secret isn\u2019t talent, it\u2019s consistency\u201d - 0:34', tag: 'Short', tagColor: '#f87171', views: 'up to 200K views/mo' },
       ]
 
   // Measure one chunk so the SMIL loop advances by exactly one chunk (seamless)

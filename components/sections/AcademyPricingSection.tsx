@@ -4,7 +4,7 @@ import { useRef } from 'react'
 import { Check, Shield } from 'lucide-react'
 import BorderBeam from '@/components/magicui/border-beam'
 import AcademyWaitlistCta from '@/components/AcademyWaitlistCta'
-import { ACADEMY_ENTRY_PRICE } from '@/lib/cohort-config'
+import { ACADEMY_ENTRY_PRICE, ACADEMY_NEXT_PRICE_EN, ACADEMY_NEXT_PRICE_FR } from '@/lib/cohort-config'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
@@ -28,43 +28,53 @@ export default function AcademyPricingSection() {
 
   const features = fr
     ? [
-        'Accès à Empire Alpha - vos posts LinkedIn + Shorts générés. Rien à rédiger, rien à monter.',
         '21 défis quotidiens - un par jour, vous postez, vous voyez ce qui marche',
         '6 masterclass lives - psychologie virale, LinkedIn, Instagram, YouTube, IA & automatisation funnel, monétisation 3K€/mois',
         'Pod LinkedIn - le groupe engage sur vos posts, vos stats décollent',
         'Certification officielle - Bronze, Argent ou Or selon vos résultats, ajoutable sur LinkedIn',
+        'Accès à Empire Alpha - l\'outil où vous produisez vos posts et vos Shorts en parlant 15 min',
+        'Replays, défis et groupe alumni à vie',
         'Premier client garanti après 3 mois*',
       ]
     : [
-        'Access to Empire Alpha - your LinkedIn posts + Shorts generated. Nothing to write, nothing to edit.',
         '21 daily challenges - one per day, you post, you see what works',
         '6 live masterclasses - viral psychology, LinkedIn, Instagram, YouTube, AI & funnel automation, 3K€/month monetization',
         'LinkedIn Pod - the group engages on your posts, your stats take off',
         'Official certification - Bronze, Silver or Gold based on your results, addable to LinkedIn',
+        'Access to Empire Alpha - the tool where you produce your posts and Shorts by talking for 15 min',
+        'Replays, challenges and alumni group for life',
         'First client guaranteed after 3 months*',
       ]
 
-  const comparison = [
+  const comparison: {
+    label: string
+    sub: string
+    price: string
+    detail: string
+    dim: boolean
+    strike?: string
+  }[] = [
     {
-      label: fr ? 'Tout seul' : 'On your own',
-      sub: fr ? '21 posts + 21 Shorts par un freelance' : '21 posts + 21 Shorts from a freelancer',
-      price: '3 360€',
-      detail: fr ? '160€/jour pendant 21 jours' : '160€/day for 21 days',
+      label: fr ? 'Se former seul' : 'Learning alone',
+      sub: fr ? 'Des mois à tester hooks, formats et algos' : 'Months testing hooks, formats and algos',
+      price: fr ? 'Temps perdu' : 'Wasted time',
+      detail: fr ? 'Sans savoir ce qui marche' : 'Without knowing what works',
       dim: true,
     },
     {
-      label: fr ? 'En agence' : 'With an agency',
-      sub: fr ? 'Community manager junior' : 'Junior community manager',
+      label: fr ? 'Recruter une agence' : 'Hire an agency',
+      sub: fr ? 'On produit pour vous' : 'They produce for you',
       price: '2-5K€/mois',
-      detail: fr ? 'Sans stratégie, sans contrôle' : 'No strategy, no control',
+      detail: fr ? 'Sans forcément comprendre le système' : 'Without necessarily learning the system',
       dim: true,
     },
     {
       label: 'Empire Academy',
-      sub: fr ? 'Tout inclus + accompagnement' : 'All-inclusive + expert guidance',
+      sub: fr ? 'Méthode + acomp. + certification + réseau' : 'Method + coaching + cert + network',
       price: `${ACADEMY_ENTRY_PRICE}€`,
       detail: fr ? 'Paiement unique ou 3x 165€' : 'One-time payment or 3x €165',
       dim: false,
+      strike: fr ? `${ACADEMY_NEXT_PRICE_FR}€` : `€${ACADEMY_NEXT_PRICE_EN}`,
     },
   ]
 
@@ -78,9 +88,13 @@ export default function AcademyPricingSection() {
           <FadeInBlock>
             <div className="text-center mb-14">
               <h2 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
-                {fr ? 'Tout ce qui est inclus.' : 'Everything included.'}{' '}
-                <span className="text-academy">{fr ? 'Un seul prix.' : 'One price.'}</span>
+                {fr ? 'Le vrai coût, c\'est d\'apprendre seul.' : 'The real cost is learning alone.'}
               </h2>
+              <p className="text-neutral-400 max-w-xl mx-auto">
+                {fr
+                  ? `21 jours pour apprendre la méthode, obtenir votre certification et accéder au réseau Empire. ${ACADEMY_ENTRY_PRICE}\u202F€ pour cette promotion.`
+                  : `21 days to learn the method, get certified and join the Empire network. €${ACADEMY_ENTRY_PRICE} for this cohort.`}
+              </p>
             </div>
           </FadeInBlock>
 
@@ -117,7 +131,7 @@ export default function AcademyPricingSection() {
                 <div className="flex flex-col">
                   <div className="flex-1">
                     {/* Comparison block */}
-                    <p className="text-xs font-bold text-neutral-400 tracking-widest uppercase mb-3">{fr ? 'Combien ça coûte ailleurs' : 'How much it costs elsewhere'}</p>
+                    <p className="text-xs font-bold text-neutral-400 tracking-widest uppercase mb-3">{fr ? 'Comparer les chemins' : 'Compare the paths'}</p>
                     <div className="space-y-2 mb-6">
                       {comparison.map((item, i) => (
                         <div
@@ -133,7 +147,12 @@ export default function AcademyPricingSection() {
                             <p className="text-[11px] text-neutral-500 leading-tight">{item.sub}</p>
                           </div>
                           <div className="text-right">
-                            <p className={`text-base font-black ${item.dim ? 'text-neutral-500' : 'text-academy'}`}>{item.price}</p>
+                            <p className={`flex items-baseline justify-end gap-1.5 text-base font-black ${item.dim ? 'text-neutral-500' : 'text-academy'}`}>
+                              {item.strike && (
+                                <span className="text-xs font-semibold text-neutral-600 line-through">{item.strike}</span>
+                              )}
+                              {item.price}
+                            </p>
                             <p className="text-[10px] text-neutral-500">{item.detail}</p>
                           </div>
                         </div>
@@ -141,12 +160,26 @@ export default function AcademyPricingSection() {
                     </div>
                   </div>
 
+                  {/* Ancre de prix : le tarif actuel est celui des premières sessions */}
+                  <div className="mb-4 rounded-xl border border-academy/30 bg-academy/[0.07] p-3">
+                    <p className="text-[11px] leading-relaxed text-neutral-300">
+                      <span className="font-bold text-academy">
+                        {fr
+                          ? `Le prix passe à ${ACADEMY_NEXT_PRICE_FR}\u202F€`
+                          : `The price goes to €${ACADEMY_NEXT_PRICE_EN}`}
+                      </span>
+                      {fr
+                        ? ` aux prochaines sessions. ${ACADEMY_ENTRY_PRICE}\u202F€ est le tarif des premières promos, le temps que la certification s'installe.`
+                        : ` for the next cohorts. €${ACADEMY_ENTRY_PRICE} is the price for the first groups, while the certification builds up.`}
+                    </p>
+                  </div>
+
                   {/* CTA */}
                   <AcademyWaitlistCta
                     source="pricing"
                     className="block w-full text-center px-8 py-4 bg-academy text-black font-bold text-lg rounded-xl hover:scale-[1.02] transition-all shadow-[0_0_40px_rgba(252,165,165,0.35)] hover:shadow-[0_0_60px_rgba(252,165,165,0.5)]"
                   >
-                    {fr ? 'Rejoindre la liste d\'attente' : 'Join the waitlist'}
+                    {fr ? 'Candidater à la prochaine promotion' : 'Apply to the next cohort'}
                   </AcademyWaitlistCta>
 
                   {/* Trust badges */}
@@ -156,7 +189,15 @@ export default function AcademyPricingSection() {
                       <span>{fr ? 'Sans engagement' : 'No commitment'}</span>
                     </div>
                     <span>·</span>
-                    <span>{fr ? '+3 000€ de contenu inclus' : '+3,000€ of content included'}</span>
+                    <span>{fr ? 'Certification ajoutable sur LinkedIn' : 'Certification you can add to LinkedIn'}</span>
+                  </div>
+                  <div className="mt-4 p-3 rounded-xl bg-white/[0.03] border border-white/10">
+                    <p className="text-[11px] text-neutral-400 leading-relaxed">
+                      <span className="font-semibold text-neutral-200">{fr ? 'En option :' : 'Optional:'}</span>{' '}
+                      {fr
+                        ? "faire produire vos contenus par notre équipe, via un abonnement Empire. Le bootcamp vous apprend à les créer vous-même - sur la voie partenaire, la production des missions clients est prise en charge."
+                        : "have our team produce your content, through an Empire subscription. The bootcamp teaches you to create it yourself - on the partner path, production for client missions is covered."}
+                    </p>
                   </div>
                   <p className="mt-3 text-[10px] text-neutral-600 text-center leading-relaxed">
                     {fr

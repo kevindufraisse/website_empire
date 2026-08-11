@@ -154,7 +154,7 @@ export default function ViralPostsOverlay() {
       >
         {/* Header */}
         <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
-          <h2 className="text-base font-bold text-white">Stats de nos clients — 28 derniers jours</h2>
+          <h2 className="text-base font-bold text-white">Stats de nos clients - 28 derniers jours</h2>
           <button onClick={() => setOpen(false)} className="rounded-lg p-2 text-neutral-400 hover:bg-white/10 hover:text-white">
             <X size={18} />
           </button>

@@ -1,67 +1,61 @@
 'use client'
 
-import { useRouter, usePathname } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { useAutopilot } from '@/contexts/AutopilotContext'
 import type { CSSProperties } from 'react'
 
 type TierId = 'academy' | 'copilot' | 'autopilot'
 
 interface Tier {
   id: TierId
+  href: string
   label: string
   sublabel: string
   color: string
 }
 
-export default function TierNav() {
-  const router = useRouter()
+export default function TierNav({ instance = 'main' }: { instance?: string }) {
   const pathname = usePathname()
   const { lang } = useLanguage()
-  const { autopilot, setAutopilot } = useAutopilot()
-
   const fr = lang === 'fr'
 
-  const activeTier: TierId = pathname === '/academy'
-    ? 'academy'
-    : autopilot ? 'autopilot' : 'copilot'
+  const activeTier: TierId =
+    pathname === '/academy' || pathname === '/candidature'
+      ? 'academy'
+      : pathname === '/legende'
+        ? 'autopilot'
+        : 'copilot'
 
   const tiers: Tier[] = [
     {
       id: 'academy',
+      href: '/academy',
       label: 'Academy',
-      sublabel: fr ? 'Maîtrisez le Système' : 'Master the System',
+      sublabel: fr ? 'Maîtriser le système' : 'Master the system',
       color: '#fca5a5',
     },
     {
       id: 'copilot',
+      href: '/',
       label: 'Empire',
-      sublabel: fr ? 'Installez le Système' : 'Install the System',
+      sublabel: fr ? 'Installer le système' : 'Install the system',
       color: '#DAFC68',
     },
     {
       id: 'autopilot',
+      href: '/legende',
       label: 'Légende',
-      sublabel: fr ? 'Confiez le Système' : 'Entrust the System',
+      sublabel: fr ? 'Confiez-nous le système' : 'Hand us the system',
       color: '#d4a574',
     },
   ]
 
-  const handleClick = (tier: TierId) => {
-    if (tier === 'academy') {
-      router.push('/academy')
-    } else if (tier === 'copilot') {
-      setAutopilot(false)
-      if (pathname !== '/') router.push('/')
-    } else if (tier === 'autopilot') {
-      setAutopilot(true)
-      if (pathname !== '/') router.push('/')
-    }
-  }
-
   return (
-    <div className="flex items-center gap-0.5 p-0.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md shrink-0 overflow-hidden">
+    <nav
+      aria-label={fr ? 'Choisir une offre' : 'Choose an offer'}
+      className="flex items-center gap-0.5 p-0.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md shrink-0"
+    >
       {tiers.map((tier) => {
         const isActive = activeTier === tier.id
         const activeStyle: CSSProperties = isActive
@@ -73,21 +67,18 @@ export default function TierNav() {
           : {}
 
         return (
-          <button
+          <a
             key={tier.id}
-            type="button"
-            onClick={() => handleClick(tier.id)}
-            aria-pressed={isActive}
-            className={`relative px-3 md:px-3.5 py-1.5 rounded-full text-xs font-bold transition-colors ${
-              isActive
-                ? ''
-                : 'text-neutral-400 hover:text-white'
+            href={tier.href}
+            aria-current={isActive ? 'page' : undefined}
+            className={`relative px-3 md:px-3.5 py-1.5 rounded-full text-xs font-bold transition-colors cursor-pointer ${
+              isActive ? '' : 'text-neutral-400 hover:text-white'
             }`}
             style={activeStyle}
           >
             {isActive && (
               <motion.div
-                layoutId="tier-active-dot"
+                layoutId={`tier-active-dot-${instance}`}
                 className="absolute -top-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full"
                 style={{ backgroundColor: tier.color }}
                 transition={{ type: 'spring', stiffness: 500, damping: 30 }}
@@ -95,13 +86,17 @@ export default function TierNav() {
             )}
             <div className="relative z-10 flex flex-col items-center gap-0 leading-tight">
               <span className="text-[11px] md:text-xs whitespace-nowrap">{tier.label}</span>
-              <span className={`text-[8px] md:text-[9px] font-medium whitespace-nowrap ${isActive ? 'opacity-70' : 'text-neutral-400'}`}>
+              <span
+                className={`text-[8px] md:text-[9px] font-medium whitespace-nowrap ${
+                  isActive ? 'opacity-70' : 'text-neutral-400'
+                }`}
+              >
                 {tier.sublabel}
               </span>
             </div>
-          </button>
+          </a>
         )
       })}
-    </div>
+    </nav>
   )
 }

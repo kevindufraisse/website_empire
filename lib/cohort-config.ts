@@ -104,6 +104,16 @@ const tiers = [
 /** Cheapest tier — what "à partir de X€" refers to outside an open cohort. */
 export const ACADEMY_ENTRY_PRICE = Math.min(...tiers.map(t => t.price))
 
+/**
+ * Prix annoncé pour les prochaines sessions, une fois la certification et le
+ * réseau partenaires en place. Sert d'ancre face au prix d'entrée actuel.
+ * Les libellés sont figés plutôt que formatés à la volée : toLocaleString peut
+ * rendre une espace différente côté serveur et côté client.
+ */
+export const ACADEMY_NEXT_PRICE = 1500
+export const ACADEMY_NEXT_PRICE_FR = '1\u202f500'
+export const ACADEMY_NEXT_PRICE_EN = '1,500'
+
 export function getAcademyPricing(now?: Date): AcademyPricingTier {
   const d = now ?? new Date()
   for (const tier of tiers) {

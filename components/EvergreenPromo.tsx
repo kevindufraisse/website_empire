@@ -186,7 +186,7 @@ export default function EvergreenPromo({ variant = 'hero' }: { variant?: 'hero' 
         <span className="text-sm font-semibold text-white">
           {label} {promo.discount}
         </span>
-        <span className="text-xs text-neutral-400">—</span>
+        <span className="text-xs text-neutral-400">-</span>
         <span className="text-[11px] text-neutral-400">{expireLabel}</span>
         <span className="font-mono text-sm font-bold tabular-nums text-empire">{timeLeft}</span>
       </div>

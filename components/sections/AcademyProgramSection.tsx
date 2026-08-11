@@ -84,10 +84,10 @@ export default function AcademyProgramSection() {
     },
     {
       icon: Send,
-      label: fr ? 'Contenu créé pour vous' : 'Content created for you',
+      label: fr ? 'Certification à la clé' : 'Certification at the end',
       desc: fr
-        ? "Vos posts LinkedIn et Shorts sont rédigés et montés par notre équipe."
-        : "Your LinkedIn posts and Shorts are written and edited by our team.",
+        ? "Bronze, Argent ou Or selon vos vrais résultats. Ajoutable sur LinkedIn."
+        : "Bronze, Silver or Gold based on your real results. Addable to LinkedIn.",
     },
   ]
 

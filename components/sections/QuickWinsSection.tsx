@@ -1,6 +1,6 @@
 'use client'
-import { motion, useInView } from 'framer-motion'
-import { useRef } from 'react'
+import { motion } from 'framer-motion'
+import { useReveal } from '@/hooks/useReveal'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import { ArrowRight, X, Check } from 'lucide-react'
@@ -71,8 +71,7 @@ export default function QuickWinsSection() {
   const { lang, t } = useLanguage()
   const { autopilot } = useAutopilot()
   const fr = lang === 'fr'
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const [ref, isInView] = useReveal('-80px')
 
   // The comparison is built around the self-serve offer (price, time invested).
   if (autopilot) return null

@@ -114,6 +114,17 @@ export default function FinalBoostCTA() {
                 )}
 
                 {!autopilot && <LaunchOfferLine className="mt-4" />}
+
+                {!autopilot && (
+                  <button
+                    type="button"
+                    onClick={() => window.dispatchEvent(new Event('open-offer-quiz'))}
+                    className="mt-6 inline-flex items-center gap-2 rounded-full border-2 border-empire/50 bg-empire/10 px-5 py-2.5 text-sm font-semibold text-empire shadow-[0_0_24px_rgb(var(--empire-rgb)_/_0.25)] hover:bg-empire/20 hover:scale-[1.02] transition-all"
+                  >
+                    <span className="text-empire">✦</span>
+                    {lang === 'fr' ? 'Pas sûr ? Quelle offre pour vous ?' : 'Not sure? Which offer for you?'}
+                  </button>
+                )}
               </div>
             </div>
           </FadeInBlock>

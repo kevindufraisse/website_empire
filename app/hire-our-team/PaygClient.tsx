@@ -201,8 +201,8 @@ export default function PaygClient() {
 
             <p className="text-neutral-400 text-lg sm:text-xl leading-relaxed mb-4 max-w-2xl mx-auto">
               {fr
-                ? 'Envoyez-nous une interview de 15 min et on crée vos contenus — LinkedIn, Instagram, TikTok, YouTube — avec les systèmes des meilleurs entrepreneurs du web.'
-                : 'Send us a 15-min interview and we create your content — LinkedIn, Instagram, TikTok, YouTube — using the systems of the best web entrepreneurs.'}
+                ? 'Envoyez-nous une interview de 15 min et on crée vos contenus - LinkedIn, Instagram, TikTok, YouTube - avec les systèmes des meilleurs entrepreneurs du web.'
+                : 'Send us a 15-min interview and we create your content - LinkedIn, Instagram, TikTok, YouTube - using the systems of the best web entrepreneurs.'}
             </p>
 
             <p className="text-neutral-500 text-sm mb-10 max-w-xl mx-auto">
@@ -412,8 +412,8 @@ export default function PaygClient() {
                   </p>
                   <p className="text-xs text-neutral-500">
                     {fr
-                      ? 'Chaque contenu produit consomme des crédits — publiez autant que vous le souhaitez'
-                      : 'Each piece of content uses credits — publish as much as you want'}
+                      ? 'Chaque contenu produit consomme des crédits - publiez autant que vous le souhaitez'
+                      : 'Each piece of content uses credits - publish as much as you want'}
                   </p>
                 </div>
               </div>

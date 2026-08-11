@@ -127,7 +127,7 @@ export default function AcademyWaitlistForm({ className = '' }: { className?: st
             {fr ? 'Envoi en cours...' : 'Sending...'}
           </>
         ) : (
-          <>{fr ? 'Rejoindre la liste d\'attente' : 'Join the waitlist'} →</>
+          <>{fr ? 'Envoyer ma candidature' : 'Submit my application'} →</>
         )}
       </button>
 
@@ -137,8 +137,8 @@ export default function AcademyWaitlistForm({ className = '' }: { className?: st
 
       <p className="text-center text-[11px] text-neutral-500">
         {fr
-          ? 'Places limitées · On vous prévient à l\'ouverture'
-          : 'Limited spots · We notify you when it opens'}
+          ? '20 places · Sur sélection · Réponse après lecture'
+          : '20 spots · By selection · Reply after review'}
       </p>
     </form>
   )

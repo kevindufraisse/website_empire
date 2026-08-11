@@ -68,7 +68,7 @@ export default function AcademyCertificationSection() {
         perkText: 'text-neutral-300',
       },
       title: fr ? 'Certifié Expert' : 'Expert Certified',
-      subtitle: fr ? 'Résultats prouvés' : 'Proven results',
+      subtitle: fr ? 'Résultats significatifs démontrés' : 'Significant results demonstrated',
       criteria: fr
         ? 'Vous avez généré des vues significatives sur le mois écoulé et démontré une maîtrise des formats viraux.'
         : 'You generated significant views over the past month and demonstrated mastery of viral formats.',
@@ -129,18 +129,17 @@ export default function AcademyCertificationSection() {
       <div className="container relative z-10">
         <div className="max-w-5xl mx-auto">
 
-          {/* Header */}
           <FadeInBlock>
             <div className="text-center mb-6">
-              <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">Certification</p>
+              <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">{fr ? 'Preuve de compétence' : 'Proof of skill'}</p>
               <h2 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
-                {fr ? 'Prouvez vos résultats.' : 'Prove your results.'}{' '}
-                <span className="text-academy">{fr ? 'Obtenez votre certification.' : 'Get certified.'}</span>
+                {fr ? 'Vous ne recevez pas votre certification parce que vous avez regardé la formation.' : 'You don\'t get certified because you watched the course.'}{' '}
+                <span className="text-academy">{fr ? 'Vous la gagnez grâce à vos résultats.' : 'You earn it through results.'}</span>
               </h2>
               <p className="text-neutral-400 text-base md:text-lg max-w-2xl mx-auto">
                 {fr
-                  ? 'À la fin du bootcamp, vous pouvez passer les certifications Empire Internet - ajoutables sur votre profil LinkedIn. Les niveaux sont basés sur vos vrais résultats.'
-                  : 'At the end of the bootcamp, you can earn Empire Internet certifications - addable to your LinkedIn profile. Levels are based on your real results.'}
+                  ? 'Compétence d\'abord. Résultats ensuite. La certification prouve ce que vous avez fait - pas ce que vous avez consommé.'
+                  : 'Skill first. Results next. Certification proves what you did - not what you consumed.'}
               </p>
             </div>
           </FadeInBlock>

@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useState } from 'react'
 
-import { AnimatePresence, motion, useInView } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import {
   Check, Scissors, Minus, Plus, ChevronDown, MessageCircle, GraduationCap,
   FileText, Video, Mail, ImageIcon, Palette, Globe, Bot, Share2, Users, Zap,
@@ -14,9 +14,10 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import { trackAmplitude, withAmplitudeDeviceId } from '@/lib/amplitude'
 import { fetchFlashPromo, formatCountdown } from '@/lib/flash-promo'
+import { useReveal } from '@/hooks/useReveal'
 import {
   APP_ONBOARDING_URL, BILLING_PERIODS, PLANS, PLAN_LABELS,
-  combinedDiscount, finalPrice,
+  combinedDiscount, finalPrice, getPlan,
   type BillingId, type Plan, type PlanId,
 } from '@/lib/plans'
 
@@ -24,22 +25,25 @@ import WhyEmpireCompact from '@/components/sections/WhyEmpireCompact'
 
 type PlanFeature = { fr: string; en: string; on?: false }
 
-// Identical whatever the pack — only the credit volume moves.
+// Identical whatever the pack. Les réseaux ne consomment rien : ce qui varie
+// d'un pack à l'autre, c'est le nombre de sessions et donc de contenus.
 const PLAN_BASE_FEATURES: PlanFeature[] = [
-  { fr: '4 sessions d\'enregistrement par mois', en: '4 recording sessions per month' },
-  { fr: 'Les 7 réseaux inclus', en: 'All 7 networks included' },
-  { fr: 'Support prioritaire sous 4h', en: 'Priority support within 4h' },
+  { fr: 'Les 7 réseaux inclus, sans supplément', en: 'All 7 networks included, no extra cost' },
+  { fr: 'Cadence modifiable : plus de Reels, moins de newsletters, comme vous voulez', en: 'Adjustable mix: more Reels, fewer newsletters, however you want' },
+  { fr: 'Cerveau Empire : vos sujets trouvés et classés pour vous', en: 'Empire brain: your topics found and ranked for you' },
 ]
 
+const SUPPORT: PlanFeature = { fr: 'Support prioritaire sous 4h', en: 'Priority support within 4h' }
 const REPLAYS: PlanFeature = { fr: 'Replays masterclass (valeur 197€)', en: 'Masterclass replays (€197 value)' }
-const LIVES: PlanFeature = { fr: 'Lives hebdomadaires', en: 'Weekly live sessions' }
+const LIVES: PlanFeature = { fr: 'Lives hebdomadaires avec nos experts', en: 'Weekly lives with our experts' }
+const COMMUNITY: PlanFeature = { fr: 'Communauté privée Slack', en: 'Private Slack community' }
 const REVIEW: PlanFeature = { fr: 'Revue stratégique mensuelle (retours Loom)', en: 'Monthly strategy review (Loom feedback)' }
 
 // What actually changes from one pack to the next. `on: false` renders as excluded.
 const PLAN_FEATURES: Record<PlanId, PlanFeature[]> = {
-  starter: [...PLAN_BASE_FEATURES, { ...REPLAYS, on: false }, { ...LIVES, on: false }, { ...REVIEW, on: false }],
-  growth: [...PLAN_BASE_FEATURES, REPLAYS, LIVES, { ...REVIEW, on: false }],
-  scale: [...PLAN_BASE_FEATURES, REPLAYS, LIVES, REVIEW],
+  starter: [...PLAN_BASE_FEATURES, { ...LIVES, on: false }, { ...COMMUNITY, on: false }, { ...SUPPORT, on: false }, { ...REPLAYS, on: false }, { ...REVIEW, on: false }],
+  growth: [...PLAN_BASE_FEATURES, LIVES, COMMUNITY, SUPPORT, REPLAYS, { ...REVIEW, on: false }],
+  scale: [...PLAN_BASE_FEATURES, LIVES, COMMUNITY, SUPPORT, REPLAYS, REVIEW],
 }
 
 type DetailFeature = { fr: string; en: string; descFr: string; descEn: string; icon: LucideIcon; badge?: string }
@@ -76,7 +80,7 @@ const PILLARS: Pillar[] = [
       { fr: 'Employee Advocacy', en: 'Employee advocacy', descFr: 'Faites publier vos employés automatiquement.', descEn: 'Get your employees publishing automatically.', icon: Users },
       { fr: 'Idées via Telegram', en: 'Ideas via Telegram', descFr: 'Envoyez une idée depuis Telegram, retrouvez-la dans Empire.', descEn: 'Send an idea from Telegram, find it in Empire.', icon: MessageCircle, badge: 'NEW' },
       { fr: 'Multi-comptes', en: 'Multi-account', descFr: 'Compte perso + entreprise, plusieurs marques sur la même plateforme.', descEn: 'Personal + business, multiple brands on the same platform.', icon: Users },
-      { fr: '+10 tunnels de conversion', en: '10+ conversion funnels', descFr: 'N8N, Make, ManyChat — prêts à dupliquer.', descEn: 'N8N, Make, ManyChat — ready to duplicate.', icon: Zap },
+      { fr: '+10 tunnels de conversion', en: '10+ conversion funnels', descFr: 'N8N, Make, ManyChat - prêts à dupliquer.', descEn: 'N8N, Make, ManyChat - ready to duplicate.', icon: Zap },
       { fr: 'Substack & Skool automatiques', en: 'Auto Substack & Skool', descFr: 'Vos contenus publiés aussi sur Substack et dans votre communauté Skool.', descEn: 'Your content also published on Substack and in your Skool community.', icon: Mail },
       { fr: 'Analytics & CRM leads', en: 'Analytics & lead CRM', descFr: 'Liens trackés et suivi des leads générés par chaque contenu.', descEn: 'Tracked links and follow-up on the leads each piece generates.', icon: Zap },
       { fr: 'API & intégrations', en: 'API & integrations', descFr: 'Connectez Empire à Notion, Airtable, Google Drive.', descEn: 'Connect Empire to Notion, Airtable, Google Drive.', icon: Code2 },
@@ -88,13 +92,13 @@ const PILLARS: Pillar[] = [
     labelEn: 'Support',
     icon: HeadphonesIcon,
     features: [
-      { fr: '4 sessions d\'enregistrement par mois', en: '4 recording sessions per month', descFr: 'Vous parlez, on transforme. C\'est la seule chose qu\'on vous demande.', descEn: 'You talk, we transform. The only thing we ask of you.', icon: Mic },
+      { fr: 'Sessions d\'enregistrement', en: 'Recording sessions', descFr: 'Une session produit jusqu\'à 7 posts, 7 newsletters, 7 Reels, 1 vidéo YouTube et 1 carrousel. Vous choisissez les formats.', descEn: 'One session produces up to 7 posts, 7 newsletters, 7 Reels, 1 YouTube video and 1 carousel. You pick the formats.', icon: Mic },
       { fr: 'Équipe humaine dédiée', en: 'Dedicated human team', descFr: 'De vrais humains créent et vérifient chaque contenu avant livraison.', descEn: 'Real humans create and check every piece before delivery.', icon: UserCheck },
-      { fr: 'Support prioritaire sous 4h', en: 'Priority support within 4h', descFr: 'Une question, une correction : réponse le jour même.', descEn: 'A question, a fix: same-day answer.', icon: HeadphonesIcon },
-      { fr: 'Communauté privée Slack', en: 'Private Slack community', descFr: 'Réseau de fondateurs et de créateurs.', descEn: 'Founder and creator network.', icon: Users, badge: 'DÈS INTERMÉDIAIRE' },
-      { fr: 'Lives hebdomadaires', en: 'Weekly live sessions', descFr: 'Sessions collectives pour progresser sur vos formats.', descEn: 'Group sessions to sharpen your formats.', icon: Mic, badge: 'DÈS INTERMÉDIAIRE' },
+      { fr: 'Support prioritaire sous 4h', en: 'Priority support within 4h', descFr: 'Une question, une correction : réponse le jour même.', descEn: 'A question, a fix: same-day answer.', icon: HeadphonesIcon, badge: 'DÈS INTERMÉDIAIRE' },
+      { fr: 'Communauté privée Slack', en: 'Private Slack community', descFr: 'Des fondateurs et des créateurs qui publient déjà : un avis sur une accroche en quelques minutes.', descEn: 'Founders and creators who already publish: an opinion on a hook within minutes.', icon: Users, badge: 'DÈS INTERMÉDIAIRE' },
+      { fr: 'Lives hebdomadaires', en: 'Weekly live sessions', descFr: 'Vous posez vos questions, on analyse vos contenus de la semaine et on cherche vos prochains angles ensemble.', descEn: 'You bring your questions, we review your week\'s content and work out your next angles together.', icon: Mic, badge: 'DÈS INTERMÉDIAIRE' },
       { fr: 'Replays masterclass', en: 'Masterclass replays', descFr: 'Tout le système Empire en vidéo (valeur 197€).', descEn: 'The whole Empire system on video (€197 value).', icon: GraduationCap, badge: 'DÈS INTERMÉDIAIRE' },
-      { fr: 'Revue stratégique mensuelle', en: 'Monthly strategy review', descFr: 'Vos retours et vos axes d\'amélioration en vidéo Loom.', descEn: 'Your feedback and improvement areas as a Loom video.', icon: Compass, badge: 'DÈS EXPERT' },
+      { fr: 'Revue stratégique mensuelle', en: 'Monthly strategy review', descFr: 'Un expert reprend vos chiffres du mois en vidéo Loom et vous dit quoi changer.', descEn: 'An expert walks through your month\'s numbers on Loom and tells you what to change.', icon: Compass, badge: 'DÈS EXPERT' },
     ],
   },
 ]
@@ -111,8 +115,7 @@ export default function HomePricingSection() {
   const { lang } = useLanguage()
   const { autopilot } = useAutopilot()
   const fr = lang === 'fr'
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-100px' })
+  const [ref, isInView] = useReveal('-100px')
   const viewedRef = useRef(false)
 
   const [billing, setBilling] = useState<BillingId>('yearly')
@@ -199,12 +202,12 @@ export default function HomePricingSection() {
           className="text-center max-w-2xl mx-auto"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold">
-            {fr ? 'Choisissez votre approche' : 'Choose your approach'}
+            {fr ? 'Choisissez votre rythme' : 'Choose your pace'}
           </h2>
           <p className="mt-4 text-neutral-400">
             {fr
-              ? 'Apprenez à le faire, faites-le avec nous, ou laissez-nous tout gérer.'
-              : 'Learn to do it, do it with us, or let us handle everything.'}
+              ? 'Même système, trois volumes. Lives et communauté dès Intermédiaire.'
+              : 'Same system, three volumes. Lives and community from Intermediate.'}
           </p>
 
           {/* Promo flash */}
@@ -221,7 +224,9 @@ export default function HomePricingSection() {
                         : `Flash deal: €${flashPromo.promoMonthly}/mo forever instead of €${flashPromo.baseMonthly}`}
                     </p>
                     <p className="text-sm text-neutral-300">
-                      {fr ? 'Pack Expert · ~177 contenus/mois' : 'Expert pack · ~177 pieces/mo'}
+                      {fr
+                        ? `Pack ${PLAN_LABELS[flashPromo.plan].fr} · ${getPlan(flashPromo.plan).sessions} sessions/mois`
+                        : `${PLAN_LABELS[flashPromo.plan].en} pack · ${getPlan(flashPromo.plan).sessions} sessions/mo`}
                     </p>
                   </div>
                   <div className="flex flex-col items-center rounded-xl border border-red-500/30 bg-black/30 px-4 py-2">
@@ -236,7 +241,7 @@ export default function HomePricingSection() {
 
         <div className="mt-10 max-w-xl mx-auto">
 
-          {/* ── Créez votre marque — the only self-serve offer ── */}
+          {/* ── Créez votre marque - the only self-serve offer ── */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -245,7 +250,7 @@ export default function HomePricingSection() {
           >
             {isPromoPlan && (
               <span className="mb-4 inline-flex items-center gap-1.5 rounded-full bg-red-500/15 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-red-400">
-                {fr ? 'Offre flash — prix à vie' : 'Flash deal — price locked forever'}
+                {fr ? 'Offre flash - prix à vie' : 'Flash deal - price locked forever'}
               </span>
             )}
             <div className="flex items-center gap-2">
@@ -297,7 +302,9 @@ export default function HomePricingSection() {
                 className={`flex w-full items-center justify-between rounded-xl border bg-neutral-900 px-4 py-3 text-left text-sm font-semibold text-white transition-colors hover:border-empire/40 ${isPromoPlan ? 'border-red-500/30' : 'border-white/10'}`}
               >
                 <span className="truncate">
-                  {fr ? PLAN_LABELS[selectedTier].fr : PLAN_LABELS[selectedTier].en} · {plan.contents} {fr ? 'contenus/mois' : 'pieces/mo'}
+                  {fr
+                    ? `${PLAN_LABELS[selectedTier].fr} · ${plan.sessions} sessions/mois`
+                    : `${PLAN_LABELS[selectedTier].en} · ${plan.sessions} sessions/mo`}
                 </span>
                 <ChevronDown size={16} className={`shrink-0 ml-2 text-neutral-400 transition-transform ${dropOpen ? 'rotate-180' : ''}`} />
               </button>
@@ -313,7 +320,9 @@ export default function HomePricingSection() {
                         className={`flex w-full items-center justify-between gap-3 px-4 py-3 text-left text-sm transition-colors ${active ? 'bg-empire/10 text-white' : 'text-neutral-300 hover:bg-white/5'}`}
                       >
                         <span className="font-semibold">
-                          {fr ? PLAN_LABELS[p.id].fr : PLAN_LABELS[p.id].en} · {p.contents} {fr ? 'contenus/mois' : 'pieces/mo'}
+                          {fr
+                            ? `${PLAN_LABELS[p.id].fr} · ${p.sessions} sessions/mois`
+                            : `${PLAN_LABELS[p.id].en} · ${p.sessions} sessions/mo`}
                         </span>
                         <div className="flex shrink-0 items-center gap-2">
                           <span className="font-bold tabular-nums">{finalPrice(planBase(p), billing, seats)}€<span className="text-xs font-normal text-neutral-500">{fr ? '/mois' : '/mo'}</span></span>
@@ -398,8 +407,14 @@ export default function HomePricingSection() {
               <li className="flex items-start gap-2 text-[13px] text-neutral-300">
                 <Check size={14} className="mt-0.5 shrink-0 text-empire" />
                 {fr
-                  ? `Environ ${plan.contents.replace('~', '')} contenus par mois`
-                  : `About ${plan.contents.replace('~', '')} pieces per month`}
+                  ? `${plan.sessions} sessions d'enregistrement par mois`
+                  : `${plan.sessions} recording sessions per month`}
+              </li>
+              <li className="flex items-start gap-2 text-[13px] text-neutral-300">
+                <Check size={14} className="mt-0.5 shrink-0 text-empire" />
+                {fr
+                  ? `${plan.rhythmFr} - soit environ ${plan.contents} contenus par mois`
+                  : `${plan.rhythmEn} - about ${plan.contents} pieces per month`}
               </li>
               {PLAN_FEATURES[selectedTier].map((f) => (
                 <li
@@ -490,13 +505,13 @@ function AllFeatures({ fr }: { fr: boolean }) {
         <span className="min-w-0 flex-1">
           <span className="block text-sm font-bold text-white">
             {fr
-              ? `Tout ce qui est inclus — ${TOTAL_FEATURES} fonctionnalités`
-              : `Everything included — ${TOTAL_FEATURES} features`}
+              ? `Tout ce qui est inclus - ${TOTAL_FEATURES} fonctionnalités`
+              : `Everything included - ${TOTAL_FEATURES} features`}
           </span>
           <span className="block text-[11px] text-neutral-500">
             {fr
-              ? 'Le volume de contenus change selon le pack. Les mentions « dès… » indiquent le pack minimum.'
-              : 'Content volume depends on the pack. The “from…” tags mark the minimum pack.'}
+              ? 'Seul le nombre de sessions change selon le pack : les 7 réseaux et tous les formats sont inclus partout. Les mentions « dès… » indiquent le pack minimum.'
+              : 'Only the number of sessions changes between packs: all 7 networks and every format are included throughout. The “from…” tags mark the minimum pack.'}
           </span>
         </span>
         <span className="flex shrink-0 items-center gap-1.5 text-[12px] font-semibold text-empire">

@@ -52,7 +52,7 @@ export default function CandidaturePage() {
             </h1>
             <p className="text-neutral-400 text-base leading-relaxed mb-8">
               Empire Academy n'est pas pour tout le monde - c'est voulu.
-              21 jours intensifs pour maîtriser la viralité, avec du contenu produit pour toi pendant le bootcamp.
+              21 jours intensifs pour maîtriser la viralité et obtenir votre certification.
               On sélectionne les profils qui s'impliquent vraiment.
             </p>
 

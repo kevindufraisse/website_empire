@@ -4,7 +4,7 @@ import { useRef, useState } from 'react'
 import { ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import AcademyWaitlistCta from '@/components/AcademyWaitlistCta'
-import { ACADEMY_ENTRY_PRICE } from '@/lib/cohort-config'
+import { ACADEMY_ENTRY_PRICE, ACADEMY_NEXT_PRICE_EN, ACADEMY_NEXT_PRICE_FR } from '@/lib/cohort-config'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
@@ -31,19 +31,19 @@ export default function AcademyFAQSection() {
     ? [
         {
           q: "Concrètement, comment ça marche ?",
-          a: "Vous parlez 15 minutes - comme un vocal. De vos sujets, de vos idées. On récupère la transcription. Nos assistantes créent votre calendrier de publication. On rédige vos posts et on monte vos Shorts. Vous, vous publiez en 15 min. Pas de page blanche. Pas de montage. Vous parlez, on fait le reste.",
+          a: "21 jours, un défi par jour. Vous apprenez les mécaniques de la viralité en masterclass live, vous publiez le jour même et vous voyez ce qui marche sur vos vrais chiffres. À la fin, vous passez la certification Empire - Bronze, Argent ou Or selon vos résultats. Vous repartez avec un métier, pas avec un dossier de templates.",
         },
         {
           q: "C'est quoi la différence avec les autres bootcamps LinkedIn ?",
-          a: "Les autres vous donnent des templates et vous vous débrouillez. Résultat : page blanche, 45 min/post, vous lâchez au bout d'une semaine. Nous, on écrit le contenu À VOTRE place. Vous recevez vos posts et vos Shorts prêts à publier. Vous publiez en 15 min. C'est le seul bootcamp où la production est gérée par notre équipe.",
+          a: "Les autres vous vendent une formation et vous laissent seul avec. Ici, la formation est le début : vous passez une certification basée sur vos vrais résultats, et si vous n'avez pas de projet à vous, on vous confie des clients Empire à coacher - 500€ par mission, avec le contenu produit par notre équipe. C'est le seul bootcamp qui débouche sur un revenu, pas juste sur une attestation.",
         },
         {
           q: 'Combien ça coûte ?',
-          a: "Le tarif d'entrée est de 497€, avec un paiement en 3x possible (165€/semaine). Les inscriptions ouvrent par vagues et le prix monte à mesure que les places partent : la liste d'attente vous garantit d'être prévenu au tarif le plus bas. Pour vous donner un repère : si vous faites tout seul (21 posts + 21 Shorts), ça revient à 3 360€ minimum. Le bootcamp coûte une fraction de ça.",
+          a: `Le tarif d'entrée est de ${ACADEMY_ENTRY_PRICE}\u202F€, payable en 3\u00d7 165\u202F€. C'est le prix des premières promotions : il passera à ${ACADEMY_NEXT_PRICE_FR}\u202F€ une fois la certification installée. La candidature vous place dans la file au tarif le plus bas.`,
         },
         {
           q: "J'ai pas de projet, c'est pour moi ?",
-          a: "Oui. Vous n'avez pas besoin d'avoir un projet ou un business. On vous trouve un sujet, on vous crée votre contenu, et si vous choisissez le chemin Empire, on vous met en relation avec des clients (500€/mission). Le bootcamp est fait pour démarrer de zéro.",
+          a: "C'est même le cas le plus fréquent. Sans projet à vous, vous prenez la voie partenaire Empire : on vous met en relation avec nos clients à coacher (500€ par mission, environ 4h de travail), et notre équipe produit le contenu pour ces missions. Objectif : 3 000€/mois en 4h par semaine. Le bootcamp est fait pour démarrer de zéro.",
         },
         {
           q: 'Ça marche pour mon secteur ?',
@@ -51,33 +51,37 @@ export default function AcademyFAQSection() {
         },
         {
           q: 'Ça prend combien de temps par jour ?',
-          a: "15 minutes pour publier. 15 minutes une fois par semaine pour nous parler. Moins de 2h/semaine au total. Le reste du temps, vous faites les challenges et vous absorbez les mécaniques.",
+          a: "Comptez 15 minutes pour publier votre contenu du jour, plus les masterclass live. Moins de 2h par semaine au total. Le reste du temps, vous faites les défis et vous absorbez les mécaniques.",
+        },
+        {
+          q: "Et si je ne veux pas écrire mes contenus moi-même ?",
+          a: "C'est une option, pas le cœur du bootcamp. Le programme vous apprend à créer vous-même - c'est ce qui fait la valeur de la certification. Si vous préférez déléguer la production ensuite, vous ajoutez un abonnement Empire et notre équipe s'en occupe. Sur la voie partenaire, la production des missions clients est prise en charge d'office.",
         },
         {
           q: "C'est garanti ?",
-          a: "Personne ne devrait vous garantir des résultats. Ce qui est garanti : on se réserve le droit de refuser des inscriptions si le profil n'est pas adapté (remboursement intégral sous 48h). Et dans le pire des cas, vous repartez avec +3 000€ de contenu créé pour vous. Vous ne perdez jamais.",
+          a: "Personne ne devrait vous garantir des résultats. Ce qui est garanti : on se réserve le droit de refuser des inscriptions si le profil n'est pas adapté (remboursement intégral sous 48h). Et vous repartez avec la certification et les compétences, quoi qu'il arrive.",
         },
         {
           q: "Après les 21 jours, j'ai encore accès à quoi ?",
-          a: "Les replays et les challenges sont accessibles à vie. Si vous devenez partenaire Empire, on continue de vous créer votre contenu. Sinon, vous repartez avec les compétences et tout le contenu produit pendant le bootcamp.",
+          a: "Les replays, les défis et le groupe alumni sont accessibles à vie, et votre certification reste sur votre profil LinkedIn. Si vous devenez partenaire Empire, on continue de produire le contenu de vos missions clients.",
         },
       ]
     : [
         {
           q: "How does it actually work?",
-          a: "You talk for 15 minutes - like a voice note. About your topics, your ideas. We get the transcript. Our team creates your publishing calendar. We write your posts and edit your Shorts. You publish in 15 min. No blank page. No editing. You talk, we do the rest.",
+          a: "21 days, one challenge a day. You learn the mechanics of virality in live masterclasses, you publish the same day and you see what works on your own numbers. At the end you take the Empire certification - Bronze, Silver or Gold depending on your results. You leave with a craft, not a folder of templates.",
         },
         {
           q: "What's the difference with other LinkedIn bootcamps?",
-          a: "Others give you templates and you figure it out. Result: blank page, 45 min/post, you give up after a week. We write the content FOR you. You receive your posts and Shorts ready to publish. You publish in 15 min. It's the only bootcamp where production is handled by our team.",
+          a: "Others sell you a course and leave you alone with it. Here the course is the beginning: you earn a certification based on your real results, and if you don't have a project of your own we hand you Empire clients to coach - €500 per mission, with the content produced by our team. It's the only bootcamp that leads to income rather than a certificate.",
         },
         {
           q: 'How much does it cost?',
-          a: "The entry price is €497, with a 3x payment option (€165/week). Enrolment opens in waves and the price goes up as spots fill: the waitlist guarantees you get notified at the lowest price. For reference: if you do it yourself (21 posts + 21 Shorts), it costs at least €3,360. The bootcamp costs a fraction of that.",
+          a: `The entry price is €${ACADEMY_ENTRY_PRICE}, payable in 3× €165. That's the price for the first cohorts: it will go to €${ACADEMY_NEXT_PRICE_EN} once the certification is established. Applying puts you in the queue at the lowest price.`,
         },
         {
           q: "I don't have a project, is this for me?",
-          a: "Yes. You don't need a project or a business. We find you a topic, we create your content, and if you choose the Empire path, we connect you with clients (500€/mission). The bootcamp is designed to start from zero.",
+          a: "That's the most common case. With no project of your own you take the Empire partner path: we connect you with our clients to coach (€500 per mission, around 4h of work), and our team produces the content for those missions. Target: €3,000/month in 4h a week. The bootcamp is designed to start from zero.",
         },
         {
           q: 'Does it work for my industry?',
@@ -85,15 +89,19 @@ export default function AcademyFAQSection() {
         },
         {
           q: 'How much time does it take per day?',
-          a: "15 minutes to publish. 15 minutes once a week to talk to us. Less than 2h/week total. The rest of the time, you do the challenges and absorb the mechanics.",
+          a: "Around 15 minutes to publish your content for the day, plus the live masterclasses. Less than 2h a week in total. The rest of the time you do the challenges and absorb the mechanics.",
+        },
+        {
+          q: "What if I don't want to write my content myself?",
+          a: "That's an option, not the core of the bootcamp. The programme teaches you to create it yourself - that's what makes the certification worth something. If you'd rather delegate production afterwards, you add an Empire subscription and our team handles it. On the partner path, production for client missions is covered by default.",
         },
         {
           q: "Is it guaranteed?",
-          a: "Nobody should guarantee you results. What is guaranteed: we reserve the right to refuse applications if the profile isn't a fit (full refund within 48h). And in the worst case, you walk away with +3,000€ of content created for you. You never lose.",
+          a: "Nobody should guarantee you results. What is guaranteed: we reserve the right to refuse applications if the profile isn't a fit (full refund within 48h). And you leave with the certification and the skills, whatever happens.",
         },
         {
           q: "After the 21 days, what do I still have access to?",
-          a: "Replays and challenges are accessible for life. If you become an Empire partner, we continue creating your content. Otherwise, you leave with the skills and all the content produced during the bootcamp.",
+          a: "Replays, challenges and the alumni group are accessible for life, and your certification stays on your LinkedIn profile. If you become an Empire partner, we keep producing the content for your client missions.",
         },
       ]
 
@@ -174,7 +182,7 @@ export default function AcademyFAQSection() {
                   </p>
                 }
               >
-                {fr ? 'Rejoindre la liste d\'attente' : 'Join the waitlist'}
+                {fr ? 'Candidater à la prochaine promotion' : 'Apply to the next cohort'}
               </AcademyWaitlistCta>
             </div>
           </FadeInBlock>

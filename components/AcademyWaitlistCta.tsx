@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { X } from 'lucide-react'
 import AcademyWaitlistForm from '@/components/AcademyWaitlistForm'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { ACADEMY_ENTRY_PRICE } from '@/lib/cohort-config'
+import { ACADEMY_ENTRY_PRICE, ACADEMY_NEXT_PRICE_EN, ACADEMY_NEXT_PRICE_FR } from '@/lib/cohort-config'
 import { trackAmplitude } from '@/lib/amplitude'
 
 /**
@@ -107,12 +107,12 @@ export default function AcademyWaitlistCta({
                     {fr ? 'Prochaine promo' : 'Next cohort'}
                   </p>
                   <h3 className="mt-2 text-xl font-bold text-white">
-                    {fr ? 'Rejoignez la liste d\'attente' : 'Join the waitlist'}
+                    {fr ? 'Candidater à la prochaine promotion' : 'Apply to the next cohort'}
                   </h3>
                   <p className="mt-2 text-sm leading-relaxed text-neutral-400">
                     {fr
-                      ? `Les inscriptions ouvrent par vagues, à partir de ${ACADEMY_ENTRY_PRICE}€. On vous écrit avant tout le monde et vous gardez votre place dans la file.`
-                      : `Enrolment opens in waves, from €${ACADEMY_ENTRY_PRICE}. We email you before anyone else and you keep your spot in the queue.`}
+                      ? `30 secondes. 20 places sur sélection. ${ACADEMY_ENTRY_PRICE}\u202F€ pour cette promotion (puis ${ACADEMY_NEXT_PRICE_FR}\u202F€). On lit chaque candidature.`
+                      : `30 seconds. 20 spots by selection. €${ACADEMY_ENTRY_PRICE} for this cohort (then €${ACADEMY_NEXT_PRICE_EN}). We read every application.`}
                   </p>
 
                   <AcademyWaitlistForm className="mt-5" />

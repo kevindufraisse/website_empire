@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react'
+import { createContext, useContext, ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
 import { usePathname } from 'next/navigation'
 
 interface AutopilotContextType {
@@ -11,52 +11,57 @@ interface AutopilotContextType {
 
 const AutopilotContext = createContext<AutopilotContextType | undefined>(undefined)
 
-const STORAGE_KEY = 'empire-autopilot'
-
+/**
+ * Tier is derived from the URL only. The old localStorage flag caused gold/green
+ * flashes when navigating between Empire, Academy and Légende.
+ */
 export function AutopilotProvider({ children }: { children: ReactNode }) {
-  const [autopilot, setAutopilotState] = useState<boolean>(false)
   const pathname = usePathname()
+  const [offerLegende, setOfferLegende] = useState(false)
 
   useEffect(() => {
     try {
-      const stored = localStorage.getItem(STORAGE_KEY)
-      if (stored === 'true') setAutopilotState(true)
+      localStorage.removeItem('empire-autopilot')
     } catch {}
   }, [])
 
-  // Sync data-autopilot & data-tier on <html> so CSS (globals.css) can flip
-  // --empire-rgb between copilot-green / autopilot-gold / academy-orange
-  // without each component needing to be tier-aware.
+  useEffect(() => {
+    try {
+      const params = new URLSearchParams(window.location.search)
+      setOfferLegende(params.get('offer') === 'legende')
+    } catch {
+      setOfferLegende(false)
+    }
+  }, [pathname])
+
+  const autopilot =
+    pathname === '/legende' ||
+    ((pathname === '/join-us' || pathname === '/decouverte') && offerLegende)
+
   useEffect(() => {
     if (typeof document === 'undefined') return
     const root = document.documentElement
     root.setAttribute('data-autopilot', autopilot ? 'true' : 'false')
-    const tier = pathname === '/academy' || pathname === '/candidature'
-      ? 'academy'
-      : autopilot ? 'autopilot' : 'copilot'
+    const tier =
+      pathname === '/academy' || pathname === '/candidature'
+        ? 'academy'
+        : pathname === '/legende' || autopilot
+          ? 'autopilot'
+          : 'copilot'
     root.setAttribute('data-tier', tier)
-  }, [autopilot, pathname])
+  }, [pathname, autopilot])
 
-  const setAutopilot = useCallback((value: boolean) => {
-    setAutopilotState(value)
-    try {
-      localStorage.setItem(STORAGE_KEY, value ? 'true' : 'false')
-    } catch {}
-    if (typeof window !== 'undefined') {
-      ;(window as any).dataLayer = (window as any).dataLayer || []
-      ;(window as any).dataLayer.push({
-        event: 'autopilot_toggle',
-        autopilot_mode: value,
-      })
-    }
-  }, [])
+  // Kept for AutopilotToggle / legacy callers. Navigation owns the tier now.
+  const setAutopilot = useCallback((_value: boolean) => {}, [])
+  const toggle = useCallback(() => {}, [])
 
-  const toggle = useCallback(() => {
-    setAutopilot(!autopilot)
-  }, [autopilot, setAutopilot])
+  const value = useMemo(
+    () => ({ autopilot, setAutopilot, toggle }),
+    [autopilot, setAutopilot, toggle],
+  )
 
   return (
-    <AutopilotContext.Provider value={{ autopilot, setAutopilot, toggle }}>
+    <AutopilotContext.Provider value={value}>
       {children}
     </AutopilotContext.Provider>
   )

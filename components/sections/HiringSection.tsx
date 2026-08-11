@@ -354,7 +354,7 @@ export default function HiringSection() {
                           <span>{task}</span>
                         </li>
                       )) || [
-                        'Animer la communauté (School / WhatsApp / Discord)',
+                        'Animer la communauté (Slack / WhatsApp)',
                         'Répondre aux questions',
                         'Encourager, féliciter, motiver',
                         'Partager les victoires des clients',

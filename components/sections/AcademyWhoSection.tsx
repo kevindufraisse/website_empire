@@ -87,8 +87,8 @@ export default function AcademyWhoSection() {
               </p>
               <p className="text-base md:text-lg text-neutral-400">
                 {fr
-                  ? "Et pendant que vous apprenez, on vous crée votre contenu chaque jour. Vous n'avez qu'à publier."
-                  : 'And while you learn, we create your content every day. All you have to do is publish.'}
+                  ? "Et à la sortie, vous ne repartez pas avec une attestation de présence : votre certification dépend de vos vrais chiffres."
+                  : "And you don't leave with an attendance certificate: your certification depends on your real numbers."}
               </p>
             </div>
           </div>
@@ -123,7 +123,7 @@ export default function AcademyWhoSection() {
                 source="who"
                 className="inline-flex items-center gap-2 px-8 py-3.5 bg-academy text-black font-bold text-base rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(252,165,165,0.25)]"
               >
-                {fr ? 'Rejoindre la liste d\'attente' : 'Join the waitlist'}
+                {fr ? 'Candidater à la prochaine promotion' : 'Apply to the next cohort'}
                 <span aria-hidden="true">→</span>
               </AcademyWaitlistCta>
             </div>

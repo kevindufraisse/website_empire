@@ -139,23 +139,6 @@ export default function HeroSection() {
                 </span>
               </div>
             </div>
-            {autopilot && (
-              <div className="flex items-center justify-center gap-6">
-                {[
-                  { name: 'Ippon Technologies', src: '/logos/ippon.png' },
-                  { name: 'Socratiz', src: '/logos/presse-agence.png' },
-                  { name: 'The Sanctuary Group', src: '/logos/sanctuary.png' },
-                ].map((l) => (
-                  <img
-                    key={l.name}
-                    src={l.src}
-                    alt={l.name}
-                    className="h-5 w-auto object-contain brightness-0 invert opacity-40"
-                    loading="lazy"
-                  />
-                ))}
-              </div>
-            )}
           </motion.div>
 
           {/* Voice-to-content animation in place of the video */}

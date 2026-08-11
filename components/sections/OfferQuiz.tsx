@@ -27,7 +27,15 @@ type Answer = {
   reasonEn?: string
 }
 
-type Question = { fr: string; en: string; answers: Answer[] }
+type Question = {
+  fr: string
+  en: string
+  answers: Answer[]
+  /** Questions pack / add-ons : n'influencent pas le choix d'offre. */
+  optional?: boolean
+  optionalHintFr?: string
+  optionalHintEn?: string
+}
 
 const QUESTIONS: Question[] = [
   {
@@ -89,15 +97,15 @@ const QUESTIONS: Question[] = [
     en: 'How much time can you dedicate?',
     answers: [
       {
-        fr: '5h et plus par semaine — je veux apprendre à le faire',
-        en: '5h+ per week — I want to learn how to do it',
+        fr: '5h et plus par semaine - je veux apprendre à le faire',
+        en: '5h+ per week - I want to learn how to do it',
         offer: 'academy',
         reasonFr: 'Vous avez le temps et l\u2019envie d\u2019apprendre le métier vous-même.',
         reasonEn: 'You have the time and the drive to learn the craft yourself.',
       },
       {
-        fr: 'Environ 1h par semaine — je parle, vous produisez',
-        en: 'About 1h per week — I talk, you produce',
+        fr: 'Environ 1h par semaine - je parle, vous produisez',
+        en: 'About 1h per week - I talk, you produce',
         offer: 'empire',
         reasonFr: '1h par semaine, c\u2019est exactement le format Empire.',
         reasonEn: '1h per week is exactly the Empire format.',
@@ -168,20 +176,23 @@ const QUESTIONS: Question[] = [
   {
     fr: 'À quel rythme voulez-vous publier ?',
     en: 'How often do you want to publish?',
+    optional: true,
+    optionalHintFr: 'Optionnel - sert à suggérer un pack Empire si c\u2019est l\u2019offre pour vous.',
+    optionalHintEn: 'Optional - used to suggest an Empire pack if that\'s your offer.',
     answers: [
       {
-        fr: 'Quelques contenus par semaine, je démarre en douceur',
-        en: 'A few pieces a week, easing into it',
+        fr: '2 posts LinkedIn et 2 Reels par semaine, je démarre en douceur',
+        en: '2 LinkedIn posts and 2 Reels a week, easing into it',
         plan: 'starter',
       },
       {
-        fr: 'Tous les jours, sur mes réseaux principaux',
-        en: 'Every day, on my main platforms',
+        fr: '5 posts LinkedIn et 5 Reels par semaine, je veux être régulier',
+        en: '5 LinkedIn posts and 5 Reels a week, I want to be consistent',
         plan: 'growth',
       },
       {
-        fr: 'Tous les jours, partout, et en plusieurs langues',
-        en: 'Every day, everywhere, in several languages',
+        fr: '10 posts LinkedIn et 10 Reels par semaine, je veux saturer mon marché',
+        en: '10 LinkedIn posts and 10 Reels a week, I want to saturate my market',
         plan: 'scale',
       },
     ],
@@ -189,6 +200,9 @@ const QUESTIONS: Question[] = [
   {
     fr: 'Vous savez déjà quoi dire ?',
     en: 'Do you already know what to say?',
+    optional: true,
+    optionalHintFr: 'Optionnel - coaching disponible en add-on sur Empire.',
+    optionalHintEn: 'Optional - coaching available as an Empire add-on.',
     answers: [
       {
         fr: 'Non, trouver mes sujets est mon vrai blocage',
@@ -209,6 +223,9 @@ const QUESTIONS: Question[] = [
   {
     fr: 'Vous êtes seul ou en équipe ?',
     en: 'Are you solo or in a team?',
+    optional: true,
+    optionalHintFr: 'Optionnel - places supplémentaires possibles sur Empire.',
+    optionalHintEn: 'Optional - extra seats available on Empire.',
     answers: [
       {
         fr: 'Seul, c\u2019est ma marque personnelle',
@@ -283,7 +300,7 @@ const RESULTS: Record<OfferId, {
     descEn: 'You run your business. We run your image. 10 spots, application only.',
     ctaFr: 'Candidater',
     ctaEn: 'Apply',
-    href: '/join-us',
+    href: '/legende',
   },
 }
 
@@ -304,8 +321,8 @@ const ADDONS: Record<AddonId, {
     labelEn: '4h coaching with a virality expert',
     priceFr: '500€, une seule fois',
     priceEn: '€500, one-time',
-    descFr: 'Vous avez dit que trouver vos sujets vous bloque. Un expert prépare vos angles et votre ligne éditoriale — vous n\u2019avez plus qu\u2019à parler.',
-    descEn: 'You said finding topics blocks you. An expert prepares your angles and editorial line — all you do is talk.',
+    descFr: 'Vous avez dit que trouver vos sujets vous bloque. Un expert prépare vos angles et votre ligne éditoriale - vous n\u2019avez plus qu\u2019à parler.',
+    descEn: 'You said finding topics blocks you. An expert prepares your angles and editorial line - all you do is talk.',
   },
   seats: {
     icon: Users,
@@ -328,8 +345,11 @@ function computeResult(picked: Answer[]): OfferId {
 }
 
 /**
- * Quiz "Quelle offre est faite pour vous ?" — monté globalement dans le layout.
- * S'ouvre sur l'événement `open-offer-quiz` (header) ou à l'exit intent.
+ * Quiz "Quelle offre est faite pour vous ?" - monté globalement dans le layout.
+ * S'ouvre uniquement sur l'événement `open-offer-quiz`, donc sur une intention
+ * explicite : demander de choisir entre trois abonnements payants n'a de sens que
+ * si le visiteur l'a demandé. L'exit intent appartient au quiz créateur, qui
+ * donne un résultat avant de demander quoi que ce soit.
  */
 export function OfferQuizGlobal({ fr }: { fr: boolean }) {
   const [mounted, setMounted] = useState(false)
@@ -337,7 +357,6 @@ export function OfferQuizGlobal({ fr }: { fr: boolean }) {
   const [step, setStep] = useState(0)
   const [picked, setPicked] = useState<Answer[]>([])
   const [result, setResult] = useState<OfferId | null>(null)
-  const [exitShown, setExitShown] = useState(false)
 
   useEffect(() => setMounted(true), [])
 
@@ -355,25 +374,6 @@ export function OfferQuizGlobal({ fr }: { fr: boolean }) {
     window.addEventListener('open-offer-quiz', handler)
     return () => window.removeEventListener('open-offer-quiz', handler)
   }, [])
-
-  useEffect(() => {
-    if (exitShown) return
-    let timer: ReturnType<typeof setTimeout>
-    const onMouseLeave = (e: MouseEvent) => {
-      if (e.clientY > 0) return
-      if (sessionStorage.getItem('offer-quiz-exit')) return
-      timer = setTimeout(() => {
-        sessionStorage.setItem('offer-quiz-exit', '1')
-        setExitShown(true)
-        openQuiz('exit_intent')
-      }, 100)
-    }
-    document.addEventListener('mouseleave', onMouseLeave)
-    return () => {
-      document.removeEventListener('mouseleave', onMouseLeave)
-      clearTimeout(timer)
-    }
-  }, [exitShown])
 
   useEffect(() => {
     if (!open) return
@@ -517,7 +517,7 @@ export function OfferQuizGlobal({ fr }: { fr: boolean }) {
                     {isEmpire && (
                       <div className="mt-4 rounded-2xl border border-empire/25 bg-empire/[0.06] p-5 text-left sm:p-6">
                         <p className="text-xs font-bold uppercase tracking-widest text-neutral-500">
-                          {fr ? 'Votre pack' : 'Your pack'}
+                          {fr ? 'Pack suggéré (modifiable)' : 'Suggested pack (changeable)'}
                         </p>
                         <p className="mt-3 text-lg font-extrabold text-white">
                           {fr ? PLAN_LABELS[planId].fr : PLAN_LABELS[planId].en}
@@ -532,8 +532,8 @@ export function OfferQuizGlobal({ fr }: { fr: boolean }) {
                         </p>
                         <p className="mt-1.5 text-[13px] text-neutral-400 leading-relaxed">
                           {fr
-                            ? `${plan.contents} contenus par mois${seats > 1 ? ' et par personne' : ''}, publiés sur vos 7 plateformes. Engagement annuel, 7 jours d\u2019essai gratuit.`
-                            : `${plan.contents} pieces per month${seats > 1 ? ' per person' : ''}, published across your 7 platforms. Yearly billing, 7-day free trial.`}
+                            ? `${plan.rhythmFr}${seats > 1 ? ', par personne' : ''}, publiés sur vos 7 plateformes. ${plan.sessions} sessions d’enregistrement par mois. Engagement annuel, 7 jours d’essai gratuit.`
+                            : `${plan.rhythmEn}${seats > 1 ? ', per person' : ''}, published across your 7 platforms. ${plan.sessions} recording sessions per month. Yearly billing, 7-day free trial.`}
                         </p>
                         <p className="mt-2 text-[12px] text-neutral-500">
                           {fr
@@ -546,7 +546,7 @@ export function OfferQuizGlobal({ fr }: { fr: boolean }) {
                     {addons.length > 0 && (
                       <div className="mt-4 text-left">
                         <p className="text-xs font-bold uppercase tracking-widest text-neutral-500">
-                          {fr ? 'Options à ajouter à votre pack' : 'Options to add to your pack'}
+                          {fr ? 'En option (pas inclus)' : 'Optional (not included)'}
                         </p>
                         <div className="mt-3 space-y-3">
                           {addons.map((id) => {
@@ -558,6 +558,9 @@ export function OfferQuizGlobal({ fr }: { fr: boolean }) {
                                   <div className="min-w-0">
                                     <p className="text-sm font-bold text-white">
                                       {fr ? ad.labelFr : ad.labelEn}
+                                      <span className="ml-2 rounded-full border border-empire/30 bg-empire/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-empire">
+                                        {fr ? 'Option' : 'Optional'}
+                                      </span>
                                       <span className="ml-2 font-semibold text-empire">{fr ? ad.priceFr : ad.priceEn}</span>
                                     </p>
                                     <p className="mt-1.5 text-[13px] text-neutral-400 leading-relaxed">
@@ -608,10 +611,20 @@ export function OfferQuizGlobal({ fr }: { fr: boolean }) {
                   >
                     <p className="text-center text-xs font-bold uppercase tracking-widest text-neutral-500">
                       {fr ? `Question ${step + 1} sur ${QUESTIONS.length}` : `Question ${step + 1} of ${QUESTIONS.length}`}
+                      {QUESTIONS[step].optional && (
+                        <span className="ml-2 rounded-full border border-white/15 bg-white/5 px-2 py-0.5 text-[10px] font-bold tracking-wider text-neutral-400 normal-case">
+                          {fr ? 'Optionnel' : 'Optional'}
+                        </span>
+                      )}
                     </p>
                     <h2 className="mt-3 text-center text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight text-white">
                       {fr ? QUESTIONS[step].fr : QUESTIONS[step].en}
                     </h2>
+                    {QUESTIONS[step].optional && (
+                      <p className="mt-2 text-center text-sm text-neutral-500">
+                        {fr ? QUESTIONS[step].optionalHintFr : QUESTIONS[step].optionalHintEn}
+                      </p>
+                    )}
                     <div className="mt-8 space-y-3">
                       {QUESTIONS[step].answers.map((a) => (
                         <button

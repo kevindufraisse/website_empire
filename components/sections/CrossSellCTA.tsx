@@ -1,10 +1,10 @@
 'use client'
 
-import { motion, useInView } from 'framer-motion'
-import { useRef } from 'react'
+import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
+import { useReveal } from '@/hooks/useReveal'
 
 type Variant = 'academy-to-empire' | 'empire-to-legende'
 
@@ -27,15 +27,15 @@ const COPY: Record<Variant, { fr: { headline: string; sub: string; cta: string }
   'empire-to-legende': {
     fr: {
       headline: 'Plus le temps pour l\u2019heure hebdo\u202F?',
-      sub: 'Légende s\u2019occupe de tout.',
+      sub: 'Légende : 1 h par mois, on gère le reste.',
       cta: 'Découvrir Légende',
     },
     en: {
       headline: 'No time for the weekly hour?',
-      sub: 'Legend handles everything.',
+      sub: 'Legend: 1 hour a month, we handle the rest.',
       cta: 'Discover Legend',
     },
-    href: '/join-us',
+    href: '/legende',
     textClass: 'text-autopilot',
     bgClass: 'bg-autopilot',
   },
@@ -45,8 +45,7 @@ export default function CrossSellCTA({ variant }: { variant: Variant }) {
   const { lang } = useLanguage()
   const { autopilot } = useAutopilot()
   const fr = lang === 'fr'
-  const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-60px' })
+  const [ref, inView] = useReveal('-60px')
   const c = COPY[variant]
   const t = fr ? c.fr : c.en
 

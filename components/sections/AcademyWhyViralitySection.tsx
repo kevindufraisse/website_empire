@@ -2,7 +2,7 @@
 
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-import { TrendingUp, Brain, Shield, Briefcase } from 'lucide-react'
+import { Brain, Building2, Rocket } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 function FadeIn({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
@@ -22,46 +22,42 @@ export default function AcademyWhyViralitySection() {
   const points = fr
     ? [
         {
-          icon: TrendingUp,
-          title: 'Un marché à 313 milliards de dollars',
-          desc: 'La creator economy pèse 313 Mds$ en 2026 et atteindra 480 Mds$ en 2027 selon Goldman Sachs. Les entreprises recrutent massivement des experts en viralité.',
-        },
-        {
-          icon: Briefcase,
-          title: 'MrBeast recrute un Head of Viral Marketing',
-          desc: 'Le plus grand créateur du monde formalise la viralité comme discipline. Les postes "Head of Virality" se paient entre 200K et 400K$/an.',
-        },
-        {
           icon: Brain,
-          title: 'La compétence que l\u2019IA ne remplace pas',
-          desc: 'L\u2019IA produit du contenu. Mais 40 % des consommateurs perdent confiance quand une marque en abuse. Comprendre les humains reste votre avantage à vie.',
+          num: '01',
+          title: "L'IA sait produire. Pas décider quoi dire.",
+          desc: 'Elle génère du texte et des images. Elle ne choisit pas l\'angle, le timing, ni ce qui fera réagir un marché.',
         },
         {
-          icon: Shield,
-          title: 'Votre barrière contre l\u2019obsolescence',
-          desc: 'À l\u2019ère où tout s\u2019automatise, la confiance est la seule chose qu\u2019on ne peut pas automatiser. La viralité, c\u2019est savoir créer cette confiance à grande échelle.',
+          icon: Building2,
+          num: '02',
+          title: 'Les entreprises cherchent cette compétence.',
+          desc: 'Elles ont besoin de personnes capables de transformer leur expertise en attention - pas seulement de publier plus souvent.',
+        },
+        {
+          icon: Rocket,
+          num: '03',
+          title: 'Les meilleurs créateurs deviennent des opérateurs de croissance.',
+          desc: 'Ce n\'est plus seulement créer. C\'est construire un système qui attire, convertit et se répète.',
         },
       ]
     : [
         {
-          icon: TrendingUp,
-          title: 'A $313 billion market',
-          desc: 'The creator economy is worth $313B in 2026 and will reach $480B by 2027 according to Goldman Sachs. Companies are hiring virality experts at scale.',
-        },
-        {
-          icon: Briefcase,
-          title: 'MrBeast is hiring a Head of Viral Marketing',
-          desc: 'The world\u2019s biggest creator is formalizing virality as a discipline. "Head of Virality" roles pay $200K\u2013$400K/year.',
-        },
-        {
           icon: Brain,
-          title: 'The skill AI can\u2019t replace',
-          desc: 'AI produces content. But 40% of consumers lose trust when a brand overuses it. Understanding humans remains your lifelong edge.',
+          num: '01',
+          title: 'AI can produce. It can\'t decide what to say.',
+          desc: 'It generates text and images. It doesn\'t pick the angle, the timing, or what will move a market.',
         },
         {
-          icon: Shield,
-          title: 'Your barrier against obsolescence',
-          desc: 'In an era where everything gets automated, trust is the one thing you can\u2019t automate. Virality is knowing how to build trust at scale.',
+          icon: Building2,
+          num: '02',
+          title: 'Companies are looking for this skill.',
+          desc: 'They need people who can turn expertise into attention - not just post more often.',
+        },
+        {
+          icon: Rocket,
+          num: '03',
+          title: 'Top creators become growth operators.',
+          desc: 'It\'s no longer just creating. It\'s building a system that attracts, converts and repeats.',
         },
       ]
 
@@ -72,38 +68,41 @@ export default function AcademyWhyViralitySection() {
         <FadeIn>
           <div className="text-center mb-14">
             <p className="text-xs font-bold uppercase tracking-widest text-academy mb-3">
-              {fr ? 'Pourquoi ce métier' : 'Why this career'}
+              {fr ? 'L\'opportunité' : 'The opportunity'}
             </p>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight max-w-3xl mx-auto">
               {fr
-                ? 'Head of Viralité : le métier le plus recherché de 2026.'
-                : 'Head of Virality: the most in-demand role of 2026.'}
+                ? 'Pourquoi cette compétence devient indispensable'
+                : 'Why this skill is becoming essential'}
             </h2>
           </div>
         </FadeIn>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-12">
           {points.map((p, i) => (
             <FadeIn key={i} delay={i * 0.1}>
-              <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 sm:p-8 h-full">
+              <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 h-full">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-academy/10 border border-academy/20">
-                    <p.icon size={20} className="text-academy" />
+                  <span className="text-xs font-bold text-academy/70 tracking-wider">{p.num}</span>
+                  <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-academy/10 border border-academy/20">
+                    <p.icon size={18} className="text-academy" />
                   </div>
-                  <h3 className="text-lg font-bold text-white">{p.title}</h3>
                 </div>
+                <h3 className="text-base font-bold text-white mb-2 leading-snug">{p.title}</h3>
                 <p className="text-sm text-neutral-400 leading-relaxed">{p.desc}</p>
               </div>
             </FadeIn>
           ))}
         </div>
 
-        <FadeIn delay={0.4}>
-          <p className="text-center text-sm text-neutral-500 mt-10 max-w-2xl mx-auto">
-            {fr
-              ? 'Sources : Goldman Sachs, Grand View Research, Digiday, Y Combinator, Fractl 2026.'
-              : 'Sources: Goldman Sachs, Grand View Research, Digiday, Y Combinator, Fractl 2026.'}
-          </p>
+        <FadeIn delay={0.35}>
+          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 md:p-8 text-center max-w-3xl mx-auto">
+            <p className="text-sm md:text-base text-neutral-300 leading-relaxed">
+              {fr
+                ? 'Le marché de la creator economy est estimé à 313 Md$ en 2026 (Goldman Sachs). MrBeast recrute un Head of Viral Marketing. Les postes se paient entre 200K et 400K$/an. Le chiffre n\'est pas le pitch - c\'est la preuve que le métier existe déjà.'
+                : 'The creator economy is estimated at $313B in 2026 (Goldman Sachs). MrBeast is hiring a Head of Viral Marketing. Roles pay $200K–$400K/year. The number isn\'t the pitch - it\'s proof the job already exists.'}
+            </p>
+          </div>
         </FadeIn>
       </div>
     </section>

@@ -3,6 +3,8 @@ import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { Check, X } from 'lucide-react'
 
+import AcademyWaitlistCta from '@/components/AcademyWaitlistCta'
+import { ACADEMY_ENTRY_PRICE } from '@/lib/cohort-config'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
@@ -33,14 +35,14 @@ export default function AcademySelectionSection() {
   ]
 
   const steps = [
-    { num: '01', title: fr ? 'Vous passez le test' : 'You take the test', desc: fr ? '2 minutes. On vérifie que le profil et les objectifs sont alignés. Plus vous candidatez tôt, plus vous avez de chances.' : '2 minutes. We verify your profile and goals are aligned. The sooner you apply, the better your chances.' },
-    { num: '02', title: fr ? 'On vous répond sous 48h' : 'We respond within 48h', desc: fr ? "Admis ou pas - pour les 20 profils retenus. Si c'est non, on vous dit pourquoi et ce qu'on conseille." : "Accepted or not - for the 20 selected profiles. If it's a no, we tell you why and what we recommend." },
-    { num: '03', title: fr ? 'Vous rejoignez la prochaine promotion' : 'You join the next cohort', desc: fr ? 'On vous contacte dès l\'ouverture des inscriptions.' : 'We contact you as soon as registration opens.' },
+    { num: '01', title: fr ? 'Vous laissez votre email' : 'You leave your email', desc: fr ? '30 secondes. Vous prenez votre place dans la file pour la prochaine promotion.' : '30 seconds. You take your spot in the queue for the next cohort.' },
+    { num: '02', title: fr ? 'On vous envoie le formulaire' : 'We send you the form', desc: fr ? "2 minutes à remplir. Kevin et Marc lisent chaque candidature et gardent les 20 profils les plus motivés." : 'Takes 2 minutes. Kevin and Marc read every application and keep the 20 most motivated profiles.' },
+    { num: '03', title: fr ? 'Vous rejoignez la promotion' : 'You join the cohort', desc: fr ? "Admis ou pas, on vous répond. Si c'est non, on vous dit pourquoi et ce qu'on conseille à la place." : "Accepted or not, we answer you. If it's a no, we tell you why and what we recommend instead." },
   ]
 
   return (
     <section className="relative w-full py-16 md:py-20 bg-gradient-to-b from-[#0a0a0a] to-[#0f0f0f] overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_30%_at_50%_0%,rgba(252, 165, 165,0.04),transparent)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_30%_at_50%_0%,rgba(252,165,165,0.06),transparent)]" />
       <div className="container relative z-10">
         <div className="max-w-4xl mx-auto">
 
@@ -108,13 +110,13 @@ export default function AcademySelectionSection() {
           {/* CTA inline */}
           <FadeInBlock delay={0.3}>
             <div className="text-center">
-              <a
-                href="/candidature"
-                className="inline-flex items-center gap-2 px-7 py-3.5 bg-academy text-black font-bold text-base rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(252, 165, 165,0.25)]"
+              <AcademyWaitlistCta
+                source="selection"
+                className="inline-flex items-center gap-2 px-7 py-3.5 bg-academy text-black font-bold text-base rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgba(252,165,165,0.25)]"
               >
-                {fr ? 'Postuler - sur sélection →' : 'Apply - by selection →'}
-              </a>
-              <p className="text-xs text-neutral-400 mt-2">{fr ? 'Formulaire de 2 min · Réponse sous 48h · Aucun engagement' : '2 min form · Response within 48h · No commitment'}</p>
+                {fr ? 'Candidater à la prochaine promotion →' : 'Apply to the next cohort →'}
+              </AcademyWaitlistCta>
+              <p className="text-xs text-neutral-400 mt-2">{fr ? `30 secondes · 20 places · Sur sélection · ${ACADEMY_ENTRY_PRICE}€` : `30 seconds · 20 spots · By selection · €${ACADEMY_ENTRY_PRICE}`}</p>
             </div>
           </FadeInBlock>
 

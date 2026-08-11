@@ -77,9 +77,19 @@ export default function AcademyProofStrip() {
             initial={{ opacity: 0 }}
             animate={inView ? { opacity: 1 } : {}}
             transition={{ duration: 0.5 }}
-            className="text-center text-xs font-bold text-neutral-400 tracking-widest uppercase mb-8"
+            className="text-center text-xs font-bold text-neutral-400 tracking-widest uppercase mb-3"
           >
-            {fr ? 'Ce que ça change - en 21 jours' : 'What it changes - in 21 days'}
+            {fr ? 'Un exemple de résultat obtenu avec la méthode' : 'An example of results with the method'}
+          </motion.p>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.5, delay: 0.05 }}
+            className="text-center text-sm text-neutral-500 mb-8 max-w-lg mx-auto"
+          >
+            {fr
+              ? 'Résultats issus de clients / agence. Variables selon le profil, le marché et l\'application de la méthode.'
+              : 'Results from clients / agency work. They vary by profile, market and how the method is applied.'}
           </motion.p>
 
           <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-4 md:gap-6">
@@ -120,7 +130,7 @@ export default function AcademyProofStrip() {
               <div className="w-10 h-10 rounded-full bg-academy/20 border border-academy/40 flex items-center justify-center shadow-[0_0_20px_rgba(252, 165, 165,0.2)]">
                 <span className="text-academy font-black text-lg">→</span>
               </div>
-              <span className="text-[9px] font-bold text-academy/60 uppercase tracking-wider text-center leading-tight">21<br/>{fr ? 'jours' : 'days'}</span>
+              <span className="text-[9px] font-bold text-academy/60 uppercase tracking-wider text-center leading-tight">{fr ? 'avec la' : 'with the'}<br/>{fr ? 'méthode' : 'method'}</span>
             </motion.div>
 
             {/* APRÈS */}
@@ -160,8 +170,8 @@ export default function AcademyProofStrip() {
             className="text-center text-xs text-neutral-400 mt-8"
           >
             {fr
-              ? "Résultats de nos clients agence · La méthode exacte qu'on vous enseigne"
-              : "Results from our agency clients · The exact method we teach you"}
+              ? 'Exemple agence · Pas une promesse individuelle de résultat en 21 jours'
+              : 'Agency example · Not an individual 21-day result promise'}
           </motion.p>
 
         </div>

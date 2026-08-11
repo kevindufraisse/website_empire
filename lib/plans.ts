@@ -7,12 +7,28 @@ export const APP_ONBOARDING_URL = 'https://app.empire-internet.com/onboarding'
 export type PlanId = 'starter' | 'growth' | 'scale'
 export type BillingId = 'monthly' | 'quarterly' | 'yearly'
 
+// Le volume se dépense à la pièce produite, à un tarif fixe par format (une
+// newsletter coûte quatre fois un Reel) : le nombre de contenus dépend donc du
+// mix choisi par le client. On affiche l'unité que le produit débite vraiment —
+// la session d'enregistrement — et le volume qu'elle génère tous formats
+// activés. `sessions` donne une fourchette : le bas correspond à des sessions
+// complètes, le haut à des mix plus légers.
 export type Plan = {
   id: PlanId
   price: number
   credits: number
-  /** Volume mensuel affiché, déjà formaté (ex. '~89'). */
-  contents: string
+  /** Sessions d'enregistrement par mois, formaté (ex. '3 à 4'). */
+  sessions: string
+  /** Contenus par mois pour la cadence ci-dessous, arrondi. */
+  contents: number
+  /**
+   * Cadence par format plutôt qu'un total quotidien : « 4 contenus par jour »
+   * fait fuir, « 2 posts et 2 Reels par semaine » se visualise. Les trois paliers
+   * s'expriment sur la même unité — la semaine — sinon ils ne se comparent pas ;
+   * seul le volume LinkedIn et Reels change, la newsletter reste hebdomadaire.
+   */
+  rhythmFr: string
+  rhythmEn: string
   highlighted?: boolean
 }
 
@@ -23,9 +39,34 @@ export const PLAN_LABELS: Record<PlanId, { fr: string; en: string }> = {
 }
 
 export const PLANS: Plan[] = [
-  { id: 'starter', price: 199, credits: 2200, contents: '~22' },
-  { id: 'growth', price: 499, credits: 6600, contents: '~89', highlighted: true },
-  { id: 'scale', price: 799, credits: 12000, contents: '~177' },
+  {
+    id: 'starter',
+    price: 199,
+    credits: 2200,
+    sessions: '1 à 2',
+    contents: 20,
+    rhythmFr: '2 posts LinkedIn, 2 Reels et 1 newsletter par semaine',
+    rhythmEn: '2 LinkedIn posts, 2 Reels and 1 newsletter a week',
+  },
+  {
+    id: 'growth',
+    price: 499,
+    credits: 6600,
+    sessions: '3 à 4',
+    contents: 45,
+    rhythmFr: '5 posts LinkedIn, 5 Reels et 1 newsletter par semaine',
+    rhythmEn: '5 LinkedIn posts, 5 Reels and 1 newsletter a week',
+    highlighted: true,
+  },
+  {
+    id: 'scale',
+    price: 799,
+    credits: 12000,
+    sessions: '6 à 8',
+    contents: 85,
+    rhythmFr: '10 posts LinkedIn, 10 Reels et 1 newsletter par semaine',
+    rhythmEn: '10 LinkedIn posts, 10 Reels and 1 newsletter a week',
+  },
 ]
 
 export const BILLING_PERIODS: {

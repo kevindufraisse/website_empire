@@ -108,8 +108,8 @@ export default function Header() {
             {/* Tier navigation — centred in the remaining space. Kept in the
                 flow so longer labels push the side actions instead of
                 overlapping them. */}
-            <div className="hidden sm:flex mx-auto">
-              <TierNav />
+            <div className="hidden md:flex mx-auto">
+              <TierNav instance="desktop" />
             </div>
 
             {/* Right side */}
@@ -171,10 +171,10 @@ export default function Header() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.05 }}
-                  className="flex justify-center sm:hidden"
+                  className="flex justify-center"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  <TierNav />
+                  <TierNav instance="mobile" />
                 </motion.div>
                 {!isPartnersPage && (
                   <motion.div

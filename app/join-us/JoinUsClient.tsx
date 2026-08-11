@@ -54,7 +54,7 @@ export default function JoinUsClient() {
     : (fr ? 'sans écrire ni monter votre contenu.' : 'without writing or editing your content.')
   const subtitle = autopilot
     ? (fr ? 'Vous ne vous occupez de rien. On trouve vos sujets, on écrit dans votre voix, on produit et on publie. 10 places disponibles.' : 'You don\'t lift a finger. We find your topics, write in your voice, produce and publish. 10 spots available.')
-    : (fr ? '15 min de parole par semaine → 30+ posts, reels, vidéos, newsletters.' : '15 min of talking per week → 30+ posts, reels, videos, newsletters.')
+    : (fr ? '1 h de parole par semaine → posts, Reels, newsletters sur 7 réseaux.' : '1 hour of talking per week → posts, Reels, newsletters across 7 platforms.')
 
   return (
     <main className="min-h-screen bg-black text-white overflow-x-hidden">
@@ -129,8 +129,8 @@ export default function JoinUsClient() {
                 </h2>
                 <p className="text-xs text-neutral-400 mt-1">
                   {autopilot
-                    ? (fr ? '30 secondes — on revient vers vous sous 24h.' : '30 seconds — we get back to you within 24h.')
-                    : (fr ? '30 secondes — choisissez ensuite votre créneau.' : '30 seconds — then pick your slot.')}
+                    ? (fr ? '30 secondes - on revient vers vous sous 24h.' : '30 seconds - we get back to you within 24h.')
+                    : (fr ? '30 secondes - choisissez ensuite votre créneau.' : '30 seconds - then pick your slot.')}
                 </p>
               </div>
               <YtLeadForm eventName="organic_lead_form" />

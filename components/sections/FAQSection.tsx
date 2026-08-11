@@ -27,18 +27,17 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 const getFAQs = (t: any, variant: string = 'all') => {
   const allFAQs = t.faqItems || []
   
-  // FAQ HOME : Top questions essentielles + nouvelles FAQs spécifiques
+  // FAQ HOME : questions prioritaires (temps, sujets, voix, volume, réseaux, vidéo, lives, annulation, agence)
   const homeFAQs = [
-    t.faq?.specific?.howManyPosts,
-    allFAQs[0], // How do I get started?
-    allFAQs[1], // How much time do I need to invest?
-    allFAQs[2], // What if the content doesn't sound like me?
-    t.faq?.specific?.whatIfDontLike,
-    allFAQs[3], // How quickly will I see results?
-    allFAQs[4], // What makes this different from hiring an agency?
-    allFAQs[5], // Can I cancel anytime?
-    allFAQs[6], // How does the 7-day free trial work?
-    allFAQs[12], // How do you maximize the reach of my posts?
+    allFAQs[0], // Combien de temps
+    t.faq?.specific?.whatIfDontLike, // Pas quoi dire
+    allFAQs[1], // Ne me ressemble pas
+    t.faq?.specific?.howManyPosts, // Combien de contenus
+    allFAQs[2], // Réseaux
+    allFAQs[3], // Vidéo
+    t.faq?.specific?.lives, // Lives
+    allFAQs[5], // Annuler
+    allFAQs[4], // Agence
   ].filter(Boolean)
   
   // FAQ PRICING : Questions sur prix/achat + nouvelles FAQs spécifiques
@@ -105,7 +104,7 @@ const getFAQsOld = (t: any) => t.faqItems || [
   },
   {
     question: 'What makes this different from hiring a content agency?',
-    answer: 'Speed, cost, and quality. Agencies cost €5K-15K/month, take weeks to deliver, and often miss your voice. Empire delivers 132 pieces/month with human QA on everything.',
+    answer: 'Speed, cost, and quality. Agencies cost €5K-15K/month, take weeks to deliver, and often miss your voice. Empire delivers 5 to 40 pieces per week depending on your pack, with human QA on everything.',
   },
   {
     question: 'Can I cancel anytime?',

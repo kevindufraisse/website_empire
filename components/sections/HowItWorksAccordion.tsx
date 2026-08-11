@@ -4,7 +4,7 @@ import { useInView } from 'framer-motion'
 import { useRef, useEffect, useState } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
-import { Mic, ArrowRight, Check } from 'lucide-react'
+import { Mic, ArrowRight, Check, Brain, RotateCw } from 'lucide-react'
 import { StarRating } from '@/components/ui/star-rating'
 import AnimatedList, { AnimatedListItem } from '@/components/magicui/animated-list'
 import CalendarGrid from '@/components/magicui/calendar-grid'
@@ -220,17 +220,58 @@ const getNotificationsEn = (SocialIconComponent: typeof SocialIcon): AnimatedLis
     },
   ]
 
-// Social Icons
-const ZoomLogo = () => (
-  <svg viewBox="0 0 32 32" className="h-5 w-5 flex-shrink-0" aria-label="Zoom" role="img">
-    <circle cx="16" cy="16" r="16" fill="#2D8CFF" />
-    <path
-      d="M8.5 12.2c0-.66.54-1.2 1.2-1.2h7.4c1.1 0 2 .9 2 2v6.8c0 .66-.54 1.2-1.2 1.2h-7.4c-1.1 0-2-.9-2-2v-6.8zm12.1 2.6 2.6-1.9c.5-.37 1.2-.01 1.2.6v5c0 .61-.7.97-1.2.6l-2.6-1.9v-2.4z"
-      fill="#fff"
-    />
-  </svg>
-)
+// Topics surfaced by the Empire brain, with a virality score to make the ranking legible.
+const getTopicsFr = (): AnimatedListItem[] => [
+  { id: 1, label: 'Pourquoi j\'ai refusé un client à 50 000 €', score: 94, tag: 'LinkedIn' },
+  { id: 2, label: 'L\'erreur de recrutement que tout le monde répète', score: 91, tag: 'Reels' },
+  { id: 3, label: 'Ce que 3 ans de contenu m\'ont vraiment rapporté', score: 88, tag: 'Newsletter' },
+  { id: 4, label: 'Le prix, ce n\'est jamais le vrai problème', score: 86, tag: 'LinkedIn' },
+].map(TopicCard)
 
+const getTopicsEn = (): AnimatedListItem[] => [
+  { id: 1, label: 'Why I turned down a €50,000 client', score: 94, tag: 'LinkedIn' },
+  { id: 2, label: 'The hiring mistake everyone keeps making', score: 91, tag: 'Reels' },
+  { id: 3, label: 'What 3 years of content actually earned me', score: 88, tag: 'Newsletter' },
+  { id: 4, label: 'Price is never the real objection', score: 86, tag: 'LinkedIn' },
+].map(TopicCard)
+
+function TopicCard({ id, label, score, tag }: { id: number; label: string; score: number; tag: string }): AnimatedListItem {
+  return {
+    id,
+    content: (
+      <div className="flex items-center gap-2.5 p-2.5 rounded-lg bg-white/5 border border-empire/20 shadow-lg">
+        <div className="flex-1 min-w-0">
+          <p className="text-[11px] font-medium leading-snug line-clamp-2 text-white">{label}</p>
+          <p className="text-[10px] text-neutral-500 mt-0.5">{tag}</p>
+        </div>
+        <div className="flex-shrink-0 flex flex-col items-center rounded-md bg-empire/15 border border-empire/30 px-1.5 py-1">
+          <span className="text-[11px] font-bold leading-none text-empire">{score}</span>
+          <span className="text-[8px] uppercase tracking-wider text-empire/60">score</span>
+        </div>
+      </div>
+    ),
+  }
+}
+
+/** Step 1 — the Empire brain scanning a niche and ranking topics. */
+function BrainTopicsVisual({ topics }: { topics: AnimatedListItem[] }) {
+  const { lang } = useLanguage()
+  return (
+    <div className="relative h-full w-full overflow-hidden">
+      <div className="absolute top-3 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 whitespace-nowrap px-2.5 py-1 rounded-full bg-empire/15 border border-empire/40 backdrop-blur-sm">
+        <Brain className="text-empire flex-shrink-0" size={12} />
+        <span className="text-[10px] font-bold uppercase tracking-wider text-empire">
+          {lang === 'fr' ? 'Cerveau Empire' : 'Empire brain'}
+        </span>
+      </div>
+      <div className="absolute inset-0 pt-11 px-3 [mask-image:linear-gradient(to_top,transparent_10%,#000_100%)]">
+        <AnimatedList items={topics} delay={1000} className="w-full" />
+      </div>
+    </div>
+  )
+}
+
+// Social Icons
 const SocialIcon = ({ type }: { type: string }) => {
   switch (type) {
     case 'linkedin':
@@ -279,6 +320,46 @@ const SocialIcon = ({ type }: { type: string }) => {
     default:
       return null
   }
+}
+
+/**
+ * Étape 5 d'Empire — le live hebdomadaire. Présenté en bandeau et non en 5e
+ * carte : les quatre premières étapes sont la boucle de production, celle-ci est
+ * ce qui tourne en parallèle, et c'est ce qui distingue Empire d'une agence.
+ */
+function LiveWeeklyVisual() {
+  const { lang } = useLanguage()
+  const fr = lang === 'fr'
+  return (
+    <div className="flex flex-shrink-0 items-center gap-4">
+      <div className="relative">
+        <div className="absolute -inset-2 rounded-full bg-empire/10 animate-pulse opacity-50" style={{ animationDuration: '3s' }} />
+        <div className="relative flex -space-x-3">
+          <img
+            src="/founders/kevin.jpg"
+            alt="Kevin Dufraisse"
+            className="h-12 w-12 rounded-full border-2 border-empire object-cover object-top ring-2 ring-black"
+            loading="lazy"
+          />
+          <img
+            src="/founders/marc.jpg"
+            alt="Marc Dufraisse"
+            className="h-12 w-12 rounded-full border-2 border-empire object-cover ring-2 ring-black"
+            loading="lazy"
+          />
+          <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-empire bg-empire/20 text-[11px] font-bold text-empire ring-2 ring-black">
+            +40
+          </div>
+        </div>
+      </div>
+      <div className="flex items-center gap-1.5 whitespace-nowrap rounded-full border border-red-500/40 bg-red-500/15 px-2.5 py-1">
+        <span className="h-2 w-2 animate-pulse rounded-full bg-red-500" />
+        <span className="text-[10px] font-bold uppercase tracking-wider text-red-400">
+          {fr ? 'En direct' : 'Live'}
+        </span>
+      </div>
+    </div>
+  )
 }
 
 /** Step 1 — OrbitingCircles with strategy icons around a crown. */
@@ -434,6 +515,45 @@ function LegendIterateVisual() {
   )
 }
 
+/**
+ * Étape 5 de Légende — le système de conversion. En bandeau : les quatre
+ * premières étapes produisent l'audience, celle-ci la transforme en rendez-vous.
+ */
+function LegendConversionVisual() {
+  const { lang } = useLanguage()
+  const fr = lang === 'fr'
+  return (
+    <div className="flex flex-shrink-0 items-center gap-3">
+      <div className="w-[150px] rounded-xl border border-autopilot/30 bg-gradient-to-br from-autopilot/15 to-white/[0.02] p-2.5">
+        <p className="text-[9px] font-bold uppercase tracking-wider text-autopilot">
+          {fr ? 'Votre page' : 'Your page'}
+        </p>
+        <div className="mt-1.5 rounded-md border border-white/10 bg-black/40 px-2 py-1.5">
+          <p className="text-[9px] text-neutral-500">votre@email.com</p>
+        </div>
+        <div className="mt-1.5 rounded-md bg-autopilot px-2 py-1.5 text-center text-[9px] font-bold text-black">
+          {fr ? 'Réserver un appel' : 'Book a call'}
+        </div>
+      </div>
+      <div className="flex flex-col gap-1.5">
+        {[
+          fr ? 'Lun. 14h' : 'Mon 2pm',
+          fr ? 'Mar. 10h' : 'Tue 10am',
+          fr ? 'Jeu. 16h' : 'Thu 4pm',
+        ].map((slot, i) => (
+          <div
+            key={slot}
+            className="flex items-center gap-1.5 whitespace-nowrap rounded-md border border-autopilot/25 bg-white/5 px-2 py-1"
+          >
+            <Check className="flex-shrink-0 text-autopilot" size={10} />
+            <span className="text-[9px] text-neutral-300">{slot}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 /** Légende: four short steps with Magic UI animations. */
 function LegendHowItWorks() {
   const { t, lang } = useLanguage()
@@ -484,6 +604,25 @@ function LegendHowItWorks() {
               </FadeInBlock>
             ))}
           </div>
+
+          {/* Étape 5 — le système de conversion, en bandeau */}
+          <FadeInBlock delay={0.5}>
+            <div className="relative mt-5 overflow-hidden rounded-2xl border border-autopilot/30 bg-gradient-to-br from-autopilot/10 to-white/[0.02] p-5 md:p-7">
+              <div className="flex flex-col gap-5 md:flex-row md:items-center md:gap-8">
+                <LegendConversionVisual />
+                <div>
+                  <div className="mb-1 flex flex-wrap items-center gap-2">
+                    <span className="flex h-6 w-6 items-center justify-center rounded-md bg-autopilot text-sm font-bold text-black">5</span>
+                    <h3 className="text-base font-bold text-white md:text-lg">{t.autopilot.howItWorks.b5.title}</h3>
+                    <span className="whitespace-nowrap rounded-full border border-autopilot/30 bg-autopilot/10 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-autopilot">
+                      {t.autopilot.howItWorks.b5.badge}
+                    </span>
+                  </div>
+                  <p className="text-sm text-neutral-400 md:text-base">{t.autopilot.howItWorks.b5.desc}</p>
+                </div>
+              </div>
+            </div>
+          </FadeInBlock>
         </div>
       </div>
     </section>
@@ -494,6 +633,7 @@ export default function HowItWorksAccordion() {
   const { t, lang } = useLanguage()
   const { autopilot } = useAutopilot()
   const notifications = lang === 'fr' ? getNotificationsFr(SocialIcon) : getNotificationsEn(SocialIcon)
+  const topics = lang === 'fr' ? getTopicsFr() : getTopicsEn()
 
   // Légende buyers don't need the product demo — they're delegating, not using it.
   if (autopilot) return <LegendHowItWorks />
@@ -520,13 +660,8 @@ export default function HowItWorksAccordion() {
               </h2>
               <p className="text-base md:text-lg text-neutral-400 max-w-2xl mx-auto">
                 {lang === 'fr'
-                  ? 'Vous ne manquez pas de temps. Vous manquez de système.'
-                  : 'You don\'t lack time. You lack a system.'}
-              </p>
-              <p className="text-sm text-neutral-500 max-w-2xl mx-auto mt-2">
-                {lang === 'fr'
-                  ? 'Déléguez votre création de contenu, devenez omniprésent et ne passez plus un jour sans contenu sur vos réseaux.'
-                  : 'Delegate your content creation, become omnipresent and never go a day without content on your channels.'}
+                  ? 'Vous ne manquez pas de temps. Vous manquez de système. 1 h de parole, on produit le mois.'
+                  : 'You don\'t lack time. You lack a system. 1 hour of talking, we produce the month.'}
               </p>
           </div>
         </FadeInBlock>
@@ -542,59 +677,22 @@ export default function HowItWorksAccordion() {
         <FadeInBlock delay={0.1}>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 items-stretch">
 
-              {/* BLOCK 1 - On trouve vos sujets viraux */}
+              {/* BLOCK 1 - Le cerveau Empire trouve vos sujets */}
               <div className="group relative flex flex-col overflow-hidden rounded-xl transition-all min-h-[340px] bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30">
-                <div className="h-[200px] flex flex-col items-center justify-center p-5 gap-3">
-                  <div className="flex items-center gap-2">
-                    <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-red-500/20 border border-red-500/40">
-                      <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-                      <span className="text-[10px] font-bold text-red-400 tracking-wider uppercase">Live</span>
-                    </div>
-                    <span className="text-xs text-neutral-400 font-medium">
-                      {lang === 'fr' ? '47 en ligne' : '47 online'}
-                    </span>
-                  </div>
-                  <div className="flex -space-x-3">
-                    <img
-                      src="/founders/kevin.jpg"
-                      alt="Kevin Dufraisse"
-                      className="w-10 h-10 rounded-full object-cover object-top border-2 border-empire ring-2 ring-black"
-                      loading="lazy"
-                    />
-                    {[
-                      { initials: 'ML', color: 'bg-blue-500/30 text-blue-300' },
-                      { initials: 'SB', color: 'bg-pink-500/30 text-pink-300' },
-                      { initials: 'JR', color: 'bg-purple-500/30 text-purple-300' },
-                    ].map((a) => (
-                      <div key={a.initials} className={`w-10 h-10 rounded-full ${a.color} border-2 border-white/20 ring-2 ring-black flex items-center justify-center text-[10px] font-bold`}>
-                        {a.initials}
-                      </div>
-                    ))}
-                    <div className="w-10 h-10 rounded-full bg-white/10 border-2 border-white/20 ring-2 ring-black flex items-center justify-center text-[10px] font-bold text-neutral-300">
-                      +43
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2.5 px-3 py-2 rounded-lg bg-white/[0.06] border border-white/15 w-full max-w-[210px]">
-                    <ZoomLogo />
-                    <p className="text-[11px] text-neutral-300 font-medium truncate">
-                      {lang === 'fr' ? 'Live Zoom hebdomadaire' : 'Weekly Zoom live'}
-                    </p>
-                  </div>
-                  <p className="text-xs font-semibold tracking-wider uppercase text-empire">
-                    {lang === 'fr' ? 'Live hebdo...' : 'Weekly live...'}
-                  </p>
+                <div className="h-[200px]">
+                  <BrainTopicsVisual topics={topics} />
                 </div>
                 <div className="relative z-10 p-5 pt-3 mt-auto h-[140px] bg-gradient-to-t from-black via-black/90 to-transparent">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">1</span>
                     <h3 className="text-base font-semibold text-white">
-                      {lang === 'fr' ? 'On trouve vos sujets' : 'We find your topics'}
+                      {lang === 'fr' ? 'Nous trouvons vos prochains sujets' : 'We find your next topics'}
                     </h3>
                   </div>
                   <p className="text-neutral-400 text-sm">
                     {lang === 'fr'
-                      ? 'En live toutes les semaines, on identifie avec vous les sujets qui marchent dans votre niche.'
-                      : 'Every week in live sessions, we pinpoint with you the topics that work in your niche.'}
+                      ? 'On analyse votre expertise, votre marché et vos contenus pour identifier les angles viraux à exploiter.'
+                      : 'We analyze your expertise, market and content to find the viral angles worth exploiting.'}
                   </p>
                 </div>
               </div>
@@ -665,13 +763,13 @@ export default function HowItWorksAccordion() {
                   <div className="flex items-center gap-2 mb-1">
                     <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">4</span>
                     <h3 className="text-base font-semibold text-white">
-                      {lang === 'fr' ? 'On duplique partout' : 'We duplicate everywhere'}
+                      {lang === 'fr' ? 'On adapte aux 7 plateformes' : 'We adapt to all 7 platforms'}
                     </h3>
                   </div>
                   <p className="text-neutral-400 text-sm">
                     {lang === 'fr'
-                      ? 'Chaque contenu est adapté aux 7 plateformes. Vous validez, ça part en 1 clic.'
-                      : 'Each piece is adapted to all 7 platforms. You approve, it goes out in 1 click.'}
+                      ? 'Chaque idée est retravaillée pour les codes de chaque plateforme. Vous validez, ça part en 1 clic.'
+                      : 'Each idea is reshaped for every platform\'s codes. You approve, it goes out in 1 click.'}
                   </p>
                 </div>
               </div>
@@ -679,6 +777,36 @@ export default function HowItWorksAccordion() {
             </div>
           </FadeInBlock>
 
+          {/* BLOCK 5 - Le live hebdomadaire, en bandeau : il tourne en parallèle de la boucle */}
+          <FadeInBlock delay={0.15}>
+            <div className="relative mt-4 md:mt-6 overflow-hidden rounded-xl border border-empire/30 bg-gradient-to-br from-empire/10 to-white/[0.02] p-5 md:p-7">
+              <div className="flex flex-col gap-5 md:flex-row md:items-center md:gap-8">
+                <LiveWeeklyVisual />
+                <div>
+                  <div className="mb-1 flex items-center gap-2">
+                    <span className="flex h-6 w-6 items-center justify-center rounded-md bg-empire text-sm font-bold text-black">5</span>
+                    <h3 className="text-base font-semibold text-white md:text-lg">
+                      {lang === 'fr'
+                        ? 'Et chaque semaine, on boucle en live'
+                        : 'And every week, we close the loop live'}
+                    </h3>
+                    <span className="hidden whitespace-nowrap rounded-full border border-empire/30 bg-empire/10 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-empire sm:inline">
+                      {lang === 'fr' ? '1h sur Zoom' : '1h on Zoom'}
+                    </span>
+                  </div>
+                  <p className="text-sm text-neutral-400 md:text-base">
+                    {lang === 'fr'
+                      ? 'Une heure sur Zoom avec nos experts et la communauté : on regarde ce qui a marché, on trouve vos prochains angles, vous repartez avec une direction claire.'
+                      : 'One hour on Zoom with our experts and the community: we review what worked, find your next angles, you leave with a clear direction.'}
+                  </p>
+                  <p className="mt-2 flex items-center gap-1.5 text-xs font-semibold text-empire">
+                    <RotateCw size={13} />
+                    {lang === 'fr' ? 'Et on repart à l’étape 1' : 'And back to step 1'}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </FadeInBlock>
 
       </div>
       </div>

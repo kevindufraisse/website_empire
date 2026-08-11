@@ -80,8 +80,8 @@ export default function WhyEmpireCompact() {
               </span>
               {team}.{' '}
               {fr
-                ? 'Déjà formée, déjà rodée — elle travaille sur votre marque dès le premier jour.'
-                : 'Already trained, already battle-tested — working on your brand from day one.'}
+                ? 'Déjà formée, déjà rodée - elle travaille sur votre marque dès le premier jour.'
+                : 'Already trained, already battle-tested - working on your brand from day one.'}
             </p>
           </motion.div>
         )}

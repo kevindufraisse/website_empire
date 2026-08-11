@@ -2,6 +2,7 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { Infinity as InfinityIcon } from 'lucide-react'
 import OrbitingCircles from '@/components/magicui/orbiting-circles'
 import BorderBeam from '@/components/magicui/border-beam'
 import NumberTicker from '@/components/magicui/number-ticker'
@@ -188,6 +189,46 @@ function ClientsVisual() {
   )
 }
 
+/**
+ * Après les 21 jours — le réseau Empire Partners. Présenté en bandeau et non en
+ * 5e carte : ce n'est pas une étape du bootcamp, c'est ce qui reste après.
+ */
+function PartnersVisual() {
+  const { lang } = useLanguage()
+  const fr = lang === 'fr'
+  const updates = fr
+    ? [
+        { label: 'Nouveau format : le post « autopsie »', tag: 'Format' },
+        { label: '12 hooks qui ont cartonné ce mois-ci', tag: 'Analyse' },
+        { label: 'Mission client dispo · 500 €', tag: 'Mission' },
+      ]
+    : [
+        { label: 'New format: the "autopsy" post', tag: 'Format' },
+        { label: '12 hooks that crushed it this month', tag: 'Breakdown' },
+        { label: 'Client mission available · €500', tag: 'Mission' },
+      ]
+
+  return (
+    <div className="flex w-full flex-shrink-0 flex-col gap-1.5 md:w-[260px]">
+      {updates.map((u, i) => (
+        <motion.div
+          key={u.label}
+          className="flex items-center gap-2 rounded-lg border border-academy/20 bg-white/5 px-2.5 py-1.5"
+          initial={{ opacity: 0, x: 16 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, delay: 0.15 + i * 0.12 }}
+        >
+          <span className="flex-shrink-0 rounded bg-academy/15 px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wider text-academy">
+            {u.tag}
+          </span>
+          <span className="truncate text-[10px] text-neutral-300">{u.label}</span>
+        </motion.div>
+      ))}
+    </div>
+  )
+}
+
 export default function AcademyHowItWorksSection() {
   const { lang } = useLanguage()
   const fr = lang === 'fr'
@@ -253,6 +294,35 @@ export default function AcademyHowItWorksSection() {
               </FadeInBlock>
             ))}
           </div>
+
+          {/* Après les 21 jours — le réseau Empire Partners, en bandeau */}
+          <FadeInBlock delay={0.5}>
+            <div className="relative mt-5 overflow-hidden rounded-2xl border border-academy/25 bg-gradient-to-br from-academy/10 to-white/[0.02] p-5 md:p-7">
+              <div className="flex flex-col gap-5 md:flex-row md:items-center md:gap-8">
+                <PartnersVisual />
+                <div>
+                  <div className="mb-1 flex flex-wrap items-center gap-2">
+                    <span className="flex h-6 w-6 items-center justify-center rounded-md bg-academy text-black">
+                      <InfinityIcon size={14} strokeWidth={3} />
+                    </span>
+                    <h3 className="text-base font-bold text-white md:text-lg">
+                      {fr
+                        ? 'Et après : vous restez dans le réseau Empire Partners'
+                        : 'And after: you stay in the Empire Partners network'}
+                    </h3>
+                    <span className="whitespace-nowrap rounded-full border border-academy/30 bg-academy/10 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-academy">
+                      {fr ? 'À vie · gratuit' : 'For life · free'}
+                    </span>
+                  </div>
+                  <p className="text-sm text-neutral-400 md:text-base">
+                    {fr
+                      ? 'Nos nouveaux formats, nos analyses de contenus et les mises à jour de la méthode vous arrivent gratuitement, à vie. C’est aussi là que passent les missions clients.'
+                      : 'Our new formats, our content breakdowns and every method update reach you free, for life. It’s also where client missions are posted.'}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </FadeInBlock>
         </div>
       </div>
     </section>

@@ -136,9 +136,9 @@ export const fr: Translations = {
     hiring: 'We are hiring',
   },
   hero: {
-    targetAudience: 'Pour freelances, salariés & entrepreneurs',
-    title: 'Parlez 1 heure. Nous créons un mois de contenus. <span class="text-empire">Votre marque attire des clients toute l\'année.</span>',
-    subtitle: 'Installez le Système Empire : participez à nos masterclass live hebdomadaires, trouvez les meilleurs sujets avec nos experts et laissez notre équipe transformer 1 heure de parole en un mois de contenus sur 7 plateformes.',
+    targetAudience: 'Pour freelances & entrepreneurs',
+    title: 'Parlez 1 heure. Nous créons un mois de contenus.',
+    subtitle: 'Votre expertise devient des posts, Reels, newsletters et vidéos publiés sur 7 plateformes - avec nos experts à vos côtés chaque semaine.',
     description: '',
     cta1: 'Commencer gratuitement',
     cta2: 'Voir la Démo (1 min)',
@@ -150,9 +150,9 @@ export const fr: Translations = {
   },
   howItWorksPage: {
     title: 'Comment Fonctionne Empire',
-    subtitle: '15 min de parole par semaine → contenu publié partout, tous les jours',
+    subtitle: '1 h de parole par semaine → contenu publié partout, tous les jours',
     step1Title: 'Vous parlez',
-    step1Desc: '15 min par semaine, vous parlez',
+    step1Desc: '1 h par semaine, vous parlez',
     step2Title: 'Traitement IA',
     step2Desc: 'Extraction insights et idées',
     step3Title: 'Création Contenu',
@@ -179,8 +179,8 @@ export const fr: Translations = {
     },
     step2: {
       title: 'L\'enregistrement hebdomadaire',
-      summary: 'Vous parlez 15 min. On crée partout.',
-      description: 'Vous parlez 15 min par semaine avec votre coach - interview guidée, yapping face caméra ou vocal. Zéro préparation, zéro script. Votre expertise devient du contenu publié quotidiennement sur tous les réseaux.',
+      summary: 'Vous parlez 1 h. On crée partout.',
+      description: 'Vous parlez 1 h par semaine - interview guidée, face caméra ou vocal. Zéro préparation, zéro script. Votre expertise devient du contenu publié tous les jours sur vos réseaux.',
       perInterview: 'Par session, vous obtenez :',
       humanQA: 'Contrôle Qualité Humain',
       humanQASub: 'Chaque pièce vérifiée par un expert',
@@ -278,20 +278,24 @@ export const fr: Translations = {
     startThisWeek: 'Commencer Cette Semaine',
   },
   faq: {
-    title: 'Questions Fréquentes',
-    subtitle: 'Tout ce qu\'il faut savoir sur Empire',
+    title: 'Questions fréquentes',
+    subtitle: 'Ce qu\'il faut savoir avant de démarrer',
     specific: {
       howManyPosts: {
-        question: 'Combien de contenus j\'obtiens exactement ?',
-        answer: 'Chaque pack inclut un volume mensuel de contenus : environ 22 en Débutant, 89 en Intermédiaire, 177 en Expert. Vous choisissez comment les répartir entre posts LinkedIn, reels, newsletters, vidéos YouTube et carrousels. Besoin de plus ponctuellement ? Vous pouvez ajouter du volume à tout moment.',
+        question: 'Combien de contenus vais-je recevoir ?',
+        answer: 'Par semaine, environ : Débutant 2 posts LinkedIn + 2 Reels + 1 newsletter ; Intermédiaire 5 + 5 + 1 ; Expert 10 + 10 + 1. Les 7 réseaux sont inclus. Ce qui change : le nombre de sessions (1–2, 3–4 ou 6–8 par mois) et le volume.',
       },
       whatIfDontLike: {
-        question: 'Et si je n\'ai pas d\'idée de contenu ?',
-        answer: 'C\'est notre job. On scanne les sujets viraux d\'actualité chez vos concurrents, sur YouTube et X, et on vous propose les meilleurs angles. Vous pouvez aussi envoyer vos notes, captures et idées de reels via Telegram — on récupère tout et on en fait du contenu prêt à publier.',
+        question: 'Et si je ne sais pas quoi dire ?',
+        answer: 'On trouve vos sujets et vos angles pour vous - en analysant votre expertise, votre marché et ce qui marche déjà. Vous n\'arrivez pas face à une page blanche : vous parlez sur des angles préparés.',
       },
       canRequestChanges: {
         question: 'Puis-je demander des modifications au contenu ?',
-        answer: 'Le contenu s\'affine au fil du temps grâce à notre processus de calibration. Chaque feedback est intégré pour que le ton et le style collent de mieux en mieux à votre voix. Vous validez tout avant publication dans votre calendrier.',
+        answer: 'Oui. Vous validez avant publication. Si ça ne sonne pas comme vous, on révise jusqu\'à ce que ce soit bon.',
+      },
+      lives: {
+        question: 'Que se passe-t-il pendant les lives ?',
+        answer: 'Chaque semaine, 1 h sur Zoom avec nos experts et la communauté (dès Intermédiaire). On analyse vos contenus et vos chiffres, on trouve vos prochains angles, vous posez vos questions. Ce n\'est pas un cours : c\'est votre comité éditorial hebdomadaire.',
       },
     },
   },
@@ -305,7 +309,7 @@ export const fr: Translations = {
       },
       {
         concern: 'Je n\'ai pas le temps d\'enregistrer.',
-        answer: 'Une session d\u20191h par semaine — c\u2019est moins que ce que vous passez à hésiter devant une page blanche. On s\u2019adapte à votre planning.',
+        answer: 'Une session d\u20191h par semaine - c\u2019est moins que ce que vous passez à hésiter devant une page blanche. On s\u2019adapte à votre planning.',
       },
       {
         concern: 'C\'est vraiment mieux qu\'embaucher ?',
@@ -357,11 +361,11 @@ export const fr: Translations = {
   },
   multiPlatform: {
     title: 'Avant Empire vs Après Empire',
-    subtitle: 'De posts éparpillés à présence multi-plateforme cohérente - en 15 min de parole/semaine',
+    subtitle: 'De posts éparpillés à une présence sur 7 réseaux - en 1 h de parole par semaine',
     without: 'Sans Empire',
     withEmpire: 'Avec Empire',
     doingYourself: 'Vous le faites vous-même',
-    justMinWeek: '15 min de parole/semaine',
+    justMinWeek: '1 h de parole / semaine',
     postsMonth: 'posts / mois',
     platforms: 'plateformes',
     publishTo: 'Prêt à publier sur :',
@@ -514,7 +518,7 @@ export const fr: Translations = {
     line1: 'Mais entre clients, business, et vie... le calendrier reste vide.',
     line2: 'Vous n\'êtes pas paresseux. Le système est cassé.',
     solution: 'Empire corrige ça.',
-    hook: '15 min de parole par semaine = du contenu publié tous les jours.',
+    hook: '1 h de parole par semaine = du contenu publié tous les jours.',
     subtext: 'Pas d\'écriture. Pas de montage. Pas de planification. Juste des résultats.',
     readStory: 'Lire l\'histoire',
   },
@@ -648,64 +652,60 @@ export const fr: Translations = {
   },
   faqItems: [
     {
-      question: 'Comment je commence ?',
-      answer: 'Lancez votre essai gratuit de 7 jours. Vous accédez immédiatement à la plateforme, vous choisissez votre plan et vous enregistrez votre première session. Votre premier contenu est prêt sous 24h.',
-    },
-    {
       question: 'Combien de temps dois-je investir ?',
-      answer: '1h par semaine. C\u2019est tout. On gère le reste — création, édition, planification et distribution partout.',
+      answer: 'Environ 1 h par semaine. Vous parlez. On gère le reste : sujets, production, adaptation, publication.',
     },
     {
-      question: 'Et si le contenu ne sonne pas comme moi ?',
-      answer: 'On entraîne des prompts IA sur votre ton unique. Un humain révise tout avant publication. Si ça sonne faux, on révise jusqu\'à ce que ce soit bon.',
+      question: 'Et si le contenu ne me ressemble pas ?',
+      answer: 'On part de votre voix et de vos mots. Un humain révise tout avant publication. Si ça sonne faux, on recommence jusqu\'à ce que ce soit bon.',
     },
     {
-      question: 'Combien de temps avant de voir des résultats ?',
-      answer: 'Dès la première semaine. Nos clients passent en général de quelques posts sur un seul réseau à du contenu publié tous les jours sur tous les réseaux - avec moins d\'effort qu\'avant.',
+      question: 'Sur quels réseaux publiez-vous ?',
+      answer: 'LinkedIn, Instagram, TikTok, YouTube, X, Threads, Facebook et newsletter. Vous choisissez lesquelles activer - les 7 sont inclus.',
     },
     {
-      question: 'Qu\'est-ce qui rend ceci différent d\'une agence de contenu ?',
-      answer: 'Vitesse, coût et qualité. Les agences = €5-15K/mois, semaines à livrer, et ratent votre voix. Empire = contenu publié quotidiennement, contrôle qualité humain sur tout, pour une fraction du prix et sans engagement.',
+      question: 'Est-ce que je dois être à l\'aise en vidéo ?',
+      answer: 'Non. Face caméra si vous voulez (idéal pour les Reels), ou audio seul : on monte avec b-roll. Votre téléphone suffit.',
     },
     {
-      question: 'Puis-je annuler à tout moment ?',
-      answer: 'Oui, à tout moment depuis votre espace client. Pas de contrat, pas de préavis. Mais la plupart restent car ils voient les résultats et adorent récupérer leur temps.',
+      question: 'Quelle différence avec une agence ?',
+      answer: 'Une agence = 5–15 K€/mois, semaines à livrer, voix souvent générique. Empire = ~1 h/semaine de votre côté, production + publication, essai 7 jours, à partir de 199 €/mois. Lives et communauté dès Intermédiaire.',
+    },
+    {
+      question: 'Puis-je annuler ?',
+      answer: 'Oui, à tout moment depuis votre espace client. Pas de contrat, pas de préavis.',
+    },
+    {
+      question: 'Comment je commence ?',
+      answer: 'Lancez l\'essai gratuit de 7 jours. Accès immédiat, première session, premier contenu sous 24 h.',
     },
     {
       question: 'Comment fonctionne l\'essai gratuit de 7 jours ?',
-      answer: 'Vous accédez à la plateforme pendant 7 jours sans payer. Si ça ne vous convient pas, vous annulez avant la fin de l\'essai et vous ne payez rien. Zéro risque.',
+      answer: 'Vous accédez 7 jours sans payer. Annulez avant la fin : vous ne payez rien.',
     },
     {
-      question: 'Sur quelles plateformes publiez-vous ?',
-      answer: 'Toutes les plateformes principales : LinkedIn, Instagram, TikTok, YouTube, Twitter/X, Threads, Facebook et newsletters email. Vous choisissez sur lesquelles vous concentrer.',
-    },
-    {
-      question: 'Ai-je besoin d\'être devant la caméra ou d\'avoir du matériel vidéo ?',
-      answer: 'Les deux fonctionnent. Face caméra si vous êtes à l\'aise (idéal pour les Reels), ou audio seul : on crée vos vidéos avec b-roll, images et montage pro. Aucun matériel requis, votre téléphone suffit.',
-    },
-    {
-      question: 'Écrivez-vous dans d\'autres langues que l\'anglais ?',
-      answer: 'Oui ! Avec le bonus API, traduction automatique en 10+ langues (français, espagnol, allemand, etc.). Parfait pour étendre votre portée internationale.',
+      question: 'Écrivez-vous dans d\'autres langues ?',
+      answer: 'Oui. Avec le bonus API, traduction auto en 10+ langues.',
     },
     {
       question: 'Pourquoi seulement 100 places ?',
-      answer: 'Nous limitons l\'accès à 100 clients pour rester alignés avec la capacité de l\'équipe et garder le programme discret. Cela garantit une qualité constante et des délais rapides.',
+      answer: 'On limite le volume pour garder la qualité de production et les délais.',
     },
     {
-      question: 'Puis-je être accompagné sur ma stratégie de personal branding ?',
-      answer: 'Oui. Nous proposons un accompagnement personal branding optionnel avec des experts qui ont accompagné les meilleurs créateurs FR et US. Disponible en supplément après souscription, sur devis.',
+      question: 'Puis-je être accompagné sur mon personal branding ?',
+      answer: 'Oui, en option après souscription, sur devis.',
     },
     {
       question: 'Comment maximisez-vous la portée de mes posts ?',
-      answer: 'Deux leviers : des formats éprouvés sur des millions de vues, et une publication aux heures optimales de chaque plateforme. On ajoute aussi un lien tracké vers votre site sur chaque contenu — plus vous publiez, plus de gens vous découvrent. C\'est comme ouvrir votre magasin 24/24 alors qu\'avant vous l\'ouvriez le lundi de 9h à 10h.',
+      answer: 'Formats éprouvés + publication aux heures fortes de chaque plateforme + lien tracké vers votre site sur chaque contenu.',
     },
     {
       question: 'Comment garantir que ça va marcher pour moi ?',
-      answer: 'On promouvoit votre site en permanence via des liens trackés sur chaque contenu publié. Plus vous publiez, plus vous générez de visites. C\'est mathématique : plus de contenus = plus de visibilité = plus de clients potentiels. On ne peut pas garantir des résultats magiques, mais on garantit que vous serez visible partout, tout le temps.',
+      answer: 'On ne garantit pas de leads magiques. On garantit une présence régulière sur vos réseaux - le levier le plus fiable pour être découvert et choisi.',
     },
     {
       question: 'Et si je n\'ai pas de rendez-vous malgré le contenu ?',
-      answer: 'Si vous avez 1 000 visites sur votre site et aucun rendez-vous, c\'est que votre offre n\'est pas claire ou mal marketée — pas un problème de contenu. Pour ça, prenez rendez-vous avec un de nos spécialistes directement depuis la plateforme : il vous aidera à améliorer votre offre et votre positionnement.',
+      answer: 'Si le trafic arrive sans RDV, le frein est souvent l\'offre ou le positionnement - pas le contenu. On peut vous aiguiller vers un spécialiste depuis la plateforme.',
     },
   ],
   demo: {
@@ -771,7 +771,7 @@ export const fr: Translations = {
     },
     community: {
       title: 'Rejoignez la communauté privée',
-      desc: 'En attendant le rendez-vous, rejoignez notre communauté privée sur Skool pour échanger avec d\'autres créateurs et avoir un aperçu exclusif d\'Empire !',
+      desc: 'En attendant le rendez-vous, rejoignez notre communauté privée sur Slack pour échanger avec d\'autres créateurs et avoir un aperçu exclusif d\'Empire !',
       button: 'Rejoindre la communauté →',
     },
     footer: 'À très bientôt ! 👋',
@@ -870,7 +870,7 @@ export const fr: Translations = {
       ],
       customerSuccessGoal: 'Objectif : que chaque client se sente accompagné et motivé.',
       communityTasks: [
-        'Animer la communauté (School / WhatsApp / Discord)',
+        'Animer la communauté (Slack / WhatsApp)',
         'Répondre aux questions',
         'Encourager, féliciter, motiver',
         'Partager les victoires des clients',
@@ -943,7 +943,7 @@ export const fr: Translations = {
     viewCertificate: 'Voir le Certificat Favikon',
     name: 'Kevin Dufraisse',
     bio: 'Après avoir généré plus de 3M€ en ligne grâce au content marketing et au copywriting, j\'ai passé 1 an à étudier les meilleurs créateurs mondiaux et à décrypter ce qui rend un contenu viral. Puis j\'ai cloné ces insights dans des systèmes que tout le monde peut utiliser.',
-    bioLegende: 'Chez The Family, je devais rendre chaque entrepreneur inoubliable du jour au lendemain — trouver les bons angles, générer des milliers de rendez-vous, transformer des histoires ordinaires en légendes. Je crée les légendes de mes amis et entrepreneurs célèbres depuis des années. Puis j\'ai cloné ces méthodes dans un système que tout le monde peut utiliser.',
+    bioLegende: 'Chez The Family, je devais rendre chaque entrepreneur inoubliable du jour au lendemain - trouver les bons angles, générer des milliers de rendez-vous, transformer des histoires ordinaires en légendes. Je crée les légendes de mes amis et entrepreneurs célèbres depuis des années. Puis j\'ai cloné ces méthodes dans un système que tout le monde peut utiliser.',
     tagline: '→ Empire est le système que j\'aurais voulu avoir quand j\'ai commencé.',
     keyPoint: '',
     keyMessage: '',
@@ -953,16 +953,16 @@ export const fr: Translations = {
     toggleLabel: 'Légende',
     toggleHint: 'Pas le temps ? On gère tout',
     hero: {
-      targetAudience: 'Pour les CEO qui veulent déléguer · 10 places',
+      targetAudience: 'Pour les CEO qui veulent déléguer',
       title: 'Vous dirigez votre entreprise. <span class="text-autopilot">Nous dirigeons votre image.</span>',
-      subtitle: 'Kevin Dufraisse ou un expert dédié définit votre stratégie, crée vos contenus et construit votre réputation pendant que vous dirigez votre entreprise.',
+      subtitle: 'Une conversation par mois suffit. Notre équipe transforme vos idées en contenus, les publie sur vos réseaux et construit une audience qui vous apporte des opportunités.',
       cta1: 'Vérifier mon éligibilité',
-      ctaReassurance: '10 places disponibles · Sur sélection',
+      ctaReassurance: 'Vous restez CEO. Nous nous occupons du reste.',
     },
     howItWorks: {
       badge: 'LÉGENDE',
       title: 'On gère <span class="text-autopilot">100% de votre marque</span>',
-      subtitle: 'Kevin créait les légendes des entrepreneurs chez The Family. Aujourd\u2019hui, il le fait pour vous.',
+      subtitle: 'Kevin créait les légendes des entrepreneurs chez The Family. Aujourd\u2019hui, il gère la vôtre.',
       b1: {
         title: 'On crée votre légende',
         desc: 'On audite votre profil et trouve les angles qui rendent votre histoire irrésistible.',
@@ -979,13 +979,18 @@ export const fr: Translations = {
         title: 'On améliore et ajuste',
         desc: 'On analyse ce qui a marché ou pas, et on ajuste votre stratégie chaque mois.',
       },
+      b5: {
+        title: 'On installe votre système de conversion',
+        desc: 'Page de capture ou prise de rendez-vous : votre audience devient des emails et des appels, pas seulement des vues.',
+        badge: 'Des vues aux rendez-vous',
+      },
     },
     whyNow: {
       subtitle: 'Zéro effort. Votre marque, entièrement gérée de A à Z.',
     },
     finalCTA: {
       title: 'Prêt à déléguer votre marque entièrement ?',
-      subtitle: 'Kevin Dufraisse ou un expert en viralité crée votre marque de A à Z. 10 places disponibles.',
+      subtitle: 'Kevin gère votre marque de A à Z - ou un expert senior de son équipe. 10 places disponibles.',
       cta: 'Vérifier mon éligibilité',
     },
   },

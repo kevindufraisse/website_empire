@@ -246,8 +246,8 @@ export default function FormatsList() {
       ],
       outputs: getOutputs('long'),
       extraInfo: lang === 'fr'
-        ? 'On vous envoie un script mot pour mot optimisé. Vous le lisez naturellement. On transforme en 132 contenus/mois.'
-        : 'We send you an optimized word-for-word script. You read it naturally. We transform it into 132 pieces/month.',
+        ? 'On vous envoie un script mot pour mot optimisé. Vous le lisez naturellement. On transforme en 5 à 40 contenus par semaine selon votre pack.'
+        : 'We send you an optimized word-for-word script. You read it naturally. We turn it into 5 to 40 pieces per week depending on your pack.',
       useCase: {
         title: lang === 'fr' ? 'Parfait pour :' : 'Perfect for:',
         text: t.formats?.formats?.[6]?.useCase || 'Structured content, key messages, high-impact content'
