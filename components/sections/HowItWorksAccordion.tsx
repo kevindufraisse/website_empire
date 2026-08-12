@@ -682,17 +682,17 @@ export default function HowItWorksAccordion() {
                 <div className="h-[200px]">
                   <BrainTopicsVisual topics={topics} />
                 </div>
-                <div className="relative z-10 p-5 pt-3 mt-auto h-[140px] bg-gradient-to-t from-black via-black/90 to-transparent">
+                <div className="relative z-10 p-5 pt-3 mt-auto min-h-[160px] bg-gradient-to-t from-black via-black/90 to-transparent">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">1</span>
                     <h3 className="text-base font-semibold text-white">
                       {lang === 'fr' ? 'Nous trouvons vos prochains sujets' : 'We find your next topics'}
                     </h3>
                   </div>
-                  <p className="text-neutral-400 text-sm">
+                  <p className="text-neutral-400 text-sm leading-snug">
                     {lang === 'fr'
-                      ? 'On analyse votre expertise, votre marché et vos contenus pour identifier les angles viraux à exploiter.'
-                      : 'We analyze your expertise, market and content to find the viral angles worth exploiting.'}
+                      ? 'On analyse des millions de contenus viraux et tendances actuelles pour identifier les sujets les plus visibles de votre niche.'
+                      : 'We analyze millions of viral posts and current trends to find the most visible topics in your niche.'}
                   </p>
                 </div>
               </div>
@@ -708,17 +708,17 @@ export default function HowItWorksAccordion() {
                     {lang === 'fr' ? 'Enregistrement...' : 'Recording...'}
                   </p>
                 </div>
-                <div className="relative z-10 p-5 pt-3 mt-auto h-[140px] bg-gradient-to-t from-black via-black/90 to-transparent">
+                <div className="relative z-10 p-5 pt-3 mt-auto min-h-[160px] bg-gradient-to-t from-black via-black/90 to-transparent">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">2</span>
                     <h3 className="text-base font-semibold text-white">
-                      {lang === 'fr' ? 'Vous enregistrez' : 'You record'}
+                      {lang === 'fr' ? 'Vous parlez' : 'You talk'}
                     </h3>
                   </div>
-                  <p className="text-neutral-400 text-sm">
+                  <p className="text-neutral-400 text-sm leading-snug">
                     {lang === 'fr'
-                      ? 'Vous parlez face caméra sur ces sujets, seul ou guidé par nos questions. Zéro préparation.'
-                      : 'You talk on camera about those topics, freely or guided by our questions. Zero prep.'}
+                      ? 'On a testé plus de 100 façons de créer du contenu. On en a gardé 5 : les plus simples, celles qui marchent le mieux. Vous parlez en promenant le chien, en voiture, en marchant. On s\'occupe du reste.'
+                      : 'We tested over 100 ways to create content. We kept 5: the simplest ones that work best. You talk while walking the dog, in the car, on a stroll. We handle the rest.'}
                   </p>
                 </div>
               </div>

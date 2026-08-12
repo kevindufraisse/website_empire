@@ -30,8 +30,8 @@ const COMPARISONS: ComparisonRow[] = [
     dimensionEn: 'Authenticity',
     oldFr: 'Copié-collé de ChatGPT, voix générique',
     oldEn: 'ChatGPT copy-paste, generic voice',
-    newFr: 'Entraîné sur des millions de données virales',
-    newEn: 'Trained on millions of viral data points',
+    newFr: 'Millions de contenus viraux analysés',
+    newEn: 'Millions of viral posts analyzed',
   },
   {
     dimensionFr: 'Sujets',

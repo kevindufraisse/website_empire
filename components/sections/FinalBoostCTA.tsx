@@ -78,8 +78,8 @@ export default function FinalBoostCTA() {
                     </p>
                     <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1.5 text-xs text-neutral-400 max-w-2xl mx-auto">
                       {(lang === 'fr'
-                        ? ['Vous entrez votre positionnement et vos concurrents', 'Notre système trouve les sujets', 'Vous parlez', 'Notre équipe crée les contenus', 'Vous publiez partout']
-                        : ['You enter your positioning and competitors', 'Our system finds the topics', 'You talk', 'Our team creates the content', 'You publish everywhere']
+                        ? ['Vous entrez votre positionnement et vos concurrents', 'On analyse des millions de contenus viraux pour vos sujets', 'Vous parlez 1h (chien, voiture, marche…)', 'Notre équipe crée les contenus', 'Vous publiez partout']
+                        : ['You enter your positioning and competitors', 'We analyze millions of viral posts for your topics', 'You talk 1h (dog walk, car, stroll…)', 'Our team creates the content', 'You publish everywhere']
                       ).map((step, i, arr) => (
                         <span key={i} className="flex items-center gap-2">
                           {step}

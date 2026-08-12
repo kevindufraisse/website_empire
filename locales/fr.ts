@@ -180,7 +180,7 @@ export const fr: Translations = {
     step2: {
       title: 'L\'enregistrement hebdomadaire',
       summary: 'Vous parlez 1 h. On crée partout.',
-      description: 'Vous parlez 1 h par semaine - interview guidée, face caméra ou vocal. Zéro préparation, zéro script. Votre expertise devient du contenu publié tous les jours sur vos réseaux.',
+      description: 'On a testé plus de 100 façons de créer du contenu. On en a gardé 5 : les plus simples, celles qui marchent le mieux. Vous parlez en promenant le chien, en voiture, en marchant. 1 h par semaine, zéro script. On transforme ça en contenus publiés tous les jours.',
       perInterview: 'Par session, vous obtenez :',
       humanQA: 'Contrôle Qualité Humain',
       humanQASub: 'Chaque pièce vérifiée par un expert',
@@ -287,7 +287,7 @@ export const fr: Translations = {
       },
       whatIfDontLike: {
         question: 'Et si je ne sais pas quoi dire ?',
-        answer: 'On trouve vos sujets et vos angles pour vous - en analysant votre expertise, votre marché et ce qui marche déjà. Vous n\'arrivez pas face à une page blanche : vous parlez sur des angles préparés.',
+        answer: 'On analyse des millions de contenus viraux et tendances actuelles pour identifier les sujets les plus visibles de votre niche. Pas de page blanche : vous parlez sur des angles déjà prêts.',
       },
       canRequestChanges: {
         question: 'Puis-je demander des modifications au contenu ?',
@@ -653,7 +653,7 @@ export const fr: Translations = {
   faqItems: [
     {
       question: 'Combien de temps dois-je investir ?',
-      answer: 'Environ 1 h par semaine. Vous parlez. On gère le reste : sujets, production, adaptation, publication.',
+      answer: 'Environ 1 h par semaine. Vous parlez en promenant le chien, en voiture, en marchant - on a testé plus de 100 façons, on en a gardé 5. On gère le reste : sujets, production, adaptation, publication.',
     },
     {
       question: 'Et si le contenu ne me ressemble pas ?',

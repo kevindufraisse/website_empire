@@ -48,7 +48,7 @@ export const en = {
     step1: {
       title: 'Weekly Recording',
       summary: 'You talk for 1 hour. We create everywhere.',
-      description: 'No prep needed. No script. Our AI asks you the right questions to extract your best insights, stories, and expertise. It feels like talking to a colleague, not a robot.',
+      description: 'We tested over 100 ways to create content. We kept 5: the simplest ones that work best. You talk while walking the dog, in the car, on a stroll. 1 hour a week, no script. We turn that into content published every day.',
       badge1: 'No preparation',
       badge1Sub: 'Just show up',
       badge2: 'AI-guided questions',
@@ -164,7 +164,7 @@ export const en = {
       },
       whatIfDontLike: {
         question: 'What if I don\'t know what to say?',
-        answer: 'We find your topics and angles for you - by analyzing your expertise, market and what already works. You never face a blank page: you talk on prepared angles.',
+        answer: 'We analyze millions of viral posts and current trends to find the most visible topics in your niche. No blank page: you talk on angles already ready for you.',
       },
       canRequestChanges: {
         question: 'Can I request changes to the content?',
@@ -530,7 +530,7 @@ export const en = {
   faqItems: [
     {
       question: 'How much time do I need to invest?',
-      answer: 'About 1 hour a week. You talk. We handle the rest: topics, production, adaptation, publishing.',
+      answer: 'About 1 hour a week. You talk while walking the dog, in the car, on a stroll - we tested over 100 ways, we kept 5. We handle the rest: topics, production, adaptation, publishing.',
     },
     {
       question: 'What if the content doesn\'t sound like me?',
