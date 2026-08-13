@@ -128,8 +128,8 @@ function ThankYouContent() {
             >
               {fromWaitlist
                 ? lang === 'fr'
-                  ? 'On lit chaque candidature. En attendant, regarde la VSL 👇'
-                  : 'We read every application. Meanwhile, watch the VSL 👇'
+                  ? 'On lit chaque candidature. En attendant, regarde le système 👇'
+                  : 'We read every application. Meanwhile, watch the system 👇'
                 : lang === 'fr'
                   ? 'En attendant, découvrez comment Empire fonctionne 👇'
                   : 'In the meantime, discover how Empire works 👇'}
@@ -142,7 +142,7 @@ function ThankYouContent() {
             transition={{ delay: 0.35 }}
             className="mb-8"
           >
-            <LoomEmbed title="Empire VSL" />
+            <LoomEmbed title="Empire - le système" />
             <div className="text-center mt-2">
               <a
                 href="https://www.loom.com/share/184e8823d9154d74aeca55a5cd488f08"
