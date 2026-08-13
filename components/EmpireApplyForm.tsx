@@ -238,8 +238,8 @@ export default function EmpireApplyForm() {
           >
             <p className="mx-auto mb-6 max-w-md rounded-xl border border-empire/25 bg-empire/[0.06] px-4 py-3 text-sm leading-relaxed text-neutral-300">
               {fr
-                ? 'On est complet pour l\'instant. On analyse chaque candidature. Si vous êtes sélectionné, onboarding privé en groupe ou en 1:1.'
-                : "We're full for now. We review every application. If selected, private onboarding in a group or 1:1."}
+                ? 'On analyse chaque candidature. Si vous êtes sélectionné, onboarding privé en groupe ou en 1:1.'
+                : 'We review every application. If selected, private onboarding in a group or 1:1.'}
             </p>
             <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">
               {fr ? 'Tu publies déjà sur les réseaux ?' : 'Do you already publish on social?'}
