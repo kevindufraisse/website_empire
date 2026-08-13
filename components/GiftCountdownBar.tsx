@@ -158,6 +158,7 @@ export function GiftCountdownProvider({ children }: { children: React.ReactNode 
     pathname === '/candidature' ||
     pathname === '/decouverte' ||
     pathname === '/join-us' ||
+    pathname === '/postuler' ||
     pathname === '/thank-you' ||
     pathname === '/vsl' ||
     pathname === '/academy'

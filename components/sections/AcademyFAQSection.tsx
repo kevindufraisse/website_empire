@@ -4,7 +4,6 @@ import { useRef, useState } from 'react'
 import { ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import AcademyWaitlistCta from '@/components/AcademyWaitlistCta'
-import { ACADEMY_ENTRY_PRICE, ACADEMY_NEXT_PRICE_EN, ACADEMY_NEXT_PRICE_FR } from '@/lib/cohort-config'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
@@ -39,7 +38,7 @@ export default function AcademyFAQSection() {
         },
         {
           q: 'Combien ça coûte ?',
-          a: `Le tarif d'entrée est de ${ACADEMY_ENTRY_PRICE}\u202F€, payable en 3\u00d7 165\u202F€. C'est le prix des premières promotions : il passera à ${ACADEMY_NEXT_PRICE_FR}\u202F€ une fois la certification installée. La candidature vous place dans la file au tarif le plus bas.`,
+          a: 'Le tarif vous sera annoncé si vous êtes sélectionné après votre candidature. On lit chaque dossier avant de vous répondre.',
         },
         {
           q: "J'ai pas de projet, c'est pour moi ?",
@@ -77,7 +76,7 @@ export default function AcademyFAQSection() {
         },
         {
           q: 'How much does it cost?',
-          a: `The entry price is €${ACADEMY_ENTRY_PRICE}, payable in 3× €165. That's the price for the first cohorts: it will go to €${ACADEMY_NEXT_PRICE_EN} once the certification is established. Applying puts you in the queue at the lowest price.`,
+          a: 'The price is announced if you\'re selected after applying. We read every application before we reply.',
         },
         {
           q: "I don't have a project, is this for me?",
@@ -178,7 +177,7 @@ export default function AcademyFAQSection() {
                 className="inline-flex items-center gap-2 px-8 py-4 bg-academy text-black font-bold text-lg rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(252,165,165,0.3)]"
                 sublabel={
                   <p className="text-xs text-neutral-400 mt-2">
-                    {fr ? `Places limitées · à partir de ${ACADEMY_ENTRY_PRICE}€` : `Limited spots · from €${ACADEMY_ENTRY_PRICE}`}
+                    {fr ? 'Places limitées · Tarif annoncé si vous êtes sélectionné' : 'Limited spots · Price announced if you\'re selected'}
                   </p>
                 }
               >

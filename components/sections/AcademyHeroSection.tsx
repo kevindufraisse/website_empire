@@ -6,7 +6,6 @@ import { SparklesText } from '@/components/magicui/sparkles-text'
 
 import AcademyWaitlistCta from '@/components/AcademyWaitlistCta'
 import MediaCredibilityStrip from '@/components/MediaCredibilityStrip'
-import { ACADEMY_ENTRY_PRICE } from '@/lib/cohort-config'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function AcademyHeroSection() {
@@ -85,8 +84,8 @@ export default function AcademyHeroSection() {
               <span>{fr ? 'Candidater à la prochaine promotion →' : 'Apply to the next cohort →'}</span>
               <span className="text-[11px] font-semibold opacity-70">
                 {fr
-                  ? `20 places · Sur sélection · ${ACADEMY_ENTRY_PRICE}\u202F€ pour cette promotion`
-                  : `20 spots · By selection · €${ACADEMY_ENTRY_PRICE} for this cohort`}
+                  ? '20 places · Sur sélection · Tarif annoncé si vous êtes sélectionné'
+                  : '20 spots · By selection · Price announced if you\'re selected'}
               </span>
             </AcademyWaitlistCta>
             <MediaCredibilityStrip />

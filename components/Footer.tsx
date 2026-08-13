@@ -14,7 +14,7 @@ export default function Footer() {
   
   const isPartnersPage = pathname === '/partners'
   const isAcademyPage = pathname === '/academy'
-  const isCandidaturePage = pathname === '/candidature' || pathname === '/decouverte' || pathname === '/join-us' || pathname?.startsWith('/hire-our-team')
+  const isCandidaturePage = pathname === '/candidature' || pathname === '/decouverte' || pathname === '/join-us' || pathname === '/postuler' || pathname?.startsWith('/hire-our-team')
 
   if (pathname === '/live') return null
 
@@ -73,8 +73,8 @@ export default function Footer() {
           <div className="flex flex-col items-center md:items-end">
             {!isPartnersPage && !autopilot && (
               <OnboardingLink className="inline-flex flex-col items-start text-left px-6 py-3.5 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]">
-                <span className="text-left">{t.finalCTA.watchDemo}</span>
-                <span className="text-[10px] font-semibold opacity-70 text-left">{lang === 'fr' ? 'Sans engagement' : 'No commitment'}</span>
+                <span className="text-left">{lang === 'fr' ? 'Liste d\'attente' : 'Waitlist'}</span>
+                <span className="text-[10px] font-semibold opacity-70 text-left">{lang === 'fr' ? 'Profils motivés' : 'Motivated profiles'}</span>
               </OnboardingLink>
             )}
           </div>

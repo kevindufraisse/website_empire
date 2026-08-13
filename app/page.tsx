@@ -1,7 +1,7 @@
 import HeroSection from '@/components/sections/HeroSection'
 import HowItWorksAccordion from '@/components/sections/HowItWorksAccordion'
 import CaseStudiesSection from '@/components/sections/CaseStudiesSection'
-import HomePricingSection from '@/components/sections/HomePricingSection'
+import HomeApplySection from '@/components/sections/HomeApplySection'
 import TestimonialsSection from '@/components/sections/TestimonialsSection'
 import QuickWinsSection from '@/components/sections/QuickWinsSection'
 import FounderSection from '@/components/sections/FounderSection'
@@ -14,7 +14,7 @@ export default function Page() {
       <HeroSection />
       <HowItWorksAccordion />
       <CaseStudiesSection />
-      <HomePricingSection />
+      <HomeApplySection />
       <TestimonialsSection />
       <QuickWinsSection />
       <FounderSection />

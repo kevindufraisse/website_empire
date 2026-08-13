@@ -5,9 +5,8 @@ import { createPortal } from 'react-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowRight, GraduationCap, Sparkles, Crown, RotateCcw, X, Check, UserCheck, Users, type LucideIcon } from 'lucide-react'
 import posthog from 'posthog-js'
-import { trackAmplitude, withAmplitudeDeviceId } from '@/lib/amplitude'
-import { ACADEMY_ENTRY_PRICE } from '@/lib/cohort-config'
-import { APP_ONBOARDING_URL, PLAN_LABELS, getPlan, finalPrice, type PlanId } from '@/lib/plans'
+import { trackAmplitude } from '@/lib/amplitude'
+import { PLAN_LABELS, getPlan, type PlanId } from '@/lib/plans'
 
 type OfferId = 'academy' | 'empire' | 'legende'
 type AddonId = 'coaching' | 'seats'
@@ -272,8 +271,8 @@ const RESULTS: Record<OfferId, {
     labelEn: 'Academy',
     titleFr: 'Devenez Head of Viralité en 21 jours.',
     titleEn: 'Become Head of Virality in 21 days.',
-    descFr: `Apprenez le métier, obtenez votre certification, et gagnez vos premiers 3 000€/mois. Même sans projet à vous. À partir de ${ACADEMY_ENTRY_PRICE}€ · 20 places sur sélection.`,
-    descEn: `Learn the craft, get certified, and earn your first €3,000/month. Even without your own project. From €${ACADEMY_ENTRY_PRICE} · 20 spots, application only.`,
+    descFr: 'Apprenez le métier, obtenez votre certification, et gagnez vos premiers 3 000€/mois. Même sans projet à vous. 20 places sur sélection. Le tarif est annoncé si vous êtes sélectionné.',
+    descEn: 'Learn the craft, get certified, and earn your first €3,000/month. Even without your own project. 20 spots, by selection. Price announced if you\'re selected.',
     ctaFr: 'Découvrir l\u2019Academy',
     ctaEn: 'Discover the Academy',
     href: '/academy',
@@ -284,11 +283,11 @@ const RESULTS: Record<OfferId, {
     labelEn: 'Empire',
     titleFr: 'Parlez 1 heure. Nous créons un mois de contenus.',
     titleEn: 'Talk for 1 hour. We create a month of content.',
-    descFr: 'Parlez 1 heure. Nous créons un mois de contenus. Votre marque attire des clients toute l\u2019année. Essai gratuit de 7 jours.',
-    descEn: 'Talk for 1 hour. We create a month of content. Your brand attracts clients all year long. 7-day free trial.',
-    ctaFr: 'Démarrer l\u2019essai gratuit',
-    ctaEn: 'Start the free trial',
-    href: 'https://app.empire-internet.com/onboarding?plan=growth&billing=yearly&intent=trial',
+    descFr: 'Parlez 1 heure. Nous créons un mois de contenus. Liste d\u2019attente : on sélectionne les profils les plus motivés.',
+    descEn: 'Talk for 1 hour. We create a month of content. Waitlist: we select the most motivated profiles.',
+    ctaFr: 'Rejoindre la liste d\u2019attente',
+    ctaEn: 'Join the waitlist',
+    href: '/postuler',
   },
   legende: {
     icon: Crown,
@@ -319,8 +318,8 @@ const ADDONS: Record<AddonId, {
     icon: UserCheck,
     labelFr: 'Coaching 4h avec un expert en viralité',
     labelEn: '4h coaching with a virality expert',
-    priceFr: '500€, une seule fois',
-    priceEn: '€500, one-time',
+    priceFr: 'proposé après candidature',
+    priceEn: 'offered after you apply',
     descFr: 'Vous avez dit que trouver vos sujets vous bloque. Un expert prépare vos angles et votre ligne éditoriale - vous n\u2019avez plus qu\u2019à parler.',
     descEn: 'You said finding topics blocks you. An expert prepares your angles and editorial line - all you do is talk.',
   },
@@ -328,8 +327,8 @@ const ADDONS: Record<AddonId, {
     icon: Users,
     labelFr: 'Places supplémentaires pour votre équipe',
     labelEn: 'Additional seats for your team',
-    priceFr: 'jusqu\u2019à -20 % par place',
-    priceEn: 'up to -20% per seat',
+    priceFr: 'selon la taille de l\u2019équipe',
+    priceEn: 'based on team size',
     descFr: 'Vous avez plusieurs personnes à faire publier. Le prix par place baisse dès 3 places, et tout le monde publie depuis la même plateforme.',
     descEn: 'You have several people to get publishing. Price per seat drops from 3 seats up, and everyone publishes from the same platform.',
   },
@@ -434,10 +433,7 @@ export function OfferQuizGlobal({ fr }: { fr: boolean }) {
   // Prix par place, hors remise de volume : la réponse "2 à 4 personnes" ne dit
   // pas le nombre exact, et la remise ne démarre qu'à 3 places. Mieux vaut
   // annoncer le tarif plein et laisser l'onboarding appliquer la remise.
-  const planMonthly = finalPrice(plan.price, 'yearly', 1)
-  const empireHref = withAmplitudeDeviceId(
-    `${APP_ONBOARDING_URL}?plan=${planId}&billing=yearly&intent=${seats > 1 ? 'enterprise' : 'trial'}${seats > 1 ? `&seats=${seats}` : ''}`
-  )
+  const empireHref = '/postuler'
 
   const modal = (
     <AnimatePresence>
@@ -517,28 +513,20 @@ export function OfferQuizGlobal({ fr }: { fr: boolean }) {
                     {isEmpire && (
                       <div className="mt-4 rounded-2xl border border-empire/25 bg-empire/[0.06] p-5 text-left sm:p-6">
                         <p className="text-xs font-bold uppercase tracking-widest text-neutral-500">
-                          {fr ? 'Pack suggéré (modifiable)' : 'Suggested pack (changeable)'}
+                          {fr ? 'Niveau suggéré (validé si vous êtes pris)' : 'Suggested level (confirmed if you\'re selected)'}
                         </p>
                         <p className="mt-3 text-lg font-extrabold text-white">
                           {fr ? PLAN_LABELS[planId].fr : PLAN_LABELS[planId].en}
-                          <span className="ml-2 text-base font-bold text-empire">
-                            {planMonthly}&nbsp;€{fr ? '/mois' : '/mo'}
-                            {seats > 1 && (
-                              <span className="ml-1 text-[13px] font-semibold text-neutral-400">
-                                {fr ? 'par place' : 'per seat'}
-                              </span>
-                            )}
-                          </span>
+                          {seats > 1 && (
+                            <span className="ml-2 text-[13px] font-semibold text-neutral-400">
+                              {fr ? `· ${seats} places` : `· ${seats} seats`}
+                            </span>
+                          )}
                         </p>
                         <p className="mt-1.5 text-[13px] text-neutral-400 leading-relaxed">
                           {fr
-                            ? `${plan.rhythmFr}${seats > 1 ? ', par personne' : ''}, publiés sur vos 7 plateformes. ${plan.sessions} sessions d’enregistrement par mois. Engagement annuel, 7 jours d’essai gratuit.`
-                            : `${plan.rhythmEn}${seats > 1 ? ', per person' : ''}, published across your 7 platforms. ${plan.sessions} recording sessions per month. Yearly billing, 7-day free trial.`}
-                        </p>
-                        <p className="mt-2 text-[12px] text-neutral-500">
-                          {fr
-                            ? 'Vous pourrez changer de pack à tout moment depuis votre espace.'
-                            : 'You can switch packs at any time from your dashboard.'}
+                            ? `${plan.rhythmFr}${seats > 1 ? ', par personne' : ''}, publiés sur vos 7 plateformes. ${plan.sessions} sessions d’enregistrement par mois. Accès sur liste d’attente, profils les plus motivés.`
+                            : `${plan.rhythmEn}${seats > 1 ? ', per person' : ''}, published across your 7 platforms. ${plan.sessions} recording sessions per month. Waitlist access — most motivated profiles.`}
                         </p>
                       </div>
                     )}

@@ -21,7 +21,7 @@ export default function CalStickyBar() {
   // Hide on partners and academy pages
   const isPartnersPage = pathname === '/partners'
   const isAcademyPage = pathname === '/academy'
-  const isCandidaturePage = pathname === '/candidature' || pathname === '/decouverte' || pathname === '/join-us' || pathname === '/vsl' || pathname === '/webinar' || pathname === '/webinar/merci' || pathname === '/live'
+  const isCandidaturePage = pathname === '/candidature' || pathname === '/decouverte' || pathname === '/join-us' || pathname === '/postuler' || pathname === '/vsl' || pathname === '/webinar' || pathname === '/webinar/merci' || pathname === '/live'
   const isPaygPage = pathname?.startsWith('/hire-our-team')
 
   useEffect(() => {

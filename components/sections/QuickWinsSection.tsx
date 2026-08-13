@@ -54,8 +54,8 @@ const COMPARISONS: ComparisonRow[] = [
     dimensionEn: 'Cost',
     oldFr: 'Plusieurs freelances : 5 000€+/mois',
     oldEn: 'Multiple freelancers: €5,000+/mo',
-    newFr: 'À partir de 199€/mois, tout inclus',
-    newEn: 'From €199/mo, all-inclusive',
+    newFr: 'Liste d\'attente — on sélectionne les plus motivés',
+    newEn: 'Waitlist — we select the most motivated',
   },
   {
     dimensionFr: 'Scalabilité',
@@ -159,7 +159,7 @@ export default function QuickWinsSection() {
           className="text-center"
         >
           <OnboardingLink className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-empire text-black font-bold text-lg hover:scale-105 transition-transform shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.3)]">
-            {t.common.startNow}
+            {lang === 'fr' ? 'Rejoindre la liste d\'attente' : 'Join the waitlist'}
             <ArrowRight size={20} />
           </OnboardingLink>
           <CtaReassurance className="mt-4 px-2" />

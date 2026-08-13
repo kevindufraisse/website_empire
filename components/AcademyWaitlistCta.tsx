@@ -6,7 +6,6 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { X } from 'lucide-react'
 import AcademyWaitlistForm from '@/components/AcademyWaitlistForm'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { ACADEMY_ENTRY_PRICE, ACADEMY_NEXT_PRICE_EN, ACADEMY_NEXT_PRICE_FR } from '@/lib/cohort-config'
 import { trackAmplitude } from '@/lib/amplitude'
 
 /**
@@ -111,8 +110,8 @@ export default function AcademyWaitlistCta({
                   </h3>
                   <p className="mt-2 text-sm leading-relaxed text-neutral-400">
                     {fr
-                      ? `30 secondes. 20 places sur sélection. ${ACADEMY_ENTRY_PRICE}\u202F€ pour cette promotion (puis ${ACADEMY_NEXT_PRICE_FR}\u202F€). On lit chaque candidature.`
-                      : `30 seconds. 20 spots by selection. €${ACADEMY_ENTRY_PRICE} for this cohort (then €${ACADEMY_NEXT_PRICE_EN}). We read every application.`}
+                      ? '30 secondes. 20 places sur sélection. Le tarif vous sera annoncé si vous êtes sélectionné après votre candidature. On lit chaque dossier.'
+                      : '30 seconds. 20 spots by selection. The price is announced if you\'re selected after applying. We read every application.'}
                   </p>
 
                   <AcademyWaitlistForm className="mt-5" />

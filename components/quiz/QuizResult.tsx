@@ -91,7 +91,7 @@ const OFFERS: Record<RecommendedOffer, OfferCopy> = {
       label: 'Découvrir Empire Academy →',
       href: '/academy',
     },
-    reassurance: '497€ · Paiement en 3x possible · Garantie 30 jours satisfait ou remboursé',
+    reassurance: 'Sur sélection · Tarif annoncé si vous êtes sélectionné',
   },
   autopilot: {
     kicker: 'Recommandé pour votre profil',
@@ -120,7 +120,7 @@ const OFFERS: Record<RecommendedOffer, OfferCopy> = {
       'Communauté privée + sessions live + accès à vie',
     ],
     cta: { label: 'Découvrir Empire Academy →', href: '/academy' },
-    reassurance: '497€ · Paiement en 3x possible · Garantie 30 jours satisfait ou remboursé',
+    reassurance: 'Sur sélection · Tarif annoncé si vous êtes sélectionné',
   },
 }
 
@@ -159,7 +159,7 @@ const OFFERS_EN: Record<RecommendedOffer, OfferCopy> = {
       label: 'Discover Empire Academy →',
       href: '/academy',
     },
-    reassurance: '€497 · 3x payment available · 30-day money-back guarantee',
+    reassurance: 'By selection · Price announced if you\'re selected',
   },
   autopilot: {
     kicker: 'Recommended for your profile',
@@ -188,7 +188,7 @@ const OFFERS_EN: Record<RecommendedOffer, OfferCopy> = {
       'Private community + live sessions + lifetime access',
     ],
     cta: { label: 'Discover Empire Academy →', href: '/academy' },
-    reassurance: '€497 · 3x payment available · 30-day money-back guarantee',
+    reassurance: 'By selection · Price announced if you\'re selected',
   },
 }
 
@@ -598,7 +598,7 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
             >
               {lang === 'fr' ? 'Budget serré ? ' : 'Tight budget? '}
               <span className="underline underline-offset-2">
-                {lang === 'fr' ? 'Commencer par Academy - 497€ →' : 'Start with Academy - €497 →'}
+                {lang === 'fr' ? 'Candidater à l\'Academy →' : 'Apply to the Academy →'}
               </span>
             </Link>
           )}

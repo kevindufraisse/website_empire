@@ -43,9 +43,10 @@ export default function Header() {
     return () => clearInterval(id)
   }, [promoDeadline])
 
-  const showPromoBanner = !!promoCountdown && !!promoInfo && !promoDismissed
+  // Prices removed from marketing site — no flash promo banner.
+  const showPromoBanner = false && !!promoCountdown && !!promoInfo && !promoDismissed
 
-  const isCandidaturePage = pathname === '/candidature' || pathname === '/decouverte' || pathname === '/join-us' || pathname?.startsWith('/hire-our-team')
+  const isCandidaturePage = pathname === '/candidature' || pathname === '/decouverte' || pathname === '/join-us' || pathname === '/postuler' || pathname?.startsWith('/hire-our-team')
   const isPartnersPage = pathname === '/partners'
 
   // Hide entirely on candidature page - after all hooks

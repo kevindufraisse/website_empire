@@ -24,10 +24,10 @@ export default function AnnouncementBanner() {
           </span>
           <OnboardingLink className="flex flex-col items-center gap-0 px-2 py-1 bg-black text-empire font-bold rounded hover:scale-105 transition-all ml-1">
             <span className="leading-none text-[10px] sm:text-xs whitespace-nowrap">
-              {t.common.startNow} →
+              {lang === 'fr' ? 'Liste d\'attente →' : 'Waitlist →'}
             </span>
             <span className="text-[7px] sm:text-[8px] font-semibold text-empire/90 leading-tight text-center max-w-[8rem] sm:max-w-[10rem]">
-              {lang === 'fr' ? 'Audit gratuit' : 'Free audit'}
+              {lang === 'fr' ? 'Profils motivés' : 'Motivated profiles'}
             </span>
           </OnboardingLink>
           <button

@@ -4,7 +4,6 @@ import { useRef } from 'react'
 import { User, Users, Check, ArrowRight } from 'lucide-react'
 import BorderBeam from '@/components/magicui/border-beam'
 import AcademyWaitlistCta from '@/components/AcademyWaitlistCta'
-import { ACADEMY_ENTRY_PRICE } from '@/lib/cohort-config'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
@@ -167,8 +166,8 @@ export default function AcademyTwoPathsSection() {
                 sublabel={
                   <p className="text-xs text-neutral-400 mt-2">
                     {fr
-                      ? `30 secondes · 20 places · Sur sélection · ${ACADEMY_ENTRY_PRICE}\u202F€`
-                      : `30 seconds · 20 spots · By selection · €${ACADEMY_ENTRY_PRICE}`}
+                      ? '30 secondes · 20 places · Sur sélection · Tarif annoncé si sélectionné'
+                      : '30 seconds · 20 spots · By selection · Price if selected'}
                   </p>
                 }
               >

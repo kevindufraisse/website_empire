@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useLanguage } from '@/contexts/LanguageContext'
 
-const HIDDEN_PREFIXES = ['/quiz', '/candidature', '/decouverte', '/join-us', '/live', '/hire-our-team']
+const HIDDEN_PREFIXES = ['/quiz', '/candidature', '/decouverte', '/join-us', '/postuler', '/live', '/hire-our-team']
 
 export default function QuizFloatingButton() {
   const { lang } = useLanguage()

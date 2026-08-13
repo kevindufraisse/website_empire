@@ -17,7 +17,7 @@ export const en = {
     title: 'Talk for 1 hour. We create a month of content.',
     subtitle: 'Your expertise becomes posts, Reels, newsletters and videos published on 7 platforms - with our experts by your side every week.',
     description: '',
-    cta1: 'Start for free',
+    cta1: 'Join the waitlist',
     cta2: 'Watch Demo (1 min)',
     rating: 'Based on 20 reviews',
     creatorsTitle: 'Install the system used by the world\'s best creators',
@@ -190,7 +190,7 @@ export const en = {
       },
       {
         concern: 'Is this really better than hiring someone?',
-        answer: 'Yes. Hiring someone costs €12K+/month, takes weeks to onboard, and you still manage them. Empire delivers daily content on every platform from €199/mo, with zero management. Same results, fraction of the cost.',
+        answer: 'Yes. Hiring someone costs €12K+/month, takes weeks to onboard, and you still manage them. Empire delivers daily content on every platform, with zero management. Waitlist: we select the most motivated profiles.',
       },
       {
         concern: 'What if the content doesn\'t perform?',
@@ -312,7 +312,7 @@ export const en = {
   common: {
     startNow: 'Start for free',
     watchDemo: 'Start for free',
-    ctaReassurance: 'No commitment · Cancel in 1 click',
+    ctaReassurance: 'Waitlist · We select the most motivated',
     /** Tight subline: header, sticky, banner (keeps the CTA compact) */
     ctaReassuranceCompact: 'No commitment',
     learnMore: 'Learn more',
@@ -546,7 +546,7 @@ export const en = {
     },
     {
       question: 'How is this different from an agency?',
-      answer: 'An agency = €5–15K/month, weeks to deliver, often generic voice. Empire = ~1h/week from you, production + publishing, 7-day trial, from €199/month. Lives and community from Intermediate.',
+      answer: 'An agency = €5–15K/month, weeks to deliver, often generic voice. Empire = ~1h/week from you, production + publishing. Waitlist: we read every application and select the most motivated profiles. Lives and community from Intermediate.',
     },
     {
       question: 'Can I cancel?',

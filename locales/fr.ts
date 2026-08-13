@@ -140,7 +140,7 @@ export const fr: Translations = {
     title: 'Parlez 1 heure. Nous créons un mois de contenus.',
     subtitle: 'Votre expertise devient des posts, Reels, newsletters et vidéos publiés sur 7 plateformes - avec nos experts à vos côtés chaque semaine.',
     description: '',
-    cta1: 'Commencer gratuitement',
+    cta1: 'Rejoindre la liste d\'attente',
     cta2: 'Voir la Démo (1 min)',
     rating: 'Basé sur 20 avis',
     creatorsTitle: 'Installez le système des meilleurs créateurs mondiaux',
@@ -313,7 +313,7 @@ export const fr: Translations = {
       },
       {
         concern: 'C\'est vraiment mieux qu\'embaucher ?',
-        answer: 'Oui. Embaucher = €12K+/mois, semaines d\'intégration, et vous devez les gérer. Empire = contenu quotidien sur toutes les plateformes à partir de 199€/mois, zéro gestion. Même résultat, fraction du coût.',
+        answer: 'Oui. Embaucher = €12K+/mois, semaines d\'intégration, et vous devez les gérer. Empire = contenu quotidien sur toutes les plateformes, zéro gestion. Liste d\'attente : on sélectionne les profils les plus motivés.',
       },
       {
         concern: 'Et si ça ne performe pas ?',
@@ -435,7 +435,7 @@ export const fr: Translations = {
   common: {
     startNow: 'Commencer gratuitement',
     watchDemo: 'Commencer gratuitement',
-    ctaReassurance: 'Sans engagement · Annulez en 1 clic',
+    ctaReassurance: 'Liste d\'attente · On sélectionne les plus motivés',
     /** Sous-ligne très courte : header, sticky, bannière (évite un bouton énorme) */
     ctaReassuranceCompact: 'Sans engagement',
     learnMore: 'En savoir plus',
@@ -669,7 +669,7 @@ export const fr: Translations = {
     },
     {
       question: 'Quelle différence avec une agence ?',
-      answer: 'Une agence = 5–15 K€/mois, semaines à livrer, voix souvent générique. Empire = ~1 h/semaine de votre côté, production + publication, essai 7 jours, à partir de 199 €/mois. Lives et communauté dès Intermédiaire.',
+      answer: 'Une agence = 5–15 K€/mois, semaines à livrer, voix souvent générique. Empire = ~1 h/semaine de votre côté, production + publication. Liste d\'attente : on lit chaque candidature et on sélectionne les profils les plus motivés. Lives et communauté dès Intermédiaire.',
     },
     {
       question: 'Puis-je annuler ?',

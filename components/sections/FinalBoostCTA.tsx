@@ -4,11 +4,7 @@ import { useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
-import { Zap } from 'lucide-react'
-import CallbackButton from '@/components/CallbackButton'
-import { CtaReassurance } from '@/components/ui/cta-reassurance'
 import OnboardingLink from '@/components/OnboardingLink'
-import { LaunchOfferLine } from '@/components/ui/launch-offer-line'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -54,40 +50,12 @@ export default function FinalBoostCTA() {
                   {autopilot ? t.autopilot.finalCTA.subtitle : t.finalCTA.subtitle}
                 </p>
 
-                {/* Ce qui se passe après le clic : désamorce l'onboarding long */}
                 {!autopilot && (
-                  <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-6 mb-6 text-sm text-neutral-300">
-                    {(lang === 'fr'
-                      ? ['Créez votre compte (2 min)', 'Enregistrez votre 1ère session', 'Premier contenu sous 24h']
-                      : ['Create your account (2 min)', 'Record your 1st session', 'First content within 24h']
-                    ).map((step, i) => (
-                      <span key={i} className="flex items-center gap-2">
-                        <span className="flex items-center justify-center w-5 h-5 rounded-full bg-empire/15 text-empire text-[11px] font-bold shrink-0">{i + 1}</span>
-                        {step}
-                        {i < 2 && <span className="hidden sm:inline text-neutral-600 ml-4">→</span>}
-                      </span>
-                    ))}
-                  </div>
-                )}
-
-                {/* Ce qui se passe après l'onboarding : la boucle du système */}
-                {!autopilot && (
-                  <div className="mb-8">
-                    <p className="text-[11px] uppercase tracking-wider font-semibold text-neutral-500 mb-2">
-                      {lang === 'fr' ? 'Et ensuite ?' : 'And then?'}
-                    </p>
-                    <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1.5 text-xs text-neutral-400 max-w-2xl mx-auto">
-                      {(lang === 'fr'
-                        ? ['Vous entrez votre positionnement et vos concurrents', 'On analyse des millions de contenus viraux pour vos sujets', 'Vous parlez 1h (chien, voiture, marche…)', 'Notre équipe crée les contenus', 'Vous publiez partout']
-                        : ['You enter your positioning and competitors', 'We analyze millions of viral posts for your topics', 'You talk 1h (dog walk, car, stroll…)', 'Our team creates the content', 'You publish everywhere']
-                      ).map((step, i, arr) => (
-                        <span key={i} className="flex items-center gap-2">
-                          {step}
-                          {i < arr.length - 1 && <span className="text-empire/60">→</span>}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
+                  <p className="mb-8 text-sm text-neutral-400 max-w-lg mx-auto">
+                    {lang === 'fr'
+                      ? 'Vous rejoignez la liste d\'attente. On lit chaque candidature et on sélectionne les profils les plus motivés.'
+                      : 'You join the waitlist. We read every application and select the most motivated profiles.'}
+                  </p>
                 )}
 
                 {autopilot ? (
@@ -101,19 +69,23 @@ export default function FinalBoostCTA() {
                     </span>
                   </a>
                 ) : (
-                  <OnboardingLink className="inline-flex flex-col items-center w-full sm:w-auto px-8 py-4 font-bold rounded-xl hover:scale-105 transition-all text-center bg-empire text-black shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]">
-                    <span className="text-lg">
-                      {lang === 'fr' ? 'Lancer ma machine média' : 'Launch my media machine'}
-                    </span>
-                    <span className="text-[11px] font-semibold opacity-70">
-                      {lang === 'fr'
-                        ? '7 jours gratuits · Sans engagement'
-                        : '7 days free · No commitment'}
-                    </span>
-                  </OnboardingLink>
+                  <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+                    <OnboardingLink className="inline-flex flex-col items-center w-full sm:w-auto px-8 py-4 font-bold rounded-xl hover:scale-105 transition-all text-center bg-empire text-black shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]">
+                      <span className="text-lg">
+                        {lang === 'fr' ? 'Rejoindre la liste d\'attente' : 'Join the waitlist'}
+                      </span>
+                      <span className="text-[11px] font-semibold opacity-70">
+                        {lang === 'fr' ? 'On sélectionne les plus motivés' : 'We select the most motivated'}
+                      </span>
+                    </OnboardingLink>
+                    <a
+                      href="https://app.empire-internet.com/onboarding"
+                      className="inline-flex items-center justify-center w-full sm:w-auto px-6 py-3.5 text-sm font-semibold rounded-xl border border-white/15 text-white hover:border-empire/40 transition-all"
+                    >
+                      {lang === 'fr' ? 'Installer le système' : 'Install the system'}
+                    </a>
+                  </div>
                 )}
-
-                {!autopilot && <LaunchOfferLine className="mt-4" />}
 
                 {!autopilot && (
                   <button

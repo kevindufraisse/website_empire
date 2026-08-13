@@ -10,11 +10,10 @@ import AcademyWhoSection from '@/components/sections/AcademyWhoSection'
 import AcademyFAQSection from '@/components/sections/AcademyFAQSection'
 import AcademySocialProofToast from '@/components/sections/AcademySocialProofToast'
 import CrossSellCTA from '@/components/sections/CrossSellCTA'
-import { ACADEMY_ENTRY_PRICE } from '@/lib/cohort-config'
-
 export const metadata = {
   title: 'Devenez Head of Viralité en 21 jours - Empire Internet',
-  description: `Apprenez à transformer l'expertise d'une marque en contenus qui attirent l'attention - puis faites-en votre métier. Même sans projet. 20 places, sur sélection, ${ACADEMY_ENTRY_PRICE}€.`,
+  description:
+    "Apprenez à transformer l'expertise d'une marque en contenus qui attirent l'attention - puis faites-en votre métier. Même sans projet. 20 places, sur sélection. Tarif annoncé si vous êtes sélectionné.",
 }
 
 export default function AcademyPage() {

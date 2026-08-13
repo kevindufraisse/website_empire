@@ -114,13 +114,25 @@ export default function HeroSection() {
                   <span className="text-[11px] font-semibold opacity-70">{t.autopilot.hero.ctaReassurance}</span>
                 </a>
               ) : (
-                <OnboardingLink className="group w-full sm:w-auto px-8 py-4 font-bold rounded-xl hover:scale-105 transition-all text-center flex flex-col items-center gap-1 shrink-0 bg-empire text-black shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]">
-                  <span className="flex items-center gap-2">
-                    {heroCta}
-                    <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
-                  </span>
-                  <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? 'À partir de 199\u202F€/mois · 7 jours d\u2019essai gratuit' : 'From €199/month · 7-day free trial'}</span>
-                </OnboardingLink>
+                <>
+                  <OnboardingLink className="group w-full sm:w-auto px-8 py-4 font-bold rounded-xl hover:scale-105 transition-all text-center flex flex-col items-center gap-1 shrink-0 bg-empire text-black shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]">
+                    <span className="flex items-center gap-2">
+                      {lang === 'fr' ? 'Rejoindre la liste d\'attente' : 'Join the waitlist'}
+                      <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
+                    </span>
+                    <span className="text-[11px] font-semibold opacity-70">
+                      {lang === 'fr'
+                        ? 'On sélectionne les profils les plus motivés'
+                        : 'We select the most motivated profiles'}
+                    </span>
+                  </OnboardingLink>
+                  <a
+                    href="https://app.empire-internet.com/onboarding"
+                    className="w-full sm:w-auto px-6 py-3.5 text-sm font-semibold rounded-xl border border-white/15 text-white hover:border-empire/40 transition-all text-center"
+                  >
+                    {lang === 'fr' ? 'Installer le système' : 'Install the system'}
+                  </a>
+                </>
               )}
             </div>
             {/* Creator badge */}
