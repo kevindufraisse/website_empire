@@ -3,7 +3,7 @@ import { Suspense } from 'react'
 import EmpireApplyForm from '@/components/EmpireApplyForm'
 
 export const metadata: Metadata = {
-  title: 'Demander un accès - Empire Internet',
+  title: 'Recevoir un accès - Empire Internet',
   description: 'Demandez un accès à Empire Internet. Candidature sur sélection.',
   robots: { index: false, follow: false },
 }

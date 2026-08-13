@@ -205,10 +205,10 @@ export default function EmpireApplyForm() {
             className="space-y-5 text-center"
           >
             <h2 className="text-xl sm:text-2xl font-bold text-white">
-              {fr ? 'Demander un accès' : 'Request access'}
+              {fr ? 'Recevoir un accès' : 'Get access'}
             </h2>
-            <p className="text-sm text-empire font-semibold">
-              {fr ? '+ 15 min d\'audit offert si tu es sélectionné' : '+ 15 min free audit if you\'re selected'}
+            <p className="text-sm text-neutral-400">
+              {fr ? 'Entre ton email pour continuer.' : 'Enter your email to continue.'}
             </p>
             <input
               type="email"
@@ -236,6 +236,11 @@ export default function EmpireApplyForm() {
             exit={{ opacity: 0, x: -16 }}
             className="text-center"
           >
+            <p className="mx-auto mb-6 max-w-md rounded-xl border border-empire/25 bg-empire/[0.06] px-4 py-3 text-sm leading-relaxed text-neutral-300">
+              {fr
+                ? 'On est complet pour l\'instant. On analyse chaque candidature. Si vous êtes sélectionné, onboarding privé en groupe ou en 1:1.'
+                : "We're full for now. We review every application. If selected, private onboarding in a group or 1:1."}
+            </p>
             <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">
               {fr ? 'Tu publies déjà sur les réseaux ?' : 'Do you already publish on social?'}
             </h2>
@@ -427,8 +432,8 @@ export default function EmpireApplyForm() {
             </h2>
             <p className="text-center text-sm text-neutral-400 mb-4">
               {fr
-                ? 'On lit chaque candidature. 15 min d\'audit offert si tu es pris.'
-                : 'We read every application. 15 min free audit if you\'re in.'}
+                ? 'Dernière étape. On lit chaque candidature.'
+                : 'Last step. We read every application.'}
             </p>
 
             <div>
@@ -488,7 +493,7 @@ export default function EmpireApplyForm() {
                 {fr ? 'Envoyer ma candidature' : 'Submit my application'}
               </span>
               <span className="text-[11px] font-semibold opacity-70">
-                {fr ? '+ 15 min d\'audit offert si sélectionné' : '+ 15 min free audit if selected'}
+                {fr ? 'Sur sélection · Onboarding privé' : 'By selection · Private onboarding'}
               </span>
             </button>
           </motion.form>

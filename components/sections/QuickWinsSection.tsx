@@ -53,8 +53,8 @@ const COMPARISONS: ComparisonRow[] = [
     dimensionEn: 'Cost',
     oldFr: 'Plusieurs freelances : 5 000€+/mois',
     oldEn: 'Multiple freelancers: €5,000+/mo',
-    newFr: 'Demander un accès - sur sélection',
-    newEn: 'Request access - by selection',
+    newFr: 'Recevoir un accès - sur sélection',
+    newEn: 'Get access - by selection',
   },
   {
     dimensionFr: 'Scalabilité',

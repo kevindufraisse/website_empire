@@ -1,35 +1,45 @@
 import { NextResponse } from 'next/server'
+import { notifyLead, type LeadOffer } from '@/lib/lead-notify'
+
+function resolveOffer(raw: unknown): LeadOffer {
+  const v = String(raw || '').toLowerCase()
+  if (v === 'academy') return 'academy'
+  if (v === 'empire') return 'empire'
+  if (v === 'legende' || v === 'legend' || v === 'autopilot') return 'legende'
+  return 'legende'
+}
 
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const { firstName, email, phone, budget, emp, status, statut } = body
+    const { firstName, email, phone, budget, emp, status, statut, offer: offerRaw } = body
 
-    if (!firstName || !email || !phone || !budget) {
+    // budget optional: YtLeadForm doesn't always send it
+    if (!firstName || !email || !phone) {
       return NextResponse.json({ error: 'Missing fields' }, { status: 400 })
     }
 
     const resolvedStatut = statut || status || 'no_booking'
+    const offer = resolveOffer(offerRaw)
 
-    const webhookUrl = process.env.CALLBACK_WEBHOOK_URL || 'https://hook.eu1.make.com/kte7swdmp4hvdqe06hnq43nv3h1w9qnt'
-
-    if (webhookUrl) {
-      await fetch(webhookUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          firstName,
-          email,
-          phone,
-          budget,
-          emp,
-          status: resolvedStatut,
-          statut: resolvedStatut,
-          timestamp: new Date().toISOString(),
-          source: 'website-callback-form',
-        }),
-      })
-    }
+    await notifyLead({
+      offer,
+      firstName: String(firstName).trim(),
+      email: String(email).trim(),
+      phone: String(phone).trim(),
+      source: 'website-callback-form',
+      fields: {
+        budget: budget || '',
+        emp: emp || '',
+        status: resolvedStatut,
+        statut: resolvedStatut,
+      },
+      noteLines: [
+        budget ? `- **Budget:** ${budget}` : '',
+        `- **Statut RDV:** ${resolvedStatut}`,
+        emp ? `- **emp:** ${emp}` : '',
+      ].filter(Boolean),
+    })
 
     const wahaUrl = process.env.WAHA_API_URL
     const wahaSession = process.env.WAHA_SESSION || 'default'
@@ -39,11 +49,12 @@ export async function POST(request: Request) {
 
     if (wahaUrl && notifyPhone && !isBooked) {
       const message =
-        `🔔 Lead callback (pas de RDV booké)\n\n` +
+        `🔔 Lead ${offer.toUpperCase()} (pas de RDV booké)\n\n` +
         `👤 ${firstName}\n` +
         `📧 ${email}\n` +
         `📱 ${phone}\n` +
-        `💰 Budget: ${budget}\n` +
+        (budget ? `💰 Budget: ${budget}\n` : '') +
+        `🏷 Offre: ${offer}\n` +
         `🕐 ${new Date().toLocaleString('fr-FR')}`
 
       await fetch(`${wahaUrl}/api/sendText`, {

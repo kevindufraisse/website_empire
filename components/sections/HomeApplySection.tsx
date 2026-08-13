@@ -48,8 +48,8 @@ export default function HomeApplySection() {
           </h2>
           <p className="mt-4 text-neutral-400">
             {fr
-              ? 'Demande un accès - on lit chaque candidature.'
-              : 'Request access - we read every application.'}
+              ? 'Laisse ton email pour demander un accès.'
+              : 'Leave your email to request access.'}
           </p>
         </motion.div>
 

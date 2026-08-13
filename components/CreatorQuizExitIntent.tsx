@@ -20,7 +20,7 @@ const QUIZ_STORAGE_KEY = 'empire_quiz_v1'
 const SESSION_KEY = 'creator-quiz-exit'
 
 /** Pages où proposer le quiz serait redondant ou intrusif. */
-const EXCLUDED_PREFIXES = ['/quiz', '/candidature', '/postuler', '/thank-you', '/academy/merci', '/webinar/merci', '/verify']
+const EXCLUDED_PREFIXES = ['/quiz', '/candidature', '/postuler', '/thank-you', '/academy', '/academy/merci', '/webinar/merci', '/verify']
 
 const TEASER_IDS: ArchetypeId[] = ['storyteller', 'builder', 'educator', 'provocateur']
 

@@ -226,7 +226,7 @@ export default function CaseStudiesSection() {
                 href="/postuler"
                 className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-empire text-black font-bold text-lg hover:scale-105 transition-transform shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.3)]"
               >
-                {fr ? 'Demander un accès' : 'Request access'}
+                {fr ? 'Recevoir un accès' : 'Get access'}
                 <ArrowRight size={20} />
               </a>
               <p className="mt-3 text-xs text-neutral-500">

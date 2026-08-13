@@ -285,8 +285,8 @@ const RESULTS: Record<OfferId, {
     titleEn: 'Talk for 1 hour. We create a month of content.',
     descFr: 'Parlez 1 heure. Nous créons un mois de contenus. Demande un accès - sur sélection.',
     descEn: 'Talk for 1 hour. We create a month of content. Request access - by selection.',
-    ctaFr: 'Demander un accès',
-    ctaEn: 'Request access',
+    ctaFr: 'Recevoir un accès',
+    ctaEn: 'Get access',
     href: '/postuler',
   },
   legende: {

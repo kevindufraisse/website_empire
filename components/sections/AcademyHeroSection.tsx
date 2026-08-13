@@ -93,7 +93,7 @@ export default function AcademyHeroSection() {
             transition={{ delay: 0.4, duration: 0.5 }}
             className="text-[11px] text-neutral-500"
           >
-            {fr ? '30 secondes · On vous répond après lecture de votre candidature' : '30 seconds · We reply after reviewing your application'}
+            {fr ? '1 minute · On vous répond après lecture de votre candidature' : '1 minute · We reply after reviewing your application'}
           </motion.p>
         </div>
       </div>

@@ -189,6 +189,8 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
           email: form.email,
           phone: fullPhone,
           emp: getEmpParam() || undefined,
+          offer: autopilot ? 'legende' : 'empire',
+          budget: 'call',
         }),
       })
     } catch { /* best-effort */ }

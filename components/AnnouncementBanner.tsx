@@ -26,7 +26,7 @@ export default function AnnouncementBanner() {
             className="flex flex-col items-center gap-0 px-2 py-1 bg-black text-empire font-bold rounded hover:scale-105 transition-all ml-1"
           >
             <span className="leading-none text-[10px] sm:text-xs whitespace-nowrap">
-              {lang === 'fr' ? 'Demander un accès →' : 'Request access →'}
+              {lang === 'fr' ? 'Recevoir un accès →' : 'Get access →'}
             </span>
             <span className="text-[7px] sm:text-[8px] font-semibold text-empire/90 leading-tight text-center max-w-[8rem] sm:max-w-[10rem]">
               {lang === 'fr' ? 'Sur sélection' : 'By selection'}

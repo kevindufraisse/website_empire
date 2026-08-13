@@ -35,8 +35,8 @@ export default function AcademySelectionSection() {
   ]
 
   const steps = [
-    { num: '01', title: fr ? 'Vous laissez votre email' : 'You leave your email', desc: fr ? '30 secondes. Vous prenez votre place dans la file pour la prochaine promotion.' : '30 seconds. You take your spot in the queue for the next cohort.' },
-    { num: '02', title: fr ? 'On vous envoie le formulaire' : 'We send you the form', desc: fr ? "2 minutes à remplir. Kevin et Marc lisent chaque candidature et gardent les 20 profils les plus motivés." : 'Takes 2 minutes. Kevin and Marc read every application and keep the 20 most motivated profiles.' },
+    { num: '01', title: fr ? 'Vous candidatez' : 'You apply', desc: fr ? '1 minute. Prénom, email, tel, LinkedIn + 2 questions. Vous prenez votre place dans la file.' : '1 minute. Name, email, phone, LinkedIn + 2 questions. You take your spot in the queue.' },
+    { num: '02', title: fr ? 'On lit chaque candidature' : 'We read every application', desc: fr ? 'Kevin et Marc gardent les 20 profils les plus motivés pour la prochaine promo.' : 'Kevin and Marc keep the 20 most motivated profiles for the next cohort.' },
     { num: '03', title: fr ? 'Vous rejoignez la promotion' : 'You join the cohort', desc: fr ? "Admis ou pas, on vous répond. Si c'est non, on vous dit pourquoi et ce qu'on conseille à la place." : "Accepted or not, we answer you. If it's a no, we tell you why and what we recommend instead." },
   ]
 
@@ -116,7 +116,7 @@ export default function AcademySelectionSection() {
               >
                 {fr ? 'Candidater à la prochaine promotion →' : 'Apply to the next cohort →'}
               </AcademyWaitlistCta>
-              <p className="text-xs text-neutral-400 mt-2">{fr ? `30 secondes · 20 places · Sur sélection · ${ACADEMY_ENTRY_PRICE}€` : `30 seconds · 20 spots · By selection · €${ACADEMY_ENTRY_PRICE}`}</p>
+              <p className="text-xs text-neutral-400 mt-2">{fr ? `1 minute · 20 places · Sur sélection · ${ACADEMY_ENTRY_PRICE}€` : `1 minute · 20 spots · By selection · €${ACADEMY_ENTRY_PRICE}`}</p>
             </div>
           </FadeInBlock>
 

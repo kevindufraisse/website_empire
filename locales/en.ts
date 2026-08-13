@@ -17,7 +17,7 @@ export const en = {
     title: 'Talk for 1 hour. We create a month of content.',
     subtitle: 'Your expertise becomes posts, Reels, newsletters and videos published on 7 platforms - with our experts by your side every week.',
     description: '',
-    cta1: 'Request access',
+    cta1: 'Get access',
     cta2: 'Watch Demo (1 min)',
     rating: 'Based on 20 reviews',
     creatorsTitle: 'Install the system used by the world\'s best creators',

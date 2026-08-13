@@ -179,7 +179,7 @@ export default function FounderSection() {
                   href="/postuler"
                   className="inline-flex flex-col items-center px-8 py-4 rounded-xl bg-empire text-black font-bold hover:scale-105 transition-transform shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.3)]"
                 >
-                  <span className="text-lg">{lang === 'fr' ? 'Demander un accès' : 'Request access'}</span>
+                  <span className="text-lg">{lang === 'fr' ? 'Recevoir un accès' : 'Get access'}</span>
                   <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? 'Sur sélection' : 'By selection'}</span>
                 </a>
               )}

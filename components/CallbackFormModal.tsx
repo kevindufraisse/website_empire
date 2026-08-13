@@ -111,11 +111,26 @@ export default function CallbackFormModal({ isOpen, onClose }: CallbackFormModal
 
   function sendLead(statut: string) {
     if (!pendingLeadRef.current) return
+    const offerParam =
+      typeof window !== 'undefined'
+        ? new URLSearchParams(window.location.search).get('offer')
+        : null
+    const offer =
+      offerParam === 'legende' || offerParam === 'legend' || offerParam === 'autopilot'
+        ? 'legende'
+        : offerParam === 'academy'
+          ? 'academy'
+          : offerParam === 'empire'
+            ? 'empire'
+            : window.location.pathname.includes('legende')
+              ? 'legende'
+              : 'empire'
     const payload = {
       ...pendingLeadRef.current,
       emp: getEmpParam() || undefined,
       status: statut,
       statut,
+      offer,
     }
     pendingLeadRef.current = null
     fetch('/api/callback', {

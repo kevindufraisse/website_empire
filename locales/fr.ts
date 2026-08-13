@@ -140,7 +140,7 @@ export const fr: Translations = {
     title: 'Parlez 1 heure. Nous créons un mois de contenus.',
     subtitle: 'Votre expertise devient des posts, Reels, newsletters et vidéos publiés sur 7 plateformes - avec nos experts à vos côtés chaque semaine.',
     description: '',
-    cta1: 'Demander un accès',
+    cta1: 'Recevoir un accès',
     cta2: 'Voir la Démo (1 min)',
     rating: 'Basé sur 20 avis',
     creatorsTitle: 'Installez le système des meilleurs créateurs mondiaux',

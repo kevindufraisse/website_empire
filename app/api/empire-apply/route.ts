@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { createFolkPerson } from '@/lib/folk'
+import { notifyLead } from '@/lib/lead-notify'
 
 export async function POST(request: Request) {
   try {
@@ -24,36 +24,24 @@ export async function POST(request: Request) {
 
     const networksList = Array.isArray(networks) ? networks.join(', ') : String(networks || '')
 
-    const webhookUrl =
-      process.env.CALLBACK_WEBHOOK_URL ||
-      'https://hook.eu1.make.com/kte7swdmp4hvdqe06hnq43nv3h1w9qnt'
-
-    const payload = {
-      firstName,
-      email,
-      phone,
-      frequency,
-      contentStats: contentStats || '',
-      contentSkill,
-      networks: networksList,
-      linkedin: linkedin || '',
-      instagram: instagram || '',
-      youtube: youtube || '',
-      emp: emp || '',
-      timestamp: new Date().toISOString(),
-      source: 'empire-application',
+    await notifyLead({
       offer: 'empire',
-      auditBonus: '15min',
-    }
-
-    await createFolkPerson({
       firstName: String(firstName).trim(),
       email: String(email).trim(),
       phone: String(phone).trim(),
-      description: `Candidature Empire - ${new Date().toLocaleDateString('fr-FR')}`,
-      noteMarkdown: [
-        '## Candidature Empire (site)',
-        '',
+      source: 'website-empire-apply',
+      fields: {
+        frequency,
+        contentStats: contentStats || '',
+        contentSkill,
+        networks: networksList,
+        linkedin: linkedin || '',
+        instagram: instagram || '',
+        youtube: youtube || '',
+        emp: emp || '',
+        auditBonus: '15min',
+      },
+      noteLines: [
         `- **Frequence publication:** ${frequency}`,
         `- **Stats / mois:** ${contentStats || 'n/a'}`,
         `- **A l'aise contenu:** ${contentSkill}`,
@@ -63,19 +51,8 @@ export async function POST(request: Request) {
         youtube ? `- **YouTube:** ${youtube}` : '',
         `- **Bonus:** 15 min audit si selectionne`,
         emp ? `- **emp:** ${emp}` : '',
-        `- **source:** website /postuler`,
-      ]
-        .filter(Boolean)
-        .join('\n'),
-    }).catch((err) => console.error('[empire-apply] folk', err))
-
-    if (webhookUrl) {
-      await fetch(webhookUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      }).catch(() => {})
-    }
+      ].filter(Boolean),
+    })
 
     const wahaUrl = process.env.WAHA_API_URL
     const wahaSession = process.env.WAHA_SESSION || 'default'
@@ -83,7 +60,7 @@ export async function POST(request: Request) {
 
     if (wahaUrl && notifyPhone) {
       const message =
-        `📩 Candidature Empire\n\n` +
+        `📩 EMPIRE candidature\n\n` +
         `👤 ${firstName}\n` +
         `📧 ${email}\n` +
         `📱 ${phone}\n` +

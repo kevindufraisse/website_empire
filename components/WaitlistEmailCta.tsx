@@ -40,12 +40,9 @@ export default function WaitlistEmailCta({ className = '' }: Props) {
         />
         <button
           type="submit"
-          className="w-full sm:w-auto shrink-0 rounded-xl bg-empire px-5 py-3 text-sm font-bold text-black transition-all hover:brightness-110 whitespace-nowrap flex flex-col items-center justify-center leading-tight"
+          className="w-full sm:w-auto shrink-0 rounded-xl bg-empire px-5 py-3.5 text-sm font-bold text-black transition-all hover:brightness-110 whitespace-nowrap"
         >
-          <span>{fr ? 'Demander un accès' : 'Request access'}</span>
-          <span className="text-[10px] font-semibold opacity-70">
-            {fr ? '15 min d\'audit offert' : '15 min free audit'}
-          </span>
+          {fr ? 'Recevoir un accès' : 'Get access'}
         </button>
       </form>
       {error && <p className="mt-1.5 text-center text-xs text-red-400">{error}</p>}
