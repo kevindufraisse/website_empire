@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect } from 'react'
-import MediaCredibilityStrip from '@/components/MediaCredibilityStrip'
 
 const SENJA_WIDGET_ID = 'fab105b8-802a-4091-abe8-0e3bb2fbe15a'
 const SENJA_SCRIPT = `https://widget.senja.io/widget/${SENJA_WIDGET_ID}/platform.js`
@@ -24,9 +23,6 @@ export default function BetaHeroExtras() {
   return (
     <div className="container relative z-10 -mt-6 pb-16">
       <div className="mx-auto flex max-w-4xl flex-col items-center gap-10">
-        <div className="flex w-full justify-center">
-          <MediaCredibilityStrip />
-        </div>
         <div
           className="senja-embed w-full"
           data-id={SENJA_WIDGET_ID}

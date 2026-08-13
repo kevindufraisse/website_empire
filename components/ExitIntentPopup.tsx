@@ -86,8 +86,8 @@ export function ExitIntentPopup() {
             </h3>
             <p className="text-neutral-400 text-sm mb-4">
               {lang === 'fr'
-                ? '20 places sur sélection. Le tarif vous sera annoncé si vous êtes sélectionné après votre candidature.'
-                : '20 spots by selection. The price is announced if you\'re selected after applying.'}
+                ? '20 places sur sélection. On lit chaque candidature.'
+                : '20 spots by selection. We read every application.'}
             </p>
             <div className="flex flex-col gap-1.5 text-left mb-5">
               <div className="flex items-center gap-2 text-xs text-neutral-300">
@@ -96,7 +96,7 @@ export function ExitIntentPopup() {
               </div>
               <div className="flex items-center gap-2 text-xs text-neutral-300">
                 <span className="text-academy">✓</span>
-                <span>{lang === 'fr' ? 'Pas besoin de projet - on t\'en trouve un' : 'No project needed — we find you one'}</span>
+                <span>{lang === 'fr' ? 'Pas besoin de projet - on t\'en trouve un' : 'No project needed - we find you one'}</span>
               </div>
             </div>
             <a

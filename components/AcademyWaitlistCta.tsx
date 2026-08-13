@@ -110,8 +110,8 @@ export default function AcademyWaitlistCta({
                   </h3>
                   <p className="mt-2 text-sm leading-relaxed text-neutral-400">
                     {fr
-                      ? '30 secondes. 20 places sur sélection. Le tarif vous sera annoncé si vous êtes sélectionné après votre candidature. On lit chaque dossier.'
-                      : '30 seconds. 20 spots by selection. The price is announced if you\'re selected after applying. We read every application.'}
+                      ? '30 secondes. 20 places sur sélection. On lit chaque candidature.'
+                      : '30 seconds. 20 spots by selection. We read every application.'}
                   </p>
 
                   <AcademyWaitlistForm className="mt-5" />

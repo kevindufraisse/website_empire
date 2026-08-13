@@ -13,12 +13,12 @@ const COPY: Record<Variant, { fr: { headline: string; sub: string; cta: string }
     fr: {
       headline: 'Vous savez maintenant le faire.',
       sub: 'Empire le fait avec vous.',
-      cta: 'Rejoindre la liste d\'attente',
+      cta: 'Demander un accès',
     },
     en: {
       headline: 'Now you know how.',
       sub: 'Empire does it with you.',
-      cta: 'Join the waitlist',
+      cta: 'Request access',
     },
     href: '/postuler',
     textClass: 'text-empire',

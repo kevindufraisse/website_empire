@@ -5,12 +5,11 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import { LAUNCH_OFFER_ACTIVE } from '@/lib/pricing-config'
 import { SPOTS_LABEL_FR, SPOTS_LABEL_EN } from '@/lib/launch-offer'
 import CallbackFormModal from '@/components/CallbackFormModal'
-import OnboardingLink from '@/components/OnboardingLink'
 
 export default function AnnouncementBanner() {
   const [dismissed, setDismissed] = useState(false)
   const [callbackOpen, setCallbackOpen] = useState(false)
-  const { lang, t } = useLanguage()
+  const { lang } = useLanguage()
 
   // Ne pas afficher si pas en mode lancement ou si déjà fermé
   if (!LAUNCH_OFFER_ACTIVE || dismissed) return null
@@ -22,14 +21,17 @@ export default function AnnouncementBanner() {
           <span className="font-semibold">
             {lang === 'fr' ? SPOTS_LABEL_FR : SPOTS_LABEL_EN}
           </span>
-          <OnboardingLink className="flex flex-col items-center gap-0 px-2 py-1 bg-black text-empire font-bold rounded hover:scale-105 transition-all ml-1">
+          <a
+            href="/postuler"
+            className="flex flex-col items-center gap-0 px-2 py-1 bg-black text-empire font-bold rounded hover:scale-105 transition-all ml-1"
+          >
             <span className="leading-none text-[10px] sm:text-xs whitespace-nowrap">
-              {lang === 'fr' ? 'Liste d\'attente →' : 'Waitlist →'}
+              {lang === 'fr' ? 'Demander un accès →' : 'Request access →'}
             </span>
             <span className="text-[7px] sm:text-[8px] font-semibold text-empire/90 leading-tight text-center max-w-[8rem] sm:max-w-[10rem]">
-              {lang === 'fr' ? 'Profils motivés' : 'Motivated profiles'}
+              {lang === 'fr' ? 'Complet pour l\'instant' : 'Full for now'}
             </span>
-          </OnboardingLink>
+          </a>
           <button
             onClick={() => setCallbackOpen(true)}
             className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 bg-black/80 text-white font-semibold rounded hover:scale-105 transition-all whitespace-nowrap ml-1"

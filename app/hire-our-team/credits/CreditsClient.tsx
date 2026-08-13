@@ -44,7 +44,7 @@ const FREE_FEATURES = [
   'API / Webhooks',
 ]
 
-// ── Personas (ClassPass-style — content output only) ─────────────────
+// ── Personas (ClassPass-style - content output only) ─────────────────
 const PERSONAS = [
   {
     name: 'Thomas',

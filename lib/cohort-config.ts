@@ -1,5 +1,5 @@
 /**
- * Cohort configuration — add new cohorts here, everything else updates automatically.
+ * Cohort configuration - add new cohorts here, everything else updates automatically.
  * Each entry: [startDate, endDate] as ISO strings (dates at midnight Paris time).
  */
 const COHORTS: [string, string][] = [
@@ -101,7 +101,7 @@ const tiers = [
   { price: 897, installment: 299, label: 'Prix final', link: 'https://join.empire-internet.com/last-chance', until: null },
 ]
 
-/** Cheapest tier — what "à partir de X€" refers to outside an open cohort. */
+/** Cheapest tier - what "à partir de X€" refers to outside an open cohort. */
 export const ACADEMY_ENTRY_PRICE = Math.min(...tiers.map(t => t.price))
 
 /**

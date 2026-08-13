@@ -226,11 +226,11 @@ export default function CaseStudiesSection() {
                 href="/postuler"
                 className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-empire text-black font-bold text-lg hover:scale-105 transition-transform shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.3)]"
               >
-                {fr ? 'Rejoindre la liste d\'attente' : 'Join the waitlist'}
+                {fr ? 'Demander un accès' : 'Request access'}
                 <ArrowRight size={20} />
               </a>
               <p className="mt-3 text-xs text-neutral-500">
-                {fr ? 'On sélectionne les profils les plus motivés' : 'We select the most motivated profiles'}
+                {fr ? 'Complet pour l\'instant' : 'Full for now'}
               </p>
             </div>
           </FadeInBlock>

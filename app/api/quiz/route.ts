@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
   // Push to Systeme.io. We *do* await it here so we can tell the caller if
   // something went wrong, but with retries + 8s timeout already in place.
   // If it fails, we still return the result so the user gets their reveal.
-  // Build optional custom fields list — only include slugs that are configured
+  // Build optional custom fields list - only include slugs that are configured
   // via env vars. Systeme.io rejects requests with unknown field slugs, so we
   // can't blindly send them. Set SYSTEMEIO_FIELD_SLUG_* once you've created
   // the matching custom fields manually in Systeme.io → Contacts → Fields.
@@ -72,11 +72,11 @@ export async function POST(req: NextRequest) {
     if (tagIds.length) {
       await addTagsToContact(contact.id, tagIds)
     } else {
-      console.warn('[quiz] No tag IDs configured — check SYSTEMEIO_TAG_* env vars')
+      console.warn('[quiz] No tag IDs configured - check SYSTEMEIO_TAG_* env vars')
     }
   } catch (err) {
     console.error('[POST /api/quiz] systemeio failed', err)
-    // Do not block the user — we still return the result, but signal degraded.
+    // Do not block the user - we still return the result, but signal degraded.
   }
 
   return NextResponse.json({

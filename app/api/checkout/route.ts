@@ -8,7 +8,7 @@ import Stripe from 'stripe'
 
 const APP_URL = 'https://app.empire-internet.com'
 
-// Promo flash — la deadline par visiteur vit dans le projet Supabase de l'app
+// Promo flash - la deadline par visiteur vit dans le projet Supabase de l'app
 // (table promo_deadlines). On revalide ici côté serveur via promo-status :
 // le front ne fait foi de rien. ⚠️ Garder synchronisé avec l'app
 // (create-credit-checkout PROMOS + promo-status).
@@ -110,7 +110,7 @@ export async function POST(request: Request) {
     const plan = body.plan ?? ''
     const billing = body.billing ?? 'monthly'
     // Offre webinar (/final-offer) : prix promo TOUJOURS appliqué (pas de
-    // deadline par visiteur — l'accès à la page vaut éligibilité) et pas
+    // deadline par visiteur - l'accès à la page vaut éligibilité) et pas
     // d'essai gratuit : le participant paie 499€ immédiatement.
     const isWebinarOffer = body.offer === 'webinar' && plan === 'scale' && billing === 'monthly'
 

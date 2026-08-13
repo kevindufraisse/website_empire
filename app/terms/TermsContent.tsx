@@ -242,7 +242,7 @@ function FrenchContent() {
       <p>
         Pour toute question relative à ces CGU :
         <br />
-        Empire Internet — Kevin Dufraisse
+        Empire Internet - Kevin Dufraisse
         <br />
         <a href="mailto:kevin@empire-internet.com">kevin@empire-internet.com</a>
       </p>
@@ -464,7 +464,7 @@ function EnglishContent() {
       <p>
         For any question relating to these Terms:
         <br />
-        Empire Internet — Kevin Dufraisse
+        Empire Internet - Kevin Dufraisse
         <br />
         <a href="mailto:kevin@empire-internet.com">kevin@empire-internet.com</a>
       </p>

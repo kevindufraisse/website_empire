@@ -1,6 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { AnimatePresence, motion } from 'framer-motion'
 import { Check, Loader2 } from 'lucide-react'
 import { getEmpParam } from '@/hooks/useCalLink'
 import { useLanguage } from '@/contexts/LanguageContext'
@@ -14,7 +16,7 @@ const HOURS = [
 
 const SKILL = [
   { value: 'oui', fr: 'Oui, je suis à l\'aise', en: 'Yes, I\'m comfortable' },
-  { value: 'un-peu', fr: 'Un peu, j\'ai besoin d\'aide', en: 'A bit — I need help' },
+  { value: 'un-peu', fr: 'Un peu, j\'ai besoin d\'aide', en: 'A bit - I need help' },
   { value: 'non', fr: 'Non, je pars de zéro', en: 'No, I\'m starting from zero' },
 ]
 
@@ -33,10 +35,17 @@ const COUNTRIES = [
   { code: '+212', flag: '🇲🇦' },
 ]
 
+type StepId = 'email' | 'hours' | 'skill' | 'publishing' | 'contact'
+
+const STEP_ORDER: StepId[] = ['email', 'hours', 'skill', 'publishing', 'contact']
+
 export default function EmpireApplyForm() {
   const { lang } = useLanguage()
   const fr = lang === 'fr'
-  const [step, setStep] = useState<1 | 2>(1)
+  const router = useRouter()
+  const searchParams = useSearchParams()
+
+  const [step, setStep] = useState<StepId>('email')
   const [hoursPerWeek, setHoursPerWeek] = useState('')
   const [contentSkill, setContentSkill] = useState('')
   const [alreadyPublishing, setAlreadyPublishing] = useState('')
@@ -45,14 +54,29 @@ export default function EmpireApplyForm() {
   const [countryCode, setCountryCode] = useState('+33')
   const [phone, setPhone] = useState('')
   const [loading, setLoading] = useState(false)
-  const [done, setDone] = useState(false)
   const [error, setError] = useState('')
 
-  async function submit(e: React.FormEvent) {
+  useEffect(() => {
+    const fromUrl = searchParams.get('email')
+    if (fromUrl) {
+      setEmail(fromUrl)
+      setStep('hours')
+    }
+  }, [searchParams])
+
+  const progressSteps = email && step !== 'email' ? STEP_ORDER.filter((s) => s !== 'email') : STEP_ORDER
+  const progressIndex = Math.max(0, progressSteps.indexOf(step))
+
+  function pick(setter: (v: string) => void, value: string, next: StepId) {
+    setter(value)
+    setTimeout(() => setStep(next), 180)
+  }
+
+  async function submitContact(e: React.FormEvent) {
     e.preventDefault()
     setError('')
     if (!firstName.trim() || !email.trim() || !phone.trim()) {
-      setError(fr ? 'Remplissez tous les champs.' : 'Fill in all fields.')
+      setError(fr ? 'Remplis tous les champs.' : 'Fill in all fields.')
       return
     }
     setLoading(true)
@@ -71,180 +95,242 @@ export default function EmpireApplyForm() {
         }),
       })
       if (!res.ok) throw new Error('fail')
-      setDone(true)
+      router.push('/thank-you?from=waitlist')
     } catch {
-      setError(fr ? 'Une erreur est survenue. Réessayez.' : 'Something went wrong. Try again.')
-    } finally {
+      setError(fr ? 'Une erreur est survenue. Réessaie.' : 'Something went wrong. Try again.')
       setLoading(false)
     }
   }
 
-  if (done) {
+  function ChoiceList({
+    options,
+    value,
+    onPick,
+  }: {
+    options: { value: string; fr: string; en: string }[]
+    value: string
+    onPick: (v: string) => void
+  }) {
     return (
-      <div className="rounded-2xl border border-empire/30 bg-empire/10 p-8 text-center">
-        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-empire text-black">
-          <Check size={22} />
-        </div>
-        <h3 className="text-xl font-bold text-white">
-          {fr ? 'Vous êtes sur la liste d\'attente' : 'You\'re on the waitlist'}
-        </h3>
-        <p className="mt-2 text-sm text-neutral-300 leading-relaxed">
-          {fr
-            ? 'On lit chaque candidature. On sélectionne les profils les plus motivés — on vous répond si vous êtes pris.'
-            : 'We read every application. We select the most motivated profiles — we\'ll reply if you\'re in.'}
-        </p>
+      <div className="grid gap-2.5 w-full max-w-md mx-auto">
+        {options.map((o) => (
+          <button
+            key={o.value}
+            type="button"
+            onClick={() => onPick(o.value)}
+            className={`rounded-xl border px-4 py-4 text-left text-sm font-medium transition-all ${
+              value === o.value
+                ? 'border-empire bg-empire/15 text-white scale-[1.01]'
+                : 'border-white/10 bg-white/[0.03] text-neutral-200 hover:border-empire/40'
+            }`}
+          >
+            {fr ? o.fr : o.en}
+          </button>
+        ))}
       </div>
     )
   }
 
   return (
-    <form onSubmit={step === 2 ? submit : (e) => { e.preventDefault(); if (hoursPerWeek && contentSkill && alreadyPublishing) setStep(2) }} className="space-y-5">
-      {step === 1 && (
-        <>
-          <fieldset>
-            <legend className="mb-2 text-sm font-semibold text-white">
-              {fr ? 'Combien de temps voulez-vous consacrer au contenu par semaine ?' : 'How much time do you want to spend on content per week?'}
-            </legend>
-            <div className="grid gap-2">
-              {HOURS.map((o) => (
-                <button
-                  key={o.value}
-                  type="button"
-                  onClick={() => setHoursPerWeek(o.value)}
-                  className={`rounded-xl border px-4 py-3 text-left text-sm transition-colors ${
-                    hoursPerWeek === o.value
-                      ? 'border-empire bg-empire/15 text-white'
-                      : 'border-white/10 bg-white/[0.02] text-neutral-300 hover:border-white/20'
-                  }`}
-                >
-                  {fr ? o.fr : o.en}
-                </button>
-              ))}
-            </div>
-          </fieldset>
+    <div className="w-full">
+      {/* Progress */}
+      <div className="mb-8 flex items-center justify-center gap-1.5">
+        {progressSteps.map((s, i) => (
+          <span
+            key={s}
+            className={`h-1.5 rounded-full transition-all ${
+              i < progressIndex ? 'w-5 bg-empire' : i === progressIndex ? 'w-8 bg-empire/70' : 'w-5 bg-white/15'
+            }`}
+          />
+        ))}
+      </div>
 
-          <fieldset>
-            <legend className="mb-2 text-sm font-semibold text-white">
-              {fr ? 'Êtes-vous à l\'aise pour créer du contenu ?' : 'Are you comfortable creating content?'}
-            </legend>
-            <div className="grid gap-2">
-              {SKILL.map((o) => (
-                <button
-                  key={o.value}
-                  type="button"
-                  onClick={() => setContentSkill(o.value)}
-                  className={`rounded-xl border px-4 py-3 text-left text-sm transition-colors ${
-                    contentSkill === o.value
-                      ? 'border-empire bg-empire/15 text-white'
-                      : 'border-white/10 bg-white/[0.02] text-neutral-300 hover:border-white/20'
-                  }`}
-                >
-                  {fr ? o.fr : o.en}
-                </button>
-              ))}
-            </div>
-          </fieldset>
-
-          <fieldset>
-            <legend className="mb-2 text-sm font-semibold text-white">
-              {fr ? 'Vous publiez déjà sur les réseaux ?' : 'Do you already publish on social media?'}
-            </legend>
-            <div className="grid gap-2">
-              {PUBLISHING.map((o) => (
-                <button
-                  key={o.value}
-                  type="button"
-                  onClick={() => setAlreadyPublishing(o.value)}
-                  className={`rounded-xl border px-4 py-3 text-left text-sm transition-colors ${
-                    alreadyPublishing === o.value
-                      ? 'border-empire bg-empire/15 text-white'
-                      : 'border-white/10 bg-white/[0.02] text-neutral-300 hover:border-white/20'
-                  }`}
-                >
-                  {fr ? o.fr : o.en}
-                </button>
-              ))}
-            </div>
-          </fieldset>
-
-          <button
-            type="submit"
-            disabled={!hoursPerWeek || !contentSkill || !alreadyPublishing}
-            className="w-full rounded-xl bg-empire px-6 py-3.5 text-sm font-bold text-black transition-all hover:brightness-110 disabled:opacity-40"
+      <AnimatePresence mode="wait">
+        {step === 'email' && (
+          <motion.form
+            key="email"
+            initial={{ opacity: 0, x: 16 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -16 }}
+            onSubmit={(e) => {
+              e.preventDefault()
+              if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+                setError(fr ? 'Entre un email valide.' : 'Enter a valid email.')
+                return
+              }
+              setError('')
+              setStep('hours')
+            }}
+            className="space-y-5 text-center"
           >
-            {fr ? 'Continuer →' : 'Continue →'}
-          </button>
-        </>
-      )}
-
-      {step === 2 && (
-        <>
-          <button
-            type="button"
-            onClick={() => setStep(1)}
-            className="text-xs font-semibold text-neutral-500 hover:text-white"
-          >
-            ← {fr ? 'Retour' : 'Back'}
-          </button>
-
-          <div>
-            <label className="mb-1.5 block text-sm font-semibold text-white">{fr ? 'Prénom' : 'First name'}</label>
+            <p className="text-sm font-semibold text-empire">
+              {fr ? 'Complet pour l\'instant' : 'Full for now'}
+            </p>
+            <h2 className="text-xl sm:text-2xl font-bold text-white">
+              {fr ? 'Demander un accès' : 'Request access'}
+            </h2>
+            <p className="text-sm text-neutral-400">
+              {fr ? 'Complet pour l\'instant. Laisse ton email pour postuler.' : 'Full for now. Leave your email to apply.'}
+            </p>
             <input
-              required
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              className="w-full rounded-xl border border-white/10 bg-neutral-900 px-4 py-3 text-sm text-white outline-none focus:border-empire/50"
-              placeholder={fr ? 'Votre prénom' : 'Your first name'}
-            />
-          </div>
-
-          <div>
-            <label className="mb-1.5 block text-sm font-semibold text-white">Email</label>
-            <input
-              required
               type="email"
+              required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full rounded-xl border border-white/10 bg-neutral-900 px-4 py-3 text-sm text-white outline-none focus:border-empire/50"
-              placeholder="vous@email.com"
+              placeholder={fr ? 'ton@email.com' : 'you@email.com'}
+              className="w-full max-w-md mx-auto block rounded-xl border border-white/15 bg-neutral-900 px-4 py-3.5 text-sm text-white outline-none focus:border-empire/50"
             />
-          </div>
+            {error && <p className="text-sm text-red-400">{error}</p>}
+            <button
+              type="submit"
+              className="w-full max-w-md mx-auto block rounded-xl bg-empire px-6 py-3.5 text-sm font-bold text-black hover:brightness-110"
+            >
+              {fr ? 'Continuer →' : 'Continue →'}
+            </button>
+          </motion.form>
+        )}
 
-          <div>
-            <label className="mb-1.5 block text-sm font-semibold text-white">{fr ? 'Téléphone' : 'Phone'}</label>
-            <div className="flex gap-2">
-              <select
-                value={countryCode}
-                onChange={(e) => setCountryCode(e.target.value)}
-                className="rounded-xl border border-white/10 bg-neutral-900 px-3 py-3 text-sm text-white outline-none"
-              >
-                {COUNTRIES.map((c) => (
-                  <option key={c.code} value={c.code}>{c.flag} {c.code}</option>
-                ))}
-              </select>
+        {step === 'hours' && (
+          <motion.div
+            key="hours"
+            initial={{ opacity: 0, x: 16 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -16 }}
+            className="text-center"
+          >
+            <h2 className="text-xl sm:text-2xl font-bold text-white mb-6">
+              {fr ? 'Combien de temps par semaine pour le contenu ?' : 'How much time per week for content?'}
+            </h2>
+            <ChoiceList
+              options={HOURS}
+              value={hoursPerWeek}
+              onPick={(v) => pick(setHoursPerWeek, v, 'skill')}
+            />
+          </motion.div>
+        )}
+
+        {step === 'skill' && (
+          <motion.div
+            key="skill"
+            initial={{ opacity: 0, x: 16 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -16 }}
+            className="text-center"
+          >
+            <button type="button" onClick={() => setStep('hours')} className="mb-4 text-xs text-neutral-500 hover:text-white">
+              ← {fr ? 'Retour' : 'Back'}
+            </button>
+            <h2 className="text-xl sm:text-2xl font-bold text-white mb-6">
+              {fr ? 'Tu es à l\'aise pour créer du contenu ?' : 'Are you comfortable creating content?'}
+            </h2>
+            <ChoiceList
+              options={SKILL}
+              value={contentSkill}
+              onPick={(v) => pick(setContentSkill, v, 'publishing')}
+            />
+          </motion.div>
+        )}
+
+        {step === 'publishing' && (
+          <motion.div
+            key="publishing"
+            initial={{ opacity: 0, x: 16 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -16 }}
+            className="text-center"
+          >
+            <button type="button" onClick={() => setStep('skill')} className="mb-4 text-xs text-neutral-500 hover:text-white">
+              ← {fr ? 'Retour' : 'Back'}
+            </button>
+            <h2 className="text-xl sm:text-2xl font-bold text-white mb-6">
+              {fr ? 'Tu publies déjà sur les réseaux ?' : 'Do you already publish on social?'}
+            </h2>
+            <ChoiceList
+              options={PUBLISHING}
+              value={alreadyPublishing}
+              onPick={(v) => pick(setAlreadyPublishing, v, 'contact')}
+            />
+          </motion.div>
+        )}
+
+        {step === 'contact' && (
+          <motion.form
+            key="contact"
+            initial={{ opacity: 0, x: 16 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -16 }}
+            onSubmit={submitContact}
+            className="mx-auto w-full max-w-md space-y-4 text-left"
+          >
+            <button type="button" onClick={() => setStep('publishing')} className="text-xs text-neutral-500 hover:text-white">
+              ← {fr ? 'Retour' : 'Back'}
+            </button>
+            <h2 className="text-xl sm:text-2xl font-bold text-white text-center mb-2">
+              {fr ? 'Dernière étape' : 'Last step'}
+            </h2>
+            <p className="text-center text-sm text-neutral-400 mb-4">
+              {fr ? 'On lit chaque candidature avant de répondre.' : 'We read every application before replying.'}
+            </p>
+
+            <div>
+              <label className="mb-1.5 block text-sm font-semibold text-white">{fr ? 'Prénom' : 'First name'}</label>
               <input
                 required
-                type="tel"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value.replace(/[^\d\s]/g, ''))}
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
                 className="w-full rounded-xl border border-white/10 bg-neutral-900 px-4 py-3 text-sm text-white outline-none focus:border-empire/50"
-                placeholder={fr ? '6 12 34 56 78' : 'Phone number'}
+                placeholder={fr ? 'Ton prénom' : 'Your first name'}
               />
             </div>
-          </div>
 
-          {error && <p className="text-sm text-red-400">{error}</p>}
+            <div>
+              <label className="mb-1.5 block text-sm font-semibold text-white">Email</label>
+              <input
+                required
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full rounded-xl border border-white/10 bg-neutral-900 px-4 py-3 text-sm text-white outline-none focus:border-empire/50"
+              />
+            </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="flex w-full items-center justify-center gap-2 rounded-xl bg-empire px-6 py-3.5 text-sm font-bold text-black transition-all hover:brightness-110 disabled:opacity-60"
-          >
-            {loading ? <Loader2 className="animate-spin" size={18} /> : null}
-            {fr ? 'Rejoindre la liste d\'attente' : 'Join the waitlist'}
-          </button>
-        </>
-      )}
-    </form>
+            <div>
+              <label className="mb-1.5 block text-sm font-semibold text-white">{fr ? 'Téléphone' : 'Phone'}</label>
+              <div className="flex gap-2">
+                <select
+                  value={countryCode}
+                  onChange={(e) => setCountryCode(e.target.value)}
+                  className="rounded-xl border border-white/10 bg-neutral-900 px-3 py-3 text-sm text-white outline-none"
+                >
+                  {COUNTRIES.map((c) => (
+                    <option key={c.code} value={c.code}>{c.flag} {c.code}</option>
+                  ))}
+                </select>
+                <input
+                  required
+                  type="tel"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value.replace(/[^\d\s]/g, ''))}
+                  className="w-full min-w-0 rounded-xl border border-white/10 bg-neutral-900 px-4 py-3 text-sm text-white outline-none focus:border-empire/50"
+                  placeholder={fr ? '6 12 34 56 78' : 'Phone number'}
+                />
+              </div>
+            </div>
+
+            {error && <p className="text-sm text-red-400">{error}</p>}
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-empire px-6 py-3.5 text-sm font-bold text-black hover:brightness-110 disabled:opacity-60"
+            >
+              {loading ? <Loader2 className="animate-spin" size={18} /> : <Check size={18} />}
+              {fr ? 'Envoyer ma candidature' : 'Submit my application'}
+            </button>
+          </motion.form>
+        )}
+      </AnimatePresence>
+
+    </div>
   )
 }

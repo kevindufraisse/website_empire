@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={caveat.variable} suppressHydrationWarning>
       <head>
-        {/* Tier from URL before first paint (no localStorage — it caused gold flashes on Empire). */}
+        {/* Tier from URL before first paint (no localStorage - it caused gold flashes on Empire). */}
         <script dangerouslySetInnerHTML={{
           __html: `(function(){try{var p=location.pathname;var q=location.search||'';var legende=p==='/legende'||((p==='/join-us'||p==='/decouverte')&&q.indexOf('offer=legende')!==-1);var t=(p==='/academy'||p==='/candidature')?'academy':(legende?'autopilot':'copilot');var r=document.documentElement;r.setAttribute('data-autopilot',legende?'true':'false');r.setAttribute('data-tier',t);try{localStorage.removeItem('empire-autopilot')}catch(e){}}catch(e){}})();`
         }} />
@@ -44,7 +44,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MJCWGM8D');`
         }} />
         {/* End Google Tag Manager */}
-        {/* Crisp Chat — deferred until first interaction or 5s idle to keep initial load fast */}
+        {/* Crisp Chat - deferred until first interaction or 5s idle to keep initial load fast */}
         <script dangerouslySetInnerHTML={{
           __html: `window.$crisp=[];window.CRISP_WEBSITE_ID="b7a31559-ed47-41ee-9362-cdab8ee696b8";(function(){var loaded=false;var evts=["mousemove","touchstart","scroll","keydown"];function load(){if(loaded)return;loaded=true;var d=document,s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);evts.forEach(function(e){window.removeEventListener(e,load)});}evts.forEach(function(e){window.addEventListener(e,load,{passive:true})});setTimeout(load,5000);})();`
         }} />

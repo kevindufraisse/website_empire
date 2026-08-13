@@ -1,6 +1,6 @@
 /**
  * ========================================
- * LAUNCH OFFER — URGENCY / SCARCITY
+ * LAUNCH OFFER - URGENCY / SCARCITY
  * ========================================
  *
  * Le prix de l'offre de lancement (-33%) vit dans lib/pricing-config.ts

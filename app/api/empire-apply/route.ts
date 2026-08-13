@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { createFolkPerson } from '@/lib/folk'
 
 export async function POST(request: Request) {
   try {
@@ -34,14 +35,35 @@ export async function POST(request: Request) {
       offer: 'empire',
     }
 
+    // 1) Folk CRM (group Empire_2026)
+    await createFolkPerson({
+      firstName: String(firstName).trim(),
+      email: String(email).trim(),
+      phone: String(phone).trim(),
+      description: `Candidature Empire - ${new Date().toLocaleDateString('fr-FR')}`,
+      noteMarkdown: [
+        '## Candidature Empire (site)',
+        '',
+        `- **Temps / semaine:** ${hoursPerWeek}`,
+        `- **A l'aise contenu:** ${contentSkill}`,
+        `- **Publie deja:** ${alreadyPublishing || 'n/a'}`,
+        emp ? `- **emp:** ${emp}` : '',
+        `- **source:** website /postuler`,
+      ]
+        .filter(Boolean)
+        .join('\n'),
+    }).catch((err) => console.error('[empire-apply] folk', err))
+
+    // 2) Make → Slack (existing)
     if (webhookUrl) {
       await fetch(webhookUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
-      })
+      }).catch(() => {})
     }
 
+    // 3) WhatsApp notify (optional)
     const wahaUrl = process.env.WAHA_API_URL
     const wahaSession = process.env.WAHA_SESSION || 'default'
     const notifyPhone = process.env.NOTIFY_PHONE_NUMBER

@@ -167,7 +167,7 @@ export async function buildCertificationPdf(input: {
     color: EMPIRE,
   })
 
-  const foot = 'Document authentifié — tout employeur peut contrôler ce code sur la page de vérification.'
+  const foot = 'Document authentifié - tout employeur peut contrôler ce code sur la page de vérification.'
   const footSize = 8
   page.drawText(foot, {
     x: centerX(foot, footSize, helv, W),

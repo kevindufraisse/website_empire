@@ -4,7 +4,7 @@ import { ReactNode } from 'react'
 import posthog from 'posthog-js'
 import { trackAmplitude, withAmplitudeDeviceId } from '@/lib/amplitude'
 
-/** App onboarding (installer le système) — no self-serve purchase. */
+/** App onboarding (installer le système) - no self-serve purchase. */
 export const ONBOARDING_URL = 'https://app.empire-internet.com/onboarding'
 
 /** Primary Empire CTA: apply / candidacy (no prices, no checkout). */

@@ -1,9 +1,11 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { CheckCircle2, MessageCircle, Check, Plus, Minus } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
+import LoomEmbed from '@/components/LoomEmbed'
 
 const faqObjections = {
   fr: [
@@ -68,28 +70,31 @@ const faqObjections = {
   ],
 }
 
-export default function DemoThankYouPage() {
+function ThankYouContent() {
   const { lang } = useLanguage()
+  const searchParams = useSearchParams()
+  const fromWaitlist = searchParams.get('from') === 'waitlist'
   const [confirmed, setConfirmed] = useState(false)
   const [openFaq, setOpenFaq] = useState<number | null>(null)
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      (window as any).dataLayer = (window as any).dataLayer || [];
-      (window as any).dataLayer.push({ 'event': 'cal_booking_confirmed' });
+      ;(window as any).dataLayer = (window as any).dataLayer || []
+      ;(window as any).dataLayer.push({
+        event: fromWaitlist ? 'empire_waitlist_joined' : 'cal_booking_confirmed',
+      })
       if ((window as any).fbq) {
-        (window as any).fbq('track', 'Schedule');
+        ;(window as any).fbq('track', fromWaitlist ? 'Lead' : 'Schedule')
       }
     }
-  }, [])
+  }, [fromWaitlist])
 
   return (
     <main className="relative min-h-screen bg-gradient-to-b from-black via-[#0f0f0f] to-black pt-24 md:pt-32">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgb(var(--empire-rgb)_/_0.1),transparent)]" />
 
-      <div className="container py-12 relative z-10">
+      <div className="container py-12 relative z-10 px-4">
         <div className="max-w-3xl mx-auto">
-          {/* Success Header */}
           <div className="text-center mb-8">
             <motion.div
               initial={{ scale: 0 }}
@@ -106,7 +111,13 @@ export default function DemoThankYouPage() {
               transition={{ delay: 0.2 }}
               className="text-3xl md:text-5xl font-bold text-white mb-3"
             >
-              {lang === 'fr' ? 'Rendez-vous confirmé !' : 'Appointment confirmed!'}
+              {fromWaitlist
+                ? lang === 'fr'
+                  ? 'Candidature reçue'
+                  : 'Application received'
+                : lang === 'fr'
+                  ? 'Rendez-vous confirmé !'
+                  : 'Appointment confirmed!'}
             </motion.h1>
 
             <motion.p
@@ -115,28 +126,23 @@ export default function DemoThankYouPage() {
               transition={{ delay: 0.3 }}
               className="text-lg text-neutral-300"
             >
-              {lang === 'fr'
-                ? 'En attendant, découvrez comment Empire fonctionne 👇'
-                : 'In the meantime, discover how Empire works 👇'}
+              {fromWaitlist
+                ? lang === 'fr'
+                  ? 'On lit chaque candidature. En attendant, regarde la VSL 👇'
+                  : 'We read every application. Meanwhile, watch the VSL 👇'
+                : lang === 'fr'
+                  ? 'En attendant, découvrez comment Empire fonctionne 👇'
+                  : 'In the meantime, discover how Empire works 👇'}
             </motion.p>
           </div>
 
-          {/* Loom Video Embed */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35 }}
-            className="mb-4"
+            className="mb-8"
           >
-            <div className="relative rounded-2xl overflow-hidden border border-white/20 shadow-2xl bg-neutral-900/50" style={{ paddingBottom: '56.25%' }}>
-              <iframe
-                src="https://www.loom.com/embed/184e8823d9154d74aeca55a5cd488f08?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_speed=true&t=0"
-                frameBorder="0"
-                allowFullScreen
-                allow="autoplay"
-                className="absolute inset-0 w-full h-full"
-              />
-            </div>
+            <LoomEmbed title="Empire VSL" />
             <div className="text-center mt-2">
               <a
                 href="https://www.loom.com/share/184e8823d9154d74aeca55a5cd488f08"
@@ -149,7 +155,7 @@ export default function DemoThankYouPage() {
             </div>
           </motion.div>
 
-          {/* Confirm Button */}
+          {!fromWaitlist && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -175,6 +181,7 @@ export default function DemoThankYouPage() {
               )}
             </button>
           </motion.div>
+          )}
 
           {/* How it works - compact */}
           <motion.div
@@ -291,5 +298,13 @@ export default function DemoThankYouPage() {
         </div>
       </div>
     </main>
+  )
+}
+
+export default function DemoThankYouPage() {
+  return (
+    <Suspense fallback={<main className="min-h-screen bg-black" />}>
+      <ThankYouContent />
+    </Suspense>
   )
 }

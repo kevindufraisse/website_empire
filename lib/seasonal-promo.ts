@@ -1,4 +1,4 @@
-// Promo saisonnière — même calendrier et mêmes remises que l'app
+// Promo saisonnière - même calendrier et mêmes remises que l'app
 // (empire-tracking src/lib/seasonalPromo.ts) et que le bandeau EvergreenPromo.
 // Le prix payé reste le prix catalogue : la promo sert à l'affichage
 // (prix barré "avant remise") pour rester cohérent avec le bandeau -X%.

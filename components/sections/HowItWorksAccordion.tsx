@@ -28,7 +28,7 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
   )
 }
 
-// Voice Animation Component — pure CSS, no JS intervals
+// Voice Animation Component - pure CSS, no JS intervals
 const VOICE_BARS = Array.from({ length: 24 }, (_, i) => ({
   h: 25 + ((i * 37 + 13) % 60),
   delay: (i * 0.12) % 1.8,
@@ -253,7 +253,7 @@ function TopicCard({ id, label, score, tag }: { id: number; label: string; score
   }
 }
 
-/** Step 1 — the Empire brain scanning a niche and ranking topics. */
+/** Step 1 - the Empire brain scanning a niche and ranking topics. */
 function BrainTopicsVisual({ topics }: { topics: AnimatedListItem[] }) {
   const { lang } = useLanguage()
   return (
@@ -323,7 +323,7 @@ const SocialIcon = ({ type }: { type: string }) => {
 }
 
 /**
- * Étape 5 d'Empire — le live hebdomadaire. Présenté en bandeau et non en 5e
+ * Étape 5 d'Empire - le live hebdomadaire. Présenté en bandeau et non en 5e
  * carte : les quatre premières étapes sont la boucle de production, celle-ci est
  * ce qui tourne en parallèle, et c'est ce qui distingue Empire d'une agence.
  */
@@ -362,7 +362,7 @@ function LiveWeeklyVisual() {
   )
 }
 
-/** Step 1 — OrbitingCircles with strategy icons around a crown. */
+/** Step 1 - OrbitingCircles with strategy icons around a crown. */
 function LegendAuditVisual() {
   return (
     <div className="relative flex h-full w-full items-center justify-center overflow-hidden">
@@ -392,7 +392,7 @@ function LegendAuditVisual() {
   )
 }
 
-/** Step 2 — Experts with pulsing ring + border beam card feel. */
+/** Step 2 - Experts with pulsing ring + border beam card feel. */
 function LegendExpertsVisual() {
   const { lang } = useLanguage()
   return (
@@ -458,7 +458,7 @@ const PlatformLogos = {
   ),
 }
 
-/** Step 3 — Orbiting platform logos around a central "publish" button. */
+/** Step 3 - Orbiting platform logos around a central "publish" button. */
 function LegendPublishVisual() {
   const items: { key: string; icon: React.ReactNode; bg: string }[] = [
     { key: 'li', icon: PlatformLogos.linkedin, bg: '#0A66C2' },
@@ -487,7 +487,7 @@ function LegendPublishVisual() {
   )
 }
 
-/** Step 4 — Animated stats going up. */
+/** Step 4 - Animated stats going up. */
 function LegendIterateVisual() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
@@ -516,7 +516,7 @@ function LegendIterateVisual() {
 }
 
 /**
- * Étape 5 de Légende — le système de conversion. En bandeau : les quatre
+ * Étape 5 de Légende - le système de conversion. En bandeau : les quatre
  * premières étapes produisent l'audience, celle-ci la transforme en rendez-vous.
  */
 function LegendConversionVisual() {
@@ -605,7 +605,7 @@ function LegendHowItWorks() {
             ))}
           </div>
 
-          {/* Étape 5 — le système de conversion, en bandeau */}
+          {/* Étape 5 - le système de conversion, en bandeau */}
           <FadeInBlock delay={0.5}>
             <div className="relative mt-5 overflow-hidden rounded-2xl border border-autopilot/30 bg-gradient-to-br from-autopilot/10 to-white/[0.02] p-5 md:p-7">
               <div className="flex flex-col gap-5 md:flex-row md:items-center md:gap-8">
@@ -635,7 +635,7 @@ export default function HowItWorksAccordion() {
   const notifications = lang === 'fr' ? getNotificationsFr(SocialIcon) : getNotificationsEn(SocialIcon)
   const topics = lang === 'fr' ? getTopicsFr() : getTopicsEn()
 
-  // Légende buyers don't need the product demo — they're delegating, not using it.
+  // Légende buyers don't need the product demo - they're delegating, not using it.
   if (autopilot) return <LegendHowItWorks />
 
   return (

@@ -62,7 +62,7 @@ export default function CalStickyBar() {
           <Flame className={`${accent.text} flex-shrink-0`} size={14} />
           <p className="text-white font-semibold text-xs sm:text-sm">
             <span className={accent.text}>{lang === 'fr' ? 'Offre de lancement' : 'Launch offer'}</span>
-            {' — '}
+            {' - '}
             {(lang === 'fr' ? SPOTS_LABEL_FR : SPOTS_LABEL_EN).toLowerCase()}
           </p>
         </div>

@@ -271,8 +271,8 @@ const RESULTS: Record<OfferId, {
     labelEn: 'Academy',
     titleFr: 'Devenez Head of Viralité en 21 jours.',
     titleEn: 'Become Head of Virality in 21 days.',
-    descFr: 'Apprenez le métier, obtenez votre certification, et gagnez vos premiers 3 000€/mois. Même sans projet à vous. 20 places sur sélection. Le tarif est annoncé si vous êtes sélectionné.',
-    descEn: 'Learn the craft, get certified, and earn your first €3,000/month. Even without your own project. 20 spots, by selection. Price announced if you\'re selected.',
+    descFr: 'Apprenez le métier, obtenez votre certification, et gagnez vos premiers 3 000€/mois. Même sans projet à vous. 20 places sur sélection.',
+    descEn: 'Learn the craft, get certified, and earn your first €3,000/month. Even without your own project. 20 spots, by selection.',
     ctaFr: 'Découvrir l\u2019Academy',
     ctaEn: 'Discover the Academy',
     href: '/academy',
@@ -283,10 +283,10 @@ const RESULTS: Record<OfferId, {
     labelEn: 'Empire',
     titleFr: 'Parlez 1 heure. Nous créons un mois de contenus.',
     titleEn: 'Talk for 1 hour. We create a month of content.',
-    descFr: 'Parlez 1 heure. Nous créons un mois de contenus. Liste d\u2019attente : on sélectionne les profils les plus motivés.',
-    descEn: 'Talk for 1 hour. We create a month of content. Waitlist: we select the most motivated profiles.',
-    ctaFr: 'Rejoindre la liste d\u2019attente',
-    ctaEn: 'Join the waitlist',
+    descFr: 'Parlez 1 heure. Nous créons un mois de contenus. Complet pour l\u2019instant - demande un accès.',
+    descEn: 'Talk for 1 hour. We create a month of content. Full for now - request access.',
+    ctaFr: 'Demander un accès',
+    ctaEn: 'Request access',
     href: '/postuler',
   },
   legende: {
@@ -526,7 +526,7 @@ export function OfferQuizGlobal({ fr }: { fr: boolean }) {
                         <p className="mt-1.5 text-[13px] text-neutral-400 leading-relaxed">
                           {fr
                             ? `${plan.rhythmFr}${seats > 1 ? ', par personne' : ''}, publiés sur vos 7 plateformes. ${plan.sessions} sessions d’enregistrement par mois. Accès sur liste d’attente, profils les plus motivés.`
-                            : `${plan.rhythmEn}${seats > 1 ? ', per person' : ''}, published across your 7 platforms. ${plan.sessions} recording sessions per month. Waitlist access — most motivated profiles.`}
+                            : `${plan.rhythmEn}${seats > 1 ? ', per person' : ''}, published across your 7 platforms. ${plan.sessions} recording sessions per month. Waitlist access - most motivated profiles.`}
                         </p>
                       </div>
                     )}

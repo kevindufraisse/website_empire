@@ -38,7 +38,7 @@ export default function AcademyFAQSection() {
         },
         {
           q: 'Combien ça coûte ?',
-          a: 'Le tarif vous sera annoncé si vous êtes sélectionné après votre candidature. On lit chaque dossier avant de vous répondre.',
+          a: '20 places sur sélection. On lit chaque candidature, puis on vous répond.',
         },
         {
           q: "J'ai pas de projet, c'est pour moi ?",
@@ -76,7 +76,7 @@ export default function AcademyFAQSection() {
         },
         {
           q: 'How much does it cost?',
-          a: 'The price is announced if you\'re selected after applying. We read every application before we reply.',
+          a: '20 spots by selection. We read every application, then we reply.',
         },
         {
           q: "I don't have a project, is this for me?",
@@ -177,7 +177,7 @@ export default function AcademyFAQSection() {
                 className="inline-flex items-center gap-2 px-8 py-4 bg-academy text-black font-bold text-lg rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(252,165,165,0.3)]"
                 sublabel={
                   <p className="text-xs text-neutral-400 mt-2">
-                    {fr ? 'Places limitées · Tarif annoncé si vous êtes sélectionné' : 'Limited spots · Price announced if you\'re selected'}
+                    {fr ? '20 places · Sur sélection' : '20 spots · By selection'}
                   </p>
                 }
               >

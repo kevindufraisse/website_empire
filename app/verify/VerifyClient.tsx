@@ -25,7 +25,7 @@ const TIER_CONFIG = {
     ring: 'ring-amber-700/30',
     glow: 'rgba(180, 83, 9, 0.15)',
     icon: '🥉',
-    description: 'Fondamentaux acquis — l\'élève maîtrise les bases de la création de contenu et du personal branding.',
+    description: 'Fondamentaux acquis - l\'élève maîtrise les bases de la création de contenu et du personal branding.',
   },
   silver: {
     label: 'Argent',
@@ -36,7 +36,7 @@ const TIER_CONFIG = {
     ring: 'ring-slate-400/30',
     glow: 'rgba(148, 163, 184, 0.15)',
     icon: '🥈',
-    description: 'Niveau avancé — maîtrise opérationnelle complète, capable de produire et déployer du contenu de qualité de façon autonome.',
+    description: 'Niveau avancé - maîtrise opérationnelle complète, capable de produire et déployer du contenu de qualité de façon autonome.',
   },
   gold: {
     label: 'Or',
@@ -47,7 +47,7 @@ const TIER_CONFIG = {
     ring: 'ring-yellow-500/30',
     glow: 'rgba(234, 179, 8, 0.2)',
     icon: '🥇',
-    description: 'Excellence — résultats exceptionnels, stratégie maîtrisée, leadership démontré. Top de la promotion.',
+    description: 'Excellence - résultats exceptionnels, stratégie maîtrisée, leadership démontré. Top de la promotion.',
   },
 } as const
 
@@ -194,7 +194,7 @@ export default function VerifyClient() {
               <div className="px-3 py-3 md:px-4 md:py-3.5 rounded-xl bg-white/5 border border-white/10 text-white/40 font-mono text-lg md:text-xl font-bold tracking-widest select-none">
                 EMP
               </div>
-              <span className="text-white/20 text-2xl font-light">—</span>
+              <span className="text-white/20 text-2xl font-light">-</span>
               {[1, 2].map((i) => (
                 <span key={i} className="contents">
                   <input
@@ -207,7 +207,7 @@ export default function VerifyClient() {
                     placeholder="···"
                     className="w-[60px] md:w-[72px] px-2 py-3 md:px-3 md:py-3.5 rounded-xl bg-white/5 border border-white/10 text-white font-mono text-lg md:text-xl font-bold tracking-[0.2em] text-center placeholder:text-white/15 focus:outline-none focus:border-empire/50 focus:ring-2 focus:ring-empire/20 transition-all"
                   />
-                  {i === 1 && <span className="text-white/20 text-2xl font-light">—</span>}
+                  {i === 1 && <span className="text-white/20 text-2xl font-light">-</span>}
                 </span>
               ))}
             </div>
@@ -342,7 +342,7 @@ export default function VerifyClient() {
                       <p className="text-center text-white/35 text-xs px-1 leading-relaxed">
                         Sur LinkedIn : profil →{' '}
                         <span className="text-white/50">À la une</span> (média) ou section{' '}
-                        <span className="text-white/50">Licences et certifications</span> — joindre ce PDF ou coller le lien
+                        <span className="text-white/50">Licences et certifications</span> - joindre ce PDF ou coller le lien
                         de vérification.
                       </p>
                     </div>
@@ -377,7 +377,7 @@ export default function VerifyClient() {
       </div>
 
       <footer className="text-center py-6 text-white/20 text-sm">
-        © {new Date().getFullYear()} Empire Internet — Toutes les certifications sont vérifiables
+        © {new Date().getFullYear()} Empire Internet - Toutes les certifications sont vérifiables
       </footer>
     </div>
   )

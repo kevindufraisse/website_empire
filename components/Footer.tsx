@@ -3,9 +3,7 @@ import { usePathname } from 'next/navigation'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import { Mail } from 'lucide-react'
-import { CtaReassurance } from '@/components/ui/cta-reassurance'
 import { GiftFooterLink } from '@/components/GiftCountdownBar'
-import OnboardingLink from '@/components/OnboardingLink'
 
 export default function Footer() {
   const { t, lang } = useLanguage()
@@ -18,7 +16,7 @@ export default function Footer() {
 
   if (pathname === '/live') return null
 
-  if (isCandidaturePage || pathname === '/academy/merci' || pathname === '/webinar' || pathname === '/webinar/merci' || pathname === '/live') return null
+  if (isCandidaturePage || pathname === '/academy/merci' || pathname === '/thank-you' || pathname === '/webinar' || pathname === '/webinar/merci' || pathname === '/live') return null
 
   return (
     <footer className="relative w-full border-t border-white/10 bg-black pb-[env(safe-area-inset-bottom)]">
@@ -51,7 +49,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Ressources gratuites — self-serve funnel, off-topic for Légende */}
+          {/* Ressources gratuites - self-serve funnel, off-topic for Légende */}
           <div className="flex flex-col items-center md:items-start">
             {!autopilot && (
               <>
@@ -72,10 +70,13 @@ export default function Footer() {
           {/* CTA */}
           <div className="flex flex-col items-center md:items-end">
             {!isPartnersPage && !autopilot && (
-              <OnboardingLink className="inline-flex flex-col items-start text-left px-6 py-3.5 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]">
-                <span className="text-left">{lang === 'fr' ? 'Liste d\'attente' : 'Waitlist'}</span>
-                <span className="text-[10px] font-semibold opacity-70 text-left">{lang === 'fr' ? 'Profils motivés' : 'Motivated profiles'}</span>
-              </OnboardingLink>
+              <a
+                href="/postuler"
+                className="inline-flex flex-col items-start text-left px-6 py-3.5 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]"
+              >
+                <span className="text-left">{lang === 'fr' ? 'Demander un accès' : 'Request access'}</span>
+                <span className="text-[10px] font-semibold opacity-70 text-left">{lang === 'fr' ? 'Complet pour l\'instant' : 'Full for now'}</span>
+              </a>
             )}
           </div>
         </div>

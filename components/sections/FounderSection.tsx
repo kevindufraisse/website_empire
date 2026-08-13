@@ -7,7 +7,6 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import CallbackButton from '@/components/CallbackButton'
 import { CtaReassurance } from '@/components/ui/cta-reassurance'
-import OnboardingLink from '@/components/OnboardingLink'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -176,10 +175,13 @@ export default function FounderSection() {
                   <span className="text-[11px] font-semibold opacity-70">{t.autopilot.hero.ctaReassurance}</span>
                 </a>
               ) : (
-                <OnboardingLink className="inline-flex flex-col items-center px-8 py-4 rounded-xl bg-empire text-black font-bold hover:scale-105 transition-transform shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.3)]">
-                  <span className="text-lg">{lang === 'fr' ? 'Rejoindre la liste d\'attente' : 'Join the waitlist'}</span>
-                  <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? 'On sélectionne les plus motivés' : 'We select the most motivated'}</span>
-                </OnboardingLink>
+                <a
+                  href="/postuler"
+                  className="inline-flex flex-col items-center px-8 py-4 rounded-xl bg-empire text-black font-bold hover:scale-105 transition-transform shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.3)]"
+                >
+                  <span className="text-lg">{lang === 'fr' ? 'Demander un accès' : 'Request access'}</span>
+                  <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? 'Complet pour l\'instant' : 'Full for now'}</span>
+                </a>
               )}
             </div>
           </FadeInBlock>

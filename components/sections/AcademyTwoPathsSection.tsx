@@ -166,8 +166,8 @@ export default function AcademyTwoPathsSection() {
                 sublabel={
                   <p className="text-xs text-neutral-400 mt-2">
                     {fr
-                      ? '30 secondes · 20 places · Sur sélection · Tarif annoncé si sélectionné'
-                      : '30 seconds · 20 spots · By selection · Price if selected'}
+                      ? '20 places · Sur sélection'
+                      : '20 spots · By selection'}
                   </p>
                 }
               >

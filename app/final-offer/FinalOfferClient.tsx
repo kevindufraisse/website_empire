@@ -69,7 +69,7 @@ const RESULTS = [
 
 // Chrono propre à la page webinar : 30 min à partir de la première visite,
 // persisté en localStorage. Indépendant de la promo flash du site (dont la
-// deadline par visiteur peut être expirée — le prix 499€ reste garanti par
+// deadline par visiteur peut être expirée - le prix 499€ reste garanti par
 // le serveur pour cette page, le chrono matérialise l'urgence post-live).
 const WEBINAR_DEADLINE_KEY = 'empire_final_offer_deadline'
 const WEBINAR_COUNTDOWN_MS = 30 * 60 * 1000

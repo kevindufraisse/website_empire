@@ -38,7 +38,7 @@ export const ARCHETYPES_EN: Record<ArchetypeId, ArchetypeTextOverride> = {
     bestFormats: ['LinkedIn narrative posts', 'X threads', 'Talking-head videos'],
     topics: [
       'The day I almost quit everything (and what made me stay)',
-      'What nobody tells you about [your industry] — my experience after X years',
+      'What nobody tells you about [your industry] - my experience after X years',
       "I made this mistake for 2 years. Here's what it cost me.",
       'The conversation that changed my career (and the lesson behind it)',
       "Why I said no to [obvious opportunity]. And why it was the best decision.",
@@ -49,11 +49,11 @@ export const ARCHETYPES_EN: Record<ArchetypeId, ArchetypeTextOverride> = {
       'What I do every Monday morning that changed everything in my results',
     ],
     diagnostics: {
-      fear: "You dilute your message so you don't offend anyone. Result: you don't reach anyone either. Your Storyteller archetype needs vulnerability to work — it's your strength, not your weakness.",
+      fear: "You dilute your message so you don't offend anyone. Result: you don't reach anyone either. Your Storyteller archetype needs vulnerability to work - it's your strength, not your weakness.",
       no_traction: "You have the raw material but not the format. A Storyteller who posts tip lists loses their edge. Your posts should start with a lived moment, not a stat.",
-      no_idea: "You think you need to be an expert to publish. Wrong. A Storyteller doesn't teach — they share. You already have the material: your failures, decisions, doubts. 1 post = 1 lived moment + 1 lesson.",
-      no_time: "You think telling stories takes more time than teaching. It's the opposite. A lived experience writes itself in 15 min because you already know it. The problem isn't time — it's perfectionism.",
-      no_money: "You move people but you never ask them for anything. Your audience is emotionally invested — that's gold. You're just missing a CTA and a funnel behind each post.",
+      no_idea: "You think you need to be an expert to publish. Wrong. A Storyteller doesn't teach - they share. You already have the material: your failures, decisions, doubts. 1 post = 1 lived moment + 1 lesson.",
+      no_time: "You think telling stories takes more time than teaching. It's the opposite. A lived experience writes itself in 15 min because you already know it. The problem isn't time - it's perfectionism.",
+      no_money: "You move people but you never ask them for anything. Your audience is emotionally invested - that's gold. You're just missing a CTA and a funnel behind each post.",
     },
     plan30: [
       { week: 1, title: 'Foundations', tasks: [
@@ -80,9 +80,9 @@ export const ARCHETYPES_EN: Record<ArchetypeId, ArchetypeTextOverride> = {
   },
   builder: {
     name: 'The Builder',
-    tagline: "You document what you build — your best marketing.",
+    tagline: "You document what you build - your best marketing.",
     description:
-      "You don't want to pose — you want to build. And the good news: your process, trial and error, and wins are all gold content. 'Build in public' is your natural playground.",
+      "You don't want to pose - you want to build. And the good news: your process, trial and error, and wins are all gold content. 'Build in public' is your natural playground.",
     strengths: [
       'Instant credibility (you prove what you do)',
       'Business-qualified audience',
@@ -95,7 +95,7 @@ export const ARCHETYPES_EN: Record<ArchetypeId, ArchetypeTextOverride> = {
     bestFormats: ['Build in public X/LinkedIn', 'Newsletter with metrics', 'Product lives'],
     topics: [
       "I launched [project] X months ago. Here are my real numbers.",
-      "What I spent vs what I earned — month by month, unfiltered.",
+      "What I spent vs what I earned - month by month, unfiltered.",
       "The feature nobody asked for but that changed everything.",
       "I automated [process]. Here's the before/after in time and €.",
       "My complete tech stack for [result]. Tool by tool.",
@@ -108,7 +108,7 @@ export const ARCHETYPES_EN: Record<ArchetypeId, ArchetypeTextOverride> = {
     diagnostics: {
       no_time: "You document everything in your head but publish nothing. An invisible Builder is nobody. The fix: 15 min on Monday to write your 3 numbers of the week. That's it.",
       no_traction: "You post updates but nobody hooks. Why? Because you document without structure. No hook, no lesson, no CTA. Add 'What I learned' to every post and it changes everything.",
-      no_idea: "You think documenting is boring. Wrong. People love behind-the-scenes — especially real numbers. Every business decision is a post. Every milestone is a thread.",
+      no_idea: "You think documenting is boring. Wrong. People love behind-the-scenes - especially real numbers. Every business decision is a post. Every milestone is a thread.",
       fear: "You're afraid to show your numbers. Normal. But Builders who share their real numbers (even modest ones) earn more trust than those hiding behind generic content.",
       no_money: "You have credibility but no funnel. Every 'build in public' post should point to a newsletter, template, or call. Without that, your audience applauds and buys elsewhere.",
     },
@@ -154,7 +154,7 @@ export const ARCHETYPES_EN: Record<ArchetypeId, ArchetypeTextOverride> = {
       'The 3-step framework I use to [concrete result]',
       "Everyone does [common mistake]. Here's why it's wrong.",
       'I tested 7 methods for [goal]. Only one works.',
-      'The complete guide to [topic] — from beginner to advanced in 1 post.',
+      'The complete guide to [topic] - from beginner to advanced in 1 post.',
       '[Complex concept] explained to a total beginner.',
       'The 5 myths about [your field] that cost you money.',
       'How I helped [client type] go from [before] to [after].',
@@ -163,11 +163,11 @@ export const ARCHETYPES_EN: Record<ArchetypeId, ArchetypeTextOverride> = {
       'The exact system I use to [result] in [time] per week.',
     ],
     diagnostics: {
-      no_idea: "You know a lot but don't know where to start. Normal. An Educator needs to identify their 7 pillars first — then each pillar gives you 10+ topics. The problem isn't lack of ideas, it's lack of structure.",
+      no_idea: "You know a lot but don't know where to start. Normal. An Educator needs to identify their 7 pillars first - then each pillar gives you 10+ topics. The problem isn't lack of ideas, it's lack of structure.",
       no_traction: "You publish educational content but it's too generic. '5 tips for...' is noise. What works: ONE proprietary framework, well-named, that people associate with you.",
       no_money: "You give too much free value without ever selling. Your audience thinks everything is free. The rule: 80% education, 20% pitch. And every educational post should point to your newsletter or offer.",
       no_time: "You spend 3h on a carousel for 47 likes. The problem isn't time, it's the lack of system. 1 video of 30 min = 7 carousels + 14 posts + 3 shorts. Automate the repurposing.",
-      fear: "You're afraid someone will say 'you're not legitimate.' Nobody is 100%. But you know more than 95% of your audience — and that's enough. Publish what you know, not what you don't.",
+      fear: "You're afraid someone will say 'you're not legitimate.' Nobody is 100%. But you know more than 95% of your audience - and that's enough. Publish what you know, not what you don't.",
     },
     plan30: [
       { week: 1, title: 'Foundations', tasks: [
@@ -217,10 +217,10 @@ export const ARCHETYPES_EN: Record<ArchetypeId, ArchetypeTextOverride> = {
       'I said [strong opinion] publicly. Here\'s what happened.',
       'The problem with [popular trend] that nobody dares to point out.',
       "If you're still doing [common mistake] in 2026, you deserve to struggle.",
-      'The truth about [controversial topic] — with numbers to back it up.',
+      'The truth about [controversial topic] - with numbers to back it up.',
     ],
     diagnostics: {
-      no_traction: "You provoke but nobody reacts. Why? Because you give an opinion without proof. A Provocateur without data is a troll. Add numbers, a lived example, a screenshot — and your provocation becomes a thesis.",
+      no_traction: "You provoke but nobody reacts. Why? Because you give an opinion without proof. A Provocateur without data is a troll. Add numbers, a lived example, a screenshot - and your provocation becomes a thesis.",
       no_time: "You think it takes 1h to write a hot take. No. 3 sentences + 1 strong opinion = 5 min. The problem is you want it to be perfect. The best provocations are raw, not polished.",
       fear: "You're afraid of backlash. Good news: the backlash IS the reach. The algorithm rewards debate. As long as your opinion is argued (not gratuitous), the 'hate' makes you visible.",
       no_idea: "You don't know what to take a stand on. Start by listing 5 things that annoy you in your industry. 5 beliefs you think are wrong. 5 practices you find absurd. Each one = 1 post.",
@@ -279,7 +279,7 @@ export const QUESTIONS_EN: QuestionTextOverride[] = [
     kicker: 'Step 2 / 10',
     question: "Let's be honest. When it comes to content, you are:",
     options: [
-      { id: 'zero', label: "I post nothing — I know I should" },
+      { id: 'zero', label: "I post nothing - I know I should" },
       { id: 'sometimes', label: 'I post from time to time, no system' },
       { id: 'regular_no_convert', label: "I post regularly but it doesn't convert" },
       { id: 'works_scaling', label: "I post + it works, but I want to scale" },
@@ -303,10 +303,10 @@ export const QUESTIONS_EN: QuestionTextOverride[] = [
     kicker: 'Step 4 / 10',
     question: 'When you write (email, message, post), you tend to be:',
     options: [
-      { id: 'narrative', label: 'Narrative — I tell stories, give context, share feelings' },
-      { id: 'factual', label: 'Factual — I document facts, numbers, steps' },
-      { id: 'pedagogic', label: 'Educational — I structure, explain, make things clear' },
-      { id: 'punchy', label: 'Direct — straight to the point, no fluff, sometimes blunt' },
+      { id: 'narrative', label: 'Narrative - I tell stories, give context, share feelings' },
+      { id: 'factual', label: 'Factual - I document facts, numbers, steps' },
+      { id: 'pedagogic', label: 'Educational - I structure, explain, make things clear' },
+      { id: 'punchy', label: 'Direct - straight to the point, no fluff, sometimes blunt' },
     ],
   },
   {
@@ -337,7 +337,7 @@ export const QUESTIONS_EN: QuestionTextOverride[] = [
     id: 'inaction_cost',
     kicker: 'Step 7 / 10',
     question: "How much is NOT having a content system that converts costing you today?",
-    helper: "Be honest — this reveals whether we can truly help you.",
+    helper: "Be honest - this reveals whether we can truly help you.",
     options: [
       { id: 'never_thought', label: "I hadn't thought about it" },
       { id: 'few', label: 'A few missed opportunities' },
@@ -355,7 +355,7 @@ export const QUESTIONS_EN: QuestionTextOverride[] = [
       { id: 'no_idea', label: "I don't know what to say that has value" },
       { id: 'no_traction', label: "I post but it stagnates, doesn't take off" },
       { id: 'no_convert', label: 'I get likes but zero qualified leads' },
-      { id: 'no_focus', label: "I scatter — I don't know what to prioritize" },
+      { id: 'no_focus', label: "I scatter - I don't know what to prioritize" },
       { id: 'fear', label: 'Fear of judgment, fear of being exposed' },
     ],
   },
@@ -377,11 +377,11 @@ export const QUESTIONS_EN: QuestionTextOverride[] = [
     kicker: 'Step 10 / 10',
     question: 'When do you want things to change?',
     options: [
-      { id: 'now', label: 'Now — ready to act this week' },
-      { id: 'month', label: "Within the month — I don't want to lose another 30 days" },
-      { id: 'quarter', label: "Within the quarter — I'm organizing" },
-      { id: 'six_months', label: "In 6-12 months — I'm preparing" },
-      { id: 'no_pressure', label: "No pressure — I'm exploring" },
+      { id: 'now', label: 'Now - ready to act this week' },
+      { id: 'month', label: "Within the month - I don't want to lose another 30 days" },
+      { id: 'quarter', label: "Within the quarter - I'm organizing" },
+      { id: 'six_months', label: "In 6-12 months - I'm preparing" },
+      { id: 'no_pressure', label: "No pressure - I'm exploring" },
     ],
   },
 ]

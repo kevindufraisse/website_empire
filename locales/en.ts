@@ -17,7 +17,7 @@ export const en = {
     title: 'Talk for 1 hour. We create a month of content.',
     subtitle: 'Your expertise becomes posts, Reels, newsletters and videos published on 7 platforms - with our experts by your side every week.',
     description: '',
-    cta1: 'Join the waitlist',
+    cta1: 'Request access',
     cta2: 'Watch Demo (1 min)',
     rating: 'Based on 20 reviews',
     creatorsTitle: 'Install the system used by the world\'s best creators',
@@ -312,7 +312,7 @@ export const en = {
   common: {
     startNow: 'Start for free',
     watchDemo: 'Start for free',
-    ctaReassurance: 'Waitlist · We select the most motivated',
+    ctaReassurance: 'Full for now',
     /** Tight subline: header, sticky, banner (keeps the CTA compact) */
     ctaReassuranceCompact: 'No commitment',
     learnMore: 'Learn more',

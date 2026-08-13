@@ -48,7 +48,7 @@ function FadeIn({
 
 /**
  * The accompaniment layer around the production machine. Lives are not where topics
- * come from — the Empire brain does that — they're where members get answers,
+ * come from - the Empire brain does that - they're where members get answers,
  * think out loud with experts and review what worked.
  */
 export default function CommunitySection() {
@@ -112,14 +112,14 @@ export default function CommunitySection() {
               </h2>
               <p className="text-base md:text-lg text-neutral-400 max-w-2xl mx-auto">
                 {fr
-                  ? 'La production, notre équipe s\'en charge. Le reste — vos questions, vos doutes, vos chiffres — se règle chaque semaine avec nos experts et les autres membres.'
-                  : 'Our team handles production. Everything else — your questions, your doubts, your numbers — gets sorted every week with our experts and the other members.'}
+                  ? 'La production, notre équipe s\'en charge. Le reste - vos questions, vos doutes, vos chiffres - se règle chaque semaine avec nos experts et les autres membres.'
+                  : 'Our team handles production. Everything else - your questions, your doubts, your numbers - gets sorted every week with our experts and the other members.'}
               </p>
             </div>
           </FadeIn>
 
           <div className="grid gap-5 lg:grid-cols-5">
-            {/* Weekly live — the anchor of the section, so it gets the wide card. */}
+            {/* Weekly live - the anchor of the section, so it gets the wide card. */}
             <FadeIn delay={0.1} className="lg:col-span-2">
               <div className="h-full flex flex-col rounded-2xl border border-empire/30 bg-gradient-to-br from-empire/10 to-white/[0.02] p-6">
                 <div className="flex items-center gap-2 mb-5">

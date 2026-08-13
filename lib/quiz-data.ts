@@ -1,6 +1,6 @@
 /**
  * Quiz "Découvrez votre archétype de Creator".
- * Pure data — no React, no I/O. Imported by both client and server.
+ * Pure data - no React, no I/O. Imported by both client and server.
  */
 
 export type ArchetypeId = 'storyteller' | 'builder' | 'educator' | 'provocateur'
@@ -10,7 +10,7 @@ export type RecommendedOffer = 'academy' | 'autopilot' | 'copilot' | 'nurture'
 export interface QuizOption {
   id: string
   label: string
-  /** Optional emoji shown on the left of the option button — helps fast scanning. */
+  /** Optional emoji shown on the left of the option button - helps fast scanning. */
   emoji?: string
   /**
    * Points awarded to each archetype when this option is picked.
@@ -67,7 +67,7 @@ export interface ArchetypeProfile {
   /**
    * 3 iconic figures per language - first is the primary "face" of the archetype.
    * FR audience doesn't recognize Hormozi/Naval/Cardone, EN audience doesn't
-   * recognize Pauline Laigneau/Marc Lou/Oussama Ammar — so we ship two casts.
+   * recognize Pauline Laigneau/Marc Lou/Oussama Ammar - so we ship two casts.
    */
   icons: Record<IconLang, IconFigure[]>
   /** 10 concrete post topics the person can write today. */
@@ -81,7 +81,7 @@ export interface ArchetypeProfile {
 
 /**
  * Resolve the avatar URL for a figure. Uses unavatar.io which proxies the
- * latest X/Twitter avatar — keeps photos fresh without us having to host them.
+ * latest X/Twitter avatar - keeps photos fresh without us having to host them.
  */
 export function iconAvatarUrl(icon: IconFigure): string {
   if (icon.image) return icon.image
@@ -170,7 +170,7 @@ export const ARCHETYPES: Record<ArchetypeId, ArchetypeProfile> = {
     id: 'builder',
     name: 'Le Builder',
     emoji: '🏗️',
-    tagline: 'Vous documentez ce que vous construisez — votre meilleur marketing.',
+    tagline: 'Vous documentez ce que vous construisez - votre meilleur marketing.',
     description:
       "Vous n'avez pas envie de poser, vous avez envie de bâtir. Et la bonne nouvelle : votre process, vos essais-erreurs, vos wins, tout ça est du contenu en or. Le « build in public » est votre terrain naturel.",
     strengths: [

@@ -1,4 +1,4 @@
-// Promo flash par visiteur — deadline persistée côté app Empire (table
+// Promo flash par visiteur - deadline persistée côté app Empire (table
 // promo_deadlines : fingerprint + IP + email) via l'edge function promo-status.
 // Le rapprochement par IP garde le même compte à rebours entre le site
 // marketing et app.empire-internet.com.

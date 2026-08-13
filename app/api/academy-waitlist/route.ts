@@ -18,7 +18,7 @@ function localizedTagIds(baseKey: string, isEn: boolean): number[] {
 }
 
 /**
- * Best-effort backup write to Supabase. Never throws — it only exists to keep an
+ * Best-effort backup write to Supabase. Never throws - it only exists to keep an
  * ordered queue we can read positions from, so an outage must not block signup.
  */
 async function backupToSupabase(args: {
@@ -131,7 +131,7 @@ export async function POST(req: NextRequest) {
 
     if (wahaUrl && notifyPhone && !alreadyRegistered) {
       const message =
-        `🎓 ACADEMY — liste d'attente\n\n` +
+        `🎓 ACADEMY - liste d'attente\n\n` +
         `👤 ${firstName}\n` +
         `📧 ${email}\n` +
         (position ? `🪧 #${position} dans la file\n` : '') +

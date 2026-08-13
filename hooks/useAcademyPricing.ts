@@ -6,7 +6,7 @@ import { getAcademyPricing, type AcademyPricingTier } from '@/lib/cohort-config'
 export interface AcademyPricingLive extends AcademyPricingTier {
   /** Hours remaining until next price tier (0 if final tier). */
   hoursLeft: number
-  /** Live countdown string "HH:MM:SS" — only meaningful when < 24h remain. */
+  /** Live countdown string "HH:MM:SS" - only meaningful when < 24h remain. */
   countdown: string
   /** True when less than 24 hours until the next price increase. */
   isUrgent: boolean

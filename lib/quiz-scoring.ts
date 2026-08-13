@@ -59,7 +59,7 @@ export function computeQuizResult(answers: QuizAnswers): QuizResult {
     }
   }
 
-  // Floor at 35 — this is a marketing quiz, nobody walks away thinking they're a lost cause.
+  // Floor at 35 - this is a marketing quiz, nobody walks away thinking they're a lost cause.
   const normalized = MAX_SCORE_RAW > 0 ? rawScore / MAX_SCORE_RAW : 0
   const score = Math.round(35 + normalized * 65)
 
@@ -85,7 +85,7 @@ export function computeQuizResult(answers: QuizAnswers): QuizResult {
   //
   // Principle: push the highest-CA tier the lead can credibly afford. Downgrade
   // only when there's a clear disqualifier. The appointment call filters the
-  // rest — that's its job.
+  // rest - that's its job.
   //
   // Ranking (high → low CA):
   //   Autopilot  →  €10k+ done-for-you

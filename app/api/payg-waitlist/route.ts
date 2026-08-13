@@ -177,7 +177,7 @@ export async function POST(req: NextRequest) {
         `📧 ${normalizedEmail}\n` +
         `📱 ${phone}\n` +
         `📡 ${cleanPlatforms.join(', ')}\n` +
-        `🎬 ${cleanContentTypes.join(', ') || '—'}\n` +
+        `🎬 ${cleanContentTypes.join(', ') || '-'}\n` +
         `🪧 #${position} sur la waitlist\n` +
         `🕐 ${new Date().toLocaleString('fr-FR')}`
 

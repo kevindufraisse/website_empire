@@ -13,7 +13,7 @@ import CrossSellCTA from '@/components/sections/CrossSellCTA'
 export const metadata = {
   title: 'Devenez Head of Viralité en 21 jours - Empire Internet',
   description:
-    "Apprenez à transformer l'expertise d'une marque en contenus qui attirent l'attention - puis faites-en votre métier. Même sans projet. 20 places, sur sélection. Tarif annoncé si vous êtes sélectionné.",
+    "Apprenez à transformer l'expertise d'une marque en contenus qui attirent l'attention - puis faites-en votre métier. Même sans projet. 20 places, sur sélection.",
 }
 
 export default function AcademyPage() {

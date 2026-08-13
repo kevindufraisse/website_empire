@@ -39,7 +39,7 @@ export default function TierNav({ instance = 'main' }: { instance?: string }) {
       id: 'copilot',
       href: '/',
       label: 'Empire',
-      sublabel: fr ? 'Installer le système' : 'Install the system',
+      sublabel: fr ? 'Demander un accès' : 'Request access',
       color: '#DAFC68',
     },
     {

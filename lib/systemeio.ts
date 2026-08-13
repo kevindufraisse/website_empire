@@ -43,7 +43,7 @@ async function request<T>(
       })
       clearTimeout(timer)
 
-      // 409 or 422 with "déjà utilisée" = contact already exists — not an error for us.
+      // 409 or 422 with "déjà utilisée" = contact already exists - not an error for us.
       // 422 with other messages (invalid email, bad fields) = real validation error.
       if (res.status === 409 || res.status === 422) {
         const text = await res.text().catch(() => '')
@@ -82,7 +82,7 @@ export class ConflictError extends Error {
   }
 }
 
-/** Systeme.io rejected the payload (422). Not retryable — surface it to the user. */
+/** Systeme.io rejected the payload (422). Not retryable - surface it to the user. */
 export class ValidationError extends Error {
   constructor(message: string) {
     super(message)
@@ -119,7 +119,7 @@ export interface SystemeTag {
 
 /**
  * Create a contact, or return the existing one if the email already exists.
- * Systeme.io returns 409 on duplicates — we resolve it via a list lookup.
+ * Systeme.io returns 409 on duplicates - we resolve it via a list lookup.
  *
  * IMPORTANT: Systeme.io expects firstName/lastName/phone inside the `fields`
  * array with their reserved slugs (`first_name`, `surname`, `phone_number`),
@@ -149,7 +149,7 @@ export async function createOrUpdateContact(
     if (err instanceof ConflictError) {
       const existing = await findContactByEmail(payload.email)
       if (existing) {
-        // Contact already exists — push the firstName/fields onto it via PATCH
+        // Contact already exists - push the firstName/fields onto it via PATCH
         // so we don't lose data on subsequent submissions.
         if (apiFields.length) {
           try {
@@ -197,7 +197,7 @@ export async function addTagsToContact(
   contactId: number,
   tagIds: number[],
 ): Promise<void> {
-  // Sequential — Systeme.io rate limits parallel writes per contact.
+  // Sequential - Systeme.io rate limits parallel writes per contact.
   for (const tagId of tagIds) {
     if (!tagId || Number.isNaN(tagId)) continue
     try {
@@ -210,7 +210,7 @@ export async function addTagsToContact(
 
 export async function listAllTags(): Promise<SystemeTag[]> {
   // Systeme.io caps the page size server-side, so a short page doesn't mean it's
-  // the last one — only an empty page does. Defensive cap so we never loop forever.
+  // the last one - only an empty page does. Defensive cap so we never loop forever.
   const byId = new Map<number, SystemeTag>()
   let page = 1
   while (page <= 50) {

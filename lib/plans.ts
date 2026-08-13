@@ -9,8 +9,8 @@ export type BillingId = 'monthly' | 'quarterly' | 'yearly'
 
 // Le volume se dépense à la pièce produite, à un tarif fixe par format (une
 // newsletter coûte quatre fois un Reel) : le nombre de contenus dépend donc du
-// mix choisi par le client. On affiche l'unité que le produit débite vraiment —
-// la session d'enregistrement — et le volume qu'elle génère tous formats
+// mix choisi par le client. On affiche l'unité que le produit débite vraiment -
+// la session d'enregistrement - et le volume qu'elle génère tous formats
 // activés. `sessions` donne une fourchette : le bas correspond à des sessions
 // complètes, le haut à des mix plus légers.
 export type Plan = {
@@ -24,7 +24,7 @@ export type Plan = {
   /**
    * Cadence par format plutôt qu'un total quotidien : « 4 contenus par jour »
    * fait fuir, « 2 posts et 2 Reels par semaine » se visualise. Les trois paliers
-   * s'expriment sur la même unité — la semaine — sinon ils ne se comparent pas ;
+   * s'expriment sur la même unité - la semaine - sinon ils ne se comparent pas ;
    * seul le volume LinkedIn et Reels change, la newsletter reste hebdomadaire.
    */
   rhythmFr: string

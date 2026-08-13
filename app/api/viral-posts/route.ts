@@ -5,7 +5,7 @@ const PER_PAGE = 100
 const MAX_PAGES = 20
 const TOP_PER_PLATFORM = 3
 const CACHE_TTL_MS = 60 * 60 * 1000 // 1h
-// Personal profile group (Kevin) — the API key spans all client groups
+// Personal profile group (Kevin) - the API key spans all client groups
 const PROFILE_GROUP_ID = process.env.POSTPROXY_PROFILE_GROUP_ID ?? 'ZlF5G1'
 
 // Kevin's Postproxy profile IDs within ZlF5G1 (avoids client/corporate accounts)
@@ -90,7 +90,7 @@ function buildLinkedInTop(
     return trusted.slice(0, TOP_PER_PLATFORM)
   }
 
-  // Postproxy rarely syncs LinkedIn impressions — fall back to recent personal posts
+  // Postproxy rarely syncs LinkedIn impressions - fall back to recent personal posts
   const recent: ViralPost[] = []
   for (const [id, meta] of posts) {
     if (!meta.permalinks.linkedin) continue

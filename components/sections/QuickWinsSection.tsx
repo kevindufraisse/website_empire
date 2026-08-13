@@ -3,9 +3,8 @@ import { motion } from 'framer-motion'
 import { useReveal } from '@/hooks/useReveal'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
-import { ArrowRight, X, Check } from 'lucide-react'
-import { CtaReassurance } from '@/components/ui/cta-reassurance'
-import OnboardingLink from '@/components/OnboardingLink'
+import { X, Check } from 'lucide-react'
+import WaitlistEmailCta from '@/components/WaitlistEmailCta'
 
 type ComparisonRow = {
   dimensionFr: string
@@ -54,8 +53,8 @@ const COMPARISONS: ComparisonRow[] = [
     dimensionEn: 'Cost',
     oldFr: 'Plusieurs freelances : 5 000€+/mois',
     oldEn: 'Multiple freelancers: €5,000+/mo',
-    newFr: 'Liste d\'attente — on sélectionne les plus motivés',
-    newEn: 'Waitlist — we select the most motivated',
+    newFr: 'Demander un accès - sur sélection',
+    newEn: 'Request access - by selection',
   },
   {
     dimensionFr: 'Scalabilité',
@@ -68,7 +67,7 @@ const COMPARISONS: ComparisonRow[] = [
 ]
 
 export default function QuickWinsSection() {
-  const { lang, t } = useLanguage()
+  const { lang } = useLanguage()
   const { autopilot } = useAutopilot()
   const fr = lang === 'fr'
   const [ref, isInView] = useReveal('-80px')
@@ -158,11 +157,7 @@ export default function QuickWinsSection() {
           transition={{ duration: 0.6, delay: 0.6 }}
           className="text-center"
         >
-          <OnboardingLink className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-empire text-black font-bold text-lg hover:scale-105 transition-transform shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.3)]">
-            {lang === 'fr' ? 'Rejoindre la liste d\'attente' : 'Join the waitlist'}
-            <ArrowRight size={20} />
-          </OnboardingLink>
-          <CtaReassurance className="mt-4 px-2" />
+          <WaitlistEmailCta compact />
         </motion.div>
       </div>
     </section>

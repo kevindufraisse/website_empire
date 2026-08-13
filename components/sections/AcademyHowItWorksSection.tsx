@@ -55,7 +55,7 @@ const PlatformLogos = {
   ),
 }
 
-/** Step 1 — Kevin + Marc reviewing your profile */
+/** Step 1 - Kevin + Marc reviewing your profile */
 function ApplyVisual() {
   const { lang } = useLanguage()
   const fr = lang === 'fr'
@@ -79,7 +79,7 @@ function ApplyVisual() {
   )
 }
 
-/** Step 2 — Publish on platforms with real logos orbiting */
+/** Step 2 - Publish on platforms with real logos orbiting */
 function ProgramVisual() {
   const items: { key: string; icon: React.ReactNode; bg: string }[] = [
     { key: 'li', icon: PlatformLogos.linkedin, bg: '#0A66C2' },
@@ -105,7 +105,7 @@ function ProgramVisual() {
   )
 }
 
-/** Step 3 — Certification badge with LinkedIn-style badge */
+/** Step 3 - Certification badge with LinkedIn-style badge */
 function CertificationVisual() {
   const { lang } = useLanguage()
   const fr = lang === 'fr'
@@ -140,7 +140,7 @@ function CertificationVisual() {
   )
 }
 
-/** Step 4 — Leads & clients flowing in */
+/** Step 4 - Leads & clients flowing in */
 function ClientsVisual() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
@@ -190,7 +190,7 @@ function ClientsVisual() {
 }
 
 /**
- * Après les 21 jours — le réseau Empire Partners. Présenté en bandeau et non en
+ * Après les 21 jours - le réseau Empire Partners. Présenté en bandeau et non en
  * 5e carte : ce n'est pas une étape du bootcamp, c'est ce qui reste après.
  */
 function PartnersVisual() {
@@ -295,7 +295,7 @@ export default function AcademyHowItWorksSection() {
             ))}
           </div>
 
-          {/* Après les 21 jours — le réseau Empire Partners, en bandeau */}
+          {/* Après les 21 jours - le réseau Empire Partners, en bandeau */}
           <FadeInBlock delay={0.5}>
             <div className="relative mt-5 overflow-hidden rounded-2xl border border-academy/25 bg-gradient-to-br from-academy/10 to-white/[0.02] p-5 md:p-7">
               <div className="flex flex-col gap-5 md:flex-row md:items-center md:gap-8">
