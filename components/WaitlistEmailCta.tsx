@@ -6,11 +6,10 @@ import { useLanguage } from '@/contexts/LanguageContext'
 
 type Props = {
   className?: string
-  /** Compact = tighter for secondary sections */
   compact?: boolean
 }
 
-export default function WaitlistEmailCta({ className = '', compact = false }: Props) {
+export default function WaitlistEmailCta({ className = '' }: Props) {
   const { lang } = useLanguage()
   const fr = lang === 'fr'
   const router = useRouter()
@@ -30,9 +29,6 @@ export default function WaitlistEmailCta({ className = '', compact = false }: Pr
 
   return (
     <div className={`w-full max-w-md mx-auto ${className}`}>
-      <p className={`text-center font-semibold text-empire ${compact ? 'text-xs mb-2' : 'text-sm mb-3'}`}>
-        {fr ? 'Complet pour l\'instant' : 'Full for now'}
-      </p>
       <form onSubmit={submit} className="flex flex-col gap-2 w-full sm:flex-row sm:items-stretch">
         <input
           type="email"
@@ -44,9 +40,12 @@ export default function WaitlistEmailCta({ className = '', compact = false }: Pr
         />
         <button
           type="submit"
-          className="w-full sm:w-auto shrink-0 rounded-xl bg-empire px-5 py-3.5 text-sm font-bold text-black transition-all hover:brightness-110 whitespace-nowrap"
+          className="w-full sm:w-auto shrink-0 rounded-xl bg-empire px-5 py-3 text-sm font-bold text-black transition-all hover:brightness-110 whitespace-nowrap flex flex-col items-center justify-center leading-tight"
         >
-          {fr ? 'Demander un accès' : 'Request access'}
+          <span>{fr ? 'Demander un accès' : 'Request access'}</span>
+          <span className="text-[10px] font-semibold opacity-70">
+            {fr ? '15 min d\'audit offert' : '15 min free audit'}
+          </span>
         </button>
       </form>
       {error && <p className="mt-1.5 text-center text-xs text-red-400">{error}</p>}

@@ -48,8 +48,8 @@ export default function HomeApplySection() {
           </h2>
           <p className="mt-4 text-neutral-400">
             {fr
-              ? 'Complet pour l\'instant. Demande un accès - on lit chaque candidature.'
-              : 'Full for now. Request access - we read every application.'}
+              ? 'Demande un accès - on lit chaque candidature.'
+              : 'Request access - we read every application.'}
           </p>
         </motion.div>
 

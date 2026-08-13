@@ -230,7 +230,7 @@ export default function CaseStudiesSection() {
                 <ArrowRight size={20} />
               </a>
               <p className="mt-3 text-xs text-neutral-500">
-                {fr ? 'Complet pour l\'instant' : 'Full for now'}
+                {fr ? 'Sur sélection' : 'By selection'}
               </p>
             </div>
           </FadeInBlock>

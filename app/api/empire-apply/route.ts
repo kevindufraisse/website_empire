@@ -8,15 +8,21 @@ export async function POST(request: Request) {
       firstName,
       email,
       phone,
-      hoursPerWeek,
+      frequency,
+      contentStats,
       contentSkill,
-      alreadyPublishing,
+      networks,
+      linkedin,
+      instagram,
+      youtube,
       emp,
     } = body
 
-    if (!firstName || !email || !phone || !hoursPerWeek || !contentSkill) {
+    if (!firstName || !email || !phone || !frequency || !contentSkill) {
       return NextResponse.json({ error: 'Missing fields' }, { status: 400 })
     }
+
+    const networksList = Array.isArray(networks) ? networks.join(', ') : String(networks || '')
 
     const webhookUrl =
       process.env.CALLBACK_WEBHOOK_URL ||
@@ -26,16 +32,20 @@ export async function POST(request: Request) {
       firstName,
       email,
       phone,
-      hoursPerWeek,
+      frequency,
+      contentStats: contentStats || '',
       contentSkill,
-      alreadyPublishing: alreadyPublishing || '',
+      networks: networksList,
+      linkedin: linkedin || '',
+      instagram: instagram || '',
+      youtube: youtube || '',
       emp: emp || '',
       timestamp: new Date().toISOString(),
       source: 'empire-application',
       offer: 'empire',
+      auditBonus: '15min',
     }
 
-    // 1) Folk CRM (group Empire_2026)
     await createFolkPerson({
       firstName: String(firstName).trim(),
       email: String(email).trim(),
@@ -44,9 +54,14 @@ export async function POST(request: Request) {
       noteMarkdown: [
         '## Candidature Empire (site)',
         '',
-        `- **Temps / semaine:** ${hoursPerWeek}`,
+        `- **Frequence publication:** ${frequency}`,
+        `- **Stats / mois:** ${contentStats || 'n/a'}`,
         `- **A l'aise contenu:** ${contentSkill}`,
-        `- **Publie deja:** ${alreadyPublishing || 'n/a'}`,
+        `- **Reseaux:** ${networksList || 'n/a'}`,
+        linkedin ? `- **LinkedIn:** ${linkedin}` : '',
+        instagram ? `- **Instagram:** ${instagram}` : '',
+        youtube ? `- **YouTube:** ${youtube}` : '',
+        `- **Bonus:** 15 min audit si selectionne`,
         emp ? `- **emp:** ${emp}` : '',
         `- **source:** website /postuler`,
       ]
@@ -54,7 +69,6 @@ export async function POST(request: Request) {
         .join('\n'),
     }).catch((err) => console.error('[empire-apply] folk', err))
 
-    // 2) Make → Slack (existing)
     if (webhookUrl) {
       await fetch(webhookUrl, {
         method: 'POST',
@@ -63,7 +77,6 @@ export async function POST(request: Request) {
       }).catch(() => {})
     }
 
-    // 3) WhatsApp notify (optional)
     const wahaUrl = process.env.WAHA_API_URL
     const wahaSession = process.env.WAHA_SESSION || 'default'
     const notifyPhone = process.env.NOTIFY_PHONE_NUMBER
@@ -74,9 +87,13 @@ export async function POST(request: Request) {
         `👤 ${firstName}\n` +
         `📧 ${email}\n` +
         `📱 ${phone}\n` +
-        `⏱ Temps/semaine: ${hoursPerWeek}\n` +
+        `📡 Fréquence: ${frequency}\n` +
+        `📊 Stats: ${contentStats || 'n/a'}\n` +
         `🎬 Contenu: ${contentSkill}\n` +
-        (alreadyPublishing ? `📡 Publie déjà: ${alreadyPublishing}\n` : '') +
+        `🌐 Réseaux: ${networksList || 'n/a'}\n` +
+        (linkedin ? `🔗 LinkedIn: ${linkedin}\n` : '') +
+        (instagram ? `📸 IG: ${instagram}\n` : '') +
+        (youtube ? `▶️ YT: ${youtube}\n` : '') +
         `🕐 ${new Date().toLocaleString('fr-FR')}`
 
       await fetch(`${wahaUrl}/api/sendText`, {

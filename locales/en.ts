@@ -312,7 +312,7 @@ export const en = {
   common: {
     startNow: 'Start for free',
     watchDemo: 'Start for free',
-    ctaReassurance: 'Full for now',
+    ctaReassurance: 'By selection',
     /** Tight subline: header, sticky, banner (keeps the CTA compact) */
     ctaReassuranceCompact: 'No commitment',
     learnMore: 'Learn more',

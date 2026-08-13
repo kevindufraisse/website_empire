@@ -29,7 +29,7 @@ export default function AnnouncementBanner() {
               {lang === 'fr' ? 'Demander un accès →' : 'Request access →'}
             </span>
             <span className="text-[7px] sm:text-[8px] font-semibold text-empire/90 leading-tight text-center max-w-[8rem] sm:max-w-[10rem]">
-              {lang === 'fr' ? 'Complet pour l\'instant' : 'Full for now'}
+              {lang === 'fr' ? 'Sur sélection' : 'By selection'}
             </span>
           </a>
           <button

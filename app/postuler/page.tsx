@@ -4,7 +4,7 @@ import EmpireApplyForm from '@/components/EmpireApplyForm'
 
 export const metadata: Metadata = {
   title: 'Demander un accès - Empire Internet',
-  description: 'Demandez un accès à Empire Internet. Complet pour l\'instant - candidature sur sélection.',
+  description: 'Demandez un accès à Empire Internet. Candidature sur sélection.',
   robots: { index: false, follow: false },
 }
 
@@ -14,7 +14,7 @@ export default function PostulerPage() {
       <div className="container max-w-xl mx-auto px-4">
         <div className="mb-8 rounded-2xl border border-empire/30 bg-empire/10 px-5 py-4 text-center">
           <p className="text-sm font-semibold text-white leading-relaxed">
-            Complet pour l&apos;instant. Demande un accès - on lit chaque candidature.
+            Demande un accès - on lit chaque candidature.
           </p>
         </div>
 

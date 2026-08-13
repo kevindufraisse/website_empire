@@ -75,7 +75,7 @@ export default function Footer() {
                 className="inline-flex flex-col items-start text-left px-6 py-3.5 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]"
               >
                 <span className="text-left">{lang === 'fr' ? 'Demander un accès' : 'Request access'}</span>
-                <span className="text-[10px] font-semibold opacity-70 text-left">{lang === 'fr' ? 'Complet pour l\'instant' : 'Full for now'}</span>
+                <span className="text-[10px] font-semibold opacity-70 text-left">{lang === 'fr' ? 'Sur sélection' : 'By selection'}</span>
               </a>
             )}
           </div>
