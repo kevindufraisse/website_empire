@@ -44,6 +44,12 @@ export async function notifyLead(input: LeadNotifyInput): Promise<void> {
   const source = input.source || `website-${offer}`
   const timestamp = new Date().toISOString()
 
+  // Never ping Make/Slack without an email — avoids empty webhook bundles.
+  if (!email) {
+    console.warn('[lead-notify] skip — missing email', { offer, source })
+    return
+  }
+
   const payload = {
     offer,
     offerLabel: OFFER_LABEL[offer],

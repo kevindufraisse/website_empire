@@ -192,20 +192,18 @@ export default function AcademyWaitlistForm({
     })
   }
 
-  const flushLead = (partial: boolean, opts?: { beacon?: boolean }) => {
+  const flushLead = (partial: boolean) => {
     const email = formRef.current.email.trim()
     if (!EMAIL_RE.test(email)) return
     if (submittedRef.current || alreadyFlushed()) return
 
+    // Only flush after they clicked "Continuer" (timer started) — not on random pagehide.
+    const draft = readDraft()
+    if (!draft?.timerStartedAt) return
+
     markFlushed()
     const payload = buildPayload(partial)
     const body = JSON.stringify(payload)
-
-    if (opts?.beacon && typeof navigator !== 'undefined' && navigator.sendBeacon) {
-      const blob = new Blob([body], { type: 'application/json' })
-      navigator.sendBeacon('/api/academy-waitlist', blob)
-      return
-    }
 
     fetch('/api/academy-waitlist', {
       method: 'POST',
@@ -281,19 +279,13 @@ export default function AcademyWaitlistForm({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form, countryCode, step, submitted])
 
-  // Leave page OR close the modal before finishing → flush once.
-  // Tab switches do NOT flush. Completing the form cancels this path.
+  // Flush on real page leave only (after step 1 completed).
   useEffect(() => {
-    const onPageHide = () => flushLead(true, { beacon: true })
+    const onPageHide = () => flushLead(true)
     window.addEventListener('pagehide', onPageHide)
     return () => {
       window.removeEventListener('pagehide', onPageHide)
       clearTimer()
-      // Only after they started the flow (timer running / step 2), not on Strict Mode remounts.
-      const draft = readDraft()
-      if (draft?.timerStartedAt && EMAIL_RE.test(formRef.current.email.trim())) {
-        flushLead(true, { beacon: true })
-      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

@@ -116,6 +116,12 @@ async function backupToSupabase(args: {
   }
 }
 
+async function parseJsonBody(req: NextRequest): Promise<Record<string, unknown>> {
+  const text = await req.text()
+  if (!text.trim()) return {}
+  return JSON.parse(text) as Record<string, unknown>
+}
+
 export async function POST(req: NextRequest) {
   let body: {
     firstName?: string
@@ -130,7 +136,7 @@ export async function POST(req: NextRequest) {
     partial?: boolean
   }
   try {
-    body = await req.json()
+    body = (await parseJsonBody(req)) as typeof body
   } catch {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
   }
