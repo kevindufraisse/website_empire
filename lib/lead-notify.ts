@@ -3,7 +3,7 @@
  * Always includes `offer`: academy | empire | legende
  */
 
-import { createFolkPerson } from '@/lib/folk'
+import { createFolkPerson, normalizeFolkUrl } from '@/lib/folk'
 
 export type LeadOffer = 'academy' | 'empire' | 'legende'
 
@@ -36,6 +36,42 @@ function webhookUrl() {
   )
 }
 
+function strField(fields: Record<string, unknown> | undefined, key: string): string {
+  const v = fields?.[key]
+  if (v == null || v === '') return ''
+  return String(v).trim()
+}
+
+function collectProfileUrls(fields?: Record<string, unknown>): string[] {
+  if (!fields) return []
+  const keys = ['linkedin', 'instagram', 'youtube', 'url', 'social_link', 'socialLink']
+  const seen = new Set<string>()
+  const out: string[] = []
+  for (const key of keys) {
+    const normalized = normalizeFolkUrl(strField(fields, key))
+    if (normalized && !seen.has(normalized)) {
+      seen.add(normalized)
+      out.push(normalized)
+    }
+  }
+  return out
+}
+
+function buildFolkDescription(offer: LeadOffer, fields?: Record<string, unknown>): string {
+  const parts = [OFFER_LABEL[offer]]
+  const status = strField(fields, 'status')
+  const partial = fields?.partial === true
+  if (status === 'complete' || status === 'partial') {
+    parts.push(status === 'partial' ? 'partiel' : 'complet')
+  } else if (partial) {
+    parts.push('partiel')
+  }
+  const situation = strField(fields, 'situationLabel') || strField(fields, 'situation')
+  if (situation) parts.push(situation)
+  parts.push(new Date().toLocaleDateString('fr-FR'))
+  return parts.join(' · ')
+}
+
 export async function notifyLead(input: LeadNotifyInput): Promise<void> {
   const offer = input.offer
   const firstName = String(input.firstName || '').trim()
@@ -43,6 +79,7 @@ export async function notifyLead(input: LeadNotifyInput): Promise<void> {
   const phone = input.phone ? String(input.phone).trim() : ''
   const source = input.source || `website-${offer}`
   const timestamp = new Date().toISOString()
+  const fields = input.fields || {}
 
   // Never ping Make/Slack without an email — avoids empty webhook bundles.
   if (!email) {
@@ -58,7 +95,7 @@ export async function notifyLead(input: LeadNotifyInput): Promise<void> {
     phone: phone || undefined,
     timestamp,
     source,
-    ...(input.fields || {}),
+    ...fields,
   }
 
   // 1) Make → Slack
@@ -76,19 +113,26 @@ export async function notifyLead(input: LeadNotifyInput): Promise<void> {
   // 2) Folk
   if (input.skipFolk) return
 
+  const profileUrls = collectProfileUrls(fields)
   const noteMarkdown = [
     `## Lead ${OFFER_LABEL[offer]} (site)`,
     '',
     `- **Offre:** ${offer}`,
+    phone ? `- **Tel:** ${phone}` : '',
+    profileUrls[0] ? `- **LinkedIn / URL:** ${profileUrls[0]}` : '',
     ...(input.noteLines || []),
-    `- **source:** ${source}`,
-  ].join('\n')
+    `- **Source:** ${source}`,
+    `- **Date:** ${new Date().toLocaleString('fr-FR')}`,
+  ]
+    .filter(Boolean)
+    .join('\n')
 
   await createFolkPerson({
     firstName,
     email,
     phone: phone || undefined,
-    description: `${OFFER_LABEL[offer]} - ${new Date().toLocaleDateString('fr-FR')}`,
+    urls: profileUrls,
+    description: buildFolkDescription(offer, fields),
     noteMarkdown,
   }).catch((err) => console.error('[lead-notify] folk failed', offer, err))
 }

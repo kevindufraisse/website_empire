@@ -11,9 +11,19 @@ export type FolkPersonInput = {
   email: string
   phone?: string
   description?: string
+  /** Profile / social URLs (LinkedIn first = primary). */
+  urls?: string[]
   /** Folk group id, e.g. grp_uuid */
   groupId?: string
   noteMarkdown?: string
+}
+
+export function normalizeFolkUrl(raw: string): string | null {
+  const v = raw.trim()
+  if (!v) return null
+  if (/^https?:\/\//i.test(v)) return v
+  if (v.includes('.') && !v.includes(' ')) return `https://${v.replace(/^\/+/, '')}`
+  return null
 }
 
 export async function createFolkPerson(input: FolkPersonInput): Promise<{ id: string } | null> {
@@ -28,6 +38,11 @@ export async function createFolkPerson(input: FolkPersonInput): Promise<{ id: st
     process.env.FOLK_GROUP_ID ||
     'grp_5824b4be-33eb-466f-8269-db25e8ca3050'
 
+  const urls = (input.urls || [])
+    .map((u) => normalizeFolkUrl(u))
+    .filter((u): u is string => Boolean(u))
+    .slice(0, 20)
+
   const body: Record<string, unknown> = {
     firstName: input.firstName,
     emails: [input.email],
@@ -36,14 +51,17 @@ export async function createFolkPerson(input: FolkPersonInput): Promise<{ id: st
   if (input.lastName) body.lastName = input.lastName
   if (input.phone) body.phones = [input.phone]
   if (input.description) body.description = input.description
+  if (urls.length) body.urls = urls
+
+  const headers = {
+    Authorization: `Bearer ${apiKey}`,
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
+  }
 
   const res = await fetch(`${FOLK_API}/people`, {
     method: 'POST',
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-    },
+    headers,
     body: JSON.stringify(body),
   })
 
@@ -58,19 +76,19 @@ export async function createFolkPerson(input: FolkPersonInput): Promise<{ id: st
   if (!personId) return null
 
   if (input.noteMarkdown) {
-    await fetch(`${FOLK_API}/notes`, {
+    const noteRes = await fetch(`${FOLK_API}/notes`, {
       method: 'POST',
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
+      headers,
       body: JSON.stringify({
         content: input.noteMarkdown,
         visibility: 'public',
-        entity: { id: personId, entityType: 'person' },
+        entity: { id: personId },
       }),
-    }).catch((err) => console.warn('[folk] note failed', err))
+    })
+    if (!noteRes.ok) {
+      const text = await noteRes.text().catch(() => '')
+      console.warn('[folk] note failed', noteRes.status, text)
+    }
   }
 
   return { id: personId }
