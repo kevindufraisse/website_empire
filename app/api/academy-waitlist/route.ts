@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import { createOrUpdateContact, addTagsToContact, ValidationError } from '@/lib/systemeio'
 import { notifyLead } from '@/lib/lead-notify'
+import { startWaSetterConversation } from '@/lib/wa-setter'
 
 export const runtime = 'nodejs'
 
@@ -237,6 +238,24 @@ export async function POST(req: NextRequest) {
         `- **Systeme.io contact:** ${contact.id}`,
       ].filter(Boolean),
     }).catch((err) => console.error('[academy-waitlist] notifyLead', err))
+
+    // Une seule intro par personne : l'enrichissement d'un lead partiel repasse
+    // ici, et le setter ne doit pas ouvrir deux fois la conversation.
+    if (!alreadyRegistered) {
+      await startWaSetterConversation({
+        phone,
+        firstName,
+        source: 'website-academy-waitlist',
+        lang,
+        lead: {
+          email,
+          linkedin,
+          situation: situationLabel,
+          contentLevel: contentLabel,
+          position,
+        },
+      })
+    }
 
     const wahaUrl = process.env.WAHA_API_URL
     const wahaSession = process.env.WAHA_SESSION || 'default'

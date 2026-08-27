@@ -1,5 +1,12 @@
 import { NextResponse } from 'next/server'
 import { notifyLead } from '@/lib/lead-notify'
+import {
+  startWaSetterConversation,
+  labelFrequency,
+  labelStats,
+  labelSkill,
+  labelNetworks,
+} from '@/lib/wa-setter'
 
 export async function POST(request: Request) {
   try {
@@ -16,6 +23,7 @@ export async function POST(request: Request) {
       instagram,
       youtube,
       emp,
+      lang,
     } = body
 
     if (!firstName || !email || !phone || !frequency || !contentSkill) {
@@ -52,6 +60,23 @@ export async function POST(request: Request) {
         `- **Bonus:** 15 min audit si selectionne`,
         emp ? `- **emp:** ${emp}` : '',
       ].filter(Boolean),
+    })
+
+    await startWaSetterConversation({
+      phone: String(phone).trim(),
+      firstName: String(firstName).trim(),
+      source: 'website-empire-apply',
+      lang: typeof lang === 'string' ? lang : 'fr',
+      lead: {
+        email: String(email).trim(),
+        frequency: labelFrequency(frequency),
+        contentStats: labelStats(contentStats),
+        contentSkill: labelSkill(contentSkill),
+        networks: labelNetworks(networks),
+        linkedin,
+        instagram,
+        youtube,
+      },
     })
 
     const wahaUrl = process.env.WAHA_API_URL

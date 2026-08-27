@@ -126,6 +126,7 @@ export default function EmpireApplyForm() {
           instagram: instagram.trim(),
           youtube: youtube.trim(),
           emp: getEmpParam(),
+          lang,
         }),
       })
       if (!res.ok) throw new Error('fail')
