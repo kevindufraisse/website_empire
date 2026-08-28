@@ -239,23 +239,24 @@ export async function POST(req: NextRequest) {
       ].filter(Boolean),
     }).catch((err) => console.error('[academy-waitlist] notifyLead', err))
 
-    // Une seule intro par personne : l'enrichissement d'un lead partiel repasse
-    // ici, et le setter ne doit pas ouvrir deux fois la conversation.
-    if (!alreadyRegistered) {
-      await startWaSetterConversation({
-        phone,
-        firstName,
-        source: 'website-academy-waitlist',
-        lang,
-        lead: {
-          email,
-          linkedin,
-          situation: situationLabel,
-          contentLevel: contentLabel,
-          position,
-        },
-      })
-    }
+    // On appelle le setter aux deux passages. Le premier n'a que les coordonnées
+    // (le formulaire pose la qualification à l'étape 2) : couper ici sur
+    // `alreadyRegistered` laissait le setter ouvrir la conversation sans jamais
+    // recevoir les réponses. C'est lui qui décide s'il s'agit d'une intro ou
+    // d'un simple enrichissement de la fiche.
+    await startWaSetterConversation({
+      phone,
+      firstName,
+      source: 'website-academy-waitlist',
+      lang,
+      lead: {
+        email,
+        linkedin,
+        situation: situationLabel,
+        contentLevel: contentLabel,
+        position,
+      },
+    })
 
     const wahaUrl = process.env.WAHA_API_URL
     const wahaSession = process.env.WAHA_SESSION || 'default'
