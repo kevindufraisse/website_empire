@@ -10,7 +10,7 @@ type Props = {
 }
 
 export default function WaitlistEmailCta({ className = '' }: Props) {
-  const { lang } = useLanguage()
+  const { t, lang } = useLanguage()
   const fr = lang === 'fr'
   const router = useRouter()
   const [email, setEmail] = useState('')
@@ -42,7 +42,7 @@ export default function WaitlistEmailCta({ className = '' }: Props) {
           type="submit"
           className="w-full sm:w-auto shrink-0 rounded-xl bg-empire px-5 py-3.5 text-sm font-bold text-black transition-all hover:brightness-110 whitespace-nowrap"
         >
-          {fr ? 'Recevoir un accès' : 'Get access'}
+          {t.hero.cta1}
         </button>
       </form>
       {error && <p className="mt-1.5 text-center text-xs text-red-400">{error}</p>}

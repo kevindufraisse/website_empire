@@ -679,10 +679,10 @@ export default function HowItWorksAccordion() {
 
               {/* BLOCK 1 - Le cerveau Empire trouve vos sujets */}
               <div className="group relative flex flex-col overflow-hidden rounded-xl transition-all min-h-[340px] bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30">
-                <div className="h-[200px]">
+                <div className="h-[200px] shrink-0">
                   <BrainTopicsVisual topics={topics} />
                 </div>
-                <div className="relative z-10 p-5 pt-3 mt-auto min-h-[160px] bg-gradient-to-t from-black via-black/90 to-transparent">
+                <div className="relative z-10 p-5 pt-3 flex-1 bg-gradient-to-t from-black via-black/90 to-transparent">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">1</span>
                     <h3 className="text-base font-semibold text-white">
@@ -699,7 +699,7 @@ export default function HowItWorksAccordion() {
 
               {/* BLOCK 2 - Vous enregistrez */}
               <div className="group relative flex flex-col overflow-hidden rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30 transition-all min-h-[340px]">
-                <div className="h-[200px] flex flex-col items-center justify-center p-6 gap-4">
+                <div className="h-[200px] shrink-0 flex flex-col items-center justify-center p-6 gap-4">
                   <div className="w-14 h-14 rounded-full bg-gradient-to-br from-empire/30 to-empire/10 border-2 border-empire flex items-center justify-center">
                     <Mic className="text-empire" size={24} />
                   </div>
@@ -708,7 +708,7 @@ export default function HowItWorksAccordion() {
                     {lang === 'fr' ? 'Enregistrement...' : 'Recording...'}
                   </p>
                 </div>
-                <div className="relative z-10 p-5 pt-3 mt-auto min-h-[160px] bg-gradient-to-t from-black via-black/90 to-transparent">
+                <div className="relative z-10 p-5 pt-3 flex-1 bg-gradient-to-t from-black via-black/90 to-transparent">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">2</span>
                     <h3 className="text-base font-semibold text-white">
@@ -717,15 +717,15 @@ export default function HowItWorksAccordion() {
                   </div>
                   <p className="text-neutral-400 text-sm leading-snug">
                     {lang === 'fr'
-                      ? 'On a testé plus de 100 façons de créer du contenu. On en a gardé 5 : les plus simples, celles qui marchent le mieux. Vous parlez en promenant le chien, en voiture, en marchant. On s\'occupe du reste.'
-                      : 'We tested over 100 ways to create content. We kept 5: the simplest ones that work best. You talk while walking the dog, in the car, on a stroll. We handle the rest.'}
+                      ? 'On a testé plus de 100 façons de créer du contenu. On a gardé les 5 qui marchent le mieux, et on continue d\'en tester chaque mois. Vous parlez, on s\'occupe du reste.'
+                      : 'We tested over 100 ways to create content. We kept the 5 that work best, and we keep testing new ones every month. You talk, we handle the rest.'}
                   </p>
                 </div>
               </div>
 
               {/* BLOCK 3 - On rédige et on monte */}
               <div className="group relative flex flex-col overflow-hidden rounded-xl transition-all min-h-[340px] bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30">
-                <div className="h-[200px] relative overflow-hidden">
+                <div className="h-[200px] shrink-0 relative overflow-hidden">
                   <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-500/20 border border-green-500/40 backdrop-blur-sm">
                     <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                     <span className="text-[10px] font-semibold text-green-400">
@@ -736,7 +736,7 @@ export default function HowItWorksAccordion() {
                     <AnimatedList items={notifications} delay={1200} className="w-full" />
                   </div>
                 </div>
-                <div className="relative z-10 p-5 pt-3 mt-auto h-[140px] bg-gradient-to-t from-black via-black/90 to-transparent">
+                <div className="relative z-10 p-5 pt-3 flex-1 bg-gradient-to-t from-black via-black/90 to-transparent">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">3</span>
                     <h3 className="text-base font-semibold text-white">
@@ -753,13 +753,13 @@ export default function HowItWorksAccordion() {
 
               {/* BLOCK 4 - On duplique partout */}
               <div className="group relative flex flex-col overflow-hidden rounded-xl transition-all min-h-[340px] bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30">
-                <div className="h-[200px] flex items-center justify-center p-4">
+                <div className="h-[200px] shrink-0 flex items-center justify-center p-4">
                   <CalendarGrid
                     className="max-w-[180px]"
                     label={lang === 'fr' ? '1 clic pour publier' : '1 click to publish'}
                   />
                 </div>
-                <div className="relative z-10 p-5 pt-3 mt-auto h-[140px] bg-gradient-to-t from-black via-black/90 to-transparent">
+                <div className="relative z-10 p-5 pt-3 flex-1 bg-gradient-to-t from-black via-black/90 to-transparent">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">4</span>
                     <h3 className="text-base font-semibold text-white">

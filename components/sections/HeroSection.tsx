@@ -39,7 +39,7 @@ export default function HeroSection() {
             initial={mounted ? { opacity: 0, y: 10 } : false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
-            className="mb-5 flex justify-center"
+            className="mb-4 flex justify-center"
           >
             <span className={`inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-bold ${
               autopilot
@@ -57,10 +57,21 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 0 }}
               transition={{ duration: 0.4, ease: 'easeOut' }}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight"
+              className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-[1.15]"
               dangerouslySetInnerHTML={{ __html: heroTitle.replace(/<br\/>/g, '<br>') }}
             />
           </AnimatePresence>
+
+          {!autopilot && t.hero.titleNote && (
+            <motion.p
+              initial={mounted ? { opacity: 0, y: 8 } : false}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+              className="mt-3 text-sm sm:text-base md:text-lg font-medium text-neutral-400 max-w-2xl mx-auto"
+            >
+              {t.hero.titleNote}
+            </motion.p>
+          )}
 
           {/* Platform logos strip - right under the title */}
           {!autopilot && (
@@ -68,7 +79,7 @@ export default function HeroSection() {
               initial={mounted ? { opacity: 0, y: 10 } : false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.15 }}
-              className="mt-6 flex items-center justify-center gap-2"
+              className="mt-5 flex items-center justify-center gap-2"
             >
               <span className="text-[11px] text-neutral-500">{lang === 'fr' ? 'Publié sur' : 'Published on'}</span>
               <div className="flex items-center gap-3 text-neutral-400 [&_path]:fill-current [&_circle]:fill-current">
@@ -89,7 +100,7 @@ export default function HeroSection() {
               initial={mounted ? { opacity: 0, y: 10 } : false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.25 }}
-              className="mt-7 text-base sm:text-lg text-neutral-300 max-w-2xl mx-auto"
+              className="mt-5 text-[15px] sm:text-base text-neutral-300 max-w-2xl mx-auto leading-relaxed"
               dangerouslySetInnerHTML={{ __html: heroSubtitle }}
             />
           )}
@@ -135,7 +146,7 @@ export default function HeroSection() {
             </div>
           </motion.div>
 
-          {/* Voice-to-content animation in place of the video */}
+          {/* Cascade strip + voice-to-content animation */}
           {!autopilot && (
             <motion.div
               initial={mounted ? { opacity: 0, y: 20 } : false}
@@ -143,6 +154,17 @@ export default function HeroSection() {
               transition={{ duration: 0.8, delay: 0.5 }}
               className="mt-10 w-full max-w-4xl mx-auto"
             >
+              <div className="mb-6 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[11px] font-semibold uppercase tracking-wider text-neutral-500 sm:text-xs">
+                {(lang === 'fr'
+                  ? ['1 idée', '1 contenu', '10+ contenus', 'Tous vos réseaux']
+                  : ['1 idea', '1 piece', '10+ pieces', 'Every network']
+                ).map((step, i, arr) => (
+                  <span key={step} className="inline-flex items-center gap-2">
+                    <span className={i === arr.length - 1 ? 'text-empire' : 'text-neutral-300'}>{step}</span>
+                    {i < arr.length - 1 && <span className="text-neutral-600">→</span>}
+                  </span>
+                ))}
+              </div>
               <VoiceToContentAnimation />
             </motion.div>
           )}

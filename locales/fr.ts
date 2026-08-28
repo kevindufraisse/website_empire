@@ -136,9 +136,10 @@ export const fr: Translations = {
     hiring: 'We are hiring',
   },
   hero: {
-    targetAudience: 'Pour freelances & entrepreneurs',
-    title: 'Parlez 1 heure. Nous créons un mois de contenus.',
-    subtitle: 'Votre expertise devient des posts, Reels, newsletters et vidéos publiés sur 7 plateformes - avec nos experts à vos côtés chaque semaine.',
+    targetAudience: 'Les formats qui cartonnent déjà',
+    title: 'De 0 à 1M de vues par mois.',
+    titleNote: '(sans écrire une ligne, monter une vidéo ni chercher quoi dire)',
+    subtitle: 'Nos experts analysent les réseaux pour repérer les formats qui génèrent des vues et des clients, puis les transforment en templates prêts à utiliser. Vous donnez une idée, Empire en fait une machine à contenu sur chaque plateforme.',
     description: '',
     cta1: 'Recevoir un accès',
     cta2: 'Voir la Démo (1 min)',
