@@ -10,6 +10,7 @@ import AcademyWhoSection from '@/components/sections/AcademyWhoSection'
 import AcademyFAQSection from '@/components/sections/AcademyFAQSection'
 import AcademySocialProofToast from '@/components/sections/AcademySocialProofToast'
 import CrossSellCTA from '@/components/sections/CrossSellCTA'
+import FeaturedInSection from '@/components/FeaturedInSection'
 export const metadata = {
   title: 'Devenez Head of Viralité en 21 jours - Empire Internet',
   description:
@@ -20,6 +21,13 @@ export default function AcademyPage() {
   return (
     <main className="relative">
       <AcademyHeroSection />
+      {/* Même bandeau "Vu dans" que sur la home + `/join/academy` — même
+          audience, même besoin de crédibilité avant les résultats élèves. */}
+      <section className="w-full bg-black py-10 sm:py-14">
+        <div className="container mx-auto max-w-5xl px-4">
+          <FeaturedInSection />
+        </div>
+      </section>
       <AcademyHowItWorksSection />
       <AcademyWhyViralitySection />
       <AcademyProofStrip />
