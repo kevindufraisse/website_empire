@@ -161,7 +161,7 @@ export const en = {
     specific: {
       howManyPosts: {
         question: 'How much content will I get?',
-        answer: 'Per week, roughly: Starter 2 LinkedIn + 2 Reels + 1 newsletter; Intermediate 5 + 5 + 1; Expert 10 + 10 + 1. All 7 networks included. What changes: sessions (1–2, 3–4 or 6–8/month) and volume.',
+        answer: 'Starter: you post every other day. Intermediate: every day. Expert: twice a day. Reels, LinkedIn, newsletter — you pick the mix. All 7 networks included.',
       },
       whatIfDontLike: {
         question: 'What if I don\'t know what to say?',
@@ -521,7 +521,7 @@ export const en = {
     },
     q4: {
       question: 'What if I\'m camera shy?',
-      answer: 'No problem! You can do audio-only interviews or screenrecordings. However, for video content (Reels/Shorts), we use b-roll, stock footage, and professional editing - but your face will appear in the final videos as it\'s essential for personal branding.',
+      answer: 'No problem. Audio only: we edit with b-roll, your face doesn\'t appear. On camera only if you film — ideal for Reels, never required.',
     },
     q5: {
       question: 'Can I use my existing content?',
@@ -539,7 +539,7 @@ export const en = {
     },
     {
       question: 'Which networks do you publish to?',
-      answer: 'LinkedIn, Instagram, TikTok, YouTube, X, Threads, Facebook and newsletter. You choose which to activate - all 7 are included.',
+      answer: 'LinkedIn, Instagram, TikTok, YouTube, X, Threads, Facebook. Newsletter on top. All 7 networks included — you pick which to turn on.',
     },
     {
       question: 'Do I need to be comfortable on camera?',
@@ -555,7 +555,7 @@ export const en = {
     },
     {
       question: 'How do I get started?',
-      answer: 'Start the 7-day free trial. Immediate access, first session, first content within 24h.',
+      answer: 'Apply. We read every application. If you\'re in, you get a 7-day trial (card required, nothing charged before day 8).',
     },
     {
       question: 'How does the 7-day free trial work?',

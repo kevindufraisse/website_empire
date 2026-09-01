@@ -38,7 +38,7 @@ export default function AcademyFAQSection() {
         },
         {
           q: 'Combien ça coûte ?',
-          a: '20 places sur sélection. On lit chaque candidature, puis on vous répond.',
+          a: '497 €, paiement unique. 20 places, sur sélection. On lit chaque candidature, puis on vous envoie le lien.',
         },
         {
           q: "J'ai pas de projet, c'est pour moi ?",
@@ -76,7 +76,7 @@ export default function AcademyFAQSection() {
         },
         {
           q: 'How much does it cost?',
-          a: '20 spots by selection. We read every application, then we reply.',
+          a: '€497, one-time. 20 spots, by selection. We read every application, then we send you the payment link.',
         },
         {
           q: "I don't have a project, is this for me?",

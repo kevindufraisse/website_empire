@@ -5,8 +5,9 @@ import FAQSection from '@/components/sections/FAQSection'
 import FormatsCTA from '@/components/sections/formats/FormatsCTA'
 
 export const metadata = {
-  title: 'Recording Formats - Empire Internet',
-  description: 'Choose how you want to create content: Interviews, Improvisation, Reels Scripts, or Automations.'
+  title: 'Formats d\'enregistrement - Empire Internet',
+  description: 'Interview, dictée, screen recording, scripts. Vous parlez, on publie sur 7 réseaux.',
+  robots: { index: false, follow: false },
 }
 
 export default function FormatsPage() {

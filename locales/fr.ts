@@ -284,7 +284,7 @@ export const fr: Translations = {
     specific: {
       howManyPosts: {
         question: 'Combien de contenus vais-je recevoir ?',
-        answer: 'Par semaine, environ : Débutant 2 posts LinkedIn + 2 Reels + 1 newsletter ; Intermédiaire 5 + 5 + 1 ; Expert 10 + 10 + 1. Les 7 réseaux sont inclus. Ce qui change : le nombre de sessions (1–2, 3–4 ou 6–8 par mois) et le volume.',
+        answer: 'Débutant : vous postez tous les 2 jours. Intermédiaire : tous les jours. Expert : 2 fois par jour. Reels, LinkedIn, newsletter — vous choisissez le mix. Les 7 réseaux sont inclus.',
       },
       whatIfDontLike: {
         question: 'Et si je ne sais pas quoi dire ?',
@@ -644,7 +644,7 @@ export const fr: Translations = {
     },
     q4: {
       question: 'Et si je suis timide devant la caméra ?',
-      answer: 'Pas de problème ! Vous pouvez faire des interviews audio ou des screenrecordings. Cependant, pour les contenus vidéo (Reels/Shorts), on utilise du b-roll et du montage pro - mais votre visage apparaîtra dans les vidéos finales car c\'est essentiel pour le personal branding.',
+      answer: 'Pas de problème. Audio seul : on monte avec du b-roll, votre visage n\'apparaît pas. Face caméra seulement si vous filmez — idéal pour les Reels, jamais obligatoire.',
     },
     q5: {
       question: 'Puis-je utiliser mon contenu existant ?',
@@ -662,7 +662,7 @@ export const fr: Translations = {
     },
     {
       question: 'Sur quels réseaux publiez-vous ?',
-      answer: 'LinkedIn, Instagram, TikTok, YouTube, X, Threads, Facebook et newsletter. Vous choisissez lesquelles activer - les 7 sont inclus.',
+      answer: 'LinkedIn, Instagram, TikTok, YouTube, X, Threads, Facebook. Newsletter en plus. Les 7 réseaux sont inclus — vous choisissez lesquels activer.',
     },
     {
       question: 'Est-ce que je dois être à l\'aise en vidéo ?',
@@ -678,7 +678,7 @@ export const fr: Translations = {
     },
     {
       question: 'Comment je commence ?',
-      answer: 'Lancez l\'essai gratuit de 7 jours. Accès immédiat, première session, premier contenu sous 24 h.',
+      answer: 'Lancez une candidature. On lit chaque dossier. Si vous êtes pris, vous avez un essai 7 jours (carte demandée, rien avant le 8e jour).',
     },
     {
       question: 'Comment fonctionne l\'essai gratuit de 7 jours ?',

@@ -16,7 +16,7 @@ import { trackAmplitude, withAmplitudeDeviceId } from '@/lib/amplitude'
 import { fetchFlashPromo, formatCountdown } from '@/lib/flash-promo'
 import { useReveal } from '@/hooks/useReveal'
 import {
-  APP_ONBOARDING_URL, BILLING_PERIODS, PLANS, PLAN_LABELS,
+  BILLING_PERIODS, PLANS, PLAN_LABELS,
   combinedDiscount, finalPrice, getPlan,
   type BillingId, type Plan, type PlanId,
 } from '@/lib/plans'
@@ -26,7 +26,7 @@ import WhyEmpireCompact from '@/components/sections/WhyEmpireCompact'
 type PlanFeature = { fr: string; en: string; on?: false }
 
 // Identical whatever the pack. Les réseaux ne consomment rien : ce qui varie
-// d'un pack à l'autre, c'est le nombre de sessions et donc de contenus.
+// d'un pack à l'autre, c'est le rythme de présence.
 const PLAN_BASE_FEATURES: PlanFeature[] = [
   { fr: 'Les 7 réseaux inclus, sans supplément', en: 'All 7 networks included, no extra cost' },
   { fr: 'Cadence modifiable : plus de Reels, moins de newsletters, comme vous voulez', en: 'Adjustable mix: more Reels, fewer newsletters, however you want' },
@@ -106,9 +106,10 @@ const PILLARS: Pillar[] = [
 const TOTAL_FEATURES = PILLARS.reduce((n, p) => n + p.features.length, 0)
 
 function planUrl(planId: PlanId, billing: BillingId, seats: number): string {
-  const base = `${APP_ONBOARDING_URL}?plan=${planId}&billing=${billing}&intent=${seats > 1 ? 'enterprise' : 'trial'}`
-  const withSeats = seats > 1 ? `${base}&seats=${seats}` : base
-  return withAmplitudeDeviceId(withSeats)
+  const origin = 'https://app.empire-internet.com/join/empire'
+  const params = new URLSearchParams({ plan: planId, billing })
+  if (seats > 1) params.set('seats', String(seats))
+  return withAmplitudeDeviceId(`${origin}?${params.toString()}`)
 }
 
 export default function HomePricingSection() {
@@ -225,8 +226,8 @@ export default function HomePricingSection() {
                     </p>
                     <p className="text-sm text-neutral-300">
                       {fr
-                        ? `Pack ${PLAN_LABELS[flashPromo.plan].fr} · ${getPlan(flashPromo.plan).sessions} sessions/mois`
-                        : `${PLAN_LABELS[flashPromo.plan].en} pack · ${getPlan(flashPromo.plan).sessions} sessions/mo`}
+                        ? `Pack ${PLAN_LABELS[flashPromo.plan].fr} · ${getPlan(flashPromo.plan).rhythmFr}`
+                        : `${PLAN_LABELS[flashPromo.plan].en} pack · ${getPlan(flashPromo.plan).rhythmEn}`}
                     </p>
                   </div>
                   <div className="flex flex-col items-center rounded-xl border border-red-500/30 bg-black/30 px-4 py-2">
@@ -303,8 +304,8 @@ export default function HomePricingSection() {
               >
                 <span className="truncate">
                   {fr
-                    ? `${PLAN_LABELS[selectedTier].fr} · ${plan.sessions} sessions/mois`
-                    : `${PLAN_LABELS[selectedTier].en} · ${plan.sessions} sessions/mo`}
+                    ? `${PLAN_LABELS[selectedTier].fr} · ${plan.rhythmFr}`
+                    : `${PLAN_LABELS[selectedTier].en} · ${plan.rhythmEn}`}
                 </span>
                 <ChevronDown size={16} className={`shrink-0 ml-2 text-neutral-400 transition-transform ${dropOpen ? 'rotate-180' : ''}`} />
               </button>
@@ -321,8 +322,8 @@ export default function HomePricingSection() {
                       >
                         <span className="font-semibold">
                           {fr
-                            ? `${PLAN_LABELS[p.id].fr} · ${p.sessions} sessions/mois`
-                            : `${PLAN_LABELS[p.id].en} · ${p.sessions} sessions/mo`}
+                            ? `${PLAN_LABELS[p.id].fr} · ${p.rhythmFr}`
+                            : `${PLAN_LABELS[p.id].en} · ${p.rhythmEn}`}
                         </span>
                         <div className="flex shrink-0 items-center gap-2">
                           <span className="font-bold tabular-nums">{finalPrice(planBase(p), billing, seats)}€<span className="text-xs font-normal text-neutral-500">{fr ? '/mois' : '/mo'}</span></span>
@@ -407,14 +408,8 @@ export default function HomePricingSection() {
               <li className="flex items-start gap-2 text-[13px] text-neutral-300">
                 <Check size={14} className="mt-0.5 shrink-0 text-empire" />
                 {fr
-                  ? `${plan.sessions} sessions d'enregistrement par mois`
-                  : `${plan.sessions} recording sessions per month`}
-              </li>
-              <li className="flex items-start gap-2 text-[13px] text-neutral-300">
-                <Check size={14} className="mt-0.5 shrink-0 text-empire" />
-                {fr
-                  ? `${plan.rhythmFr} - soit environ ${plan.contents} contenus par mois`
-                  : `${plan.rhythmEn} - about ${plan.contents} pieces per month`}
+                  ? `${plan.rhythmFr} — Reels, LinkedIn, newsletter, vous choisissez`
+                  : `${plan.rhythmEn} — Reels, LinkedIn, newsletter, you choose`}
               </li>
               {PLAN_FEATURES[selectedTier].map((f) => (
                 <li
@@ -510,8 +505,8 @@ function AllFeatures({ fr }: { fr: boolean }) {
           </span>
           <span className="block text-[11px] text-neutral-500">
             {fr
-              ? 'Seul le nombre de sessions change selon le pack : les 7 réseaux et tous les formats sont inclus partout. Les mentions « dès… » indiquent le pack minimum.'
-              : 'Only the number of sessions changes between packs: all 7 networks and every format are included throughout. The “from…” tags mark the minimum pack.'}
+              ? 'Seul le rythme change selon le pack : les 7 réseaux et tous les formats sont inclus partout. Les mentions « dès… » indiquent le pack minimum.'
+              : 'Only the posting pace changes between packs: all 7 networks and every format are included throughout. The “from…” tags mark the minimum pack.'}
           </span>
         </span>
         <span className="flex shrink-0 items-center gap-1.5 text-[12px] font-semibold text-empire">

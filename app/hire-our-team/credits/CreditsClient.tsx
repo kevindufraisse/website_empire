@@ -44,55 +44,37 @@ const FREE_FEATURES = [
   'API / Webhooks',
 ]
 
-// ── Personas (ClassPass-style - content output only) ─────────────────
+// ── Personas : le volume vendu, c'est le rythme, pas un compteur ────
 const PERSONAS = [
   {
     name: 'Thomas',
     role: 'Coach business',
-    pack: 'Starter · 199€/mois',
+    pack: 'Débutant · 199€/mois',
     color: 'from-blue-500 to-indigo-600',
     avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
-    desc: 'Thomas démarre. Il fait 1 session vocale par mois et ajoute quelques posts à l\'unité quand il a de l\'inspiration.',
-    content: [
-      { label: 'Posts LinkedIn / X', qty: 14 },
-      { label: 'Newsletters', qty: 7 },
-    ],
-    total: 21,
+    desc: 'Thomas démarre. Il poste tous les 2 jours, surtout LinkedIn et une newsletter. Les 7 réseaux sont inclus, il n\'utilise pas tout.',
+    rhythm: 'Tous les 2 jours',
+    mix: ['LinkedIn', 'Newsletter'],
   },
   {
     name: 'Sarah',
     role: 'Consultante marketing',
-    pack: 'Growth · 499€/mois',
+    pack: 'Intermédiaire · 499€/mois',
     color: 'from-empire to-yellow-500',
     avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
-    desc: 'Sarah fait 2 interviews caméra par mois. Elle ajoute des reels montés pour ses lancements.',
-    content: [
-      { label: 'Posts LinkedIn / X', qty: 14 },
-      { label: 'Newsletters', qty: 14 },
-      { label: 'Reels sous-titrés', qty: 14 },
-      { label: 'Vidéos YouTube', qty: 2 },
-      { label: 'Carrousels', qty: 2 },
-      { label: 'Reels montés', qty: 2 },
-    ],
-    total: 60,
+    desc: 'Sarah poste tous les jours. Reels pour Instagram, posts LinkedIn, newsletter — elle choisit le mix. Lives et communauté inclus.',
+    rhythm: 'Tous les jours',
+    mix: ['Reels', 'LinkedIn', 'Newsletter'],
   },
   {
     name: 'Marc',
     role: 'CEO SaaS',
-    pack: 'Illimité · 999€/mois',
+    pack: 'Expert · 799€/mois',
     color: 'from-purple-500 to-pink-500',
     avatar: 'https://randomuser.me/api/portraits/men/75.jpg',
-    desc: 'Marc produit en continu. 4 interviews par mois, YouTube chaque semaine, et des reels montés pour LinkedIn.',
-    content: [
-      { label: 'Posts LinkedIn / X', qty: 28 },
-      { label: 'Newsletters', qty: 28 },
-      { label: 'Reels sous-titrés', qty: 28 },
-      { label: 'Vidéos YouTube', qty: 4 },
-      { label: 'Carrousels', qty: 4 },
-      { label: 'Reels montés', qty: 4 },
-      { label: 'Best Of', qty: 1 },
-    ],
-    total: 110,
+    desc: 'Marc sature. Deux fois par jour sur 7 réseaux. Revue Loom mensuelle, support dédié.',
+    rhythm: '2 fois par jour',
+    mix: ['Reels', 'LinkedIn', 'Newsletter', 'YouTube'],
   },
 ]
 
@@ -114,8 +96,8 @@ const FAQS = [
     a: 'Le bundle part d\'un seul enregistrement et génère automatiquement des posts, newsletters et reels. À l\'unité, chaque contenu a besoin de sa propre source.',
   },
   {
-    q: 'C\'est quoi la différence entre les packs et l\'Illimité ?',
-    a: 'Avec les packs, tu achètes des crédits et tu choisis comment les dépenser. Avec l\'Illimité, pas de compteur : YouTube et carrousel inclus dans chaque interview, plus la communauté privée, le bootcamp et le coaching.',
+    q: 'C\'est quoi la différence entre les packs ?',
+    a: 'Le rythme. Débutant : tous les 2 jours. Intermédiaire : tous les jours. Expert : 2 fois par jour. Reels, LinkedIn, newsletter — tu choisis le mix. Les 7 réseaux sont inclus partout, sans crédit en plus.',
   },
   {
     q: 'Je peux résilier quand je veux ?',
@@ -205,8 +187,7 @@ export default function CreditsClient() {
                       <Avatar src={p.avatar} name={p.name} />
                       <div className="min-w-0 pt-0.5">
                         <p className="text-base font-bold text-white leading-tight">
-                          <span className="text-empire">{p.total}</span>{' '}
-                          contenus / mois
+                          <span className="text-empire">{p.rhythm}</span>
                         </p>
                         <p className="text-xs text-neutral-400 mt-0.5">
                           {p.name} · {p.role}
@@ -224,13 +205,13 @@ export default function CreditsClient() {
 
                     {/* Content breakdown */}
                     <div className="space-y-1.5 pt-3 border-t border-white/10">
-                      {p.content.map((c, j) => (
-                        <div key={j} className="flex items-center justify-between">
+                      {p.mix.map((label) => (
+                        <div key={label} className="flex items-center justify-between">
                           <span className="text-xs text-neutral-400">
-                            {c.label}
+                            {label}
                           </span>
                           <span className="text-sm font-bold text-white">
-                            {c.qty}
+                            au choix
                           </span>
                         </div>
                       ))}

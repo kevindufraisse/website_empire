@@ -5,8 +5,8 @@ import { useRef } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 const SOLO_PIECES = 4
-const EMPIRE_PIECES = 166
-const GRID_TOTAL = 166
+const EMPIRE_PIECES = 30
+const GRID_TOTAL = 30
 
 function CoinGrid({
   filled,
@@ -103,7 +103,7 @@ export default function VolumeSection() {
               <span className="text-2xl font-black text-neutral-600">{SOLO_PIECES}</span>
             </div>
             <p className="text-[11px] text-neutral-600 mb-5">
-              {fr ? 'contenus / mois' : 'pieces / month'}
+              {fr ? 'posts / mois, un seul réseau' : 'posts / month, one network'}
             </p>
 
             <CoinGrid
@@ -130,10 +130,10 @@ export default function VolumeSection() {
           >
             <div className="flex items-center justify-between mb-1">
               <span className="text-sm font-bold text-empire">Empire</span>
-              <span className="text-2xl font-black text-empire">{EMPIRE_PIECES}</span>
+              <span className="text-2xl font-black text-empire">{fr ? '7' : '7'}</span>
             </div>
             <p className="text-[11px] text-empire/60 mb-5">
-              {fr ? 'contenus / mois' : 'pieces / month'}
+              {fr ? 'réseaux, tous les jours' : 'networks, every day'}
             </p>
 
             <CoinGrid
@@ -146,8 +146,8 @@ export default function VolumeSection() {
 
             <p className="text-xs text-empire/70 mt-5 text-center font-semibold">
               {fr
-                ? '41× plus de chances. Même vous. Juste plus de volume.'
-                : '41× more chances. Same you. Just more volume.'}
+                ? 'Tous les jours, sur 7 réseaux. Même vous. Juste plus de présence.'
+                : 'Every day, on 7 networks. Same you. Just more presence.'}
             </p>
           </motion.div>
         </div>

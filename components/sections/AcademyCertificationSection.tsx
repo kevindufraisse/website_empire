@@ -109,15 +109,13 @@ export default function AcademyCertificationSection() {
             'Certification Elite officielle',
             'Badge LinkedIn "Certifié Elite Empire"',
             'Travailler avec vos propres clients',
-            'Recevoir des clients Empire Internet',
-            'Premier client garanti après le bootcamp',
+            'Accès au réseau partenaires Empire',
           ]
         : [
             'Official Elite certification',
             'LinkedIn badge "Empire Elite Certified"',
             'Work with your own clients',
-            'Receive clients from Empire Internet',
-            'First client guaranteed after the bootcamp',
+            'Access to the Empire partner network',
           ],
       highlight: true,
     },

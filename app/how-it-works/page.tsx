@@ -8,8 +8,9 @@ import BonusSection from '@/components/sections/BonusSection'
 import FinalBoostCTA from '@/components/sections/FinalBoostCTA'
 
 export const metadata = {
-  title: 'How It Works - Empire Internet',
-  description: 'From one recording to 30+ pieces of content. See how Empire transforms your voice into an omnipresent content machine.'
+  title: 'Comment ça marche - Empire Internet',
+  description: '1 h de parole par semaine, publié sur 7 réseaux. Voici comment Empire transforme votre voix en présence.',
+  robots: { index: false, follow: false },
 }
 
 export default function HowItWorksPage() {

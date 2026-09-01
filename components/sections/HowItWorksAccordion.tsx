@@ -65,7 +65,7 @@ const getNotificationsFr = (SocialIconComponent: typeof SocialIcon): AnimatedLis
       <div className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-empire/20 shadow-lg">
         <div className="flex-shrink-0"><SocialIconComponent type="linkedin" /></div>
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium truncate">30 LinkedIn posts</p>
+          <p className="text-sm font-medium truncate">Post LinkedIn</p>
           <p className="text-xs text-neutral-400">Écrit & planifié · À l'instant</p>
         </div>
         <div className="text-xs text-empire font-bold">✓</div>
@@ -78,8 +78,8 @@ const getNotificationsFr = (SocialIconComponent: typeof SocialIcon): AnimatedLis
       <div className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-empire/20 shadow-lg">
         <div className="flex-shrink-0"><SocialIconComponent type="newsletter" /></div>
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium truncate">30 newsletters</p>
-          <p className="text-xs text-neutral-400">Contenu quotidien · 2m</p>
+          <p className="text-sm font-medium truncate">Newsletter</p>
+          <p className="text-xs text-neutral-400">Rédigée · 2m</p>
             </div>
         <div className="text-xs text-empire font-bold">✓</div>
           </div>
@@ -91,8 +91,8 @@ const getNotificationsFr = (SocialIconComponent: typeof SocialIcon): AnimatedLis
       <div className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-empire/20 shadow-lg">
         <div className="flex-shrink-0"><SocialIconComponent type="reels" /></div>
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium truncate">30 reels/shorts</p>
-          <p className="text-xs text-neutral-400">Édité & optimisé · 5m</p>
+          <p className="text-sm font-medium truncate">Reel / Short</p>
+          <p className="text-xs text-neutral-400">Monté · 5m</p>
         </div>
         <div className="text-xs text-empire font-bold">✓</div>
         </div>
@@ -104,8 +104,8 @@ const getNotificationsFr = (SocialIconComponent: typeof SocialIcon): AnimatedLis
       <div className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-empire/20 shadow-lg">
         <div className="flex-shrink-0"><SocialIconComponent type="instagram" /></div>
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium truncate">30 Instagram posts</p>
-          <p className="text-xs text-neutral-400">Designé & légendé · 8m</p>
+          <p className="text-sm font-medium truncate">Post Instagram</p>
+          <p className="text-xs text-neutral-400">Adapté · 8m</p>
                       </div>
         <div className="text-xs text-empire font-bold">✓</div>
                   </div>
@@ -117,8 +117,8 @@ const getNotificationsFr = (SocialIconComponent: typeof SocialIcon): AnimatedLis
       <div className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-empire/20 shadow-lg">
         <div className="flex-shrink-0"><SocialIconComponent type="twitter" /></div>
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium truncate">10 Twitter posts</p>
-          <p className="text-xs text-neutral-400">Idées décortiquées · 12m</p>
+          <p className="text-sm font-medium truncate">Post X</p>
+          <p className="text-xs text-neutral-400">Adapté · 12m</p>
             </div>
         <div className="text-xs text-empire font-bold">✓</div>
           </div>
@@ -130,8 +130,8 @@ const getNotificationsFr = (SocialIconComponent: typeof SocialIcon): AnimatedLis
       <div className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-empire/20 shadow-lg">
         <div className="flex-shrink-0"><SocialIconComponent type="threads" /></div>
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium truncate">10 Threads posts</p>
-          <p className="text-xs text-neutral-400">Contenu engageant · 15m</p>
+          <p className="text-sm font-medium truncate">Post Threads</p>
+          <p className="text-xs text-neutral-400">Adapté · 15m</p>
               </div>
         <div className="text-xs text-empire font-bold">✓</div>
             </div>
@@ -146,7 +146,7 @@ const getNotificationsEn = (SocialIconComponent: typeof SocialIcon): AnimatedLis
       <div className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-empire/20 shadow-lg">
         <div className="flex-shrink-0"><SocialIconComponent type="linkedin" /></div>
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium truncate">30 LinkedIn posts</p>
+          <p className="text-sm font-medium truncate">LinkedIn post</p>
           <p className="text-xs text-neutral-400">Written & scheduled · Just now</p>
               </div>
         <div className="text-xs text-empire font-bold">✓</div>
@@ -159,8 +159,8 @@ const getNotificationsEn = (SocialIconComponent: typeof SocialIcon): AnimatedLis
       <div className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-empire/20 shadow-lg">
         <div className="flex-shrink-0"><SocialIconComponent type="newsletter" /></div>
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium truncate">30 newsletters</p>
-          <p className="text-xs text-neutral-400">Daily content · 2m ago</p>
+          <p className="text-sm font-medium truncate">Newsletter</p>
+          <p className="text-xs text-neutral-400">Written · 2m ago</p>
             </div>
         <div className="text-xs text-empire font-bold">✓</div>
           </div>
@@ -172,8 +172,8 @@ const getNotificationsEn = (SocialIconComponent: typeof SocialIcon): AnimatedLis
       <div className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-empire/20 shadow-lg">
         <div className="flex-shrink-0"><SocialIconComponent type="reels" /></div>
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium truncate">30 reels/shorts</p>
-          <p className="text-xs text-neutral-400">Edited & optimized · 5m ago</p>
+          <p className="text-sm font-medium truncate">Reel / Short</p>
+          <p className="text-xs text-neutral-400">Edited · 5m ago</p>
         </div>
         <div className="text-xs text-empire font-bold">✓</div>
         </div>
@@ -185,8 +185,8 @@ const getNotificationsEn = (SocialIconComponent: typeof SocialIcon): AnimatedLis
       <div className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-empire/20 shadow-lg">
         <div className="flex-shrink-0"><SocialIconComponent type="instagram" /></div>
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium truncate">30 Instagram posts</p>
-          <p className="text-xs text-neutral-400">Designed & captioned · 8m ago</p>
+          <p className="text-sm font-medium truncate">Instagram post</p>
+          <p className="text-xs text-neutral-400">Adapted · 8m ago</p>
             </div>
         <div className="text-xs text-empire font-bold">✓</div>
             </div>
@@ -198,8 +198,8 @@ const getNotificationsEn = (SocialIconComponent: typeof SocialIcon): AnimatedLis
       <div className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-empire/20 shadow-lg">
         <div className="flex-shrink-0"><SocialIconComponent type="twitter" /></div>
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium truncate">10 Twitter posts</p>
-          <p className="text-xs text-neutral-400">Ideas unpacked · 12m ago</p>
+          <p className="text-sm font-medium truncate">X post</p>
+          <p className="text-xs text-neutral-400">Adapted · 12m ago</p>
             </div>
         <div className="text-xs text-empire font-bold">✓</div>
           </div>
@@ -211,8 +211,8 @@ const getNotificationsEn = (SocialIconComponent: typeof SocialIcon): AnimatedLis
       <div className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-empire/20 shadow-lg">
         <div className="flex-shrink-0"><SocialIconComponent type="threads" /></div>
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium truncate">10 Threads posts</p>
-          <p className="text-xs text-neutral-400">Engaging content · 15m ago</p>
+          <p className="text-sm font-medium truncate">Threads post</p>
+          <p className="text-xs text-neutral-400">Adapted · 15m ago</p>
         </div>
         <div className="text-xs text-empire font-bold">✓</div>
         </div>
@@ -791,13 +791,13 @@ export default function HowItWorksAccordion() {
                         : 'And every week, we close the loop live'}
                     </h3>
                     <span className="hidden whitespace-nowrap rounded-full border border-empire/30 bg-empire/10 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-empire sm:inline">
-                      {lang === 'fr' ? '1h sur Zoom' : '1h on Zoom'}
+                      {lang === 'fr' ? 'Dès Intermédiaire' : 'From Intermediate'}
                     </span>
                   </div>
                   <p className="text-sm text-neutral-400 md:text-base">
                     {lang === 'fr'
-                      ? 'Une heure sur Zoom avec nos experts et la communauté : on regarde ce qui a marché, on trouve vos prochains angles, vous repartez avec une direction claire.'
-                      : 'One hour on Zoom with our experts and the community: we review what worked, find your next angles, you leave with a clear direction.'}
+                      ? 'Dès Intermédiaire : 1 h sur Zoom avec nos experts et la communauté. On regarde ce qui a marché, on trouve vos prochains angles.'
+                      : 'From Intermediate: 1 hour on Zoom with our experts and community. We review what worked and find your next angles.'}
                   </p>
                   <p className="mt-2 flex items-center gap-1.5 text-xs font-semibold text-empire">
                     <RotateCw size={13} />

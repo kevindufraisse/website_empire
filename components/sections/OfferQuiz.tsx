@@ -180,18 +180,18 @@ const QUESTIONS: Question[] = [
     optionalHintEn: 'Optional - used to suggest an Empire pack if that\'s your offer.',
     answers: [
       {
-        fr: '2 posts LinkedIn et 2 Reels par semaine, je démarre en douceur',
-        en: '2 LinkedIn posts and 2 Reels a week, easing into it',
+        fr: 'Tous les 2 jours, je démarre en douceur',
+        en: 'Every other day, easing into it',
         plan: 'starter',
       },
       {
-        fr: '5 posts LinkedIn et 5 Reels par semaine, je veux être régulier',
-        en: '5 LinkedIn posts and 5 Reels a week, I want to be consistent',
+        fr: 'Tous les jours, je veux être régulier',
+        en: 'Every day, I want to be consistent',
         plan: 'growth',
       },
       {
-        fr: '10 posts LinkedIn et 10 Reels par semaine, je veux saturer mon marché',
-        en: '10 LinkedIn posts and 10 Reels a week, I want to saturate my market',
+        fr: '2 fois par jour, je veux saturer mon marché',
+        en: 'Twice a day, I want to saturate my market',
         plan: 'scale',
       },
     ],
@@ -525,8 +525,8 @@ export function OfferQuizGlobal({ fr }: { fr: boolean }) {
                         </p>
                         <p className="mt-1.5 text-[13px] text-neutral-400 leading-relaxed">
                           {fr
-                            ? `${plan.rhythmFr}${seats > 1 ? ', par personne' : ''}, publiés sur vos 7 plateformes. ${plan.sessions} sessions d’enregistrement par mois. Accès sur liste d’attente, profils les plus motivés.`
-                            : `${plan.rhythmEn}${seats > 1 ? ', per person' : ''}, published across your 7 platforms. ${plan.sessions} recording sessions per month. Waitlist access - most motivated profiles.`}
+                            ? `${plan.rhythmFr}${seats > 1 ? ', par personne' : ''}, publiés sur vos 7 plateformes. Accès sur liste d’attente, profils les plus motivés.`
+                            : `${plan.rhythmEn}${seats > 1 ? ', per person' : ''}, published across your 7 platforms. Waitlist access - most motivated profiles.`}
                         </p>
                       </div>
                     )}

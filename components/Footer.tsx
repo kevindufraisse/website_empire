@@ -84,7 +84,7 @@ export default function Footer() {
         {/* Bottom */}
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex flex-col sm:flex-row sm:flex-wrap items-center gap-3 sm:gap-4 text-sm text-neutral-400">
-            <p>© {new Date().getFullYear()} Empire Internet. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} Empire Internet. {lang === 'fr' ? 'Tous droits réservés.' : 'All rights reserved.'}</p>
             <span className="hidden sm:inline text-neutral-400" aria-hidden>
               ·
             </span>

@@ -1,5 +1,7 @@
 /** The long-form sales video (~20 min) used on /vsl, /thank-you and the quiz result. */
 export const VSL_LOOM_ID = '184e8823d9154d74aeca55a5cd488f08'
+/** Hero demo (~1 min) that sat on the homepage before the July 2026 animation swap. */
+export const DEMO_1MIN_LOOM_ID = '9751f76501dc436f8728f46736d7aea8'
 
 interface Props {
   /** Loom video id. Defaults to the long VSL. */
@@ -22,6 +24,7 @@ export default function LoomEmbed({ id = VSL_LOOM_ID, className = '', title }: P
       <iframe
         src={src}
         title={title}
+        loading="lazy"
         allow="autoplay; fullscreen; picture-in-picture"
         allowFullScreen
         className="absolute inset-0 w-full h-full"
