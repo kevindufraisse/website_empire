@@ -13,10 +13,10 @@ export const en = {
     hiring: 'We are hiring',
   },
   hero: {
-    targetAudience: 'The formats that already work',
+    targetAudience: '',
     title: 'From 0 to 1M views a month.',
     titleNote: '(without writing a line, editing a video or wondering what to say)',
-    subtitle: 'Our experts analyze the networks to spot the formats that generate views and clients, then turn them into ready-to-use templates. You give an idea, Empire turns it into a content machine on every platform.',
+    subtitle: 'Our experts analyze the networks to spot the formats that generate views and clients, then turn them into ready-to-use templates.',
     description: '',
     cta1: 'Get access',
     cta2: 'Watch Demo (1 min)',

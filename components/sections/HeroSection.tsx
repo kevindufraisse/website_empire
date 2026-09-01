@@ -20,6 +20,7 @@ export default function HeroSection() {
     setMounted(true)
   }, [])
 
+  const heroBadge = autopilot ? t.autopilot.hero.targetAudience : t.hero.targetAudience
   const heroTitle = autopilot ? t.autopilot.hero.title : t.hero.title
   const heroSubtitle = autopilot ? t.autopilot.hero.subtitle : t.hero.subtitle
   const heroCta = autopilot ? t.autopilot.hero.cta1 : t.hero.cta1
@@ -35,20 +36,23 @@ export default function HeroSection() {
         
         <div className="relative z-10 text-center max-w-4xl mx-auto">
 
-          <motion.div
-            initial={mounted ? { opacity: 0, y: 10 } : false}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className="mb-4 flex justify-center"
-          >
-            <span className={`inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-bold ${
-              autopilot
-                ? 'border-autopilot/40 bg-autopilot/10 text-autopilot'
-                : 'border-empire/40 bg-empire/10 text-empire'
-            }`}>
-              {autopilot ? t.autopilot.hero.targetAudience : t.hero.targetAudience}
-            </span>
-          </motion.div>
+          {/* Sans libellé, la pastille bordée resterait visible et vide. */}
+          {heroBadge && (
+            <motion.div
+              initial={mounted ? { opacity: 0, y: 10 } : false}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              className="mb-4 flex justify-center"
+            >
+              <span className={`inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-bold ${
+                autopilot
+                  ? 'border-autopilot/40 bg-autopilot/10 text-autopilot'
+                  : 'border-empire/40 bg-empire/10 text-empire'
+              }`}>
+                {heroBadge}
+              </span>
+            </motion.div>
+          )}
 
           <AnimatePresence mode="wait" initial={false}>
             <motion.h1
@@ -67,7 +71,7 @@ export default function HeroSection() {
               initial={mounted ? { opacity: 0, y: 8 } : false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.1 }}
-              className="mt-3 text-sm sm:text-base md:text-lg font-medium text-neutral-400 max-w-2xl mx-auto"
+              className="mt-3 text-lg sm:text-xl md:text-2xl font-medium text-neutral-300 max-w-2xl mx-auto"
             >
               {t.hero.titleNote}
             </motion.p>
