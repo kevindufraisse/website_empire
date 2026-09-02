@@ -15,19 +15,19 @@ export default function Page() {
   return (
     <main className="relative">
       <HeroSection />
-      {/* Bandeau "Vu dans" — placé juste sous le hero comme sur les
-          landing pages `/join/empire` et `/join/academy` de l'app,
-          pour construire la crédibilité avant que le prospect voie
-          les études de cas et la pricing. */}
+      <HomeDemoSection />
+      <HowItWorksAccordion />
+      <CaseStudiesSection />
+      <HomeApplySection />
+      {/* Bandeau "Vu dans" — déplacé sous le bloc pricing/apply (choix Kevin) :
+          au-dessus du hero il coupait la promesse ; en tête du bloc preuve, il
+          enchaîne le prix vu juste avant, comme sur `/join/empire` et
+          `/join/academy`. */}
       <section className="w-full bg-black py-10 sm:py-14">
         <div className="container mx-auto max-w-5xl px-4">
           <FeaturedInSection />
         </div>
       </section>
-      <HomeDemoSection />
-      <HowItWorksAccordion />
-      <CaseStudiesSection />
-      <HomeApplySection />
       <TestimonialsSection />
       {/* Mur des plus gros créateurs FR — punch social proof, juste après
           les témoignages clients : d'abord les résultats, ensuite les noms
