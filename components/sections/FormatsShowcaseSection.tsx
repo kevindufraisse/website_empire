@@ -7,15 +7,18 @@
  * Les visuels vidéo (`/public/formats/*.webp`) ne sont pas des maquettes :
  * ce sont les rendus réels du moteur de montage - flou → net, tier list et
  * sticker FAQ posés sur une vraie prise, citation et réaction sortis tels
- * quels d'un compose, `captions.webp` une image d'un reel sous-titré réel
- * (26 août 2026), `actu.webp` l'accroche `hook-montage` (même dessin que le
- * serveur : boîte noire 90 %, Poppins ExtraBold 64, y = 20 %) sur une prise.
+ * quels d'un compose, `captions.webp` une image du reel « podcast » de Kevin
+ * (Submagic, sous-titres sobres, écouteurs filaires - c'est ce que Kevin
+ * appelle le format podcast, pas un habillage studio), `auto-edit.webp` une
+ * image de son montage automatique Submagic (l'image de Jésus qui s'affiche
+ * quand il en parle), `actu.webp` l'accroche `hook-montage` (même dessin que
+ * le serveur : boîte noire 90 %, Poppins ExtraBold 64, y = 20 %) sur une prise.
  * Les deux cartes sans image (format long, carrousel) sont du HTML qui reprend
  * de vrais titres du compte de Kevin. Si le rendu change côté app, il faut
  * régénérer les webp, sinon la page promet un visuel que le produit ne fait
  * plus.
  *
- * On ne montre pas tout : dix cartes, celles qui ont un rendu ou un contenu
+ * On ne montre pas tout : onze cartes, celles qui ont un rendu ou un contenu
  * réel derrière. Un format qui n'existe que dans une roadmap n'a pas sa place
  * ici - la page vend ce qu'on livre.
  *
@@ -116,14 +119,26 @@ const FORMATS: Format[] = [
     tagEn: 'The format that sells without selling',
   },
   {
+    id: 'auto-edit',
+    kind: 'short',
+    image: '/formats/auto-edit.webp',
+    networks: REELS,
+    titleFr: 'Montage automatique',
+    titleEn: 'Automatic edit',
+    descFr: 'Vous parlez, c\'est tout. Les images, les B-roll, les zooms et les sous-titres se posent seuls sur ce que vous dites.',
+    descEn: 'You talk, that\'s it. Images, B-roll, zooms and captions land on their own, following what you say.',
+    tagFr: 'Le format qui se monte tout seul',
+    tagEn: 'The format that edits itself',
+  },
+  {
     id: 'captions',
     kind: 'short',
     image: '/formats/captions.webp',
     networks: REELS,
-    titleFr: 'Face caméra sous-titré',
-    titleEn: 'Captioned talking head',
-    descFr: 'Le yapping, le podcast, l\'avis à chaud : vous parlez, les sous-titres se posent mot à mot, le montage se fait seul.',
-    descEn: 'Yapping, podcast clips, hot takes: you talk, word-by-word captions land, the edit does itself.',
+    titleFr: 'Podcast & yapping',
+    titleEn: 'Podcast & yapping',
+    descFr: 'Vos écouteurs, votre téléphone, un avis à chaud. Sous-titres sobres, pas d\'effets : le format qu\'on tourne en marchant.',
+    descEn: 'Your earphones, your phone, a hot take. Clean captions, no effects: the format you shoot while walking.',
     tagFr: 'Le format de tous les jours',
     tagEn: 'The everyday format',
   },

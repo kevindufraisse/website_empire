@@ -1,6 +1,8 @@
 import HeroSection from '@/components/sections/HeroSection'
 import HomeDemoSection from '@/components/sections/HomeDemoSection'
 import FormatsShowcaseSection from '@/components/sections/FormatsShowcaseSection'
+import RepurposingSection from '@/components/sections/RepurposingSection'
+import MobileAppSection from '@/components/sections/MobileAppSection'
 import HowItWorksAccordion from '@/components/sections/HowItWorksAccordion'
 import CaseStudiesSection from '@/components/sections/CaseStudiesSection'
 import HomeApplySection from '@/components/sections/HomeApplySection'
@@ -32,6 +34,13 @@ export default function Page() {
           on vient de montrer ce qu'on fait, voici qui le dit. Même widget
           Senja que sur `/pricing` et `/join/empire` de l'app. */}
       <TopCreatorsSection />
+      {/* Deux idées que la page n'abordait pas : pourquoi une idée sort en
+          plusieurs formats (cas réel HugoDécrypte, 305k sur Threads pour un
+          post écrit pour LinkedIn), et le geste quotidien - l'app dans les
+          écouteurs, en marchant. Les deux avant la démo, qui explique ensuite
+          le pipeline. */}
+      <RepurposingSection />
+      <MobileAppSection />
       <HomeDemoSection />
       <HowItWorksAccordion />
       <CaseStudiesSection />

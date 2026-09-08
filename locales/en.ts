@@ -16,7 +16,7 @@ export const en = {
     targetAudience: '',
     title: 'From 0 to 1M views a month.',
     titleNote: '(no writing, no editing, no wondering what to say)',
-    subtitle: 'Our experts analyze the networks to spot the formats that generate views and clients, then turn them into ready-to-use templates.',
+    subtitle: 'You talk for 20 minutes a week into your earphones. Our team spots the formats that get views, edits your videos, writes your posts, publishes on 7 networks, and tells you every week what worked.',
     description: '',
     cta1: 'Get access',
     cta2: 'Watch Demo (1 min)',

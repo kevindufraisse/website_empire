@@ -139,7 +139,7 @@ export const fr: Translations = {
     targetAudience: '',
     title: 'De 0 à 1M de vues par mois.',
     titleNote: '(sans écrire, sans monter, sans chercher quoi dire)',
-    subtitle: 'Nos experts analysent les réseaux pour repérer les formats qui génèrent des vues et des clients, puis les transforment en templates prêts à utiliser.',
+    subtitle: 'Vous parlez 20 minutes par semaine dans vos écouteurs. Notre équipe repère les formats qui font des vues, monte vos vidéos, écrit vos posts, publie sur 7 réseaux, et vous dit chaque semaine ce qui a marché.',
     description: '',
     cta1: 'Recevoir un accès',
     cta2: 'Voir la Démo (1 min)',
