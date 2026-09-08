@@ -250,7 +250,9 @@ function CommunityArt({ fr }: { fr: boolean }) {
             {p.i}
           </span>
         ))}
-        <span className="-ml-3 flex h-10 w-10 items-center justify-center rounded-full bg-empire text-[11px] font-extrabold text-black ring-2 ring-[#0b0b0b]" style={{ zIndex: 1 }}>+120</span>
+        {/* Au-dessus de la pile, sinon le « + » passe sous l'avatar précédent
+            et on lit « 120 ». */}
+        <span className="relative -ml-3 flex h-10 w-10 items-center justify-center rounded-full bg-empire text-[10px] font-extrabold tracking-tight text-black ring-2 ring-[#0b0b0b]" style={{ zIndex: 20 }}>+120</span>
       </div>
       <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5">
         <span className="relative flex h-2 w-2">
@@ -301,8 +303,11 @@ export default function IncludedFeaturesSection() {
 
         <div className="mx-auto mt-12 grid max-w-6xl gap-4 md:grid-cols-6">
           {/* Tracking des conversions - la grande carte */}
-          <motion.div {...appear(0.1)} className={`${card} md:col-span-4 border-empire/30`}>
-            <div className="grid gap-6 sm:grid-cols-2 sm:items-center">
+          {/* `flex items-center` : la rangée prend la hauteur de la carte
+              miniature, sans ça le contenu reste collé en haut avec un tiers
+              de carte vide dessous. */}
+          <motion.div {...appear(0.1)} className={`${card} flex items-center md:col-span-4 border-empire/30`}>
+            <div className="grid w-full gap-6 sm:grid-cols-2 sm:items-center">
               <div>
                 <p className={kicker}><Link2 className="mr-1.5 inline h-3.5 w-3.5" />{fr ? 'Tracking des clients' : 'Client tracking'}</p>
                 <p className={title}>{fr ? 'Vous savez quel contenu a amené quel client.' : 'You know which content brought which client.'}</p>
