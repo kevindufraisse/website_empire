@@ -11,10 +11,13 @@
  * (Submagic, sous-titres sobres, écouteurs filaires - c'est ce que Kevin
  * appelle le format podcast, pas un habillage studio), `auto-edit.webp` une
  * image de son montage automatique Submagic (l'image de Jésus qui s'affiche
- * quand il en parle), `actu.webp` l'accroche `hook-montage` (même dessin que
- * le serveur : boîte noire 90 %, Poppins ExtraBold 64, y = 20 %) sur une prise.
- * Les deux cartes sans image (format long, carrousel) sont du HTML qui reprend
- * de vrais titres du compte de Kevin. Si le rendu change côté app, il faut
+ * quand il en parle), `actu.webp` une réaction à l'actualité : l'image de
+ * l'actu insérée par le montage à côté du visage, avec l'accroche
+ * `hook-montage` (même dessin que le serveur : boîte noire 90 %, Poppins
+ * ExtraBold 64, y = 20 %). Les cartes sans rendu plein cadre (format long,
+ * carrousel, écrit) sont du HTML qui reprend de vrais titres du compte de
+ * Kevin - le format long avec `long-thumb.webp` en miniature 16:9 façon
+ * YouTube. Si le rendu change côté app, il faut
  * régénérer les webp, sinon la page promet un visuel que le produit ne fait
  * plus.
  *
@@ -149,8 +152,8 @@ const FORMATS: Format[] = [
     networks: REELS,
     titleFr: 'Réaction à l\'actualité',
     titleEn: 'News take',
-    descFr: 'Chaque matin, le brief des sujets qui montent dans votre niche. Vous prenez position, l\'accroche est déjà écrite.',
-    descEn: 'Every morning, a brief of the topics rising in your niche. You take a stance, the hook is already written.',
+    descFr: 'L\'image de l\'actu s\'insère toute seule à côté de votre visage, l\'accroche est déjà écrite. Vous prenez position en 40 secondes.',
+    descEn: 'The news image drops in next to your face on its own, the hook is already written. You take a stance in 40 seconds.',
     tagFr: 'Le format qui surfe sur la vague',
     tagEn: 'The format that rides the wave',
   },
@@ -215,10 +218,9 @@ function NetworkRow({ networks, size = 'sm' }: { networks: Network[]; size?: 'sm
  * Format long : le vrai titre d'une vidéo longue du compte de Kevin (podcast
  * du 25 juin 2026, `user_content` type `podcast`), en vignette 16:9 façon
  * YouTube, et ce qu'elle a donné - c'est la cascade qu'on vend, pas la vidéo
- * elle-même. La vignette est une prise verticale réelle pillarboxée (fond
- * flouté), comme YouTube affiche un upload vertical : les vraies interviews
- * longues de Kevin encore en storage sont filmées dans le noir et illisibles.
- * La durée affichée est illustrative.
+ * elle-même. La vignette est `/formats/long-thumb.webp`, une vraie miniature
+ * 16:9 affichée en `object-cover` (pas de pillarbox : c'est une miniature
+ * YouTube, pas un upload vertical). La durée affichée est illustrative.
  */
 function LongCard({ fr }: { fr: boolean }) {
   const cuts = fr
@@ -400,7 +402,7 @@ export default function FormatsShowcaseSection() {
               écrit en toutes lettres ne montre rien, Threads et X en pastille
               se voient. */}
           <div className="mt-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-2">
-            <span className="text-xs text-neutral-500">{fr ? 'Publié pour vous sur' : 'Published for you on'}</span>
+            <span className="text-xs text-neutral-500">{fr ? 'Adapté et publié pour vous sur' : 'Adapted and published for you on'}</span>
             <NetworkRow networks={['instagram', 'tiktok', 'youtube', 'linkedin', 'facebook', 'threads', 'twitter', 'newsletter']} size="md" />
           </div>
         </motion.div>
@@ -472,7 +474,7 @@ export default function FormatsShowcaseSection() {
                   {/* Où ça part : la multi-diffusion se voit carte par carte,
                       un reel et un post écrit n'ont pas les mêmes réseaux. */}
                   <div className="mt-3 flex items-center justify-center gap-2">
-                    <span className="text-[11px] text-neutral-500">{fr ? 'Publié sur' : 'Published to'}</span>
+                    <span className="text-[11px] text-neutral-500">{fr ? 'Reformaté pour' : 'Reformatted for'}</span>
                     <NetworkRow networks={f.networks} />
                   </div>
                 </motion.div>
@@ -512,52 +514,6 @@ export default function FormatsShowcaseSection() {
           >
             <ChevronRight className="h-5 w-5" />
           </button>
-        </div>
-      </div>
-
-      {/* Méthode : quatre temps, pas de chiffre inventé. Le quatrième est le
-          rapport au client - c'est lui qui sépare « on publie partout » de
-          « on garde ce qui marche chez vous », et il manquait à la page alors
-          qu'il est dans l'offre. */}
-      <div className="container relative mt-14">
-        <div className="mx-auto grid max-w-5xl gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            {
-              fr: ['On mesure', 'Chaque semaine, les formats qui montent sur 7 réseaux, tous secteurs.'],
-              en: ['We measure', 'Every week, the formats rising across 7 networks, all sectors.'],
-              highlight: false,
-            },
-            {
-              fr: ['On garde ce qui tient', 'Un format entre dans l\'app quand il fait des vues chez plusieurs clients, pas chez un seul.'],
-              en: ['We keep what holds', 'A format enters the app when it gets views for several clients, not just one.'],
-              highlight: false,
-            },
-            {
-              fr: ['On retire le reste', 'Ce qui s\'essouffle sort du catalogue. Vous ne filmez jamais un format mort.'],
-              en: ['We drop the rest', 'What fades leaves the catalog. You never shoot a dead format.'],
-              highlight: false,
-            },
-            {
-              fr: ['On vous rend compte', 'Chaque semaine, vos chiffres format par format : vues, abonnés, leads. Ce qui a marché chez vous, on le refait ; le reste, on l\'arrête.'],
-              en: ['We report back', 'Every week, your numbers format by format: views, followers, leads. What worked for you, we do again; the rest, we stop.'],
-              highlight: true,
-            },
-          ].map((step, i) => {
-            const [title, desc] = fr ? step.fr : step.en
-            return (
-              <motion.div
-                key={title}
-                initial={{ opacity: 0, y: 16 }}
-                animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
-                transition={{ duration: 0.5, delay: 0.15 + i * 0.1 }}
-                className={`rounded-2xl border p-5 ${step.highlight ? 'border-empire/40 bg-empire/[0.07]' : 'border-white/10 bg-white/[0.03]'}`}
-              >
-                <p className="text-xs font-bold text-empire">0{i + 1}</p>
-                <p className="mt-1.5 text-base font-bold text-white">{title}</p>
-                <p className="mt-1.5 text-sm leading-relaxed text-neutral-400">{desc}</p>
-              </motion.div>
-            )
-          })}
         </div>
       </div>
     </section>

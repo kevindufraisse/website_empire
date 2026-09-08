@@ -31,8 +31,8 @@ export default function MobileAppSection() {
   const points = [
     {
       Icon: Headphones,
-      fr: ['L\'app vous pose les questions', 'Dans vos écouteurs, une question à la fois. Vous répondez à votre téléphone comme à un ami, elle enregistre et enchaîne.'],
-      en: ['The app asks the questions', 'In your earphones, one question at a time. You answer your phone like you would a friend, it records and moves on.'],
+      fr: ['Tous les formats dans la poche', 'Tier list, réaction, citation, flou → net, podcast : chaque format se tourne depuis l\'app. Et pour l\'interview, elle vous pose les questions dans les écouteurs, une à la fois.'],
+      en: ['Every format in your pocket', 'Tier list, reaction, quote, blur → reveal, podcast: every format is shot from the app. And for the interview, it asks you the questions in your earphones, one at a time.'],
     },
     {
       Icon: Footprints,

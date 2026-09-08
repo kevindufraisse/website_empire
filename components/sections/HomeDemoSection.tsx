@@ -23,13 +23,13 @@ export default function HomeDemoSection() {
           transition={{ duration: 0.5, ease: 'easeOut' }}
           className="mx-auto w-full max-w-3xl"
         >
+          <p className="mb-5 text-center text-lg font-semibold text-white md:text-xl">
+            {lang === 'fr' ? '2 minutes pour voir le système en action.' : '2 minutes to see the system in action.'}
+          </p>
           <LoomEmbed
             id={DEMO_1MIN_LOOM_ID}
             title={lang === 'fr' ? 'Démo Empire (1 min)' : 'Empire demo (1 min)'}
           />
-          <p className="mt-3 text-center text-xs text-neutral-500 sm:text-sm">
-            {lang === 'fr' ? 'Démo (1 min)' : 'Demo (1 min)'}
-          </p>
         </motion.div>
       </div>
     </section>

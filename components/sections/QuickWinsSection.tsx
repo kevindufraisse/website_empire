@@ -15,54 +15,69 @@ type ComparisonRow = {
   newEn: string
 }
 
+/**
+ * La comparaison porte sur la promesse actuelle : la façon la plus simple de
+ * trouver des clients avec du contenu. Chaque ligne oppose ce que fait
+ * quelqu'un seul (ou avec des freelances) à ce que fait le système - formats
+ * mesurés, téléphone + écouteurs, leads tracés. La ligne « Coût » ne cite pas
+ * de prix : il vit sur la page d'accès, pas ici.
+ */
 const COMPARISONS: ComparisonRow[] = [
   {
-    dimensionFr: 'Volume de contenu',
-    dimensionEn: 'Content volume',
-    oldFr: 'Quelques posts par mois, un seul réseau',
-    oldEn: 'A few posts per month, one platform',
-    newFr: 'Contenu quotidien sur 7 réseaux',
-    newEn: 'Daily content on 7 platforms',
+    dimensionFr: 'Quoi filmer',
+    dimensionEn: 'What to shoot',
+    oldFr: 'Deviner, tester, recommencer',
+    oldEn: 'Guess, test, start over',
+    newFr: 'Les formats mesurés chaque semaine, prêts à filmer',
+    newEn: 'Formats measured every week, ready to shoot',
   },
   {
-    dimensionFr: 'Authenticité',
-    dimensionEn: 'Authenticity',
-    oldFr: 'Copié-collé de ChatGPT, voix générique',
-    oldEn: 'ChatGPT copy-paste, generic voice',
-    newFr: 'Millions de contenus viraux analysés',
-    newEn: 'Millions of viral posts analyzed',
-  },
-  {
-    dimensionFr: 'Sujets',
-    dimensionEn: 'Topics',
-    oldFr: 'Trouver les sujets soi-même',
-    oldEn: 'Find topics yourself',
-    newFr: 'Des sujets viraux toutes les semaines',
-    newEn: 'Viral topics delivered every week',
+    dimensionFr: 'Où et quand',
+    dimensionEn: 'Where and when',
+    oldFr: 'Un bureau, une caméra, une après-midi bloquée',
+    oldEn: 'A desk, a camera, a blocked afternoon',
+    newFr: 'Votre téléphone et vos écouteurs, en marchant',
+    newEn: 'Your phone and earphones, while walking',
   },
   {
     dimensionFr: 'Temps investi',
     dimensionEn: 'Time investment',
-    oldFr: '10 à 15h par semaine minimum',
+    oldFr: '10 à 15 h par semaine minimum',
     oldEn: '10–15h per week minimum',
-    newFr: '1h par semaine, on gère le reste',
-    newEn: '1h per week, we handle the rest',
+    newFr: '20 min par semaine, on gère le reste',
+    newEn: '20 min per week, we handle the rest',
+  },
+  {
+    dimensionFr: 'Volume',
+    dimensionEn: 'Volume',
+    oldFr: 'Quelques posts par mois, un seul réseau',
+    oldEn: 'A few posts per month, one platform',
+    newFr: 'Chaque idée en 10+ contenus, sur 7 réseaux',
+    newEn: 'Every idea as 10+ pieces, on 7 platforms',
+  },
+  {
+    dimensionFr: 'Sujets',
+    dimensionEn: 'Topics',
+    oldFr: 'La page blanche, chaque semaine',
+    oldEn: 'The blank page, every week',
+    newFr: 'Le brief des sujets qui montent, chaque matin',
+    newEn: 'A brief of rising topics, every morning',
+  },
+  {
+    dimensionFr: 'Résultat',
+    dimensionEn: 'Outcome',
+    oldFr: 'Des vues, sans savoir ce qu\'elles rapportent',
+    oldEn: 'Views, with no idea what they bring in',
+    newFr: 'Des leads tracés du reel jusqu\'au rendez-vous',
+    newEn: 'Leads tracked from the reel to the booked call',
   },
   {
     dimensionFr: 'Coût',
     dimensionEn: 'Cost',
-    oldFr: 'Plusieurs freelances : 5 000€+/mois',
-    oldEn: 'Multiple freelancers: €5,000+/mo',
-    newFr: 'Recevoir un accès - sur sélection',
-    newEn: 'Get access - by selection',
-  },
-  {
-    dimensionFr: 'Scalabilité',
-    dimensionEn: 'Scalability',
-    oldFr: 'Recruter, former, manager plus de monde',
-    oldEn: 'Hire, train, manage more people',
-    newFr: 'Le système scale, pas votre charge',
-    newEn: 'The system scales, not your workload',
+    oldFr: 'Monteur, rédacteur, community manager : 5 000 €+/mois',
+    oldEn: 'Editor, writer, community manager: €5,000+/mo',
+    newFr: 'Un abonnement, une équipe, un rapport par semaine',
+    newEn: 'One subscription, one team, one report a week',
   },
 ]
 
@@ -89,13 +104,13 @@ export default function QuickWinsSection() {
         >
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
             {fr
-              ? <>Arrêtez de créer du contenu. <span className="text-empire">Laissez le système le faire.</span></>
-              : <>Stop creating content. <span className="text-empire">Let the system do it.</span></>}
+              ? <>La façon la plus simple de trouver des clients <span className="text-empire">avec du contenu.</span></>
+              : <>The simplest way to find clients <span className="text-empire">with content.</span></>}
           </h2>
           <p className="text-neutral-400 text-lg max-w-2xl mx-auto">
             {fr
-              ? 'Tout ce que vous faites manuellement ou déléguez à prix d\'or, Empire le fait pour vous dès le jour 1.'
-              : 'Everything you do manually or outsource at a premium, Empire handles for you from day 1.'}
+              ? 'Pas plus de contenu : le bon format, tourné en 20 minutes, publié partout, et suivi jusqu\'au client.'
+              : 'Not more content: the right format, shot in 20 minutes, published everywhere, and tracked all the way to the client.'}
           </p>
         </motion.div>
 
