@@ -1,5 +1,6 @@
 import HeroSection from '@/components/sections/HeroSection'
 import HomeDemoSection from '@/components/sections/HomeDemoSection'
+import FormatsShowcaseSection from '@/components/sections/FormatsShowcaseSection'
 import HowItWorksAccordion from '@/components/sections/HowItWorksAccordion'
 import CaseStudiesSection from '@/components/sections/CaseStudiesSection'
 import HomeApplySection from '@/components/sections/HomeApplySection'
@@ -15,6 +16,10 @@ export default function Page() {
   return (
     <main className="relative">
       <HeroSection />
+      {/* Les formats tels qu'ils sortent de l'app, juste après la promesse :
+          le hero dit « les formats qui marchent », cette section les montre
+          avant que la démo n'explique le pipeline. */}
+      <FormatsShowcaseSection />
       <HomeDemoSection />
       <HowItWorksAccordion />
       <CaseStudiesSection />

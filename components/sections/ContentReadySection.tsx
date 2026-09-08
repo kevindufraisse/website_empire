@@ -31,7 +31,7 @@ const creators = [
   {
     name: 'Justin Welsh',
     specialty: 'LinkedIn Expert',
-    image: 'https://cdn.prod.website-files.com/6478b97e8a7a81e06c1cff93/647a571d951cf02b2826ad76_headshot%20justing.webp',
+    image: '/creators/welsh.webp',
     color: 'from-blue-500/40 to-blue-500/20',
   },
   {
@@ -49,13 +49,13 @@ const creators = [
   {
     name: 'Iman Gadzhi',
     specialty: 'Marketing',
-    image: 'https://yt3.googleusercontent.com/TuT4HjFsvarFnLuoKokU5Jr2Iay3D2d3Ee5Ktqdya4Zr9hDnfK4lpYbAhRU0R0qE8pjUZK32qrE=s160-c-k-c0x00ffffff-no-rj',
+    image: '/creators/gadzhi.webp',
     color: 'from-purple-500/40 to-purple-500/20',
   },
   {
     name: 'Dan Koe',
     specialty: 'Copywriting',
-    image: 'https://m.media-amazon.com/images/S/amzn-author-media-prod/uvf39i5aot2ru33c63bgr1p0sf._SY450_CR0%2C0%2C450%2C450_.jpg',
+    image: '/creators/koe.webp',
     color: 'from-indigo-500/40 to-indigo-500/20',
   },
   {
