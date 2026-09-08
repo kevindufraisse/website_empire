@@ -5,12 +5,19 @@
  * sortent de l'app.
  *
  * Les visuels vidéo (`/public/formats/*.webp`) ne sont pas des maquettes :
- * ce sont les rendus réels du moteur de montage (flou → net, tier list et
+ * ce sont les rendus réels du moteur de montage - flou → net, tier list et
  * sticker FAQ posés sur une vraie prise, citation et réaction sortis tels
- * quels d'un compose). Seul `podcast.webp` est un habillage illustratif sur
- * une vraie prise - l'interview n'a pas de rendu serveur, c'est un écran.
- * Si le rendu change côté app, il faut les régénérer, sinon la page promet
- * un visuel que le produit ne fait plus.
+ * quels d'un compose, `captions.webp` une image d'un reel sous-titré réel
+ * (26 août 2026), `actu.webp` l'accroche `hook-montage` (même dessin que le
+ * serveur : boîte noire 90 %, Poppins ExtraBold 64, y = 20 %) sur une prise.
+ * Les deux cartes sans image (format long, carrousel) sont du HTML qui reprend
+ * de vrais titres du compte de Kevin. Si le rendu change côté app, il faut
+ * régénérer les webp, sinon la page promet un visuel que le produit ne fait
+ * plus.
+ *
+ * On ne montre pas tout : dix cartes, celles qui ont un rendu ou un contenu
+ * réel derrière. Un format qui n'existe que dans une roadmap n'a pas sa place
+ * ici - la page vend ce qu'on livre.
  *
  * Slider horizontal à la Apple : scroll-snap natif (le doigt sur mobile, la
  * molette/trackpad sur desktop), flèches en repli, la carte au centre est
@@ -24,10 +31,19 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import { useReveal } from '@/hooks/useReveal'
+import { SocialIcons } from '@/components/ui/social-icons'
+
+type Network = keyof typeof SocialIcons
+type Kind = 'short' | 'long' | 'written'
 
 type Format = {
   id: string
+  kind: Kind
   image?: string
+  /** Réseaux sur lesquels ce format est publié - c'est la multi-diffusion
+   *  qu'on montre, et elle change selon le format : un reel ne va pas sur
+   *  LinkedIn de la même façon qu'un post écrit. */
+  networks: Network[]
   titleFr: string
   titleEn: string
   descFr: string
@@ -36,10 +52,14 @@ type Format = {
   tagEn: string
 }
 
+const REELS: Network[] = ['instagram', 'tiktok', 'youtube', 'linkedin', 'facebook', 'threads', 'twitter']
+
 const FORMATS: Format[] = [
   {
     id: 'blur-reveal',
+    kind: 'short',
     image: '/formats/blur-reveal.webp',
+    networks: REELS,
     titleFr: 'Flou → net',
     titleEn: 'Blur → reveal',
     descFr: 'Vous nommez 8 personnes ou produits, on trouve les visuels, ils se dévoilent au fil de votre commentaire.',
@@ -49,27 +69,21 @@ const FORMATS: Format[] = [
   },
   {
     id: 'tierlist',
+    kind: 'short',
     image: '/formats/tierlist.webp',
+    networks: REELS,
     titleFr: 'Tier list',
     titleEn: 'Tier list',
-    descFr: 'Un classement S → F sur votre sujet. Vous parlez, la grille se remplit, le montage est fait.',
-    descEn: 'An S → F ranking on your topic. You talk, the grid fills in, the edit is done.',
+    descFr: 'Un classement S → F sur votre sujet. Vous parlez, la grille se remplit, le montage est fait. Existe aussi en format long.',
+    descEn: 'An S → F ranking on your topic. You talk, the grid fills in, the edit is done. Also works as a long video.',
     tagFr: 'Le format qui fait commenter',
     tagEn: 'The format that gets comments',
   },
   {
-    id: 'quote',
-    image: '/formats/quote.webp',
-    titleFr: 'Citation',
-    titleEn: 'Quote',
-    descFr: 'Une phrase forte, son auteur, votre lecture en 30 secondes. Rien à écrire, rien à monter.',
-    descEn: 'A strong line, its author, your take in 30 seconds. Nothing to write, nothing to edit.',
-    tagFr: 'Le format le plus rapide à tourner',
-    tagEn: 'The fastest format to shoot',
-  },
-  {
     id: 'reaction',
+    kind: 'short',
     image: '/formats/reaction.webp',
+    networks: REELS,
     titleFr: 'Réaction à un viral',
     titleEn: 'Viral reaction',
     descFr: 'On vous propose les vidéos qui explosent dans votre domaine. Vous réagissez, la vidéo passe au-dessus de vous.',
@@ -78,8 +92,22 @@ const FORMATS: Format[] = [
     tagEn: 'The format that borrows an audience',
   },
   {
+    id: 'quote',
+    kind: 'short',
+    image: '/formats/quote.webp',
+    networks: REELS,
+    titleFr: 'Citation',
+    titleEn: 'Quote',
+    descFr: 'Une phrase forte, son auteur, votre lecture en 30 secondes. Rien à écrire, rien à monter.',
+    descEn: 'A strong line, its author, your take in 30 seconds. Nothing to write, nothing to edit.',
+    tagFr: 'Le format le plus rapide à tourner',
+    tagEn: 'The fastest format to shoot',
+  },
+  {
     id: 'faq',
+    kind: 'short',
     image: '/formats/faq.webp',
+    networks: REELS,
     titleFr: 'Fausse FAQ',
     titleEn: 'Fake Q&A',
     descFr: 'Le sticker « Posez-moi une question », avec les questions que vos clients posent vraiment. Vous répondez, on habille.',
@@ -88,17 +116,55 @@ const FORMATS: Format[] = [
     tagEn: 'The format that sells without selling',
   },
   {
-    id: 'podcast',
-    image: '/formats/podcast.webp',
-    titleFr: 'Podcast / interview',
-    titleEn: 'Podcast / interview',
-    descFr: 'On vous pose les questions, vous répondez 1 h. On découpe en reels, posts et newsletters pour le mois.',
-    descEn: 'We ask the questions, you answer for 1 hour. We cut it into reels, posts and newsletters for the month.',
+    id: 'captions',
+    kind: 'short',
+    image: '/formats/captions.webp',
+    networks: REELS,
+    titleFr: 'Face caméra sous-titré',
+    titleEn: 'Captioned talking head',
+    descFr: 'Le yapping, le podcast, l\'avis à chaud : vous parlez, les sous-titres se posent mot à mot, le montage se fait seul.',
+    descEn: 'Yapping, podcast clips, hot takes: you talk, word-by-word captions land, the edit does itself.',
+    tagFr: 'Le format de tous les jours',
+    tagEn: 'The everyday format',
+  },
+  {
+    id: 'actu',
+    kind: 'short',
+    image: '/formats/actu.webp',
+    networks: REELS,
+    titleFr: 'Réaction à l\'actualité',
+    titleEn: 'News take',
+    descFr: 'Chaque matin, le brief des sujets qui montent dans votre niche. Vous prenez position, l\'accroche est déjà écrite.',
+    descEn: 'Every morning, a brief of the topics rising in your niche. You take a stance, the hook is already written.',
+    tagFr: 'Le format qui surfe sur la vague',
+    tagEn: 'The format that rides the wave',
+  },
+  {
+    id: 'long',
+    kind: 'long',
+    networks: ['youtube', 'spotify', 'linkedin'],
+    titleFr: 'Format long',
+    titleEn: 'Long form',
+    descFr: 'Interview, podcast ou tier list de 20 à 60 min. On vous pose les questions, on découpe en reels, posts et newsletters pour le mois.',
+    descEn: 'Interview, podcast or tier list, 20 to 60 min. We ask the questions and cut it into reels, posts and newsletters for the month.',
     tagFr: 'Le format qui nourrit tout le reste',
     tagEn: 'The format that feeds everything else',
   },
   {
+    id: 'carousel',
+    kind: 'written',
+    networks: ['linkedin', 'instagram'],
+    titleFr: 'Carrousel',
+    titleEn: 'Carousel',
+    descFr: 'Une idée de vos vidéos devient 8 slides à votre charte. Le format le plus sauvegardé sur LinkedIn.',
+    descEn: 'One idea from your videos becomes 8 branded slides. The most-saved format on LinkedIn.',
+    tagFr: 'Le format qui se sauvegarde',
+    tagEn: 'The format people save',
+  },
+  {
     id: 'written',
+    kind: 'written',
+    networks: ['linkedin', 'newsletter', 'threads', 'twitter'],
     titleFr: 'Post LinkedIn & newsletter',
     titleEn: 'LinkedIn post & newsletter',
     descFr: 'Chaque vidéo devient aussi un post et une newsletter, relus par un humain avant publication.',
@@ -107,6 +173,103 @@ const FORMATS: Format[] = [
     tagEn: 'The cascade: 1 take, 10+ pieces',
   },
 ]
+
+const KIND_LABEL: Record<Kind, { fr: string; en: string }> = {
+  short: { fr: 'Vidéo courte', en: 'Short video' },
+  long: { fr: 'Vidéo longue', en: 'Long video' },
+  written: { fr: 'Écrit', en: 'Written' },
+}
+
+function NetworkRow({ networks, size = 'sm' }: { networks: Network[]; size?: 'sm' | 'md' }) {
+  const box = size === 'md' ? 'h-7 w-7 [&_svg]:h-4 [&_svg]:w-4' : 'h-5 w-5 [&_svg]:h-3 [&_svg]:w-3'
+  return (
+    <div className="flex items-center gap-1">
+      {networks.map((n) => {
+        const Icon = SocialIcons[n]
+        return (
+          <span key={n} className={`flex items-center justify-center rounded-full bg-white/10 ring-1 ring-white/10 ${box}`} title={n}>
+            <Icon />
+          </span>
+        )
+      })}
+    </div>
+  )
+}
+
+/**
+ * Format long : le vrai titre d'une vidéo longue du compte de Kevin (podcast
+ * du 25 juin 2026, `user_content` type `podcast`), en vignette 16:9 façon
+ * YouTube, et ce qu'elle a donné - c'est la cascade qu'on vend, pas la vidéo
+ * elle-même. La vignette est une prise verticale réelle pillarboxée (fond
+ * flouté), comme YouTube affiche un upload vertical : les vraies interviews
+ * longues de Kevin encore en storage sont filmées dans le noir et illisibles.
+ * La durée affichée est illustrative.
+ */
+function LongCard({ fr }: { fr: boolean }) {
+  const cuts = fr
+    ? ['7 reels sous-titrés', '7 posts LinkedIn', '1 newsletter', '1 carrousel']
+    : ['7 captioned reels', '7 LinkedIn posts', '1 newsletter', '1 carousel']
+  return (
+    <div className="absolute inset-0 flex flex-col bg-[#0b0b0b] p-4 text-left">
+      <div className="relative aspect-video w-full overflow-hidden rounded-xl">
+        <img src="/formats/long-thumb.webp" alt="" className="h-full w-full object-cover" loading="lazy" draggable={false} />
+        <span className="absolute bottom-1.5 right-1.5 rounded bg-black/80 px-1.5 py-0.5 text-[10px] font-semibold text-white">38:12</span>
+        <span className="absolute left-1/2 top-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/90">
+          <span className="ml-0.5 h-0 w-0 border-y-[7px] border-l-[12px] border-y-transparent border-l-black" />
+        </span>
+      </div>
+      <div className="mt-3 flex items-start gap-2.5">
+        <img src="/founders/kevin.jpg" alt="" className="h-8 w-8 shrink-0 rounded-full object-cover" loading="lazy" />
+        <div className="min-w-0">
+          <p className="text-[13px] font-semibold leading-snug text-white">0€ VS 1M€ : le pire piège des créateurs</p>
+          <p className="mt-0.5 text-[11px] text-neutral-500">Kevin Dufraisse · {fr ? 'il y a 2 jours' : '2 days ago'}</p>
+        </div>
+      </div>
+      <div className="mt-4 rounded-xl border border-white/10 bg-white/[0.04] p-3">
+        <p className="text-[10px] font-bold uppercase tracking-wider text-empire">{fr ? 'Découpé en' : 'Cut into'}</p>
+        <ul className="mt-1.5 space-y-1">
+          {cuts.map((c) => (
+            <li key={c} className="flex items-center gap-2 text-[12px] text-neutral-200">
+              <span className="h-1 w-1 rounded-full bg-empire" />{c}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  )
+}
+
+/**
+ * Carrousel : le vrai titre d'un carrousel généré sur le compte de Kevin
+ * (24 juin 2026, `user_content` type `carrousel`), slide 1 sur 8.
+ */
+function CarouselCard({ fr }: { fr: boolean }) {
+  return (
+    <div className="absolute inset-0 flex flex-col bg-[#0b0b0b] p-4 text-left">
+      <div className="relative flex aspect-[4/5] w-full flex-col justify-between overflow-hidden rounded-2xl bg-empire p-5 text-black">
+        <p className="text-[10px] font-bold uppercase tracking-widest text-black/60">Empire · 1/8</p>
+        <p className="text-[19px] font-extrabold leading-[1.15]">
+          {fr
+            ? 'Un outil d\'enregistrement vidéo m\'a demandé 14 étapes avant de pouvoir filmer.'
+            : 'A video recording tool asked me for 14 steps before I could film.'}
+        </p>
+        <div className="flex items-center gap-2">
+          <img src="/founders/kevin.jpg" alt="" className="h-6 w-6 rounded-full object-cover ring-2 ring-black/20" loading="lazy" />
+          <p className="text-[11px] font-semibold text-black/70">@kevindufraisse</p>
+          <span className="ml-auto text-[11px] font-bold">→</span>
+        </div>
+      </div>
+      <div className="mt-3 flex justify-center gap-1.5">
+        {Array.from({ length: 8 }).map((_, i) => (
+          <span key={i} className={`h-1.5 rounded-full ${i === 0 ? 'w-4 bg-empire' : 'w-1.5 bg-white/20'}`} />
+        ))}
+      </div>
+      <p className="mt-3 text-center text-[11px] text-neutral-500">
+        {fr ? 'Glissez pour lire · à votre charte' : 'Swipe to read · your brand colours'}
+      </p>
+    </div>
+  )
+}
 
 /**
  * Carte écrite : le début d'un post LinkedIn réel de Kevin, écrit par le
@@ -218,6 +381,13 @@ export default function FormatsShowcaseSection() {
               ? 'Chaque semaine, notre équipe mesure ce qui monte sur les réseaux, garde les formats qui tiennent et retire les autres. Vous ouvrez l\'app, vous parlez : le montage est déjà fait.'
               : 'Every week our team measures what is rising on social, keeps the formats that hold up and drops the rest. You open the app and talk: the edit is already done.'}
           </p>
+          {/* Les sept réseaux + la newsletter, en icônes : « multi-diffusé »
+              écrit en toutes lettres ne montre rien, Threads et X en pastille
+              se voient. */}
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-2">
+            <span className="text-xs text-neutral-500">{fr ? 'Publié pour vous sur' : 'Published for you on'}</span>
+            <NetworkRow networks={['instagram', 'tiktok', 'youtube', 'linkedin', 'facebook', 'threads', 'twitter', 'newsletter']} size="md" />
+          </div>
         </motion.div>
       </div>
 
@@ -254,6 +424,10 @@ export default function FormatsShowcaseSection() {
                         loading={i < 2 ? 'eager' : 'lazy'}
                         draggable={false}
                       />
+                    ) : f.id === 'long' ? (
+                      <LongCard fr={fr} />
+                    ) : f.id === 'carousel' ? (
+                      <CarouselCard fr={fr} />
                     ) : (
                       <WrittenCard fr={fr} />
                     )}
@@ -275,8 +449,17 @@ export default function FormatsShowcaseSection() {
                   transition={{ duration: 0.3 }}
                   className="mx-auto mt-5 w-[250px] text-center sm:w-[300px]"
                 >
-                  <p className="text-lg font-bold text-white">{fr ? f.titleFr : f.titleEn}</p>
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-neutral-500">
+                    {fr ? KIND_LABEL[f.kind].fr : KIND_LABEL[f.kind].en}
+                  </p>
+                  <p className="mt-1 text-lg font-bold text-white">{fr ? f.titleFr : f.titleEn}</p>
                   <p className="mt-1.5 text-sm leading-relaxed text-neutral-400">{fr ? f.descFr : f.descEn}</p>
+                  {/* Où ça part : la multi-diffusion se voit carte par carte,
+                      un reel et un post écrit n'ont pas les mêmes réseaux. */}
+                  <div className="mt-3 flex items-center justify-center gap-2">
+                    <span className="text-[11px] text-neutral-500">{fr ? 'Publié sur' : 'Published to'}</span>
+                    <NetworkRow networks={f.networks} />
+                  </div>
                 </motion.div>
               </div>
             )
@@ -317,21 +500,32 @@ export default function FormatsShowcaseSection() {
         </div>
       </div>
 
-      {/* Méthode : trois temps, pas de chiffre inventé. */}
+      {/* Méthode : quatre temps, pas de chiffre inventé. Le quatrième est le
+          rapport au client - c'est lui qui sépare « on publie partout » de
+          « on garde ce qui marche chez vous », et il manquait à la page alors
+          qu'il est dans l'offre. */}
       <div className="container relative mt-14">
-        <div className="mx-auto grid max-w-4xl gap-4 sm:grid-cols-3">
+        <div className="mx-auto grid max-w-5xl gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
             {
               fr: ['On mesure', 'Chaque semaine, les formats qui montent sur 7 réseaux, tous secteurs.'],
               en: ['We measure', 'Every week, the formats rising across 7 networks, all sectors.'],
+              highlight: false,
             },
             {
               fr: ['On garde ce qui tient', 'Un format entre dans l\'app quand il fait des vues chez plusieurs clients, pas chez un seul.'],
               en: ['We keep what holds', 'A format enters the app when it gets views for several clients, not just one.'],
+              highlight: false,
             },
             {
               fr: ['On retire le reste', 'Ce qui s\'essouffle sort du catalogue. Vous ne filmez jamais un format mort.'],
               en: ['We drop the rest', 'What fades leaves the catalog. You never shoot a dead format.'],
+              highlight: false,
+            },
+            {
+              fr: ['On vous rend compte', 'Chaque semaine, vos chiffres format par format : vues, abonnés, leads. Ce qui a marché chez vous, on le refait ; le reste, on l\'arrête.'],
+              en: ['We report back', 'Every week, your numbers format by format: views, followers, leads. What worked for you, we do again; the rest, we stop.'],
+              highlight: true,
             },
           ].map((step, i) => {
             const [title, desc] = fr ? step.fr : step.en
@@ -341,7 +535,7 @@ export default function FormatsShowcaseSection() {
                 initial={{ opacity: 0, y: 16 }}
                 animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
                 transition={{ duration: 0.5, delay: 0.15 + i * 0.1 }}
-                className="rounded-2xl border border-white/10 bg-white/[0.03] p-5"
+                className={`rounded-2xl border p-5 ${step.highlight ? 'border-empire/40 bg-empire/[0.07]' : 'border-white/10 bg-white/[0.03]'}`}
               >
                 <p className="text-xs font-bold text-empire">0{i + 1}</p>
                 <p className="mt-1.5 text-base font-bold text-white">{title}</p>

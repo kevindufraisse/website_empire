@@ -132,23 +132,19 @@ export default function VoiceToContentAnimation() {
           </div>
         </div>
 
-        {/* Origine du flux : un téléphone qui filme un format (le flou → net,
-          rendu réel de l'app), plus la barre vocale. Avant c'était une pastille
-          « note vocale » seule : elle disait « vous parlez », pas « vous filmez
-          un format qu'on a choisi pour vous », ce qui est la promesse. */}
-      <div
-        role="img"
-        aria-label={fr ? 'Vous filmez un format, l\u2019app enregistre' : 'You shoot a format, the app records'}
-        className="absolute left-1/2 top-5 z-10 flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 md:top-[80.6%] md:left-0"
-      >
-        <div className="relative h-14 w-8 shrink-0 overflow-hidden rounded-[9px] md:h-[92px] md:w-[52px] md:rounded-[12px] border border-white/15 bg-neutral-900 shadow-lg shadow-black/50">
-          <img src="/formats/blur-reveal.webp" alt="" className="h-full w-full object-cover" loading="lazy" draggable={false} />
-          <span className="absolute left-1.5 top-1.5 flex h-1.5 w-1.5">
+        {/* Voice note pill at the start of the curve. Une version « téléphone
+          qui filme » a été essayée le 8 septembre et retirée le jour même :
+          trop petite pour se lire, elle faisait bruit. La pastille dit
+          « vous parlez », et c'est la promesse qui tient. */}
+        <div
+          role="img"
+          aria-label={fr ? 'Enregistrement d\u2019une note vocale' : 'Recording a voice note'}
+          className="absolute left-1/2 top-0 z-10 inline-flex h-9 w-fit -translate-x-1/2 -translate-y-1/2 items-center gap-[2.5px] rounded-full border border-white/10 bg-[#1a1b1d] px-3 shadow-lg shadow-black/40 md:top-[80.6%] md:left-0"
+        >
+          <span className="relative mr-1.5 flex h-2 w-2 shrink-0">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-60" />
-            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-red-500" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-red-500" />
           </span>
-        </div>
-        <div className="inline-flex h-9 w-fit items-center gap-[2.5px] rounded-full border border-white/10 bg-[#1a1b1d] px-3 shadow-lg shadow-black/40">
           {VOICE_BARS.map((bar, i) => (
             <span
               key={i}
@@ -158,13 +154,15 @@ export default function VoiceToContentAnimation() {
           ))}
         </div>
       </div>
-      </div>
 
       {/* Published content cards, cycling */}
       <div className="relative h-[180px] w-full shrink-0 md:h-[240px] md:w-[340px]">
         {posts.map((post, i) => {
           const Icon = post.icon === 'report' ? BarChart3 : SocialIcons[post.icon]
           const isActive = i === active
+          // Le rapport ferme la boucle : il ne doit pas se lire comme un post
+          // de plus, d'où le cadre couleur Empire et l'horodatage « lundi ».
+          const isReport = post.icon === 'report'
           return (
             <div
               key={i}
@@ -175,13 +173,15 @@ export default function VoiceToContentAnimation() {
                   : { opacity: 0, transform: 'translate(-24px, -50%) scale(0.97)', transitionDuration: '250ms', transitionDelay: '0ms' }
               }
             >
-              <div className="overflow-hidden rounded-[22px] border border-white/10 bg-[#141516] px-4 pt-3.5 pb-3 text-left shadow-lg shadow-black/20">
+              <div className={`overflow-hidden rounded-[22px] border px-4 pt-3.5 pb-3 text-left shadow-lg shadow-black/20 ${isReport ? 'border-empire/50 bg-[#141a0e] shadow-empire/10' : 'border-white/10 bg-[#141516]'}`}>
                 <div className="flex w-full items-center gap-1.5">
-                  <span className="flex h-5 w-5 shrink-0 items-center justify-center [&_svg]:h-4 [&_svg]:w-4">
+                  <span className={`flex h-5 w-5 shrink-0 items-center justify-center [&_svg]:h-4 [&_svg]:w-4 ${isReport ? 'text-empire' : ''}`}>
                     <Icon />
                   </span>
                   <span className="truncate text-xs font-medium text-[#f7f8f8]">{post.name}</span>
-                  <span className="shrink-0 select-none text-xs text-white/35">{fr ? 'à l\u2019instant' : 'now'}</span>
+                  <span className="shrink-0 select-none text-xs text-white/35">
+                    {isReport ? (fr ? 'cette semaine' : 'this week') : (fr ? 'à l\u2019instant' : 'now')}
+                  </span>
                 </div>
                 <p className="mt-1.5 whitespace-pre-line text-[13px] leading-[1.5] text-white">{post.text}</p>
                 <div className="mt-2 flex items-center gap-2">
