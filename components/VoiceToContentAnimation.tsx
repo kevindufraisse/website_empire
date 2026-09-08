@@ -139,9 +139,9 @@ export default function VoiceToContentAnimation() {
       <div
         role="img"
         aria-label={fr ? 'Vous filmez un format, l\u2019app enregistre' : 'You shoot a format, the app records'}
-        className="absolute left-1/2 top-0 z-10 flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 md:top-[80.6%] md:left-0"
+        className="absolute left-1/2 top-5 z-10 flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 md:top-[80.6%] md:left-0"
       >
-        <div className="relative h-[92px] w-[52px] shrink-0 overflow-hidden rounded-[12px] border border-white/15 bg-neutral-900 shadow-lg shadow-black/50">
+        <div className="relative h-14 w-8 shrink-0 overflow-hidden rounded-[9px] md:h-[92px] md:w-[52px] md:rounded-[12px] border border-white/15 bg-neutral-900 shadow-lg shadow-black/50">
           <img src="/formats/blur-reveal.webp" alt="" className="h-full w-full object-cover" loading="lazy" draggable={false} />
           <span className="absolute left-1.5 top-1.5 flex h-1.5 w-1.5">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-60" />

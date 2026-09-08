@@ -147,22 +147,22 @@ export default function HeroSection() {
                 dans la section fondateur plus bas. Fichiers locaux, jamais de
                 hotlink : un avatar cassé dans le hero est le pire endroit. */}
             <div className="-mt-3 flex justify-center">
-              <div className="flex items-center gap-3 px-3 py-1.5 pl-1.5 rounded-full bg-white/5 border border-white/10">
-                <div className="flex -space-x-2.5">
+              <div className="flex max-w-full items-center gap-2.5 sm:gap-3 px-3 py-1.5 pl-1.5 rounded-full bg-white/5 border border-white/10">
+                <div className="flex shrink-0 -space-x-2.5">
                   {HERO_CREATORS.map((c) => (
                     <img
                       key={c.name}
                       src={c.img}
                       alt={c.name}
                       title={c.name}
-                      className="w-8 h-8 rounded-full object-cover border-2 border-black bg-neutral-800"
+                      className="w-7 h-7 sm:w-8 sm:h-8 rounded-full object-cover border-2 border-black bg-neutral-800"
                       loading="eager"
                       width={32}
                       height={32}
                     />
                   ))}
                 </div>
-                <span className="text-xs text-neutral-300 text-left">
+                <span className="text-[11px] sm:text-xs text-neutral-300 text-left leading-snug">
                   {lang === 'fr'
                     ? <>Les formats qui les ont fait exploser, <span className="text-neutral-500">prêts à filmer pour vous.</span></>
                     : <>The formats that made them blow up, <span className="text-neutral-500">ready for you to shoot.</span></>}
