@@ -16,29 +16,27 @@ export default function Page() {
   return (
     <main className="relative">
       <HeroSection />
-      {/* Les formats tels qu'ils sortent de l'app, juste après la promesse :
-          le hero dit « les formats qui marchent », cette section les montre
-          avant que la démo n'explique le pipeline. */}
-      <FormatsShowcaseSection />
-      <HomeDemoSection />
-      <HowItWorksAccordion />
-      <CaseStudiesSection />
-      <HomeApplySection />
-      {/* Bandeau "Vu dans" — déplacé sous le bloc pricing/apply (choix Kevin) :
-          au-dessus du hero il coupait la promesse ; en tête du bloc preuve, il
-          enchaîne le prix vu juste avant, comme sur `/join/empire` et
-          `/join/academy`. */}
-      <section className="w-full bg-black py-10 sm:py-14">
+      {/* Bandeau "Vu dans" juste sous le hero (choix Kevin, 8 septembre) :
+          la preuve doit arriver avant le catalogue. Il a vécu sous le pricing
+          un temps, trop bas pour quelqu'un qui décroche à la première page. */}
+      <section className="w-full bg-black py-8 sm:py-10">
         <div className="container mx-auto max-w-5xl px-4">
           <FeaturedInSection />
         </div>
       </section>
-      <TestimonialsSection />
-      {/* Mur des plus gros créateurs FR — punch social proof, juste après
-          les témoignages clients : d'abord les résultats, ensuite les noms
-          qui pèsent. Même widget Senja que sur `/pricing` et
-          `/join/empire` de l'app. */}
+      {/* Les formats tels qu'ils sortent de l'app, juste après la promesse :
+          le hero dit « les formats qui marchent », cette section les montre
+          avant que la démo n'explique le pipeline. */}
+      <FormatsShowcaseSection />
+      {/* Mur des plus gros créateurs FR tout de suite après les formats :
+          on vient de montrer ce qu'on fait, voici qui le dit. Même widget
+          Senja que sur `/pricing` et `/join/empire` de l'app. */}
       <TopCreatorsSection />
+      <HomeDemoSection />
+      <HowItWorksAccordion />
+      <CaseStudiesSection />
+      <HomeApplySection />
+      <TestimonialsSection />
       <QuickWinsSection />
       <FounderSection />
       <FAQSection variant="home" />

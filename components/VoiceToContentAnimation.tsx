@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { Eye } from 'lucide-react'
+import { BarChart3, Eye } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { SocialIcons } from '@/components/ui/social-icons'
 
@@ -32,7 +32,7 @@ const VOICE_BARS = [
 ]
 
 type PostCard = {
-  icon: keyof typeof SocialIcons
+  icon: keyof typeof SocialIcons | 'report'
   name: string
   text: string
   tag: string
@@ -57,6 +57,10 @@ export default function VoiceToContentAnimation() {
         { icon: 'threads', name: 'Threads', text: 'Poster sans stratégie, c\u2019est l\u2019erreur n°1 sur LinkedIn. La preuve en chiffres \u2193', tag: 'Threads', tagColor: '#e5e7eb', views: 'jusqu\u2019à 1M vues/mois' },
         { icon: 'newsletter', name: 'Newsletter', text: 'Objet : Mon premier client à 10K (sans un euro de pub)', tag: 'Email', tagColor: '#DAFC68', views: '30 newsletters/mois' },
         { icon: 'youtube', name: 'YouTube', text: '\u25B6 « Le secret c\u2019est pas le talent, c\u2019est la régularité » - 0:34', tag: 'Short', tagColor: '#f87171', views: 'jusqu\u2019à 200K vues/mois' },
+        // La boucle se ferme sur la mesure : c'est ce qui distingue « on publie
+        // partout » de « on garde ce qui marche ». Exemple illustratif, comme
+        // les cartes au-dessus - pas un chiffre client.
+        { icon: 'report', name: 'Rapport hebdo', text: 'Flou → net : 3× vos vues habituelles, on garde.\nCitation : sous votre moyenne, on retire.\nProchain sujet : « pourquoi j\u2019ai refusé un client à 10K ».', tag: 'On mesure', tagColor: '#DAFC68' },
       ]
     : [
         { icon: 'linkedin', name: 'LinkedIn', text: 'I signed my first 10K client without spending a euro on ads.\n\nHere are the 3 things I did differently \u2193', tag: 'Post', tagColor: '#5eb0ef', views: '1M+ views/mo on average' },
@@ -65,6 +69,7 @@ export default function VoiceToContentAnimation() {
         { icon: 'threads', name: 'Threads', text: 'Posting without a strategy is mistake #1 on LinkedIn. Here\u2019s the proof in numbers \u2193', tag: 'Threads', tagColor: '#e5e7eb', views: 'up to 1M views/mo' },
         { icon: 'newsletter', name: 'Newsletter', text: 'Subject: My first 10K client (without a euro in ads)', tag: 'Email', tagColor: '#DAFC68', views: '30 newsletters/mo' },
         { icon: 'youtube', name: 'YouTube', text: '\u25B6 \u201cThe secret isn\u2019t talent, it\u2019s consistency\u201d - 0:34', tag: 'Short', tagColor: '#f87171', views: 'up to 200K views/mo' },
+        { icon: 'report', name: 'Weekly report', text: 'Blur → reveal: 3× your usual views, we keep it.\nQuote: below your average, we drop it.\nNext topic: \u201cwhy I turned down a 10K client\u201d.', tag: 'We measure', tagColor: '#DAFC68' },
       ]
 
   // Measure one chunk so the SMIL loop advances by exactly one chunk (seamless)
@@ -127,16 +132,23 @@ export default function VoiceToContentAnimation() {
           </div>
         </div>
 
-        {/* Voice note pill at the start of the curve */}
-        <div
-          role="img"
-          aria-label={fr ? 'Enregistrement d\u2019une note vocale' : 'Recording a voice note'}
-          className="absolute left-1/2 top-0 z-10 inline-flex h-9 w-fit -translate-x-1/2 -translate-y-1/2 items-center gap-[2.5px] rounded-full border border-white/10 bg-[#1a1b1d] px-3 shadow-lg shadow-black/40 md:top-[80.6%] md:left-0"
-        >
-          <span className="relative mr-1.5 flex h-2 w-2 shrink-0">
+        {/* Origine du flux : un téléphone qui filme un format (le flou → net,
+          rendu réel de l'app), plus la barre vocale. Avant c'était une pastille
+          « note vocale » seule : elle disait « vous parlez », pas « vous filmez
+          un format qu'on a choisi pour vous », ce qui est la promesse. */}
+      <div
+        role="img"
+        aria-label={fr ? 'Vous filmez un format, l\u2019app enregistre' : 'You shoot a format, the app records'}
+        className="absolute left-1/2 top-0 z-10 flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 md:top-[80.6%] md:left-0"
+      >
+        <div className="relative h-[92px] w-[52px] shrink-0 overflow-hidden rounded-[12px] border border-white/15 bg-neutral-900 shadow-lg shadow-black/50">
+          <img src="/formats/blur-reveal.webp" alt="" className="h-full w-full object-cover" loading="lazy" draggable={false} />
+          <span className="absolute left-1.5 top-1.5 flex h-1.5 w-1.5">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-60" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-red-500" />
+            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-red-500" />
           </span>
+        </div>
+        <div className="inline-flex h-9 w-fit items-center gap-[2.5px] rounded-full border border-white/10 bg-[#1a1b1d] px-3 shadow-lg shadow-black/40">
           {VOICE_BARS.map((bar, i) => (
             <span
               key={i}
@@ -146,11 +158,12 @@ export default function VoiceToContentAnimation() {
           ))}
         </div>
       </div>
+      </div>
 
       {/* Published content cards, cycling */}
       <div className="relative h-[180px] w-full shrink-0 md:h-[240px] md:w-[340px]">
         {posts.map((post, i) => {
-          const Icon = SocialIcons[post.icon]
+          const Icon = post.icon === 'report' ? BarChart3 : SocialIcons[post.icon]
           const isActive = i === active
           return (
             <div

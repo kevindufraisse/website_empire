@@ -80,7 +80,7 @@ export default function HeroSection() {
               initial={mounted ? { opacity: 0, y: 8 } : false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.1 }}
-              className="mt-3 text-lg sm:text-xl md:text-2xl font-medium text-neutral-300 max-w-2xl mx-auto"
+              className="mt-3 text-lg sm:text-xl md:text-2xl font-medium text-neutral-300 max-w-2xl mx-auto text-balance"
             >
               {t.hero.titleNote}
             </motion.p>
@@ -164,8 +164,8 @@ export default function HeroSection() {
                 </div>
                 <span className="text-xs text-neutral-300 text-left">
                   {lang === 'fr'
-                    ? <>Les formats de Hormozi, Matt Gray, Ali Abdaal… <span className="text-neutral-500">adaptés à votre expertise</span></>
-                    : <>The formats of Hormozi, Matt Gray, Ali Abdaal… <span className="text-neutral-500">adapted to your expertise</span></>}
+                    ? <>Les formats qui les ont fait exploser, <span className="text-neutral-500">prêts à filmer pour vous.</span></>
+                    : <>The formats that made them blow up, <span className="text-neutral-500">ready for you to shoot.</span></>}
                 </span>
               </div>
             </div>

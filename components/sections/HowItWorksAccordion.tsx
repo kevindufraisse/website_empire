@@ -660,8 +660,8 @@ export default function HowItWorksAccordion() {
               </h2>
               <p className="text-base md:text-lg text-neutral-400 max-w-2xl mx-auto">
                 {lang === 'fr'
-                  ? 'Vous ne manquez pas de temps. Vous manquez de système. 1 h de parole, on produit le mois.'
-                  : 'You don\'t lack time. You lack a system. 1 hour of talking, we produce the month.'}
+                  ? 'Vous ne manquez pas de temps. Vous manquez de système. Un format à filmer chaque semaine, on produit le mois.'
+                  : 'You don\'t lack time. You lack a system. One format to shoot each week, we produce the month.'}
               </p>
           </div>
         </FadeInBlock>
@@ -686,39 +686,51 @@ export default function HowItWorksAccordion() {
                   <div className="flex items-center gap-2 mb-1">
                     <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">1</span>
                     <h3 className="text-base font-semibold text-white">
-                      {lang === 'fr' ? 'Nous trouvons vos prochains sujets' : 'We find your next topics'}
+                      {lang === 'fr' ? 'On repère les formats et sujets qui montent' : 'We spot the rising formats and topics'}
                     </h3>
                   </div>
                   <p className="text-neutral-400 text-sm leading-snug">
                     {lang === 'fr'
-                      ? 'On analyse des millions de contenus viraux et tendances actuelles pour identifier les sujets les plus visibles de votre niche.'
-                      : 'We analyze millions of viral posts and current trends to find the most visible topics in your niche.'}
+                      ? 'Chaque semaine, on mesure ce qui fait des vues sur les 7 réseaux : les formats qui tiennent et les sujets les plus visibles de votre niche.'
+                      : 'Every week we measure what gets views across 7 networks: the formats that hold up and the most visible topics in your niche.'}
                   </p>
                 </div>
               </div>
 
               {/* BLOCK 2 - Vous enregistrez */}
               <div className="group relative flex flex-col overflow-hidden rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30 transition-all min-h-[340px]">
-                <div className="h-[200px] shrink-0 flex flex-col items-center justify-center p-6 gap-4">
-                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-empire/30 to-empire/10 border-2 border-empire flex items-center justify-center">
-                    <Mic className="text-empire" size={24} />
+                {/* Le format tel qu'on le filme dans l'app (rendu réel, cf.
+                    FormatsShowcaseSection), pas un micro abstrait : l'étape
+                    est « vous filmez le format », plus « vous parlez ». */}
+                <div className="h-[200px] shrink-0 flex items-center justify-center gap-4 p-5">
+                  <div className="relative h-[168px] w-[95px] shrink-0 overflow-hidden rounded-[16px] border border-white/15 bg-neutral-900 shadow-lg shadow-black/50">
+                    <img src="/formats/tierlist.webp" alt="" className="h-full w-full object-cover" loading="lazy" draggable={false} />
+                    <span className="absolute left-2 top-2 flex h-2 w-2">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-60" />
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-red-500" />
+                    </span>
                   </div>
-                  <VoiceAnimation />
-                  <p className="text-xs text-empire font-semibold tracking-wider uppercase">
-                    {lang === 'fr' ? 'Enregistrement...' : 'Recording...'}
-                  </p>
+                  <div className="flex flex-col items-center gap-3">
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-empire/30 to-empire/10 border-2 border-empire flex items-center justify-center">
+                      <Mic className="text-empire" size={20} />
+                    </div>
+                    <VoiceAnimation />
+                    <p className="text-[10px] text-empire font-semibold tracking-wider uppercase">
+                      {lang === 'fr' ? 'Enregistrement...' : 'Recording...'}
+                    </p>
+                  </div>
                 </div>
                 <div className="relative z-10 p-5 pt-3 flex-1 bg-gradient-to-t from-black via-black/90 to-transparent">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">2</span>
                     <h3 className="text-base font-semibold text-white">
-                      {lang === 'fr' ? 'Vous parlez' : 'You talk'}
+                      {lang === 'fr' ? 'Vous filmez le format' : 'You shoot the format'}
                     </h3>
                   </div>
                   <p className="text-neutral-400 text-sm leading-snug">
                     {lang === 'fr'
-                      ? 'On a testé plus de 100 façons de créer du contenu. On a gardé les 5 qui marchent le mieux, et on continue d\'en tester chaque mois. Vous parlez, on s\'occupe du reste.'
-                      : 'We tested over 100 ways to create content. We kept the 5 that work best, and we keep testing new ones every month. You talk, we handle the rest.'}
+                      ? 'Vous ouvrez l\'app, vous choisissez un format, vous parlez. Le montage se fait tout seul. 1 h par semaine, zéro script.'
+                      : 'You open the app, pick a format, talk. The edit happens on its own. 1 hour a week, zero script.'}
                   </p>
                 </div>
               </div>
@@ -740,13 +752,13 @@ export default function HowItWorksAccordion() {
                   <div className="flex items-center gap-2 mb-1">
                     <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">3</span>
                     <h3 className="text-base font-semibold text-white">
-                      {lang === 'fr' ? 'On rédige et monte' : 'We write & edit'}
+                      {lang === 'fr' ? 'On rédige et on relit' : 'We write & proofread'}
                     </h3>
                   </div>
                   <p className="text-neutral-400 text-sm">
                     {lang === 'fr'
-                      ? 'Notre équipe découpe et monte vos Reels, rédige vos posts LinkedIn et vos newsletters.'
-                      : 'Our team cuts and edits your Reels, writes your LinkedIn posts and newsletters.'}
+                      ? 'Chaque prise devient aussi des posts LinkedIn et une newsletter. Un humain relit chaque pièce avant qu\'elle sorte.'
+                      : 'Every take also becomes LinkedIn posts and a newsletter. A human proofreads every piece before it goes out.'}
                   </p>
                 </div>
               </div>
@@ -763,7 +775,7 @@ export default function HowItWorksAccordion() {
                   <div className="flex items-center gap-2 mb-1">
                     <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">4</span>
                     <h3 className="text-base font-semibold text-white">
-                      {lang === 'fr' ? 'On adapte aux 7 plateformes' : 'We adapt to all 7 platforms'}
+                      {lang === 'fr' ? 'On publie sur 7 plateformes' : 'We publish on 7 platforms'}
                     </h3>
                   </div>
                   <p className="text-neutral-400 text-sm">
@@ -787,8 +799,8 @@ export default function HowItWorksAccordion() {
                     <span className="flex h-6 w-6 items-center justify-center rounded-md bg-empire text-sm font-bold text-black">5</span>
                     <h3 className="text-base font-semibold text-white md:text-lg">
                       {lang === 'fr'
-                        ? 'Et chaque semaine, on boucle en live'
-                        : 'And every week, we close the loop live'}
+                        ? 'On lit vos chiffres, on garde ce qui marche'
+                        : 'We read your numbers, we keep what works'}
                     </h3>
                     <span className="hidden whitespace-nowrap rounded-full border border-empire/30 bg-empire/10 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-empire sm:inline">
                       {lang === 'fr' ? 'Dès Intermédiaire' : 'From Intermediate'}
@@ -796,8 +808,8 @@ export default function HowItWorksAccordion() {
                   </div>
                   <p className="text-sm text-neutral-400 md:text-base">
                     {lang === 'fr'
-                      ? 'Dès Intermédiaire : 1 h sur Zoom avec nos experts et la communauté. On regarde ce qui a marché, on trouve vos prochains angles.'
-                      : 'From Intermediate: 1 hour on Zoom with our experts and community. We review what worked and find your next angles.'}
+                      ? 'Vues, abonnés, leads : chaque semaine on regarde quels formats ont marché chez vous, on les garde, on retire les autres. Dès Intermédiaire, on le fait en live : 1 h sur Zoom avec nos experts et la communauté.'
+                      : 'Views, followers, leads: every week we look at which formats worked for you, keep those, drop the rest. From Intermediate we do it live: 1 hour on Zoom with our experts and community.'}
                   </p>
                   <p className="mt-2 flex items-center gap-1.5 text-xs font-semibold text-empire">
                     <RotateCw size={13} />

@@ -138,7 +138,7 @@ export const fr: Translations = {
   hero: {
     targetAudience: '',
     title: 'De 0 à 1M de vues par mois.',
-    titleNote: '(sans écrire une ligne, monter une vidéo ni chercher quoi dire)',
+    titleNote: '(sans écrire, sans monter, sans chercher quoi dire)',
     subtitle: 'Nos experts analysent les réseaux pour repérer les formats qui génèrent des vues et des clients, puis les transforment en templates prêts à utiliser.',
     description: '',
     cta1: 'Recevoir un accès',

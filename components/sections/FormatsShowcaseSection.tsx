@@ -4,11 +4,13 @@
  * FormatsShowcaseSection — les formats qui font des vues, montrés tels qu'ils
  * sortent de l'app.
  *
- * Les quatre visuels vidéo (`/public/formats/*.webp`) ne sont pas des
- * maquettes : ce sont les rendus réels du moteur de montage (flou → net et
- * tier list posés sur une vraie prise, citation et réaction sortis tels quels
- * d'un compose). Si le rendu change côté app, il faut les régénérer, sinon
- * la page promet un visuel que le produit ne fait plus.
+ * Les visuels vidéo (`/public/formats/*.webp`) ne sont pas des maquettes :
+ * ce sont les rendus réels du moteur de montage (flou → net, tier list et
+ * sticker FAQ posés sur une vraie prise, citation et réaction sortis tels
+ * quels d'un compose). Seul `podcast.webp` est un habillage illustratif sur
+ * une vraie prise - l'interview n'a pas de rendu serveur, c'est un écran.
+ * Si le rendu change côté app, il faut les régénérer, sinon la page promet
+ * un visuel que le produit ne fait plus.
  *
  * Slider horizontal à la Apple : scroll-snap natif (le doigt sur mobile, la
  * molette/trackpad sur desktop), flèches en repli, la carte au centre est
@@ -74,6 +76,26 @@ const FORMATS: Format[] = [
     descEn: 'We surface the videos blowing up in your field. You react, the clip plays above you.',
     tagFr: 'Le format qui emprunte l\'audience',
     tagEn: 'The format that borrows an audience',
+  },
+  {
+    id: 'faq',
+    image: '/formats/faq.webp',
+    titleFr: 'Fausse FAQ',
+    titleEn: 'Fake Q&A',
+    descFr: 'Le sticker « Posez-moi une question », avec les questions que vos clients posent vraiment. Vous répondez, on habille.',
+    descEn: 'The “Ask me a question” sticker, with the questions your clients actually ask. You answer, we dress it up.',
+    tagFr: 'Le format qui vend sans vendre',
+    tagEn: 'The format that sells without selling',
+  },
+  {
+    id: 'podcast',
+    image: '/formats/podcast.webp',
+    titleFr: 'Podcast / interview',
+    titleEn: 'Podcast / interview',
+    descFr: 'On vous pose les questions, vous répondez 1 h. On découpe en reels, posts et newsletters pour le mois.',
+    descEn: 'We ask the questions, you answer for 1 hour. We cut it into reels, posts and newsletters for the month.',
+    tagFr: 'Le format qui nourrit tout le reste',
+    tagEn: 'The format that feeds everything else',
   },
   {
     id: 'written',
