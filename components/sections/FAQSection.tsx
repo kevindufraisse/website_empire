@@ -26,8 +26,18 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 // FAQ selon le variant (contextuelles)
 const getFAQs = (t: any, variant: string = 'all') => {
   const allFAQs = t.faqItems || []
+
+  // FAQ FORMATS : Questions sur les méthodes d'enregistrement
+  const fmtQ = (key: string, fallbackQ: string, fallbackA: string) => ({
+    question: t.faqFormats?.[key]?.question || fallbackQ,
+    answer: t.faqFormats?.[key]?.answer || fallbackA,
+  })
+  // Le conseil « un email par jour via Substack » : c'est du réglage, pas un
+  // argument de vente, donc il vit ici et plus dans le bento.
+  const emailsQ = fmtQ('q7', 'Why send so many emails?',
+    'Email converts best. We recommend one email a day via Substack, which is 100% free. Every video becomes a newsletter.')
   
-  // FAQ HOME : questions prioritaires (temps, sujets, voix, volume, réseaux, vidéo, lives, annulation, agence)
+  // FAQ HOME : questions prioritaires (temps, sujets, voix, volume, réseaux, vidéo, emails, lives, annulation, agence)
   const homeFAQs = [
     allFAQs[0], // Combien de temps
     t.faq?.specific?.whatIfDontLike, // Pas quoi dire
@@ -35,6 +45,7 @@ const getFAQs = (t: any, variant: string = 'all') => {
     t.faq?.specific?.howManyPosts, // Combien de contenus
     allFAQs[2], // Réseaux
     allFAQs[3], // Vidéo
+    emailsQ, // Pourquoi autant d'emails (Substack)
     t.faq?.specific?.lives, // Lives
     allFAQs[5], // Annuler
     allFAQs[4], // Agence
@@ -52,29 +63,25 @@ const getFAQs = (t: any, variant: string = 'all') => {
     allFAQs[11], // Is the AI Setter included or extra?
   ].filter(Boolean)
   
-  // FAQ FORMATS : Questions sur les méthodes d'enregistrement
   const formatsFAQs = [
-    { 
-      question: t.faqFormats?.q1?.question || 'Which format should I choose?',
-      answer: t.faqFormats?.q1?.answer || 'There\'s no wrong choice. Most clients start with Free-Flow Interview (easiest, no prep) or Themed Interview (more structured). You can switch formats anytime or mix them.'
-    },
-    { 
-      question: t.faqFormats?.q2?.question || 'Can I mix different formats?',
-      answer: t.faqFormats?.q2?.answer || 'Absolutely! You can do a Free-Flow Interview one week, then a Screenrecording the next. Flexibility is key.'
-    },
-    { 
-      question: t.faqFormats?.q3?.question || 'Do I need to prepare anything?',
-      answer: t.faqFormats?.q3?.answer || 'For Free-Flow Interview: Zero prep. For Themed Interview: We send questions beforehand. For Bulletpoint: Just your notes. For Screenrecording: Have your screen ready.'
-    },
-    { 
-      question: t.faqFormats?.q4?.question || 'What if I\'m camera shy?',
-      answer: t.faqFormats?.q4?.answer || 'Perfect! Most formats don\'t require camera. We use audio-only interviews, screenrecordings, or just your voice. No face required.'
-    },
-    { 
-      question: t.faqFormats?.q5?.question || 'Can I use my existing content?',
-      answer: t.faqFormats?.q5?.answer || 'Yes! With the API format, you can upload existing videos, podcasts, or documents and we\'ll transform them into multi-platform content.'
-    },
-    allFAQs[1], // How much time do I need to invest?
+    fmtQ('q1', 'How does a video become a LinkedIn post or a newsletter?',
+      'We transcribe your video, then our team rewrites the content in your tone for each platform. A human proofreads everything before publishing.'),
+    fmtQ('q2', 'Do the carousels and posts actually look like me?',
+      'Yes, everything is customizable. Colors, fonts, logo, subtitle style (45 options), formal or informal tone — you set it all in the app.'),
+    fmtQ('q6', 'Do you also create images for LinkedIn?',
+      'Yes. Every LinkedIn post comes with a generated image. We also create carousels and thumbnails for YouTube and Instagram.'),
+    fmtQ('q5', 'Is content published automatically on my accounts?',
+      'You connect your accounts once. Every piece of content is published at the right time, on every network you\'ve turned on.'),
+    emailsQ,
+    fmtQ('q3', 'How do I know if my content drives sales?',
+      'Every link goes through our tracker (graab.me). You see clicks, signups and sales in real time.'),
+    fmtQ('q4', 'What integrations are available?',
+      'Cal.com, Calendly, Tally, ManyChat, Substack, Skool, Systeme.io, Stripe — everything is connected. Plus Telegram voice notes to dictate content on the go.'),
+    fmtQ('q8', 'Is there an API?',
+      'Yes. Send an MP4 or YouTube link via API, we return edited reels, written posts, carousels and thumbnails.'),
+    fmtQ('q9', 'Can I review content before it goes out?',
+      'Yes. Every piece goes through your approval queue — you approve, edit or reject with one tap.'),
+    allFAQs[0], // Combien de temps dois-je investir ?
   ].filter(Boolean)
   
   // Retourner selon le variant

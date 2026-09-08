@@ -508,24 +508,40 @@ export const en = {
   },
   faqFormats: {
     q1: {
-      question: 'Which format should I choose?',
-      answer: 'There\'s no wrong choice. Most clients start with Free-Flow Interview (easiest, no prep) or Themed Interview (more structured). You can switch formats anytime or mix them.',
+      question: 'How does a video become a LinkedIn post or a newsletter?',
+      answer: 'We transcribe your video, then our team rewrites the content in your tone for each platform. A LinkedIn post doesn\'t read like a Reel script — after a year of R&D and hundreds of published pieces, we know how to adapt both substance and form. A human proofreads everything before publishing.',
     },
     q2: {
-      question: 'Can I mix different formats?',
-      answer: 'Absolutely! You can do a Free-Flow Interview one week, then a Screenrecording the next. Flexibility is key.',
+      question: 'Do the carousels and posts actually look like me?',
+      answer: 'Yes, everything is customizable. Colors, fonts, logo, subtitle style (45 options), formal or informal tone — you set it all in the app. The team applies your brand to every piece of content. If something doesn\'t fit, we adjust.',
     },
     q3: {
-      question: 'Do I need to prepare anything?',
-      answer: 'For Free-Flow Interview: Zero prep. For Themed Interview: We send questions beforehand. For Bulletpoint: Just your notes. For Screenrecording: Have your screen ready.',
+      question: 'How do I know if my content drives sales?',
+      answer: 'Every link you share goes through our tracker (graab.me). You see clicks, signups and sales attributed to each post, each network, each format in real time. No more guessing what works.',
     },
     q4: {
-      question: 'What if I\'m camera shy?',
-      answer: 'No problem. Audio only: we edit with b-roll, your face doesn\'t appear. On camera only if you film — ideal for Reels, never required.',
+      question: 'What integrations are available?',
+      answer: 'Cal.com, Calendly and Tally to capture leads from your content. ManyChat to automate your DMs and WhatsApp replies. Stripe to tie sales back to posts. Systeme.io for your funnels, Substack for the newsletter, Skool for the community. And Telegram: send a voice note to the bot, the team turns it into a post, a carousel or a newsletter. Everything is connected — leads land directly in your CRM.',
     },
     q5: {
-      question: 'Can I use my existing content?',
-      answer: 'Yes! You can upload existing videos (MP4), podcasts, or documents directly to the platform. Our team will edit and publish them across all platforms. Also available via API for automation.',
+      question: 'Is content published automatically on my accounts?',
+      answer: 'You connect your accounts (LinkedIn, Instagram, TikTok, YouTube, X, Threads, Facebook) once. Then every piece of content is published directly from the app, at the right time, on every network you\'ve turned on. You can review before publishing if you prefer.',
+    },
+    q6: {
+      question: 'Do you also create images for LinkedIn?',
+      answer: 'Yes. Every LinkedIn post comes with a generated image that grabs attention in the feed. We also create carousels (up to 10 branded slides) and thumbnails for YouTube and Instagram.',
+    },
+    q7: {
+      question: 'Why send so many emails?',
+      answer: 'Email is the channel that converts best — far ahead of social media. We recommend one email a day via Substack, which is 100% free. Every video becomes a newsletter written in your tone. Your subscribers read, click and buy.',
+    },
+    q8: {
+      question: 'Is there an API?',
+      answer: 'Yes. The API is mainly for multi-broadcasting: you connect multiple accounts per network (your personal account, your brand, your team…) and publish everywhere in a single call. You create once, it goes out to all your accounts at the same time.',
+    },
+    q9: {
+      question: 'Can I review content before it goes out?',
+      answer: 'Yes, you have full control. Every piece of content goes through your approval queue in the app: you approve, edit or reject with one tap. Nothing goes out without your say-so if that\'s what you want.',
     },
   },
   faqItems: [

@@ -215,12 +215,10 @@ function NetworkRow({ networks, size = 'sm' }: { networks: Network[]; size?: 'sm
 }
 
 /**
- * Format long : le vrai titre d'une vidéo longue du compte de Kevin (podcast
- * du 25 juin 2026, `user_content` type `podcast`), en vignette 16:9 façon
- * YouTube, et ce qu'elle a donné - c'est la cascade qu'on vend, pas la vidéo
- * elle-même. La vignette est `/formats/long-thumb.webp`, une vraie miniature
- * 16:9 affichée en `object-cover` (pas de pillarbox : c'est une miniature
- * YouTube, pas un upload vertical). La durée affichée est illustrative.
+ * Format long : vraie miniature YouTube de Kevin (« MANIPULATION ? »),
+ * vignette 16:9 affichée en `object-cover`, et ce qu'elle a donné — c'est
+ * la cascade qu'on vend, pas la vidéo elle-même.
+ * La durée affichée est illustrative.
  */
 function LongCard({ fr }: { fr: boolean }) {
   const cuts = fr
@@ -229,8 +227,8 @@ function LongCard({ fr }: { fr: boolean }) {
   return (
     <div className="absolute inset-0 flex flex-col bg-[#0b0b0b] p-4 text-left">
       <div className="relative aspect-video w-full overflow-hidden rounded-xl">
-        <img src="/formats/long-thumb.webp" alt="" className="h-full w-full object-cover" loading="lazy" draggable={false} />
-        <span className="absolute bottom-1.5 right-1.5 rounded bg-black/80 px-1.5 py-0.5 text-[10px] font-semibold text-white">38:12</span>
+        <img src="/formats/long-thumb-1.webp" alt="" className="h-full w-full object-cover" loading="lazy" draggable={false} />
+        <span className="absolute bottom-1.5 right-1.5 rounded bg-black/80 px-1.5 py-0.5 text-[10px] font-semibold text-white">42:17</span>
         <span className="absolute left-1/2 top-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/90">
           <span className="ml-0.5 h-0 w-0 border-y-[7px] border-l-[12px] border-y-transparent border-l-black" />
         </span>
@@ -238,7 +236,7 @@ function LongCard({ fr }: { fr: boolean }) {
       <div className="mt-3 flex items-start gap-2.5">
         <img src="/founders/kevin.jpg" alt="" className="h-8 w-8 shrink-0 rounded-full object-cover" loading="lazy" />
         <div className="min-w-0">
-          <p className="text-[13px] font-semibold leading-snug text-white">0€ VS 1M€ : le pire piège des créateurs</p>
+          <p className="text-[13px] font-semibold leading-snug text-white">{fr ? 'MANIPULATION ? Comment Respire vous vend du rêve' : 'MANIPULATION? How Respire sells you a dream'}</p>
           <p className="mt-0.5 text-[11px] text-neutral-500">Kevin Dufraisse · {fr ? 'il y a 2 jours' : '2 days ago'}</p>
         </div>
       </div>

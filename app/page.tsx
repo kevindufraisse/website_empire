@@ -13,6 +13,7 @@ import FounderSection from '@/components/sections/FounderSection'
 import FAQSection from '@/components/sections/FAQSection'
 import FinalBoostCTA from '@/components/sections/FinalBoostCTA'
 import FeaturedInSection from '@/components/FeaturedInSection'
+import FormulaBar from '@/components/FormulaBar'
 
 export default function Page() {
   return (
@@ -27,21 +28,35 @@ export default function Page() {
       </section>
       <TopCreatorsSection />
       <TestimonialsSection />
-      <HomeDemoSection />
-      {/* Le produit : les formats tels qu'ils sortent de l'app, pourquoi une
-          idée sort partout, ce qui est inclus au-delà des formats, puis la
-          comparaison avec les alternatives et les cas clients. */}
-      <FormatsShowcaseSection />
-      <RepurposingSection />
-      <IncludedFeaturesSection />
+      {/* Les ancres `formula-*` pilotent la FormulaBar : chaque section révèle
+          le terme de la formule qu'elle démontre, dans l'ordre de la formule
+          (Message × Format × Diffusion ÷ Temps + Coût = Visibilité). C'est
+          pour ça que l'app (÷ Temps) vient juste après la diffusion, et pas
+          en dernier argument. */}
+      <div id="formula-message">
+        <HomeDemoSection />
+      </div>
+      <div id="formula-format">
+        <FormatsShowcaseSection />
+      </div>
+      <div id="formula-diffusion">
+        <RepurposingSection />
+      </div>
+      <div id="formula-cost">
+        <MobileAppSection />
+      </div>
+      <div id="formula-visibility">
+        <IncludedFeaturesSection />
+      </div>
       <QuickWinsSection />
       <CaseStudiesSection />
-      {/* L'app en dernier argument, juste avant le formulaire. */}
-      <MobileAppSection />
-      <HomeApplySection />
+      <div id="formula-apply">
+        <HomeApplySection />
+      </div>
       <FounderSection />
       <FAQSection variant="home" />
       <FinalBoostCTA />
+      <FormulaBar />
     </main>
   )
 }

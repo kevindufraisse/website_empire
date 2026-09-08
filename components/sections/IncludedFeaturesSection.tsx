@@ -21,7 +21,7 @@
  */
 
 import { motion } from 'framer-motion'
-import { Link2, Image as ImageIcon, Newspaper, Repeat2, Inbox, Users, BarChart3, UserCheck, CalendarCheck, Sparkles, TrendingUp, MessageCircle, Send, Radio } from 'lucide-react'
+import { Link2, Image as ImageIcon, Newspaper, Repeat2, Inbox, Users, BarChart3, UserCheck, CalendarCheck, Sparkles, TrendingUp, MessageCircle, Send, Radio, Code2 } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import { useReveal } from '@/hooks/useReveal'
@@ -29,6 +29,111 @@ import { SocialIcons } from '@/components/ui/social-icons'
 
 /** Cadre commun des maquettes : même langage que RepurposingSection / MobileAppSection. */
 const MOCK = 'rounded-2xl border border-white/10 bg-black/50'
+
+/**
+ * Logos des intégrations, dans `public/integrations/`. Les `.svg` viennent de
+ * Simple Icons (tracé blanc) et sont posés sur un carré à la couleur de la
+ * marque ; les `.png` sont les favicons officiels, déjà en couleur.
+ */
+const INTEGRATIONS: { name: string; src: string; bg?: string }[] = [
+  { name: 'Cal.com', src: '/integrations/calcom.png' },
+  { name: 'Calendly', src: '/integrations/calendly.svg', bg: '#006BFF' },
+  { name: 'Tally', src: '/integrations/tally.png' },
+  { name: 'ManyChat', src: '/integrations/manychat.png' },
+  { name: 'Substack', src: '/integrations/substack.svg', bg: '#FF6719' },
+  { name: 'Skool', src: '/integrations/skool.png' },
+  { name: 'Systeme.io', src: '/integrations/systeme.png' },
+  { name: 'Stripe', src: '/integrations/stripe.svg', bg: '#635BFF' },
+]
+
+/** Telegram : une note vocale envoyée au bot, la réponse avec ce qui en sort. */
+function TelegramArt({ fr }: { fr: boolean }) {
+  const bars = [4, 9, 14, 8, 16, 11, 6, 13, 9, 15, 7, 12, 5, 10, 14, 8, 4, 11, 7, 3]
+  return (
+    <div className={`${MOCK} mt-4 p-3.5`}>
+      <div className="flex items-center gap-2 border-b border-white/8 pb-2.5">
+        <span className="flex h-6 w-6 items-center justify-center rounded-md" style={{ background: '#26A5E4' }}>
+          <img src="/integrations/telegram.svg" alt="" aria-hidden className="h-3.5 w-3.5" loading="lazy" draggable={false} />
+        </span>
+        <div>
+          <p className="text-[11px] font-bold text-white">Empire</p>
+          <p className="text-[9px] text-neutral-500">bot</p>
+        </div>
+      </div>
+      {/* La note vocale, alignée à droite comme un message envoyé */}
+      <div className="mt-3 flex justify-end">
+        <div className="flex w-[78%] items-center gap-2 rounded-2xl rounded-br-md bg-empire/15 px-3 py-2">
+          <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-empire text-black">
+            <svg viewBox="0 0 24 24" className="ml-0.5 h-3 w-3" fill="currentColor" aria-hidden><path d="M8 5v14l11-7z" /></svg>
+          </span>
+          <span className="flex h-5 flex-1 items-center gap-[2px]">
+            {bars.map((h, i) => <span key={i} className="w-[2px] rounded-full bg-empire/80" style={{ height: `${h}px` }} />)}
+          </span>
+          <span className="text-[10px] tabular-nums text-neutral-300">1:42</span>
+        </div>
+      </div>
+      {/* La réponse du bot */}
+      <div className="mt-2 flex justify-start">
+        <div className="w-[82%] rounded-2xl rounded-bl-md border border-white/10 bg-white/[0.05] px-3 py-2">
+          <p className="text-[11px] leading-snug text-neutral-200">
+            {fr ? 'Reçu. J\'en fais :' : 'Got it. Turning it into:'}
+          </p>
+          <ul className="mt-1 space-y-0.5 text-[10.5px] text-neutral-400">
+            <li>· {fr ? '1 post LinkedIn + image' : '1 LinkedIn post + image'}</li>
+            <li>· {fr ? '1 carrousel Instagram' : '1 Instagram carousel'}</li>
+            <li>· {fr ? '1 newsletter' : '1 newsletter'}</li>
+          </ul>
+          <p className="mt-1.5 text-[10px] font-semibold text-empire">{fr ? 'Relu et programmé jeudi 9h.' : 'Proofread and scheduled Thursday 9am.'}</p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+/** API : un contenu à gauche, trois comptes à droite, chacun sur ses réseaux. */
+function BroadcastArt({ fr }: { fr: boolean }) {
+  const accounts = [
+    { handle: '@kevin', label: fr ? 'Perso' : 'Personal' },
+    { handle: '@empire', label: fr ? 'Marque' : 'Brand' },
+    { handle: '@client-a', label: fr ? 'Client' : 'Client' },
+  ]
+  return (
+    <div className={`${MOCK} mt-4 p-3.5`}>
+      <div className="flex items-center gap-3">
+        {/* Le contenu source */}
+        <div className="flex w-[92px] shrink-0 flex-col items-center rounded-xl border border-empire/40 bg-empire/10 px-2 py-2.5 text-center">
+          <Radio className="h-4 w-4 text-empire" />
+          <p className="mt-1 text-[10px] font-bold uppercase tracking-wider text-empire">{fr ? '1 contenu' : '1 piece'}</p>
+          <p className="text-[10px] text-neutral-400">{fr ? 'créé une fois' : 'made once'}</p>
+        </div>
+        {/* Les branches */}
+        <svg className="h-[104px] w-6 shrink-0 text-neutral-600" viewBox="0 0 24 104" fill="none" aria-hidden>
+          <path d="M0 52 H8 M8 52 C16 52 16 14 24 14 M8 52 H24 M8 52 C16 52 16 90 24 90" stroke="currentColor" strokeWidth="1.5" />
+        </svg>
+        {/* Les comptes */}
+        <div className="flex min-w-0 flex-1 flex-col gap-1.5">
+          {accounts.map((a) => (
+            <div key={a.handle} className="flex items-center justify-between gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-2.5 py-1.5">
+              <div className="min-w-0">
+                <p className="truncate text-[11px] font-semibold text-white">{a.handle}</p>
+                <p className="text-[9px] text-neutral-500">{a.label}</p>
+              </div>
+              <div className="flex shrink-0 items-center gap-1 text-neutral-300">
+                <span className="h-3.5 w-3.5 [&>svg]:h-full [&>svg]:w-full"><SocialIcons.linkedin /></span>
+                <span className="h-3.5 w-3.5 [&>svg]:h-full [&>svg]:w-full"><SocialIcons.instagram /></span>
+                <span className="h-3.5 w-3.5 [&>svg]:h-full [&>svg]:w-full"><SocialIcons.youtube /></span>
+                <span className="text-[9px] text-neutral-500">+4</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <p className="mt-3 text-center text-[10px] text-neutral-500">
+        {fr ? '1 contenu × 3 comptes × 7 réseaux = 21 publications, un seul envoi.' : '1 piece × 3 accounts × 7 networks = 21 posts, one send.'}
+      </p>
+    </div>
+  )
+}
 
 /* ─────────────────────────── Illustrations ─────────────────────────── */
 
@@ -72,20 +177,27 @@ function TrackingArt({ fr }: { fr: boolean }) {
 function ThumbnailArt({ fr }: { fr: boolean }) {
   return (
     <div className={`${MOCK} mt-4 overflow-hidden`}>
-      <div className="relative aspect-video w-full">
-        {/* La miniature porte déjà son texte (c'est la vraie sortie du
-            générateur) : on ne pose rien dessus, sinon deux titres se
-            superposent. */}
-        <img src="/formats/long-thumb.webp" alt="" className="h-full w-full object-cover" loading="lazy" draggable={false} />
-        <span className="absolute bottom-2 right-2 rounded bg-black/80 px-1.5 py-0.5 text-[10px] font-semibold text-white">38:12</span>
-        <span className="absolute left-2 top-2 rounded-full bg-empire px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-wider text-black">{fr ? 'Miniature générée' : 'Generated thumbnail'}</span>
-      </div>
-      <div className="flex items-start gap-2 px-3 py-2.5">
-        <Sparkles className="mt-0.5 h-3.5 w-3.5 shrink-0 text-empire" />
-        <div className="min-w-0">
-          <p className="text-[10px] font-bold uppercase tracking-wider text-empire">{fr ? 'Titre généré' : 'Generated title'}</p>
-          <p className="truncate text-[12px] font-semibold text-white">0€ VS 1M€ : le pire piège des créateurs</p>
+      <div className="flex gap-2.5">
+        {/* YouTube 16:9 */}
+        <div className="relative flex-1 min-w-0">
+          <div className="relative aspect-video w-full overflow-hidden rounded-lg">
+            <img src="/formats/long-thumb-2.webp" alt="" className="h-full w-full object-cover" loading="lazy" draggable={false} />
+            <span className="absolute bottom-1 right-1 rounded bg-black/80 px-1 py-0.5 text-[8px] font-semibold text-white">35:44</span>
+            <span className="absolute left-1 top-1 rounded-full bg-empire px-1.5 py-0.5 text-[7px] font-extrabold uppercase tracking-wider text-black">YouTube</span>
+          </div>
+          <p className="mt-1.5 truncate text-[10px] font-semibold text-white">{fr ? 'ÉPUISÉ POUR RIEN' : 'EXHAUSTED FOR NOTHING'}</p>
         </div>
+        {/* Instagram 9:16 */}
+        <div className="relative w-[72px] shrink-0">
+          <div className="relative aspect-[9/16] w-full overflow-hidden rounded-lg">
+            <img src="/formats/insta-thumb-1.webp" alt="" className="h-full w-full object-cover" loading="lazy" draggable={false} />
+            <span className="absolute left-1 top-1 rounded-full bg-empire px-1.5 py-0.5 text-[7px] font-extrabold uppercase tracking-wider text-black">Reel</span>
+          </div>
+        </div>
+      </div>
+      <div className="mt-2 flex items-start gap-2 px-1">
+        <Sparkles className="mt-0.5 h-3.5 w-3.5 shrink-0 text-empire" />
+        <p className="text-[10px] text-neutral-400">{fr ? 'Miniatures YouTube + Instagram générées depuis la vidéo' : 'YouTube + Instagram thumbnails generated from the video'}</p>
       </div>
     </div>
   )
@@ -324,7 +436,7 @@ export default function IncludedFeaturesSection() {
           {/* Miniatures */}
           <motion.div {...appear(0.2)} className={`${card} md:col-span-2`}>
             <p className={kicker}><ImageIcon className="mr-1.5 inline h-3.5 w-3.5" />{fr ? 'Miniatures automatiques' : 'Automatic thumbnails'}</p>
-            <p className={title}>{fr ? 'Titre et miniature YouTube, générés depuis la vidéo.' : 'YouTube title and thumbnail, generated from the video.'}</p>
+            <p className={title}>{fr ? 'Miniatures YouTube et Instagram, générées depuis la vidéo.' : 'YouTube and Instagram thumbnails, generated from the video.'}</p>
             <ThumbnailArt fr={fr} />
           </motion.div>
 
@@ -352,8 +464,61 @@ export default function IncludedFeaturesSection() {
             <InboxArt fr={fr} />
           </motion.div>
 
-          {/* Rapport hebdo + relecture humaine */}
+          {/* Intégrations */}
+          <motion.div {...appear(0.38)} className={`${card} md:col-span-6`}>
+            <p className={kicker}><Link2 className="mr-1.5 inline h-3.5 w-3.5" />{fr ? 'Intégrations' : 'Integrations'}</p>
+            <p className={title}>{fr ? 'Connecté à vos outils. Les leads arrivent directement.' : 'Connected to your tools. Leads arrive directly.'}</p>
+            <p className={desc}>
+              {fr
+                ? 'Agendas, formulaires, paiements, communauté : tout est relié au tracking. Un lead qui clique depuis un post arrive chez vous avec le nom du post.'
+                : 'Calendars, forms, payments, community: everything is wired into the tracking. A lead clicking from a post reaches you with the name of the post.'}
+            </p>
+            {/* 8 logos, deux rangées de quatre : `grid` plutôt que `flex-wrap`,
+                sinon la dernière rangée se retrouve orpheline avec un ou deux logos. */}
+            <div className="mx-auto mt-5 grid max-w-3xl grid-cols-2 gap-2.5 sm:grid-cols-4 sm:gap-3">
+              {INTEGRATIONS.map((svc) => (
+                <span key={svc.name} className="flex items-center justify-center gap-2.5 rounded-xl border border-white/10 bg-white/[0.04] px-3.5 py-3 text-[13px] font-semibold text-white transition hover:border-white/20 hover:bg-white/[0.07]">
+                  <span
+                    className={`flex h-6 w-6 shrink-0 items-center justify-center overflow-hidden ${svc.bg ? 'rounded-md' : ''}`}
+                    style={svc.bg ? { background: svc.bg } : undefined}
+                  >
+                    <img
+                      src={svc.src}
+                      alt=""
+                      aria-hidden
+                      className={svc.bg ? 'h-3.5 w-3.5' : 'h-6 w-6 rounded-md'}
+                      loading="lazy"
+                      draggable={false}
+                    />
+                  </span>
+                  {svc.name}
+                </span>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* API : multi-diffusion */}
           <motion.div {...appear(0.4)} className={`${card} md:col-span-3`}>
+            <p className={kicker}><Code2 className="mr-1.5 inline h-3.5 w-3.5" />{fr ? 'API · multi-comptes' : 'API · multi-account'}</p>
+            <p className={title}>{fr ? 'Plusieurs comptes ? Vous créez une fois, ça part partout.' : 'Several accounts? Create once, it goes out everywhere.'}</p>
+            <p className={desc}>{fr ? 'Deux marques, une équipe, des clients : reliez tous les comptes, chaque contenu est publié sur chacun d\'eux, sur les 7 réseaux, sans rien refaire.' : 'Two brands, a team, clients: connect every account and each piece of content is published on all of them, across the 7 networks, without redoing anything.'}</p>
+            <BroadcastArt fr={fr} />
+          </motion.div>
+
+          {/* Notes vocales Telegram */}
+          <motion.div {...appear(0.42)} className={`${card} md:col-span-3`}>
+            <p className={kicker}><Send className="mr-1.5 inline h-3.5 w-3.5" />{fr ? 'Notes vocales Telegram' : 'Telegram voice notes'}</p>
+            <p className={title}>{fr ? 'Une idée dans la rue ? Une note vocale, et c\'est un post.' : 'An idea on the street? One voice note, and it\'s a post.'}</p>
+            <p className={desc}>
+              {fr
+                ? 'Pas besoin d\'ouvrir l\'app ni de filmer. Vous dictez dans Telegram comme à un ami, l\'équipe en fait un post, un carrousel ou une newsletter dans votre ton.'
+                : 'No need to open the app or film. You dictate in Telegram like to a friend, the team turns it into a post, a carousel or a newsletter in your tone.'}
+            </p>
+            <TelegramArt fr={fr} />
+          </motion.div>
+
+          {/* Rapport hebdo + relecture humaine */}
+          <motion.div {...appear(0.45)} className={`${card} md:col-span-3`}>
             <p className={kicker}><BarChart3 className="mr-1.5 inline h-3.5 w-3.5" />{fr ? 'Rapport hebdo' : 'Weekly report'}</p>
             <p className={title}>{fr ? 'Vues, abonnés, leads - format par format.' : 'Views, followers, leads - format by format.'}</p>
             <p className={desc}>{fr ? 'Chaque semaine, ce qui a marché chez vous et ce qu\'on arrête. Une équipe relit chaque écrit avant qu\'il sorte.' : 'Every week, what worked for you and what we stop. A team proofreads every written piece before it goes out.'}</p>

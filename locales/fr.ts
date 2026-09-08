@@ -631,24 +631,40 @@ export const fr: Translations = {
   },
   faqFormats: {
     q1: {
-      question: 'Quel format dois-je choisir ?',
-      answer: 'Aucun mauvais choix. La plupart commencent avec Interview Libre (plus facile, zéro prépa) ou Interview à Thème (plus structuré). Changez de format à tout moment ou mélangez-les.',
+      question: 'Comment une vidéo devient un post LinkedIn ou une newsletter ?',
+      answer: 'On transcrit votre vidéo, puis notre équipe réécrit le contenu dans votre ton pour chaque plateforme. Un post LinkedIn ne se lit pas comme un script de Reel — après un an de R&D et des centaines de contenus publiés, on sait adapter le fond et la forme. Un humain relit tout avant publication.',
     },
     q2: {
-      question: 'Puis-je mélanger différents formats ?',
-      answer: 'Absolument ! Interview Libre une semaine, Screen Recording la suivante. Flexibilité totale.',
+      question: 'Est-ce que les carrousels et les posts me ressemblent ?',
+      answer: 'Oui, tout est personnalisable. Couleurs, typo, logo, style des sous-titres (45 options), tutoiement ou vouvoiement, ton de voix — vous paramétrez tout dans l\'app. L\'équipe applique votre charte à chaque contenu. Si quelque chose ne colle pas, on ajuste.',
     },
     q3: {
-      question: 'Dois-je préparer quelque chose ?',
-      answer: 'Interview Libre : Zéro. Interview à Thème : On envoie les questions avant. Bulletpoints : Juste vos notes. Screen Recording : Ayez votre écran prêt.',
+      question: 'Comment je sais si mon contenu génère des ventes ?',
+      answer: 'Chaque lien que vous partagez passe par notre tracker (graab.me). Vous voyez en temps réel les clics, les inscriptions et les ventes attribués à chaque post, chaque réseau, chaque format. Plus besoin de deviner ce qui marche.',
     },
     q4: {
-      question: 'Et si je suis timide devant la caméra ?',
-      answer: 'Pas de problème. Audio seul : on monte avec du b-roll, votre visage n\'apparaît pas. Face caméra seulement si vous filmez — idéal pour les Reels, jamais obligatoire.',
+      question: 'Quelles intégrations sont disponibles ?',
+      answer: 'Cal.com, Calendly et Tally pour capturer vos leads depuis les contenus. ManyChat pour automatiser vos DM et vos réponses WhatsApp. Stripe pour relier les ventes aux posts. Systeme.io pour vos tunnels, Substack pour la newsletter, Skool pour la communauté. Et Telegram : vous envoyez une note vocale au bot, l\'équipe en fait un post, un carrousel ou une newsletter. Tout est connecté — les leads arrivent directement dans votre CRM.',
     },
     q5: {
-      question: 'Puis-je utiliser mon contenu existant ?',
-      answer: 'Oui ! Vous pouvez uploader vos vidéos existantes (MP4), podcasts ou documents directement sur la plateforme. Notre équipe les monte et les publie partout. Également disponible via API pour l\'automatisation.',
+      question: 'Est-ce que c\'est publié automatiquement sur mes réseaux ?',
+      answer: 'Vous connectez vos comptes (LinkedIn, Instagram, TikTok, YouTube, X, Threads, Facebook) une seule fois. Ensuite, chaque contenu est publié directement depuis l\'app, au bon horaire, sur tous les réseaux que vous avez activés. Vous pouvez relire avant si vous préférez.',
+    },
+    q6: {
+      question: 'Est-ce que vous créez aussi des images pour LinkedIn ?',
+      answer: 'Oui. Chaque post LinkedIn est accompagné d\'une image générée qui capte l\'attention dans le feed. On crée aussi les carrousels (jusqu\'à 10 slides à votre charte) et les miniatures pour YouTube et Instagram.',
+    },
+    q7: {
+      question: 'Pourquoi envoyer autant d\'emails ?',
+      answer: 'L\'email est le canal qui convertit le mieux — loin devant les réseaux sociaux. On recommande un email par jour via Substack, qui est 100 % gratuit. Chaque vidéo devient une newsletter écrite dans votre ton. Vos abonnés lisent, cliquent et achètent.',
+    },
+    q8: {
+      question: 'Il y a une API ?',
+      answer: 'Oui. L\'API permet surtout de multi-diffuser : vous connectez plusieurs comptes par réseau (votre compte perso, celui de votre marque, celui de votre équipe…) et vous publiez partout en un seul appel. Vous créez une fois, ça part sur tous vos comptes en même temps.',
+    },
+    q9: {
+      question: 'Je peux voir le contenu avant que ça parte ?',
+      answer: 'Oui, vous avez le contrôle. Chaque contenu passe par votre fil de validation dans l\'app : vous approuvez, modifiez ou refusez en un tap. Rien ne sort sans votre accord si vous le souhaitez.',
     },
   },
   faqItems: [
