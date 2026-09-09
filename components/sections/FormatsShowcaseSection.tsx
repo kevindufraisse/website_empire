@@ -389,12 +389,12 @@ export default function FormatsShowcaseSection() {
             {fr ? 'La formule · 2. Le format' : 'The formula · 2. The format'}
           </p>
           <h2 className="text-3xl font-extrabold leading-[1.1] text-white md:text-5xl">
-            {fr ? 'Les formats qui font des vues, prêts à filmer.' : 'The formats that get views, ready to shoot.'}
+            {fr ? 'Les formats qui ont fait exploser Hormozi, Ali Abdaal, Justin Welsh - prêts à filmer pour vous.' : 'The formats that made Hormozi, Ali Abdaal, Justin Welsh blow up - ready for you to shoot.'}
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-neutral-400 md:text-lg">
             {fr
-              ? 'Le même message, dans un mauvais format, ne fait rien. On mesure chaque semaine les formats qui montent ; vous parlez, le montage est fait.'
-              : 'The same message, in the wrong format, goes nowhere. We measure the rising formats every week; you talk, the edit is done.'}
+              ? 'Le même message, dans un mauvais format, ne fait rien. On décortique chaque semaine ce qui monte, on le templatise, vous parlez, on fait le montage, les sous-titres, l\'habillage…'
+              : 'The same message, in the wrong format, goes nowhere. Every week we dissect what is rising, template it, you talk, we do the edit, the subtitles, the styling…'}
           </p>
           {/* Les sept réseaux + la newsletter, en icônes : « multi-diffusé »
               écrit en toutes lettres ne montre rien, Threads et X en pastille

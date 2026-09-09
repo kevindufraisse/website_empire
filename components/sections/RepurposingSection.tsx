@@ -43,11 +43,15 @@ const HITS: Hit[] = [
 
 const TOTAL = HITS.reduce((s, h) => s + h.views, 0)
 const MAX = Math.max(...HITS.map((h) => h.views))
+const ORIGIN_VIEWS = HITS.find((h) => h.origin)?.views ?? 0
+/** Part des vues venues d'ailleurs que du réseau d'origine (90 % au 8 sept.). */
+const ELSEWHERE_PCT = Math.round(((TOTAL - ORIGIN_VIEWS) / TOTAL) * 100)
 
 const fmtK = (n: number, fr: boolean) => {
   if (n < 1000) return String(n)
   const k = Math.round(n / 1000)
-  return fr ? `${k} 000` : `${k}k`
+  // Espace insécable : « 40 000 » ne doit jamais se couper en fin de ligne.
+  return fr ? `${k}\u00a0000` : `${k}k`
 }
 
 export default function RepurposingSection() {
@@ -72,12 +76,14 @@ export default function RepurposingSection() {
             {fr ? 'La formule · 3. La diffusion' : 'The formula · 3. Distribution'}
           </p>
           <h2 className="text-3xl font-extrabold leading-[1.1] text-white md:text-5xl">
-            {fr ? <>Une idée. {fmtK(TOTAL, fr)} vues.</> : <>One idea. {fmtK(TOTAL, fr)} views.</>}
+            {fr
+              ? <>Cette idée aurait fait {fmtK(ORIGIN_VIEWS, fr)} vues. Elle en a fait {fmtK(TOTAL, fr)}.</>
+              : <>This idea would have made {fmtK(ORIGIN_VIEWS, fr)} views. It made {fmtK(TOTAL, fr)}.</>}
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-neutral-400 md:text-lg">
             {fr
-              ? 'Écrit pour LinkedIn : 40 000 vues. Collé sur Threads : 305 000. Personne ne sait où une idée va prendre, donc chaque idée sort partout.'
-              : 'Written for LinkedIn: 40,000 views. Pasted on Threads: 305,000. Nobody knows where an idea will take off, so every idea goes everywhere.'}
+              ? 'Un post LinkedIn classique s\'arrête à LinkedIn : 39 546 vues, fin de l\'histoire. La formule l\'a sortie partout le même jour. Threads : 304 535. Instagram en reel : 69 785. X : 84.'
+              : 'A classic LinkedIn post stops at LinkedIn: 39,546 views, end of story. The formula pushed it everywhere the same day. Threads: 304,535. Instagram as a reel: 69,785. X: 84.'}
           </p>
         </motion.div>
 
@@ -157,7 +163,12 @@ export default function RepurposingSection() {
           </ul>
         </div>
 
-        <p className="mx-auto mt-6 max-w-3xl text-center text-[11px] leading-relaxed text-neutral-600">
+        <p className="mx-auto mt-8 max-w-2xl text-center text-base leading-relaxed text-neutral-300 md:text-lg">
+          {fr
+            ? <><span className="font-bold text-white">{ELSEWHERE_PCT} % des vues</span> de cette idée sont venues d’ailleurs que là où elle a été écrite. C’est ça, la diffusion : vous ne pariez plus sur une plateforme, vous les prenez toutes.</>
+            : <><span className="font-bold text-white">{ELSEWHERE_PCT}% of the views</span> on this idea came from somewhere other than where it was written. That is distribution: you no longer bet on one platform, you take them all.</>}
+        </p>
+        <p className="mx-auto mt-4 max-w-3xl text-center text-[11px] leading-relaxed text-neutral-600">
           {fr
             ? 'Chiffres relevés le 8 septembre 2026 sur le compte de Kevin (LinkedIn : impressions affichées par LinkedIn).'
             : 'Numbers recorded on September 8, 2026 on Kevin\'s account (LinkedIn: impressions as shown by LinkedIn).'}

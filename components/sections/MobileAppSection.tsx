@@ -123,12 +123,12 @@ export default function MobileAppSection() {
               {fr ? 'La formule · 4. Temps + coût · L\'app iPhone' : 'The formula · 4. Time + cost · The iPhone app'}
             </p>
             <h2 className="text-3xl font-extrabold leading-[1.1] text-white md:text-5xl">
-              {fr ? 'Le contenu du mois, dans les creux de votre journée.' : 'A month of content, in the gaps of your day.'}
+              {fr ? 'Une heure par mois. Pas par semaine, par mois.' : 'One hour a month. Not a week, a month.'}
             </h2>
             <p className="mt-5 text-base leading-relaxed text-neutral-400 md:text-lg">
               {fr
-                ? 'Pas de bureau, pas de caméra à régler, pas de page blanche. Un téléphone, et tous les formats Empire dedans : face caméra, interview guidée dans les écouteurs, ou dictée sans image.'
-                : 'No desk, no camera to set up, no blank page. A phone, with every Empire format inside: on camera, guided interview in your earphones, or dictation with no picture.'}
+                ? 'Le contenu se tourne dans les creux de votre journée : au déjeuner, dans la rue, au volant. Un téléphone suffit - tous les formats Empire sont dans l\'app.'
+                : 'Content gets shot in the gaps of your day: over lunch, in the street, behind the wheel. A phone is enough - every Empire format is in the app.'}
             </p>
             {/* Liste numérotée, filets fins : pas de pictos. */}
             <ol className="mt-8 divide-y divide-white/10 border-y border-white/10">
@@ -145,6 +145,14 @@ export default function MobileAppSection() {
                 )
               })}
             </ol>
+            {/* Le coût, en clôture : c'est le dénominateur de la formule. */}
+            <p className="mt-6 rounded-2xl border border-empire/25 bg-empire/[0.06] px-5 py-4 text-sm leading-relaxed text-neutral-300">
+              {fr ? (
+                <>Un monteur, un rédacteur, un community manager : <span className="font-bold text-white">5 000 €+/mois</span> pour faire moins que ça. Ici : une app, une équipe, un abonnement.</>
+              ) : (
+                <>An editor, a writer, a community manager: <span className="font-bold text-white">€5,000+/month</span> to do less than this. Here: one app, one team, one subscription.</>
+              )}
+            </p>
           </motion.div>
         </div>
       </div>

@@ -137,9 +137,9 @@ export const fr: Translations = {
   },
   hero: {
     targetAudience: '',
-    title: 'La solution la plus simple (et efficace) pour avoir des clients qui achètent.',
-    titleNote: 'Soyez vu par des millions de personnes chaque mois, dans le langage de chaque plateforme.',
-    subtitle: 'Notre équipe de viralité repère les formats qui explosent, les templatise pour vous et les duplique sur 7 plateformes. Vous parlez 20 minutes par semaine. Sans écrire, sans monter, sans chercher quoi dire.',
+    title: 'Personne ne vous connaît. Dans 30 jours, tout votre marché vous aura vu.',
+    titleNote: 'La formule qui prend 20 minutes de votre semaine et les transforme en 1M+ de vues par mois sur 7 réseaux.',
+    subtitle: 'Notre équipe de viralité repère les formats qui explosent, les templatise pour vous et les duplique sur 7 plateformes. Sans écrire, sans monter, sans chercher quoi dire.',
     description: '',
     cta1: 'Recevoir un accès',
     cta2: 'Voir la Démo (1 min)',

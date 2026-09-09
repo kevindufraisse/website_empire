@@ -14,9 +14,9 @@ export const en = {
   },
   hero: {
     targetAudience: '',
-    title: 'The simplest (and most effective) way to get clients who buy.',
-    titleNote: 'Be seen by millions of people every month, in the language of each platform.',
-    subtitle: 'Our virality team spots the formats that blow up, templates them for you and duplicates them across 7 platforms. You talk 20 minutes a week. No writing, no editing, no wondering what to say.',
+    title: 'Nobody knows you. In 30 days, your whole market will have seen you.',
+    titleNote: 'The formula that takes 20 minutes of your week and turns them into 1M+ views a month across 7 networks.',
+    subtitle: 'Our virality team spots the formats that blow up, templates them for you and duplicates them across 7 platforms. No writing, no editing, no wondering what to say.',
     description: '',
     cta1: 'Get access',
     cta2: 'Watch Demo (1 min)',
