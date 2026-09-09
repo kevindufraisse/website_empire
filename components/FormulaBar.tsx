@@ -52,8 +52,8 @@ export const FORMULA_TERMS: Term[] = [
     anchor: 'formula-message',
     fr: 'Message',
     en: 'Message',
-    hintFr: 'Tout le monde a quelque chose à dire. Vous aussi : une opinion, un constat, une actu.',
-    hintEn: 'Everyone has something to say. You too: an opinion, an insight, a news item.',
+    hintFr: 'Vous l\'avez déjà. Ce qui manque, c\'est le langage des réseaux.',
+    hintEn: 'You already have it. What is missing is the networks\' language.',
   },
   {
     id: 'format',
