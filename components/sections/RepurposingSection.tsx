@@ -76,8 +76,8 @@ export default function RepurposingSection() {
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-neutral-400 md:text-lg">
             {fr
-              ? 'Une idée ne se publie pas une fois. Écrit pour LinkedIn : 40 000 vues. Le même texte collé sur Threads : 305 000. Personne ne sait où une idée va prendre - donc chaque idée sort partout, et chaque idée que vous ne republiez pas est de la visibilité perdue.'
-              : 'An idea is never published once. Written for LinkedIn: 40,000 views. The same text pasted on Threads: 305,000. Nobody knows where an idea will take off - so every idea goes everywhere, and every idea you don\'t republish is reach you lose.'}
+              ? 'Écrit pour LinkedIn : 40 000 vues. Collé sur Threads : 305 000. Personne ne sait où une idée va prendre, donc chaque idée sort partout.'
+              : 'Written for LinkedIn: 40,000 views. Pasted on Threads: 305,000. Nobody knows where an idea will take off, so every idea goes everywhere.'}
           </p>
         </motion.div>
 

@@ -37,7 +37,7 @@ export default function TopCreatorsSection() {
           </h2>
           <p className="mt-3 text-base text-neutral-400 max-w-2xl mx-auto">
             {fr
-              ? "Pas des noms qu'on t'a payés - des créateurs qui utilisent Empire au quotidien."
+              ? "Pas des noms qu'on a payés - des créateurs qui utilisent Empire au quotidien."
               : "Not names we paid - creators who use Empire every day."}
           </p>
         </div>

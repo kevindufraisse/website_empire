@@ -107,8 +107,8 @@ export default function QuickWinsSection() {
           </p>
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
             {fr
-              ? <>La façon la plus simple de trouver des clients <span className="text-empire">avec du contenu.</span></>
-              : <>The simplest way to find clients <span className="text-empire">with content.</span></>}
+              ? <>Seul, avec des freelances, <span className="text-empire">ou avec Empire.</span></>
+              : <>Alone, with freelancers, <span className="text-empire">or with Empire.</span></>}
           </h2>
           <p className="text-neutral-400 text-lg max-w-2xl mx-auto">
             {fr

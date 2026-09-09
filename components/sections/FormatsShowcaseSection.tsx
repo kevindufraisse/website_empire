@@ -393,8 +393,8 @@ export default function FormatsShowcaseSection() {
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-neutral-400 md:text-lg">
             {fr
-              ? 'Le même message, dans un mauvais format, ne fait rien. La viralité n\'est pas de la chance : chaque semaine, notre équipe mesure ce qui monte sur les réseaux, garde les formats qui tiennent et retire les autres. Vous ouvrez l\'app, vous parlez : le montage est déjà fait.'
-              : 'The same message, in the wrong format, goes nowhere. Virality is not luck: every week our team measures what is rising on social, keeps the formats that hold up and drops the rest. You open the app and talk: the edit is already done.'}
+              ? 'Le même message, dans un mauvais format, ne fait rien. On mesure chaque semaine les formats qui montent ; vous parlez, le montage est fait.'
+              : 'The same message, in the wrong format, goes nowhere. We measure the rising formats every week; you talk, the edit is done.'}
           </p>
           {/* Les sept réseaux + la newsletter, en icônes : « multi-diffusé »
               écrit en toutes lettres ne montre rien, Threads et X en pastille

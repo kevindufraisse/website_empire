@@ -20,7 +20,7 @@ export default function WaitlistEmailCta({ className = '' }: Props) {
     e.preventDefault()
     const value = email.trim()
     if (!value || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-      setError(fr ? 'Entre un email valide.' : 'Enter a valid email.')
+      setError(fr ? 'Entrez un email valide.' : 'Enter a valid email.')
       return
     }
     setError('')
@@ -35,7 +35,7 @@ export default function WaitlistEmailCta({ className = '' }: Props) {
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder={fr ? 'ton@email.com' : 'you@email.com'}
+          placeholder={fr ? 'votre@email.com' : 'you@email.com'}
           className="w-full min-w-0 flex-1 rounded-xl border border-white/30 bg-white/[0.12] px-4 py-3.5 text-sm text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] placeholder:text-neutral-300 outline-none transition-colors focus:border-empire focus:bg-white/[0.16] focus:ring-2 focus:ring-empire/30"
         />
         <button

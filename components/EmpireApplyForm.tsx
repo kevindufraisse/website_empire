@@ -197,7 +197,7 @@ export default function EmpireApplyForm() {
             onSubmit={(e) => {
               e.preventDefault()
               if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
-                setError(fr ? 'Entre un email valide.' : 'Enter a valid email.')
+                setError(fr ? 'Entrez un email valide.' : 'Enter a valid email.')
                 return
               }
               setError('')
@@ -209,14 +209,14 @@ export default function EmpireApplyForm() {
               {fr ? 'Recevoir un accès' : 'Get access'}
             </h2>
             <p className="text-sm text-neutral-400">
-              {fr ? 'Entre ton email pour continuer.' : 'Enter your email to continue.'}
+              {fr ? 'Entrez votre email pour continuer.' : 'Enter your email to continue.'}
             </p>
             <input
               type="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder={fr ? 'ton@email.com' : 'you@email.com'}
+              placeholder={fr ? 'votre@email.com' : 'you@email.com'}
               className="w-full max-w-md mx-auto block rounded-xl border border-white/30 bg-white/[0.12] px-4 py-3.5 text-sm text-white placeholder:text-neutral-300 outline-none transition-colors focus:border-empire focus:ring-2 focus:ring-empire/30"
             />
             {error && <p className="text-sm text-red-400">{error}</p>}
@@ -277,7 +277,7 @@ export default function EmpireApplyForm() {
               {fr ? 'Tes stats actuelles ?' : 'Your current stats?'}
             </h2>
             <p className="text-sm text-neutral-400 mb-6">
-              {fr ? 'Vues totales approx. sur tous tes contenus / mois' : 'Approx. total views across your content / month'}
+              {fr ? 'Vues totales approx. sur tous vos contenus / mois' : 'Approx. total views across your content / month'}
             </p>
             <ChoiceList
               options={STATS}
