@@ -124,15 +124,17 @@ export default function QuickWinsSection() {
           transition={{ duration: 0.6, delay: 0.25 }}
           className="rounded-2xl border border-white/10 bg-white/[0.02] overflow-hidden mb-12"
         >
-          {/* Table Header */}
-          <div className="grid grid-cols-[1fr_1fr_1fr] border-b border-white/10">
-            <div className="px-5 py-4" />
-            <div className="px-5 py-4 text-center border-l border-white/[0.06]">
+          {/* Table Header - sur mobile, pas de colonne vide à gauche : les
+              deux en-têtes se partagent la largeur, la dimension devient le
+              titre de chaque ligne. */}
+          <div className="grid grid-cols-2 border-b border-white/10 md:grid-cols-[1fr_1fr_1fr]">
+            <div className="hidden px-5 py-4 md:block" />
+            <div className="px-4 py-3 text-center md:border-l md:border-white/[0.06] md:px-5 md:py-4">
               <p className="text-xs font-bold uppercase tracking-wider text-neutral-500">
                 {fr ? 'Sans Empire' : 'Without Empire'}
               </p>
             </div>
-            <div className="px-5 py-4 text-center border-l border-empire/20 bg-empire/[0.04]">
+            <div className="border-l border-empire/20 bg-empire/[0.04] px-4 py-3 text-center md:px-5 md:py-4">
               <p className="text-xs font-bold uppercase tracking-wider text-empire">
                 {fr ? 'Avec Empire' : 'With Empire'}
               </p>
@@ -146,23 +148,23 @@ export default function QuickWinsSection() {
               initial={{ opacity: 0, x: -10 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.4, delay: 0.3 + i * 0.06 }}
-              className={`grid grid-cols-[1fr_1fr_1fr] ${i < COMPARISONS.length - 1 ? 'border-b border-white/[0.05]' : ''}`}
+              className={`grid grid-cols-2 md:grid-cols-[1fr_1fr_1fr] ${i < COMPARISONS.length - 1 ? 'border-b border-white/[0.05]' : ''}`}
             >
-              {/* Dimension */}
-              <div className="px-5 py-4 flex items-center">
+              {/* Dimension : pleine largeur sur mobile, première colonne sur md+ */}
+              <div className="col-span-2 flex items-center px-4 pt-3 pb-1 md:col-span-1 md:px-5 md:py-4">
                 <p className="text-sm font-semibold text-white">{fr ? row.dimensionFr : row.dimensionEn}</p>
               </div>
 
               {/* Old */}
-              <div className="px-5 py-4 flex items-center gap-2 border-l border-white/[0.06]">
-                <X size={14} className="shrink-0 text-red-400/70" />
-                <p className="text-[13px] text-neutral-400">{fr ? row.oldFr : row.oldEn}</p>
+              <div className="flex min-w-0 items-start gap-2 px-4 pb-3 pt-1 md:items-center md:border-l md:border-white/[0.06] md:px-5 md:py-4">
+                <X size={14} className="mt-0.5 shrink-0 text-red-400/70 md:mt-0" />
+                <p className="min-w-0 text-[13px] leading-snug text-neutral-400 [overflow-wrap:anywhere]">{fr ? row.oldFr : row.oldEn}</p>
               </div>
 
               {/* New */}
-              <div className="px-5 py-4 flex items-center gap-2 border-l border-empire/20 bg-empire/[0.04]">
-                <Check size={14} className="shrink-0 text-empire" />
-                <p className="text-[13px] text-neutral-200 font-medium">{fr ? row.newFr : row.newEn}</p>
+              <div className="flex min-w-0 items-start gap-2 border-l border-empire/20 bg-empire/[0.04] px-4 pb-3 pt-1 md:items-center md:px-5 md:py-4">
+                <Check size={14} className="mt-0.5 shrink-0 text-empire md:mt-0" />
+                <p className="min-w-0 text-[13px] font-medium leading-snug text-neutral-200 [overflow-wrap:anywhere]">{fr ? row.newFr : row.newEn}</p>
               </div>
             </motion.div>
           ))}

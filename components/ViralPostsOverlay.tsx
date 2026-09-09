@@ -76,6 +76,8 @@ function computeSavings(platforms: Record<string, { impressions: number; posts: 
   return { hours: Math.round(hours), euros: Math.round(euros) }
 }
 
+const SHOW_STATS_BUTTON = false
+
 function StatsButton({ onClick }: { onClick: () => void }) {
   return (
     <button
@@ -142,8 +144,10 @@ export default function ViralPostsOverlay() {
 
   if (hidden) return null
 
+  // Bouton masqué pour le moment (demande Kevin, 9 septembre) : la FormulaBar
+  // occupe déjà le bas de l'écran. L'overlay reste accessible au clavier (L).
   if (!open) {
-    return <StatsButton onClick={() => setOpen(true)} />
+    return SHOW_STATS_BUTTON ? <StatsButton onClick={() => setOpen(true)} /> : null
   }
 
   return (

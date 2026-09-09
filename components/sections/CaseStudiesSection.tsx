@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, useInView } from 'framer-motion'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
@@ -138,10 +138,14 @@ const CASE_STUDIES: CaseStudy[] = [
   },
 ]
 
+/** Nombre de cartes visibles sur mobile avant le bouton « voir les autres ». */
+const MOBILE_VISIBLE = 3
+
 export default function CaseStudiesSection() {
   const { lang, t } = useLanguage()
   const { autopilot } = useAutopilot()
   const fr = lang === 'fr'
+  const [showAll, setShowAll] = useState(false)
 
   // Légende keeps a single aggregate proof point instead of individual stories.
   if (autopilot) return null
@@ -171,13 +175,18 @@ export default function CaseStudiesSection() {
             </div>
           </FadeInBlock>
 
-          {/* Cartes : sur mobile, un rail horizontal (snap) pour ne pas
-              empiler six cartes ; à partir de md, grille deux colonnes. Les
-              textes passent à la ligne au lieu d'être tronqués à droite. */}
-          <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:grid md:grid-cols-2 md:gap-5 md:overflow-visible md:px-0 md:pb-0">
+          {/* Cartes : grille deux colonnes à partir de md. Sur mobile, trois
+              cartes empilées et un bouton pour les trois autres - pas de rail
+              horizontal, il volait le scroll vertical. Les textes passent à la
+              ligne au lieu d'être tronqués à droite. */}
+          <div className="grid gap-4 md:grid-cols-2 md:gap-5">
             {CASE_STUDIES.map((cs, i) => (
-              <FadeInBlock key={cs.name} delay={0.05 + i * 0.06} className="flex shrink-0 snap-center md:block">
-                <div className="relative flex h-full w-[82vw] max-w-[360px] snap-center flex-col overflow-hidden rounded-2xl border border-white/[0.14] bg-white/[0.05] transition-colors hover:border-empire/30 md:w-auto md:max-w-none">
+              <FadeInBlock
+                key={cs.name}
+                delay={0.05 + i * 0.06}
+                className={i >= MOBILE_VISIBLE && !showAll ? 'hidden md:block' : undefined}
+              >
+                <div className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/[0.14] bg-white/[0.05] transition-colors hover:border-empire/30">
                   {/* Top: Client info bar */}
                   <div className="flex items-center gap-3 px-5 pt-5 pb-3 md:px-6 md:pb-4">
                     <div className="relative h-10 w-10 shrink-0 rounded-full overflow-hidden border-2 border-empire/30">
@@ -219,9 +228,17 @@ export default function CaseStudiesSection() {
               </FadeInBlock>
             ))}
           </div>
-          <p className="mt-3 text-center text-[11px] text-neutral-500 md:hidden">
-            {fr ? 'Glissez pour voir les autres →' : 'Swipe to see the others →'}
-          </p>
+          {!showAll && (
+            <button
+              type="button"
+              onClick={() => setShowAll(true)}
+              className="mt-4 w-full rounded-xl border border-white/15 bg-white/[0.04] px-4 py-3 text-sm font-semibold text-neutral-200 transition hover:border-white/30 hover:bg-white/[0.07] md:hidden"
+            >
+              {fr
+                ? `Voir les ${CASE_STUDIES.length - MOBILE_VISIBLE} autres résultats`
+                : `See the ${CASE_STUDIES.length - MOBILE_VISIBLE} other results`}
+            </button>
+          )}
 
           {/* CTA */}
           <FadeInBlock delay={0.5}>

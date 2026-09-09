@@ -17,8 +17,8 @@
  *
  * La barre n'existe pas pendant le hero (rien à révéler) ni à partir de la
  * FAQ (la démonstration est finie, la place revient au formulaire et au
- * footer). En dessous de `lg`, elle se pose au-dessus de « Voir les stats »
- * et de la bulle WhatsApp, qui occupent déjà le bas de l'écran.
+ * footer). En dessous de `lg`, elle se pose au-dessus de la bulle WhatsApp,
+ * qui occupe déjà le bas de l'écran.
  */
 
 import { useEffect, useRef, useState } from 'react'
@@ -225,9 +225,9 @@ export default function FormulaBar() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 24 }}
           transition={{ duration: 0.35, ease: 'easeOut' }}
-          // En dessous de lg, le bas de l'écran est pris par « Voir les stats »
-          // (gauche) et la bulle WhatsApp (droite) : la pilule se pose au-dessus.
-          className="pointer-events-none fixed inset-x-3 bottom-[104px] z-50 flex justify-center lg:inset-x-0 lg:bottom-4"
+          // En dessous de lg, le bas de l'écran est pris par la bulle WhatsApp
+          // (droite) : la pilule se pose au-dessus.
+          className="pointer-events-none fixed inset-x-3 bottom-[88px] z-50 flex justify-center lg:inset-x-0 lg:bottom-4"
           style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
         >
           <div className="pointer-events-auto relative flex flex-col items-center">
