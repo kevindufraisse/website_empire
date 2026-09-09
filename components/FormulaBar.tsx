@@ -31,6 +31,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { AnimatePresence, motion } from 'framer-motion'
+import { ChevronsDown, Lock } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 
@@ -216,6 +217,11 @@ export default function FormulaBar() {
     document.getElementById(t.anchor)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
+  // Dans le hero, la formule est encore « secrète » : flou plus fort, presque
+  // illisible. En bas de page, le flou s'allège pour que l'œil devine déjà
+  // qu'il y a des mots à découvrir.
+  const secret = mode === 'docked'
+
   const TermChip = ({ id }: { id: TermId }) => {
     const t = term(id)
     const on = isOn(id)
@@ -229,7 +235,7 @@ export default function FormulaBar() {
           // `min-h-0` : globals.css force 44px sur tout <button> en mobile,
           // ce qui ferait doubler la hauteur de la pilule.
           'min-h-0 rounded-md px-1 font-extrabold tracking-tight transition-all duration-700 ease-out select-none',
-          on ? 'blur-0 opacity-100' : 'blur-[5px] opacity-40',
+          on ? 'blur-0 opacity-100' : secret ? 'blur-[8px] opacity-30' : 'blur-[5px] opacity-40',
           hot ? 'text-empire' : 'text-white',
           on ? 'hover:bg-white/10' : 'pointer-events-none',
         ].join(' ')}
@@ -276,6 +282,18 @@ export default function FormulaBar() {
     >
       {/* Reflet haut, le détail qui fait « verre » */}
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.12),rgba(255,255,255,0)_45%)]" />
+
+      {/* Tant que la formule est secrète : un reflet qui balaie la vitre,
+          comme une buée qu'on n'a pas encore essuyée. */}
+      {secret && (
+        <motion.div
+          aria-hidden
+          className="pointer-events-none absolute inset-y-0 w-1/3 bg-[linear-gradient(100deg,transparent,rgba(255,255,255,0.14),transparent)]"
+          initial={{ x: '-120%' }}
+          animate={{ x: '420%' }}
+          transition={{ duration: 2.6, repeat: Infinity, repeatDelay: 1.2, ease: 'easeInOut' }}
+        />
+      )}
 
       <div className="relative flex items-center gap-2.5 px-3.5 py-2 text-[11px] sm:gap-3.5 sm:px-5 sm:py-2.5 sm:text-sm">
         {/* Fraction */}
@@ -326,19 +344,47 @@ export default function FormulaBar() {
     </motion.div>
   )
 
-  // Dans le hero : la pilule, toute floue, et l'invitation à scroller dessous.
+  // Dans le hero : étiquette « confidentiel », la pilule toute floue, et un
+  // vrai bouton de scroll dessous - le texte seul ne se voyait pas.
   if (mode === 'docked' && slot) {
+    const remaining = FORMULA_TERMS.length - revealed.size
     return createPortal(
       <div className="flex flex-col items-center">
-        {pill}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.4, delay: 0.3 }}
-          className="mt-3 flex items-center gap-1.5 text-[11px] leading-snug text-neutral-400 sm:text-xs"
+          transition={{ duration: 0.4, delay: 0.2 }}
+          className="mb-2 flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-neutral-500"
         >
-          {scrollHint}
+          <Lock size={10} className="text-empire" aria-hidden />
+          {fr
+            ? `Formule confidentielle · ${remaining} termes à révéler`
+            : `Confidential formula · ${remaining} terms to reveal`}
         </motion.p>
+
+        {pill}
+
+        <motion.button
+          type="button"
+          onClick={() => scrollToTerm(term('message'))}
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.5 }}
+          className="group mt-4 flex items-center gap-3 rounded-full border border-white/15 bg-white/[0.05] py-1.5 pl-1.5 pr-4 text-sm font-semibold text-white backdrop-blur-md transition-colors hover:border-empire/40 hover:bg-white/[0.08]"
+        >
+          <span className="relative grid h-8 w-8 shrink-0 place-items-center rounded-full bg-empire text-black">
+            <span aria-hidden className="absolute inset-0 animate-ping rounded-full bg-empire opacity-30 [animation-duration:1.8s]" />
+            <motion.span
+              aria-hidden
+              animate={{ y: [0, 3, 0] }}
+              transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
+              className="relative flex"
+            >
+              <ChevronsDown size={16} strokeWidth={2.5} />
+            </motion.span>
+          </span>
+          {fr ? 'Scrollez pour révéler la formule' : 'Scroll to reveal the formula'}
+        </motion.button>
       </div>,
       slot,
     )

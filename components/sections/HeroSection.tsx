@@ -95,7 +95,7 @@ export default function HeroSection() {
           {!autopilot && (
             <div
               id="formula-hero-slot"
-              className="mt-6 flex min-h-[88px] items-start justify-center"
+              className="mt-6 flex min-h-[150px] items-start justify-center sm:min-h-[160px]"
             />
           )}
 
