@@ -8,6 +8,9 @@
  *        ────────────────────────────  = Visibilité   (→ Clients)
  *               Temps + Coût
  *
+ * Temps et Coût sont deux termes distincts : le temps se révèle à l'app
+ * (une heure par mois), le coût au comparatif Seul / Freelances / Empire.
+ *
  * Chaque terme démarre flou (le format « flou → net » qu'on vend, appliqué à
  * la page elle-même) et devient net quand la section qui le démontre entre
  * dans le viewport : les ancres `formula-*` sont posées dans `app/page.tsx`,
@@ -35,7 +38,7 @@ import { ChevronsDown } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 
-type TermId = 'message' | 'format' | 'diffusion' | 'cost' | 'visibility'
+type TermId = 'message' | 'format' | 'diffusion' | 'time' | 'cost' | 'visibility'
 
 type Term = {
   id: TermId
@@ -72,12 +75,20 @@ export const FORMULA_TERMS: Term[] = [
     hintEn: '7 networks, automatic republishing, multi-account via API.',
   },
   {
+    id: 'time',
+    anchor: 'formula-time',
+    fr: 'Temps',
+    en: 'Time',
+    hintFr: 'Une heure par mois, dans les creux de la journée.',
+    hintEn: 'One hour a month, in the gaps of your day.',
+  },
+  {
     id: 'cost',
     anchor: 'formula-cost',
-    fr: 'Temps + Coût',
-    en: 'Time + Cost',
-    hintFr: '20 min par semaine. Pas 5 000 € de freelances par mois.',
-    hintEn: '20 min a week. Not €5,000 of freelancers a month.',
+    fr: 'Coût',
+    en: 'Cost',
+    hintFr: 'Un abonnement. Pas 5 000 € de freelances par mois.',
+    hintEn: 'One subscription. Not €5,000 of freelancers a month.',
   },
   {
     id: 'visibility',
@@ -306,7 +317,9 @@ export default function FormulaBar() {
             <TermChip id="diffusion" />
           </div>
           <div className="my-1 h-px w-full bg-white/30" />
-          <div className="whitespace-nowrap">
+          <div className="flex items-center whitespace-nowrap">
+            <TermChip id="time" />
+            <Op>+</Op>
             <TermChip id="cost" />
           </div>
         </div>

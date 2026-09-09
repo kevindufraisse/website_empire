@@ -32,13 +32,13 @@ export default function HomeDemoSection() {
           </p>
           <h2 className="text-3xl font-extrabold leading-[1.1] text-white md:text-5xl">
             {lang === 'fr'
-              ? 'Vous avez un message. S\'il ne se voit pas, c\'est qu\'il ne parle pas le langage des réseaux.'
-              : 'You have a message. If nobody sees it, it\'s because it doesn\'t speak the networks\' language.'}
+              ? 'Votre message ne se voit pas parce qu\'il ne parle pas le langage des réseaux.'
+              : 'Nobody sees your message because it doesn\'t speak the networks\' language.'}
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-neutral-400 md:text-lg">
             {lang === 'fr'
-              ? 'Une opinion, un constat, une actu à commenter : vous l\'avez déjà. Ce qui manque, c\'est la traduction. Chaque réseau a son langage : une accroche, un rythme, un format qu\'il pousse et les autres qu\'il enterre. Le même message, dit dans vos mots, reste dans votre cercle. Dit dans le leur, il fait des vues.'
-              : 'An opinion, an observation, a piece of news to react to: you already have it. What is missing is the translation. Each network has its own language: a hook, a rhythm, a format it pushes and the others it buries. The same message, said in your words, stays in your circle. Said in theirs, it gets views.'}
+              ? 'Vous avez déjà des choses à dire. Le problème, c\'est que chaque réseau a son langage, et qu\'il n\'écoute que ceux qui le parlent. Notre travail : traduire.'
+              : 'You already have things to say. The problem is that each network has its own language, and only listens to those who speak it. Our job: translate.'}
           </p>
         </motion.div>
 
@@ -51,9 +51,7 @@ export default function HomeDemoSection() {
           {/* À la place d'une démo produit : le message dit à voix haute, et
               ce qu'il devient. C'est le terme 1 de la formule, montré. */}
           <p className="mb-2 text-center text-lg font-semibold text-white md:text-xl">
-            {lang === 'fr'
-              ? 'Vous le dites dans vos mots. On le traduit dans le langage de chaque réseau.'
-              : 'You say it in your words. We translate it into each network\'s language.'}
+            {lang === 'fr' ? 'Vous parlez. On traduit pour chaque réseau.' : 'You talk. We translate for each network.'}
           </p>
           <div className="mb-6 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[11px] font-semibold uppercase tracking-wider text-neutral-500 sm:text-xs">
             {(lang === 'fr'

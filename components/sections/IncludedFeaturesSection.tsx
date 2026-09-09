@@ -409,7 +409,7 @@ export default function IncludedFeaturesSection() {
           transition={{ duration: 0.6 }}
           className="mx-auto max-w-3xl text-center"
         >
-          <p className="mb-3 text-xs font-bold uppercase tracking-widest text-empire">{fr ? 'La formule · 5. La visibilité' : 'The formula · 5. Visibility'}</p>
+          <p className="mb-3 text-xs font-bold uppercase tracking-widest text-empire">{fr ? 'La formule · 6. La visibilité' : 'The formula · 6. Visibility'}</p>
           <h2 className="text-3xl font-extrabold leading-[1.1] text-white md:text-5xl">
             {fr ? 'Le contenu, c\'est la moitié. L\'autre moitié, c\'est savoir ce qu\'il rapporte.' : 'Content is half of it. The other half is knowing what it brings in.'}
           </h2>
@@ -427,8 +427,8 @@ export default function IncludedFeaturesSection() {
                 <p className={title}>{fr ? 'Vous savez quel contenu a amené quel client.' : 'You know which content brought which client.'}</p>
                 <p className={desc}>
                   {fr
-                    ? 'Chaque lien que vous partagez est tracké jusqu\'au formulaire et au rendez-vous. Pas « j\'ai fait des vues » : « ce reel a pris trois rendez-vous ».'
-                    : 'Every link you share is tracked down to the form and the booked call. Not "I got views": "this reel booked three calls".'}
+                    ? 'Chaque lien est tracké jusqu\'au rendez-vous. Pas « j\'ai fait des vues » : « ce reel a pris trois rendez-vous ».'
+                    : 'Every link is tracked down to the booked call. Not "I got views": "this reel booked three calls".'}
                 </p>
               </div>
               <TrackingArt fr={fr} />
@@ -503,7 +503,7 @@ export default function IncludedFeaturesSection() {
           <motion.div {...appear(0.4)} className={`${card} md:col-span-3`}>
             <p className={kicker}><Code2 className="mr-1.5 inline h-3.5 w-3.5" />{fr ? 'API · multi-comptes' : 'API · multi-account'}</p>
             <p className={title}>{fr ? 'Plusieurs comptes ? Vous créez une fois, ça part partout.' : 'Several accounts? Create once, it goes out everywhere.'}</p>
-            <p className={desc}>{fr ? 'Deux marques, une équipe, des clients : reliez tous les comptes, chaque contenu est publié sur chacun d\'eux, sur les 7 réseaux, sans rien refaire.' : 'Two brands, a team, clients: connect every account and each piece of content is published on all of them, across the 7 networks, without redoing anything.'}</p>
+            <p className={desc}>{fr ? 'Reliez tous vos comptes. Chaque contenu part sur chacun d\'eux, sur les 7 réseaux.' : 'Connect all your accounts. Each piece goes out on every one of them, across the 7 networks.'}</p>
             <BroadcastArt fr={fr} />
           </motion.div>
 
@@ -513,8 +513,8 @@ export default function IncludedFeaturesSection() {
             <p className={title}>{fr ? 'Une idée dans la rue ? Une note vocale, et c\'est un post.' : 'An idea on the street? One voice note, and it\'s a post.'}</p>
             <p className={desc}>
               {fr
-                ? 'Pas besoin d\'ouvrir l\'app ni de filmer. Vous dictez dans Telegram comme à un ami, l\'équipe en fait un post, un carrousel ou une newsletter dans votre ton.'
-                : 'No need to open the app or film. You dictate in Telegram like to a friend, the team turns it into a post, a carousel or a newsletter in your tone.'}
+                ? 'Vous dictez dans Telegram comme à un ami. L\'équipe en fait un post, un carrousel ou une newsletter, dans votre ton.'
+                : 'You dictate in Telegram like to a friend. The team turns it into a post, a carousel or a newsletter, in your tone.'}
             </p>
             <TelegramArt fr={fr} />
           </motion.div>

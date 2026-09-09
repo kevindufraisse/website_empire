@@ -91,7 +91,7 @@ export default function QuickWinsSection() {
           className="text-center mb-12"
         >
           <p className="mb-3 text-xs font-bold uppercase tracking-widest text-empire">
-            {fr ? 'La formule · 4. Temps + coût' : 'The formula · 4. Time + cost'}
+            {fr ? 'La formule · 5. Le coût' : 'The formula · 5. Cost'}
           </p>
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
             {fr

@@ -463,7 +463,7 @@ export const fr: Translations = {
   },
   testimonials: {
     title: 'Ce que disent les créateurs',
-    subtitle: 'Ils avaient le message. Voilà ce qui s\'est passé une fois le reste de la formule en place.',
+    subtitle: 'Ils avaient le message. Voilà la suite.',
   },
   bentoGrid: {
     voiceContent: '3 formats pour créer du contenu',
@@ -953,7 +953,7 @@ export const fr: Translations = {
   founder: {
     badge: 'Le Créateur',
     title: 'J\'utilise exactement ce que je vous vends.',
-    subtitle: 'Empire n\'a pas été conçu par une équipe tech loin du terrain : c\'est le système qui fait tourner mes propres comptes, chaque semaine.',
+    subtitle: 'C\'est le système qui fait tourner mes propres comptes, chaque semaine.',
     credential1: 'Lead Generation Mondial',
     credential2: 'Influenceur LinkedIn France',
     credential3: 'Générés en Ligne',

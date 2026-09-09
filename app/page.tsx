@@ -45,9 +45,11 @@ export default function Page() {
           le début de page avance plus vite vers la formule, et la preuve
           arrive une fois qu'on a vu ce que le produit fait. */}
       <TestimonialsSection />
-      {/* L'app montre que la création tient dans le quotidien ; c'est le
-          comparatif Seul / Freelances / Empire qui révèle ÷ Temps + Coût. */}
-      <MobileAppSection />
+      {/* ÷ Temps se révèle à l'app (une heure par mois), ÷ Coût au comparatif
+          Seul / Freelances / Empire. */}
+      <div id="formula-time">
+        <MobileAppSection />
+      </div>
       <div id="formula-cost">
         <QuickWinsSection />
       </div>

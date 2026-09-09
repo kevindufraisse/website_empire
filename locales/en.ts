@@ -340,7 +340,7 @@ export const en = {
   },
   testimonials: {
     title: 'What creators say',
-    subtitle: 'They had the message. Here is what happened once the rest of the formula was in place.',
+    subtitle: 'They had the message. Here is what came next.',
   },
   bentoGrid: {
     voiceContent: '3 formats to create content',
@@ -951,7 +951,7 @@ export const en = {
   founder: {
     badge: 'Meet the Creator',
     title: 'I use exactly what I sell you.',
-    subtitle: 'Empire was not built by a tech team far from the field: it is the system that runs my own accounts, every week.',
+    subtitle: 'It is the system that runs my own accounts, every week.',
     credential1: 'Lead Generation Worldwide',
     credential2: 'LinkedIn Influencer France',
     credential3: 'Generated Online',
