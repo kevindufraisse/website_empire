@@ -6,8 +6,6 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import { Meteors } from '@/components/magicui/meteors'
 import { SocialIcons } from '@/components/ui/social-icons'
-import WaitlistEmailCta from '@/components/WaitlistEmailCta'
-
 // Même jeu de portraits que `/vsl` et `FormatsShowcaseSection` (public/creators).
 const HERO_CREATORS = [
   { name: 'Alex Hormozi', img: '/creators/hormozi.jpg' },
@@ -151,7 +149,16 @@ export default function HeroSection() {
                   <span className="text-[11px] font-semibold opacity-70">{t.autopilot.hero.ctaReassurance}</span>
                 </a>
               ) : (
-                <WaitlistEmailCta />
+                /* Un seul bouton, pas d'input : le hero démontre, le formulaire
+                   vit dans « Rejoindre Empire » (#formula-apply). */
+                <button
+                  type="button"
+                  onClick={() => document.getElementById('formula-apply')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+                  className="group flex w-full items-center justify-center gap-2 rounded-xl bg-empire px-8 py-4 text-base font-bold text-black shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.35)] transition-all hover:brightness-110 sm:w-auto"
+                >
+                  {lang === 'fr' ? 'Demander un accès' : 'Request access'}
+                  <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
+                </button>
               )}
             </div>
             {/* Preuve alignée sur la promesse : la promesse est « les formats

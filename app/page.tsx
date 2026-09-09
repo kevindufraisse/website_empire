@@ -53,7 +53,9 @@ export default function Page() {
       </div>
       <QuickWinsSection />
       <CaseStudiesSection />
-      <div id="formula-apply">
+      {/* scroll-mt : le bouton du hero scrolle ici, le header fixe ne doit pas
+          couvrir le titre. */}
+      <div id="formula-apply" className="scroll-mt-20">
         <HomeApplySection />
       </div>
       <FounderSection />
