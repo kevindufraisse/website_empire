@@ -76,8 +76,8 @@ export const FORMULA_TERMS: Term[] = [
     anchor: 'formula-cost',
     fr: 'Temps + Coût',
     en: 'Time + Cost',
-    hintFr: '20 minutes en marchant. Pas d\'agence à 15 K€.',
-    hintEn: '20 minutes while walking. No €15K agency.',
+    hintFr: '20 min par semaine. Pas 5 000 € de freelances par mois.',
+    hintEn: '20 min a week. Not €5,000 of freelancers a month.',
   },
   {
     id: 'visibility',
