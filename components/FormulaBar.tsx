@@ -260,8 +260,8 @@ export default function FormulaBar() {
         ↓
       </motion.span>
       {fr
-        ? 'Scrollez pour découvrir la formule d\'un personal brand qui rapporte'
-        : 'Scroll to uncover the formula of a personal brand that pays'}
+        ? 'Scrollez pour découvrir la formule à 1M de vues par mois'
+        : 'Scroll to uncover the formula behind 1M views a month'}
     </>
   )
 
@@ -386,7 +386,7 @@ export default function FormulaBar() {
               <ChevronsDown size={16} strokeWidth={2.5} />
             </motion.span>
           </span>
-          {fr ? 'Scrollez pour révéler la formule' : 'Scroll to reveal the formula'}
+          {fr ? 'Scrollez pour découvrir la formule à 1M de vues par mois' : 'Scroll to uncover the formula behind 1M views a month'}
         </motion.button>
       </div>,
       slot,
