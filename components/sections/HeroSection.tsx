@@ -31,7 +31,9 @@ export default function HeroSection() {
 
   const heroBadge = autopilot ? t.autopilot.hero.targetAudience : t.hero.targetAudience
   const heroTitle = autopilot ? t.autopilot.hero.title : t.hero.title
-  const heroSubtitle = autopilot ? t.autopilot.hero.subtitle : t.hero.subtitle
+  // Hors autopilot, pas de paragraphe : la formule (floue) prend sa place et
+  // invite à scroller. Voir `FormulaBar` et le slot `formula-hero-slot`.
+  const heroSubtitle = autopilot ? t.autopilot.hero.subtitle : null
   const heroCta = autopilot ? t.autopilot.hero.cta1 : t.hero.cta1
 
   return (
@@ -84,6 +86,17 @@ export default function HeroSection() {
             >
               {t.hero.titleNote}
             </motion.p>
+          )}
+
+          {/* La formule, en mode secret : `FormulaBar` se rend ici (portal)
+              tant qu'on est dans le hero, tout flou, puis file en bas de
+              l'écran au scroll et se révèle section par section. La hauteur
+              est réservée pour que le hero ne saute pas quand elle part. */}
+          {!autopilot && (
+            <div
+              id="formula-hero-slot"
+              className="mt-6 flex min-h-[88px] items-start justify-center"
+            />
           )}
 
           {/* Platform logos strip - right under the title */}
