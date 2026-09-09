@@ -670,7 +670,7 @@ export const fr: Translations = {
   faqItems: [
     {
       question: 'Combien de temps dois-je investir ?',
-      answer: 'Environ 1 h par semaine. Vous parlez en promenant le chien, en voiture, en marchant - on a testé plus de 100 façons, on en a gardé 5. On gère le reste : sujets, production, adaptation, publication.',
+      answer: '20 minutes par semaine - une heure fait le mois. Vous parlez en promenant le chien, en voiture, en marchant - on a testé plus de 100 façons, on en a gardé 5. On gère le reste : sujets, production, adaptation, publication.',
     },
     {
       question: 'Et si le contenu ne me ressemble pas ?',

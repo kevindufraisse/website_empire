@@ -547,7 +547,7 @@ export const en = {
   faqItems: [
     {
       question: 'How much time do I need to invest?',
-      answer: 'About 1 hour a week. You talk while walking the dog, in the car, on a stroll - we tested over 100 ways, we kept 5. We handle the rest: topics, production, adaptation, publishing.',
+      answer: '20 minutes a week - one hour covers the month. You talk while walking the dog, in the car, on a stroll - we tested over 100 ways, we kept 5. We handle the rest: topics, production, adaptation, publishing.',
     },
     {
       question: 'What if the content doesn\'t sound like me?',
