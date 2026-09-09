@@ -1,9 +1,11 @@
 'use client'
 import { useRef } from 'react'
+import dynamic from 'next/dynamic'
 import { motion, useInView } from 'framer-motion'
-import LoomEmbed, { DEMO_1MIN_LOOM_ID } from '@/components/LoomEmbed'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
+
+const VoiceToContentAnimation = dynamic(() => import('@/components/VoiceToContentAnimation'), { ssr: false })
 
 export default function HomeDemoSection() {
   const { lang } = useLanguage()
@@ -46,13 +48,23 @@ export default function HomeDemoSection() {
           transition={{ duration: 0.5, delay: 0.1, ease: 'easeOut' }}
           className="mx-auto w-full max-w-3xl"
         >
-          <p className="mb-5 text-center text-lg font-semibold text-white md:text-xl">
-            {lang === 'fr' ? '2 minutes pour voir le système en action.' : '2 minutes to see the system in action.'}
+          {/* À la place d'une démo produit : le message dit à voix haute, et
+              ce qu'il devient. C'est le terme 1 de la formule, montré. */}
+          <p className="mb-2 text-center text-lg font-semibold text-white md:text-xl">
+            {lang === 'fr' ? 'Vous le dites. On en fait le reste.' : 'You say it. We turn it into the rest.'}
           </p>
-          <LoomEmbed
-            id={DEMO_1MIN_LOOM_ID}
-            title={lang === 'fr' ? 'Démo Empire (1 min)' : 'Empire demo (1 min)'}
-          />
+          <div className="mb-6 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[11px] font-semibold uppercase tracking-wider text-neutral-500 sm:text-xs">
+            {(lang === 'fr'
+              ? ['1 idée', '1 contenu', '10+ contenus', 'Tous vos réseaux']
+              : ['1 idea', '1 piece', '10+ pieces', 'Every network']
+            ).map((step, i, arr) => (
+              <span key={step} className="inline-flex items-center gap-2">
+                <span className={i === arr.length - 1 ? 'text-empire' : 'text-neutral-300'}>{step}</span>
+                {i < arr.length - 1 && <span className="text-neutral-600">→</span>}
+              </span>
+            ))}
+          </div>
+          <VoiceToContentAnimation />
         </motion.div>
       </div>
     </section>

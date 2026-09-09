@@ -16,7 +16,6 @@ const HERO_CREATORS = [
 ]
 
 const RetroGrid = dynamic(() => import('@/components/magicui/retro-grid'), { ssr: false })
-const VoiceToContentAnimation = dynamic(() => import('@/components/VoiceToContentAnimation'), { ssr: false })
 
 export default function HeroSection() {
   const { t, lang } = useLanguage()
@@ -93,7 +92,7 @@ export default function HeroSection() {
           {!autopilot && (
             <div
               id="formula-hero-slot"
-              className="mt-6 flex min-h-[150px] items-start justify-center sm:min-h-[160px]"
+              className="mt-6 flex min-h-[120px] items-start justify-center sm:min-h-[128px]"
             />
           )}
 
@@ -149,16 +148,15 @@ export default function HeroSection() {
                   <span className="text-[11px] font-semibold opacity-70">{t.autopilot.hero.ctaReassurance}</span>
                 </a>
               ) : (
-                /* Un seul bouton, pas d'input : le hero démontre, le formulaire
-                   vit dans « Rejoindre Empire » (#formula-apply). */
-                <button
-                  type="button"
-                  onClick={() => document.getElementById('formula-apply')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+                /* Un seul bouton, pas d'input : le hero démontre, l'email se
+                   saisit sur la page de candidature. */
+                <a
+                  href="/postuler"
                   className="group flex w-full items-center justify-center gap-2 rounded-xl bg-empire px-8 py-4 text-base font-bold text-black shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.35)] transition-all hover:brightness-110 sm:w-auto"
                 >
                   {lang === 'fr' ? 'Demander un accès' : 'Request access'}
                   <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
-                </button>
+                </a>
               )}
             </div>
             {/* Preuve alignée sur la promesse : la promesse est « les formats
@@ -191,29 +189,8 @@ export default function HeroSection() {
             </div>
           </motion.div>
 
-          {/* Cascade strip + voice-to-content animation */}
-          {!autopilot && (
-            <motion.div
-              initial={mounted ? { opacity: 0, y: 20 } : false}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="mt-10 w-full max-w-4xl mx-auto"
-            >
-              <div className="mb-6 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[11px] font-semibold uppercase tracking-wider text-neutral-500 sm:text-xs">
-                {(lang === 'fr'
-                  ? ['1 idée', '1 contenu', '10+ contenus', 'Tous vos réseaux']
-                  : ['1 idea', '1 piece', '10+ pieces', 'Every network']
-                ).map((step, i, arr) => (
-                  <span key={step} className="inline-flex items-center gap-2">
-                    <span className={i === arr.length - 1 ? 'text-empire' : 'text-neutral-300'}>{step}</span>
-                    {i < arr.length - 1 && <span className="text-neutral-600">→</span>}
-                  </span>
-                ))}
-              </div>
-              <VoiceToContentAnimation />
-            </motion.div>
-          )}
-
+          {/* L'animation voix → contenus vit désormais dans la section
+              « Message » (HomeDemoSection), à la place de la vidéo. */}
         </div>
         </div>
       </section>

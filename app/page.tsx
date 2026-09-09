@@ -45,16 +45,16 @@ export default function Page() {
           le début de page avance plus vite vers la formule, et la preuve
           arrive une fois qu'on a vu ce que le produit fait. */}
       <TestimonialsSection />
+      {/* ÷ Temps + Coût en deux temps : l'app montre le temps (une heure par
+          mois), le comparatif Seul / Freelances / Empire montre le coût. */}
       <div id="formula-cost">
         <MobileAppSection />
+        <QuickWinsSection />
       </div>
       <div id="formula-visibility">
         <IncludedFeaturesSection />
       </div>
-      <QuickWinsSection />
       <CaseStudiesSection />
-      {/* scroll-mt : le bouton du hero scrolle ici, le header fixe ne doit pas
-          couvrir le titre. */}
       <div id="formula-apply" className="scroll-mt-20">
         <HomeApplySection />
       </div>

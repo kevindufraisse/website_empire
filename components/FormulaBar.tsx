@@ -31,7 +31,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ChevronsDown, Lock } from 'lucide-react'
+import { ChevronsDown } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 
@@ -347,22 +347,25 @@ export default function FormulaBar() {
   // Dans le hero : étiquette « confidentiel », la pilule toute floue, et un
   // vrai bouton de scroll dessous - le texte seul ne se voyait pas.
   if (mode === 'docked' && slot) {
-    const remaining = FORMULA_TERMS.length - revealed.size
+    const stillSecret = revealed.size < FORMULA_TERMS.length
     return createPortal(
       <div className="flex flex-col items-center">
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4, delay: 0.2 }}
-          className="mb-2 flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-neutral-500"
-        >
-          <Lock size={10} className="text-empire" aria-hidden />
-          {fr
-            ? `Formule confidentielle · ${remaining} termes à révéler`
-            : `Confidential formula · ${remaining} terms to reveal`}
-        </motion.p>
-
-        {pill}
+        <div className="relative">
+          {pill}
+          {/* Tampon « SECRET » posé de travers sur le coin de la vitre, tant
+              que la formule n'est pas entièrement révélée. */}
+          {stillSecret && (
+            <motion.span
+              aria-hidden
+              initial={{ opacity: 0, scale: 1.6, rotate: -14 }}
+              animate={{ opacity: 1, scale: 1, rotate: -10 }}
+              transition={{ duration: 0.35, delay: 0.5, ease: [0.2, 1.2, 0.4, 1] }}
+              className="pointer-events-none absolute -right-3 -top-3 select-none rounded-[3px] border-[2.5px] border-red-500 px-1.5 py-0.5 font-mono text-[11px] font-black uppercase tracking-[0.22em] text-red-500 shadow-[0_0_18px_-4px_rgba(239,68,68,0.6)] mix-blend-screen sm:-right-4 sm:text-xs"
+            >
+              Secret
+            </motion.span>
+          )}
+        </div>
 
         <motion.button
           type="button"
