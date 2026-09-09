@@ -62,7 +62,7 @@ const PERSONAS = [
     pack: 'Intermédiaire · 499€/mois',
     color: 'from-empire to-yellow-500',
     avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
-    desc: 'Sarah poste tous les jours. Reels pour Instagram, posts LinkedIn, newsletter — elle choisit le mix. Lives et communauté inclus.',
+    desc: 'Sarah poste tous les jours. Reels pour Instagram, posts LinkedIn, newsletter - elle choisit le mix. Lives et communauté inclus.',
     rhythm: 'Tous les jours',
     mix: ['Reels', 'LinkedIn', 'Newsletter'],
   },
@@ -97,7 +97,7 @@ const FAQS = [
   },
   {
     q: 'C\'est quoi la différence entre les packs ?',
-    a: 'Le rythme. Débutant : tous les 2 jours. Intermédiaire : tous les jours. Expert : 2 fois par jour. Reels, LinkedIn, newsletter — tu choisis le mix. Les 7 réseaux sont inclus partout, sans crédit en plus.',
+    a: 'Le rythme. Débutant : tous les 2 jours. Intermédiaire : tous les jours. Expert : 2 fois par jour. Reels, LinkedIn, newsletter - tu choisis le mix. Les 7 réseaux sont inclus partout, sans crédit en plus.',
   },
   {
     q: 'Je peux résilier quand je veux ?',

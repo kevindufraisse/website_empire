@@ -70,11 +70,11 @@ async function addTag(contactId, tag) {
         console.log(`✓  ${email} (id ${contact.id})`)
       } else {
         results.failed.push({ email, ...out })
-        console.log(`✗  ${email} — ${out.status} ${out.text?.slice(0, 120)}`)
+        console.log(`✗  ${email} - ${out.status} ${out.text?.slice(0, 120)}`)
       }
     } catch (e) {
       results.failed.push({ email, err: e.message })
-      console.log(`✗  ${email} — ${e.message}`)
+      console.log(`✗  ${email} - ${e.message}`)
     }
     await sleep(200)
   }

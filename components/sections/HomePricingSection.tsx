@@ -408,8 +408,8 @@ export default function HomePricingSection() {
               <li className="flex items-start gap-2 text-[13px] text-neutral-300">
                 <Check size={14} className="mt-0.5 shrink-0 text-empire" />
                 {fr
-                  ? `${plan.rhythmFr} — Reels, LinkedIn, newsletter, vous choisissez`
-                  : `${plan.rhythmEn} — Reels, LinkedIn, newsletter, you choose`}
+                  ? `${plan.rhythmFr} - Reels, LinkedIn, newsletter, vous choisissez`
+                  : `${plan.rhythmEn} - Reels, LinkedIn, newsletter, you choose`}
               </li>
               {PLAN_FEATURES[selectedTier].map((f) => (
                 <li

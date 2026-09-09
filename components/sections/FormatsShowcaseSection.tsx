@@ -1,7 +1,7 @@
 'use client'
 
 /**
- * FormatsShowcaseSection — les formats qui font des vues, montrés tels qu'ils
+ * FormatsShowcaseSection - les formats qui font des vues, montrés tels qu'ils
  * sortent de l'app.
  *
  * Les visuels vidéo (`/public/formats/*.webp`) ne sont pas des maquettes :
@@ -216,7 +216,7 @@ function NetworkRow({ networks, size = 'sm' }: { networks: Network[]; size?: 'sm
 
 /**
  * Format long : vraie miniature YouTube de Kevin (« MANIPULATION ? »),
- * vignette 16:9 affichée en `object-cover`, et ce qu'elle a donné — c'est
+ * vignette 16:9 affichée en `object-cover`, et ce qu'elle a donné - c'est
  * la cascade qu'on vend, pas la vidéo elle-même.
  * La durée affichée est illustrative.
  */
@@ -386,15 +386,15 @@ export default function FormatsShowcaseSection() {
           className="mx-auto max-w-3xl text-center"
         >
           <p className="mb-3 text-xs font-bold uppercase tracking-widest text-empire">
-            {fr ? 'La viralité n\'est pas de la chance' : 'Virality is not luck'}
+            {fr ? 'La formule · 2. Le format' : 'The formula · 2. The format'}
           </p>
           <h2 className="text-3xl font-extrabold leading-[1.1] text-white md:text-5xl">
             {fr ? 'Les formats qui font des vues, prêts à filmer.' : 'The formats that get views, ready to shoot.'}
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-neutral-400 md:text-lg">
             {fr
-              ? 'Chaque semaine, notre équipe mesure ce qui monte sur les réseaux, garde les formats qui tiennent et retire les autres. Vous ouvrez l\'app, vous parlez : le montage est déjà fait.'
-              : 'Every week our team measures what is rising on social, keeps the formats that hold up and drops the rest. You open the app and talk: the edit is already done.'}
+              ? 'Le même message, dans un mauvais format, ne fait rien. La viralité n\'est pas de la chance : chaque semaine, notre équipe mesure ce qui monte sur les réseaux, garde les formats qui tiennent et retire les autres. Vous ouvrez l\'app, vous parlez : le montage est déjà fait.'
+              : 'The same message, in the wrong format, goes nowhere. Virality is not luck: every week our team measures what is rising on social, keeps the formats that hold up and drops the rest. You open the app and talk: the edit is already done.'}
           </p>
           {/* Les sept réseaux + la newsletter, en icônes : « multi-diffusé »
               écrit en toutes lettres ne montre rien, Threads et X en pastille

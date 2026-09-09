@@ -197,7 +197,7 @@ export default function AcademyWaitlistForm({
     if (!EMAIL_RE.test(email)) return
     if (submittedRef.current || alreadyFlushed()) return
 
-    // Only flush after they clicked "Continuer" (timer started) — not on random pagehide.
+    // Only flush after they clicked "Continuer" (timer started) - not on random pagehide.
     const draft = readDraft()
     if (!draft?.timerStartedAt) return
 
@@ -317,7 +317,7 @@ export default function AcademyWaitlistForm({
 
     setErrorMessage(null)
     setStep(2)
-    // Start 3 min countdown — if they stall / leave, we still get the lead once.
+    // Start 3 min countdown - if they stall / leave, we still get the lead once.
     startFlushTimer(Date.now())
   }
 
@@ -338,7 +338,7 @@ export default function AcademyWaitlistForm({
     setErrorMessage(null)
     try {
       // If timer already flushed, this silently enriches DB (no 2nd Slack).
-      // If not, this is the only Slack/Folk ping — with full data.
+      // If not, this is the only Slack/Folk ping - with full data.
       const res = await fetch('/api/academy-waitlist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

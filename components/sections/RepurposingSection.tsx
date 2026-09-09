@@ -1,7 +1,7 @@
 'use client'
 
 /**
- * RepurposingSection — pourquoi une idée doit sortir en plusieurs formats,
+ * RepurposingSection - pourquoi une idée doit sortir en plusieurs formats,
  * démontré sur un cas réel du compte de Kevin plutôt qu'affirmé. Une phrase,
  * puis le visuel : la même idée au centre, ce qu'elle a fait réseau par
  * réseau autour.
@@ -69,15 +69,15 @@ export default function RepurposingSection() {
           className="mx-auto max-w-3xl text-center"
         >
           <p className="mb-3 text-xs font-bold uppercase tracking-widest text-empire">
-            {fr ? 'Une idée ne se publie pas une fois' : 'An idea is never published once'}
+            {fr ? 'La formule · 3. La diffusion' : 'The formula · 3. Distribution'}
           </p>
           <h2 className="text-3xl font-extrabold leading-[1.1] text-white md:text-5xl">
             {fr ? <>Une idée. {fmtK(TOTAL, fr)} vues.</> : <>One idea. {fmtK(TOTAL, fr)} views.</>}
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-neutral-400 md:text-lg">
             {fr
-              ? 'Écrit pour LinkedIn : 40 000 vues. Le même texte collé sur Threads : 305 000. Personne ne sait où une idée va prendre - donc chaque idée sort partout, et chaque idée que vous ne republiez pas est de la visibilité perdue.'
-              : 'Written for LinkedIn: 40,000 views. The same text pasted on Threads: 305,000. Nobody knows where an idea will take off - so every idea goes everywhere, and every idea you don\'t republish is reach you lose.'}
+              ? 'Une idée ne se publie pas une fois. Écrit pour LinkedIn : 40 000 vues. Le même texte collé sur Threads : 305 000. Personne ne sait où une idée va prendre - donc chaque idée sort partout, et chaque idée que vous ne republiez pas est de la visibilité perdue.'
+              : 'An idea is never published once. Written for LinkedIn: 40,000 views. The same text pasted on Threads: 305,000. Nobody knows where an idea will take off - so every idea goes everywhere, and every idea you don\'t republish is reach you lose.'}
           </p>
         </motion.div>
 

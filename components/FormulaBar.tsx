@@ -1,7 +1,7 @@
 'use client'
 
 /**
- * FormulaBar — la formule de la visibilité, en pilule « glass » fixée en bas
+ * FormulaBar - la formule de la visibilité, en pilule « glass » fixée en bas
  * de la home, qui se défloute au fil du scroll.
  *
  *        Message × Format × Diffusion

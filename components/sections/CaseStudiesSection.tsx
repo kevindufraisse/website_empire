@@ -7,13 +7,14 @@ import { ArrowRight } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 
-function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
+function FadeInBlock({ children, delay = 0, className }: { children: React.ReactNode; delay?: number; className?: string }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-50px' })
 
   return (
     <motion.div
       ref={ref}
+      className={className}
       initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
       transition={{ duration: 0.6, delay, ease: 'easeOut' }}
@@ -170,32 +171,34 @@ export default function CaseStudiesSection() {
             </div>
           </FadeInBlock>
 
-          {/* Case Study Cards - 2 columns */}
-          <div className="grid md:grid-cols-2 gap-5">
+          {/* Cartes : sur mobile, un rail horizontal (snap) pour ne pas
+              empiler six cartes ; à partir de md, grille deux colonnes. Les
+              textes passent à la ligne au lieu d'être tronqués à droite. */}
+          <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:grid md:grid-cols-2 md:gap-5 md:overflow-visible md:px-0 md:pb-0">
             {CASE_STUDIES.map((cs, i) => (
-              <FadeInBlock key={cs.name} delay={0.05 + i * 0.06}>
-                <div className="relative h-full rounded-2xl border border-white/10 bg-white/[0.03] overflow-hidden hover:border-empire/30 transition-colors">
+              <FadeInBlock key={cs.name} delay={0.05 + i * 0.06} className="flex shrink-0 snap-center md:block">
+                <div className="relative flex h-full w-[82vw] max-w-[360px] snap-center flex-col overflow-hidden rounded-2xl border border-white/[0.14] bg-white/[0.05] transition-colors hover:border-empire/30 md:w-auto md:max-w-none">
                   {/* Top: Client info bar */}
-                  <div className="flex items-center gap-3 px-6 pt-5 pb-4">
+                  <div className="flex items-center gap-3 px-5 pt-5 pb-3 md:px-6 md:pb-4">
                     <div className="relative h-10 w-10 shrink-0 rounded-full overflow-hidden border-2 border-empire/30">
                       <Image src={cs.photo} alt={cs.name} fill className="object-cover" />
                     </div>
                     <div className="min-w-0">
-                      <p className="text-sm font-semibold text-white truncate">{cs.name}</p>
-                      <p className="text-xs text-neutral-500 truncate">{fr ? cs.roleFr : cs.roleEn} · {fr ? cs.contextFr : cs.contextEn}</p>
+                      <p className="text-sm font-semibold text-white">{cs.name}</p>
+                      <p className="text-xs leading-snug text-neutral-400">{fr ? cs.roleFr : cs.roleEn} · {fr ? cs.contextFr : cs.contextEn}</p>
                     </div>
                   </div>
 
                   {/* Description */}
-                  <div className="px-6 pb-5">
+                  <div className="flex-1 px-5 pb-4 md:px-6 md:pb-5">
                     <p className="text-[14px] text-neutral-300 leading-relaxed">
                       {fr ? cs.descFr : cs.descEn}
                     </p>
                   </div>
 
                   {/* Bottom: Stats bar */}
-                  <div className="border-t border-white/[0.06] bg-white/[0.02] px-6 py-4">
-                    <div className="flex items-center gap-6">
+                  <div className="border-t border-white/[0.08] bg-white/[0.03] px-5 py-4 md:px-6">
+                    <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
                       {/* Hero stat */}
                       <div className="shrink-0">
                         <p className="text-3xl md:text-4xl font-black text-empire leading-none">{cs.heroStat}</p>
@@ -204,12 +207,10 @@ export default function CaseStudiesSection() {
 
                       {/* Before → After */}
                       {(fr ? cs.beforeAfterFr : cs.beforeAfterEn) && (
-                        <div className="flex-1 min-w-0">
-                          <div className="inline-flex items-center gap-2 rounded-lg bg-empire/10 border border-empire/20 px-3 py-1.5">
-                            <span className="text-xs font-mono font-semibold text-neutral-300">
-                              {fr ? cs.beforeAfterFr : cs.beforeAfterEn}
-                            </span>
-                          </div>
+                        <div className="inline-flex items-center rounded-lg bg-empire/10 border border-empire/20 px-3 py-1.5">
+                          <span className="text-xs font-mono font-semibold text-neutral-300">
+                            {fr ? cs.beforeAfterFr : cs.beforeAfterEn}
+                          </span>
                         </div>
                       )}
                     </div>
@@ -218,6 +219,9 @@ export default function CaseStudiesSection() {
               </FadeInBlock>
             ))}
           </div>
+          <p className="mt-3 text-center text-[11px] text-neutral-500 md:hidden">
+            {fr ? 'Glissez pour voir les autres →' : 'Swipe to see the others →'}
+          </p>
 
           {/* CTA */}
           <FadeInBlock delay={0.5}>

@@ -1,7 +1,7 @@
 'use client'
 
 /**
- * WhatsAppBubble — remplace le chat Crisp. Le bouton ouvre une conversation
+ * WhatsAppBubble - remplace le chat Crisp. Le bouton ouvre une conversation
  * WhatsApp avec le numéro du setter (+33 6 52 81 54 96, celui que ManyChat
  * écoute), présenté comme « l'équipe en ligne » : c'est Kevin qui répond, en
  * première personne, via le setter. Pas le 06 65 42 74 70 de la page merci -

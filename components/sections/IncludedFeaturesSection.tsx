@@ -1,7 +1,7 @@
 'use client'
 
 /**
- * IncludedFeaturesSection — ce qui est dans l'abonnement au-delà des formats,
+ * IncludedFeaturesSection - ce qui est dans l'abonnement au-delà des formats,
  * en bento. La page ne parlait ni du tracking des conversions, ni des
  * miniatures, ni de la communauté : autant de raisons de vouloir l'outil qui
  * restaient dans l'app.
@@ -388,7 +388,9 @@ export default function IncludedFeaturesSection() {
 
   if (autopilot) return null
 
-  const card = 'relative overflow-hidden rounded-3xl border border-white/10 bg-[#0b0b0b] p-6'
+  // Fond et bordure plus clairs que le noir de la section : sans ça les
+  // cartes se fondent dans la page (retour Kevin, 9 septembre).
+  const card = 'relative overflow-hidden rounded-3xl border border-white/[0.14] bg-[#141414] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]'
   const kicker = 'text-xs font-bold uppercase tracking-wider text-empire'
   const title = 'mt-2 text-lg font-bold text-white'
   const desc = 'mt-1.5 text-sm leading-relaxed text-neutral-400'
@@ -407,7 +409,7 @@ export default function IncludedFeaturesSection() {
           transition={{ duration: 0.6 }}
           className="mx-auto max-w-3xl text-center"
         >
-          <p className="mb-3 text-xs font-bold uppercase tracking-widest text-empire">{fr ? 'Inclus' : 'Included'}</p>
+          <p className="mb-3 text-xs font-bold uppercase tracking-widest text-empire">{fr ? 'La formule · 5. La visibilité' : 'The formula · 5. Visibility'}</p>
           <h2 className="text-3xl font-extrabold leading-[1.1] text-white md:text-5xl">
             {fr ? 'Le contenu, c\'est la moitié. L\'autre moitié, c\'est savoir ce qu\'il rapporte.' : 'Content is half of it. The other half is knowing what it brings in.'}
           </h2>

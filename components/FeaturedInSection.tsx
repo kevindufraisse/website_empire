@@ -1,10 +1,10 @@
 'use client'
 
 /**
- * FeaturedInSection — bandeau "Vu dans / Featured in" avec les logos des
+ * FeaturedInSection - bandeau "Vu dans / Featured in" avec les logos des
  * médias/entreprises qui ont relayé Kevin. Port depuis
  * `empire-tracking/src/components/FeaturedInSection.tsx` : même liste, même
- * mapping slug → extension, mêmes tuiles blanches — pour qu'un prospect qui
+ * mapping slug → extension, mêmes tuiles blanches - pour qu'un prospect qui
  * enchaîne site vitrine → /join/empire voie exactement les mêmes logos et
  * ne se dise pas "c'est deux boîtes différentes".
  *
@@ -19,7 +19,7 @@ type Outlet = {
   name: string
   /**
    * Extension du fichier dans `/public/press/`. On stocke l'extension côté
-   * outlet plutôt que d'essayer plusieurs URLs — un 404 dans la console
+   * outlet plutôt que d'essayer plusieurs URLs - un 404 dans la console
    * pollue Network et donne l'impression que la page est cassée.
    * `null` = pas d'asset encore, on affiche le nom en texte.
    */

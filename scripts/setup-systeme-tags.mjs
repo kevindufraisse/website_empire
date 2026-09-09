@@ -50,14 +50,14 @@ async function api(path, init = {}) {
   let data
   try { data = text ? JSON.parse(text) : null } catch { data = text }
   if (!res.ok && res.status !== 422) {
-    throw new Error(`${res.status} ${res.statusText} on ${path} — ${text}`)
+    throw new Error(`${res.status} ${res.statusText} on ${path} - ${text}`)
   }
   return { status: res.status, data }
 }
 
 async function fetchAllTags() {
   // Systeme.io caps itemsPerPage server-side, so we can't infer "last page" from
-  // the item count — only an empty page reliably means we're done.
+  // the item count - only an empty page reliably means we're done.
   const byId = new Map()
   let page = 1
   while (page <= 50) {
@@ -92,7 +92,7 @@ async function createTag(name) {
   for (const t of TAGS) {
     const found = byName.get(t.name.toLowerCase())
     if (found?.id) {
-      console.log(`  ✓ ${t.name.padEnd(28)} (id ${found.id}) — already exists`)
+      console.log(`  ✓ ${t.name.padEnd(28)} (id ${found.id}) - already exists`)
       resolved.push({ ...t, id: found.id })
       continue
     }
@@ -105,22 +105,22 @@ async function createTag(name) {
         const all = await fetchAllTags()
         const refreshed = all.find(x => (x.name || '').toLowerCase() === t.name.toLowerCase())
         if (refreshed?.id) {
-          console.log(`  ✓ ${t.name.padEnd(28)} (id ${refreshed.id}) — created (race-resolved)`)
+          console.log(`  ✓ ${t.name.padEnd(28)} (id ${refreshed.id}) - created (race-resolved)`)
           resolved.push({ ...t, id: refreshed.id })
           continue
         }
-        console.log(`  ⚠ ${t.name.padEnd(28)} — 422: ${JSON.stringify(data)}`)
+        console.log(`  ⚠ ${t.name.padEnd(28)} - 422: ${JSON.stringify(data)}`)
         continue
       }
       const id = data?.id ?? data?.tag?.id
       if (!id) {
-        console.log(`  ⚠ ${t.name.padEnd(28)} — created but no id returned: ${JSON.stringify(data)}`)
+        console.log(`  ⚠ ${t.name.padEnd(28)} - created but no id returned: ${JSON.stringify(data)}`)
         continue
       }
-      console.log(`  + ${t.name.padEnd(28)} (id ${id}) — CREATED`)
+      console.log(`  + ${t.name.padEnd(28)} (id ${id}) - CREATED`)
       resolved.push({ ...t, id })
     } catch (err) {
-      console.log(`  ✗ ${t.name.padEnd(28)} — ${err.message}`)
+      console.log(`  ✗ ${t.name.padEnd(28)} - ${err.message}`)
     }
   }
 

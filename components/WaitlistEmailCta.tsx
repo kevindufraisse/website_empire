@@ -36,7 +36,7 @@ export default function WaitlistEmailCta({ className = '' }: Props) {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder={fr ? 'ton@email.com' : 'you@email.com'}
-          className="w-full min-w-0 flex-1 rounded-xl border border-white/15 bg-white/5 px-4 py-3.5 text-sm text-white placeholder:text-neutral-500 outline-none focus:border-empire/50"
+          className="w-full min-w-0 flex-1 rounded-xl border border-white/30 bg-white/[0.12] px-4 py-3.5 text-sm text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] placeholder:text-neutral-300 outline-none transition-colors focus:border-empire focus:bg-white/[0.16] focus:ring-2 focus:ring-empire/30"
         />
         <button
           type="submit"

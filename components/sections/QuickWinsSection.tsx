@@ -36,14 +36,14 @@ const COMPARISONS: ComparisonRow[] = [
     dimensionEn: 'Where and when',
     oldFr: 'Un bureau, une caméra, une après-midi bloquée',
     oldEn: 'A desk, a camera, a blocked afternoon',
-    newFr: 'Votre téléphone et vos écouteurs, en marchant',
-    newEn: 'Your phone and earphones, while walking',
+    newFr: 'Votre téléphone, dans un creux de la journée',
+    newEn: 'Your phone, in a gap of your day',
   },
   {
     dimensionFr: 'Temps investi',
     dimensionEn: 'Time investment',
     oldFr: '10 à 15 h par semaine minimum',
-    oldEn: '10–15h per week minimum',
+    oldEn: '10-15h per week minimum',
     newFr: '20 min par semaine, on gère le reste',
     newEn: '20 min per week, we handle the rest',
   },
@@ -102,6 +102,9 @@ export default function QuickWinsSection() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-center mb-12"
         >
+          <p className="mb-3 text-xs font-bold uppercase tracking-widest text-empire">
+            {fr ? 'La formule, appliquée' : 'The formula, applied'}
+          </p>
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
             {fr
               ? <>La façon la plus simple de trouver des clients <span className="text-empire">avec du contenu.</span></>

@@ -55,18 +55,18 @@ export default function TestimonialsSection() {
   if (autopilot) return null
 
   return (
-    <section ref={sectionRef} className="relative w-full py-20 md:py-32 overflow-hidden bg-gradient-to-b from-black via-[#0f0f0f] to-black">
+    <section ref={sectionRef} className="relative w-full py-14 md:py-20 overflow-hidden bg-gradient-to-b from-black via-[#0f0f0f] to-black">
       <DotPattern className="opacity-60" width={20} height={20} cr={1.5} />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgba(123,224,255,0.08),transparent)]" />
       <div className="container">
         <div className="max-w-6xl mx-auto relative z-10">
         {/* Title */}
         <FadeInBlock>
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold mb-4">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-extrabold mb-3">
               {t.testimonials.title}
             </h2>
-            <p className="text-xl text-neutral-300 max-w-2xl mx-auto">
+            <p className="text-base md:text-lg text-neutral-400 max-w-2xl mx-auto">
               {t.testimonials.subtitle}
             </p>
           </div>

@@ -27,7 +27,7 @@ export default function AcademyPage() {
       <AcademyTwoPathsSection />
       <AcademyCertificationSection />
       <AcademyProgramSection />
-      {/* Bandeau "Vu dans" — déplacé sous le programme (choix Kevin) : après
+      {/* Bandeau "Vu dans" - déplacé sous le programme (choix Kevin) : après
           que le prospect a vu ce qu'il achète, la crédibilité média
           enchaîne juste avant le mur de témoignages élèves. */}
       <section className="w-full bg-black py-10 sm:py-14">

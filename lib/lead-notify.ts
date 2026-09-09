@@ -19,7 +19,7 @@ export type LeadNotifyInput = {
   source?: string
   /** Skip Folk create (e.g. enrichment after a partial signup). */
   skipFolk?: boolean
-  /** Skip Make/Slack (enrichment only — avoids double pings). */
+  /** Skip Make/Slack (enrichment only - avoids double pings). */
   skipWebhook?: boolean
 }
 
@@ -81,9 +81,9 @@ export async function notifyLead(input: LeadNotifyInput): Promise<void> {
   const timestamp = new Date().toISOString()
   const fields = input.fields || {}
 
-  // Never ping Make/Slack without an email — avoids empty webhook bundles.
+  // Never ping Make/Slack without an email - avoids empty webhook bundles.
   if (!email) {
-    console.warn('[lead-notify] skip — missing email', { offer, source })
+    console.warn('[lead-notify] skip - missing email', { offer, source })
     return
   }
 

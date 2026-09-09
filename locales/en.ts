@@ -16,7 +16,7 @@ export const en = {
     targetAudience: '',
     title: 'From 0 to 1M views a month.',
     titleNote: '(no writing, no editing, no wondering what to say)',
-    subtitle: 'You talk for 20 minutes a week into your earphones. Our team spots the formats that get views, edits your videos, writes your posts, publishes on 7 networks, and tells you every week what worked.',
+    subtitle: 'You have something to say. You say it 20 minutes a week, on your phone, on camera or dictated. Our team puts it in the formats that get views, publishes it on 7 networks, and tells you every week what brought in clients.',
     description: '',
     cta1: 'Get access',
     cta2: 'Watch Demo (1 min)',
@@ -161,7 +161,7 @@ export const en = {
     specific: {
       howManyPosts: {
         question: 'How much content will I get?',
-        answer: 'Starter: you post every other day. Intermediate: every day. Expert: twice a day. Reels, LinkedIn, newsletter — you pick the mix. All 7 networks included.',
+        answer: 'Starter: you post every other day. Intermediate: every day. Expert: twice a day. Reels, LinkedIn, newsletter - you pick the mix. All 7 networks included.',
       },
       whatIfDontLike: {
         question: 'What if I don\'t know what to say?',
@@ -339,8 +339,8 @@ export const en = {
     subtitle: 'Not promises. Numbers shared by our clients.',
   },
   testimonials: {
-    title: 'What Creators Say',
-    subtitle: 'Real results from creators who joined Empire',
+    title: 'What creators say',
+    subtitle: 'They had the message. Here is what happened once the rest of the formula was in place.',
   },
   bentoGrid: {
     voiceContent: '3 formats to create content',
@@ -509,11 +509,11 @@ export const en = {
   faqFormats: {
     q1: {
       question: 'How does a video become a LinkedIn post or a newsletter?',
-      answer: 'We transcribe your video, then our team rewrites the content in your tone for each platform. A LinkedIn post doesn\'t read like a Reel script — after a year of R&D and hundreds of published pieces, we know how to adapt both substance and form. A human proofreads everything before publishing.',
+      answer: 'We transcribe your video, then our team rewrites the content in your tone for each platform. A LinkedIn post doesn\'t read like a Reel script - after a year of R&D and hundreds of published pieces, we know how to adapt both substance and form. A human proofreads everything before publishing.',
     },
     q2: {
       question: 'Do the carousels and posts actually look like me?',
-      answer: 'Yes, everything is customizable. Colors, fonts, logo, subtitle style (45 options), formal or informal tone — you set it all in the app. The team applies your brand to every piece of content. If something doesn\'t fit, we adjust.',
+      answer: 'Yes, everything is customizable. Colors, fonts, logo, subtitle style (45 options), formal or informal tone - you set it all in the app. The team applies your brand to every piece of content. If something doesn\'t fit, we adjust.',
     },
     q3: {
       question: 'How do I know if my content drives sales?',
@@ -521,7 +521,7 @@ export const en = {
     },
     q4: {
       question: 'What integrations are available?',
-      answer: 'Cal.com, Calendly and Tally to capture leads from your content. ManyChat to automate your DMs and WhatsApp replies. Stripe to tie sales back to posts. Systeme.io for your funnels, Substack for the newsletter, Skool for the community. And Telegram: send a voice note to the bot, the team turns it into a post, a carousel or a newsletter. Everything is connected — leads land directly in your CRM.',
+      answer: 'Cal.com, Calendly and Tally to capture leads from your content. ManyChat to automate your DMs and WhatsApp replies. Stripe to tie sales back to posts. Systeme.io for your funnels, Substack for the newsletter, Skool for the community. And Telegram: send a voice note to the bot, the team turns it into a post, a carousel or a newsletter. Everything is connected - leads land directly in your CRM.',
     },
     q5: {
       question: 'Is content published automatically on my accounts?',
@@ -533,7 +533,7 @@ export const en = {
     },
     q7: {
       question: 'Why send so many emails?',
-      answer: 'Email is the channel that converts best — far ahead of social media. We recommend one email a day via Substack, which is 100% free. Every video becomes a newsletter written in your tone. Your subscribers read, click and buy.',
+      answer: 'Email is the channel that converts best - far ahead of social media. We recommend one email a day via Substack, which is 100% free. Every video becomes a newsletter written in your tone. Your subscribers read, click and buy.',
     },
     q8: {
       question: 'Is there an API?',
@@ -555,7 +555,7 @@ export const en = {
     },
     {
       question: 'Which networks do you publish to?',
-      answer: 'LinkedIn, Instagram, TikTok, YouTube, X, Threads, Facebook. Newsletter on top. All 7 networks included — you pick which to turn on.',
+      answer: 'LinkedIn, Instagram, TikTok, YouTube, X, Threads, Facebook. Newsletter on top. All 7 networks included - you pick which to turn on.',
     },
     {
       question: 'Do I need to be comfortable on camera?',

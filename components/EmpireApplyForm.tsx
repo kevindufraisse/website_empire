@@ -217,7 +217,7 @@ export default function EmpireApplyForm() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder={fr ? 'ton@email.com' : 'you@email.com'}
-              className="w-full max-w-md mx-auto block rounded-xl border border-white/15 bg-neutral-900 px-4 py-3.5 text-sm text-white outline-none focus:border-empire/50"
+              className="w-full max-w-md mx-auto block rounded-xl border border-white/30 bg-white/[0.12] px-4 py-3.5 text-sm text-white placeholder:text-neutral-300 outline-none transition-colors focus:border-empire focus:ring-2 focus:ring-empire/30"
             />
             {error && <p className="text-sm text-red-400">{error}</p>}
             <button
@@ -379,7 +379,7 @@ export default function EmpireApplyForm() {
               <input
                 value={linkedin}
                 onChange={(e) => setLinkedin(e.target.value)}
-                className="w-full rounded-xl border border-white/10 bg-neutral-900 px-4 py-3 text-sm text-white outline-none focus:border-empire/50"
+                className="w-full rounded-xl border border-white/30 bg-white/[0.12] px-4 py-3 text-sm text-white placeholder:text-neutral-300 outline-none transition-colors focus:border-empire focus:ring-2 focus:ring-empire/30"
                 placeholder="linkedin.com/in/..."
               />
             </div>
@@ -388,7 +388,7 @@ export default function EmpireApplyForm() {
               <input
                 value={instagram}
                 onChange={(e) => setInstagram(e.target.value)}
-                className="w-full rounded-xl border border-white/10 bg-neutral-900 px-4 py-3 text-sm text-white outline-none focus:border-empire/50"
+                className="w-full rounded-xl border border-white/30 bg-white/[0.12] px-4 py-3 text-sm text-white placeholder:text-neutral-300 outline-none transition-colors focus:border-empire focus:ring-2 focus:ring-empire/30"
                 placeholder="@compte"
               />
             </div>
@@ -397,7 +397,7 @@ export default function EmpireApplyForm() {
               <input
                 value={youtube}
                 onChange={(e) => setYoutube(e.target.value)}
-                className="w-full rounded-xl border border-white/10 bg-neutral-900 px-4 py-3 text-sm text-white outline-none focus:border-empire/50"
+                className="w-full rounded-xl border border-white/30 bg-white/[0.12] px-4 py-3 text-sm text-white placeholder:text-neutral-300 outline-none transition-colors focus:border-empire focus:ring-2 focus:ring-empire/30"
                 placeholder="youtube.com/@..."
               />
             </div>
@@ -443,7 +443,7 @@ export default function EmpireApplyForm() {
                 required
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
-                className="w-full rounded-xl border border-white/10 bg-neutral-900 px-4 py-3 text-sm text-white outline-none focus:border-empire/50"
+                className="w-full rounded-xl border border-white/30 bg-white/[0.12] px-4 py-3 text-sm text-white placeholder:text-neutral-300 outline-none transition-colors focus:border-empire focus:ring-2 focus:ring-empire/30"
                 placeholder={fr ? 'Ton prénom' : 'Your first name'}
               />
             </div>
@@ -455,7 +455,7 @@ export default function EmpireApplyForm() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full rounded-xl border border-white/10 bg-neutral-900 px-4 py-3 text-sm text-white outline-none focus:border-empire/50"
+                className="w-full rounded-xl border border-white/30 bg-white/[0.12] px-4 py-3 text-sm text-white placeholder:text-neutral-300 outline-none transition-colors focus:border-empire focus:ring-2 focus:ring-empire/30"
               />
             </div>
 

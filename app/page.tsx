@@ -27,7 +27,6 @@ export default function Page() {
         </div>
       </section>
       <TopCreatorsSection />
-      <TestimonialsSection />
       {/* Les ancres `formula-*` pilotent la FormulaBar : chaque section révèle
           le terme de la formule qu'elle démontre, dans l'ordre de la formule
           (Message × Format × Diffusion ÷ Temps + Coût = Visibilité). C'est
@@ -42,6 +41,10 @@ export default function Page() {
       <div id="formula-diffusion">
         <RepurposingSection />
       </div>
+      {/* Témoignages clients ici et pas en haut (choix Kevin, 9 septembre) :
+          le début de page avance plus vite vers la formule, et la preuve
+          arrive une fois qu'on a vu ce que le produit fait. */}
+      <TestimonialsSection />
       <div id="formula-cost">
         <MobileAppSection />
       </div>

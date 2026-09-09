@@ -139,7 +139,7 @@ export const fr: Translations = {
     targetAudience: '',
     title: 'De 0 à 1M de vues par mois.',
     titleNote: '(sans écrire, sans monter, sans chercher quoi dire)',
-    subtitle: 'Vous parlez 20 minutes par semaine dans vos écouteurs. Notre équipe repère les formats qui font des vues, monte vos vidéos, écrit vos posts, publie sur 7 réseaux, et vous dit chaque semaine ce qui a marché.',
+    subtitle: 'Vous avez quelque chose à dire. Vous le dites 20 minutes par semaine, au téléphone, face caméra ou en dictée. Notre équipe le met dans les formats qui font des vues, le publie sur 7 réseaux, et vous dit chaque semaine ce qui a ramené des clients.',
     description: '',
     cta1: 'Recevoir un accès',
     cta2: 'Voir la Démo (1 min)',
@@ -284,7 +284,7 @@ export const fr: Translations = {
     specific: {
       howManyPosts: {
         question: 'Combien de contenus vais-je recevoir ?',
-        answer: 'Débutant : vous postez tous les 2 jours. Intermédiaire : tous les jours. Expert : 2 fois par jour. Reels, LinkedIn, newsletter — vous choisissez le mix. Les 7 réseaux sont inclus.',
+        answer: 'Débutant : vous postez tous les 2 jours. Intermédiaire : tous les jours. Expert : 2 fois par jour. Reels, LinkedIn, newsletter - vous choisissez le mix. Les 7 réseaux sont inclus.',
       },
       whatIfDontLike: {
         question: 'Et si je ne sais pas quoi dire ?',
@@ -462,8 +462,8 @@ export const fr: Translations = {
     subtitle: 'Pas des promesses. Des chiffres partagés par nos clients.',
   },
   testimonials: {
-    title: 'Ce Que Disent les Créateurs',
-    subtitle: 'Résultats réels de créateurs qui utilisent Empire',
+    title: 'Ce que disent les créateurs',
+    subtitle: 'Ils avaient le message. Voilà ce qui s\'est passé une fois le reste de la formule en place.',
   },
   bentoGrid: {
     voiceContent: '3 formats pour créer du contenu',
@@ -632,11 +632,11 @@ export const fr: Translations = {
   faqFormats: {
     q1: {
       question: 'Comment une vidéo devient un post LinkedIn ou une newsletter ?',
-      answer: 'On transcrit votre vidéo, puis notre équipe réécrit le contenu dans votre ton pour chaque plateforme. Un post LinkedIn ne se lit pas comme un script de Reel — après un an de R&D et des centaines de contenus publiés, on sait adapter le fond et la forme. Un humain relit tout avant publication.',
+      answer: 'On transcrit votre vidéo, puis notre équipe réécrit le contenu dans votre ton pour chaque plateforme. Un post LinkedIn ne se lit pas comme un script de Reel - après un an de R&D et des centaines de contenus publiés, on sait adapter le fond et la forme. Un humain relit tout avant publication.',
     },
     q2: {
       question: 'Est-ce que les carrousels et les posts me ressemblent ?',
-      answer: 'Oui, tout est personnalisable. Couleurs, typo, logo, style des sous-titres (45 options), tutoiement ou vouvoiement, ton de voix — vous paramétrez tout dans l\'app. L\'équipe applique votre charte à chaque contenu. Si quelque chose ne colle pas, on ajuste.',
+      answer: 'Oui, tout est personnalisable. Couleurs, typo, logo, style des sous-titres (45 options), tutoiement ou vouvoiement, ton de voix - vous paramétrez tout dans l\'app. L\'équipe applique votre charte à chaque contenu. Si quelque chose ne colle pas, on ajuste.',
     },
     q3: {
       question: 'Comment je sais si mon contenu génère des ventes ?',
@@ -644,7 +644,7 @@ export const fr: Translations = {
     },
     q4: {
       question: 'Quelles intégrations sont disponibles ?',
-      answer: 'Cal.com, Calendly et Tally pour capturer vos leads depuis les contenus. ManyChat pour automatiser vos DM et vos réponses WhatsApp. Stripe pour relier les ventes aux posts. Systeme.io pour vos tunnels, Substack pour la newsletter, Skool pour la communauté. Et Telegram : vous envoyez une note vocale au bot, l\'équipe en fait un post, un carrousel ou une newsletter. Tout est connecté — les leads arrivent directement dans votre CRM.',
+      answer: 'Cal.com, Calendly et Tally pour capturer vos leads depuis les contenus. ManyChat pour automatiser vos DM et vos réponses WhatsApp. Stripe pour relier les ventes aux posts. Systeme.io pour vos tunnels, Substack pour la newsletter, Skool pour la communauté. Et Telegram : vous envoyez une note vocale au bot, l\'équipe en fait un post, un carrousel ou une newsletter. Tout est connecté - les leads arrivent directement dans votre CRM.',
     },
     q5: {
       question: 'Est-ce que c\'est publié automatiquement sur mes réseaux ?',
@@ -656,7 +656,7 @@ export const fr: Translations = {
     },
     q7: {
       question: 'Pourquoi envoyer autant d\'emails ?',
-      answer: 'L\'email est le canal qui convertit le mieux — loin devant les réseaux sociaux. On recommande un email par jour via Substack, qui est 100 % gratuit. Chaque vidéo devient une newsletter écrite dans votre ton. Vos abonnés lisent, cliquent et achètent.',
+      answer: 'L\'email est le canal qui convertit le mieux - loin devant les réseaux sociaux. On recommande un email par jour via Substack, qui est 100 % gratuit. Chaque vidéo devient une newsletter écrite dans votre ton. Vos abonnés lisent, cliquent et achètent.',
     },
     q8: {
       question: 'Il y a une API ?',
@@ -678,7 +678,7 @@ export const fr: Translations = {
     },
     {
       question: 'Sur quels réseaux publiez-vous ?',
-      answer: 'LinkedIn, Instagram, TikTok, YouTube, X, Threads, Facebook. Newsletter en plus. Les 7 réseaux sont inclus — vous choisissez lesquels activer.',
+      answer: 'LinkedIn, Instagram, TikTok, YouTube, X, Threads, Facebook. Newsletter en plus. Les 7 réseaux sont inclus - vous choisissez lesquels activer.',
     },
     {
       question: 'Est-ce que je dois être à l\'aise en vidéo ?',

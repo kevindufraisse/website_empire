@@ -67,7 +67,7 @@ const getFAQs = (t: any, variant: string = 'all') => {
     fmtQ('q1', 'How does a video become a LinkedIn post or a newsletter?',
       'We transcribe your video, then our team rewrites the content in your tone for each platform. A human proofreads everything before publishing.'),
     fmtQ('q2', 'Do the carousels and posts actually look like me?',
-      'Yes, everything is customizable. Colors, fonts, logo, subtitle style (45 options), formal or informal tone — you set it all in the app.'),
+      'Yes, everything is customizable. Colors, fonts, logo, subtitle style (45 options), formal or informal tone - you set it all in the app.'),
     fmtQ('q6', 'Do you also create images for LinkedIn?',
       'Yes. Every LinkedIn post comes with a generated image. We also create carousels and thumbnails for YouTube and Instagram.'),
     fmtQ('q5', 'Is content published automatically on my accounts?',
@@ -76,11 +76,11 @@ const getFAQs = (t: any, variant: string = 'all') => {
     fmtQ('q3', 'How do I know if my content drives sales?',
       'Every link goes through our tracker (graab.me). You see clicks, signups and sales in real time.'),
     fmtQ('q4', 'What integrations are available?',
-      'Cal.com, Calendly, Tally, ManyChat, Substack, Skool, Systeme.io, Stripe — everything is connected. Plus Telegram voice notes to dictate content on the go.'),
+      'Cal.com, Calendly, Tally, ManyChat, Substack, Skool, Systeme.io, Stripe - everything is connected. Plus Telegram voice notes to dictate content on the go.'),
     fmtQ('q8', 'Is there an API?',
       'Yes. Send an MP4 or YouTube link via API, we return edited reels, written posts, carousels and thumbnails.'),
     fmtQ('q9', 'Can I review content before it goes out?',
-      'Yes. Every piece goes through your approval queue — you approve, edit or reject with one tap.'),
+      'Yes. Every piece goes through your approval queue - you approve, edit or reject with one tap.'),
     allFAQs[0], // Combien de temps dois-je investir ?
   ].filter(Boolean)
   
