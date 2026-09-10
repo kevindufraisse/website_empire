@@ -106,10 +106,28 @@ export default function HeroSection() {
             </motion.div>
           )}
 
+          {/* "Grâce à cette formule" + flèche courbée vers le pill */}
+          {!autopilot && (
+            <motion.div
+              initial={mounted ? { opacity: 0, y: 6 } : false}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="mt-5 flex flex-col items-center gap-1"
+            >
+              <span className="text-sm font-semibold text-neutral-300 sm:text-base">
+                {lang === 'fr' ? 'Grâce à cette formule' : 'Thanks to this formula'}
+              </span>
+              <svg width="32" height="28" viewBox="0 0 32 28" fill="none" className="text-empire">
+                <path d="M16 2 C10 2, 4 8, 8 16 C12 24, 20 22, 16 26" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+                <path d="M12 22 L16 27 L20 22" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+              </svg>
+            </motion.div>
+          )}
+
           {!autopilot && (
             <div
               id="formula-hero-slot"
-              className="mt-6 flex min-h-[80px] items-start justify-center sm:min-h-[76px]"
+              className="mt-1 flex min-h-[80px] items-start justify-center sm:min-h-[76px]"
             />
           )}
 

@@ -137,7 +137,7 @@ export const fr: Translations = {
   },
   hero: {
     targetAudience: '',
-    title: 'Personne ne vous connaît.<br/><span class="mt-3 block">Grâce à cette formule, dans 30 jours, tout votre marché vous aura vu.</span>',
+    title: 'Personne ne vous connaît.<br/><span class="mt-2 block">Dans 30 jours, tout votre marché vous aura vu.</span>',
     titleNote: '',
     subtitle: 'Notre équipe de viralité repère les formats qui explosent, les templatise pour vous et les duplique sur 7 plateformes. Sans écrire, sans monter, sans chercher quoi dire.',
     description: '',
