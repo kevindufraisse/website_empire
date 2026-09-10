@@ -106,29 +106,29 @@ export default function HeroSection() {
             </motion.div>
           )}
 
-          {/* "Grâce à cette formule" avec flèche manuscrite courbée */}
           {!autopilot && (
-            <motion.div
-              initial={mounted ? { opacity: 0, y: 6 } : false}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="mt-5 flex items-end justify-center gap-1.5"
-            >
-              <span className="text-sm italic text-neutral-400 sm:text-base">
-                {lang === 'fr' ? 'Grâce à cette formule' : 'Thanks to this formula'}
-              </span>
-              <svg width="24" height="32" viewBox="0 0 24 32" fill="none" className="-mb-1 text-empire">
-                <path d="M4 4 C6 12, 18 14, 14 22 C12 26, 12 28, 12 30" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" fill="none" strokeDasharray="2 3" />
-                <path d="M8 27 L12 31 L15 26" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-              </svg>
-            </motion.div>
-          )}
+            <div className="relative mt-6">
+              {/* "Grâce à cette formule" + flèche courbée sur le coin droit */}
+              <motion.div
+                initial={mounted ? { opacity: 0 } : false}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="absolute -right-2 -top-3 z-10 sm:right-4 md:right-8"
+              >
+                <span className="text-[11px] italic text-neutral-400 sm:text-xs">
+                  {lang === 'fr' ? 'Grâce à cette formule' : 'Thanks to this formula'}
+                </span>
+                <svg width="60" height="36" viewBox="0 0 60 36" fill="none" className="ml-2 text-empire">
+                  <path d="M56 2 C50 8, 30 10, 20 18 C14 23, 10 28, 10 34" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" fill="none" strokeDasharray="3 3" />
+                  <path d="M6 30 L10 35 L14 30" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                </svg>
+              </motion.div>
 
-          {!autopilot && (
-            <div
-              id="formula-hero-slot"
-              className="mt-1 flex min-h-[80px] items-start justify-center sm:min-h-[76px]"
-            />
+              <div
+                id="formula-hero-slot"
+                className="flex min-h-[80px] items-start justify-center sm:min-h-[76px]"
+              />
+            </div>
           )}
 
           {!autopilot && (
