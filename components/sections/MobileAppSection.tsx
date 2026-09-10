@@ -122,7 +122,7 @@ export default function MobileAppSection() {
               </svg>
               {fr ? 'Étape 4 · 1h par mois' : 'Step 4 · 1h a month'}
             </p>
-            <h2 className="text-3xl font-extrabold leading-[1.1] text-white md:text-5xl">
+            <h2 className="text-3xl font-extrabold leading-[1.15] text-white md:text-4xl">
               {fr ? 'Le contenu se tourne dans les creux de votre journée.' : 'Content gets shot in the gaps of your day.'}
             </h2>
             <p className="mt-5 text-base leading-relaxed text-neutral-400 md:text-lg">
