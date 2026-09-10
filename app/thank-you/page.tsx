@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { useEffect, useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { CheckCircle2, MessageCircle, Check, Phone } from 'lucide-react'
+import { CheckCircle2, Check, Phone } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import LoomEmbed from '@/components/LoomEmbed'
 
@@ -173,34 +173,6 @@ function ThankYouContent() {
                 </div>
               </div>
             </div>
-          </motion.div>
-
-          {/* WhatsApp Contact */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-            className="text-center"
-          >
-            <p className="text-neutral-400 mb-4">
-              {fr ? 'Une question en attendant l\'appel ?' : 'A question while you wait for the call?'}
-            </p>
-            <a
-              href="https://wa.me/33665427470"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 px-6 py-4 rounded-xl bg-[#25D366]/20 border border-[#25D366]/50 hover:bg-[#25D366]/30 transition-all group"
-            >
-              <div className="w-10 h-10 rounded-full bg-[#25D366] flex items-center justify-center">
-                <MessageCircle className="text-white" size={20} />
-              </div>
-              <div className="text-left">
-                <p className="text-white font-semibold group-hover:text-[#25D366] transition-colors">
-                  {fr ? 'Écrivez-nous sur WhatsApp' : 'Message us on WhatsApp'}
-                </p>
-                <p className="text-sm text-neutral-400">+33 6 65 42 74 70</p>
-              </div>
-            </a>
           </motion.div>
 
         </div>
