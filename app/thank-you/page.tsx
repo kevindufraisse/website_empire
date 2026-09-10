@@ -3,79 +3,16 @@
 import { motion } from 'framer-motion'
 import { useEffect, useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { CheckCircle2, MessageCircle, Check, Plus, Minus } from 'lucide-react'
+import { CheckCircle2, MessageCircle, Check, Phone } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import LoomEmbed from '@/components/LoomEmbed'
-
-const faqObjections = {
-  fr: [
-    {
-      q: "C'est cher / plus que ce que j'attendais",
-      a: "Si vous deviez embaucher un ghostwriter, un monteur vidéo et un community manager, c'est minimum 7 500€/mois. Empire fait tout ça. La question n'est pas le prix - c'est combien vaut un seul client dans votre business. Si Empire vous en amène un dans les 3 prochains mois, vous êtes à combien ?",
-    },
-    {
-      q: "C'est pas le bon moment",
-      a: "Ne pas publier de contenu, c'est comme ouvrir votre boutique une seule fois par semaine. Vos concurrents, eux, sont ouverts tous les jours. Chaque mois sans contenu, c'est des opportunités que vous laissez passer.",
-    },
-    {
-      q: "Je ne sais pas si mon secteur est compatible",
-      a: "Si personne dans votre secteur ne publie de contenu, c'est une opportunité, pas un problème. La place est vide. Le premier qui s'installe devient la référence par défaut. Empire a des clients dans des niches très spécifiques - loss prevention, expertise comptable, conseil en fusion-acquisition.",
-    },
-    {
-      q: "Je n'ai pas le temps",
-      a: "1h par semaine. On gère tout le reste : rédaction, montage, planification, publication. Vous avez le temps de passer un coup de fil ? Vous avez le temps pour Empire.",
-    },
-    {
-      q: "Mon contenu ne convertit pas, à quoi bon en faire plus ?",
-      a: "Le contenu seul ne convertit pas - c'est normal. Il faut un système derrière : un lien, une newsletter, un tunnel. C'est exactement ce que votre coach met en place avec vous. Le contenu attire. Le système convertit.",
-    },
-    {
-      q: "J'ai déjà investi dans un accompagnement et ça n'a rien donné",
-      a: "On comprend. La différence : Empire n'est pas un cours ou une formation. C'est une équipe qui produit votre contenu chaque semaine, avec un coach dédié. Si vous parlez, on publie. Pas de promesse vague - du contenu livré.",
-    },
-    {
-      q: "Il faut que j'en parle à mon associé",
-      a: "On peut organiser un appel à trois pour que votre associé pose ses questions directement. Pas besoin de porter le message seul - on préfère répondre nous-mêmes.",
-    },
-  ],
-  en: [
-    {
-      q: "It's too expensive / more than I expected",
-      a: "If you had to hire a ghostwriter, video editor, and community manager, that's at least €7,500/month. Empire does all of that. The question isn't the price - it's how much one client is worth in your business. If Empire brings you one in the next 3 months, what's that worth?",
-    },
-    {
-      q: "It's not the right time",
-      a: "Not publishing content is like opening your shop only once a week. Your competitors are open every day. Every month without content is opportunities you're leaving on the table.",
-    },
-    {
-      q: "I'm not sure my industry is compatible",
-      a: "If nobody in your industry publishes content, that's an opportunity, not a problem. The space is empty. The first one to show up becomes the default authority. Empire has clients in very specific niches - loss prevention, accounting, M&A consulting.",
-    },
-    {
-      q: "I don't have time",
-      a: "1 hour a week. We handle everything else: writing, editing, scheduling, publishing. If you have time for a phone call, you have time for Empire.",
-    },
-    {
-      q: "My content doesn't convert, why make more?",
-      a: "Content alone doesn't convert - that's normal. You need a system behind it: a link, a newsletter, a funnel. That's exactly what your coach sets up with you. Content attracts. The system converts.",
-    },
-    {
-      q: "I already invested in coaching and got nothing",
-      a: "We get it. The difference: Empire isn't a course or a program. It's a team that produces your content every week, with a dedicated coach. If you talk, we publish. No vague promises - content delivered.",
-    },
-    {
-      q: "I need to talk to my partner about it",
-      a: "We can set up a three-way call so your partner can ask questions directly. No need to carry the message alone - we'd rather answer ourselves.",
-    },
-  ],
-}
 
 function ThankYouContent() {
   const { lang } = useLanguage()
   const searchParams = useSearchParams()
   const fromWaitlist = searchParams.get('from') === 'waitlist'
   const [confirmed, setConfirmed] = useState(false)
-  const [openFaq, setOpenFaq] = useState<number | null>(null)
+  const fr = lang === 'fr'
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -112,29 +49,41 @@ function ThankYouContent() {
               className="text-3xl md:text-5xl font-bold text-white mb-3"
             >
               {fromWaitlist
-                ? lang === 'fr'
-                  ? 'Candidature reçue'
-                  : 'Application received'
-                : lang === 'fr'
+                ? fr
+                  ? 'C\'est bien reçu !'
+                  : 'Got it!'
+                : fr
                   ? 'Rendez-vous confirmé !'
                   : 'Appointment confirmed!'}
             </motion.h1>
+          </div>
 
-            <motion.p
+          {/* Le message principal : on appelle dans un instant */}
+          {fromWaitlist && (
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="text-lg text-neutral-300"
+              className="mb-10"
             >
-              {fromWaitlist
-                ? lang === 'fr'
-                  ? 'On lit chaque candidature. En attendant, regarde le système 👇'
-                  : 'We read every application. Meanwhile, watch the system 👇'
-                : lang === 'fr'
-                  ? 'En attendant, découvrez comment Empire fonctionne 👇'
-                  : 'In the meantime, discover how Empire works 👇'}
-            </motion.p>
-          </div>
+              <div className="flex items-start gap-4 rounded-2xl border border-empire/40 bg-empire/[0.08] p-5 md:p-6">
+                <span className="relative mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-empire text-black">
+                  <span aria-hidden className="absolute inset-0 animate-ping rounded-full bg-empire opacity-30 [animation-duration:1.8s]" />
+                  <Phone size={20} className="relative" />
+                </span>
+                <div>
+                  <p className="text-lg font-bold text-white md:text-xl">
+                    {fr ? 'On vous contacte dans un instant.' : 'We will contact you in a moment.'}
+                  </p>
+                  <p className="mt-1 text-sm leading-relaxed text-neutral-300 md:text-base">
+                    {fr
+                      ? 'Restez disponible par téléphone : un membre de l\'équipe vous appelle pour vous ouvrir l\'accès.'
+                      : 'Stay available by phone: a team member will call you to open your access.'}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          )}
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -142,6 +91,9 @@ function ThankYouContent() {
             transition={{ delay: 0.35 }}
             className="mb-8"
           >
+            <p className="mb-3 text-center text-sm text-neutral-400">
+              {fr ? 'En attendant l\'appel, regardez le système 👇' : 'While you wait for the call, watch the system 👇'}
+            </p>
             <LoomEmbed title="Empire - le système" />
             <div className="text-center mt-2">
               <a
@@ -150,7 +102,7 @@ function ThankYouContent() {
                 rel="noopener noreferrer"
                 className="text-xs text-neutral-400 hover:text-empire transition-colors"
               >
-                {lang === 'fr' ? 'Ouvrir dans une nouvelle fenêtre →' : 'Open in a new window →'}
+                {fr ? 'Ouvrir dans une nouvelle fenêtre →' : 'Open in a new window →'}
               </a>
             </div>
           </motion.div>
@@ -174,16 +126,16 @@ function ThankYouContent() {
               {confirmed ? (
                 <>
                   <Check size={24} />
-                  {lang === 'fr' ? 'Confirmé ✓' : 'Confirmed ✓'}
+                  {fr ? 'Confirmé ✓' : 'Confirmed ✓'}
                 </>
               ) : (
-                lang === 'fr' ? 'Confirmer mon rendez-vous' : 'Confirm my appointment'
+                fr ? 'Confirmer mon rendez-vous' : 'Confirm my appointment'
               )}
             </button>
           </motion.div>
           )}
 
-          {/* How it works - compact */}
+          {/* Comment ça marche - aligné sur la formule actuelle */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -192,77 +144,33 @@ function ThankYouContent() {
           >
             <div className="p-5 md:p-6 rounded-2xl bg-white/5 border border-white/10">
               <h2 className="text-lg md:text-xl font-bold text-white mb-4">
-                {lang === 'fr' ? 'Comment ça marche' : 'How it works'}
+                {fr ? 'Comment ça marche' : 'How it works'}
               </h2>
               <div className="space-y-3">
                 <div className="flex items-start gap-3">
                   <span className="w-7 h-7 rounded-lg bg-empire/20 flex items-center justify-center text-empire font-bold text-sm shrink-0">1</span>
                   <p className="text-sm text-neutral-300">
-                    {lang === 'fr'
-                      ? 'Vous faites une interview par semaine avec votre coach. Pas de script, pas de préparation.'
-                      : 'You do one interview per week with your coach. No script, no preparation.'}
+                    {fr
+                      ? 'Vous parlez 20 minutes par semaine depuis l\'app : interview guidée, face caméra ou dictée sans caméra.'
+                      : 'You talk 20 minutes a week from the app: guided interview, on camera or dictation without a camera.'}
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
                   <span className="w-7 h-7 rounded-lg bg-empire/20 flex items-center justify-center text-empire font-bold text-sm shrink-0">2</span>
                   <p className="text-sm text-neutral-300">
-                    {lang === 'fr'
-                      ? 'Notre équipe rédige vos posts, monte vos vidéos, structure vos newsletters.'
-                      : 'Our team writes your posts, edits your videos, structures your newsletters.'}
+                    {fr
+                      ? 'Notre équipe fait le montage, rédige vos posts et votre newsletter. Un humain relit chaque texte.'
+                      : 'Our team edits, writes your posts and your newsletter. A human proofreads every text.'}
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
                   <span className="w-7 h-7 rounded-lg bg-empire/20 flex items-center justify-center text-empire font-bold text-sm shrink-0">3</span>
                   <p className="text-sm text-neutral-300">
-                    {lang === 'fr'
-                      ? 'Publié tous les jours sur 6 plateformes : LinkedIn, YouTube, Instagram, X, Threads, newsletter. Vous validez, on publie.'
-                      : 'Published daily on 6 platforms: LinkedIn, YouTube, Instagram, X, Threads, newsletter. You approve, we publish.'}
+                    {fr
+                      ? 'Publié sur 7 réseaux + newsletter : LinkedIn, YouTube, Instagram, TikTok, X, Threads, Facebook. Chaque lien est tracké jusqu\'au client.'
+                      : 'Published on 7 networks + newsletter: LinkedIn, YouTube, Instagram, TikTok, X, Threads, Facebook. Every link is tracked down to the client.'}
                   </p>
                 </div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* FAQ Objections */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.55 }}
-            className="mb-10"
-          >
-            <div className="p-6 md:p-8 rounded-2xl bg-white/5 border border-white/10">
-              <h2 className="text-xl md:text-2xl font-bold text-white mb-2">
-                {lang === 'fr' ? 'Questions fréquentes' : 'Frequently Asked Questions'}
-              </h2>
-              <p className="text-neutral-400 text-sm mb-6">
-                {lang === 'fr'
-                  ? 'Ce que nos prospects demandent le plus souvent avant de démarrer.'
-                  : 'What our prospects ask most often before getting started.'}
-              </p>
-              <div className="space-y-2">
-                {(lang === 'fr' ? faqObjections.fr : faqObjections.en).map((item, i) => (
-                  <div
-                    key={i}
-                    className="rounded-xl border border-white/10 overflow-hidden transition-colors hover:border-empire/30"
-                  >
-                    <button
-                      onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                      className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left"
-                    >
-                      <span className="text-white font-medium text-sm md:text-base">{item.q}</span>
-                      {openFaq === i ? (
-                        <Minus className="text-empire shrink-0" size={18} />
-                      ) : (
-                        <Plus className="text-neutral-500 shrink-0" size={18} />
-                      )}
-                    </button>
-                    {openFaq === i && (
-                      <div className="px-5 pb-4">
-                        <p className="text-neutral-300 text-sm leading-relaxed">{item.a}</p>
-                      </div>
-                    )}
-                  </div>
-                ))}
               </div>
             </div>
           </motion.div>
@@ -275,7 +183,7 @@ function ThankYouContent() {
             className="text-center"
           >
             <p className="text-neutral-400 mb-4">
-              {lang === 'fr' ? 'Des questions avant le rendez-vous ?' : 'Questions before the meeting?'}
+              {fr ? 'Une question en attendant l\'appel ?' : 'A question while you wait for the call?'}
             </p>
             <a
               href="https://wa.me/33665427470"
@@ -288,7 +196,7 @@ function ThankYouContent() {
               </div>
               <div className="text-left">
                 <p className="text-white font-semibold group-hover:text-[#25D366] transition-colors">
-                  {lang === 'fr' ? 'Contactez-nous sur WhatsApp' : 'Contact us on WhatsApp'}
+                  {fr ? 'Écrivez-nous sur WhatsApp' : 'Message us on WhatsApp'}
                 </p>
                 <p className="text-sm text-neutral-400">+33 6 65 42 74 70</p>
               </div>
