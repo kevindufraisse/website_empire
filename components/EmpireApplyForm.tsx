@@ -77,8 +77,8 @@ export default function EmpireApplyForm() {
           </h2>
           <p className="mt-2 text-sm text-neutral-400">
             {fr
-              ? 'Testez gratuitement. On vous contacte pour vous proposer la meilleure offre.'
-              : 'Try it free. We\'ll reach out with the best offer for you.'}
+              ? 'Testez gratuitement.'
+              : 'Try it free.'}
           </p>
         </div>
 
