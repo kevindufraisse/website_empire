@@ -85,12 +85,33 @@ export default function HeroSection() {
             </motion.p>
           )}
 
+          {/* Logos réseaux, juste sous le titre */}
+          {!autopilot && (
+            <motion.div
+              initial={mounted ? { opacity: 0 } : false}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="mt-5 flex items-center justify-center gap-2"
+            >
+              <span className="text-[11px] text-neutral-500">{lang === 'fr' ? 'Adapté pour' : 'Adapted for'}</span>
+              <div className="flex items-center gap-3 text-neutral-400 [&_path]:fill-current [&_circle]:fill-current">
+                <SocialIcons.linkedin />
+                <SocialIcons.youtube />
+                <SocialIcons.instagram />
+                <SocialIcons.newsletter />
+                <SocialIcons.twitter />
+                <SocialIcons.threads />
+                <SocialIcons.facebook />
+              </div>
+            </motion.div>
+          )}
+
           {/* La formule, en mode secret : `FormulaBar` se rend ici (portal)
               tant qu'on est dans le hero, tout flou, puis file en bas de
               l'écran au scroll et se révèle section par section. La hauteur
               est réservée pour que le hero ne saute pas quand elle part. */}
           {!autopilot && (
-            <div className="relative mx-auto mt-12 w-fit max-w-full">
+            <div className="relative mx-auto mt-14 w-fit max-w-full">
               {/* Annotation manuscrite en coin haut-gauche : le tampon SECRET
                   occupe le coin droit, le texte + la flèche vivent à gauche. */}
               <motion.div
@@ -131,27 +152,6 @@ export default function HeroSection() {
               ))}
             </motion.div>
           )}
-
-          {!autopilot && (
-            <motion.div
-              initial={mounted ? { opacity: 0 } : false}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.25 }}
-              className="mt-3 flex items-center justify-center gap-2"
-            >
-              <span className="text-[11px] text-neutral-500">{lang === 'fr' ? 'Adapté pour' : 'Adapted for'}</span>
-              <div className="flex items-center gap-3 text-neutral-400 [&_path]:fill-current [&_circle]:fill-current">
-                <SocialIcons.linkedin />
-                <SocialIcons.youtube />
-                <SocialIcons.instagram />
-                <SocialIcons.newsletter />
-                <SocialIcons.twitter />
-                <SocialIcons.threads />
-                <SocialIcons.facebook />
-              </div>
-            </motion.div>
-          )}
-
 
           {/* Subtitle */}
           {heroSubtitle && (
