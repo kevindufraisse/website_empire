@@ -13,6 +13,7 @@ export async function POST(request: Request) {
     const body = await request.json()
     const {
       firstName,
+      lastName,
       email,
       phone,
       frequency,
@@ -26,22 +27,23 @@ export async function POST(request: Request) {
       lang,
     } = body
 
-    if (!firstName || !email || !phone || !frequency || !contentSkill) {
+    if (!firstName || !email || !phone) {
       return NextResponse.json({ error: 'Missing fields' }, { status: 400 })
     }
 
     const networksList = Array.isArray(networks) ? networks.join(', ') : String(networks || '')
+    const fullName = [firstName, lastName].filter(Boolean).join(' ').trim()
 
     await notifyLead({
       offer: 'empire',
-      firstName: String(firstName).trim(),
+      firstName: fullName,
       email: String(email).trim(),
       phone: String(phone).trim(),
       source: 'website-empire-apply',
       fields: {
-        frequency,
+        frequency: frequency || '',
         contentStats: contentStats || '',
-        contentSkill,
+        contentSkill: contentSkill || '',
         networks: networksList,
         linkedin: linkedin || '',
         instagram: instagram || '',
@@ -50,10 +52,10 @@ export async function POST(request: Request) {
         auditBonus: '15min',
       },
       noteLines: [
-        `- **Frequence publication:** ${frequency}`,
-        `- **Stats / mois:** ${contentStats || 'n/a'}`,
-        `- **A l'aise contenu:** ${contentSkill}`,
-        `- **Reseaux:** ${networksList || 'n/a'}`,
+        frequency ? `- **Frequence publication:** ${frequency}` : '',
+        contentStats ? `- **Stats / mois:** ${contentStats}` : '',
+        contentSkill ? `- **A l'aise contenu:** ${contentSkill}` : '',
+        networksList ? `- **Reseaux:** ${networksList}` : '',
         linkedin ? `- **LinkedIn:** ${linkedin}` : '',
         instagram ? `- **Instagram:** ${instagram}` : '',
         youtube ? `- **YouTube:** ${youtube}` : '',
@@ -64,15 +66,15 @@ export async function POST(request: Request) {
 
     await startWaSetterConversation({
       phone: String(phone).trim(),
-      firstName: String(firstName).trim(),
+      firstName: fullName,
       source: 'website-empire-apply',
       lang: typeof lang === 'string' ? lang : 'fr',
       lead: {
         email: String(email).trim(),
-        frequency: labelFrequency(frequency),
-        contentStats: labelStats(contentStats),
-        contentSkill: labelSkill(contentSkill),
-        networks: labelNetworks(networks),
+        frequency: frequency ? labelFrequency(frequency) : '',
+        contentStats: contentStats ? labelStats(contentStats) : '',
+        contentSkill: contentSkill ? labelSkill(contentSkill) : '',
+        networks: networks ? labelNetworks(networks) : '',
         linkedin,
         instagram,
         youtube,
@@ -86,13 +88,13 @@ export async function POST(request: Request) {
     if (wahaUrl && notifyPhone) {
       const message =
         `📩 EMPIRE candidature\n\n` +
-        `👤 ${firstName}\n` +
+        `👤 ${fullName}\n` +
         `📧 ${email}\n` +
         `📱 ${phone}\n` +
-        `📡 Fréquence: ${frequency}\n` +
-        `📊 Stats: ${contentStats || 'n/a'}\n` +
-        `🎬 Contenu: ${contentSkill}\n` +
-        `🌐 Réseaux: ${networksList || 'n/a'}\n` +
+        (frequency ? `📡 Fréquence: ${frequency}\n` : '') +
+        (contentStats ? `📊 Stats: ${contentStats}\n` : '') +
+        (contentSkill ? `🎬 Contenu: ${contentSkill}\n` : '') +
+        (networksList ? `🌐 Réseaux: ${networksList}\n` : '') +
         (linkedin ? `🔗 LinkedIn: ${linkedin}\n` : '') +
         (instagram ? `📸 IG: ${instagram}\n` : '') +
         (youtube ? `▶️ YT: ${youtube}\n` : '') +

@@ -34,7 +34,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ChevronsDown } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 
@@ -306,7 +305,7 @@ export default function FormulaBar() {
         />
       )}
 
-      <div className="relative flex items-center gap-2.5 px-3.5 py-2 text-[11px] sm:gap-3.5 sm:px-5 sm:py-2.5 sm:text-sm">
+      <div className="relative flex items-center gap-2.5 px-4 py-2.5 text-xs sm:gap-3.5 sm:px-6 sm:py-3 sm:text-base">
         {/* Fraction */}
         <div className="flex flex-col items-center leading-none">
           <div className="flex items-center whitespace-nowrap">
@@ -357,52 +356,32 @@ export default function FormulaBar() {
     </motion.div>
   )
 
-  // Dans le hero : étiquette « confidentiel », la pilule toute floue, et un
-  // vrai bouton de scroll dessous - le texte seul ne se voyait pas.
+  // Dans le hero : la pilule toute floue avec le tampon SECRET.
   if (mode === 'docked' && slot) {
     const stillSecret = revealed.size < FORMULA_TERMS.length
-    return createPortal(
-      <div className="flex flex-col items-center">
-        <div className="relative">
-          {pill}
-          {/* Tampon « SECRET » posé de travers sur le coin de la vitre, tant
-              que la formule n'est pas entièrement révélée. */}
-          {stillSecret && (
-            <motion.span
-              aria-hidden
-              initial={{ opacity: 0, scale: 1.6, rotate: -14 }}
-              animate={{ opacity: 1, scale: 1, rotate: -10 }}
-              transition={{ duration: 0.35, delay: 0.5, ease: [0.2, 1.2, 0.4, 1] }}
-              className="pointer-events-none absolute -right-3 -top-3 select-none rounded-[3px] border-[2.5px] border-red-500 px-1.5 py-0.5 font-mono text-[11px] font-black uppercase tracking-[0.22em] text-red-500 shadow-[0_0_18px_-4px_rgba(239,68,68,0.6)] mix-blend-screen sm:-right-4 sm:text-xs"
-            >
-              Secret
-            </motion.span>
-          )}
-        </div>
+    return (
+      <>
+        {createPortal(
+          <div className="flex flex-col items-center">
+            <div className="relative">
+              {pill}
+              {stillSecret && (
+                <motion.span
+                  aria-hidden
+                  initial={{ opacity: 0, scale: 1.6, rotate: -14 }}
+                  animate={{ opacity: 1, scale: 1, rotate: -10 }}
+                  transition={{ duration: 0.35, delay: 0.5, ease: [0.2, 1.2, 0.4, 1] }}
+                  className="pointer-events-none absolute -right-3 -top-3 select-none rounded-[3px] border-[2.5px] border-red-500 px-1.5 py-0.5 font-mono text-[11px] font-black uppercase tracking-[0.22em] text-red-500 shadow-[0_0_18px_-4px_rgba(239,68,68,0.6)] mix-blend-screen sm:-right-4 sm:text-xs"
+                >
+                  Secret
+                </motion.span>
+              )}
+            </div>
+          </div>,
+          slot,
+        )}
 
-        <motion.button
-          type="button"
-          onClick={() => scrollToTerm(term('message'))}
-          initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.5 }}
-          className="group mt-4 flex items-center gap-3 rounded-full border border-white/15 bg-white/[0.05] py-1.5 pl-1.5 pr-4 text-sm font-semibold text-white backdrop-blur-md transition-colors hover:border-empire/40 hover:bg-white/[0.08]"
-        >
-          <span className="relative grid h-8 w-8 shrink-0 place-items-center rounded-full bg-empire text-black">
-            <span aria-hidden className="absolute inset-0 animate-ping rounded-full bg-empire opacity-30 [animation-duration:1.8s]" />
-            <motion.span
-              aria-hidden
-              animate={{ y: [0, 3, 0] }}
-              transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
-              className="relative flex"
-            >
-              <ChevronsDown size={16} strokeWidth={2.5} />
-            </motion.span>
-          </span>
-          {fr ? 'Scrollez pour découvrir la formule à 1M de vues par mois' : 'Scroll to uncover the formula behind 1M views a month'}
-        </motion.button>
-      </div>,
-      slot,
+      </>
     )
   }
 

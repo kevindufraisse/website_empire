@@ -125,14 +125,6 @@ export default function Header() {
               )}
               {!isPartnersPage && (
                 <>
-                  <button
-                    type="button"
-                    onClick={() => window.dispatchEvent(new Event('open-offer-quiz'))}
-                    className="hidden lg:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-white/15 bg-white/5 text-[13px] font-semibold text-white hover:bg-white/10 hover:border-white/25 transition-all"
-                  >
-                    <span className="text-[#DAFC68] text-[11px]">✦</span>
-                    {fr ? 'Quelle offre pour vous ?' : 'Which offer for you?'}
-                  </button>
                   <a
                     href="https://join.empire-internet.com/masterclass-empire-internet"
                     target="_blank"
@@ -184,20 +176,12 @@ export default function Header() {
                     transition={{ delay: 0.1 }}
                     className="flex gap-3"
                   >
-                    <button
-                      type="button"
-                      onClick={() => { setIsMenuOpen(false); window.dispatchEvent(new Event('open-offer-quiz')) }}
-                      className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-white/15 bg-white/5 text-sm font-semibold text-white"
-                    >
-                      <span className="text-[#DAFC68] text-xs">✦</span>
-                      {fr ? 'Quelle offre pour vous ?' : 'Which offer for you?'}
-                    </button>
                     <a
                       href="https://join.empire-internet.com/masterclass-empire-internet"
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => setIsMenuOpen(false)}
-                      className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-[#DAFC68]/15 border border-[#DAFC68]/30 text-sm font-semibold text-[#DAFC68]"
+                      className="flex items-center justify-center gap-2 py-3 rounded-xl bg-[#DAFC68]/15 border border-[#DAFC68]/30 text-sm font-semibold text-[#DAFC68] w-full"
                     >
                       <span className="text-xs">▶</span>
                       {fr ? 'Webinar · lundi 12h' : 'Webinar · Mon 12pm'}

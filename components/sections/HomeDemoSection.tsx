@@ -28,17 +28,17 @@ export default function HomeDemoSection() {
           className="mx-auto mb-12 max-w-3xl text-center md:mb-16"
         >
           <p className="mb-3 text-xs font-bold uppercase tracking-widest text-empire">
-            {lang === 'fr' ? 'La formule · 1. Le message' : 'The formula · 1. The message'}
+            {lang === 'fr' ? 'Étape 1 · Votre message' : 'Step 1 · Your message'}
           </p>
           <h2 className="text-3xl font-extrabold leading-[1.1] text-white md:text-5xl">
             {lang === 'fr'
-              ? 'Votre message ne se voit pas parce qu\'il ne parle pas le langage des réseaux.'
-              : 'Nobody sees your message because it doesn\'t speak the networks\' language.'}
+              ? 'Vous avez déjà quelque chose à dire. Chaque réseau a son propre langage.'
+              : 'You already have something to say. Each network has its own language.'}
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-neutral-400 md:text-lg">
             {lang === 'fr'
-              ? 'Vous avez déjà des choses à dire. Le problème, c\'est que chaque réseau a son langage, et qu\'il n\'écoute que ceux qui le parlent. Notre travail : traduire.'
-              : 'You already have things to say. The problem is that each network has its own language, and only listens to those who speak it. Our job: translate.'}
+              ? 'Notre mission : traduire votre message pour que chaque plateforme l\'écoute.'
+              : 'Our mission: translate your message so every platform listens.'}
           </p>
         </motion.div>
 
@@ -50,20 +50,11 @@ export default function HomeDemoSection() {
         >
           {/* À la place d'une démo produit : le message dit à voix haute, et
               ce qu'il devient. C'est le terme 1 de la formule, montré. */}
-          <p className="mb-2 text-center text-lg font-semibold text-white md:text-xl">
-            {lang === 'fr' ? 'Vous parlez. On traduit pour chaque réseau.' : 'You talk. We translate for each network.'}
+          <p className="mb-5 text-center text-base text-neutral-400 md:text-lg">
+            {lang === 'fr'
+              ? 'Le même message peut faire 100 vues ou 1 million. La différence, c\'est comment vous le dites.'
+              : 'The same message can get 100 views or 1 million. The difference is how you say it.'}
           </p>
-          <div className="mb-6 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[11px] font-semibold uppercase tracking-wider text-neutral-500 sm:text-xs">
-            {(lang === 'fr'
-              ? ['1 idée', '1 contenu', '10+ contenus', 'Tous vos réseaux']
-              : ['1 idea', '1 piece', '10+ pieces', 'Every network']
-            ).map((step, i, arr) => (
-              <span key={step} className="inline-flex items-center gap-2">
-                <span className={i === arr.length - 1 ? 'text-empire' : 'text-neutral-300'}>{step}</span>
-                {i < arr.length - 1 && <span className="text-neutral-600">→</span>}
-              </span>
-            ))}
-          </div>
           <VoiceToContentAnimation />
         </motion.div>
       </div>

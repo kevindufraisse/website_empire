@@ -14,8 +14,8 @@ export const en = {
   },
   hero: {
     targetAudience: '',
-    title: 'Nobody knows you. In 30 days, your whole market will have seen you.',
-    titleNote: 'The formula that takes 20 minutes of your week and turns them into 1M+ views a month across 7 networks.',
+    title: 'Nobody knows you.<br/><span class="mt-3 block">With this formula, in 30 days, your whole market will have seen you.</span>',
+    titleNote: '',
     subtitle: 'Our virality team spots the formats that blow up, templates them for you and duplicates them across 7 platforms. No writing, no editing, no wondering what to say.',
     description: '',
     cta1: 'Get access',

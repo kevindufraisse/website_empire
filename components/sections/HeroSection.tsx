@@ -89,20 +89,29 @@ export default function HeroSection() {
               tant qu'on est dans le hero, tout flou, puis file en bas de
               l'écran au scroll et se révèle section par section. La hauteur
               est réservée pour que le hero ne saute pas quand elle part. */}
-          {!autopilot && (
-            <div
-              id="formula-hero-slot"
-              className="mt-6 flex min-h-[132px] items-start justify-center sm:min-h-[128px]"
-            />
-          )}
-
-          {/* Platform logos strip - right under the title */}
+          {/* Bénéfices en glass, discret */}
           {!autopilot && (
             <motion.div
-              initial={mounted ? { opacity: 0, y: 10 } : false}
+              initial={mounted ? { opacity: 0, y: 8 } : false}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.15 }}
-              className="mt-5 flex items-center justify-center gap-2"
+              transition={{ duration: 0.5, delay: 0.15 }}
+              className="mt-5 flex flex-wrap items-center justify-center gap-3 text-[11px] font-semibold text-neutral-400 sm:text-xs"
+            >
+              {(lang === 'fr'
+                ? ['1 an de R&D', '10 000+ posts testés', '1M de vues garanties']
+                : ['1 year of R&D', '10,000+ posts tested', '1M views guaranteed']
+              ).map((item) => (
+                <span key={item} className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 backdrop-blur-sm">{item}</span>
+              ))}
+            </motion.div>
+          )}
+
+          {!autopilot && (
+            <motion.div
+              initial={mounted ? { opacity: 0 } : false}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.25 }}
+              className="mt-3 flex items-center justify-center gap-2"
             >
               <span className="text-[11px] text-neutral-500">{lang === 'fr' ? 'Adapté pour' : 'Adapted for'}</span>
               <div className="flex items-center gap-3 text-neutral-400 [&_path]:fill-current [&_circle]:fill-current">
@@ -116,6 +125,14 @@ export default function HeroSection() {
               </div>
             </motion.div>
           )}
+
+          {!autopilot && (
+            <div
+              id="formula-hero-slot"
+              className="mt-5 flex min-h-[80px] items-start justify-center sm:min-h-[76px]"
+            />
+          )}
+
 
           {/* Subtitle */}
           {heroSubtitle && (
@@ -182,8 +199,8 @@ export default function HeroSection() {
                 </div>
                 <span className="text-[11px] sm:text-xs text-neutral-300 text-left leading-snug">
                   {lang === 'fr'
-                    ? <>Les formats qui les ont fait exploser, <span className="text-neutral-500">prêts à filmer pour vous.</span></>
-                    : <>The formats that made them blow up, <span className="text-neutral-500">ready for you to shoot.</span></>}
+                    ? <>Ils utilisent cette formule. <span className="text-neutral-500">Prête à utiliser pour vous.</span></>
+                    : <>They use this formula. <span className="text-neutral-500">Ready for you.</span></>}
                 </span>
               </div>
             </div>
@@ -193,8 +210,61 @@ export default function HeroSection() {
               « Message » (HomeDemoSection), à la place de la vidéo. */}
         </div>
         </div>
+
       </section>
 
+      {/* Flèche flottante en bas de l'écran — disparaît au scroll */}
+      {!autopilot && <ScrollDownArrow lang={lang} />}
     </>
+  )
+}
+
+function ScrollDownArrow({ lang }: { lang: string }) {
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const slot = document.getElementById('formula-hero-slot')
+    const onScroll = () => {
+      if (slot) {
+        setVisible(slot.getBoundingClientRect().top > 96)
+      } else {
+        const main = document.querySelector('main')
+        const scrolled = main ? -main.getBoundingClientRect().top : 0
+        setVisible(scrolled < 80)
+      }
+    }
+    const t = setTimeout(onScroll, 600)
+    document.addEventListener('scroll', onScroll, { passive: true, capture: true })
+    return () => {
+      clearTimeout(t)
+      document.removeEventListener('scroll', onScroll, { capture: true })
+    }
+  }, [])
+
+  return (
+    <AnimatePresence>
+      {visible && (
+        <motion.button
+          key="scroll-arrow"
+          type="button"
+          onClick={() => document.getElementById('formula-message')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0, y: 10 }}
+          transition={{ duration: 0.4 }}
+          className="fixed inset-x-0 bottom-20 z-[60] mx-auto flex w-fit flex-col items-center gap-0.5 sm:bottom-8"
+        >
+          <motion.span
+            aria-hidden
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+            className="flex flex-col items-center text-empire drop-shadow-[0_0_12px_rgb(var(--empire-rgb)_/_0.7)]"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6 6-6" /></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="-mt-2.5 opacity-50"><path d="M6 9l6 6 6-6" /></svg>
+          </motion.span>
+        </motion.button>
+      )}
+    </AnimatePresence>
   )
 }

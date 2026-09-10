@@ -409,9 +409,9 @@ export default function IncludedFeaturesSection() {
           transition={{ duration: 0.6 }}
           className="mx-auto max-w-3xl text-center"
         >
-          <p className="mb-3 text-xs font-bold uppercase tracking-widest text-empire">{fr ? 'La formule · 6. La visibilité' : 'The formula · 6. Visibility'}</p>
+          <p className="mb-3 text-xs font-bold uppercase tracking-widest text-empire">{fr ? 'Étape 6 · Les résultats' : 'Step 6 · The results'}</p>
           <h2 className="text-3xl font-extrabold leading-[1.1] text-white md:text-5xl">
-            {fr ? 'Le contenu, c\'est la moitié. L\'autre moitié, c\'est savoir ce qu\'il rapporte.' : 'Content is half of it. The other half is knowing what it brings in.'}
+            {fr ? 'Publier ne suffit pas. Il faut savoir ce que chaque post rapporte.' : 'Publishing is not enough. You need to know what each post brings in.'}
           </h2>
         </motion.div>
 

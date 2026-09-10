@@ -68,8 +68,8 @@ const FORMATS: Format[] = [
     networks: REELS,
     titleFr: 'Flou → net',
     titleEn: 'Blur → reveal',
-    descFr: 'Vous nommez 8 personnes ou produits, on trouve les visuels, ils se dévoilent au fil de votre commentaire.',
-    descEn: 'You name 8 people or products, we find the visuals, they unblur as you comment.',
+    descFr: 'Retient jusqu\'au bout.',
+    descEn: 'Keeps them watching to the end.',
     tagFr: 'Le format qui retient jusqu\'au bout',
     tagEn: 'The format people watch to the end',
   },
@@ -80,8 +80,8 @@ const FORMATS: Format[] = [
     networks: REELS,
     titleFr: 'Tier list',
     titleEn: 'Tier list',
-    descFr: 'Un classement S → F sur votre sujet. Vous parlez, la grille se remplit, le montage est fait. Existe aussi en format long.',
-    descEn: 'An S → F ranking on your topic. You talk, the grid fills in, the edit is done. Also works as a long video.',
+    descFr: 'Fait commenter.',
+    descEn: 'Gets comments.',
     tagFr: 'Le format qui fait commenter',
     tagEn: 'The format that gets comments',
   },
@@ -92,8 +92,8 @@ const FORMATS: Format[] = [
     networks: REELS,
     titleFr: 'Réaction à un viral',
     titleEn: 'Viral reaction',
-    descFr: 'On vous propose les vidéos qui explosent dans votre domaine. Vous réagissez, la vidéo passe au-dessus de vous.',
-    descEn: 'We surface the videos blowing up in your field. You react, the clip plays above you.',
+    descFr: 'Emprunte l\'audience d\'un viral.',
+    descEn: 'Borrows a viral\'s audience.',
     tagFr: 'Le format qui emprunte l\'audience',
     tagEn: 'The format that borrows an audience',
   },
@@ -104,8 +104,8 @@ const FORMATS: Format[] = [
     networks: REELS,
     titleFr: 'Citation',
     titleEn: 'Quote',
-    descFr: 'Une phrase forte, son auteur, votre lecture en 30 secondes. Rien à écrire, rien à monter.',
-    descEn: 'A strong line, its author, your take in 30 seconds. Nothing to write, nothing to edit.',
+    descFr: '30 secondes à filmer.',
+    descEn: '30 seconds to shoot.',
     tagFr: 'Le format le plus rapide à tourner',
     tagEn: 'The fastest format to shoot',
   },
@@ -116,8 +116,8 @@ const FORMATS: Format[] = [
     networks: REELS,
     titleFr: 'Fausse FAQ',
     titleEn: 'Fake Q&A',
-    descFr: 'Le sticker « Posez-moi une question », avec les questions que vos clients posent vraiment. Vous répondez, on habille.',
-    descEn: 'The “Ask me a question” sticker, with the questions your clients actually ask. You answer, we dress it up.',
+    descFr: 'Répond aux vraies objections.',
+    descEn: 'Answers real objections.',
     tagFr: 'Le format qui vend sans vendre',
     tagEn: 'The format that sells without selling',
   },
@@ -140,8 +140,8 @@ const FORMATS: Format[] = [
     networks: REELS,
     titleFr: 'Podcast & yapping',
     titleEn: 'Podcast & yapping',
-    descFr: 'Vos écouteurs, votre téléphone, un avis à chaud. Sous-titres sobres, pas d\'effets : le format qu\'on tourne en marchant.',
-    descEn: 'Your earphones, your phone, a hot take. Clean captions, no effects: the format you shoot while walking.',
+    descFr: 'Filmé en marchant.',
+    descEn: 'Shot while walking.',
     tagFr: 'Le format de tous les jours',
     tagEn: 'The everyday format',
   },
@@ -152,8 +152,8 @@ const FORMATS: Format[] = [
     networks: REELS,
     titleFr: 'Réaction à l\'actualité',
     titleEn: 'News take',
-    descFr: 'Chaque matin, le brief des sujets qui montent dans votre niche. Le clip de l\'actu est monté tout seul, votre accroche gravée dessus : vous ne filmez rien.',
-    descEn: 'Every morning, the brief of what is rising in your niche. The news clip is edited on its own with your hook burned in: you shoot nothing.',
+    descFr: 'Prend position avant tout le monde.',
+    descEn: 'Takes a stand before anyone else.',
     tagFr: 'Le format qui sort sans caméra',
     tagEn: 'The format that needs no camera',
   },
@@ -386,15 +386,15 @@ export default function FormatsShowcaseSection() {
           className="mx-auto max-w-3xl text-center"
         >
           <p className="mb-3 text-xs font-bold uppercase tracking-widest text-empire">
-            {fr ? 'La formule · 2. Le format' : 'The formula · 2. The format'}
+            {fr ? 'Étape 2 · Le bon format' : 'Step 2 · The right format'}
           </p>
           <h2 className="text-3xl font-extrabold leading-[1.1] text-white md:text-5xl">
-            {fr ? 'Les formats qui ont fait exploser Hormozi, Ali Abdaal, Justin Welsh - prêts à filmer pour vous.' : 'The formats that made Hormozi, Ali Abdaal, Justin Welsh blow up - ready for you to shoot.'}
+            {fr ? 'La même idée, dans le bon format, est vue 10 000 fois plus.' : 'The same idea, in the right format, gets 10,000x the views.'}
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-neutral-400 md:text-lg">
             {fr
-              ? 'Le même message, dans un mauvais format, ne fait rien. On décortique chaque semaine ce qui monte, on le templatise, vous parlez, on fait le montage, les sous-titres, l\'habillage…'
-              : 'The same message, in the wrong format, goes nowhere. Every week we dissect what is rising, template it, you talk, we do the edit, the subtitles, the styling…'}
+              ? 'On décortique chaque semaine ce qui explose, on le templatise pour vous. Vous parlez, on fait le montage, les sous-titres, l\'habillage.'
+              : 'Every week we dissect what is blowing up and template it for you. You talk, we handle the edit, the subtitles, the styling.'}
           </p>
           {/* Les sept réseaux + la newsletter, en icônes : « multi-diffusé »
               écrit en toutes lettres ne montre rien, Threads et X en pastille

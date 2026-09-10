@@ -38,7 +38,6 @@ const HITS: Hit[] = [
   { network: 'linkedin', label: 'LinkedIn', formatFr: 'Le post, écrit pour LinkedIn', formatEn: 'The post, written for LinkedIn', views: 39546, subFr: '110 réactions · 43 commentaires · 9 republications', subEn: '110 reactions · 43 comments · 9 reposts', origin: true },
   { network: 'threads', label: 'Threads', formatFr: 'Le même texte, le même jour', formatEn: 'Same text, same day', views: 304535, subFr: '73 commentaires', subEn: '73 comments' },
   { network: 'instagram', label: 'Instagram', formatFr: 'La même idée en reel, le lendemain', formatEn: 'Same idea as a reel, the next day', views: 69785 },
-  { network: 'twitter', label: 'X', formatFr: 'Le même texte, le même jour', formatEn: 'Same text, same day', views: 84 },
 ]
 
 const TOTAL = HITS.reduce((s, h) => s + h.views, 0)
@@ -73,17 +72,17 @@ export default function RepurposingSection() {
           className="mx-auto max-w-3xl text-center"
         >
           <p className="mb-3 text-xs font-bold uppercase tracking-widest text-empire">
-            {fr ? 'La formule · 3. La diffusion' : 'The formula · 3. Distribution'}
+            {fr ? 'Étape 3 · Partout en même temps' : 'Step 3 · Everywhere at once'}
           </p>
           <h2 className="text-3xl font-extrabold leading-[1.1] text-white md:text-5xl">
             {fr
-              ? <>Cette idée aurait fait {fmtK(ORIGIN_VIEWS, fr)} vues. Elle en a fait {fmtK(TOTAL, fr)}.</>
-              : <>This idea would have made {fmtK(ORIGIN_VIEWS, fr)} views. It made {fmtK(TOTAL, fr)}.</>}
+              ? <>Cette idée aurait fait {fmtK(ORIGIN_VIEWS, fr)} vues.<br />Elle en a fait {fmtK(TOTAL, fr)}.</>
+              : <>This idea would have made {fmtK(ORIGIN_VIEWS, fr)} views.<br />It made {fmtK(TOTAL, fr)}.</>}
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-neutral-400 md:text-lg">
             {fr
-              ? 'Un post LinkedIn classique s\'arrête à LinkedIn : 39 546 vues, fin de l\'histoire. La formule l\'a sortie partout le même jour. Threads : 304 535. Instagram en reel : 69 785. X : 84.'
-              : 'A classic LinkedIn post stops at LinkedIn: 39,546 views, end of story. The formula pushed it everywhere the same day. Threads: 304,535. Instagram as a reel: 69,785. X: 84.'}
+              ? 'Un post LinkedIn classique s\'arrête à LinkedIn : 39 546 vues, fin de l\'histoire. La formule l\'a sortie partout le même jour. Threads : 304 535. Instagram en reel : 69 785.'
+              : 'A classic LinkedIn post stops at LinkedIn: 39,546 views, end of story. The formula pushed it everywhere the same day. Threads: 304,535. Instagram as a reel: 69,785.'}
           </p>
         </motion.div>
 
@@ -173,6 +172,7 @@ export default function RepurposingSection() {
             ? 'Chiffres relevés le 8 septembre 2026 sur le compte de Kevin (LinkedIn : impressions affichées par LinkedIn).'
             : 'Numbers recorded on September 8, 2026 on Kevin\'s account (LinkedIn: impressions as shown by LinkedIn).'}
         </p>
+
       </div>
     </section>
   )
