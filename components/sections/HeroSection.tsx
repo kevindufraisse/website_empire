@@ -89,25 +89,8 @@ export default function HeroSection() {
               tant qu'on est dans le hero, tout flou, puis file en bas de
               l'écran au scroll et se révèle section par section. La hauteur
               est réservée pour que le hero ne saute pas quand elle part. */}
-          {/* Bénéfices en glass, discret */}
           {!autopilot && (
-            <motion.div
-              initial={mounted ? { opacity: 0, y: 8 } : false}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.15 }}
-              className="mt-5 flex flex-wrap items-center justify-center gap-3 text-[11px] font-semibold text-neutral-400 sm:text-xs"
-            >
-              {(lang === 'fr'
-                ? ['1 an de R&D', '10 000+ posts testés', '1M de vues garanties']
-                : ['1 year of R&D', '10,000+ posts tested', '1M views guaranteed']
-              ).map((item) => (
-                <span key={item} className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 backdrop-blur-sm">{item}</span>
-              ))}
-            </motion.div>
-          )}
-
-          {!autopilot && (
-            <div className="relative mx-auto mt-10 w-fit max-w-full">
+            <div className="relative mx-auto mt-12 w-fit max-w-full">
               {/* Annotation manuscrite en coin haut-gauche : le tampon SECRET
                   occupe le coin droit, le texte + la flèche vivent à gauche. */}
               <motion.div
@@ -132,12 +115,29 @@ export default function HeroSection() {
             </div>
           )}
 
+          {/* Bénéfices en glass, sous la formule */}
+          {!autopilot && (
+            <motion.div
+              initial={mounted ? { opacity: 0, y: 8 } : false}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="mt-4 flex flex-wrap items-center justify-center gap-3 text-[11px] font-semibold text-neutral-400 sm:text-xs"
+            >
+              {(lang === 'fr'
+                ? ['1 an de R&D', '10 000+ posts testés', '1M de vues garanties']
+                : ['1 year of R&D', '10,000+ posts tested', '1M views guaranteed']
+              ).map((item) => (
+                <span key={item} className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 backdrop-blur-sm">{item}</span>
+              ))}
+            </motion.div>
+          )}
+
           {!autopilot && (
             <motion.div
               initial={mounted ? { opacity: 0 } : false}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.25 }}
-              className="mt-2 flex items-center justify-center gap-2"
+              className="mt-3 flex items-center justify-center gap-2"
             >
               <span className="text-[11px] text-neutral-500">{lang === 'fr' ? 'Adapté pour' : 'Adapted for'}</span>
               <div className="flex items-center gap-3 text-neutral-400 [&_path]:fill-current [&_circle]:fill-current">

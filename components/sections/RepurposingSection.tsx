@@ -69,15 +69,15 @@ export default function RepurposingSection() {
           initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="mx-auto max-w-3xl text-center"
+          className="mx-auto max-w-4xl text-center"
         >
           <p className="mb-3 text-xs font-bold uppercase tracking-widest text-empire">
             {fr ? 'Étape 3 · Partout en même temps' : 'Step 3 · Everywhere at once'}
           </p>
-          <h2 className="text-3xl font-extrabold leading-[1.1] text-white md:text-5xl">
+          <h2 className="text-3xl font-extrabold leading-[1.15] text-white md:text-5xl">
             {fr
-              ? <>Cette idée aurait fait {fmtK(ORIGIN_VIEWS, fr)} vues.<br />Elle en a fait {fmtK(TOTAL, fr)}.</>
-              : <>This idea would have made {fmtK(ORIGIN_VIEWS, fr)} views.<br />It made {fmtK(TOTAL, fr)}.</>}
+              ? <>Cette idée aurait fait {fmtK(ORIGIN_VIEWS, fr)}{'\u00a0'}vues.<br />Elle en a fait {fmtK(TOTAL, fr)}.</>
+              : <>This idea would have made {fmtK(ORIGIN_VIEWS, fr)}{'\u00a0'}views.<br />It made {fmtK(TOTAL, fr)}.</>}
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-neutral-400 md:text-lg">
             {fr

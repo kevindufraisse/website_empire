@@ -25,15 +25,15 @@ export default function HomeDemoSection() {
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
-          className="mx-auto mb-12 max-w-3xl text-center md:mb-16"
+          className="mx-auto mb-6 max-w-3xl text-center md:mb-8"
         >
           <p className="mb-3 text-xs font-bold uppercase tracking-widest text-empire">
             {lang === 'fr' ? 'Étape 1 · Votre message' : 'Step 1 · Your message'}
           </p>
-          <h2 className="text-3xl font-extrabold leading-[1.1] text-white md:text-5xl">
+          <h2 className="text-3xl font-extrabold leading-[1.15] text-white md:text-5xl">
             {lang === 'fr'
-              ? 'Vous avez déjà quelque chose à dire. Chaque réseau a son propre langage.'
-              : 'You already have something to say. Each network has its own language.'}
+              ? <>Vous avez déjà quelque chose à dire.<br />Chaque réseau a son propre langage.</>
+              : <>You already have something to say.<br />Each network has its own language.</>}
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-neutral-400 md:text-lg">
             {lang === 'fr'
