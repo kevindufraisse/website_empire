@@ -107,11 +107,18 @@ export default function HeroSection() {
           )}
 
           {!autopilot && (
+            <div
+              id="formula-hero-slot"
+              className="mt-6 flex min-h-[80px] items-start justify-center sm:min-h-[76px]"
+            />
+          )}
+
+          {!autopilot && (
             <motion.div
               initial={mounted ? { opacity: 0 } : false}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.25 }}
-              className="mt-3 flex items-center justify-center gap-2"
+              className="mt-2 flex items-center justify-center gap-2"
             >
               <span className="text-[11px] text-neutral-500">{lang === 'fr' ? 'Adapté pour' : 'Adapted for'}</span>
               <div className="flex items-center gap-3 text-neutral-400 [&_path]:fill-current [&_circle]:fill-current">
@@ -124,13 +131,6 @@ export default function HeroSection() {
                 <SocialIcons.facebook />
               </div>
             </motion.div>
-          )}
-
-          {!autopilot && (
-            <div
-              id="formula-hero-slot"
-              className="mt-5 flex min-h-[80px] items-start justify-center sm:min-h-[76px]"
-            />
           )}
 
 
@@ -181,19 +181,19 @@ export default function HeroSection() {
                 réplique les formats, pas la pastille du fondateur - elle vit
                 dans la section fondateur plus bas. Fichiers locaux, jamais de
                 hotlink : un avatar cassé dans le hero est le pire endroit. */}
-            <div className="-mt-3 flex justify-center">
-              <div className="flex max-w-full items-center gap-2.5 sm:gap-3 px-3 py-1.5 pl-1.5 rounded-full bg-white/5 border border-white/10">
-                <div className="flex shrink-0 -space-x-2.5">
+            <div className="mt-1 flex justify-center">
+              <div className="flex max-w-full items-center gap-3 sm:gap-4 px-3.5 py-2 pl-2 rounded-full bg-white/5 border border-white/10">
+                <div className="flex shrink-0 -space-x-2">
                   {HERO_CREATORS.map((c) => (
                     <img
                       key={c.name}
                       src={c.img}
                       alt={c.name}
                       title={c.name}
-                      className="w-7 h-7 sm:w-8 sm:h-8 rounded-full object-cover border-2 border-black bg-neutral-800"
+                      className="w-9 h-9 sm:w-10 sm:h-10 rounded-full object-cover border-2 border-black bg-neutral-800"
                       loading="eager"
-                      width={32}
-                      height={32}
+                      width={40}
+                      height={40}
                     />
                   ))}
                 </div>
@@ -263,6 +263,9 @@ function ScrollDownArrow({ lang }: { lang: string }) {
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6 6-6" /></svg>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="-mt-2.5 opacity-50"><path d="M6 9l6 6 6-6" /></svg>
           </motion.span>
+          <span className="mt-1 text-[10px] font-medium tracking-wide text-neutral-500">
+            {lang === 'fr' ? 'Scrollez pour découvrir la formule' : 'Scroll to discover the formula'}
+          </span>
         </motion.button>
       )}
     </AnimatePresence>
