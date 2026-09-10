@@ -125,32 +125,32 @@ export default function MobileAppSection() {
             <h2 className="text-3xl font-extrabold leading-[1.15] text-white md:text-4xl">
               {fr ? 'Le contenu se tourne dans les creux de votre journée.' : 'Content gets shot in the gaps of your day.'}
             </h2>
-            <p className="mt-5 text-base leading-relaxed text-neutral-400 md:text-lg">
+            <p className="mt-3 text-base leading-relaxed text-neutral-400 md:text-lg">
               {fr
                 ? '1h par mois : au déjeuner, dans la rue, au volant. Un téléphone suffit - tous les formats Empire sont dans l\'app.'
                 : '1h a month: over lunch, in the street, behind the wheel. A phone is enough - every Empire format is in the app.'}
             </p>
             {/* Liste numérotée, filets fins : pas de pictos. */}
-            <ol className="mt-8 divide-y divide-white/10 border-y border-white/10">
+            <ol className="mt-6 divide-y divide-white/10 border-y border-white/10">
               {points.map(({ fr: pfr, en: pen }, i) => {
                 const [title, desc] = fr ? pfr : pen
                 return (
-                  <li key={title} className="grid grid-cols-[2.25rem_1fr] gap-3 py-4">
+                  <li key={title} className="grid grid-cols-[2rem_1fr] gap-3 py-3">
                     <span className="pt-0.5 text-[12px] font-bold tabular-nums text-empire">0{i + 1}</span>
                     <div>
-                      <p className="text-base font-bold text-white">{title}</p>
-                      <p className="mt-1 text-sm leading-relaxed text-neutral-400">{desc}</p>
+                      <p className="text-[15px] font-bold text-white">{title}</p>
+                      <p className="mt-0.5 text-sm leading-relaxed text-neutral-400">{desc}</p>
                     </div>
                   </li>
                 )
               })}
             </ol>
             {/* Le coût, en clôture : c'est le dénominateur de la formule. */}
-            <p className="mt-6 rounded-2xl border border-empire/25 bg-empire/[0.06] px-5 py-4 text-sm leading-relaxed text-neutral-300">
+            <p className="mt-5 rounded-2xl border border-empire/25 bg-empire/[0.06] px-5 py-3.5 text-sm leading-relaxed text-neutral-300">
               {fr ? (
-                <>Un monteur, un rédacteur, un community manager : <span className="font-bold text-white">5 000 €+/mois</span> pour faire moins que ça. Ici : une app, une équipe, un abonnement.</>
+                <>Un monteur, un rédacteur, un community manager : <span className="whitespace-nowrap font-bold text-white">5&nbsp;000&nbsp;€+/mois</span> pour faire moins que ça. Ici : une app, une équipe, un abonnement.</>
               ) : (
-                <>An editor, a writer, a community manager: <span className="font-bold text-white">€5,000+/month</span> to do less than this. Here: one app, one team, one subscription.</>
+                <>An editor, a writer, a community manager: <span className="whitespace-nowrap font-bold text-white">€5,000+/month</span> to do less than this. Here: one app, one team, one subscription.</>
               )}
             </p>
           </motion.div>
