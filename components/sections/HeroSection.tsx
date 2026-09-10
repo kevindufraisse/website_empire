@@ -107,20 +107,21 @@ export default function HeroSection() {
           )}
 
           {!autopilot && (
-            <div className="relative mt-6">
-              {/* "Grâce à cette formule" + flèche courbée sur le coin droit */}
+            <div className="relative mx-auto mt-10 w-fit max-w-full">
+              {/* Annotation manuscrite en coin haut-gauche : le tampon SECRET
+                  occupe le coin droit, le texte + la flèche vivent à gauche. */}
               <motion.div
                 initial={mounted ? { opacity: 0 } : false}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className="absolute -right-2 -top-3 z-10 sm:right-4 md:right-8"
+                className="pointer-events-none absolute -top-9 left-0 z-10 flex items-start gap-1 sm:-left-24 sm:-top-6"
               >
-                <span className="text-[11px] italic text-neutral-400 sm:text-xs">
+                <span className="whitespace-nowrap text-[11px] italic text-neutral-300 sm:text-xs">
                   {lang === 'fr' ? 'Grâce à cette formule' : 'Thanks to this formula'}
                 </span>
-                <svg width="60" height="36" viewBox="0 0 60 36" fill="none" className="ml-2 text-empire">
-                  <path d="M56 2 C50 8, 30 10, 20 18 C14 23, 10 28, 10 34" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" fill="none" strokeDasharray="3 3" />
-                  <path d="M6 30 L10 35 L14 30" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                <svg width="34" height="34" viewBox="0 0 34 34" fill="none" className="mt-1.5 text-empire">
+                  <path d="M4 4 C14 6, 24 12, 27 26" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" fill="none" strokeDasharray="3 3" />
+                  <path d="M21.5 23 L27.5 27.5 L30 21" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
                 </svg>
               </motion.div>
 
@@ -272,17 +273,19 @@ function ScrollDownArrow({ lang }: { lang: string }) {
           transition={{ duration: 0.4 }}
           className="fixed inset-x-0 bottom-20 z-[60] mx-auto flex w-fit flex-col items-center gap-0.5 sm:bottom-8"
         >
-          <motion.span
-            aria-hidden
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
-            className="flex flex-col items-center text-empire drop-shadow-[0_0_12px_rgb(var(--empire-rgb)_/_0.7)]"
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6 6-6" /></svg>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="-mt-2.5 opacity-50"><path d="M6 9l6 6 6-6" /></svg>
-          </motion.span>
-          <span className="mt-1 text-[10px] font-medium tracking-wide text-neutral-500">
-            {lang === 'fr' ? 'Scrollez pour découvrir la formule' : 'Scroll to discover the formula'}
+          <span className="flex items-center gap-2 rounded-full border border-white/15 bg-black/70 px-4 py-2 shadow-[0_8px_30px_-8px_rgba(0,0,0,0.9)] backdrop-blur-md">
+            <motion.span
+              aria-hidden
+              animate={{ y: [0, 5, 0] }}
+              transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+              className="flex flex-col items-center text-empire drop-shadow-[0_0_10px_rgb(var(--empire-rgb)_/_0.8)]"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6 6-6" /></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="-mt-2 opacity-50"><path d="M6 9l6 6 6-6" /></svg>
+            </motion.span>
+            <span className="text-xs font-semibold text-white">
+              {lang === 'fr' ? 'Scrollez pour découvrir la formule' : 'Scroll to discover the formula'}
+            </span>
           </span>
         </motion.button>
       )}
