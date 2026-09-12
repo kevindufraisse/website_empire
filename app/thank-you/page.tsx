@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { useEffect, useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { CheckCircle2, Check, Phone } from 'lucide-react'
+import { CheckCircle2, Check, MessageCircle } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import LoomEmbed from '@/components/LoomEmbed'
 
@@ -58,7 +58,7 @@ function ThankYouContent() {
             </motion.h1>
           </div>
 
-          {/* Le message principal : on appelle dans un instant */}
+          {/* Le setter démarre par écrit ; un appel reste optionnel. */}
           {fromWaitlist && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -69,16 +69,16 @@ function ThankYouContent() {
               <div className="flex items-start gap-4 rounded-2xl border border-empire/40 bg-empire/[0.08] p-5 md:p-6">
                 <span className="relative mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-empire text-black">
                   <span aria-hidden className="absolute inset-0 animate-ping rounded-full bg-empire opacity-30 [animation-duration:1.8s]" />
-                  <Phone size={20} className="relative" />
+                  <MessageCircle size={20} className="relative" />
                 </span>
                 <div>
                   <p className="text-lg font-bold text-white md:text-xl">
-                    {fr ? 'On vous contacte dans un instant.' : 'We will contact you in a moment.'}
+                    {fr ? 'On vous écrit dans un instant.' : 'We’ll message you in a moment.'}
                   </p>
                   <p className="mt-1 text-sm leading-relaxed text-neutral-300 md:text-base">
                     {fr
-                      ? 'Restez disponible par téléphone : un membre de l\'équipe vous appelle pour vous ouvrir l\'accès.'
-                      : 'Stay available by phone: a team member will call you to open your access.'}
+                      ? 'Un membre de l’équipe lance la discussion sur WhatsApp pour répondre à vos questions, vous proposer l’offre la plus adaptée et vous accompagner dans l’onboarding. Un appel est possible uniquement si vous le souhaitez.'
+                      : 'A team member will start the conversation on WhatsApp, answer your questions, recommend the best plan and guide your onboarding. A call is only needed if you want one.'}
                   </p>
                 </div>
               </div>
@@ -92,7 +92,7 @@ function ThankYouContent() {
             className="mb-8"
           >
             <p className="mb-3 text-center text-sm text-neutral-400">
-              {fr ? 'En attendant l\'appel, regardez le système 👇' : 'While you wait for the call, watch the system 👇'}
+              {fr ? 'En attendant notre message, regardez le système 👇' : 'While you wait for our message, watch the system 👇'}
             </p>
             <LoomEmbed title="Empire - le système" />
             <div className="text-center mt-2">

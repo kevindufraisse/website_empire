@@ -3,8 +3,8 @@ import { Suspense } from 'react'
 import EmpireApplyForm from '@/components/EmpireApplyForm'
 
 export const metadata: Metadata = {
-  title: 'Recevoir un accès - Empire Internet',
-  description: 'Demandez un accès à Empire Internet. Candidature sur sélection.',
+  title: 'Parler à l’équipe - Empire Internet',
+  description: 'Échangez avec notre équipe pour trouver l’offre Empire la plus adaptée à votre profil.',
   robots: { index: false, follow: false },
 }
 
@@ -14,7 +14,7 @@ export default function PostulerPage() {
       <div className="container max-w-xl mx-auto px-4">
         <div className="mb-8 rounded-2xl border border-empire/30 bg-empire/10 px-5 py-4 text-center">
           <p className="text-sm font-semibold text-white leading-relaxed">
-            Demande un accès - on lit chaque candidature.
+            Un membre de l’équipe échange personnellement avec chaque nouveau membre.
           </p>
         </div>
 

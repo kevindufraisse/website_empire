@@ -16,6 +16,7 @@ export async function POST(request: Request) {
       lastName,
       email,
       phone,
+      intent,
       frequency,
       contentStats,
       contentSkill,
@@ -27,10 +28,16 @@ export async function POST(request: Request) {
       lang,
     } = body
 
-    if (!firstName || !email || !phone) {
+    if (!firstName || !email || !phone || !intent) {
       return NextResponse.json({ error: 'Missing fields' }, { status: 400 })
     }
 
+    const intentLabels: Record<string, string> = {
+      delegate: 'Déléguer sa marque personnelle à un expert',
+      career: 'Se reconvertir en expert en viralité',
+      grow: 'Utiliser le système pour développer sa marque personnelle',
+    }
+    const intentLabel = intentLabels[String(intent)] || String(intent)
     const networksList = Array.isArray(networks) ? networks.join(', ') : String(networks || '')
     const fullName = [firstName, lastName].filter(Boolean).join(' ').trim()
 
@@ -41,6 +48,7 @@ export async function POST(request: Request) {
       phone: String(phone).trim(),
       source: 'website-empire-apply',
       fields: {
+        intent: intentLabel,
         frequency: frequency || '',
         contentStats: contentStats || '',
         contentSkill: contentSkill || '',
@@ -52,6 +60,7 @@ export async function POST(request: Request) {
         auditBonus: '15min',
       },
       noteLines: [
+        `- **Objectif:** ${intentLabel}`,
         frequency ? `- **Frequence publication:** ${frequency}` : '',
         contentStats ? `- **Stats / mois:** ${contentStats}` : '',
         contentSkill ? `- **A l'aise contenu:** ${contentSkill}` : '',
@@ -71,6 +80,7 @@ export async function POST(request: Request) {
       lang: typeof lang === 'string' ? lang : 'fr',
       lead: {
         email: String(email).trim(),
+        intent: intentLabel,
         frequency: frequency ? labelFrequency(frequency) : '',
         contentStats: contentStats ? labelStats(contentStats) : '',
         contentSkill: contentSkill ? labelSkill(contentSkill) : '',
@@ -91,6 +101,7 @@ export async function POST(request: Request) {
         `👤 ${fullName}\n` +
         `📧 ${email}\n` +
         `📱 ${phone}\n` +
+        `🎯 Objectif: ${intentLabel}\n` +
         (frequency ? `📡 Fréquence: ${frequency}\n` : '') +
         (contentStats ? `📊 Stats: ${contentStats}\n` : '') +
         (contentSkill ? `🎬 Contenu: ${contentSkill}\n` : '') +

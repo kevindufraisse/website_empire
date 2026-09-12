@@ -5,7 +5,6 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import CallbackFormModal from '@/components/CallbackFormModal'
-import TierNav from '@/components/TierNav'
 import { fetchFlashPromo, formatCountdown } from '@/lib/flash-promo'
 
 /** Logo Slack officiel (4 couleurs), inline pour éviter un asset de plus. */
@@ -117,13 +116,6 @@ export default function Header() {
               </span>
             </a>
 
-            {/* Tier navigation - centred in the remaining space. Kept in the
-                flow so longer labels push the side actions instead of
-                overlapping them. */}
-            <div className="hidden md:flex mx-auto">
-              <TierNav instance="desktop" />
-            </div>
-
             {/* Right side */}
             <div className="flex items-center justify-end gap-1.5 lg:gap-2.5 min-w-0">
               {isPartnersPage && (
@@ -169,15 +161,6 @@ export default function Header() {
               className="md:hidden border-t border-white/10 bg-black/98"
             >
               <div className="px-4 py-5 space-y-4">
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.05 }}
-                  className="flex justify-center"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <TierNav instance="mobile" />
-                </motion.div>
                 {!isPartnersPage && (
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}

@@ -26,13 +26,14 @@ export default function EmpireApplyForm() {
   const [lastName, setLastName] = useState('')
   const [countryCode, setCountryCode] = useState('+33')
   const [phone, setPhone] = useState('')
+  const [intent, setIntent] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError('')
-    if (!firstName.trim() || !lastName.trim() || !email.trim() || !phone.trim()) {
+    if (!firstName.trim() || !lastName.trim() || !email.trim() || !phone.trim() || !intent) {
       setError(fr ? 'Remplissez tous les champs.' : 'Fill in all fields.')
       return
     }
@@ -50,6 +51,7 @@ export default function EmpireApplyForm() {
           lastName: lastName.trim(),
           email: email.trim(),
           phone: `${countryCode}${phone.trim()}`,
+          intent,
           emp: getEmpParam(),
           lang,
         }),
@@ -73,14 +75,59 @@ export default function EmpireApplyForm() {
       >
         <div className="text-center">
           <h2 className="text-xl font-bold text-white sm:text-2xl">
-            {fr ? 'Recevoir un accès' : 'Get access'}
+            {fr ? 'Parler à l’équipe' : 'Talk to the team'}
           </h2>
           <p className="mt-2 text-sm text-neutral-400">
             {fr
-              ? 'Testez gratuitement.'
-              : 'Try it free.'}
+              ? 'Entrez vos coordonnées. On vous recontacte pour répondre à toutes vos questions et vous proposer l’offre la plus adaptée.'
+              : 'Enter your details. We’ll contact you to answer your questions and recommend the best plan for you.'}
           </p>
         </div>
+
+        <fieldset>
+          <legend className="mb-2 block text-sm font-semibold text-white">
+            {fr ? 'Quel est votre objectif principal ?' : 'What is your main goal?'}
+          </legend>
+          <div className="space-y-2">
+            {[
+              {
+                value: 'delegate',
+                fr: 'Je souhaite déléguer ma marque personnelle à un expert',
+                en: 'I want an expert to manage my personal brand',
+              },
+              {
+                value: 'career',
+                fr: 'Je souhaite me reconvertir en expert en viralité',
+                en: 'I want to become a virality expert',
+              },
+              {
+                value: 'grow',
+                fr: 'Je souhaite utiliser le système pour développer ma marque personnelle',
+                en: 'I want to use the system to grow my personal brand',
+              },
+            ].map((option) => (
+              <label
+                key={option.value}
+                className={`flex cursor-pointer items-center gap-3 rounded-xl border px-4 py-3 text-left text-sm transition ${
+                  intent === option.value
+                    ? 'border-empire bg-empire/10 text-white'
+                    : 'border-white/15 bg-white/[0.05] text-neutral-300 hover:border-white/30'
+                }`}
+              >
+                <input
+                  required
+                  type="radio"
+                  name="intent"
+                  value={option.value}
+                  checked={intent === option.value}
+                  onChange={(e) => setIntent(e.target.value)}
+                  className="h-4 w-4 shrink-0 accent-empire"
+                />
+                <span>{fr ? option.fr : option.en}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
 
         <div className="grid grid-cols-2 gap-3">
           <div>
@@ -148,12 +195,12 @@ export default function EmpireApplyForm() {
           className="flex w-full items-center justify-center gap-2 rounded-xl bg-empire px-6 py-3.5 text-sm font-bold text-black hover:brightness-110 disabled:opacity-60"
         >
           {loading ? <Loader2 className="animate-spin" size={18} /> : <Check size={18} />}
-          {fr ? 'Recevoir un accès' : 'Get access'}
+          {fr ? 'Être recontacté' : 'Contact me'}
         </button>
         <p className="text-center text-[12px] text-neutral-500">
           {fr
-            ? 'Essai gratuit · sans engagement · on vous contacte sous 24h'
-            : 'Free trial · no commitment · we contact you within 24h'}
+            ? 'Échange personnalisé · appel uniquement si vous le souhaitez'
+            : 'Personal conversation · call only if you want one'}
         </p>
       </motion.form>
     </div>
