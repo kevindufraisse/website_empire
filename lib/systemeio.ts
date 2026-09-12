@@ -208,6 +208,44 @@ export async function addTagsToContact(
   }
 }
 
+const tagIdByName = new Map<string, number>()
+
+export async function createTag(name: string): Promise<SystemeTag> {
+  return request<SystemeTag>('/tags', {
+    method: 'POST',
+    body: JSON.stringify({ name }),
+  })
+}
+
+/** Find a tag by name, create it if missing. Cached for the process lifetime. */
+export async function ensureTagByName(name: string): Promise<number> {
+  const key = name.toLowerCase()
+  const cached = tagIdByName.get(key)
+  if (cached) return cached
+
+  const existing = (await listAllTags()).find((t) => (t.name || '').toLowerCase() === key)
+  if (existing?.id) {
+    tagIdByName.set(key, existing.id)
+    return existing.id
+  }
+
+  try {
+    const created = await createTag(name)
+    if (!created?.id) throw new Error(`systeme.io created tag "${name}" without id`)
+    tagIdByName.set(key, created.id)
+    return created.id
+  } catch (err) {
+    if (err instanceof ConflictError || err instanceof ValidationError) {
+      const again = (await listAllTags()).find((t) => (t.name || '').toLowerCase() === key)
+      if (again?.id) {
+        tagIdByName.set(key, again.id)
+        return again.id
+      }
+    }
+    throw err
+  }
+}
+
 export async function listAllTags(): Promise<SystemeTag[]> {
   // Systeme.io caps the page size server-side, so a short page doesn't mean it's
   // the last one - only an empty page does. Defensive cap so we never loop forever.

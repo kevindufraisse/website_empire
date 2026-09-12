@@ -12,12 +12,14 @@
  */
 
 import { useEffect, useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 const SETTER_PHONE = '33652815496'
 
 export default function WhatsAppBubble() {
   const { lang } = useLanguage()
+  const pathname = usePathname()
   const fr = lang === 'fr'
   const [href, setHref] = useState(`https://wa.me/${SETTER_PHONE}`)
   const [visible, setVisible] = useState(false)
@@ -31,6 +33,8 @@ export default function WhatsAppBubble() {
     const t = setTimeout(() => setVisible(true), 2500)
     return () => clearTimeout(t)
   }, [fr])
+
+  if (pathname === '/communaute' || pathname === '/community') return null
 
   return (
     <a

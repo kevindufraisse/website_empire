@@ -61,6 +61,9 @@ export default function Footer() {
                   <a href="/quiz" className="text-sm text-neutral-400 hover:text-empire transition-colors">
                     {lang === 'fr' ? 'Quiz : quel créateur êtes-vous ?' : 'Quiz: what creator are you?'}
                   </a>
+                  <a href="/communaute" className="text-sm text-neutral-400 hover:text-empire transition-colors">
+                    {lang === 'fr' ? 'Communauté Slack (gratuite)' : 'Free Slack community'}
+                  </a>
                   <GiftFooterLink />
                 </div>
               </>

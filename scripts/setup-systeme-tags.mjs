@@ -34,6 +34,8 @@ const TAGS = [
   { name: 'webinar_ref_marc', envKey: 'SYSTEMEIO_TAG_WEBINAR_MARC' },
   { name: 'academy_waitlist', envKey: 'SYSTEMEIO_TAG_ACADEMY_WAITLIST' },
   { name: 'academy_waitlist_en', envKey: 'SYSTEMEIO_TAG_ACADEMY_WAITLIST_EN' },
+  { name: 'community_slack', envKey: 'SYSTEMEIO_TAG_COMMUNITY' },
+  { name: 'community_live', envKey: 'SYSTEMEIO_TAG_COMMUNITY_LIVE' },
 ]
 
 async function api(path, init = {}) {

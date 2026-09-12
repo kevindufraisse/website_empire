@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
-import { Meteors } from '@/components/magicui/meteors'
 import { SocialIcons } from '@/components/ui/social-icons'
+import FloatingSocialReactions from '@/components/FloatingSocialReactions'
 // Même jeu de portraits que `/vsl` et `FormatsShowcaseSection` (public/creators).
 const HERO_CREATORS = [
   { name: 'Alex Hormozi', img: '/creators/hormozi.jpg' },
@@ -38,9 +38,9 @@ export default function HeroSection() {
       <section className="relative w-full overflow-hidden border-b border-white/10 bg-gradient-to-b from-black via-transparent to-[#0f0f0f] pb-8 pt-20 md:pb-10 md:pt-24">
         <div className="container">
         <RetroGrid />
-        <Meteors number={8} />
         <div className={`absolute inset-0 transition-opacity duration-500 ${autopilot ? 'opacity-0' : 'opacity-100'} bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgb(var(--empire-rgb)_/_0.15),transparent)]`} />
         <div className={`absolute inset-0 transition-opacity duration-500 ${autopilot ? 'opacity-100' : 'opacity-0'} bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(212,165,116,0.18),transparent)]`} />
+        {!autopilot && <FloatingSocialReactions />}
         
         <div className="relative z-10 text-center max-w-4xl mx-auto">
 

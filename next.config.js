@@ -13,6 +13,11 @@ const nextConfig = {
         destination: '/decouverte',
         permanent: false,
       },
+      {
+        source: '/community',
+        destination: '/communaute',
+        permanent: false,
+      },
     ]
   },
   images: {
