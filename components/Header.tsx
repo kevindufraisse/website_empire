@@ -8,6 +8,17 @@ import CallbackFormModal from '@/components/CallbackFormModal'
 import TierNav from '@/components/TierNav'
 import { fetchFlashPromo, formatCountdown } from '@/lib/flash-promo'
 
+/** Logo Slack officiel (4 couleurs), inline pour éviter un asset de plus. */
+function SlackLogo({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 122.8 122.8" className={className} aria-hidden="true">
+      <path d="M25.8 77.6c0 7.1-5.8 12.9-12.9 12.9S0 84.7 0 77.6s5.8-12.9 12.9-12.9h12.9v12.9zm6.5 0c0-7.1 5.8-12.9 12.9-12.9s12.9 5.8 12.9 12.9v32.3c0 7.1-5.8 12.9-12.9 12.9s-12.9-5.8-12.9-12.9V77.6z" fill="#E01E5A" />
+      <path d="M45.2 25.8c-7.1 0-12.9-5.8-12.9-12.9S38.1 0 45.2 0s12.9 5.8 12.9 12.9v12.9H45.2zm0 6.5c7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9H12.9C5.8 58.1 0 52.3 0 45.2s5.8-12.9 12.9-12.9h32.3z" fill="#36C5F0" />
+      <path d="M97 45.2c0-7.1 5.8-12.9 12.9-12.9s12.9 5.8 12.9 12.9-5.8 12.9-12.9 12.9H97V45.2zm-6.5 0c0 7.1-5.8 12.9-12.9 12.9s-12.9-5.8-12.9-12.9V12.9C64.7 5.8 70.5 0 77.6 0s12.9 5.8 12.9 12.9v32.3z" fill="#2EB67D" />
+      <path d="M77.6 97c7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9-12.9-5.8-12.9-12.9V97h12.9zm0-6.5c-7.1 0-12.9-5.8-12.9-12.9s5.8-12.9 12.9-12.9h32.3c7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9H77.6z" fill="#ECB22E" />
+    </svg>
+  )
+}
 
 export default function Header() {
   const { lang } = useLanguage()
@@ -126,13 +137,11 @@ export default function Header() {
               {!isPartnersPage && (
                 <>
                   <a
-                    href="https://join.empire-internet.com/masterclass-empire-internet"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hidden md:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#DAFC68]/15 border border-[#DAFC68]/30 text-[13px] font-semibold text-[#DAFC68] hover:bg-[#DAFC68]/25 transition-all"
+                    href="/communaute"
+                    className="hidden md:inline-flex items-center gap-2 rounded-full border border-empire/45 bg-empire/10 px-4 py-2 text-sm font-bold text-white transition hover:bg-empire/20"
                   >
-                    <span className="text-[11px]">▶</span>
-                    {fr ? 'Webinar · lundi 12h' : 'Webinar · Mon 12pm'}
+                    <SlackLogo className="h-4 w-4 shrink-0" />
+                    {fr ? 'Rejoindre la communauté gratuite' : 'Join the free community'}
                   </a>
                 </>
               )}
@@ -177,14 +186,12 @@ export default function Header() {
                     className="flex gap-3"
                   >
                     <a
-                      href="https://join.empire-internet.com/masterclass-empire-internet"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href="/communaute"
                       onClick={() => setIsMenuOpen(false)}
-                      className="flex items-center justify-center gap-2 py-3 rounded-xl bg-[#DAFC68]/15 border border-[#DAFC68]/30 text-sm font-semibold text-[#DAFC68] w-full"
+                      className="flex w-full items-center justify-center gap-2 rounded-xl border border-empire/45 bg-empire/10 py-3.5 text-sm font-bold text-white"
                     >
-                      <span className="text-xs">▶</span>
-                      {fr ? 'Webinar · lundi 12h' : 'Webinar · Mon 12pm'}
+                      <SlackLogo className="h-4 w-4 shrink-0" />
+                      {fr ? 'Rejoindre la communauté gratuite' : 'Join the free community'}
                     </a>
                   </motion.div>
                 )}

@@ -116,12 +116,13 @@ export default function ViralPostsOverlay() {
   useEffect(() => {
     if (hidden) return
     const onKey = (e: KeyboardEvent) => {
-      const target = e.target as HTMLElement
-      const typing = target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable
-      if (e.key.toLowerCase() === 'l' && !typing && !e.metaKey && !e.ctrlKey && !e.altKey) {
+      const target = e.target instanceof HTMLElement ? e.target : null
+      const typing = target?.tagName === 'INPUT' || target?.tagName === 'TEXTAREA' || target?.isContentEditable
+      const key = typeof e.key === 'string' ? e.key : ''
+      if (key.toLowerCase() === 'l' && !typing && !e.metaKey && !e.ctrlKey && !e.altKey) {
         setOpen((o) => !o)
       }
-      if (e.key === 'Escape') setOpen(false)
+      if (key === 'Escape') setOpen(false)
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)

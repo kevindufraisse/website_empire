@@ -35,7 +35,7 @@ export default function HeroSection() {
 
   return (
     <>
-      <section className="relative w-full pt-20 md:pt-24 pb-20 md:pb-28 overflow-hidden bg-gradient-to-b from-black via-transparent to-[#0f0f0f]">
+      <section className="relative w-full overflow-hidden border-b border-white/10 bg-gradient-to-b from-black via-transparent to-[#0f0f0f] pb-8 pt-20 md:pb-10 md:pt-24">
         <div className="container">
         <RetroGrid />
         <Meteors number={8} />

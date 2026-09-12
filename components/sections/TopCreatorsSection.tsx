@@ -19,14 +19,14 @@ import { useLanguage } from '@/contexts/LanguageContext'
 
 const SENJA_TOP_CREATORS_ID = '68885202-c416-4672-bd27-6b130d60d1a7'
 
-export default function TopCreatorsSection() {
+export default function TopCreatorsSection({ compact = false }: { compact?: boolean }) {
   const { lang } = useLanguage()
   const fr = lang === 'fr'
 
   return (
-    <section className="relative w-full py-20 md:py-28 overflow-hidden bg-gradient-to-b from-black via-[#0a0a0a] to-black">
+    <section className={`relative w-full overflow-hidden bg-gradient-to-b from-black via-[#0a0a0a] to-black ${compact ? 'py-10 md:py-14' : 'py-20 md:py-28'}`}>
       <div className="container">
-        <div className="mx-auto max-w-3xl text-center mb-12">
+        <div className={`mx-auto max-w-3xl text-center ${compact ? 'mb-8' : 'mb-12'}`}>
           <p className="text-xs font-bold text-empire tracking-widest uppercase mb-3">
             {fr ? 'Ils recommandent' : 'They recommend'}
           </p>
