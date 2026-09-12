@@ -56,7 +56,16 @@ const CONTENT_LEVEL: Dict = {
   regulier: 'régulièrement',
 }
 
-export const waLabels = { FREQUENCY, STATS, SKILL, NETWORKS, SITUATION, CONTENT_LEVEL }
+const TEAM_SIZE: Dict = {
+  solo: 'moi uniquement',
+  '2-5': '2 à 5 personnes',
+  '6-10': '6 à 10 personnes',
+  '11-19': '11 à 19 personnes',
+  '20-30': '20 à 30 personnes',
+  '30-plus': 'plus de 30 personnes',
+}
+
+export const waLabels = { FREQUENCY, STATS, SKILL, NETWORKS, SITUATION, CONTENT_LEVEL, TEAM_SIZE }
 
 function label(dict: Dict, value: unknown): string {
   const key = String(value || '').trim()
@@ -69,6 +78,23 @@ export function labelStats(v: unknown) { return label(STATS, v) }
 export function labelSkill(v: unknown) { return label(SKILL, v) }
 export function labelSituation(v: unknown) { return label(SITUATION, v) }
 export function labelContentLevel(v: unknown) { return label(CONTENT_LEVEL, v) }
+export function labelTeamSize(v: unknown) { return label(TEAM_SIZE, v) }
+
+/** Orientation offre pour le prompt du setter : ~10 pers. → Empire, 20-30 → Légende. */
+export function suggestOfferFromTeam(teamSize: unknown): string {
+  const key = String(teamSize || '').trim()
+  if (key === '20-30' || key === '30-plus') {
+    return 'Légende — équipe de 20 personnes ou plus : volume et CA potentiel trop larges pour Empire seul. Oriente vers Légende.'
+  }
+  if (key === '11-19') {
+    return 'Empire en priorité, Légende si l’équipe est déjà structurée et veut tout déléguer. Équipe de 11 à 19 personnes.'
+  }
+  if (key === '6-10' || key === '2-5' || key === 'solo') {
+    return 'Empire — taille d’équipe (jusqu’à ~10 personnes) et CA potentiel alignés avec Empire, pas Légende.'
+  }
+  return ''
+}
+
 export function labelNetworks(v: unknown): string {
   const list = Array.isArray(v) ? v : String(v || '').split(',')
   return list.map((n) => label(NETWORKS, n)).filter(Boolean).join(', ')

@@ -6,6 +6,8 @@ import {
   labelStats,
   labelSkill,
   labelNetworks,
+  labelTeamSize,
+  suggestOfferFromTeam,
 } from '@/lib/wa-setter'
 
 export async function POST(request: Request) {
@@ -17,6 +19,7 @@ export async function POST(request: Request) {
       email,
       phone,
       intent,
+      teamSize,
       frequency,
       contentStats,
       contentSkill,
@@ -28,7 +31,7 @@ export async function POST(request: Request) {
       lang,
     } = body
 
-    if (!firstName || !email || !phone || !intent) {
+    if (!firstName || !lastName || !email || !phone || !intent) {
       return NextResponse.json({ error: 'Missing fields' }, { status: 400 })
     }
 
@@ -36,8 +39,15 @@ export async function POST(request: Request) {
       delegate: 'Déléguer sa marque personnelle à un expert',
       career: 'Se reconvertir en expert en viralité',
       grow: 'Utiliser le système pour développer sa marque personnelle',
+      unsure: 'Ne sait pas encore',
     }
     const intentLabel = intentLabels[String(intent)] || String(intent)
+    const teamSizeLabel = teamSize ? labelTeamSize(teamSize) : ''
+    const suggestedOffer = intent === 'unsure' ? suggestOfferFromTeam(teamSize) : ''
+
+    if (intent === 'unsure' && !teamSize) {
+      return NextResponse.json({ error: 'Missing fields' }, { status: 400 })
+    }
     const networksList = Array.isArray(networks) ? networks.join(', ') : String(networks || '')
     const fullName = [firstName, lastName].filter(Boolean).join(' ').trim()
 
@@ -49,6 +59,8 @@ export async function POST(request: Request) {
       source: 'website-empire-apply',
       fields: {
         intent: intentLabel,
+        teamSize: teamSizeLabel,
+        suggestedOffer,
         frequency: frequency || '',
         contentStats: contentStats || '',
         contentSkill: contentSkill || '',
@@ -61,6 +73,8 @@ export async function POST(request: Request) {
       },
       noteLines: [
         `- **Objectif:** ${intentLabel}`,
+        teamSizeLabel ? `- **Taille equipe:** ${teamSizeLabel}` : '',
+        suggestedOffer ? `- **Orientation offre:** ${suggestedOffer}` : '',
         frequency ? `- **Frequence publication:** ${frequency}` : '',
         contentStats ? `- **Stats / mois:** ${contentStats}` : '',
         contentSkill ? `- **A l'aise contenu:** ${contentSkill}` : '',
@@ -81,6 +95,8 @@ export async function POST(request: Request) {
       lead: {
         email: String(email).trim(),
         intent: intentLabel,
+        teamSize: teamSizeLabel,
+        suggestedOffer,
         frequency: frequency ? labelFrequency(frequency) : '',
         contentStats: contentStats ? labelStats(contentStats) : '',
         contentSkill: contentSkill ? labelSkill(contentSkill) : '',
@@ -102,6 +118,8 @@ export async function POST(request: Request) {
         `📧 ${email}\n` +
         `📱 ${phone}\n` +
         `🎯 Objectif: ${intentLabel}\n` +
+        (teamSizeLabel ? `👥 Équipe: ${teamSizeLabel}\n` : '') +
+        (suggestedOffer ? `📌 Orientation: ${suggestedOffer}\n` : '') +
         (frequency ? `📡 Fréquence: ${frequency}\n` : '') +
         (contentStats ? `📊 Stats: ${contentStats}\n` : '') +
         (contentSkill ? `🎬 Contenu: ${contentSkill}\n` : '') +

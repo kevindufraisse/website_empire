@@ -3,9 +3,12 @@
 import { motion } from 'framer-motion'
 import { useEffect, useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { CheckCircle2, Check, MessageCircle } from 'lucide-react'
+import { CheckCircle2, Check, MessageCircle, ExternalLink } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import LoomEmbed from '@/components/LoomEmbed'
+
+const SLACK_INVITE =
+  'https://join.slack.com/t/empire-community/shared_invite/zt-48r5is0lz-MiYTUfVBYgNymUbb56h_6g'
 
 function ThankYouContent() {
   const { lang } = useLanguage()
@@ -73,7 +76,7 @@ function ThankYouContent() {
                 </span>
                 <div>
                   <p className="text-lg font-bold text-white md:text-xl">
-                    {fr ? 'On vous écrit dans un instant.' : 'We’ll message you in a moment.'}
+                    {fr ? 'Un membre vous contacte dans les prochaines 15 minutes.' : 'A team member will contact you in the next 15 minutes.'}
                   </p>
                   <p className="mt-1 text-sm leading-relaxed text-neutral-300 md:text-base">
                     {fr
@@ -105,6 +108,40 @@ function ThankYouContent() {
                 {fr ? 'Ouvrir dans une nouvelle fenêtre →' : 'Open in a new window →'}
               </a>
             </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="mb-10"
+          >
+            <a
+              href={SLACK_INVITE}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.04] p-5 transition hover:border-empire/40 hover:bg-white/[0.06]"
+            >
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#4A154B]">
+                <svg viewBox="0 0 122.8 122.8" className="h-6 w-6" aria-hidden>
+                  <path d="M25.8 77.6c0 7.1-5.8 12.9-12.9 12.9S0 84.7 0 77.6s5.8-12.9 12.9-12.9h12.9v12.9zm6.5 0c0-7.1 5.8-12.9 12.9-12.9s12.9 5.8 12.9 12.9v32.3c0 7.1-5.8 12.9-12.9 12.9s-12.9-5.8-12.9-12.9V77.6z" fill="#E01E5A" />
+                  <path d="M45.2 25.8c-7.1 0-12.9-5.8-12.9-12.9S38.1 0 45.2 0s12.9 5.8 12.9 12.9v12.9H45.2zm0 6.5c7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9H12.9C5.8 58.1 0 52.3 0 45.2s5.8-12.9 12.9-12.9h32.3z" fill="#36C5F0" />
+                  <path d="M97 45.2c0-7.1 5.8-12.9 12.9-12.9s12.9 5.8 12.9 12.9-5.8 12.9-12.9 12.9H97V45.2zm-6.5 0c0 7.1-5.8 12.9-12.9 12.9s-12.9-5.8-12.9-12.9V12.9C64.7 5.8 70.5 0 77.6 0s12.9 5.8 12.9 12.9v32.3z" fill="#2EB67D" />
+                  <path d="M77.6 97c7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9-12.9-5.8-12.9-12.9V97h12.9zm0-6.5c-7.1 0-12.9-5.8-12.9-12.9s5.8-12.9 12.9-12.9h32.3c7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9H77.6z" fill="#ECB22E" />
+                </svg>
+              </span>
+              <span className="min-w-0 flex-1 text-left">
+                <span className="block text-base font-bold text-white">
+                  {fr ? 'Rejoindre la communauté Slack' : 'Join the Slack community'}
+                </span>
+                <span className="mt-0.5 block text-sm text-neutral-400">
+                  {fr
+                    ? 'En attendant notre message, échangez avec les membres Empire.'
+                    : 'While you wait for our message, talk with Empire members.'}
+                </span>
+              </span>
+              <ExternalLink size={16} className="shrink-0 text-neutral-500" />
+            </a>
           </motion.div>
 
           {!fromWaitlist && (

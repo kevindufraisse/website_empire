@@ -351,3 +351,24 @@ body.calendar-dialog-open header {
   max-width: 100% !important;
   width: 100% !important;
 }
+
+@keyframes hero-float-up {
+  0% { transform: translate3d(0, 0, 0) scale(0.7); opacity: 0; }
+  18% { transform: translate3d(12px, -180px, 0) scale(1); opacity: 0.78; }
+  58% { transform: translate3d(-8px, -430px, 0) scale(0.92); opacity: 0.5; }
+  100% { transform: translate3d(6px, -720px, 0) scale(0.75); opacity: 0; }
+}
+
+.hero-float-reaction {
+  animation-name: hero-float-up;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-float-reaction {
+    animation: none;
+    display: none;
+  }
+}

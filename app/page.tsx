@@ -1,19 +1,21 @@
+import dynamic from 'next/dynamic'
 import HeroSection from '@/components/sections/HeroSection'
-import HomeDemoSection from '@/components/sections/HomeDemoSection'
-import FormatsShowcaseSection from '@/components/sections/FormatsShowcaseSection'
-import RepurposingSection from '@/components/sections/RepurposingSection'
-import MobileAppSection from '@/components/sections/MobileAppSection'
-import IncludedFeaturesSection from '@/components/sections/IncludedFeaturesSection'
-import CaseStudiesSection from '@/components/sections/CaseStudiesSection'
-import HomeApplySection from '@/components/sections/HomeApplySection'
-import TestimonialsSection from '@/components/sections/TestimonialsSection'
 import TopCreatorsSection from '@/components/sections/TopCreatorsSection'
-import QuickWinsSection from '@/components/sections/QuickWinsSection'
-import FounderSection from '@/components/sections/FounderSection'
-import FAQSection from '@/components/sections/FAQSection'
-import FinalBoostCTA from '@/components/sections/FinalBoostCTA'
+import HomeApplySection from '@/components/sections/HomeApplySection'
 import FeaturedInSection from '@/components/FeaturedInSection'
 import FormulaBar from '@/components/FormulaBar'
+
+const HomeDemoSection = dynamic(() => import('@/components/sections/HomeDemoSection'))
+const FormatsShowcaseSection = dynamic(() => import('@/components/sections/FormatsShowcaseSection'))
+const RepurposingSection = dynamic(() => import('@/components/sections/RepurposingSection'))
+const MobileAppSection = dynamic(() => import('@/components/sections/MobileAppSection'))
+const IncludedFeaturesSection = dynamic(() => import('@/components/sections/IncludedFeaturesSection'))
+const CaseStudiesSection = dynamic(() => import('@/components/sections/CaseStudiesSection'))
+const TestimonialsSection = dynamic(() => import('@/components/sections/TestimonialsSection'))
+const QuickWinsSection = dynamic(() => import('@/components/sections/QuickWinsSection'))
+const FounderSection = dynamic(() => import('@/components/sections/FounderSection'))
+const FAQSection = dynamic(() => import('@/components/sections/FAQSection'))
+const FinalBoostCTA = dynamic(() => import('@/components/sections/FinalBoostCTA'))
 
 export default function Page() {
   return (

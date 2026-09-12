@@ -42,7 +42,7 @@ export default function TestimonialsSection() {
         document.body.appendChild(script)
         observer.disconnect()
       },
-      { rootMargin: '600px' }
+      { rootMargin: '200px' }
     )
     observer.observe(el)
 

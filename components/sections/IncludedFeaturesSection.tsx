@@ -46,9 +46,8 @@ const INTEGRATIONS: { name: string; src: string; bg?: string }[] = [
   { name: 'Stripe', src: '/integrations/stripe.svg', bg: '#635BFF' },
 ]
 
-/** Telegram : une note vocale envoyée au bot, la réponse avec ce qui en sort. */
+/** Telegram : partage de liens, détection des formats et confirmation immédiate. */
 function TelegramArt({ fr }: { fr: boolean }) {
-  const bars = [4, 9, 14, 8, 16, 11, 6, 13, 9, 15, 7, 12, 5, 10, 14, 8, 4, 11, 7, 3]
   return (
     <div className={`${MOCK} mt-4 p-3.5`}>
       <div className="flex items-center gap-2 border-b border-white/8 pb-2.5">
@@ -60,30 +59,32 @@ function TelegramArt({ fr }: { fr: boolean }) {
           <p className="text-[9px] text-neutral-500">bot</p>
         </div>
       </div>
-      {/* La note vocale, alignée à droite comme un message envoyé */}
+      {/* Message envoyé : un lot de liens à traiter */}
       <div className="mt-3 flex justify-end">
-        <div className="flex w-[78%] items-center gap-2 rounded-2xl rounded-br-md bg-empire/15 px-3 py-2">
-          <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-empire text-black">
-            <svg viewBox="0 0 24 24" className="ml-0.5 h-3 w-3" fill="currentColor" aria-hidden><path d="M8 5v14l11-7z" /></svg>
-          </span>
-          <span className="flex h-5 flex-1 items-center gap-[2px]">
-            {bars.map((h, i) => <span key={i} className="w-[2px] rounded-full bg-empire/80" style={{ height: `${h}px` }} />)}
-          </span>
-          <span className="text-[10px] tabular-nums text-neutral-300">1:42</span>
+        <div className="w-[84%] rounded-2xl rounded-br-md bg-empire/15 px-3 py-2">
+          <p className="text-[10px] font-semibold text-empire">{fr ? 'Liens du jour' : 'Today links'}</p>
+          <p className="mt-1 truncate font-mono text-[10px] text-neutral-300">instagram.com/reel/DQe_WJ3DNae</p>
+          <p className="truncate font-mono text-[10px] text-neutral-300">tiktok.com/@kevin/video/7482...</p>
+          <p className="truncate font-mono text-[10px] text-neutral-300">youtube.com/shorts/ehu8PawFKIk</p>
         </div>
       </div>
-      {/* La réponse du bot */}
+      {/* Réponse du bot : détection + anti-doublon */}
       <div className="mt-2 flex justify-start">
         <div className="w-[82%] rounded-2xl rounded-bl-md border border-white/10 bg-white/[0.05] px-3 py-2">
           <p className="text-[11px] leading-snug text-neutral-200">
-            {fr ? 'Reçu. J\'en fais :' : 'Got it. Turning it into:'}
+            {fr ? 'Vérification des liens :' : 'Link checks:'}
           </p>
           <ul className="mt-1 space-y-0.5 text-[10.5px] text-neutral-400">
-            <li>· {fr ? '1 post LinkedIn + image' : '1 LinkedIn post + image'}</li>
-            <li>· {fr ? '1 carrousel Instagram' : '1 Instagram carousel'}</li>
-            <li>· {fr ? '1 newsletter' : '1 newsletter'}</li>
+            <li>· OK Instagram Reel</li>
+            <li>· OK TikTok</li>
+            <li>· OK YouTube Short</li>
           </ul>
-          <p className="mt-1.5 text-[10px] font-semibold text-empire">{fr ? 'Relu et programmé jeudi 9h.' : 'Proofread and scheduled Thursday 9am.'}</p>
+          <p className="mt-1.5 text-[10px] font-semibold text-empire">
+            {fr ? 'Short déjà vu : réaction directe, pas de doublon ajouté.' : 'Duplicate short: direct reaction, no extra duplicate.'}
+          </p>
+          <p className="mt-1 rounded-lg bg-black/35 px-2 py-1 font-mono text-[9px] text-neutral-400">
+            [log] short=ehu8PawFKIk duplicate=true reaction=direct
+          </p>
         </div>
       </div>
     </div>
@@ -507,14 +508,14 @@ export default function IncludedFeaturesSection() {
             <BroadcastArt fr={fr} />
           </motion.div>
 
-          {/* Notes vocales Telegram */}
+          {/* Liens Telegram */}
           <motion.div {...appear(0.42)} className={`${card} md:col-span-3`}>
-            <p className={kicker}><Send className="mr-1.5 inline h-3.5 w-3.5" />{fr ? 'Notes vocales Telegram' : 'Telegram voice notes'}</p>
-            <p className={title}>{fr ? 'Une idée dans la rue ? Une note vocale, et c\'est un post.' : 'An idea on the street? One voice note, and it\'s a post.'}</p>
+            <p className={kicker}><Send className="mr-1.5 inline h-3.5 w-3.5" />{fr ? 'Liens Telegram' : 'Telegram links'}</p>
+            <p className={title}>{fr ? 'Vous envoyez des liens, le bot reconnaît le format et confirme.' : 'You send links, the bot recognizes the format and confirms it.'}</p>
             <p className={desc}>
               {fr
-                ? 'Vous dictez dans Telegram comme à un ami. L\'équipe en fait un post, un carrousel ou une newsletter, dans votre ton.'
-                : 'You dictate in Telegram like to a friend. The team turns it into a post, a carousel or a newsletter, in your tone.'}
+                ? 'Instagram, TikTok, YouTube Shorts : chaque lien est détecté, validé, puis envoyé en traitement sans doublons.'
+                : 'Instagram, TikTok, YouTube Shorts: each link is detected, validated, then sent to production without duplicates.'}
             </p>
             <TelegramArt fr={fr} />
           </motion.div>

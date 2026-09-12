@@ -4,14 +4,14 @@ import dynamic from 'next/dynamic'
 import { Inter, Caveat } from 'next/font/google'
 import { LanguageProvider } from '@/contexts/LanguageContext'
 import { AutopilotProvider } from '@/contexts/AutopilotContext'
-import { GiftCountdownProvider } from '@/components/GiftCountdownBar'
+import { GiftCountdownProvider } from '@/components/GiftCountdownContext'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import IdleMount from '@/components/IdleMount'
 
 const ClientWrappers = dynamic(() => import('@/components/ClientWrappers'), { ssr: false })
 const CalStickyBar = dynamic(() => import('@/components/CalStickyBar'), { ssr: false })
 const CalCtaRedirect = dynamic(() => import('@/components/CalCtaRedirect'), { ssr: false })
-const WebinarBanner = dynamic(() => import('@/components/WebinarBanner'), { ssr: false })
 const PostHogInit = dynamic(() => import('@/components/PostHogInit'), { ssr: false })
 const AmplitudeInit = dynamic(() => import('@/components/AmplitudeInit'), { ssr: false })
 // Le chat Crisp est remplacé par un lien WhatsApp vers le setter : c'est
@@ -59,16 +59,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           />
         </noscript>
         {/* End Google Tag Manager (noscript) */}
-        <PostHogInit />
-        <AmplitudeInit />
         <LanguageProvider>
           <AutopilotProvider>
             <GiftCountdownProvider>
             <div data-chrome="cal-redirect"><CalCtaRedirect /></div>
             <div data-chrome="header"><Header /></div>
-            <WebinarBanner />
-            <div data-chrome="popups"><ClientWrappers /></div>
-            <div data-chrome="sticky-bar"><CalStickyBar /></div>
+            <IdleMount>
+              <PostHogInit />
+              <AmplitudeInit />
+              <div data-chrome="popups"><ClientWrappers /></div>
+              <div data-chrome="sticky-bar"><CalStickyBar /></div>
+            </IdleMount>
             <div data-chrome="whatsapp"><WhatsAppBubble /></div>
             <div suppressHydrationWarning>
               {children}

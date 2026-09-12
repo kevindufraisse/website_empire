@@ -3,7 +3,7 @@ import { usePathname } from 'next/navigation'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import { Mail } from 'lucide-react'
-import { GiftFooterLink } from '@/components/GiftCountdownBar'
+import { GiftFooterLink } from '@/components/GiftCountdownContext'
 
 export default function Footer() {
   const { t, lang } = useLanguage()

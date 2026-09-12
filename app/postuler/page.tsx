@@ -10,14 +10,8 @@ export const metadata: Metadata = {
 
 export default function PostulerPage() {
   return (
-    <main className="relative min-h-screen bg-black pt-24 pb-20">
+    <main className="relative min-h-screen bg-black pt-10 pb-24">
       <div className="container max-w-xl mx-auto px-4">
-        <div className="mb-8 rounded-2xl border border-empire/30 bg-empire/10 px-5 py-4 text-center">
-          <p className="text-sm font-semibold text-white leading-relaxed">
-            Un membre de l’équipe échange personnellement avec chaque nouveau membre.
-          </p>
-        </div>
-
         <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 md:p-8 min-h-[420px] flex flex-col justify-center">
           <Suspense fallback={<p className="text-center text-neutral-400 text-sm">…</p>}>
             <EmpireApplyForm />
