@@ -258,11 +258,7 @@ export default function HomeEmailGate() {
                           ? 'Entrez votre email pour découvrir la formule.'
                           : 'Enter your email to discover the formula.'}
                       </h2>
-                      <p className="mt-1 hidden text-[13px] text-neutral-300 sm:block">
-                        {fr
-                          ? 'Message × Format × Diffusion ÷ Temps + Coût = Visibilité - et la suite de la page se dévoile.'
-                          : 'Message × Format × Distribution ÷ Time + Cost = Visibility - and the rest of the page opens up.'}
-                      </p>
+                      {/* Sous-titre desktop supprimé (Kevin, 16 sept.) */}
                     </div>
                   </div>
 
