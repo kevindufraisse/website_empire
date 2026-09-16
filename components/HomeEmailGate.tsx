@@ -2,13 +2,14 @@
 
 /**
  * Porte email de la home. Quand le visiteur a scrollé au-delà des logos
- * presse (sentinelle `#home-gate-trigger` posée dans `app/page.tsx`), le
- * scroll se bloque, le bas de l'écran se floute et une barre « glass » se pose
- * en bas : « Vos millions de vues sont à un scroll. Entrez votre email pour
- * découvrir la formule. » Pas de popup : le haut de page reste lisible, et la
- * popup communauté (exit intent) garde sa place. L'email est vérifié côté
- * serveur (`/api/home-gate` : syntaxe, jetable, faute de frappe, serveur mail)
- * avant de libérer le scroll. Une fois passé, on ne redemande plus (localStorage).
+ * presse ET du Senja (sentinelle `#home-gate-trigger` après
+ * `TopCreatorsSection`), le scroll se bloque, le bas de l'écran se floute
+ * et une barre « glass » se pose en bas : « Vos millions de vues sont à un
+ * scroll. Entrez votre email pour découvrir la formule. » Pas de popup : le
+ * haut de page (logos + commentaires) reste lisible, et la popup communauté
+ * (exit intent) garde sa place. L'email est vérifié côté serveur
+ * (`/api/home-gate`) avant de libérer le scroll. Une fois passé, on ne
+ * redemande plus (localStorage).
  */
 
 import { useCallback, useEffect, useRef, useState, type FormEvent } from 'react'
@@ -58,8 +59,8 @@ export default function HomeEmailGate() {
 
   useEffect(() => setMounted(true), [])
 
-  // Déclencheur : la sentinelle sous les logos atteint la moitié haute de
-  // l'écran = les logos sont passés. Une seule fois par visiteur.
+  // Déclencheur : la sentinelle sous le Senja atteint la moitié haute de
+  // l'écran = logos + commentaires sont passés. Une seule fois par visiteur.
   useEffect(() => {
     if (pathname !== '/') return
     if (readUnlocked()) {
@@ -85,7 +86,7 @@ export default function HomeEmailGate() {
           if (!hit) return
           observer?.disconnect()
           setOpen(true)
-          capture('home_gate_opened', { source: 'scroll_after_logos' })
+          capture('home_gate_opened', { source: 'scroll_after_senja' })
         },
         { rootMargin: '0px 0px -50% 0px', threshold: 0 },
       )
@@ -173,7 +174,7 @@ export default function HomeEmailGate() {
         capture('home_gate_rejected', { reason: data.reason || 'unknown' })
         return
       }
-      capture('home_gate_unlocked', { source: 'scroll_after_logos', forced: force })
+      capture('home_gate_unlocked', { source: 'scroll_after_senja', forced: force })
       unlock(value)
     } catch {
       // Réseau coupé : on ne laisse pas un visiteur bloqué devant un mur à cause de nous.
