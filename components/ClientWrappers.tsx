@@ -5,6 +5,7 @@ import GiftCountdownModal from '@/components/GiftCountdownBar'
 import ViralPostsOverlay from '@/components/ViralPostsOverlay'
 import { OfferQuizGlobal } from '@/components/sections/OfferQuiz'
 import CreatorQuizExitIntent from '@/components/CreatorQuizExitIntent'
+import HomeEmailGate from '@/components/HomeEmailGate'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function ClientWrappers() {
@@ -16,6 +17,7 @@ export default function ClientWrappers() {
       <ViralPostsOverlay />
       <OfferQuizGlobal fr={lang === 'fr'} />
       <CreatorQuizExitIntent />
+      <HomeEmailGate />
     </>
   )
 }

@@ -28,6 +28,9 @@ export default function Page() {
           <FeaturedInSection />
         </div>
       </section>
+      {/* Sentinelle de la porte email (`HomeEmailGate`) : une fois les logos
+          passés, la suite de la page se dévoile contre un email vérifié. */}
+      <div id="home-gate-trigger" aria-hidden className="h-px w-full" />
       <TopCreatorsSection />
       {/* Les ancres `formula-*` pilotent la FormulaBar : chaque section révèle
           le terme de la formule qu'elle démontre, dans l'ordre de la formule
