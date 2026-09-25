@@ -28,13 +28,13 @@ const COMPARISONS: ComparisonRow[] = [
     dimension: { fr: 'Quoi filmer', en: 'What to shoot' },
     alone: { fr: 'Deviner, tester, recommencer', en: 'Guess, test, start over' },
     freelance: { fr: 'Vous devez leur dire quoi faire', en: 'You have to tell them what to do' },
-    empire: { fr: 'Les formats mesurés chaque semaine, prêts à filmer', en: 'Formats measured every week, ready to shoot' },
+    empire: { fr: 'Les sujets sont déjà là. Vous cliquez.', en: 'The topics are already there. You click.' },
   },
   {
     dimension: { fr: 'Temps investi', en: 'Time invested' },
     alone: { fr: '10-15 h/semaine', en: '10-15 h/week' },
     freelance: { fr: '5 h/semaine à briefer, relire, relancer', en: '5 h/week briefing, proofreading, chasing' },
-    empire: { fr: '20 min/semaine, on gère le reste', en: '20 min/week, we handle the rest' },
+    empire: { fr: '20 min à 1 h/semaine, le reste en cascade', en: '20 min to 1 h/week, the rest in a cascade' },
   },
   {
     dimension: { fr: 'Volume', en: 'Volume' },
@@ -46,7 +46,7 @@ const COMPARISONS: ComparisonRow[] = [
     dimension: { fr: 'Sujets', en: 'Topics' },
     alone: { fr: 'La page blanche', en: 'The blank page' },
     freelance: { fr: 'La page blanche (c\'est vous qui briefez)', en: 'The blank page (you write the brief)' },
-    empire: { fr: 'Le brief des sujets qui montent, chaque matin', en: 'A brief of rising topics, every morning' },
+    empire: { fr: 'Telegram + veille concurrents + sujets viraux', en: 'Telegram + competitor watch + viral topics' },
   },
   {
     dimension: { fr: 'Résultat', en: 'Result' },
@@ -58,7 +58,7 @@ const COMPARISONS: ComparisonRow[] = [
     dimension: { fr: 'Coût', en: 'Cost' },
     alone: { fr: 'Votre temps (le plus cher)', en: 'Your time (the most expensive)' },
     freelance: { fr: 'Monteur + rédacteur + CM : 5 000 €+/mois', en: 'Editor + writer + CM: €5,000+/month' },
-    empire: { fr: 'Un abonnement, une équipe, un rapport hebdo', en: 'One subscription, one team, a weekly report' },
+    empire: { fr: 'Divisé par 100. Vous pouvez payer à l\'usage.', en: 'Divided by 100. You can pay for what you use.' },
   },
 ]
 
@@ -95,9 +95,14 @@ export default function QuickWinsSection() {
           </p>
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
             {fr
-              ? <>Seul, avec des freelances, <span className="text-empire">ou avec Empire.</span></>
-              : <>Alone, with freelancers, <span className="text-empire">or with Empire.</span></>}
+              ? <>Le prix d’une équipe, <span className="text-empire">divisé par 100.</span></>
+              : <>The price of a team, <span className="text-empire">divided by 100.</span></>}
           </h2>
+          <p className="mx-auto max-w-2xl text-base leading-relaxed text-neutral-400 md:text-lg">
+            {fr
+              ? 'Monteur, rédacteur, community manager, veille : ce que vous paieriez pour faire la même chose. Ici, vous pouvez ne payer que ce que vous consommez.'
+              : 'Editor, writer, community manager, research: what you would pay to do the same thing. Here, you can pay only for what you use.'}
+          </p>
         </motion.div>
 
         {/* Comparison Table */}

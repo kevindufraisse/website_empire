@@ -18,7 +18,12 @@ const nextConfig = {
       },
       {
         source: '/community',
-        destination: '/communaute',
+        destination: '/postit',
+        permanent: false,
+      },
+      {
+        source: '/communaute',
+        destination: '/postit',
         permanent: false,
       },
     ]

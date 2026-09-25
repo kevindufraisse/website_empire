@@ -34,7 +34,7 @@ export default function WhatsAppBubble() {
     return () => clearTimeout(t)
   }, [fr])
 
-  if (pathname === '/communaute' || pathname === '/community') return null
+  if (pathname === '/communaute' || pathname === '/community' || pathname === '/postit') return null
 
   return (
     <a

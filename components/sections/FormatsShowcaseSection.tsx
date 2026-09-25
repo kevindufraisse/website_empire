@@ -389,18 +389,18 @@ export default function FormatsShowcaseSection() {
             {fr ? 'Étape 2 · Le bon format' : 'Step 2 · The right format'}
           </p>
           <h2 className="text-3xl font-extrabold leading-[1.1] text-white md:text-5xl">
-            {fr ? 'La même idée, dans le bon format, est vue 10 000 fois plus.' : 'The same idea, in the right format, gets 10,000x the views.'}
+            {fr ? 'Chaque sujet rentre dans un format qui se regarde.' : 'Every topic goes into a format people actually watch.'}
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-neutral-400 md:text-lg">
             {fr
-              ? 'On décortique chaque semaine ce qui explose, on le templatise pour vous. Vous parlez, on fait le montage, les sous-titres, l\'habillage.'
-              : 'Every week we dissect what is blowing up and template it for you. You talk, we handle the edit, the subtitles, the styling.'}
+              ? 'Tier list, réaction, citation, fausse FAQ, podcast : on imbrique le sujet dans le format, pour le bon réseau. L\'équipe le fusionne dans la plateforme. Vous dites les choses dans la langue des réseaux.'
+              : 'Tier list, reaction, quote, fake FAQ, podcast: we drop the topic into the format, for the right network. The team merges it in the platform. You say things in social media language.'}
           </p>
           {/* Les sept réseaux + la newsletter, en icônes : « multi-diffusé »
               écrit en toutes lettres ne montre rien, Threads et X en pastille
               se voient. */}
           <div className="mt-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-2">
-            <span className="text-xs text-neutral-500">{fr ? 'Adapté et publié pour vous sur' : 'Adapted and published for you on'}</span>
+            <span className="text-xs text-neutral-500">{fr ? 'Le bon format pour' : 'The right format for'}</span>
             <NetworkRow networks={['instagram', 'tiktok', 'youtube', 'linkedin', 'facebook', 'threads', 'twitter', 'newsletter']} size="md" />
           </div>
         </motion.div>

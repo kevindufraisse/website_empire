@@ -35,8 +35,8 @@ export default function MobileAppSection() {
       en: ['Every format, from the phone', 'Tier list, reaction, quote, podcast, interview: everything is shot in the app, framing and instructions on screen.'],
     },
     {
-      fr: ['20 minutes, une semaine de contenu', 'Une heure, le mois. Entre deux rendez-vous, pas dans un studio.'],
-      en: ['20 minutes, a week of content', 'One hour, the month. Between two meetings, not in a studio.'],
+      fr: ['20 minutes à une heure par semaine', 'Une action en déclenche une autre. Vous parlez une fois, le reste suit.'],
+      en: ['20 minutes to an hour a week', 'One action triggers the next. You talk once, the rest follows.'],
     },
     {
       fr: ['Sans montrer votre visage', 'Le mode dictée : vous parlez, sans caméra. Une note vocale Telegram marche aussi.'],
@@ -120,15 +120,15 @@ export default function MobileAppSection() {
               <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
               </svg>
-              {fr ? 'Étape 4 · 1h par mois' : 'Step 4 · 1h a month'}
+              {fr ? 'Étape 4 · Temps' : 'Step 4 · Time'}
             </p>
             <h2 className="text-3xl font-extrabold leading-[1.15] text-white md:text-4xl">
-              {fr ? 'Le contenu se tourne dans les creux de votre journée.' : 'Content gets shot in the gaps of your day.'}
+              {fr ? '20 minutes à une heure par semaine.' : '20 minutes to an hour a week.'}
             </h2>
             <p className="mt-3 text-base leading-relaxed text-neutral-400 md:text-lg">
               {fr
-                ? '1h par mois : au déjeuner, dans la rue, au volant. Un téléphone suffit - tous les formats Empire sont dans l\'app.'
-                : '1h a month: over lunch, in the street, behind the wheel. A phone is enough - every Empire format is in the app.'}
+                ? 'Au déjeuner, dans la rue, entre deux rendez-vous. Vous parlez une fois. Le reste part en cascade : un vocal, un post, un reel, une vidéo longue, 7 réseaux.'
+                : 'Over lunch, in the street, between two meetings. You talk once. The rest follows: a voice memo, a post, a reel, a long video, 7 networks.'}
             </p>
             {/* Liste numérotée, filets fins : pas de pictos. */}
             <ol className="mt-6 divide-y divide-white/10 border-y border-white/10">
@@ -148,9 +148,9 @@ export default function MobileAppSection() {
             {/* Le coût, en clôture : c'est le dénominateur de la formule. */}
             <p className="mt-5 rounded-2xl border border-empire/25 bg-empire/[0.06] px-5 py-3.5 text-sm leading-relaxed text-neutral-300">
               {fr ? (
-                <>Un monteur, un rédacteur, un community manager : <span className="whitespace-nowrap font-bold text-white">5&nbsp;000&nbsp;€+/mois</span> pour faire moins que ça. Ici : une app, une équipe, un abonnement.</>
+                <>Une action en crée une autre. C’est pour ça que ça tient en <span className="whitespace-nowrap font-bold text-white">20&nbsp;minutes à 1&nbsp;h</span> par semaine, pas en 15.</>
               ) : (
-                <>An editor, a writer, a community manager: <span className="whitespace-nowrap font-bold text-white">€5,000+/month</span> to do less than this. Here: one app, one team, one subscription.</>
+                <>One action creates the next. That is why it fits in <span className="whitespace-nowrap font-bold text-white">20&nbsp;minutes to 1&nbsp;hour</span> a week, not 15.</>
               )}
             </p>
           </motion.div>

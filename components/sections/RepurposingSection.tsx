@@ -81,8 +81,8 @@ export default function RepurposingSection() {
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-neutral-400 md:text-lg">
             {fr
-              ? 'Un post LinkedIn classique s\'arrête à LinkedIn : 39 546 vues, fin de l\'histoire. La formule l\'a sortie partout le même jour. Threads : 304 535. Instagram en reel : 69 785.'
-              : 'A classic LinkedIn post stops at LinkedIn: 39,546 views, end of story. The formula pushed it everywhere the same day. Threads: 304,535. Instagram as a reel: 69,785.'}
+              ? 'Même effort, 7 réseaux au lieu d\'un ou deux. Un texte devient une vidéo. Une vidéo devient un texte. Un post LinkedIn classique s\'arrête à LinkedIn : 39 546 vues. Ici : Threads 304 535, Instagram 69 785, le même jour.'
+              : 'Same effort, 7 networks instead of one or two. A post becomes a video. A video becomes a post. A classic LinkedIn post stops at LinkedIn: 39,546 views. Here: Threads 304,535, Instagram 69,785, same day.'}
           </p>
         </motion.div>
 
@@ -167,6 +167,45 @@ export default function RepurposingSection() {
             ? <><span className="font-bold text-white">{ELSEWHERE_PCT} % des vues</span> de cette idée sont venues d’ailleurs que là où elle a été écrite. C’est ça, la diffusion : vous ne pariez plus sur une plateforme, vous les prenez toutes.</>
             : <><span className="font-bold text-white">{ELSEWHERE_PCT}% of the views</span> on this idea came from somewhere other than where it was written. That is distribution: you no longer bet on one platform, you take them all.</>}
         </p>
+        <div className="mx-auto mt-10 grid max-w-4xl items-center gap-6 md:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
+          <figure className="overflow-hidden rounded-2xl border border-white/10 bg-black">
+            <video
+              className="aspect-[1080/960] w-full object-cover"
+              src="/formats/clone-avant-apres.mp4?v=3"
+              poster="/formats/clone-avant-apres.jpg?v=3"
+              autoPlay
+              muted
+              loop
+              playsInline
+              aria-label={fr ? 'Le reel d’origine à gauche, le même plan avec vous à droite' : 'The original reel on the left, the same shot with you on the right'}
+            />
+            <figcaption className="px-4 py-3 text-left">
+              <p className="text-[13px] font-bold text-white">{fr ? 'Clonage' : 'Cloning'}</p>
+              <p className="mt-1 text-[13px] leading-relaxed text-neutral-400">
+                {fr
+                  ? 'Vous collez le lien. À gauche, le reel qui a percé. À droite, le même plan, avec vous.'
+                  : 'You paste the link. On the left, the reel that took off. On the right, the same shot, with you.'}
+              </p>
+            </figcaption>
+          </figure>
+          <ul className="space-y-3 text-left">
+            {(fr
+              ? [
+                  { t: 'Republication', d: 'Un post à 100 000 vues le mois dernier ? On le remet en ligne, si vous voulez.' },
+                  { t: 'Court → long', d: 'Les formats courts se combinent en vidéo longue, aussi sur l’actu et vos sujets.' },
+                ]
+              : [
+                  { t: 'Republish', d: 'A post that did 100,000 views last month? We put it out again, if you want.' },
+                  { t: 'Short → long', d: 'Short formats combine into a long video, including on the news and your topics.' },
+                ]
+            ).map((item) => (
+              <li key={item.t} className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3.5">
+                <p className="text-[13px] font-bold text-white">{item.t}</p>
+                <p className="mt-1 text-[13px] leading-relaxed text-neutral-400">{item.d}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
         <p className="mx-auto mt-4 max-w-3xl text-center text-[11px] leading-relaxed text-neutral-600">
           {fr
             ? 'Chiffres relevés le 8 septembre 2026 sur le compte de Kevin (LinkedIn : impressions affichées par LinkedIn).'

@@ -28,17 +28,17 @@ export default function HomeDemoSection() {
           className="mx-auto mb-6 max-w-4xl text-center md:mb-8"
         >
           <p className="mb-3 text-xs font-bold uppercase tracking-widest text-empire">
-            {lang === 'fr' ? 'Étape 1 · Votre message' : 'Step 1 · Your message'}
+            {lang === 'fr' ? 'Étape 1 · Message' : 'Step 1 · Message'}
           </p>
           <h2 className="text-2xl font-extrabold leading-[1.2] text-white sm:text-3xl md:text-4xl">
             {lang === 'fr'
-              ? <>Vous avez déjà quelque chose à dire.<br />Chaque réseau a son propre langage.</>
-              : <>You already have something to say.<br />Each network has its own language.</>}
+              ? <>Vos sujets sont là avant que vous les cherchiez.</>
+              : <>Your topics are there before you look for them.</>}
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-neutral-400 md:text-lg">
             {lang === 'fr'
-              ? 'Notre mission : traduire votre message pour que chaque plateforme l\'écoute.'
-              : 'Our mission: translate your message so every platform listens.'}
+              ? 'Tout passe par Telegram : un reel, une note, un vocal, une vidéo. Ça arrive dans votre espace. On y ajoute ce que vos concurrents ont posté la semaine dernière, et les sujets qui font le plus de vues en ce moment sur YouTube, Instagram et TikTok.'
+              : 'Everything goes through Telegram: a reel, a note, a voice memo, a video. It lands in your workspace. We add what your competitors posted last week, and the topics getting the most views right now on YouTube, Instagram and TikTok.'}
           </p>
         </motion.div>
 
@@ -52,8 +52,8 @@ export default function HomeDemoSection() {
               ce qu'il devient. C'est le terme 1 de la formule, montré. */}
           <p className="mb-5 text-center text-base text-neutral-400 md:text-lg">
             {lang === 'fr'
-              ? 'Le même message peut faire 100 vues ou 1 million. La différence, c\'est comment vous le dites.'
-              : 'The same message can get 100 views or 1 million. The difference is how you say it.'}
+              ? 'Vous ouvrez l\'app, les sujets sont prêts. Il reste un bouton à presser.'
+              : 'You open the app, the topics are ready. One button left to press.'}
           </p>
           <VoiceToContentAnimation />
         </motion.div>
