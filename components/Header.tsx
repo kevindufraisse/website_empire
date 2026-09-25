@@ -4,16 +4,27 @@ import { usePathname } from 'next/navigation'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { postitJoinUrl } from '@/lib/postit'
 
-/** Logo Slack officiel (4 couleurs), inline pour éviter un asset de plus. */
-function SlackLogo({ className }: { className?: string }) {
+const SOUND_BARS = [
+  { h: 8, d: 0.7, delay: 0 },
+  { h: 14, d: 0.9, delay: 0.12 },
+  { h: 18, d: 0.62, delay: 0.28 },
+  { h: 11, d: 1.05, delay: 0.08 },
+  { h: 16, d: 0.76, delay: 0.2 },
+]
+
+function SoundBars() {
   return (
-    <svg viewBox="0 0 122.8 122.8" className={className} aria-hidden="true">
-      <path d="M25.8 77.6c0 7.1-5.8 12.9-12.9 12.9S0 84.7 0 77.6s5.8-12.9 12.9-12.9h12.9v12.9zm6.5 0c0-7.1 5.8-12.9 12.9-12.9s12.9 5.8 12.9 12.9v32.3c0 7.1-5.8 12.9-12.9 12.9s-12.9-5.8-12.9-12.9V77.6z" fill="#E01E5A" />
-      <path d="M45.2 25.8c-7.1 0-12.9-5.8-12.9-12.9S38.1 0 45.2 0s12.9 5.8 12.9 12.9v12.9H45.2zm0 6.5c7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9H12.9C5.8 58.1 0 52.3 0 45.2s5.8-12.9 12.9-12.9h32.3z" fill="#36C5F0" />
-      <path d="M97 45.2c0-7.1 5.8-12.9 12.9-12.9s12.9 5.8 12.9 12.9-5.8 12.9-12.9 12.9H97V45.2zm-6.5 0c0 7.1-5.8 12.9-12.9 12.9s-12.9-5.8-12.9-12.9V12.9C64.7 5.8 70.5 0 77.6 0s12.9 5.8 12.9 12.9v32.3z" fill="#2EB67D" />
-      <path d="M77.6 97c7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9-12.9-5.8-12.9-12.9V97h12.9zm0-6.5c-7.1 0-12.9-5.8-12.9-12.9s5.8-12.9 12.9-12.9h32.3c7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9H77.6z" fill="#ECB22E" />
-    </svg>
+    <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center gap-[2px] rounded-full bg-black/50" aria-hidden>
+      {SOUND_BARS.map((bar, i) => (
+        <span
+          key={i}
+          className={`voicebar block w-[2px] rounded-full ${i === SOUND_BARS.length - 1 ? 'bg-[#ff7ec8]' : 'bg-empire'}`}
+          style={{ height: bar.h, animationDuration: `${bar.d}s`, animationDelay: `${bar.delay}s` }}
+        />
+      ))}
+    </span>
   )
 }
 
@@ -72,11 +83,18 @@ export default function Header() {
               {!isPartnersPage && (
                 <>
                   <a
-                    href="/communaute"
-                    className="hidden md:inline-flex items-center gap-2 rounded-full border border-empire/45 bg-empire/10 px-4 py-2 text-sm font-bold text-white transition hover:bg-empire/20"
+                    href={postitJoinUrl('header')}
+                    className="group hidden items-center gap-2.5 rounded-full border border-empire/45 bg-empire/10 py-1.5 pl-2 pr-4 text-left shadow-[0_0_22px_rgb(var(--empire-rgb)/0.22)] transition hover:bg-empire/20 md:inline-flex"
                   >
-                    <SlackLogo className="h-4 w-4 shrink-0" />
-                    {fr ? 'Rejoindre la communauté gratuite' : 'Join the free community'}
+                    <SoundBars />
+                    <span className="leading-none">
+                      <span className="block text-[10px] font-semibold uppercase tracking-[0.14em] text-white/55">
+                        {fr ? 'Rejoins l’événement' : 'Join the event'}
+                      </span>
+                      <span className="mt-1 block text-[13px] font-bold tracking-tight text-empire">
+                        Post it like it’s <span className="text-[#ff7ec8]">hot</span>
+                      </span>
+                    </span>
                   </a>
                 </>
               )}
@@ -112,12 +130,19 @@ export default function Header() {
                     className="flex gap-3"
                   >
                     <a
-                      href="/communaute"
+                      href={postitJoinUrl('header_mobile')}
                       onClick={() => setIsMenuOpen(false)}
-                      className="flex w-full items-center justify-center gap-2 rounded-xl border border-empire/45 bg-empire/10 py-3.5 text-sm font-bold text-white"
+                      className="flex w-full items-center justify-center gap-3 rounded-xl border border-empire/45 bg-empire/10 py-3.5 text-white shadow-[0_0_22px_rgb(var(--empire-rgb)/0.18)]"
                     >
-                      <SlackLogo className="h-4 w-4 shrink-0" />
-                      {fr ? 'Rejoindre la communauté gratuite' : 'Join the free community'}
+                      <SoundBars />
+                      <span className="text-left leading-none">
+                        <span className="block text-[10px] font-semibold uppercase tracking-[0.14em] text-white/55">
+                          {fr ? 'Rejoins l’événement' : 'Join the event'}
+                        </span>
+                        <span className="mt-1 block text-sm font-bold text-empire">
+                          Post it like it’s <span className="text-[#ff7ec8]">hot</span>
+                        </span>
+                      </span>
                     </a>
                   </motion.div>
                 )}
