@@ -13,14 +13,14 @@ const COPY: Record<Variant, { fr: { headline: string; sub: string; cta: string }
     fr: {
       headline: 'Vous savez maintenant le faire.',
       sub: 'Empire le fait avec vous.',
-      cta: 'Recevoir un accès',
+      cta: 'Voir le workshop gratuit',
     },
     en: {
       headline: 'Now you know how.',
       sub: 'Empire does it with you.',
-      cta: 'Get access',
+      cta: 'Watch the free workshop',
     },
-    href: '/postuler',
+    href: '/vsl',
     textClass: 'text-empire',
     bgClass: 'bg-empire',
   },

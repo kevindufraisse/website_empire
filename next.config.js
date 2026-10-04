@@ -6,6 +6,13 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      // La candidature (formulaire puis bot WhatsApp) est remplacée par la
+      // vidéo : les anciens liens /postuler (pubs, bios) atterrissent dessus.
+      {
+        source: '/postuler',
+        destination: '/vsl',
+        permanent: false,
+      },
       {
         source: '/pricing',
         destination: '/decouverte',

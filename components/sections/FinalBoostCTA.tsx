@@ -41,7 +41,7 @@ export default function FinalBoostCTA() {
                   {t.finalCTA.title}
                 </h2>
                 <p className="text-lg text-neutral-300 mb-6">
-                  {lang === 'fr' ? 'Demandez un accès. On lit chaque demande.' : 'Request access. We read every request.'}
+                  {lang === 'fr' ? 'Entrez votre email et regardez le workshop gratuit (1 h 26).' : 'Enter your email and watch the free workshop (1h26).'}
                 </p>
 
                 <WaitlistEmailCta />

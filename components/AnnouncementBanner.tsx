@@ -22,14 +22,14 @@ export default function AnnouncementBanner() {
             {lang === 'fr' ? SPOTS_LABEL_FR : SPOTS_LABEL_EN}
           </span>
           <a
-            href="/postuler"
+            href="/vsl"
             className="flex flex-col items-center gap-0 px-2 py-1 bg-black text-empire font-bold rounded hover:scale-105 transition-all ml-1"
           >
             <span className="leading-none text-[10px] sm:text-xs whitespace-nowrap">
-              {lang === 'fr' ? 'Recevoir un accès →' : 'Get access →'}
+              {lang === 'fr' ? 'Voir le workshop gratuit →' : 'Watch the free workshop →'}
             </span>
             <span className="text-[7px] sm:text-[8px] font-semibold text-empire/90 leading-tight text-center max-w-[8rem] sm:max-w-[10rem]">
-              {lang === 'fr' ? 'Sur sélection' : 'By selection'}
+              {lang === 'fr' ? '1 h 26' : '1h26'}
             </span>
           </a>
           <button

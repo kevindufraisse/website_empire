@@ -18,7 +18,7 @@ export const en = {
     titleNote: '',
     subtitle: 'Our virality team spots the formats that blow up, templates them for you and duplicates them across 7 platforms. No writing, no editing, no wondering what to say.',
     description: '',
-    cta1: 'Get access',
+    cta1: 'Watch the free workshop',
     cta2: 'Watch Demo (1 min)',
     rating: 'Based on 20 reviews',
     creatorsTitle: 'Install the system used by the world\'s best creators',
@@ -563,7 +563,7 @@ export const en = {
     },
     {
       question: 'How is this different from an agency?',
-      answer: 'An agency = €5–15K/month, weeks to deliver, often generic voice. Empire = ~1h/week from you, production + publishing. Waitlist: we read every application and select the most motivated profiles. Lives and community from Intermediate.',
+      answer: 'An agency = €5–15K/month, weeks to deliver, often generic voice. Empire = ~1h/week from you, production + publishing. Lives and community from Intermediate.',
     },
     {
       question: 'Can I cancel?',

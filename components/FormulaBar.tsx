@@ -2,7 +2,8 @@
 
 /**
  * FormulaBar - la formule de la visibilité, en pilule « glass » fixée en bas
- * de la home, qui se défloute au fil du scroll.
+ * de la home. Elle est lisible dès le hero ; au fil du scroll, le terme de la
+ * section qu'on lit s'allume.
  *
  *        Message × Format × Diffusion
  *        ────────────────────────────  = Visibilité   (→ Clients)
@@ -11,24 +12,21 @@
  * Temps et Coût sont deux termes distincts : le temps se révèle à l'app
  * (une heure par mois), le coût au comparatif Seul / Freelances / Empire.
  *
- * Chaque terme démarre flou (le format « flou → net » qu'on vend, appliqué à
- * la page elle-même) et devient net quand la section qui le démontre entre
- * dans le viewport : les ancres `formula-*` sont posées dans `app/page.tsx`,
- * dans l'ordre de la formule. Un terme révélé reste révélé - c'est une
- * découverte, pas un état. Arrivé au formulaire de candidature, la pilule
- * passe en vert et affiche la chute « → Clients ».
+ * Chaque terme est lisible mais atténué, et passe en plein quand la section
+ * qui le démontre entre dans le viewport (ancres `formula-*` dans
+ * `app/page.tsx`, dans l'ordre de la formule). Il n'y a plus de flou : la
+ * porte email qui « dévoilait » la formule a été retirée, la cacher n'avait
+ * plus rien à débloquer. Arrivé au bas de la démonstration, la pilule passe
+ * en vert et affiche la chute « → Clients ».
  *
  * Trois états, dans l'ordre du scroll :
  * - `docked` : dans le hero, sous l'accroche, rendue par portal dans le slot
- *   `formula-hero-slot`. Tout est flou : c'est la formule « secrète », avec
- *   l'invitation à scroller pour la découvrir.
+ *   `formula-hero-slot`, entièrement lisible.
  * - `floating` : dès que le slot passe sous le header, la pilule file en bas
- *   de l'écran (même `layoutId`, Framer anime le déplacement) et se révèle
- *   section par section.
+ *   de l'écran (même `layoutId`, Framer anime le déplacement) et allume le
+ *   terme de chaque section.
  * - `hidden` : à partir de la FAQ, la démonstration est finie, la place
  *   revient au formulaire et au footer.
- * En dessous de `lg`, la pilule flottante se pose au-dessus de la bulle
- * WhatsApp, qui occupe déjà le bas de l'écran.
  */
 
 import { useEffect, useRef, useState } from 'react'
@@ -36,6 +34,7 @@ import { createPortal } from 'react-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
+import { trackAmplitude } from '@/lib/amplitude'
 
 type TermId = 'message' | 'format' | 'diffusion' | 'time' | 'cost' | 'visibility'
 
@@ -92,8 +91,8 @@ export const FORMULA_TERMS: Term[] = [
   {
     id: 'visibility',
     anchor: 'formula-visibility',
-    fr: 'Visibilité',
-    en: 'Visibility',
+    fr: '100 M de vues',
+    en: '100M views',
     hintFr: 'Trackée jusqu\'au client, format par format.',
     hintEn: 'Tracked down to the client, format by format.',
   },
@@ -227,14 +226,12 @@ export default function FormulaBar() {
     document.getElementById(t.anchor)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
-  // Dans le hero, la formule est encore « secrète » : flou plus fort, presque
-  // illisible. En bas de page, le flou s'allège pour que l'œil devine déjà
-  // qu'il y a des mots à découvrir.
-  const secret = mode === 'docked'
+  // Dans le hero, toute la formule est en plein : c'est la promesse.
+  const docked = mode === 'docked'
 
   const TermChip = ({ id }: { id: TermId }) => {
     const t = term(id)
-    const on = isOn(id)
+    const on = docked || isOn(id)
     const hot = hint === id || (done && id === 'visibility')
     return (
       <button
@@ -245,9 +242,9 @@ export default function FormulaBar() {
           // `min-h-0` : globals.css force 44px sur tout <button> en mobile,
           // ce qui ferait doubler la hauteur de la pilule.
           'min-h-0 rounded-md px-1 font-extrabold tracking-tight transition-all duration-700 ease-out select-none',
-          on ? 'blur-0 opacity-100' : secret ? 'blur-[8px] opacity-30' : 'blur-[5px] opacity-40',
+          on ? 'opacity-100' : 'opacity-50',
           hot ? 'text-empire' : 'text-white',
-          on ? 'hover:bg-white/10' : 'pointer-events-none',
+          'hover:bg-white/10',
         ].join(' ')}
       >
         {label(t)}
@@ -257,22 +254,6 @@ export default function FormulaBar() {
 
   const Op = ({ children }: { children: React.ReactNode }) => (
     <span className="px-0.5 font-medium text-neutral-400">{children}</span>
-  )
-
-  const scrollHint = (
-    <>
-      <motion.span
-        aria-hidden
-        animate={{ y: [0, 3, 0] }}
-        transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
-        className="text-empire"
-      >
-        ↓
-      </motion.span>
-      {fr
-        ? 'Scrollez pour découvrir la formule à 1M de vues par mois'
-        : 'Scroll to uncover the formula behind 1M views a month'}
-    </>
   )
 
   /* La pilule glass. Un seul `layoutId` pour les deux emplacements : quand
@@ -286,62 +267,69 @@ export default function FormulaBar() {
         'relative overflow-hidden rounded-2xl border backdrop-blur-xl transition-colors duration-700',
         'shadow-[0_16px_50px_-16px_rgba(0,0,0,0.9)]',
         done
-          ? 'border-empire/50 bg-empire/[0.10] shadow-[0_0_40px_-8px_rgb(var(--empire-rgb)_/_0.45)]'
-          : 'border-white/15 bg-white/[0.07]',
+          ? 'border-empire/50 bg-black/80 shadow-[0_0_40px_-8px_rgb(var(--empire-rgb)_/_0.45)]'
+          : 'border-white/15 bg-black/75',
       ].join(' ')}
     >
       {/* Reflet haut, le détail qui fait « verre » */}
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.12),rgba(255,255,255,0)_45%)]" />
 
-      {/* Tant que la formule est secrète : un reflet qui balaie la vitre,
-          comme une buée qu'on n'a pas encore essuyée. */}
-      {secret && (
-        <motion.div
-          aria-hidden
-          className="pointer-events-none absolute inset-y-0 w-1/3 bg-[linear-gradient(100deg,transparent,rgba(255,255,255,0.14),transparent)]"
-          initial={{ x: '-120%' }}
-          animate={{ x: '420%' }}
-          transition={{ duration: 2.6, repeat: Infinity, repeatDelay: 1.2, ease: 'easeInOut' }}
-        />
-      )}
-
-      <div className="relative flex items-center gap-2.5 px-4 py-2.5 text-xs sm:gap-3.5 sm:px-6 sm:py-3 sm:text-base">
-        {/* Fraction */}
-        <div className="flex flex-col items-center leading-none">
-          <div className="flex items-center whitespace-nowrap">
-            <TermChip id="message" />
-            <Op>×</Op>
-            <TermChip id="format" />
-            <Op>×</Op>
-            <TermChip id="diffusion" />
+      <div className="relative flex flex-col lg:flex-row lg:items-center">
+        <div className={[
+          'relative flex items-center gap-2.5 px-4 py-2.5 text-xs sm:gap-3.5 sm:px-6 sm:py-3 sm:text-base',
+          // Dans le hero, la formule est la pièce centrale : plus grande sur grand écran.
+          docked ? 'md:gap-5 md:px-9 md:py-5 md:text-2xl' : '',
+        ].join(' ')}>
+          {/* Fraction */}
+          <div className="flex flex-col items-center leading-none">
+            <div className="flex items-center whitespace-nowrap">
+              <TermChip id="message" />
+              <Op>×</Op>
+              <TermChip id="format" />
+              <Op>×</Op>
+              <TermChip id="diffusion" />
+            </div>
+            <div className="my-1 h-px w-full bg-white/30" />
+            <div className="flex items-center whitespace-nowrap">
+              <TermChip id="time" />
+              <Op>+</Op>
+              <TermChip id="cost" />
+            </div>
           </div>
-          <div className="my-1 h-px w-full bg-white/30" />
-          <div className="flex items-center whitespace-nowrap">
-            <TermChip id="time" />
-            <Op>+</Op>
-            <TermChip id="cost" />
+
+          <Op>=</Op>
+          <div className="whitespace-nowrap">
+            <TermChip id="visibility" />
           </div>
-        </div>
 
-        <Op>=</Op>
-        <div className="whitespace-nowrap">
-          <TermChip id="visibility" />
+          {/* La chute : visible quand toute la formule est nette */}
+          <AnimatePresence>
+            {done && (
+              <motion.span
+                initial={{ opacity: 0, x: -6 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.4, delay: 0.3 }}
+                className="ml-0.5 whitespace-nowrap rounded-lg bg-empire px-2 py-1 text-[10px] font-extrabold uppercase tracking-wider text-black sm:text-[11px]"
+              >
+                → {fr ? 'Clients' : 'Clients'}
+              </motion.span>
+            )}
+          </AnimatePresence>
         </div>
-
-        {/* La chute : visible quand toute la formule est nette */}
-        <AnimatePresence>
-          {done && (
-            <motion.span
-              initial={{ opacity: 0, x: -6 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4, delay: 0.3 }}
-              className="ml-0.5 whitespace-nowrap rounded-lg bg-empire px-2 py-1 text-[10px] font-extrabold uppercase tracking-wider text-black sm:text-[11px]"
-            >
-              → {fr ? 'Clients' : 'Clients'}
-            </motion.span>
-          )}
-        </AnimatePresence>
+        {/* Le bouton workshop vit dans la pilule (pas dans le hero, qui a
+            le sien) : dessous sur mobile, à droite sur grand écran. */}
+        {!docked && (
+          <a
+            href="/vsl"
+            onClick={() => trackAmplitude('formula_bar_workshop_clicked')}
+            className="mx-2 mb-2 flex min-h-0 items-center justify-center gap-1.5 rounded-xl bg-empire px-4 py-2 text-xs font-bold text-black transition hover:brightness-110 sm:text-sm lg:mx-0 lg:mb-0 lg:mr-2.5 lg:py-2.5"
+          >
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M7 4.5v15l13-7.5z" /></svg>
+            {fr ? 'Voir le workshop gratuit' : 'Watch the free workshop'}
+            <span className="font-semibold opacity-70">· 1 h 26</span>
+          </a>
+        )}
       </div>
 
       {/* Progression de la découverte */}
@@ -356,38 +344,12 @@ export default function FormulaBar() {
     </motion.div>
   )
 
-  // Dans le hero : la pilule toute floue avec le tampon SECRET.
+  // Dans le hero : la pilule, lisible.
   if (mode === 'docked' && slot) {
-    const stillSecret = revealed.size < FORMULA_TERMS.length
-    return (
-      <>
-        {createPortal(
-          <div className="flex flex-col items-center">
-            <div className="relative">
-              {pill}
-              {stillSecret && (
-                <motion.span
-                  aria-hidden
-                  initial={{ opacity: 0, scale: 1.6, rotate: -14 }}
-                  animate={{ opacity: 1, scale: 1, rotate: -10 }}
-                  transition={{ duration: 0.35, delay: 0.5, ease: [0.2, 1.2, 0.4, 1] }}
-                  className="pointer-events-none absolute -right-3 -top-3 select-none rounded-[3px] border-[2.5px] border-red-500 px-1.5 py-0.5 font-mono text-[11px] font-black uppercase tracking-[0.22em] text-red-500 shadow-[0_0_18px_-4px_rgba(239,68,68,0.6)] mix-blend-screen sm:-right-4 sm:text-xs"
-                >
-                  Secret
-                </motion.span>
-              )}
-            </div>
-          </div>,
-          slot,
-        )}
-
-      </>
-    )
+    return createPortal(<div className="flex flex-col items-center">{pill}</div>, slot)
   }
 
-  // En bas de l'écran : la légende du terme qui vient de se révéler au-dessus
-  // de la pilule, sinon - tant que la formule est presque toute floue -
-  // l'invitation à scroller.
+  // En bas de l'écran : la pilule seule, bouton workshop inclus.
   return (
     <AnimatePresence>
       {mode === 'floating' && (
@@ -397,40 +359,10 @@ export default function FormulaBar() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0, y: 24 }}
           transition={{ duration: 0.3, ease: 'easeOut' }}
-          // En dessous de lg, le bas de l'écran est pris par la bulle WhatsApp
-          // (droite) : la pilule se pose au-dessus.
-          className="pointer-events-none fixed inset-x-3 bottom-[88px] z-50 flex justify-center lg:inset-x-0 lg:bottom-4"
+          className="pointer-events-none fixed inset-x-3 bottom-3 z-50 flex justify-center lg:inset-x-0 lg:bottom-4"
           style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
         >
           <div className="pointer-events-auto relative flex flex-col items-center">
-            <AnimatePresence mode="wait">
-              {hintTerm && !done ? (
-                <motion.p
-                  key={hintTerm.id}
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 6 }}
-                  transition={{ duration: 0.25 }}
-                  className="mb-2 max-w-[min(92vw,420px)] rounded-xl border border-white/10 bg-black/60 px-3 py-1.5 text-center text-[11px] leading-snug text-neutral-200 shadow-lg backdrop-blur-xl sm:text-xs"
-                >
-                  <span className="font-bold text-empire">{label(hintTerm)}</span>
-                  {' · '}
-                  {fr ? hintTerm.hintFr : hintTerm.hintEn}
-                </motion.p>
-              ) : revealed.size < 2 && !done ? (
-                <motion.p
-                  key="intro"
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 6 }}
-                  transition={{ duration: 0.25, delay: 0.5 }}
-                  className="mb-2 flex items-center gap-1.5 rounded-xl border border-white/10 bg-black/60 px-3 py-1.5 text-center text-[11px] leading-snug text-neutral-200 shadow-lg backdrop-blur-xl sm:text-xs"
-                >
-                  {scrollHint}
-                </motion.p>
-              ) : null}
-            </AnimatePresence>
-
             {pill}
           </div>
         </motion.div>

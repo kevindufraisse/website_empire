@@ -15,6 +15,9 @@ export default function CalCtaRedirect() {
       const target = event.target as HTMLElement | null
       const trigger = target?.closest('[data-cal-link]')
       if (!trigger) return
+      // Une page peut garder la vraie prise de RDV (ex. /vsl) en entourant
+      // son bouton d'un élément data-cal-keep.
+      if (trigger.closest('[data-cal-keep]')) return
 
       event.preventDefault()
       event.stopPropagation()

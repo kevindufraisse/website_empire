@@ -24,7 +24,7 @@ export default function WaitlistEmailCta({ className = '' }: Props) {
       return
     }
     setError('')
-    router.push(`/postuler?email=${encodeURIComponent(value)}`)
+    router.push(`/vsl?email=${encodeURIComponent(value)}`)
   }
 
   return (

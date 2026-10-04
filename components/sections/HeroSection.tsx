@@ -5,7 +5,8 @@ import dynamic from 'next/dynamic'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import { SocialIcons } from '@/components/ui/social-icons'
-import FloatingSocialReactions from '@/components/FloatingSocialReactions'
+import { trackAmplitude } from '@/lib/amplitude'
+import { startFreeTrial } from '@/lib/startTrial'
 // Même jeu de portraits que `/vsl` et `FormatsShowcaseSection` (public/creators).
 const HERO_CREATORS = [
   { name: 'Alex Hormozi', img: '/creators/hormozi.jpg' },
@@ -28,10 +29,17 @@ export default function HeroSection() {
 
   const heroBadge = autopilot ? t.autopilot.hero.targetAudience : t.hero.targetAudience
   const heroTitle = autopilot ? t.autopilot.hero.title : t.hero.title
-  // Hors autopilot, pas de paragraphe : la formule (floue) prend sa place et
-  // invite à scroller. Voir `FormulaBar` et le slot `formula-hero-slot`.
+  // Hors autopilot, la formule (lisible) prend la place du paragraphe, avec
+  // une phrase qui l'explique. Voir `FormulaBar` et le slot `formula-hero-slot`.
   const heroSubtitle = autopilot ? t.autopilot.hero.subtitle : null
   const heroCta = autopilot ? t.autopilot.hero.cta1 : t.hero.cta1
+  const [trialLoading, setTrialLoading] = useState(false)
+  const onTrial = async () => {
+    if (trialLoading) return
+    setTrialLoading(true)
+    trackAmplitude('home_hero_trial_clicked')
+    await startFreeTrial()
+  }
 
   return (
     <>
@@ -40,7 +48,6 @@ export default function HeroSection() {
         <RetroGrid />
         <div className={`absolute inset-0 transition-opacity duration-500 ${autopilot ? 'opacity-0' : 'opacity-100'} bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgb(var(--empire-rgb)_/_0.15),transparent)]`} />
         <div className={`absolute inset-0 transition-opacity duration-500 ${autopilot ? 'opacity-100' : 'opacity-0'} bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(212,165,116,0.18),transparent)]`} />
-        {!autopilot && <FloatingSocialReactions />}
         
         <div className="relative z-10 text-center max-w-4xl mx-auto">
 
@@ -106,10 +113,10 @@ export default function HeroSection() {
             </motion.div>
           )}
 
-          {/* La formule, en mode secret : `FormulaBar` se rend ici (portal)
-              tant qu'on est dans le hero, tout flou, puis file en bas de
-              l'écran au scroll et se révèle section par section. La hauteur
-              est réservée pour que le hero ne saute pas quand elle part. */}
+          {/* La formule : `FormulaBar` se rend ici (portal) tant qu'on est
+              dans le hero, puis file en bas de l'écran au scroll et allume le
+              terme de chaque section. La hauteur est réservée pour que le hero
+              ne saute pas quand elle part. */}
           {!autopilot && (
             <div className="relative mx-auto mt-14 w-fit max-w-full">
               {/* Annotation manuscrite en coin haut-gauche : le tampon SECRET
@@ -131,26 +138,22 @@ export default function HeroSection() {
 
               <div
                 id="formula-hero-slot"
-                className="flex min-h-[80px] items-start justify-center sm:min-h-[76px]"
+                className="flex min-h-[80px] items-start justify-center sm:min-h-[100px]"
               />
             </div>
           )}
 
-          {/* Bénéfices en glass, sous la formule */}
           {!autopilot && (
-            <motion.div
+            <motion.p
               initial={mounted ? { opacity: 0, y: 8 } : false}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="mt-4 flex flex-wrap items-center justify-center gap-3 text-[11px] font-semibold text-neutral-400 sm:text-xs"
+              transition={{ duration: 0.4, delay: 0.2 }}
+              className="mx-auto mt-3 max-w-xl text-[15px] leading-relaxed text-neutral-300 sm:mt-5 sm:text-lg text-balance"
             >
-              {(lang === 'fr'
-                ? ['1 an de R&D', '10 000+ posts testés', '1M de vues garanties']
-                : ['1 year of R&D', '10,000+ posts tested', '1M views guaranteed']
-              ).map((item) => (
-                <span key={item} className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 backdrop-blur-sm">{item}</span>
-              ))}
-            </motion.div>
+              {lang === 'fr'
+                ? <>Vous apportez le <span className="font-semibold text-white">message</span>. Empire s&apos;occupe du reste : le format qui fait des vues, la diffusion sur 7 réseaux, en 20 minutes par semaine.</>
+                : <>You bring the <span className="font-semibold text-white">message</span>. Empire handles the rest: the format that gets views, distribution on 7 networks, in 20 minutes a week.</>}
+            </motion.p>
           )}
 
           {/* Subtitle */}
@@ -184,15 +187,33 @@ export default function HeroSection() {
                   <span className="text-[11px] font-semibold opacity-70">{t.autopilot.hero.ctaReassurance}</span>
                 </a>
               ) : (
-                /* Un seul bouton, pas d'input : le hero démontre, l'email se
-                   saisit sur la page de candidature. */
-                <a
-                  href="/postuler"
-                  className="group flex w-full items-center justify-center gap-2 rounded-xl bg-empire px-8 py-4 text-base font-bold text-black shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.35)] transition-all hover:brightness-110 sm:w-auto"
-                >
-                  {lang === 'fr' ? 'Recevoir un accès' : 'Get access'}
-                  <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
-                </a>
+                /* Deux actions de poids différent : le workshop pour qui
+                   découvre, l'essai pour qui est déjà convaincu. */
+                <div className="flex w-full flex-col items-center gap-2 sm:w-auto">
+                  <a
+                    href="/vsl"
+                    onClick={() => trackAmplitude('home_hero_workshop_clicked')}
+                    className="group flex w-full flex-col items-center justify-center gap-0.5 rounded-xl bg-empire px-8 py-3.5 sm:px-12 sm:py-4 text-black shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.35)] transition-all hover:scale-[1.02] sm:w-auto"
+                  >
+                    <span className="flex items-center gap-2 text-base font-bold sm:text-lg">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M7 4.5v15l13-7.5z" /></svg>
+                      {lang === 'fr' ? 'Voir le workshop gratuit' : 'Watch the free workshop'}
+                    </span>
+                    <span className="text-[11px] font-semibold opacity-70">
+                      {lang === 'fr' ? '1 h 26 · la formule expliquée pas à pas' : '1h26 · the formula explained step by step'}
+                    </span>
+                  </a>
+                  <button
+                    type="button"
+                    onClick={onTrial}
+                    disabled={trialLoading}
+                    className="min-h-0 text-sm text-neutral-400 underline-offset-4 transition hover:text-white hover:underline disabled:opacity-60"
+                  >
+                    {trialLoading
+                      ? (lang === 'fr' ? 'Ouverture…' : 'Opening…')
+                      : (lang === 'fr' ? 'ou tester Empire 7 jours gratuitement' : 'or try Empire free for 7 days')}
+                  </button>
+                </div>
               )}
             </div>
             {/* Preuve alignée sur la promesse : la promesse est « les formats
@@ -232,63 +253,6 @@ export default function HeroSection() {
 
       </section>
 
-      {/* Flèche flottante en bas de l'écran — disparaît au scroll */}
-      {!autopilot && <ScrollDownArrow lang={lang} />}
     </>
-  )
-}
-
-function ScrollDownArrow({ lang }: { lang: string }) {
-  const [visible, setVisible] = useState(false)
-
-  useEffect(() => {
-    const slot = document.getElementById('formula-hero-slot')
-    const onScroll = () => {
-      if (slot) {
-        setVisible(slot.getBoundingClientRect().top > 96)
-      } else {
-        const main = document.querySelector('main')
-        const scrolled = main ? -main.getBoundingClientRect().top : 0
-        setVisible(scrolled < 80)
-      }
-    }
-    const t = setTimeout(onScroll, 600)
-    document.addEventListener('scroll', onScroll, { passive: true, capture: true })
-    return () => {
-      clearTimeout(t)
-      document.removeEventListener('scroll', onScroll, { capture: true })
-    }
-  }, [])
-
-  return (
-    <AnimatePresence>
-      {visible && (
-        <motion.button
-          key="scroll-arrow"
-          type="button"
-          onClick={() => document.getElementById('formula-message')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0, y: 10 }}
-          transition={{ duration: 0.4 }}
-          className="fixed inset-x-0 bottom-20 z-[60] mx-auto flex w-fit flex-col items-center gap-0.5 sm:bottom-8"
-        >
-          <span className="flex items-center gap-2 rounded-full border border-white/15 bg-black/70 px-4 py-2 shadow-[0_8px_30px_-8px_rgba(0,0,0,0.9)] backdrop-blur-md">
-            <motion.span
-              aria-hidden
-              animate={{ y: [0, 5, 0] }}
-              transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
-              className="flex flex-col items-center text-empire drop-shadow-[0_0_10px_rgb(var(--empire-rgb)_/_0.8)]"
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6 6-6" /></svg>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="-mt-2 opacity-50"><path d="M6 9l6 6 6-6" /></svg>
-            </motion.span>
-            <span className="text-xs font-semibold text-white">
-              {lang === 'fr' ? 'Scrollez pour découvrir la formule' : 'Scroll to discover the formula'}
-            </span>
-          </span>
-        </motion.button>
-      )}
-    </AnimatePresence>
   )
 }

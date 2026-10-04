@@ -141,7 +141,7 @@ export const fr: Translations = {
     titleNote: '',
     subtitle: 'Notre équipe de viralité repère les formats qui explosent, les templatise pour vous et les duplique sur 7 plateformes. Sans écrire, sans monter, sans chercher quoi dire.',
     description: '',
-    cta1: 'Recevoir un accès',
+    cta1: 'Voir le workshop gratuit',
     cta2: 'Voir la Démo (1 min)',
     rating: 'Basé sur 20 avis',
     creatorsTitle: 'Installez le système des meilleurs créateurs mondiaux',
@@ -686,7 +686,7 @@ export const fr: Translations = {
     },
     {
       question: 'Quelle différence avec une agence ?',
-      answer: 'Une agence = 5–15 K€/mois, semaines à livrer, voix souvent générique. Empire = ~1 h/semaine de votre côté, production + publication. Liste d\'attente : on lit chaque candidature et on sélectionne les profils les plus motivés. Lives et communauté dès Intermédiaire.',
+      answer: 'Une agence = 5–15 K€/mois, semaines à livrer, voix souvent générique. Empire = ~1 h/semaine de votre côté, production + publication. Lives et communauté dès Intermédiaire.',
     },
     {
       question: 'Puis-je annuler ?',
