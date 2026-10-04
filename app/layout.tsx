@@ -14,9 +14,6 @@ const CalStickyBar = dynamic(() => import('@/components/CalStickyBar'), { ssr: f
 const CalCtaRedirect = dynamic(() => import('@/components/CalCtaRedirect'), { ssr: false })
 const PostHogInit = dynamic(() => import('@/components/PostHogInit'), { ssr: false })
 const AmplitudeInit = dynamic(() => import('@/components/AmplitudeInit'), { ssr: false })
-// Le chat Crisp est remplacé par un lien WhatsApp vers le setter : c'est
-// Kevin qui répond, pas un widget de support.
-const WhatsAppBubble = dynamic(() => import('@/components/WhatsAppBubble'), { ssr: false })
 
 const inter = Inter({ subsets: ['latin'] })
 const caveat = Caveat({ subsets: ['latin'], weight: ['600', '700'], variable: '--font-caveat' })
@@ -70,7 +67,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               <div data-chrome="popups"><ClientWrappers /></div>
               <div data-chrome="sticky-bar"><CalStickyBar /></div>
             </IdleMount>
-            <div data-chrome="whatsapp"><WhatsAppBubble /></div>
             <div suppressHydrationWarning>
               {children}
             </div>

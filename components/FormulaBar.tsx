@@ -27,8 +27,6 @@
  *   section par section.
  * - `hidden` : à partir de la FAQ, la démonstration est finie, la place
  *   revient au formulaire et au footer.
- * En dessous de `lg`, la pilule flottante se pose au-dessus de la bulle
- * WhatsApp, qui occupe déjà le bas de l'écran.
  */
 
 import { useEffect, useRef, useState } from 'react'
@@ -397,9 +395,7 @@ export default function FormulaBar() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0, y: 24 }}
           transition={{ duration: 0.3, ease: 'easeOut' }}
-          // En dessous de lg, le bas de l'écran est pris par la bulle WhatsApp
-          // (droite) : la pilule se pose au-dessus.
-          className="pointer-events-none fixed inset-x-3 bottom-[88px] z-50 flex justify-center lg:inset-x-0 lg:bottom-4"
+          className="pointer-events-none fixed inset-x-3 bottom-3 z-50 flex justify-center lg:inset-x-0 lg:bottom-4"
           style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
         >
           <div className="pointer-events-auto relative flex flex-col items-center">

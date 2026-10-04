@@ -96,7 +96,7 @@ export default function HomeWorkshopPopup() {
           transition={{ duration: 0.3 }}
           role="dialog"
           aria-label={fr ? 'Workshop gratuit' : 'Free workshop'}
-          className="fixed z-[70] bottom-20 left-3 right-3 sm:right-auto sm:left-4 sm:bottom-4 sm:w-[360px]"
+          className="fixed z-[70] bottom-40 left-3 right-3 sm:left-auto sm:right-4 sm:w-[360px] lg:bottom-auto lg:top-24"
         >
           <div className="relative rounded-2xl border border-empire/30 bg-[#111]/95 backdrop-blur-xl p-4 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.9)]">
             <button
