@@ -18,6 +18,7 @@
 
 import { motion } from 'framer-motion'
 import { useLanguage } from '@/contexts/LanguageContext'
+import LazyVideo from '@/components/ui/LazyVideo'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import { useReveal } from '@/hooks/useReveal'
 import { SocialIcons } from '@/components/ui/social-icons'
@@ -169,7 +170,7 @@ export default function RepurposingSection() {
         </p>
         <div className="mx-auto mt-10 grid max-w-4xl items-center gap-6 md:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
           <figure className="overflow-hidden rounded-2xl border border-white/10 bg-black">
-            <video
+            <LazyVideo
               className="aspect-[1080/960] w-full object-cover"
               src="/formats/clone-avant-apres.mp4?v=3"
               poster="/formats/clone-avant-apres.jpg?v=3"
