@@ -91,8 +91,8 @@ export const FORMULA_TERMS: Term[] = [
   {
     id: 'visibility',
     anchor: 'formula-visibility',
-    fr: 'Visibilité',
-    en: 'Visibility',
+    fr: '100 M de vues',
+    en: '100M views',
     hintFr: 'Trackée jusqu\'au client, format par format.',
     hintEn: 'Tracked down to the client, format by format.',
   },
