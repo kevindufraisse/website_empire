@@ -2,7 +2,8 @@
 
 /**
  * FormulaBar - la formule de la visibilité, en pilule « glass » fixée en bas
- * de la home, qui se défloute au fil du scroll.
+ * de la home. Elle est lisible dès le hero ; au fil du scroll, le terme de la
+ * section qu'on lit s'allume.
  *
  *        Message × Format × Diffusion
  *        ────────────────────────────  = Visibilité   (→ Clients)
@@ -11,20 +12,19 @@
  * Temps et Coût sont deux termes distincts : le temps se révèle à l'app
  * (une heure par mois), le coût au comparatif Seul / Freelances / Empire.
  *
- * Chaque terme démarre flou (le format « flou → net » qu'on vend, appliqué à
- * la page elle-même) et devient net quand la section qui le démontre entre
- * dans le viewport : les ancres `formula-*` sont posées dans `app/page.tsx`,
- * dans l'ordre de la formule. Un terme révélé reste révélé - c'est une
- * découverte, pas un état. Arrivé au formulaire de candidature, la pilule
- * passe en vert et affiche la chute « → Clients ».
+ * Chaque terme est lisible mais atténué, et passe en plein quand la section
+ * qui le démontre entre dans le viewport (ancres `formula-*` dans
+ * `app/page.tsx`, dans l'ordre de la formule). Il n'y a plus de flou : la
+ * porte email qui « dévoilait » la formule a été retirée, la cacher n'avait
+ * plus rien à débloquer. Arrivé au bas de la démonstration, la pilule passe
+ * en vert et affiche la chute « → Clients ».
  *
  * Trois états, dans l'ordre du scroll :
  * - `docked` : dans le hero, sous l'accroche, rendue par portal dans le slot
- *   `formula-hero-slot`. Tout est flou : c'est la formule « secrète », avec
- *   l'invitation à scroller pour la découvrir.
+ *   `formula-hero-slot`, entièrement lisible.
  * - `floating` : dès que le slot passe sous le header, la pilule file en bas
- *   de l'écran (même `layoutId`, Framer anime le déplacement) et se révèle
- *   section par section.
+ *   de l'écran (même `layoutId`, Framer anime le déplacement) et allume le
+ *   terme de chaque section.
  * - `hidden` : à partir de la FAQ, la démonstration est finie, la place
  *   revient au formulaire et au footer.
  */
@@ -225,14 +225,12 @@ export default function FormulaBar() {
     document.getElementById(t.anchor)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
-  // Dans le hero, la formule est encore « secrète » : flou plus fort, presque
-  // illisible. En bas de page, le flou s'allège pour que l'œil devine déjà
-  // qu'il y a des mots à découvrir.
-  const secret = mode === 'docked'
+  // Dans le hero, toute la formule est en plein : c'est la promesse.
+  const docked = mode === 'docked'
 
   const TermChip = ({ id }: { id: TermId }) => {
     const t = term(id)
-    const on = isOn(id)
+    const on = docked || isOn(id)
     const hot = hint === id || (done && id === 'visibility')
     return (
       <button
@@ -243,9 +241,9 @@ export default function FormulaBar() {
           // `min-h-0` : globals.css force 44px sur tout <button> en mobile,
           // ce qui ferait doubler la hauteur de la pilule.
           'min-h-0 rounded-md px-1 font-extrabold tracking-tight transition-all duration-700 ease-out select-none',
-          on ? 'blur-0 opacity-100' : secret ? 'blur-[8px] opacity-30' : 'blur-[5px] opacity-40',
+          on ? 'opacity-100' : 'opacity-50',
           hot ? 'text-empire' : 'text-white',
-          on ? 'hover:bg-white/10' : 'pointer-events-none',
+          'hover:bg-white/10',
         ].join(' ')}
       >
         {label(t)}
@@ -255,22 +253,6 @@ export default function FormulaBar() {
 
   const Op = ({ children }: { children: React.ReactNode }) => (
     <span className="px-0.5 font-medium text-neutral-400">{children}</span>
-  )
-
-  const scrollHint = (
-    <>
-      <motion.span
-        aria-hidden
-        animate={{ y: [0, 3, 0] }}
-        transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
-        className="text-empire"
-      >
-        ↓
-      </motion.span>
-      {fr
-        ? 'Scrollez pour découvrir la formule à 1M de vues par mois'
-        : 'Scroll to uncover the formula behind 1M views a month'}
-    </>
   )
 
   /* La pilule glass. Un seul `layoutId` pour les deux emplacements : quand
@@ -290,18 +272,6 @@ export default function FormulaBar() {
     >
       {/* Reflet haut, le détail qui fait « verre » */}
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.12),rgba(255,255,255,0)_45%)]" />
-
-      {/* Tant que la formule est secrète : un reflet qui balaie la vitre,
-          comme une buée qu'on n'a pas encore essuyée. */}
-      {secret && (
-        <motion.div
-          aria-hidden
-          className="pointer-events-none absolute inset-y-0 w-1/3 bg-[linear-gradient(100deg,transparent,rgba(255,255,255,0.14),transparent)]"
-          initial={{ x: '-120%' }}
-          animate={{ x: '420%' }}
-          transition={{ duration: 2.6, repeat: Infinity, repeatDelay: 1.2, ease: 'easeInOut' }}
-        />
-      )}
 
       <div className="relative flex items-center gap-2.5 px-4 py-2.5 text-xs sm:gap-3.5 sm:px-6 sm:py-3 sm:text-base">
         {/* Fraction */}
@@ -354,38 +324,13 @@ export default function FormulaBar() {
     </motion.div>
   )
 
-  // Dans le hero : la pilule toute floue avec le tampon SECRET.
+  // Dans le hero : la pilule, lisible.
   if (mode === 'docked' && slot) {
-    const stillSecret = revealed.size < FORMULA_TERMS.length
-    return (
-      <>
-        {createPortal(
-          <div className="flex flex-col items-center">
-            <div className="relative">
-              {pill}
-              {stillSecret && (
-                <motion.span
-                  aria-hidden
-                  initial={{ opacity: 0, scale: 1.6, rotate: -14 }}
-                  animate={{ opacity: 1, scale: 1, rotate: -10 }}
-                  transition={{ duration: 0.35, delay: 0.5, ease: [0.2, 1.2, 0.4, 1] }}
-                  className="pointer-events-none absolute -right-3 -top-3 select-none rounded-[3px] border-[2.5px] border-red-500 px-1.5 py-0.5 font-mono text-[11px] font-black uppercase tracking-[0.22em] text-red-500 shadow-[0_0_18px_-4px_rgba(239,68,68,0.6)] mix-blend-screen sm:-right-4 sm:text-xs"
-                >
-                  Secret
-                </motion.span>
-              )}
-            </div>
-          </div>,
-          slot,
-        )}
-
-      </>
-    )
+    return createPortal(<div className="flex flex-col items-center">{pill}</div>, slot)
   }
 
-  // En bas de l'écran : la légende du terme qui vient de se révéler au-dessus
-  // de la pilule, sinon - tant que la formule est presque toute floue -
-  // l'invitation à scroller.
+  // En bas de l'écran : la légende du terme qui vient de s'allumer, au-dessus
+  // de la pilule.
   return (
     <AnimatePresence>
       {mode === 'floating' && (
@@ -412,17 +357,6 @@ export default function FormulaBar() {
                   <span className="font-bold text-empire">{label(hintTerm)}</span>
                   {' · '}
                   {fr ? hintTerm.hintFr : hintTerm.hintEn}
-                </motion.p>
-              ) : revealed.size < 2 && !done ? (
-                <motion.p
-                  key="intro"
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 6 }}
-                  transition={{ duration: 0.25, delay: 0.5 }}
-                  className="mb-2 flex items-center gap-1.5 rounded-xl border border-white/10 bg-black/60 px-3 py-1.5 text-center text-[11px] leading-snug text-neutral-200 shadow-lg backdrop-blur-xl sm:text-xs"
-                >
-                  {scrollHint}
                 </motion.p>
               ) : null}
             </AnimatePresence>

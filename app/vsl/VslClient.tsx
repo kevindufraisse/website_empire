@@ -4,14 +4,11 @@ import { useEffect, useRef, useState } from 'react'
 import Script from 'next/script'
 import { Play, Pause, Volume2, VolumeX, Maximize, Check, Calendar, ArrowRight, ChevronDown } from 'lucide-react'
 import CalPopupButton from '@/components/CalPopupButton'
-import { trackAmplitude, getAmplitudeDeviceId } from '@/lib/amplitude'
+import { trackAmplitude } from '@/lib/amplitude'
+import { startFreeTrial } from '@/lib/startTrial'
 
 const VIDEO_ID = 'AKfoDblGUNs'
 const VIDEO_TITLE = '94 % des gens ont fait +1M de vues avec cette formule'
-// L'essai part sur Growth en mensuel : 7 jours, 500 crédits, rien débité avant
-// le 8e jour (plafond appliqué au claim côté app, cf. FREE_TRIAL_CREDITS).
-const TRIAL_PLAN = 'growth'
-const TRIAL_BILLING = 'monthly'
 const PROGRESS_MARKS = [25, 50, 75, 95]
 const SPEEDS = [1, 1.25, 1.5, 1.75, 2]
 const speedLabel = (v: number) => `${String(v).replace('.', ',')}x`
@@ -428,26 +425,7 @@ function Ctas({ location }: { location: 'top' | 'bottom' }) {
     if (loading) return
     setLoading(true)
     trackAmplitude('vsl_trial_clicked', { location })
-    try {
-      const res = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          plan: TRIAL_PLAN,
-          billing: TRIAL_BILLING,
-          lang: 'fr',
-          ampDeviceId: getAmplitudeDeviceId(),
-        }),
-      })
-      const data = await res.json()
-      if (data.url) {
-        window.location.href = data.url
-        return
-      }
-    } catch {
-      // repli plus bas
-    }
-    window.location.href = `https://app.empire-internet.com/onboarding?plan=${TRIAL_PLAN}&billing=${TRIAL_BILLING}&intent=trial`
+    await startFreeTrial()
   }
 
   return (
