@@ -2,8 +2,8 @@
 
 /**
  * FormulaBar - la formule de la visibilité, en pilule « glass » fixée en bas
- * de la home. Elle est lisible dès le hero ; au fil du scroll, le terme de la
- * section qu'on lit s'allume.
+ * de la home. Le résultat est net dès le hero ; les cinq termes sont floutés
+ * et se dévoilent au fil du scroll, section par section.
  *
  *        Message × Format × Diffusion
  *        ────────────────────────────  = Visibilité   (→ Clients)
@@ -12,18 +12,17 @@
  * Temps et Coût sont deux termes distincts : le temps se révèle à l'app
  * (une heure par mois), le coût au comparatif Seul / Freelances / Empire.
  *
- * Chaque terme est lisible mais atténué, et passe en plein quand la section
- * qui le démontre entre dans le viewport (ancres `formula-*` dans
- * `app/page.tsx`, dans l'ordre de la formule). Il n'y a plus de flou : la
- * porte email qui « dévoilait » la formule a été retirée, la cacher n'avait
- * plus rien à débloquer. Arrivé au bas de la démonstration, la pilule passe
- * en vert et affiche la chute « → Clients ».
+ * Chaque terme démarre flou et devient net quand la section qui le démontre
+ * entre dans le viewport (ancres `formula-*` dans `app/page.tsx`, dans
+ * l'ordre de la formule). Un terme révélé reste révélé. Il n'y a pas de porte
+ * email : on découvre la formule en lisant, rien ne bloque le scroll. Arrivé
+ * au bas de la démonstration, la pilule passe en vert et affiche « → Clients ».
  *
  * Trois états, dans l'ordre du scroll :
  * - `docked` : dans le hero, sous l'accroche, rendue par portal dans le slot
- *   `formula-hero-slot`, entièrement lisible.
+ *   `formula-hero-slot` : résultat net, mécanisme flou.
  * - `floating` : dès que le slot passe sous le header, la pilule file en bas
- *   de l'écran (même `layoutId`, Framer anime le déplacement) et allume le
+ *   de l'écran (même `layoutId`, Framer anime le déplacement) et dévoile le
  *   terme de chaque section.
  * - `hidden` : à partir de la FAQ, la démonstration est finie, la place
  *   revient au formulaire et au footer.
@@ -226,13 +225,16 @@ export default function FormulaBar() {
     document.getElementById(t.anchor)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
-  // Dans le hero, toute la formule est en plein : c'est la promesse.
+  // Le résultat (« 100 M de vues ») est toujours net : c'est la promesse.
+  // Les cinq termes du mécanisme sont floutés et se dévoilent un par un,
+  // quand la section qui les démontre arrive à l'écran (format flou → net,
+  // appliqué à la page). Plus flou dans le hero qu'en bas d'écran.
   const docked = mode === 'docked'
 
   const TermChip = ({ id }: { id: TermId }) => {
     const t = term(id)
-    const on = docked || isOn(id)
-    const hot = hint === id || (done && id === 'visibility')
+    const on = id === 'visibility' || isOn(id)
+    const hot = hint === id || (id === 'visibility' && (docked || done))
     return (
       <button
         type="button"
@@ -242,9 +244,9 @@ export default function FormulaBar() {
           // `min-h-0` : globals.css force 44px sur tout <button> en mobile,
           // ce qui ferait doubler la hauteur de la pilule.
           'min-h-0 rounded-md px-1 font-extrabold tracking-tight transition-all duration-700 ease-out select-none',
-          on ? 'opacity-100' : 'opacity-50',
+          on ? 'blur-0 opacity-100' : docked ? 'blur-[7px] opacity-40' : 'blur-[5px] opacity-50',
           hot ? 'text-empire' : 'text-white',
-          'hover:bg-white/10',
+          on ? 'hover:bg-white/10' : 'pointer-events-none',
         ].join(' ')}
       >
         {label(t)}
@@ -273,6 +275,18 @@ export default function FormulaBar() {
     >
       {/* Reflet haut, le détail qui fait « verre » */}
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.12),rgba(255,255,255,0)_45%)]" />
+
+      {/* Dans le hero, tant que des termes sont flous : un reflet qui balaie
+          la vitre, comme une buée qu'on n'a pas encore essuyée. */}
+      {docked && revealed.size < FORMULA_TERMS.length - 1 && (
+        <motion.div
+          aria-hidden
+          className="pointer-events-none absolute inset-y-0 w-1/3 bg-[linear-gradient(100deg,transparent,rgba(255,255,255,0.14),transparent)]"
+          initial={{ x: '-120%' }}
+          animate={{ x: '420%' }}
+          transition={{ duration: 2.6, repeat: Infinity, repeatDelay: 1.2, ease: 'easeInOut' }}
+        />
+      )}
 
       <div className="relative flex flex-col lg:flex-row lg:items-center">
         <div className={[
