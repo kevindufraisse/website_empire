@@ -517,7 +517,7 @@ export default function VslClient() {
       <section className="relative pt-24 md:pt-28 pb-12 md:pb-16">
         <div className="container max-w-4xl mx-auto px-4">
           <p className="text-center text-empire text-xs font-semibold tracking-wider uppercase mb-3">
-            Vidéo gratuite
+            Workshop gratuit · 1 h 26
           </p>
           <h1 className="text-center text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-4">
             94 % des gens ont fait <span className="text-empire">+1M de vues</span> avec cette formule

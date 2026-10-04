@@ -59,7 +59,7 @@ export default function Footer() {
                 <p className="text-sm font-bold text-white mb-3">{lang === 'fr' ? 'Ressources gratuites' : 'Free resources'}</p>
                 <div className="flex flex-col gap-2 items-center md:items-start">
                   <a href="/vsl" className="text-sm text-neutral-400 hover:text-empire transition-colors">
-                    {lang === 'fr' ? 'Masterclass : la formule du million de vues (1 h 26)' : 'Masterclass: the million-views formula (1h26)'}
+                    {lang === 'fr' ? 'Workshop gratuit : la formule du million de vues (1 h 26)' : 'Free workshop: the million-views formula (1h26)'}
                   </a>
                   <a href="/quiz" className="text-sm text-neutral-400 hover:text-empire transition-colors">
                     {lang === 'fr' ? 'Quiz : quel créateur êtes-vous ?' : 'Quiz: what creator are you?'}
