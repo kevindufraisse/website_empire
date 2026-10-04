@@ -46,6 +46,9 @@ export default function Footer() {
               <a href="/academy" className="text-sm text-neutral-400 hover:text-empire transition-colors">
                 Academy
               </a>
+              <a href="/comparatif" className="text-sm text-neutral-400 hover:text-empire transition-colors">
+                {lang === 'fr' ? 'Comparatifs' : 'Comparisons'}
+              </a>
             </div>
           </div>
 

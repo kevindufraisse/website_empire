@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { Check } from 'lucide-react'
+import { COMPARISONS, EMPIRE_ALSO, EMPIRE_TERMS } from './comparisons'
 
 /**
  * Gabarit des pages comparatives (« Empire vs X », « alternative à X »).
@@ -19,19 +20,27 @@ export type FormulaTermId = 'message' | 'format' | 'diffusion' | 'time' | 'cost'
 
 export type FormulaRow = {
   term: FormulaTermId
-  empire: string
+  /** Par défaut : EMPIRE_TERMS[term], le même texte sur toutes les pages. */
+  empire?: string
   other: string
 }
 
 export type ComparePageProps = {
+  /** Slug de la page, pour ne pas se lister elle-même dans « Autres comparatifs ». */
+  slug: string
   competitor: string
+  /** Titre affiché : « Empire vs MagicPost » par défaut. */
+  title?: string
   /** Une phrase : ce que fait le concurrent, ce que fait Empire. */
   verdict: string
   rows: FormulaRow[]
   chooseOther: string[]
   chooseEmpire: string[]
-  sourceUrl: string
-  checkedOn: string
+  /** Concurrent outil : page de prix relevée et date du relevé. */
+  sourceUrl?: string
+  checkedOn?: string
+  /** Sans page de prix (freelance, agence) : d'où viennent les chiffres. */
+  sourceNote?: string
   faq: Array<{ q: string; a: string }>
 }
 
@@ -77,7 +86,8 @@ const PROOFS = [
 ]
 
 export default function ComparePage(props: ComparePageProps) {
-  const { competitor, verdict, rows, chooseOther, chooseEmpire, sourceUrl, checkedOn, faq } = props
+  const { slug, competitor, title, verdict, rows, chooseOther, chooseEmpire, sourceUrl, checkedOn, sourceNote, faq } = props
+  const others = COMPARISONS.filter((c) => c.slug !== slug)
   return (
     <main className="relative">
       <section className="w-full bg-gradient-to-b from-black to-[#0f0f0f] pb-10 pt-24 md:pt-32">
@@ -85,7 +95,7 @@ export default function ComparePage(props: ComparePageProps) {
           <p className="mb-5 inline-block rounded-full border border-empire/30 bg-empire/10 px-4 py-1.5 text-sm font-semibold text-empire">
             Comparatif
           </p>
-          <h1 className="mb-5 text-4xl font-extrabold leading-tight md:text-6xl">Empire vs {competitor}</h1>
+          <h1 className="mb-5 text-4xl font-extrabold leading-tight md:text-6xl">{title || `Empire vs ${competitor}`}</h1>
           <p className="mx-auto mb-8 max-w-2xl text-lg text-neutral-300 md:text-xl">{verdict}</p>
           <div className="mb-10 flex flex-wrap items-center justify-center gap-3">
             <Link href={APPLY_URL} className="rounded-lg bg-empire px-6 py-3 font-semibold text-black transition hover:opacity-90">
@@ -116,7 +126,7 @@ export default function ComparePage(props: ComparePageProps) {
                   </div>
                   <div className="rounded-xl border border-empire/30 bg-empire/[0.06] p-3.5">
                     <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-empire">Empire</p>
-                    <p className="text-sm leading-relaxed text-neutral-100">{row.empire}</p>
+                    <p className="text-sm leading-relaxed text-neutral-100">{row.empire || EMPIRE_TERMS[row.term]}</p>
                   </div>
                   <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3.5">
                     <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-neutral-500">{competitor}</p>
@@ -126,13 +136,25 @@ export default function ComparePage(props: ComparePageProps) {
               )
             })}
           </div>
-          <p className="mt-4 text-center text-xs text-neutral-500">
-            Prix et fonctionnalités de {competitor} relevés sur{' '}
-            <a href={sourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-neutral-300">
-              {sourceUrl.replace(/^https?:\/\//, '')}
-            </a>{' '}
-            le {checkedOn}. Ils peuvent avoir changé depuis.
-          </p>
+          {sourceUrl ? (
+            <p className="mt-4 text-center text-xs text-neutral-500">
+              Prix et fonctionnalités de {competitor} relevés sur{' '}
+              <a href={sourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-neutral-300">
+                {sourceUrl.replace(/^https?:\/\//, '')}
+              </a>{' '}
+              le {checkedOn}. Ils peuvent avoir changé depuis.
+            </p>
+          ) : sourceNote ? (
+            <p className="mt-4 text-center text-xs text-neutral-500">{sourceNote}</p>
+          ) : null}
+          <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.02] p-5">
+            <p className="mb-3 text-sm font-semibold text-white">Et aussi, dans Empire</p>
+            <ul className="flex flex-wrap gap-2">
+              {EMPIRE_ALSO.map((item) => (
+                <li key={item} className="rounded-full border border-white/10 px-3 py-1 text-xs text-neutral-300">{item}</li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 
@@ -190,6 +212,20 @@ export default function ComparePage(props: ComparePageProps) {
                 <p className="mt-3 leading-relaxed text-neutral-300">{item.a}</p>
               </details>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="w-full py-10">
+        <div className="container max-w-4xl">
+          <h2 className="mb-4 text-center text-lg font-bold text-neutral-300">Autres comparatifs</h2>
+          <div className="flex flex-wrap justify-center gap-2">
+            {others.map((c) => (
+              <Link key={c.slug} href={`/${c.slug}`} className="rounded-full border border-white/10 px-4 py-1.5 text-sm text-neutral-300 transition hover:border-empire/50 hover:text-white">
+                Empire vs {c.competitor}
+              </Link>
+            ))}
+            <Link href="/comparatif" className="rounded-full border border-empire/40 px-4 py-1.5 text-sm font-semibold text-empire">Tous les comparatifs</Link>
           </div>
         </div>
       </section>
