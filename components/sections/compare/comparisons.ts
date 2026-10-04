@@ -48,3 +48,50 @@ export const COMPARISONS: ComparisonEntry[] = [
   { slug: 'empire-vs-agence', competitor: 'une agence', summary: 'Tout délégué, mais cher, avec engagement et des allers-retours.' },
   { slug: 'empire-vs-chatgpt', competitor: 'ChatGPT', summary: 'Gratuit ou presque, mais tu fais tout le reste toi-même.' },
 ]
+
+/**
+ * Preuves sur le compte de Kevin : vues lues via Postproxy (statistiques des
+ * réseaux) le 4 octobre 2026, liens publics des publications.
+ */
+export const PROOF_DATE = '4 octobre 2026'
+export const PROOF_POSTS: Array<{ format: string; title: string; stats: Array<{ views: string; network: string; href: string }> }> = [
+  {
+    format: 'Actu illustrée',
+    title: '« Il fait 40 degrés à Paris et l’État se réveille sur l’écologie… »',
+    stats: [{ views: '426 747', network: 'Instagram', href: 'https://www.instagram.com/p/DaDE4DyghYp' }],
+  },
+  {
+    format: 'Une idée, plusieurs réseaux',
+    title: '« HugoDécrypte a lancé sa chaîne YouTube en disant qu’il voulait créer un média… »',
+    stats: [
+      { views: '304 535', network: 'Threads', href: 'https://www.threads.net/@kevin.dufraisse/post/DZZ878kDqBx' },
+      { views: '69 785', network: 'Instagram', href: 'https://www.instagram.com/p/DZcnQL2DNjP' },
+    ],
+  },
+  {
+    format: 'Reel cloné',
+    title: '« Cette vidéo est un clone de Macron venant de la vidéo la plus virale de mon compte… »',
+    stats: [{ views: '95 269', network: 'Instagram', href: 'https://www.instagram.com/p/Ddi44f8DN1J' }],
+  },
+]
+
+/**
+ * « Recomposer Empire avec des outils » : ce que coûtent les deux outils les
+ * plus proches (prix publics relevés le 4 octobre 2026) et ce qui manque encore.
+ */
+export const TOOL_STACK = {
+  tools: [
+    { name: 'MagicPost Creator', role: 'écrire des posts LinkedIn', price: '69 $/mois' },
+    { name: 'Opus Clip Pro', role: 'découper une vidéo longue en extraits', price: '29 $/mois' },
+  ],
+  total: '98 $/mois',
+  missing: [
+    'les sujets prêts chaque semaine',
+    'les formats testés (réaction, classement, devine, citation…)',
+    'les newsletters, Substack et Skool',
+    'l’écrit sur les 6 autres réseaux',
+    'le suivi des leads jusqu’au rendez-vous',
+    'le setter IA Instagram',
+  ],
+  empire: 'Empire couvre tout ça : dès 199 €/mois, ou à la consommation dès 25 €.',
+}

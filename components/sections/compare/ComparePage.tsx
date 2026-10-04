@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Check } from 'lucide-react'
-import { COMPARISONS, EMPIRE_ALSO, EMPIRE_TERMS } from './comparisons'
+import { COMPARISONS, EMPIRE_ALSO, EMPIRE_TERMS, PROOF_DATE, PROOF_POSTS, TOOL_STACK } from './comparisons'
 
 /**
  * Gabarit des pages comparatives (« Empire vs X », « alternative à X »).
@@ -154,6 +154,56 @@ export default function ComparePage(props: ComparePageProps) {
                 <li key={item} className="rounded-full border border-white/10 px-3 py-1 text-xs text-neutral-300">{item}</li>
               ))}
             </ul>
+          </div>
+        </div>
+      </section>
+
+      <section className="w-full py-12">
+        <div className="container max-w-5xl">
+          <h2 className="mb-2 text-center text-2xl font-bold md:text-3xl">La preuve, sur le compte de Kevin</h2>
+          <p className="mb-8 text-center text-neutral-400">Les formats d&apos;Empire sont d&apos;abord testés ici. Vues relevées le {PROOF_DATE}.</p>
+          <div className="grid gap-4 md:grid-cols-3">
+            {PROOF_POSTS.map((post) => (
+              <div key={post.title} className="flex flex-col rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+                <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-empire">{post.format}</p>
+                <p className="mb-4 flex-1 text-sm leading-relaxed text-neutral-300">{post.title}</p>
+                <div className="space-y-2">
+                  {post.stats.map((stat) => (
+                    <a key={stat.href} href={stat.href} target="_blank" rel="noopener noreferrer" className="flex items-baseline justify-between gap-2 rounded-lg border border-white/10 px-3 py-2 transition hover:border-empire/50">
+                      <span className="text-xl font-extrabold text-white">{stat.views}</span>
+                      <span className="text-xs text-neutral-400">vues · {stat.network} ↗</span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="w-full py-12">
+        <div className="container max-w-3xl">
+          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 md:p-8">
+            <h2 className="mb-5 text-xl font-bold md:text-2xl">Et si tu recomposais Empire avec des outils ?</h2>
+            <div className="space-y-2">
+              {TOOL_STACK.tools.map((tool) => (
+                <div key={tool.name} className="flex items-baseline justify-between gap-3 border-b border-white/5 pb-2 text-sm">
+                  <span className="text-neutral-300"><span className="font-semibold text-white">{tool.name}</span> pour {tool.role}</span>
+                  <span className="shrink-0 tabular-nums text-neutral-300">{tool.price}</span>
+                </div>
+              ))}
+              <div className="flex items-baseline justify-between gap-3 pt-1 text-sm">
+                <span className="font-semibold text-white">Total, plus ton temps</span>
+                <span className="shrink-0 font-bold tabular-nums text-white">{TOOL_STACK.total}</span>
+              </div>
+            </div>
+            <p className="mb-2 mt-6 text-sm font-semibold text-neutral-300">Et il te manque encore :</p>
+            <ul className="mb-6 grid gap-1.5 text-sm text-neutral-400 md:grid-cols-2">
+              {TOOL_STACK.missing.map((item) => (
+                <li key={item} className="flex gap-2"><span className="text-neutral-600">-</span>{item}</li>
+              ))}
+            </ul>
+            <p className="rounded-xl border border-empire/30 bg-empire/[0.06] px-4 py-3 text-sm font-semibold text-white">{TOOL_STACK.empire}</p>
           </div>
         </div>
       </section>
