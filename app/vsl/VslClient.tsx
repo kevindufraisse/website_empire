@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Script from 'next/script'
-import { Play, Check, Calendar, ArrowRight, ChevronDown } from 'lucide-react'
+import { Play, Pause, Volume2, VolumeX, Maximize, Check, Calendar, ArrowRight, ChevronDown } from 'lucide-react'
 import CalPopupButton from '@/components/CalPopupButton'
 import { trackAmplitude, getAmplitudeDeviceId } from '@/lib/amplitude'
 
@@ -46,12 +46,131 @@ declare global {
   }
 }
 
-function useYouTubeProgress(playing: boolean) {
+// Au-delà de 5 min, on demande l'email pour continuer.
+const GATE_SECONDS = 300
+const EMAIL_KEY = 'empire_vsl_email_v1'
+const TIME_KEY = 'empire_vsl_time_v1'
+
+function readStore(key: string): string | null {
+  try {
+    return window.localStorage.getItem(key)
+  } catch {
+    return null
+  }
+}
+
+function writeStore(key: string, value: string) {
+  try {
+    window.localStorage.setItem(key, value)
+  } catch {
+    // navigation privée : la page marche sans
+  }
+}
+
+function EmailGate({ onUnlocked }: { onUnlocked: () => void }) {
+  const [email, setEmail] = useState('')
+  const [company, setCompany] = useState('')
+  const [error, setError] = useState('')
+  const [sending, setSending] = useState(false)
+
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (sending) return
+    setError('')
+    setSending(true)
+    try {
+      const res = await fetch('/api/vsl-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, company }),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) {
+        setError(data.error || 'Impossible d’enregistrer ton email. Réessaie.')
+        setSending(false)
+        return
+      }
+      writeStore(EMAIL_KEY, email.trim().toLowerCase())
+      trackAmplitude('vsl_email_submitted')
+      onUnlocked()
+    } catch {
+      setError('Connexion impossible. Réessaie.')
+      setSending(false)
+    }
+  }
+
+  return (
+    <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/85 backdrop-blur-sm p-4">
+      <form onSubmit={submit} className="w-full max-w-sm text-center">
+        <p className="hidden sm:block text-empire text-xs font-semibold tracking-wider uppercase mb-2">La suite arrive</p>
+        <h3 className="text-base sm:text-xl font-bold text-white mb-2 sm:mb-1">Laisse ton email pour voir la suite</h3>
+        <p className="hidden sm:block text-neutral-400 text-sm mb-4">La vidéo reprend là où tu t’es arrêté.</p>
+        <input
+          type="text"
+          name="company"
+          value={company}
+          onChange={(e) => setCompany(e.target.value)}
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          className="hidden"
+        />
+        <div className="flex flex-row gap-2">
+          <input
+            type="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Ton email"
+            autoComplete="email"
+            className="flex-1 min-w-0 rounded-lg bg-white text-black px-4 py-2.5 sm:py-3 text-base outline-none focus:ring-2 focus:ring-empire"
+          />
+          <button
+            type="submit"
+            disabled={sending}
+            className="rounded-lg bg-empire text-black font-bold px-5 py-2.5 sm:py-3 hover:brightness-110 transition disabled:opacity-60"
+          >
+            {sending ? '…' : 'Continuer'}
+          </button>
+        </div>
+        {error && <p className="mt-2 text-sm text-red-400">{error}</p>}
+      </form>
+    </div>
+  )
+}
+
+function VideoPlayer() {
+  const containerRef = useRef<HTMLDivElement>(null)
   const playerRef = useRef<any>(null)
   const sentRef = useRef<Set<number>>(new Set())
+  const unlockedRef = useRef(false)
+  const gatedRef = useRef(false)
+  const [started, setStarted] = useState(false)
+  const [startAt, setStartAt] = useState(0)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [speed, setSpeed] = useState<1 | 2>(1)
+  const [muted, setMuted] = useState(false)
+  const [gated, setGated] = useState(false)
+  const [canFullscreen, setCanFullscreen] = useState(false)
 
   useEffect(() => {
-    if (!playing) return
+    unlockedRef.current = Boolean(readStore(EMAIL_KEY))
+    const saved = Number(readStore(TIME_KEY)) || 0
+    // Sans email, on ne reprend jamais au-delà du seuil.
+    setStartAt(unlockedRef.current ? saved : Math.min(saved, GATE_SECONDS - 5))
+    setCanFullscreen(Boolean(document.fullscreenEnabled))
+  }, [])
+
+  const showGate = () => {
+    if (gatedRef.current) return
+    gatedRef.current = true
+    playerRef.current?.pauseVideo?.()
+    setGated(true)
+    trackAmplitude('vsl_email_gate_shown')
+  }
+
+  useEffect(() => {
+    if (!started) return
     let timer: ReturnType<typeof setInterval> | undefined
 
     const attach = () => {
@@ -59,25 +178,32 @@ function useYouTubeProgress(playing: boolean) {
       playerRef.current = new window.YT.Player('vsl-player', {
         events: {
           onStateChange: (e: any) => {
-            if (e.data === window.YT.PlayerState.ENDED) {
-              trackAmplitude('vsl_video_progress', { percent: 100 })
+            const S = window.YT.PlayerState
+            if (e.data === S.PLAYING && gatedRef.current) {
+              e.target.pauseVideo()
+              return
             }
+            setIsPlaying(e.data === S.PLAYING)
+            if (e.data === S.ENDED) trackAmplitude('vsl_video_progress', { percent: 100 })
           },
         },
       })
       timer = setInterval(() => {
         const p = playerRef.current
-        if (!p?.getDuration) return
-        const duration = p.getDuration()
+        if (!p?.getCurrentTime) return
+        const t = p.getCurrentTime()
+        const duration = p.getDuration?.() || 0
+        if (t > 0) writeStore(TIME_KEY, String(Math.floor(t)))
+        if (!unlockedRef.current && t >= GATE_SECONDS) showGate()
         if (!duration) return
-        const pct = (p.getCurrentTime() / duration) * 100
+        const pct = (t / duration) * 100
         for (const mark of PROGRESS_MARKS) {
           if (pct >= mark && !sentRef.current.has(mark)) {
             sentRef.current.add(mark)
             trackAmplitude('vsl_video_progress', { percent: mark })
           }
         }
-      }, 3000)
+      }, 1000)
     }
 
     if (window.YT?.Player) attach()
@@ -91,31 +217,131 @@ function useYouTubeProgress(playing: boolean) {
     return () => {
       if (timer) clearInterval(timer)
     }
-  }, [playing])
-}
-
-function VideoPlayer() {
-  const [playing, setPlaying] = useState(false)
-  useYouTubeProgress(playing)
+  }, [started])
 
   const start = () => {
-    setPlaying(true)
-    trackAmplitude('vsl_video_played')
+    setStarted(true)
+    trackAmplitude('vsl_video_played', startAt > 0 ? { resumed_at: startAt } : undefined)
   }
 
+  const togglePlay = () => {
+    const p = playerRef.current
+    if (!p?.getPlayerState || gatedRef.current) return
+    if (p.getPlayerState() === window.YT.PlayerState.PLAYING) p.pauseVideo()
+    else p.playVideo()
+  }
+
+  const toggleSpeed = () => {
+    const next = speed === 1 ? 2 : 1
+    playerRef.current?.setPlaybackRate?.(next)
+    setSpeed(next)
+    trackAmplitude('vsl_speed_changed', { speed: next })
+  }
+
+  const toggleMute = () => {
+    const p = playerRef.current
+    if (!p?.mute) return
+    if (muted) p.unMute()
+    else p.mute()
+    setMuted(!muted)
+  }
+
+  const toggleFullscreen = () => {
+    const el = containerRef.current
+    if (!el) return
+    if (document.fullscreenElement) document.exitFullscreen().catch(() => {})
+    else el.requestFullscreen?.().catch(() => {})
+  }
+
+  const unlock = () => {
+    unlockedRef.current = true
+    gatedRef.current = false
+    setGated(false)
+    playerRef.current?.playVideo?.()
+  }
+
+  const embedParams = new URLSearchParams({
+    autoplay: '1',
+    controls: '0',
+    disablekb: '1',
+    fs: '0',
+    rel: '0',
+    modestbranding: '1',
+    iv_load_policy: '3',
+    playsinline: '1',
+    enablejsapi: '1',
+    start: String(Math.floor(startAt)),
+  })
+
   return (
-    <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-white/10 bg-neutral-900 shadow-[0_0_60px_-12px_rgb(var(--empire-rgb)_/_0.25)]">
-      {playing ? (
+    <div
+      ref={containerRef}
+      className="relative w-full aspect-video rounded-2xl overflow-hidden border border-white/10 bg-black shadow-[0_0_60px_-12px_rgb(var(--empire-rgb)_/_0.25)]"
+    >
+      {started ? (
         <>
           <Script src="https://www.youtube.com/iframe_api" strategy="afterInteractive" />
           <iframe
             id="vsl-player"
-            className="absolute inset-0 w-full h-full"
-            src={`https://www.youtube-nocookie.com/embed/${VIDEO_ID}?autoplay=1&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`}
+            className="absolute inset-0 w-full h-full pointer-events-none"
+            src={`https://www.youtube-nocookie.com/embed/${VIDEO_ID}?${embedParams.toString()}`}
             title={VIDEO_TITLE}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
+            allow="autoplay; encrypted-media; picture-in-picture"
           />
+          {/* Couche cliquable : pas d'accès aux commandes YouTube (avance, titre, suggestions). */}
+          <button
+            type="button"
+            onClick={togglePlay}
+            aria-label={isPlaying ? 'Pause' : 'Lecture'}
+            className="absolute inset-0 z-10 w-full h-full"
+          >
+            {!isPlaying && !gated && (
+              <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center w-16 h-16 rounded-full bg-empire text-black shadow-xl">
+                <Play className="w-7 h-7 ml-1" fill="currentColor" />
+              </span>
+            )}
+          </button>
+          {!gated && (
+            <div className="absolute bottom-0 inset-x-0 z-10 flex items-center justify-between gap-2 px-3 py-2 bg-gradient-to-t from-black/70 to-transparent">
+              <button
+                type="button"
+                onClick={togglePlay}
+                aria-label={isPlaying ? 'Pause' : 'Lecture'}
+                className="flex items-center justify-center w-9 h-9 rounded-full text-white hover:bg-white/10"
+              >
+                {isPlaying ? <Pause className="w-5 h-5" fill="currentColor" /> : <Play className="w-5 h-5" fill="currentColor" />}
+              </button>
+              <div className="flex items-center gap-1">
+                <button
+                  type="button"
+                  onClick={toggleSpeed}
+                  aria-label="Vitesse de lecture"
+                  className={`h-9 px-3 rounded-full text-sm font-bold transition ${speed === 2 ? 'bg-empire text-black' : 'text-white bg-white/10 hover:bg-white/20'}`}
+                >
+                  x2
+                </button>
+                <button
+                  type="button"
+                  onClick={toggleMute}
+                  aria-label={muted ? 'Activer le son' : 'Couper le son'}
+                  className="flex items-center justify-center w-9 h-9 rounded-full text-white hover:bg-white/10"
+                >
+                  {muted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+                </button>
+                {canFullscreen && (
+                  <button
+                    type="button"
+                    onClick={toggleFullscreen}
+                    aria-label="Plein écran"
+                    className="flex items-center justify-center w-9 h-9 rounded-full text-white hover:bg-white/10"
+                  >
+                    <Maximize className="w-5 h-5" />
+                  </button>
+                )}
+              </div>
+            </div>
+          )}
+          {gated && <EmailGate onUnlocked={unlock} />}
         </>
       ) : (
         <button
@@ -133,6 +359,11 @@ function VideoPlayer() {
           <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center w-20 h-20 rounded-full bg-empire text-black shadow-xl group-hover:scale-105 transition-transform">
             <Play className="w-9 h-9 ml-1" fill="currentColor" />
           </span>
+          {startAt > 0 && (
+            <span className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-black/70 px-3 py-1 text-xs text-white">
+              Reprendre là où tu t’es arrêté
+            </span>
+          )}
         </button>
       )}
     </div>
