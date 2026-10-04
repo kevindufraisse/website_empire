@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import { SocialIcons } from '@/components/ui/social-icons'
+import FloatingSocialReactions from '@/components/FloatingSocialReactions'
 import { trackAmplitude } from '@/lib/amplitude'
 import { startFreeTrial } from '@/lib/startTrial'
 // Même jeu de portraits que `/vsl` et `FormatsShowcaseSection` (public/creators).
@@ -48,6 +49,7 @@ export default function HeroSection() {
         <RetroGrid />
         <div className={`absolute inset-0 transition-opacity duration-500 ${autopilot ? 'opacity-0' : 'opacity-100'} bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgb(var(--empire-rgb)_/_0.15),transparent)]`} />
         <div className={`absolute inset-0 transition-opacity duration-500 ${autopilot ? 'opacity-100' : 'opacity-0'} bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(212,165,116,0.18),transparent)]`} />
+        {!autopilot && <FloatingSocialReactions />}
         
         <div className="relative z-10 text-center max-w-4xl mx-auto">
 
