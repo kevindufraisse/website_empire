@@ -28,7 +28,7 @@ function SlackLogo({ className }: { className?: string }) {
 }
 
 /** Pages où afficher la popup serait redondant ou intrusif. */
-const EXCLUDED_PREFIXES = ['/quiz', '/candidature', '/postuler', '/thank-you', '/academy', '/academy/merci', '/webinar/merci', '/verify', '/communaute', '/community', '/postit']
+const EXCLUDED_PREFIXES = ['/quiz', '/candidature', '/postuler', '/thank-you', '/academy', '/academy/merci', '/webinar/merci', '/verify', '/communaute', '/community', '/postit', '/vsl']
 
 export default function CreatorQuizExitIntent() {
   const [mounted, setMounted] = useState(false)

@@ -13,29 +13,50 @@ const VIDEO_TITLE = '94 % des gens ont fait +1M de vues avec cette formule'
 const TRIAL_PLAN = 'growth'
 const TRIAL_BILLING = 'monthly'
 const PROGRESS_MARKS = [25, 50, 75, 95]
+const SPEEDS = [1, 1.25, 1.5, 1.75, 2]
+const speedLabel = (v: number) => `${String(v).replace('.', ',')}x`
 
 const TRIAL_POINTS = [
-  '7 jours gratuits, 500 crédits pour produire',
+  '7 jours gratuits, 500 crédits pour tes premiers contenus',
   'Carte demandée, rien débité avant le 8e jour',
   'Tu arrêtes en un clic depuis l’app',
 ]
 
+const WHAT_YOU_GET = [
+  {
+    title: 'Des idées prêtes à filmer',
+    text: 'Chaque semaine, Empire te propose des sujets tirés de ton actu, de tes notes Telegram et de ce qui marche chez tes concurrents.',
+  },
+  {
+    title: 'Les formats qui font des vues',
+    text: 'Classement, Devine, Pour ou contre, Réagir à une vidéo, Citation, Actu : tu choisis, tu donnes ton avis, l\u2019app monte.',
+  },
+  {
+    title: 'Publié partout, suivi jusqu\u2019à la vente',
+    text: 'Un clic pour publier sur tes réseaux, et un lien qui compte les clics, les leads et les rendez-vous qu\u2019il t\u2019apporte.',
+  },
+]
+
 const FAQ = [
   {
-    q: 'L’essai est vraiment gratuit ?',
-    a: 'Oui. Tu as 7 jours et 500 crédits. Si tu arrêtes avant le 8e jour, tu ne paies rien. Sinon l’abonnement Growth démarre à 499 €/mois.',
+    q: 'L\u2019essai est vraiment gratuit ?',
+    a: 'Oui. Tu as 7 jours et 500 crédits pour créer tes premiers contenus. Si tu arrêtes avant le 8e jour, tu ne paies rien. Sinon l\u2019abonnement Growth démarre à 499 €/mois.',
   },
   {
     q: 'Pourquoi une carte pour un essai gratuit ?',
-    a: 'Pour que l’abonnement continue sans coupure si tu restes. Rien n’est prélevé pendant les 7 jours.',
+    a: 'Pour que l\u2019abonnement continue sans coupure si tu restes. Rien n\u2019est prélevé pendant les 7 jours.',
+  },
+  {
+    q: 'Ça me prend combien de temps ?',
+    a: 'Environ 20 minutes par semaine : tu choisis tes idées, tu donnes ton avis ou tu filmes une prise. Le texte, le montage et la publication sont faits pour toi.',
   },
   {
     q: 'Je dois passer devant la caméra ?',
-    a: 'Non. Plusieurs formats se font sans visage : posts illustrés, réactions, classements, citations. Tu donnes ton avis, l’app fait le reste.',
+    a: 'Non. Une actu devient un post LinkedIn illustré, une citation se pose sur une de tes vidéos, et une vidéo virale peut être refaite avec ton visage et ta voix. Ton avis suffit.',
   },
   {
     q: 'Je préfère en parler avant',
-    a: 'Réserve un appel : on regarde ta situation et on te dit si Empire est fait pour toi, sans engagement.',
+    a: 'Réserve un appel : on regarde ta situation et on te dit si Empire est fait pour toi, sans engagement. Pour une question rapide, écris-nous sur WhatsApp (bulle en bas à droite).',
   },
 ]
 
@@ -148,7 +169,8 @@ function VideoPlayer() {
   const [started, setStarted] = useState(false)
   const [startAt, setStartAt] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
-  const [speed, setSpeed] = useState<1 | 2>(1)
+  const [speed, setSpeed] = useState(1)
+  const [speedOpen, setSpeedOpen] = useState(false)
   const [muted, setMuted] = useState(false)
   const [gated, setGated] = useState(false)
   const [canFullscreen, setCanFullscreen] = useState(false)
@@ -231,10 +253,10 @@ function VideoPlayer() {
     else p.playVideo()
   }
 
-  const toggleSpeed = () => {
-    const next = speed === 1 ? 2 : 1
+  const chooseSpeed = (next: number) => {
     playerRef.current?.setPlaybackRate?.(next)
     setSpeed(next)
+    setSpeedOpen(false)
     trackAmplitude('vsl_speed_changed', { speed: next })
   }
 
@@ -312,14 +334,31 @@ function VideoPlayer() {
                 {isPlaying ? <Pause className="w-5 h-5" fill="currentColor" /> : <Play className="w-5 h-5" fill="currentColor" />}
               </button>
               <div className="flex items-center gap-1">
-                <button
-                  type="button"
-                  onClick={toggleSpeed}
-                  aria-label="Vitesse de lecture"
-                  className={`h-9 px-3 rounded-full text-sm font-bold transition ${speed === 2 ? 'bg-empire text-black' : 'text-white bg-white/10 hover:bg-white/20'}`}
-                >
-                  x2
-                </button>
+                <div className="relative">
+                  <button
+                    type="button"
+                    onClick={() => setSpeedOpen((o) => !o)}
+                    aria-label="Vitesse de lecture"
+                    aria-expanded={speedOpen}
+                    className={`h-9 min-w-[3.25rem] px-3 rounded-full text-sm font-bold transition ${speed !== 1 ? 'bg-empire text-black' : 'text-white bg-white/10 hover:bg-white/20'}`}
+                  >
+                    {speedLabel(speed)}
+                  </button>
+                  {speedOpen && (
+                    <div className="absolute bottom-full right-0 mb-2 flex flex-row rounded-xl border border-white/10 bg-[#111] p-1 shadow-xl">
+                      {SPEEDS.map((v) => (
+                        <button
+                          key={v}
+                          type="button"
+                          onClick={() => chooseSpeed(v)}
+                          className={`px-2.5 sm:px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap ${v === speed ? 'bg-empire text-black' : 'text-white hover:bg-white/10'}`}
+                        >
+                          {speedLabel(v)}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
                 <button
                   type="button"
                   onClick={toggleMute}
@@ -472,13 +511,29 @@ export default function VslClient() {
             94 % des gens ont fait <span className="text-empire">+1M de vues</span> avec cette formule
           </h1>
           <p className="text-center text-neutral-400 text-base md:text-lg max-w-2xl mx-auto mb-8">
-            Regarde la vidéo, puis applique la formule avec Empire : 7 jours pour la tester, gratuitement.
+            Regarde la vidéo, puis applique la formule avec Empire. 7 jours pour la tester, gratuitement.
           </p>
 
           <VideoPlayer />
 
           <div className="mt-8">
             <Ctas location="top" />
+          </div>
+        </div>
+      </section>
+
+      <section className="relative py-12 md:py-16">
+        <div className="container max-w-5xl mx-auto px-4">
+          <h2 className="text-center text-2xl md:text-3xl font-bold mb-2">Ce que tu testes pendant 7 jours</h2>
+          <p className="text-center text-neutral-400 mb-8">La formule de la vidéo, appliquée pour toi</p>
+          <div className="grid gap-4 md:grid-cols-3">
+            {WHAT_YOU_GET.map((item, i) => (
+              <div key={item.title} className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-empire text-black text-sm font-bold mb-4">{i + 1}</span>
+                <h3 className="font-bold text-white mb-2">{item.title}</h3>
+                <p className="text-sm text-neutral-400 leading-relaxed">{item.text}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
