@@ -41,19 +41,19 @@ export default function HomeApplySection() {
           </h2>
           <p className="mx-auto mt-5 max-w-lg text-base leading-relaxed text-neutral-400 md:text-lg">
             {fr
-              ? 'Testez gratuitement.'
-              : 'Try it free.'}
+              ? 'Regardez le workshop, puis testez Empire gratuitement pendant 7 jours.'
+              : 'Watch the workshop, then try Empire free for 7 days.'}
           </p>
           <div className="mt-8">
             <a
               href="/vsl"
               className="group inline-flex items-center gap-2 rounded-xl bg-empire px-8 py-4 text-base font-bold text-black shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.35)] transition-all hover:brightness-110"
             >
-              {fr ? 'Recevoir un accès' : 'Get access'}
+              {fr ? 'Voir le workshop gratuit' : 'Watch the free workshop'}
               <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
             </a>
             <p className="mt-3 text-[13px] text-neutral-500">
-              {fr ? 'Essai gratuit · sans engagement · on vous contacte sous 24h' : 'Free trial · no commitment · we contact you within 24h'}
+              {fr ? '1 h 26 · gratuit · accélérable en x2' : '1h26 · free · up to 2x speed'}
             </p>
           </div>
         </motion.div>

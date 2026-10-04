@@ -34,6 +34,7 @@ import { createPortal } from 'react-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
+import { trackAmplitude } from '@/lib/amplitude'
 
 type TermId = 'message' | 'format' | 'diffusion' | 'time' | 'cost' | 'visibility'
 
@@ -266,8 +267,8 @@ export default function FormulaBar() {
         'relative overflow-hidden rounded-2xl border backdrop-blur-xl transition-colors duration-700',
         'shadow-[0_16px_50px_-16px_rgba(0,0,0,0.9)]',
         done
-          ? 'border-empire/50 bg-empire/[0.10] shadow-[0_0_40px_-8px_rgb(var(--empire-rgb)_/_0.45)]'
-          : 'border-white/15 bg-white/[0.07]',
+          ? 'border-empire/50 bg-black/80 shadow-[0_0_40px_-8px_rgb(var(--empire-rgb)_/_0.45)]'
+          : 'border-white/15 bg-black/75',
       ].join(' ')}
     >
       {/* Reflet haut, le détail qui fait « verre » */}
@@ -333,8 +334,27 @@ export default function FormulaBar() {
     return createPortal(<div className="flex flex-col items-center">{pill}</div>, slot)
   }
 
-  // En bas de l'écran : la légende du terme qui vient de s'allumer, au-dessus
-  // de la pilule.
+  // Bouton workshop de la barre flottante (remplace l'ancienne fenêtre
+  // « Workshop gratuit », trop encombrante sur mobile).
+  const workshopCta = (compact: boolean) => (
+    <a
+      href="/vsl"
+      onClick={() => trackAmplitude('formula_bar_workshop_clicked')}
+      className={[
+        'pointer-events-auto inline-flex items-center justify-center gap-1.5 rounded-xl bg-empire font-bold text-black shadow-[0_0_24px_-6px_rgb(var(--empire-rgb)_/_0.6)] transition hover:brightness-110',
+        compact ? 'mb-2 px-3.5 py-1.5 text-xs' : 'shrink-0 px-5 py-3 text-sm',
+      ].join(' ')}
+    >
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M7 4.5v15l13-7.5z" /></svg>
+      {fr ? 'Voir le workshop gratuit' : 'Watch the free workshop'}
+      {compact && <span className="font-semibold opacity-70">· 1 h 26</span>}
+    </a>
+  )
+
+  // En bas de l'écran. Sur mobile, au-dessus de la pilule : la légende du
+  // terme qui vient de s'allumer (quelques secondes), sinon le bouton
+  // workshop - même emplacement, donc aucune hauteur en plus. Sur grand
+  // écran, le bouton est à droite de la pilule.
   return (
     <AnimatePresence>
       {mode === 'floating' && (
@@ -362,10 +382,24 @@ export default function FormulaBar() {
                   {' · '}
                   {fr ? hintTerm.hintFr : hintTerm.hintEn}
                 </motion.p>
-              ) : null}
+              ) : (
+                <motion.div
+                  key="workshop"
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 6 }}
+                  transition={{ duration: 0.25 }}
+                  className="lg:hidden"
+                >
+                  {workshopCta(true)}
+                </motion.div>
+              )}
             </AnimatePresence>
 
-            {pill}
+            <div className="flex items-center gap-3">
+              {pill}
+              <div className="hidden lg:block">{workshopCta(false)}</div>
+            </div>
           </div>
         </motion.div>
       )}

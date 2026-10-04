@@ -99,7 +99,7 @@ export default function ComparePage(props: ComparePageProps) {
           <p className="mx-auto mb-8 max-w-2xl text-lg text-neutral-300 md:text-xl">{verdict}</p>
           <div className="mb-10 flex flex-wrap items-center justify-center gap-3">
             <Link href={APPLY_URL} className="rounded-lg bg-empire px-6 py-3 font-semibold text-black transition hover:opacity-90">
-              Postuler pour Empire
+              Voir le workshop gratuit
             </Link>
             <a href="#formule" className="rounded-lg border border-white/15 px-6 py-3 font-semibold text-white transition hover:border-white/30">
               Comparer terme par terme
@@ -283,9 +283,9 @@ export default function ComparePage(props: ComparePageProps) {
       <section className="w-full pb-24 pt-8">
         <div className="container max-w-3xl text-center">
           <h2 className="mb-4 text-3xl font-extrabold md:text-4xl">Le bon message, dans le bon format, partout</h2>
-          <p className="mb-8 text-neutral-300">Dis-nous où tu en es : on te répond sur WhatsApp et on te recommande le bon plan.</p>
+          <p className="mb-8 text-neutral-300">La formule en 1 h 26, puis 7 jours pour la tester gratuitement.</p>
           <Link href={APPLY_URL} className="inline-block rounded-lg bg-empire px-8 py-3.5 font-semibold text-black transition hover:opacity-90">
-            Postuler pour Empire
+            Voir le workshop gratuit
           </Link>
         </div>
       </section>

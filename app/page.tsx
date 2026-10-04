@@ -29,10 +29,6 @@ export default function Page() {
         </div>
       </section>
       <TopCreatorsSection />
-      {/* Sentinelle de la fenêtre « Workshop gratuit » (`HomeWorkshopPopup`) :
-          elle s'ouvre une fois les logos et les avis passés, sans bloquer
-          le scroll. */}
-      <div id="home-gate-trigger" aria-hidden className="h-px w-full" />
       {/* Les ancres `formula-*` pilotent la FormulaBar : chaque section révèle
           le terme de la formule qu'elle démontre, dans l'ordre de la formule
           (Message × Format × Diffusion ÷ Temps + Coût = Visibilité). C'est

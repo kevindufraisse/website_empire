@@ -80,8 +80,8 @@ export default function Footer() {
                 href="/vsl"
                 className="inline-flex flex-col items-start text-left px-6 py-3.5 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]"
               >
-                <span className="text-left">{lang === 'fr' ? 'Recevoir un accès' : 'Get access'}</span>
-                <span className="text-[10px] font-semibold opacity-70 text-left">{lang === 'fr' ? 'Essai gratuit 7 jours' : '7-day free trial'}</span>
+                <span className="text-left">{lang === 'fr' ? 'Voir le workshop gratuit' : 'Watch the free workshop'}</span>
+                <span className="text-[10px] font-semibold opacity-70 text-left">{lang === 'fr' ? '1 h 26 · la formule du million de vues' : '1h26 · the million-views formula'}</span>
               </a>
             )}
           </div>
