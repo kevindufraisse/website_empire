@@ -274,47 +274,62 @@ export default function FormulaBar() {
       {/* Reflet haut, le détail qui fait « verre » */}
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.12),rgba(255,255,255,0)_45%)]" />
 
-      <div className={[
-        'relative flex items-center gap-2.5 px-4 py-2.5 text-xs sm:gap-3.5 sm:px-6 sm:py-3 sm:text-base',
-        // Dans le hero, la formule est la pièce centrale : plus grande sur grand écran.
-        docked ? 'md:gap-5 md:px-9 md:py-5 md:text-2xl' : '',
-      ].join(' ')}>
-        {/* Fraction */}
-        <div className="flex flex-col items-center leading-none">
-          <div className="flex items-center whitespace-nowrap">
-            <TermChip id="message" />
-            <Op>×</Op>
-            <TermChip id="format" />
-            <Op>×</Op>
-            <TermChip id="diffusion" />
+      <div className="relative flex flex-col lg:flex-row lg:items-center">
+        <div className={[
+          'relative flex items-center gap-2.5 px-4 py-2.5 text-xs sm:gap-3.5 sm:px-6 sm:py-3 sm:text-base',
+          // Dans le hero, la formule est la pièce centrale : plus grande sur grand écran.
+          docked ? 'md:gap-5 md:px-9 md:py-5 md:text-2xl' : '',
+        ].join(' ')}>
+          {/* Fraction */}
+          <div className="flex flex-col items-center leading-none">
+            <div className="flex items-center whitespace-nowrap">
+              <TermChip id="message" />
+              <Op>×</Op>
+              <TermChip id="format" />
+              <Op>×</Op>
+              <TermChip id="diffusion" />
+            </div>
+            <div className="my-1 h-px w-full bg-white/30" />
+            <div className="flex items-center whitespace-nowrap">
+              <TermChip id="time" />
+              <Op>+</Op>
+              <TermChip id="cost" />
+            </div>
           </div>
-          <div className="my-1 h-px w-full bg-white/30" />
-          <div className="flex items-center whitespace-nowrap">
-            <TermChip id="time" />
-            <Op>+</Op>
-            <TermChip id="cost" />
+
+          <Op>=</Op>
+          <div className="whitespace-nowrap">
+            <TermChip id="visibility" />
           </div>
-        </div>
 
-        <Op>=</Op>
-        <div className="whitespace-nowrap">
-          <TermChip id="visibility" />
+          {/* La chute : visible quand toute la formule est nette */}
+          <AnimatePresence>
+            {done && (
+              <motion.span
+                initial={{ opacity: 0, x: -6 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.4, delay: 0.3 }}
+                className="ml-0.5 whitespace-nowrap rounded-lg bg-empire px-2 py-1 text-[10px] font-extrabold uppercase tracking-wider text-black sm:text-[11px]"
+              >
+                → {fr ? 'Clients' : 'Clients'}
+              </motion.span>
+            )}
+          </AnimatePresence>
         </div>
-
-        {/* La chute : visible quand toute la formule est nette */}
-        <AnimatePresence>
-          {done && (
-            <motion.span
-              initial={{ opacity: 0, x: -6 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4, delay: 0.3 }}
-              className="ml-0.5 whitespace-nowrap rounded-lg bg-empire px-2 py-1 text-[10px] font-extrabold uppercase tracking-wider text-black sm:text-[11px]"
-            >
-              → {fr ? 'Clients' : 'Clients'}
-            </motion.span>
-          )}
-        </AnimatePresence>
+        {/* Le bouton workshop vit dans la pilule (pas dans le hero, qui a
+            le sien) : dessous sur mobile, à droite sur grand écran. */}
+        {!docked && (
+          <a
+            href="/vsl"
+            onClick={() => trackAmplitude('formula_bar_workshop_clicked')}
+            className="mx-2 mb-2 flex min-h-0 items-center justify-center gap-1.5 rounded-xl bg-empire px-4 py-2 text-xs font-bold text-black transition hover:brightness-110 sm:text-sm lg:mx-0 lg:mb-0 lg:mr-2.5 lg:py-2.5"
+          >
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M7 4.5v15l13-7.5z" /></svg>
+            {fr ? 'Voir le workshop gratuit' : 'Watch the free workshop'}
+            <span className="font-semibold opacity-70">· 1 h 26</span>
+          </a>
+        )}
       </div>
 
       {/* Progression de la découverte */}
@@ -334,27 +349,7 @@ export default function FormulaBar() {
     return createPortal(<div className="flex flex-col items-center">{pill}</div>, slot)
   }
 
-  // Bouton workshop de la barre flottante (remplace l'ancienne fenêtre
-  // « Workshop gratuit », trop encombrante sur mobile).
-  const workshopCta = (compact: boolean) => (
-    <a
-      href="/vsl"
-      onClick={() => trackAmplitude('formula_bar_workshop_clicked')}
-      className={[
-        'pointer-events-auto inline-flex items-center justify-center gap-1.5 rounded-xl bg-empire font-bold text-black shadow-[0_0_24px_-6px_rgb(var(--empire-rgb)_/_0.6)] transition hover:brightness-110',
-        compact ? 'mb-2 px-3.5 py-1.5 text-xs' : 'shrink-0 px-5 py-3 text-sm',
-      ].join(' ')}
-    >
-      <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M7 4.5v15l13-7.5z" /></svg>
-      {fr ? 'Voir le workshop gratuit' : 'Watch the free workshop'}
-      {compact && <span className="font-semibold opacity-70">· 1 h 26</span>}
-    </a>
-  )
-
-  // En bas de l'écran. Sur mobile, au-dessus de la pilule : la légende du
-  // terme qui vient de s'allumer (quelques secondes), sinon le bouton
-  // workshop - même emplacement, donc aucune hauteur en plus. Sur grand
-  // écran, le bouton est à droite de la pilule.
+  // En bas de l'écran : la pilule seule, bouton workshop inclus.
   return (
     <AnimatePresence>
       {mode === 'floating' && (
@@ -368,38 +363,7 @@ export default function FormulaBar() {
           style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
         >
           <div className="pointer-events-auto relative flex flex-col items-center">
-            <AnimatePresence mode="wait">
-              {hintTerm && !done ? (
-                <motion.p
-                  key={hintTerm.id}
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 6 }}
-                  transition={{ duration: 0.25 }}
-                  className="mb-2 max-w-[min(92vw,420px)] rounded-xl border border-white/10 bg-black/60 px-3 py-1.5 text-center text-[11px] leading-snug text-neutral-200 shadow-lg backdrop-blur-xl sm:text-xs"
-                >
-                  <span className="font-bold text-empire">{label(hintTerm)}</span>
-                  {' · '}
-                  {fr ? hintTerm.hintFr : hintTerm.hintEn}
-                </motion.p>
-              ) : (
-                <motion.div
-                  key="workshop"
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 6 }}
-                  transition={{ duration: 0.25 }}
-                  className="lg:hidden"
-                >
-                  {workshopCta(true)}
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            <div className="flex items-center gap-3">
-              {pill}
-              <div className="hidden lg:block">{workshopCta(false)}</div>
-            </div>
+            {pill}
           </div>
         </motion.div>
       )}
