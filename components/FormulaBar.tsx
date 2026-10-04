@@ -273,7 +273,11 @@ export default function FormulaBar() {
       {/* Reflet haut, le détail qui fait « verre » */}
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.12),rgba(255,255,255,0)_45%)]" />
 
-      <div className="relative flex items-center gap-2.5 px-4 py-2.5 text-xs sm:gap-3.5 sm:px-6 sm:py-3 sm:text-base">
+      <div className={[
+        'relative flex items-center gap-2.5 px-4 py-2.5 text-xs sm:gap-3.5 sm:px-6 sm:py-3 sm:text-base',
+        // Dans le hero, la formule est la pièce centrale : plus grande sur grand écran.
+        docked ? 'md:gap-5 md:px-9 md:py-5 md:text-2xl' : '',
+      ].join(' ')}>
         {/* Fraction */}
         <div className="flex flex-col items-center leading-none">
           <div className="flex items-center whitespace-nowrap">

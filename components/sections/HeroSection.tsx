@@ -5,7 +5,6 @@ import dynamic from 'next/dynamic'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import { SocialIcons } from '@/components/ui/social-icons'
-import FloatingSocialReactions from '@/components/FloatingSocialReactions'
 import { trackAmplitude } from '@/lib/amplitude'
 import { startFreeTrial } from '@/lib/startTrial'
 // Même jeu de portraits que `/vsl` et `FormatsShowcaseSection` (public/creators).
@@ -49,7 +48,6 @@ export default function HeroSection() {
         <RetroGrid />
         <div className={`absolute inset-0 transition-opacity duration-500 ${autopilot ? 'opacity-0' : 'opacity-100'} bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgb(var(--empire-rgb)_/_0.15),transparent)]`} />
         <div className={`absolute inset-0 transition-opacity duration-500 ${autopilot ? 'opacity-100' : 'opacity-0'} bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(212,165,116,0.18),transparent)]`} />
-        {!autopilot && <FloatingSocialReactions />}
         
         <div className="relative z-10 text-center max-w-4xl mx-auto">
 
@@ -140,7 +138,7 @@ export default function HeroSection() {
 
               <div
                 id="formula-hero-slot"
-                className="flex min-h-[80px] items-start justify-center sm:min-h-[76px]"
+                className="flex min-h-[80px] items-start justify-center sm:min-h-[100px]"
               />
             </div>
           )}
@@ -150,28 +148,12 @@ export default function HeroSection() {
               initial={mounted ? { opacity: 0, y: 8 } : false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.2 }}
-              className="mx-auto mt-3 max-w-xl text-[15px] leading-relaxed text-neutral-300 sm:text-base text-balance"
+              className="mx-auto mt-3 max-w-xl text-[15px] leading-relaxed text-neutral-300 sm:mt-5 sm:text-lg text-balance"
             >
               {lang === 'fr'
                 ? <>Vous apportez le <span className="font-semibold text-white">message</span>. Empire s&apos;occupe du reste : le format qui fait des vues, la diffusion sur 7 réseaux, en 20 minutes par semaine.</>
                 : <>You bring the <span className="font-semibold text-white">message</span>. Empire handles the rest: the format that gets views, distribution on 7 networks, in 20 minutes a week.</>}
             </motion.p>
-          )}
-          {/* Bénéfices en glass, sous la formule */}
-          {!autopilot && (
-            <motion.div
-              initial={mounted ? { opacity: 0, y: 8 } : false}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="mt-4 flex flex-wrap items-center justify-center gap-3 text-[11px] font-semibold text-neutral-400 sm:text-xs"
-            >
-              {(lang === 'fr'
-                ? ['1 an de R&D', '10 000+ posts testés', '7 réseaux']
-                : ['1 year of R&D', '10,000+ posts tested', '7 networks']
-              ).map((item) => (
-                <span key={item} className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 backdrop-blur-sm">{item}</span>
-              ))}
-            </motion.div>
           )}
 
           {/* Subtitle */}
@@ -211,9 +193,9 @@ export default function HeroSection() {
                   <a
                     href="/vsl"
                     onClick={() => trackAmplitude('home_hero_workshop_clicked')}
-                    className="group flex w-full flex-col items-center justify-center gap-0.5 rounded-xl bg-empire px-8 py-3.5 text-black shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.35)] transition-all hover:scale-[1.02] sm:w-auto"
+                    className="group flex w-full flex-col items-center justify-center gap-0.5 rounded-xl bg-empire px-8 py-3.5 sm:px-12 sm:py-4 text-black shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.35)] transition-all hover:scale-[1.02] sm:w-auto"
                   >
-                    <span className="flex items-center gap-2 text-base font-bold">
+                    <span className="flex items-center gap-2 text-base font-bold sm:text-lg">
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M7 4.5v15l13-7.5z" /></svg>
                       {lang === 'fr' ? 'Voir le workshop gratuit' : 'Watch the free workshop'}
                     </span>
