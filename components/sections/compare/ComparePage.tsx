@@ -1,30 +1,35 @@
 import Link from 'next/link'
-import { Check, X } from 'lucide-react'
+import { Check } from 'lucide-react'
 
 /**
  * Gabarit des pages comparatives (« Empire vs X », « alternative à X »).
  *
+ * La comparaison suit la formule du site (FormulaBar) :
+ *   Message × Format × Diffusion ÷ (Temps + Coût) = Visibilité → Clients
+ * Un concurrent couvre en général un seul terme (MagicPost : l'écriture d'un
+ * message LinkedIn ; Opus Clip : un format ; un freelance : du temps). La page
+ * le montre terme par terme au lieu d'aligner des fonctionnalités.
+ *
  * Règle : la publicité comparative n'est licite que si elle est exacte et
  * vérifiable. Chaque fait sur le concurrent vient de son site, avec la date du
  * relevé (`checkedOn`) et la source (`sourceUrl`) affichées sous le tableau.
- * Les arguments sur Kevin ne citent que des classements sourcés.
  */
 
-export type CompareCell = string | boolean
+export type FormulaTermId = 'message' | 'format' | 'diffusion' | 'time' | 'cost' | 'visibility'
 
-export type CompareRow = {
-  label: string
-  empire: CompareCell
-  other: CompareCell
+export type FormulaRow = {
+  term: FormulaTermId
+  empire: string
+  other: string
 }
 
 export type ComparePageProps = {
   competitor: string
   /** Une phrase : ce que fait le concurrent, ce que fait Empire. */
   verdict: string
+  rows: FormulaRow[]
   chooseOther: string[]
   chooseEmpire: string[]
-  rows: CompareRow[]
   sourceUrl: string
   checkedOn: string
   faq: Array<{ q: string; a: string }>
@@ -32,50 +37,102 @@ export type ComparePageProps = {
 
 const APPLY_URL = '/postuler'
 
-function Cell({ value, strong }: { value: CompareCell; strong?: boolean }) {
-  if (value === true) return <Check className="h-5 w-5 text-empire" aria-label="Oui" />
-  if (value === false) return <X className="h-5 w-5 text-neutral-500" aria-label="Non" />
-  return <span className={strong ? 'text-white' : 'text-neutral-300'}>{value}</span>
+const TERMS: Record<FormulaTermId, { label: string; question: string }> = {
+  message: { label: 'Message', question: 'Quoi dire ?' },
+  format: { label: 'Format', question: 'Comment le dire pour être regardé ?' },
+  diffusion: { label: 'Diffusion', question: 'Où ça part ?' },
+  time: { label: 'Temps', question: 'Combien de temps pour toi ?' },
+  cost: { label: 'Coût', question: 'Combien ça coûte ?' },
+  visibility: { label: 'Visibilité → clients', question: 'Est-ce que ça ramène des clients ?' },
 }
+
+function FormulaLine() {
+  const part = (t: string) => <span className="font-bold text-white">{t}</span>
+  return (
+    <p className="mx-auto max-w-3xl rounded-full border border-white/10 bg-white/[0.04] px-5 py-2.5 text-sm text-neutral-400 md:text-base">
+      {part('Message')} × {part('Format')} × {part('Diffusion')} ÷ ({part('Temps')} + {part('Coût')}) ={' '}
+      <span className="font-bold text-empire">Visibilité → Clients</span>
+    </p>
+  )
+}
+
+// Repris tels quels de la section fondateur de la page d'accueil, pour que
+// les deux pages disent la même chose.
+const FOUNDER_STATS = [
+  { stat: '#1', label: 'Lead Generation France' },
+  { stat: '#9', label: 'Lead Generation monde' },
+  { stat: '#55', label: 'Influence LinkedIn France' },
+  { stat: '700M+', label: 'vues générées pour nos clients' },
+]
 
 const PROOFS = [
   {
-    title: 'Fait par Kevin Dufraisse',
-    body: 'Classé 3e expert growth marketing en France par Favikon en 2026, environ 60 000 abonnés sur LinkedIn. Empire, c’est sa façon de publier, transformée en logiciel.',
-    href: 'https://www.favikon.com/blog/top-growth-marketing-experts-france',
-    link: 'Voir le classement Favikon',
+    title: 'Chaque format est testé sur le compte de Kevin',
+    body: 'Réaction, classement, devine, citation, questions, actu : un format n’entre dans l’app qu’après avoir marché sur son propre compte. Et ça continue : ce qui ne marche plus en sort.',
   },
   {
-    title: 'Chaque format est testé sur son compte',
-    body: 'Réaction, classement, citation, questions, actu : un format n’entre dans l’app qu’après avoir été testé sur le compte de Kevin. Et ça continue : ce qui ne marche plus en sort.',
-  },
-  {
-    title: 'Une méthode, pas un générateur',
-    body: 'Une méthode appliquée depuis 5 ans pour être visible sur tous les réseaux, en vidéo et en écrit. L’app te dit quoi publier, tu filmes ou tu dictes, on écrit, on monte et on publie.',
+    title: 'Une méthode appliquée depuis 5 ans',
+    body: 'Message, format, diffusion : la même méthode qui a rendu Kevin visible sur tous les réseaux, transformée en logiciel. Tu ne pars pas d’une page blanche, tu pars de ce qui a fait ses preuves.',
   },
 ]
 
 export default function ComparePage(props: ComparePageProps) {
-  const { competitor, verdict, chooseOther, chooseEmpire, rows, sourceUrl, checkedOn, faq } = props
+  const { competitor, verdict, rows, chooseOther, chooseEmpire, sourceUrl, checkedOn, faq } = props
   return (
     <main className="relative">
-      <section className="w-full bg-gradient-to-b from-black to-[#0f0f0f] pb-12 pt-24 md:pt-32">
+      <section className="w-full bg-gradient-to-b from-black to-[#0f0f0f] pb-10 pt-24 md:pt-32">
         <div className="container max-w-4xl text-center">
           <p className="mb-5 inline-block rounded-full border border-empire/30 bg-empire/10 px-4 py-1.5 text-sm font-semibold text-empire">
             Comparatif
           </p>
-          <h1 className="mb-5 text-4xl font-extrabold leading-tight md:text-6xl">
-            Empire vs {competitor}
-          </h1>
+          <h1 className="mb-5 text-4xl font-extrabold leading-tight md:text-6xl">Empire vs {competitor}</h1>
           <p className="mx-auto mb-8 max-w-2xl text-lg text-neutral-300 md:text-xl">{verdict}</p>
-          <div className="flex flex-wrap items-center justify-center gap-3">
+          <div className="mb-10 flex flex-wrap items-center justify-center gap-3">
             <Link href={APPLY_URL} className="rounded-lg bg-empire px-6 py-3 font-semibold text-black transition hover:opacity-90">
               Postuler pour Empire
             </Link>
-            <a href="#tableau" className="rounded-lg border border-white/15 px-6 py-3 font-semibold text-white transition hover:border-white/30">
-              Voir le tableau
+            <a href="#formule" className="rounded-lg border border-white/15 px-6 py-3 font-semibold text-white transition hover:border-white/30">
+              Comparer terme par terme
             </a>
           </div>
+          <FormulaLine />
+        </div>
+      </section>
+
+      <section id="formule" className="w-full scroll-mt-24 py-12">
+        <div className="container max-w-5xl">
+          <h2 className="mb-2 text-center text-2xl font-bold md:text-3xl">La formule, terme par terme</h2>
+          <p className="mx-auto mb-8 max-w-2xl text-center text-neutral-400">
+            Être visible, c&apos;est le bon message, dans un format qui se regarde, diffusé partout, sans y passer ta semaine ni payer une équipe.
+          </p>
+          <div className="space-y-3">
+            {rows.map((row) => {
+              const term = TERMS[row.term]
+              return (
+                <div key={row.term} className="grid gap-3 rounded-2xl border border-white/10 bg-white/[0.02] p-4 md:grid-cols-[180px_1fr_1fr] md:items-start md:gap-5 md:p-5">
+                  <div>
+                    <p className="font-bold text-white">{term.label}</p>
+                    <p className="text-sm text-neutral-500">{term.question}</p>
+                  </div>
+                  <div className="rounded-xl border border-empire/30 bg-empire/[0.06] p-3.5">
+                    <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-empire">Empire</p>
+                    <p className="text-sm leading-relaxed text-neutral-100">{row.empire}</p>
+                  </div>
+                  <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3.5">
+                    <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-neutral-500">{competitor}</p>
+                    <p className="text-sm leading-relaxed text-neutral-300">{row.other}</p>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+          <p className="mt-4 text-center text-xs text-neutral-500">
+            Prix et fonctionnalités de {competitor} relevés sur{' '}
+            <a href={sourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-neutral-300">
+              {sourceUrl.replace(/^https?:\/\//, '')}
+            </a>{' '}
+            le {checkedOn}. Ils peuvent avoir changé depuis.
+          </p>
         </div>
       </section>
 
@@ -100,52 +157,23 @@ export default function ComparePage(props: ComparePageProps) {
         </div>
       </section>
 
-      <section id="tableau" className="w-full scroll-mt-24 py-12">
-        <div className="container max-w-4xl">
-          <h2 className="mb-6 text-center text-2xl font-bold md:text-3xl">Ce que tu obtiens, ligne par ligne</h2>
-          <div className="overflow-hidden rounded-2xl border border-white/10">
-            <table className="w-full table-fixed text-left text-sm md:text-base">
-              <thead>
-                <tr className="border-b border-white/10 bg-white/[0.04]">
-                  <th className="w-[38%] px-4 py-3 font-semibold text-neutral-400"> </th>
-                  <th className="px-4 py-3 font-bold text-empire">Empire</th>
-                  <th className="px-4 py-3 font-bold text-neutral-300">{competitor}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {rows.map((row) => (
-                  <tr key={row.label} className="border-b border-white/5 last:border-0">
-                    <td className="px-4 py-3.5 align-top font-medium text-neutral-400">{row.label}</td>
-                    <td className="px-4 py-3.5 align-top"><Cell value={row.empire} strong /></td>
-                    <td className="px-4 py-3.5 align-top"><Cell value={row.other} /></td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <p className="mt-3 text-center text-xs text-neutral-500">
-            Prix et fonctionnalités de {competitor} relevés sur{' '}
-            <a href={sourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-neutral-300">
-              {sourceUrl.replace(/^https?:\/\//, '')}
-            </a>{' '}
-            le {checkedOn}. Ils peuvent avoir changé depuis.
-          </p>
-        </div>
-      </section>
-
       <section className="w-full py-12">
         <div className="container max-w-5xl">
-          <h2 className="mb-8 text-center text-2xl font-bold md:text-3xl">Ce qu&apos;aucun outil ne peut copier</h2>
-          <div className="grid gap-4 md:grid-cols-3">
+          <h2 className="mb-2 text-center text-2xl font-bold md:text-3xl">Ce qu&apos;aucun outil ne peut copier</h2>
+          <p className="mb-8 text-center text-neutral-400">Empire est construit par Kevin Dufraisse, sur sa propre méthode.</p>
+          <div className="mb-4 grid grid-cols-2 gap-3 md:grid-cols-4">
+            {FOUNDER_STATS.map((s) => (
+              <div key={s.label} className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-center">
+                <p className="text-3xl font-extrabold text-empire">{s.stat}</p>
+                <p className="mt-1 text-sm text-neutral-400">{s.label}</p>
+              </div>
+            ))}
+          </div>
+          <div className="grid gap-4 md:grid-cols-2">
             {PROOFS.map((proof) => (
               <div key={proof.title} className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
                 <h3 className="mb-2 font-bold text-white">{proof.title}</h3>
                 <p className="text-sm leading-relaxed text-neutral-300">{proof.body}</p>
-                {proof.href && (
-                  <a href={proof.href} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm font-semibold text-empire hover:underline">
-                    {proof.link} →
-                  </a>
-                )}
               </div>
             ))}
           </div>
@@ -168,7 +196,7 @@ export default function ComparePage(props: ComparePageProps) {
 
       <section className="w-full pb-24 pt-8">
         <div className="container max-w-3xl text-center">
-          <h2 className="mb-4 text-3xl font-extrabold md:text-4xl">Publie partout, sans écrire ni monter</h2>
+          <h2 className="mb-4 text-3xl font-extrabold md:text-4xl">Le bon message, dans le bon format, partout</h2>
           <p className="mb-8 text-neutral-300">Dis-nous où tu en es : on te répond sur WhatsApp et on te recommande le bon plan.</p>
           <Link href={APPLY_URL} className="inline-block rounded-lg bg-empire px-8 py-3.5 font-semibold text-black transition hover:opacity-90">
             Postuler pour Empire
