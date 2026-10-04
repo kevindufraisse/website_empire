@@ -157,6 +157,22 @@ export default function HeroSection() {
                 : <>A 5-term formula. <span className="font-semibold text-white">Scroll down, they reveal one by one.</span></>}
             </motion.p>
           )}
+          {/* Bénéfices en glass, sous la formule */}
+          {!autopilot && (
+            <motion.div
+              initial={mounted ? { opacity: 0, y: 8 } : false}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="mt-4 flex flex-wrap items-center justify-center gap-3 text-[11px] font-semibold text-neutral-400 sm:text-xs"
+            >
+              {(lang === 'fr'
+                ? ['1 an de R&D', '10 000+ posts testés', '1M de vues garanties']
+                : ['1 year of R&D', '10,000+ posts tested', '1M views guaranteed']
+              ).map((item) => (
+                <span key={item} className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 backdrop-blur-sm">{item}</span>
+              ))}
+            </motion.div>
+          )}
 
           {/* Subtitle */}
           {heroSubtitle && (

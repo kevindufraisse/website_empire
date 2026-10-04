@@ -360,7 +360,27 @@ export default function FormulaBar() {
 
   // Dans le hero : la pilule, lisible.
   if (mode === 'docked' && slot) {
-    return createPortal(<div className="flex flex-col items-center">{pill}</div>, slot)
+    // Tampon « Secret » tant que des termes restent flous.
+    const stillSecret = revealed.size < FORMULA_TERMS.length - 1
+    return createPortal(
+      <div className="flex flex-col items-center">
+        <div className="relative">
+          {pill}
+          {stillSecret && (
+            <motion.span
+              aria-hidden
+              initial={{ opacity: 0, scale: 1.6, rotate: -14 }}
+              animate={{ opacity: 1, scale: 1, rotate: -10 }}
+              transition={{ duration: 0.35, delay: 0.5, ease: [0.2, 1.2, 0.4, 1] }}
+              className="pointer-events-none absolute -right-3 -top-3 select-none rounded-[3px] border-[2.5px] border-red-500 px-1.5 py-0.5 font-mono text-[11px] font-black uppercase tracking-[0.22em] text-red-500 shadow-[0_0_18px_-4px_rgba(239,68,68,0.6)] mix-blend-screen sm:-right-4 sm:text-xs"
+            >
+              Secret
+            </motion.span>
+          )}
+        </div>
+      </div>,
+      slot,
+    )
   }
 
   // En bas de l'écran : la pilule seule, bouton workshop inclus.
