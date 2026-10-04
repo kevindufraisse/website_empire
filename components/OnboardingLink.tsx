@@ -8,7 +8,7 @@ import { trackAmplitude, withAmplitudeDeviceId } from '@/lib/amplitude'
 export const ONBOARDING_URL = 'https://app.empire-internet.com/onboarding'
 
 /** Primary Empire CTA: apply / candidacy (no prices, no checkout). */
-export const APPLY_URL = '/postuler'
+export const APPLY_URL = '/vsl'
 
 // Main CTA: candidacy form. Captures the click in PostHog before navigation.
 export default function OnboardingLink({

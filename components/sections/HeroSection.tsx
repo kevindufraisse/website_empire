@@ -187,7 +187,7 @@ export default function HeroSection() {
                 /* Un seul bouton, pas d'input : le hero démontre, l'email se
                    saisit sur la page de candidature. */
                 <a
-                  href="/postuler"
+                  href="/vsl"
                   className="group flex w-full items-center justify-center gap-2 rounded-xl bg-empire px-8 py-4 text-base font-bold text-black shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.35)] transition-all hover:brightness-110 sm:w-auto"
                 >
                   {lang === 'fr' ? 'Recevoir un accès' : 'Get access'}

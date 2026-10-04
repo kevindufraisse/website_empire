@@ -287,7 +287,7 @@ const RESULTS: Record<OfferId, {
     descEn: 'Talk for 1 hour. We create a month of content. Request access - by selection.',
     ctaFr: 'Recevoir un accès',
     ctaEn: 'Get access',
-    href: '/postuler',
+    href: '/vsl',
   },
   legende: {
     icon: Crown,
@@ -433,7 +433,7 @@ export function OfferQuizGlobal({ fr }: { fr: boolean }) {
   // Prix par place, hors remise de volume : la réponse "2 à 4 personnes" ne dit
   // pas le nombre exact, et la remise ne démarre qu'à 3 places. Mieux vaut
   // annoncer le tarif plein et laisser l'onboarding appliquer la remise.
-  const empireHref = '/postuler'
+  const empireHref = '/vsl'
 
   const modal = (
     <AnimatePresence>

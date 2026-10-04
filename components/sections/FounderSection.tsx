@@ -176,11 +176,11 @@ export default function FounderSection() {
                 </a>
               ) : (
                 <a
-                  href="/postuler"
+                  href="/vsl"
                   className="inline-flex flex-col items-center px-8 py-4 rounded-xl bg-empire text-black font-bold hover:scale-105 transition-transform shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.3)]"
                 >
                   <span className="text-lg">{lang === 'fr' ? 'Recevoir un accès' : 'Get access'}</span>
-                  <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? 'Sur sélection' : 'By selection'}</span>
+                  <span className="text-[11px] font-semibold opacity-70">{lang === 'fr' ? 'Essai gratuit 7 jours' : '7-day free trial'}</span>
                 </a>
               )}
             </div>

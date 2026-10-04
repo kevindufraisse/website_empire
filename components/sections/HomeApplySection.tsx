@@ -46,7 +46,7 @@ export default function HomeApplySection() {
           </p>
           <div className="mt-8">
             <a
-              href="/postuler"
+              href="/vsl"
               className="group inline-flex items-center gap-2 rounded-xl bg-empire px-8 py-4 text-base font-bold text-black shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.35)] transition-all hover:brightness-110"
             >
               {fr ? 'Recevoir un accès' : 'Get access'}

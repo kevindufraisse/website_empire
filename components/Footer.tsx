@@ -59,7 +59,7 @@ export default function Footer() {
                 <p className="text-sm font-bold text-white mb-3">{lang === 'fr' ? 'Ressources gratuites' : 'Free resources'}</p>
                 <div className="flex flex-col gap-2 items-center md:items-start">
                   <a href="/vsl" className="text-sm text-neutral-400 hover:text-empire transition-colors">
-                    {lang === 'fr' ? 'Masterclass : le système Empire (20 min)' : 'Masterclass: the Empire system (20 min)'}
+                    {lang === 'fr' ? 'Masterclass : la formule du million de vues (1 h 26)' : 'Masterclass: the million-views formula (1h26)'}
                   </a>
                   <a href="/quiz" className="text-sm text-neutral-400 hover:text-empire transition-colors">
                     {lang === 'fr' ? 'Quiz : quel créateur êtes-vous ?' : 'Quiz: what creator are you?'}
@@ -77,11 +77,11 @@ export default function Footer() {
           <div className="flex flex-col items-center md:items-end">
             {!isPartnersPage && !autopilot && (
               <a
-                href="/postuler"
+                href="/vsl"
                 className="inline-flex flex-col items-start text-left px-6 py-3.5 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]"
               >
                 <span className="text-left">{lang === 'fr' ? 'Recevoir un accès' : 'Get access'}</span>
-                <span className="text-[10px] font-semibold opacity-70 text-left">{lang === 'fr' ? 'Sur sélection' : 'By selection'}</span>
+                <span className="text-[10px] font-semibold opacity-70 text-left">{lang === 'fr' ? 'Essai gratuit 7 jours' : '7-day free trial'}</span>
               </a>
             )}
           </div>

@@ -244,14 +244,14 @@ export default function CaseStudiesSection() {
           <FadeInBlock delay={0.5}>
             <div className="mt-12 text-center">
               <a
-                href="/postuler"
+                href="/vsl"
                 className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-empire text-black font-bold text-lg hover:scale-105 transition-transform shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.3)]"
               >
                 {fr ? 'Recevoir un accès' : 'Get access'}
                 <ArrowRight size={20} />
               </a>
               <p className="mt-3 text-xs text-neutral-500">
-                {fr ? 'Sur sélection' : 'By selection'}
+                {fr ? 'Essai gratuit 7 jours' : '7-day free trial'}
               </p>
             </div>
           </FadeInBlock>

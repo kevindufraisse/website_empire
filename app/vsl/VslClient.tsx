@@ -176,6 +176,18 @@ function VideoPlayer() {
   const [canFullscreen, setCanFullscreen] = useState(false)
 
   useEffect(() => {
+    // Email déjà donné ailleurs sur le site (?email=, ex. WaitlistEmailCta) :
+    // on l'enregistre et la vidéo ne le redemande pas.
+    const fromUrl = (new URLSearchParams(window.location.search).get('email') || '').trim().toLowerCase()
+    if (!readStore(EMAIL_KEY) && /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(fromUrl)) {
+      writeStore(EMAIL_KEY, fromUrl)
+      fetch('/api/vsl-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: fromUrl }),
+      }).catch(() => {})
+      trackAmplitude('vsl_email_submitted', { source: 'url' })
+    }
     unlockedRef.current = Boolean(readStore(EMAIL_KEY))
     const saved = Number(readStore(TIME_KEY)) || 0
     // Sans email, on ne reprend jamais au-delà du seuil.

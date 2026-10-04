@@ -20,7 +20,7 @@ const COPY: Record<Variant, { fr: { headline: string; sub: string; cta: string }
       sub: 'Empire does it with you.',
       cta: 'Get access',
     },
-    href: '/postuler',
+    href: '/vsl',
     textClass: 'text-empire',
     bgClass: 'bg-empire',
   },

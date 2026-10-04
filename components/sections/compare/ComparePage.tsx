@@ -44,7 +44,7 @@ export type ComparePageProps = {
   faq: Array<{ q: string; a: string }>
 }
 
-const APPLY_URL = '/postuler'
+const APPLY_URL = '/vsl'
 
 const TERMS: Record<FormulaTermId, { label: string; question: string }> = {
   message: { label: 'Message', question: 'Quoi dire ?' },
