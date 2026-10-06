@@ -8,6 +8,7 @@ import { SocialIcons } from '@/components/ui/social-icons'
 import FloatingSocialReactions from '@/components/FloatingSocialReactions'
 import { trackAmplitude } from '@/lib/amplitude'
 import { startFreeTrial } from '@/lib/startTrial'
+import { FormulaHeroStatic } from '@/components/FormulaBar'
 // Même jeu de portraits que `/vsl` et `FormatsShowcaseSection` (public/creators).
 const HERO_CREATORS = [
   { name: 'Alex Hormozi', img: '/creators/hormozi.jpg' },
@@ -140,8 +141,10 @@ export default function HeroSection() {
 
               <div
                 id="formula-hero-slot"
-                className="flex min-h-[80px] items-start justify-center sm:min-h-[100px]"
-              />
+                className="group flex min-h-[80px] items-start justify-center sm:min-h-[100px]"
+              >
+                <FormulaHeroStatic fr={lang === 'fr'} />
+              </div>
             </div>
           )}
 
