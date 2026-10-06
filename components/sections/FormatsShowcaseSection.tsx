@@ -5,6 +5,10 @@
  * sortent de l'app.
  *
  * Les visuels vidéo (`/public/formats/*.webp`) ne sont pas des maquettes :
+ * (6 octobre 2026 : sur les sept qui montrent Kevin, seule l'expression du
+ * visage a été retouchée par IA, Gemini, pour qu'il ait l'air de parler et
+ * sourire ; habillage, textes et cadrage sont les rendus d'origine, remis
+ * pixel pour pixel par-dessus.)
  * ce sont les rendus réels du moteur de montage - flou → net, tier list et
  * sticker FAQ posés sur une vraie prise, citation et réaction sortis tels
  * quels d'un compose, `captions.webp` une image du reel « podcast » de Kevin

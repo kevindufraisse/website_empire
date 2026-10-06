@@ -153,6 +153,13 @@ export default function FormulaBar() {
     }
   }, [])
 
+  // La copie statique du hero (`FormulaHeroStatic`, dans le HTML serveur)
+  // s'efface une fois la pilule animée à l'écran, pas avant : sinon une image
+  // sans formule entre les deux.
+  useEffect(() => {
+    if (slot && mode !== 'hidden') slot.setAttribute('data-live', 'true')
+  }, [slot, mode])
+
   // Révélation des termes : un observer par ancre, déclenché quand le haut
   // de la section passe les 60 % du viewport. Une fois net, on n'y revient pas.
   useEffect(() => {
@@ -402,5 +409,52 @@ export default function FormulaBar() {
         </motion.div>
       )}
     </AnimatePresence>
+  )
+}
+
+/**
+ * La pilule du hero, sans JavaScript : rendue dans le HTML serveur pour que la
+ * formule s'affiche avec le titre. Avant, elle n'arrivait qu'à l'hydratation
+ * de toute la page (portal de `FormulaBar`, monté en bas de `app/page.tsx`) :
+ * la flèche « Grâce à cette formule » pointait un vide pendant le chargement.
+ * Même dessin que l'état `docked` ; elle disparaît dès que le slot reçoit
+ * `data-live` (voir l'effet de `FormulaBar`).
+ */
+export function FormulaHeroStatic({ fr }: { fr: boolean }) {
+  const label = (id: TermId) => {
+    const t = FORMULA_TERMS.find((x) => x.id === id)!
+    return fr ? t.fr : t.en
+  }
+  const Blur = ({ id }: { id: TermId }) => (
+    <span className="rounded-md px-1 font-extrabold tracking-tight text-white blur-[7px] opacity-40 select-none">{label(id)}</span>
+  )
+  const Op = ({ children }: { children: React.ReactNode }) => (
+    <span className="px-0.5 font-medium text-neutral-400">{children}</span>
+  )
+  return (
+    <div className="flex flex-col items-center group-data-[live=true]:hidden" aria-hidden>
+      <div className="relative">
+        <div className="relative overflow-hidden rounded-2xl border border-white/15 bg-black/75 shadow-[0_16px_50px_-16px_rgba(0,0,0,0.9)] backdrop-blur-xl">
+          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.12),rgba(255,255,255,0)_45%)]" />
+          <div className="relative flex items-center gap-2.5 px-4 py-2.5 text-xs sm:gap-3.5 sm:px-6 sm:py-3 sm:text-base md:gap-5 md:px-9 md:py-5 md:text-2xl">
+            <div className="flex flex-col items-center leading-none">
+              <div className="flex items-center whitespace-nowrap">
+                <Blur id="message" /><Op>×</Op><Blur id="format" /><Op>×</Op><Blur id="diffusion" />
+              </div>
+              <div className="my-1 h-px w-full bg-white/30" />
+              <div className="flex items-center whitespace-nowrap">
+                <Blur id="time" /><Op>+</Op><Blur id="cost" />
+              </div>
+            </div>
+            <Op>=</Op>
+            <span className="whitespace-nowrap rounded-md px-1 font-extrabold tracking-tight text-empire">{label('visibility')}</span>
+          </div>
+          <div className="absolute inset-x-0 bottom-0 h-[2px] bg-white/10" />
+        </div>
+        <span className="pointer-events-none absolute -right-3 -top-3 -rotate-[10deg] select-none rounded-[3px] border-[2.5px] border-red-500 px-1.5 py-0.5 font-mono text-[11px] font-black uppercase tracking-[0.22em] text-red-500 shadow-[0_0_18px_-4px_rgba(239,68,68,0.6)] mix-blend-screen sm:-right-4 sm:text-xs">
+          Secret
+        </span>
+      </div>
+    </div>
   )
 }
