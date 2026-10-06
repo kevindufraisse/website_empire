@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import { SocialIcons } from '@/components/ui/social-icons'
+import FloatingSocialReactions from '@/components/FloatingSocialReactions'
 import { trackAmplitude } from '@/lib/amplitude'
 import { startFreeTrial } from '@/lib/startTrial'
 // Même jeu de portraits que `/vsl` et `FormatsShowcaseSection` (public/creators).
@@ -29,8 +30,8 @@ export default function HeroSection() {
 
   const heroBadge = autopilot ? t.autopilot.hero.targetAudience : t.hero.targetAudience
   const heroTitle = autopilot ? t.autopilot.hero.title : t.hero.title
-  // Hors autopilot, la formule (lisible) prend la place du paragraphe, avec
-  // une phrase qui l'explique. Voir `FormulaBar` et le slot `formula-hero-slot`.
+  // Hors autopilot, la formule (résultat net, termes floutés) prend la place
+  // du paragraphe, avec une phrase qui invite à la découvrir en descendant. Voir `FormulaBar` et le slot `formula-hero-slot`.
   const heroSubtitle = autopilot ? t.autopilot.hero.subtitle : null
   const heroCta = autopilot ? t.autopilot.hero.cta1 : t.hero.cta1
   const [trialLoading, setTrialLoading] = useState(false)
@@ -48,6 +49,7 @@ export default function HeroSection() {
         <RetroGrid />
         <div className={`absolute inset-0 transition-opacity duration-500 ${autopilot ? 'opacity-0' : 'opacity-100'} bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgb(var(--empire-rgb)_/_0.15),transparent)]`} />
         <div className={`absolute inset-0 transition-opacity duration-500 ${autopilot ? 'opacity-100' : 'opacity-0'} bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(212,165,116,0.18),transparent)]`} />
+        {!autopilot && <FloatingSocialReactions />}
         
         <div className="relative z-10 text-center max-w-4xl mx-auto">
 
@@ -151,9 +153,25 @@ export default function HeroSection() {
               className="mx-auto mt-3 max-w-xl text-[15px] leading-relaxed text-neutral-300 sm:mt-5 sm:text-lg text-balance"
             >
               {lang === 'fr'
-                ? <>Vous apportez le <span className="font-semibold text-white">message</span>. Empire s&apos;occupe du reste : le format qui fait des vues, la diffusion sur 7 réseaux, en 20 minutes par semaine.</>
-                : <>You bring the <span className="font-semibold text-white">message</span>. Empire handles the rest: the format that gets views, distribution on 7 networks, in 20 minutes a week.</>}
+                ? <>Une formule en 5 termes. <span className="font-semibold text-white">Descendez, ils se dévoilent un par un.</span></>
+                : <>A 5-term formula. <span className="font-semibold text-white">Scroll down, they reveal one by one.</span></>}
             </motion.p>
+          )}
+          {/* Bénéfices en glass, sous la formule */}
+          {!autopilot && (
+            <motion.div
+              initial={mounted ? { opacity: 0, y: 8 } : false}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="mt-4 flex flex-wrap items-center justify-center gap-3 text-[11px] font-semibold text-neutral-400 sm:text-xs"
+            >
+              {(lang === 'fr'
+                ? ['1 an de R&D', '10 000+ posts testés', '1M de vues garanties']
+                : ['1 year of R&D', '10,000+ posts tested', '1M views guaranteed']
+              ).map((item) => (
+                <span key={item} className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 backdrop-blur-sm">{item}</span>
+              ))}
+            </motion.div>
           )}
 
           {/* Subtitle */}
@@ -252,7 +270,63 @@ export default function HeroSection() {
         </div>
 
       </section>
-
+      {/* Flèche flottante en bas de l'écran : invite à descendre pour dévoiler la formule. */}
+      {!autopilot && <ScrollDownArrow lang={lang} />}
     </>
+  )
+}
+
+function ScrollDownArrow({ lang }: { lang: string }) {
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const slot = document.getElementById('formula-hero-slot')
+    const onScroll = () => {
+      if (slot) {
+        setVisible(slot.getBoundingClientRect().top > 96)
+      } else {
+        const main = document.querySelector('main')
+        const scrolled = main ? -main.getBoundingClientRect().top : 0
+        setVisible(scrolled < 80)
+      }
+    }
+    const t = setTimeout(onScroll, 600)
+    document.addEventListener('scroll', onScroll, { passive: true, capture: true })
+    return () => {
+      clearTimeout(t)
+      document.removeEventListener('scroll', onScroll, { capture: true })
+    }
+  }, [])
+
+  return (
+    <AnimatePresence>
+      {visible && (
+        <motion.button
+          key="scroll-arrow"
+          type="button"
+          onClick={() => document.getElementById('formula-message')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0, y: 10 }}
+          transition={{ duration: 0.4 }}
+          className="fixed inset-x-0 bottom-4 z-[60] mx-auto flex w-fit flex-col items-center gap-0.5 sm:bottom-8"
+        >
+          <span className="flex items-center gap-2 rounded-full border border-white/15 bg-black/70 px-4 py-2 shadow-[0_8px_30px_-8px_rgba(0,0,0,0.9)] backdrop-blur-md">
+            <motion.span
+              aria-hidden
+              animate={{ y: [0, 5, 0] }}
+              transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+              className="flex flex-col items-center text-empire drop-shadow-[0_0_10px_rgb(var(--empire-rgb)_/_0.8)]"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6 6-6" /></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="-mt-2 opacity-50"><path d="M6 9l6 6 6-6" /></svg>
+            </motion.span>
+            <span className="text-xs font-semibold text-white">
+              {lang === 'fr' ? 'Scrollez pour découvrir la formule' : 'Scroll to discover the formula'}
+            </span>
+          </span>
+        </motion.button>
+      )}
+    </AnimatePresence>
   )
 }

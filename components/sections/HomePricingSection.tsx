@@ -106,8 +106,8 @@ const PILLARS: Pillar[] = [
 const TOTAL_FEATURES = PILLARS.reduce((n, p) => n + p.features.length, 0)
 
 function planUrl(planId: PlanId, billing: BillingId, seats: number): string {
-  const origin = 'https://app.empire-internet.com/join/empire'
-  const params = new URLSearchParams({ plan: planId, billing })
+  const origin = 'https://app.empire-internet.com/pricing'
+  const params = new URLSearchParams({ trial_plan: planId, trial_billing: billing })
   if (seats > 1) params.set('seats', String(seats))
   return withAmplitudeDeviceId(`${origin}?${params.toString()}`)
 }
@@ -452,7 +452,7 @@ export default function HomePricingSection() {
               {fr ? 'Démarrer l\u2019essai gratuit' : 'Start free trial'}
             </a>
             <p className="mt-2 text-center text-[11px] text-neutral-500">
-              {fr ? '7 jours gratuits · Annulez en 1 clic' : '7 days free · Cancel in 1 click'}
+              {fr ? '500 crédits offerts · 7 jours gratuits · Annulez en 1 clic' : '500 free credits · 7 days free · Cancel in 1 click'}
             </p>
           </motion.div>
 
