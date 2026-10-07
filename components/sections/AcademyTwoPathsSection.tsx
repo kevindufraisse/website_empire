@@ -52,20 +52,20 @@ export default function AcademyTwoPathsSection() {
     tag: fr ? 'Voie 2' : 'Path 2',
     title: 'Empire Partners',
     desc: fr
-      ? 'Vous travaillez avec des clients apportés par Empire. Notre équipe s\'occupe de la production. Vous vous concentrez sur l\'accompagnement stratégique.'
-      : 'You work with clients brought by Empire. Our team handles production. You focus on strategic coaching.',
+      ? 'Vous travaillez avec des clients apportés par Empire. Empire propose les sujets et produit. Vous choisissez avec le client et vous êtes présent au live.'
+      : 'You work with clients brought by Empire. Empire suggests topics and produces. You choose with the client and show up on the live.',
     perks: fr
       ? [
-          'Empire vous apporte les missions',
-          'Notre équipe prend en charge la production',
-          '500\u202F€ / mission · ~4h de coaching',
-          'Objectif : 3\u202F000\u202F€/mois avec 4h/semaine',
+          'Nouveaux clients proposés gratuitement',
+          'Empire propose les sujets, écrit, monte, publie',
+          '~500\u202F€ / mois / client · ~4h de travail',
+          'Objectif : ~3\u202F000\u202F€/mois avec 6 clients',
         ]
       : [
-          'Empire brings you the missions',
-          'Our team handles production',
-          '€500 / mission · ~4h of coaching',
-          'Goal: €3,000/month with 4h/week',
+          'New clients proposed for free',
+          'Empire suggests topics, writes, edits, publishes',
+          '~€500 / month / client · ~4h of work',
+          'Goal: ~€3,000/month with 6 clients',
         ],
   }
 
@@ -144,8 +144,8 @@ export default function AcademyTwoPathsSection() {
                   <div className="mt-6 p-4 rounded-xl bg-black/30 border border-academy/20">
                     <p className="text-xs text-neutral-400 leading-relaxed">
                       {fr
-                        ? 'Après votre certification, vous pouvez rejoindre le réseau Empire Partners. On trouve les clients. Vous accompagnez. On produit.'
-                        : 'After certification, you can join the Empire Partners network. We find clients. You coach. We produce.'}
+                        ? 'Après votre certification, vous pouvez rejoindre Empire Partners. On propose les clients. Vous choisissez les sujets et êtes au live. Empire produit.'
+                        : 'After certification, you can join Empire Partners. We propose clients. You choose topics and show up on the live. Empire produces.'}
                     </p>
                   </div>
                 </div>
@@ -166,12 +166,12 @@ export default function AcademyTwoPathsSection() {
                 sublabel={
                   <p className="text-xs text-neutral-400 mt-2">
                     {fr
-                      ? '20 places · Sur sélection'
-                      : '20 spots · By selection'}
+                      ? 'Gratuit · Jeudi 11h (Paris) · 45 min'
+                      : 'Free · Thursday 11am (Paris) · 45 min'}
                   </p>
                 }
               >
-                {fr ? 'Candidater à la prochaine promotion' : 'Apply to the next cohort'} <ArrowRight size={18} />
+                {fr ? 'Voir les portes ouvertes' : 'See the open house'} <ArrowRight size={18} />
               </AcademyWaitlistCta>
             </div>
           </FadeInBlock>

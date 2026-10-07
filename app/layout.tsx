@@ -15,7 +15,7 @@ const CalCtaRedirect = dynamic(() => import('@/components/CalCtaRedirect'), { ss
 const PostHogInit = dynamic(() => import('@/components/PostHogInit'), { ssr: false })
 const AmplitudeInit = dynamic(() => import('@/components/AmplitudeInit'), { ssr: false })
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const caveat = Caveat({ subsets: ['latin'], weight: ['600', '700'], variable: '--font-caveat' })
 
 export const metadata = {
@@ -29,11 +29,11 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={caveat.variable} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${caveat.variable}`} suppressHydrationWarning>
       <head>
         {/* Tier from URL before first paint (no localStorage - it caused gold flashes on Empire). */}
         <script dangerouslySetInnerHTML={{
-          __html: `(function(){try{var p=location.pathname;var q=location.search||'';var legende=p==='/legende'||((p==='/join-us'||p==='/decouverte')&&q.indexOf('offer=legende')!==-1);var t=(p==='/academy'||p==='/candidature')?'academy':(legende?'autopilot':'copilot');var r=document.documentElement;r.setAttribute('data-autopilot',legende?'true':'false');r.setAttribute('data-tier',t);try{localStorage.removeItem('empire-autopilot')}catch(e){}}catch(e){}})();`
+          __html: `(function(){try{var p=location.pathname;var q=location.search||'';var legende=p==='/legende'||((p==='/join-us'||p==='/decouverte')&&q.indexOf('offer=legende')!==-1);var t=p==='/candidature'?'academy':(legende?'autopilot':'copilot');var r=document.documentElement;r.setAttribute('data-autopilot',legende?'true':'false');r.setAttribute('data-tier',t);try{localStorage.removeItem('empire-autopilot')}catch(e){}}catch(e){}})();`
         }} />
         {/* Google Tag Manager */}
         <script dangerouslySetInnerHTML={{
@@ -45,7 +45,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         }} />
         {/* End Google Tag Manager */}
       </head>
-      <body className={inter.className} suppressHydrationWarning>
+      <body className={inter.className} style={{ fontFamily: 'var(--font-inter), ui-sans-serif, system-ui, sans-serif' }} suppressHydrationWarning>
         {/* Google Tag Manager (noscript) */}
         <noscript>
           <iframe 

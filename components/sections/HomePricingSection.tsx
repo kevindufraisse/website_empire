@@ -106,8 +106,10 @@ const PILLARS: Pillar[] = [
 const TOTAL_FEATURES = PILLARS.reduce((n, p) => n + p.features.length, 0)
 
 function planUrl(planId: PlanId, billing: BillingId, seats: number): string {
-  const origin = 'https://app.empire-internet.com/pricing'
-  const params = new URLSearchParams({ trial_plan: planId, trial_billing: billing })
+  // Inscription d'abord (/onboarding), puis checkout d'essai — pas /pricing
+  // (protégé → login, ce qui bloque un prospect qui veut s'inscrire).
+  const origin = 'https://app.empire-internet.com/onboarding'
+  const params = new URLSearchParams({ plan: planId, intent: 'trial', billing })
   if (seats > 1) params.set('seats', String(seats))
   return withAmplitudeDeviceId(`${origin}?${params.toString()}`)
 }

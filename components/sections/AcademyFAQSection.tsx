@@ -34,15 +34,15 @@ export default function AcademyFAQSection() {
         },
         {
           q: "C'est quoi la différence avec les autres bootcamps LinkedIn ?",
-          a: "Les autres vous vendent une formation et vous laissent seul avec. Ici, la formation est le début : vous passez une certification basée sur vos vrais résultats, et si vous n'avez pas de projet à vous, on vous confie des clients Empire à coacher - 500€ par mission, avec le contenu produit par notre équipe. C'est le seul bootcamp qui débouche sur un revenu, pas juste sur une attestation.",
+          a: "Les autres vous vendent une formation et vous laissent seul avec. Ici, la formation est le début : certification sur vos vrais résultats, et voie partenaire Empire avec clients proposés. Vous facturez ~500€ / mois / client pour ~4h (choisir les sujets + être au live) - Empire propose les sujets et produit. C'est le seul bootcamp qui débouche sur un revenu, pas juste sur une attestation.",
         },
         {
           q: 'Combien ça coûte ?',
-          a: '497 €, paiement unique. 20 places, sur sélection. On lit chaque candidature, puis on vous envoie le lien.',
+          a: '497 €, paiement unique, sur sélection. Avant de candidater : venez aux portes ouvertes (gratuit, jeudi 11h Paris, 45 min) pour comprendre le modèle.',
         },
         {
           q: "J'ai pas de projet, c'est pour moi ?",
-          a: "C'est même le cas le plus fréquent. Sans projet à vous, vous prenez la voie partenaire Empire : on vous met en relation avec nos clients à coacher (500€ par mission, environ 4h de travail), et notre équipe produit le contenu pour ces missions. Objectif : 3 000€/mois en 4h par semaine. Le bootcamp est fait pour démarrer de zéro.",
+          a: "C'est même le cas le plus fréquent. Sans projet à vous, voie partenaire Empire : nouveaux clients proposés gratuitement, ~500€ / mois / client pour ~4h de travail. Empire propose les sujets et produit - vous choisissez et êtes présent au live. Objectif : ~3 000€/mois avec 6 clients. Le bootcamp est fait pour démarrer de zéro.",
         },
         {
           q: 'Ça marche pour mon secteur ?',
@@ -72,15 +72,15 @@ export default function AcademyFAQSection() {
         },
         {
           q: "What's the difference with other LinkedIn bootcamps?",
-          a: "Others sell you a course and leave you alone with it. Here the course is the beginning: you earn a certification based on your real results, and if you don't have a project of your own we hand you Empire clients to coach - €500 per mission, with the content produced by our team. It's the only bootcamp that leads to income rather than a certificate.",
+          a: "Others sell you a course and leave you alone with it. Here the course is the beginning: certification on your real results, plus an Empire partner path with proposed clients. You bill ~€500 / month / client for ~4h (choose topics + be on the live) - Empire suggests topics and produces. It's the only bootcamp that leads to income rather than a certificate.",
         },
         {
           q: 'How much does it cost?',
-          a: '€497, one-time. 20 spots, by selection. We read every application, then we send you the payment link.',
+          a: '€497, one-time, by selection. Before applying: come to the open house (free, Thursday 11am Paris, 45 min) to understand the model.',
         },
         {
           q: "I don't have a project, is this for me?",
-          a: "That's the most common case. With no project of your own you take the Empire partner path: we connect you with our clients to coach (€500 per mission, around 4h of work), and our team produces the content for those missions. Target: €3,000/month in 4h a week. The bootcamp is designed to start from zero.",
+          a: "That's the most common case. With no project of your own, Empire partner path: new clients proposed for free, ~€500 / month / client for ~4h of work. Empire suggests topics and produces - you choose and show up on the live. Goal: ~€3,000/month with 6 clients. The bootcamp is designed to start from zero.",
         },
         {
           q: 'Does it work for my industry?',
@@ -177,11 +177,11 @@ export default function AcademyFAQSection() {
                 className="inline-flex items-center gap-2 px-8 py-4 bg-academy text-black font-bold text-lg rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(252,165,165,0.3)]"
                 sublabel={
                   <p className="text-xs text-neutral-400 mt-2">
-                    {fr ? '20 places · Sur sélection' : '20 spots · By selection'}
+                    {fr ? 'Gratuit · Jeudi 11h (Paris)' : 'Free · Thursday 11am (Paris)'}
                   </p>
                 }
               >
-                {fr ? 'Candidater à la prochaine promotion' : 'Apply to the next cohort'}
+                {fr ? 'Portes ouvertes - jeudi 11h' : 'Open house - Thursday 11am'}
               </AcademyWaitlistCta>
             </div>
           </FadeInBlock>

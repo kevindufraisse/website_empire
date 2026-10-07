@@ -70,7 +70,7 @@ export default function AcademyHeroSection() {
           </motion.div>
 
           <motion.div
-            id="academy-waitlist"
+            id="portes-ouvertes"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.5 }}
@@ -80,9 +80,9 @@ export default function AcademyHeroSection() {
               source="academy-hero"
               className="w-full flex items-center justify-center gap-2 rounded-xl bg-academy px-8 py-4 text-base font-bold text-black transition-all hover:brightness-110 hover:scale-[1.02] flex-col"
             >
-              <span>{fr ? 'Candidater à la prochaine promotion →' : 'Apply to the next cohort →'}</span>
+              <span>{fr ? 'Portes ouvertes - jeudi 11h →' : 'Open house - Thursday 11am →'}</span>
               <span className="text-[11px] font-semibold opacity-70">
-                {fr ? '20 places · Sur sélection' : '20 spots · By selection'}
+                {fr ? 'Gratuit · 45 min · Questions en direct' : 'Free · 45 min · Live Q&A'}
               </span>
             </AcademyWaitlistCta>
           </motion.div>
@@ -93,7 +93,7 @@ export default function AcademyHeroSection() {
             transition={{ delay: 0.4, duration: 0.5 }}
             className="text-[11px] text-neutral-500"
           >
-            {fr ? '1 minute · On vous répond après lecture de votre candidature' : '1 minute · We reply after reviewing your application'}
+            {fr ? 'Découvrez le modèle partenariat avant de candidater' : 'See the partnership model before you apply'}
           </motion.p>
         </div>
       </div>

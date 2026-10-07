@@ -11,15 +11,18 @@ import AcademyFAQSection from '@/components/sections/AcademyFAQSection'
 import AcademySocialProofToast from '@/components/sections/AcademySocialProofToast'
 import CrossSellCTA from '@/components/sections/CrossSellCTA'
 import FeaturedInSection from '@/components/FeaturedInSection'
+import AcademyOpenHouseChrome from '@/components/AcademyOpenHouseChrome'
+
 export const metadata = {
   title: 'Devenez Head of Viralité en 21 jours - Empire Internet',
   description:
-    "Apprenez à transformer l'expertise d'une marque en contenus qui attirent l'attention - puis faites-en votre métier. Même sans projet. 20 places, sur sélection.",
+    "Apprenez à transformer l'expertise d'une marque en contenus qui attirent l'attention - puis faites-en votre métier. Même sans projet. Portes ouvertes chaque jeudi 11h (Paris).",
 }
 
 export default function AcademyPage() {
   return (
-    <main className="relative">
+    <main className="relative pb-28">
+      <AcademyOpenHouseChrome />
       <AcademyHeroSection />
       <AcademyHowItWorksSection />
       <AcademyWhyViralitySection />

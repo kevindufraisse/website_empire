@@ -45,7 +45,7 @@ export default function HeroSection() {
 
   return (
     <>
-      <section className="relative w-full overflow-hidden border-b border-white/10 bg-gradient-to-b from-black via-transparent to-[#0f0f0f] pb-8 pt-20 md:pb-10 md:pt-24">
+      <section className="relative w-full overflow-hidden border-b border-white/10 bg-gradient-to-b from-black via-transparent to-[#0f0f0f] pb-6 pt-20 md:pb-8 md:pt-24">
         <div className="container">
         <RetroGrid />
         <div className={`absolute inset-0 transition-opacity duration-500 ${autopilot ? 'opacity-0' : 'opacity-100'} bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgb(var(--empire-rgb)_/_0.15),transparent)]`} />
@@ -121,7 +121,7 @@ export default function HeroSection() {
               terme de chaque section. La hauteur est réservée pour que le hero
               ne saute pas quand elle part. */}
           {!autopilot && (
-            <div className="relative mx-auto mt-14 w-fit max-w-full">
+            <div className="relative mx-auto mt-10 w-fit max-w-full sm:mt-12">
               {/* Annotation manuscrite en coin haut-gauche : le tampon SECRET
                   occupe le coin droit, le texte + la flèche vivent à gauche. */}
               <motion.div
@@ -146,35 +146,6 @@ export default function HeroSection() {
                 <FormulaHeroStatic fr={lang === 'fr'} />
               </div>
             </div>
-          )}
-
-          {!autopilot && (
-            <motion.p
-              initial={mounted ? { opacity: 0, y: 8 } : false}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.2 }}
-              className="mx-auto mt-3 max-w-xl text-[15px] leading-relaxed text-neutral-300 sm:mt-5 sm:text-lg text-balance"
-            >
-              {lang === 'fr'
-                ? <>Une formule en 5 termes. <span className="font-semibold text-white">Descendez, ils se dévoilent un par un.</span></>
-                : <>A 5-term formula. <span className="font-semibold text-white">Scroll down, they reveal one by one.</span></>}
-            </motion.p>
-          )}
-          {/* Bénéfices en glass, sous la formule */}
-          {!autopilot && (
-            <motion.div
-              initial={mounted ? { opacity: 0, y: 8 } : false}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="mt-4 flex flex-wrap items-center justify-center gap-3 text-[11px] font-semibold text-neutral-400 sm:text-xs"
-            >
-              {(lang === 'fr'
-                ? ['1 an de R&D', '10 000+ posts testés', '1M de vues garanties']
-                : ['1 year of R&D', '10,000+ posts tested', '1M views guaranteed']
-              ).map((item) => (
-                <span key={item} className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 backdrop-blur-sm">{item}</span>
-              ))}
-            </motion.div>
           )}
 
           {/* Subtitle */}
@@ -242,7 +213,7 @@ export default function HeroSection() {
                 réplique les formats, pas la pastille du fondateur - elle vit
                 dans la section fondateur plus bas. Fichiers locaux, jamais de
                 hotlink : un avatar cassé dans le hero est le pire endroit. */}
-            <div className="mt-1 flex justify-center">
+            <div className="mt-1 flex flex-col items-center gap-3">
               <div className="flex max-w-full items-center gap-3 sm:gap-4 px-3.5 py-2 pl-2 rounded-full bg-white/5 border border-white/10">
                 <div className="flex shrink-0 -space-x-2">
                   {HERO_CREATORS.map((c) => (
@@ -264,6 +235,18 @@ export default function HeroSection() {
                     : <>They use this formula. <span className="text-neutral-500">Ready for you.</span></>}
                 </span>
               </div>
+              {!autopilot && (
+                <div className="flex flex-wrap items-center justify-center gap-2 text-[11px] font-semibold text-neutral-400 sm:gap-2.5 sm:text-xs">
+                  {(lang === 'fr'
+                    ? ['1 an de R&D', '10 000+ posts testés', '1M de vues garanties']
+                    : ['1 year of R&D', '10,000+ posts tested', '1M views guaranteed']
+                  ).map((item) => (
+                    <span key={item} className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-0.5">
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
           </motion.div>
 

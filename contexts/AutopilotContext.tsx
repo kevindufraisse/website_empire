@@ -42,8 +42,11 @@ export function AutopilotProvider({ children }: { children: ReactNode }) {
     if (typeof document === 'undefined') return
     const root = document.documentElement
     root.setAttribute('data-autopilot', autopilot ? 'true' : 'false')
+    // /academy garde le vert Empire (copilot) : sinon tout le chrome
+    // (header, Post it, etc.) passe en rose via --empire-rgb.
+    // Les accents roses restent via la classe Tailwind `academy`.
     const tier =
-      pathname === '/academy' || pathname === '/candidature'
+      pathname === '/candidature'
         ? 'academy'
         : pathname === '/legende' || autopilot
           ? 'autopilot'
