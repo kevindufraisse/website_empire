@@ -46,6 +46,13 @@ html, body {
   overflow-x: hidden;
 }
 
+/* Senja injecte parfois `html { font-family: "DM MONO" }` via #senja-widget-css.
+   On force Inter pour que le site ne bascule pas en mono. */
+html,
+body {
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif !important;
+}
+
 /* Safe area insets for iPhone X+ notch support */
 @supports (padding: env(safe-area-inset-top)) {
   body {

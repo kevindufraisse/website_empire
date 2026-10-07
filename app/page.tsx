@@ -23,7 +23,7 @@ export default function Page() {
       <HeroSection />
       {/* Preuve d'abord (choix Kevin, 8 septembre) : presse, créateurs,
           clients, puis la démo. Tout ce qui explique le produit vient après. */}
-      <section className="w-full bg-black py-5 sm:py-6">
+      <section className="w-full bg-black py-4 sm:py-5">
         <div className="container mx-auto max-w-5xl px-4">
           <FeaturedInSection />
         </div>

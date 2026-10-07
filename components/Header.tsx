@@ -70,6 +70,39 @@ export default function Header() {
               </span>
             </a>
 
+            {/* Nav - Formats / Workshop / Agences (même police partout) */}
+            <div className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-5 md:flex lg:gap-7">
+              <a
+                href="/formats"
+                className={`text-[13px] font-semibold transition hover:text-white ${
+                  pathname === '/formats' ? 'text-white' : 'text-white/70'
+                }`}
+              >
+                Formats
+              </a>
+              <a
+                href="/vsl"
+                className={`text-[13px] font-semibold transition hover:text-white ${
+                  pathname === '/vsl' ? 'text-white' : 'text-white/70'
+                }`}
+              >
+                Workshop
+              </a>
+              <a
+                href="/academy"
+                className={`inline-flex items-center gap-1.5 text-[13px] font-semibold transition ${
+                  pathname === '/academy' || pathname?.startsWith('/academy/')
+                    ? 'text-white'
+                    : 'text-white/70 hover:text-white'
+                }`}
+              >
+                {fr ? 'Agences' : 'Agencies'}
+                <span className="text-[13px] font-semibold text-academy">
+                  {fr ? '· Portes ouvertes' : '· Open house'}
+                </span>
+              </a>
+            </div>
+
             {/* Right side */}
             <div className="flex items-center justify-end gap-1.5 lg:gap-2.5 min-w-0">
               {isPartnersPage && (
@@ -81,24 +114,21 @@ export default function Header() {
                 </button>
               )}
               {!isPartnersPage && (
-                <>
-                  <a
-                    href={postitJoinUrl('header')}
-                    className="group hidden items-center gap-2.5 rounded-full border border-empire/45 bg-empire/10 py-1.5 pl-2 pr-4 text-left shadow-[0_0_22px_rgb(var(--empire-rgb)/0.22)] transition hover:bg-empire/20 md:inline-flex"
-                  >
-                    <SoundBars />
-                    <span className="leading-none">
-                      <span className="block text-[10px] font-semibold uppercase tracking-[0.14em] text-white/55">
-                        {fr ? 'Rejoins l’événement' : 'Join the event'}
-                      </span>
-                      <span className="mt-1 block text-[13px] font-bold tracking-tight text-empire">
-                        Post it like it’s <span className="text-[#ff7ec8]">hot</span>
-                      </span>
+                <a
+                  href={postitJoinUrl('header')}
+                  className="group hidden items-center gap-2.5 rounded-full border border-empire/45 bg-empire/10 py-1.5 pl-2 pr-4 text-left shadow-[0_0_22px_rgb(var(--empire-rgb)/0.22)] transition hover:bg-empire/20 lg:inline-flex"
+                >
+                  <SoundBars />
+                  <span className="leading-none">
+                    <span className="block text-[10px] font-semibold uppercase tracking-[0.14em] text-white/55">
+                      {fr ? 'Rejoins l’événement' : 'Join the event'}
                     </span>
-                  </a>
-                </>
+                    <span className="mt-1 block text-[13px] font-bold tracking-tight text-empire">
+                      Post it like it’s <span className="text-[#ff7ec8]">hot</span>
+                    </span>
+                  </span>
+                </a>
               )}
-              {/* Mobile Menu Button */}
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="md:hidden p-2 text-white hover:text-empire transition-colors"
@@ -121,13 +151,37 @@ export default function Header() {
               transition={{ duration: 0.2 }}
               className="md:hidden border-t border-white/10 bg-black/98"
             >
-              <div className="px-4 py-5 space-y-4">
+              <div className="px-4 py-5 space-y-3">
+                <a
+                  href="/academy"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5"
+                >
+                  <span className="text-sm font-semibold text-white">{fr ? 'Agences' : 'Agencies'}</span>
+                  <span className="text-sm font-semibold text-academy">
+                    {fr ? 'Portes ouvertes' : 'Open house'}
+                  </span>
+                </a>
+                <a
+                  href="/formats"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="block rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5 text-sm font-semibold text-white"
+                >
+                  Formats
+                </a>
+                <a
+                  href="/vsl"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="block rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5 text-sm font-semibold text-white"
+                >
+                  Workshop
+                </a>
                 {!isPartnersPage && (
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 }}
-                    className="flex gap-3"
+                    className="flex gap-3 pt-1"
                   >
                     <a
                       href={postitJoinUrl('header_mobile')}
