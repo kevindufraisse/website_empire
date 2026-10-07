@@ -1,12 +1,23 @@
 'use client'
 
+import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { trackAmplitude } from '@/lib/amplitude'
 import { WebinarJamBar, WebinarJamButton, WebinarJamEmbed } from '@/components/WebinarJamRegister'
-import FeaturedInSection from '@/components/FeaturedInSection'
-import AcademyTestimonialsSection from '@/components/sections/AcademyTestimonialsSection'
 import { ArrowRight, Check } from 'lucide-react'
+
+const FeaturedInSection = dynamic(() => import('@/components/FeaturedInSection'), {
+  ssr: false,
+  loading: () => <div className="min-h-[8rem]" aria-hidden />,
+})
+const AcademyTestimonialsSection = dynamic(
+  () => import('@/components/sections/AcademyTestimonialsSection'),
+  {
+    ssr: false,
+    loading: () => <div className="min-h-[20rem]" aria-hidden />,
+  },
+)
 
 const INCLUDES_FR = [
   { title: 'Formation + replay', desc: 'Personal branding, monétisation de votre audience - et le replay des sessions.' },
@@ -136,7 +147,7 @@ export default function AgencyOpenHousePage() {
       ]
 
   return (
-    <main className="relative bg-black pb-28 text-white antialiased">
+    <main className="relative bg-black pb-32 text-white antialiased [text-rendering:optimizeLegibility]">
       <WebinarJamBar buttonText={fr ? "S'inscrire" : 'Register'} />
 
       {/* Hero - un écran, beaucoup d’air */}
@@ -499,13 +510,15 @@ export default function AgencyOpenHousePage() {
           </div>
 
           <div className="mx-auto mt-14 grid max-w-4xl gap-3 sm:grid-cols-2 sm:gap-4">
-            <figure className="group overflow-hidden rounded-3xl">
+            <figure className="overflow-hidden rounded-3xl">
               <div className="relative aspect-[4/5] sm:aspect-[4/3]">
                 <Image
                   src="/webinar/kevin-justin-welsh.jpg"
                   alt="Kevin et Justin Welsh"
                   fill
-                  className="object-cover transition duration-700 group-hover:scale-[1.03]"
+                  loading="lazy"
+                  quality={75}
+                  className="object-cover"
                   sizes="(max-width: 640px) 100vw, 480px"
                 />
               </div>
@@ -513,13 +526,15 @@ export default function AgencyOpenHousePage() {
                 Kevin + Justin Welsh
               </figcaption>
             </figure>
-            <figure className="group overflow-hidden rounded-3xl">
+            <figure className="overflow-hidden rounded-3xl">
               <div className="relative aspect-[4/5] sm:aspect-[4/3]">
                 <Image
                   src="/webinar/kevin-matt-gray.png"
                   alt="Kevin et Matt Gray"
                   fill
-                  className="object-cover object-[center_28%] transition duration-700 group-hover:scale-[1.03]"
+                  loading="lazy"
+                  quality={75}
+                  className="object-cover object-[center_28%]"
                   sizes="(max-width: 640px) 100vw, 480px"
                 />
               </div>

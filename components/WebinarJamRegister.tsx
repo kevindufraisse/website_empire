@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Script from 'next/script'
 import {
   WEBINARJAM_LIVE,
@@ -11,15 +11,28 @@ import {
 
 /**
  * Inscription portes ouvertes via WebinarJam.
- * Si `WEBINARJAM_LIVE` est false : pas de widget (évite l’écran « expiré »),
- * CTAs vers #portes-ouvertes + formulaire email léger.
+ * Barre + embed différés (idle / viewport) pour ne pas bloquer le first paint.
+ * Si `WEBINARJAM_LIVE` est false : CTAs vers #portes-ouvertes + form email.
  */
 export function WebinarJamBar({
   buttonText = "S'inscrire",
 }: {
   buttonText?: string
 }) {
-  if (!WEBINARJAM_LIVE) return null
+  const [ready, setReady] = useState(false)
+
+  useEffect(() => {
+    if (!WEBINARJAM_LIVE) return
+    const ric = window.requestIdleCallback
+    if (typeof ric === 'function') {
+      const id = ric(() => setReady(true), { timeout: 4500 })
+      return () => window.cancelIdleCallback(id)
+    }
+    const t = window.setTimeout(() => setReady(true), 2200)
+    return () => window.clearTimeout(t)
+  }, [])
+
+  if (!WEBINARJAM_LIVE || !ready) return null
   return (
     <Script
       id="webinarjam-open-house-bar"
@@ -166,18 +179,36 @@ export function WebinarJamEmbed({
   className?: string
   fr?: boolean
 }) {
+  const hostRef = useRef<HTMLDivElement | null>(null)
+
   useEffect(() => {
     if (!WEBINARJAM_LIVE) return
-    const id = 'webinarjam-open-house-embed'
-    if (document.getElementById(id)) return
-    const script = document.createElement('script')
-    script.id = id
-    script.src = webinarJamEmbedSrc()
-    script.async = true
-    const host = document.getElementById('webinarjam-embed-host')
-    if (host) host.appendChild(script)
+    const host = hostRef.current
+    if (!host) return
+
+    let script: HTMLScriptElement | null = null
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries[0]?.isIntersecting || script) return
+        const id = 'webinarjam-open-house-embed'
+        if (document.getElementById(id)) {
+          observer.disconnect()
+          return
+        }
+        script = document.createElement('script')
+        script.id = id
+        script.src = webinarJamEmbedSrc()
+        script.async = true
+        host.appendChild(script)
+        observer.disconnect()
+      },
+      { rootMargin: '280px 0px' },
+    )
+    observer.observe(host)
+
     return () => {
-      document.getElementById(id)?.remove()
+      observer.disconnect()
+      document.getElementById('webinarjam-open-house-embed')?.remove()
     }
   }, [])
 
@@ -191,6 +222,7 @@ export function WebinarJamEmbed({
 
   return (
     <div
+      ref={hostRef}
       id="webinarjam-embed-host"
       className={`min-h-[420px] w-full overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] ${className}`}
     />

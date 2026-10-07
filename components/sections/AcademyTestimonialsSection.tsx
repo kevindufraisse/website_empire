@@ -27,7 +27,7 @@ export default function AcademyTestimonialsSection() {
         document.body.appendChild(script)
         observer.disconnect()
       },
-      { rootMargin: '200px' },
+      { rootMargin: '120px' },
     )
     observer.observe(el)
     return () => {
@@ -37,7 +37,7 @@ export default function AcademyTestimonialsSection() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="bg-transparent py-20 md:py-28">
+    <section ref={sectionRef} className="bg-transparent py-20 md:py-28 [content-visibility:auto] [contain-intrinsic-size:auto_640px]">
       <div className="container">
         <div className="mx-auto mb-12 max-w-xl text-center">
           <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-academy">
@@ -49,10 +49,10 @@ export default function AcademyTestimonialsSection() {
         </div>
 
         <div
-          className="senja-embed"
+          className="senja-embed min-h-[20rem]"
           data-id={SENJA_VIDEO_WIDGET_ID}
           data-mode="shadow"
-          data-lazyload="false"
+          data-lazyload="true"
           style={{ display: 'block', width: '100%' }}
         />
       </div>
