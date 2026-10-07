@@ -14,7 +14,7 @@ const INCLUDES_FR = [
   { title: '4 000 crédits Empire (~360€)', desc: 'La monnaie de prod Empire Internet. ≈ ~45 posts LinkedIn/X, ou un mix LinkedIn + Reels Instagram + newsletters - assez pour ~1,5 à 2 mois au rythme Débutant (tous les 2 jours, 7 réseaux).' },
   { title: 'Comment closer', desc: 'Scripts et process pour signer sur la plateforme.' },
   { title: 'Messages de prospection', desc: 'Templates prêts - en plus de ce que votre propre contenu amène.' },
-  { title: 'Sujets + prod client', desc: 'Pour vos clients : sujets, montage, écriture, tracking Empire.' },
+  { title: 'Empire pour vos clients', desc: 'Empire propose les sujets, produit (montage, écriture), diffuse et track. Vous : choisir + être présent au live.' },
 ]
 
 const INCLUDES_EN = [
@@ -23,7 +23,7 @@ const INCLUDES_EN = [
   { title: '4,000 Empire credits (~€360)', desc: 'Empire Internet’s production currency. ≈ ~45 LinkedIn/X posts, or a mix of LinkedIn + Instagram Reels + newsletters - enough for ~1.5-2 months at Starter pace (every other day, 7 networks).' },
   { title: 'How to close', desc: 'Scripts and process to sign on the platform.' },
   { title: 'Outreach messages', desc: 'Ready templates - on top of what your own content brings in.' },
-  { title: 'Client topics + prod', desc: 'For your clients: topics, editing, writing, tracking via Empire.' },
+  { title: 'Empire for your clients', desc: 'Empire suggests topics, produces (editing, writing), publishes and tracks. You: choose + show up on the live.' },
 ]
 
 const STEPS_FR = [
@@ -48,20 +48,20 @@ const FAQ_FR = [
     a: 'Oui. Formation + bootcamp 21 jours : personal branding, monétisation de votre audience, et objectif concret - publier avec Empire et viser un premier client dans les 21 jours pour rentabiliser les 500€.',
   },
   {
-    q: 'Les ~1 h / semaine, c’est pour quoi ?',
-    a: 'Une fois formé et avec un client en place : surtout les calls de direction (sujets, angles, quoi publier). Pas l’acquisition, pas l’apprentissage, pas la prod - ça, c’est Empire. Au début ça prend plus de temps le temps que vous montiez en compétence.',
+    q: 'Les 4 h / mois / client, c’est pour quoi ?',
+    a: 'Pas pour inventer les sujets - Empire les propose. Vous choisissez avec le client, puis vous êtes présent pendant le live. Prod, montage, écriture, publication : Empire. Au début ça prend un peu plus le temps que vous montez.',
   },
   {
     q: 'Je facture combien ? Exemple concret ?',
-    a: 'Exemple : vous facturez 1 500€/mois. Le client reçoit stratégie + contenus produits via Empire. Vous payez Empire ~199€/mois pour son compte. Il reste ~1 300€ de marge avant vos autres frais (prospection, outils, etc.), pour ~1 h de calls de direction par semaine.',
+    a: 'En moyenne ~500€ pour ~4 h / mois par client (plus si vous le souhaitez). Avec 6 clients : ~3 000€ / mois. Le client reçoit stratégie + contenus produits via Empire. Des nouveaux clients peuvent aussi vous être proposés gratuitement.',
   },
   {
-    q: 'Pourquoi 500€ ?',
-    a: 'Entrée : replay + 4 000 crédits pour construire votre propre présence et closer. Ce n’est pas le prix que vous facturez au client.',
+    q: 'Les 500€, c’est l’entrée ou ce que je facture ?',
+    a: 'Les deux existent, mais ce n’est pas la même chose. 500€ d’entrée = replay + 4 000 crédits Empire pour vous. À côté, vous facturez en moyenne ~500€ / mois / client pour ~4 h de travail (plus si vous voulez).',
   },
   {
     q: 'Shopify, Canva, Lemlist - pourquoi ?',
-    a: 'Pour situer le schéma : un outil qui fait la prod lourde, vous qui apportez le jugement. Avec Empire, c’est ça pour le personal branding - pas une promesse de « fenêtre qui se ferme demain ».',
+    a: 'Pour situer le schéma : un outil qui fait la prod lourde, vous qui choisissez et restez présents avec le client. Avec Empire, c’est ça pour le personal branding - pas une promesse de « fenêtre qui se ferme demain ».',
   },
   {
     q: 'Je dois venir aux portes ouvertes ?',
@@ -79,20 +79,20 @@ const FAQ_EN = [
     a: 'Yes. Training + 21-day bootcamp: personal branding, monetizing your audience, and a concrete goal - publish with Empire and aim for a first client within 21 days to recoup the €500.',
   },
   {
-    q: 'What is the ~1 h / week for?',
-    a: 'Once trained and with a client live: mainly direction calls (topics, angles, what to publish). Not acquisition, not learning, not production - Empire does that. At the start it takes longer while you ramp up.',
+    q: 'What are the 4 h / month / client for?',
+    a: 'Not inventing topics - Empire suggests them. You choose with the client, then you’re present on the live. Production, editing, writing, publishing: Empire. At the start it takes a bit longer while you ramp up.',
   },
   {
     q: 'How much do I charge? Concrete example?',
-    a: 'Example: you bill €1,500/mo. Client gets strategy + content produced via Empire. You pay Empire ~€199/mo for their account. ~€1,300 left as margin before other costs (outreach, tools, etc.), for ~1 h of direction calls a week.',
+    a: 'On average ~€500 for ~4 h / month per client (more if you want). With 6 clients: ~€3,000 / month. Client gets strategy + content produced via Empire. New clients can also be proposed to you for free.',
   },
   {
-    q: 'Why €500?',
-    a: 'Entry: replay + 4,000 credits to build your own presence and close. Not what you charge the client.',
+    q: 'Is the €500 the entry fee or what I charge?',
+    a: 'Both exist, but they’re different. €500 entry = replay + 4,000 Empire credits for you. Separately, you bill on average ~€500 / month / client for ~4 h of work (more if you want).',
   },
   {
     q: 'Why Shopify, Canva, Lemlist?',
-    a: 'To frame the pattern: a tool does heavy production, you bring judgment. With Empire, that’s personal branding - not a “window closes tomorrow” pitch.',
+    a: 'To frame the pattern: a tool does heavy production, you choose and stay present with the client. With Empire, that’s personal branding - not a “window closes tomorrow” pitch.',
   },
   {
     q: 'Do I have to come to the open house?',
@@ -121,24 +121,18 @@ export default function AgencyOpenHousePage() {
 
   const exampleRows = fr
     ? [
-        { label: 'Vous facturez', value: '1 500€ / mois' },
-        { label: 'Coût Empire (son compte)', value: '~199€ / mois' },
-        { label: 'Marge avant autres frais', value: '~1 300€' },
-        {
-          label: 'Votre travail',
-          value: '~1 h de direction / semaine - une fois formé, hors acquisition',
-        },
-        { label: 'Le client reçoit', value: 'Stratégie + contenus produits' },
+        { label: 'Vous facturez (moyenne)', value: '~500€ / mois / client - plus si vous voulez' },
+        { label: 'Votre temps', value: '~4 h / mois / client : choisir les sujets + être au live' },
+        { label: 'Avec 6 clients', value: '~3 000€ / mois' },
+        { label: 'Nouveaux clients', value: 'Proposés gratuitement' },
+        { label: 'Empire fait', value: 'Propose les sujets, écrit, monte, publie, track' },
       ]
     : [
-        { label: 'You bill', value: '€1,500 / month' },
-        { label: 'Empire cost (their account)', value: '~€199 / month' },
-        { label: 'Margin before other costs', value: '~€1,300' },
-        {
-          label: 'Your work',
-          value: '~1 h of direction / week - once trained, excluding acquisition',
-        },
-        { label: 'Client gets', value: 'Strategy + produced content' },
+        { label: 'You bill (average)', value: '~€500 / month / client - more if you want' },
+        { label: 'Your time', value: '~4 h / month / client: choose topics + be on the live' },
+        { label: 'With 6 clients', value: '~€3,000 / month' },
+        { label: 'New clients', value: 'Proposed to you for free' },
+        { label: 'Empire does', value: 'Suggests topics, writes, edits, publishes, tracks' },
       ]
 
   return (
@@ -172,8 +166,8 @@ export default function AgencyOpenHousePage() {
 
             <p className="mx-auto mt-6 max-w-lg text-[17px] leading-[1.55] text-neutral-300">
               {fr
-                ? 'Empire s’occupe de la production. Vous les aidez à choisir leurs sujets, à construire leur image et à savoir quoi publier. Montage, écriture, suivi des perfs : Empire.'
-                : 'Empire handles production. You help them pick topics, build their image, and know what to publish. Editing, writing, performance tracking: Empire.'}
+                ? 'Empire propose les sujets et produit tout. Vous n’avez pas à les inventer : vous choisissez avec le client, puis vous êtes présent pendant le live.'
+                : 'Empire suggests the topics and produces everything. You don’t invent them: you choose with the client, then you’re present on the live.'}
             </p>
             <p className="mx-auto mt-4 max-w-lg text-[15px] leading-relaxed text-neutral-500">
               {fr
@@ -217,31 +211,41 @@ export default function AgencyOpenHousePage() {
         </div>
       </section>
 
-      {/* Stats - ligne Apple, séparateurs fins */}
+      {/* Stats */}
       <section className="border-y border-white/[0.08] bg-[#0a0a0a]/80 py-12 md:py-14">
         <div className="container">
-          <div className="mx-auto grid max-w-4xl divide-y divide-white/[0.08] sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+          <div className="mx-auto grid max-w-5xl gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
             {[
               {
-                value: '500€',
-                hint: fr ? 'entrée : replay + 4 000 crédits Empire' : 'entry: replay + 4,000 Empire credits',
-              },
-              {
-                value: '~1h',
+                value: fr ? '+3 000€' : '+€3,000',
                 hint: fr
-                  ? 'de direction / client / semaine, une fois lancé'
-                  : 'of direction / client / week, once live',
+                  ? '/ mois avec 6 clients (~500€ / client en moyenne)'
+                  : '/ month with 6 clients (~€500 / client on average)',
               },
               {
-                value: fr ? 'Vous' : 'You',
-                hint: fr ? 'jugement + stratégie · Empire produit' : 'judgment + strategy · Empire produces',
+                value: '4h',
+                hint: fr
+                  ? 'de travail par mois et par client - une fois lancé'
+                  : 'of work per month per client - once you’re live',
+              },
+              {
+                value: fr ? '~500€' : '~€500',
+                hint: fr
+                  ? 'en moyenne pour ces 4 h (plus si vous le souhaitez)'
+                  : 'on average for those 4 h (more if you want)',
+              },
+              {
+                value: fr ? 'Gratuit' : 'Free',
+                hint: fr
+                  ? 'nouveaux clients proposés - sans frais d’apport'
+                  : 'new clients proposed - no referral fee',
               },
             ].map((item) => (
-              <div key={item.value} className="px-4 py-6 text-center sm:py-0">
-                <p className="text-[2rem] font-semibold tracking-tight text-white md:text-[2.25rem]">
+              <div key={item.hint} className="text-center">
+                <p className="text-[1.85rem] font-semibold tracking-tight text-white md:text-[2.1rem]">
                   {item.value}
                 </p>
-                <p className="mx-auto mt-2 max-w-[14rem] text-[13px] leading-snug text-neutral-500">
+                <p className="mx-auto mt-2 max-w-[15rem] text-[13px] leading-snug text-neutral-500">
                   {item.hint}
                 </p>
               </div>
@@ -297,33 +301,33 @@ export default function AgencyOpenHousePage() {
               <SectionLabel>{fr ? 'Combien gagner' : 'What you can earn'}</SectionLabel>
               <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
                 {fr
-                  ? 'Un client rentabilise déjà l’entrée. Plusieurs, ça devient une activité.'
-                  : 'One client already pays back entry. A few becomes a real business.'}
+                  ? 'Entre +3 000€ / mois avec 6 clients'
+                  : 'From +€3,000 / month with 6 clients'}
               </h2>
               <p className="mt-5 text-[16px] leading-[1.55] text-neutral-400">
                 {fr
-                  ? 'Sur le marché, les offres personal branding / ghostwriting LinkedIn tournent souvent entre 1 000€ et 5 000€ / mois. Avec Empire, vous pouvez être compétitif sans équipe lourde.'
-                  : 'In the market, personal branding / LinkedIn ghostwriting offers often run €1,000-€5,000 / month. With Empire you can compete without a heavy team.'}
+                  ? 'Environ 4 h / mois / client une fois lancé : choisir les sujets proposés par Empire et être présent au live. Vous facturez ~500€ en moyenne (plus si vous voulez). Nouveaux clients proposés gratuitement. Aux États-Unis, c’est l’un des métiers les plus recherchés.'
+                  : 'About 4 h / month / client once live: choose topics Empire suggests and show up on the live. You bill ~€500 on average (more if you want). New clients proposed for free. In the US, it’s one of the most sought-after roles.'}
               </p>
             </div>
 
             <div className="mt-12 overflow-hidden rounded-3xl bg-white/[0.04] ring-1 ring-white/[0.08]">
               <div className="border-b border-white/[0.08] px-6 py-4">
                 <p className="text-[13px] font-semibold text-white">
-                  {fr ? 'Ordres de grandeur (marge avant autres frais)' : 'Ballpark (margin before other costs)'}
+                  {fr ? 'Ordres de grandeur' : 'Ballpark'}
                 </p>
               </div>
               <dl>
                 {(fr
                   ? [
-                      { clients: '1 client à 1 500€', margin: '~1 300€ / mois', note: 'Empire ~199€ · ~1 h direction / sem.' },
-                      { clients: '2 clients', margin: '~2 600€ / mois', note: '~2 h de calls · même logique' },
-                      { clients: '3 clients', margin: '~3 900€ / mois', note: 'Toujours sans recruter de prod' },
+                      { clients: '1 client (~500€)', margin: '~500€ / mois', note: '~4 h : choisir + live · Empire produit' },
+                      { clients: '3 clients', margin: '~1 500€ / mois', note: '~12 h / mois au total' },
+                      { clients: '6 clients', margin: '~3 000€ / mois', note: '~24 h / mois · sans recruter de prod' },
                     ]
                   : [
-                      { clients: '1 client at €1,500', margin: '~€1,300 / month', note: 'Empire ~€199 · ~1 h direction / week' },
-                      { clients: '2 clients', margin: '~€2,600 / month', note: '~2 h of calls · same logic' },
-                      { clients: '3 clients', margin: '~€3,900 / month', note: 'Still no production team to hire' },
+                      { clients: '1 client (~€500)', margin: '~€500 / month', note: '~4 h: choose + live · Empire produces' },
+                      { clients: '3 clients', margin: '~€1,500 / month', note: '~12 h / month total' },
+                      { clients: '6 clients', margin: '~€3,000 / month', note: '~24 h / month · no production team' },
                     ]
                 ).map((row, i, arr) => (
                   <div
@@ -346,8 +350,8 @@ export default function AgencyOpenHousePage() {
 
             <p className="mt-8 text-center text-[13px] leading-relaxed text-neutral-500">
               {fr
-                ? 'Le marché des services de personal branding en Europe est estimé à ~417 M$ (2025). Les entrepreneurs paient déjà pour être visibles - souvent trop cher, avec trop de frictions. Votre place : jugement + Empire pour la prod.'
-                : 'Europe’s personal branding services market is estimated at ~$417M (2025). Entrepreneurs already pay to be visible - often too much, with too much friction. Your spot: judgment + Empire for production.'}
+                ? 'Entrée à 500€ : replay + 4 000 crédits Empire pour publier sur vous et closer. Le marché personal branding en Europe : ~417 M$ (2025).'
+                : '€500 entry: replay + 4,000 Empire credits to publish on yourself and close. Europe personal branding market: ~$417M (2025).'}
             </p>
           </div>
         </div>
@@ -361,24 +365,71 @@ export default function AgencyOpenHousePage() {
               <SectionLabel>{fr ? 'Le modèle' : 'The model'}</SectionLabel>
               <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
                 {fr
-                  ? 'Une activité où votre jugement a de la valeur'
-                  : 'A business where your judgment has value'}
+                  ? 'Empire fait le lourd. Vous choisissez et vous êtes là.'
+                  : 'Empire does the heavy lifting. You choose and show up.'}
               </h2>
               <p className="mt-5 text-[17px] leading-[1.55] text-neutral-300">
                 {fr
-                  ? 'Quand produire du contenu devient plus facile, savoir quoi dire, à qui et pourquoi devient essentiel. C’est ce que vous apportez. Empire fait le reste.'
-                  : 'When producing content gets easier, knowing what to say, to whom, and why becomes essential. That’s what you bring. Empire does the rest.'}
+                  ? 'Pas besoin d’inventer les sujets ni de monter les contenus. Empire propose. Vous validez avec le client. Puis vous êtes présent pendant le live.'
+                  : 'No need to invent topics or edit content. Empire suggests. You validate with the client. Then you’re present on the live.'}
               </p>
             </div>
 
-            <p className="mt-10 text-[16px] leading-relaxed text-neutral-400">
-              {fr
-                ? 'Vous aidez le client sur les sujets, l’image, le rythme. Empire : montage, écriture, diffusion, tracking.'
-                : 'You help the client on topics, image, cadence. Empire: editing, writing, distribution, tracking.'}
-            </p>
+            <div className="mt-12 grid gap-8 sm:grid-cols-2">
+              <div>
+                <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-neutral-500">
+                  {fr ? 'Empire' : 'Empire'}
+                </p>
+                <ul className="mt-4 space-y-3">
+                  {(fr
+                    ? [
+                        'Propose les sujets (vous n’avez pas à les trouver)',
+                        'Écriture des posts, scripts, newsletters',
+                        'Montage des vidéos / reels',
+                        'Publication et suivi des perfs',
+                      ]
+                    : [
+                        'Suggests topics (you don’t have to find them)',
+                        'Writes posts, scripts, newsletters',
+                        'Edits videos / reels',
+                        'Publishes and tracks performance',
+                      ]
+                  ).map((line) => (
+                    <li key={line} className="flex gap-3 text-[15px] leading-snug text-neutral-300">
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-academy" />
+                      {line}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-neutral-500">
+                  {fr ? 'Vous' : 'You'}
+                </p>
+                <ul className="mt-4 space-y-3">
+                  {(fr
+                    ? [
+                        'Choisir les sujets avec le client',
+                        'Être présent pendant le live',
+                        'Garder la relation et closer',
+                      ]
+                    : [
+                        'Choose topics with the client',
+                        'Be present on the live',
+                        'Own the relationship and close',
+                      ]
+                  ).map((line) => (
+                    <li key={line} className="flex gap-3 text-[15px] leading-snug text-neutral-300">
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-white" />
+                      {line}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
 
             {/* Exemple - liste type iOS / Instagram clarity */}
-            <div className="mt-10 overflow-hidden rounded-3xl bg-white/[0.04] ring-1 ring-white/[0.08]">
+            <div className="mt-12 overflow-hidden rounded-3xl bg-white/[0.04] ring-1 ring-white/[0.08]">
               <div className="border-b border-white/[0.08] px-6 py-4">
                 <p className="text-[13px] font-semibold text-white">
                   {fr ? 'Exemple concret (1 client)' : 'Concrete example (1 client)'}

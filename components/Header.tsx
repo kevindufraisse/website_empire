@@ -70,16 +70,8 @@ export default function Header() {
               </span>
             </a>
 
-            {/* Nav - Formats / Workshop / Agences (même police partout) */}
+            {/* Nav - Workshop / Partenariat */}
             <div className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-5 md:flex lg:gap-7">
-              <a
-                href="/formats"
-                className={`text-[13px] font-semibold transition hover:text-white ${
-                  pathname === '/formats' ? 'text-white' : 'text-white/70'
-                }`}
-              >
-                Formats
-              </a>
               <a
                 href="/vsl"
                 className={`text-[13px] font-semibold transition hover:text-white ${
@@ -96,7 +88,7 @@ export default function Header() {
                     : 'text-white/70 hover:text-white'
                 }`}
               >
-                {fr ? 'Agences' : 'Agencies'}
+                {fr ? 'Partenariat' : 'Partnership'}
                 <span className="text-[13px] font-semibold text-academy">
                   {fr ? '· Portes ouvertes' : '· Open house'}
                 </span>
@@ -157,17 +149,10 @@ export default function Header() {
                   onClick={() => setIsMenuOpen(false)}
                   className="flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5"
                 >
-                  <span className="text-sm font-semibold text-white">{fr ? 'Agences' : 'Agencies'}</span>
+                  <span className="text-sm font-semibold text-white">{fr ? 'Partenariat' : 'Partnership'}</span>
                   <span className="text-sm font-semibold text-academy">
                     {fr ? 'Portes ouvertes' : 'Open house'}
                   </span>
-                </a>
-                <a
-                  href="/formats"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="block rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5 text-sm font-semibold text-white"
-                >
-                  Formats
                 </a>
                 <a
                   href="/vsl"
