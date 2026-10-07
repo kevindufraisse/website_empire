@@ -100,8 +100,8 @@ export default function AcademyWhoSection() {
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(252,165,165,0.06),transparent)] pointer-events-none" />
 
             <div className="relative z-10">
-              <p className="text-sm text-academy font-bold tracking-widest uppercase mb-3">{fr ? 'Liste d\'attente ouverte' : 'Waitlist open'}</p>
-              <p className="text-2xl md:text-3xl font-extrabold text-white mb-6">{fr ? 'Rejoignez la prochaine promotion.' : 'Join the next cohort.'}</p>
+              <p className="text-sm text-academy font-bold tracking-widest uppercase mb-3">{fr ? 'Portes ouvertes' : 'Open house'}</p>
+              <p className="text-2xl md:text-3xl font-extrabold text-white mb-6">{fr ? 'On se retrouve jeudi à 11h ?' : 'See you Thursday at 11am?'}</p>
 
               <div className="flex items-center justify-center gap-4 mb-6">
                 <div className="flex -space-x-3">
@@ -123,7 +123,7 @@ export default function AcademyWhoSection() {
                 source="who"
                 className="inline-flex items-center gap-2 px-8 py-3.5 bg-academy text-black font-bold text-base rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(252,165,165,0.25)]"
               >
-                {fr ? 'Candidater à la prochaine promotion' : 'Apply to the next cohort'}
+                {fr ? 'S’inscrire aux portes ouvertes' : 'Register for the open house'}
                 <span aria-hidden="true">→</span>
               </AcademyWaitlistCta>
             </div>

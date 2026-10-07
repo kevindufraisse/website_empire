@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import AcademyWaitlistCta from '@/components/AcademyWaitlistCta'
-import { ACADEMY_ENTRY_PRICE } from '@/lib/cohort-config'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function AcademyStickyBar() {
@@ -36,11 +35,11 @@ export default function AcademyStickyBar() {
                 </span>
                 <p className="text-xs text-neutral-300">
                   <span className="text-white font-semibold">
-                    {fr ? 'Liste d\'attente ouverte' : 'Waitlist open'}
+                    {fr ? 'Portes ouvertes' : 'Open house'}
                   </span>
                   <span className="hidden md:inline text-neutral-400"> · </span>
                   <span className="hidden md:inline text-neutral-400 text-[10px]">
-                    {fr ? `à partir de ${ACADEMY_ENTRY_PRICE}€` : `from €${ACADEMY_ENTRY_PRICE}`}
+                    {fr ? 'jeudi 11h · gratuit' : 'Thu 11am · free'}
                   </span>
                 </p>
               </div>
@@ -49,7 +48,7 @@ export default function AcademyStickyBar() {
                 source="sticky-bar"
                 className="flex-shrink-0 px-3.5 py-1.5 bg-academy text-black font-bold text-xs rounded-lg hover:scale-105 transition-all shadow-[0_0_20px_rgba(252,165,165,0.3)] whitespace-nowrap"
               >
-                {fr ? 'Rejoindre' : 'Join'}
+                {fr ? "S'inscrire" : 'Register'}
               </AcademyWaitlistCta>
             </div>
           </div>
