@@ -8,6 +8,7 @@ import AcademyProgramSection from '@/components/sections/AcademyProgramSection'
 import AcademyTestimonialsSection from '@/components/sections/AcademyTestimonialsSection'
 import AcademyWhoSection from '@/components/sections/AcademyWhoSection'
 import AcademyFAQSection from '@/components/sections/AcademyFAQSection'
+import AcademySocialProofToast from '@/components/sections/AcademySocialProofToast'
 import CrossSellCTA from '@/components/sections/CrossSellCTA'
 import FeaturedInSection from '@/components/FeaturedInSection'
 import AcademyOpenHouseChrome from '@/components/AcademyOpenHouseChrome'
@@ -41,6 +42,7 @@ export default function AcademyPage() {
       <AcademyWhoSection />
       <AcademyFAQSection />
       <CrossSellCTA variant="academy-to-empire" />
+      <AcademySocialProofToast />
     </main>
   )
 }
