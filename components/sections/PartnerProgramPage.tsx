@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import Image from 'next/image'
 import { ArrowRight, Check } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { trackAmplitude } from '@/lib/amplitude'
@@ -635,10 +636,29 @@ export default function PartnerProgramPage() {
               <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
                 {fr ? 'Je vous montre tout ça jeudi.' : 'I’ll show you all of this on Thursday.'}
               </h2>
+
+              <div className="mt-6 flex items-center gap-4">
+                <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full ring-2 ring-academy/40">
+                  <Image
+                    src="/founders/kevin.jpg"
+                    alt="Kevin Dufraisse"
+                    fill
+                    sizes="64px"
+                    className="object-cover"
+                  />
+                </div>
+                <div>
+                  <p className="text-[15px] font-semibold text-white">Kevin Dufraisse</p>
+                  <p className="text-[13px] text-neutral-500">
+                    {fr ? 'Fondateur d’Empire Internet' : 'Founder of Empire Internet'}
+                  </p>
+                </div>
+              </div>
+
               <p className="mt-5 text-[16px] leading-relaxed text-neutral-400">
                 {fr
-                  ? 'Je suis Kevin Dufraisse, fondateur d’Empire Internet. Avec Marc, nous organisons des portes ouvertes pour vous montrer le fonctionnement du programme et répondre à vos questions.'
-                  : 'I’m Kevin Dufraisse, founder of Empire Internet. With Marc, we run open houses to show how the program works and answer your questions.'}
+                  ? 'Avec Marc, nous organisons des portes ouvertes pour vous montrer le fonctionnement du programme et répondre à vos questions.'
+                  : 'With Marc, we run open houses to show how the program works and answer your questions.'}
               </p>
               <p className="mt-6 text-[15px] font-medium text-white">
                 {fr ? 'Pendant 45 minutes, vous allez voir :' : 'In 45 minutes, you’ll see:'}
