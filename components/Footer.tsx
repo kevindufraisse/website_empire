@@ -44,7 +44,7 @@ export default function Footer() {
                 Empire Internet
               </a>
               <a href="/academy" className="text-sm text-neutral-400 hover:text-empire transition-colors">
-                {lang === 'fr' ? 'Devenir partenaire' : 'Become a partner'}
+                {lang === 'fr' ? 'Partenariat' : 'Partnership'}
               </a>
               <a href="/comparatif" className="text-sm text-neutral-400 hover:text-empire transition-colors">
                 {lang === 'fr' ? 'Comparatifs' : 'Comparisons'}
