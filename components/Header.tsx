@@ -6,28 +6,11 @@ import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { postitJoinUrl } from '@/lib/postit'
 
-const SOUND_BARS = [
-  { h: 8, d: 0.7, delay: 0 },
-  { h: 14, d: 0.9, delay: 0.12 },
-  { h: 18, d: 0.62, delay: 0.28 },
-  { h: 11, d: 1.05, delay: 0.08 },
-  { h: 16, d: 0.76, delay: 0.2 },
-]
-
-function SoundBars() {
-  return (
-    <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center gap-[2px] rounded-full bg-black/50" aria-hidden>
-      {SOUND_BARS.map((bar, i) => (
-        <span
-          key={i}
-          className={`voicebar block w-[2px] rounded-full ${i === SOUND_BARS.length - 1 ? 'bg-[#ff7ec8]' : 'bg-empire'}`}
-          style={{ height: bar.h, animationDuration: `${bar.d}s`, animationDelay: `${bar.delay}s` }}
-        />
-      ))}
-    </span>
-  )
-}
-
+/**
+ * Header : logo + les 2 lives récurrents (pas de CTA Workshop).
+ * - Portes ouvertes → /academy · chaque jeudi 11h
+ * - Post it like it’s hot → inscription · chaque mercredi 12h
+ */
 export default function Header() {
   const { lang } = useLanguage()
   const fr = lang === 'fr'
@@ -36,14 +19,11 @@ export default function Header() {
 
   const isCandidaturePage = pathname === '/candidature' || pathname === '/decouverte' || pathname === '/join-us' || pathname === '/postuler' || pathname?.startsWith('/hire-our-team')
   const isPartnersPage = pathname === '/partners'
+  const isAcademyPage = pathname === '/academy' || pathname?.startsWith('/academy/')
 
-  // Hide entirely on candidature page - after all hooks
   if (isCandidaturePage) return null
-
-  // Hide header entirely on live page
   if (pathname === '/live') return null
 
-  // Minimal header (logo only) on thank-you and webinar pages
   if (pathname === '/academy/merci' || pathname === '/thank-you' || pathname === '/webinar' || pathname === '/webinar/merci' || pathname === '/final-offer' || pathname === '/vsl') {
     return (
       <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/20 bg-black/95 backdrop-blur-md">
@@ -58,82 +38,82 @@ export default function Header() {
     )
   }
 
+  const liveLinks = (
+    <>
+      <a
+        href="/academy"
+        className={`group flex min-w-0 flex-col rounded-xl px-3 py-2 transition ${
+          isAcademyPage ? 'bg-white/[0.06]' : 'hover:bg-white/[0.04]'
+        }`}
+      >
+        <span className="flex items-center gap-1.5 text-[12px] font-semibold text-white">
+          <span className="relative flex h-1.5 w-1.5 shrink-0">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-academy opacity-60" />
+            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-academy" />
+          </span>
+          {fr ? 'Portes ouvertes' : 'Open house'}
+        </span>
+        <span className="mt-0.5 pl-3 text-[11px] text-neutral-500 group-hover:text-neutral-400">
+          {fr ? 'Tous les jeudis · 11h Paris' : 'Every Thursday · 11am Paris'}
+        </span>
+      </a>
+      <a
+        href={postitJoinUrl('header')}
+        className="group flex min-w-0 flex-col rounded-xl px-3 py-2 transition hover:bg-white/[0.04]"
+      >
+        <span className="flex items-center gap-1.5 text-[12px] font-semibold text-white">
+          <span className="relative flex h-1.5 w-1.5 shrink-0">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#ff7ec8] opacity-60" />
+            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#ff7ec8]" />
+          </span>
+          Post it like it’s hot
+        </span>
+        <span className="mt-0.5 pl-3 text-[11px] text-neutral-500 group-hover:text-neutral-400">
+          {fr ? 'Tous les mercredis · 12h Paris' : 'Every Wednesday · 12pm Paris'}
+        </span>
+      </a>
+    </>
+  )
+
   return (
     <>
       <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/20 bg-black/95 backdrop-blur-md">
-        <nav className="max-w-7xl mx-auto px-4 py-3.5">
-          <div className="relative flex items-center justify-between gap-2 sm:gap-3 min-w-0">
-            {/* Logo */}
-            <a href="/" className="flex items-center gap-2 group shrink-0">
-              <span className="text-lg md:text-xl font-bold text-white group-hover:text-empire transition-colors">
+        <nav className="mx-auto max-w-7xl px-4 py-3">
+          <div className="relative flex items-center justify-between gap-3 min-w-0">
+            <a href="/" className="flex shrink-0 items-center gap-2 group">
+              <span className="text-lg font-bold text-white transition-colors group-hover:text-empire md:text-xl">
                 Empire
               </span>
             </a>
 
-            {/* Nav - Workshop / Partenariat */}
-            <div className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-5 md:flex lg:gap-7">
-              <a
-                href="/vsl"
-                className={`text-[13px] font-semibold transition hover:text-white ${
-                  pathname === '/vsl' ? 'text-white' : 'text-white/70'
-                }`}
-              >
-                Workshop
-              </a>
-              <a
-                href="/academy"
-                className={`inline-flex items-center gap-1.5 text-[13px] font-semibold transition ${
-                  pathname === '/academy' || pathname?.startsWith('/academy/')
-                    ? 'text-white'
-                    : 'text-white/70 hover:text-white'
-                }`}
-              >
-                {fr ? 'Partenaire' : 'Partner'}
-                <span className="text-[13px] font-semibold text-academy">
-                  {fr ? '· Portes ouvertes' : '· Open house'}
-                </span>
-              </a>
+            {/* Desktop : les 2 lives */}
+            <div className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-stretch gap-1 md:flex">
+              <p className="mr-1 self-center text-[10px] font-semibold uppercase tracking-[0.16em] text-neutral-600">
+                Lives
+              </p>
+              {liveLinks}
             </div>
 
-            {/* Right side */}
-            <div className="flex items-center justify-end gap-1.5 lg:gap-2.5 min-w-0">
+            <div className="flex min-w-0 items-center justify-end gap-2">
               {isPartnersPage && (
                 <button
                   type="button"
-                  className="systeme-show-popup-5606340 hidden sm:block px-4 md:px-5 py-2 md:py-2.5 rounded-lg bg-empire text-black font-semibold hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.2)] text-sm md:text-base cursor-pointer"
+                  className="systeme-show-popup-5606340 hidden cursor-pointer rounded-lg bg-empire px-4 py-2 text-sm font-semibold text-black shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.2)] transition-all hover:scale-105 sm:block md:px-5 md:py-2.5 md:text-base"
                 >
                   {fr ? 'Obtenir mon lien' : 'Get my sharable link'}
                 </button>
               )}
-              {!isPartnersPage && (
-                <a
-                  href={postitJoinUrl('header')}
-                  className="group hidden items-center gap-2.5 rounded-full border border-empire/45 bg-empire/10 py-1.5 pl-2 pr-4 text-left shadow-[0_0_22px_rgb(var(--empire-rgb)/0.22)] transition hover:bg-empire/20 lg:inline-flex"
-                >
-                  <SoundBars />
-                  <span className="leading-none">
-                    <span className="block text-[10px] font-semibold uppercase tracking-[0.14em] text-white/55">
-                      {fr ? 'Rejoins l’événement' : 'Join the event'}
-                    </span>
-                    <span className="mt-1 block text-[13px] font-bold tracking-tight text-empire">
-                      Post it like it’s <span className="text-[#ff7ec8]">hot</span>
-                    </span>
-                  </span>
-                </a>
-              )}
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="md:hidden p-2 text-white hover:text-empire transition-colors"
+                className="p-2 text-white transition-colors hover:text-empire md:hidden"
                 aria-label="Menu"
               >
                 {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
             </div>
           </div>
-
         </nav>
 
-        {/* Mobile Menu Drawer */}
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
@@ -141,68 +121,51 @@ export default function Header() {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.2 }}
-              className="md:hidden border-t border-white/10 bg-black/98"
+              className="border-t border-white/10 bg-black/98 md:hidden"
             >
-              <div className="px-4 py-5 space-y-3">
+              <div className="space-y-3 px-4 py-5">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-neutral-600">
+                  {fr ? 'Nos lives' : 'Our lives'}
+                </p>
                 <a
                   href="/academy"
                   onClick={() => setIsMenuOpen(false)}
-                  className="flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5"
+                  className="flex flex-col rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5"
                 >
-                  <span className="text-sm font-semibold text-white">{fr ? 'Programme partenaire' : 'Partner program'}</span>
-                  <span className="text-sm font-semibold text-academy">
+                  <span className="text-sm font-semibold text-white">
                     {fr ? 'Portes ouvertes' : 'Open house'}
+                  </span>
+                  <span className="mt-1 text-[12px] text-academy">
+                    {fr ? 'Tous les jeudis · 11h Paris' : 'Every Thursday · 11am Paris'}
+                  </span>
+                  <span className="mt-1 text-[12px] text-neutral-500">
+                    {fr ? 'Programme partenaire' : 'Partner program'}
                   </span>
                 </a>
                 <a
-                  href="/vsl"
+                  href={postitJoinUrl('header_mobile')}
                   onClick={() => setIsMenuOpen(false)}
-                  className="block rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5 text-sm font-semibold text-white"
+                  className="flex flex-col rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5"
                 >
-                  Workshop
+                  <span className="text-sm font-semibold text-white">Post it like it’s hot</span>
+                  <span className="mt-1 text-[12px] text-[#ff7ec8]">
+                    {fr ? 'Tous les mercredis · 12h Paris' : 'Every Wednesday · 12pm Paris'}
+                  </span>
                 </a>
-                {!isPartnersPage && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 }}
-                    className="flex gap-3 pt-1"
-                  >
-                    <a
-                      href={postitJoinUrl('header_mobile')}
-                      onClick={() => setIsMenuOpen(false)}
-                      className="flex w-full items-center justify-center gap-3 rounded-xl border border-empire/45 bg-empire/10 py-3.5 text-white shadow-[0_0_22px_rgb(var(--empire-rgb)/0.18)]"
-                    >
-                      <SoundBars />
-                      <span className="text-left leading-none">
-                        <span className="block text-[10px] font-semibold uppercase tracking-[0.14em] text-white/55">
-                          {fr ? 'Rejoins l’événement' : 'Join the event'}
-                        </span>
-                        <span className="mt-1 block text-sm font-bold text-empire">
-                          Post it like it’s <span className="text-[#ff7ec8]">hot</span>
-                        </span>
-                      </span>
-                    </a>
-                  </motion.div>
-                )}
                 {isPartnersPage && (
-                  <motion.button
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 }}
+                  <button
                     type="button"
                     onClick={() => setIsMenuOpen(false)}
-                    className="systeme-show-popup-5606340 w-full py-3.5 rounded-lg bg-empire text-black font-bold hover:scale-[1.02] transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.2)] cursor-pointer"
+                    className="systeme-show-popup-5606340 w-full cursor-pointer rounded-lg bg-empire py-3.5 font-bold text-black shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.2)] transition-all hover:scale-[1.02]"
                   >
                     {fr ? 'Obtenir mon lien' : 'Get my sharable link'}
-                  </motion.button>
+                  </button>
                 )}
               </div>
             </motion.div>
           )}
         </AnimatePresence>
       </header>
-
     </>
   )
 }
