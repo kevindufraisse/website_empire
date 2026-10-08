@@ -7,7 +7,7 @@ import { WEBINARJAM_LIVE, WEBINARJAM_REGISTER_URL } from '@/lib/webinarjam'
 
 /**
  * CTA Academy → portes ouvertes WebinarJam (jeudi 11h Paris).
- * Garde le même API que l’ancienne waitlist pour ne pas toucher tous les call sites.
+ * Lien direct (pas de modal framer) pour garder le first paint fluide.
  */
 export default function AcademyWaitlistCta({
   children,

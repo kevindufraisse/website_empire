@@ -3,6 +3,10 @@
 import AcademyWaitlistCta from '@/components/AcademyWaitlistCta'
 import { useLanguage } from '@/contexts/LanguageContext'
 
+/**
+ * Hero léger : pas de Meteors / Sparkles / framer (hydration flash + jank GPU).
+ * RetroGrid CSS-only ok ; le reste se chargeait après paint et donnait l’effet « glitch ».
+ */
 export default function AcademyHeroSection() {
   const { lang } = useLanguage()
   const fr = lang === 'fr'
@@ -10,6 +14,10 @@ export default function AcademyHeroSection() {
   return (
     <section className="relative w-full overflow-hidden bg-gradient-to-b from-black via-[#0a0a0a] to-[#0f0f0f] pb-20 pt-20 md:pb-28 md:pt-24">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(252,165,165,0.1),transparent)]" />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-40 [background-image:linear-gradient(to_right,rgba(255,255,255,.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,.04)_1px,transparent_1px)] [background-size:40px_40px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]"
+      />
 
       <div className="container relative z-10">
         <div className="mx-auto max-w-3xl text-center">

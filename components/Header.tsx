@@ -88,7 +88,7 @@ export default function Header() {
                     : 'text-white/70 hover:text-white'
                 }`}
               >
-                {fr ? 'Devenir partenaire' : 'Become a partner'}
+                {fr ? 'Partenaire' : 'Partner'}
                 <span className="text-[13px] font-semibold text-academy">
                   {fr ? '· Portes ouvertes' : '· Open house'}
                 </span>
@@ -149,7 +149,7 @@ export default function Header() {
                   onClick={() => setIsMenuOpen(false)}
                   className="flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5"
                 >
-                  <span className="text-sm font-semibold text-white">{fr ? 'Devenir partenaire' : 'Become a partner'}</span>
+                  <span className="text-sm font-semibold text-white">{fr ? 'Programme partenaire' : 'Partner program'}</span>
                   <span className="text-sm font-semibold text-academy">
                     {fr ? 'Portes ouvertes' : 'Open house'}
                   </span>
