@@ -1,180 +1,118 @@
 'use client'
-import { motion, useInView } from 'framer-motion'
-import { useRef } from 'react'
-import { User, Users, Check, ArrowRight } from 'lucide-react'
-import BorderBeam from '@/components/magicui/border-beam'
+
+import { ArrowRight, Check } from 'lucide-react'
 import AcademyWaitlistCta from '@/components/AcademyWaitlistCta'
 import { useLanguage } from '@/contexts/LanguageContext'
 
-function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-80px' })
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 30 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay, ease: 'easeOut' }}
-    >
-      {children}
-    </motion.div>
-  )
-}
-
+/**
+ * Le métier partenaire - pas deux voies. Explique quoi, pourquoi, comment gagner.
+ */
 export default function AcademyTwoPathsSection() {
   const { lang } = useLanguage()
   const fr = lang === 'fr'
 
-  const path1 = {
-    icon: User,
-    tag: fr ? 'Voie 1' : 'Path 1',
-    title: fr ? 'Votre propre projet' : 'Your own project',
-    desc: fr
-      ? 'Vous utilisez le système pour développer votre audience et générer vos propres clients.'
-      : 'You use the system to grow your audience and generate your own clients.',
-    perks: fr
-      ? [
-          'Vous maîtrisez les mécaniques de la viralité',
-          'Vous savez créer hooks, posts et Reels',
-          'Vous construisez votre audience',
-          'Accès à vie aux replays',
-        ]
-      : [
-          'You master the mechanics of virality',
-          'You know how to create hooks, posts and Reels',
-          'You build your own audience',
-          'Lifetime access to replays',
-        ],
-  }
+  const jobPoints = fr
+    ? [
+        'Les entrepreneurs ont besoin d’être visibles - ils n’ont pas le temps de produire',
+        'Vous les aidez à choisir quoi dire et vous êtes présent pendant le live',
+        'Empire propose les sujets, écrit, monte, publie et track',
+        'Pas besoin d’inventer les sujets ni de monter une équipe de prod',
+      ]
+    : [
+        'Entrepreneurs need visibility - they don’t have time to produce',
+        'You help them choose what to say and you’re present on the live',
+        'Empire suggests topics, writes, edits, publishes and tracks',
+        'No need to invent topics or hire a production team',
+      ]
 
-  const path2 = {
-    icon: Users,
-    tag: fr ? 'Voie 2' : 'Path 2',
-    title: 'Empire Partners',
-    desc: fr
-      ? 'Vous travaillez avec des clients apportés par Empire. Empire propose les sujets et produit. Vous choisissez avec le client et vous êtes présent au live.'
-      : 'You work with clients brought by Empire. Empire suggests topics and produces. You choose with the client and show up on the live.',
-    perks: fr
-      ? [
-          'Nouveaux clients proposés gratuitement',
-          'Empire propose les sujets, écrit, monte, publie',
-          '~500\u202F€ / mois / client · ~4h de travail',
-          'Objectif : ~3\u202F000\u202F€/mois avec 6 clients',
-        ]
-      : [
-          'New clients proposed for free',
-          'Empire suggests topics, writes, edits, publishes',
-          '~€500 / month / client · ~4h of work',
-          'Goal: ~€3,000/month with 6 clients',
-        ],
-  }
+  const opportunity = fr
+    ? [
+        { value: '~500€', hint: '/ mois / client en moyenne - plus si vous voulez' },
+        { value: '4h', hint: 'de travail / mois / client, une fois lancé' },
+        { value: '+3 000€', hint: '/ mois avec 6 clients' },
+        { value: 'US', hint: 'l’un des métiers les plus recherchés outre-Atlantique' },
+      ]
+    : [
+        { value: '~€500', hint: '/ month / client on average - more if you want' },
+        { value: '4h', hint: 'of work / month / client once you’re live' },
+        { value: '+€3,000', hint: '/ month with 6 clients' },
+        { value: 'US', hint: 'one of the most sought-after roles in the US' },
+      ]
 
   return (
-    <section className="relative w-full py-20 md:py-28 bg-gradient-to-b from-[#0f0f0f] to-black overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,rgba(252, 165, 165,0.04),transparent)]" />
+    <section className="relative w-full bg-gradient-to-b from-[#0f0f0f] to-black py-20 md:py-28">
       <div className="container relative z-10">
-        <div className="max-w-5xl mx-auto">
-          <FadeInBlock>
-            <div className="text-center mb-6">
-              <p className="text-sm text-academy mb-3 tracking-widest uppercase font-bold">
-                {fr ? 'Monétisation' : 'Monetization'}
-              </p>
-              <h2 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
-                {fr
-                  ? 'Et si vous n\'aviez même pas besoin de trouver vos premiers clients ?'
-                  : 'What if you didn\'t even need to find your first clients?'}
-              </h2>
-              <p className="text-neutral-400 text-base md:text-lg max-w-2xl mx-auto">
-                {fr
-                  ? 'Vous n\'avez pas encore de projet à communiquer ? Ce n\'est pas un problème. Deux façons de rentabiliser la compétence.'
-                  : 'Don\'t have a project to communicate yet? That\'s fine. Two ways to monetize the skill.'}
-              </p>
-            </div>
-          </FadeInBlock>
-
-          <FadeInBlock delay={0.1}>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="relative h-full p-7 md:p-8 rounded-2xl bg-gradient-to-br from-white/8 to-white/[0.02] border border-white/10 flex flex-col">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center">
-                    <path1.icon className="text-neutral-300" size={18} />
-                  </div>
-                  <div>
-                    <span className="text-[10px] font-bold text-neutral-400 tracking-widest uppercase block">{path1.tag}</span>
-                    <h3 className="text-lg font-bold text-white">{path1.title}</h3>
-                  </div>
-                </div>
-                <p className="text-neutral-400 text-sm mb-6 leading-relaxed">{path1.desc}</p>
-                <div className="flex-1 space-y-2.5">
-                  {path1.perks.map((perk) => (
-                    <div key={perk} className="flex items-start gap-2.5">
-                      <Check className="text-neutral-400 flex-shrink-0 mt-0.5" size={14} />
-                      <span className="text-neutral-300 text-sm">{perk}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="relative h-full p-7 md:p-8 rounded-2xl bg-gradient-to-br from-academy/15 to-academy/5 border border-academy/40 shadow-[0_0_40px_rgba(252, 165, 165,0.1)] flex flex-col overflow-hidden">
-                <BorderBeam size={300} duration={9} />
-                <div className="relative z-10 flex flex-col h-full">
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-academy/20 border border-academy/40 flex items-center justify-center">
-                        <path2.icon className="text-academy" size={18} />
-                      </div>
-                      <div>
-                        <span className="text-[10px] font-bold text-academy/70 tracking-widest uppercase block">{path2.tag}</span>
-                        <h3 className="text-lg font-bold text-academy">{path2.title}</h3>
-                      </div>
-                    </div>
-                    <span className="text-[10px] font-bold text-black bg-academy rounded-full px-2.5 py-1 leading-none">
-                      {fr ? 'DIFFÉRENCIANT' : 'DIFFERENTIATOR'}
-                    </span>
-                  </div>
-                  <p className="text-neutral-300 text-sm mb-6 leading-relaxed">{path2.desc}</p>
-                  <div className="flex-1 space-y-2.5">
-                    {path2.perks.map((perk) => (
-                      <div key={perk} className="flex items-start gap-2.5">
-                        <Check className="text-academy flex-shrink-0 mt-0.5" size={14} />
-                        <span className="text-white text-sm font-medium">{perk}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="mt-6 p-4 rounded-xl bg-black/30 border border-academy/20">
-                    <p className="text-xs text-neutral-400 leading-relaxed">
-                      {fr
-                        ? 'Après votre certification, vous pouvez rejoindre Empire Partners. On propose les clients. Vous choisissez les sujets et êtes au live. Empire produit.'
-                        : 'After certification, you can join Empire Partners. We propose clients. You choose topics and show up on the live. Empire produces.'}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </FadeInBlock>
-
-          <FadeInBlock delay={0.2}>
-            <p className="mt-8 text-center text-sm text-neutral-400 max-w-xl mx-auto">
-              {fr
-                ? 'Vous apprenez une compétence que vous pouvez utiliser immédiatement - avec ou sans audience.'
-                : 'You learn a skill you can use immediately - with or without an audience.'}
+        <div className="mx-auto max-w-3xl">
+          <div className="mb-12 text-center">
+            <p className="mb-3 text-sm font-bold uppercase tracking-widest text-academy">
+              {fr ? 'Le métier' : 'The job'}
             </p>
-            <div className="mt-8 text-center">
-              <AcademyWaitlistCta
-                source="two-paths"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-academy text-black font-bold text-lg rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(252,165,165,0.3)]"
-                sublabel={
-                  <p className="text-xs text-neutral-400 mt-2">
-                    {fr
-                      ? 'Gratuit · Jeudi 11h (Paris) · 45 min'
-                      : 'Free · Thursday 11am (Paris) · 45 min'}
-                  </p>
-                }
-              >
-                {fr ? 'Voir les portes ouvertes' : 'See the open house'} <ArrowRight size={18} />
-              </AcademyWaitlistCta>
-            </div>
-          </FadeInBlock>
+            <h2 className="mb-4 text-balance text-3xl font-bold leading-tight md:text-5xl">
+              {fr
+                ? 'Accompagner des entrepreneurs sur leur personal branding'
+                : 'Support entrepreneurs on their personal branding'}
+            </h2>
+            <p className="mx-auto max-w-2xl text-base leading-relaxed text-neutral-400 md:text-lg">
+              {fr
+                ? 'Pas un job salarié. Une activité où vous facturez chaque mois - avec Empire qui fait la prod lourde. Les nouveaux clients peuvent vous être proposés gratuitement.'
+                : 'Not a salaried job. A business you bill every month - with Empire doing the heavy production. New clients can be proposed to you for free.'}
+            </p>
+          </div>
+
+          <ul className="mb-14 space-y-0 divide-y divide-white/[0.08] border-y border-white/[0.08]">
+            {jobPoints.map((line) => (
+              <li key={line} className="flex gap-3 py-4">
+                <Check className="mt-0.5 h-4 w-4 shrink-0 text-academy" strokeWidth={2.5} />
+                <span className="text-[15px] leading-snug text-neutral-300">{line}</span>
+              </li>
+            ))}
+          </ul>
+
+          <div className="mb-4 text-center">
+            <p className="text-sm font-bold uppercase tracking-widest text-academy">
+              {fr ? 'Pourquoi c’est une opportunité' : 'Why it’s an opportunity'}
+            </p>
+            <p className="mx-auto mt-3 max-w-xl text-[15px] leading-relaxed text-neutral-400">
+              {fr
+                ? 'L’IA produit plus vite que jamais - ce qui manque, c’est quelqu’un qui oriente le client. Ce métier se paie cher aux US. En Europe, la demande monte et peu de gens le vendent correctement.'
+                : 'AI produces faster than ever - what’s missing is someone who steers the client. This role pays well in the US. In Europe, demand is rising and few people sell it properly.'}
+            </p>
+          </div>
+
+          <div className="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-4">
+            {opportunity.map((item) => (
+              <div key={item.value} className="text-center">
+                <p className="text-2xl font-bold tracking-tight text-white md:text-[1.75rem]">
+                  {item.value}
+                </p>
+                <p className="mx-auto mt-1.5 max-w-[11rem] text-[12px] leading-snug text-neutral-500">
+                  {item.hint}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <p className="mx-auto mt-10 max-w-lg text-center text-[13px] leading-relaxed text-neutral-500">
+            {fr
+              ? 'Après la formation + certification : vous pouvez rejoindre Empire Partners. On propose les clients. Vous choisissez et êtes au live. Empire produit.'
+              : 'After training + certification: you can join Empire Partners. We propose clients. You choose and show up on the live. Empire produces.'}
+          </p>
+
+          <div className="mt-8 text-center">
+            <AcademyWaitlistCta
+              source="two-paths"
+              className="inline-flex items-center gap-2 rounded-xl bg-academy px-8 py-4 text-lg font-bold text-black shadow-[0_0_30px_rgba(252,165,165,0.3)] transition-all hover:brightness-110"
+              sublabel={
+                <p className="mt-2 text-xs text-neutral-400">
+                  {fr
+                    ? 'Gratuit · Jeudi 11h (Paris) · 45 min'
+                    : 'Free · Thursday 11am (Paris) · 45 min'}
+                </p>
+              }
+            >
+              {fr ? 'Voir les portes ouvertes' : 'See the open house'} <ArrowRight size={18} />
+            </AcademyWaitlistCta>
+          </div>
         </div>
       </div>
     </section>
