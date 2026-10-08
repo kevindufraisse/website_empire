@@ -1,11 +1,11 @@
-import AgencyOpenHousePage from '@/components/sections/AgencyOpenHousePage'
+import PartnerProgramPage from '@/components/sections/PartnerProgramPage'
 
 export const metadata = {
-  title: 'Accompagnez des entrepreneurs dans leur personal branding - Portes ouvertes | Empire',
+  title: 'Empire · Programme partenaire - Portes ouvertes | Empire Internet',
   description:
-    'Vous aidez sur les sujets et l’image. Empire produit. 500€ = replay + 4 000 crédits pour votre propre présence. Portes ouvertes chaque jeudi 11h (Paris).',
+    'Pour freelances et agences : accompagnez plus de clients sans produire tous leurs contenus. Portes ouvertes chaque jeudi 11h (Paris).',
 }
 
 export default function AcademyPage() {
-  return <AgencyOpenHousePage />
+  return <PartnerProgramPage />
 }

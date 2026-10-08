@@ -14,16 +14,17 @@ export const WEBINARJAM_LIVE =
 
 export const WEBINARJAM_REGISTER_URL = `https://event.webinarjam.com/register/${WEBINARJAM_ID}`
 
-/** Barre sticky bas de page (WebinarJam embed-bar). */
+/** Barre sticky bas de page (WebinarJam embed-bar) — couleurs Academy (#fca5a5). */
 export function webinarJamBarSrc(opts?: {
   buttonText?: string
 }): string {
   const buttonText = encodeURIComponent(opts?.buttonText ?? 'Register')
-  // Snippet WebinarJam : button noir 50%, barre #29b6f6, form template 2 / color 3
-  return `https://event.webinarjam.com/register/${WEBINARJAM_ID}/embed-bar?buttonText=${buttonText}&buttonBgColor=%23000000&buttonBgOpacity=0.5&barBgColor=%2329b6f6&barBgOpacity=0.95&formTemplate=2&formColor=3`
+  const buttonBg = encodeURIComponent('#fca5a5')
+  const barBg = encodeURIComponent('#0a0a0a')
+  return `https://event.webinarjam.com/register/${WEBINARJAM_ID}/embed-bar?buttonText=${buttonText}&buttonBgColor=${buttonBg}&buttonBgOpacity=1&barBgColor=${barBg}&barBgOpacity=0.96&formTemplate=2&formColor=1`
 }
 
-/** Formulaire embarqué (même session). */
+/** Formulaire embarqué (même session, thème sombre). */
 export function webinarJamEmbedSrc(): string {
-  return `https://event.webinarjam.com/register/${WEBINARJAM_ID}/embed?formTemplate=2&formColor=3`
+  return `https://event.webinarjam.com/register/${WEBINARJAM_ID}/embed?formTemplate=2&formColor=1`
 }

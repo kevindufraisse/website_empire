@@ -27,16 +27,16 @@ export default function AcademyTwoPathsSection() {
 
   const opportunity = fr
     ? [
-        { value: '~500€', hint: '/ mois / client en moyenne - plus si vous voulez' },
-        { value: '4h', hint: 'de travail / mois / client, une fois lancé' },
-        { value: '+3 000€', hint: '/ mois avec 6 clients' },
-        { value: 'US', hint: 'l’un des métiers les plus recherchés outre-Atlantique' },
+        { value: '~500€', hint: 'pour ~4 h / mois / client (plus si vous voulez)' },
+        { value: '4h', hint: 'de travail par mois et par client, une fois lancé' },
+        { value: '+3 000€', hint: '/ mois avec 6 clients (~500€ × 6)' },
+        { value: 'Gratuit', hint: 'nouveaux clients proposés - sans frais d’apport' },
       ]
     : [
-        { value: '~€500', hint: '/ month / client on average - more if you want' },
-        { value: '4h', hint: 'of work / month / client once you’re live' },
-        { value: '+€3,000', hint: '/ month with 6 clients' },
-        { value: 'US', hint: 'one of the most sought-after roles in the US' },
+        { value: '~€500', hint: 'for ~4 h / month / client (more if you want)' },
+        { value: '4h', hint: 'of work per month per client once you’re live' },
+        { value: '+€3,000', hint: '/ month with 6 clients (~€500 × 6)' },
+        { value: 'Free', hint: 'new clients proposed - no referral fee' },
       ]
 
   return (
