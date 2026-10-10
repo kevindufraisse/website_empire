@@ -460,7 +460,7 @@ export default function PartnerProgramPage() {
                 ? [
                     {
                       t: 'Vos honoraires',
-                      d: 'Vous fixez le prix de votre accompagnement. Repères observés : environ 500 € au démarrage, puis 1 000 € ou plus avec l’expérience.',
+                      d: 'Vous fixez le prix de votre accompagnement. Repères indicatifs : environ 500 € au démarrage, puis 1 000 € ou plus avec l’expérience.',
                     },
                     {
                       t: 'La production Empire',
