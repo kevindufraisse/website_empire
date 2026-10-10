@@ -7,6 +7,7 @@ import { ArrowRight, Check } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { trackAmplitude } from '@/lib/amplitude'
 import { partnerPayHref } from '@/lib/partner-festival-pricing'
+import { getPlan } from '@/lib/plans'
 import { usePartnerFestivalPricing } from '@/hooks/usePartnerFestivalPricing'
 import { WebinarJamBar, WebinarJamButton } from '@/components/WebinarJamRegister'
 import FeaturedInSection from '@/components/FeaturedInSection'
@@ -176,6 +177,7 @@ export default function PartnerProgramPage() {
   const { lang } = useLanguage()
   const fr = lang === 'fr'
   const festival = usePartnerFestivalPricing()
+  const clientStarterPrice = getPlan('starter').price
   const [level, setLevel] = useState<Level>('debutant')
   const [hours, setHours] = useState(12)
 
@@ -205,11 +207,7 @@ export default function PartnerProgramPage() {
         },
         {
           q: 'Que se passe-t-il après le paiement ?',
-          a: 'Vous créez votre compte, recevez 4 000 crédits pour développer votre marque personnelle, accédez à « Mes posts les plus viraux », à la formation et à la communauté à vie, puis ouvrez votre page consultant pour encaisser vos clients.',
-        },
-        {
-          q: 'Pourquoi une sélection ?',
-          a: 'Nous vérifions que le programme correspond à votre projet et que vous avez la disponibilité nécessaire pour apprendre et accompagner vos clients.',
+          a: 'Vous rejoignez directement le programme : création du compte, 4 000 crédits pour développer votre marque personnelle, accès à « Mes posts les plus viraux », à la formation et à la communauté à vie, puis ouverture de votre page consultant pour encaisser vos clients.',
         },
       ]
     : [
@@ -231,11 +229,7 @@ export default function PartnerProgramPage() {
         },
         {
           q: 'What happens after payment?',
-          a: 'You create your account, get training and Slack, receive 4,000 credits to practice, then open your consultant page to charge clients (Starter / Growth / Scale).',
-        },
-        {
-          q: 'Why is there a selection?',
-          a: 'We check the program fits your goals and that you have time to learn and support clients.',
+          a: 'You join the program directly: create your account, get 4,000 credits to build your personal brand, access training and the lifetime community, then open your consultant page to charge clients.',
         },
       ]
 
@@ -289,34 +283,30 @@ export default function PartnerProgramPage() {
       </section>
       <TopCreatorsSection compact accent="academy" />
 
-      {/* Opportunité marché : douleur prouvée + valeur économique du modèle */}
+      {/* Opportunité et besoin client, dans un seul argument */}
       <section className="border-b border-white/[0.06] py-16 md:py-24">
         <div className="container">
           <div className="mx-auto max-w-5xl">
             <SectionLabel>{fr ? 'L’opportunité' : 'The opportunity'}</SectionLabel>
             <h2 className="mt-4 max-w-3xl text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
               {fr
-                ? 'L’activité ralentit. Il faut apprendre à créer de la demande.'
-                : 'Business is slowing down. Learning to create demand is becoming essential.'}
+                ? 'Vos clients ont besoin de créer de la demande. Mais ils n’arrivent pas à publier seuls.'
+                : 'Your clients need to create demand. But they struggle to publish on their own.'}
             </h2>
             <p className="mt-5 max-w-3xl text-[16px] leading-relaxed text-neutral-400">
               {fr
-                ? 'Le chiffre d’affaires des petites entreprises recule, les recrutements se contractent et près d’un actif sur deux pense à changer de voie. Dans le même temps, les entreprises cherchent toujours le même résultat : plus de visibilité, plus de conversations et plus de clients.'
-                : 'Small-business revenue is declining, hiring is contracting and nearly one in two workers is considering a career change. Businesses still need the same outcome: more visibility, conversations and clients.'}
+                ? 'Quand le chiffre d’affaires ralentit, la visibilité et le personal branding ne sont plus accessoires. Ils permettent de créer des conversations commerciales sans dépendre uniquement de la publicité ou de la prospection froide.'
+                : 'When revenue slows, visibility and personal branding are no longer optional. They create sales conversations without relying only on advertising or cold outreach.'}
             </p>
 
-            <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-10 grid gap-3 sm:grid-cols-2">
               {(fr
                 ? [
                     ['56 %', 'des TPE interrogées ont vu leur chiffre d’affaires baisser en 2025.'],
-                    ['−14 %', 'de projets de recrutement en France en 2025.'],
-                    ['47 %', 'des actifs préparent ou envisagent une reconversion.'],
                     ['74 %', 'des entreprises B2B disent que le contenu génère de la demande ou des leads.'],
                   ]
                 : [
                     ['56%', 'of surveyed French small businesses saw revenue decline in 2025.'],
-                    ['−14%', 'fewer recruitment projects in France in 2025.'],
-                    ['47%', 'of workers are preparing or considering a career change.'],
                     ['74%', 'of B2B companies say content generates demand or leads.'],
                   ]
               ).map(([value, label]) => (
@@ -338,24 +328,6 @@ export default function PartnerProgramPage() {
               </a>
               {' · '}
               <a
-                href="https://www.achil.io/wp-content/uploads/2025/11/Achil-Barometre-du-recrutement-freelance-2025.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline decoration-white/20 underline-offset-2 hover:text-neutral-400"
-              >
-                Achil, 2025
-              </a>
-              {' · '}
-              <a
-                href="https://www.centre-inffo.fr/content/uploads/2025/04/barometre-formation-emploi-2025.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline decoration-white/20 underline-offset-2 hover:text-neutral-400"
-              >
-                Centre Inffo / CSA, 2025
-              </a>
-              {' · '}
-              <a
                 href="https://contentmarketinginstitute.com/b2b-research/b2b-content-marketing-trends-research-2025"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -368,73 +340,19 @@ export default function PartnerProgramPage() {
             <div className="mt-8 rounded-2xl border border-academy/20 bg-academy/[0.045] px-5 py-4 sm:px-6">
               <p className="text-[15px] font-medium text-white">
                 {fr
-                  ? 'Le métier qui prend de la valeur est celui qui aide directement une entreprise à retrouver de la demande.'
-                  : 'The role gaining value is the one that directly helps a business rebuild demand.'}
+                  ? 'Votre prochain client a déjà des choses à raconter.'
+                  : 'Your next client already has things to say.'}
               </p>
               <p className="mt-1.5 text-[13px] leading-relaxed text-neutral-400">
                 {fr
-                  ? 'Le personal branding réunit acquisition, confiance et vente. Empire rend cette compétence accessible sans vous demander de devenir copywriter, monteur et community manager à la fois.'
-                  : 'Personal branding combines acquisition, trust and sales. Empire makes that skill accessible without requiring you to become a copywriter, editor and community manager at once.'}
+                  ? 'Il connaît son métier, mais choisir un sujet, se filmer et publier régulièrement passe après tout le reste. Ce qui lui manque, c’est quelqu’un qui pose les bonnes questions, choisit les priorités avec lui et fait avancer les choses chaque semaine.'
+                  : 'They know their craft, but choosing topics, recording and publishing consistently comes after everything else. What they need is someone who asks the right questions, sets priorities with them and keeps things moving every week.'}
+              </p>
+              <p className="mt-3 text-[14px] font-medium text-white">
+                {fr ? 'C’est votre rôle en tant que partenaire Empire.' : 'That is your role as an Empire partner.'}
               </p>
             </div>
 
-          </div>
-        </div>
-      </section>
-
-      {/* Problème client */}
-      <section className="py-20 md:py-28">
-        <div className="container">
-          <div className="mx-auto grid max-w-5xl gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-14">
-            <div>
-              <SectionLabel>{fr ? 'Le besoin' : 'The need'}</SectionLabel>
-              <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
-                {fr
-                  ? 'Votre prochain client a déjà des choses à raconter.'
-                  : 'Your next client already has things to say.'}
-              </h2>
-              <div className="mt-6 space-y-4 text-[16px] leading-[1.6] text-neutral-400">
-                <p>
-                  {fr
-                    ? 'Il connaît son métier. Il a des expériences, des convictions et des conseils à partager.'
-                    : 'They know their craft. They have experience, opinions and advice worth sharing.'}
-                </p>
-                <p>
-                  {fr
-                    ? 'Mais quand il faut choisir un sujet, se filmer et publier régulièrement, ça passe après tout le reste.'
-                    : 'But picking a topic, filming and publishing regularly always comes after everything else.'}
-                </p>
-                <p>
-                  {fr
-                    ? 'Vous le connaissez peut-être déjà. C’est ce client qui vous dit : « Il faudrait vraiment que je m’occupe de mon LinkedIn. » Ou cet entrepreneur qui enregistre trois vidéos, puis ne publie plus pendant deux mois.'
-                    : 'You may already know them. The client who says “I really should get on LinkedIn.” Or the founder who records three videos, then disappears for two months.'}
-                </p>
-                <p className="font-medium text-neutral-200">
-                  {fr
-                    ? 'Ce qui lui manque, c’est quelqu’un pour s’en occuper avec lui. Quelqu’un qui lui pose les bonnes questions, l’aide à choisir ses sujets et fait avancer les choses chaque semaine.'
-                    : 'What’s missing is someone to handle it with them. Someone who asks the right questions, helps choose topics and moves things forward every week.'}
-                </p>
-                <p className="text-white">
-                  {fr
-                    ? 'C’est votre rôle en tant que partenaire Empire.'
-                    : 'That’s your role as an Empire partner.'}
-                </p>
-              </div>
-            </div>
-            <div className="relative mx-auto w-full max-w-md lg:max-w-none">
-              <div className="relative aspect-[4/5] overflow-hidden rounded-2xl ring-1 ring-white/10">
-                <Image
-                  src="/webinar/kevin-justin-welsh.jpg"
-                  alt={fr ? 'Kevin Dufraisse avec Justin Welsh' : 'Kevin Dufraisse with Justin Welsh'}
-                  fill
-                  sizes="(max-width: 1024px) 28rem, 40vw"
-                  className="object-cover object-center"
-                />
-              </div>
-              <p className="mt-3 text-center text-[12px] text-neutral-500 lg:text-left">
-                Kevin Dufraisse · Justin Welsh
-              </p>
-            </div>
           </div>
         </div>
       </section>
@@ -532,52 +450,60 @@ export default function PartnerProgramPage() {
               </h2>
               <p className="mt-5 text-[16px] text-neutral-400">
                 {fr
-                  ? 'Voici les repères de rémunération mensuelle par client :'
-                  : 'Here are monthly earnings benchmarks per client:'}
+                  ? 'Avant de simuler vos revenus, voici précisément ce que paie le client et ce qui reste à votre charge.'
+                  : 'Before estimating revenue, here is exactly what the client pays and what remains your responsibility.'}
               </p>
             </div>
 
-            <dl className="mt-10 divide-y divide-white/[0.08] border-y border-white/[0.08]">
+            <dl className="mt-10 grid gap-3 sm:grid-cols-2">
               {(fr
                 ? [
                     {
-                      t: 'Débutant · Environ 500 €',
-                      d: 'Vous prenez en main la méthode et réalisez vos premières missions. Repère : ~4 h / mois / client.',
+                      t: 'Vos honoraires',
+                      d: 'Vous fixez le prix de votre accompagnement. Repères observés : environ 500 € au démarrage, puis 1 000 € ou plus avec l’expérience.',
                     },
                     {
-                      t: 'Confirmé · 1 000 € ou plus',
-                      d: 'Vous maîtrisez l’accompagnement et savez orienter le client.',
+                      t: 'La production Empire',
+                      d: `Le client paie séparément son abonnement de production, à partir de ${clientStarterPrice} € / mois. Ce montant ne vient pas réduire vos honoraires.`,
                     },
                     {
-                      t: 'Expert · Environ 2 000 €',
-                      d: 'Vous apportez une expertise et des résultats clients démontrés.',
+                      t: 'Votre temps',
+                      d: 'Une fois le système maîtrisé, le repère est d’environ 4 h par mois et par client. L’apprentissage, l’installation et la prospection sont en plus.',
+                    },
+                    {
+                      t: 'Vos clients',
+                      d: 'Vous les trouvez grâce à votre contenu, vos recommandations et votre prospection. Empire peut proposer des missions, sans les garantir.',
                     },
                   ]
                 : [
                     {
-                      t: 'Beginner · About €500',
-                      d: 'You’re learning the method and running first missions. Benchmark: ~4 h / month / client.',
+                      t: 'Your fees',
+                      d: 'You set the price of your support. Benchmarks: around €500 when starting, then €1,000 or more with experience.',
                     },
                     {
-                      t: 'Solid · €1,000 or more',
-                      d: 'You run the support well and know how to steer the client.',
+                      t: 'Empire production',
+                      d: `The client separately pays for production, starting at €${clientStarterPrice} / month. This does not reduce your fees.`,
                     },
                     {
-                      t: 'Expert · About €2,000',
-                      d: 'You bring expertise and proven client results.',
+                      t: 'Your time',
+                      d: 'Once fluent, the benchmark is about four hours per client per month. Training, setup and outreach are additional.',
+                    },
+                    {
+                      t: 'Your clients',
+                      d: 'You find them through content, referrals and outreach. Empire may offer missions, but does not guarantee them.',
                     },
                   ]
               ).map((row) => (
-                <div key={row.t} className="py-5">
-                  <dt className="text-[16px] font-semibold text-white">{row.t}</dt>
-                  <dd className="mt-1.5 text-[14px] leading-relaxed text-neutral-500">{row.d}</dd>
+                <div key={row.t} className="rounded-2xl border border-white/[0.08] bg-white/[0.025] p-5">
+                  <dt className="text-[15px] font-semibold text-white">{row.t}</dt>
+                  <dd className="mt-2 text-[13px] leading-relaxed text-neutral-500">{row.d}</dd>
                 </div>
               ))}
             </dl>
             <p className="mt-4 text-center text-[12px] text-neutral-600">
               {fr
-                ? 'Ces montants dépendent de votre expérience, de la mission et du client. Ils sont indiqués avant frais, charges et impôts.'
-                : 'Amounts depend on experience, mission and client. Figures are before fees, costs and tax.'}
+                ? 'Vos honoraires dépendent de votre expérience, de la mission et du client. Ils sont indiqués avant frais, charges et impôts.'
+                : 'Your fees depend on experience, mission and client. Figures are before fees, costs and tax.'}
             </p>
 
             <div className="mt-14">
@@ -677,11 +603,28 @@ export default function PartnerProgramPage() {
         </div>
       </section>
 
-      {/* Portes ouvertes puis témoignages pleine largeur, après le simulateur */}
-      <section id="portes-ouvertes" className="scroll-mt-28 border-b border-white/[0.06] py-20 md:py-28">
+      {/* La preuve valide la projection, puis la porte ouverte devient la conclusion */}
+      <section className="border-b border-white/[0.06] py-20 md:py-28">
         <div className="container">
           <div className="mx-auto max-w-6xl">
-            <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
+            <div>
+              <SectionLabel>{fr ? 'Ils sont passés par Empire' : 'They use Empire'}</SectionLabel>
+              <h2 className="mt-4 max-w-2xl text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
+                {fr
+                  ? 'Ce qu’ils disent après avoir utilisé le système.'
+                  : 'What they say after using the system.'}
+              </h2>
+              <div
+                className="senja-embed mt-8 w-full"
+                data-id="2a990f91-6426-436a-b50d-318fc49a7851"
+                data-mode="shadow"
+                data-lazyload="false"
+                style={{ display: 'block', width: '100%' }}
+              />
+            </div>
+
+            <div id="portes-ouvertes" className="mt-16 scroll-mt-28 border-t border-white/[0.08] pt-12">
+              <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
               <div>
                 <SectionLabel>{fr ? 'Portes ouvertes' : 'Open house'}</SectionLabel>
                 <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
@@ -723,13 +666,13 @@ export default function PartnerProgramPage() {
                         'Comment un partenaire accompagne un client dans Empire.',
                         'Ce que vous faites et ce que la plateforme prend en charge.',
                         'Comment fonctionnent les missions, la rémunération et les crédits.',
-                        'Comment se déroule la formation et comment candidater.',
+                        'Comment se déroule la formation et comment rejoindre le programme.',
                       ]
                     : [
                         'How a partner supports a client inside Empire.',
                         'What you do vs what the platform handles.',
                         'How missions, pay and credits work.',
-                        'How training works and how to apply.',
+                        'How training works and how to join the program.',
                       ]
                   ).map((line) => (
                     <li key={line} className="flex gap-3 text-[14px] text-neutral-400">
@@ -748,21 +691,6 @@ export default function PartnerProgramPage() {
                 </p>
               </div>
             </div>
-
-            <div className="mt-16 border-t border-white/[0.08] pt-12">
-              <SectionLabel>{fr ? 'Ils sont passés par Empire' : 'They use Empire'}</SectionLabel>
-              <h3 className="mt-4 max-w-2xl text-2xl font-semibold tracking-tight sm:text-3xl">
-                {fr
-                  ? 'Ce qu’ils disent après avoir utilisé le système.'
-                  : 'What they say after using the system.'}
-              </h3>
-              <div
-                className="senja-embed mt-8 w-full"
-                data-id="2a990f91-6426-436a-b50d-318fc49a7851"
-                data-mode="shadow"
-                data-lazyload="false"
-                style={{ display: 'block', width: '100%' }}
-              />
             </div>
           </div>
         </div>
@@ -923,8 +851,8 @@ export default function PartnerProgramPage() {
             </p>
             <p className="mt-3 text-[16px] leading-relaxed text-neutral-400">
               {fr
-                ? 'Des missions peuvent également être proposées par Empire selon les besoins du réseau, votre profil et votre disponibilité. L’admission ne garantit pas de mission.'
-                : 'Missions may also be proposed by Empire based on network needs, your profile and availability. Admission does not guarantee a mission.'}
+                ? 'Des missions peuvent également être proposées par Empire selon les besoins du réseau, votre profil et votre disponibilité. Le programme ne garantit pas de mission.'
+                : 'Missions may also be proposed by Empire based on network needs, your profile and availability. The program does not guarantee a mission.'}
             </p>
           </div>
         </div>
@@ -958,6 +886,12 @@ export default function PartnerProgramPage() {
 
             <div className="mt-16 text-center">
               <CtaBlock fr={fr} source="faq" />
+              <p className="mt-5 text-[12px] text-neutral-500">
+                {fr ? 'Déjà convaincu ? Vous pouvez rejoindre directement.' : 'Already convinced? You can join directly.'}
+              </p>
+              <div className="mx-auto mt-3 max-w-md">
+                <PartnerPayLink fr={fr} source="faq" price={festival.price} />
+              </div>
             </div>
           </div>
         </div>
