@@ -170,6 +170,8 @@ export default function HeroSection() {
               {autopilot ? (
                 <a
                   href="/join-us"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="group w-full sm:w-auto px-8 py-4 font-bold rounded-xl hover:scale-105 transition-all text-center flex flex-col items-center gap-1 shrink-0 bg-autopilot text-black shadow-[0_0_30px_rgba(212,165,116,0.4)]"
                 >
                   <span className="flex items-center gap-2">
@@ -184,6 +186,8 @@ export default function HeroSection() {
                 <div className="flex w-full flex-col items-center gap-2 sm:w-auto">
                   <a
                     href="/vsl"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     onClick={() => trackAmplitude('home_hero_workshop_clicked')}
                     className="group flex w-full flex-col items-center justify-center gap-0.5 rounded-xl bg-empire px-8 py-3.5 sm:px-12 sm:py-4 text-black shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.35)] transition-all hover:scale-[1.02] sm:w-auto"
                   >
