@@ -140,15 +140,15 @@ export default function AgencyProgramPage() {
               {(fr
                 ? [
                     'Un espace séparé pour chaque client.',
-                    'Un parcours clair de l’idée à la publication.',
+                    'LinkedIn, Instagram, TikTok et YouTube.',
                     'Environ 4 h par mois et par client une fois maîtrisé.',
-                    'Une offre récurrente sans recruter la production.',
+                    'Les formats et mécaniques de viralité inclus.',
                   ]
                 : [
                     'A separate workspace for every client.',
-                    'A clear workflow from idea to publication.',
+                    'LinkedIn, Instagram, TikTok and YouTube.',
                     'About four hours per client per month once mastered.',
-                    'A recurring offer without hiring production.',
+                    'Viral formats and mechanics included.',
                   ]
               ).map((line) => (
                 <p key={line} className="flex gap-2 text-[13px] text-neutral-400">
@@ -305,8 +305,8 @@ export default function AgencyProgramPage() {
             </h2>
             <p className="mt-5 max-w-3xl text-[16px] leading-relaxed text-neutral-400">
               {fr
-                ? 'Vous pilotez les décisions. Le client partage son expertise. Empire transforme la conversation en contenus prêts à valider et à publier.'
-                : 'You steer decisions. The client shares expertise. Empire turns the conversation into content ready to approve and publish.'}
+                ? 'Vous pilotez les décisions. Le client partage son expertise. Empire transforme la conversation en contenus adaptés à LinkedIn, Instagram, TikTok et YouTube, prêts à valider et à publier.'
+                : 'You steer decisions. The client shares expertise. Empire turns the conversation into content adapted for LinkedIn, Instagram, TikTok and YouTube, ready to approve and publish.'}
             </p>
             <AcademyProductDemo fr={fr} />
           </div>
@@ -433,12 +433,12 @@ export default function AgencyProgramPage() {
               {(fr
                 ? [
                     ['Semaine 1', 'Construisez l’offre, choisissez un client pilote et créez une première démonstration.'],
-                    ['Semaine 2', 'Maîtrisez les sujets, la production, les validations et le calendrier dans Empire.'],
+                    ['Semaine 2', 'Apprenez les hooks, formats et mécaniques de viralité, puis adaptez-les à chaque réseau.'],
                     ['Semaine 3', 'Organisez l’onboarding et déployez l’offre auprès du portefeuille ou en marque blanche.'],
                   ]
                 : [
                     ['Week 1', 'Build the offer, choose a pilot client and create a first demonstration.'],
-                    ['Week 2', 'Master topics, production, approvals and scheduling inside Empire.'],
+                    ['Week 2', 'Learn hooks, formats and viral mechanics, then adapt them to each network.'],
                     ['Week 3', 'Organize onboarding and deploy the offer across the portfolio or white-label.'],
                   ]
               ).map(([week, description]) => (
