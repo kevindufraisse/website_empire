@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import Script from 'next/script'
 import { ArrowRight, Check } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
@@ -15,7 +16,7 @@ import TopCreatorsSection from '@/components/sections/TopCreatorsSection'
 import AcademyProductDemo from '@/components/AcademyProductDemo'
 
 type Level = 'debutant' | 'confirme' | 'expert'
-type Audience = 'reconversion' | 'agency'
+export type Audience = 'reconversion' | 'agency'
 
 const RATES: Record<Level, number> = {
   debutant: 500,
@@ -29,7 +30,7 @@ function trackOpen(source: string, audience: Audience) {
   trackAmplitude('academy_open_house_clicked', { source, audience })
 }
 
-function PartnerPayLink({
+export function PartnerPayLink({
   fr,
   source,
   price,
@@ -59,7 +60,7 @@ function PartnerPayLink({
 }
 
 /** Ladder 500 → 700 → 800 + compte à rebours jusqu’au prochain palier. */
-function FestivalPriceBlock({
+export function FestivalPriceBlock({
   fr,
   pricing,
 }: {
@@ -142,7 +143,7 @@ function FestivalPriceBlock({
   )
 }
 
-function SectionLabel({ children }: { children: React.ReactNode }) {
+export function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
     <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-academy">
       {children}
@@ -150,7 +151,7 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
   )
 }
 
-function CtaBlock({
+export function CtaBlock({
   fr,
   source,
   audience,
@@ -193,15 +194,10 @@ export default function PartnerProgramPage() {
   const fr = lang === 'fr'
   const festival = usePartnerFestivalPricing()
   const clientStarterPrice = getPlan('starter').price
-  const [audience, setAudience] = useState<Audience>('reconversion')
+  const audience: Audience = 'reconversion'
   const [level, setLevel] = useState<Level>('debutant')
   const [hours, setHours] = useState(12)
-  const agency = audience === 'agency'
-
-  const selectAudience = (nextAudience: Audience) => {
-    setAudience(nextAudience)
-    trackAmplitude('academy_audience_selected', { audience: nextAudience })
-  }
+  const agency = false
 
   const sim = useMemo(() => {
     const clients = Math.max(1, Math.floor(hours / HOURS_PER_CLIENT))
@@ -282,28 +278,29 @@ export default function PartnerProgramPage() {
                   : 'For a career change or a new business'}
             </p>
 
-            <div
-              role="group"
-              aria-label={fr ? 'Choisissez votre situation' : 'Choose your situation'}
+            <nav
+              aria-label={fr ? 'Choisissez votre parcours' : 'Choose your path'}
               className="mx-auto mt-4 inline-flex rounded-full border border-white/[0.08] bg-white/[0.025] p-0.5"
             >
               {(
                 [
                   {
                     id: 'reconversion' as const,
+                    href: '/academy',
                     label: fr ? 'Reconversion' : 'Career change',
                   },
                   {
                     id: 'agency' as const,
+                    href: '/academy/agence',
                     label: fr ? 'Agence' : 'Agency',
                   },
                 ]
               ).map((option) => (
-                <button
+                <Link
                   key={option.id}
-                  type="button"
-                  aria-pressed={audience === option.id}
-                  onClick={() => selectAudience(option.id)}
+                  href={option.href}
+                  aria-current={audience === option.id ? 'page' : undefined}
+                  onClick={() => trackAmplitude('academy_audience_selected', { audience: option.id })}
                   className={`rounded-full px-3 py-1.5 text-[11px] font-medium transition ${
                     audience === option.id
                       ? 'bg-white/[0.09] text-white'
@@ -311,9 +308,9 @@ export default function PartnerProgramPage() {
                   }`}
                 >
                   {option.label}
-                </button>
+                </Link>
               ))}
-            </div>
+            </nav>
 
             <h1 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl md:text-[2.75rem] md:leading-[1.15]">
               {fr
