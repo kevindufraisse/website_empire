@@ -280,7 +280,7 @@ export default function PartnerProgramPage() {
         aria-label={fr ? 'Navigation du programme partenaire' : 'Partner program navigation'}
         className="sticky top-[65px] z-40 border-b border-white/[0.08] bg-black/90 backdrop-blur-xl md:top-[73px]"
       >
-        <div className="container">
+        <div className="mx-auto max-w-7xl px-4">
           <div className="mx-auto flex max-w-6xl items-center gap-1 overflow-x-auto py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {(fr
               ? [
