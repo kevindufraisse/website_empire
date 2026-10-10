@@ -14,6 +14,7 @@ import { WebinarJamBar, WebinarJamButton } from '@/components/WebinarJamRegister
 import FeaturedInSection from '@/components/FeaturedInSection'
 import TopCreatorsSection from '@/components/sections/TopCreatorsSection'
 import AcademyProductDemo from '@/components/AcademyProductDemo'
+import { SocialIcons } from '@/components/ui/social-icons'
 
 type Level = 'debutant' | 'confirme' | 'expert'
 export type Audience = 'reconversion' | 'agency'
@@ -148,6 +149,40 @@ export function SectionLabel({ children }: { children: React.ReactNode }) {
     <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-academy">
       {children}
     </p>
+  )
+}
+
+const ACADEMY_PLATFORMS = [
+  { name: 'LinkedIn', Icon: SocialIcons.linkedin },
+  { name: 'Instagram', Icon: SocialIcons.instagram },
+  { name: 'TikTok', Icon: SocialIcons.tiktok },
+  { name: 'YouTube', Icon: SocialIcons.youtube },
+  { name: 'X', Icon: SocialIcons.twitter },
+  { name: 'Threads', Icon: SocialIcons.threads },
+  { name: 'Facebook', Icon: SocialIcons.facebook },
+  { name: 'Newsletter', Icon: SocialIcons.newsletter },
+]
+
+export function AcademyPlatformLogos({ fr }: { fr: boolean }) {
+  return (
+    <div className="mx-auto mt-5 flex w-fit max-w-full flex-col items-center gap-2 rounded-2xl border border-white/[0.08] bg-white/[0.025] px-4 py-3 sm:flex-row sm:gap-4">
+      <span className="shrink-0 text-[11px] font-medium text-neutral-500">
+        {fr ? '7 réseaux + newsletter' : '7 networks + newsletter'}
+      </span>
+      <div className="flex items-center justify-center gap-3">
+        {ACADEMY_PLATFORMS.map(({ name, Icon }) => (
+          <span
+            key={name}
+            role="img"
+            aria-label={name}
+            title={name}
+            className="flex h-5 w-5 items-center justify-center"
+          >
+            <Icon />
+          </span>
+        ))}
+      </div>
+    </div>
   )
 }
 
@@ -332,9 +367,10 @@ export default function PartnerProgramPage() {
             </p>
             <p className="mx-auto mt-3 max-w-xl text-[13px] leading-relaxed text-neutral-500">
               {fr
-                ? 'Vous apprenez aussi les hooks, les formats et les mécaniques de viralité pour adapter une même expertise à LinkedIn, Instagram, TikTok et YouTube.'
-                : 'You also learn hooks, formats and viral mechanics to adapt the same expertise for LinkedIn, Instagram, TikTok and YouTube.'}
+                ? 'Vous apprenez aussi les hooks, les formats et les mécaniques de viralité pour adapter une même expertise à chaque réseau.'
+                : 'You also learn hooks, formats and viral mechanics to adapt the same expertise for every network.'}
             </p>
+            <AcademyPlatformLogos fr={fr} />
             <div className="mt-8 flex w-full flex-col items-center gap-3">
               <CtaBlock fr={fr} source="hero" audience={audience} />
               <p className="mt-2 text-[12px] text-neutral-500">
@@ -912,7 +948,7 @@ export default function PartnerProgramPage() {
                       },
                       {
                         t: 'Semaine 2 — Comprendre la viralité et produire',
-                        d: 'Vous apprenez les hooks, formats et mécaniques de viralité, puis adaptez vos contenus à LinkedIn, Instagram, TikTok et YouTube.',
+                        d: 'Vous apprenez les hooks, formats et mécaniques de viralité, puis adaptez vos contenus aux 7 réseaux.',
                       },
                       {
                         t: 'Semaine 3 — Devenir prêt pour un premier client',
@@ -941,7 +977,7 @@ export default function PartnerProgramPage() {
                       },
                       {
                         t: 'Week 2 — Understand virality and produce',
-                        d: 'Learn hooks, formats and viral mechanics, then adapt your content for LinkedIn, Instagram, TikTok and YouTube.',
+                        d: 'Learn hooks, formats and viral mechanics, then adapt your content across all 7 networks.',
                       },
                       {
                         t: 'Week 3 — Become first-client ready',
@@ -991,7 +1027,7 @@ export default function PartnerProgramPage() {
                     'Le bootcamp autonome : 1 action concrète par jour, environ 1 h / jour pendant 21 jours.',
                     'La communauté, le Slack et les rendez-vous partenaires accessibles à vie.',
                     'Les templates de prospection et les méthodes de vente.',
-                    'Les hooks, formats et mécaniques de viralité sur LinkedIn, Instagram, TikTok et YouTube.',
+                    'Les hooks, formats et mécaniques de viralité sur LinkedIn, Instagram, TikTok, YouTube, X, Threads et Facebook.',
                     '« Mes posts les plus viraux » pour repartir de formats qui fonctionnent.',
                     '4 000 crédits pour développer votre marque personnelle dès le premier mois.',
                     'Votre page consultant pour encaisser l’accompagnement de vos clients.',
@@ -1001,7 +1037,7 @@ export default function PartnerProgramPage() {
                     'The self-paced bootcamp: 1 concrete action a day, about 1 hour/day for 21 days.',
                     'Lifetime access to the community, Slack and partner sessions.',
                     'Outreach templates and sales methods.',
-                    'Hooks, formats and viral mechanics for LinkedIn, Instagram, TikTok and YouTube.',
+                    'Hooks, formats and viral mechanics for LinkedIn, Instagram, TikTok, YouTube, X, Threads and Facebook.',
                     '“My most viral posts” to adapt formats that already work.',
                     '4,000 credits to grow your personal brand in the first month.',
                     'Your consultant page to charge clients for support.',

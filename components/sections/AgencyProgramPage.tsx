@@ -14,6 +14,7 @@ import FeaturedInSection from '@/components/FeaturedInSection'
 import TopCreatorsSection from '@/components/sections/TopCreatorsSection'
 import AcademyProductDemo from '@/components/AcademyProductDemo'
 import {
+  AcademyPlatformLogos,
   CtaBlock,
   FestivalPriceBlock,
   PartnerPayLink,
@@ -135,18 +136,19 @@ export default function AgencyProgramPage() {
                 ? 'Choisissez les sujets, recueillez leur expertise et validez les contenus. Empire rédige, monte, programme et mesure le reste.'
                 : 'Choose topics, capture their expertise and approve content. Empire writes, edits, schedules and measures the rest.'}
             </p>
+            <AcademyPlatformLogos fr={fr} />
 
             <div className="mx-auto mt-7 grid max-w-2xl gap-2 text-left sm:grid-cols-2">
               {(fr
                 ? [
                     'Un espace séparé pour chaque client.',
-                    'LinkedIn, Instagram, TikTok et YouTube.',
+                    'Une expertise déclinée sur les 7 réseaux.',
                     'Environ 4 h par mois et par client une fois maîtrisé.',
                     'Les formats et mécaniques de viralité inclus.',
                   ]
                 : [
                     'A separate workspace for every client.',
-                    'LinkedIn, Instagram, TikTok and YouTube.',
+                    'One expertise adapted across all 7 networks.',
                     'About four hours per client per month once mastered.',
                     'Viral formats and mechanics included.',
                   ]
@@ -305,8 +307,8 @@ export default function AgencyProgramPage() {
             </h2>
             <p className="mt-5 max-w-3xl text-[16px] leading-relaxed text-neutral-400">
               {fr
-                ? 'Vous pilotez les décisions. Le client partage son expertise. Empire transforme la conversation en contenus adaptés à LinkedIn, Instagram, TikTok et YouTube, prêts à valider et à publier.'
-                : 'You steer decisions. The client shares expertise. Empire turns the conversation into content adapted for LinkedIn, Instagram, TikTok and YouTube, ready to approve and publish.'}
+                ? 'Vous pilotez les décisions. Le client partage son expertise. Empire transforme la conversation en contenus adaptés à LinkedIn, Instagram, TikTok, YouTube, X, Threads et Facebook, prêts à valider et à publier.'
+                : 'You steer decisions. The client shares expertise. Empire turns the conversation into content adapted for LinkedIn, Instagram, TikTok, YouTube, X, Threads and Facebook, ready to approve and publish.'}
             </p>
             <AcademyProductDemo fr={fr} />
           </div>
