@@ -15,6 +15,7 @@ import TopCreatorsSection from '@/components/sections/TopCreatorsSection'
 import AcademyProductDemo from '@/components/AcademyProductDemo'
 
 type Level = 'debutant' | 'confirme' | 'expert'
+type Audience = 'reconversion' | 'agency'
 
 const RATES: Record<Level, number> = {
   debutant: 500,
@@ -24,28 +25,34 @@ const RATES: Record<Level, number> = {
 
 const HOURS_PER_CLIENT = 4
 
-function trackOpen(source: string) {
-  trackAmplitude('academy_open_house_clicked', { source })
+function trackOpen(source: string, audience: Audience) {
+  trackAmplitude('academy_open_house_clicked', { source, audience })
 }
 
 function PartnerPayLink({
   fr,
   source,
   price,
+  audience,
 }: {
   fr: boolean
   source: string
   price: number
+  audience: Audience
 }) {
   return (
     <a
       href={partnerPayHref()}
-      onClick={() => trackAmplitude('academy_partner_checkout_clicked', { source, price })}
+      onClick={() => trackAmplitude('academy_partner_checkout_clicked', { source, price, audience })}
       className="inline-flex h-11 w-full max-w-md items-center justify-center gap-2 rounded-2xl border border-white/20 bg-transparent px-6 text-[14px] font-semibold text-white transition hover:border-white/40 hover:bg-white/[0.04]"
     >
       {fr
-        ? `Payer ${price} € et rejoindre le programme`
-        : `Pay €${price} and join the program`}
+        ? audience === 'agency'
+          ? `Payer ${price} € et développer mon offre`
+          : `Payer ${price} € et lancer mon activité`
+        : audience === 'agency'
+          ? `Pay €${price} and grow my offer`
+          : `Pay €${price} and launch my business`}
       <ArrowRight className="h-4 w-4" />
     </a>
   )
@@ -146,22 +153,30 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 function CtaBlock({
   fr,
   source,
+  audience,
   fullWidth = false,
 }: {
   fr: boolean
   source: string
+  audience: Audience
   /** Aligné sur la largeur du bloc parent (ex. simulation). */
   fullWidth?: boolean
 }) {
   return (
     <WebinarJamButton
-      onClick={() => trackOpen(source)}
+      onClick={() => trackOpen(source, audience)}
       className={`inline-flex flex-col items-center justify-center gap-0.5 rounded-2xl bg-academy px-6 py-3.5 text-black transition hover:brightness-110 ${
         fullWidth ? 'w-full' : 'mx-auto w-full max-w-md'
       }`}
     >
       <span className="inline-flex items-center gap-2 text-[15px] font-bold leading-snug">
-        {fr ? 'S’inscrire à la porte ouverte' : 'Register for the open house'}
+        {fr
+          ? audience === 'agency'
+            ? 'Voir le modèle agence jeudi'
+            : 'Voir comment lancer mon activité jeudi'
+          : audience === 'agency'
+            ? 'See the agency model Thursday'
+            : 'See how to launch Thursday'}
         <ArrowRight className="h-4 w-4 shrink-0" />
       </span>
       <span className="text-[11px] font-medium text-black/60">
@@ -178,8 +193,15 @@ export default function PartnerProgramPage() {
   const fr = lang === 'fr'
   const festival = usePartnerFestivalPricing()
   const clientStarterPrice = getPlan('starter').price
+  const [audience, setAudience] = useState<Audience>('reconversion')
   const [level, setLevel] = useState<Level>('debutant')
   const [hours, setHours] = useState(12)
+  const agency = audience === 'agency'
+
+  const selectAudience = (nextAudience: Audience) => {
+    setAudience(nextAudience)
+    trackAmplitude('academy_audience_selected', { audience: nextAudience })
+  }
 
   const sim = useMemo(() => {
     const clients = Math.max(1, Math.floor(hours / HOURS_PER_CLIENT))
@@ -251,25 +273,78 @@ export default function PartnerProgramPage() {
               {fr ? 'Empire · Programme partenaire' : 'Empire · Partner program'}
             </p>
             <p className="mt-1.5 text-[14px] text-neutral-400">
-              {fr ? 'Pour les freelances et les agences' : 'For freelancers and agencies'}
-            </p>
-            <h1 className="mt-3 text-balance text-3xl font-semibold tracking-tight sm:text-4xl md:text-[2.75rem] md:leading-[1.15]">
               {fr
-                ? 'Accompagnez plus de clients. Sans produire tous leurs contenus.'
-                : 'Support more clients. Without producing all their content.'}
+                ? agency
+                  ? 'Pour les agences, studios et consultants'
+                  : 'Pour une reconversion ou une nouvelle activité'
+                : agency
+                  ? 'For agencies, studios and consultants'
+                  : 'For a career change or a new business'}
+            </p>
+
+            <div
+              role="group"
+              aria-label={fr ? 'Choisissez votre situation' : 'Choose your situation'}
+              className="mx-auto mt-5 inline-flex rounded-xl border border-white/10 bg-white/[0.035] p-1"
+            >
+              {(
+                [
+                  {
+                    id: 'reconversion' as const,
+                    label: fr ? 'Reconversion' : 'Career change',
+                    detail: fr ? 'Lancer une activité' : 'Launch a business',
+                  },
+                  {
+                    id: 'agency' as const,
+                    label: fr ? 'Agence' : 'Agency',
+                    detail: fr ? 'Développer une offre' : 'Grow an offer',
+                  },
+                ]
+              ).map((option) => (
+                <button
+                  key={option.id}
+                  type="button"
+                  aria-pressed={audience === option.id}
+                  onClick={() => selectAudience(option.id)}
+                  className={`min-w-[9rem] rounded-lg px-4 py-2.5 text-left transition sm:min-w-[11rem] ${
+                    audience === option.id
+                      ? 'bg-academy text-black shadow-[0_8px_30px_rgba(252,165,165,0.16)]'
+                      : 'text-neutral-400 hover:bg-white/[0.04] hover:text-white'
+                  }`}
+                >
+                  <span className="block text-[13px] font-bold">{option.label}</span>
+                  <span className={`mt-0.5 block text-[10px] ${audience === option.id ? 'text-black/60' : 'text-neutral-600'}`}>
+                    {option.detail}
+                  </span>
+                </button>
+              ))}
+            </div>
+
+            <h1 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl md:text-[2.75rem] md:leading-[1.15]">
+              {fr
+                ? agency
+                  ? 'Ajoutez une offre de personal branding à votre agence. Sans recruter une équipe de production.'
+                  : 'Lancez votre activité de personal branding. Empire produit, vous pilotez.'
+                : agency
+                  ? 'Add a personal-branding offer to your agency. Without hiring a production team.'
+                  : 'Launch your personal-branding business. Empire produces, you lead.'}
             </h1>
             <p className="mx-auto mt-6 max-w-xl text-[17px] leading-[1.55] text-neutral-300">
               {fr
-                ? 'Vos clients savent qu’ils doivent publier, mais manquent de temps, d’équipe et de méthode. Vous devenez leur interlocuteur stratégique. Empire écrit, monte, programme et suit les résultats.'
-                : 'Your clients want to show up on LinkedIn, Instagram or YouTube. You support them. Empire writes, edits, schedules and tracks results.'}
+                ? agency
+                  ? 'Vous gardez la stratégie, la relation et les décisions avec vos clients. Empire propose les sujets, rédige, monte et programme les contenus pour déployer cette offre auprès de votre portefeuille.'
+                  : 'Pendant 21 jours, avancez environ 1 heure par jour pour construire votre offre, publier, prospecter et maîtriser Empire. L’objectif : être prêt à vendre et accompagner un premier client.'
+                : agency
+                  ? 'You keep strategy, client relationships and decisions. Empire suggests topics, writes, edits and schedules content so you can deploy the offer across your portfolio.'
+                  : 'For 21 days, spend about 1 hour a day building your offer, publishing, reaching out and mastering Empire. The goal: become ready to sell and support a first client.'}
             </p>
             <div className="mt-8 flex w-full flex-col items-center gap-3">
-              <CtaBlock fr={fr} source="hero" />
+              <CtaBlock fr={fr} source="hero" audience={audience} />
               <p className="mt-2 text-[12px] text-neutral-500">
                 {fr ? 'Déjà convaincu ? Rejoignez directement.' : 'Already convinced? Join right away.'}
               </p>
               <FestivalPriceBlock fr={fr} pricing={festival} />
-              <PartnerPayLink fr={fr} source="hero" price={festival.price} />
+              <PartnerPayLink fr={fr} source="hero" price={festival.price} audience={audience} />
             </div>
           </div>
         </div>
@@ -333,13 +408,21 @@ export default function PartnerProgramPage() {
             <SectionLabel>{fr ? 'L’opportunité' : 'The opportunity'}</SectionLabel>
             <h2 className="mt-4 max-w-3xl text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
               {fr
-                ? 'Vos clients ont besoin de créer de la demande. Mais ils n’arrivent pas à publier seuls.'
-                : 'Your clients need to create demand. But they struggle to publish on their own.'}
+                ? agency
+                  ? 'Vos clients ont besoin de créer de la demande. Mais ils n’arrivent pas à publier seuls.'
+                  : 'Les entreprises ont besoin de visibilité. Peu arrivent à publier seules.'
+                : agency
+                  ? 'Your clients need to create demand. But they struggle to publish on their own.'
+                  : 'Businesses need visibility. Few manage to publish consistently on their own.'}
             </h2>
             <p className="mt-5 max-w-3xl text-[16px] leading-relaxed text-neutral-400">
               {fr
-                ? 'Quand le chiffre d’affaires ralentit, la visibilité et le personal branding ne sont plus accessoires. Ils permettent de créer des conversations commerciales sans dépendre uniquement de la publicité ou de la prospection froide.'
-                : 'When revenue slows, visibility and personal branding are no longer optional. They create sales conversations without relying only on advertising or cold outreach.'}
+                ? agency
+                  ? 'Quand le chiffre d’affaires ralentit, vos clients cherchent plus de visibilité et de conversations commerciales. Le personal branding devient une offre complémentaire naturelle pour votre agence.'
+                  : 'Ce décalage crée une activité concrète : accompagner des entrepreneurs qui ont l’expertise, mais ni le temps, ni l’équipe, ni la méthode pour la transformer en contenus réguliers.'
+                : agency
+                  ? 'When revenue slows, your clients need more visibility and sales conversations. Personal branding becomes a natural complementary offer for your agency.'
+                  : 'That gap creates a real business: supporting entrepreneurs who have expertise, but lack the time, team and method to turn it into consistent content.'}
             </p>
 
             <div className="mt-10 grid gap-3 sm:grid-cols-2">
@@ -407,8 +490,12 @@ export default function PartnerProgramPage() {
             <SectionLabel>{fr ? 'Votre mission' : 'Your mission'}</SectionLabel>
             <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
               {fr
-                ? 'Faire avancer sa présence en ligne, chaque semaine.'
-                : 'Move their online presence forward every week.'}
+                ? agency
+                  ? 'Faire avancer la présence de vos clients, chaque semaine.'
+                  : 'Devenez la personne qui les fait enfin publier.'
+                : agency
+                  ? 'Move your clients’ online presence forward every week.'
+                  : 'Become the person who finally gets them publishing.'}
             </h2>
             <p className="mt-6 text-[16px] leading-relaxed text-neutral-400">
               {fr
@@ -639,7 +726,7 @@ export default function PartnerProgramPage() {
               </div>
 
               <div className="mt-10 w-full">
-                <CtaBlock fr={fr} source="simulation" fullWidth />
+                <CtaBlock fr={fr} source="simulation" audience={audience} fullWidth />
               </div>
             </div>
           </div>
@@ -725,7 +812,7 @@ export default function PartnerProgramPage() {
                   ))}
                 </ul>
                 <div className="mt-8">
-                  <CtaBlock fr={fr} source="section" />
+                  <CtaBlock fr={fr} source="section" audience={audience} />
                 </div>
                 <p className="mt-4 text-[13px] text-neutral-600">
                   {fr
@@ -746,34 +833,58 @@ export default function PartnerProgramPage() {
             <SectionLabel>{fr ? 'Formation' : 'Training'}</SectionLabel>
             <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
               {fr
-                ? '1 heure par jour. 1 action concrète. Pendant 21 jours.'
-                : '1 hour a day. 1 concrete action. For 21 days.'}
+                ? agency
+                  ? '1 heure par jour pour déployer votre offre en 21 jours.'
+                  : '1 heure par jour. 1 action concrète. Pendant 21 jours.'
+                : agency
+                  ? '1 hour a day to deploy your offer in 21 days.'
+                  : '1 hour a day. 1 concrete action. For 21 days.'}
             </h2>
             <div className="mt-6 space-y-4 text-[16px] leading-[1.6] text-neutral-400">
               <p>
                 {fr
-                  ? 'Ce n’est pas une formation passive à terminer avant de commencer. Le bootcamp est autonome et à votre rythme : chaque jour, vous réalisez en environ 1 heure une action qui fait avancer votre maîtrise d’Empire, votre contenu ou votre prospection.'
-                  : 'This is not a passive course you have to finish before getting started. The bootcamp is self-paced and action-based: each day, you spend about 1 hour completing one step that advances your Empire skills, content or outreach.'}
+                  ? agency
+                    ? 'Ce n’est pas une formation passive. Chaque jour, vous consacrez environ 1 heure à une action autonome pour structurer l’offre, maîtriser Empire et installer votre processus de production.'
+                    : 'Ce n’est pas une formation passive à terminer avant de commencer. Le bootcamp est autonome et à votre rythme : chaque jour, vous réalisez en environ 1 heure une action qui fait avancer votre maîtrise d’Empire, votre contenu ou votre prospection.'
+                  : agency
+                    ? 'This is not a passive course. Each day, spend about 1 hour on one self-paced action to structure the offer, master Empire and install your production workflow.'
+                    : 'This is not a passive course you have to finish before getting started. The bootcamp is self-paced and action-based: each day, you spend about 1 hour completing one step that advances your Empire skills, content or outreach.'}
               </p>
               <p>
                 {fr
-                  ? 'Vous commencez à publier et à prospecter dès la première semaine. Avec vos 4 000 crédits, vous adaptez des formats issus de « Mes posts les plus viraux », créez vos contenus dans Empire et présentez votre offre à de vrais prospects.'
-                  : 'You start publishing and reaching out in week one. With your 4,000 credits, you adapt formats from “My most viral posts,” create content in Empire and present your offer to real prospects.'}
+                  ? agency
+                    ? 'Dès la première semaine, vous pouvez sélectionner un client pilote dans votre portefeuille, créer les premiers contenus avec vos 4 000 crédits et lui présenter cette nouvelle offre.'
+                    : 'Vous commencez à publier et à prospecter dès la première semaine. Avec vos 4 000 crédits, vous adaptez des formats issus de « Mes posts les plus viraux », créez vos contenus dans Empire et présentez votre offre à de vrais prospects.'
+                  : agency
+                    ? 'In week one, you can select a pilot client from your portfolio, create the first content with your 4,000 credits and present the new offer.'
+                    : 'You start publishing and reaching out in week one. With your 4,000 credits, you adapt formats from “My most viral posts,” create content in Empire and present your offer to real prospects.'}
               </p>
               <p className="font-medium text-neutral-200">
                 {fr
-                  ? 'Vous apprenez en faisant — et votre personal branding devient votre première vitrine.'
-                  : 'You learn by doing — and your personal brand becomes your first showcase.'}
+                  ? agency
+                    ? 'Vous apprenez en déployant — sur votre agence ou sur un premier client pilote.'
+                    : 'Vous apprenez en faisant — et votre personal branding devient votre première vitrine.'
+                  : agency
+                    ? 'You learn by deploying — on your agency or with a first pilot client.'
+                    : 'You learn by doing — and your personal brand becomes your first showcase.'}
               </p>
               <p>
                 {fr
-                  ? 'L’objectif au jour 21 : maîtriser la plateforme et être prêt à convertir un premier client — avec une offre claire, des contenus publiés, une prospection lancée et le processus d’accompagnement en main.'
-                  : 'The day-21 goal: master the platform and be ready to convert a first client — with a clear offer, published content, active outreach and a working client-delivery process.'}
+                  ? agency
+                    ? 'L’objectif au jour 21 : disposer d’une offre claire, d’un processus maîtrisé et d’une démonstration concrète à présenter à vos clients existants.'
+                    : 'L’objectif au jour 21 : maîtriser la plateforme et être prêt à convertir un premier client — avec une offre claire, des contenus publiés, une prospection lancée et le processus d’accompagnement en main.'
+                  : agency
+                    ? 'The day-21 goal: have a clear offer, a mastered workflow and a concrete demonstration to present to existing clients.'
+                    : 'The day-21 goal: master the platform and be ready to convert a first client — with a clear offer, published content, active outreach and a working client-delivery process.'}
               </p>
               <p className="text-white">
                 {fr
-                  ? 'Certains participants peuvent obtenir dès la première semaine des contenus à forte portée, des conversations avec des prospects, voire un premier client. Ce ne sont pas des résultats garantis : ils varient selon votre exécution, votre marché, vos sujets et votre régularité.'
-                  : 'Some participants may see high-reach content, prospect conversations or even a first client in week one. These outcomes are not guaranteed: results vary with your execution, market, topics and consistency.'}
+                  ? agency
+                    ? 'Certaines agences peuvent présenter ou vendre l’offre dès la première semaine. Ce résultat n’est pas garanti : il dépend de votre portefeuille, de votre exécution et de votre positionnement.'
+                    : 'Certains participants peuvent obtenir dès la première semaine des contenus à forte portée, des conversations avec des prospects, voire un premier client. Ce ne sont pas des résultats garantis : ils varient selon votre exécution, votre marché, vos sujets et votre régularité.'
+                  : agency
+                    ? 'Some agencies may present or sell the offer in week one. This is not guaranteed: results depend on your portfolio, execution and positioning.'
+                    : 'Some participants may see high-reach content, prospect conversations or even a first client in week one. These outcomes are not guaranteed: results vary with your execution, market, topics and consistency.'}
               </p>
             </div>
 
@@ -782,34 +893,64 @@ export default function PartnerProgramPage() {
             </h3>
             <div className="mt-6 divide-y divide-white/[0.08] border-y border-white/[0.08]">
               {(fr
-                ? [
-                    {
-                      t: 'Semaine 1 — Publier et prospecter immédiatement',
-                      d: 'Vous configurez Empire, clarifiez votre offre, adaptez vos premiers formats, publiez et lancez vos premières conversations avec des prospects.',
-                    },
-                    {
-                      t: 'Semaine 2 — Maîtriser la production dans Empire',
-                      d: 'Vous utilisez vos crédits pour créer plus vite, publier régulièrement, lire les premiers signaux et construire une preuve visible de votre savoir-faire.',
-                    },
-                    {
-                      t: 'Semaine 3 — Devenir prêt pour un premier client',
-                      d: 'Vous apprenez à présenter votre accompagnement, conduire l’entretien, organiser la prestation et ouvrir votre page consultant.',
-                    },
-                  ]
-                : [
-                    {
-                      t: 'Week 1 — Publish and reach out immediately',
-                      d: 'Set up Empire, clarify your offer, adapt your first formats, publish and start your first prospect conversations.',
-                    },
-                    {
-                      t: 'Week 2 — Master production in Empire',
-                      d: 'Use your credits to create faster, publish consistently, read the first signals and build visible proof of your skills.',
-                    },
-                    {
-                      t: 'Week 3 — Become first-client ready',
-                      d: 'Learn to present your service, run the interview, organize delivery and open your consultant page.',
-                    },
-                  ]
+                ? agency
+                  ? [
+                      {
+                        t: 'Semaine 1 — Construire l’offre agence',
+                        d: 'Vous choisissez le positionnement, identifiez un client pilote et créez une première démonstration avec Empire.',
+                      },
+                      {
+                        t: 'Semaine 2 — Installer la production',
+                        d: 'Vous maîtrisez les sujets, les validations, la création et le calendrier pour livrer une prestation régulière.',
+                      },
+                      {
+                        t: 'Semaine 3 — Déployer sur le portefeuille',
+                        d: 'Vous apprenez à présenter l’offre, organiser l’onboarding et la proposer à vos clients existants ou en marque blanche.',
+                      },
+                    ]
+                  : [
+                      {
+                        t: 'Semaine 1 — Publier et prospecter immédiatement',
+                        d: 'Vous configurez Empire, clarifiez votre offre, adaptez vos premiers formats, publiez et lancez vos premières conversations avec des prospects.',
+                      },
+                      {
+                        t: 'Semaine 2 — Maîtriser la production dans Empire',
+                        d: 'Vous utilisez vos crédits pour créer plus vite, publier régulièrement, lire les premiers signaux et construire une preuve visible de votre savoir-faire.',
+                      },
+                      {
+                        t: 'Semaine 3 — Devenir prêt pour un premier client',
+                        d: 'Vous apprenez à présenter votre accompagnement, conduire l’entretien, organiser la prestation et ouvrir votre page consultant.',
+                      },
+                    ]
+                : agency
+                  ? [
+                      {
+                        t: 'Week 1 — Build the agency offer',
+                        d: 'Choose the positioning, identify a pilot client and create a first demonstration with Empire.',
+                      },
+                      {
+                        t: 'Week 2 — Install production',
+                        d: 'Master topics, approvals, creation and scheduling to deliver a consistent service.',
+                      },
+                      {
+                        t: 'Week 3 — Deploy across the portfolio',
+                        d: 'Learn to present the offer, organize onboarding and sell it to existing clients or white-label partners.',
+                      },
+                    ]
+                  : [
+                      {
+                        t: 'Week 1 — Publish and reach out immediately',
+                        d: 'Set up Empire, clarify your offer, adapt your first formats, publish and start your first prospect conversations.',
+                      },
+                      {
+                        t: 'Week 2 — Master production in Empire',
+                        d: 'Use your credits to create faster, publish consistently, read the first signals and build visible proof of your skills.',
+                      },
+                      {
+                        t: 'Week 3 — Become first-client ready',
+                        d: 'Learn to present your service, run the interview, organize delivery and open your consultant page.',
+                      },
+                    ]
               ).map((row) => (
                 <div key={row.t} className="py-5">
                   <p className="text-[15px] font-semibold text-white">{row.t}</p>
@@ -876,7 +1017,7 @@ export default function PartnerProgramPage() {
               ))}
             </ul>
             <div className="mt-8">
-              <PartnerPayLink fr={fr} source="program" price={festival.price} />
+              <PartnerPayLink fr={fr} source="program" price={festival.price} audience={audience} />
             </div>
             <p className="mt-6 text-[14px] leading-relaxed text-neutral-500">
               {fr
@@ -928,12 +1069,12 @@ export default function PartnerProgramPage() {
             </div>
 
             <div className="mt-16 text-center">
-              <CtaBlock fr={fr} source="faq" />
+              <CtaBlock fr={fr} source="faq" audience={audience} />
               <p className="mt-5 text-[12px] text-neutral-500">
                 {fr ? 'Déjà convaincu ? Vous pouvez rejoindre directement.' : 'Already convinced? You can join directly.'}
               </p>
               <div className="mx-auto mt-3 max-w-md">
-                <PartnerPayLink fr={fr} source="faq" price={festival.price} />
+                <PartnerPayLink fr={fr} source="faq" price={festival.price} audience={audience} />
               </div>
             </div>
           </div>
