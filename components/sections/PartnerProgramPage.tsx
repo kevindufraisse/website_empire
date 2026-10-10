@@ -275,6 +275,49 @@ export default function PartnerProgramPage() {
         </div>
       </section>
 
+      {/* Navigation locale : reste accessible pendant la lecture de la page */}
+      <nav
+        aria-label={fr ? 'Navigation du programme partenaire' : 'Partner program navigation'}
+        className="sticky top-[65px] z-40 border-b border-white/[0.08] bg-black/90 backdrop-blur-xl md:top-[73px]"
+      >
+        <div className="container">
+          <div className="mx-auto flex max-w-6xl items-center gap-1 overflow-x-auto py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {(fr
+              ? [
+                  ['#opportunite', 'Opportunité'],
+                  ['#mission', 'Mission'],
+                  ['#parcours', 'Fonctionnement'],
+                  ['#simulation', 'Revenus'],
+                  ['#formation', 'Formation'],
+                  ['#faq', 'FAQ'],
+                ]
+              : [
+                  ['#opportunite', 'Opportunity'],
+                  ['#mission', 'Mission'],
+                  ['#parcours', 'How it works'],
+                  ['#simulation', 'Earnings'],
+                  ['#formation', 'Training'],
+                  ['#faq', 'FAQ'],
+                ]
+            ).map(([href, label]) => (
+              <a
+                key={href}
+                href={href}
+                className="shrink-0 rounded-lg px-3 py-2 text-[12px] font-medium text-neutral-400 transition hover:bg-white/[0.05] hover:text-white"
+              >
+                {label}
+              </a>
+            ))}
+            <a
+              href="#portes-ouvertes"
+              className="ml-auto shrink-0 rounded-lg bg-academy px-3.5 py-2 text-[12px] font-bold text-black transition hover:brightness-110"
+            >
+              {fr ? 'Live gratuit' : 'Free live'}
+            </a>
+          </div>
+        </div>
+      </nav>
+
       {/* Même preuve que la home : presse puis créateurs / influenceurs */}
       <section className="w-full border-b border-white/[0.06] bg-black py-4 sm:py-5">
         <div className="container mx-auto max-w-5xl px-4">
@@ -284,7 +327,7 @@ export default function PartnerProgramPage() {
       <TopCreatorsSection compact accent="academy" />
 
       {/* Opportunité et besoin client, dans un seul argument */}
-      <section className="border-b border-white/[0.06] py-16 md:py-24">
+      <section id="opportunite" className="scroll-mt-36 border-b border-white/[0.06] py-16 md:py-24">
         <div className="container">
           <div className="mx-auto max-w-5xl">
             <SectionLabel>{fr ? 'L’opportunité' : 'The opportunity'}</SectionLabel>
@@ -358,7 +401,7 @@ export default function PartnerProgramPage() {
       </section>
 
       {/* Mission du partenaire, sans répéter le détail de production */}
-      <section className="border-y border-white/[0.06] bg-[#0a0a0a] py-20 md:py-28">
+      <section id="mission" className="scroll-mt-36 border-y border-white/[0.06] bg-[#0a0a0a] py-20 md:py-28">
         <div className="container">
           <div className="mx-auto max-w-[38rem]">
             <SectionLabel>{fr ? 'Votre mission' : 'Your mission'}</SectionLabel>
@@ -387,7 +430,7 @@ export default function PartnerProgramPage() {
       </section>
 
       {/* Parcours produit réel */}
-      <section className="border-b border-white/[0.06] py-20 md:py-28">
+      <section id="parcours" className="scroll-mt-36 border-b border-white/[0.06] py-20 md:py-28">
         <div className="container">
           <div className="mx-auto max-w-6xl">
             <SectionLabel>{fr ? 'Le parcours, dans Empire' : 'The workflow in Empire'}</SectionLabel>
@@ -438,7 +481,7 @@ export default function PartnerProgramPage() {
       </section>
 
       {/* Rémunération + simu */}
-      <section id="simulation" className="scroll-mt-28 border-y border-white/[0.06] bg-[#0a0a0a] py-20 md:py-28">
+      <section id="simulation" className="scroll-mt-36 border-y border-white/[0.06] bg-[#0a0a0a] py-20 md:py-28">
         <div className="container">
           <div className="mx-auto max-w-[40rem]">
             <div className="text-center">
@@ -623,7 +666,7 @@ export default function PartnerProgramPage() {
               />
             </div>
 
-            <div id="portes-ouvertes" className="mt-16 scroll-mt-28 border-t border-white/[0.08] pt-12">
+            <div id="portes-ouvertes" className="mt-16 scroll-mt-36 border-t border-white/[0.08] pt-12">
               <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
               <div>
                 <SectionLabel>{fr ? 'Portes ouvertes' : 'Open house'}</SectionLabel>
@@ -697,7 +740,7 @@ export default function PartnerProgramPage() {
       </section>
 
       {/* Bootcamp */}
-      <section className="py-20 md:py-28">
+      <section id="formation" className="scroll-mt-36 py-20 md:py-28">
         <div className="container">
           <div className="mx-auto max-w-[38rem]">
             <SectionLabel>{fr ? 'Formation' : 'Training'}</SectionLabel>
@@ -859,7 +902,7 @@ export default function PartnerProgramPage() {
       </section>
 
       {/* FAQ */}
-      <section id="faq" className="scroll-mt-28 border-t border-white/[0.06] py-20 md:py-28">
+      <section id="faq" className="scroll-mt-36 border-t border-white/[0.06] py-20 md:py-28">
         <div className="container">
           <div className="mx-auto max-w-[40rem]">
             <div className="text-center">
