@@ -378,190 +378,6 @@ export default function PartnerProgramPage() {
               </p>
             </div>
 
-            <div className="mt-12 grid gap-5 lg:grid-cols-2">
-              <div className="rounded-3xl border border-white/[0.08] bg-white/[0.025] p-6 sm:p-7">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-500">
-                  {fr ? 'Le modèle traditionnel' : 'The traditional model'}
-                </p>
-                <h3 className="mt-3 text-xl font-semibold">
-                  {fr ? 'Assembler et coordonner quatre métiers.' : 'Assemble and coordinate four specialists.'}
-                </h3>
-                <div className="mt-6 divide-y divide-white/[0.07] border-y border-white/[0.07]">
-                  {(fr
-                    ? [
-                        ['Conseil et stratégie', '531 € / jour'],
-                        ['Conception-rédaction', '411 € / jour'],
-                        ['Community management', '405 € / jour'],
-                        ['Vidéo et motion design', '420 € / jour'],
-                      ]
-                    : [
-                        ['Consulting and strategy', '€531 / day'],
-                        ['Copywriting', '€411 / day'],
-                        ['Community management', '€405 / day'],
-                        ['Video and motion design', '€420 / day'],
-                      ]
-                  ).map(([role, rate]) => (
-                    <div key={role} className="flex items-center justify-between gap-4 py-3 text-[14px]">
-                      <span className="text-neutral-400">{role}</span>
-                      <span className="shrink-0 font-medium text-neutral-200">{rate}</span>
-                    </div>
-                  ))}
-                </div>
-                <p className="mt-5 text-[15px] font-medium text-white">
-                  {fr
-                    ? '4 jours par métier : environ 7 068 € / mois.'
-                    : 'Four days per specialist: approximately €7,068 / month.'}
-                </p>
-                <p className="mt-1.5 text-[12px] leading-relaxed text-neutral-600">
-                  {fr
-                    ? 'À 5 jours chacun : 8 835 €, avant les outils et le temps de coordination.'
-                    : 'At five days each: €8,835, before tools and coordination time.'}
-                </p>
-              </div>
-
-              <div className="relative overflow-hidden rounded-3xl border border-academy/30 bg-academy/[0.07] p-6 sm:p-7">
-                <div className="pointer-events-none absolute -right-20 -top-20 h-48 w-48 rounded-full bg-academy/10 blur-3xl" />
-                <p className="relative text-[11px] font-semibold uppercase tracking-[0.18em] text-academy">
-                  {fr ? 'Le modèle Empire Partner' : 'The Empire Partner model'}
-                </p>
-                <h3 className="relative mt-3 text-xl font-semibold">
-                  {fr
-                    ? 'Une offre premium portée par une seule personne.'
-                    : 'A premium offer delivered by one person.'}
-                </h3>
-                <ul className="relative mt-6 space-y-4">
-                  {(fr
-                    ? [
-                        'Vous gérez la relation, la stratégie et les décisions avec le client.',
-                        'Empire rédige, monte, programme et mesure la production.',
-                        'Le client achète un accompagnement cohérent au lieu de piloter quatre prestataires.',
-                        'Vous pouvez vendre une prestation complète sans recruter une équipe de production.',
-                      ]
-                    : [
-                        'You own the client relationship, strategy and decisions.',
-                        'Empire writes, edits, schedules and measures production.',
-                        'The client buys one coherent service instead of managing four vendors.',
-                        'You can sell a complete service without hiring a production team.',
-                      ]
-                  ).map((line) => (
-                    <li key={line} className="flex gap-3 text-[14px] leading-relaxed text-neutral-300">
-                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-academy" strokeWidth={2.5} />
-                      <span>{line}</span>
-                    </li>
-                  ))}
-                </ul>
-                <p className="relative mt-7 rounded-xl border border-academy/20 bg-black/25 px-4 py-3 text-[13px] leading-relaxed text-neutral-300">
-                  {fr
-                    ? 'L’opportunité : apporter la valeur d’une équipe, avec la charge opérationnelle d’un accompagnement.'
-                    : 'The opportunity: deliver the value of a team with the operating load of one advisory relationship.'}
-                </p>
-              </div>
-            </div>
-            <p className="mt-3 text-[11px] leading-relaxed text-neutral-600">
-              {fr ? 'TJM moyens de freelances expérimentés en France :' : 'Average day rates for experienced freelancers in France:'}{' '}
-              <a
-                href="https://www.malt.fr/t/barometre-tarifs/communication/community-manager"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline decoration-white/20 underline-offset-2 hover:text-neutral-400"
-              >
-                {fr ? 'communication' : 'communication'}
-              </a>
-              {' · '}
-              <a
-                href="https://www.malt.fr/t/barometre-tarifs/image-son"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline decoration-white/20 underline-offset-2 hover:text-neutral-400"
-              >
-                Malt 2026
-              </a>
-              . {fr ? 'Exemple indicatif, hors outils et coordination.' : 'Illustrative example, excluding tools and coordination.'}
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Portes ouvertes + témoignages, placés haut dans la page */}
-      <section id="portes-ouvertes" className="scroll-mt-28 border-b border-white/[0.06] py-16 md:py-20">
-        <div className="container">
-          <div className="mx-auto grid max-w-5xl gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
-            <div>
-              <SectionLabel>{fr ? 'Portes ouvertes' : 'Open house'}</SectionLabel>
-              <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
-                {fr ? 'Je vous montre tout ça jeudi.' : 'I’ll show you all of this on Thursday.'}
-              </h2>
-
-              <div className="mt-6 flex items-center gap-4">
-                <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full ring-2 ring-academy/40">
-                  <Image
-                    src="/founders/kevin.jpg"
-                    alt="Kevin Dufraisse"
-                    fill
-                    sizes="64px"
-                    className="object-cover"
-                  />
-                </div>
-                <div>
-                  <p className="text-[15px] font-semibold text-white">Kevin Dufraisse</p>
-                  <p className="text-[13px] text-neutral-500">
-                    {fr ? 'Fondateur d’Empire Internet' : 'Founder of Empire Internet'}
-                  </p>
-                </div>
-              </div>
-
-              <p className="mt-5 text-[16px] leading-relaxed text-neutral-400">
-                {fr
-                  ? 'Avec Marc, nous organisons des portes ouvertes pour vous montrer le fonctionnement du programme et répondre à vos questions.'
-                  : 'With Marc, we run open houses to show how the program works and answer your questions.'}
-              </p>
-              <p className="mt-6 text-[15px] font-medium text-white">
-                {fr ? 'Pendant 45 minutes, vous allez voir :' : 'In 45 minutes, you’ll see:'}
-              </p>
-              <ul className="mt-4 space-y-3">
-                {(fr
-                  ? [
-                      'Comment un partenaire accompagne un client dans Empire.',
-                      'Ce que vous faites et ce que la plateforme prend en charge.',
-                      'Comment fonctionnent les missions, la rémunération et les crédits.',
-                      'Comment se déroule la formation et comment candidater.',
-                    ]
-                  : [
-                      'How a partner supports a client inside Empire.',
-                      'What you do vs what the platform handles.',
-                      'How missions, pay and credits work.',
-                      'How training works and how to apply.',
-                    ]
-                ).map((line) => (
-                  <li key={line} className="flex gap-3 text-[14px] text-neutral-400">
-                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-academy" strokeWidth={2.5} />
-                    {line}
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-6 text-[15px] text-neutral-400">
-                {fr
-                  ? 'L’objectif : que vous puissiez décider si ce fonctionnement correspond à votre activité.'
-                  : 'Goal: decide whether this model fits your business.'}
-              </p>
-              <div className="mt-8">
-                <CtaBlock fr={fr} source="section" />
-              </div>
-              <p className="mt-4 text-[13px] text-neutral-600">
-                {fr
-                  ? `Après le live, vous pouvez rejoindre tout de suite — frais d’inscription : ${festival.price} €.`
-                  : `After the live, you can join right away — registration fee: €${festival.price}.`}
-              </p>
-            </div>
-            <div className="min-h-[24rem] lg:sticky lg:top-28">
-              <div
-                className="senja-embed w-full"
-                data-id="2a990f91-6426-436a-b50d-318fc49a7851"
-                data-mode="shadow"
-                data-lazyload="false"
-                style={{ display: 'block', width: '100%' }}
-              />
-            </div>
           </div>
         </div>
       </section>
@@ -623,84 +439,30 @@ export default function PartnerProgramPage() {
         </div>
       </section>
 
-      {/* Vous / Empire */}
+      {/* Mission du partenaire, sans répéter le détail de production */}
       <section className="border-y border-white/[0.06] bg-[#0a0a0a] py-20 md:py-28">
         <div className="container">
-          <div className="mx-auto max-w-[40rem]">
-            <div className="text-center">
-              <SectionLabel>{fr ? 'Le modèle' : 'The model'}</SectionLabel>
-              <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
-                {fr
-                  ? 'Vous vous occupez du client. Empire s’occupe de la production.'
-                  : 'You handle the client. Empire handles production.'}
-              </h2>
-              <p className="mx-auto mt-5 max-w-xl text-[16px] leading-relaxed text-neutral-400">
-                {fr
-                  ? 'Habituellement, accompagner un client sur ses contenus signifie aussi gérer la rédaction, le montage et les publications. Avec Empire, vous disposez d’un système pour réaliser cette partie du travail.'
-                  : 'Usually, supporting a client on content also means writing, editing and publishing. With Empire, you get a system that covers that part of the work.'}
-              </p>
-            </div>
-
-            <div className="mt-12 grid gap-10 sm:grid-cols-2">
-              <div>
-                <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-neutral-500">
-                  {fr ? 'Vous' : 'You'}
-                </p>
-                <ul className="mt-4 space-y-3">
-                  {(fr
-                    ? [
-                        'Échangez avec le client pour recueillir ses idées.',
-                        'Choisissez les sujets avec lui.',
-                        'Validez les contenus et suivez les résultats.',
-                      ]
-                    : [
-                        'Talk with the client to gather their ideas.',
-                        'Choose topics with them.',
-                        'Approve content and track results.',
-                      ]
-                  ).map((line) => (
-                    <li key={line} className="flex gap-3 text-[15px] leading-snug text-neutral-300">
-                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-white" />
-                      {line}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-neutral-500">
-                  Empire
-                </p>
-                <ul className="mt-4 space-y-3">
-                  {(fr
-                    ? [
-                        'Propose des sujets et des formats.',
-                        'Rédige les publications et monte les vidéos.',
-                        'Programme les contenus et suit leurs performances.',
-                      ]
-                    : [
-                        'Suggests topics and formats.',
-                        'Writes posts and edits videos.',
-                        'Schedules content and tracks performance.',
-                      ]
-                  ).map((line) => (
-                    <li key={line} className="flex gap-3 text-[15px] leading-snug text-neutral-300">
-                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-academy" />
-                      {line}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <p className="mt-10 text-center text-[15px] leading-relaxed text-neutral-400">
+          <div className="mx-auto max-w-[38rem]">
+            <SectionLabel>{fr ? 'Votre mission' : 'Your mission'}</SectionLabel>
+            <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
               {fr
-                ? 'Vous restez l’interlocuteur du client. Vous utilisez Empire pour l’aider à construire sa présence en ligne.'
-                : 'You stay the client’s point of contact. You use Empire to help them build their online presence.'}
+                ? 'Faire avancer sa présence en ligne, chaque semaine.'
+                : 'Move their online presence forward every week.'}
+            </h2>
+            <p className="mt-6 text-[16px] leading-relaxed text-neutral-400">
+              {fr
+                ? 'Vous transformez l’expertise du client en décisions : les bons sujets, les priorités, les retours et la régularité. Empire exécute la production en arrière-plan.'
+                : 'You turn the client’s expertise into decisions: the right topics, priorities, feedback and consistency. Empire executes production in the background.'}
             </p>
-            <p className="mt-4 text-center text-[15px] font-medium text-white">
+            <p className="mt-4 text-[16px] font-medium leading-relaxed text-white">
               {fr
-                ? 'Le repère, une fois le système pris en main : environ 4 heures par mois et par client, hors apprentissage, installation et prospection.'
-                : 'Benchmark once you’re fluent: about 4 hours per month per client, excluding training, setup and outreach.'}
+                ? 'Vous ne vendez pas des posts. Vous vendez le suivi qui fait enfin publier le client.'
+                : 'You are not selling posts. You are selling the follow-through that finally gets the client publishing.'}
+            </p>
+            <p className="mt-6 text-[13px] leading-relaxed text-neutral-600">
+              {fr
+                ? 'Repère une fois le système pris en main : environ 4 heures par mois et par client, hors apprentissage, installation et prospection.'
+                : 'Benchmark once fluent: about four hours per month per client, excluding training, setup and outreach.'}
             </p>
           </div>
         </div>
@@ -910,6 +672,97 @@ export default function PartnerProgramPage() {
               <div className="mt-10 w-full">
                 <CtaBlock fr={fr} source="simulation" fullWidth />
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Portes ouvertes puis témoignages pleine largeur, après le simulateur */}
+      <section id="portes-ouvertes" className="scroll-mt-28 border-b border-white/[0.06] py-20 md:py-28">
+        <div className="container">
+          <div className="mx-auto max-w-6xl">
+            <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
+              <div>
+                <SectionLabel>{fr ? 'Portes ouvertes' : 'Open house'}</SectionLabel>
+                <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
+                  {fr ? 'Je vous montre tout ça jeudi.' : 'I’ll show you all of this on Thursday.'}
+                </h2>
+
+                <div className="mt-6 flex items-center gap-4">
+                  <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full ring-2 ring-academy/40">
+                    <Image
+                      src="/founders/kevin.jpg"
+                      alt="Kevin Dufraisse"
+                      fill
+                      sizes="64px"
+                      className="object-cover"
+                    />
+                  </div>
+                  <div>
+                    <p className="text-[15px] font-semibold text-white">Kevin Dufraisse</p>
+                    <p className="text-[13px] text-neutral-500">
+                      {fr ? 'Fondateur d’Empire Internet' : 'Founder of Empire Internet'}
+                    </p>
+                  </div>
+                </div>
+
+                <p className="mt-5 text-[16px] leading-relaxed text-neutral-400">
+                  {fr
+                    ? 'Avec Marc, nous organisons des portes ouvertes pour vous montrer le fonctionnement du programme et répondre à vos questions.'
+                    : 'With Marc, we run open houses to show how the program works and answer your questions.'}
+                </p>
+              </div>
+
+              <div className="lg:pt-8">
+                <p className="text-[15px] font-medium text-white">
+                  {fr ? 'Pendant 45 minutes, vous allez voir :' : 'In 45 minutes, you’ll see:'}
+                </p>
+                <ul className="mt-4 space-y-3">
+                  {(fr
+                    ? [
+                        'Comment un partenaire accompagne un client dans Empire.',
+                        'Ce que vous faites et ce que la plateforme prend en charge.',
+                        'Comment fonctionnent les missions, la rémunération et les crédits.',
+                        'Comment se déroule la formation et comment candidater.',
+                      ]
+                    : [
+                        'How a partner supports a client inside Empire.',
+                        'What you do vs what the platform handles.',
+                        'How missions, pay and credits work.',
+                        'How training works and how to apply.',
+                      ]
+                  ).map((line) => (
+                    <li key={line} className="flex gap-3 text-[14px] text-neutral-400">
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-academy" strokeWidth={2.5} />
+                      {line}
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-8">
+                  <CtaBlock fr={fr} source="section" />
+                </div>
+                <p className="mt-4 text-[13px] text-neutral-600">
+                  {fr
+                    ? `Gratuit · Chaque jeudi à 11 h (Paris) · Après le live, inscription au programme : ${festival.price} €.`
+                    : `Free · Every Thursday at 11am Paris · After the live, program registration: €${festival.price}.`}
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-16 border-t border-white/[0.08] pt-12">
+              <SectionLabel>{fr ? 'Ils sont passés par Empire' : 'They use Empire'}</SectionLabel>
+              <h3 className="mt-4 max-w-2xl text-2xl font-semibold tracking-tight sm:text-3xl">
+                {fr
+                  ? 'Ce qu’ils disent après avoir utilisé le système.'
+                  : 'What they say after using the system.'}
+              </h3>
+              <div
+                className="senja-embed mt-8 w-full"
+                data-id="2a990f91-6426-436a-b50d-318fc49a7851"
+                data-mode="shadow"
+                data-lazyload="false"
+                style={{ display: 'block', width: '100%' }}
+              />
             </div>
           </div>
         </div>
