@@ -3,8 +3,8 @@
 import { useEffect, useRef, useState } from 'react'
 import Script from 'next/script'
 import {
+  WEBINARJAM_ID,
   WEBINARJAM_LIVE,
-  WEBINARJAM_REGISTER_URL,
   webinarJamBarSrc,
   webinarJamEmbedSrc,
 } from '@/lib/webinarjam'
@@ -19,25 +19,12 @@ export function WebinarJamBar({
 }: {
   buttonText?: string
 }) {
-  const [ready, setReady] = useState(false)
-
-  useEffect(() => {
-    if (!WEBINARJAM_LIVE) return
-    const ric = window.requestIdleCallback
-    if (typeof ric === 'function') {
-      const id = ric(() => setReady(true), { timeout: 4500 })
-      return () => window.cancelIdleCallback(id)
-    }
-    const t = window.setTimeout(() => setReady(true), 2200)
-    return () => window.clearTimeout(t)
-  }, [])
-
-  if (!WEBINARJAM_LIVE || !ready) return null
+  if (!WEBINARJAM_LIVE) return null
   return (
     <Script
       id="webinarjam-open-house-bar"
       src={webinarJamBarSrc({ buttonText })}
-      strategy="lazyOnload"
+      strategy="afterInteractive"
     />
   )
 }
@@ -64,15 +51,14 @@ export function WebinarJamButton({
   }
 
   return (
-    <a
-      href={WEBINARJAM_REGISTER_URL}
-      target="_blank"
-      rel="noopener noreferrer"
+    <button
+      type="button"
+      data-webinarhash={WEBINARJAM_ID}
       onClick={onClick}
       className={className}
     >
       {children}
-    </a>
+    </button>
   )
 }
 

@@ -78,15 +78,19 @@ type Props = {
   /** Override du titre. Par défaut i18n : "Vu dans" / "Featured in". */
   title?: string
   className?: string
+  /** Sur /academy : rose partenaire. */
+  accent?: 'neutral' | 'academy'
 }
 
-export default function FeaturedInSection({ title, className = '' }: Props) {
+export default function FeaturedInSection({ title, className = '', accent = 'neutral' }: Props) {
   const { lang } = useLanguage()
   const resolvedTitle = title ?? (lang === 'fr' ? 'Vu dans' : 'Featured in')
+  const labelClass =
+    accent === 'academy' ? 'text-academy' : 'text-neutral-500'
 
   return (
     <section aria-label={resolvedTitle} className={`w-full ${className}`}>
-      <p className="text-center text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-500">
+      <p className={`text-center text-[11px] font-semibold uppercase tracking-[0.18em] ${labelClass}`}>
         {resolvedTitle}
       </p>
       <div className="mt-4 grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-6">

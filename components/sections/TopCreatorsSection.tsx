@@ -18,10 +18,18 @@ import { useLanguage } from '@/contexts/LanguageContext'
 
 const SENJA_TOP_CREATORS_ID = '68885202-c416-4672-bd27-6b130d60d1a7'
 
-export default function TopCreatorsSection({ compact = false }: { compact?: boolean }) {
+export default function TopCreatorsSection({
+  compact = false,
+  accent = 'empire',
+}: {
+  compact?: boolean
+  /** Sur /academy : rose partenaire. */
+  accent?: 'empire' | 'academy'
+}) {
   const { lang } = useLanguage()
   const fr = lang === 'fr'
   const sectionRef = useRef<HTMLElement | null>(null)
+  const accentClass = accent === 'academy' ? 'text-academy' : 'text-empire'
 
   useEffect(() => {
     const el = sectionRef.current
@@ -54,7 +62,7 @@ export default function TopCreatorsSection({ compact = false }: { compact?: bool
     >
       <div className="container">
         <div className={`mx-auto max-w-3xl text-center ${compact ? 'mb-8' : 'mb-12'}`}>
-          <p className="text-xs font-bold text-empire tracking-widest uppercase mb-3">
+          <p className={`mb-3 text-xs font-bold uppercase tracking-widest ${accentClass}`}>
             {fr ? 'Ils recommandent' : 'They recommend'}
           </p>
           <h2 className="text-3xl md:text-4xl font-extrabold text-white">
