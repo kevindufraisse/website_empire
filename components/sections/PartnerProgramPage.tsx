@@ -746,68 +746,68 @@ export default function PartnerProgramPage() {
             <SectionLabel>{fr ? 'Formation' : 'Training'}</SectionLabel>
             <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
               {fr
-                ? 'Vous apprenez d’abord à l’utiliser pour vous.'
-                : 'You learn to use it on yourself first.'}
+                ? '1 heure par jour. 1 action concrète. Pendant 21 jours.'
+                : '1 hour a day. 1 concrete action. For 21 days.'}
             </h2>
             <div className="mt-6 space-y-4 text-[16px] leading-[1.6] text-neutral-400">
               <p>
                 {fr
-                  ? 'Pour accompagner un client avec Empire, vous devez savoir utiliser le système. C’est le rôle du bootcamp de 21 jours.'
-                  : 'To support a client with Empire, you need to know the system. That’s what the 21-day bootcamp is for.'}
+                  ? 'Ce n’est pas une formation passive à terminer avant de commencer. Le bootcamp est autonome et à votre rythme : chaque jour, vous réalisez en environ 1 heure une action qui fait avancer votre maîtrise d’Empire, votre contenu ou votre prospection.'
+                  : 'This is not a passive course you have to finish before getting started. The bootcamp is self-paced and action-based: each day, you spend about 1 hour completing one step that advances your Empire skills, content or outreach.'}
               </p>
               <p>
                 {fr
-                  ? 'Vous appliquez la méthode à vos propres comptes avec 4 000 crédits. Vous repartez des contenus qui ont déjà performé dans « Mes posts les plus viraux », créez les vôtres dans Empire et publiez pour développer votre marque personnelle.'
-                  : 'You apply the method to your own accounts with 4,000 credits. You adapt proven content from “My most viral posts,” create your own in Empire and publish to grow your personal brand.'}
+                  ? 'Vous commencez à publier et à prospecter dès la première semaine. Avec vos 4 000 crédits, vous adaptez des formats issus de « Mes posts les plus viraux », créez vos contenus dans Empire et présentez votre offre à de vrais prospects.'
+                  : 'You start publishing and reaching out in week one. With your 4,000 credits, you adapt formats from “My most viral posts,” create content in Empire and present your offer to real prospects.'}
               </p>
               <p className="font-medium text-neutral-200">
                 {fr
-                  ? 'Votre personal branding devient aussi votre vitrine.'
-                  : 'Your personal brand becomes your showcase too.'}
+                  ? 'Vous apprenez en faisant — et votre personal branding devient votre première vitrine.'
+                  : 'You learn by doing — and your personal brand becomes your first showcase.'}
               </p>
               <p>
                 {fr
-                  ? 'Les prospects peuvent découvrir votre approche, voir vos contenus et comprendre ce que vous pourriez réaliser pour eux. Cela vous aide à créer des conversations, à développer les recommandations et à soutenir votre prospection.'
-                  : 'Prospects can see your approach, your content and what you could do for them. That fuels conversations, referrals and outreach.'}
+                  ? 'L’objectif au jour 21 : maîtriser la plateforme et être prêt à convertir un premier client — avec une offre claire, des contenus publiés, une prospection lancée et le processus d’accompagnement en main.'
+                  : 'The day-21 goal: master the platform and be ready to convert a first client — with a clear offer, published content, active outreach and a working client-delivery process.'}
               </p>
               <p className="text-white">
                 {fr
-                  ? 'La méthode est conçue pour viser jusqu’à 1 million de vues dès le premier mois. Le résultat dépend de votre exécution, de vos sujets et des plateformes.'
-                  : 'The method is designed to aim for up to one million views in the first month. Results depend on your execution, topics and platforms.'}
+                  ? 'Certains participants peuvent obtenir dès la première semaine des contenus à forte portée, des conversations avec des prospects, voire un premier client. Ce ne sont pas des résultats garantis : ils varient selon votre exécution, votre marché, vos sujets et votre régularité.'
+                  : 'Some participants may see high-reach content, prospect conversations or even a first client in week one. These outcomes are not guaranteed: results vary with your execution, market, topics and consistency.'}
               </p>
             </div>
 
             <h3 className="mt-12 text-xl font-semibold tracking-tight">
-              {fr ? '21 jours pour prendre le système en main.' : '21 days to get fluent with the system.'}
+              {fr ? 'Votre progression, une action par jour.' : 'Your progress, one action a day.'}
             </h3>
             <div className="mt-6 divide-y divide-white/[0.08] border-y border-white/[0.08]">
               {(fr
                 ? [
                     {
-                      t: 'Semaine 1 — Positionnement et prospection',
-                      d: 'Vous posez votre offre, commencez vos premières conversations et adaptez des formats issus de « Mes posts les plus viraux ».',
+                      t: 'Semaine 1 — Publier et prospecter immédiatement',
+                      d: 'Vous configurez Empire, clarifiez votre offre, adaptez vos premiers formats, publiez et lancez vos premières conversations avec des prospects.',
                     },
                     {
-                      t: 'Semaine 2 — Créer et publier avec Empire',
-                      d: 'Vous utilisez vos crédits pour produire vos propres contenus, publier régulièrement et construire votre preuve.',
+                      t: 'Semaine 2 — Maîtriser la production dans Empire',
+                      d: 'Vous utilisez vos crédits pour créer plus vite, publier régulièrement, lire les premiers signaux et construire une preuve visible de votre savoir-faire.',
                     },
                     {
-                      t: 'Semaine 3 — Transformer votre visibilité en clients',
-                      d: 'Vous apprenez à présenter votre accompagnement, conduire l’entretien et ouvrir votre page consultant.',
+                      t: 'Semaine 3 — Devenir prêt pour un premier client',
+                      d: 'Vous apprenez à présenter votre accompagnement, conduire l’entretien, organiser la prestation et ouvrir votre page consultant.',
                     },
                   ]
                 : [
                     {
-                      t: 'Week 1 — Positioning and outreach',
-                      d: 'Shape your offer, start your first sales conversations and adapt formats from “My most viral posts.”',
+                      t: 'Week 1 — Publish and reach out immediately',
+                      d: 'Set up Empire, clarify your offer, adapt your first formats, publish and start your first prospect conversations.',
                     },
                     {
-                      t: 'Week 2 — Create and publish with Empire',
-                      d: 'Use your credits to produce your own content, publish consistently and build proof.',
+                      t: 'Week 2 — Master production in Empire',
+                      d: 'Use your credits to create faster, publish consistently, read the first signals and build visible proof of your skills.',
                     },
                     {
-                      t: 'Week 3 — Turn visibility into clients',
-                      d: 'Learn to present your service, run the interview and open your consultant page.',
+                      t: 'Week 3 — Become first-client ready',
+                      d: 'Learn to present your service, run the interview, organize delivery and open your consultant page.',
                     },
                   ]
               ).map((row) => (
@@ -850,7 +850,7 @@ export default function PartnerProgramPage() {
               {(fr
                 ? [
                     'La formation complète et les replays.',
-                    'Le bootcamp de 21 jours.',
+                    'Le bootcamp autonome : 1 action concrète par jour, environ 1 h / jour pendant 21 jours.',
                     'La communauté, le Slack et les rendez-vous partenaires accessibles à vie.',
                     'Les templates de prospection et les méthodes de vente.',
                     'Les sujets, formats et processus d’accompagnement.',
@@ -860,7 +860,7 @@ export default function PartnerProgramPage() {
                   ]
                 : [
                     'Full training and replays.',
-                    'The 21-day bootcamp.',
+                    'The self-paced bootcamp: 1 concrete action a day, about 1 hour/day for 21 days.',
                     'Lifetime access to the community, Slack and partner sessions.',
                     'Outreach templates and sales methods.',
                     'Topics, formats and support process.',
