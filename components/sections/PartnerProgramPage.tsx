@@ -285,19 +285,17 @@ export default function PartnerProgramPage() {
             <div
               role="group"
               aria-label={fr ? 'Choisissez votre situation' : 'Choose your situation'}
-              className="mx-auto mt-5 inline-flex rounded-xl border border-white/10 bg-white/[0.035] p-1"
+              className="mx-auto mt-4 inline-flex rounded-full border border-white/[0.08] bg-white/[0.025] p-0.5"
             >
               {(
                 [
                   {
                     id: 'reconversion' as const,
                     label: fr ? 'Reconversion' : 'Career change',
-                    detail: fr ? 'Lancer une activité' : 'Launch a business',
                   },
                   {
                     id: 'agency' as const,
                     label: fr ? 'Agence' : 'Agency',
-                    detail: fr ? 'Développer une offre' : 'Grow an offer',
                   },
                 ]
               ).map((option) => (
@@ -306,16 +304,13 @@ export default function PartnerProgramPage() {
                   type="button"
                   aria-pressed={audience === option.id}
                   onClick={() => selectAudience(option.id)}
-                  className={`min-w-[9rem] rounded-lg px-4 py-2.5 text-left transition sm:min-w-[11rem] ${
+                  className={`rounded-full px-3 py-1.5 text-[11px] font-medium transition ${
                     audience === option.id
-                      ? 'bg-academy text-black shadow-[0_8px_30px_rgba(252,165,165,0.16)]'
-                      : 'text-neutral-400 hover:bg-white/[0.04] hover:text-white'
+                      ? 'bg-white/[0.09] text-white'
+                      : 'text-neutral-500 hover:text-neutral-300'
                   }`}
                 >
-                  <span className="block text-[13px] font-bold">{option.label}</span>
-                  <span className={`mt-0.5 block text-[10px] ${audience === option.id ? 'text-black/60' : 'text-neutral-600'}`}>
-                    {option.detail}
-                  </span>
+                  {option.label}
                 </button>
               ))}
             </div>
