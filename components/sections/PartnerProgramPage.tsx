@@ -2,12 +2,13 @@
 
 import { useMemo, useState } from 'react'
 import Image from 'next/image'
+import Script from 'next/script'
 import { ArrowRight, Check } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { trackAmplitude } from '@/lib/amplitude'
 import { partnerPayHref } from '@/lib/partner-festival-pricing'
 import { usePartnerFestivalPricing } from '@/hooks/usePartnerFestivalPricing'
-import { WebinarJamBar, WebinarJamButton, WebinarJamEmbed } from '@/components/WebinarJamRegister'
+import { WebinarJamBar, WebinarJamButton } from '@/components/WebinarJamRegister'
 import FeaturedInSection from '@/components/FeaturedInSection'
 import TopCreatorsSection from '@/components/sections/TopCreatorsSection'
 import AcademyProductDemo from '@/components/AcademyProductDemo'
@@ -241,6 +242,11 @@ export default function PartnerProgramPage() {
   return (
     <main className="relative bg-black pb-40 text-white antialiased">
       <WebinarJamBar buttonText={fr ? "S'inscrire" : 'Register'} />
+      <Script
+        id="academy-partner-senja"
+        src="https://widget.senja.io/widget/2a990f91-6426-436a-b50d-318fc49a7851/platform.js"
+        strategy="afterInteractive"
+      />
 
       {/* Hero : texte d’origine, densifié pour passer au-dessus de la barre WJ */}
       <section className="relative overflow-hidden border-b border-white/[0.06] pt-[4.5rem] pb-12 md:pt-20 md:pb-16">
@@ -282,6 +288,90 @@ export default function PartnerProgramPage() {
         </div>
       </section>
       <TopCreatorsSection compact accent="academy" />
+
+      {/* Portes ouvertes + témoignages, placés haut dans la page */}
+      <section id="portes-ouvertes" className="scroll-mt-28 border-b border-white/[0.06] py-16 md:py-20">
+        <div className="container">
+          <div className="mx-auto grid max-w-5xl gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
+            <div>
+              <SectionLabel>{fr ? 'Portes ouvertes' : 'Open house'}</SectionLabel>
+              <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
+                {fr ? 'Je vous montre tout ça jeudi.' : 'I’ll show you all of this on Thursday.'}
+              </h2>
+
+              <div className="mt-6 flex items-center gap-4">
+                <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full ring-2 ring-academy/40">
+                  <Image
+                    src="/founders/kevin.jpg"
+                    alt="Kevin Dufraisse"
+                    fill
+                    sizes="64px"
+                    className="object-cover"
+                  />
+                </div>
+                <div>
+                  <p className="text-[15px] font-semibold text-white">Kevin Dufraisse</p>
+                  <p className="text-[13px] text-neutral-500">
+                    {fr ? 'Fondateur d’Empire Internet' : 'Founder of Empire Internet'}
+                  </p>
+                </div>
+              </div>
+
+              <p className="mt-5 text-[16px] leading-relaxed text-neutral-400">
+                {fr
+                  ? 'Avec Marc, nous organisons des portes ouvertes pour vous montrer le fonctionnement du programme et répondre à vos questions.'
+                  : 'With Marc, we run open houses to show how the program works and answer your questions.'}
+              </p>
+              <p className="mt-6 text-[15px] font-medium text-white">
+                {fr ? 'Pendant 45 minutes, vous allez voir :' : 'In 45 minutes, you’ll see:'}
+              </p>
+              <ul className="mt-4 space-y-3">
+                {(fr
+                  ? [
+                      'Comment un partenaire accompagne un client dans Empire.',
+                      'Ce que vous faites et ce que la plateforme prend en charge.',
+                      'Comment fonctionnent les missions, la rémunération et les crédits.',
+                      'Comment se déroule la formation et comment candidater.',
+                    ]
+                  : [
+                      'How a partner supports a client inside Empire.',
+                      'What you do vs what the platform handles.',
+                      'How missions, pay and credits work.',
+                      'How training works and how to apply.',
+                    ]
+                ).map((line) => (
+                  <li key={line} className="flex gap-3 text-[14px] text-neutral-400">
+                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-academy" strokeWidth={2.5} />
+                    {line}
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-6 text-[15px] text-neutral-400">
+                {fr
+                  ? 'L’objectif : que vous puissiez décider si ce fonctionnement correspond à votre activité.'
+                  : 'Goal: decide whether this model fits your business.'}
+              </p>
+              <div className="mt-8">
+                <CtaBlock fr={fr} source="section" />
+              </div>
+              <p className="mt-4 text-[13px] text-neutral-600">
+                {fr
+                  ? `Après le live, vous pouvez rejoindre tout de suite — frais d’inscription : ${festival.price} €.`
+                  : `After the live, you can join right away — registration fee: €${festival.price}.`}
+              </p>
+            </div>
+            <div className="min-h-[24rem] lg:sticky lg:top-28">
+              <div
+                className="senja-embed w-full"
+                data-id="2a990f91-6426-436a-b50d-318fc49a7851"
+                data-mode="shadow"
+                data-lazyload="false"
+                style={{ display: 'block', width: '100%' }}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Problème client */}
       <section className="py-20 md:py-28">
@@ -790,84 +880,6 @@ export default function PartnerProgramPage() {
                 ? 'Des missions peuvent également être proposées par Empire selon les besoins du réseau, votre profil et votre disponibilité. L’admission ne garantit pas de mission.'
                 : 'Missions may also be proposed by Empire based on network needs, your profile and availability. Admission does not guarantee a mission.'}
             </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Portes ouvertes Kevin */}
-      <section id="portes-ouvertes" className="scroll-mt-28 py-20 md:py-28">
-        <div className="container">
-          <div className="mx-auto grid max-w-5xl gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
-            <div>
-              <SectionLabel>{fr ? 'Portes ouvertes' : 'Open house'}</SectionLabel>
-              <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
-                {fr ? 'Je vous montre tout ça jeudi.' : 'I’ll show you all of this on Thursday.'}
-              </h2>
-
-              <div className="mt-6 flex items-center gap-4">
-                <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full ring-2 ring-academy/40">
-                  <Image
-                    src="/founders/kevin.jpg"
-                    alt="Kevin Dufraisse"
-                    fill
-                    sizes="64px"
-                    className="object-cover"
-                  />
-                </div>
-                <div>
-                  <p className="text-[15px] font-semibold text-white">Kevin Dufraisse</p>
-                  <p className="text-[13px] text-neutral-500">
-                    {fr ? 'Fondateur d’Empire Internet' : 'Founder of Empire Internet'}
-                  </p>
-                </div>
-              </div>
-
-              <p className="mt-5 text-[16px] leading-relaxed text-neutral-400">
-                {fr
-                  ? 'Avec Marc, nous organisons des portes ouvertes pour vous montrer le fonctionnement du programme et répondre à vos questions.'
-                  : 'With Marc, we run open houses to show how the program works and answer your questions.'}
-              </p>
-              <p className="mt-6 text-[15px] font-medium text-white">
-                {fr ? 'Pendant 45 minutes, vous allez voir :' : 'In 45 minutes, you’ll see:'}
-              </p>
-              <ul className="mt-4 space-y-3">
-                {(fr
-                  ? [
-                      'Comment un partenaire accompagne un client dans Empire.',
-                      'Ce que vous faites et ce que la plateforme prend en charge.',
-                      'Comment fonctionnent les missions, la rémunération et les crédits.',
-                      'Comment se déroule la formation et comment candidater.',
-                    ]
-                  : [
-                      'How a partner supports a client inside Empire.',
-                      'What you do vs what the platform handles.',
-                      'How missions, pay and credits work.',
-                      'How training works and how to apply.',
-                    ]
-                ).map((line) => (
-                  <li key={line} className="flex gap-3 text-[14px] text-neutral-400">
-                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-academy" strokeWidth={2.5} />
-                    {line}
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-6 text-[15px] text-neutral-400">
-                {fr
-                  ? 'L’objectif : que vous puissiez décider si ce fonctionnement correspond à votre activité.'
-                  : 'Goal: decide whether this model fits your business.'}
-              </p>
-              <div className="mt-8">
-                <CtaBlock fr={fr} source="section" />
-              </div>
-              <p className="mt-4 text-[13px] text-neutral-600">
-                {fr
-                  ? `Après le live, vous pouvez rejoindre tout de suite — frais d’inscription : ${festival.price} €.`
-                  : `After the live, you can join right away — registration fee: €${festival.price}.`}
-              </p>
-            </div>
-            <div className="lg:sticky lg:top-28">
-              <WebinarJamEmbed fr={fr} />
-            </div>
           </div>
         </div>
       </section>
