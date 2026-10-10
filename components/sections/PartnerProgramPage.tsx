@@ -5,7 +5,12 @@ import Image from 'next/image'
 import { ArrowRight, Check } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { trackAmplitude } from '@/lib/amplitude'
+import { partnerPayHref } from '@/lib/partner-festival-pricing'
+import { usePartnerFestivalPricing } from '@/hooks/usePartnerFestivalPricing'
 import { WebinarJamBar, WebinarJamButton, WebinarJamEmbed } from '@/components/WebinarJamRegister'
+import FeaturedInSection from '@/components/FeaturedInSection'
+import TopCreatorsSection from '@/components/sections/TopCreatorsSection'
+import AcademyProductDemo from '@/components/AcademyProductDemo'
 
 type Level = 'debutant' | 'confirme' | 'expert'
 
@@ -21,6 +26,113 @@ function trackOpen(source: string) {
   trackAmplitude('academy_open_house_clicked', { source })
 }
 
+function PartnerPayLink({
+  fr,
+  source,
+  price,
+}: {
+  fr: boolean
+  source: string
+  price: number
+}) {
+  return (
+    <a
+      href={partnerPayHref()}
+      onClick={() => trackAmplitude('academy_partner_checkout_clicked', { source, price })}
+      className="inline-flex h-11 w-full max-w-md items-center justify-center gap-2 rounded-2xl border border-white/20 bg-transparent px-6 text-[14px] font-semibold text-white transition hover:border-white/40 hover:bg-white/[0.04]"
+    >
+      {fr
+        ? `Payer ${price} € et rejoindre le programme`
+        : `Pay €${price} and join the program`}
+      <ArrowRight className="h-4 w-4" />
+    </a>
+  )
+}
+
+/** Ladder 500 → 700 → 800 + compte à rebours jusqu’au prochain palier. */
+function FestivalPriceBlock({
+  fr,
+  pricing,
+}: {
+  fr: boolean
+  pricing: ReturnType<typeof usePartnerFestivalPricing>
+}) {
+  const currentIdx = pricing.tiers.findIndex((t) => t.id === pricing.tierId)
+  const prev = currentIdx > 0 ? pricing.tiers[currentIdx - 1] : null
+  const next = pricing.tiers[currentIdx + 1] ?? null
+  // Dimanche (800) : le « suivant » est le reset lundi à 500.
+  const nextPrice = next?.price ?? (pricing.tierId === 'last_chance' ? 500 : null)
+  const nextLabel = next
+    ? (fr ? next.labelFr : next.labelEn)
+    : pricing.tierId === 'last_chance'
+      ? (fr ? 'Prix du live (lundi)' : 'Live price (Monday)')
+      : null
+
+  return (
+    <div className="mx-auto w-full max-w-md rounded-2xl border border-academy/30 bg-academy/[0.06] px-4 py-4 text-left">
+      <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-academy">
+        {fr ? 'Frais d’inscription' : 'Registration fee'}
+      </p>
+
+      <div className="mt-3 grid grid-cols-3 gap-2">
+        <div className="rounded-xl bg-white/[0.03] px-2 py-2.5 text-center ring-1 ring-white/[0.06]">
+          <p className="text-[9px] font-semibold uppercase tracking-wider text-neutral-600">
+            {fr ? 'Avant' : 'Was'}
+          </p>
+          {prev ? (
+            <>
+              <p className="mt-1 text-base font-bold tabular-nums text-neutral-600 line-through decoration-neutral-500">
+                {prev.price}€
+              </p>
+              <p className="mt-0.5 text-[9px] leading-tight text-neutral-600 line-through">
+                {fr ? prev.labelFr : prev.labelEn}
+              </p>
+            </>
+          ) : (
+            <p className="mt-1 text-base font-bold tabular-nums text-neutral-700">—</p>
+          )}
+        </div>
+
+        <div className="rounded-xl bg-academy px-2 py-2.5 text-center text-black">
+          <p className="text-[9px] font-semibold uppercase tracking-wider text-black/60">
+            {fr ? 'Maintenant' : 'Now'}
+          </p>
+          <p className="mt-1 text-base font-extrabold tabular-nums">{pricing.price}€</p>
+          <p className="mt-0.5 text-[9px] font-medium leading-tight text-black/70">
+            {fr ? pricing.labelFr : pricing.labelEn}
+          </p>
+        </div>
+
+        <div className="rounded-xl bg-white/[0.03] px-2 py-2.5 text-center ring-1 ring-academy/25">
+          <p className="text-[9px] font-semibold uppercase tracking-wider text-academy">
+            {fr ? 'Ensuite' : 'Next'}
+          </p>
+          {nextPrice != null ? (
+            <>
+              <p className="mt-1 text-base font-bold tabular-nums text-white">{nextPrice}€</p>
+              <p className="mt-0.5 text-[9px] leading-tight text-neutral-400">{nextLabel}</p>
+            </>
+          ) : (
+            <p className="mt-1 text-base font-bold tabular-nums text-neutral-700">—</p>
+          )}
+        </div>
+      </div>
+
+      {pricing.ready && pricing.countdown && nextPrice != null ? (
+        <p className={`mt-2 text-center text-[12px] ${pricing.isUrgent ? 'font-semibold text-academy' : 'text-neutral-400'}`}>
+          {fr
+            ? `Une seule fois · dans ${pricing.countdown} → ${nextPrice} €`
+            : `One-time · in ${pricing.countdown} → €${nextPrice}`}
+        </p>
+      ) : (
+        <p className="mt-2 text-center text-[12px] text-neutral-500">
+          {fr ? 'Paiement unique · une seule fois' : 'One-time payment'}
+        </p>
+      )}
+    </div>
+  )
+}
+
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
     <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-academy">
@@ -32,33 +144,37 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 function CtaBlock({
   fr,
   source,
-  label,
+  fullWidth = false,
 }: {
   fr: boolean
   source: string
-  label: string
+  /** Aligné sur la largeur du bloc parent (ex. simulation). */
+  fullWidth?: boolean
 }) {
   return (
-    <div className="flex flex-col items-center gap-3">
-      <WebinarJamButton
-        onClick={() => trackOpen(source)}
-        className="inline-flex items-center justify-center gap-2 rounded-2xl bg-academy px-8 py-3.5 text-[15px] font-semibold text-black transition hover:brightness-110"
-      >
-        {label}
-        <ArrowRight className="h-4 w-4" />
-      </WebinarJamButton>
-      <p className="text-center text-[13px] text-neutral-500">
+    <WebinarJamButton
+      onClick={() => trackOpen(source)}
+      className={`inline-flex flex-col items-center justify-center gap-0.5 rounded-2xl bg-academy px-6 py-3.5 text-black transition hover:brightness-110 ${
+        fullWidth ? 'w-full' : 'mx-auto w-full max-w-md'
+      }`}
+    >
+      <span className="inline-flex items-center gap-2 text-[15px] font-bold leading-snug">
+        {fr ? 'S’inscrire à la porte ouverte' : 'Register for the open house'}
+        <ArrowRight className="h-4 w-4 shrink-0" />
+      </span>
+      <span className="text-[11px] font-medium text-black/60">
         {fr
-          ? 'Gratuit · Chaque jeudi à 11 h (Paris) · 45 minutes en direct'
-          : 'Free · Every Thursday 11am (Paris) · 45 minutes live'}
-      </p>
-    </div>
+          ? 'Gratuit · Chaque jeudi à 11 h (Paris) · 45 minutes'
+          : 'Free · Every Thursday 11am (Paris) · 45 minutes'}
+      </span>
+    </WebinarJamButton>
   )
 }
 
 export default function PartnerProgramPage() {
   const { lang } = useLanguage()
   const fr = lang === 'fr'
+  const festival = usePartnerFestivalPricing()
   const [level, setLevel] = useState<Level>('debutant')
   const [hours, setHours] = useState(12)
 
@@ -84,7 +200,11 @@ export default function PartnerProgramPage() {
         },
         {
           q: 'Les portes ouvertes sont-elles payantes ?',
-          a: 'Non. L’inscription au live est gratuite. Le droit d’entrée de 500 € concerne le programme partenaire, après admission.',
+          a: `Non. Le live du jeudi est gratuit. Les frais d’inscription au programme (actuellement ${festival.price} €) se paient ensuite — 500 € jusqu’au jeudi soir, puis 700 €, puis 800 € le dimanche. Lundi, le cycle repart à 500 €.`,
+        },
+        {
+          q: 'Que se passe-t-il après le paiement ?',
+          a: 'Vous créez votre compte, accédez à la formation et au Slack, recevez 4 000 crédits pour vous entraîner, puis ouvrez votre page consultant pour encaisser vos clients (Starter / Growth / Scale).',
         },
         {
           q: 'Pourquoi une sélection ?',
@@ -106,7 +226,11 @@ export default function PartnerProgramPage() {
         },
         {
           q: 'Is the open house free?',
-          a: 'Yes. The live session is free. The €500 entry fee is for the partner program, after admission.',
+          a: `Yes. Thursday’s live is free. The registration fee (currently €${festival.price}) is paid after — €500 until Thursday evening, then €700, then €800 on Sunday. Monday resets to €500.`,
+        },
+        {
+          q: 'What happens after payment?',
+          a: 'You create your account, get training and Slack, receive 4,000 credits to practice, then open your consultant page to charge clients (Starter / Growth / Scale).',
         },
         {
           q: 'Why is there a selection?',
@@ -115,21 +239,21 @@ export default function PartnerProgramPage() {
       ]
 
   return (
-    <main className="relative bg-black pb-32 text-white antialiased">
+    <main className="relative bg-black pb-40 text-white antialiased">
       <WebinarJamBar buttonText={fr ? "S'inscrire" : 'Register'} />
 
-      {/* Hero événement */}
-      <section className="relative overflow-hidden border-b border-white/[0.06] pt-24 pb-16 md:pt-28 md:pb-20">
+      {/* Hero : texte d’origine, densifié pour passer au-dessus de la barre WJ */}
+      <section className="relative overflow-hidden border-b border-white/[0.06] pt-[4.5rem] pb-12 md:pt-20 md:pb-16">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_45%_at_50%_0%,rgba(252,165,165,0.12),transparent)]" />
         <div className="container relative z-10">
           <div className="mx-auto max-w-[40rem] text-center">
             <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-academy">
               {fr ? 'Empire · Programme partenaire' : 'Empire · Partner program'}
             </p>
-            <p className="mt-3 text-[14px] text-neutral-400">
+            <p className="mt-1.5 text-[14px] text-neutral-400">
               {fr ? 'Pour les freelances et les agences' : 'For freelancers and agencies'}
             </p>
-            <h1 className="mt-6 text-balance text-3xl font-semibold tracking-tight sm:text-4xl md:text-[2.75rem] md:leading-[1.15]">
+            <h1 className="mt-3 text-balance text-3xl font-semibold tracking-tight sm:text-4xl md:text-[2.75rem] md:leading-[1.15]">
               {fr
                 ? 'Accompagnez plus de clients. Sans produire tous leurs contenus.'
                 : 'Support more clients. Without producing all their content.'}
@@ -139,57 +263,77 @@ export default function PartnerProgramPage() {
                 ? 'Vos clients veulent être présents sur LinkedIn, Instagram ou YouTube. Vous les accompagnez. Empire écrit, monte, programme et suit les résultats.'
                 : 'Your clients want to show up on LinkedIn, Instagram or YouTube. You support them. Empire writes, edits, schedules and tracks results.'}
             </p>
-            <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-neutral-500">
-              {fr
-                ? 'Découvrez comment utiliser Empire Internet pour développer la présence en ligne de vos clients et être rémunéré pour cet accompagnement.'
-                : 'See how to use Empire Internet to grow your clients’ online presence - and get paid for that support.'}
-            </p>
-            <div className="mt-10">
-              <CtaBlock
-                fr={fr}
-                source="hero"
-                label={fr ? 'Découvrir le programme aux portes ouvertes' : 'See the program at the open house'}
-              />
+            <div className="mt-8 flex w-full flex-col items-center gap-3">
+              <CtaBlock fr={fr} source="hero" />
+              <p className="mt-2 text-[12px] text-neutral-500">
+                {fr ? 'Déjà convaincu ? Rejoignez directement.' : 'Already convinced? Join right away.'}
+              </p>
+              <FestivalPriceBlock fr={fr} pricing={festival} />
+              <PartnerPayLink fr={fr} source="hero" price={festival.price} />
             </div>
           </div>
         </div>
       </section>
 
+      {/* Même preuve que la home : presse puis créateurs / influenceurs */}
+      <section className="w-full border-b border-white/[0.06] bg-black py-4 sm:py-5">
+        <div className="container mx-auto max-w-5xl px-4">
+          <FeaturedInSection accent="academy" />
+        </div>
+      </section>
+      <TopCreatorsSection compact accent="academy" />
+
       {/* Problème client */}
       <section className="py-20 md:py-28">
         <div className="container">
-          <div className="mx-auto max-w-[38rem]">
-            <SectionLabel>{fr ? 'Le besoin' : 'The need'}</SectionLabel>
-            <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
-              {fr
-                ? 'Votre prochain client a déjà des choses à raconter.'
-                : 'Your next client already has things to say.'}
-            </h2>
-            <div className="mt-6 space-y-4 text-[16px] leading-[1.6] text-neutral-400">
-              <p>
+          <div className="mx-auto grid max-w-5xl gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-14">
+            <div>
+              <SectionLabel>{fr ? 'Le besoin' : 'The need'}</SectionLabel>
+              <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
                 {fr
-                  ? 'Il connaît son métier. Il a des expériences, des convictions et des conseils à partager.'
-                  : 'They know their craft. They have experience, opinions and advice worth sharing.'}
-              </p>
-              <p>
-                {fr
-                  ? 'Mais quand il faut choisir un sujet, se filmer et publier régulièrement, ça passe après tout le reste.'
-                  : 'But picking a topic, filming and publishing regularly always comes after everything else.'}
-              </p>
-              <p>
-                {fr
-                  ? 'Vous le connaissez peut-être déjà. C’est ce client qui vous dit : « Il faudrait vraiment que je m’occupe de mon LinkedIn. » Ou cet entrepreneur qui enregistre trois vidéos, puis ne publie plus pendant deux mois.'
-                  : 'You may already know them. The client who says “I really should get on LinkedIn.” Or the founder who records three videos, then disappears for two months.'}
-              </p>
-              <p className="font-medium text-neutral-200">
-                {fr
-                  ? 'Ce qui lui manque, c’est quelqu’un pour s’en occuper avec lui. Quelqu’un qui lui pose les bonnes questions, l’aide à choisir ses sujets et fait avancer les choses chaque semaine.'
-                  : 'What’s missing is someone to handle it with them. Someone who asks the right questions, helps choose topics and moves things forward every week.'}
-              </p>
-              <p className="text-white">
-                {fr
-                  ? 'C’est votre rôle en tant que partenaire Empire.'
-                  : 'That’s your role as an Empire partner.'}
+                  ? 'Votre prochain client a déjà des choses à raconter.'
+                  : 'Your next client already has things to say.'}
+              </h2>
+              <div className="mt-6 space-y-4 text-[16px] leading-[1.6] text-neutral-400">
+                <p>
+                  {fr
+                    ? 'Il connaît son métier. Il a des expériences, des convictions et des conseils à partager.'
+                    : 'They know their craft. They have experience, opinions and advice worth sharing.'}
+                </p>
+                <p>
+                  {fr
+                    ? 'Mais quand il faut choisir un sujet, se filmer et publier régulièrement, ça passe après tout le reste.'
+                    : 'But picking a topic, filming and publishing regularly always comes after everything else.'}
+                </p>
+                <p>
+                  {fr
+                    ? 'Vous le connaissez peut-être déjà. C’est ce client qui vous dit : « Il faudrait vraiment que je m’occupe de mon LinkedIn. » Ou cet entrepreneur qui enregistre trois vidéos, puis ne publie plus pendant deux mois.'
+                    : 'You may already know them. The client who says “I really should get on LinkedIn.” Or the founder who records three videos, then disappears for two months.'}
+                </p>
+                <p className="font-medium text-neutral-200">
+                  {fr
+                    ? 'Ce qui lui manque, c’est quelqu’un pour s’en occuper avec lui. Quelqu’un qui lui pose les bonnes questions, l’aide à choisir ses sujets et fait avancer les choses chaque semaine.'
+                    : 'What’s missing is someone to handle it with them. Someone who asks the right questions, helps choose topics and moves things forward every week.'}
+                </p>
+                <p className="text-white">
+                  {fr
+                    ? 'C’est votre rôle en tant que partenaire Empire.'
+                    : 'That’s your role as an Empire partner.'}
+                </p>
+              </div>
+            </div>
+            <div className="relative mx-auto w-full max-w-md lg:max-w-none">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-2xl ring-1 ring-white/10">
+                <Image
+                  src="/webinar/kevin-justin-welsh.jpg"
+                  alt={fr ? 'Kevin Dufraisse avec Justin Welsh' : 'Kevin Dufraisse with Justin Welsh'}
+                  fill
+                  sizes="(max-width: 1024px) 28rem, 40vw"
+                  className="object-cover object-center"
+                />
+              </div>
+              <p className="mt-3 text-center text-[12px] text-neutral-500 lg:text-left">
+                Kevin Dufraisse · Justin Welsh
               </p>
             </div>
           </div>
@@ -272,9 +416,24 @@ export default function PartnerProgramPage() {
             </p>
             <p className="mt-4 text-center text-[15px] font-medium text-white">
               {fr
-                ? 'Le repère, une fois le système pris en main : environ 4 heures par mois et par client, à adapter au périmètre de la mission.'
-                : 'Benchmark once you’re fluent: about 4 hours per month per client, adjusted to the mission scope.'}
+                ? 'Le repère, une fois le système pris en main : environ 4 heures par mois et par client, hors apprentissage, installation et prospection.'
+                : 'Benchmark once you’re fluent: about 4 hours per month per client, excluding training, setup and outreach.'}
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Parcours produit réel */}
+      <section className="border-b border-white/[0.06] py-20 md:py-28">
+        <div className="container">
+          <div className="mx-auto max-w-6xl">
+            <SectionLabel>{fr ? 'Le parcours, dans Empire' : 'The workflow in Empire'}</SectionLabel>
+            <h2 className="mt-4 max-w-2xl text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
+              {fr
+                ? 'De la sélection des sujets au calendrier du client.'
+                : 'From topic selection to the client calendar.'}
+            </h2>
+            <AcademyProductDemo fr={fr} />
           </div>
         </div>
       </section>
@@ -465,12 +624,8 @@ export default function PartnerProgramPage() {
                 </div>
               </div>
 
-              <div className="mt-10">
-                <CtaBlock
-                  fr={fr}
-                  source="simulation"
-                  label={fr ? 'Voir comment ça fonctionne en direct' : 'See how it works live'}
-                />
+              <div className="mt-10 w-full">
+                <CtaBlock fr={fr} source="simulation" fullWidth />
               </div>
             </div>
           </div>
@@ -576,26 +731,35 @@ export default function PartnerProgramPage() {
             </h2>
             <p className="mt-5 text-[17px] font-medium text-white">
               {fr
-                ? 'Le droit d’entrée est de 500 €, payé une fois à l’admission.'
-                : 'The entry fee is €500, paid once at admission.'}
+                ? `Frais d’inscription actuels : ${festival.price} €, payés une fois.`
+                : `Current registration fee: €${festival.price}, paid once.`}
+            </p>
+            <p className="mt-2 text-[14px] text-neutral-500">
+              {fr
+                ? '500 € jusqu’au jeudi soir · 700 € après le live · 800 € le dimanche · retour à 500 € chaque lundi.'
+                : '€500 until Thursday evening · €700 after the live · €800 on Sunday · back to €500 every Monday.'}
             </p>
             <ul className="mt-8 space-y-3">
               {(fr
                 ? [
                     'La formation complète et les replays.',
                     'Le bootcamp de 21 jours.',
+                    'Un Q&A collectif chaque semaine.',
                     'Les templates de prospection et les méthodes de vente.',
                     'Les sujets, formats et processus d’accompagnement.',
-                    'L’accès au réseau Empire Partners.',
+                    'L’accès au réseau Empire Partners et au Slack.',
                     '4 000 crédits personnels pour apprendre, tester et préparer vos démonstrations.',
+                    'Votre page consultant pour encaisser l’accompagnement de vos clients.',
                   ]
                 : [
                     'Full training and replays.',
                     'The 21-day bootcamp.',
+                    'A weekly group Q&A.',
                     'Outreach templates and sales methods.',
                     'Topics, formats and support process.',
-                    'Access to the Empire Partners network.',
+                    'Access to the Empire Partners network and Slack.',
                     '4,000 personal credits to learn, test and prep demos.',
+                    'Your consultant page to charge clients for support.',
                   ]
               ).map((line) => (
                 <li key={line} className="flex gap-3 text-[15px] leading-snug text-neutral-300">
@@ -604,10 +768,13 @@ export default function PartnerProgramPage() {
                 </li>
               ))}
             </ul>
+            <div className="mt-8">
+              <PartnerPayLink fr={fr} source="program" price={festival.price} />
+            </div>
             <p className="mt-6 text-[14px] leading-relaxed text-neutral-500">
               {fr
-                ? 'Chaque client dispose de son propre espace Empire. Les crédits nécessaires à sa production sont financés séparément.'
-                : 'Each client has their own Empire account. Credits for their production are billed separately.'}
+                ? 'Chaque client dispose de son propre espace Empire. Son abonnement (crédits de production) se paie à part, sur votre page.'
+                : 'Each client has their own Empire account. Their subscription (production credits) is billed separately on your page.'}
             </p>
 
             <h3 className="mt-12 text-xl font-semibold tracking-tight">
@@ -690,16 +857,12 @@ export default function PartnerProgramPage() {
                   : 'Goal: decide whether this model fits your business.'}
               </p>
               <div className="mt-8">
-                <CtaBlock
-                  fr={fr}
-                  source="section"
-                  label={fr ? 'Réserver ma place aux portes ouvertes' : 'Book my open house seat'}
-                />
+                <CtaBlock fr={fr} source="section" />
               </div>
               <p className="mt-4 text-[13px] text-neutral-600">
                 {fr
-                  ? 'L’admission au programme se fait ensuite sur candidature.'
-                  : 'Program admission is by application after that.'}
+                  ? `Après le live, vous pouvez rejoindre tout de suite — frais d’inscription : ${festival.price} €.`
+                  : `After the live, you can join right away — registration fee: €${festival.price}.`}
               </p>
             </div>
             <div className="lg:sticky lg:top-28">
@@ -736,11 +899,7 @@ export default function PartnerProgramPage() {
             </div>
 
             <div className="mt-16 text-center">
-              <CtaBlock
-                fr={fr}
-                source="faq"
-                label={fr ? 'Participer aux prochaines portes ouvertes' : 'Join the next open house'}
-              />
+              <CtaBlock fr={fr} source="faq" />
             </div>
           </div>
         </div>
