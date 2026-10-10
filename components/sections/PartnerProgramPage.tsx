@@ -205,7 +205,7 @@ export default function PartnerProgramPage() {
         },
         {
           q: 'Que se passe-t-il après le paiement ?',
-          a: 'Vous créez votre compte, accédez à la formation et au Slack, recevez 4 000 crédits pour vous entraîner, puis ouvrez votre page consultant pour encaisser vos clients (Starter / Growth / Scale).',
+          a: 'Vous créez votre compte, recevez 4 000 crédits pour développer votre marque personnelle, accédez à « Mes posts les plus viraux », à la formation et à la communauté à vie, puis ouvrez votre page consultant pour encaisser vos clients.',
         },
         {
           q: 'Pourquoi une sélection ?',
@@ -740,8 +740,8 @@ export default function PartnerProgramPage() {
               </p>
               <p>
                 {fr
-                  ? 'Vous appliquez la méthode à vos propres comptes. Vous publiez, observez les réactions et apprenez à orienter la production.'
-                  : 'You apply the method on your own accounts. You publish, watch what works and learn to steer production.'}
+                  ? 'Vous appliquez la méthode à vos propres comptes avec 4 000 crédits. Vous repartez des contenus qui ont déjà performé dans « Mes posts les plus viraux », créez les vôtres dans Empire et publiez pour développer votre marque personnelle.'
+                  : 'You apply the method to your own accounts with 4,000 credits. You adapt proven content from “My most viral posts,” create your own in Empire and publish to grow your personal brand.'}
               </p>
               <p className="font-medium text-neutral-200">
                 {fr
@@ -755,8 +755,8 @@ export default function PartnerProgramPage() {
               </p>
               <p className="text-white">
                 {fr
-                  ? 'Vous n’avez pas besoin d’une grande audience pour commencer. Être prêt à publier est fortement recommandé.'
-                  : 'You don’t need a big audience to start. Being ready to publish is strongly recommended.'}
+                  ? 'La méthode est conçue pour viser jusqu’à 1 million de vues dès le premier mois. Le résultat dépend de votre exécution, de vos sujets et des plateformes.'
+                  : 'The method is designed to aim for up to one million views in the first month. Results depend on your execution, topics and platforms.'}
               </p>
             </div>
 
@@ -767,30 +767,30 @@ export default function PartnerProgramPage() {
               {(fr
                 ? [
                     {
-                      t: 'Semaine 1 — Comprendre et créer',
-                      d: 'Les fondamentaux de la viralité, les angles, les formats et vos premiers contenus avec Empire.',
+                      t: 'Semaine 1 — Positionnement et prospection',
+                      d: 'Vous posez votre offre, commencez vos premières conversations et adaptez des formats issus de « Mes posts les plus viraux ».',
                     },
                     {
-                      t: 'Semaine 2 — Publier et vous rendre visible',
-                      d: 'Vous pratiquez sur vos comptes et commencez à engager des conversations avec de futurs clients.',
+                      t: 'Semaine 2 — Créer et publier avec Empire',
+                      d: 'Vous utilisez vos crédits pour produire vos propres contenus, publier régulièrement et construire votre preuve.',
                     },
                     {
-                      t: 'Semaine 3 — Accompagner un client',
-                      d: 'Vous apprenez à conduire l’entretien, choisir les sujets et suivre les contenus et leurs résultats.',
+                      t: 'Semaine 3 — Transformer votre visibilité en clients',
+                      d: 'Vous apprenez à présenter votre accompagnement, conduire l’entretien et ouvrir votre page consultant.',
                     },
                   ]
                 : [
                     {
-                      t: 'Week 1 — Understand and create',
-                      d: 'Virality basics, angles, formats and your first content with Empire.',
+                      t: 'Week 1 — Positioning and outreach',
+                      d: 'Shape your offer, start your first sales conversations and adapt formats from “My most viral posts.”',
                     },
                     {
-                      t: 'Week 2 — Publish and get visible',
-                      d: 'You practice on your accounts and start conversations with future clients.',
+                      t: 'Week 2 — Create and publish with Empire',
+                      d: 'Use your credits to produce your own content, publish consistently and build proof.',
                     },
                     {
-                      t: 'Week 3 — Support a client',
-                      d: 'You learn the interview, topic selection and how to track content and results.',
+                      t: 'Week 3 — Turn visibility into clients',
+                      d: 'Learn to present your service, run the interview and open your consultant page.',
                     },
                   ]
               ).map((row) => (
@@ -802,8 +802,8 @@ export default function PartnerProgramPage() {
             </div>
             <p className="mt-6 text-[14px] text-neutral-500">
               {fr
-                ? 'Un défi par jour, des ressources pour pratiquer et une certification Empire selon les compétences démontrées.'
-                : 'One challenge a day, practice resources and an Empire certification based on demonstrated skills.'}
+                ? 'Chaque semaine, la communauté vous aide à avancer et à débloquer vos questions. La formation, les replays, le Slack et les rendez-vous partenaires restent accessibles à vie.'
+                : 'Every week, the community helps you move forward and unblock questions. Training, replays, Slack and partner sessions remain available for life.'}
             </p>
           </div>
         </div>
@@ -834,21 +834,21 @@ export default function PartnerProgramPage() {
                 ? [
                     'La formation complète et les replays.',
                     'Le bootcamp de 21 jours.',
-                    'Un Q&A collectif chaque semaine.',
+                    'La communauté, le Slack et les rendez-vous partenaires accessibles à vie.',
                     'Les templates de prospection et les méthodes de vente.',
                     'Les sujets, formats et processus d’accompagnement.',
-                    'L’accès au réseau Empire Partners et au Slack.',
-                    '4 000 crédits personnels pour apprendre, tester et préparer vos démonstrations.',
+                    '« Mes posts les plus viraux » pour repartir de formats qui fonctionnent.',
+                    '4 000 crédits pour développer votre marque personnelle dès le premier mois.',
                     'Votre page consultant pour encaisser l’accompagnement de vos clients.',
                   ]
                 : [
                     'Full training and replays.',
                     'The 21-day bootcamp.',
-                    'A weekly group Q&A.',
+                    'Lifetime access to the community, Slack and partner sessions.',
                     'Outreach templates and sales methods.',
                     'Topics, formats and support process.',
-                    'Access to the Empire Partners network and Slack.',
-                    '4,000 personal credits to learn, test and prep demos.',
+                    '“My most viral posts” to adapt formats that already work.',
+                    '4,000 credits to grow your personal brand in the first month.',
                     'Your consultant page to charge clients for support.',
                   ]
               ).map((line) => (
