@@ -266,7 +266,7 @@ export default function PartnerProgramPage() {
             </h1>
             <p className="mx-auto mt-6 max-w-xl text-[17px] leading-[1.55] text-neutral-300">
               {fr
-                ? 'Vos clients veulent être présents sur LinkedIn, Instagram ou YouTube. Vous les accompagnez. Empire écrit, monte, programme et suit les résultats.'
+                ? 'Vos clients savent qu’ils doivent publier, mais manquent de temps, d’équipe et de méthode. Vous devenez leur interlocuteur stratégique. Empire écrit, monte, programme et suit les résultats.'
                 : 'Your clients want to show up on LinkedIn, Instagram or YouTube. You support them. Empire writes, edits, schedules and tracks results.'}
             </p>
             <div className="mt-8 flex w-full flex-col items-center gap-3">
@@ -288,6 +288,166 @@ export default function PartnerProgramPage() {
         </div>
       </section>
       <TopCreatorsSection compact accent="academy" />
+
+      {/* Opportunité marché : douleur prouvée + valeur économique du modèle */}
+      <section className="border-b border-white/[0.06] py-16 md:py-24">
+        <div className="container">
+          <div className="mx-auto max-w-5xl">
+            <SectionLabel>{fr ? 'L’opportunité' : 'The opportunity'}</SectionLabel>
+            <h2 className="mt-4 max-w-3xl text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
+              {fr
+                ? 'Le contenu est devenu un canal de vente. Sa production reste le goulot d’étranglement.'
+                : 'Content has become a sales channel. Production is still the bottleneck.'}
+            </h2>
+            <p className="mt-5 max-w-3xl text-[16px] leading-relaxed text-neutral-400">
+              {fr
+                ? 'Les entrepreneurs n’ont pas besoin d’être convaincus de publier. Ils ont besoin de quelqu’un qui transforme leur expertise en contenus réguliers, sans leur demander de coordonner une équipe entière.'
+                : 'Entrepreneurs do not need convincing that they should publish. They need someone who turns their expertise into consistent content without making them coordinate an entire team.'}
+            </p>
+
+            <div className="mt-10 grid gap-3 sm:grid-cols-3">
+              {(fr
+                ? [
+                    ['54 %', 'des équipes B2B manquent de ressources pour leur contenu.'],
+                    ['74 %', 'disent que le contenu leur génère de la demande ou des leads.'],
+                    ['95 %', 'des acheteurs B2B deviennent plus réceptifs à la prospection après un contenu expert de qualité.'],
+                  ]
+                : [
+                    ['54%', 'of B2B teams lack the resources they need for content.'],
+                    ['74%', 'say content generates demand or leads for them.'],
+                    ['95%', 'of hidden B2B buyers become more receptive to outreach after strong thought leadership.'],
+                  ]
+              ).map(([value, label]) => (
+                <div key={value} className="rounded-2xl border border-academy/20 bg-academy/[0.055] p-5">
+                  <p className="text-3xl font-semibold tracking-tight text-academy">{value}</p>
+                  <p className="mt-2 text-[13px] leading-relaxed text-neutral-400">{label}</p>
+                </div>
+              ))}
+            </div>
+            <p className="mt-3 text-[11px] leading-relaxed text-neutral-600">
+              {fr ? 'Sources :' : 'Sources:'}{' '}
+              <a
+                href="https://contentmarketinginstitute.com/b2b-research/b2b-content-marketing-trends-research-2025"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline decoration-white/20 underline-offset-2 hover:text-neutral-400"
+              >
+                Content Marketing Institute, 2025
+              </a>
+              {' · '}
+              <a
+                href="https://www.edelman.com/insights/hidden-buyer-b2b"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline decoration-white/20 underline-offset-2 hover:text-neutral-400"
+              >
+                Edelman x LinkedIn, 2025
+              </a>
+            </p>
+
+            <div className="mt-12 grid gap-5 lg:grid-cols-2">
+              <div className="rounded-3xl border border-white/[0.08] bg-white/[0.025] p-6 sm:p-7">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-500">
+                  {fr ? 'Le modèle traditionnel' : 'The traditional model'}
+                </p>
+                <h3 className="mt-3 text-xl font-semibold">
+                  {fr ? 'Assembler et coordonner quatre métiers.' : 'Assemble and coordinate four specialists.'}
+                </h3>
+                <div className="mt-6 divide-y divide-white/[0.07] border-y border-white/[0.07]">
+                  {(fr
+                    ? [
+                        ['Conseil et stratégie', '531 € / jour'],
+                        ['Conception-rédaction', '411 € / jour'],
+                        ['Community management', '405 € / jour'],
+                        ['Vidéo et motion design', '420 € / jour'],
+                      ]
+                    : [
+                        ['Consulting and strategy', '€531 / day'],
+                        ['Copywriting', '€411 / day'],
+                        ['Community management', '€405 / day'],
+                        ['Video and motion design', '€420 / day'],
+                      ]
+                  ).map(([role, rate]) => (
+                    <div key={role} className="flex items-center justify-between gap-4 py-3 text-[14px]">
+                      <span className="text-neutral-400">{role}</span>
+                      <span className="shrink-0 font-medium text-neutral-200">{rate}</span>
+                    </div>
+                  ))}
+                </div>
+                <p className="mt-5 text-[15px] font-medium text-white">
+                  {fr
+                    ? '4 jours par métier : environ 7 068 € / mois.'
+                    : 'Four days per specialist: approximately €7,068 / month.'}
+                </p>
+                <p className="mt-1.5 text-[12px] leading-relaxed text-neutral-600">
+                  {fr
+                    ? 'À 5 jours chacun : 8 835 €, avant les outils et le temps de coordination.'
+                    : 'At five days each: €8,835, before tools and coordination time.'}
+                </p>
+              </div>
+
+              <div className="relative overflow-hidden rounded-3xl border border-academy/30 bg-academy/[0.07] p-6 sm:p-7">
+                <div className="pointer-events-none absolute -right-20 -top-20 h-48 w-48 rounded-full bg-academy/10 blur-3xl" />
+                <p className="relative text-[11px] font-semibold uppercase tracking-[0.18em] text-academy">
+                  {fr ? 'Le modèle Empire Partner' : 'The Empire Partner model'}
+                </p>
+                <h3 className="relative mt-3 text-xl font-semibold">
+                  {fr
+                    ? 'Une offre premium portée par une seule personne.'
+                    : 'A premium offer delivered by one person.'}
+                </h3>
+                <ul className="relative mt-6 space-y-4">
+                  {(fr
+                    ? [
+                        'Vous gérez la relation, la stratégie et les décisions avec le client.',
+                        'Empire rédige, monte, programme et mesure la production.',
+                        'Le client achète un accompagnement cohérent au lieu de piloter quatre prestataires.',
+                        'Vous pouvez vendre une prestation complète sans recruter une équipe de production.',
+                      ]
+                    : [
+                        'You own the client relationship, strategy and decisions.',
+                        'Empire writes, edits, schedules and measures production.',
+                        'The client buys one coherent service instead of managing four vendors.',
+                        'You can sell a complete service without hiring a production team.',
+                      ]
+                  ).map((line) => (
+                    <li key={line} className="flex gap-3 text-[14px] leading-relaxed text-neutral-300">
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-academy" strokeWidth={2.5} />
+                      <span>{line}</span>
+                    </li>
+                  ))}
+                </ul>
+                <p className="relative mt-7 rounded-xl border border-academy/20 bg-black/25 px-4 py-3 text-[13px] leading-relaxed text-neutral-300">
+                  {fr
+                    ? 'L’opportunité : apporter la valeur d’une équipe, avec la charge opérationnelle d’un accompagnement.'
+                    : 'The opportunity: deliver the value of a team with the operating load of one advisory relationship.'}
+                </p>
+              </div>
+            </div>
+            <p className="mt-3 text-[11px] leading-relaxed text-neutral-600">
+              {fr ? 'TJM moyens de freelances expérimentés en France :' : 'Average day rates for experienced freelancers in France:'}{' '}
+              <a
+                href="https://www.malt.fr/t/barometre-tarifs/communication/community-manager"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline decoration-white/20 underline-offset-2 hover:text-neutral-400"
+              >
+                {fr ? 'communication' : 'communication'}
+              </a>
+              {' · '}
+              <a
+                href="https://www.malt.fr/t/barometre-tarifs/image-son"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline decoration-white/20 underline-offset-2 hover:text-neutral-400"
+              >
+                Malt 2026
+              </a>
+              . {fr ? 'Exemple indicatif, hors outils et coordination.' : 'Illustrative example, excluding tools and coordination.'}
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* Portes ouvertes + témoignages, placés haut dans la page */}
       <section id="portes-ouvertes" className="scroll-mt-28 border-b border-white/[0.06] py-16 md:py-20">
