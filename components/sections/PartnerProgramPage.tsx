@@ -330,6 +330,11 @@ export default function PartnerProgramPage() {
                   ? 'You keep strategy, client relationships and decisions. Empire suggests topics, writes, edits and schedules content so you can deploy the offer across your portfolio.'
                   : 'For 21 days, spend about 1 hour a day building your offer, publishing, reaching out and mastering Empire. The goal: become ready to sell and support a first client.'}
             </p>
+            <p className="mx-auto mt-3 max-w-xl text-[13px] leading-relaxed text-neutral-500">
+              {fr
+                ? 'Vous apprenez aussi les hooks, les formats et les mécaniques de viralité pour adapter une même expertise à LinkedIn, Instagram, TikTok et YouTube.'
+                : 'You also learn hooks, formats and viral mechanics to adapt the same expertise for LinkedIn, Instagram, TikTok and YouTube.'}
+            </p>
             <div className="mt-8 flex w-full flex-col items-center gap-3">
               <CtaBlock fr={fr} source="hero" audience={audience} />
               <p className="mt-2 text-[12px] text-neutral-500">
@@ -906,8 +911,8 @@ export default function PartnerProgramPage() {
                         d: 'Vous configurez Empire, clarifiez votre offre, adaptez vos premiers formats, publiez et lancez vos premières conversations avec des prospects.',
                       },
                       {
-                        t: 'Semaine 2 — Maîtriser la production dans Empire',
-                        d: 'Vous utilisez vos crédits pour créer plus vite, publier régulièrement, lire les premiers signaux et construire une preuve visible de votre savoir-faire.',
+                        t: 'Semaine 2 — Comprendre la viralité et produire',
+                        d: 'Vous apprenez les hooks, formats et mécaniques de viralité, puis adaptez vos contenus à LinkedIn, Instagram, TikTok et YouTube.',
                       },
                       {
                         t: 'Semaine 3 — Devenir prêt pour un premier client',
@@ -935,8 +940,8 @@ export default function PartnerProgramPage() {
                         d: 'Set up Empire, clarify your offer, adapt your first formats, publish and start your first prospect conversations.',
                       },
                       {
-                        t: 'Week 2 — Master production in Empire',
-                        d: 'Use your credits to create faster, publish consistently, read the first signals and build visible proof of your skills.',
+                        t: 'Week 2 — Understand virality and produce',
+                        d: 'Learn hooks, formats and viral mechanics, then adapt your content for LinkedIn, Instagram, TikTok and YouTube.',
                       },
                       {
                         t: 'Week 3 — Become first-client ready',
@@ -986,7 +991,7 @@ export default function PartnerProgramPage() {
                     'Le bootcamp autonome : 1 action concrète par jour, environ 1 h / jour pendant 21 jours.',
                     'La communauté, le Slack et les rendez-vous partenaires accessibles à vie.',
                     'Les templates de prospection et les méthodes de vente.',
-                    'Les sujets, formats et processus d’accompagnement.',
+                    'Les hooks, formats et mécaniques de viralité sur LinkedIn, Instagram, TikTok et YouTube.',
                     '« Mes posts les plus viraux » pour repartir de formats qui fonctionnent.',
                     '4 000 crédits pour développer votre marque personnelle dès le premier mois.',
                     'Votre page consultant pour encaisser l’accompagnement de vos clients.',
@@ -996,7 +1001,7 @@ export default function PartnerProgramPage() {
                     'The self-paced bootcamp: 1 concrete action a day, about 1 hour/day for 21 days.',
                     'Lifetime access to the community, Slack and partner sessions.',
                     'Outreach templates and sales methods.',
-                    'Topics, formats and support process.',
+                    'Hooks, formats and viral mechanics for LinkedIn, Instagram, TikTok and YouTube.',
                     '“My most viral posts” to adapt formats that already work.',
                     '4,000 credits to grow your personal brand in the first month.',
                     'Your consultant page to charge clients for support.',
