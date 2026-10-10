@@ -296,26 +296,28 @@ export default function PartnerProgramPage() {
             <SectionLabel>{fr ? 'L’opportunité' : 'The opportunity'}</SectionLabel>
             <h2 className="mt-4 max-w-3xl text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
               {fr
-                ? 'Le contenu est devenu un canal de vente. Sa production reste le goulot d’étranglement.'
-                : 'Content has become a sales channel. Production is still the bottleneck.'}
+                ? 'L’activité ralentit. Il faut apprendre à créer de la demande.'
+                : 'Business is slowing down. Learning to create demand is becoming essential.'}
             </h2>
             <p className="mt-5 max-w-3xl text-[16px] leading-relaxed text-neutral-400">
               {fr
-                ? 'Les entrepreneurs n’ont pas besoin d’être convaincus de publier. Ils ont besoin de quelqu’un qui transforme leur expertise en contenus réguliers, sans leur demander de coordonner une équipe entière.'
-                : 'Entrepreneurs do not need convincing that they should publish. They need someone who turns their expertise into consistent content without making them coordinate an entire team.'}
+                ? 'Le chiffre d’affaires des petites entreprises recule, les recrutements se contractent et près d’un actif sur deux pense à changer de voie. Dans le même temps, les entreprises cherchent toujours le même résultat : plus de visibilité, plus de conversations et plus de clients.'
+                : 'Small-business revenue is declining, hiring is contracting and nearly one in two workers is considering a career change. Businesses still need the same outcome: more visibility, conversations and clients.'}
             </p>
 
-            <div className="mt-10 grid gap-3 sm:grid-cols-3">
+            <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
               {(fr
                 ? [
-                    ['54 %', 'des équipes B2B manquent de ressources pour leur contenu.'],
-                    ['74 %', 'disent que le contenu leur génère de la demande ou des leads.'],
-                    ['95 %', 'des acheteurs B2B deviennent plus réceptifs à la prospection après un contenu expert de qualité.'],
+                    ['56 %', 'des TPE interrogées ont vu leur chiffre d’affaires baisser en 2025.'],
+                    ['−14 %', 'de projets de recrutement en France en 2025.'],
+                    ['47 %', 'des actifs préparent ou envisagent une reconversion.'],
+                    ['74 %', 'des entreprises B2B disent que le contenu génère de la demande ou des leads.'],
                   ]
                 : [
-                    ['54%', 'of B2B teams lack the resources they need for content.'],
-                    ['74%', 'say content generates demand or leads for them.'],
-                    ['95%', 'of hidden B2B buyers become more receptive to outreach after strong thought leadership.'],
+                    ['56%', 'of surveyed French small businesses saw revenue decline in 2025.'],
+                    ['−14%', 'fewer recruitment projects in France in 2025.'],
+                    ['47%', 'of workers are preparing or considering a career change.'],
+                    ['74%', 'of B2B companies say content generates demand or leads.'],
                   ]
               ).map(([value, label]) => (
                 <div key={value} className="rounded-2xl border border-academy/20 bg-academy/[0.055] p-5">
@@ -327,6 +329,33 @@ export default function PartnerProgramPage() {
             <p className="mt-3 text-[11px] leading-relaxed text-neutral-600">
               {fr ? 'Sources :' : 'Sources:'}{' '}
               <a
+                href="https://sdi-pme.fr/actus_et_ressources/etat-des-lieux-des-tpe-trimestre-4-et-bilan-2025/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline decoration-white/20 underline-offset-2 hover:text-neutral-400"
+              >
+                SDI, 2025
+              </a>
+              {' · '}
+              <a
+                href="https://www.achil.io/wp-content/uploads/2025/11/Achil-Barometre-du-recrutement-freelance-2025.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline decoration-white/20 underline-offset-2 hover:text-neutral-400"
+              >
+                Achil, 2025
+              </a>
+              {' · '}
+              <a
+                href="https://www.centre-inffo.fr/content/uploads/2025/04/barometre-formation-emploi-2025.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline decoration-white/20 underline-offset-2 hover:text-neutral-400"
+              >
+                Centre Inffo / CSA, 2025
+              </a>
+              {' · '}
+              <a
                 href="https://contentmarketinginstitute.com/b2b-research/b2b-content-marketing-trends-research-2025"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -334,16 +363,20 @@ export default function PartnerProgramPage() {
               >
                 Content Marketing Institute, 2025
               </a>
-              {' · '}
-              <a
-                href="https://www.edelman.com/insights/hidden-buyer-b2b"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline decoration-white/20 underline-offset-2 hover:text-neutral-400"
-              >
-                Edelman x LinkedIn, 2025
-              </a>
             </p>
+
+            <div className="mt-8 rounded-2xl border border-academy/20 bg-academy/[0.045] px-5 py-4 sm:px-6">
+              <p className="text-[15px] font-medium text-white">
+                {fr
+                  ? 'Le métier qui prend de la valeur est celui qui aide directement une entreprise à retrouver de la demande.'
+                  : 'The role gaining value is the one that directly helps a business rebuild demand.'}
+              </p>
+              <p className="mt-1.5 text-[13px] leading-relaxed text-neutral-400">
+                {fr
+                  ? 'Le personal branding réunit acquisition, confiance et vente. Empire rend cette compétence accessible sans vous demander de devenir copywriter, monteur et community manager à la fois.'
+                  : 'Personal branding combines acquisition, trust and sales. Empire makes that skill accessible without requiring you to become a copywriter, editor and community manager at once.'}
+              </p>
+            </div>
 
             <div className="mt-12 grid gap-5 lg:grid-cols-2">
               <div className="rounded-3xl border border-white/[0.08] bg-white/[0.025] p-6 sm:p-7">
