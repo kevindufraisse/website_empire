@@ -60,7 +60,7 @@ export function PartnerPayLink({
   )
 }
 
-/** Ladder 500 → 700 → 800 + compte à rebours jusqu’au prochain palier. */
+/** Lecture festival : les deux premiers paliers barrés, puis le prix actuel. */
 export function FestivalPriceBlock({
   fr,
   pricing,
@@ -68,16 +68,7 @@ export function FestivalPriceBlock({
   fr: boolean
   pricing: ReturnType<typeof usePartnerFestivalPricing>
 }) {
-  const currentIdx = pricing.tiers.findIndex((t) => t.id === pricing.tierId)
-  const prev = currentIdx > 0 ? pricing.tiers[currentIdx - 1] : null
-  const next = pricing.tiers[currentIdx + 1] ?? null
-  // Dimanche (800) : le « suivant » est le reset lundi à 500.
-  const nextPrice = next?.price ?? (pricing.tierId === 'last_chance' ? 500 : null)
-  const nextLabel = next
-    ? (fr ? next.labelFr : next.labelEn)
-    : pricing.tierId === 'last_chance'
-      ? (fr ? 'Prix du live (lundi)' : 'Live price (Monday)')
-      : null
+  const crossedOutPrices = pricing.tiers.slice(0, 2)
 
   return (
     <div className="mx-auto w-full max-w-md rounded-2xl border border-academy/30 bg-academy/[0.06] px-4 py-4 text-left">
@@ -86,60 +77,28 @@ export function FestivalPriceBlock({
       </p>
 
       <div className="mt-3 grid grid-cols-3 gap-2">
-        <div className="rounded-xl bg-white/[0.03] px-2 py-2.5 text-center ring-1 ring-white/[0.06]">
-          <p className="text-[9px] font-semibold uppercase tracking-wider text-neutral-600">
-            {fr ? 'Avant' : 'Was'}
-          </p>
-          {prev ? (
-            <>
-              <p className="mt-1 text-base font-bold tabular-nums text-neutral-600 line-through decoration-neutral-500">
-                {prev.price}€
-              </p>
-              <p className="mt-0.5 text-[9px] leading-tight text-neutral-600 line-through">
-                {fr ? prev.labelFr : prev.labelEn}
-              </p>
-            </>
-          ) : (
-            <p className="mt-1 text-base font-bold tabular-nums text-neutral-700">—</p>
-          )}
-        </div>
+        {crossedOutPrices.map((tier) => (
+          <div
+            key={tier.id}
+            className="flex min-h-[4.25rem] items-center justify-center rounded-xl bg-white/[0.03] px-2 py-2.5 text-center ring-1 ring-white/[0.06]"
+          >
+            <p className="text-lg font-bold tabular-nums text-neutral-600 line-through decoration-neutral-500">
+              {tier.price} €
+            </p>
+          </div>
+        ))}
 
-        <div className="rounded-xl bg-academy px-2 py-2.5 text-center text-black">
+        <div className="flex min-h-[4.25rem] flex-col items-center justify-center rounded-xl bg-academy px-2 py-2.5 text-center text-black">
           <p className="text-[9px] font-semibold uppercase tracking-wider text-black/60">
             {fr ? 'Maintenant' : 'Now'}
           </p>
-          <p className="mt-1 text-base font-extrabold tabular-nums">{pricing.price}€</p>
-          <p className="mt-0.5 text-[9px] font-medium leading-tight text-black/70">
-            {fr ? pricing.labelFr : pricing.labelEn}
-          </p>
-        </div>
-
-        <div className="rounded-xl bg-white/[0.03] px-2 py-2.5 text-center ring-1 ring-academy/25">
-          <p className="text-[9px] font-semibold uppercase tracking-wider text-academy">
-            {fr ? 'Ensuite' : 'Next'}
-          </p>
-          {nextPrice != null ? (
-            <>
-              <p className="mt-1 text-base font-bold tabular-nums text-white">{nextPrice}€</p>
-              <p className="mt-0.5 text-[9px] leading-tight text-neutral-400">{nextLabel}</p>
-            </>
-          ) : (
-            <p className="mt-1 text-base font-bold tabular-nums text-neutral-700">—</p>
-          )}
+          <p className="mt-1 text-xl font-extrabold tabular-nums">{pricing.price} €</p>
         </div>
       </div>
 
-      {pricing.ready && pricing.countdown && nextPrice != null ? (
-        <p className={`mt-2 text-center text-[12px] ${pricing.isUrgent ? 'font-semibold text-academy' : 'text-neutral-400'}`}>
-          {fr
-            ? `Une seule fois · dans ${pricing.countdown} → ${nextPrice} €`
-            : `One-time · in ${pricing.countdown} → €${nextPrice}`}
-        </p>
-      ) : (
-        <p className="mt-2 text-center text-[12px] text-neutral-500">
-          {fr ? 'Paiement unique · une seule fois' : 'One-time payment'}
-        </p>
-      )}
+      <p className="mt-2 text-center text-[12px] text-neutral-500">
+        {fr ? 'Paiement unique · une seule fois' : 'One-time payment'}
+      </p>
     </div>
   )
 }
