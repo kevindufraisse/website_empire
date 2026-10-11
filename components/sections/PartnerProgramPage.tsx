@@ -328,24 +328,24 @@ export default function PartnerProgramPage() {
               {fr
                 ? agency
                   ? 'Ajoutez une offre de personal branding à votre agence. Sans recruter une équipe de production.'
-                  : 'Lancez votre activité de personal branding. Empire produit, vous pilotez.'
+                  : 'Créez votre activité de personal branding. Sans écrire ni monter les contenus de vos clients.'
                 : agency
                   ? 'Add a personal-branding offer to your agency. Without hiring a production team.'
-                  : 'Launch your personal-branding business. Empire produces, you lead.'}
+                  : 'Build your personal-branding business. Without writing or editing your clients’ content.'}
             </h1>
             <p className="mx-auto mt-6 max-w-xl text-[17px] leading-[1.55] text-neutral-300">
               {fr
                 ? agency
                   ? 'Vous gardez la stratégie, la relation et les décisions avec vos clients. Empire propose les sujets, rédige, monte et programme les contenus pour déployer cette offre auprès de votre portefeuille.'
-                  : 'Pendant 21 jours, avancez environ 1 heure par jour pour construire votre offre, publier, prospecter et maîtriser Empire. L’objectif : être prêt à vendre et accompagner un premier client.'
+                  : 'En 21 jours, apprenez à trouver un client, recueillir son expertise et piloter sa présence en ligne. Empire propose les sujets, rédige, monte et programme les contenus.'
                 : agency
                   ? 'You keep strategy, client relationships and decisions. Empire suggests topics, writes, edits and schedules content so you can deploy the offer across your portfolio.'
-                  : 'For 21 days, spend about 1 hour a day building your offer, publishing, reaching out and mastering Empire. The goal: become ready to sell and support a first client.'}
+                  : 'In 21 days, learn to find a client, capture their expertise and lead their online presence. Empire suggests topics, writes, edits and schedules the content.'}
             </p>
             <p className="mx-auto mt-3 max-w-xl text-[13px] leading-relaxed text-neutral-500">
               {fr
-                ? 'Vous apprenez aussi les hooks, les formats et les mécaniques de viralité pour adapter une même expertise à chaque réseau.'
-                : 'You also learn hooks, formats and viral mechanics to adapt the same expertise for every network.'}
+                ? 'Aucune compétence en montage ou en copywriting n’est requise. Vous apprenez la stratégie, la relation client et les mécaniques de viralité.'
+                : 'No editing or copywriting skill is required. You learn strategy, client relationships and viral mechanics.'}
             </p>
             <AcademyPlatformLogos fr={fr} />
             <div className="mt-8 flex w-full flex-col items-center gap-3">
@@ -356,6 +356,30 @@ export default function PartnerProgramPage() {
               <FestivalPriceBlock fr={fr} pricing={festival} />
               <PartnerPayLink fr={fr} source="hero" price={festival.price} audience={audience} />
             </div>
+            <dl className="mx-auto mt-6 grid max-w-2xl grid-cols-3 divide-x divide-white/[0.08] border-y border-white/[0.08] py-4">
+              {(fr
+                ? [
+                    ['21 jours', 'pour maîtriser le système'],
+                    ['~4 h', 'par mois et par client*'],
+                    ['500–2 000 €', 'd’honoraires indicatifs'],
+                  ]
+                : [
+                    ['21 days', 'to master the system'],
+                    ['~4 hrs', 'per month, per client*'],
+                    ['€500–2,000', 'indicative monthly fees'],
+                  ]
+              ).map(([value, label]) => (
+                <div key={value} className="px-2 sm:px-4">
+                  <dt className="text-[15px] font-semibold text-white sm:text-lg">{value}</dt>
+                  <dd className="mt-1 text-[10px] leading-snug text-neutral-500 sm:text-[11px]">{label}</dd>
+                </div>
+              ))}
+            </dl>
+            <p className="mx-auto mt-2 max-w-xl text-[10px] leading-relaxed text-neutral-600">
+              {fr
+                ? '*Une fois le système maîtrisé, hors apprentissage, installation et prospection. Honoraires variables selon la mission et le client.'
+                : '*Once fluent, excluding training, setup and outreach. Fees vary by engagement and client.'}
+            </p>
           </div>
         </div>
       </section>
@@ -489,6 +513,62 @@ export default function PartnerProgramPage() {
               </p>
             </div>
 
+            <div className="mt-10 grid gap-3 md:grid-cols-2">
+              <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-6">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-neutral-600">
+                  {fr ? 'Sans infrastructure' : 'Without infrastructure'}
+                </p>
+                <h3 className="mt-3 text-lg font-semibold text-white">
+                  {fr ? 'Vous vendez votre temps de production.' : 'You sell production time.'}
+                </h3>
+                <ul className="mt-4 space-y-3 text-[14px] leading-relaxed text-neutral-500">
+                  {(fr
+                    ? [
+                        'Trouver les sujets et écrire chaque publication.',
+                        'Monter les vidéos et gérer les fichiers.',
+                        'Multiplier les heures à chaque nouveau client.',
+                      ]
+                    : [
+                        'Find topics and write every post.',
+                        'Edit videos and manage all the files.',
+                        'Add more hours with every new client.',
+                      ]
+                  ).map((line) => (
+                    <li key={line} className="flex gap-2">
+                      <span aria-hidden className="text-neutral-700">—</span>
+                      {line}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="rounded-2xl border border-academy/25 bg-academy/[0.055] p-6">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-academy">
+                  {fr ? 'Avec Empire' : 'With Empire'}
+                </p>
+                <h3 className="mt-3 text-lg font-semibold text-white">
+                  {fr ? 'Vous vendez le pilotage et la régularité.' : 'You sell leadership and consistency.'}
+                </h3>
+                <ul className="mt-4 space-y-3 text-[14px] leading-relaxed text-neutral-300">
+                  {(fr
+                    ? [
+                        'Vous choisissez les priorités avec le client.',
+                        'Empire rédige, monte et organise la production.',
+                        'Votre temps reste centré sur la relation et les décisions.',
+                      ]
+                    : [
+                        'You choose priorities with the client.',
+                        'Empire writes, edits and organizes production.',
+                        'Your time stays focused on relationships and decisions.',
+                      ]
+                  ).map((line) => (
+                    <li key={line} className="flex gap-2">
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-academy" />
+                      {line}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -522,6 +602,32 @@ export default function PartnerProgramPage() {
                 ? 'Repère une fois le système pris en main : environ 4 heures par mois et par client, hors apprentissage, installation et prospection.'
                 : 'Benchmark once fluent: about four hours per month per client, excluding training, setup and outreach.'}
             </p>
+
+            <div className="mt-10 border-y border-white/[0.08]">
+              <p className="py-5 text-[12px] font-semibold uppercase tracking-[0.16em] text-academy">
+                {fr ? 'Concrètement, avec un client' : 'In practice, with one client'}
+              </p>
+              {(fr
+                ? [
+                    ['01', 'Préparer', 'Vous sélectionnez les sujets adaptés à son expertise et à ses priorités.'],
+                    ['02', 'Échanger', 'Vous guidez la session pour l’aider à exprimer ses meilleures idées.'],
+                    ['03', 'Valider', 'Vous relisez les contenus produits par Empire et centralisez les retours.'],
+                    ['04', 'Piloter', 'Vous organisez le calendrier et suivez ce qui fonctionne.'],
+                  ]
+                : [
+                    ['01', 'Prepare', 'Select topics adapted to their expertise and priorities.'],
+                    ['02', 'Interview', 'Guide the session so they can express their strongest ideas.'],
+                    ['03', 'Approve', 'Review content produced by Empire and centralize feedback.'],
+                    ['04', 'Lead', 'Organize the calendar and track what works.'],
+                  ]
+              ).map(([number, title, description]) => (
+                <div key={number} className="grid grid-cols-[2.5rem_1fr] gap-3 border-t border-white/[0.08] py-5 sm:grid-cols-[2.5rem_7rem_1fr]">
+                  <span className="text-[12px] font-semibold text-academy">{number}</span>
+                  <p className="text-[15px] font-semibold text-white">{title}</p>
+                  <p className="col-start-2 text-[14px] leading-relaxed text-neutral-500 sm:col-start-auto">{description}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
