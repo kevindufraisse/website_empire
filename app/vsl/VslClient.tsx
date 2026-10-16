@@ -6,6 +6,7 @@ import { Play, Pause, Volume2, VolumeX, Maximize, Check, Calendar, ArrowRight, C
 import CalPopupButton from '@/components/CalPopupButton'
 import { trackAmplitude } from '@/lib/amplitude'
 import { startFreeTrial } from '@/lib/startTrial'
+import AdPageFooter from '@/components/AdPageFooter'
 
 const VIDEO_ID = 'AKfoDblGUNs'
 const VIDEO_TITLE = '94 % des gens ont fait +1M de vues avec cette formule'
@@ -492,7 +493,7 @@ export default function VslClient() {
       />
       <div className="absolute inset-x-0 top-0 h-[600px] bg-[radial-gradient(ellipse_80%_60%_at_50%_0%,rgb(var(--empire-rgb)_/_0.10),transparent)] pointer-events-none" />
 
-      <section className="relative pt-24 md:pt-28 pb-12 md:pb-16">
+      <section className="relative pt-10 md:pt-14 pb-12 md:pb-16">
         <div className="container max-w-4xl mx-auto px-4">
           <p className="text-center text-empire text-xs font-semibold tracking-wider uppercase mb-3">
             Workshop gratuit · 1 h 26
@@ -559,6 +560,7 @@ export default function VslClient() {
           <Ctas location="bottom" />
         </div>
       </section>
+      <AdPageFooter />
     </main>
   )
 }

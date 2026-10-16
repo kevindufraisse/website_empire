@@ -5,6 +5,7 @@ import { ArrowRight } from 'lucide-react'
 import LoomEmbed from '@/components/LoomEmbed'
 import { WebinarJamBar, WebinarJamButton } from '@/components/WebinarJamRegister'
 import { trackAmplitude } from '@/lib/amplitude'
+import AdPageFooter from '@/components/AdPageFooter'
 
 const AD_LOOM_ID = '5ac5b5502e104eb89db2f9ccd8485b9c'
 const SOURCE = 'portes_ouvertes_ad'
@@ -17,7 +18,7 @@ export default function PortesOuvertesClient() {
   }, [])
 
   return (
-    <main className="min-h-screen bg-black px-4 pb-32 pt-24 text-white sm:pt-28">
+    <main className="min-h-screen bg-black px-4 pb-32 pt-10 text-white sm:pt-14">
       <div className="mx-auto w-full max-w-3xl">
         <p className="text-center text-[11px] font-semibold uppercase tracking-[0.18em] text-academy">
           Portes ouvertes · gratuit
@@ -41,6 +42,8 @@ export default function PortesOuvertesClient() {
           </p>
         </div>
       </div>
+
+      <AdPageFooter />
 
       <WebinarJamBar buttonText="S'inscrire" source={SOURCE} />
     </main>
