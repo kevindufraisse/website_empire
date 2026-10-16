@@ -1,12 +1,12 @@
 /**
- * Portes ouvertes Academy / Agences - WebinarJam.
- * Tous les jeudis 11h (Paris).
+ * Portes ouvertes Academy / Agences - EverWebinar (même live rejoué chaque
+ * semaine, hébergé chez WebinarJam : mêmes scripts, même webhook).
  *
  * Override via NEXT_PUBLIC_WEBINARJAM_ID / NEXT_PUBLIC_WEBINARJAM_LIVE.
  * LIVE=false pour couper les embeds si le webinar expire à nouveau.
  */
 export const WEBINARJAM_ID =
-  process.env.NEXT_PUBLIC_WEBINARJAM_ID?.trim() || 'k50r1oik'
+  process.env.NEXT_PUBLIC_WEBINARJAM_ID?.trim() || 'r0w4xps2'
 
 /** true par défaut ; mettre NEXT_PUBLIC_WEBINARJAM_LIVE=false pour fallback email. */
 export const WEBINARJAM_LIVE =

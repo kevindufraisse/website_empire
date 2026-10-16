@@ -128,17 +128,50 @@ export default function AgencyProgramPage() {
 
             <h1 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl md:text-[2.75rem] md:leading-[1.15]">
               {fr
-                ? 'Pilotez le personal branding de tous vos clients. Sans construire une équipe de production.'
-                : 'Run personal branding for every client. Without building a production team.'}
+                ? 'Ajoutez le personal branding à votre agence. Sans recruter une équipe de production.'
+                : 'Add personal branding to your agency. Without hiring a production team.'}
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-[17px] leading-[1.55] text-neutral-300">
               {fr
-                ? 'Choisissez les sujets, recueillez leur expertise et validez les contenus. Empire rédige, monte, programme et mesure le reste.'
-                : 'Choose topics, capture their expertise and approve content. Empire writes, edits, schedules and measures the rest.'}
+                ? 'Vous gardez la stratégie, la relation et les validations. Empire propose les sujets, rédige, monte, programme et mesure pour chaque client.'
+                : 'You keep strategy, relationships and approvals. Empire suggests topics, writes, edits, schedules and measures for every client.'}
             </p>
             <AcademyPlatformLogos fr={fr} />
+            <div className="mt-8 flex w-full flex-col items-center gap-3">
+              <CtaBlock fr={fr} source="agency_hero" audience="agency" />
+              <p className="mt-2 text-[12px] text-neutral-500">
+                {fr ? 'Déjà convaincu ? Accédez directement au programme.' : 'Already convinced? Join the program directly.'}
+              </p>
+              <FestivalPriceBlock fr={fr} pricing={festival} />
+              <PartnerPayLink fr={fr} source="agency_hero" price={festival.price} audience="agency" />
+            </div>
 
-            <div className="mx-auto mt-7 grid max-w-2xl gap-2 text-left sm:grid-cols-2">
+            <dl className="mx-auto mt-6 grid max-w-2xl grid-cols-3 divide-x divide-white/[0.08] border-y border-white/[0.08] py-4">
+              {(fr
+                ? [
+                    ['~4 h', 'par mois et par client*'],
+                    ['7 réseaux', 'depuis une même expertise'],
+                    ['21 jours', 'pour déployer l’offre'],
+                  ]
+                : [
+                    ['~4 hrs', 'per month, per client*'],
+                    ['7 networks', 'from the same expertise'],
+                    ['21 days', 'to deploy the offer'],
+                  ]
+              ).map(([value, label]) => (
+                <div key={value} className="px-2 sm:px-4">
+                  <dt className="text-[15px] font-semibold text-white sm:text-lg">{value}</dt>
+                  <dd className="mt-1 text-[10px] leading-snug text-neutral-500 sm:text-[11px]">{label}</dd>
+                </div>
+              ))}
+            </dl>
+            <p className="mx-auto mt-2 max-w-xl text-[10px] leading-relaxed text-neutral-600">
+              {fr
+                ? '*Repère indicatif une fois le système maîtrisé, hors installation et prospection.'
+                : '*Indicative benchmark once fluent, excluding setup and outreach.'}
+            </p>
+
+            <div className="mx-auto mt-6 grid max-w-2xl gap-2 text-left sm:grid-cols-2">
               {(fr
                 ? [
                     'Un espace séparé pour chaque client.',
@@ -158,15 +191,6 @@ export default function AgencyProgramPage() {
                   {line}
                 </p>
               ))}
-            </div>
-
-            <div className="mt-8 flex w-full flex-col items-center gap-3">
-              <CtaBlock fr={fr} source="agency_hero" audience="agency" />
-              <p className="mt-2 text-[12px] text-neutral-500">
-                {fr ? 'Déjà convaincu ? Accédez directement au programme.' : 'Already convinced? Join the program directly.'}
-              </p>
-              <FestivalPriceBlock fr={fr} pricing={festival} />
-              <PartnerPayLink fr={fr} source="agency_hero" price={festival.price} audience="agency" />
             </div>
           </div>
         </div>
@@ -260,6 +284,63 @@ export default function AgencyProgramPage() {
                 </div>
               ))}
             </div>
+
+            <div className="mt-12 grid gap-3 md:grid-cols-2">
+              <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-6">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-neutral-600">
+                  {fr ? 'Le modèle classique' : 'The traditional model'}
+                </p>
+                <h3 className="mt-3 text-lg font-semibold text-white">
+                  {fr ? 'Chaque client ajoute une nouvelle chaîne de production.' : 'Every client adds a new production line.'}
+                </h3>
+                <ul className="mt-4 space-y-3 text-[14px] leading-relaxed text-neutral-500">
+                  {(fr
+                    ? [
+                        'Des spécialistes et freelances à coordonner.',
+                        'Des briefs, fichiers et retours dispersés.',
+                        'Une marge qui baisse quand la production augmente.',
+                      ]
+                    : [
+                        'Specialists and freelancers to coordinate.',
+                        'Scattered briefs, files and feedback.',
+                        'Margins that shrink as production grows.',
+                      ]
+                  ).map((line) => (
+                    <li key={line} className="flex gap-2">
+                      <span aria-hidden className="text-neutral-700">—</span>
+                      {line}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="rounded-2xl border border-academy/25 bg-academy/[0.055] p-6">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-academy">
+                  {fr ? 'Le modèle Empire' : 'The Empire model'}
+                </p>
+                <h3 className="mt-3 text-lg font-semibold text-white">
+                  {fr ? 'Chaque client suit le même système pilotable.' : 'Every client follows one manageable system.'}
+                </h3>
+                <ul className="mt-4 space-y-3 text-[14px] leading-relaxed text-neutral-300">
+                  {(fr
+                    ? [
+                        'Un espace et un calendrier séparés par client.',
+                        'La rédaction, le montage et la programmation pris en charge.',
+                        'Votre équipe reste concentrée sur la stratégie et la relation.',
+                      ]
+                    : [
+                        'A separate workspace and calendar for each client.',
+                        'Writing, editing and scheduling handled for you.',
+                        'Your team stays focused on strategy and relationships.',
+                      ]
+                  ).map((line) => (
+                    <li key={line} className="flex gap-2">
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-academy" />
+                      {line}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -270,9 +351,14 @@ export default function AgencyProgramPage() {
             <SectionLabel>{fr ? 'Ce qui change' : 'What changes'}</SectionLabel>
             <h2 className="mt-4 max-w-3xl text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
               {fr
-                ? 'Votre équipe se concentre sur les clients. Empire absorbe la production.'
-                : 'Your team focuses on clients. Empire absorbs production.'}
+                ? 'Vendez le pilotage. Pas les heures de montage.'
+                : 'Sell leadership. Not editing hours.'}
             </h2>
+            <p className="mt-5 max-w-3xl text-[16px] leading-relaxed text-neutral-400">
+              {fr
+                ? 'Votre valeur reste humaine : comprendre le client, choisir les priorités et faire avancer sa présence. La production lourde passe dans Empire.'
+                : 'Your value stays human: understand the client, choose priorities and move their presence forward. Heavy production runs through Empire.'}
+            </p>
             <div className="mt-10 grid gap-4 md:grid-cols-3">
               {(fr
                 ? [
