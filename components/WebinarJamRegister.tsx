@@ -2,12 +2,52 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Script from 'next/script'
+import { trackAmplitude } from '@/lib/amplitude'
 import {
   WEBINARJAM_ID,
   WEBINARJAM_LIVE,
   webinarJamBarSrc,
   webinarJamEmbedSrc,
 } from '@/lib/webinarjam'
+
+type Fbq = (...args: unknown[]) => void
+
+/**
+ * Inscription réussie = l'iframe WebinarJam poste `{ func: 'redirect', url }`
+ * au parent, et le script de la barre change de page aussitôt. On écoute en
+ * capture (avant le script de la barre), on envoie Lead au pixel Meta (chargé
+ * par GTM), puis on fait nous-mêmes la même redirection un peu plus tard :
+ * sans ce délai la navigation coupe l'envoi du pixel.
+ */
+function useWebinarJamConversion(source: string) {
+  useEffect(() => {
+    if (!WEBINARJAM_LIVE) return
+    let redirecting = false
+    const onMessage = (event: MessageEvent) => {
+      if (!/(^|\.)webinarjam\.com$/.test(new URL(event.origin || 'null', 'https://x').hostname)) return
+      const data = event.data as { func?: string; url?: string; hash?: string } | null
+      if (!data || data.func !== 'redirect' || !data.url || data.hash !== WEBINARJAM_ID) return
+      event.stopImmediatePropagation()
+      if (redirecting) return
+      redirecting = true
+      const fbq = (window as unknown as { fbq?: Fbq }).fbq
+      const params = { content_name: 'portes_ouvertes', content_category: source }
+      if (typeof fbq === 'function') {
+        fbq('track', 'Lead', params)
+        fbq('track', 'CompleteRegistration', params)
+      }
+      ;(window as unknown as { dataLayer?: unknown[] }).dataLayer?.push({
+        event: 'open_house_registered',
+        open_house_source: source,
+      })
+      trackAmplitude('open_house_registered', { source })
+      const url = data.url
+      window.setTimeout(() => window.location.assign(url), 600)
+    }
+    window.addEventListener('message', onMessage, true)
+    return () => window.removeEventListener('message', onMessage, true)
+  }, [source])
+}
 
 /**
  * Inscription portes ouvertes via WebinarJam.
@@ -16,9 +56,13 @@ import {
  */
 export function WebinarJamBar({
   buttonText = "S'inscrire",
+  source = 'site',
 }: {
   buttonText?: string
+  /** Page d'origine, envoyée avec la conversion (pixel, GTM, Amplitude). */
+  source?: string
 }) {
+  useWebinarJamConversion(source)
   if (!WEBINARJAM_LIVE) return null
   return (
     <Script
