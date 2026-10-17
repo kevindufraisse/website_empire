@@ -6,16 +6,17 @@ import { Play, Pause, Volume2, VolumeX, Maximize, Check, Calendar, ArrowRight, C
 import CalPopupButton from '@/components/CalPopupButton'
 import { trackAmplitude } from '@/lib/amplitude'
 import { startFreeTrial } from '@/lib/startTrial'
+import VideoEmailGate, { adoptEmailFromUrl } from '@/components/VideoEmailGate'
 
 const VIDEO_ID = 'AKfoDblGUNs'
-const VIDEO_TITLE = '94 % des gens ont fait +1M de vues avec cette formule'
+const VIDEO_TITLE = 'La formule pour faire des vues et des clients en automatique, en 1 h 26'
 const PROGRESS_MARKS = [25, 50, 75, 95]
 const SPEEDS = [1, 1.25, 1.5, 1.75, 2]
 const speedLabel = (v: number) => `${String(v).replace('.', ',')}x`
 
 const TRIAL_POINTS = [
-  '7 jours gratuits, 500 crédits pour tes premiers contenus',
-  'Carte demandée, rien débité avant le 8e jour',
+  '7 jours gratuits avec 500 crédits',
+  'Carte demandée : l’abonnement démarre au 8e jour, ou dès que tu dépasses les 500 crédits',
   'Tu arrêtes en un clic depuis l’app',
 ]
 
@@ -37,11 +38,11 @@ const WHAT_YOU_GET = [
 const FAQ = [
   {
     q: 'L\u2019essai est vraiment gratuit ?',
-    a: 'Oui. Tu as 7 jours et 500 crédits pour créer tes premiers contenus. Si tu arrêtes avant le 8e jour, tu ne paies rien. Sinon l\u2019abonnement Growth démarre à 499 €/mois.',
+    a: 'Oui. Tu as 7 jours et 500 crédits pour créer tes premiers contenus. Si tu arrêtes avant, tu ne paies rien. L\u2019abonnement Growth (499 €/mois) démarre au 8e jour, ou plus tôt si tu utilises plus que tes 500 crédits : tu paies seulement quand tu veux aller au-delà.',
   },
   {
     q: 'Pourquoi une carte pour un essai gratuit ?',
-    a: 'Pour que l\u2019abonnement continue sans coupure si tu restes. Rien n\u2019est prélevé pendant les 7 jours.',
+    a: 'Pour que tu ne sois jamais bloqué : si tu dépasses tes 500 crédits ou si tu restes après 7 jours, l\u2019abonnement démarre sans coupure. Tant que tu restes dans l\u2019essai, rien n\u2019est prélevé.',
   },
   {
     q: 'Ça me prend combien de temps ?',
@@ -64,9 +65,7 @@ declare global {
   }
 }
 
-// Au-delà de 5 min, on demande l'email pour continuer.
-const GATE_SECONDS = 300
-const EMAIL_KEY = 'empire_vsl_email_v1'
+// L'email est demandé avant la lecture (choix de Kevin, 17 octobre 2026).
 const TIME_KEY = 'empire_vsl_time_v1'
 
 function readStore(key: string): string | null {
@@ -85,120 +84,25 @@ function writeStore(key: string, value: string) {
   }
 }
 
-function EmailGate({ onUnlocked }: { onUnlocked: () => void }) {
-  const [email, setEmail] = useState('')
-  const [company, setCompany] = useState('')
-  const [error, setError] = useState('')
-  const [sending, setSending] = useState(false)
-
-  const submit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (sending) return
-    setError('')
-    setSending(true)
-    try {
-      const res = await fetch('/api/vsl-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, company }),
-      })
-      const data = await res.json().catch(() => ({}))
-      if (!res.ok) {
-        setError(data.error || 'Impossible d’enregistrer ton email. Réessaie.')
-        setSending(false)
-        return
-      }
-      writeStore(EMAIL_KEY, email.trim().toLowerCase())
-      trackAmplitude('vsl_email_submitted')
-      onUnlocked()
-    } catch {
-      setError('Connexion impossible. Réessaie.')
-      setSending(false)
-    }
-  }
-
-  return (
-    <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/85 backdrop-blur-sm p-4">
-      <form onSubmit={submit} className="w-full max-w-sm text-center">
-        <p className="hidden sm:block text-empire text-xs font-semibold tracking-wider uppercase mb-2">La suite arrive</p>
-        <h3 className="text-base sm:text-xl font-bold text-white mb-2 sm:mb-1">Laisse ton email pour voir la suite</h3>
-        <p className="hidden sm:block text-neutral-400 text-sm mb-4">La vidéo reprend là où tu t’es arrêté.</p>
-        <input
-          type="text"
-          name="company"
-          value={company}
-          onChange={(e) => setCompany(e.target.value)}
-          tabIndex={-1}
-          autoComplete="off"
-          aria-hidden="true"
-          className="hidden"
-        />
-        <div className="flex flex-row gap-2">
-          <input
-            type="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Ton email"
-            autoComplete="email"
-            className="flex-1 min-w-0 rounded-lg bg-white text-black px-4 py-2.5 sm:py-3 text-base outline-none focus:ring-2 focus:ring-empire"
-          />
-          <button
-            type="submit"
-            disabled={sending}
-            className="rounded-lg bg-empire text-black font-bold px-5 py-2.5 sm:py-3 hover:brightness-110 transition disabled:opacity-60"
-          >
-            {sending ? '…' : 'Continuer'}
-          </button>
-        </div>
-        {error && <p className="mt-2 text-sm text-red-400">{error}</p>}
-      </form>
-    </div>
-  )
-}
-
 function VideoPlayer() {
   const containerRef = useRef<HTMLDivElement>(null)
   const playerRef = useRef<any>(null)
   const sentRef = useRef<Set<number>>(new Set())
   const unlockedRef = useRef(false)
-  const gatedRef = useRef(false)
+  const [askEmail, setAskEmail] = useState(false)
   const [started, setStarted] = useState(false)
   const [startAt, setStartAt] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
   const [speed, setSpeed] = useState(1)
   const [speedOpen, setSpeedOpen] = useState(false)
   const [muted, setMuted] = useState(false)
-  const [gated, setGated] = useState(false)
   const [canFullscreen, setCanFullscreen] = useState(false)
 
   useEffect(() => {
-    // Email déjà donné ailleurs sur le site (?email=, ex. WaitlistEmailCta) :
-    // on l'enregistre et la vidéo ne le redemande pas.
-    const fromUrl = (new URLSearchParams(window.location.search).get('email') || '').trim().toLowerCase()
-    if (!readStore(EMAIL_KEY) && /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(fromUrl)) {
-      writeStore(EMAIL_KEY, fromUrl)
-      fetch('/api/vsl-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: fromUrl }),
-      }).catch(() => {})
-      trackAmplitude('vsl_email_submitted', { source: 'url' })
-    }
-    unlockedRef.current = Boolean(readStore(EMAIL_KEY))
-    const saved = Number(readStore(TIME_KEY)) || 0
-    // Sans email, on ne reprend jamais au-delà du seuil.
-    setStartAt(unlockedRef.current ? saved : Math.min(saved, GATE_SECONDS - 5))
+    unlockedRef.current = adoptEmailFromUrl('empire')
+    setStartAt(Number(readStore(TIME_KEY)) || 0)
     setCanFullscreen(Boolean(document.fullscreenEnabled))
   }, [])
-
-  const showGate = () => {
-    if (gatedRef.current) return
-    gatedRef.current = true
-    playerRef.current?.pauseVideo?.()
-    setGated(true)
-    trackAmplitude('vsl_email_gate_shown')
-  }
 
   useEffect(() => {
     if (!started) return
@@ -210,10 +114,6 @@ function VideoPlayer() {
         events: {
           onStateChange: (e: any) => {
             const S = window.YT.PlayerState
-            if (e.data === S.PLAYING && gatedRef.current) {
-              e.target.pauseVideo()
-              return
-            }
             setIsPlaying(e.data === S.PLAYING)
             if (e.data === S.ENDED) trackAmplitude('vsl_video_progress', { percent: 100 })
           },
@@ -225,7 +125,6 @@ function VideoPlayer() {
         const t = p.getCurrentTime()
         const duration = p.getDuration?.() || 0
         if (t > 0) writeStore(TIME_KEY, String(Math.floor(t)))
-        if (!unlockedRef.current && t >= GATE_SECONDS) showGate()
         if (!duration) return
         const pct = (t / duration) * 100
         for (const mark of PROGRESS_MARKS) {
@@ -251,13 +150,18 @@ function VideoPlayer() {
   }, [started])
 
   const start = () => {
+    if (!unlockedRef.current) {
+      setAskEmail(true)
+      trackAmplitude('vsl_email_gate_shown', { funnel: 'empire' })
+      return
+    }
     setStarted(true)
     trackAmplitude('vsl_video_played', startAt > 0 ? { resumed_at: startAt } : undefined)
   }
 
   const togglePlay = () => {
     const p = playerRef.current
-    if (!p?.getPlayerState || gatedRef.current) return
+    if (!p?.getPlayerState) return
     if (p.getPlayerState() === window.YT.PlayerState.PLAYING) p.pauseVideo()
     else p.playVideo()
   }
@@ -286,9 +190,9 @@ function VideoPlayer() {
 
   const unlock = () => {
     unlockedRef.current = true
-    gatedRef.current = false
-    setGated(false)
-    playerRef.current?.playVideo?.()
+    setAskEmail(false)
+    setStarted(true)
+    trackAmplitude('vsl_video_played', startAt > 0 ? { resumed_at: startAt } : undefined)
   }
 
   const embedParams = new URLSearchParams({
@@ -326,72 +230,70 @@ function VideoPlayer() {
             aria-label={isPlaying ? 'Pause' : 'Lecture'}
             className="absolute inset-0 z-10 w-full h-full"
           >
-            {!isPlaying && !gated && (
+            {!isPlaying && (
               <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center w-16 h-16 rounded-full bg-empire text-black shadow-xl">
                 <Play className="w-7 h-7 ml-1" fill="currentColor" />
               </span>
             )}
           </button>
-          {!gated && (
-            <div className="absolute bottom-0 inset-x-0 z-10 flex items-center justify-between gap-2 px-3 py-2 bg-gradient-to-t from-black/70 to-transparent">
-              <button
-                type="button"
-                onClick={togglePlay}
-                aria-label={isPlaying ? 'Pause' : 'Lecture'}
-                className="flex items-center justify-center w-9 h-9 rounded-full text-white hover:bg-white/10"
-              >
-                {isPlaying ? <Pause className="w-5 h-5" fill="currentColor" /> : <Play className="w-5 h-5" fill="currentColor" />}
-              </button>
-              <div className="flex items-center gap-1">
-                <div className="relative">
-                  <button
-                    type="button"
-                    onClick={() => setSpeedOpen((o) => !o)}
-                    aria-label="Vitesse de lecture"
-                    aria-expanded={speedOpen}
-                    className={`h-9 min-w-[3.25rem] px-3 rounded-full text-sm font-bold transition ${speed !== 1 ? 'bg-empire text-black' : 'text-white bg-white/10 hover:bg-white/20'}`}
-                  >
-                    {speedLabel(speed)}
-                  </button>
-                  {speedOpen && (
-                    <div className="absolute bottom-full right-0 mb-2 flex flex-row rounded-xl border border-white/10 bg-[#111] p-1 shadow-xl">
-                      {SPEEDS.map((v) => (
-                        <button
-                          key={v}
-                          type="button"
-                          onClick={() => chooseSpeed(v)}
-                          className={`px-2.5 sm:px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap ${v === speed ? 'bg-empire text-black' : 'text-white hover:bg-white/10'}`}
-                        >
-                          {speedLabel(v)}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
+          <div className="absolute bottom-0 inset-x-0 z-10 flex items-center justify-between gap-2 px-3 py-2 bg-gradient-to-t from-black/70 to-transparent">
+            <button
+              type="button"
+              onClick={togglePlay}
+              aria-label={isPlaying ? 'Pause' : 'Lecture'}
+              className="flex items-center justify-center w-9 h-9 rounded-full text-white hover:bg-white/10"
+            >
+              {isPlaying ? <Pause className="w-5 h-5" fill="currentColor" /> : <Play className="w-5 h-5" fill="currentColor" />}
+            </button>
+            <div className="flex items-center gap-1">
+              <div className="relative">
                 <button
                   type="button"
-                  onClick={toggleMute}
-                  aria-label={muted ? 'Activer le son' : 'Couper le son'}
-                  className="flex items-center justify-center w-9 h-9 rounded-full text-white hover:bg-white/10"
+                  onClick={() => setSpeedOpen((o) => !o)}
+                  aria-label="Vitesse de lecture"
+                  aria-expanded={speedOpen}
+                  className={`h-9 min-w-[3.25rem] px-3 rounded-full text-sm font-bold transition ${speed !== 1 ? 'bg-empire text-black' : 'text-white bg-white/10 hover:bg-white/20'}`}
                 >
-                  {muted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+                  {speedLabel(speed)}
                 </button>
-                {canFullscreen && (
-                  <button
-                    type="button"
-                    onClick={toggleFullscreen}
-                    aria-label="Plein écran"
-                    className="flex items-center justify-center w-9 h-9 rounded-full text-white hover:bg-white/10"
-                  >
-                    <Maximize className="w-5 h-5" />
-                  </button>
+                {speedOpen && (
+                  <div className="absolute bottom-full right-0 mb-2 flex flex-row rounded-xl border border-white/10 bg-[#111] p-1 shadow-xl">
+                    {SPEEDS.map((v) => (
+                      <button
+                        key={v}
+                        type="button"
+                        onClick={() => chooseSpeed(v)}
+                        className={`px-2.5 sm:px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap ${v === speed ? 'bg-empire text-black' : 'text-white hover:bg-white/10'}`}
+                      >
+                        {speedLabel(v)}
+                      </button>
+                    ))}
+                  </div>
                 )}
               </div>
+              <button
+                type="button"
+                onClick={toggleMute}
+                aria-label={muted ? 'Activer le son' : 'Couper le son'}
+                className="flex items-center justify-center w-9 h-9 rounded-full text-white hover:bg-white/10"
+              >
+                {muted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+              </button>
+              {canFullscreen && (
+                <button
+                  type="button"
+                  onClick={toggleFullscreen}
+                  aria-label="Plein écran"
+                  className="flex items-center justify-center w-9 h-9 rounded-full text-white hover:bg-white/10"
+                >
+                  <Maximize className="w-5 h-5" />
+                </button>
+              )}
             </div>
-          )}
-          {gated && <EmailGate onUnlocked={unlock} />}
+          </div>
         </>
       ) : (
+        <>
         <button
           type="button"
           onClick={start}
@@ -413,6 +315,15 @@ function VideoPlayer() {
             </span>
           )}
         </button>
+        {askEmail && (
+          <VideoEmailGate
+            funnel="empire"
+            title="Où on t’envoie la formule ?"
+            subtitle="Ton email, et la vidéo démarre tout de suite."
+            onUnlocked={unlock}
+          />
+        )}
+        </>
       )}
     </div>
   )
@@ -498,10 +409,10 @@ export default function VslClient() {
             Workshop gratuit · 1 h 26
           </p>
           <h1 className="text-center text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-4">
-            94 % des gens ont fait <span className="text-empire">+1M de vues</span> avec cette formule
+            La formule pour faire <span className="text-empire">des vues et des clients</span> en automatique, expliquée en 1 h 26
           </h1>
           <p className="text-center text-neutral-400 text-base md:text-lg max-w-2xl mx-auto mb-8">
-            Regarde la vidéo, puis applique la formule avec Empire. 7 jours pour la tester, gratuitement.
+            Regarde le workshop, puis applique la formule avec Empire : 7 jours et 500 crédits pour la tester, gratuitement.
           </p>
 
           <VideoPlayer />

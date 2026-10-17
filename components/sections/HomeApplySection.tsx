@@ -41,8 +41,8 @@ export default function HomeApplySection() {
           </h2>
           <p className="mx-auto mt-5 max-w-lg text-base leading-relaxed text-neutral-400 md:text-lg">
             {fr
-              ? 'Regardez le workshop, puis testez Empire gratuitement pendant 7 jours.'
-              : 'Watch the workshop, then try Empire free for 7 days.'}
+              ? 'Regardez le workshop, puis testez Empire gratuitement : 7 jours et 500 crédits.'
+              : 'Watch the workshop, then try Empire free: 7 days and 500 credits.'}
           </p>
           <div className="mt-8">
             <a

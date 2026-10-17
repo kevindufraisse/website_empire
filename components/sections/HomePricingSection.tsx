@@ -454,7 +454,7 @@ export default function HomePricingSection() {
               {fr ? 'Démarrer l\u2019essai gratuit' : 'Start free trial'}
             </a>
             <p className="mt-2 text-center text-[11px] text-neutral-500">
-              {fr ? '500 crédits offerts · 7 jours gratuits · Annulez en 1 clic' : '500 free credits · 7 days free · Cancel in 1 click'}
+              {fr ? '7 jours ou 500 crédits offerts, au premier des deux · Annulez en 1 clic' : '7 days or 500 credits free, whichever comes first · Cancel in 1 click'}
             </p>
           </motion.div>
 

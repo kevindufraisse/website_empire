@@ -571,11 +571,11 @@ export const en = {
     },
     {
       question: 'How do I get started?',
-      answer: 'Apply. We read every application. If you\'re in, you get a 7-day trial (card required, nothing charged before day 8).',
+      answer: 'Apply. We read every application. If you\'re in, you get a 7-day trial with 500 credits (card required; your plan starts on day 8, or as soon as you go past 500 credits).',
     },
     {
       question: 'How does the 7-day free trial work?',
-      answer: 'You get access for 7 days without paying. Cancel before it ends and you pay nothing.',
+      answer: 'You get 7 days and 500 credits to try it, without paying. Your plan starts on day 8, or earlier if you go past 500 credits. Cancel before and you pay nothing.',
     },
     {
       question: 'Do you write in other languages?',

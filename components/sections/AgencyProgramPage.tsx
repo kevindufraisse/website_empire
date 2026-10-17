@@ -91,23 +91,16 @@ export default function AgencyProgramPage() {
       <Script
         id="academy-agency-senja"
         src="https://widget.senja.io/widget/2a990f91-6426-436a-b50d-318fc49a7851/platform.js"
-        strategy="afterInteractive"
+        strategy="lazyOnload"
       />
 
       <section className="relative overflow-hidden border-b border-white/[0.06] pb-14 pt-[4.5rem] md:pb-20 md:pt-20">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_45%_at_50%_0%,rgba(252,165,165,0.12),transparent)]" />
         <div className="container relative z-10">
           <div className="mx-auto max-w-[44rem] text-center">
-            <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-academy">
-              {fr ? 'Empire · Programme partenaire' : 'Empire · Partner program'}
-            </p>
-            <p className="mt-1.5 text-[14px] text-neutral-400">
-              {fr ? 'Pour les agences, studios et consultants' : 'For agencies, studios and consultants'}
-            </p>
-
             <nav
               aria-label={fr ? 'Choisissez votre parcours' : 'Choose your path'}
-              className="mx-auto mt-4 inline-flex rounded-full border border-white/[0.08] bg-white/[0.025] p-0.5"
+              className="mx-auto mb-5 inline-flex rounded-full border border-white/[0.08] bg-white/[0.025] p-0.5"
             >
               <Link
                 href="/academy"
@@ -125,6 +118,13 @@ export default function AgencyProgramPage() {
                 {fr ? 'Agence' : 'Agency'}
               </Link>
             </nav>
+
+            <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-academy">
+              {fr ? 'Empire · Programme partenaire' : 'Empire · Partner program'}
+            </p>
+            <p className="mt-1.5 text-[14px] text-neutral-400">
+              {fr ? 'Pour les agences, studios et consultants' : 'For agencies, studios and consultants'}
+            </p>
 
             <h1 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl md:text-[2.75rem] md:leading-[1.15]">
               {fr
@@ -546,8 +546,8 @@ export default function AgencyProgramPage() {
             </h2>
             <p className="mt-5 text-[16px] leading-relaxed text-neutral-400">
               {fr
-                ? 'Formation et replays, activation de 21 jours, 4 000 crédits, modèles de vente, communauté et rendez-vous partenaires accessibles à vie.'
-                : 'Training and replays, 21-day activation, 4,000 credits, sales templates, community and lifetime partner sessions.'}
+                ? 'Le bootcamp de 21 jours en vidéo et la communauté à vie. Juste après le paiement, tu peux passer partenaire : live chaque semaine, 4 000 crédits, replays, modèles de vente et page de paiement.'
+                : 'The 21-day video bootcamp and lifetime community. Right after payment, you can become a partner: weekly live, 4,000 credits, replays, sales templates and payment page.'}
             </p>
             <div className="mt-8">
               <FestivalPriceBlock fr={fr} pricing={festival} />

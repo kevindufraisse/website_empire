@@ -169,7 +169,7 @@ export default function FloatingSocialReactions() {
             className={`hero-float-reaction absolute bottom-[-48px] flex h-10 w-10 items-center justify-center ${
               badge
                 ? 'rounded-full shadow-lg'
-                : 'rounded-full border border-white/10 bg-black/55 shadow-lg backdrop-blur-sm'
+                : 'rounded-full border border-white/10 bg-black/75 shadow-lg'
             } ${index > 5 ? 'hidden sm:flex' : ''}`}
             style={{
               left: reaction.left,

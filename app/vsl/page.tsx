@@ -1,9 +1,9 @@
 import VslClient from './VslClient'
 
 export const metadata = {
-  title: '94 % des gens ont fait +1M de vues avec cette formule | Empire Internet',
+  title: 'Workshop gratuit : la formule pour faire des vues et des clients en automatique | Empire Internet',
   description:
-    'La formule pour faire des vues, en vidéo. Ensuite, teste Empire gratuitement pendant 7 jours ou réserve un appel.',
+    'La formule pour faire des vues et des clients en automatique, expliquée en 1 h 26. Ensuite, teste Empire gratuitement (7 jours, 500 crédits) ou réserve un appel.',
   robots: { index: true, follow: true },
 }
 

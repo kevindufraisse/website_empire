@@ -15,6 +15,7 @@
 
 import { useEffect, useRef } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { loadSenjaWhenNear } from '@/lib/loadSenja'
 
 const SENJA_TOP_CREATORS_ID = '68885202-c416-4672-bd27-6b130d60d1a7'
 
@@ -35,24 +36,7 @@ export default function TopCreatorsSection({
     const el = sectionRef.current
     if (!el) return
 
-    let script: HTMLScriptElement | null = null
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (!entries[0].isIntersecting || script) return
-        script = document.createElement('script')
-        script.src = `https://widget.senja.io/widget/${SENJA_TOP_CREATORS_ID}/platform.js`
-        script.async = true
-        document.body.appendChild(script)
-        observer.disconnect()
-      },
-      { rootMargin: '200px' },
-    )
-    observer.observe(el)
-
-    return () => {
-      observer.disconnect()
-      if (script?.parentNode) script.parentNode.removeChild(script)
-    }
+    return loadSenjaWhenNear(el, SENJA_TOP_CREATORS_ID)
   }, [])
 
   return (

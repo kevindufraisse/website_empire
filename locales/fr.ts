@@ -694,11 +694,11 @@ export const fr: Translations = {
     },
     {
       question: 'Comment je commence ?',
-      answer: 'Lancez une candidature. On lit chaque dossier. Si vous êtes pris, vous avez un essai 7 jours (carte demandée, rien avant le 8e jour).',
+      answer: 'Lancez une candidature. On lit chaque dossier. Si vous êtes pris, vous avez un essai de 7 jours avec 500 crédits (carte demandée ; l’abonnement démarre au 8e jour, ou dès que vous dépassez les 500 crédits).',
     },
     {
       question: 'Comment fonctionne l\'essai gratuit de 7 jours ?',
-      answer: 'Vous accédez 7 jours sans payer. Annulez avant la fin : vous ne payez rien.',
+      answer: 'Vous avez 7 jours et 500 crédits pour tester, sans payer. L’abonnement démarre au 8e jour, ou plus tôt si vous dépassez les 500 crédits. Annulez avant : vous ne payez rien.',
     },
     {
       question: 'Écrivez-vous dans d\'autres langues ?',
