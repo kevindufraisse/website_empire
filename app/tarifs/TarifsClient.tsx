@@ -373,8 +373,8 @@ export default function TarifsClient() {
         <p className="mt-6 text-center text-xs text-neutral-500">
           {period === 'monthly'
             ? (fr
-              ? `7 jours gratuits, de quoi faire ${Math.floor(TRIAL_CREDITS / POST_CREDITS)} posts LinkedIn. L’abonnement démarre au 8e jour, ou dès que ton essai est épuisé. Annule avant : 0 €.`
-              : `7 days free, enough for ${Math.floor(TRIAL_CREDITS / POST_CREDITS)} LinkedIn posts. Your plan starts on day 8, or as soon as the trial is used up. Cancel before: €0.`)
+              ? '7 jours gratuits. Annule avant : 0 €. La limite de l’essai est dans les questions plus bas.'
+              : '7 days free. Cancel before: €0. The trial limit is in the questions below.')
             : (fr ? 'Pas d’essai en trimestriel ou en annuel : le paiement part le jour même.' : 'No trial on quarterly or yearly: payment is taken the same day.')}
         </p>
         <p className="mt-2 text-center text-[11px] text-neutral-600">
