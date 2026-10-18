@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { Fragment, useState } from 'react'
 import { ArrowRight, Check, Minus } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import {
@@ -14,7 +14,7 @@ import {
   type BillingId,
   type PlanId,
 } from '@/lib/plans'
-import { startFreeTrial, TRIAL_TERMS_EN, TRIAL_TERMS_FR } from '@/lib/startTrial'
+import { startFreeTrial, TRIAL_CREDITS, TRIAL_TERMS_EN, TRIAL_TERMS_FR } from '@/lib/startTrial'
 import { trackAmplitude, withAmplitudeDeviceId } from '@/lib/amplitude'
 
 /**
@@ -27,7 +27,23 @@ import { trackAmplitude, withAmplitudeDeviceId } from '@/lib/amplitude'
 
 type Col = PlanId | 'payg'
 
-type Row = { fr: string; en: string; cells: Record<Col, boolean | string> }
+type Row = { fr: string; en: string; cells: Record<Col, boolean | string>; bonus?: boolean }
+
+// Bas des fourchettes publiées en 2026 : un reel simple chez un monteur
+// freelance 50-120 € (Le Cut), un post LinkedIn chez un ghostwriter 50-250 €
+// (Clément Aouadène, Copylinker). On ne prend que le bas, newsletters exclues.
+const FREELANCE_FLOOR = { reel: 50, post: 50 }
+const FREELANCE_SOURCES = [
+  { label: 'Le Cut', href: 'https://www.lecut.fr/blog/tarifs-monteur-video-freelance' },
+  { label: 'Copylinker', href: 'https://copylinker.fr/tarif-ghostwriter-linkedin/' },
+]
+// `CREDIT_COSTS.post_linkedin` de l'app.
+const POST_CREDITS = 85
+
+function freelanceFloor(plan: PlanId) {
+  const d = PLAN_DELIVERABLES[plan]
+  return d.reels * FREELANCE_FLOOR.reel + d.posts * FREELANCE_FLOOR.post
+}
 
 const ROWS: Row[] = [
   {
@@ -51,19 +67,7 @@ const ROWS: Row[] = [
     cells: { starter: true, growth: true, scale: true, payg: true },
   },
   {
-    fr: 'Communauté Slack', en: 'Slack community',
-    cells: { starter: true, growth: true, scale: true, payg: true },
-  },
-  {
-    fr: 'Live client chaque semaine', en: 'Weekly client live',
-    cells: { starter: true, growth: true, scale: true, payg: false },
-  },
-  {
     fr: 'Support prioritaire sous 4 h', en: 'Priority support within 4h',
-    cells: { starter: false, growth: true, scale: true, payg: false },
-  },
-  {
-    fr: 'Replays masterclass', en: 'Masterclass replays',
     cells: { starter: false, growth: true, scale: true, payg: false },
   },
   {
@@ -74,22 +78,49 @@ const ROWS: Row[] = [
     fr: 'Essai 7 jours gratuit', en: '7-day free trial',
     cells: { starter: 'au mois', growth: 'au mois', scale: 'au mois', payg: false },
   },
+  {
+    fr: 'Communauté Slack', en: 'Slack community',
+    cells: { starter: true, growth: true, scale: true, payg: true },
+    bonus: true,
+  },
+  {
+    fr: 'Live client chaque semaine', en: 'Weekly client live',
+    cells: { starter: true, growth: true, scale: true, payg: false },
+    bonus: true,
+  },
+  {
+    fr: 'Replays masterclass', en: 'Masterclass replays',
+    cells: { starter: false, growth: true, scale: true, payg: false },
+    bonus: true,
+  },
 ]
 
-const HIGHLIGHTS: Record<PlanId, { fr: string[]; en: string[] }> = {
+const HIGHLIGHTS: Record<PlanId, { fr: string[]; en: string[]; bonusFr: string; bonusEn: string }> = {
   starter: {
-    fr: ['Publication sur 7 réseaux', 'Idées prêtes chaque semaine', 'Live client chaque semaine'],
-    en: ['Publishing to 7 networks', 'Ready ideas every week', 'Weekly client live'],
+    fr: ['Idées prêtes à filmer chaque semaine', 'Publication sur 7 réseaux'],
+    en: ['Ready-to-film ideas every week', 'Publishing to 7 networks'],
+    bonusFr: 'Live client chaque semaine, communauté Slack',
+    bonusEn: 'Weekly client live, Slack community',
   },
   growth: {
-    fr: ['Tout Débutant', 'Support prioritaire sous 4 h', 'Replays masterclass'],
-    en: ['Everything in Starter', 'Priority support within 4h', 'Masterclass replays'],
+    fr: ['Tout Débutant', 'Support prioritaire sous 4 h'],
+    en: ['Everything in Starter', 'Priority support within 4h'],
+    bonusFr: 'Live, Slack et replays masterclass',
+    bonusEn: 'Live, Slack and masterclass replays',
   },
   scale: {
     fr: ['Tout Intermédiaire', 'Revue stratégique mensuelle (retours Loom)'],
     en: ['Everything in Intermediate', 'Monthly strategy review (Loom feedback)'],
+    bonusFr: 'Live, Slack et replays masterclass',
+    bonusEn: 'Live, Slack and masterclass replays',
   },
 }
+
+const STEPS = [
+  { fr: 'Tu parles : une prise face caméra, ou un vocal.', en: 'You talk: one take on camera, or a voice note.' },
+  { fr: 'Empire écrit et monte tes reels, posts et newsletters.', en: 'Empire writes and edits your reels, posts and newsletters.' },
+  { fr: 'Tout part sur 7 réseaux, programmé.', en: 'Everything goes out to 7 networks, scheduled.' },
+]
 
 const FAQ = [
   {
@@ -108,6 +139,13 @@ const FAQ = [
     a: {
       fr: `Tu enregistres ta carte, 0 € aujourd’hui. À ta première action payante, une recharge de ${PAYG_RECHARGE.euros} € (${PAYG_RECHARGE.credits} crédits), puis une nouvelle dès que ton solde ne suffit plus. Tu fixes un plafond par mois. Pas d’abonnement, pas de live client.`,
       en: `Save your card, €0 today. On your first paid action, a €${PAYG_RECHARGE.euros} top-up (${PAYG_RECHARGE.credits} credits), then another when your balance runs low. You set a monthly cap. No subscription, no client live.`,
+    },
+  },
+  {
+    q: { fr: 'C’est quoi, les crédits ?', en: 'What are credits?' },
+    a: {
+      fr: `La monnaie unique de l’app : chaque contenu en utilise un nombre fixe (un post LinkedIn, ${POST_CREDITS} crédits). Ta formule en verse chaque mois, tu choisis le mix entre reels, posts et newsletters. L’essai en contient ${TRIAL_CREDITS}.`,
+      en: `The app's single currency: each piece of content uses a fixed amount (a LinkedIn post, ${POST_CREDITS} credits). Your plan adds them every month and you choose the mix of reels, posts and newsletters. The trial includes ${TRIAL_CREDITS}.`,
     },
   },
   {
@@ -169,6 +207,15 @@ export default function TarifsClient() {
           </p>
         </header>
 
+        <ol className="mx-auto mt-8 grid max-w-3xl gap-3 sm:grid-cols-3">
+          {STEPS.map((step, i) => (
+            <li key={step.fr} className="flex items-start gap-3 rounded-xl border border-white/[0.07] bg-white/[0.02] px-4 py-3 text-left text-sm text-neutral-300">
+              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white text-xs font-bold text-black">{i + 1}</span>
+              {fr ? step.fr : step.en}
+            </li>
+          ))}
+        </ol>
+
         <div className="mt-10 flex justify-center">
           <div role="tablist" className="inline-flex rounded-full border border-white/10 bg-white/[0.03] p-1">
             {BILLING_PERIODS.map((p) => {
@@ -206,7 +253,7 @@ export default function TarifsClient() {
                 key={plan.id}
                 className={`relative flex flex-col rounded-2xl border p-6 ${
                   hl
-                    ? 'border-white/25 bg-gradient-to-b from-white/[0.08] to-white/[0.02] shadow-[0_1px_0_0_rgba(255,255,255,0.12)_inset,0_30px_60px_-20px_rgba(0,0,0,0.9)]'
+                    ? 'lg:-my-3 lg:py-9 border-white/25 bg-gradient-to-b from-white/[0.08] to-white/[0.02] shadow-[0_1px_0_0_rgba(255,255,255,0.12)_inset,0_30px_60px_-20px_rgba(0,0,0,0.9)]'
                     : 'border-white/10 bg-white/[0.02] shadow-[0_1px_0_0_rgba(255,255,255,0.06)_inset]'
                 }`}
               >
@@ -227,6 +274,9 @@ export default function TarifsClient() {
                   <span className="text-4xl font-bold tabular-nums tracking-tight">{monthly} €</span>
                   <span className="text-sm text-neutral-500">{fr ? '/mois' : '/mo'}</span>
                 </div>
+                <p className="mt-1 text-xs text-neutral-400">
+                  {fr ? `soit ${Math.round(monthly / 30)} € par jour` : `that's €${Math.round(monthly / 30)} a day`}
+                </p>
                 <p className="mt-1 h-5 text-xs text-neutral-500">
                   {period === 'monthly'
                     ? (fr ? 'Sans engagement' : 'No commitment')
@@ -263,6 +313,13 @@ export default function TarifsClient() {
                   ))}
                 </div>
                 <p className="mt-2 text-center text-[11px] text-neutral-600">{fr ? 'chaque mois' : 'every month'}</p>
+                <p className="mt-3 text-center text-xs text-neutral-500">
+                  {fr ? 'En freelance : dès ' : 'With freelancers: from '}
+                  <span className="text-neutral-300 line-through decoration-neutral-600">
+                    {freelanceFloor(plan.id).toLocaleString(fr ? 'fr-FR' : 'en-US')} €
+                  </span>
+                  {fr ? ' /mois*' : ' /mo*'}
+                </p>
 
                 <ul className="mt-5 space-y-2.5">
                   {HIGHLIGHTS[plan.id][fr ? 'fr' : 'en'].map((line) => (
@@ -272,6 +329,9 @@ export default function TarifsClient() {
                     </li>
                   ))}
                 </ul>
+                <p className="mt-4 border-t border-white/[0.07] pt-4 text-xs leading-relaxed text-neutral-500">
+                  <span className="font-semibold text-neutral-300">Bonus</span> · {fr ? HIGHLIGHTS[plan.id].bonusFr : HIGHLIGHTS[plan.id].bonusEn}
+                </p>
               </article>
             )
           })}
@@ -285,8 +345,8 @@ export default function TarifsClient() {
             </div>
             <p className="mt-1 h-5 text-xs text-neutral-500">
               {fr
-                ? `Puis ${PAYG_RECHARGE.euros} € les ${PAYG_RECHARGE.credits} crédits`
-                : `Then €${PAYG_RECHARGE.euros} per ${PAYG_RECHARGE.credits} credits`}
+                ? `Puis ${PAYG_RECHARGE.euros} € ≈ ${Math.floor(PAYG_RECHARGE.credits / POST_CREDITS)} posts LinkedIn`
+                : `Then €${PAYG_RECHARGE.euros} ≈ ${Math.floor(PAYG_RECHARGE.credits / POST_CREDITS)} LinkedIn posts`}
             </p>
             <button
               type="button"
@@ -311,7 +371,23 @@ export default function TarifsClient() {
         </div>
 
         <p className="mt-6 text-center text-xs text-neutral-500">
-          {period === 'monthly' ? (fr ? TRIAL_TERMS_FR : TRIAL_TERMS_EN) : (fr ? 'Pas d’essai en trimestriel ou en annuel : le paiement part le jour même.' : 'No trial on quarterly or yearly: payment is taken the same day.')}
+          {period === 'monthly'
+            ? (fr
+              ? '7 jours gratuits. Annule avant : 0 €. La limite de l’essai est dans les questions plus bas.'
+              : '7 days free. Cancel before: €0. The trial limit is in the questions below.')
+            : (fr ? 'Pas d’essai en trimestriel ou en annuel : le paiement part le jour même.' : 'No trial on quarterly or yearly: payment is taken the same day.')}
+        </p>
+        <p className="mt-2 text-center text-[11px] text-neutral-600">
+          {fr
+            ? `* Bas des tarifs publiés en 2026 : ${FREELANCE_FLOOR.reel} € le reel chez un monteur freelance, ${FREELANCE_FLOOR.post} € le post chez un ghostwriter LinkedIn, newsletters non comptées. Sources : `
+            : `* Low end of 2026 published rates: €${FREELANCE_FLOOR.reel} per reel from a freelance editor, €${FREELANCE_FLOOR.post} per post from a LinkedIn ghostwriter, newsletters not counted. Sources: `}
+          {FREELANCE_SOURCES.map((src, i) => (
+            <span key={src.href}>
+              {i > 0 && ', '}
+              <a href={src.href} target="_blank" rel="noopener noreferrer" className="underline decoration-white/20 underline-offset-2 hover:text-neutral-400">{src.label}</a>
+            </span>
+          ))}
+          .
         </p>
 
         <section className="mt-24">
@@ -336,8 +412,14 @@ export default function TarifsClient() {
                 </tr>
               </thead>
               <tbody>
-                {ROWS.map((row) => (
-                  <tr key={row.fr} className="border-b border-white/[0.06] last:border-0">
+                {ROWS.map((row, i) => (
+                  <Fragment key={row.fr}>
+                  {row.bonus && !ROWS[i - 1]?.bonus && (
+                    <tr className="border-b border-white/[0.06] bg-white/[0.02]">
+                      <td colSpan={5} className="px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.15em] text-neutral-500">Bonus</td>
+                    </tr>
+                  )}
+                  <tr className="border-b border-white/[0.06] last:border-0">
                     <td className="px-5 py-3.5 text-sm text-neutral-300">{fr ? row.fr : row.en}</td>
                     {(['starter', 'growth', 'scale', 'payg'] as Col[]).map((c) => (
                       <td key={c} className={`px-3 py-3.5 text-center ${c === 'growth' ? 'bg-white/[0.03]' : ''}`}>
@@ -345,6 +427,7 @@ export default function TarifsClient() {
                       </td>
                     ))}
                   </tr>
+                  </Fragment>
                 ))}
               </tbody>
             </table>
