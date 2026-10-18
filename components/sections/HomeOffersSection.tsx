@@ -62,8 +62,8 @@ export default function HomeOffersSection() {
                 </p>
                 <p className="mt-3 text-sm text-neutral-400">
                   {fr
-                    ? `${d.reels} reels · ${d.posts} posts · ${d.newsletters} newsletters par mois`
-                    : `${d.reels} reels · ${d.posts} posts · ${d.newsletters} newsletters a month`}
+                    ? `Jusqu’à ${d.reels} reels ou ${d.posts} posts par mois`
+                    : `Up to ${d.reels} reels or ${d.posts} posts a month`}
                 </p>
               </div>
             )
