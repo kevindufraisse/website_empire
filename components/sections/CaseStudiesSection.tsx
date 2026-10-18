@@ -41,7 +41,7 @@ type CaseStudy = {
   positive: boolean
 }
 
-const CASE_STUDIES: CaseStudy[] = [
+export const CASE_STUDIES: CaseStudy[] = [
   {
     name: 'Marguerite Demoures',
     roleFr: 'Experte CRM B2B',

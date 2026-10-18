@@ -1,8 +1,10 @@
 'use client'
 
 import { Fragment, useState } from 'react'
+import Image from 'next/image'
 import { ArrowRight, Check, Minus } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { CASE_STUDIES } from '@/components/sections/CaseStudiesSection'
 import {
   APP_JOIN_URL,
   BILLING_PERIODS,
@@ -58,6 +60,25 @@ function teamMix(plan: PlanId) {
 function freelanceFloor(plan: PlanId) {
   const m = teamMix(plan)
   return m.reels * FREELANCE_FLOOR.reel + m.posts * FREELANCE_FLOOR.post + FREELANCE_FLOOR.communityManager
+}
+
+// Résultats déjà publiés sur l'accueil, attribués à Empire (Deborah, lancée sur
+// les conseils de Kevin, n'y est pas).
+const PROOF_LINES: { name: string; statFr: string; statEn: string; howFr: string; howEn: string }[] = [
+  { name: 'Caroline Blivet', statFr: '361 → 8 000 impressions', statEn: '361 → 8,000 impressions', howFr: 'dès son premier post avec Empire', howEn: 'on her first post with Empire' },
+  { name: 'Evelyne Guitard', statFr: '100 000 vues en 21 jours', statEn: '100,000 views in 21 days', howFr: 'sur LinkedIn, après son onboarding', howEn: 'on LinkedIn, after onboarding' },
+  { name: 'Olivier Sarezinski', statFr: '1 h par semaine', statEn: '1 hour a week', howFr: 'au lieu de plusieurs freelances', howEn: 'instead of several freelancers' },
+]
+const PROOF = PROOF_LINES.flatMap((line) => {
+  const cs = CASE_STUDIES.find((c) => c.name === line.name)
+  return cs ? [{ ...line, photo: cs.photo, roleFr: cs.roleFr, roleEn: cs.roleEn }] : []
+})
+
+// Cette page tutoie ; l'accueil, qui lit aussi `rhythmFr`, vouvoie.
+const RHYTHM_TU: Record<PlanId, string> = {
+  starter: 'Tu postes tous les 2 jours',
+  growth: 'Tu postes tous les jours',
+  scale: 'Tu postes 2 fois par jour',
 }
 
 const ALL: Record<Col, boolean> = { starter: true, growth: true, scale: true, payg: true }
@@ -285,7 +306,7 @@ export default function TarifsClient() {
                     </span>
                   )}
                 </div>
-                <p className="mt-1 text-sm text-neutral-500">{fr ? plan.rhythmFr : plan.rhythmEn}</p>
+                <p className="mt-1 text-sm text-neutral-500">{fr ? RHYTHM_TU[plan.id] : plan.rhythmEn}</p>
 
                 <div className="mt-6 flex items-baseline gap-2">
                   {period !== 'monthly' && (
@@ -303,6 +324,11 @@ export default function TarifsClient() {
                     : fr
                       ? `${(monthly * months).toLocaleString('fr-FR')} € ${months === 3 ? 'tous les 3 mois' : 'par an'}`
                       : `€${(monthly * months).toLocaleString('en-US')} ${months === 3 ? 'every 3 months' : 'per year'}`}
+                </p>
+                <p className="h-5 text-xs font-semibold text-empire">
+                  {period !== 'monthly' && (fr
+                    ? `${((plan.price - monthly) * 12).toLocaleString('fr-FR')} € économisés par an`
+                    : `€${((plan.price - monthly) * 12).toLocaleString('en-US')} saved per year`)}
                 </p>
 
                 <button
@@ -391,6 +417,19 @@ export default function TarifsClient() {
             </ul>
           </article>
         </div>
+
+        <ul className="mx-auto mt-8 grid max-w-4xl gap-3 sm:grid-cols-3">
+          {PROOF.map((cs) => (
+            <li key={cs.name} className="flex items-center gap-3 rounded-xl border border-white/[0.07] bg-white/[0.02] px-4 py-3">
+              <Image src={cs.photo} alt={cs.name} width={40} height={40} className="h-10 w-10 shrink-0 rounded-full object-cover" />
+              <div className="min-w-0">
+                <p className="text-sm font-semibold tabular-nums text-white">{fr ? cs.statFr : cs.statEn}</p>
+                <p className="text-xs text-neutral-400">{fr ? cs.howFr : cs.howEn}</p>
+                <p className="truncate text-[11px] text-neutral-600">{cs.name.split(' ')[0]}, {fr ? cs.roleFr : cs.roleEn}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
 
         <p className="mt-6 text-center text-xs text-neutral-500">
           {period === 'monthly'
