@@ -1,13 +1,15 @@
 /**
- * Prix festival hebdo du programme partenaire (/academy).
+ * Prix hebdo du bootcamp Academy (/academy), l'entrée du programme partenaire.
+ * Le statut partenaire est proposé juste après le paiement, dans l'app
+ * (/join/academy, upsell en un clic) : le site ne vend que le bootcamp.
  *
  * Semaine Europe/Paris, reset chaque lundi 00:00 :
- * - Lun 00:00 → Jeu 18:00 : 500 €  (prix du live — on peut venir jeudi 11h et payer encore à 500)
- * - Jeu 18:00 → Dim 00:00 : 700 €  (après le live)
- * - Dim 00:00 → Lun 00:00 : 800 €  (dernière chance)
+ * - Lun 00:00 → Jeu 18:00 : 297 €  (on peut venir au live du jeudi 11h et payer encore 297)
+ * - Jeu 18:00 → Dim 00:00 : 397 €
+ * - Dim 00:00 → Lun 00:00 : 497 €
  *
- * Miroir côté app : `partnerFestivalPricingFor` dans
- * empire-tracking/src/lib/waSetter.cjs (checkout Stripe).
+ * Miroir côté app : `BOOTCAMP_WEEKLY_TIERS` dans
+ * empire-tracking/src/lib/waSetter.cjs (montant réel du checkout Stripe).
  */
 
 export type PartnerTierId = 'live' | 'after_live' | 'last_chance'
@@ -22,21 +24,21 @@ export type PartnerFestivalTier = {
 export const PARTNER_FESTIVAL_TIERS: PartnerFestivalTier[] = [
   {
     id: 'live',
-    price: 500,
-    labelFr: 'Prix du live',
-    labelEn: 'Live price',
+    price: 297,
+    labelFr: 'Prix de la semaine',
+    labelEn: 'This week’s price',
   },
   {
     id: 'after_live',
-    price: 700,
-    labelFr: 'Après le live',
-    labelEn: 'After the live',
+    price: 397,
+    labelFr: 'Après le jeudi 18 h',
+    labelEn: 'After Thursday 6pm',
   },
   {
     id: 'last_chance',
-    price: 800,
-    labelFr: 'Dernière chance',
-    labelEn: 'Last chance',
+    price: 497,
+    labelFr: 'Prix du dimanche',
+    labelEn: 'Sunday price',
   },
 ]
 
@@ -154,8 +156,8 @@ export function getPartnerFestivalPricing(now: Date = new Date()): PartnerFestiv
     labelFr: tier.labelFr,
     labelEn: tier.labelEn,
     nextPrice: next.price,
-    nextLabelFr: isLast ? 'Prix du live (lundi)' : next.labelFr,
-    nextLabelEn: isLast ? 'Live price (Monday)' : next.labelEn,
+    nextLabelFr: isLast ? 'Prix de la semaine (lundi)' : next.labelFr,
+    nextLabelEn: isLast ? 'This week’s price (Monday)' : next.labelEn,
     msUntilNext: Math.max(0, nextAt.getTime() - now.getTime()),
     tiers: PARTNER_FESTIVAL_TIERS,
   }
@@ -164,7 +166,7 @@ export function getPartnerFestivalPricing(now: Date = new Date()): PartnerFestiv
 export function partnerPayHref(): string {
   return (
     process.env.NODE_ENV === 'development'
-      ? 'http://localhost:5173/join/academy?offer=partner'
-      : 'https://app.empire-internet.com/join/academy?offer=partner'
+      ? 'http://localhost:5173/join/academy'
+      : 'https://app.empire-internet.com/join/academy'
   )
 }

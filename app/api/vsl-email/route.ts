@@ -4,12 +4,15 @@ import { createOrUpdateContact, addTagToContact, ensureTagByName, ValidationErro
 export const runtime = 'nodejs'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
-const VSL_TAG = 'vsl-video'
+const TAGS = {
+  empire: { name: 'vsl-video', env: 'SYSTEMEIO_TAG_VSL' },
+  academy: { name: 'academy-vsl', env: 'SYSTEMEIO_TAG_ACADEMY_VSL' },
+} as const
 
-// Email demandé après 5 min de vidéo sur /vsl. Le contact part dans
-// Systeme.io avec le tag « vsl-video » (créé à la volée s'il manque).
+// Email demandé avant la vidéo : /vsl (tunnel Empire, tag « vsl-video ») et
+// /partenaire (tunnel Academy, tag « academy-vsl »). Tag créé à la volée s'il manque.
 export async function POST(req: NextRequest) {
-  let body: { email?: string; company?: string }
+  let body: { email?: string; company?: string; funnel?: string }
   try {
     body = await req.json()
   } catch {
@@ -33,7 +36,8 @@ export async function POST(req: NextRequest) {
 
   try {
     const contact = await createOrUpdateContact({ email, locale: 'fr' })
-    const tagId = Number(process.env.SYSTEMEIO_TAG_VSL) || (await ensureTagByName(VSL_TAG))
+    const tag = body.funnel === 'academy' ? TAGS.academy : TAGS.empire
+    const tagId = Number(process.env[tag.env]) || (await ensureTagByName(tag.name))
     await addTagToContact(contact.id, tagId)
     return NextResponse.json({ success: true })
   } catch (err) {

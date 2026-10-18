@@ -7,6 +7,7 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import CallbackButton from '@/components/CallbackButton'
 import { CtaReassurance } from '@/components/ui/cta-reassurance'
+import { loadSenjaWhenNear } from '@/lib/loadSenja'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -28,18 +29,10 @@ export default function FounderSection() {
   const { t, lang } = useLanguage()
   const { autopilot } = useAutopilot()
 
-  // Load Senja widget script for French version
+  const senjaRef = useRef<HTMLDivElement | null>(null)
   useEffect(() => {
-    if (lang === 'fr') {
-      const existingScript = document.querySelector('script[src*="senja.io/widget/84aa0cc7"]')
-      if (!existingScript) {
-        const script = document.createElement('script')
-        script.src = 'https://widget.senja.io/widget/84aa0cc7-bfa4-4108-9247-676e059134d8/platform.js'
-        script.type = 'text/javascript'
-        script.async = true
-        document.body.appendChild(script)
-      }
-    }
+    if (lang !== 'fr' || !senjaRef.current) return
+    return loadSenjaWhenNear(senjaRef.current, '84aa0cc7-bfa4-4108-9247-676e059134d8')
   }, [lang])
 
   // Different credentials for FR vs EN
@@ -152,8 +145,9 @@ export default function FounderSection() {
                 <p className="text-xs text-empire uppercase tracking-widest mb-4">
                   {t.founder?.top1Badge || 'Mis en avant dans le Top 1% des meilleurs entrepreneurs FR'}
                 </p>
-                <div 
-                  className="senja-embed" 
+                <div
+                  ref={senjaRef}
+                  className="senja-embed"
                   data-id="84aa0cc7-bfa4-4108-9247-676e059134d8" 
                   data-mode="shadow" 
                   data-lazyload="false" 

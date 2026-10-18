@@ -50,6 +50,19 @@ export const PLANS: Plan[] = [
   },
 ]
 
+// Même grille que `PLAN_DELIVERABLES` de l'app (`JoinEmpire.tsx`) : ce que
+// l'abonné reçoit chaque mois, en contenus.
+export const PLAN_DELIVERABLES: Record<PlanId, { reels: number; posts: number; newsletters: number }> = {
+  starter: { reels: 15, posts: 15, newsletters: 2 },
+  growth: { reels: 30, posts: 30, newsletters: 8 },
+  scale: { reels: 60, posts: 60, newsletters: 12 },
+}
+
+// Recharge à la consommation de l'app (`src/lib/payg.ts`, `payg_25`).
+export const PAYG_RECHARGE = { euros: 25, credits: 200 }
+
+export const APP_JOIN_URL = 'https://app.empire-internet.com/join/empire'
+
 export const BILLING_PERIODS: {
   id: BillingId
   discount: number

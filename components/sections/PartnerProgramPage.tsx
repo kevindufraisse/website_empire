@@ -50,17 +50,29 @@ export function PartnerPayLink({
     >
       {fr
         ? audience === 'agency'
-          ? `Payer ${price} € et développer mon offre`
-          : `Payer ${price} € et lancer mon activité`
+          ? `Commencer le bootcamp · ${price} €`
+          : `Commencer le bootcamp · ${price} €`
         : audience === 'agency'
-          ? `Pay €${price} and grow my offer`
-          : `Pay €${price} and launch my business`}
+          ? `Start the bootcamp · €${price}`
+          : `Start the bootcamp · €${price}`}
       <ArrowRight className="h-4 w-4" />
     </a>
   )
 }
 
-/** Lecture festival : les deux premiers paliers barrés, puis le prix actuel. */
+/** « 2 j 05:12:09 » au-delà de 24 h, sinon « 05:12:09 ». */
+function priceCountdown(ms: number, fr: boolean): string {
+  const total = Math.max(0, Math.floor(ms / 1000))
+  const d = Math.floor(total / 86400)
+  const h = Math.floor((total % 86400) / 3600)
+  const m = Math.floor((total % 3600) / 60)
+  const sec = total % 60
+  const pad = (n: number) => String(n).padStart(2, '0')
+  const clock = `${pad(h)}:${pad(m)}:${pad(sec)}`
+  return d > 0 ? `${d} ${fr ? 'j' : 'd'} ${clock}` : clock
+}
+
+/** Prix du bootcamp cette semaine. Seul prix barré : le palier qui arrive, s'il est plus cher. */
 export function FestivalPriceBlock({
   fr,
   pricing,
@@ -68,36 +80,42 @@ export function FestivalPriceBlock({
   fr: boolean
   pricing: ReturnType<typeof usePartnerFestivalPricing>
 }) {
-  const crossedOutPrices = pricing.tiers.slice(0, 2)
+  const nextIsIncrease = pricing.nextPrice !== null && pricing.nextPrice > pricing.price
 
   return (
     <div className="mx-auto w-full max-w-md rounded-2xl border border-academy/30 bg-academy/[0.06] px-4 py-4 text-left">
       <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-academy">
-        {fr ? 'Frais d’inscription' : 'Registration fee'}
+        {fr ? 'Bootcamp 21 jours · vidéos' : '21-day bootcamp · videos'}
       </p>
 
-      <div className="mt-3 grid grid-cols-3 gap-2">
-        {crossedOutPrices.map((tier) => (
-          <div
-            key={tier.id}
-            className="flex min-h-[4.25rem] items-center justify-center rounded-xl bg-white/[0.03] px-2 py-2.5 text-center ring-1 ring-white/[0.06]"
-          >
-            <p className="text-lg font-bold tabular-nums text-neutral-600 line-through decoration-neutral-500">
-              {tier.price} €
-            </p>
-          </div>
-        ))}
-
-        <div className="flex min-h-[4.25rem] flex-col items-center justify-center rounded-xl bg-academy px-2 py-2.5 text-center text-black">
-          <p className="text-[9px] font-semibold uppercase tracking-wider text-black/60">
-            {fr ? 'Maintenant' : 'Now'}
-          </p>
-          <p className="mt-1 text-xl font-extrabold tabular-nums">{pricing.price} €</p>
-        </div>
-      </div>
-
-      <p className="mt-2 text-center text-[12px] text-neutral-500">
-        {fr ? 'Paiement unique · une seule fois' : 'One-time payment'}
+      <p className="mt-3 flex flex-wrap items-baseline gap-x-3">
+        {nextIsIncrease && (
+          <span className="text-2xl font-bold tabular-nums text-neutral-600 line-through decoration-neutral-500">
+            {pricing.nextPrice} €
+          </span>
+        )}
+        <span className="text-4xl font-extrabold tabular-nums text-white">{pricing.price} €</span>
+        <span className="text-sm text-neutral-500">{fr ? 'une fois' : 'one-time'}</span>
+      </p>
+      {nextIsIncrease && (
+        <p className="mt-2 flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-[12px] text-neutral-400">
+          <span>
+            {fr ? `Passe à ${pricing.nextPrice} € dans` : `Goes up to €${pricing.nextPrice} in`}
+          </span>
+          {pricing.ready && (
+            <span className="font-mono text-[13px] font-semibold tabular-nums text-academy">
+              {priceCountdown(pricing.msUntilNext, fr)}
+            </span>
+          )}
+        </p>
+      )}
+      <p className="mt-1 text-[11px] leading-snug text-neutral-600">
+        {fr
+          ? 'Le prix monte au fil de la semaine : 297 € jusqu’au jeudi 18 h, 397 € jusqu’au samedi, 497 € le dimanche. Il revient à 297 € chaque lundi.'
+          : 'The price rises during the week: €297 until Thursday 6pm, €397 until Saturday, €497 on Sunday. Back to €297 every Monday.'}
+      </p>
+      <p className="mt-2 text-[12px] text-neutral-500">
+        {fr ? 'Accès immédiat, à ton rythme. Pas d’abonnement.' : 'Instant access, at your own pace. No subscription.'}
       </p>
     </div>
   )
@@ -215,11 +233,11 @@ export default function PartnerProgramPage() {
         },
         {
           q: 'Les portes ouvertes sont-elles payantes ?',
-          a: `Non. Le live du jeudi est gratuit. Les frais d’inscription au programme (actuellement ${festival.price} €) se paient ensuite — 500 € jusqu’au jeudi soir, puis 700 €, puis 800 € le dimanche. Lundi, le cycle repart à 500 €.`,
+          a: `Non. Le live du jeudi est gratuit. Le bootcamp (actuellement ${festival.price} €) se paie ensuite : 297 € jusqu’au jeudi 18 h, 397 € jusqu’au samedi, 497 € le dimanche. Lundi, il repart à 297 €.`,
         },
         {
           q: 'Que se passe-t-il après le paiement ?',
-          a: 'Vous rejoignez directement le programme : création du compte, 4 000 crédits pour développer votre marque personnelle, accès à « Mes posts les plus viraux », à la formation et à la communauté à vie, puis ouverture de votre page consultant pour encaisser vos clients.',
+          a: 'Vous créez votre compte et le bootcamp s’ouvre tout de suite, avec la communauté. Juste après le paiement, on vous propose de passer partenaire : un live chaque semaine pendant 1 an, 4 000 crédits pour votre marque, les replays, la certification, l’annuaire et votre page de paiement pour encaisser vos clients.',
         },
       ]
     : [
@@ -237,11 +255,11 @@ export default function PartnerProgramPage() {
         },
         {
           q: 'Is the open house free?',
-          a: `Yes. Thursday’s live is free. The registration fee (currently €${festival.price}) is paid after — €500 until Thursday evening, then €700, then €800 on Sunday. Monday resets to €500.`,
+          a: `Yes. Thursday’s live is free. The bootcamp (currently €${festival.price}) is paid after: €297 until Thursday 6pm, €397 until Saturday, €497 on Sunday. Monday resets to €297.`,
         },
         {
           q: 'What happens after payment?',
-          a: 'You join the program directly: create your account, get 4,000 credits to build your personal brand, access training and the lifetime community, then open your consultant page to charge clients.',
+          a: 'You create your account and the bootcamp opens right away, with the community. Right after payment, you are offered to become a partner: a weekly live for 1 year, 4,000 credits for your brand, the replays, certification, the directory and your payment page to charge clients.',
         },
       ]
 
@@ -251,7 +269,7 @@ export default function PartnerProgramPage() {
       <Script
         id="academy-partner-senja"
         src="https://widget.senja.io/widget/2a990f91-6426-436a-b50d-318fc49a7851/platform.js"
-        strategy="afterInteractive"
+        strategy="lazyOnload"
       />
 
       {/* Hero : texte d’origine, densifié pour passer au-dessus de la barre WJ */}
@@ -259,22 +277,9 @@ export default function PartnerProgramPage() {
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_45%_at_50%_0%,rgba(252,165,165,0.12),transparent)]" />
         <div className="container relative z-10">
           <div className="mx-auto max-w-[40rem] text-center">
-            <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-academy">
-              {fr ? 'Empire · Programme partenaire' : 'Empire · Partner program'}
-            </p>
-            <p className="mt-1.5 text-[14px] text-neutral-400">
-              {fr
-                ? agency
-                  ? 'Pour les agences, studios et consultants'
-                  : 'Pour une reconversion ou une nouvelle activité'
-                : agency
-                  ? 'For agencies, studios and consultants'
-                  : 'For a career change or a new business'}
-            </p>
-
             <nav
               aria-label={fr ? 'Choisissez votre parcours' : 'Choose your path'}
-              className="mx-auto mt-4 inline-flex rounded-full border border-white/[0.08] bg-white/[0.025] p-0.5"
+              className="mx-auto mb-5 inline-flex rounded-full border border-white/[0.08] bg-white/[0.025] p-0.5"
             >
               {(
                 [
@@ -305,6 +310,19 @@ export default function PartnerProgramPage() {
                 </Link>
               ))}
             </nav>
+
+            <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-academy">
+              {fr ? 'Empire · Programme partenaire' : 'Empire · Partner program'}
+            </p>
+            <p className="mt-1.5 text-[14px] text-neutral-400">
+              {fr
+                ? agency
+                  ? 'Pour les agences, studios et consultants'
+                  : 'Pour une reconversion ou une nouvelle activité'
+                : agency
+                  ? 'For agencies, studios and consultants'
+                  : 'For a career change or a new business'}
+            </p>
 
             <h1 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl md:text-[2.75rem] md:leading-[1.15]">
               {fr
@@ -808,8 +826,8 @@ export default function PartnerProgramPage() {
                 </div>
                 <p className="mt-4 text-[13px] text-neutral-600">
                   {fr
-                    ? `Gratuit · Chaque jeudi à 11 h (Paris) · Après le live, inscription au programme : ${festival.price} €.`
-                    : `Free · Every Thursday at 11am Paris · After the live, program registration: €${festival.price}.`}
+                    ? `Gratuit · Chaque jeudi à 11 h (Paris) · Ensuite, le bootcamp : ${festival.price} €.`
+                    : `Free · Every Thursday at 11am Paris · Then, the bootcamp: €${festival.price}.`}
                 </p>
               </div>
             </div>
@@ -845,11 +863,11 @@ export default function PartnerProgramPage() {
               <p>
                 {fr
                   ? agency
-                    ? 'Dès la première semaine, vous pouvez sélectionner un client pilote dans votre portefeuille, créer les premiers contenus avec vos 4 000 crédits et lui présenter cette nouvelle offre.'
-                    : 'Vous commencez à publier et à prospecter dès la première semaine. Avec vos 4 000 crédits, vous adaptez des formats issus de « Mes posts les plus viraux », créez vos contenus dans Empire et présentez votre offre à de vrais prospects.'
+                    ? 'Dès la première semaine, vous pouvez sélectionner un client pilote dans votre portefeuille, créer ses premiers contenus dans Empire et lui présenter cette nouvelle offre.'
+                    : 'Vous commencez à publier et à prospecter dès la première semaine. Vous adaptez des formats issus de « Mes posts les plus viraux », créez vos contenus dans Empire et présentez votre offre à de vrais prospects.'
                   : agency
-                    ? 'In week one, you can select a pilot client from your portfolio, create the first content with your 4,000 credits and present the new offer.'
-                    : 'You start publishing and reaching out in week one. With your 4,000 credits, you adapt formats from “My most viral posts,” create content in Empire and present your offer to real prospects.'}
+                    ? 'In week one, you can select a pilot client from your portfolio, create their first content in Empire and present the new offer.'
+                    : 'You start publishing and reaching out in week one. You adapt formats from “My most viral posts,” create content in Empire and present your offer to real prospects.'}
               </p>
               <p className="font-medium text-neutral-200">
                 {fr
@@ -952,54 +970,44 @@ export default function PartnerProgramPage() {
             </div>
             <p className="mt-6 text-[14px] text-neutral-500">
               {fr
-                ? 'Chaque semaine, la communauté vous aide à avancer et à débloquer vos questions. La formation, les replays, le Slack et les rendez-vous partenaires restent accessibles à vie.'
-                : 'Every week, the community helps you move forward and unblock questions. Training, replays, Slack and partner sessions remain available for life.'}
+                ? 'Chaque semaine, la communauté vous aide à avancer et à débloquer vos questions. La formation et la communauté restent accessibles à vie ; les replays et les rendez-vous partenaires viennent avec le statut partenaire.'
+                : 'Every week, the community helps you move forward and unblock questions. Training and community stay available for life; replays and partner sessions come with partner status.'}
             </p>
           </div>
         </div>
       </section>
 
-      {/* Inclus 500€ */}
+      {/* Le bootcamp, puis le statut partenaire proposé après le paiement */}
       <section className="border-y border-white/[0.06] bg-[#0a0a0a] py-20 md:py-28">
         <div className="container">
           <div className="mx-auto max-w-[38rem]">
             <SectionLabel>{fr ? 'Le programme' : 'The program'}</SectionLabel>
             <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
               {fr
-                ? 'Ce que comprend le programme partenaire.'
-                : 'What’s included in the partner program.'}
+                ? 'Tu commences par le bootcamp.'
+                : 'You start with the bootcamp.'}
             </h2>
             <p className="mt-5 text-[17px] font-medium text-white">
               {fr
-                ? `Frais d’inscription actuels : ${festival.price} €, payés une fois.`
-                : `Current registration fee: €${festival.price}, paid once.`}
+                ? `Cette semaine : ${festival.price} €, payés une fois.`
+                : `This week: €${festival.price}, paid once.`}
             </p>
             <p className="mt-2 text-[14px] text-neutral-500">
               {fr
-                ? '500 € jusqu’au jeudi soir · 700 € après le live · 800 € le dimanche · retour à 500 € chaque lundi.'
-                : '€500 until Thursday evening · €700 after the live · €800 on Sunday · back to €500 every Monday.'}
+                ? '297 € jusqu’au jeudi 18 h · 397 € jusqu’au samedi · 497 € le dimanche · retour à 297 € chaque lundi.'
+                : '€297 until Thursday 6pm · €397 until Saturday · €497 on Sunday · back to €297 every Monday.'}
             </p>
             <ul className="mt-8 space-y-3">
               {(fr
                 ? [
-                    'La formation complète et les replays.',
-                    'Le bootcamp autonome : 1 action concrète par jour, environ 1 h / jour pendant 21 jours.',
-                    'La communauté, le Slack et les rendez-vous partenaires accessibles à vie.',
-                    'Les templates de prospection et les méthodes de vente.',
-                    'Les hooks, formats et mécaniques de viralité sur LinkedIn, Instagram, TikTok, YouTube, X, Threads et Facebook.',
-                    '« Mes posts les plus viraux » pour repartir de formats qui fonctionnent.',
-                    '4 000 crédits pour développer votre marque personnelle dès le premier mois.',
-                    'Votre page consultant pour encaisser l’accompagnement de vos clients.',
+                    'Le bootcamp de 21 jours en vidéo : 1 action concrète par jour, environ 1 h, à ton rythme.',
+                    'L’accès à vie à la communauté.',
+                    'Les mises à jour et les nouveautés.',
                   ]
                 : [
-                    'Full training and replays.',
-                    'The self-paced bootcamp: 1 concrete action a day, about 1 hour/day for 21 days.',
-                    'Lifetime access to the community, Slack and partner sessions.',
-                    'Outreach templates and sales methods.',
-                    'Hooks, formats and viral mechanics for LinkedIn, Instagram, TikTok, YouTube, X, Threads and Facebook.',
-                    '“My most viral posts” to adapt formats that already work.',
-                    '4,000 credits to grow your personal brand in the first month.',
-                    'Your consultant page to charge clients for support.',
+                    'The 21-day video bootcamp: 1 concrete action a day, about 1 hour, at your own pace.',
+                    'Lifetime access to the community.',
+                    'Updates and new content.',
                   ]
               ).map((line) => (
                 <li key={line} className="flex gap-3 text-[15px] leading-snug text-neutral-300">
@@ -1011,6 +1019,38 @@ export default function PartnerProgramPage() {
             <div className="mt-8">
               <PartnerPayLink fr={fr} source="program" price={festival.price} audience={audience} />
             </div>
+
+            <h3 className="mt-12 text-xl font-semibold tracking-tight">
+              {fr ? 'Juste après le paiement : passer partenaire' : 'Right after payment: become a partner'}
+            </h3>
+            <p className="mt-3 text-[15px] leading-relaxed text-neutral-400">
+              {fr
+                ? 'On te propose de passer partenaire en un clic. C’est ce qui te permet d’en faire un métier :'
+                : 'You are offered to become a partner in one click. That is what turns it into a job:'}
+            </p>
+            <ul className="mt-5 space-y-3">
+              {(fr
+                ? [
+                    'Un live chaque semaine pendant 1 an.',
+                    '4 000 crédits pour développer ta propre marque.',
+                    'Les 6 h de replays et la certification (Or, Argent, Bronze, selon tes vues).',
+                    'L’annuaire des partenaires, les missions du site et ta page de paiement pour encaisser tes clients.',
+                    'Les templates de closing et de setting, et les formats viraux prêts dans ton calendrier.',
+                  ]
+                : [
+                    'A live every week for 1 year.',
+                    '4,000 credits to grow your own brand.',
+                    'The 6 hours of replays and certification (Gold, Silver, Bronze, based on your views).',
+                    'The partner directory, site missions and your payment page to charge clients.',
+                    'Closing and setting templates, and viral formats ready in your calendar.',
+                  ]
+              ).map((line) => (
+                <li key={line} className="flex gap-3 text-[15px] leading-snug text-neutral-400">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-academy/70" />
+                  {line}
+                </li>
+              ))}
+            </ul>
             <p className="mt-6 text-[14px] leading-relaxed text-neutral-500">
               {fr
                 ? 'Chaque client dispose de son propre espace Empire. Son abonnement (crédits de production) se paie à part, sur votre page.'

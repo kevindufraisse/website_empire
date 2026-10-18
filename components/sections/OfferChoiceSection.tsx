@@ -104,7 +104,7 @@ export default function OfferChoiceSection() {
               <ArrowRight size={17} />
             </OnboardingLink>
             <p className="mt-3 text-xs text-neutral-500">
-              {fr ? '7 jours gratuits · Sans engagement' : '7 days free · No commitment'}
+              {fr ? '7 jours ou 500 crédits offerts · Sans engagement' : '7 days or 500 credits free · No commitment'}
             </p>
           </div>
 

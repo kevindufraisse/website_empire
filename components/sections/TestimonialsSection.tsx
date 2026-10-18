@@ -4,6 +4,7 @@ import { useInView } from 'framer-motion'
 import { useRef, useEffect } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
+import { loadSenjaWhenNear } from '@/lib/loadSenja'
 import { DotPattern } from '@/components/magicui/dot-pattern'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
@@ -32,24 +33,7 @@ export default function TestimonialsSection() {
     const el = sectionRef.current
     if (!el) return
 
-    let script: HTMLScriptElement | null = null
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (!entries[0].isIntersecting || script) return
-        script = document.createElement('script')
-        script.src = 'https://widget.senja.io/widget/a7bf7e4a-0f3b-4751-8190-849f83d16306/platform.js'
-        script.async = true
-        document.body.appendChild(script)
-        observer.disconnect()
-      },
-      { rootMargin: '200px' }
-    )
-    observer.observe(el)
-
-    return () => {
-      observer.disconnect()
-      if (script?.parentNode) script.parentNode.removeChild(script)
-    }
+    return loadSenjaWhenNear(el, 'a7bf7e4a-0f3b-4751-8190-849f83d16306')
   }, [autopilot])
 
   if (autopilot) return null

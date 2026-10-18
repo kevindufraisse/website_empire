@@ -207,7 +207,7 @@ export default function HeroSection() {
                   >
                     {trialLoading
                       ? (lang === 'fr' ? 'Ouverture…' : 'Opening…')
-                      : (lang === 'fr' ? 'ou tester Empire 7 jours gratuitement' : 'or try Empire free for 7 days')}
+                      : (lang === 'fr' ? 'ou tester Empire gratuitement (7 jours, 500 crédits)' : 'or try Empire free (7 days, 500 credits)')}
                   </button>
                 </div>
               )}
