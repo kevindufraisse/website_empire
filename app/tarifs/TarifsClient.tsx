@@ -28,22 +28,39 @@ import { trackAmplitude, withAmplitudeDeviceId } from '@/lib/amplitude'
 
 type Col = PlanId | 'payg'
 
-type Row = { fr: string; en: string; cells: Record<Col, boolean | string>; bonus?: boolean }
+type Group = 'features' | 'bonus'
 
-// Bas des fourchettes publiées en 2026 : un post LinkedIn chez un ghostwriter
-// 50-250 € (Copylinker), un reel simple chez un monteur 50-120 € (Le Cut).
-// L'ancrage prend les posts de la formule au bas de la fourchette.
-const FREELANCE_FLOOR = { reel: 50, post: 50 }
+type Row = { fr: string; en: string; cells: Record<Col, boolean | string>; group?: Group }
+
+const GROUP_LABELS: Record<Group, { fr: string; en: string }> = {
+  features: { fr: 'Dans chaque formule', en: 'In every plan' },
+  bonus: { fr: 'Bonus', en: 'Bonus' },
+}
+
+// Bas des fourchettes publiées en 2026 : un reel simple chez un monteur
+// 50-120 € (Le Cut), un post LinkedIn chez un ghostwriter 50-250 € (Copylinker),
+// une gestion légère par un community manager 300-500 €/mois (mission-freelances).
+// Les volumes sont « au choix » : l'équipe est chiffrée sur la moitié des crédits
+// en reels et l'autre moitié en posts, jamais sur les deux volumes additionnés.
+const FREELANCE_FLOOR = { reel: 50, post: 50, communityManager: 300 }
 const FREELANCE_SOURCES = [
   { label: 'Le Cut', href: 'https://www.lecut.fr/blog/tarifs-monteur-video-freelance' },
   { label: 'Copylinker', href: 'https://copylinker.fr/tarif-ghostwriter-linkedin/' },
+  { label: 'mission-freelances', href: 'https://www.mission-freelances.fr/blog/barometre/tjm-freelance-communication-2026/' },
 ]
 const POST_CREDITS = CONTENT_CREDITS.post
 
-function freelanceFloor(plan: PlanId) {
-  const d = PLAN_DELIVERABLES[plan]
-  return d.posts * FREELANCE_FLOOR.post
+function teamMix(plan: PlanId) {
+  const half = (PLANS.find((p) => p.id === plan)?.credits ?? 0) / 2
+  return { reels: Math.floor(half / CONTENT_CREDITS.reel), posts: Math.floor(half / CONTENT_CREDITS.post) }
 }
+
+function freelanceFloor(plan: PlanId) {
+  const m = teamMix(plan)
+  return m.reels * FREELANCE_FLOOR.reel + m.posts * FREELANCE_FLOOR.post + FREELANCE_FLOOR.communityManager
+}
+
+const ALL: Record<Col, boolean> = { starter: true, growth: true, scale: true, payg: true }
 
 const ROWS: Row[] = [
   {
@@ -59,14 +76,6 @@ const ROWS: Row[] = [
     cells: { starter: String(PLAN_DELIVERABLES.starter.newsletters), growth: String(PLAN_DELIVERABLES.growth.newsletters), scale: String(PLAN_DELIVERABLES.scale.newsletters), payg: 'à l’usage' },
   },
   {
-    fr: 'Publication sur 7 réseaux, sans supplément', en: 'Publishing to 7 networks, no extra cost',
-    cells: { starter: true, growth: true, scale: true, payg: true },
-  },
-  {
-    fr: 'Des idées prêtes à filmer chaque semaine', en: 'Ready-to-film ideas every week',
-    cells: { starter: true, growth: true, scale: true, payg: true },
-  },
-  {
     fr: 'Support prioritaire sous 4 h', en: 'Priority support within 4h',
     cells: { starter: false, growth: true, scale: true, payg: false },
   },
@@ -78,20 +87,31 @@ const ROWS: Row[] = [
     fr: 'Essai 7 jours gratuit', en: '7-day free trial',
     cells: { starter: 'au mois', growth: 'au mois', scale: 'au mois', payg: false },
   },
-  {
-    fr: 'Communauté Slack', en: 'Slack community',
-    cells: { starter: true, growth: true, scale: true, payg: true },
-    bonus: true,
-  },
+  { fr: 'Publication sur 7 réseaux, sans supplément', en: 'Publishing to 7 networks, no extra cost', cells: ALL, group: 'features' },
+  { fr: 'Des idées prêtes à filmer chaque semaine', en: 'Ready-to-film ideas every week', cells: ALL, group: 'features' },
+  { fr: 'Veille : chaque matin, les sujets qui montent dans ta niche', en: 'Daily brief: the topics rising in your niche', cells: ALL, group: 'features' },
+  { fr: 'Bot Telegram : tu envoies un lien, il devient une idée', en: 'Telegram bot: send a link, it becomes an idea', cells: ALL, group: 'features' },
+  { fr: 'Miniatures YouTube et Instagram générées depuis la vidéo', en: 'YouTube and Instagram thumbnails generated from the video', cells: ALL, group: 'features' },
+  { fr: 'Republication automatique de tes meilleurs posts', en: 'Automatic republishing of your best posts', cells: ALL, group: 'features' },
+  { fr: 'Commentaires et DM de tous tes réseaux au même endroit', en: 'Comments and DMs from all your networks in one place', cells: ALL, group: 'features' },
+  { fr: 'Liens trackés : quel contenu t’a amené quel client', en: 'Tracked links: which content brought which client', cells: ALL, group: 'features' },
+  { fr: 'Intégrations Cal.com, Calendly, Tally, ManyChat, Systeme.io, Stripe…', en: 'Cal.com, Calendly, Tally, ManyChat, Systeme.io, Stripe… integrations', cells: ALL, group: 'features' },
+  { fr: 'Plusieurs comptes, un seul envoi', en: 'Several accounts, one send', cells: ALL, group: 'features' },
+  { fr: 'Rapport hebdo : vues, abonnés et leads par format', en: 'Weekly report: views, followers and leads per format', cells: ALL, group: 'features' },
   {
     fr: 'Live client chaque semaine', en: 'Weekly client live',
-    cells: { starter: true, growth: true, scale: true, payg: false },
-    bonus: true,
+    cells: { starter: false, growth: true, scale: true, payg: false },
+    group: 'bonus',
+  },
+  {
+    fr: 'Communauté privée Slack', en: 'Private Slack community',
+    cells: { starter: false, growth: true, scale: true, payg: false },
+    group: 'bonus',
   },
   {
     fr: 'Replays masterclass', en: 'Masterclass replays',
     cells: { starter: false, growth: true, scale: true, payg: false },
-    bonus: true,
+    group: 'bonus',
   },
 ]
 
@@ -99,8 +119,8 @@ const HIGHLIGHTS: Record<PlanId, { fr: string[]; en: string[]; bonusFr: string; 
   starter: {
     fr: ['Idées prêtes à filmer chaque semaine', 'Publication sur 7 réseaux'],
     en: ['Ready-to-film ideas every week', 'Publishing to 7 networks'],
-    bonusFr: 'Live client chaque semaine, communauté Slack',
-    bonusEn: 'Weekly client live, Slack community',
+    bonusFr: 'Live, Slack privé et replays : dès Intermédiaire',
+    bonusEn: 'Live, private Slack and replays: from Intermediate',
   },
   growth: {
     fr: ['Tout Débutant', 'Support prioritaire sous 4 h'],
@@ -315,7 +335,7 @@ export default function TarifsClient() {
                 </div>
                 <p className="mt-2 text-center text-[11px] text-neutral-600">{fr ? 'Tu mélanges comme tu veux.' : 'Mix them as you like.'}</p>
                 <p className="mt-3 text-center text-xs text-neutral-500">
-                  {fr ? 'En freelance : dès ' : 'With freelancers: from '}
+                  {fr ? 'Monteur + rédacteur + community manager : dès ' : 'Editor + writer + community manager: from '}
                   <span className="text-neutral-300 line-through decoration-neutral-600">
                     {freelanceFloor(plan.id).toLocaleString(fr ? 'fr-FR' : 'en-US')} €
                   </span>
@@ -331,7 +351,8 @@ export default function TarifsClient() {
                   ))}
                 </ul>
                 <p className="mt-4 border-t border-white/[0.07] pt-4 text-xs leading-relaxed text-neutral-500">
-                  <span className="font-semibold text-neutral-300">Bonus</span> · {fr ? HIGHLIGHTS[plan.id].bonusFr : HIGHLIGHTS[plan.id].bonusEn}
+                  {plan.id !== 'starter' && <><span className="font-semibold text-neutral-300">Bonus</span> · </>}
+                  {fr ? HIGHLIGHTS[plan.id].bonusFr : HIGHLIGHTS[plan.id].bonusEn}
                 </p>
               </article>
             )
@@ -380,8 +401,8 @@ export default function TarifsClient() {
         </p>
         <p className="mt-2 text-center text-[11px] text-neutral-600">
           {fr
-            ? `* Les posts de la formule chez un ghostwriter LinkedIn, au bas des tarifs publiés en 2026 (${FREELANCE_FLOOR.post} € le post ; un reel chez un monteur freelance part de ${FREELANCE_FLOOR.reel} €). Sources : `
-            : `* The plan's posts from a LinkedIn ghostwriter, at the low end of 2026 published rates (€${FREELANCE_FLOOR.post} per post; a reel from a freelance editor starts at €${FREELANCE_FLOOR.reel}). Sources: `}
+            ? `* La moitié des crédits en reels, l’autre moitié en posts (Intermédiaire : ${teamMix('growth').reels} reels et ${teamMix('growth').posts} posts), au bas des tarifs freelance publiés en 2026 : ${FREELANCE_FLOOR.reel} € le reel, ${FREELANCE_FLOOR.post} € le post, ${FREELANCE_FLOOR.communityManager} €/mois de community management. Sources : `
+            : `* Half the credits as reels, half as posts (Intermediate: ${teamMix('growth').reels} reels and ${teamMix('growth').posts} posts), at the low end of 2026 published freelance rates: €${FREELANCE_FLOOR.reel} per reel, €${FREELANCE_FLOOR.post} per post, €${FREELANCE_FLOOR.communityManager}/mo of community management. Sources: `}
           {FREELANCE_SOURCES.map((src, i) => (
             <span key={src.href}>
               {i > 0 && ', '}
@@ -415,9 +436,9 @@ export default function TarifsClient() {
               <tbody>
                 {ROWS.map((row, i) => (
                   <Fragment key={row.fr}>
-                  {row.bonus && !ROWS[i - 1]?.bonus && (
+                  {row.group && row.group !== ROWS[i - 1]?.group && (
                     <tr className="border-b border-white/[0.06] bg-white/[0.02]">
-                      <td colSpan={5} className="px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.15em] text-neutral-500">Bonus</td>
+                      <td colSpan={5} className="px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.15em] text-neutral-500">{GROUP_LABELS[row.group][fr ? 'fr' : 'en']}</td>
                     </tr>
                   )}
                   <tr className="border-b border-white/[0.06] last:border-0">
