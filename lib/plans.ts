@@ -50,13 +50,21 @@ export const PLANS: Plan[] = [
   },
 ]
 
-// Même grille que `PLAN_DELIVERABLES` de l'app (`JoinEmpire.tsx`) : ce que
-// l'abonné reçoit chaque mois, en contenus.
-export const PLAN_DELIVERABLES: Record<PlanId, { reels: number; posts: number; newsletters: number }> = {
-  starter: { reels: 15, posts: 15, newsletters: 2 },
-  growth: { reels: 30, posts: 30, newsletters: 8 },
-  scale: { reels: 60, posts: 60, newsletters: 12 },
-}
+// Coût en crédits d'un contenu dans l'app (`CREDIT_COSTS` de server.cjs) :
+// un reel de la rafale = coupe 15 + sous-titres Submagic 150 + accroche 30.
+export const CONTENT_CREDITS = { reel: 195, post: 85, newsletter: 115 }
+
+// Ce que les crédits du mois permettent, format par format : « jusqu'à 11 reels
+// OU 25 posts », jamais additionnés (15 reels + 15 posts + 2 newsletters
+// demandaient 4 430 crédits sur une formule qui en verse 2 200).
+export const PLAN_DELIVERABLES: Record<PlanId, { reels: number; posts: number; newsletters: number }> =
+  Object.fromEntries(
+    PLANS.map((p) => [p.id, {
+      reels: Math.floor(p.credits / CONTENT_CREDITS.reel),
+      posts: Math.floor(p.credits / CONTENT_CREDITS.post),
+      newsletters: Math.floor(p.credits / CONTENT_CREDITS.newsletter),
+    }]),
+  ) as Record<PlanId, { reels: number; posts: number; newsletters: number }>
 
 // Recharge à la consommation de l'app (`src/lib/payg.ts`, `payg_25`).
 export const PAYG_RECHARGE = { euros: 25, credits: 200 }

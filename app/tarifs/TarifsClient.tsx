@@ -6,6 +6,7 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import {
   APP_JOIN_URL,
   BILLING_PERIODS,
+  CONTENT_CREDITS,
   PAYG_RECHARGE,
   PLANS,
   PLAN_DELIVERABLES,
@@ -29,34 +30,33 @@ type Col = PlanId | 'payg'
 
 type Row = { fr: string; en: string; cells: Record<Col, boolean | string>; bonus?: boolean }
 
-// Bas des fourchettes publiées en 2026 : un reel simple chez un monteur
-// freelance 50-120 € (Le Cut), un post LinkedIn chez un ghostwriter 50-250 €
-// (Clément Aouadène, Copylinker). On ne prend que le bas, newsletters exclues.
+// Bas des fourchettes publiées en 2026 : un post LinkedIn chez un ghostwriter
+// 50-250 € (Copylinker), un reel simple chez un monteur 50-120 € (Le Cut).
+// L'ancrage prend les posts de la formule au bas de la fourchette.
 const FREELANCE_FLOOR = { reel: 50, post: 50 }
 const FREELANCE_SOURCES = [
   { label: 'Le Cut', href: 'https://www.lecut.fr/blog/tarifs-monteur-video-freelance' },
   { label: 'Copylinker', href: 'https://copylinker.fr/tarif-ghostwriter-linkedin/' },
 ]
-// `CREDIT_COSTS.post_linkedin` de l'app.
-const POST_CREDITS = 85
+const POST_CREDITS = CONTENT_CREDITS.post
 
 function freelanceFloor(plan: PlanId) {
   const d = PLAN_DELIVERABLES[plan]
-  return d.reels * FREELANCE_FLOOR.reel + d.posts * FREELANCE_FLOOR.post
+  return d.posts * FREELANCE_FLOOR.post
 }
 
 const ROWS: Row[] = [
   {
-    fr: 'Reels montés par l’équipe', en: 'Reels edited by the team',
-    cells: { starter: '15', growth: '30', scale: '60', payg: 'à l’usage' },
+    fr: 'Reels montés par l’équipe, jusqu’à', en: 'Reels edited by the team, up to',
+    cells: { starter: String(PLAN_DELIVERABLES.starter.reels), growth: String(PLAN_DELIVERABLES.growth.reels), scale: String(PLAN_DELIVERABLES.scale.reels), payg: 'à l’usage' },
   },
   {
-    fr: 'Posts LinkedIn', en: 'LinkedIn posts',
-    cells: { starter: '15', growth: '30', scale: '60', payg: 'à l’usage' },
+    fr: 'ou posts LinkedIn, jusqu’à', en: 'or LinkedIn posts, up to',
+    cells: { starter: String(PLAN_DELIVERABLES.starter.posts), growth: String(PLAN_DELIVERABLES.growth.posts), scale: String(PLAN_DELIVERABLES.scale.posts), payg: 'à l’usage' },
   },
   {
-    fr: 'Newsletters', en: 'Newsletters',
-    cells: { starter: '2', growth: '8', scale: '12', payg: 'à l’usage' },
+    fr: 'ou newsletters, jusqu’à', en: 'or newsletters, up to',
+    cells: { starter: String(PLAN_DELIVERABLES.starter.newsletters), growth: String(PLAN_DELIVERABLES.growth.newsletters), scale: String(PLAN_DELIVERABLES.scale.newsletters), payg: 'à l’usage' },
   },
   {
     fr: 'Publication sur 7 réseaux, sans supplément', en: 'Publishing to 7 networks, no extra cost',
@@ -300,11 +300,12 @@ export default function TarifsClient() {
                       : (fr ? 'Choisir cette formule' : 'Choose this plan')}
                 </button>
 
-                <div className="mt-6 grid grid-cols-3 gap-2 rounded-xl border border-white/[0.07] bg-black/40 p-3 text-center">
+                <p className="mt-6 text-center text-[11px] text-neutral-500">{fr ? 'Chaque mois, au choix, jusqu’à' : 'Every month, your pick, up to'}</p>
+                <div className="mt-2 grid grid-cols-3 gap-2 rounded-xl border border-white/[0.07] bg-black/40 p-3 text-center">
                   {[
                     { n: d.reels, l: 'reels' },
-                    { n: d.posts, l: 'posts' },
-                    { n: d.newsletters, l: 'newsletters' },
+                    { n: d.posts, l: fr ? 'ou posts' : 'or posts' },
+                    { n: d.newsletters, l: fr ? 'ou newsletters' : 'or newsletters' },
                   ].map((x) => (
                     <div key={x.l}>
                       <p className="text-lg font-semibold tabular-nums">{x.n}</p>
@@ -312,7 +313,7 @@ export default function TarifsClient() {
                     </div>
                   ))}
                 </div>
-                <p className="mt-2 text-center text-[11px] text-neutral-600">{fr ? 'chaque mois' : 'every month'}</p>
+                <p className="mt-2 text-center text-[11px] text-neutral-600">{fr ? 'Tu mélanges comme tu veux.' : 'Mix them as you like.'}</p>
                 <p className="mt-3 text-center text-xs text-neutral-500">
                   {fr ? 'En freelance : dès ' : 'With freelancers: from '}
                   <span className="text-neutral-300 line-through decoration-neutral-600">
@@ -379,8 +380,8 @@ export default function TarifsClient() {
         </p>
         <p className="mt-2 text-center text-[11px] text-neutral-600">
           {fr
-            ? `* Bas des tarifs publiés en 2026 : ${FREELANCE_FLOOR.reel} € le reel chez un monteur freelance, ${FREELANCE_FLOOR.post} € le post chez un ghostwriter LinkedIn, newsletters non comptées. Sources : `
-            : `* Low end of 2026 published rates: €${FREELANCE_FLOOR.reel} per reel from a freelance editor, €${FREELANCE_FLOOR.post} per post from a LinkedIn ghostwriter, newsletters not counted. Sources: `}
+            ? `* Les posts de la formule chez un ghostwriter LinkedIn, au bas des tarifs publiés en 2026 (${FREELANCE_FLOOR.post} € le post ; un reel chez un monteur freelance part de ${FREELANCE_FLOOR.reel} €). Sources : `
+            : `* The plan's posts from a LinkedIn ghostwriter, at the low end of 2026 published rates (€${FREELANCE_FLOOR.post} per post; a reel from a freelance editor starts at €${FREELANCE_FLOOR.reel}). Sources: `}
           {FREELANCE_SOURCES.map((src, i) => (
             <span key={src.href}>
               {i > 0 && ', '}
