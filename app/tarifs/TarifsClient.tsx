@@ -74,6 +74,9 @@ const PROOF = PROOF_LINES.flatMap((line) => {
   return cs ? [{ ...line, photo: cs.photo, roleFr: cs.roleFr, roleEn: cs.roleEn }] : []
 })
 
+// Compte de démo de l'app : connexion anonyme, rempli selon le profil choisi.
+const DEMO_URL = 'https://app.empire-internet.com/demo'
+
 // Cette page tutoie ; l'accueil, qui lit aussi `rhythmFr`, vouvoie.
 const RHYTHM_TU: Record<PlanId, string> = {
   starter: 'Tu postes tous les 2 jours',
@@ -159,7 +162,7 @@ const HIGHLIGHTS: Record<PlanId, { fr: string[]; en: string[]; bonusFr: string; 
 
 const STEPS = [
   { fr: 'Tu parles : une prise face caméra, ou un vocal.', en: 'You talk: one take on camera, or a voice note.' },
-  { fr: 'Empire écrit et monte tes reels, posts et newsletters.', en: 'Empire writes and edits your reels, posts and newsletters.' },
+  { fr: 'Empire coupe, sous-titre et écrit l’accroche de tes reels, puis tes posts et newsletters.', en: 'Empire cuts, captions and writes the hook of your reels, then your posts and newsletters.' },
   { fr: 'Tout part sur 7 réseaux, programmé.', en: 'Everything goes out to 7 networks, scheduled.' },
 ]
 
@@ -231,6 +234,14 @@ export default function TarifsClient() {
       return
     }
     window.location.href = joinUrl({ plan: col, period })
+  }
+
+  // Le bouton du bas de page ouvre toujours l'essai, quelle que soit la période affichée.
+  const startTrialFromFooter = async () => {
+    if (opening) return
+    setOpening('growth')
+    trackAmplitude('pricing_page_plan_clicked', { plan: 'growth', billing_period: 'monthly', location: 'footer' })
+    await startFreeTrial('growth')
   }
 
   return (
@@ -430,6 +441,16 @@ export default function TarifsClient() {
             </li>
           ))}
         </ul>
+        <p className="mt-4 text-center text-sm">
+          <a
+            href={DEMO_URL}
+            onClick={() => trackAmplitude('pricing_page_demo_clicked', { location: 'cards' })}
+            className="inline-flex items-center gap-1 text-neutral-300 underline decoration-white/20 underline-offset-4 hover:text-white"
+          >
+            {fr ? 'Voir un compte Empire déjà rempli, sans inscription' : 'See a filled-in Empire account, no sign-up'}
+            <ArrowRight className="h-3.5 w-3.5" />
+          </a>
+        </p>
 
         <p className="mt-6 text-center text-xs text-neutral-500">
           {period === 'monthly'
@@ -508,6 +529,36 @@ export default function TarifsClient() {
               </details>
             ))}
           </div>
+        </section>
+
+        <section className="mx-auto mt-24 max-w-2xl rounded-2xl border border-white/15 bg-gradient-to-b from-white/[0.07] to-white/[0.02] px-6 py-10 text-center">
+          <h2 className="text-2xl font-bold tracking-tight md:text-3xl">
+            {fr ? 'Essaie 7 jours, sans payer.' : 'Try it for 7 days, free.'}
+          </h2>
+          <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-neutral-400">
+            {fr
+              ? `Formule Intermédiaire, ${TRIAL_CREDITS} crédits pour tes premiers contenus. Annule avant : 0 €.`
+              : `Intermediate plan, ${TRIAL_CREDITS} credits for your first pieces. Cancel before: €0.`}
+          </p>
+          <button
+            type="button"
+            onClick={startTrialFromFooter}
+            disabled={opening !== null}
+            className="mt-6 inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-semibold text-black transition hover:bg-neutral-200 disabled:opacity-60"
+          >
+            {opening === 'growth' ? (fr ? 'Ouverture…' : 'Opening…') : (fr ? 'Essayer 7 jours gratuits' : 'Try 7 days free')}
+            <ArrowRight className="h-4 w-4" />
+          </button>
+          <p className="mt-4 text-xs text-neutral-500">
+            {fr ? 'Pas encore sûr ? ' : 'Not sure yet? '}
+            <a
+              href={DEMO_URL}
+              onClick={() => trackAmplitude('pricing_page_demo_clicked', { location: 'footer' })}
+              className="text-neutral-300 underline decoration-white/20 underline-offset-4 hover:text-white"
+            >
+              {fr ? 'Visite un compte déjà rempli, sans inscription' : 'Tour a filled-in account, no sign-up'}
+            </a>
+          </p>
         </section>
 
         <p className="mt-16 text-center text-sm text-neutral-500">

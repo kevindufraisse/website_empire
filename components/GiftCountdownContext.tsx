@@ -64,7 +64,8 @@ export function GiftCountdownProvider({ children }: { children: React.ReactNode 
     pathname === '/academy' ||
     pathname === '/communaute' ||
     pathname === '/community' ||
-    pathname === '/postit'
+    pathname === '/postit' ||
+    pathname === '/tarifs'
 
   useEffect(() => {
     if (isExcludedPage) return
