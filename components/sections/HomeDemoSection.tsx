@@ -37,8 +37,8 @@ export default function HomeDemoSection() {
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-neutral-400 md:text-lg">
             {lang === 'fr'
-              ? 'Tout passe par Telegram : un reel, une note, un vocal, une vidéo. Ça arrive dans votre espace. On y ajoute ce que vos concurrents ont posté la semaine dernière, et les sujets qui font le plus de vues en ce moment sur YouTube, Instagram et TikTok.'
-              : 'Everything goes through Telegram: a reel, a note, a voice memo, a video. It lands in your workspace. We add what your competitors posted last week, and the topics getting the most views right now on YouTube, Instagram and TikTok.'}
+              ? 'Vous avez des choses à dire. Vous prenez juste des notes : une idée, un vocal, un reel qui vous a fait réagir. Tout est relié à Empire. On va aussi chercher ce qu’en disent vos concurrents, et les sujets qui font le plus de vues en ce moment sur YouTube, Instagram et TikTok.'
+              : 'You have things to say. You just take notes: an idea, a voice memo, a reel that made you react. Everything is connected to Empire. We also look at what your competitors say about it, and the topics getting the most views right now on YouTube, Instagram and TikTok.'}
           </p>
         </motion.div>
 
