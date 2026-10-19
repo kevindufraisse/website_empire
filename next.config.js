@@ -15,7 +15,7 @@ const nextConfig = {
       },
       {
         source: '/pricing',
-        destination: '/decouverte',
+        destination: '/tarifs',
         permanent: false,
       },
       {
