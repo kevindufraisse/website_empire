@@ -43,12 +43,13 @@ const GROUP_LABELS: Record<Group, { fr: string; en: string }> = {
   bonus: { fr: 'À partir d’Intermédiaire', en: 'From Intermediate' },
 }
 
-// Bas des fourchettes publiées en 2026 : un reel simple chez un monteur
-// 50-120 € (Le Cut), un post LinkedIn chez un ghostwriter 50-250 € (Copylinker),
-// une gestion légère par un community manager 300-500 €/mois (mission-freelances).
+// Fourchettes publiées en 2026 : un reel simple chez un monteur 50-120 € (Le Cut),
+// un post LinkedIn chez un ghostwriter 50-250 € (Copylinker), un community
+// manager qui gère aussi la vidéo 1 500-2 500 €/mois (mission-freelances).
+// Choix de Kevin (19 octobre 2026) : 100 € le post, 1 500 € le CM.
 // Les volumes sont « au choix » : l'équipe est chiffrée sur la moitié des crédits
 // en reels et l'autre moitié en posts, jamais sur les deux volumes additionnés.
-const FREELANCE_FLOOR = { reel: 50, post: 50, communityManager: 300 }
+const FREELANCE_FLOOR = { reel: 50, post: 100, communityManager: 1500 }
 const FREELANCE_SOURCES = [
   { label: 'Le Cut', href: 'https://www.lecut.fr/blog/tarifs-monteur-video-freelance' },
   { label: 'Copylinker', href: 'https://copylinker.fr/tarif-ghostwriter-linkedin/' },
@@ -326,7 +327,7 @@ export default function TarifsClient() {
   const teamLines = [
     { fr: `Un monteur : ${growthTeam.reels} reels × ${FREELANCE_FLOOR.reel} €`, en: `An editor: ${growthTeam.reels} reels × €${FREELANCE_FLOOR.reel}`, euros: growthTeam.reels * FREELANCE_FLOOR.reel },
     { fr: `Un rédacteur : ${growthTeam.posts} posts × ${FREELANCE_FLOOR.post} €`, en: `A writer: ${growthTeam.posts} posts × €${FREELANCE_FLOOR.post}`, euros: growthTeam.posts * FREELANCE_FLOOR.post },
-    { fr: 'Un community manager, gestion légère', en: 'A community manager, light package', euros: FREELANCE_FLOOR.communityManager },
+    { fr: 'Un community manager : publication, commentaires, DM', en: 'A community manager: publishing, comments, DMs', euros: FREELANCE_FLOOR.communityManager },
   ]
   const teamTotal = teamLines.reduce((sum, l) => sum + l.euros, 0)
 
@@ -702,8 +703,8 @@ export default function TarifsClient() {
           <SectionTitle
             title={fr ? 'Ce que tu devrais organiser sans Empire' : 'What you’d have to organise without Empire'}
             intro={fr
-              ? `Pour le volume d’Intermédiaire, la moitié des crédits en reels et l’autre en posts, au bas des tarifs freelance publiés en 2026.`
-              : `For the Intermediate volume, half the credits as reels and half as posts, at the low end of 2026 published freelance rates.`}
+              ? `Pour le volume d’Intermédiaire, la moitié des crédits en reels et l’autre en posts, aux tarifs freelance publiés en 2026.`
+              : `For the Intermediate volume, half the credits as reels and half as posts, at 2026 published freelance rates.`}
           />
           <div className="mx-auto mt-10 grid max-w-4xl gap-4 md:grid-cols-2">
             <div className="rounded-2xl border border-white/[0.07] bg-white/[0.02] p-6">
@@ -749,8 +750,8 @@ export default function TarifsClient() {
           </div>
           <p className="mx-auto mt-4 max-w-4xl text-center text-[11px] text-neutral-600">
             {fr
-              ? `${FREELANCE_FLOOR.reel} € le reel, ${FREELANCE_FLOOR.post} € le post, ${FREELANCE_FLOOR.communityManager} €/mois de community management. Sources : `
-              : `€${FREELANCE_FLOOR.reel} per reel, €${FREELANCE_FLOOR.post} per post, €${FREELANCE_FLOOR.communityManager}/mo of community management. Sources: `}
+              ? `Reel monté : 50 à 120 € ; post LinkedIn : 50 à 250 € ; community manager qui gère aussi la vidéo : 1 500 à 2 500 €/mois. Sources : `
+              : `Edited reel: €50 to €120; LinkedIn post: €50 to €250; community manager who also handles video: €1,500 to €2,500/mo. Sources: `}
             {FREELANCE_SOURCES.map((src, i) => (
               <span key={src.href}>
                 {i > 0 && ', '}
