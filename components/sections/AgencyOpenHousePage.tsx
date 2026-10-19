@@ -504,8 +504,8 @@ export default function AgencyOpenHousePage() {
             </h2>
             <p className="mt-5 text-[17px] leading-[1.55] text-neutral-300">
               {fr
-                ? 'Moi, Kevin. J’ai passé un an sur les process de Justin Welsh et Matt Gray, et j’ai travaillé avec eux. J’étais Top 50 LinkedIn France. C’est cette méthode qu’on vous transmet - avec Empire pour produire.'
-                : 'Me, Kevin. I spent a year on Justin Welsh and Matt Gray’s processes, and I worked with them. I was Top 50 LinkedIn France. That’s the method we teach - with Empire to produce.'}
+                ? 'Moi, Kevin. J’ai passé un an sur les process de Justin Welsh et Matt Gray, et j’ai travaillé avec eux. Favikon m’a classé n°1 des créateurs LinkedIn growth en France. C’est cette méthode qu’on vous transmet - avec Empire pour produire.'
+                : 'Me, Kevin. I spent a year on Justin Welsh and Matt Gray’s processes, and I worked with them. Favikon ranked me #1 growth creator on LinkedIn in France. That’s the method we teach - with Empire to produce.'}
             </p>
           </div>
 

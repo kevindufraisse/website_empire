@@ -12,7 +12,7 @@ export function LinkedInPost() {
         </div>
         <div className="flex-1">
           <p className="text-sm font-semibold text-white">Kevin Dufraisse</p>
-          <p className="text-[11px] text-neutral-400">Top 50 Creator • 2h ago</p>
+          <p className="text-[11px] text-neutral-400">#1 Growth Creator • 2h ago</p>
         </div>
         <div className="scale-90"><SocialIcons.linkedin /></div>
       </div>

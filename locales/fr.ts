@@ -112,8 +112,8 @@ export const fr: Translations = {
     results: {
       title: 'Les Résultats',
       subtitle: 'Vraie traction. Vraie reconnaissance.',
-      card1Title: 'Top 50 LinkedIn France',
-      card1Desc: 'Classement des influenceurs',
+      card1Title: 'N°1 LinkedIn Growth France',
+      card1Desc: 'Classement Favikon des créateurs Growth & Lead Gen',
       card2Title: 'Couverture Médiatique',
       card2Desc: 'Présence dans la presse',
       finalTitle: 'Ce n\'est pas de la chance. C\'est un système.',

@@ -80,7 +80,7 @@ export default function StorySection() {
             <p>Even when I was sick.</p>
             <p>One idea, one post, one more shot to stay visible.</p>
             <p className="pt-4">And it worked.</p>
-            <p className="font-semibold text-white">Top 50 creators in France.</p>
+            <p className="font-semibold text-white">#1 Growth & Lead Gen creator on LinkedIn in France.</p>
             <p>Leads, clients, sales.</p>
             <p className="pt-4">
               From the outside, it looked like I'd cracked the code.
@@ -94,7 +94,7 @@ export default function StorySection() {
             <div className="aspect-video flex items-center justify-center text-neutral-400">
               <div className="text-center">
                 <Calendar className="mx-auto mb-4 text-empire" size={48} />
-                <p className="text-sm">LinkedIn Top 50 Ranking Screenshot</p>
+                <p className="text-sm">Favikon ranking screenshot</p>
                 <p className="text-xs text-neutral-400 mt-2">(Image placeholder)</p>
               </div>
             </div>
