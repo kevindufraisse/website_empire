@@ -19,6 +19,15 @@ export default function Footer() {
 
   if (isCandidaturePage || pathname === '/academy/merci' || pathname === '/thank-you' || pathname === '/webinar' || pathname === '/webinar/merci' || pathname === '/live') return null
 
+  // Page vidéo (pub Meta) : rien que la mention, pas de liens qui détournent du bouton.
+  if (pathname === '/partenaire') {
+    return (
+      <footer className="w-full bg-black px-4 pb-[calc(6rem+env(safe-area-inset-bottom))] pt-6">
+        <MetaDisclaimer fr={lang === 'fr'} />
+      </footer>
+    )
+  }
+
   return (
     <footer className="relative w-full border-t border-white/10 bg-black pb-[env(safe-area-inset-bottom)]">
       <div className="container py-8 md:py-12">
@@ -112,21 +121,26 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Mention exigée sur les pages de destination des publicités Meta. */}
-        <div className="mx-auto mt-6 max-w-3xl space-y-2 text-center text-[11px] leading-relaxed text-neutral-500">
-          <p>
-            {lang === 'fr'
-              ? "Ce site ne fait pas partie du site Web de Facebook ou de Facebook Inc. De plus, ce site n'est en aucun cas approuvé par Facebook. FACEBOOK est une marque commerciale de Meta Platforms, Inc."
-              : 'This site is not a part of the Facebook website or Facebook Inc. Additionally, this site is NOT endorsed by Facebook in any way. FACEBOOK is a trademark of Meta Platforms, Inc.'}
-          </p>
-          <p>
-            {lang === 'fr'
-              ? 'Vos résultats peuvent varier. Les témoignages et exemples présentés ne garantissent pas que vous obtiendrez des résultats identiques ou similaires.'
-              : 'Your results may vary. The testimonials and examples shown do not guarantee that you will get the same or similar results.'}
-          </p>
-        </div>
+        <MetaDisclaimer fr={lang === 'fr'} />
       </div>
     </footer>
   )
 }
 
+// Mention exigée sur les pages de destination des publicités Meta.
+function MetaDisclaimer({ fr }: { fr: boolean }) {
+  return (
+    <div className="mx-auto mt-6 max-w-3xl space-y-2 text-center text-[11px] leading-relaxed text-neutral-500">
+      <p>
+        {fr
+          ? "Ce site ne fait pas partie du site Web de Facebook ou de Facebook Inc. De plus, ce site n'est en aucun cas approuvé par Facebook. FACEBOOK est une marque commerciale de Meta Platforms, Inc."
+          : 'This site is not a part of the Facebook website or Facebook Inc. Additionally, this site is NOT endorsed by Facebook in any way. FACEBOOK is a trademark of Meta Platforms, Inc.'}
+      </p>
+      <p>
+        {fr
+          ? 'Vos résultats peuvent varier. Les témoignages et exemples présentés ne garantissent pas que vous obtiendrez des résultats identiques ou similaires.'
+          : 'Your results may vary. The testimonials and examples shown do not guarantee that you will get the same or similar results.'}
+      </p>
+    </div>
+  )
+}
