@@ -58,7 +58,7 @@ export default function CustomerReviews({ title }: { title: string }) {
   const [playing, setPlaying] = useState(false)
   return (
     <section>
-      <h2 className="text-center text-2xl font-bold tracking-tight md:text-3xl">{title}</h2>
+      <h2 className="text-center text-sm font-semibold text-white">{title}</h2>
       <div className="mt-8 grid gap-3 md:grid-cols-3">
         <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] md:row-span-2">
           {playing ? (

@@ -80,9 +80,12 @@ type Props = {
   className?: string
   /** Sur /academy : rose partenaire. */
   accent?: 'neutral' | 'academy'
+  /** `compact` : le bandeau sous les cartes de /tarifs, comme dans l'app. */
+  variant?: 'compact' | 'full'
 }
 
-export default function FeaturedInSection({ title, className = '', accent = 'neutral' }: Props) {
+export default function FeaturedInSection({ title, className = '', accent = 'neutral', variant = 'full' }: Props) {
+  const compact = variant === 'compact'
   const { lang } = useLanguage()
   const resolvedTitle = title ?? (lang === 'fr' ? 'Vu dans' : 'Featured in')
   const labelClass =
@@ -90,10 +93,10 @@ export default function FeaturedInSection({ title, className = '', accent = 'neu
 
   return (
     <section aria-label={resolvedTitle} className={`w-full ${className}`}>
-      <p className={`text-center text-[11px] font-semibold uppercase tracking-[0.18em] ${labelClass}`}>
+      <p className={`text-center font-semibold uppercase tracking-[0.18em] ${compact ? 'text-[10px] text-neutral-600' : `text-[11px] ${labelClass}`}`}>
         {resolvedTitle}
       </p>
-      <div className="mt-4 grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-6">
+      <div className={`mt-4 grid gap-3 ${compact ? 'grid-cols-3 sm:grid-cols-6' : 'grid-cols-3 sm:grid-cols-4 md:grid-cols-6'}`}>
         {OUTLETS.map((outlet) => (
           <LogoTile key={outlet.slug} outlet={outlet} />
         ))}

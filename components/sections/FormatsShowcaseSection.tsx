@@ -46,7 +46,7 @@ import { SocialIcons } from '@/components/ui/social-icons'
 type Network = keyof typeof SocialIcons
 type Kind = 'short' | 'long' | 'written'
 
-type Format = {
+export type Format = {
   id: string
   kind: Kind
   image?: string
@@ -64,7 +64,7 @@ type Format = {
 
 const REELS: Network[] = ['instagram', 'tiktok', 'youtube', 'linkedin', 'facebook', 'threads', 'twitter']
 
-const FORMATS: Format[] = [
+export const FORMATS: Format[] = [
   {
     id: 'blur-reveal',
     kind: 'short',
@@ -196,13 +196,13 @@ const FORMATS: Format[] = [
   },
 ]
 
-const KIND_LABEL: Record<Kind, { fr: string; en: string }> = {
+export const KIND_LABEL: Record<Kind, { fr: string; en: string }> = {
   short: { fr: 'Vidéo courte', en: 'Short video' },
   long: { fr: 'Vidéo longue', en: 'Long video' },
   written: { fr: 'Écrit', en: 'Written' },
 }
 
-function NetworkRow({ networks, size = 'sm' }: { networks: Network[]; size?: 'sm' | 'md' }) {
+export function NetworkRow({ networks, size = 'sm' }: { networks: Network[]; size?: 'sm' | 'md' }) {
   const box = size === 'md' ? 'h-7 w-7 [&_svg]:h-4 [&_svg]:w-4' : 'h-5 w-5 [&_svg]:h-3 [&_svg]:w-3'
   return (
     <div className="flex items-center gap-1">
@@ -331,6 +331,24 @@ function WrittenCard({ fr }: { fr: boolean }) {
   )
 }
 
+/** L'écran du téléphone d'un format : le rendu réel, ou la carte HTML pour long, carrousel et écrit. */
+export function FormatScreen({ f, fr, eager = false }: { f: Format; fr: boolean; eager?: boolean }) {
+  if (f.image) {
+    return (
+      <img
+        src={f.image}
+        alt={fr ? f.titleFr : f.titleEn}
+        className="absolute inset-0 h-full w-full object-cover"
+        loading={eager ? 'eager' : 'lazy'}
+        draggable={false}
+      />
+    )
+  }
+  if (f.id === 'long') return <LongCard fr={fr} />
+  if (f.id === 'carousel') return <CarouselCard fr={fr} />
+  return <WrittenCard fr={fr} />
+}
+
 export default function FormatsShowcaseSection() {
   const { lang } = useLanguage()
   const { autopilot } = useAutopilot()
@@ -435,21 +453,7 @@ export default function FormatsShowcaseSection() {
                 >
                   {/* Cadre téléphone */}
                   <div className="relative aspect-[9/16] w-full overflow-hidden rounded-[2.2rem] border border-white/10 bg-[#0b0b0b] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.9)] ring-1 ring-white/5">
-                    {f.image ? (
-                      <img
-                        src={f.image}
-                        alt={fr ? f.titleFr : f.titleEn}
-                        className="absolute inset-0 h-full w-full object-cover"
-                        loading={i < 2 ? 'eager' : 'lazy'}
-                        draggable={false}
-                      />
-                    ) : f.id === 'long' ? (
-                      <LongCard fr={fr} />
-                    ) : f.id === 'carousel' ? (
-                      <CarouselCard fr={fr} />
-                    ) : (
-                      <WrittenCard fr={fr} />
-                    )}
+                    <FormatScreen f={f} fr={fr} eager={i < 2} />
                     {/* Encoche */}
                     <div className="absolute left-1/2 top-2.5 h-5 w-24 -translate-x-1/2 rounded-full bg-black/90" />
                     {/* Étiquette */}
