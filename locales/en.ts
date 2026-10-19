@@ -14,7 +14,8 @@ export const en = {
   },
   hero: {
     targetAudience: '',
-    title: 'Nobody knows you.<br/><span class="mt-2 block">In 30 days, your whole market will have seen you.</span>',
+    title: 'The personal branding system of 7- to 10-figure businesses',
+    titleH2: 'Nobody knows you.<br/><span class="mt-1 block">In 30 days, your whole market will have seen you.</span>',
     titleNote: '',
     subtitle: 'Our virality team spots the formats that blow up, templates them for you and duplicates them across 7 platforms. No writing, no editing, no wondering what to say.',
     description: '',

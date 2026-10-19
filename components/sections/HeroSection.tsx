@@ -84,6 +84,16 @@ export default function HeroSection() {
             />
           </AnimatePresence>
 
+          {!autopilot && t.hero.titleH2 && (
+            <motion.h2
+              initial={mounted ? { opacity: 0, y: 8 } : false}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+              className="mt-4 text-xl sm:text-2xl md:text-3xl font-semibold leading-snug text-neutral-300 max-w-3xl mx-auto text-balance"
+              dangerouslySetInnerHTML={{ __html: t.hero.titleH2.replace(/<br\/>/g, '<br>') }}
+            />
+          )}
+
           {!autopilot && t.hero.titleNote && (
             <motion.p
               initial={mounted ? { opacity: 0, y: 8 } : false}
