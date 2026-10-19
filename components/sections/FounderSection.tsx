@@ -37,15 +37,15 @@ export default function FounderSection() {
 
   // Different credentials for FR vs EN
   const credentialsFr = [
-    { stat: 'N°1', label: 'Growth & Lead Gen France (Favikon)' },
-    { stat: '4 000', label: 'Personnes formées' },
-    { stat: '10 M', label: 'Vues par mois sur mes comptes' },
+    { stat: '#1', label: 'Lead Generation France' },
+    { stat: '#55', label: 'LinkedIn Influence France' },
+    { stat: '700M+', label: 'Vues générées pour nos clients' },
   ]
 
   const credentialsEn = [
-    { stat: '#9', label: 'Lead Generation Worldwide (Favikon)' },
-    { stat: '4,000', label: 'People trained' },
-    { stat: '10M', label: 'Views a month on my accounts' },
+    { stat: '#9', label: 'Lead Generation Worldwide' },
+    { stat: '#55', label: 'LinkedIn Influence France' },
+    { stat: '700M+', label: 'Views generated for our clients' },
   ]
 
   const credentials = lang === 'fr' ? credentialsFr : credentialsEn
@@ -117,18 +117,17 @@ export default function FounderSection() {
                   <p className="text-lg text-white font-semibold mb-3">
                     {t.founder?.name || 'Kevin Dufraisse'}
                   </p>
-                  {autopilot ? (
-                    <p className="text-neutral-300 leading-relaxed mb-4">{t.founder?.bioLegende || t.founder?.bio}</p>
-                  ) : (
-                    <div className="mb-4 space-y-3">
-                      {t.founder.story.map((para) => (
-                        <p key={para} className="text-neutral-300 leading-relaxed">{para}</p>
-                      ))}
-                    </div>
-                  )}
+                  <p className="text-neutral-300 leading-relaxed mb-4">
+                    {autopilot ? (t.founder?.bioLegende || t.founder?.bio) : t.founder?.bio}
+                  </p>
                   <p className="text-empire font-medium">
                     {t.founder?.tagline || '→ Empire is the system I wish I had when I started.'}
                   </p>
+                  {!autopilot && (
+                    <a href="/mission" className="mt-4 inline-block text-sm text-neutral-300 underline decoration-white/20 underline-offset-4 hover:text-white">
+                      {t.founder.storyLink} →
+                    </a>
+                  )}
                 </div>
 
                 {/* Key message */}

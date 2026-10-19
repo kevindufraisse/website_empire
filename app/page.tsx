@@ -16,7 +16,6 @@ const QuickWinsSection = dynamic(() => import('@/components/sections/QuickWinsSe
 const FounderSection = dynamic(() => import('@/components/sections/FounderSection'))
 const FAQSection = dynamic(() => import('@/components/sections/FAQSection'))
 const FinalBoostCTA = dynamic(() => import('@/components/sections/FinalBoostCTA'))
-const HomeOffersSection = dynamic(() => import('@/components/sections/HomeOffersSection'))
 
 export default function Page() {
   return (
@@ -60,8 +59,7 @@ export default function Page() {
         <IncludedFeaturesSection />
       </div>
       <CaseStudiesSection />
-      {/* Les deux portes et leurs prix (lien « Tarifs » de l'en-tête). */}
-      <HomeOffersSection />
+      {/* Les prix ne vivent que sur /tarifs (choix de Kevin, 19 octobre 2026). */}
       <div id="formula-apply" className="scroll-mt-20">
         <HomeApplySection />
       </div>
