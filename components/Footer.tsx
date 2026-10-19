@@ -4,6 +4,7 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import { Mail } from 'lucide-react'
 import { GiftFooterLink } from '@/components/GiftCountdownContext'
+import { postitJoinUrl } from '@/lib/postit'
 
 export default function Footer() {
   const { t, lang } = useLanguage()
@@ -67,7 +68,7 @@ export default function Footer() {
                   <a href="/quiz" className="text-sm text-neutral-400 hover:text-empire transition-colors">
                     {lang === 'fr' ? 'Quiz : quel créateur êtes-vous ?' : 'Quiz: what creator are you?'}
                   </a>
-                  <a href="/postit" className="text-sm text-neutral-400 hover:text-empire transition-colors">
+                  <a href={postitJoinUrl('footer')} className="text-sm text-neutral-400 hover:text-empire transition-colors">
                     {lang === 'fr' ? 'Live gratuit : Post it like it’s hot (mercredi 12h)' : 'Free live: Post it like it’s hot (Wed noon)'}
                   </a>
                   <GiftFooterLink />
