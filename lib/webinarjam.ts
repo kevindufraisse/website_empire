@@ -8,6 +8,10 @@
 export const WEBINARJAM_ID =
   process.env.NEXT_PUBLIC_WEBINARJAM_ID?.trim() || 'k50r1oik'
 
+/** Le même live rejoué à la demande (EverWebinar) : l'inscrit regarde tout de suite. */
+export const OPEN_HOUSE_REPLAY_ID =
+  process.env.NEXT_PUBLIC_EVERWEBINAR_ID?.trim() || 'r0w4xps2'
+
 /** true par défaut ; mettre NEXT_PUBLIC_WEBINARJAM_LIVE=false pour fallback email. */
 export const WEBINARJAM_LIVE =
   process.env.NEXT_PUBLIC_WEBINARJAM_LIVE !== 'false'
@@ -17,11 +21,12 @@ export const WEBINARJAM_REGISTER_URL = `https://event.webinarjam.com/register/${
 /** Barre sticky bas de page (WebinarJam embed-bar) — couleurs Academy (#fca5a5). */
 export function webinarJamBarSrc(opts?: {
   buttonText?: string
+  id?: string
 }): string {
   const buttonText = encodeURIComponent(opts?.buttonText ?? 'Register')
   const buttonBg = encodeURIComponent('#fca5a5')
   const barBg = encodeURIComponent('#0a0a0a')
-  return `https://event.webinarjam.com/register/${WEBINARJAM_ID}/embed-bar?buttonText=${buttonText}&buttonBgColor=${buttonBg}&buttonBgOpacity=1&barBgColor=${barBg}&barBgOpacity=0.96&formTemplate=2&formColor=1`
+  return `https://event.webinarjam.com/register/${opts?.id || WEBINARJAM_ID}/embed-bar?buttonText=${buttonText}&buttonBgColor=${buttonBg}&buttonBgOpacity=1&barBgColor=${barBg}&barBgOpacity=0.96&formTemplate=2&formColor=1`
 }
 
 /** Formulaire embarqué (même session, thème sombre). */

@@ -110,6 +110,20 @@ export default function Footer() {
             </nav>
           </div>
         </div>
+
+        {/* Mention exigée sur les pages de destination des publicités Meta. */}
+        <div className="mx-auto mt-6 max-w-3xl space-y-2 text-center text-[11px] leading-relaxed text-neutral-500">
+          <p>
+            {lang === 'fr'
+              ? "Ce site ne fait pas partie du site Web de Facebook ou de Facebook Inc. De plus, ce site n'est en aucun cas approuvé par Facebook. FACEBOOK est une marque commerciale de Meta Platforms, Inc."
+              : 'This site is not a part of the Facebook website or Facebook Inc. Additionally, this site is NOT endorsed by Facebook in any way. FACEBOOK is a trademark of Meta Platforms, Inc.'}
+          </p>
+          <p>
+            {lang === 'fr'
+              ? 'Vos résultats peuvent varier. Les témoignages et exemples présentés ne garantissent pas que vous obtiendrez des résultats identiques ou similaires.'
+              : 'Your results may vary. The testimonials and examples shown do not guarantee that you will get the same or similar results.'}
+          </p>
+        </div>
       </div>
     </footer>
   )
