@@ -43,7 +43,7 @@ export default function StoryResults() {
 
         {/* Results Grid */}
         <div className="grid md:grid-cols-2 gap-8">
-          {/* Top 50 LinkedIn France */}
+          {/* Classement Favikon */}
           <FadeInBlock delay={0.1}>
             <div className="relative group">
               <div className="absolute -inset-1 bg-gradient-to-r from-empire to-green-400 rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-1000" />
@@ -61,7 +61,7 @@ export default function StoryResults() {
                 <div className="relative rounded-xl overflow-hidden border border-white/10">
                   <Image
                     src="https://d1yei2z3i6k35z.cloudfront.net/3647172/68c9e9f667659_1.png"
-                    alt="Kevin Dufraisse - Top 50 LinkedIn France"
+                    alt="Classement Favikon : Kevin Dufraisse n°1 Growth & Lead Gen France"
                     width={600}
                     height={800}
                     className="w-full h-auto"

@@ -529,7 +529,7 @@ function HeroSection() {
                 </div>
                 <div className="flex flex-col">
                   <span className="text-xs text-white font-semibold leading-tight">Kevin & Marc Dufraisse</span>
-                  <span className="text-[10px] text-neutral-300 leading-tight">Top 50 LinkedIn · 700M vues · 4 000 clients</span>
+                  <span className="text-[10px] text-neutral-300 leading-tight">N°1 LinkedIn Growth France · 700M vues · 4 000 clients</span>
                 </div>
               </div>
               <div className="h-4 w-px bg-white/20 hidden sm:block" />
@@ -864,8 +864,8 @@ function AboutSection() {
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-3">
                 <div className="p-4 rounded-xl bg-white/[0.04] border border-white/[0.08] text-center">
-                  <div className="text-2xl md:text-3xl font-black text-empire mb-1">Top 50</div>
-                  <div className="text-xs text-neutral-400">LinkedIn France</div>
+                  <div className="text-2xl md:text-3xl font-black text-empire mb-1">N°1</div>
+                  <div className="text-xs text-neutral-400">LinkedIn Growth France</div>
                 </div>
                 <div className="p-4 rounded-xl bg-white/[0.04] border border-white/[0.08] text-center">
                   <div className="text-2xl md:text-3xl font-black text-empire mb-1">700M</div>

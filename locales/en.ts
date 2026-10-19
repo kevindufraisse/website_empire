@@ -713,8 +713,8 @@ export const en = {
     results: {
       title: 'The Results',
       subtitle: 'Real traction. Real recognition.',
-      card1Title: 'Top 50 LinkedIn France',
-      card1Desc: 'Influencer ranking',
+      card1Title: '#1 LinkedIn Growth France',
+      card1Desc: 'Favikon ranking of Growth & Lead Gen creators',
       card2Title: 'Media Coverage',
       card2Desc: 'Press presence',
       finalTitle: 'This isn\'t luck. It\'s a system.',
