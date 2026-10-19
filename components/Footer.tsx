@@ -74,9 +74,6 @@ export default function Footer() {
                   <a href="/vsl" className="text-sm text-neutral-400 hover:text-empire transition-colors">
                     {lang === 'fr' ? 'Workshop gratuit : la formule du million de vues (1 h 26)' : 'Free workshop: the million-views formula (1h26)'}
                   </a>
-                  <a href="/partenaire" className="text-sm text-neutral-400 hover:text-empire transition-colors">
-                    {lang === 'fr' ? 'Vidéo : devenir partenaire Empire' : 'Video: become an Empire partner'}
-                  </a>
                   <a href="/quiz" className="text-sm text-neutral-400 hover:text-empire transition-colors">
                     {lang === 'fr' ? 'Quiz : quel créateur êtes-vous ?' : 'Quiz: what creator are you?'}
                   </a>
