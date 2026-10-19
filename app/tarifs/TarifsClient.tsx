@@ -2,14 +2,12 @@
 
 import { Fragment, useState } from 'react'
 import Image from 'next/image'
-import { ArrowRight, Check, Minus } from 'lucide-react'
+import { ArrowRight, Check, ChevronDown, Minus } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { CASE_STUDIES } from '@/components/sections/CaseStudiesSection'
 import FeaturedInSection from '@/components/FeaturedInSection'
 import CustomerReviews from '@/components/pricing/CustomerReviews'
+import PlanCards from '@/components/pricing/PlanCards'
 import {
-  APP_JOIN_URL,
-  BILLING_PERIODS,
   CONTENT_CREDITS,
   PAYG_RECHARGE,
   PLANS,
@@ -20,7 +18,7 @@ import {
   type PlanId,
 } from '@/lib/plans'
 import { startFreeTrial, TRIAL_CREDITS, TRIAL_TERMS_EN, TRIAL_TERMS_FR } from '@/lib/startTrial'
-import { trackAmplitude, withAmplitudeDeviceId } from '@/lib/amplitude'
+import { trackAmplitude } from '@/lib/amplitude'
 
 /**
  * Page tarifs du site, construite sur le pricing de l'app (cartes, sélecteur
@@ -31,8 +29,6 @@ import { trackAmplitude, withAmplitudeDeviceId } from '@/lib/amplitude'
  * les mêmes que `/join/empire`. Au mois, chaque formule ouvre l'essai ; en
  * trimestriel / annuel il n'existe pas, le bouton envoie au paiement de l'app.
  */
-
-type Col = PlanId | 'payg'
 
 type Group = 'features' | 'bonus'
 
@@ -64,46 +60,10 @@ function teamMix(plan: PlanId) {
 
 const ACADEMY_VALUE_EUROS = 297
 
-// Résultats déjà publiés sur l'accueil, attribués à Empire (Deborah, lancée sur
-// les conseils de Kevin, n'y est pas).
-const PROOF_LINES: { name: string; statFr: string; statEn: string; howFr: string; howEn: string }[] = [
-  { name: 'Caroline Blivet', statFr: '361 → 8 000 impressions', statEn: '361 → 8,000 impressions', howFr: 'dès son premier post avec Empire', howEn: 'on her first post with Empire' },
-  { name: 'Evelyne Guitard', statFr: '100 000 vues en 21 jours', statEn: '100,000 views in 21 days', howFr: 'sur LinkedIn, après son onboarding', howEn: 'on LinkedIn, after onboarding' },
-  { name: 'Olivier Sarezinski', statFr: '1 h par semaine', statEn: '1 hour a week', howFr: 'au lieu de plusieurs freelances', howEn: 'instead of several freelancers' },
-]
-const PROOF = PROOF_LINES.flatMap((line) => {
-  const cs = CASE_STUDIES.find((c) => c.name === line.name)
-  return cs ? [{ ...line, photo: cs.photo, roleFr: cs.roleFr, roleEn: cs.roleEn }] : []
-})
-
 const TOP50_SCREENSHOT = 'https://d1yei2z3i6k35z.cloudfront.net/3647172/68c9e9f667659_1.png'
 
 // Compte de démo de l'app : connexion anonyme, rempli selon le profil choisi.
 const DEMO_URL = 'https://app.empire-internet.com/demo'
-
-// Cette page tutoie ; l'accueil, qui lit aussi `rhythmFr`, vouvoie.
-const RHYTHM_TU: Record<PlanId, string> = {
-  starter: 'Tu postes tous les 2 jours',
-  growth: 'Tu postes tous les jours',
-  scale: 'Tu postes 2 fois par jour',
-}
-
-const CARD_EXTRAS: Record<PlanId, { fr: string; en: string }[]> = {
-  starter: [
-    { fr: 'Toutes les fonctionnalités de l’app', en: 'Every feature of the app' },
-    { fr: 'Live, Slack privé et replays : à partir d’Intermédiaire', en: 'Live, private Slack and replays: from Intermediate' },
-  ],
-  growth: [
-    { fr: 'Live client chaque semaine', en: 'Weekly client live' },
-    { fr: 'Communauté privée Slack', en: 'Private Slack community' },
-    { fr: `Replays masterclass (valeur ${ACADEMY_VALUE_EUROS} €)`, en: `Masterclass replays (worth €${ACADEMY_VALUE_EUROS})` },
-    { fr: 'Support prioritaire sous 4 h', en: 'Priority support within 4h' },
-  ],
-  scale: [
-    { fr: 'Tout Intermédiaire', en: 'Everything in Intermediate' },
-    { fr: 'Revue stratégique mensuelle (retours Loom)', en: 'Monthly strategy review (Loom feedback)' },
-  ],
-}
 
 const ALL: Record<PlanId, boolean> = { starter: true, growth: true, scale: true }
 const FROM_GROWTH: Record<PlanId, boolean> = { starter: false, growth: true, scale: true }
@@ -292,12 +252,6 @@ const FAQ = [
   },
 ]
 
-function joinUrl(params: Record<string, string>) {
-  const url = new URL(APP_JOIN_URL)
-  Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, v))
-  return withAmplitudeDeviceId(url.toString())
-}
-
 function Cell({ value, fr }: { value: boolean | string; fr: boolean }) {
   if (value === true) return <Check className="mx-auto h-4 w-4 text-white" aria-label={fr ? 'inclus' : 'included'} />
   if (value === false) return <Minus className="mx-auto h-4 w-4 text-neutral-700" aria-label={fr ? 'non inclus' : 'not included'} />
@@ -319,9 +273,7 @@ export default function TarifsClient() {
   const fr = lang === 'fr'
   const locale = fr ? 'fr-FR' : 'en-US'
   const [period, setPeriod] = useState<BillingId>('monthly')
-  const [mobilePlan, setMobilePlan] = useState<PlanId>('growth')
-  const [opening, setOpening] = useState<Col | null>(null)
-  const months = BILLING_PERIODS.find((p) => p.id === period)?.months ?? 1
+  const [opening, setOpening] = useState<PlanId | null>(null)
   const growth = PLANS.find((p) => p.id === 'growth')!
   const growthTeam = teamMix('growth')
   const teamLines = [
@@ -330,21 +282,6 @@ export default function TarifsClient() {
     { fr: 'Un community manager : publication, commentaires, DM', en: 'A community manager: publishing, comments, DMs', euros: FREELANCE_FLOOR.communityManager },
   ]
   const teamTotal = teamLines.reduce((sum, l) => sum + l.euros, 0)
-
-  const choose = async (col: Col, location = 'cards') => {
-    if (opening) return
-    setOpening(col)
-    trackAmplitude('pricing_page_plan_clicked', { plan: col, billing_period: col === 'payg' ? 'payg' : period, location })
-    if (col === 'payg') {
-      window.location.href = joinUrl({ plan: 'payg', pack: 'payg_start' })
-      return
-    }
-    if (period === 'monthly') {
-      await startFreeTrial(col)
-      return
-    }
-    window.location.href = joinUrl({ plan: col, period })
-  }
 
   // Les boutons hors des cartes ouvrent toujours l'essai, quelle que soit la période affichée.
   const startTrial = async (location: string) => {
@@ -365,219 +302,33 @@ export default function TarifsClient() {
     </a>
   )
 
-  const card = (plan: (typeof PLANS)[number]) => {
-    const monthly = finalPrice(plan.price, period, 1)
-    const d = PLAN_DELIVERABLES[plan.id]
-    const hl = plan.highlighted
-    return (
-      <article
-        key={plan.id}
-        className={`relative flex flex-col rounded-2xl p-6 ${
-          hl
-            ? 'border border-white/[0.14] bg-gradient-to-b from-[#1b1b1f] to-[#0e0e10] shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_40px_90px_-30px_rgba(0,0,0,0.9)] md:-my-3 md:py-9'
-            : 'border border-white/[0.07] bg-white/[0.02]'
-        }`}
-      >
-        <div className="flex items-center justify-between gap-2">
-          <h3 className="text-base font-semibold">{PLAN_LABELS[plan.id][fr ? 'fr' : 'en']}</h3>
-          {hl && (
-            <span className="rounded-md border border-white/10 bg-white/[0.04] px-2 py-0.5 text-[11px] font-semibold text-white/75">
-              {fr ? 'Recommandé' : 'Recommended'}
-            </span>
-          )}
-        </div>
-        <p className="mt-1 text-sm text-neutral-500">{fr ? RHYTHM_TU[plan.id] : plan.rhythmEn}</p>
-
-        <div className="mt-6 flex items-baseline gap-2">
-          {period !== 'monthly' && <span className="text-lg tabular-nums text-neutral-600 line-through">{plan.price} €</span>}
-          <span className="text-[2.75rem] font-semibold leading-none tracking-tight tabular-nums">{monthly} €</span>
-          <span className="text-sm text-neutral-500">{fr ? '/mois' : '/mo'}</span>
-        </div>
-        <p className="mt-2 text-xs text-neutral-400">
-          {fr ? `soit ${Math.round(monthly / 30)} € par jour` : `that's €${Math.round(monthly / 30)} a day`}
-          {' · '}
-          {period === 'monthly'
-            ? (fr ? 'sans engagement' : 'no commitment')
-            : fr
-              ? `${(monthly * months).toLocaleString(locale)} € ${months === 3 ? 'tous les 3 mois' : 'par an'}`
-              : `€${(monthly * months).toLocaleString(locale)} ${months === 3 ? 'every 3 months' : 'per year'}`}
-        </p>
-        <p className="h-5 text-xs font-semibold text-empire">
-          {period !== 'monthly' && (fr
-            ? `${((plan.price - monthly) * 12).toLocaleString(locale)} € économisés par an`
-            : `€${((plan.price - monthly) * 12).toLocaleString(locale)} saved per year`)}
-        </p>
-
-        <p className="mt-4 text-[11px] font-medium uppercase tracking-[0.14em] text-white/40">{fr ? 'Chaque mois, au choix, jusqu’à' : 'Every month, your pick, up to'}</p>
-        <div className="mt-2 grid grid-cols-3 gap-2 rounded-xl border border-white/[0.07] bg-black/40 p-3 text-center">
-          {[
-            { n: d.reels, l: 'reels' },
-            { n: d.posts, l: fr ? 'ou posts' : 'or posts' },
-            { n: d.newsletters, l: fr ? 'ou newsletters' : 'or newsletters' },
-          ].map((x) => (
-            <div key={x.l}>
-              <p className="text-lg font-semibold tabular-nums">{x.n}</p>
-              <p className="text-[11px] text-neutral-500">{x.l}</p>
-            </div>
-          ))}
-        </div>
-        <p className="mt-2 text-center text-[11px] text-neutral-500">
-          {fr
-            ? `${plan.credits.toLocaleString(locale)} crédits par mois, tu mélanges comme tu veux`
-            : `${plan.credits.toLocaleString(locale)} credits a month, mix as you like`}
-        </p>
-
-        <button
-          type="button"
-          onClick={() => choose(plan.id)}
-          disabled={opening !== null}
-          className={`mt-6 inline-flex min-h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-xl px-4 text-sm font-semibold transition disabled:opacity-60 ${
-            hl ? 'bg-white text-black hover:bg-neutral-200' : 'border border-white/[0.14] bg-white/[0.03] text-white hover:bg-white/[0.07]'
-          }`}
-        >
-          {opening === plan.id
-            ? (fr ? 'Ouverture…' : 'Opening…')
-            : period === 'monthly'
-              ? (fr ? 'Essayer 7 jours gratuits' : 'Try free for 7 days')
-              : (fr ? `Commencer · ${monthly} €/mois` : `Start · €${monthly}/mo`)}
-        </button>
-        <p className="mt-2 text-center text-[11px] leading-snug text-neutral-500">
-          {period === 'monthly'
-            ? (fr
-              ? `7 jours ou ${TRIAL_CREDITS} crédits gratuits, puis ${plan.price} €/mois. Annule avant : 0 €.`
-              : `7 days or ${TRIAL_CREDITS} credits free, then €${plan.price}/mo. Cancel before: €0.`)
-            : (fr ? 'Pas d’essai sur cette période : paiement le jour même.' : 'No trial on this period: payment taken today.')}
-        </p>
-
-        <ul className="mt-5 space-y-2.5 border-t border-white/[0.07] pt-5">
-          {CARD_EXTRAS[plan.id].map((line) => (
-            <li key={line.fr} className="flex items-start gap-2 text-sm text-neutral-300">
-              <Check className="mt-0.5 h-4 w-4 shrink-0 text-white/60" />
-              {fr ? line.fr : line.en}
-            </li>
-          ))}
-        </ul>
-      </article>
-    )
-  }
-
   return (
-    <main className="min-h-screen overflow-x-hidden bg-black pb-24 pt-28 text-white md:pt-36">
-      <div className="mx-auto max-w-6xl px-4">
-        <header className="mx-auto max-w-2xl text-center">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-neutral-500">{fr ? 'Tarifs' : 'Pricing'}</p>
-          <h1 className="mt-3 text-4xl font-bold leading-[1.08] tracking-tight md:text-6xl">
-            {fr ? 'Publie tous les jours, sans écrire ni monter.' : 'Post every day, without writing or editing.'}
+    <main className="min-h-screen overflow-x-hidden bg-black pb-24 pt-24 text-white md:pt-28">
+      <div className="mx-auto max-w-5xl px-4">
+        <header className="mx-auto max-w-2xl space-y-3 text-center">
+          <h1 className="text-3xl font-bold tracking-tight text-white">
+            {fr ? 'Publie tous les jours, sans écrire ni monter' : 'Post every day, without writing or editing'}
           </h1>
-          <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-neutral-400 md:text-lg">
+          <p className="text-base leading-relaxed text-white/60">
             {fr
-              ? 'Chaque semaine, Empire te prépare des idées. Tu filmes ou tu dictes quelques minutes, Empire écrit, monte et publie tes reels, posts LinkedIn et newsletters sur 7 réseaux.'
-              : 'Every week, Empire prepares ideas for you. You film or dictate for a few minutes, Empire writes, edits and publishes your reels, LinkedIn posts and newsletters to 7 networks.'}
-          </p>
-          <p className="mt-5 text-xs text-neutral-500">
-            {fr
-              ? 'La méthode de Kevin Dufraisse : n°1 des créateurs LinkedIn growth en France (Favikon), 10 millions de vues par mois.'
-              : 'Kevin Dufraisse’s method: #1 growth creator on LinkedIn in France (Favikon), 10 million views a month.'}
+              ? 'Chaque semaine, Empire te prépare des idées. Tu filmes ou tu dictes quelques minutes, Empire écrit, monte et publie tes posts LinkedIn, reels, newsletters et vidéos sur 7 réseaux.'
+              : 'Every week, Empire prepares ideas for you. You film or dictate for a few minutes, Empire writes, edits and publishes your LinkedIn posts, reels, newsletters and videos to 7 networks.'}
           </p>
         </header>
 
-        <div className="mx-auto mt-10 grid max-w-md grid-cols-3 gap-1 rounded-xl border border-white/[0.07] bg-black/50 p-1" role="tablist">
-          {BILLING_PERIODS.map((p) => {
-            const active = p.id === period
-            return (
-              <button
-                key={p.id}
-                type="button"
-                role="tab"
-                aria-selected={active}
-                onClick={() => setPeriod(p.id)}
-                className={`cursor-pointer whitespace-nowrap rounded-lg px-1.5 py-2 text-center text-xs font-medium transition-colors sm:text-sm ${
-                  active ? 'bg-white text-black' : 'text-neutral-400 hover:text-white'
-                }`}
-              >
-                {fr ? p.labelFr : p.labelEn}
-                {p.discount > 0 && (
-                  <span className={`ml-1 text-[11px] font-semibold ${active ? 'text-black/60' : 'text-neutral-500'}`}>
-                    -{Math.round(p.discount * 100)}%
-                  </span>
-                )}
-              </button>
-            )
-          })}
+        <div className="mt-8">
+          <PlanCards location="cards" period={period} onPeriodChange={setPeriod} />
         </div>
-
-        {/* Mobile : une carte à la fois, Intermédiaire d'abord. */}
-        <div className="mt-6 md:hidden">
-          <div className="grid grid-cols-3 gap-1 rounded-xl border border-white/[0.07] bg-black/50 p-1" role="radiogroup" aria-label={fr ? 'Formule' : 'Plan'}>
-            {PLANS.map((p) => {
-              const active = p.id === mobilePlan
-              return (
-                <button
-                  key={p.id}
-                  type="button"
-                  role="radio"
-                  aria-checked={active}
-                  onClick={() => setMobilePlan(p.id)}
-                  className={`cursor-pointer rounded-lg px-1 py-2 text-center transition-colors ${active ? 'bg-white/[0.1] text-white' : 'text-neutral-500'}`}
-                >
-                  <span className="block text-xs font-semibold">{PLAN_LABELS[p.id][fr ? 'fr' : 'en']}</span>
-                  <span className="block text-[11px] tabular-nums">{finalPrice(p.price, period, 1)} €</span>
-                </button>
-              )
-            })}
-          </div>
-          <div className="mt-4">{card(PLANS.find((p) => p.id === mobilePlan)!)}</div>
-        </div>
-
-        <div className="mt-10 hidden gap-4 md:grid md:grid-cols-3">{PLANS.map(card)}</div>
-
-        <p className="mx-auto mt-8 max-w-3xl text-center text-sm leading-relaxed text-neutral-400">
-          <span className="font-semibold text-neutral-200">{fr ? 'Dans tous les plans : ' : 'In every plan: '}</span>
-          {fr
-            ? 'des idées prêtes chaque semaine · écriture, montage et sous-titres · chaque reel vérifié par l’équipe · publication sur 7 réseaux · le mix se change à tout moment.'
-            : 'ready ideas every week · writing, editing and captions · every reel checked by the team · publishing to 7 networks · change the mix anytime.'}
-        </p>
-
-        <div className="mx-auto mt-6 flex max-w-3xl flex-col items-center justify-between gap-3 rounded-xl border border-white/[0.09] bg-white/[0.03] px-5 py-4 sm:flex-row">
-          <div className="text-center sm:text-left">
-            <p className="text-sm font-semibold">
-              {fr ? `Pas prêt pour un abonnement ? Paie à l’usage, dès ${PAYG_RECHARGE.euros} €.` : `Not ready for a subscription? Pay as you go, from €${PAYG_RECHARGE.euros}.`}
-            </p>
-            <p className="mt-1 text-xs text-neutral-500">
-              {fr
-                ? `0 € aujourd’hui, ${PAYG_RECHARGE.euros} € (${PAYG_RECHARGE.credits} crédits, environ ${Math.floor(PAYG_RECHARGE.credits / POST_CREDITS)} posts LinkedIn) à ta première action, plafond mensuel au choix. Sans live ni Slack.`
-                : `€0 today, €${PAYG_RECHARGE.euros} (${PAYG_RECHARGE.credits} credits, about ${Math.floor(PAYG_RECHARGE.credits / POST_CREDITS)} LinkedIn posts) on your first action, monthly cap of your choice. No live or Slack.`}
-            </p>
-          </div>
-          <button
-            type="button"
-            onClick={() => choose('payg')}
-            disabled={opening !== null}
-            className="inline-flex min-h-10 shrink-0 cursor-pointer items-center gap-1.5 rounded-xl border border-white/[0.14] px-4 text-sm font-semibold transition hover:bg-white/[0.07] disabled:opacity-60"
-          >
-            {opening === 'payg' ? (fr ? 'Ouverture…' : 'Opening…') : (fr ? 'Payer à l’usage' : 'Pay as you go')}
-            <ArrowRight className="h-3.5 w-3.5" />
-          </button>
-        </div>
-
-        <ul className="mx-auto mt-8 grid max-w-4xl gap-3 sm:grid-cols-3">
-          {PROOF.map((cs) => (
-            <li key={cs.name} className="flex items-center gap-3 rounded-xl border border-white/[0.07] bg-white/[0.02] px-4 py-3">
-              <Image src={cs.photo} alt={cs.name} width={40} height={40} className="h-10 w-10 shrink-0 rounded-full object-cover" />
-              <div className="min-w-0">
-                <p className="text-sm font-semibold tabular-nums text-white">{fr ? cs.statFr : cs.statEn}</p>
-                <p className="text-xs text-neutral-400">{fr ? cs.howFr : cs.howEn}</p>
-                <p className="truncate text-[11px] text-neutral-600">{cs.name.split(' ')[0]}, {fr ? cs.roleFr : cs.roleEn}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
-
-        <FeaturedInSection className="mt-12" />
 
         <p className="mt-6 text-center text-sm">
           {demoLink('cards', fr ? 'Voir un compte Empire déjà rempli, sans inscription' : 'See a filled-in Empire account, no sign-up')}
         </p>
+
+        <FeaturedInSection className="mt-12" variant="compact" title={fr ? 'Mis en avant par' : 'Featured by'} />
+
+        <div className="mt-12">
+          <CustomerReviews title={fr ? 'Ils publient avec Empire' : 'They publish with Empire'} />
+        </div>
 
         <section className="mt-28">
           <SectionTitle
@@ -644,16 +395,16 @@ export default function TarifsClient() {
           </div>
         </section>
 
-        <section className="mt-28">
-          <SectionTitle title={fr ? 'Comment ça marche' : 'How it works'} />
-          <ol className="mx-auto mt-10 grid max-w-5xl gap-3 sm:grid-cols-2 lg:grid-cols-5">
+        <section className="mx-auto mt-28 max-w-5xl space-y-4 rounded-xl border border-white/[0.07] bg-white/[0.02] p-5">
+          <h2 className="text-center text-sm font-semibold text-white">{fr ? 'Comment ça marche ?' : 'How does it work?'}</h2>
+          <ol className="grid grid-cols-1 gap-4 sm:grid-cols-5">
             {PROCESS.map((step, i) => {
               const [title, desc] = fr ? step.fr : step.en
               return (
-                <li key={step.fr[0]} className={`rounded-2xl border p-5 ${i === 3 ? 'border-white/[0.18] bg-white/[0.05]' : 'border-white/[0.07] bg-white/[0.02]'}`}>
-                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white text-xs font-bold text-black">{i + 1}</span>
-                  <p className="mt-3 text-sm font-semibold">{title}</p>
-                  <p className="mt-1 text-xs leading-relaxed text-neutral-400">{desc}</p>
+                <li key={step.fr[0]} className="space-y-2 text-center">
+                  <span className={`mx-auto flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold ${i === 3 ? 'bg-white text-black' : 'bg-white/10 text-white'}`}>{i + 1}</span>
+                  <p className="text-xs font-semibold text-white">{title}</p>
+                  <p className="text-[11px] leading-relaxed text-white/50">{desc}</p>
                 </li>
               )
             })}
@@ -679,10 +430,6 @@ export default function TarifsClient() {
             <p className="text-xs text-neutral-500">{fr ? 'Fondateur d’Empire' : 'Founder of Empire'}</p>
           </div>
         </section>
-
-        <div className="mt-28">
-          <CustomerReviews title={fr ? 'Ils publient avec Empire' : 'They publish with Empire'} />
-        </div>
 
         <section className="mt-28">
           <SectionTitle title={fr ? 'Ce que tu as dans Empire' : 'What you get with Empire'} />
@@ -802,29 +549,27 @@ export default function TarifsClient() {
           </div>
         </section>
 
-        <section className="mx-auto mt-28 max-w-3xl">
-          <SectionTitle title={fr ? 'Questions fréquentes' : 'FAQ'} />
-          <div className="mt-8 divide-y divide-white/[0.08] border-y border-white/[0.08]">
-            {FAQ.map((item) => (
-              <details key={item.q.fr} className="group py-5">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-medium">
-                  {fr ? item.q.fr : item.q.en}
-                  <span className="text-neutral-500 transition group-open:rotate-45">+</span>
-                </summary>
-                <p className="mt-3 text-sm leading-relaxed text-neutral-400">
-                  {fr ? item.a.fr : item.a.en}
-                  {item.link && (
-                    <>
-                      {' '}
-                      <a href={item.link.href} className="font-medium text-neutral-200 underline decoration-white/20 underline-offset-2 hover:text-white">
-                        {fr ? item.link.fr : item.link.en}
-                      </a>
-                    </>
-                  )}
-                </p>
-              </details>
-            ))}
-          </div>
+        <section className="mx-auto mt-28 max-w-2xl space-y-3">
+          <h2 className="text-center text-sm font-semibold text-white">{fr ? 'Questions fréquentes' : 'FAQ'}</h2>
+          {FAQ.map((item) => (
+            <details key={item.q.fr} className="group rounded-lg border border-white/[0.07] bg-white/[0.02]">
+              <summary className="flex cursor-pointer list-none items-center justify-between px-4 py-3 text-xs font-medium text-white transition-colors hover:text-white/80 [&::-webkit-details-marker]:hidden">
+                {fr ? item.q.fr : item.q.en}
+                <ChevronDown className="ml-2 h-3.5 w-3.5 shrink-0 text-white/40 transition-transform group-open:rotate-180" />
+              </summary>
+              <p className="px-4 pb-3 text-xs leading-relaxed text-white/55">
+                {fr ? item.a.fr : item.a.en}
+                {item.link && (
+                  <>
+                    {' '}
+                    <a href={item.link.href} className="font-medium text-white underline-offset-2 hover:underline">
+                      {fr ? item.link.fr : item.link.en}
+                    </a>
+                  </>
+                )}
+              </p>
+            </details>
+          ))}
         </section>
 
         <section className="mx-auto mt-24 max-w-2xl rounded-2xl border border-white/15 bg-gradient-to-b from-white/[0.07] to-white/[0.02] px-6 py-10 text-center">
