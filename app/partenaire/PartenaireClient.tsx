@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react'
 import { ArrowRight, Check, Play } from 'lucide-react'
 import LoomEmbed from '@/components/LoomEmbed'
 import VideoEmailGate, { adoptEmailFromUrl } from '@/components/VideoEmailGate'
+import { WebinarJamBar, WebinarJamButton } from '@/components/WebinarJamRegister'
+import { OPEN_HOUSE_REPLAY_ID } from '@/lib/webinarjam'
 import { trackAmplitude } from '@/lib/amplitude'
 
 /** Même vidéo que la pub des portes ouvertes. */
@@ -40,19 +42,19 @@ export default function PartenaireClient() {
     <main className="min-h-screen overflow-x-hidden bg-black text-white">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[600px] bg-[radial-gradient(ellipse_80%_60%_at_50%_0%,rgba(252,165,165,0.12),transparent)]" />
 
-      <section className="relative pb-12 pt-24 md:pb-16 md:pt-28">
+      <section className="relative pb-12 pt-6 md:pb-16 md:pt-8">
         <div className="container mx-auto max-w-4xl px-4">
-          <p className="mb-3 text-center text-xs font-semibold uppercase tracking-wider text-academy">
+          <p className="mb-2 text-center text-xs font-semibold uppercase tracking-wider text-academy">
             Devenir partenaire Empire · vidéo gratuite
           </p>
-          <h1 className="mb-4 text-center text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
-            Environ 4 h par mois et par client, <span className="text-academy">500 à 1 000 € facturés</span>
+          <h1 className="mb-5 text-center text-2xl font-bold leading-tight sm:text-3xl md:text-4xl">
+            Environ 4 h par mois et par client,
+            <br />
+            <span className="text-academy">500 à 1 000 € facturés</span>
           </h1>
-          <p className="mx-auto mb-8 max-w-2xl text-center text-base text-neutral-400 md:text-lg">
-            Le métier de partenaire Empire : tu accompagnes des entrepreneurs sur leur personal branding, Empire produit leurs contenus. Regarde comment ça marche.
-          </p>
 
-          <div className="relative w-full">
+          {/* La vidéo et le bouton tiennent dans l'écran : la largeur suit la hauteur disponible. */}
+          <div className="relative mx-auto w-full max-w-[calc((100svh-17rem)*16/9)]">
             {unlocked ? (
               <LoomEmbed id={PARTNER_LOOM_ID} title="Devenir partenaire Empire" />
             ) : (
@@ -85,23 +87,16 @@ export default function PartenaireClient() {
             )}
           </div>
 
-          <div className="mt-8 flex flex-col items-center gap-3">
-            <a
-              href="/academy#portes-ouvertes"
-              onClick={() => trackAmplitude('academy_open_house_clicked', { source: 'partner_vsl' })}
+          <div className="mt-5 flex flex-col items-center gap-2">
+            <WebinarJamButton
+              hash={OPEN_HOUSE_REPLAY_ID}
+              onClick={() => trackAmplitude('academy_open_house_clicked', { source: 'partner_vsl', session: 'replay' })}
               className="inline-flex h-14 w-full max-w-md items-center justify-center gap-2 rounded-2xl bg-academy px-6 text-base font-bold text-black transition hover:brightness-110"
             >
               Réserver ma place aux portes ouvertes
               <ArrowRight className="h-5 w-5" />
-            </a>
-            <p className="text-center text-xs text-neutral-400">Gratuit · chaque jeudi à 11h (Paris) · tu poses tes questions en direct</p>
-            <a
-              href="/academy"
-              onClick={() => trackAmplitude('academy_program_clicked', { source: 'partner_vsl' })}
-              className="text-sm text-neutral-300 underline decoration-white/20 underline-offset-4 hover:text-white"
-            >
-              Voir le programme et les prix
-            </a>
+            </WebinarJamButton>
+            <p className="text-center text-xs text-neutral-400">Gratuit · inscription en 10 secondes · tu choisis ton créneau</p>
           </div>
         </div>
       </section>
@@ -136,6 +131,7 @@ export default function PartenaireClient() {
           </p>
         </div>
       </section>
+      <WebinarJamBar buttonText="S’inscrire" source="partner_vsl" hash={OPEN_HOUSE_REPLAY_ID} />
     </main>
   )
 }

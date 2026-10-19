@@ -4,6 +4,7 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import { Mail } from 'lucide-react'
 import { GiftFooterLink } from '@/components/GiftCountdownContext'
+import { postitJoinUrl } from '@/lib/postit'
 
 export default function Footer() {
   const { t, lang } = useLanguage()
@@ -67,7 +68,7 @@ export default function Footer() {
                   <a href="/quiz" className="text-sm text-neutral-400 hover:text-empire transition-colors">
                     {lang === 'fr' ? 'Quiz : quel créateur êtes-vous ?' : 'Quiz: what creator are you?'}
                   </a>
-                  <a href="/postit" className="text-sm text-neutral-400 hover:text-empire transition-colors">
+                  <a href={postitJoinUrl('footer')} className="text-sm text-neutral-400 hover:text-empire transition-colors">
                     {lang === 'fr' ? 'Live gratuit : Post it like it’s hot (mercredi 12h)' : 'Free live: Post it like it’s hot (Wed noon)'}
                   </a>
                   <GiftFooterLink />
@@ -109,6 +110,20 @@ export default function Footer() {
               </a>
             </nav>
           </div>
+        </div>
+
+        {/* Mention exigée sur les pages de destination des publicités Meta. */}
+        <div className="mx-auto mt-6 max-w-3xl space-y-2 text-center text-[11px] leading-relaxed text-neutral-500">
+          <p>
+            {lang === 'fr'
+              ? "Ce site ne fait pas partie du site Web de Facebook ou de Facebook Inc. De plus, ce site n'est en aucun cas approuvé par Facebook. FACEBOOK est une marque commerciale de Meta Platforms, Inc."
+              : 'This site is not a part of the Facebook website or Facebook Inc. Additionally, this site is NOT endorsed by Facebook in any way. FACEBOOK is a trademark of Meta Platforms, Inc.'}
+          </p>
+          <p>
+            {lang === 'fr'
+              ? 'Vos résultats peuvent varier. Les témoignages et exemples présentés ne garantissent pas que vous obtiendrez des résultats identiques ou similaires.'
+              : 'Your results may vary. The testimonials and examples shown do not guarantee that you will get the same or similar results.'}
+          </p>
         </div>
       </div>
     </footer>
