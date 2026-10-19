@@ -15,12 +15,25 @@ const nextConfig = {
       },
       {
         source: '/pricing',
-        destination: '/decouverte',
+        destination: '/tarifs',
         permanent: false,
       },
       {
         source: '/order',
         destination: '/decouverte',
+        permanent: false,
+      },
+      // Anciennes pages de prix (paiement à l'usage, cartes crédits d'avant
+      // octobre 2026) : les formules à jour sont sur /tarifs.
+      {
+        source: '/hire-our-team/:path*',
+        destination: '/tarifs',
+        permanent: true,
+      },
+      // L'offre webinar vit dans l'app : les liens des anciens emails y arrivent.
+      {
+        source: '/final-offer',
+        destination: 'https://app.empire-internet.com/join/internet?offer=webinar',
         permanent: false,
       },
       {
