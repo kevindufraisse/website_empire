@@ -126,7 +126,16 @@ export default function FormulaBar() {
     const slotEl = document.getElementById(HERO_SLOT)
     setSlot(slotEl)
 
+    // Un calcul par image au plus : l'événement scroll part bien plus souvent.
+    let frame = 0
     const onScroll = () => {
+      if (frame) return
+      frame = requestAnimationFrame(() => {
+        frame = 0
+        measure()
+      })
+    }
+    const measure = () => {
       const faq = document.getElementById('faq')
       const faqReached = faq ? faq.getBoundingClientRect().top < window.innerHeight * 0.6 : false
       if (faqReached) {
@@ -144,10 +153,11 @@ export default function FormulaBar() {
       }
       setMode(leftHero ? 'floating' : slotEl ? 'docked' : 'hidden')
     }
-    onScroll()
+    measure()
     document.addEventListener('scroll', onScroll, { passive: true, capture: true })
     window.addEventListener('resize', onScroll)
     return () => {
+      if (frame) cancelAnimationFrame(frame)
       document.removeEventListener('scroll', onScroll, { capture: true })
       window.removeEventListener('resize', onScroll)
     }
@@ -273,27 +283,18 @@ export default function FormulaBar() {
       layoutId="formula-pill"
       transition={{ layout: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } }}
       className={[
-        'relative overflow-hidden rounded-2xl border backdrop-blur-xl transition-colors duration-700',
+        'relative overflow-hidden rounded-2xl border transition-colors duration-700',
         'shadow-[0_16px_50px_-16px_rgba(0,0,0,0.9)]',
+        // Pas de flou d'arrière-plan dans le hero : les réactions qui montent
+        // derrière le forçaient à se recalculer à chaque image.
+        docked ? 'bg-black/90' : 'backdrop-blur-xl',
         done
           ? 'border-empire/50 bg-black/80 shadow-[0_0_40px_-8px_rgb(var(--empire-rgb)_/_0.45)]'
-          : 'border-white/15 bg-black/75',
+          : docked ? 'border-white/15' : 'border-white/15 bg-black/75',
       ].join(' ')}
     >
       {/* Reflet haut, le détail qui fait « verre » */}
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.12),rgba(255,255,255,0)_45%)]" />
-
-      {/* Dans le hero, tant que des termes sont flous : un reflet qui balaie
-          la vitre, comme une buée qu'on n'a pas encore essuyée. */}
-      {docked && revealed.size < FORMULA_TERMS.length - 1 && (
-        <motion.div
-          aria-hidden
-          className="pointer-events-none absolute inset-y-0 w-1/3 bg-[linear-gradient(100deg,transparent,rgba(255,255,255,0.14),transparent)]"
-          initial={{ x: '-120%' }}
-          animate={{ x: '420%' }}
-          transition={{ duration: 2.6, repeat: Infinity, repeatDelay: 1.2, ease: 'easeInOut' }}
-        />
-      )}
 
       <div className="relative flex flex-col lg:flex-row lg:items-center">
         <div className={[
@@ -374,15 +375,14 @@ export default function FormulaBar() {
         <div className="relative">
           {pill}
           {stillSecret && (
-            <motion.span
+            // Le tampon est déjà dans le HTML serveur (`FormulaHeroStatic`) :
+            // le rejouer ici le faisait tomber une deuxième fois.
+            <span
               aria-hidden
-              initial={{ opacity: 0, scale: 1.6, rotate: -14 }}
-              animate={{ opacity: 1, scale: 1, rotate: -10 }}
-              transition={{ duration: 0.35, delay: 0.5, ease: [0.2, 1.2, 0.4, 1] }}
-              className="pointer-events-none absolute -right-3 -top-3 select-none rounded-[3px] border-[2.5px] border-red-500 px-1.5 py-0.5 font-mono text-[11px] font-black uppercase tracking-[0.22em] text-red-500 shadow-[0_0_18px_-4px_rgba(239,68,68,0.6)] mix-blend-screen sm:-right-4 sm:text-xs"
+              className="pointer-events-none absolute -right-3 -top-3 -rotate-[10deg] select-none rounded-[3px] border-[2.5px] border-red-500 px-1.5 py-0.5 font-mono text-[11px] font-black uppercase tracking-[0.22em] text-red-500 shadow-[0_0_18px_-4px_rgba(239,68,68,0.6)] sm:-right-4 sm:text-xs"
             >
               Secret
-            </motion.span>
+            </span>
           )}
         </div>
       </div>,
@@ -434,7 +434,7 @@ export function FormulaHeroStatic({ fr }: { fr: boolean }) {
   return (
     <div className="flex flex-col items-center group-data-[live=true]:hidden" aria-hidden>
       <div className="relative">
-        <div className="relative overflow-hidden rounded-2xl border border-white/15 bg-black/75 shadow-[0_16px_50px_-16px_rgba(0,0,0,0.9)] backdrop-blur-xl">
+        <div className="relative overflow-hidden rounded-2xl border border-white/15 bg-black/90 shadow-[0_16px_50px_-16px_rgba(0,0,0,0.9)]">
           <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.12),rgba(255,255,255,0)_45%)]" />
           <div className="relative flex items-center gap-2.5 px-4 py-2.5 text-xs sm:gap-3.5 sm:px-6 sm:py-3 sm:text-base md:gap-5 md:px-9 md:py-5 md:text-2xl">
             <div className="flex flex-col items-center leading-none">
@@ -451,7 +451,7 @@ export function FormulaHeroStatic({ fr }: { fr: boolean }) {
           </div>
           <div className="absolute inset-x-0 bottom-0 h-[2px] bg-white/10" />
         </div>
-        <span className="pointer-events-none absolute -right-3 -top-3 -rotate-[10deg] select-none rounded-[3px] border-[2.5px] border-red-500 px-1.5 py-0.5 font-mono text-[11px] font-black uppercase tracking-[0.22em] text-red-500 shadow-[0_0_18px_-4px_rgba(239,68,68,0.6)] mix-blend-screen sm:-right-4 sm:text-xs">
+        <span className="pointer-events-none absolute -right-3 -top-3 -rotate-[10deg] select-none rounded-[3px] border-[2.5px] border-red-500 px-1.5 py-0.5 font-mono text-[11px] font-black uppercase tracking-[0.22em] text-red-500 shadow-[0_0_18px_-4px_rgba(239,68,68,0.6)] sm:-right-4 sm:text-xs">
           Secret
         </span>
       </div>
