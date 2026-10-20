@@ -350,13 +350,6 @@ export default function PartnerProgramPage() {
             <AcademyPlatformLogos fr={fr} />
             <div className="mt-8 flex w-full flex-col items-center gap-3">
               <CtaBlock fr={fr} source="hero" audience={audience} />
-              <a
-                href="/partenaire"
-                onClick={() => trackAmplitude('partner_vsl_link_clicked', { source: 'academy_hero' })}
-                className="text-sm text-neutral-300 underline decoration-white/20 underline-offset-4 hover:text-white"
-              >
-                {fr ? '▶ Le métier de partenaire expliqué en vidéo' : '▶ The partner job explained on video'}
-              </a>
               <p className="mt-2 text-[12px] text-neutral-500">
                 {fr ? 'Déjà convaincu ? Rejoignez directement.' : 'Already convinced? Join right away.'}
               </p>
