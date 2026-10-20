@@ -40,10 +40,17 @@ html[data-tier="academy"] {
   --accent: #fca5a5;
 }
 
-html, body {
-  height: 100%;
+/* Pas de height: 100% ni d'overflow sur html : quand un popup passe le body
+   en overflow: hidden, la page se réduisait à la hauteur de l'écran et le
+   scroll repartait en haut. */
+html {
   scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100%;
   overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* Senja injecte parfois `html { font-family: "DM MONO" }` via #senja-widget-css.

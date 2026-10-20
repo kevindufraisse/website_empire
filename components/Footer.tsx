@@ -13,6 +13,7 @@ export default function Footer() {
   
   const isPartnersPage = pathname === '/partners'
   const isAcademyPage = pathname === '/academy'
+  const isVslPage = pathname === '/vsl'
   const isCandidaturePage = pathname === '/candidature' || pathname === '/decouverte' || pathname === '/join-us' || pathname === '/postuler' || pathname?.startsWith('/hire-our-team')
 
   if (pathname === '/live') return null
@@ -71,9 +72,11 @@ export default function Footer() {
               <>
                 <p className="text-sm font-bold text-white mb-3">{lang === 'fr' ? 'Ressources gratuites' : 'Free resources'}</p>
                 <div className="flex flex-col gap-2 items-center md:items-start">
-                  <a href="/vsl" className="text-sm text-neutral-400 hover:text-empire transition-colors">
-                    {lang === 'fr' ? 'Workshop gratuit : la formule du million de vues (1 h 26)' : 'Free workshop: the million-views formula (1h26)'}
-                  </a>
+                  {!isVslPage && (
+                    <a href="/vsl" className="text-sm text-neutral-400 hover:text-empire transition-colors">
+                      {lang === 'fr' ? 'Workshop gratuit : la formule du million de vues (1 h 26)' : 'Free workshop: the million-views formula (1h26)'}
+                    </a>
+                  )}
                   <a href="/quiz" className="text-sm text-neutral-400 hover:text-empire transition-colors">
                     {lang === 'fr' ? 'Quiz : quel créateur êtes-vous ?' : 'Quiz: what creator are you?'}
                   </a>
@@ -88,7 +91,7 @@ export default function Footer() {
 
           {/* CTA */}
           <div className="flex flex-col items-center md:items-end">
-            {!isPartnersPage && !autopilot && (
+            {!isPartnersPage && !isVslPage && !autopilot && (
               <a
                 href="/vsl"
                 className="inline-flex flex-col items-start text-left px-6 py-3.5 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]"

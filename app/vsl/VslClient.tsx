@@ -9,7 +9,7 @@ import { startFreeTrial } from '@/lib/startTrial'
 import VideoEmailGate, { adoptEmailFromUrl } from '@/components/VideoEmailGate'
 
 const VIDEO_ID = 'AKfoDblGUNs'
-const VIDEO_TITLE = 'La formule pour faire des vues et des clients en automatique, en 1 h 26'
+const VIDEO_TITLE = 'Le système de personnalisation des entrepreneurs à 7 chiffres par an, expliqué'
 const PROGRESS_MARKS = [25, 50, 75, 95]
 const SPEEDS = [1, 1.25, 1.5, 1.75, 2]
 const speedLabel = (v: number) => `${String(v).replace('.', ',')}x`
@@ -405,19 +405,16 @@ export default function VslClient() {
 
       <section className="relative pt-24 md:pt-28 pb-12 md:pb-16">
         <div className="container max-w-4xl mx-auto px-4">
-          <p className="text-center text-empire text-xs font-semibold tracking-wider uppercase mb-3">
-            Workshop gratuit · 1 h 26
-          </p>
-          <h1 className="text-center text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-4">
-            La formule pour faire <span className="text-empire">des vues et des clients</span> en automatique, expliquée en 1 h 26
+          <h1 className="text-center text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-6">
+            Le système de personnalisation des entrepreneurs à <span className="text-empire">7 chiffres par an</span>, expliqué
           </h1>
-          <p className="text-center text-neutral-400 text-base md:text-lg max-w-2xl mx-auto mb-8">
-            Regarde le workshop, puis applique la formule avec Empire : 7 jours et 500 crédits pour la tester, gratuitement.
-          </p>
 
-          <VideoPlayer />
+          {/* Largeur bornée par la hauteur d'écran : les boutons restent au-dessus de la ligne de flottaison. */}
+          <div className="mx-auto w-full max-w-[max(18rem,calc((100svh-24rem)*16/9))]">
+            <VideoPlayer />
+          </div>
 
-          <div className="mt-8">
+          <div className="mt-6">
             <Ctas location="top" />
           </div>
         </div>
