@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { waitUntil } from '@vercel/functions'
 import { createOrUpdateContact, addTagToContact, ensureTagByName, ValidationError, ContactLookupError } from '@/lib/systemeio'
 
 export const runtime = 'nodejs'
+export const maxDuration = 60
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
 const TAGS = {
@@ -34,27 +36,32 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Impossible d’enregistrer ton email. Réessaie.' }, { status: 503 })
   }
 
+  // Systeme.io met ~17 s à retrouver un contact existant : la vidéo s'ouvre
+  // tout de suite, l'enregistrement finit après la réponse.
+  const tag = body.funnel === 'academy' ? TAGS.academy : TAGS.empire
+  waitUntil(saveLead(email, tag))
+  return NextResponse.json({ success: true })
+}
+
+async function saveLead(email: string, tag: (typeof TAGS)[keyof typeof TAGS]) {
+  const startedAt = Date.now()
   try {
     const contact = await createOrUpdateContact({ email, locale: 'fr' })
-    const tag = body.funnel === 'academy' ? TAGS.academy : TAGS.empire
-    // Le contact est enregistré : un tag raté ne doit pas bloquer la vidéo.
     try {
       const tagId = Number(process.env[tag.env]) || (await ensureTagByName(tag.name))
       await addTagToContact(contact.id, tagId)
     } catch (tagErr) {
       console.error('[vsl-email] tag', tag.name, 'contact', contact.id, tagErr)
+      return
     }
-    return NextResponse.json({ success: true })
+    console.log('[vsl-email] ok', tag.name, Date.now() - startedAt, 'ms')
   } catch (err) {
     if (err instanceof ValidationError) {
-      return NextResponse.json({ error: 'Vérifie ton email.' }, { status: 400 })
-    }
-    // Email déjà dans Systeme.io : le lead est là, seul le tag manque.
-    if (err instanceof ContactLookupError) {
+      console.warn('[vsl-email] email refusé par Systeme.io', email, err.message)
+    } else if (err instanceof ContactLookupError) {
       console.error('[vsl-email] contact existant, tag non posé', err)
-      return NextResponse.json({ success: true })
+    } else {
+      console.error('[vsl-email] systemeio', err)
     }
-    console.error('[vsl-email] systemeio', err)
-    return NextResponse.json({ error: 'Impossible d’enregistrer ton email. Réessaie.' }, { status: 503 })
   }
 }

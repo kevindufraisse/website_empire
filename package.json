@@ -12,6 +12,7 @@
     "@calcom/embed-react": "^1.5.3",
     "@supabase/supabase-js": "^2.100.0",
     "@types/canvas-confetti": "^1.9.0",
+    "@vercel/functions": "^3.10.2",
     "canvas-confetti": "^1.9.4",
     "clsx": "^2.1.1",
     "framer-motion": "^11.0.0",

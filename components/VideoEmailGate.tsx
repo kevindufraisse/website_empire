@@ -66,30 +66,27 @@ export default function VideoEmailGate({
   const accentBg = accent === 'academy' ? 'bg-academy' : 'bg-empire'
   const accentRing = accent === 'academy' ? 'focus:ring-academy' : 'focus:ring-empire'
 
-  const submit = async (e: React.FormEvent) => {
+  // La vidéo s'ouvre au clic, sans attendre le serveur : lancer la lecture
+  // dans le geste du clic garde l'autoplay sur mobile.
+  const submit = (e: React.FormEvent) => {
     e.preventDefault()
     if (sending) return
+    const clean = email.trim().toLowerCase()
+    if (!EMAIL_RE.test(clean)) {
+      setError('Vérifie ton email.')
+      return
+    }
     setError('')
     setSending(true)
-    try {
-      const res = await fetch('/api/vsl-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, company, funnel }),
-      })
-      const data = await res.json().catch(() => ({}))
-      if (!res.ok) {
-        setError(data.error || 'Impossible d’enregistrer ton email. Réessaie.')
-        setSending(false)
-        return
-      }
-      storeVideoEmail(email.trim().toLowerCase())
-      trackAmplitude('vsl_email_submitted', { funnel })
-      onUnlocked()
-    } catch {
-      setError('Connexion impossible. Réessaie.')
-      setSending(false)
-    }
+    fetch('/api/vsl-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: clean, company, funnel }),
+      keepalive: true,
+    }).catch(() => {})
+    storeVideoEmail(clean)
+    trackAmplitude('vsl_email_submitted', { funnel })
+    onUnlocked()
   }
 
   return (
