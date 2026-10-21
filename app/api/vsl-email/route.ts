@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
 async function saveLead(email: string, tag: (typeof TAGS)[keyof typeof TAGS]) {
   const startedAt = Date.now()
   try {
-    const contact = await createOrUpdateContact({ email, locale: 'fr' })
+    const contact = await createOrUpdateContact({ email, locale: 'fr' }, { lookupTimeoutMs: 40000 })
     try {
       const tagId = Number(process.env[tag.env]) || (await ensureTagByName(tag.name))
       await addTagToContact(contact.id, tagId)

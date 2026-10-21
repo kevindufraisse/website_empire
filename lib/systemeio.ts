@@ -135,6 +135,7 @@ export interface SystemeTag {
  */
 export async function createOrUpdateContact(
   payload: SystemeContactPayload,
+  { lookupTimeoutMs }: { lookupTimeoutMs?: number } = {},
 ): Promise<SystemeContact> {
   const apiFields: Array<{ slug: string; value: string }> = []
   if (payload.firstName) apiFields.push({ slug: 'first_name', value: payload.firstName })
@@ -155,7 +156,7 @@ export async function createOrUpdateContact(
     })
   } catch (err) {
     if (err instanceof ConflictError) {
-      const existing = await findContactByEmail(payload.email).catch((lookupErr) => {
+      const existing = await findContactByEmail(payload.email, lookupTimeoutMs).catch((lookupErr) => {
         throw new ContactLookupError(payload.email, lookupErr)
       })
       if (existing) {
@@ -187,7 +188,7 @@ export async function updateContactFields(
   })
 }
 
-export async function findContactByEmail(email: string): Promise<SystemeContact | null> {
+export async function findContactByEmail(email: string, timeoutMs = 20000): Promise<SystemeContact | null> {
   const params = new URLSearchParams({ email })
   const started = Date.now()
   try {
@@ -195,7 +196,7 @@ export async function findContactByEmail(email: string): Promise<SystemeContact 
     const data = await request<{ items: SystemeContact[] }>(
       `/contacts?${params.toString()}`,
       { method: 'GET' },
-      { retries: 0, timeoutMs: 20000 },
+      { retries: 0, timeoutMs },
     )
     console.log('[systemeio] contact lookup', Date.now() - started, 'ms')
     return data.items?.[0] ?? null
