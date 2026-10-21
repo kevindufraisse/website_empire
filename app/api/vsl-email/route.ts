@@ -37,8 +37,13 @@ export async function POST(req: NextRequest) {
   try {
     const contact = await createOrUpdateContact({ email, locale: 'fr' })
     const tag = body.funnel === 'academy' ? TAGS.academy : TAGS.empire
-    const tagId = Number(process.env[tag.env]) || (await ensureTagByName(tag.name))
-    await addTagToContact(contact.id, tagId)
+    // Le contact est enregistré : un tag raté ne doit pas bloquer la vidéo.
+    try {
+      const tagId = Number(process.env[tag.env]) || (await ensureTagByName(tag.name))
+      await addTagToContact(contact.id, tagId)
+    } catch (tagErr) {
+      console.error('[vsl-email] tag', tag.name, 'contact', contact.id, tagErr)
+    }
     return NextResponse.json({ success: true })
   } catch (err) {
     if (err instanceof ValidationError) {

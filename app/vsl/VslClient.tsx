@@ -406,7 +406,7 @@ export default function VslClient() {
       <section className="relative pt-24 md:pt-28 pb-12 md:pb-16">
         <div className="container max-w-4xl mx-auto px-4">
           <h1 className="text-center text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-6">
-            Le système de personnalisation des entrepreneurs à <span className="text-empire">7 chiffres par an</span>, expliqué
+            Dans 30 jours, tout votre marché vous connaîtra après avoir regardé <span className="text-empire">cette vidéo</span>&nbsp;:
           </h1>
 
           {/* Largeur bornée par la hauteur d'écran : les boutons restent au-dessus de la ligne de flottaison. */}

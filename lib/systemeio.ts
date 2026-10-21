@@ -247,15 +247,19 @@ export async function ensureTagByName(name: string): Promise<number> {
 }
 
 export async function listAllTags(): Promise<SystemeTag[]> {
-  // Systeme.io caps the page size server-side, so a short page doesn't mean it's
-  // the last one - only an empty page does. Defensive cap so we never loop forever.
+  // Cursor pagination (`startingAfter` + `hasMore`, `limit` ≤ 100). A `?page=`
+  // parameter is ignored: every call returned the same first page, so a tag
+  // outside it was never found and recreating it failed with 422 "déjà utilisée".
   const byId = new Map<number, SystemeTag>()
-  let page = 1
-  while (page <= 50) {
-    const data = await request<{ items: SystemeTag[] }>(`/tags?page=${page}`)
-    if (!data.items?.length) break
-    for (const tag of data.items) byId.set(tag.id, tag)
-    page++
+  let startingAfter: number | null = null
+  for (let i = 0; i < 50; i++) {
+    const params = new URLSearchParams({ limit: '100' })
+    if (startingAfter) params.set('startingAfter', String(startingAfter))
+    const data: { items?: SystemeTag[]; hasMore?: boolean } = await request(`/tags?${params.toString()}`)
+    const items = data.items || []
+    for (const tag of items) byId.set(tag.id, tag)
+    if (!data.hasMore || !items.length) break
+    startingAfter = items[items.length - 1].id
   }
   return [...byId.values()]
 }
