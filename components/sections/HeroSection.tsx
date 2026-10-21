@@ -131,17 +131,19 @@ export default function HeroSection() {
               terme de chaque section. La hauteur est réservée pour que le hero
               ne saute pas quand elle part. */}
           {!autopilot && (
-            <div className="relative mx-auto mt-10 w-fit max-w-full sm:mt-12">
+            <div className="relative mx-auto mt-16 w-fit max-w-full sm:mt-12">
               {/* Annotation manuscrite en coin haut-gauche : le tampon SECRET
                   occupe le coin droit, le texte + la flèche vivent à gauche. */}
               <motion.div
                 initial={mounted ? { opacity: 0 } : false}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className="pointer-events-none absolute -top-9 left-0 z-10 flex items-start gap-1 sm:-left-24 sm:-top-6"
+                className="pointer-events-none absolute -top-12 left-0 z-10 flex items-start gap-1 sm:-left-24 sm:-top-6"
               >
-                <span className="whitespace-nowrap text-[11px] italic text-neutral-300 sm:text-xs">
-                  {lang === 'fr' ? 'Grâce à cette formule' : 'Thanks to this formula'}
+                <span className="max-w-[230px] text-[11px] italic leading-snug text-neutral-300 sm:max-w-[260px] sm:text-xs">
+                  {lang === 'fr'
+                    ? 'Dans 30 jours, tout votre marché vous aura vu, grâce à cette formule'
+                    : 'In 30 days, your whole market will have seen you, thanks to this formula'}
                 </span>
                 <svg width="34" height="34" viewBox="0 0 34 34" fill="none" className="mt-1.5 text-empire">
                   <path d="M4 4 C14 6, 24 12, 27 26" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" fill="none" strokeDasharray="3 3" />
