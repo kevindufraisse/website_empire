@@ -90,6 +90,14 @@ export class ValidationError extends Error {
   }
 }
 
+/** The contact already exists in Systeme.io, but looking it up to get its id failed. */
+export class ContactLookupError extends Error {
+  constructor(email: string, cause: unknown) {
+    super(`systeme.io contact ${email} exists but lookup failed: ${cause instanceof Error ? cause.message : String(cause)}`)
+    this.name = 'ContactLookupError'
+  }
+}
+
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 export interface SystemeContactPayload {
@@ -147,7 +155,9 @@ export async function createOrUpdateContact(
     })
   } catch (err) {
     if (err instanceof ConflictError) {
-      const existing = await findContactByEmail(payload.email)
+      const existing = await findContactByEmail(payload.email).catch((lookupErr) => {
+        throw new ContactLookupError(payload.email, lookupErr)
+      })
       if (existing) {
         // Contact already exists - push the firstName/fields onto it via PATCH
         // so we don't lose data on subsequent submissions.
@@ -179,11 +189,20 @@ export async function updateContactFields(
 
 export async function findContactByEmail(email: string): Promise<SystemeContact | null> {
   const params = new URLSearchParams({ email })
-  const data = await request<{ items: SystemeContact[] }>(
-    `/contacts?${params.toString()}`,
-    { method: 'GET' },
-  )
-  return data.items?.[0] ?? null
+  const started = Date.now()
+  try {
+    // The email filter is slow on this account: 3 × 8 s timeouts ran out every time.
+    const data = await request<{ items: SystemeContact[] }>(
+      `/contacts?${params.toString()}`,
+      { method: 'GET' },
+      { retries: 0, timeoutMs: 20000 },
+    )
+    console.log('[systemeio] contact lookup', Date.now() - started, 'ms')
+    return data.items?.[0] ?? null
+  } catch (err) {
+    console.error('[systemeio] contact lookup failed after', Date.now() - started, 'ms', err)
+    throw err
+  }
 }
 
 export async function addTagToContact(contactId: number, tagId: number): Promise<void> {

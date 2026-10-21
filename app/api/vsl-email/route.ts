@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createOrUpdateContact, addTagToContact, ensureTagByName, ValidationError } from '@/lib/systemeio'
+import { createOrUpdateContact, addTagToContact, ensureTagByName, ValidationError, ContactLookupError } from '@/lib/systemeio'
 
 export const runtime = 'nodejs'
 
@@ -48,6 +48,11 @@ export async function POST(req: NextRequest) {
   } catch (err) {
     if (err instanceof ValidationError) {
       return NextResponse.json({ error: 'Vérifie ton email.' }, { status: 400 })
+    }
+    // Email déjà dans Systeme.io : le lead est là, seul le tag manque.
+    if (err instanceof ContactLookupError) {
+      console.error('[vsl-email] contact existant, tag non posé', err)
+      return NextResponse.json({ success: true })
     }
     console.error('[vsl-email] systemeio', err)
     return NextResponse.json({ error: 'Impossible d’enregistrer ton email. Réessaie.' }, { status: 503 })
