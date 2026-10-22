@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from 'react'
 import Script from 'next/script'
 import { trackAmplitude } from '@/lib/amplitude'
+import { trackMeta } from '@/lib/meta'
+import { storedVideoEmail } from '@/components/VideoEmailGate'
 import {
   WEBINARJAM_ID,
   WEBINARJAM_LIVE,
@@ -15,9 +17,9 @@ type Fbq = (...args: unknown[]) => void
 /**
  * Inscription réussie = l'iframe WebinarJam poste `{ func: 'redirect', url }`
  * au parent, et le script de la barre change de page aussitôt. On écoute en
- * capture (avant le script de la barre), on envoie Lead au pixel Meta (chargé
- * par GTM), puis on fait nous-mêmes la même redirection un peu plus tard :
- * sans ce délai la navigation coupe l'envoi du pixel.
+ * capture (avant le script de la barre), on envoie Lead et CompleteRegistration
+ * (pixel chargé par GTM + Conversions API), puis on fait nous-mêmes la même
+ * redirection un peu plus tard : sans ce délai la navigation coupe l'envoi.
  */
 function useWebinarJamConversion(source: string, hash: string) {
   useEffect(() => {
@@ -31,11 +33,9 @@ function useWebinarJamConversion(source: string, hash: string) {
       if (redirecting) return
       redirecting = true
       const fbq = (window as unknown as { fbq?: Fbq }).fbq
-      const params = { content_name: 'portes_ouvertes', content_category: source }
-      if (typeof fbq === 'function') {
-        fbq('track', 'Lead', params)
-        fbq('track', 'CompleteRegistration', params)
-      }
+      const params = { content_name: 'portes_ouvertes', content_category: 'academy_partner', source }
+      if (typeof fbq === 'function') fbq('track', 'Lead', params)
+      trackMeta('CompleteRegistration', params, { email: storedVideoEmail() })
       ;(window as unknown as { dataLayer?: unknown[] }).dataLayer?.push({
         event: 'open_house_registered',
         open_house_source: source,

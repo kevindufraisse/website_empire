@@ -8,6 +8,7 @@ import { GiftCountdownProvider } from '@/components/GiftCountdownContext'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import IdleMount from '@/components/IdleMount'
+import MetaAttribution from '@/components/MetaAttribution'
 
 const ClientWrappers = dynamic(() => import('@/components/ClientWrappers'), { ssr: false })
 const CalStickyBar = dynamic(() => import('@/components/CalStickyBar'), { ssr: false })
@@ -59,6 +60,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <LanguageProvider>
           <AutopilotProvider>
             <GiftCountdownProvider>
+            <MetaAttribution />
             <div data-chrome="cal-redirect"><CalCtaRedirect /></div>
             <div data-chrome="header"><Header /></div>
             <IdleMount>

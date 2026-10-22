@@ -1,15 +1,56 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ArrowRight, Check, Play } from 'lucide-react'
 import LoomEmbed from '@/components/LoomEmbed'
-import VideoEmailGate, { adoptEmailFromUrl } from '@/components/VideoEmailGate'
+import VideoEmailGate, { adoptEmailFromUrl, storedVideoEmail } from '@/components/VideoEmailGate'
 import { WebinarJamBar, WebinarJamButton } from '@/components/WebinarJamRegister'
 import { OPEN_HOUSE_REPLAY_ID } from '@/lib/webinarjam'
 import { trackAmplitude } from '@/lib/amplitude'
+import { trackMeta } from '@/lib/meta'
 
 /** Même vidéo que la pub des portes ouvertes. */
 const PARTNER_LOOM_ID = '5ac5b5502e104eb89db2f9ccd8485b9c'
+/** Moitié de la vidéo Loom (21 min 52 s). Loom ne publie pas la progression : on compte le temps onglet visible. */
+const WATCH50_SECONDS = 656
+const META_VIDEO = { content_name: 'video_partenaire', content_category: 'academy_partner' }
+
+/**
+ * Le lecteur Loom est un iframe : un clic dedans fait perdre le focus à la
+ * page, c'est notre signal de lancement (ViewContent), puis JPO_Watch50.
+ */
+function useLoomWatchTracking(enabled: boolean) {
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!enabled) return
+    let timer: ReturnType<typeof setInterval> | undefined
+    let watched = 0
+
+    const onBlur = () => {
+      window.setTimeout(() => {
+        const active = document.activeElement
+        if (timer || !active || active.tagName !== 'IFRAME' || !ref.current?.contains(active)) return
+        trackMeta('ViewContent', META_VIDEO, { email: storedVideoEmail() })
+        timer = setInterval(() => {
+          if (document.visibilityState === 'visible') watched += 1
+          if (watched >= WATCH50_SECONDS) {
+            clearInterval(timer)
+            trackMeta('JPO_Watch50', META_VIDEO, { email: storedVideoEmail() })
+          }
+        }, 1000)
+      }, 0)
+    }
+
+    window.addEventListener('blur', onBlur)
+    return () => {
+      window.removeEventListener('blur', onBlur)
+      if (timer) clearInterval(timer)
+    }
+  }, [enabled])
+
+  return ref
+}
 
 const FOR_WHO = [
   { t: 'Tu te reconvertis', d: 'Tu veux un nouveau métier, que tu apprends en lançant d’abord ta propre marque.' },
@@ -26,6 +67,7 @@ const HOW = [
 export default function PartenaireClient() {
   const [unlocked, setUnlocked] = useState(false)
   const [askEmail, setAskEmail] = useState(false)
+  const videoRef = useLoomWatchTracking(unlocked)
 
   useEffect(() => {
     setUnlocked(adoptEmailFromUrl('academy'))
@@ -54,7 +96,7 @@ export default function PartenaireClient() {
           </h1>
 
           {/* La vidéo et le bouton tiennent dans l'écran : la largeur suit la hauteur disponible. */}
-          <div className="relative mx-auto w-full max-w-[calc((100svh-17rem)*16/9)]">
+          <div ref={videoRef} className="relative mx-auto w-full max-w-[calc((100svh-17rem)*16/9)]">
             {unlocked ? (
               <LoomEmbed id={PARTNER_LOOM_ID} title="Devenir partenaire Empire" />
             ) : (
