@@ -11,7 +11,7 @@ export const runtime = 'nodejs'
  */
 const PRODUCTS: Record<string, { content_name: string; content_category: string }> = {
   partner: { content_name: 'academy_partner', content_category: 'academy_partner' },
-  bootcamp: { content_name: 'bootcamp_49', content_category: 'academy_bootcamp' },
+  bootcamp: { content_name: 'academy_bootcamp', content_category: 'academy_bootcamp' },
 }
 
 const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'] as const
@@ -37,6 +37,10 @@ export async function POST(req: NextRequest) {
   }
 
   const session = event.data.object as Stripe.Checkout.Session
+  // Test checkouts must only reach Meta's Test Events, never campaign reporting.
+  if (!session.livemode && !process.env.META_TEST_EVENT_CODE?.trim()) {
+    return NextResponse.json({ ignored: 'test_mode' })
+  }
   if (session.payment_status !== 'paid') return NextResponse.json({ ignored: 'unpaid' })
 
   const meta = session.metadata || {}
@@ -49,7 +53,7 @@ export async function POST(req: NextRequest) {
     event_time: event.created,
     event_source_url: meta.meta_source_url || 'https://app.empire-internet.com/join/academy',
     user_data: {
-      em: hashEmail(session.customer_details?.email),
+      em: hashEmail(session.customer_details?.email || session.customer_email),
       ph: hashPhone(session.customer_details?.phone || meta.wa_phone),
       fbc: meta.meta_fbc,
       fbp: meta.meta_fbp,
@@ -67,6 +71,7 @@ export async function POST(req: NextRequest) {
   })
 
   // Stripe rejoue en cas d'échec ; l'event_id fixe évite un double Purchase.
-  if (!result.ok && !result.skipped) return NextResponse.json({ error: 'capi_failed' }, { status: 502 })
+  // A missing token is also a failure: a 200 would permanently discard the sale.
+  if (!result.ok) return NextResponse.json({ error: 'capi_failed' }, { status: 502 })
   return NextResponse.json({ ok: true })
 }

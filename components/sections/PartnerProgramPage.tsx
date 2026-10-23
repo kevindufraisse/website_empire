@@ -897,8 +897,8 @@ export default function PartnerProgramPage() {
 
                 <p className="mt-5 text-[16px] leading-relaxed text-neutral-400">
                   {fr
-                    ? 'Avec Marc, nous organisons des portes ouvertes pour vous montrer le fonctionnement du programme et répondre à vos questions.'
-                    : 'With Marc, we run open houses to show how the program works and answer your questions.'}
+                ? 'Je vous retrouve aux portes ouvertes pour vous montrer le fonctionnement du programme et répondre à vos questions.'
+                : 'Join me at the open house to see how the program works and ask your questions.'}
                 </p>
               </div>
 
@@ -1131,22 +1131,22 @@ export default function PartnerProgramPage() {
             </h3>
             <p className="mt-3 text-[15px] leading-relaxed text-neutral-400">
               {fr
-                ? 'On te propose de passer partenaire en un clic. C’est ce qui te permet d’en faire un métier :'
-                : 'You are offered to become a partner in one click. That is what turns it into a job:'}
+                ? 'Une option à 197 € supplémentaires, en paiement unique. Tu choisis de l’ajouter après le bootcamp pour accéder aux avantages partenaire :'
+                : 'An optional €197 one-time payment, on top of the bootcamp. You can choose it after checkout to unlock partner benefits:'}
             </p>
             <ul className="mt-5 space-y-3">
               {(fr
                 ? [
                     'Un live chaque semaine pendant 1 an.',
                     '4 000 crédits pour développer ta propre marque.',
-                    'Les 6 h de replays et la certification (Or, Argent, Bronze, selon tes vues).',
+                    'La certification (Or, Argent, Bronze, selon tes vues). Les replays sont déjà inclus dans le bootcamp.',
                     'L’annuaire des partenaires, les missions du site et ta page de paiement pour encaisser tes clients.',
                     'Les templates de closing et de setting, et les formats viraux prêts dans ton calendrier.',
                   ]
                 : [
                     'A live every week for 1 year.',
                     '4,000 credits to grow your own brand.',
-                    'The 6 hours of replays and certification (Gold, Silver, Bronze, based on your views).',
+                    'Certification (Gold, Silver, Bronze, based on your views). Replays are already included in the bootcamp.',
                     'The partner directory, site missions and your payment page to charge clients.',
                     'Closing and setting templates, and viral formats ready in your calendar.',
                   ]
