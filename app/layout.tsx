@@ -1,7 +1,8 @@
 import './globals.css'
 import { ReactNode } from 'react'
 import dynamic from 'next/dynamic'
-import { Inter, Caveat } from 'next/font/google'
+import { Inter } from 'next/font/google'
+import localFont from 'next/font/local'
 import { LanguageProvider } from '@/contexts/LanguageContext'
 import { AutopilotProvider } from '@/contexts/AutopilotContext'
 import { GiftCountdownProvider } from '@/components/GiftCountdownContext'
@@ -17,7 +18,8 @@ const PostHogInit = dynamic(() => import('@/components/PostHogInit'), { ssr: fal
 const AmplitudeInit = dynamic(() => import('@/components/AmplitudeInit'), { ssr: false })
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
-const caveat = Caveat({ subsets: ['latin'], weight: ['600', '700'], variable: '--font-caveat' })
+// The Google CSS response breaks Next 14's font URL parser; keep the same font locally.
+const caveat = localFont({ src: '../public/fonts/caveat/Caveat-wght.ttf', weight: '400 700', variable: '--font-caveat', display: 'swap' })
 
 export const metadata = {
   title: 'Empire Internet - The Content Machine',

@@ -15,27 +15,37 @@ type Fbq = (...args: unknown[]) => void
 const STANDARD_EVENTS = new Set(['PageView', 'ViewContent', 'Lead', 'CompleteRegistration', 'InitiateCheckout', 'Purchase'])
 
 function readCookie(name: string): string | undefined {
-  const hit = document.cookie.split('; ').find((c) => c.startsWith(`${name}=`))
-  return hit ? decodeURIComponent(hit.slice(name.length + 1)) : undefined
+  try {
+    const hit = document.cookie.split(';').map(c => c.trim()).find(c => c.startsWith(`${name}=`))
+    return hit ? decodeURIComponent(hit.slice(name.length + 1)) : undefined
+  } catch { return undefined }
 }
 
 function writeCookie(name: string, value: string, days: number) {
   // Partagé avec app.empire-internet.com : le paiement relit l'attribution.
-  const domain = location.hostname.endsWith('empire-internet.com') ? '; domain=.empire-internet.com' : ''
+  const domain = /(^|\.)empire-internet\.com$/.test(location.hostname) ? '; domain=.empire-internet.com' : ''
   const secure = location.protocol === 'https:' ? '; Secure' : ''
-  document.cookie = `${name}=${encodeURIComponent(value)}; max-age=${days * 86400}; path=/; SameSite=Lax${domain}${secure}`
+  try {
+    document.cookie = `${name}=${encodeURIComponent(value)}; max-age=${days * 86400}; path=/; SameSite=Lax${domain}${secure}`
+  } catch { /* A browser blocking cookies must not interrupt signup. */ }
 }
 
 export function readAttribution(): Attribution {
   let attr: Attribution = {}
   try {
-    attr = JSON.parse(readCookie(ATTR_COOKIE) || '{}')
+    const saved = JSON.parse(readCookie(ATTR_COOKIE) || '{}')
+    if (saved && typeof saved === 'object' && !Array.isArray(saved)) {
+      for (const key of [...UTM_KEYS, 'fbc', 'fbp'] as const) {
+        if (typeof saved[key] === 'string') attr[key] = saved[key].slice(0, key.startsWith('utm_') ? 200 : 300)
+      }
+    }
   } catch {
     attr = {}
   }
   const fbc = readCookie('_fbc')
   const fbp = readCookie('_fbp')
-  if (fbc) attr.fbc = fbc
+  // The pixel's host-only cookie can lag behind the shared attribution cookie.
+  if (fbc && (!attr.fbc || Number(fbc.split('.')[2]) >= Number(attr.fbc.split('.')[2]))) attr.fbc = fbc
   if (fbp) attr.fbp = fbp
   return attr
 }
@@ -46,7 +56,7 @@ export function captureAttribution() {
   const attr = readAttribution()
 
   const fbclid = params.get('fbclid')
-  if (fbclid && !attr.fbc?.endsWith(`.${fbclid}`)) {
+  if (fbclid && /^[A-Za-z0-9_-]{1,200}$/.test(fbclid) && !attr.fbc?.endsWith(`.${fbclid}`)) {
     attr.fbc = `fb.1.${Date.now()}.${fbclid}`
     writeCookie('_fbc', attr.fbc, ATTR_DAYS)
   }
@@ -82,6 +92,8 @@ export function trackMeta(
   params: Record<string, string | number> = {},
   opts: { email?: string | null } = {},
 ): string {
+  // Purchase is emitted exclusively by the signed Stripe webhook.
+  if (name === 'Purchase') return ''
   const eventId = newEventId(name)
   whenFbq((fbq) => fbq(STANDARD_EVENTS.has(name) ? 'track' : 'trackCustom', name, params, { eventID: eventId }))
 
@@ -92,7 +104,7 @@ export function trackMeta(
     body: JSON.stringify({
       event_name: name,
       event_id: eventId,
-      event_source_url: location.href,
+      event_source_url: `${location.origin}${location.pathname}`,
       custom_data: params,
       attribution: readAttribution(),
       ...(opts.email ? { email: opts.email } : {}),

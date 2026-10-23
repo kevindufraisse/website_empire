@@ -32,10 +32,8 @@ export default function AcademyThankYouClient() {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       ;(window as any).dataLayer = (window as any).dataLayer || []
-      ;(window as any).dataLayer.push({ event: 'academy_purchase_confirmed' })
-      if ((window as any).fbq) {
-        ;(window as any).fbq('track', 'Purchase', { value: 497, currency: 'EUR' })
-      }
+      // This page is public. Only the signed Stripe webhook confirms a purchase.
+      ;(window as any).dataLayer.push({ event: 'academy_thank_you_view' })
     }
   }, [])
 

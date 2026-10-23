@@ -42,7 +42,12 @@ export async function POST(req: NextRequest) {
   const sourceUrl = str(body?.event_source_url, 1000)
   let eventSourceUrl: string | undefined
   try {
-    if (sourceUrl && new URL(sourceUrl).hostname.endsWith('empire-internet.com')) eventSourceUrl = sourceUrl
+    if (sourceUrl) {
+      const url = new URL(sourceUrl)
+      if (url.protocol === 'https:' && /(^|\.)empire-internet\.com$/.test(url.hostname)) {
+        eventSourceUrl = `${url.origin}${url.pathname}`
+      }
+    }
   } catch {
     eventSourceUrl = undefined
   }

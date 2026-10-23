@@ -237,7 +237,7 @@ export default function PartnerProgramPage() {
         },
         {
           q: 'Que se passe-t-il après le paiement ?',
-          a: 'Vous créez votre compte et le bootcamp s’ouvre tout de suite, avec la communauté. Juste après le paiement, on vous propose de passer partenaire : un live chaque semaine pendant 1 an, 4 000 crédits pour votre marque, les replays, la certification, l’annuaire et votre page de paiement pour encaisser vos clients.',
+          a: 'Vous créez votre compte et le bootcamp s’ouvre tout de suite, avec les replays et la communauté. Juste après le paiement, on vous propose de passer partenaire pour 197 € supplémentaires, en paiement unique : un live chaque semaine pendant 1 an, 4 000 crédits pour votre marque, la certification, l’annuaire et votre page de paiement pour encaisser vos clients.',
         },
       ]
     : [
@@ -259,7 +259,7 @@ export default function PartnerProgramPage() {
         },
         {
           q: 'What happens after payment?',
-          a: 'You create your account and the bootcamp opens right away, with the community. Right after payment, you are offered to become a partner: a weekly live for 1 year, 4,000 credits for your brand, the replays, certification, the directory and your payment page to charge clients.',
+          a: 'You create your account and the bootcamp opens right away, with replays and the community. Right after payment, you can become a partner for an additional €197 one-time payment: a weekly live for 1 year, 4,000 credits for your brand, certification, the directory and your payment page to charge clients.',
         },
       ]
 
@@ -897,8 +897,8 @@ export default function PartnerProgramPage() {
 
                 <p className="mt-5 text-[16px] leading-relaxed text-neutral-400">
                   {fr
-                    ? 'Avec Marc, nous organisons des portes ouvertes pour vous montrer le fonctionnement du programme et répondre à vos questions.'
-                    : 'With Marc, we run open houses to show how the program works and answer your questions.'}
+                ? 'Je vous retrouve aux portes ouvertes pour vous montrer le fonctionnement du programme et répondre à vos questions.'
+                : 'Join me at the open house to see how the program works and ask your questions.'}
                 </p>
               </div>
 
@@ -1076,8 +1076,8 @@ export default function PartnerProgramPage() {
             </div>
             <p className="mt-6 text-[14px] text-neutral-500">
               {fr
-                ? 'Chaque semaine, la communauté vous aide à avancer et à débloquer vos questions. La formation et la communauté restent accessibles à vie ; les replays et les rendez-vous partenaires viennent avec le statut partenaire.'
-                : 'Every week, the community helps you move forward and unblock questions. Training and community stay available for life; replays and partner sessions come with partner status.'}
+                ? 'La communauté vous aide à avancer et à débloquer vos questions. La formation, les replays et la communauté sont inclus dans le bootcamp et restent accessibles à vie. Les rendez-vous partenaires viennent avec le statut partenaire.'
+                : 'The community helps you move forward and unblock questions. Training, replays and community are included in the bootcamp with lifetime access. Partner sessions come with partner status.'}
             </p>
           </div>
         </div>
@@ -1131,22 +1131,22 @@ export default function PartnerProgramPage() {
             </h3>
             <p className="mt-3 text-[15px] leading-relaxed text-neutral-400">
               {fr
-                ? 'On te propose de passer partenaire en un clic. C’est ce qui te permet d’en faire un métier :'
-                : 'You are offered to become a partner in one click. That is what turns it into a job:'}
+                ? 'Une option à 197 € supplémentaires, en paiement unique. Tu choisis de l’ajouter après le bootcamp pour accéder aux avantages partenaire :'
+                : 'An optional €197 one-time payment, on top of the bootcamp. You can choose it after checkout to unlock partner benefits:'}
             </p>
             <ul className="mt-5 space-y-3">
               {(fr
                 ? [
                     'Un live chaque semaine pendant 1 an.',
                     '4 000 crédits pour développer ta propre marque.',
-                    'Les 6 h de replays et la certification (Or, Argent, Bronze, selon tes vues).',
+                    'La certification (Or, Argent, Bronze, selon tes vues). Les replays sont déjà inclus dans le bootcamp.',
                     'L’annuaire des partenaires, les missions du site et ta page de paiement pour encaisser tes clients.',
                     'Les templates de closing et de setting, et les formats viraux prêts dans ton calendrier.',
                   ]
                 : [
                     'A live every week for 1 year.',
                     '4,000 credits to grow your own brand.',
-                    'The 6 hours of replays and certification (Gold, Silver, Bronze, based on your views).',
+                    'Certification (Gold, Silver, Bronze, based on your views). Replays are already included in the bootcamp.',
                     'The partner directory, site missions and your payment page to charge clients.',
                     'Closing and setting templates, and viral formats ready in your calendar.',
                   ]
