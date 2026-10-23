@@ -237,7 +237,7 @@ export default function PartnerProgramPage() {
         },
         {
           q: 'Que se passe-t-il après le paiement ?',
-          a: 'Vous créez votre compte et le bootcamp s’ouvre tout de suite, avec la communauté. Juste après le paiement, on vous propose de passer partenaire : un live chaque semaine pendant 1 an, 4 000 crédits pour votre marque, les replays, la certification, l’annuaire et votre page de paiement pour encaisser vos clients.',
+          a: 'Vous créez votre compte et le bootcamp s’ouvre tout de suite, avec les replays et la communauté. Juste après le paiement, on vous propose de passer partenaire pour 197 € supplémentaires, en paiement unique : un live chaque semaine pendant 1 an, 4 000 crédits pour votre marque, la certification, l’annuaire et votre page de paiement pour encaisser vos clients.',
         },
       ]
     : [
@@ -259,7 +259,7 @@ export default function PartnerProgramPage() {
         },
         {
           q: 'What happens after payment?',
-          a: 'You create your account and the bootcamp opens right away, with the community. Right after payment, you are offered to become a partner: a weekly live for 1 year, 4,000 credits for your brand, the replays, certification, the directory and your payment page to charge clients.',
+          a: 'You create your account and the bootcamp opens right away, with replays and the community. Right after payment, you can become a partner for an additional €197 one-time payment: a weekly live for 1 year, 4,000 credits for your brand, certification, the directory and your payment page to charge clients.',
         },
       ]
 
@@ -1076,8 +1076,8 @@ export default function PartnerProgramPage() {
             </div>
             <p className="mt-6 text-[14px] text-neutral-500">
               {fr
-                ? 'Chaque semaine, la communauté vous aide à avancer et à débloquer vos questions. La formation et la communauté restent accessibles à vie ; les replays et les rendez-vous partenaires viennent avec le statut partenaire.'
-                : 'Every week, the community helps you move forward and unblock questions. Training and community stay available for life; replays and partner sessions come with partner status.'}
+                ? 'La communauté vous aide à avancer et à débloquer vos questions. La formation, les replays et la communauté sont inclus dans le bootcamp et restent accessibles à vie. Les rendez-vous partenaires viennent avec le statut partenaire.'
+                : 'The community helps you move forward and unblock questions. Training, replays and community are included in the bootcamp with lifetime access. Partner sessions come with partner status.'}
             </p>
           </div>
         </div>

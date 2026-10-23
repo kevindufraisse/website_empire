@@ -64,16 +64,25 @@ export async function sendCapiEvent(event: CapiEvent): Promise<{ ok: boolean; sk
   const testCode = process.env.META_TEST_EVENT_CODE?.trim()
   if (testCode) body.set('test_event_code', testCode)
 
+  const controller = new AbortController()
+  const timer = setTimeout(() => controller.abort(), 8_000)
   try {
-    const res = await fetch(`${GRAPH_URL}/${META_PIXEL_ID}/events`, { method: 'POST', body })
+    const res = await fetch(`${GRAPH_URL}/${META_PIXEL_ID}/events`, { method: 'POST', body, signal: controller.signal })
     if (!res.ok) {
       const error = await res.text()
       console.error('[meta-capi]', event.event_name, res.status, error)
       return { ok: false, error }
     }
+    // A 200 alone does not acknowledge the event. Keep Stripe's retry alive
+    // on an empty/malformed response, or when Meta accepted no event.
+    const acknowledgement = await res.json()
+    if (acknowledgement?.events_received !== 1) return { ok: false, error: 'event_not_acknowledged' }
     return { ok: true }
   } catch (err) {
     console.error('[meta-capi]', event.event_name, err)
     return { ok: false, error: String(err) }
+  } finally {
+    // Covers the response body too, not just the initial HTTP headers.
+    clearTimeout(timer)
   }
 }

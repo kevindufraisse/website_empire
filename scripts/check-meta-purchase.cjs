@@ -23,13 +23,17 @@ function load(file, globals) {
 function fixture() {
   const calls = [];
   const env = { STRIPE_META_WEBHOOK_SECRET: 'whsec_fixture', META_CAPI_TOKEN: 'fixture_token' };
-  const network = { status: 200, fail: false };
+  const network = { status: 200, fail: false, body: JSON.stringify({ events_received: 1 }), hang: false, hangBody: false };
   const capi = load('lib/metaCapi.ts', {
-    require, process: { env }, URLSearchParams,
+    require, process: { env }, URLSearchParams, AbortController,
+    setTimeout: (fn, ms) => { assert.equal(ms, 8000); return setTimeout(fn, 10); }, clearTimeout,
     fetch: async (url, options) => {
       calls.push({ url, params: Object.fromEntries(options.body), data: JSON.parse(options.body.get('data'))[0] });
       if (network.fail) throw new Error('network unavailable');
-      return new Response(JSON.stringify({ events_received: 1 }), { status: network.status });
+      const stalled = () => new Promise((_, reject) => options.signal?.addEventListener('abort', () => reject(new Error('aborted')), { once: true }));
+      if (network.hang) return stalled();
+      if (network.hangBody) return { ok: true, json: stalled };
+      return new Response(network.body, { status: network.status });
     },
   });
   const route = load('app/api/meta/stripe-webhook/route.ts', {
@@ -105,6 +109,20 @@ test('Stripe test payment never enters live campaign reporting', async () => {
   const f = fixture();
   await f.send({ livemode: false });
   assert.equal(f.calls.length, 0);
+});
+test('HTTP 200 without a valid acknowledgement must be retried', async () => {
+  const f = fixture();
+  for (const body of ['{}', 'null', '{"events_received":0}', 'bad json']) {
+    f.network.body = body;
+    assert.equal((await f.send()).status, 502, body);
+  }
+});
+test('stalled headers and stalled body are aborted for a Stripe retry', async () => {
+  for (const phase of ['hang', 'hangBody']) {
+    const f = fixture(); f.network[phase] = true;
+    const result = await Promise.race([f.send(), new Promise(resolve => setTimeout(() => resolve(null), 100))]);
+    assert.equal(result?.status, 502, phase);
+  }
 });
 test('Stripe test payment may be sent only with Meta Test Events code', async () => {
   const f = fixture(); f.env.META_TEST_EVENT_CODE = 'TEST_fixture';
