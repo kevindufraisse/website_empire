@@ -1,9 +1,8 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-import { ArrowRight, Check, Play } from 'lucide-react'
+import { useEffect, useRef } from 'react'
+import { ArrowRight, Check } from 'lucide-react'
 import LoomEmbed from '@/components/LoomEmbed'
-import VideoEmailGate, { adoptEmailFromUrl, storedVideoEmail } from '@/components/VideoEmailGate'
 import { WebinarJamBar, WebinarJamButton } from '@/components/WebinarJamRegister'
 import { OPEN_HOUSE_REPLAY_ID } from '@/lib/webinarjam'
 import { trackAmplitude } from '@/lib/amplitude'
@@ -19,11 +18,10 @@ const META_VIDEO = { content_name: 'video_partenaire', content_category: 'academ
  * Le lecteur Loom est un iframe : un clic dedans fait perdre le focus à la
  * page, c'est notre signal de lancement (ViewContent), puis JPO_Watch50.
  */
-function useLoomWatchTracking(enabled: boolean) {
+function useLoomWatchTracking() {
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (!enabled) return
     let timer: ReturnType<typeof setInterval> | undefined
     let watched = 0
 
@@ -31,12 +29,13 @@ function useLoomWatchTracking(enabled: boolean) {
       window.setTimeout(() => {
         const active = document.activeElement
         if (timer || !active || active.tagName !== 'IFRAME' || !ref.current?.contains(active)) return
-        trackMeta('ViewContent', META_VIDEO, { email: storedVideoEmail() })
+        trackAmplitude('partner_vsl_played')
+        trackMeta('ViewContent', META_VIDEO)
         timer = setInterval(() => {
           if (document.visibilityState === 'visible') watched += 1
           if (watched >= WATCH50_SECONDS) {
             clearInterval(timer)
-            trackMeta('JPO_Watch50', META_VIDEO, { email: storedVideoEmail() })
+            trackMeta('JPO_Watch50', META_VIDEO)
           }
         }, 1000)
       }, 0)
@@ -47,7 +46,7 @@ function useLoomWatchTracking(enabled: boolean) {
       window.removeEventListener('blur', onBlur)
       if (timer) clearInterval(timer)
     }
-  }, [enabled])
+  }, [])
 
   return ref
 }
@@ -65,20 +64,11 @@ const HOW = [
 ]
 
 export default function PartenaireClient() {
-  const [unlocked, setUnlocked] = useState(false)
-  const [askEmail, setAskEmail] = useState(false)
-  const videoRef = useLoomWatchTracking(unlocked)
+  const videoRef = useLoomWatchTracking()
 
   useEffect(() => {
-    setUnlocked(adoptEmailFromUrl('academy'))
     trackAmplitude('partner_vsl_viewed')
   }, [])
-
-  const play = () => {
-    if (unlocked) return
-    setAskEmail(true)
-    trackAmplitude('vsl_email_gate_shown', { funnel: 'academy' })
-  }
 
   return (
     <main className="min-h-screen overflow-x-hidden bg-black text-white">
@@ -97,36 +87,7 @@ export default function PartenaireClient() {
 
           {/* La vidéo et le bouton tiennent dans l'écran : la largeur suit la hauteur disponible. */}
           <div ref={videoRef} className="relative mx-auto w-full max-w-[calc((100svh-17rem)*16/9)]">
-            {unlocked ? (
-              <LoomEmbed id={PARTNER_LOOM_ID} title="Devenir partenaire Empire" />
-            ) : (
-              <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-white/15 bg-[radial-gradient(ellipse_at_center,rgba(252,165,165,0.18),#0a0a0a_70%)]">
-                <button
-                  type="button"
-                  onClick={play}
-                  aria-label="Lancer la vidéo"
-                  className="group absolute inset-0 flex h-full w-full flex-col items-center justify-center gap-3"
-                >
-                  <span className="flex h-20 w-20 items-center justify-center rounded-full bg-academy text-black shadow-xl transition-transform group-hover:scale-105">
-                    <Play className="ml-1 h-9 w-9" fill="currentColor" />
-                  </span>
-                  <span className="text-sm text-neutral-300">Le métier de partenaire, expliqué par Kevin</span>
-                </button>
-                {askEmail && (
-                  <VideoEmailGate
-                    funnel="academy"
-                    accent="academy"
-                    title="Où on t’envoie la vidéo ?"
-                    subtitle="Ton email, et la vidéo démarre tout de suite."
-                    onUnlocked={() => {
-                      setUnlocked(true)
-                      setAskEmail(false)
-                      trackAmplitude('partner_vsl_played')
-                    }}
-                  />
-                )}
-              </div>
-            )}
+            <LoomEmbed id={PARTNER_LOOM_ID} title="Devenir partenaire Empire" />
           </div>
 
           <div className="mt-5 flex flex-col items-center gap-2">
