@@ -1,12 +1,12 @@
 {
-  "notice": "Captures du transport simulé avec identité fictive complète, aucun envoi à Meta. Le formulaire WebinarJam actuel ne fournit pas ces coordonnées au site. IP/UA achat non persistés dans Stripe.",
+  "notice": "Captures du transport simulé avec identité fictive complète, aucun envoi à Meta. Le formulaire WebinarJam actuel ne fournit pas ces coordonnées au site. IP/UA et empreintes achat persistés dans Stripe après accord explicite.",
   "payloads": [
     {
       "data": [
         {
           "event_name": "CompleteRegistration",
           "event_id": "CompleteRegistration.offline-fixture",
-          "event_time": 1792962030,
+          "event_time": 1792962254,
           "action_source": "website",
           "event_source_url": "https://www.empire-internet.com/partenaire",
           "user_data": {
@@ -33,7 +33,7 @@
         {
           "event_name": "InitiateCheckout",
           "event_id": "InitiateCheckout.offline-fixture",
-          "event_time": 1792962030,
+          "event_time": 1792962254,
           "action_source": "website",
           "event_source_url": "https://app.empire-internet.com/join/academy",
           "user_data": {
@@ -61,14 +61,19 @@
         {
           "event_name": "Purchase",
           "event_id": "cs_test_offline_fixture",
-          "event_time": 1792962030,
+          "event_time": 1792962254,
           "action_source": "website",
           "event_source_url": "https://app.empire-internet.com/join/academy",
           "user_data": {
             "em": "[SHA-256 masqué]",
             "ph": "[SHA-256 masqué]",
+            "fn": "[SHA-256 masqué]",
+            "ln": "[SHA-256 masqué]",
+            "external_id": "[SHA-256 masqué]",
             "fbc": "fb.1.123.click",
-            "fbp": "fb.1.123.fixture"
+            "fbp": "fb.1.123.fixture",
+            "client_ip_address": "192.0.2.1",
+            "client_user_agent": "Offline fixture browser"
           },
           "custom_data": {
             "value": 497,

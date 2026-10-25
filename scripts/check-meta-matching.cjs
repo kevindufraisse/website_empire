@@ -41,7 +41,7 @@ const route = load('app/api/meta/event/route.ts',{ URL, require(name) {
     if(name==='next/server')return {NextResponse:{json:(body,opts)=>new Response(JSON.stringify(body),opts)}};
     throw Error(name);
   } });
-  const payload=JSON.stringify({type:'checkout.session.completed',created:Math.floor(Date.now()/1000),data:{object:{id:'cs_test_offline_fixture',livemode:false,payment_status:'paid',amount_total:49700,currency:'eur',metadata:{pack:'partner',meta_fbp:'fb.1.123.fixture',meta_fbc:'fb.1.123.click',utm_campaign:'fixture',meta_source_url:'https://app.empire-internet.com/join/academy'},customer_details:{email:'test@example.com',phone:'+33612345678'}}}});
+  const payload=JSON.stringify({type:'checkout.session.completed',created:Math.floor(Date.now()/1000),data:{object:{id:'cs_test_offline_fixture',livemode:false,payment_status:'paid',amount_total:49700,currency:'eur',metadata:{pack:'partner',meta_fbp:'fb.1.123.fixture',meta_fbc:'fb.1.123.click',meta_ip:'192.0.2.1',meta_ua:'Offline fixture browser',meta_em:identity.em,meta_ph:identity.ph,meta_fn:identity.fn,meta_ln:identity.ln,meta_external_id:identity.external_id,utm_campaign:'fixture',meta_source_url:'https://app.empire-internet.com/join/academy'},customer_details:{email:'test@example.com',phone:'+33612345678'}}}});
   const signature=Stripe.webhooks.generateTestHeaderString({payload,secret:'whsec_offline_fixture'});
   assert.equal((await webhook.POST(new Request('https://www.empire-internet.com/api/meta/stripe-webhook',{method:'POST',headers:{'stripe-signature':signature},body:payload}))).status,200);
   assert.equal(sent.at(-1).data[0].event_id,'cs_test_offline_fixture');
@@ -49,7 +49,7 @@ const route = load('app/api/meta/event/route.ts',{ URL, require(name) {
   const masked=sent.map(payload=>JSON.parse(JSON.stringify(payload,(_key,value)=>typeof value==='string'&&/^[a-f0-9]{64}$/.test(value)?'[SHA-256 masqué]':value)));
   if(process.argv.includes('--samples')) {
     fs.mkdirSync(path.join(root,'docs'),{recursive:true});
-    fs.writeFileSync(path.join(root,'docs/meta-payloads-offline.json'),JSON.stringify({notice:'Captures du transport simulé avec identité fictive complète, aucun envoi à Meta. Le formulaire WebinarJam actuel ne fournit pas ces coordonnées au site. IP/UA achat non persistés dans Stripe.',payloads:masked},null,2)+'\n');
+    fs.writeFileSync(path.join(root,'docs/meta-payloads-offline.json'),JSON.stringify({notice:'Captures du transport simulé avec identité fictive complète, aucun envoi à Meta. Le formulaire WebinarJam actuel ne fournit pas ces coordonnées au site. IP/UA et empreintes achat persistés dans Stripe après accord explicite.',payloads:masked},null,2)+'\n');
   }
   console.log('Meta matching: normalized hashes, stale identity isolation, two real event handlers, CAPI payloads and test code passed (no network)');
 })().catch(err=>{console.error(err);process.exitCode=1;});
