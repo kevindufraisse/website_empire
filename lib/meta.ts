@@ -1,3 +1,4 @@
+import { marketingAllowed } from './marketingConsent'
 /**
  * Pixel Meta (chargé par GTM) + Conversions API, dédupliqués par event_id.
  * Chaque événement part deux fois : `fbq` dans le navigateur et
@@ -34,6 +35,7 @@ function writeCookie(name: string, value: string, days: number) {
 }
 
 export function readAttribution(): Attribution {
+  if (!marketingAllowed()) return {}
   let attr: Attribution = {}
   try {
     const saved = JSON.parse(readCookie(ATTR_COOKIE) || '{}')
@@ -55,6 +57,7 @@ export function readAttribution(): Attribution {
 
 /** À chaque arrivée : fbclid → _fbc (format Meta), _fbp et utm_* dans `empire_attr`. */
 export function captureAttribution() {
+  if (!marketingAllowed()) return
   const params = new URLSearchParams(location.search)
   const attr = readAttribution()
 
@@ -89,6 +92,7 @@ function newEventId(name: string): string {
 
 /** GTM charge le pixel après le premier paint : on attend `fbq` quelques secondes. */
 function whenFbq(run: (fbq: Fbq) => void, tries = 20) {
+  if (!marketingAllowed()) return
   const fbq = (window as unknown as { fbq?: Fbq }).fbq
   if (typeof fbq === 'function') return run(fbq)
   if (tries > 0) window.setTimeout(() => whenFbq(run, tries - 1), 250)
@@ -100,7 +104,7 @@ export function trackMeta(
   opts: { email?: string | null; phone?: string | null; first_name?: string; last_name?: string; user_id?: string } = {},
 ): string {
   // Purchase is emitted exclusively by the signed Stripe webhook.
-  if (name === 'Purchase') return ''
+  if (!marketingAllowed() || name === 'Purchase') return ''
   const eventId = newEventId(name)
   whenFbq((fbq) => fbq(STANDARD_EVENTS.has(name) ? 'track' : 'trackCustom', name, params, { eventID: eventId }))
 
@@ -123,6 +127,7 @@ export function trackMeta(
 }
 
 export function readMatchingIdentity(): Record<string, string> {
+  if (!marketingAllowed()) return {}
   try {
     const value = JSON.parse(readCookie('empire_meta_identity') || '{}')
     return Object.fromEntries(['em', 'ph', 'fn', 'ln', 'external_id'].filter(k => typeof value?.[k] === 'string' && /^[a-f0-9]{64}$/.test(value[k])).map(k => [k, value[k]]))
@@ -131,6 +136,7 @@ export function readMatchingIdentity(): Record<string, string> {
 
 // Carry only advertising parameters; never copy email or checkout session IDs.
 export function attributedUrl(href: string): string {
+  if (!marketingAllowed()) return href
   try {
     const url = new URL(href, location.origin)
     if (!/(^|\.)empire-internet\.com$/.test(url.hostname)) return href
@@ -141,3 +147,4 @@ export function attributedUrl(href: string): string {
     return url.toString()
   } catch { return href }
 }
+

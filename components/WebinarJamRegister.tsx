@@ -1,5 +1,7 @@
 'use client'
 
+import { marketingAllowed } from '@/lib/marketingConsent'
+
 import { useEffect, useRef, useState } from 'react'
 import Script from 'next/script'
 import { trackAmplitude } from '@/lib/amplitude'
@@ -263,3 +265,4 @@ export function WebinarJamEmbed({
     />
   )
 }
+

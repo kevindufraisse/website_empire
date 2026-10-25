@@ -23,6 +23,7 @@ assert.deepEqual(Object.keys(capi.matchingData({identity:{em:'not-a-hash'}})),[]
 const pending = [];
 const route = load('app/api/meta/event/route.ts',{ URL, require(name) {
   if(name==='@/lib/metaCapi')return capi;
+  if(name==='@/lib/marketingConsent')return load('lib/marketingConsent.ts',{});
   if(name==='@vercel/functions')return {waitUntil:p=>pending.push(p)};
   if(name==='next/server')return {NextResponse:{json:(body,opts)=>{const res=new Response(JSON.stringify(body),opts);res.cookies={set(){}};return res;}}};
   throw Error(name);
@@ -30,7 +31,7 @@ const route = load('app/api/meta/event/route.ts',{ URL, require(name) {
 (async()=>{
   for(const name of ['CompleteRegistration','InitiateCheckout']) {
     const id=`${name}.offline-fixture`;
-    const res=await route.POST(new Request('https://www.empire-internet.com/api/meta/event',{ method:'POST',headers:{origin:'https://app.empire-internet.com','x-forwarded-for':'192.0.2.1','user-agent':'Offline fixture browser'},body:JSON.stringify({event_name:name,event_id:id,event_source_url:name==='CompleteRegistration'?'https://www.empire-internet.com/partenaire':'https://app.empire-internet.com/join/academy',identity,attribution:{fbp:'fb.1.123.fixture',fbc:'fb.1.123.click',utm_campaign:'fixture'},custom_data:name==='InitiateCheckout'?{value:497,currency:'EUR'}:{content_name:'portes_ouvertes'}})}));
+    const res=await route.POST(new Request('https://www.empire-internet.com/api/meta/event',{ method:'POST',headers:{cookie:'empire_consent_v1='+encodeURIComponent(JSON.stringify({ version: 1, marketing: true, analytics: true, at: Date.now() })),origin:'https://app.empire-internet.com','x-forwarded-for':'192.0.2.1','user-agent':'Offline fixture browser'},body:JSON.stringify({event_name:name,event_id:id,event_source_url:name==='CompleteRegistration'?'https://www.empire-internet.com/partenaire':'https://app.empire-internet.com/join/academy',identity,attribution:{fbp:'fb.1.123.fixture',fbc:'fb.1.123.click',utm_campaign:'fixture'},custom_data:name==='InitiateCheckout'?{value:497,currency:'EUR'}:{content_name:'portes_ouvertes'}})}));
     assert.equal(res.status,200);await Promise.all(pending);
     const event=sent.at(-1).data[0];assert.equal(event.event_id,id);assert.equal(event.user_data.em,identity.em);assert.equal(event.user_data.ph,identity.ph);assert.equal(event.user_data.client_ip_address,'192.0.2.1');assert.equal(sent.at(-1).test_event_code,'TEST_OFFLINE');
   }
@@ -38,10 +39,11 @@ const route = load('app/api/meta/event/route.ts',{ URL, require(name) {
   const webhook = load('app/api/meta/stripe-webhook/route.ts', { process: { env: { STRIPE_META_WEBHOOK_SECRET:'whsec_offline_fixture', META_TEST_EVENT_CODE:'TEST_OFFLINE' } }, require(name) {
     if(name==='stripe')return Stripe;
     if(name==='@/lib/metaCapi')return capi;
+  if(name==='@/lib/marketingConsent')return load('lib/marketingConsent.ts',{});
     if(name==='next/server')return {NextResponse:{json:(body,opts)=>new Response(JSON.stringify(body),opts)}};
     throw Error(name);
   } });
-  const payload=JSON.stringify({type:'checkout.session.completed',created:Math.floor(Date.now()/1000),data:{object:{id:'cs_test_offline_fixture',livemode:false,payment_status:'paid',amount_total:49700,currency:'eur',metadata:{pack:'partner',meta_fbp:'fb.1.123.fixture',meta_fbc:'fb.1.123.click',meta_ip:'192.0.2.1',meta_ua:'Offline fixture browser',meta_em:identity.em,meta_ph:identity.ph,meta_fn:identity.fn,meta_ln:identity.ln,meta_external_id:identity.external_id,utm_campaign:'fixture',meta_source_url:'https://app.empire-internet.com/join/academy'},customer_details:{email:'test@example.com',phone:'+33612345678'}}}});
+  const payload=JSON.stringify({type:'checkout.session.completed',created:Math.floor(Date.now()/1000),data:{object:{id:'cs_test_offline_fixture',livemode:false,payment_status:'paid',amount_total:49700,currency:'eur',metadata:{meta_consent:'granted_v1',pack:'partner',meta_fbp:'fb.1.123.fixture',meta_fbc:'fb.1.123.click',meta_ip:'192.0.2.1',meta_ua:'Offline fixture browser',meta_em:identity.em,meta_ph:identity.ph,meta_fn:identity.fn,meta_ln:identity.ln,meta_external_id:identity.external_id,utm_campaign:'fixture',meta_source_url:'https://app.empire-internet.com/join/academy'},customer_details:{email:'test@example.com',phone:'+33612345678'}}}});
   const signature=Stripe.webhooks.generateTestHeaderString({payload,secret:'whsec_offline_fixture'});
   assert.equal((await webhook.POST(new Request('https://www.empire-internet.com/api/meta/stripe-webhook',{method:'POST',headers:{'stripe-signature':signature},body:payload}))).status,200);
   assert.equal(sent.at(-1).data[0].event_id,'cs_test_offline_fixture');
@@ -53,3 +55,4 @@ const route = load('app/api/meta/event/route.ts',{ URL, require(name) {
   }
   console.log('Meta matching: normalized hashes, stale identity isolation, two real event handlers, CAPI payloads and test code passed (no network)');
 })().catch(err=>{console.error(err);process.exitCode=1;});
+

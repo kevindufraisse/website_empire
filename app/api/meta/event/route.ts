@@ -1,3 +1,4 @@
+import { consentFromCookieHeader } from '@/lib/marketingConsent'
 import { NextRequest, NextResponse } from 'next/server'
 import { waitUntil } from '@vercel/functions'
 import { matchingData, sendCapiEvent } from '@/lib/metaCapi'
@@ -5,7 +6,7 @@ import { matchingData, sendCapiEvent } from '@/lib/metaCapi'
 export const runtime = 'nodejs'
 
 // Purchase n'est jamais accepté ici : il part du webhook Stripe uniquement.
-const ALLOWED_EVENTS = new Set(['ViewContent', 'JPO_Watch50', 'CompleteRegistration', 'InitiateCheckout'])
+const ALLOWED_EVENTS = new Set(['ViewContent', 'JPO_Engaged11min', 'CompleteRegistration', 'InitiateCheckout'])
 const CUSTOM_KEYS = ['content_name', 'content_category', 'source', 'value', 'currency'] as const
 const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'] as const
 
@@ -39,6 +40,8 @@ export async function POST(req: NextRequest) {
   if (!name || !ALLOWED_EVENTS.has(name) || !eventId) {
     return NextResponse.json({ error: 'invalid_event' }, { status: 400, headers })
   }
+
+  if (!consentFromCookieHeader(req.headers.get('cookie') || '')?.marketing) return NextResponse.json({ accepted: false, reason: 'consent_required' }, { headers })
 
   const sourceUrl = str(body?.event_source_url, 1000)
   let eventSourceUrl: string | undefined
@@ -91,3 +94,4 @@ export async function POST(req: NextRequest) {
   })
   return response
 }
+

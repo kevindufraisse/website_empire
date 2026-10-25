@@ -1,3 +1,4 @@
+import { analyticsAllowed } from './marketingConsent'
 import * as amplitude from '@amplitude/analytics-browser'
 
 // Same Amplitude project as the app (app.empire-internet.com) so the full
@@ -19,7 +20,7 @@ const superPropertiesPlugin: amplitude.Types.EnrichmentPlugin = {
 }
 
 export function initAmplitude() {
-  if (initialized || !AMPLITUDE_KEY || typeof window === 'undefined') return
+  if (!analyticsAllowed() || initialized || !AMPLITUDE_KEY || typeof window === 'undefined') return
   amplitude.add(superPropertiesPlugin)
   amplitude.init(AMPLITUDE_KEY, {
     serverZone: 'EU',
@@ -40,22 +41,23 @@ export function setAmplitudeSuperProperties(props: Record<string, unknown>) {
 }
 
 export function trackAmplitude(name: string, props?: Record<string, unknown>) {
-  if (!initialized) return
+  if (!analyticsAllowed() || !initialized) return
   amplitude.track(name, props)
 }
 
 export function getAmplitudeDeviceId(): string | undefined {
-  if (!initialized) return undefined
+  if (!analyticsAllowed() || !initialized) return undefined
   return amplitude.getDeviceId()
 }
 
 // Appends the Amplitude device id to an app URL so the app session is merged
 // with the website session in Amplitude (cross-domain tracking).
 export function withAmplitudeDeviceId(url: string): string {
-  if (!initialized) return url
+  if (!analyticsAllowed() || !initialized) return url
   const deviceId = amplitude.getDeviceId()
   if (!deviceId) return url
   const u = new URL(url)
   u.searchParams.set('amp_device_id', deviceId)
   return u.toString()
 }
+
