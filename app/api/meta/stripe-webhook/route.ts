@@ -43,7 +43,10 @@ export async function POST(req: NextRequest) {
   }
   if (session.payment_status !== 'paid') return NextResponse.json({ ignored: 'unpaid' })
 
+  if (!Number.isSafeInteger(session.amount_total) || (session.amount_total || 0) <= 0) return NextResponse.json({ ignored: 'no_paid_amount' })
+
   const meta = session.metadata || {}
+  if (meta.meta_consent !== 'granted_v1') return NextResponse.json({ ignored: 'no_marketing_consent' })
   const product = PRODUCTS[meta.pack || '']
   if (!product) return NextResponse.json({ ignored: meta.pack || 'no_pack' })
 
@@ -78,3 +81,4 @@ export async function POST(req: NextRequest) {
   if (!result.ok) return NextResponse.json({ error: 'capi_failed' }, { status: 502 })
   return NextResponse.json({ ok: true })
 }
+

@@ -1,5 +1,7 @@
 'use client'
 
+import { marketingAllowed } from '@/lib/marketingConsent'
+
 import { useEffect, useRef, useState } from 'react'
 import Script from 'next/script'
 import { trackAmplitude } from '@/lib/amplitude'
@@ -34,7 +36,7 @@ function useWebinarJamConversion(source: string, hash: string) {
       redirecting = true
       const fbq = (window as unknown as { fbq?: Fbq }).fbq
       const params = { content_name: 'portes_ouvertes', content_category: 'academy_partner', source }
-      if (typeof fbq === 'function') fbq('track', 'Lead', params)
+      if (marketingAllowed() && typeof fbq === 'function') fbq('track', 'Lead', params)
       trackMeta('CompleteRegistration', params, { email: storedVideoEmail() })
       ;(window as unknown as { dataLayer?: unknown[] }).dataLayer?.push({
         event: 'open_house_registered',
@@ -263,3 +265,4 @@ export function WebinarJamEmbed({
     />
   )
 }
+

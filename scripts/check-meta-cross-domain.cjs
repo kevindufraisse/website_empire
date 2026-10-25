@@ -12,11 +12,11 @@ const js = file => ts.transpileModule(process.argv.includes('--baseline') && fil
   try {
     const context = await browser.newContext();
     await context.route('**/*', route => route.fulfill({ contentType: 'text/html', body: '<!doctype html><html><body>Offline attribution test</body></html>' }));
-    await context.addCookies([{ name: '_fbp', value: 'fb.1.123.existing', url: 'https://www.empire-internet.com', secure: true }]);
+    await context.addCookies([{ name:'empire_consent_v1', value:encodeURIComponent(JSON.stringify({version:1,marketing:true,analytics:true,at:Date.now()})),domain:'.empire-internet.com',path:'/',secure:true }, { name: '_fbp', value: 'fb.1.123.existing', url: 'https://www.empire-internet.com', secure: true }]);
     const page = await context.newPage();
     await page.goto('https://www.empire-internet.com/partenaire?fbclid=fixtureClick&utm_campaign=fixtureCampaign&utm_content=fixtureAd');
     const marketing = await page.evaluate(code => {
-      window.exports = {}; (0,eval)(code); window.marketing = window.exports;
+      window.exports = {}; window.require=()=>({marketingAllowed:()=>true,readConsent:()=>({version:1,marketing:true,analytics:true,at:Date.now()})}); (0,eval)(code); window.marketing = window.exports;
       window.marketing.captureAttribution();
       return { attribution: window.marketing.readAttribution(), next: window.marketing.attributedUrl ? window.marketing.attributedUrl('https://app.empire-internet.com/join/academy?offer=partner') : 'https://app.empire-internet.com/join/academy?offer=partner' };
     }, js(path.resolve(__dirname, '../lib/meta.ts')));
@@ -30,13 +30,13 @@ const js = file => ts.transpileModule(process.argv.includes('--baseline') && fil
     assert.equal(new URL(marketing.next).searchParams.get('utm_content'),'fixtureAd');
     // No query parameters: shared cookies must also support a static WebinarJam CTA.
     await page.goto('https://app.empire-internet.com/join/academy?offer=partner');
-    const appAttr = await page.evaluate(code => { window.exports={};(0,eval)(code); window.checkout = window.exports; return window.checkout.checkoutAttribution(); }, js(path.join(appRoot,'src/lib/checkoutAttribution.ts')));
+    const appAttr = await page.evaluate(code => { window.exports={};window.require=()=>({marketingAllowed:()=>true,readConsent:()=>({version:1,marketing:true,analytics:true,at:Date.now()})});(0,eval)(code); window.checkout = window.exports; return window.checkout.checkoutAttribution(); }, js(path.join(appRoot,'src/lib/checkoutAttribution.ts')));
     assert.equal(appAttr.fbp,marketing.attribution.fbp); assert.equal(appAttr.fbc,marketing.attribution.fbc);assert.equal(appAttr.utm_content,'fixtureAd');
     const pair = await page.evaluate(code => {
       window.exports={}; window.calls=[];window.pixels=[];
       window.fbq=(...args)=>window.pixels.push(args);
       window.fetch=async (url,options)=>{window.calls.push(JSON.parse(options.body));return new Response('{}');};
-      window.require=name=>name==='./nativeApp'?{isNativeApp:()=>false}:window.checkout;
+      window.require=name=>name==='./nativeApp'?{isNativeApp:()=>false}:name==='./marketingConsent'?{marketingAllowed:()=>true}:window.checkout;
       (0,eval)(code);window.exports.trackAcademyCheckout(497,'partner');
       return { calls:window.calls,pixels:window.pixels };
     }, js(path.join(appRoot,'src/lib/metaAcademy.ts')));
@@ -45,3 +45,4 @@ const js = file => ts.transpileModule(process.argv.includes('--baseline') && fil
     console.log('Chromium: shared domain cookies, host-only cleanup, UTM/fbclid links, static CTA attribution and paired InitiateCheckout passed (all network intercepted)');
   } finally { await browser.close(); }
 })().catch(err=>{console.error(err);process.exitCode=1;});
+

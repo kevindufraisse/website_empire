@@ -10,15 +10,15 @@ import { trackMeta } from '@/lib/meta'
 
 /** Même vidéo que la pub des portes ouvertes. */
 const PARTNER_LOOM_ID = '5ac5b5502e104eb89db2f9ccd8485b9c'
-/** Moitié de la vidéo Loom (21 min 52 s). Loom ne publie pas la progression : on compte le temps onglet visible. */
-const WATCH50_SECONDS = 656
+/** Engagement approximatif : 656 secondes sur un onglet visible après interaction. Ce n’est pas une mesure de lecture vidéo. */
+const ENGAGEMENT_SECONDS = 656
 const META_VIDEO = { content_name: 'video_partenaire', content_category: 'academy_partner' }
 
 /**
  * Le lecteur Loom est un iframe : un clic dedans fait perdre le focus à la
- * page, c'est notre signal de lancement (ViewContent), puis JPO_Watch50.
+ * page : on mesure une interaction (ViewContent), puis du temps visible, jamais un pourcentage de lecture.
  */
-function useLoomWatchTracking() {
+function useLoomEngagementTracking() {
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -29,13 +29,13 @@ function useLoomWatchTracking() {
       window.setTimeout(() => {
         const active = document.activeElement
         if (timer || !active || active.tagName !== 'IFRAME' || !ref.current?.contains(active)) return
-        trackAmplitude('partner_vsl_played')
+        trackAmplitude('partner_vsl_interacted')
         trackMeta('ViewContent', META_VIDEO)
         timer = setInterval(() => {
           if (document.visibilityState === 'visible') watched += 1
-          if (watched >= WATCH50_SECONDS) {
+          if (watched >= ENGAGEMENT_SECONDS) {
             clearInterval(timer)
-            trackMeta('JPO_Watch50', META_VIDEO)
+            trackMeta('JPO_Engaged11min', { ...META_VIDEO, source: 'visible_page_time_proxy' })
           }
         }, 1000)
       }, 0)
@@ -64,7 +64,7 @@ const HOW = [
 ]
 
 export default function PartenaireClient() {
-  const videoRef = useLoomWatchTracking()
+  const videoRef = useLoomEngagementTracking()
 
   useEffect(() => {
     trackAmplitude('partner_vsl_viewed')
@@ -99,7 +99,7 @@ export default function PartenaireClient() {
               Réserver ma place aux portes ouvertes
               <ArrowRight className="h-5 w-5" />
             </WebinarJamButton>
-            <p className="text-center text-xs text-neutral-400">Gratuit · inscription en 10 secondes · tu choisis ton créneau</p>
+            <p className="text-center text-xs text-neutral-400">Gratuit · replay disponible immédiatement ou séance programmée</p>
           </div>
         </div>
       </section>
@@ -138,3 +138,4 @@ export default function PartenaireClient() {
     </main>
   )
 }
+

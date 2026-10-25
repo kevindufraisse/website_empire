@@ -10,6 +10,7 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import IdleMount from '@/components/IdleMount'
 import MetaAttribution from '@/components/MetaAttribution'
+import MarketingConsent from '@/components/MarketingConsent'
 
 const ClientWrappers = dynamic(() => import('@/components/ClientWrappers'), { ssr: false })
 const CalStickyBar = dynamic(() => import('@/components/CalStickyBar'), { ssr: false })
@@ -38,30 +39,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <script dangerouslySetInnerHTML={{
           __html: `(function(){try{var p=location.pathname;var q=location.search||'';var legende=p==='/legende'||((p==='/join-us'||p==='/decouverte')&&q.indexOf('offer=legende')!==-1);var t=p==='/candidature'?'academy':(legende?'autopilot':'copilot');var r=document.documentElement;r.setAttribute('data-autopilot',legende?'true':'false');r.setAttribute('data-tier',t);try{localStorage.removeItem('empire-autopilot')}catch(e){}}catch(e){}})();`
         }} />
-        {/* Google Tag Manager */}
-        <script dangerouslySetInnerHTML={{
-          __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-MJCWGM8D');`
-        }} />
-        {/* End Google Tag Manager */}
+
       </head>
       <body className={inter.className} style={{ fontFamily: 'var(--font-inter), ui-sans-serif, system-ui, sans-serif' }} suppressHydrationWarning>
-        {/* Google Tag Manager (noscript) */}
-        <noscript>
-          <iframe 
-            src="https://www.googletagmanager.com/ns.html?id=GTM-MJCWGM8D"
-            height="0" 
-            width="0" 
-            style={{display: 'none', visibility: 'hidden'}}
-          />
-        </noscript>
-        {/* End Google Tag Manager (noscript) */}
+
         <LanguageProvider>
           <AutopilotProvider>
             <GiftCountdownProvider>
+            <MarketingConsent />
             <MetaAttribution />
             <div data-chrome="cal-redirect"><CalCtaRedirect /></div>
             <div data-chrome="header"><Header /></div>
@@ -82,3 +67,4 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </html>
   )
 }
+

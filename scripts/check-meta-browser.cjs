@@ -6,16 +6,18 @@ const { execFileSync } = require('node:child_process');
 const ts = require('typescript');
 const path = require('node:path');
 const root = path.resolve(__dirname, '..');
+const yes = JSON.stringify({ version: 1, marketing: true, analytics: true, at: Date.now() });
+const consentHeader = 'empire_consent_v1=' + encodeURIComponent(yes);
 const baseline = process.argv.includes('--baseline');
 function load(file, globals) {
   const source = baseline ? execFileSync('git', ['show', `origin/master:${file}`], { cwd: root, encoding: 'utf8' }) : fs.readFileSync(path.join(root, file), 'utf8');
   const mod = { exports: {} };
   vm.runInNewContext(ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText,
-    { module: mod, exports: mod.exports, URL, URLSearchParams, console, ...globals });
+    { module: mod, exports: mod.exports, URL, URLSearchParams, console, ...globals, require: name => name.endsWith('marketingConsent') ? load('lib/marketingConsent.ts', globals) : globals.require(name) });
   return mod.exports;
 }
 function browser(cookies = {}, blocked = false) {
-  const jar = { ...cookies }, calls = [], pixels = [];
+  const jar = { empire_consent_v1: encodeURIComponent(yes), ...cookies }, calls = [], pixels = [];
   const location = { origin: 'https://www.empire-internet.com', hostname: 'www.empire-internet.com', protocol: 'https:', pathname: '/academy', search: '', href: 'https://www.empire-internet.com/academy?email=private@example.test' };
   const document = {
     get cookie() { if (blocked) throw new Error('blocked'); return Object.entries(jar).map(([k, v]) => `${k}=${v}`).join(';'); },
@@ -34,7 +36,7 @@ function endpoint() {
     throw new Error(name);
   } });
   return { events, async send(source, name = 'CompleteRegistration') {
-    const res = await route.POST(new Request('https://www.empire-internet.com/api/meta/event', { method: 'POST', body: JSON.stringify({ event_name: name, event_id: 'fixture', event_source_url: source }) }));
+    const res = await route.POST(new Request('https://www.empire-internet.com/api/meta/event', { method: 'POST', headers: { cookie: consentHeader }, body: JSON.stringify({ event_name: name, event_id: 'fixture', event_source_url: source }) }));
     await Promise.all(pending); return res;
   } };
 }
@@ -48,9 +50,9 @@ test('malformed, null and array cookies never interrupt capture or registration'
     assert.equal(b.calls.length, 1);
   }
 });
-test('blocked storage does not break a signup', () => {
+test('blocked storage does not break signup and cannot imply consent', () => {
   const b = browser({}, true); b.captureAttribution(); b.trackMeta('CompleteRegistration');
-  assert.equal(b.calls.length, 1);
+  assert.equal(b.calls.length, 0);
 });
 test('new shared click wins over stale pixel cookie and remains stable', () => {
   const b = browser({ empire_attr: encodeURIComponent(JSON.stringify({ fbc: 'fb.1.200.new' })), _fbc: 'fb.1.100.old' });
@@ -91,3 +93,4 @@ test('public endpoint cannot declare Purchase', async () => {
   console.log(`Meta browser: ${tests.length - failed}/${tests.length} passed (no network)`);
   process.exitCode = failed ? 1 : 0;
 })();
+

@@ -47,7 +47,7 @@ function fixture() {
   async function send(session = {}, type = 'checkout.session.completed', signature = true) {
     const payload = JSON.stringify({ id: 'evt_fixture', type, created: 1792674000, data: { object: {
       id: 'cs_fixture', livemode: true, payment_status: 'paid', amount_total: 29700, currency: 'eur',
-      metadata: { pack: 'bootcamp', utm_content: 'ad_42', utm_campaign: 'C3', meta_fbc: 'fb.1.123.click' },
+      metadata: { meta_consent: 'granted_v1', pack: 'bootcamp', utm_content: 'ad_42', utm_campaign: 'C3', meta_fbc: 'fb.1.123.click' },
       customer_details: { email: ' Buyer@example.test ', phone: '+33612345678' }, ...session,
     } } });
     const header = signature ? Stripe.webhooks.generateTestHeaderString({ payload, secret: 'whsec_fixture' }) : 'invalid';
@@ -77,6 +77,12 @@ test('Stripe retries and delayed payment use the same deduplication ID', async (
   const f = fixture();
   await f.send(); await f.send({}, 'checkout.session.async_payment_succeeded');
   assert.equal(f.calls[0].data.event_id, f.calls[1].data.event_id);
+});
+test('a free checkout and a checkout without consent never send Purchase', async () => {
+  const f = fixture();
+  for (const amount_total of [0, -1, null]) await f.send({ amount_total });
+  await f.send({ metadata: { pack: 'bootcamp' } });
+  assert.equal(f.calls.length, 0);
 });
 test('unpaid checkout and unrelated event do not send Purchase', async () => {
   const f = fixture();
@@ -152,3 +158,4 @@ test('public thank-you page cannot declare an unverified purchase', () => {
   console.log(`Meta Purchase: ${tests.length - failed}/${tests.length} passed (no network)`);
   process.exitCode = failed ? 1 : 0;
 })();
+
