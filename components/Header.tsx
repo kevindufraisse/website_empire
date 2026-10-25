@@ -10,7 +10,7 @@ import { trackAmplitude } from '@/lib/amplitude'
 
 /**
  * Deux portes et un prix : Empire (publier pour son business), Devenir
- * partenaire (en faire son métier), Tarifs. Les deux lives gratuits sont
+ * partenaire (en faire son métier), Tarifs. Le workshop en direct et la présentation enregistrée sont
  * rangés dans un menu où chacun dit ce qu'il est. Un seul bouton à droite :
  * l'essai gratuit, ou les portes ouvertes sur les pages partenaire.
  */
@@ -62,15 +62,15 @@ export default function Header() {
     {
       href: postitJoinUrl('header'),
       name: 'Post it like it’s hot',
-      when: fr ? 'Mercredi · 12h' : 'Wednesday · 12pm',
+      when: fr ? 'Mercredi · 12h Paris' : 'Wednesday · 12pm Paris',
       what: fr ? 'On trouve ton prochain contenu viral, en direct, sur ton business.' : 'We find your next viral piece, live, on your business.',
       dot: 'bg-[#ff7ec8]',
     },
     {
       href: '/academy#portes-ouvertes',
       name: fr ? 'Portes ouvertes' : 'Open house',
-      when: fr ? 'Jeudi · 11h' : 'Thursday · 11am',
-      what: fr ? 'Découvrir le programme partenaire et poser tes questions.' : 'Discover the partner program and ask your questions.',
+      when: fr ? 'Replay ou session' : 'Replay or session',
+      what: fr ? 'Présentation enregistrée du programme partenaire. Replay immédiat ou session au choix.' : 'Recorded partner program presentation. Instant replay or a session of your choice.',
       dot: 'bg-academy',
     },
   ]
@@ -94,7 +94,7 @@ export default function Header() {
       onClick={() => setIsMenuOpen(false)}
       className="rounded-lg bg-academy px-4 py-2 text-sm font-semibold text-black transition hover:brightness-110"
     >
-      {fr ? 'Portes ouvertes · jeudi 11h' : 'Open house · Thu 11am'}
+      {fr ? 'Voir les portes ouvertes' : 'Watch the open house'}
     </a>
   ) : (
     <button
@@ -133,7 +133,7 @@ export default function Header() {
                 aria-expanded={livesOpen}
                 className="flex cursor-pointer items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-neutral-300 transition hover:bg-white/[0.04] hover:text-white"
               >
-                {fr ? 'Lives gratuits' : 'Free lives'}
+                {fr ? 'Événements gratuits' : 'Free events'}
                 <ChevronDown className={`h-4 w-4 transition-transform ${livesOpen ? 'rotate-180' : ''}`} />
               </button>
               {livesOpen && (
@@ -153,7 +153,7 @@ export default function Header() {
                       <span className="mt-0.5 block pl-3.5 text-[12px] leading-snug text-neutral-400">{l.what}</span>
                     </a>
                   ))}
-                  <p className="px-3 pb-1 pt-2 text-[11px] text-neutral-600">{fr ? 'Gratuit · heure de Paris' : 'Free · Paris time'}</p>
+                  <p className="px-3 pb-1 pt-2 text-[11px] text-neutral-600">{fr ? 'Gratuit · horaires précisés à l’inscription' : 'Free · times shown at registration'}</p>
                 </div>
               )}
             </div>
@@ -193,7 +193,7 @@ export default function Header() {
                 </a>
               ))}
               <p className="px-3 pb-1 pt-4 text-[10px] font-semibold uppercase tracking-[0.16em] text-neutral-600">
-                {fr ? 'Lives gratuits' : 'Free lives'}
+                {fr ? 'Événements gratuits' : 'Free events'}
               </p>
               {lives.map((l) => (
                 <a
