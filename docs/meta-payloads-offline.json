@@ -1,0 +1,86 @@
+{
+  "notice": "Captures du transport simulé avec identité fictive complète, aucun envoi à Meta. Le formulaire WebinarJam actuel ne fournit pas ces coordonnées au site. IP/UA achat non persistés dans Stripe.",
+  "payloads": [
+    {
+      "data": [
+        {
+          "event_name": "CompleteRegistration",
+          "event_id": "CompleteRegistration.offline-fixture",
+          "event_time": 1792962030,
+          "action_source": "website",
+          "event_source_url": "https://www.empire-internet.com/partenaire",
+          "user_data": {
+            "client_ip_address": "192.0.2.1",
+            "client_user_agent": "Offline fixture browser",
+            "fbc": "fb.1.123.click",
+            "fbp": "fb.1.123.fixture",
+            "em": "[SHA-256 masqué]",
+            "ph": "[SHA-256 masqué]",
+            "fn": "[SHA-256 masqué]",
+            "ln": "[SHA-256 masqué]",
+            "external_id": "[SHA-256 masqué]"
+          },
+          "custom_data": {
+            "content_name": "portes_ouvertes",
+            "utm_campaign": "fixture"
+          }
+        }
+      ],
+      "test_event_code": "TEST_OFFLINE"
+    },
+    {
+      "data": [
+        {
+          "event_name": "InitiateCheckout",
+          "event_id": "InitiateCheckout.offline-fixture",
+          "event_time": 1792962030,
+          "action_source": "website",
+          "event_source_url": "https://app.empire-internet.com/join/academy",
+          "user_data": {
+            "client_ip_address": "192.0.2.1",
+            "client_user_agent": "Offline fixture browser",
+            "fbc": "fb.1.123.click",
+            "fbp": "fb.1.123.fixture",
+            "em": "[SHA-256 masqué]",
+            "ph": "[SHA-256 masqué]",
+            "fn": "[SHA-256 masqué]",
+            "ln": "[SHA-256 masqué]",
+            "external_id": "[SHA-256 masqué]"
+          },
+          "custom_data": {
+            "value": 497,
+            "currency": "EUR",
+            "utm_campaign": "fixture"
+          }
+        }
+      ],
+      "test_event_code": "TEST_OFFLINE"
+    },
+    {
+      "data": [
+        {
+          "event_name": "Purchase",
+          "event_id": "cs_test_offline_fixture",
+          "event_time": 1792962030,
+          "action_source": "website",
+          "event_source_url": "https://app.empire-internet.com/join/academy",
+          "user_data": {
+            "em": "[SHA-256 masqué]",
+            "ph": "[SHA-256 masqué]",
+            "fbc": "fb.1.123.click",
+            "fbp": "fb.1.123.fixture"
+          },
+          "custom_data": {
+            "value": 497,
+            "currency": "EUR",
+            "content_name": "academy_partner",
+            "content_category": "academy_partner",
+            "order_id": "cs_test_offline_fixture",
+            "utm_campaign": "fixture"
+          }
+        }
+      ],
+      "test_event_code": "TEST_OFFLINE"
+    }
+  ]
+}

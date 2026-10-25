@@ -65,7 +65,7 @@ test('paid signed checkout sends its actual amount, currency and attribution onc
   assert.equal(f.calls.length, 1);
   const { data } = f.calls[0];
   assert.equal(data.event_name, 'Purchase');
-  assert.equal(data.event_id, 'Purchase.cs_fixture');
+  assert.equal(data.event_id, 'cs_fixture');
   assert.equal(data.custom_data.value, 297);
   assert.equal(data.custom_data.currency, 'EUR');
   assert.equal(data.custom_data.utm_content, 'ad_42');

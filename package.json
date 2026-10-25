@@ -6,7 +6,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint || true",
-    "test:tracking": "node scripts/check-meta-purchase.cjs && node scripts/check-meta-browser.cjs"
+    "test:tracking": "node scripts/check-meta-purchase.cjs && node scripts/check-meta-browser.cjs && node scripts/check-meta-matching.cjs"
   },
   "dependencies": {
     "@amplitude/analytics-browser": "^2.44.5",

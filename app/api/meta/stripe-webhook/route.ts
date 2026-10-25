@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
-import { hashEmail, hashPhone, sendCapiEvent } from '@/lib/metaCapi'
+import { matchingData, sendCapiEvent } from '@/lib/metaCapi'
 
 export const runtime = 'nodejs'
 
 /**
- * Purchase Meta (serveur uniquement) depuis Stripe. Endpoint Stripe dédié,
+ * Purchase Meta (partie serveur) depuis Stripe. Endpoint Stripe dédié,
  * distinct du webhook de facturation de l'app : il ne fait qu'envoyer la
  * conversion. Les metadata `meta_*` et `utm_*` sont posées par academy-pay.
  */
@@ -49,12 +49,15 @@ export async function POST(req: NextRequest) {
 
   const result = await sendCapiEvent({
     event_name: 'Purchase',
-    event_id: `Purchase.${session.id}`,
+    event_id: session.id,
     event_time: event.created,
     event_source_url: meta.meta_source_url || 'https://app.empire-internet.com/join/academy',
     user_data: {
-      em: hashEmail(session.customer_details?.email || session.customer_email),
-      ph: hashPhone(session.customer_details?.phone || meta.wa_phone),
+      ...matchingData({
+        email: session.customer_details?.email || session.customer_email,
+        phone: session.customer_details?.phone || meta.wa_phone,
+        identity: Object.fromEntries(['em', 'ph', 'fn', 'ln', 'external_id'].map(k => [k, meta[`meta_${k}`]])),
+      }),
       fbc: meta.meta_fbc,
       fbp: meta.meta_fbp,
       client_ip_address: meta.meta_ip,

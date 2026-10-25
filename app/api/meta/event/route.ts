@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { waitUntil } from '@vercel/functions'
-import { hashEmail, sendCapiEvent } from '@/lib/metaCapi'
+import { matchingData, sendCapiEvent } from '@/lib/metaCapi'
 
 export const runtime = 'nodejs'
 
@@ -16,6 +16,7 @@ function cors(origin: string | null): Record<string, string> {
   if (!origin || !ORIGIN_RE.test(origin)) return {}
   return {
     'Access-Control-Allow-Origin': origin,
+    'Access-Control-Allow-Credentials': 'true',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
     Vary: 'Origin',
@@ -67,6 +68,7 @@ export async function POST(req: NextRequest) {
 
   const ip = (req.headers.get('x-forwarded-for') || '').split(',')[0].trim() || undefined
 
+  const identity = matchingData(body)
   waitUntil(
     sendCapiEvent({
       event_name: name,
@@ -77,11 +79,15 @@ export async function POST(req: NextRequest) {
         client_user_agent: str(req.headers.get('user-agent'), 500),
         fbc: fbc?.startsWith('fb.') ? fbc : undefined,
         fbp: fbp?.startsWith('fb.') ? fbp : undefined,
-        em: hashEmail(str(body?.email, 200)),
+        ...identity,
       },
       custom_data: customData,
     }),
   )
 
-  return NextResponse.json({ ok: true }, { headers })
+  const response = NextResponse.json({ accepted: true }, { headers })
+  if (Object.keys(identity).length) response.cookies.set('empire_meta_identity', JSON.stringify(identity), {
+    domain: '.empire-internet.com', path: '/', secure: true, sameSite: 'lax', maxAge: 90 * 86400,
+  })
+  return response
 }

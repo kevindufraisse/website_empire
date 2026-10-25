@@ -23,7 +23,7 @@ export type CapiEvent = {
 const sha256 = (v: string) => createHash('sha256').update(v).digest('hex')
 
 export function hashEmail(email?: string | null): string | undefined {
-  const clean = (email || '').trim().toLowerCase()
+  const clean = (email || '').replace(/\s/g, '').toLowerCase()
   return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(clean) ? sha256(clean) : undefined
 }
 
@@ -32,7 +32,28 @@ export function hashPhone(phone?: string | null): string | undefined {
   let digits = (phone || '').replace(/\D/g, '')
   if (digits.startsWith('00')) digits = digits.slice(2)
   if (digits.length === 10 && digits.startsWith('0')) digits = `33${digits.slice(1)}`
-  return digits.length >= 8 ? sha256(digits) : undefined
+  return /^[1-9]\d{7,14}$/.test(digits) ? sha256(digits) : undefined
+}
+
+export function hashName(value?: string | null): string | undefined {
+  const clean = (value || '').trim().toLowerCase()
+  return clean ? sha256(clean) : undefined
+}
+
+// Only validated hashes can be reused across the two first-party domains.
+export function matchingData(input: Record<string, unknown> = {}): Record<string, string | undefined> {
+  const prior = input.identity && typeof input.identity === 'object' ? input.identity as Record<string, unknown> : {}
+  const out: Record<string, string | undefined> = {}
+  for (const key of ['em', 'ph', 'fn', 'ln', 'external_id']) {
+    if (typeof prior[key] === 'string' && /^[a-f0-9]{64}$/.test(prior[key] as string)) out[key] = prior[key] as string
+  }
+  const str = (key: string) => typeof input[key] === 'string' ? (input[key] as string).slice(0, 300) : undefined
+  const incomingEmail = hashEmail(str('email'))
+  if (incomingEmail && out.em && incomingEmail !== out.em) for (const key of Object.keys(out)) delete out[key]
+  const fresh = { em: hashEmail(str('email')), ph: hashPhone(str('phone')), fn: hashName(str('first_name')), ln: hashName(str('last_name')),
+    external_id: str('user_id') ? sha256(str('user_id')!) : undefined }
+  for (const [key, value] of Object.entries(fresh)) if (value) out[key] = value
+  return out
 }
 
 export async function sendCapiEvent(event: CapiEvent): Promise<{ ok: boolean; skipped?: boolean; error?: string }> {

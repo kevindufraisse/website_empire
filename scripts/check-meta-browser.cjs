@@ -19,7 +19,7 @@ function browser(cookies = {}, blocked = false) {
   const location = { origin: 'https://www.empire-internet.com', hostname: 'www.empire-internet.com', protocol: 'https:', pathname: '/academy', search: '', href: 'https://www.empire-internet.com/academy?email=private@example.test' };
   const document = {
     get cookie() { if (blocked) throw new Error('blocked'); return Object.entries(jar).map(([k, v]) => `${k}=${v}`).join(';'); },
-    set cookie(value) { if (blocked) throw new Error('blocked'); const [k, ...v] = value.split(';')[0].split('='); jar[k] = v.join('='); },
+    set cookie(value) { if (value.includes('max-age=0')) return; if (blocked) throw new Error('blocked'); const [k, ...v] = value.split(';')[0].split('='); jar[k] = v.join('='); },
   };
   const api = load('lib/meta.ts', { document, location, window: { fbq: (...args) => pixels.push(args) },
     fetch: async (_, options) => calls.push(JSON.parse(options.body)) });
@@ -30,7 +30,7 @@ function endpoint() {
   const route = load('app/api/meta/event/route.ts', { require(name) {
     if (name === 'next/server') return { NextResponse: { json: (body, options) => new Response(JSON.stringify(body), options) } };
     if (name === '@vercel/functions') return { waitUntil: p => pending.push(p) };
-    if (name === '@/lib/metaCapi') return { hashEmail: () => undefined, sendCapiEvent: async e => { events.push(e); return { ok: true }; } };
+    if (name === '@/lib/metaCapi') return { matchingData: () => ({}), sendCapiEvent: async e => { events.push(e); return { ok: true }; } };
     throw new Error(name);
   } });
   return { events, async send(source, name = 'CompleteRegistration') {

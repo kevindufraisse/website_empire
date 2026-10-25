@@ -27,6 +27,9 @@ function writeCookie(name: string, value: string, days: number) {
   const secure = location.protocol === 'https:' ? '; Secure' : ''
   try {
     document.cookie = `${name}=${encodeURIComponent(value)}; max-age=${days * 86400}; path=/; SameSite=Lax${domain}${secure}`
+    if ((name === '_fbp' || name === '_fbc') && domain && location.hostname !== 'empire-internet.com') {
+      document.cookie = `${name}=; max-age=0; path=/; SameSite=Lax${secure}`
+    }
   } catch { /* A browser blocking cookies must not interrupt signup. */ }
 }
 
@@ -70,6 +73,10 @@ export function captureAttribution() {
     }
   }
 
+  // Promote existing pixel cookies to the parent domain before crossing to app.
+  if (!attr.fbp) attr.fbp = `fb.1.${Date.now()}.${Math.floor(Math.random() * 2147483647)}`
+  writeCookie('_fbp', attr.fbp, ATTR_DAYS)
+  if (attr.fbc) writeCookie('_fbc', attr.fbc, ATTR_DAYS)
   writeCookie(ATTR_COOKIE, JSON.stringify(attr), ATTR_DAYS)
 }
 
@@ -90,7 +97,7 @@ function whenFbq(run: (fbq: Fbq) => void, tries = 20) {
 export function trackMeta(
   name: string,
   params: Record<string, string | number> = {},
-  opts: { email?: string | null } = {},
+  opts: { email?: string | null; phone?: string | null; first_name?: string; last_name?: string; user_id?: string } = {},
 ): string {
   // Purchase is emitted exclusively by the signed Stripe webhook.
   if (name === 'Purchase') return ''
@@ -107,9 +114,30 @@ export function trackMeta(
       event_source_url: `${location.origin}${location.pathname}`,
       custom_data: params,
       attribution: readAttribution(),
-      ...(opts.email ? { email: opts.email } : {}),
+      ...opts,
+      identity: readMatchingIdentity(),
     }),
   }).catch(() => {})
 
   return eventId
+}
+
+export function readMatchingIdentity(): Record<string, string> {
+  try {
+    const value = JSON.parse(readCookie('empire_meta_identity') || '{}')
+    return Object.fromEntries(['em', 'ph', 'fn', 'ln', 'external_id'].filter(k => typeof value?.[k] === 'string' && /^[a-f0-9]{64}$/.test(value[k])).map(k => [k, value[k]]))
+  } catch { return {} }
+}
+
+// Carry only advertising parameters; never copy email or checkout session IDs.
+export function attributedUrl(href: string): string {
+  try {
+    const url = new URL(href, location.origin)
+    if (!/(^|\.)empire-internet\.com$/.test(url.hostname)) return href
+    const attr = readAttribution()
+    for (const key of UTM_KEYS) if (attr[key] && !url.searchParams.has(key)) url.searchParams.set(key, attr[key]!)
+    const click = attr.fbc?.split('.').slice(3).join('.')
+    if (click && !url.searchParams.has('fbclid')) url.searchParams.set('fbclid', click)
+    return url.toString()
+  } catch { return href }
 }
