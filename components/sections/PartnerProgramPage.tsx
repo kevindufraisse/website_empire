@@ -185,17 +185,17 @@ export function CtaBlock({
       <span className="inline-flex items-center gap-2 text-[15px] font-bold leading-snug">
         {fr
           ? audience === 'agency'
-            ? 'Voir le modèle agence jeudi'
-            : 'Voir comment lancer mon activité jeudi'
+            ? 'Voir la démonstration agence'
+            : 'Voir comment lancer mon activité'
           : audience === 'agency'
-            ? 'See the agency model Thursday'
-            : 'See how to launch Thursday'}
+            ? 'Watch the agency demonstration'
+            : 'See how to launch my activity'}
         <ArrowRight className="h-4 w-4 shrink-0" />
       </span>
       <span className="text-[11px] font-medium text-black/60">
         {fr
-          ? 'Gratuit · Chaque jeudi à 11 h (Paris) · 45 minutes'
-          : 'Free · Every Thursday 11am (Paris) · 45 minutes'}
+          ? 'Gratuit · Présentation enregistrée · Replay ou session au choix'
+          : 'Free · Recorded presentation · Replay or scheduled session'}
       </span>
     </WebinarJamButton>
   )
@@ -233,7 +233,7 @@ export default function PartnerProgramPage() {
         },
         {
           q: 'Les portes ouvertes sont-elles payantes ?',
-          a: `Non. Le live du jeudi est gratuit. Le bootcamp (actuellement ${festival.price} €) se paie ensuite : 297 € jusqu’au jeudi 18 h, 397 € jusqu’au samedi, 497 € le dimanche. Lundi, il repart à 297 €.`,
+          a: `Non. La présentation enregistrée est gratuite. Vous pouvez regarder le replay immédiatement ou choisir une session, dont l’horaire est affiché dans votre fuseau lors de l’inscription. Le bootcamp (actuellement ${festival.price} €) se paie ensuite : 297 € jusqu’au jeudi 18 h, 397 € jusqu’au samedi, 497 € le dimanche. Lundi, il repart à 297 €.`,
         },
         {
           q: 'Que se passe-t-il après le paiement ?',
@@ -255,7 +255,7 @@ export default function PartnerProgramPage() {
         },
         {
           q: 'Is the open house free?',
-          a: `Yes. Thursday’s live is free. The bootcamp (currently €${festival.price}) is paid after: €297 until Thursday 6pm, €397 until Saturday, €497 on Sunday. Monday resets to €297.`,
+          a: `Yes. The recorded presentation is free. Watch the replay immediately or choose a session; its time is shown in your time zone when you register. The bootcamp (currently €${festival.price}) is paid after: €297 until Thursday 6pm, €397 until Saturday, €497 on Sunday. Monday resets to €297.`,
         },
         {
           q: 'What happens after payment?',
@@ -421,7 +421,7 @@ export default function PartnerProgramPage() {
               href="#portes-ouvertes"
               className="ml-auto shrink-0 rounded-lg bg-academy px-3.5 py-2 text-[12px] font-bold text-black transition hover:brightness-110"
             >
-              {fr ? 'Live gratuit' : 'Free live'}
+              {fr ? 'Présentation gratuite' : 'Free presentation'}
             </a>
           </div>
         </div>
@@ -874,7 +874,7 @@ export default function PartnerProgramPage() {
               <div>
                 <SectionLabel>{fr ? 'Portes ouvertes' : 'Open house'}</SectionLabel>
                 <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
-                  {fr ? 'Je vous montre tout ça jeudi.' : 'I’ll show you all of this on Thursday.'}
+                  {fr ? 'Je vous montre le parcours, étape par étape.' : 'I’ll show you the workflow, step by step.'}
                 </h2>
 
                 <div className="mt-6 flex items-center gap-4">
@@ -897,14 +897,14 @@ export default function PartnerProgramPage() {
 
                 <p className="mt-5 text-[16px] leading-relaxed text-neutral-400">
                   {fr
-                ? 'Je vous retrouve aux portes ouvertes pour vous montrer le fonctionnement du programme et répondre à vos questions.'
-                : 'Join me at the open house to see how the program works and ask your questions.'}
+                ? 'Dans cette présentation enregistrée, je vous montre le fonctionnement du programme. Regardez le replay immédiatement ou choisissez une session. L’horaire affiché à l’inscription est celui de votre fuseau. Pour vos questions, répondez à l’email de confirmation.'
+                : 'This recorded presentation shows how the program works. Watch the replay immediately or choose a session. Registration times are shown in your time zone. For questions, reply to your confirmation email.'}
                 </p>
               </div>
 
               <div className="lg:pt-8">
                 <p className="text-[15px] font-medium text-white">
-                  {fr ? 'Pendant 45 minutes, vous allez voir :' : 'In 45 minutes, you’ll see:'}
+                  {fr ? 'En un peu plus d’une heure, vous allez voir :' : 'In just over an hour, you’ll see:'}
                 </p>
                 <ul className="mt-4 space-y-3">
                   {(fr
@@ -932,8 +932,8 @@ export default function PartnerProgramPage() {
                 </div>
                 <p className="mt-4 text-[13px] text-neutral-600">
                   {fr
-                    ? `Gratuit · Chaque jeudi à 11 h (Paris) · Ensuite, le bootcamp : ${festival.price} €.`
-                    : `Free · Every Thursday at 11am Paris · Then, the bootcamp: €${festival.price}.`}
+                    ? `Gratuit · Date et heure confirmées lors de l’inscription · Ensuite, le bootcamp : ${festival.price} €.`
+                    : `Free · Date and time confirmed when you register · Then, the bootcamp: €${festival.price}.`}
                 </p>
               </div>
             </div>

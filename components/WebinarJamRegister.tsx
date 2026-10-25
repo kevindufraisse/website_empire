@@ -62,7 +62,7 @@ export function WebinarJamBar({
   buttonText?: string
   /** Page d'origine, envoyée avec la conversion (pixel, GTM, Amplitude). */
   source?: string
-  /** Webinar à ouvrir : le live du jeudi par défaut, `OPEN_HOUSE_REPLAY_ID` pour le replay. */
+  /** Webinar à ouvrir : la présentation enregistrée par défaut, `OPEN_HOUSE_REPLAY_ID` pour le replay. */
   hash?: string
 }) {
   useWebinarJamConversion(source, hash)
@@ -147,8 +147,8 @@ function OpenHouseInterestForm({ fr }: { fr: boolean }) {
         </p>
         <p className="mt-2 text-[13px] text-neutral-300">
           {fr
-            ? 'On vous envoie le lien du prochain jeudi 11h (Paris).'
-            : 'We’ll send you the link for the next Thursday 11am (Paris).'}
+            ? 'Votre demande est enregistrée. Pour une question, écrivez à kevin@empire-internet.com.'
+            : 'Your request has been recorded. For questions, email kevin@empire-internet.com.'}
         </p>
       </div>
     )
@@ -160,12 +160,12 @@ function OpenHouseInterestForm({ fr }: { fr: boolean }) {
       className="rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-6"
     >
       <p className="text-[13px] font-semibold text-white">
-        {fr ? 'Recevoir le lien du prochain jeudi' : 'Get the next Thursday link'}
+        {fr ? 'Être informé de l’accès aux portes ouvertes' : 'Get updates on open-house access'}
       </p>
       <p className="mt-1 text-[12px] text-neutral-400">
         {fr
-          ? 'Chaque jeudi 11h (Paris) · 45 min · gratuit'
-          : 'Every Thursday 11am (Paris) · 45 min · free'}
+          ? 'Présentation enregistrée gratuite · Accès selon les disponibilités'
+          : 'Free recorded presentation · Access subject to availability'}
       </p>
       <div className="mt-4 space-y-3">
         <input

@@ -569,7 +569,7 @@ export default function AgencyProgramPage() {
             <div>
               <SectionLabel>{fr ? 'Démonstration agence' : 'Agency demonstration'}</SectionLabel>
               <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
-                {fr ? 'Voyez le parcours complet jeudi.' : 'See the complete workflow Thursday.'}
+                {fr ? 'Découvrez le parcours complet en démonstration.' : 'See the complete workflow in the demonstration.'}
               </h2>
               <div className="mt-6 flex items-center gap-4">
                 <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full ring-2 ring-academy/40">
@@ -584,13 +584,13 @@ export default function AgencyProgramPage() {
               </div>
               <p className="mt-5 text-[16px] leading-relaxed text-neutral-400">
                 {fr
-                  ? 'Nous vous montrons comment organiser un client, recueillir son expertise, produire ses contenus et suivre l’économie de l’offre.'
-                  : 'We show how to organize a client, capture expertise, produce content and understand the offer economics.'}
+                  ? 'Dans cette présentation enregistrée, nous vous montrons comment organiser un client, recueillir son expertise, produire ses contenus et suivre l’économie de l’offre. Replay immédiat ou session au choix, avec un horaire affiché dans votre fuseau.'
+                  : 'This recorded presentation shows how to organize a client, capture expertise, produce content and understand the offer economics. Watch the replay immediately or choose a session shown in your time zone.'}
               </p>
             </div>
             <div className="lg:pt-8">
               <p className="text-[15px] font-medium text-white">
-                {fr ? 'Pendant 45 minutes :' : 'In 45 minutes:'}
+                {fr ? 'En un peu plus d’une heure :' : 'In just over an hour:'}
               </p>
               <ul className="mt-4 space-y-3">
                 {(fr
@@ -598,13 +598,13 @@ export default function AgencyProgramPage() {
                       'Démonstration réelle du parcours client.',
                       'Répartition précise entre votre agence et Empire.',
                       'Temps, crédits, honoraires et abonnement client.',
-                      'Questions en direct sur votre portefeuille.',
+                      'Pour vos questions, répondez à l’email de confirmation.',
                     ]
                   : [
                       'Real demonstration of the client workflow.',
                       'Exact split between your agency and Empire.',
                       'Time, credits, fees and client subscription.',
-                      'Live questions about your portfolio.',
+                      'For questions, reply to your confirmation email.',
                     ]
                 ).map((line) => (
                   <li key={line} className="flex gap-3 text-[14px] text-neutral-400">
