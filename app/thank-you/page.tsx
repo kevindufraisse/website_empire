@@ -5,7 +5,9 @@ import { useEffect, useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { CheckCircle2, Check, MessageCircle, ExternalLink } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
-import LoomEmbed from '@/components/LoomEmbed'
+import LoomEmbed, { VSL_LOOM_ID } from '@/components/LoomEmbed'
+
+const BOOKING_WELCOME_LOOM_ID = '5bcf1787728447bd9c79406bb2b7e699'
 
 const SLACK_INVITE =
   'https://join.slack.com/t/empire-community/shared_invite/zt-48r5is0lz-MiYTUfVBYgNymUbb56h_6g'
@@ -14,6 +16,7 @@ function ThankYouContent() {
   const { lang } = useLanguage()
   const searchParams = useSearchParams()
   const fromWaitlist = searchParams.get('from') === 'waitlist'
+  const videoId = fromWaitlist ? VSL_LOOM_ID : BOOKING_WELCOME_LOOM_ID
   const [confirmed, setConfirmed] = useState(false)
   const fr = lang === 'fr'
 
@@ -95,12 +98,17 @@ function ThankYouContent() {
             className="mb-8"
           >
             <p className="mb-3 text-center text-sm text-neutral-400">
-              {fr ? 'En attendant notre message, regardez le système 👇' : 'While you wait for our message, watch the system 👇'}
+              {fromWaitlist
+                ? (fr ? 'En attendant notre message, regardez le système 👇' : 'While you wait for our message, watch the system 👇')
+                : (fr ? 'Avant notre rendez-vous, regardez cette vidéo de bienvenue 👇' : 'Before our appointment, watch this welcome video 👇')}
             </p>
-            <LoomEmbed title="Empire - le système" />
+            <LoomEmbed
+              id={videoId}
+              title={fromWaitlist ? 'Empire - le système' : (fr ? 'Bienvenue — préparez votre rendez-vous' : 'Welcome — prepare for your appointment')}
+            />
             <div className="text-center mt-2">
               <a
-                href="https://www.loom.com/share/184e8823d9154d74aeca55a5cd488f08"
+                href={`https://www.loom.com/share/${videoId}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-xs text-neutral-400 hover:text-empire transition-colors"
