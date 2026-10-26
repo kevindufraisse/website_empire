@@ -7,8 +7,6 @@ import { WebinarJamBar, WebinarJamButton } from '@/components/WebinarJamRegister
 import { OPEN_HOUSE_REPLAY_ID } from '@/lib/webinarjam'
 import { trackAmplitude } from '@/lib/amplitude'
 import { trackMeta } from '@/lib/meta'
-import { getPlan } from '@/lib/plans'
-import { usePartnerFestivalPricing } from '@/hooks/usePartnerFestivalPricing'
 
 /** Même vidéo que la pub des portes ouvertes. */
 const PARTNER_LOOM_ID = '5ac5b5502e104eb89db2f9ccd8485b9c'
@@ -67,8 +65,6 @@ const HOW = [
 
 export default function PartenaireClient() {
   const videoRef = useLoomEngagementTracking()
-  const pricing = usePartnerFestivalPricing()
-  const clientStarterPrice = getPlan('starter').price
 
   useEffect(() => {
     trackAmplitude('partner_vsl_viewed')
@@ -137,35 +133,6 @@ export default function PartenaireClient() {
               </li>
             ))}
           </ul>
-          <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.03] p-5 sm:p-6">
-            <h3 className="text-lg font-semibold text-white">Ce que tu achètes, étape par étape</h3>
-            <dl className="mt-5 space-y-5 text-sm leading-relaxed">
-              <div>
-                <dt className="font-semibold text-white">1. Le bootcamp : {pricing.price} €, une seule fois</dt>
-                <dd className="mt-1 text-neutral-400">
-                  La formation de 21 jours, les replays et la communauté. Tu peux commencer par la formation seule.
-                  Le prix du bootcamp varie dans la semaine ; le montant est confirmé avant le paiement.
-                </dd>
-              </div>
-              <div>
-                <dt className="font-semibold text-white">2. L’option partenaire : 197 € supplémentaires, une seule fois</dt>
-                <dd className="mt-1 text-neutral-400">
-                  Proposée après l’achat du bootcamp, elle est facultative. Elle ajoute notamment un an de lives
-                  de groupe, 4 000 crédits pour ta marque et les ressources du réseau partenaire.
-                </dd>
-              </div>
-              <div>
-                <dt className="font-semibold text-white">3. Pour chaque client : son propre abonnement Empire</dt>
-                <dd className="mt-1 text-neutral-400">
-                  À partir de {clientStarterPrice} €/mois pour la production de ses contenus. Cet abonnement
-                  est payé séparément par ton client, en plus des honoraires que tu lui factures.
-                </dd>
-              </div>
-            </dl>
-            <a href="/academy#formation" className="mt-5 inline-block text-sm font-semibold text-academy underline underline-offset-4">
-              Voir le détail de la formation et de l’option partenaire
-            </a>
-          </div>
           <p className="mt-4 text-center text-xs text-neutral-600">
             Repères indicatifs tirés du programme partenaire. Les clients et les revenus ne sont pas garantis : ils dépendent de ton travail et de ta prospection.
           </p>
