@@ -97,7 +97,7 @@ export default function FormatsClient() {
             disabled={opening}
             className="mt-6 inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-xl bg-white px-6 text-sm font-semibold text-black transition hover:bg-neutral-200 disabled:opacity-60"
           >
-            {opening ? (fr ? 'Ouverture…' : 'Opening…') : (fr ? 'Essayer 7 jours gratuits' : 'Try 7 days free')}
+            {opening ? (fr ? 'Ouverture…' : 'Opening…') : (fr ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial')}
             <ArrowRight className="h-4 w-4" />
           </button>
           <p className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-neutral-500">

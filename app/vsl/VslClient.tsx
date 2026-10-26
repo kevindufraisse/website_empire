@@ -348,7 +348,7 @@ function Ctas({ location }: { location: 'top' | 'bottom' }) {
           disabled={loading}
           className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-empire text-black font-bold px-6 py-4 text-base hover:brightness-110 transition disabled:opacity-60"
         >
-          {loading ? 'Ouverture…' : 'Tester gratuitement 7 jours'}
+          {loading ? 'Ouverture…' : 'Tester 7 jours gratuitement'}
           {!loading && <ArrowRight className="w-5 h-5" />}
         </button>
         <span data-cal-keep onClickCapture={() => trackAmplitude('vsl_call_clicked', { location })} className="flex-1 flex">

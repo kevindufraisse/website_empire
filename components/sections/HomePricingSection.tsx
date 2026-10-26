@@ -451,7 +451,7 @@ export default function HomePricingSection() {
               }}
               className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-empire px-4 py-3.5 text-center text-sm font-bold text-black transition-all hover:brightness-110"
             >
-              {fr ? 'Démarrer l\u2019essai gratuit' : 'Start free trial'}
+              {fr ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial'}
             </a>
             <p className="mt-2 text-center text-[11px] text-neutral-500">
               {fr ? '7 jours ou 500 crédits offerts, au premier des deux · Annulez en 1 clic' : '7 days or 500 credits free, whichever comes first · Cancel in 1 click'}

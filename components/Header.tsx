@@ -104,7 +104,7 @@ export default function Header() {
       onClick={onTrial}
       className="cursor-pointer rounded-lg bg-empire px-4 py-2 text-sm font-semibold text-black transition hover:brightness-110"
     >
-      {fr ? 'Essai gratuit' : 'Free trial'}
+      {fr ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial'}
     </button>
   )
 
@@ -118,7 +118,7 @@ export default function Header() {
             </span>
           </a>
 
-          <div className="hidden items-center gap-1 md:flex">
+          <div className="hidden items-center gap-1 lg:flex">
             {doors.map((d) => (
               <a
                 key={d.href}
@@ -165,7 +165,7 @@ export default function Header() {
             <div className="hidden sm:block">{cta}</div>
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 text-white transition-colors hover:text-empire md:hidden"
+              className="p-2 text-white transition-colors hover:text-empire lg:hidden"
               aria-label="Menu"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -181,7 +181,7 @@ export default function Header() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="border-t border-white/10 bg-black/98 md:hidden"
+            className="border-t border-white/10 bg-black/98 lg:hidden"
           >
             <div className="space-y-1 px-4 py-5">
               {doors.map((d) => (

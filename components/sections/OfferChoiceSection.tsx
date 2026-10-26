@@ -100,7 +100,7 @@ export default function OfferChoiceSection() {
 
           <div className="mt-10">
             <OnboardingLink className="inline-flex items-center gap-2 rounded-xl bg-empire px-8 py-4 text-base font-bold text-black transition-all hover:brightness-110 hover:scale-[1.02]">
-              {fr ? 'Démarrer Empire gratuitement' : 'Start Empire for free'}
+              {fr ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial'}
               <ArrowRight size={17} />
             </OnboardingLink>
             <p className="mt-3 text-xs text-neutral-500">

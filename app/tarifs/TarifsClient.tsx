@@ -491,7 +491,7 @@ export default function TarifsClient() {
                 disabled={opening !== null}
                 className="mt-auto inline-flex min-h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-white px-4 text-sm font-semibold text-black transition hover:bg-neutral-200 disabled:opacity-60 md:mt-6"
               >
-                {opening === 'growth' ? (fr ? 'Ouverture…' : 'Opening…') : (fr ? 'Essayer 7 jours gratuits' : 'Try free for 7 days')}
+                {opening === 'growth' ? (fr ? 'Ouverture…' : 'Opening…') : (fr ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial')}
               </button>
             </div>
           </div>
@@ -587,7 +587,7 @@ export default function TarifsClient() {
             disabled={opening !== null}
             className="mt-6 inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-xl bg-white px-6 text-sm font-semibold text-black transition hover:bg-neutral-200 disabled:opacity-60"
           >
-            {opening === 'growth' ? (fr ? 'Ouverture…' : 'Opening…') : (fr ? 'Essayer 7 jours gratuits' : 'Try 7 days free')}
+            {opening === 'growth' ? (fr ? 'Ouverture…' : 'Opening…') : (fr ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial')}
             <ArrowRight className="h-4 w-4" />
           </button>
           <p className="mt-4 text-xs text-neutral-500">

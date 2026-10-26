@@ -5,6 +5,7 @@ import HomeApplySection from '@/components/sections/HomeApplySection'
 import FeaturedInSection from '@/components/FeaturedInSection'
 import FormulaBar from '@/components/FormulaBar'
 import HomeTrialPrompt from '@/components/sections/HomeTrialPrompt'
+import WorkshopInvitation from '@/components/WorkshopInvitation'
 
 const HomeDemoSection = dynamic(() => import('@/components/sections/HomeDemoSection'))
 const FormatsShowcaseSection = dynamic(() => import('@/components/sections/FormatsShowcaseSection'))
@@ -63,6 +64,7 @@ export default function Page() {
         <IncludedFeaturesSection />
       </div>
       <CaseStudiesSection />
+      <WorkshopInvitation source="home" />
       {/* Les offres et leur essai sont accessibles directement depuis la page d’accueil. */}
       <div id="formula-apply" className="scroll-mt-20">
         <HomeApplySection />
