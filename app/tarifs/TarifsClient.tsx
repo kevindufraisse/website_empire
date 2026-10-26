@@ -62,9 +62,6 @@ const ACADEMY_VALUE_EUROS = 297
 
 const TOP50_SCREENSHOT = 'https://d1yei2z3i6k35z.cloudfront.net/3647172/68c9e9f667659_1.png'
 
-// Compte de démo de l'app : connexion anonyme, rempli selon le profil choisi.
-const DEMO_URL = 'https://app.empire-internet.com/demo'
-
 const ALL: Record<PlanId, boolean> = { starter: true, growth: true, scale: true }
 const FROM_GROWTH: Record<PlanId, boolean> = { starter: false, growth: true, scale: true }
 
@@ -291,17 +288,6 @@ export default function TarifsClient() {
     await startFreeTrial('growth')
   }
 
-  const demoLink = (location: string, label: string) => (
-    <a
-      href={DEMO_URL}
-      onClick={() => trackAmplitude('pricing_page_demo_clicked', { location })}
-      className="inline-flex items-center gap-1 text-neutral-300 underline decoration-white/20 underline-offset-4 hover:text-white"
-    >
-      {label}
-      <ArrowRight className="h-3.5 w-3.5" />
-    </a>
-  )
-
   return (
     <main className="min-h-screen overflow-x-hidden bg-black pb-24 pt-24 text-white md:pt-28">
       <div className="mx-auto max-w-5xl px-4">
@@ -319,10 +305,6 @@ export default function TarifsClient() {
         <div className="mt-8">
           <PlanCards location="cards" period={period} onPeriodChange={setPeriod} />
         </div>
-
-        <p className="mt-6 text-center text-sm">
-          {demoLink('cards', fr ? 'Voir un compte Empire déjà rempli, sans inscription' : 'See a filled-in Empire account, no sign-up')}
-        </p>
 
         <FeaturedInSection className="mt-12" variant="compact" title={fr ? 'Mis en avant par' : 'Featured by'} />
 
@@ -590,10 +572,6 @@ export default function TarifsClient() {
             {opening === 'growth' ? (fr ? 'Ouverture…' : 'Opening…') : (fr ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial')}
             <ArrowRight className="h-4 w-4" />
           </button>
-          <p className="mt-4 text-xs text-neutral-500">
-            {fr ? 'Pas encore sûr ? ' : 'Not sure yet? '}
-            {demoLink('footer', fr ? 'Visite un compte déjà rempli, sans inscription' : 'Tour a filled-in account, no sign-up')}
-          </p>
         </section>
 
         <p className="mt-16 text-center text-sm text-neutral-500">
