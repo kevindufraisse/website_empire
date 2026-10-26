@@ -60,7 +60,7 @@ export default function CustomerReviews({ title }: { title: string }) {
     <section>
       <h2 className="text-center text-sm font-semibold text-white">{title}</h2>
       <div className="mt-8 grid gap-3 md:grid-cols-3">
-        <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] md:row-span-2">
+        <div className="relative overflow-hidden rounded-2xl border border-white/25 bg-[#17191c] md:row-span-2">
           {playing ? (
             <video src={VIDEO.src} poster={VIDEO.poster} controls autoPlay playsInline className="h-full w-full object-cover" />
           ) : (
@@ -74,13 +74,13 @@ export default function CustomerReviews({ title }: { title: string }) {
               <span className="absolute bottom-3 left-3 space-y-1">
                 <Stars />
                 <span className="block text-sm font-semibold text-white">{VIDEO.name}</span>
-                <span className="block text-xs text-white/70">{VIDEO.role}</span>
+                <span className="block text-xs text-neutral-300">{VIDEO.role}</span>
               </span>
             </button>
           )}
         </div>
         {REVIEWS.map((r) => (
-          <figure key={r.name} className="flex flex-col gap-3 rounded-2xl border border-white/10 bg-white/[0.02] p-5">
+          <figure key={r.name} className="flex flex-col gap-3 rounded-2xl border border-white/25 bg-[#17191c] p-5">
             <Stars />
             <blockquote className="flex-1 text-sm leading-relaxed text-neutral-200">{r.text}</blockquote>
             <figcaption className="flex items-center gap-2.5">
@@ -88,7 +88,7 @@ export default function CustomerReviews({ title }: { title: string }) {
               <img src={r.photo} alt="" loading="lazy" className="h-8 w-8 rounded-full object-cover" />
               <span className="min-w-0">
                 <span className="block truncate text-xs font-semibold text-white">{r.name}</span>
-                <span className="block truncate text-[11px] text-neutral-500">{r.role}</span>
+                <span className="block truncate text-[11px] text-neutral-300">{r.role}</span>
               </span>
             </figcaption>
           </figure>

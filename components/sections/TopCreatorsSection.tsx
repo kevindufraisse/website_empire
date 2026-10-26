@@ -1,7 +1,7 @@
 'use client'
 
 /**
- * TopCreatorsSection - mur de témoignages des plus gros créateurs FR.
+ * TopCreatorsSection - mur de témoignages des plus gros créateurs.
  *
  * Widget Senja distinct de `TestimonialsSection` (clients Empire) : ici,
  * ce sont les créateurs à forte audience qui utilisent Empire. C'est le
@@ -51,8 +51,8 @@ export default function TopCreatorsSection({
           </p>
           <h2 className="text-3xl md:text-4xl font-extrabold text-white">
             {fr
-              ? "Ce qu'en disent les plus gros créateurs FR"
-              : 'What top French creators say'}
+              ? "Ce qu'en disent les plus gros créateurs"
+              : 'What top creators say'}
           </h2>
           <p className="mt-3 text-base text-neutral-400 max-w-2xl mx-auto">
             {fr

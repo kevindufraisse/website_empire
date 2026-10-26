@@ -161,7 +161,6 @@ const WITH_EMPIRE = {
 const PROCESS = [
   { fr: ['Idée et format préparés', 'Empire te propose le sujet et le format qui lui va.'], en: ['Idea and format ready', 'Empire suggests the topic and the format that fits it.'] },
   { fr: ['Tu filmes ou tu dictes', 'Quelques minutes face caméra, ou un vocal.'], en: ['You film or dictate', 'A few minutes on camera, or a voice note.'] },
-  { fr: ['Montage par l’IA', 'Coupes, sous-titres, accroche et mise en forme du format.'], en: ['AI edit', 'Cuts, captions, hook and the format itself.'] },
   { fr: ['Vérification par l’équipe', 'Chaque reel monté est vérifié par l’équipe avant de t’arriver.'], en: ['Checked by the team', 'Every edited reel is checked by the team before it reaches you.'] },
   { fr: ['Tu valides, ça part', 'Rien n’est publié sans toi. Programmé sur 7 réseaux.'], en: ['You approve, it goes out', 'Nothing goes out without you. Scheduled on 7 networks.'] },
 ]
@@ -251,16 +250,16 @@ const FAQ = [
 
 function Cell({ value, fr }: { value: boolean | string; fr: boolean }) {
   if (value === true) return <Check className="mx-auto h-4 w-4 text-white" aria-label={fr ? 'inclus' : 'included'} />
-  if (value === false) return <Minus className="mx-auto h-4 w-4 text-neutral-700" aria-label={fr ? 'non inclus' : 'not included'} />
+  if (value === false) return <Minus className="mx-auto h-4 w-4 text-neutral-400" aria-label={fr ? 'non inclus' : 'not included'} />
   return <span className="text-sm tabular-nums text-neutral-200">{value}</span>
 }
 
 function SectionTitle({ eyebrow, title, intro }: { eyebrow?: string; title: string; intro?: string }) {
   return (
     <div className="mx-auto max-w-2xl text-center">
-      {eyebrow && <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-neutral-500">{eyebrow}</p>}
+      {eyebrow && <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-neutral-300">{eyebrow}</p>}
       <h2 className="mt-2 text-2xl font-bold tracking-tight md:text-4xl">{title}</h2>
-      {intro && <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-neutral-400 md:text-base">{intro}</p>}
+      {intro && <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-neutral-300 md:text-base">{intro}</p>}
     </div>
   )
 }
@@ -289,13 +288,13 @@ export default function TarifsClient() {
   }
 
   return (
-    <main className="min-h-screen overflow-x-hidden bg-black pb-24 pt-24 text-white md:pt-28">
+    <main className="min-h-screen overflow-x-hidden bg-black pb-16 pt-10 text-white md:pt-14">
       <div className="mx-auto max-w-5xl px-4">
         <header className="mx-auto max-w-2xl space-y-3 text-center">
           <h1 className="text-3xl font-bold tracking-tight text-white">
             {fr ? 'Publie tous les jours, sans écrire ni monter' : 'Post every day, without writing or editing'}
           </h1>
-          <p className="text-base leading-relaxed text-white/60">
+          <p className="text-base leading-relaxed text-neutral-300">
             {fr
               ? 'Chaque semaine, Empire te prépare des idées. Tu filmes ou tu dictes quelques minutes, Empire écrit, monte et publie tes posts LinkedIn, reels, newsletters et vidéos sur 7 réseaux.'
               : 'Every week, Empire prepares ideas for you. You film or dictate for a few minutes, Empire writes, edits and publishes your LinkedIn posts, reels, newsletters and videos to 7 networks.'}
@@ -324,13 +323,13 @@ export default function TarifsClient() {
             {FORMATS.map((f) => {
               const t = fr ? f.fr : f.en
               return (
-                <figure key={f.image} className="overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.02]">
+                <figure key={f.image} className="overflow-hidden rounded-2xl border border-white/25 bg-[#17191c]">
                   <div className="relative aspect-[4/5] bg-black">
                     <Image src={f.image} alt={t.title} fill sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw" className="object-cover object-top" />
                   </div>
                   <figcaption className="p-4">
                     <p className="text-sm font-semibold">{t.title}</p>
-                    <p className="mt-1 text-xs leading-relaxed text-neutral-400">{t.how}</p>
+                    <p className="mt-1 text-xs leading-relaxed text-neutral-300">{t.how}</p>
                   </figcaption>
                 </figure>
               )
@@ -352,18 +351,18 @@ export default function TarifsClient() {
               : 'You can do it all yourself. What takes time isn’t writing a text or cutting a video: it’s knowing what to say, in which format, and keeping the pace.'}
           />
           <div className="mx-auto mt-10 grid max-w-4xl gap-4 md:grid-cols-2">
-            <div className="rounded-2xl border border-white/[0.07] bg-white/[0.02] p-6">
-              <p className="text-sm font-semibold text-neutral-400">{fr ? 'Seul, chaque semaine, tu dois :' : 'Alone, every week, you have to:'}</p>
+            <div className="rounded-2xl border border-white/25 bg-[#17191c] p-6">
+              <p className="text-sm font-semibold text-neutral-300">{fr ? 'Seul, chaque semaine, tu dois :' : 'Alone, every week, you have to:'}</p>
               <ul className="mt-4 space-y-3">
                 {(fr ? ALONE.fr : ALONE.en).map((line) => (
-                  <li key={line} className="flex items-start gap-2 text-sm text-neutral-400">
-                    <Minus className="mt-0.5 h-4 w-4 shrink-0 text-neutral-600" />
+                  <li key={line} className="flex items-start gap-2 text-sm text-neutral-300">
+                    <Minus className="mt-0.5 h-4 w-4 shrink-0 text-neutral-300" />
                     {line}
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="rounded-2xl border border-white/[0.14] bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-6">
+            <div className="rounded-2xl border border-white/35 bg-gradient-to-b from-[#252c20] to-[#151b11] p-6">
               <p className="text-sm font-semibold">{fr ? 'Avec Empire :' : 'With Empire:'}</p>
               <ul className="mt-4 space-y-3">
                 {(fr ? WITH_EMPIRE.fr : WITH_EMPIRE.en).map((line) => (
@@ -377,16 +376,16 @@ export default function TarifsClient() {
           </div>
         </section>
 
-        <section className="mx-auto mt-28 max-w-5xl space-y-4 rounded-xl border border-white/[0.07] bg-white/[0.02] p-5">
+        <section className="mx-auto mt-28 max-w-5xl space-y-4 rounded-xl border border-white/25 bg-[#17191c] p-5">
           <h2 className="text-center text-sm font-semibold text-white">{fr ? 'Comment ça marche ?' : 'How does it work?'}</h2>
-          <ol className="grid grid-cols-1 gap-4 sm:grid-cols-5">
+          <ol className="grid grid-cols-1 gap-4 sm:grid-cols-4">
             {PROCESS.map((step, i) => {
               const [title, desc] = fr ? step.fr : step.en
               return (
                 <li key={step.fr[0]} className="space-y-2 text-center">
-                  <span className={`mx-auto flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold ${i === 3 ? 'bg-white text-black' : 'bg-white/10 text-white'}`}>{i + 1}</span>
+                  <span className={`mx-auto flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold ${i === 2 ? 'bg-white text-black' : 'bg-white/10 text-white'}`}>{i + 1}</span>
                   <p className="text-xs font-semibold text-white">{title}</p>
-                  <p className="text-[11px] leading-relaxed text-white/50">{desc}</p>
+                  <p className="text-xs leading-relaxed text-neutral-300">{desc}</p>
                 </li>
               )
             })}
@@ -394,22 +393,22 @@ export default function TarifsClient() {
         </section>
 
         <section className="mx-auto mt-28 grid max-w-5xl items-center gap-10 md:grid-cols-2">
-          <div className="mx-auto w-full max-w-xs overflow-hidden rounded-2xl border border-white/10">
+          <div className="mx-auto w-full max-w-xs overflow-hidden rounded-2xl border border-white/25">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={TOP50_SCREENSHOT} alt={fr ? 'Classement Favikon : Kevin Dufraisse n°1 Growth & Lead Gen France' : 'Favikon ranking: Kevin Dufraisse #1 Growth & Lead Gen France'} loading="lazy" className="w-full" />
           </div>
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-neutral-500">{fr ? 'D’où vient la méthode' : 'Where the method comes from'}</p>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-neutral-300">{fr ? 'D’où vient la méthode' : 'Where the method comes from'}</p>
             <h2 className="mt-2 text-2xl font-bold tracking-tight md:text-3xl">
               {fr ? 'Les formats d’Empire tournent d’abord sur mes comptes.' : 'Empire’s formats run on my own accounts first.'}
             </h2>
-            <p className="mt-4 text-sm leading-relaxed text-neutral-400 md:text-base">
+            <p className="mt-4 text-sm leading-relaxed text-neutral-300 md:text-base">
               {fr
                 ? 'Favikon m’a classé n°1 des créateurs LinkedIn growth et lead gen en France. Aujourd’hui mes comptes font 10 millions de vues par mois. Empire, c’est ce système : les formats, la production et la diffusion que j’utilise, mis à ta disposition.'
                 : 'Favikon ranked me #1 growth and lead gen creator on LinkedIn in France. Today my accounts get 10 million views a month. Empire is that system: the formats, production and distribution I use, made available to you.'}
             </p>
             <p className="mt-4 text-sm font-semibold">Kevin Dufraisse</p>
-            <p className="text-xs text-neutral-500">{fr ? 'Fondateur d’Empire' : 'Founder of Empire'}</p>
+            <p className="text-xs text-neutral-300">{fr ? 'Fondateur d’Empire' : 'Founder of Empire'}</p>
           </div>
         </section>
 
@@ -419,9 +418,9 @@ export default function TarifsClient() {
             {PACK.map((block) => {
               const [title, desc] = fr ? block.fr : block.en
               return (
-                <div key={block.fr[0]} className="rounded-2xl border border-white/[0.07] bg-white/[0.02] p-6">
+                <div key={block.fr[0]} className="rounded-2xl border border-white/25 bg-[#17191c] p-6">
                   <p className="text-base font-semibold">{title}</p>
-                  <p className="mt-2 text-sm leading-relaxed text-neutral-400">{desc}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-neutral-300">{desc}</p>
                 </div>
               )
             })}
@@ -436,9 +435,9 @@ export default function TarifsClient() {
               : `For the Intermediate volume, half the credits as reels and half as posts, at 2026 published freelance rates.`}
           />
           <div className="mx-auto mt-10 grid max-w-4xl gap-4 md:grid-cols-2">
-            <div className="rounded-2xl border border-white/[0.07] bg-white/[0.02] p-6">
-              <p className="text-sm font-semibold text-neutral-400">{fr ? 'Une équipe en freelance' : 'A freelance team'}</p>
-              <ul className="mt-4 divide-y divide-white/[0.06]">
+            <div className="rounded-2xl border border-white/25 bg-[#17191c] p-6">
+              <p className="text-sm font-semibold text-neutral-300">{fr ? 'Une équipe en freelance' : 'A freelance team'}</p>
+              <ul className="mt-4 divide-y divide-white/20">
                 {teamLines.map((l) => (
                   <li key={l.fr} className="flex items-baseline justify-between gap-4 py-2.5 text-sm text-neutral-300">
                     <span>{fr ? l.fr : l.en}</span>
@@ -446,21 +445,21 @@ export default function TarifsClient() {
                   </li>
                 ))}
               </ul>
-              <p className="mt-3 flex items-baseline justify-between border-t border-white/10 pt-3 text-sm font-semibold">
+              <p className="mt-3 flex items-baseline justify-between border-t border-white/25 pt-3 text-sm font-semibold">
                 <span>{fr ? 'À partir de' : 'From'}</span>
                 <span className="tabular-nums">{teamTotal.toLocaleString(locale)} € {fr ? '/mois' : '/mo'}</span>
               </p>
-              <p className="mt-3 text-xs leading-relaxed text-neutral-500">
+              <p className="mt-3 text-xs leading-relaxed text-neutral-300">
                 {fr
                   ? 'Et c’est toi qui trouves les sujets, briefes chacun et coordonnes.'
                   : 'And you still find the topics, brief everyone and coordinate.'}
               </p>
             </div>
-            <div className="flex flex-col rounded-2xl border border-white/[0.14] bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-6">
+            <div className="flex flex-col rounded-2xl border border-white/35 bg-gradient-to-b from-[#252c20] to-[#151b11] p-6">
               <p className="text-sm font-semibold">{fr ? 'Empire Intermédiaire' : 'Empire Intermediate'}</p>
               <p className="mt-4 flex items-baseline gap-2">
                 <span className="text-[2.75rem] font-semibold leading-none tracking-tight tabular-nums">{growth.price} €</span>
-                <span className="text-sm text-neutral-500">{fr ? '/mois' : '/mo'}</span>
+                <span className="text-sm text-neutral-300">{fr ? '/mois' : '/mo'}</span>
               </p>
               <p className="mt-3 text-sm leading-relaxed text-neutral-300">
                 {fr
@@ -477,14 +476,14 @@ export default function TarifsClient() {
               </button>
             </div>
           </div>
-          <p className="mx-auto mt-4 max-w-4xl text-center text-[11px] text-neutral-600">
+          <p className="mx-auto mt-4 max-w-4xl text-center text-[11px] text-neutral-300">
             {fr
               ? `Reel monté : 50 à 120 € ; post LinkedIn : 50 à 250 € ; community manager qui gère aussi la vidéo : 1 500 à 2 500 €/mois. Sources : `
               : `Edited reel: €50 to €120; LinkedIn post: €50 to €250; community manager who also handles video: €1,500 to €2,500/mo. Sources: `}
             {FREELANCE_SOURCES.map((src, i) => (
               <span key={src.href}>
                 {i > 0 && ', '}
-                <a href={src.href} target="_blank" rel="noopener noreferrer" className="underline decoration-white/20 underline-offset-2 hover:text-neutral-400">{src.label}</a>
+                <a href={src.href} target="_blank" rel="noopener noreferrer" className="underline decoration-white/20 underline-offset-2 hover:text-white">{src.label}</a>
               </span>
             ))}
             .
@@ -493,15 +492,15 @@ export default function TarifsClient() {
 
         <section className="mt-28">
           <SectionTitle title={fr ? 'Comparer les formules' : 'Compare plans'} />
-          <div className="mx-auto mt-10 max-w-4xl overflow-hidden rounded-2xl border border-white/10">
+          <div className="mx-auto mt-10 max-w-4xl overflow-hidden rounded-2xl border border-white/25">
             <table className="w-full border-collapse text-left">
               <thead>
-                <tr className="border-b border-white/10 bg-white/[0.02]">
-                  <th className="px-3 py-4 text-xs font-medium text-neutral-500 sm:px-5 sm:text-sm">{fr ? 'Chaque mois' : 'Every month'}</th>
+                <tr className="border-b border-white/25 bg-[#24282d]">
+                  <th className="px-3 py-4 text-xs font-medium text-neutral-300 sm:px-5 sm:text-sm">{fr ? 'Chaque mois' : 'Every month'}</th>
                   {PLANS.map((p) => (
                     <th key={p.id} className="w-[19%] px-0.5 py-4 text-center text-[11px] font-semibold sm:w-[20%] sm:px-3 sm:text-sm">
                       {PLAN_LABELS[p.id][fr ? 'fr' : 'en']}
-                      <span className="block text-[11px] font-normal tabular-nums text-neutral-500 sm:text-xs">
+                      <span className="block text-[11px] font-normal tabular-nums text-neutral-300 sm:text-xs">
                         {finalPrice(p.price, period, 1)} €{fr ? '/mois' : '/mo'}
                       </span>
                     </th>
@@ -512,14 +511,14 @@ export default function TarifsClient() {
                 {ROWS.map((row, i) => (
                   <Fragment key={row.fr}>
                     {row.group && row.group !== ROWS[i - 1]?.group && (
-                      <tr className="border-b border-white/[0.06] bg-white/[0.02]">
-                        <td colSpan={4} className="px-3 py-2.5 text-[11px] font-semibold uppercase tracking-[0.15em] text-neutral-500 sm:px-5">{GROUP_LABELS[row.group][fr ? 'fr' : 'en']}</td>
+                      <tr className="border-b border-white/25 bg-[#24282d]">
+                        <td colSpan={4} className="px-3 py-2.5 text-[11px] font-semibold uppercase tracking-[0.15em] text-neutral-300 sm:px-5">{GROUP_LABELS[row.group][fr ? 'fr' : 'en']}</td>
                       </tr>
                     )}
-                    <tr className="border-b border-white/[0.06] last:border-0">
+                    <tr className="border-b border-white/25 last:border-0">
                       <td className="px-3 py-3 text-xs leading-snug text-neutral-300 sm:px-5 sm:py-3.5 sm:text-sm">{fr ? row.fr : row.en}</td>
                       {PLANS.map((p) => (
-                        <td key={p.id} className={`px-1 py-3 text-center sm:px-3 ${p.id === 'growth' ? 'bg-white/[0.03]' : ''}`}>
+                        <td key={p.id} className={`px-1 py-3 text-center sm:px-3 ${p.id === 'growth' ? 'bg-empire/[0.08]' : ''}`}>
                           <Cell value={row.cells[p.id]} fr={fr} />
                         </td>
                       ))}
@@ -534,12 +533,12 @@ export default function TarifsClient() {
         <section className="mx-auto mt-28 max-w-2xl space-y-3">
           <h2 className="text-center text-sm font-semibold text-white">{fr ? 'Questions fréquentes' : 'FAQ'}</h2>
           {FAQ.map((item) => (
-            <details key={item.q.fr} className="group rounded-lg border border-white/[0.07] bg-white/[0.02]">
-              <summary className="flex cursor-pointer list-none items-center justify-between px-4 py-3 text-xs font-medium text-white transition-colors hover:text-white/80 [&::-webkit-details-marker]:hidden">
+            <details key={item.q.fr} className="group rounded-xl border border-white/30 bg-[#17191c]">
+              <summary className="flex cursor-pointer list-none items-center justify-between min-h-12 px-4 py-3 text-sm font-medium text-white transition-colors hover:text-white/80 [&::-webkit-details-marker]:hidden">
                 {fr ? item.q.fr : item.q.en}
-                <ChevronDown className="ml-2 h-3.5 w-3.5 shrink-0 text-white/40 transition-transform group-open:rotate-180" />
+                <ChevronDown className="ml-2 h-3.5 w-3.5 shrink-0 text-neutral-300 transition-transform group-open:rotate-180" />
               </summary>
-              <p className="px-4 pb-3 text-xs leading-relaxed text-white/55">
+              <p className="px-4 pb-4 text-sm leading-relaxed text-neutral-300">
                 {fr ? item.a.fr : item.a.en}
                 {item.link && (
                   <>
@@ -554,11 +553,11 @@ export default function TarifsClient() {
           ))}
         </section>
 
-        <section className="mx-auto mt-24 max-w-2xl rounded-2xl border border-white/15 bg-gradient-to-b from-white/[0.07] to-white/[0.02] px-6 py-10 text-center">
+        <section className="mx-auto mt-24 max-w-2xl rounded-2xl border border-white/15 bg-gradient-to-b from-[#252c20] to-[#151b11] px-6 py-10 text-center">
           <h2 className="text-2xl font-bold tracking-tight md:text-3xl">
             {fr ? 'Essaie 7 jours, sans payer.' : 'Try it for 7 days, free.'}
           </h2>
-          <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-neutral-400">
+          <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-neutral-300">
             {fr
               ? `Formule Intermédiaire, 7 jours ou ${TRIAL_CREDITS} crédits gratuits, puis ${growth.price} €/mois. Annule avant : 0 €.`
               : `Intermediate plan, 7 days or ${TRIAL_CREDITS} credits free, then €${growth.price}/mo. Cancel before: €0.`}
@@ -574,7 +573,7 @@ export default function TarifsClient() {
           </button>
         </section>
 
-        <p className="mt-16 text-center text-sm text-neutral-500">
+        <p className="mt-16 text-center text-sm text-neutral-300">
           {fr ? 'Tu accompagnes des clients (freelance, consultant, agence) ? ' : 'You coach clients (freelancer, consultant, agency)? '}
           <a
             href="/academy"

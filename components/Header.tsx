@@ -37,7 +37,7 @@ export default function Header() {
   const isAcademyPage = pathname === '/academy' || pathname?.startsWith('/academy/')
 
   if (isCandidaturePage) return null
-  if (pathname === '/live') return null
+  if (pathname === '/live' || pathname === '/tarifs') return null
 
   if (pathname === '/academy/merci' || pathname === '/thank-you' || pathname === '/webinar' || pathname === '/webinar/merci' || pathname === '/final-offer' || pathname === '/vsl' || pathname === '/partenaire') {
     return (

@@ -4,7 +4,7 @@ import { useReveal } from '@/hooks/useReveal'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import { X, Minus, Check } from 'lucide-react'
-import WaitlistEmailCta from '@/components/WaitlistEmailCta'
+import EmpireSalesCta from '@/components/EmpireSalesCta'
 
 type Cell = { fr: string; en: string }
 
@@ -190,7 +190,7 @@ export default function QuickWinsSection() {
           transition={{ duration: 0.6, delay: 0.6 }}
           className="text-center"
         >
-          <WaitlistEmailCta compact />
+          <EmpireSalesCta source="home-comparison" />
         </motion.div>
       </div>
     </section>

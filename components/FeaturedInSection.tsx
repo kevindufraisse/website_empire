@@ -93,7 +93,7 @@ export default function FeaturedInSection({ title, className = '', accent = 'neu
 
   return (
     <section aria-label={resolvedTitle} className={`w-full ${className}`}>
-      <p className={`text-center font-semibold uppercase tracking-[0.18em] ${compact ? 'text-[10px] text-neutral-600' : `text-[11px] ${labelClass}`}`}>
+      <p className={`text-center font-semibold uppercase tracking-[0.18em] ${compact ? 'text-xs text-neutral-300' : `text-[11px] ${labelClass}`}`}>
         {resolvedTitle}
       </p>
       <div className={`mt-4 grid gap-3 ${compact ? 'grid-cols-3 sm:grid-cols-6' : 'grid-cols-3 sm:grid-cols-4 md:grid-cols-6'}`}>
