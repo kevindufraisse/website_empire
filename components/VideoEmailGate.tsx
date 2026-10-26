@@ -17,7 +17,7 @@ export function storedVideoEmail(): string | null {
   }
 }
 
-function storeVideoEmail(email: string) {
+export function storeVideoEmail(email: string) {
   try {
     window.localStorage.setItem(EMAIL_KEY, email)
   } catch {

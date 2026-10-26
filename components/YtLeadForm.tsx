@@ -127,7 +127,10 @@ function CalModal({ lead, countryCode, onClose }: { lead: Lead; countryCode: str
 }
 
 // ── Main form ─────────────────────────────────────────────────────────────────
-export default function YtLeadForm({ eventName = 'ads_conversion_book_appointment' }: { eventName?: string }) {
+export default function YtLeadForm({ eventName = 'ads_conversion_book_appointment', prefilledLead }: {
+  eventName?: string
+  prefilledLead?: Pick<Lead, 'firstName' | 'email'>
+}) {
   const { lang } = useLanguage()
   const { autopilot } = useAutopilot()
   const accent = autopilot
@@ -147,7 +150,7 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
       }
   const [loading, setLoading] = useState(false)
   const [showCal, setShowCal] = useState(false)
-  const [form, setForm] = useState<Lead>({ firstName: '', email: '', phone: '' })
+  const [form, setForm] = useState<Lead>({ firstName: prefilledLead?.firstName || '', email: prefilledLead?.email || '', phone: '' })
   const [countryIdx, setCountryIdx] = useState(0)
   const [countryOpen, setCountryOpen] = useState(false)
   const [errors, setErrors] = useState<Record<string, boolean>>({})
@@ -210,6 +213,7 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
     <>
       {/* ── Form ── */}
       <form onSubmit={handleSubmit} className="space-y-3">
+        {!prefilledLead && <>
         <input
           type="text"
           placeholder="Votre prénom *"
@@ -227,6 +231,7 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
           inputMode="email"
           className={`w-full px-4 py-3.5 rounded-xl bg-white/[0.06] border text-white placeholder:text-neutral-400 focus:outline-none focus:ring-1 ${accent.ring} transition-all text-sm ${errors.email ? 'border-red-500' : `border-white/40 ${accent.border}`}`}
         />
+        </>}
 
         <div className={`flex rounded-xl bg-white/[0.06] border overflow-hidden transition-all ${errors.phone ? 'border-red-500' : `border-white/40 ${accent.focusWithin} focus-within:ring-1`}`}>
           <div ref={dropdownRef} className="relative">
