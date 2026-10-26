@@ -23,7 +23,7 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 }
 
 export default function FormatsCTA() {
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()
 
   return (
     <section className="container section-spacing">
@@ -42,7 +42,7 @@ export default function FormatsCTA() {
 
             <div className="flex flex-col items-center justify-center gap-4 pt-4">
               <OnboardingLink className="inline-block px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)] text-center">
-                {t.finalCTA.watchDemo}
+                {lang === 'fr' ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial'}
               </OnboardingLink>
               <CtaReassurance className="px-2" />
             </div>

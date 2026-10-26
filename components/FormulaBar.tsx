@@ -34,6 +34,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import { trackAmplitude } from '@/lib/amplitude'
+import { startFreeTrial } from '@/lib/startTrial'
 
 type TermId = 'message' | 'format' | 'diffusion' | 'time' | 'cost' | 'visibility'
 
@@ -339,18 +340,20 @@ export default function FormulaBar() {
             )}
           </AnimatePresence>
         </div>
-        {/* Le bouton workshop vit dans la pilule (pas dans le hero, qui a
-            le sien) : dessous sur mobile, à droite sur grand écran. */}
+        {/* Le bouton d’essai reste accessible pendant la lecture : dessous sur mobile, à droite sur grand écran. */}
         {!docked && (
-          <a
-            href="/vsl"
-            onClick={() => trackAmplitude('formula_bar_workshop_clicked')}
+          <button
+            type="button"
+            data-cta="sticky-trial"
+            onClick={() => {
+              trackAmplitude('formula_bar_trial_clicked')
+              startFreeTrial()
+            }}
             className="mx-2 mb-2 flex min-h-0 items-center justify-center gap-1.5 rounded-xl bg-empire px-4 py-2 text-xs font-bold text-black transition hover:brightness-110 sm:text-sm lg:mx-0 lg:mb-0 lg:mr-2.5 lg:py-2.5"
           >
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M7 4.5v15l13-7.5z" /></svg>
-            {fr ? 'Voir le workshop gratuit' : 'Watch the free workshop'}
-            <span className="font-semibold opacity-70">· 1 h 26</span>
-          </a>
+            {fr ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial'}
+            <span aria-hidden>→</span>
+          </button>
         )}
       </div>
 
@@ -390,7 +393,7 @@ export default function FormulaBar() {
     )
   }
 
-  // En bas de l'écran : la pilule seule, bouton workshop inclus.
+  // En bas de l'écran : la pilule seule, bouton d’essai inclus.
   return (
     <AnimatePresence>
       {mode === 'floating' && (

@@ -1,6 +1,7 @@
 'use client'
 import { X, Phone } from 'lucide-react'
 import { useState } from 'react'
+import OnboardingLink from '@/components/OnboardingLink'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { LAUNCH_OFFER_ACTIVE } from '@/lib/pricing-config'
 import { SPOTS_LABEL_FR, SPOTS_LABEL_EN } from '@/lib/launch-offer'
@@ -21,17 +22,17 @@ export default function AnnouncementBanner() {
           <span className="font-semibold">
             {lang === 'fr' ? SPOTS_LABEL_FR : SPOTS_LABEL_EN}
           </span>
-          <a
-            href="/vsl"
+          <OnboardingLink
+
             className="flex flex-col items-center gap-0 px-2 py-1 bg-black text-empire font-bold rounded hover:scale-105 transition-all ml-1"
           >
             <span className="leading-none text-[10px] sm:text-xs whitespace-nowrap">
-              {lang === 'fr' ? 'Voir le workshop gratuit →' : 'Watch the free workshop →'}
+              {lang === 'fr' ? 'Tester 7 jours gratuitement →' : 'Start my 7-day free trial →'}
             </span>
             <span className="text-[7px] sm:text-[8px] font-semibold text-empire/90 leading-tight text-center max-w-[8rem] sm:max-w-[10rem]">
-              {lang === 'fr' ? '1 h 26' : '1h26'}
+              {lang === 'fr' ? '500 crédits inclus' : '500 credits included'}
             </span>
-          </a>
+          </OnboardingLink>
           <button
             onClick={() => setCallbackOpen(true)}
             className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 bg-black/80 text-white font-semibold rounded hover:scale-105 transition-all whitespace-nowrap ml-1"
@@ -39,7 +40,7 @@ export default function AnnouncementBanner() {
             <Phone size={10} />
             {lang === 'fr' ? 'On vous rappelle' : 'We call you'}
           </button>
-          
+
           <button
             onClick={() => setDismissed(true)}
             className="absolute right-1 top-1/2 -translate-y-1/2 p-0.5 hover:bg-black/10 rounded transition-colors"

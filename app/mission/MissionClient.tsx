@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import OnboardingLink from '@/components/OnboardingLink'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function MissionClient() {
@@ -39,12 +40,12 @@ export default function MissionClient() {
         </p>
 
         <div className="mt-12 flex flex-col gap-3 sm:flex-row">
-          <a
-            href="/vsl"
+          <OnboardingLink
+
             className="inline-flex items-center justify-center gap-2 rounded-xl bg-empire px-6 py-3.5 text-sm font-bold text-black transition hover:brightness-110"
           >
-            {fr ? 'Voir le workshop gratuit · 1 h 26' : 'Watch the free workshop · 1h26'}
-          </a>
+            {fr ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial'}
+          </OnboardingLink>
           <a
             href="/tarifs"
             className="inline-flex items-center justify-center rounded-xl border border-white/15 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-white/5"

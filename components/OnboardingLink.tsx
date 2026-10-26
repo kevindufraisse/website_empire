@@ -1,16 +1,17 @@
 'use client'
 
+import { TRIAL_URL } from '@/lib/startTrial'
 import { ReactNode } from 'react'
 import posthog from 'posthog-js'
 import { trackAmplitude, withAmplitudeDeviceId } from '@/lib/amplitude'
 
-/** App onboarding (installer le système) - no self-serve purchase. */
+/** Inscription Empire. */
 export const ONBOARDING_URL = 'https://app.empire-internet.com/onboarding'
 
-/** CTA principal Empire : le workshop gratuit (/vsl), qui mène à l'essai. */
-export const APPLY_URL = '/vsl'
+/** CTA principal Empire : inscription avec l’intention d’essai conservée. */
+export const APPLY_URL = TRIAL_URL
 
-// CTA principal : le workshop. Capture le clic dans PostHog avant la navigation.
+// CTA principal : l’essai gratuit. Capture le clic dans PostHog avant la navigation.
 export default function OnboardingLink({
   className,
   children,
@@ -18,7 +19,7 @@ export default function OnboardingLink({
 }: {
   className?: string
   children: ReactNode
-  /** Override destination. Default = apply form. Pass ONBOARDING_URL to install the system. */
+  /** Override destination. Default = free trial signup. */
   href?: string
 }) {
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {

@@ -4,6 +4,7 @@ import TopCreatorsSection from '@/components/sections/TopCreatorsSection'
 import HomeApplySection from '@/components/sections/HomeApplySection'
 import FeaturedInSection from '@/components/FeaturedInSection'
 import FormulaBar from '@/components/FormulaBar'
+import HomeTrialPrompt from '@/components/sections/HomeTrialPrompt'
 
 const HomeDemoSection = dynamic(() => import('@/components/sections/HomeDemoSection'))
 const FormatsShowcaseSection = dynamic(() => import('@/components/sections/FormatsShowcaseSection'))
@@ -40,6 +41,7 @@ export default function Page() {
       <div id="formula-format">
         <FormatsShowcaseSection />
       </div>
+      <HomeTrialPrompt moment="formats" />
       <div id="formula-diffusion">
         <RepurposingSection />
       </div>
@@ -47,11 +49,13 @@ export default function Page() {
           le début de page avance plus vite vers la formule, et la preuve
           arrive une fois qu'on a vu ce que le produit fait. */}
       <TestimonialsSection />
+      <HomeTrialPrompt moment="proof" />
       {/* ÷ Temps se révèle à l'app (20 min à 1 h / semaine), ÷ Coût au
           comparatif Seul / Freelances / Empire. */}
       <div id="formula-time">
         <MobileAppSection />
       </div>
+      <HomeTrialPrompt moment="time" />
       <div id="formula-cost">
         <QuickWinsSection />
       </div>

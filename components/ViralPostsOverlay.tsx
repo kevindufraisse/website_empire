@@ -256,7 +256,7 @@ export default function ViralPostsOverlay() {
             </p>
 
             <OnboardingLink className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl bg-empire px-6 py-3.5 font-bold text-black transition-transform hover:scale-[1.02]">
-              Voir le workshop gratuit
+              Tester 7 jours gratuitement
               <ArrowRight size={18} />
             </OnboardingLink>
           </div>

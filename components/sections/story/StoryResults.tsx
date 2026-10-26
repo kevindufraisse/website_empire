@@ -118,7 +118,7 @@ export default function StoryResults() {
                 <OnboardingLink
                   className="inline-block px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.5)] hover:shadow-[0_0_40px_rgb(var(--empire-rgb)_/_0.7)]"
                 >
-                  {t.story.results.finalCta}
+                  {lang === 'fr' ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial'}
                 </OnboardingLink>
                 <CtaReassurance className="mt-4 px-2" />
               </div>

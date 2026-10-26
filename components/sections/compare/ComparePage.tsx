@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import OnboardingLink from '@/components/OnboardingLink'
 import { Check } from 'lucide-react'
 import { COMPARISONS, EMPIRE_ALSO, EMPIRE_TERMS, PROOF_DATE, PROOF_POSTS, TOOL_STACK } from './comparisons'
 
@@ -44,7 +45,6 @@ export type ComparePageProps = {
   faq: Array<{ q: string; a: string }>
 }
 
-const APPLY_URL = '/vsl'
 
 const TERMS: Record<FormulaTermId, { label: string; question: string }> = {
   message: { label: 'Message', question: 'Quoi dire ?' },
@@ -98,9 +98,9 @@ export default function ComparePage(props: ComparePageProps) {
           <h1 className="mb-5 text-4xl font-extrabold leading-tight md:text-6xl">{title || `Empire vs ${competitor}`}</h1>
           <p className="mx-auto mb-8 max-w-2xl text-lg text-neutral-300 md:text-xl">{verdict}</p>
           <div className="mb-10 flex flex-wrap items-center justify-center gap-3">
-            <Link href={APPLY_URL} className="rounded-lg bg-empire px-6 py-3 font-semibold text-black transition hover:opacity-90">
-              Voir le workshop gratuit
-            </Link>
+            <OnboardingLink className="rounded-lg bg-empire px-6 py-3 font-semibold text-black transition hover:opacity-90">
+              Tester 7 jours gratuitement
+            </OnboardingLink>
             <a href="#formule" className="rounded-lg border border-white/15 px-6 py-3 font-semibold text-white transition hover:border-white/30">
               Comparer terme par terme
             </a>
@@ -283,10 +283,10 @@ export default function ComparePage(props: ComparePageProps) {
       <section className="w-full pb-24 pt-8">
         <div className="container max-w-3xl text-center">
           <h2 className="mb-4 text-3xl font-extrabold md:text-4xl">Le bon message, dans le bon format, partout</h2>
-          <p className="mb-8 text-neutral-300">La formule en 1 h 26, puis 7 jours et 500 crédits pour la tester gratuitement.</p>
-          <Link href={APPLY_URL} className="inline-block rounded-lg bg-empire px-8 py-3.5 font-semibold text-black transition hover:opacity-90">
-            Voir le workshop gratuit
-          </Link>
+          <p className="mb-8 text-neutral-300">Créez vos premiers contenus avec 7 jours gratuits et 500 crédits.</p>
+          <OnboardingLink className="inline-block rounded-lg bg-empire px-8 py-3.5 font-semibold text-black transition hover:opacity-90">
+            Tester 7 jours gratuitement
+          </OnboardingLink>
         </div>
       </section>
     </main>

@@ -4,6 +4,8 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import { Mail } from 'lucide-react'
 import { GiftFooterLink } from '@/components/GiftCountdownContext'
+import OnboardingLink from '@/components/OnboardingLink'
+import { partnerPayHref } from '@/lib/partner-festival-pricing'
 import { postitJoinUrl } from '@/lib/postit'
 
 export default function Footer() {
@@ -12,7 +14,7 @@ export default function Footer() {
   const pathname = usePathname()
   
   const isPartnersPage = pathname === '/partners'
-  const isAcademyPage = pathname === '/academy'
+  const isAcademyPage = pathname === '/academy' || pathname?.startsWith('/academy/')
   const isVslPage = pathname === '/vsl'
   const isCandidaturePage = pathname === '/candidature' || pathname === '/decouverte' || pathname === '/join-us' || pathname === '/postuler' || pathname?.startsWith('/hire-our-team')
 
@@ -92,13 +94,17 @@ export default function Footer() {
           {/* CTA */}
           <div className="flex flex-col items-center md:items-end">
             {!isPartnersPage && !isVslPage && !autopilot && (
-              <a
-                href="/vsl"
-                className="inline-flex flex-col items-start text-left px-6 py-3.5 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_20px_rgb(var(--empire-rgb)_/_0.3)]"
+              <OnboardingLink
+                href={isAcademyPage ? partnerPayHref() : undefined}
+                className={`inline-flex flex-col items-start rounded-xl px-6 py-3.5 text-left font-bold text-black transition hover:brightness-110 ${isAcademyPage ? 'bg-academy' : 'bg-empire'}`}
               >
-                <span className="text-left">{lang === 'fr' ? 'Voir le workshop gratuit' : 'Watch the free workshop'}</span>
-                <span className="text-[10px] font-semibold opacity-70 text-left">{lang === 'fr' ? '1 h 26 · la formule du million de vues' : '1h26 · the million-views formula'}</span>
-              </a>
+                <span>{isAcademyPage
+                  ? (lang === 'fr' ? 'Rejoindre l’Academy' : 'Join the Academy')
+                  : (lang === 'fr' ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial')}</span>
+                <span className="mt-1 text-[10px] font-semibold opacity-70">{isAcademyPage
+                  ? (lang === 'fr' ? 'Paiement unique · Accès immédiat' : 'One-time payment · Instant access')
+                  : (lang === 'fr' ? '500 crédits inclus dans l’essai' : '500 credits included in your trial')}</span>
+              </OnboardingLink>
             )}
           </div>
         </div>

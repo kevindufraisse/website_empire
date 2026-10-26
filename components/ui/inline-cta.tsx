@@ -21,8 +21,8 @@ export function InlineCTA({
   urgencyLabel = 'Limited spots',
   variant = 'default' 
 }: InlineCTAProps) {
-  const { t } = useLanguage()
-  const resolvedPrimary = primaryText ?? t.common.startNow
+  const { lang } = useLanguage()
+  const resolvedPrimary = primaryText ?? (lang === 'fr' ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial')
 
   if (variant === 'minimal') {
     return (
