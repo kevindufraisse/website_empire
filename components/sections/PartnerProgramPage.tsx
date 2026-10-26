@@ -117,6 +117,16 @@ export function FestivalPriceBlock({
       <p className="mt-2 text-[12px] text-neutral-500">
         {fr ? 'Accès immédiat, à ton rythme. Pas d’abonnement.' : 'Instant access, at your own pace. No subscription.'}
       </p>
+      <p className="mt-3 border-t border-academy/20 pt-3 text-sm leading-relaxed text-neutral-300">
+        {fr
+          ? 'Ce prix couvre la formation, les replays et la communauté. L’option partenaire est facultative : 197 € supplémentaires, en paiement unique, proposés après l’achat.'
+          : 'This price covers training, replays and the community. Partner status is optional: an additional €197 one-time payment, offered after checkout.'}
+      </p>
+      <p className="mt-2 text-sm leading-relaxed text-neutral-400">
+        {fr
+          ? `Tes clients paient séparément leur abonnement Empire, à partir de ${getPlan('starter').price} €/mois, en plus de tes honoraires d’accompagnement.`
+          : `Your clients pay their own Empire subscription separately, from €${getPlan('starter').price}/month, in addition to your service fees.`}
+      </p>
     </div>
   )
 }
