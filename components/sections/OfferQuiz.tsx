@@ -283,11 +283,11 @@ const RESULTS: Record<OfferId, {
     labelEn: 'Empire',
     titleFr: 'Parlez 1 heure. Nous créons un mois de contenus.',
     titleEn: 'Talk for 1 hour. We create a month of content.',
-    descFr: 'Parlez 1 heure. Nous créons un mois de contenus. Commencez par le workshop gratuit.',
-    descEn: 'Talk for 1 hour. We create a month of content. Start with the free workshop.',
-    ctaFr: 'Voir le workshop gratuit',
-    ctaEn: 'Watch the free workshop',
-    href: '/vsl',
+    descFr: 'Parlez 1 heure. Nous créons un mois de contenus. Testez Empire gratuitement pendant 7 jours.',
+    descEn: 'Talk for 1 hour. We create a month of content. Try Empire free for 7 days.',
+    ctaFr: 'Tester 7 jours gratuitement',
+    ctaEn: 'Start my 7-day free trial',
+    href: 'https://app.empire-internet.com/onboarding?plan=growth&intent=trial&billing=monthly',
   },
   legende: {
     icon: Crown,
@@ -433,7 +433,7 @@ export function OfferQuizGlobal({ fr }: { fr: boolean }) {
   // Prix par place, hors remise de volume : la réponse "2 à 4 personnes" ne dit
   // pas le nombre exact, et la remise ne démarre qu'à 3 places. Mieux vaut
   // annoncer le tarif plein et laisser l'onboarding appliquer la remise.
-  const empireHref = '/vsl'
+  const empireHref = `https://app.empire-internet.com/onboarding?plan=${planId}&intent=trial&billing=monthly`
 
   const modal = (
     <AnimatePresence>

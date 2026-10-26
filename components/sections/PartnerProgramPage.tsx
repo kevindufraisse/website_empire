@@ -10,7 +10,7 @@ import { trackAmplitude } from '@/lib/amplitude'
 import { partnerPayHref } from '@/lib/partner-festival-pricing'
 import { getPlan } from '@/lib/plans'
 import { usePartnerFestivalPricing } from '@/hooks/usePartnerFestivalPricing'
-import { WebinarJamBar, WebinarJamButton } from '@/components/WebinarJamRegister'
+import { WEBINARJAM_REGISTER_URL } from '@/lib/webinarjam'
 import FeaturedInSection from '@/components/FeaturedInSection'
 import TopCreatorsSection from '@/components/sections/TopCreatorsSection'
 import AcademyProductDemo from '@/components/AcademyProductDemo'
@@ -46,15 +46,15 @@ export function PartnerPayLink({
     <a
       href={partnerPayHref()}
       onClick={() => trackAmplitude('academy_partner_checkout_clicked', { source, price, audience })}
-      className="inline-flex h-11 w-full max-w-md items-center justify-center gap-2 rounded-2xl border border-white/20 bg-transparent px-6 text-[14px] font-semibold text-white transition hover:border-white/40 hover:bg-white/[0.04]"
+      className="inline-flex h-11 w-full max-w-md items-center justify-center gap-2 rounded-2xl bg-academy px-6 text-[14px] font-bold text-black transition hover:brightness-110"
     >
       {fr
         ? audience === 'agency'
-          ? `Commencer le bootcamp · ${price} €`
-          : `Commencer le bootcamp · ${price} €`
+          ? `Rejoindre l’Academy · ${price} €`
+          : `Rejoindre l’Academy · ${price} €`
         : audience === 'agency'
-          ? `Start the bootcamp · €${price}`
-          : `Start the bootcamp · €${price}`}
+          ? `Join the Academy · €${price}`
+          : `Join the Academy · €${price}`}
       <ArrowRight className="h-4 w-4" />
     </a>
   )
@@ -186,28 +186,29 @@ export function CtaBlock({
   fullWidth?: boolean
 }) {
   return (
-    <WebinarJamButton
+    <a href={WEBINARJAM_REGISTER_URL}
+      target="_blank" rel="noopener noreferrer"
       onClick={() => trackOpen(source, audience)}
-      className={`inline-flex flex-col items-center justify-center gap-0.5 rounded-2xl bg-academy px-6 py-3.5 text-black transition hover:brightness-110 ${
+      className={`inline-flex flex-col items-center justify-center gap-0.5 rounded-2xl border border-white/20 px-6 py-3.5 text-white transition hover:brightness-110 ${
         fullWidth ? 'w-full' : 'mx-auto w-full max-w-md'
       }`}
     >
       <span className="inline-flex items-center gap-2 text-[15px] font-bold leading-snug">
         {fr
           ? audience === 'agency'
-            ? 'Voir la démonstration agence'
-            : 'Voir comment lancer mon activité'
+            ? 'Voir les portes ouvertes'
+            : 'Voir les portes ouvertes'
           : audience === 'agency'
-            ? 'Watch the agency demonstration'
-            : 'See how to launch my activity'}
+            ? 'Watch the open house'
+            : 'Watch the open house'}
         <ArrowRight className="h-4 w-4 shrink-0" />
       </span>
-      <span className="text-[11px] font-medium text-black/60">
+      <span className="text-[11px] font-medium text-neutral-400">
         {fr
           ? 'Gratuit · Présentation enregistrée · Replay ou session au choix'
           : 'Free · Recorded presentation · Replay or scheduled session'}
       </span>
-    </WebinarJamButton>
+    </a>
   )
 }
 
@@ -275,7 +276,6 @@ export default function PartnerProgramPage() {
 
   return (
     <main className="relative bg-black pb-40 text-white antialiased">
-      <WebinarJamBar buttonText={fr ? "S'inscrire" : 'Register'} />
       <Script
         id="academy-partner-senja"
         src="https://widget.senja.io/widget/2a990f91-6426-436a-b50d-318fc49a7851/platform.js"
@@ -359,12 +359,10 @@ export default function PartnerProgramPage() {
             </p>
             <AcademyPlatformLogos fr={fr} />
             <div className="mt-8 flex w-full flex-col items-center gap-3">
-              <CtaBlock fr={fr} source="hero" audience={audience} />
-              <p className="mt-2 text-[12px] text-neutral-500">
-                {fr ? 'Déjà convaincu ? Rejoignez directement.' : 'Already convinced? Join right away.'}
-              </p>
-              <FestivalPriceBlock fr={fr} pricing={festival} />
               <PartnerPayLink fr={fr} source="hero" price={festival.price} audience={audience} />
+              <p className="text-xs text-neutral-400">{fr ? 'Paiement unique · Accès immédiat · Formation, replays et communauté inclus' : 'One-time payment · Instant access · Training, replays and community included'}</p>
+              <CtaBlock fr={fr} source="hero" audience={audience} />
+              <FestivalPriceBlock fr={fr} pricing={festival} />
             </div>
             <dl className="mx-auto mt-6 grid max-w-2xl grid-cols-3 divide-x divide-white/[0.08] border-y border-white/[0.08] py-4">
               {(fr
@@ -428,10 +426,10 @@ export default function PartnerProgramPage() {
               </a>
             ))}
             <a
-              href="#portes-ouvertes"
+              href={partnerPayHref()}
               className="ml-auto shrink-0 rounded-lg bg-academy px-3.5 py-2 text-[12px] font-bold text-black transition hover:brightness-110"
             >
-              {fr ? 'Présentation gratuite' : 'Free presentation'}
+              {fr ? 'Rejoindre l’Academy' : 'Join the Academy'}
             </a>
           </div>
         </div>
@@ -852,7 +850,8 @@ export default function PartnerProgramPage() {
               </div>
 
               <div className="mt-10 w-full">
-                <CtaBlock fr={fr} source="simulation" audience={audience} fullWidth />
+                <PartnerPayLink fr={fr} source="simulation" price={festival.price} audience={audience} />
+                <div className="mt-3"><CtaBlock fr={fr} source="simulation" audience={audience} fullWidth /></div>
               </div>
             </div>
           </div>
@@ -1217,13 +1216,8 @@ export default function PartnerProgramPage() {
             </div>
 
             <div className="mt-16 text-center">
-              <CtaBlock fr={fr} source="faq" audience={audience} />
-              <p className="mt-5 text-[12px] text-neutral-500">
-                {fr ? 'Déjà convaincu ? Vous pouvez rejoindre directement.' : 'Already convinced? You can join directly.'}
-              </p>
-              <div className="mx-auto mt-3 max-w-md">
-                <PartnerPayLink fr={fr} source="faq" price={festival.price} audience={audience} />
-              </div>
+              <PartnerPayLink fr={fr} source="faq" price={festival.price} audience={audience} />
+              <div className="mt-3"><CtaBlock fr={fr} source="faq" audience={audience} /></div>
             </div>
           </div>
         </div>

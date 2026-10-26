@@ -1,4 +1,5 @@
 'use client'
+import EmpireSalesCta from '@/components/EmpireSalesCta'
 
 import { motion, useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
@@ -243,16 +244,7 @@ export default function CaseStudiesSection() {
           {/* CTA */}
           <FadeInBlock delay={0.5}>
             <div className="mt-12 text-center">
-              <a
-                href="/vsl"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-empire text-black font-bold text-lg hover:scale-105 transition-transform shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.3)]"
-              >
-                {fr ? 'Voir le workshop gratuit' : 'Watch the free workshop'}
-                <ArrowRight size={20} />
-              </a>
-              <p className="mt-3 text-xs text-neutral-500">
-                {fr ? '1 h 26 · la formule du million de vues' : '1h26 · the million-views formula'}
-              </p>
+<EmpireSalesCta source="case-studies" />
             </div>
           </FadeInBlock>
         </div>

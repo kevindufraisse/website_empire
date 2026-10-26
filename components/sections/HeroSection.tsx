@@ -6,8 +6,7 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import { SocialIcons } from '@/components/ui/social-icons'
 import FloatingSocialReactions from '@/components/FloatingSocialReactions'
-import { trackAmplitude } from '@/lib/amplitude'
-import { startFreeTrial } from '@/lib/startTrial'
+import EmpireSalesCta from '@/components/EmpireSalesCta'
 import { FormulaHeroStatic } from '@/components/FormulaBar'
 // Même jeu de portraits que `/vsl` et `FormatsShowcaseSection` (public/creators).
 const HERO_CREATORS = [
@@ -35,13 +34,6 @@ export default function HeroSection() {
   // du paragraphe, avec une phrase qui invite à la découvrir en descendant. Voir `FormulaBar` et le slot `formula-hero-slot`.
   const heroSubtitle = autopilot ? t.autopilot.hero.subtitle : null
   const heroCta = autopilot ? t.autopilot.hero.cta1 : t.hero.cta1
-  const [trialLoading, setTrialLoading] = useState(false)
-  const onTrial = async () => {
-    if (trialLoading) return
-    setTrialLoading(true)
-    trackAmplitude('home_hero_trial_clicked')
-    await startFreeTrial()
-  }
 
   return (
     <>
@@ -193,35 +185,7 @@ export default function HeroSection() {
                   <span className="text-[11px] font-semibold opacity-70">{t.autopilot.hero.ctaReassurance}</span>
                 </a>
               ) : (
-                /* Deux actions de poids différent : le workshop pour qui
-                   découvre, l'essai pour qui est déjà convaincu. */
-                <div className="flex w-full flex-col items-center gap-2 sm:w-auto">
-                  <a
-                    href="/vsl"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => trackAmplitude('home_hero_workshop_clicked')}
-                    className="group flex w-full flex-col items-center justify-center gap-0.5 rounded-xl bg-empire px-8 py-3.5 sm:px-12 sm:py-4 text-black shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.35)] transition-all hover:scale-[1.02] sm:w-auto"
-                  >
-                    <span className="flex items-center gap-2 text-base font-bold sm:text-lg">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M7 4.5v15l13-7.5z" /></svg>
-                      {lang === 'fr' ? 'Voir le workshop gratuit' : 'Watch the free workshop'}
-                    </span>
-                    <span className="text-[11px] font-semibold opacity-70">
-                      {lang === 'fr' ? '1 h 26 · la formule expliquée pas à pas' : '1h26 · the formula explained step by step'}
-                    </span>
-                  </a>
-                  <button
-                    type="button"
-                    onClick={onTrial}
-                    disabled={trialLoading}
-                    className="min-h-0 text-sm text-neutral-400 underline-offset-4 transition hover:text-white hover:underline disabled:opacity-60"
-                  >
-                    {trialLoading
-                      ? (lang === 'fr' ? 'Ouverture…' : 'Opening…')
-                      : (lang === 'fr' ? 'ou tester Empire gratuitement (7 jours, 500 crédits)' : 'or try Empire free (7 days, 500 credits)')}
-                  </button>
-                </div>
+                <EmpireSalesCta source="hero" />
               )}
             </div>
             {/* Preuve alignée sur la promesse : la promesse est « les formats

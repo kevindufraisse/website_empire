@@ -4,7 +4,7 @@ import { useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
-import WaitlistEmailCta from '@/components/WaitlistEmailCta'
+import EmpireSalesCta from '@/components/EmpireSalesCta'
 
 function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null)
@@ -41,10 +41,10 @@ export default function FinalBoostCTA() {
                   {t.finalCTA.title}
                 </h2>
                 <p className="text-lg text-neutral-300 mb-6">
-                  {lang === 'fr' ? 'Entrez votre email et regardez le workshop gratuit (1 h 26).' : 'Enter your email and watch the free workshop (1h26).'}
+                  {lang === 'fr' ? 'Vos idées, vos contenus, votre calendrier : prenez Empire en main dès aujourd’hui.' : 'Your ideas, your content, your calendar: get started with Empire today.'}
                 </p>
 
-                <WaitlistEmailCta />
+                <EmpireSalesCta source="final" />
 
                 <button
                   type="button"

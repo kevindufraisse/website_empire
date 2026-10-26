@@ -13,14 +13,14 @@ const COPY: Record<Variant, { fr: { headline: string; sub: string; cta: string }
     fr: {
       headline: 'Vous savez maintenant le faire.',
       sub: 'Empire le fait avec vous.',
-      cta: 'Voir le workshop gratuit',
+      cta: 'Tester 7 jours gratuitement',
     },
     en: {
       headline: 'Now you know how.',
       sub: 'Empire does it with you.',
-      cta: 'Watch the free workshop',
+      cta: 'Start my 7-day free trial',
     },
-    href: '/vsl',
+    href: 'https://app.empire-internet.com/onboarding?plan=growth&intent=trial&billing=monthly',
     textClass: 'text-empire',
     bgClass: 'bg-empire',
   },

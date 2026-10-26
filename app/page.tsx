@@ -59,7 +59,7 @@ export default function Page() {
         <IncludedFeaturesSection />
       </div>
       <CaseStudiesSection />
-      {/* Les prix ne vivent que sur /tarifs (choix de Kevin, 19 octobre 2026). */}
+      {/* Les offres et leur essai sont accessibles directement depuis la page d’accueil. */}
       <div id="formula-apply" className="scroll-mt-20">
         <HomeApplySection />
       </div>

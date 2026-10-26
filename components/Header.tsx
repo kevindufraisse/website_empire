@@ -5,6 +5,7 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import { ChevronDown, Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { postitJoinUrl } from '@/lib/postit'
+import { partnerPayHref } from '@/lib/partner-festival-pricing'
 import { startFreeTrial } from '@/lib/startTrial'
 import { trackAmplitude } from '@/lib/amplitude'
 
@@ -12,7 +13,7 @@ import { trackAmplitude } from '@/lib/amplitude'
  * Deux portes et un prix : Empire (publier pour son business), Devenir
  * partenaire (en faire son métier), Tarifs. Le workshop en direct et la présentation enregistrée sont
  * rangés dans un menu où chacun dit ce qu'il est. Un seul bouton à droite :
- * l'essai gratuit, ou les portes ouvertes sur les pages partenaire.
+ * l’essai gratuit, ou l’achat du bootcamp sur les pages Academy.
  */
 export default function Header() {
   const { lang } = useLanguage()
@@ -59,6 +60,7 @@ export default function Header() {
   ]
 
   const lives = [
+    { href: '/vsl', name: fr ? 'Workshop Empire' : 'Empire workshop', when: fr ? 'Replay gratuit' : 'Free replay', what: fr ? 'La méthode Empire expliquée pas à pas. Accès par email.' : 'The Empire method, step by step. Email access.', dot: 'bg-empire' },
     {
       href: postitJoinUrl('header'),
       name: 'Post it like it’s hot',
@@ -90,11 +92,11 @@ export default function Header() {
     </button>
   ) : isAcademyPage ? (
     <a
-      href="/academy#portes-ouvertes"
+      href={partnerPayHref()}
       onClick={() => setIsMenuOpen(false)}
       className="rounded-lg bg-academy px-4 py-2 text-sm font-semibold text-black transition hover:brightness-110"
     >
-      {fr ? 'Voir les portes ouvertes' : 'Watch the open house'}
+      {fr ? 'Rejoindre l’Academy' : 'Join the Academy'}
     </a>
   ) : (
     <button
@@ -133,7 +135,7 @@ export default function Header() {
                 aria-expanded={livesOpen}
                 className="flex cursor-pointer items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-neutral-300 transition hover:bg-white/[0.04] hover:text-white"
               >
-                {fr ? 'Événements gratuits' : 'Free events'}
+                {fr ? 'Ressources gratuites' : 'Free resources'}
                 <ChevronDown className={`h-4 w-4 transition-transform ${livesOpen ? 'rotate-180' : ''}`} />
               </button>
               {livesOpen && (
@@ -193,7 +195,7 @@ export default function Header() {
                 </a>
               ))}
               <p className="px-3 pb-1 pt-4 text-[10px] font-semibold uppercase tracking-[0.16em] text-neutral-600">
-                {fr ? 'Événements gratuits' : 'Free events'}
+                {fr ? 'Ressources gratuites' : 'Free resources'}
               </p>
               {lives.map((l) => (
                 <a

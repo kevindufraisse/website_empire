@@ -9,7 +9,7 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import { trackAmplitude } from '@/lib/amplitude'
 import { getPlan } from '@/lib/plans'
 import { usePartnerFestivalPricing } from '@/hooks/usePartnerFestivalPricing'
-import { WebinarJamBar } from '@/components/WebinarJamRegister'
+import { partnerPayHref } from '@/lib/partner-festival-pricing'
 import FeaturedInSection from '@/components/FeaturedInSection'
 import TopCreatorsSection from '@/components/sections/TopCreatorsSection'
 import AcademyProductDemo from '@/components/AcademyProductDemo'
@@ -87,7 +87,6 @@ export default function AgencyProgramPage() {
 
   return (
     <main className="relative bg-black pb-40 text-white antialiased">
-      <WebinarJamBar buttonText={fr ? "S'inscrire" : 'Register'} />
       <Script
         id="academy-agency-senja"
         src="https://widget.senja.io/widget/2a990f91-6426-436a-b50d-318fc49a7851/platform.js"
@@ -138,12 +137,10 @@ export default function AgencyProgramPage() {
             </p>
             <AcademyPlatformLogos fr={fr} />
             <div className="mt-8 flex w-full flex-col items-center gap-3">
-              <CtaBlock fr={fr} source="agency_hero" audience="agency" />
-              <p className="mt-2 text-[12px] text-neutral-500">
-                {fr ? 'Déjà convaincu ? Accédez directement au programme.' : 'Already convinced? Join the program directly.'}
-              </p>
-              <FestivalPriceBlock fr={fr} pricing={festival} />
               <PartnerPayLink fr={fr} source="agency_hero" price={festival.price} audience="agency" />
+              <p className="text-xs text-neutral-400">{fr ? 'Paiement unique · Accès immédiat · Formation, replays et communauté inclus' : 'One-time payment · Instant access · Training, replays and community included'}</p>
+              <CtaBlock fr={fr} source="agency_hero" audience="agency" />
+              <FestivalPriceBlock fr={fr} pricing={festival} />
             </div>
 
             <dl className="mx-auto mt-6 grid max-w-2xl grid-cols-3 divide-x divide-white/[0.08] border-y border-white/[0.08] py-4">
@@ -229,10 +226,10 @@ export default function AgencyProgramPage() {
               </a>
             ))}
             <a
-              href="#demo-agence"
+              href={partnerPayHref()}
               className="ml-auto shrink-0 rounded-lg bg-academy px-3.5 py-2 text-[12px] font-bold text-black transition hover:brightness-110"
             >
-              {fr ? 'Voir la démo' : 'See the demo'}
+              {fr ? 'Rejoindre l’Academy' : 'Join the Academy'}
             </a>
           </div>
         </div>
@@ -668,13 +665,8 @@ export default function AgencyProgramPage() {
               ))}
             </div>
             <div className="mt-16 text-center">
-              <CtaBlock fr={fr} source="agency_faq" audience="agency" />
-              <p className="mt-5 text-[12px] text-neutral-500">
-                {fr ? 'Déjà convaincu ? Déployez directement votre offre.' : 'Already convinced? Deploy your offer directly.'}
-              </p>
-              <div className="mx-auto mt-3 max-w-md">
-                <PartnerPayLink fr={fr} source="agency_faq" price={festival.price} audience="agency" />
-              </div>
+              <PartnerPayLink fr={fr} source="agency_faq" price={festival.price} audience="agency" />
+              <div className="mt-3"><CtaBlock fr={fr} source="agency_faq" audience="agency" /></div>
             </div>
           </div>
         </div>
