@@ -7,6 +7,7 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import FeaturedInSection from '@/components/FeaturedInSection'
 import CustomerReviews from '@/components/pricing/CustomerReviews'
 import PlanCards from '@/components/pricing/PlanCards'
+import glass from '@/components/pricing/pricing.module.css'
 import {
   CONTENT_CREDITS,
   PAYG_RECHARGE,
@@ -288,7 +289,7 @@ export default function TarifsClient() {
   }
 
   return (
-    <main className="min-h-screen overflow-x-hidden bg-black pb-16 pt-10 text-white md:pt-14">
+    <main className={`min-h-screen overflow-x-hidden pb-16 pt-10 text-white md:pt-14 ${glass.page}`}>
       <div className="mx-auto max-w-5xl px-4">
         <header className="mx-auto max-w-2xl space-y-3 text-center">
           <h1 className="text-3xl font-bold tracking-tight text-white">
@@ -323,7 +324,7 @@ export default function TarifsClient() {
             {FORMATS.map((f) => {
               const t = fr ? f.fr : f.en
               return (
-                <figure key={f.image} className="overflow-hidden rounded-2xl border border-white/25 bg-[#17191c]">
+                <figure key={f.image} className={`overflow-hidden ${glass.panel}`}>
                   <div className="relative aspect-[4/5] bg-black">
                     <Image src={f.image} alt={t.title} fill sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw" className="object-cover object-top" />
                   </div>
@@ -351,7 +352,7 @@ export default function TarifsClient() {
               : 'You can do it all yourself. What takes time isn’t writing a text or cutting a video: it’s knowing what to say, in which format, and keeping the pace.'}
           />
           <div className="mx-auto mt-10 grid max-w-4xl gap-4 md:grid-cols-2">
-            <div className="rounded-2xl border border-white/25 bg-[#17191c] p-6">
+            <div className={`p-6 ${glass.panel}`}>
               <p className="text-sm font-semibold text-neutral-300">{fr ? 'Seul, chaque semaine, tu dois :' : 'Alone, every week, you have to:'}</p>
               <ul className="mt-4 space-y-3">
                 {(fr ? ALONE.fr : ALONE.en).map((line) => (
@@ -362,7 +363,7 @@ export default function TarifsClient() {
                 ))}
               </ul>
             </div>
-            <div className="rounded-2xl border border-white/35 bg-gradient-to-b from-[#252c20] to-[#151b11] p-6">
+            <div className={`p-6 ${glass.panel} ${glass.featured}`}>
               <p className="text-sm font-semibold">{fr ? 'Avec Empire :' : 'With Empire:'}</p>
               <ul className="mt-4 space-y-3">
                 {(fr ? WITH_EMPIRE.fr : WITH_EMPIRE.en).map((line) => (
@@ -376,7 +377,7 @@ export default function TarifsClient() {
           </div>
         </section>
 
-        <section className="mx-auto mt-28 max-w-5xl space-y-4 rounded-xl border border-white/25 bg-[#17191c] p-5">
+        <section className={`mx-auto mt-28 max-w-5xl space-y-4 p-5 ${glass.panel}`}>
           <h2 className="text-center text-sm font-semibold text-white">{fr ? 'Comment ça marche ?' : 'How does it work?'}</h2>
           <ol className="grid grid-cols-1 gap-4 sm:grid-cols-4">
             {PROCESS.map((step, i) => {
@@ -418,7 +419,7 @@ export default function TarifsClient() {
             {PACK.map((block) => {
               const [title, desc] = fr ? block.fr : block.en
               return (
-                <div key={block.fr[0]} className="rounded-2xl border border-white/25 bg-[#17191c] p-6">
+                <div key={block.fr[0]} className={`p-6 ${glass.panel}`}>
                   <p className="text-base font-semibold">{title}</p>
                   <p className="mt-2 text-sm leading-relaxed text-neutral-300">{desc}</p>
                 </div>
@@ -435,9 +436,9 @@ export default function TarifsClient() {
               : `For the Intermediate volume, half the credits as reels and half as posts, at 2026 published freelance rates.`}
           />
           <div className="mx-auto mt-10 grid max-w-4xl gap-4 md:grid-cols-2">
-            <div className="rounded-2xl border border-white/25 bg-[#17191c] p-6">
+            <div className={`p-6 ${glass.panel}`}>
               <p className="text-sm font-semibold text-neutral-300">{fr ? 'Une équipe en freelance' : 'A freelance team'}</p>
-              <ul className="mt-4 divide-y divide-white/20">
+              <ul className="mt-4 divide-y divide-white/15">
                 {teamLines.map((l) => (
                   <li key={l.fr} className="flex items-baseline justify-between gap-4 py-2.5 text-sm text-neutral-300">
                     <span>{fr ? l.fr : l.en}</span>
@@ -445,7 +446,7 @@ export default function TarifsClient() {
                   </li>
                 ))}
               </ul>
-              <p className="mt-3 flex items-baseline justify-between border-t border-white/25 pt-3 text-sm font-semibold">
+              <p className="mt-3 flex items-baseline justify-between border-t border-white/15 pt-3 text-sm font-semibold">
                 <span>{fr ? 'À partir de' : 'From'}</span>
                 <span className="tabular-nums">{teamTotal.toLocaleString(locale)} € {fr ? '/mois' : '/mo'}</span>
               </p>
@@ -455,7 +456,7 @@ export default function TarifsClient() {
                   : 'And you still find the topics, brief everyone and coordinate.'}
               </p>
             </div>
-            <div className="flex flex-col rounded-2xl border border-white/35 bg-gradient-to-b from-[#252c20] to-[#151b11] p-6">
+            <div className={`flex flex-col p-6 ${glass.panel} ${glass.featured}`}>
               <p className="text-sm font-semibold">{fr ? 'Empire Intermédiaire' : 'Empire Intermediate'}</p>
               <p className="mt-4 flex items-baseline gap-2">
                 <span className="text-[2.75rem] font-semibold leading-none tracking-tight tabular-nums">{growth.price} €</span>
@@ -470,7 +471,7 @@ export default function TarifsClient() {
                 type="button"
                 onClick={() => startTrial('comparison')}
                 disabled={opening !== null}
-                className="mt-auto inline-flex min-h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-white px-4 text-sm font-semibold text-black transition hover:bg-neutral-200 disabled:opacity-60 md:mt-6"
+                className={`mt-auto inline-flex min-h-12 w-full cursor-pointer items-center justify-center gap-2 px-4 text-sm font-semibold disabled:opacity-60 md:mt-6 ${glass.primaryButton}`}
               >
                 {opening === 'growth' ? (fr ? 'Ouverture…' : 'Opening…') : (fr ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial')}
               </button>
@@ -492,10 +493,10 @@ export default function TarifsClient() {
 
         <section className="mt-28">
           <SectionTitle title={fr ? 'Comparer les formules' : 'Compare plans'} />
-          <div className="mx-auto mt-10 max-w-4xl overflow-hidden rounded-2xl border border-white/25">
+          <div className={`mx-auto mt-10 max-w-4xl overflow-hidden ${glass.panel}`}>
             <table className="w-full border-collapse text-left">
               <thead>
-                <tr className="border-b border-white/25 bg-[#24282d]">
+                <tr className={`border-b border-white/15 ${glass.tableBand}`}>
                   <th className="px-3 py-4 text-xs font-medium text-neutral-300 sm:px-5 sm:text-sm">{fr ? 'Chaque mois' : 'Every month'}</th>
                   {PLANS.map((p) => (
                     <th key={p.id} className="w-[19%] px-0.5 py-4 text-center text-[11px] font-semibold sm:w-[20%] sm:px-3 sm:text-sm">
@@ -511,14 +512,14 @@ export default function TarifsClient() {
                 {ROWS.map((row, i) => (
                   <Fragment key={row.fr}>
                     {row.group && row.group !== ROWS[i - 1]?.group && (
-                      <tr className="border-b border-white/25 bg-[#24282d]">
+                      <tr className={`border-b border-white/15 ${glass.tableBand}`}>
                         <td colSpan={4} className="px-3 py-2.5 text-[11px] font-semibold uppercase tracking-[0.15em] text-neutral-300 sm:px-5">{GROUP_LABELS[row.group][fr ? 'fr' : 'en']}</td>
                       </tr>
                     )}
-                    <tr className="border-b border-white/25 last:border-0">
+                    <tr className="border-b border-white/15 last:border-0">
                       <td className="px-3 py-3 text-xs leading-snug text-neutral-300 sm:px-5 sm:py-3.5 sm:text-sm">{fr ? row.fr : row.en}</td>
                       {PLANS.map((p) => (
-                        <td key={p.id} className={`px-1 py-3 text-center sm:px-3 ${p.id === 'growth' ? 'bg-empire/[0.08]' : ''}`}>
+                        <td key={p.id} className={`px-1 py-3 text-center sm:px-3 ${p.id === 'growth' ? glass.comparisonColumn : ''}`}>
                           <Cell value={row.cells[p.id]} fr={fr} />
                         </td>
                       ))}
@@ -533,7 +534,7 @@ export default function TarifsClient() {
         <section className="mx-auto mt-28 max-w-2xl space-y-3">
           <h2 className="text-center text-sm font-semibold text-white">{fr ? 'Questions fréquentes' : 'FAQ'}</h2>
           {FAQ.map((item) => (
-            <details key={item.q.fr} className="group rounded-xl border border-white/30 bg-[#17191c]">
+            <details key={item.q.fr} className={`group ${glass.panel} ${glass.compact}`}>
               <summary className="flex cursor-pointer list-none items-center justify-between min-h-12 px-4 py-3 text-sm font-medium text-white transition-colors hover:text-white/80 [&::-webkit-details-marker]:hidden">
                 {fr ? item.q.fr : item.q.en}
                 <ChevronDown className="ml-2 h-3.5 w-3.5 shrink-0 text-neutral-300 transition-transform group-open:rotate-180" />
@@ -553,7 +554,7 @@ export default function TarifsClient() {
           ))}
         </section>
 
-        <section className="mx-auto mt-24 max-w-2xl rounded-2xl border border-white/15 bg-gradient-to-b from-[#252c20] to-[#151b11] px-6 py-10 text-center">
+        <section className={`mx-auto mt-24 max-w-2xl px-6 py-10 text-center ${glass.panel} ${glass.featured}`}>
           <h2 className="text-2xl font-bold tracking-tight md:text-3xl">
             {fr ? 'Essaie 7 jours, sans payer.' : 'Try it for 7 days, free.'}
           </h2>
@@ -566,7 +567,7 @@ export default function TarifsClient() {
             type="button"
             onClick={() => startTrial('footer')}
             disabled={opening !== null}
-            className="mt-6 inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-xl bg-white px-6 text-sm font-semibold text-black transition hover:bg-neutral-200 disabled:opacity-60"
+            className={`mt-6 inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 px-6 text-sm font-semibold disabled:opacity-60 ${glass.primaryButton}`}
           >
             {opening === 'growth' ? (fr ? 'Ouverture…' : 'Opening…') : (fr ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial')}
             <ArrowRight className="h-4 w-4" />

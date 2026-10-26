@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import glass from './pricing.module.css'
 import { ArrowRight, Check, ChevronDown, Coins, Linkedin, Mail, Video, Zap } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import {
@@ -32,11 +33,8 @@ import {
 } from '@/lib/orderStyles'
 
 /**
- * Les cartes du pricing de l'app (`empire-tracking/src/pages/Pricing.tsx`),
- * reprises telles quelles : sélecteur de période, choix de formule en trois
- * cases sur mobile, cartes, ligne « Dans tous les plans », paiement à l'usage
- * replié. Seule différence : au mois, le bouton ouvre l'essai (l'app est
- * déjà derrière un compte), d'où la ligne d'essai sous le bouton.
+ * Offres partagées avec l'app, présentation en verre fumé pour le site.
+ * Au mois, le bouton ouvre l'essai ; les autres périodes ouvrent le paiement.
  */
 
 const RHYTHM_TU: Record<PlanId, string> = {
@@ -127,10 +125,10 @@ export default function PlanCards({ location, period: controlled, onPeriodChange
               role="tab"
               aria-selected={p.id === period}
               onClick={() => setPeriod(p.id)}
-              className={`min-w-0 flex-1 whitespace-nowrap text-xs font-semibold ${ORDER_SEGMENT(p.id === period)}`}
+              className={`min-w-0 flex-1 whitespace-nowrap text-xs font-semibold ${ORDER_SEGMENT}`}
             >
               {fr ? p.labelFr : p.labelEn}
-              {p.discount > 0 && <span className={`ml-1 text-[11px] ${p.id === period ? 'text-neutral-700' : 'text-neutral-300'}`}>-{Math.round(p.discount * 100)}%</span>}
+              {p.discount > 0 && <span className="ml-1 text-[11px] text-neutral-300">-{Math.round(p.discount * 100)}%</span>}
             </button>
           ))}
         </div>
@@ -145,9 +143,7 @@ export default function PlanCards({ location, period: controlled, onPeriodChange
                 role="radio"
                 aria-checked={active}
                 onClick={() => setSelected(p.id)}
-                className={`relative flex cursor-pointer flex-col items-start gap-1 rounded-xl border px-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-empire pb-2.5 pt-3.5 text-left transition-colors ${
-                  active ? 'border-empire bg-[#252c20]' : 'border-white/35 bg-[#17191c]'
-                }`}
+                className={`relative flex cursor-pointer flex-col items-start gap-1 px-2.5 pb-2.5 pt-3.5 text-left ${glass.planOption}`}
               >
                 {p.highlighted && (
                   <span className="absolute -top-2 left-2 whitespace-nowrap rounded-md border border-white/15 bg-[#17171a] px-1.5 py-px text-[9px] font-semibold uppercase tracking-wide text-white/80">
@@ -162,7 +158,7 @@ export default function PlanCards({ location, period: controlled, onPeriodChange
         </div>
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-3 lg:items-stretch">
+      <div className="grid gap-5 lg:grid-cols-3 lg:items-stretch">
         {PLANS.map((plan) => {
           const featured = !!plan.highlighted
           const price = finalPrice(plan.price, period, 1)
@@ -239,7 +235,7 @@ export default function PlanCards({ location, period: controlled, onPeriodChange
                   </div>
 
                   {extras.length > 0 && (
-                    <ul className="space-y-2 border-t border-white/25 pt-4">
+                    <ul className="space-y-2 border-t border-white/15 pt-4">
                       {extras.map((l) => (
                         <li key={l.fr} className="flex items-start gap-2 text-sm text-neutral-300">
                           <Check className={ORDER_CHECK} />
@@ -265,7 +261,7 @@ export default function PlanCards({ location, period: controlled, onPeriodChange
         ))}
       </div>
 
-      <details className="group mx-auto w-full max-w-2xl rounded-xl border border-white/25 bg-[#17191c]">
+      <details className={`group mx-auto w-full max-w-2xl ${glass.panel} ${glass.compact}`}>
         <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-sm text-neutral-300 hover:text-white [&::-webkit-details-marker]:hidden">
           <span className="flex items-center gap-2">
             <Zap className="h-4 w-4 text-neutral-300" />
@@ -283,7 +279,7 @@ export default function PlanCards({ location, period: controlled, onPeriodChange
             type="button"
             onClick={() => choose('payg')}
             disabled={opening !== null}
-            className="inline-flex min-h-11 cursor-pointer items-center gap-1.5 rounded-md bg-white px-3 text-xs font-semibold text-black transition hover:bg-white/90 disabled:opacity-60"
+            className={`inline-flex min-h-11 cursor-pointer items-center gap-1.5 px-4 text-xs font-semibold disabled:opacity-60 ${glass.primaryButton}`}
           >
             {opening === 'payg' ? (fr ? 'Ouverture…' : 'Opening…') : (fr ? 'Payer à l’usage · 0 € aujourd’hui' : 'Pay as you go · €0 today')}
           </button>

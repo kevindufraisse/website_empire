@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import glass from './pricing.module.css'
 import { Play, Star } from 'lucide-react'
 
 /**
@@ -60,7 +61,7 @@ export default function CustomerReviews({ title }: { title: string }) {
     <section>
       <h2 className="text-center text-sm font-semibold text-white">{title}</h2>
       <div className="mt-8 grid gap-3 md:grid-cols-3">
-        <div className="relative overflow-hidden rounded-2xl border border-white/25 bg-[#17191c] md:row-span-2">
+        <div className={`overflow-hidden md:row-span-2 ${glass.panel}`}>
           {playing ? (
             <video src={VIDEO.src} poster={VIDEO.poster} controls autoPlay playsInline className="h-full w-full object-cover" />
           ) : (
@@ -80,7 +81,7 @@ export default function CustomerReviews({ title }: { title: string }) {
           )}
         </div>
         {REVIEWS.map((r) => (
-          <figure key={r.name} className="flex flex-col gap-3 rounded-2xl border border-white/25 bg-[#17191c] p-5">
+          <figure key={r.name} className={`flex flex-col gap-3 p-5 ${glass.panel}`}>
             <Stars />
             <blockquote className="flex-1 text-sm leading-relaxed text-neutral-200">{r.text}</blockquote>
             <figcaption className="flex items-center gap-2.5">
