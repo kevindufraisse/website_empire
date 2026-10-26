@@ -63,7 +63,7 @@ export default function Page() {
         <IncludedFeaturesSection />
       </div>
       <CaseStudiesSection />
-      {/* Les offres et leur essai sont accessibles directement depuis la page d’accueil. */}
+      {/* Les prix restent sur /tarifs ; l'accueil propose l'essai et un lien vers les offres. */}
       <div id="formula-apply" className="scroll-mt-20">
         <HomeApplySection />
       </div>
