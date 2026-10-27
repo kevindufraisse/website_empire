@@ -1094,8 +1094,8 @@ export default function PartnerProgramPage() {
             <SectionLabel>{fr ? 'Le programme' : 'The program'}</SectionLabel>
             <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
               {fr
-                ? 'Tu commences par le bootcamp.'
-                : 'You start with the bootcamp.'}
+                ? 'Ce que vous recevez'
+                : 'Everything you get'}
             </h2>
             <p className="mt-5 text-[17px] font-medium text-white">
               {fr
@@ -1107,30 +1107,49 @@ export default function PartnerProgramPage() {
                 ? '297 € le lundi · 397 € le mardi · 497 € dès le mercredi · retour à 297 € chaque lundi.'
                 : '€297 on Monday · €397 on Tuesday · €497 from Wednesday · back to €297 every Monday.'}
             </p>
-            <div className="mt-8 grid gap-3 sm:grid-cols-2">
+            <ul className="mt-8 grid gap-x-8 gap-y-3 sm:grid-cols-2">
               {(fr
                 ? [
-                    { t: 'Bootcamp 21 jours en vidéo', d: '1 action concrète par jour, environ 1 h, à ton rythme.' },
-                    { t: 'Les replays', d: 'Toutes les sessions passées, accessibles à vie.' },
-                    { t: 'La communauté', d: 'Accès à vie pour avancer et débloquer tes questions.' },
-                    { t: 'Les mises à jour', d: 'Les nouveautés et améliorations, incluses.' },
+                    'Bootcamp de 21 jours accessible immédiatement (début après paiement)',
+                    'Accès à vie à la communauté de créateurs',
+                    'Live tous les lundis à 14 h',
+                    '6 h de replays à suivre',
+                    'Mises à jour et nouveautés offertes',
+                    'Ajout dans l’annuaire',
+                    'Certification Empire (or, argent, bronze)',
+                    'Réception de missions venant du site',
+                    'Templates de closing',
+                    'Templates de setting',
+                    'Partage (secret) des posts les plus efficaces chaque semaine',
+                    'Templates viraux directement dans votre calendrier',
+                    'Cours « comment trouver des clients Empire »',
+                    'Page de paiement incluse',
+                    '4 000 crédits offerts pour utiliser Empire (la machine à contenu)',
                   ]
                 : [
-                    { t: '21-day video bootcamp', d: '1 concrete action a day, about 1 hour, at your own pace.' },
-                    { t: 'The replays', d: 'All past sessions, with lifetime access.' },
-                    { t: 'The community', d: 'Lifetime access to move forward and unblock questions.' },
-                    { t: 'Updates', d: 'New content and improvements, included.' },
+                    '21-day bootcamp, accessible immediately (starts after payment)',
+                    'Lifetime access to the creators’ community',
+                    'Live every Monday at 2 pm',
+                    '6 hours of replays to follow',
+                    'Updates and new features included',
+                    'Added to the directory',
+                    'Empire certification (gold, silver, bronze)',
+                    'Missions from the site',
+                    'Closing templates',
+                    'Setting templates',
+                    'Secret share of the most effective posts each week',
+                    'Viral templates directly in your calendar',
+                    '« How to find Empire clients » course',
+                    'Payment page included',
+                    '4,000 free credits to use Empire (the content machine)',
                   ]
-              ).map((row) => (
-                <div key={row.t} className="rounded-2xl border border-white/[0.08] bg-white/[0.025] p-4">
-                  <p className="flex items-center gap-2 text-[15px] font-semibold text-white">
-                    <Check className="h-4 w-4 shrink-0 text-academy" />
-                    {row.t}
-                  </p>
-                  <p className="mt-1.5 text-[13px] leading-snug text-neutral-400">{row.d}</p>
-                </div>
+              ).map((line) => (
+                <li key={line} className="flex items-start gap-2.5 text-[14px] leading-snug text-neutral-300">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-academy" />
+                  <span>{line}</span>
+                </li>
               ))}
-            </div>
+            </ul>
             <div className="mt-8">
               <PartnerPayLink fr={fr} source="program" price={festival.price} audience={audience} />
             </div>
