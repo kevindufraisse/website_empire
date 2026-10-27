@@ -34,7 +34,7 @@ import {
 
 /**
  * Offres partagées avec l'app, présentation en verre fumé pour le site.
- * Au mois, le bouton ouvre l'essai ; les autres périodes ouvrent le paiement.
+ * Chaque formule ouvre l'essai (7 jours, 500 crédits), quelle que soit la période.
  */
 
 const RHYTHM_TU: Record<PlanId, string> = {
@@ -107,11 +107,7 @@ export default function PlanCards({ location, period: controlled, onPeriodChange
       window.location.href = joinUrl({ plan: 'payg', pack: 'payg_start' })
       return
     }
-    if (period === 'monthly') {
-      await startFreeTrial(col)
-      return
-    }
-    window.location.href = joinUrl({ plan: col, period })
+    await startFreeTrial(col, period)
   }
 
   return (
@@ -226,11 +222,9 @@ export default function PlanCards({ location, period: controlled, onPeriodChange
                         )}
                     </button>
                     <p className="mt-2 text-center text-xs leading-snug text-neutral-300">
-                      {period === 'monthly'
-                        ? (fr
-                          ? `Essai gratuit : 7 jours ou ${TRIAL_CREDITS} crédits`
-                          : `Free trial: 7 days or ${TRIAL_CREDITS} credits`)
-                        : (fr ? 'Pas d’essai : paiement le jour même' : 'No trial: payment taken today')}
+                      {fr
+                        ? `Essai gratuit : 7 jours ou ${TRIAL_CREDITS} crédits`
+                        : `Free trial: 7 days or ${TRIAL_CREDITS} credits`}
                     </p>
                   </div>
 

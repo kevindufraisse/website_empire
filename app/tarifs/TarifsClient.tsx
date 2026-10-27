@@ -27,8 +27,8 @@ import { trackAmplitude } from '@/lib/amplitude'
  * l'app ne montre pas : les fonctionnalités, le paiement à l'usage et les
  * blocs qui expliquent le prix (formats, méthode, vérification, preuves, ce
  * qu'il faudrait organiser sans Empire). Prix et remises : `lib/plans.ts`,
- * les mêmes que `/join/empire`. Au mois, chaque formule ouvre l'essai ; en
- * trimestriel / annuel il n'existe pas, le bouton envoie au paiement de l'app.
+ * les mêmes que `/join/empire`. Chaque formule ouvre l'essai (7 jours, 500
+ * crédits), en mensuel comme en trimestriel / annuel.
  */
 
 type Group = 'features' | 'bonus'
@@ -221,8 +221,8 @@ const FAQ = [
   {
     q: { fr: 'Trimestriel ou annuel, c’est prélevé comment ?', en: 'How are quarterly and yearly billed?' },
     a: {
-      fr: 'En une fois pour la période : tous les 3 mois en trimestriel (-12 %), une fois par an en annuel (-18 %). Pas d’essai sur ces formules, le paiement part le jour même.',
-      en: 'Once per period: every 3 months on quarterly (-12%), once a year on yearly (-18%). No trial on these, payment is taken the same day.',
+      fr: `En une fois pour la période : tous les 3 mois en trimestriel (-12 %), une fois par an en annuel (-18 %). Même essai qu’au mois : 7 jours et ${TRIAL_CREDITS} crédits offerts, le premier prélèvement part au 8e jour ou dès que tu dépasses les ${TRIAL_CREDITS} crédits.`,
+      en: `Once per period: every 3 months on quarterly (-12%), once a year on yearly (-18%). Same trial as monthly: 7 days and ${TRIAL_CREDITS} free credits, the first charge is taken on day 8 or as soon as you go past ${TRIAL_CREDITS} credits.`,
     },
   },
   {
