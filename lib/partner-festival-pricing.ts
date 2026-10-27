@@ -3,10 +3,11 @@
  * Le statut partenaire est proposé juste après le paiement, dans l'app
  * (/join/academy, upsell en un clic) : le site ne vend que le bootcamp.
  *
- * Semaine Europe/Paris, reset chaque lundi 00:00 :
- * - Lun 00:00 → Jeu 18:00 : 297 €  (on peut venir au live du jeudi 11h et payer encore 297)
- * - Jeu 18:00 → Dim 00:00 : 397 €
- * - Dim 00:00 → Lun 00:00 : 497 €
+ * Semaine Europe/Paris, reset chaque lundi 00:00 (le lundi, l'onboarding
+ * de la cohorte démarre — tout le monde commence ensemble) :
+ * - Lun 00:00 → Mar 00:00 : 297 €  (onboarding du lundi, prix le plus bas)
+ * - Mar 00:00 → Mer 00:00 : 397 €
+ * - Mer 00:00 → Lun 00:00 : 497 €  (live du mercredi passé)
  *
  * Miroir côté app : `BOOTCAMP_WEEKLY_TIERS` dans
  * empire-tracking/src/lib/waSetter.cjs (montant réel du checkout Stripe).
@@ -25,20 +26,20 @@ export const PARTNER_FESTIVAL_TIERS: PartnerFestivalTier[] = [
   {
     id: 'live',
     price: 297,
-    labelFr: 'Prix de la semaine',
-    labelEn: 'This week’s price',
+    labelFr: 'Prix du lundi',
+    labelEn: 'Monday price',
   },
   {
     id: 'after_live',
     price: 397,
-    labelFr: 'Après le jeudi 18 h',
-    labelEn: 'After Thursday 6pm',
+    labelFr: 'Mardi',
+    labelEn: 'Tuesday',
   },
   {
     id: 'last_chance',
     price: 497,
-    labelFr: 'Prix du dimanche',
-    labelEn: 'Sunday price',
+    labelFr: 'Mercredi (live)',
+    labelEn: 'Wednesday (live)',
   },
 ]
 
@@ -126,20 +127,20 @@ export function getPartnerFestivalPricing(now: Date = new Date()): PartnerFestiv
   const minutesSinceMonday =
     (p.weekday - 1) * 24 * 60 + p.hour * 60 + p.minute + p.second / 60
 
-  const THU_18 = 3 * 24 * 60 + 18 * 60 // Thursday 18:00
-  const SUN_00 = 6 * 24 * 60 // Sunday 00:00
+  const TUE_00 = 1 * 24 * 60 // Tuesday 00:00
+  const WED_00 = 2 * 24 * 60 // Wednesday 00:00
 
   let tier: PartnerFestivalTier
   let nextAt: Date
 
-  if (minutesSinceMonday < THU_18) {
+  if (minutesSinceMonday < TUE_00) {
     tier = PARTNER_FESTIVAL_TIERS[0]
-    const thu = addParisDays(p.year, p.month, p.day, 4 - p.weekday)
-    nextAt = parisWallToUtc(thu.year, thu.month, thu.day, 18, 0, 0)
-  } else if (minutesSinceMonday < SUN_00) {
+    const tue = addParisDays(p.year, p.month, p.day, 2 - p.weekday)
+    nextAt = parisWallToUtc(tue.year, tue.month, tue.day, 0, 0, 0)
+  } else if (minutesSinceMonday < WED_00) {
     tier = PARTNER_FESTIVAL_TIERS[1]
-    const sun = addParisDays(p.year, p.month, p.day, 7 - p.weekday)
-    nextAt = parisWallToUtc(sun.year, sun.month, sun.day, 0, 0, 0)
+    const wed = addParisDays(p.year, p.month, p.day, 3 - p.weekday)
+    nextAt = parisWallToUtc(wed.year, wed.month, wed.day, 0, 0, 0)
   } else {
     tier = PARTNER_FESTIVAL_TIERS[2]
     const mon = addParisDays(p.year, p.month, p.day, 8 - p.weekday)
@@ -156,8 +157,8 @@ export function getPartnerFestivalPricing(now: Date = new Date()): PartnerFestiv
     labelFr: tier.labelFr,
     labelEn: tier.labelEn,
     nextPrice: next.price,
-    nextLabelFr: isLast ? 'Prix de la semaine (lundi)' : next.labelFr,
-    nextLabelEn: isLast ? 'This week’s price (Monday)' : next.labelEn,
+    nextLabelFr: isLast ? 'Prix du lundi (lundi)' : next.labelFr,
+    nextLabelEn: isLast ? 'Monday price (Monday)' : next.labelEn,
     msUntilNext: Math.max(0, nextAt.getTime() - now.getTime()),
     tiers: PARTNER_FESTIVAL_TIERS,
   }

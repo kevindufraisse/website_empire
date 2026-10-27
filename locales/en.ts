@@ -14,8 +14,8 @@ export const en = {
   },
   hero: {
     targetAudience: '',
-    title: 'The personal branding system of 7- to 10-figure entrepreneurs, available to anyone',
-    titleH2: '',
+    title: 'The unfair advantage that gets you seen and bought.',
+    titleH2: 'Without writing or editing your content.',
     titleNote: '',
     subtitle: 'Our virality team spots the formats that blow up, templates them for you and duplicates them across 7 platforms. No writing, no editing, no wondering what to say.',
     description: '',

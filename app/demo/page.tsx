@@ -96,7 +96,7 @@ export default function DemoPage() {
           <section className={`${styles.panel} ${styles.formPanel}`} aria-labelledby="contact-heading">
             <div className={styles.panelIcon}><ArrowRight size={23} aria-hidden /></div>
             <h2 id="contact-heading" className={styles.panelTitle}>{fr ? 'Demander une démo' : 'Request a demo'}</h2>
-            <p className={styles.panelIntro}>{fr ? 'Laisse tes coordonnées, puis choisis entre la vidéo et un rendez-vous personnel.' : 'Enter your details, then choose between the video and a personal appointment.'}</p>
+            <p className={styles.panelIntro}>{fr ? 'Réserve ta démo. Quelques secondes, puis tu choisis la vidéo ou un rendez-vous.' : 'Book your demo. A few seconds, then pick the video or a call.'}</p>
             <form onSubmit={submit} className={styles.form} aria-busy={sending}>
               <div>
                 <label htmlFor="demo-first-name" className={styles.label}>{fr ? 'Ton prénom' : 'Your first name'}</label>
@@ -155,15 +155,15 @@ export default function DemoPage() {
             <div className={styles.videoFrame} style={{ paddingTop: '75%' }}>
               <iframe src={`https://www.loom.com/embed/${DEMO_LOOM_ID}?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true`} title={fr ? 'Démo complète d’Empire par Kevin' : 'Full Empire demo by Kevin (in French)'} className="absolute inset-0 h-full w-full" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen />
             </div>
-            <p className="mt-3 text-center text-sm text-neutral-400">{fr ? 'Un souci avec le lecteur ? ' : 'Having trouble with the player? '}<a href={`https://www.loom.com/share/${DEMO_LOOM_ID}`} target="_blank" rel="noopener noreferrer" className="text-empire underline underline-offset-4">{fr ? 'Ouvrir sur Loom' : 'Open on Loom'}</a>{!fr && ' · Video in French'}</p>
+            <p className="mt-3 text-center text-sm text-neutral-400">{fr ? 'Un souci avec le lecteur ? ' : 'Having trouble with the player? '}<a href={`https://www.loom.com/share/${DEMO_LOOM_ID}`} target="_blank" rel="noopener noreferrer" className="text-neutral-300 underline underline-offset-4">{fr ? 'Ouvrir sur Loom' : 'Open on Loom'}</a>{!fr && ' · Video in French'}</p>
             <div className={`${styles.panel} ${styles.workshop}`}>
-              <p className="mb-2 text-sm font-semibold text-empire">{fr ? 'Pour aller plus loin · workshop gratuit' : 'Go further · free workshop'}</p>
+              <p className="mb-2 text-sm font-semibold text-neutral-200">{fr ? 'Pour aller plus loin · workshop gratuit' : 'Go further · free workshop'}</p>
               <h3 className="text-2xl font-bold text-white">{fr ? 'Découvre la méthode derrière Empire.' : 'Discover the method behind Empire.'}</h3>
               <p className="mb-5 mt-3 leading-relaxed text-neutral-300">{fr ? 'Après la démo de l’outil, retrouve Kevin dans le workshop pour approfondir ta stratégie de contenu.' : 'After the product demo, join Kevin’s workshop to explore your content strategy.'}</p>
               <button type="button" onClick={openWorkshop} disabled={sending} className={buttonClass}>{sending ? (fr ? 'Ouverture…' : 'Opening…') : (fr ? 'Voir le workshop gratuit' : 'Watch the free workshop')}<ArrowRight size={18} aria-hidden /></button>
               {error && <p role="alert" className="mt-3 text-sm text-red-300">{error}</p>}
             </div>
-            <div className="mt-6 text-center"><button type="button" onClick={() => choose('book')} className="min-h-11 text-sm font-semibold text-empire underline underline-offset-4">{fr ? 'Tu préfères en parler ? Prendre rendez-vous avec Kevin' : 'Prefer to talk? Book an appointment with Kevin'}</button></div>
+            <div className="mt-6 text-center"><button type="button" onClick={() => choose('book')} className="min-h-11 text-sm font-semibold text-neutral-300 underline underline-offset-4">{fr ? 'Tu préfères en parler ? Prendre rendez-vous avec Kevin' : 'Prefer to talk? Book an appointment with Kevin'}</button></div>
           </section>
         )}
       </div>

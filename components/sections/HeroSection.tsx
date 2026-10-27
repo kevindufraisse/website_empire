@@ -105,7 +105,7 @@ export default function HeroSection() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="mt-5 flex items-center justify-center gap-2"
             >
-              <span className="text-[11px] text-neutral-500">{lang === 'fr' ? 'Adapté pour' : 'Adapted for'}</span>
+              <span className="text-[11px] text-neutral-500">{lang === 'fr' ? 'Sur tous les réseaux' : 'On every network'}</span>
               <div className="flex items-center gap-3 text-neutral-400 [&_path]:fill-current [&_circle]:fill-current">
                 <SocialIcons.linkedin />
                 <SocialIcons.youtube />

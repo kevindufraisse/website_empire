@@ -7,8 +7,11 @@ export default function CookiePreferences({ onChange }: { onChange?: (consent: C
   const [details, setDetails] = useState(false)
   const [marketing, setMarketing] = useState(false)
   const [analytics, setAnalytics] = useState(false)
+  // Dès qu'un choix est enregistré, on masque le bouton flottant « Cookies » :
+  // la barre ne doit plus rien afficher une fois qu'on a répondu.
+  const [hasConsent, setHasConsent] = useState(false)
   useEffect(() => {
-    const sync = () => { const c = readConsent(); setMarketing(c?.marketing === true); setAnalytics(c?.analytics === true); onChange?.(c) }
+    const sync = () => { const c = readConsent(); setMarketing(c?.marketing === true); setAnalytics(c?.analytics === true); setHasConsent(Boolean(c)); onChange?.(c) }
     const c = readConsent(); setOpen(!c); setReady(true); sync()
     if (!c) clearOptionalStorage()
     window.addEventListener(CONSENT_EVENT, sync)
@@ -16,14 +19,14 @@ export default function CookiePreferences({ onChange }: { onChange?: (consent: C
   }, [onChange])
   function choose(m: boolean, a: boolean) {
     const previous = readConsent()
-    saveConsent(m, a); setOpen(false)
+    saveConsent(m, a); setOpen(false); setHasConsent(true)
     if (!m || !a) clearOptionalStorage(!m, !a)
     if ((previous?.marketing && !m) || (previous?.analytics && !a)) location.reload()
   }
   if (!ready) return null
   const button = { border: '1px solid #777', borderRadius: 8, padding: '10px 14px', background: '#fff', color: '#111', cursor: 'pointer', fontSize: 14, fontWeight: 600 } as const
   return <>
-    <button type="button" onClick={() => { setOpen(true); setDetails(false) }} style={{ ...button, position: 'fixed', bottom: 8, left: 8, zIndex: 9998, fontSize: 12, padding: '5px 9px' }}>Cookies</button>
+    {!hasConsent && <button type="button" onClick={() => { setOpen(true); setDetails(false) }} style={{ ...button, position: 'fixed', bottom: 8, left: 8, zIndex: 9998, fontSize: 12, padding: '5px 9px' }}>Cookies</button>}
     {open && <section role="dialog" aria-label="Vos choix de cookies" style={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 9999, background: '#171717', color: '#fff', padding: 20, boxShadow: '0 -2px 20px #0006', fontSize: 14, lineHeight: 1.5 }}>
       <div style={{ maxWidth: 1000, margin: 'auto' }}>
         <p style={{ fontWeight: 700, marginBottom: 8 }}>Tu gardes le choix.</p>

@@ -4,13 +4,13 @@ import { useMemo, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Script from 'next/script'
-import { ArrowRight, Check } from 'lucide-react'
+import { ArrowRight, Check, X } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { trackAmplitude } from '@/lib/amplitude'
 import { partnerPayHref } from '@/lib/partner-festival-pricing'
 import { getPlan } from '@/lib/plans'
 import { usePartnerFestivalPricing } from '@/hooks/usePartnerFestivalPricing'
-import { WEBINARJAM_REGISTER_URL } from '@/lib/webinarjam'
+import { WebinarJamEmbed } from '@/components/WebinarJamRegister'
 import FeaturedInSection from '@/components/FeaturedInSection'
 import TopCreatorsSection from '@/components/sections/TopCreatorsSection'
 import AcademyProductDemo from '@/components/AcademyProductDemo'
@@ -46,7 +46,7 @@ export function PartnerPayLink({
     <a
       href={partnerPayHref()}
       onClick={() => trackAmplitude('academy_partner_checkout_clicked', { source, price, audience })}
-      className="inline-flex h-11 w-full max-w-md items-center justify-center gap-2 rounded-2xl bg-academy px-6 text-[14px] font-bold text-black transition hover:brightness-110"
+      className="inline-flex min-h-12 w-full max-w-md items-center justify-center gap-2 rounded-2xl bg-academy px-6 text-[14px] font-bold text-black transition hover:brightness-110"
     >
       {fr
         ? audience === 'agency'
@@ -111,21 +111,11 @@ export function FestivalPriceBlock({
       )}
       <p className="mt-1 text-[11px] leading-snug text-neutral-600">
         {fr
-          ? 'Le prix monte au fil de la semaine : 297 € jusqu’au jeudi 18 h, 397 € jusqu’au samedi, 497 € le dimanche. Il revient à 297 € chaque lundi.'
-          : 'The price rises during the week: €297 until Thursday 6pm, €397 until Saturday, €497 on Sunday. Back to €297 every Monday.'}
+          ? 'Le prix monte après le lundi : 297 € le lundi (la cohorte démarre), 397 € le mardi, 497 € dès le mercredi (jour du live). Il revient à 297 € chaque lundi.'
+          : 'The price rises after Monday: €297 on Monday (the cohort starts), €397 on Tuesday, €497 from Wednesday (live day). Back to €297 every Monday.'}
       </p>
       <p className="mt-2 text-[12px] text-neutral-500">
         {fr ? 'Accès immédiat, à ton rythme. Pas d’abonnement.' : 'Instant access, at your own pace. No subscription.'}
-      </p>
-      <p className="mt-3 border-t border-academy/20 pt-3 text-sm leading-relaxed text-neutral-300">
-        {fr
-          ? 'Ce prix couvre la formation, les replays et la communauté. L’option partenaire est facultative : 197 € supplémentaires, en paiement unique, proposés après l’achat.'
-          : 'This price covers training, replays and the community. Partner status is optional: an additional €197 one-time payment, offered after checkout.'}
-      </p>
-      <p className="mt-2 text-sm leading-relaxed text-neutral-400">
-        {fr
-          ? `Tes clients paient séparément leur abonnement Empire, à partir de ${getPlan('starter').price} €/mois, en plus de tes honoraires d’accompagnement.`
-          : `Your clients pay their own Empire subscription separately, from €${getPlan('starter').price}/month, in addition to your service fees.`}
       </p>
     </div>
   )
@@ -177,38 +167,36 @@ export function CtaBlock({
   fr,
   source,
   audience,
+  onOpen,
   fullWidth = false,
 }: {
   fr: boolean
   source: string
   audience: Audience
+  /** Ouvre la popup d'inscription WebinarJam (au lieu de la page). */
+  onOpen?: () => void
   /** Aligné sur la largeur du bloc parent (ex. simulation). */
   fullWidth?: boolean
 }) {
   return (
-    <a href={WEBINARJAM_REGISTER_URL}
-      target="_blank" rel="noopener noreferrer"
-      onClick={() => trackOpen(source, audience)}
-      className={`inline-flex flex-col items-center justify-center gap-0.5 rounded-2xl border border-white/20 px-6 py-3.5 text-white transition hover:brightness-110 ${
+    <button
+      type="button"
+      onClick={() => {
+        trackOpen(source, audience)
+        onOpen?.()
+      }}
+      className={`inline-flex h-12 items-center justify-center gap-2 rounded-2xl border border-white/20 px-6 text-white transition hover:border-white/40 hover:bg-white/[0.04] ${
         fullWidth ? 'w-full' : 'mx-auto w-full max-w-md'
       }`}
     >
-      <span className="inline-flex items-center gap-2 text-[15px] font-bold leading-snug">
-        {fr
-          ? audience === 'agency'
-            ? 'Voir les portes ouvertes'
-            : 'Voir les portes ouvertes'
-          : audience === 'agency'
-            ? 'Watch the open house'
-            : 'Watch the open house'}
-        <ArrowRight className="h-4 w-4 shrink-0" />
+      <span className="text-[15px] font-bold leading-snug">
+        {fr ? 'Voir les portes ouvertes' : 'Watch the open house'}
       </span>
       <span className="text-[11px] font-medium text-neutral-400">
-        {fr
-          ? 'Gratuit · Présentation enregistrée · Replay ou session au choix'
-          : 'Free · Recorded presentation · Replay or scheduled session'}
+        {fr ? '· Gratuit' : '· Free'}
       </span>
-    </a>
+      <ArrowRight className="h-4 w-4 shrink-0" />
+    </button>
   )
 }
 
@@ -220,6 +208,7 @@ export default function PartnerProgramPage() {
   const audience: Audience = 'reconversion'
   const [level, setLevel] = useState<Level>('debutant')
   const [hours, setHours] = useState(12)
+  const [openHouseOpen, setOpenHouseOpen] = useState(false)
   const agency = false
 
   const sim = useMemo(() => {
@@ -244,11 +233,11 @@ export default function PartnerProgramPage() {
         },
         {
           q: 'Les portes ouvertes sont-elles payantes ?',
-          a: `Non. La présentation enregistrée est gratuite. Vous pouvez regarder le replay immédiatement ou choisir une session, dont l’horaire est affiché dans votre fuseau lors de l’inscription. Le bootcamp (actuellement ${festival.price} €) se paie ensuite : 297 € jusqu’au jeudi 18 h, 397 € jusqu’au samedi, 497 € le dimanche. Lundi, il repart à 297 €.`,
+          a: `Non. La présentation enregistrée est gratuite. Vous pouvez regarder le replay immédiatement ou choisir une session, dont l’horaire est affiché dans votre fuseau lors de l’inscription. Le bootcamp (actuellement ${festival.price} €) se paie ensuite : 297 € le lundi, 397 € le mardi, 497 € à partir du mercredi. Lundi, il repart à 297 €.`,
         },
         {
           q: 'Que se passe-t-il après le paiement ?',
-          a: 'Vous créez votre compte et le bootcamp s’ouvre tout de suite, avec les replays et la communauté. Juste après le paiement, on vous propose de passer partenaire pour 197 € supplémentaires, en paiement unique : un live chaque semaine pendant 1 an, 4 000 crédits pour votre marque, la certification, l’annuaire et votre page de paiement pour encaisser vos clients.',
+          a: 'Vous créez votre compte avec l’email du paiement, et le bootcamp s’ouvre tout de suite : les 21 vidéos, les replays et la communauté. Vous avancez à votre rythme, sans cohorte ni date à tenir.',
         },
       ]
     : [
@@ -266,11 +255,11 @@ export default function PartnerProgramPage() {
         },
         {
           q: 'Is the open house free?',
-          a: `Yes. The recorded presentation is free. Watch the replay immediately or choose a session; its time is shown in your time zone when you register. The bootcamp (currently €${festival.price}) is paid after: €297 until Thursday 6pm, €397 until Saturday, €497 on Sunday. Monday resets to €297.`,
+          a: `Yes. The recorded presentation is free. Watch the replay immediately or choose a session; its time is shown in your time zone when you register. The bootcamp (currently €${festival.price}) is paid after: €297 on Monday, €397 on Tuesday, €497 from Wednesday. Monday resets to €297.`,
         },
         {
           q: 'What happens after payment?',
-          a: 'You create your account and the bootcamp opens right away, with replays and the community. Right after payment, you can become a partner for an additional €197 one-time payment: a weekly live for 1 year, 4,000 credits for your brand, certification, the directory and your payment page to charge clients.',
+          a: 'You create your account with the payment email, and the bootcamp opens right away: the 21 videos, the replays and the community. You move at your own pace, with no cohort or deadline.',
         },
       ]
 
@@ -338,12 +327,41 @@ export default function PartnerProgramPage() {
               {fr
                 ? agency
                   ? 'Ajoutez une offre de personal branding à votre agence. Sans recruter une équipe de production.'
-                  : 'Créez votre activité de personal branding. Sans écrire ni monter les contenus de vos clients.'
+                  : 'Devenez Content Operator pour entrepreneurs.'
                 : agency
                   ? 'Add a personal-branding offer to your agency. Without hiring a production team.'
-                  : 'Build your personal-branding business. Without writing or editing your clients’ content.'}
+                  : 'Become a Content Operator for entrepreneurs.'}
             </h1>
-            <p className="mx-auto mt-6 max-w-xl text-[17px] leading-[1.55] text-neutral-300">
+            {!agency && (
+              <p className="mx-auto mt-4 max-w-xl text-lg font-medium text-white sm:text-xl">
+                {fr
+                  ? 'Gagnez 3 000 € par mois en 6 h par semaine, en accompagnant des entrepreneurs avec Empire.'
+                  : 'Earn €3,000 a month in 6 hours a week, coaching entrepreneurs with Empire.'}
+              </p>
+            )}
+            <p className="mx-auto mt-4 text-lg font-semibold text-white sm:text-xl">
+              {fr
+                ? <>Bootcamp de 21 jours · <span className="text-academy">{festival.price} €</span> <span className="font-normal text-neutral-400">une fois · à ton rythme</span></>
+                : <>21-day bootcamp · <span className="text-academy">€{festival.price}</span> <span className="font-normal text-neutral-400">one-time · at your own pace</span></>}
+            </p>
+            {!agency && (
+              <div className="mx-auto mt-4 flex items-center justify-center gap-3">
+                <div className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full ring-2 ring-academy/40">
+                  <Image
+                    src="/founders/marc.jpg"
+                    alt="Marc Dufraisse"
+                    fill
+                    sizes="36px"
+                    className="object-cover object-top"
+                  />
+                </div>
+                <p className="text-sm text-neutral-300">
+                  <span className="font-semibold text-white">Marc Dufraisse</span>
+                  {fr ? ' · 15 K€ générés en 3 mois' : ' · €15K generated in 3 months'}
+                </p>
+              </div>
+            )}
+            <p className="mx-auto mt-4 max-w-xl text-[17px] leading-[1.55] text-neutral-300">
               {fr
                 ? agency
                   ? 'Vous gardez la stratégie, la relation et les décisions avec vos clients. Empire propose les sujets, rédige, monte et programme les contenus pour déployer cette offre auprès de votre portefeuille.'
@@ -361,7 +379,13 @@ export default function PartnerProgramPage() {
             <div className="mt-8 flex w-full flex-col items-center gap-3">
               <PartnerPayLink fr={fr} source="hero" price={festival.price} audience={audience} />
               <p className="text-xs text-neutral-400">{fr ? 'Paiement unique · Accès immédiat · Formation, replays et communauté inclus' : 'One-time payment · Instant access · Training, replays and community included'}</p>
-              <CtaBlock fr={fr} source="hero" audience={audience} />
+              <button
+                type="button"
+                onClick={() => { trackOpen('hero', audience); setOpenHouseOpen(true) }}
+                className="min-h-0 text-sm text-neutral-400 underline-offset-4 transition hover:text-white hover:underline"
+              >
+                {fr ? 'ou regarde d’abord la présentation gratuite' : 'or watch the free presentation first'}
+              </button>
               <FestivalPriceBlock fr={fr} pricing={festival} />
             </div>
             <dl className="mx-auto mt-6 grid max-w-2xl grid-cols-3 divide-x divide-white/[0.08] border-y border-white/[0.08] py-4">
@@ -851,7 +875,7 @@ export default function PartnerProgramPage() {
 
               <div className="mt-10 w-full">
                 <PartnerPayLink fr={fr} source="simulation" price={festival.price} audience={audience} />
-                <div className="mt-3"><CtaBlock fr={fr} source="simulation" audience={audience} fullWidth /></div>
+                <div className="mt-3"><CtaBlock fr={fr} source="simulation" audience={audience} fullWidth onOpen={() => setOpenHouseOpen(true)} /></div>
               </div>
             </div>
           </div>
@@ -937,7 +961,7 @@ export default function PartnerProgramPage() {
                   ))}
                 </ul>
                 <div className="mt-8">
-                  <CtaBlock fr={fr} source="section" audience={audience} />
+                  <CtaBlock fr={fr} source="section" audience={audience} onOpen={() => setOpenHouseOpen(true)} />
                 </div>
                 <p className="mt-4 text-[13px] text-neutral-600">
                   {fr
@@ -1109,8 +1133,8 @@ export default function PartnerProgramPage() {
             </p>
             <p className="mt-2 text-[14px] text-neutral-500">
               {fr
-                ? '297 € jusqu’au jeudi 18 h · 397 € jusqu’au samedi · 497 € le dimanche · retour à 297 € chaque lundi.'
-                : '€297 until Thursday 6pm · €397 until Saturday · €497 on Sunday · back to €297 every Monday.'}
+                ? '297 € le lundi · 397 € le mardi · 497 € dès le mercredi · retour à 297 € chaque lundi.'
+                : '€297 on Monday · €397 on Tuesday · €497 from Wednesday · back to €297 every Monday.'}
             </p>
             <ul className="mt-8 space-y-3">
               {(fr
@@ -1134,43 +1158,6 @@ export default function PartnerProgramPage() {
             <div className="mt-8">
               <PartnerPayLink fr={fr} source="program" price={festival.price} audience={audience} />
             </div>
-
-            <h3 className="mt-12 text-xl font-semibold tracking-tight">
-              {fr ? 'Juste après le paiement : passer partenaire' : 'Right after payment: become a partner'}
-            </h3>
-            <p className="mt-3 text-[15px] leading-relaxed text-neutral-400">
-              {fr
-                ? 'Une option à 197 € supplémentaires, en paiement unique. Tu choisis de l’ajouter après le bootcamp pour accéder aux avantages partenaire :'
-                : 'An optional €197 one-time payment, on top of the bootcamp. You can choose it after checkout to unlock partner benefits:'}
-            </p>
-            <ul className="mt-5 space-y-3">
-              {(fr
-                ? [
-                    'Un live chaque semaine pendant 1 an.',
-                    '4 000 crédits pour développer ta propre marque.',
-                    'La certification (Or, Argent, Bronze, selon tes vues). Les replays sont déjà inclus dans le bootcamp.',
-                    'L’annuaire des partenaires, les missions du site et ta page de paiement pour encaisser tes clients.',
-                    'Les templates de closing et de setting, et les formats viraux prêts dans ton calendrier.',
-                  ]
-                : [
-                    'A live every week for 1 year.',
-                    '4,000 credits to grow your own brand.',
-                    'Certification (Gold, Silver, Bronze, based on your views). Replays are already included in the bootcamp.',
-                    'The partner directory, site missions and your payment page to charge clients.',
-                    'Closing and setting templates, and viral formats ready in your calendar.',
-                  ]
-              ).map((line) => (
-                <li key={line} className="flex gap-3 text-[15px] leading-snug text-neutral-400">
-                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-academy/70" />
-                  {line}
-                </li>
-              ))}
-            </ul>
-            <p className="mt-6 text-[14px] leading-relaxed text-neutral-500">
-              {fr
-                ? 'Chaque client dispose de son propre espace Empire. Son abonnement (crédits de production) se paie à part, sur votre page.'
-                : 'Each client has their own Empire account. Their subscription (production credits) is billed separately on your page.'}
-            </p>
 
             <h3 className="mt-12 text-xl font-semibold tracking-tight">
               {fr ? 'Et les clients ?' : 'And clients?'}
@@ -1217,11 +1204,40 @@ export default function PartnerProgramPage() {
 
             <div className="mt-16 text-center">
               <PartnerPayLink fr={fr} source="faq" price={festival.price} audience={audience} />
-              <div className="mt-3"><CtaBlock fr={fr} source="faq" audience={audience} /></div>
+              <div className="mt-3"><CtaBlock fr={fr} source="faq" audience={audience} onOpen={() => setOpenHouseOpen(true)} /></div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Popup d'inscription aux portes ouvertes (WebinarJam embed), ouverte par
+          tous les boutons « Voir les portes ouvertes » au lieu de la page. */}
+      {openHouseOpen && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
+          role="dialog"
+          aria-modal="true"
+          aria-label={fr ? 'Inscription aux portes ouvertes' : 'Open house registration'}
+          onClick={() => setOpenHouseOpen(false)}
+        >
+          <div
+            className="relative w-full max-w-md rounded-2xl border border-white/10 bg-[#0a0a0a] p-4 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setOpenHouseOpen(false)}
+              aria-label={fr ? 'Fermer' : 'Close'}
+              className="absolute right-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 text-neutral-300 hover:text-white"
+            >
+              <X className="h-4 w-4" />
+            </button>
+            <div className="max-h-[80vh] overflow-y-auto pt-2">
+              <WebinarJamEmbed fr={fr} />
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   )
 }

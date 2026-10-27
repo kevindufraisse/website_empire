@@ -60,21 +60,15 @@ export default function Header() {
   ]
 
   const lives = [
-    { href: '/vsl', name: fr ? 'Workshop Empire' : 'Empire workshop', when: fr ? 'Replay gratuit' : 'Free replay', what: fr ? 'La méthode Empire expliquée pas à pas. Accès par email.' : 'The Empire method, step by step. Email access.', dot: 'bg-empire' },
+    { href: '/vsl', name: fr ? 'Workshop Empire' : 'Empire workshop', when: fr ? <><span className="line-through text-neutral-500">2 500 €</span> <span className="font-semibold text-empire">0 € aujourd’hui</span></> : <><span className="line-through text-neutral-500">€2,500</span> <span className="font-semibold text-empire">€0 today</span></>, what: fr ? 'La méthode Empire expliquée pas à pas. Accès par email.' : 'The Empire method, step by step. Email access.' },
     {
       href: postitJoinUrl('header'),
       name: 'Post it like it’s hot',
       when: fr ? 'Mercredi · 12h Paris' : 'Wednesday · 12pm Paris',
       what: fr ? 'On trouve ton prochain contenu viral, en direct, sur ton business.' : 'We find your next viral piece, live, on your business.',
-      dot: 'bg-[#ff7ec8]',
     },
-    {
-      href: '/academy#portes-ouvertes',
-      name: fr ? 'Portes ouvertes' : 'Open house',
-      when: fr ? 'Replay ou session' : 'Replay or session',
-      what: fr ? 'Présentation enregistrée du programme partenaire. Replay immédiat ou session au choix.' : 'Recorded partner program presentation. Instant replay or a session of your choice.',
-      dot: 'bg-academy',
-    },
+    { href: 'https://join.empire-internet.com/instagram-scrapper', name: fr ? 'Trouver les Reels viraux' : 'Find viral Reels', when: fr ? 'Gratuit' : 'Free', what: fr ? 'd’un compte Instagram' : 'from any Instagram account' },
+    { href: 'https://join.empire-internet.com/3-templates-linkedin', name: fr ? 'Copie-colle mes 3 templates' : 'Copy-paste my 3 templates', when: fr ? 'Gratuit' : 'Free', what: fr ? 'les plus viraux sur LinkedIn' : 'most viral on LinkedIn' },
   ]
 
   const onTrial = () => {
@@ -148,7 +142,6 @@ export default function Header() {
                       className="block rounded-lg px-3 py-2.5 transition hover:bg-white/[0.05]"
                     >
                       <span className="flex items-center gap-2 text-sm font-semibold text-white">
-                        <span className={`h-1.5 w-1.5 shrink-0 rounded-full ${l.dot}`} />
                         {l.name}
                         <span className="ml-auto text-[11px] font-normal text-neutral-500">{l.when}</span>
                       </span>
@@ -205,7 +198,6 @@ export default function Header() {
                   className="block rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3"
                 >
                   <span className="flex items-center gap-2 text-sm font-semibold text-white">
-                    <span className={`h-1.5 w-1.5 shrink-0 rounded-full ${l.dot}`} />
                     {l.name}
                     <span className="ml-auto text-[11px] font-normal text-neutral-500">{l.when}</span>
                   </span>
