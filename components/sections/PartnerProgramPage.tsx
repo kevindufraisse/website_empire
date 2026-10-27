@@ -218,6 +218,99 @@ export function CtaBlock({
   )
 }
 
+/** Stack de valeur (Russell Brunson) : chaque élément porte une valeur indicative,
+ *  la somme donne le « total » barré face au prix du bootcamp. `value: null`
+ *  = avantage sans valeur fixe (missions), affiché « Variable » et exclu du total. */
+type ValueLine = { label: string; value: number | null }
+type ValueGroup = { title: string; lines: ValueLine[] }
+
+const VALUE_STACK: Record<'fr' | 'en', ValueGroup[]> = {
+  fr: [
+    {
+      title: 'Le bootcamp',
+      lines: [
+        { label: 'Bootcamp de 21 jours accessible immédiatement (début après paiement)', value: 1497 },
+        { label: 'Accès à vie à la communauté de créateurs', value: 497 },
+        { label: 'Mises à jour et nouveautés offertes', value: 197 },
+      ],
+    },
+    {
+      title: 'Les lives et les crédits',
+      lines: [
+        { label: 'Live chaque mercredi (1 an)', value: 1997 },
+        { label: '6 h de replays à suivre', value: 497 },
+        { label: '4 000 crédits offerts pour utiliser Empire (la machine à contenu)', value: 297 },
+        { label: 'Certification Empire (or, argent, bronze)', value: 497 },
+      ],
+    },
+    {
+      title: 'Pour produire',
+      lines: [
+        { label: 'Templates viraux directement dans votre calendrier', value: 297 },
+        { label: 'Partage (secret) des posts les plus efficaces chaque semaine', value: 997 },
+      ],
+    },
+    {
+      title: 'Pour trouver des clients',
+      lines: [
+        { label: 'Ajout dans l’annuaire', value: 197 },
+        { label: 'Réception de missions venant du site', value: null },
+        { label: 'Cours « comment trouver des clients Empire »', value: 497 },
+        { label: 'Page de paiement incluse', value: 197 },
+      ],
+    },
+    {
+      title: 'Pour vendre',
+      lines: [
+        { label: 'Templates de closing', value: 297 },
+        { label: 'Templates de setting', value: 297 },
+      ],
+    },
+  ],
+  en: [
+    {
+      title: 'The bootcamp',
+      lines: [
+        { label: '21-day bootcamp, accessible immediately (starts after payment)', value: 1497 },
+        { label: 'Lifetime access to the creators’ community', value: 497 },
+        { label: 'Updates and new features included', value: 197 },
+      ],
+    },
+    {
+      title: 'Lives and credits',
+      lines: [
+        { label: 'Live every Wednesday (1 year)', value: 1997 },
+        { label: '6 hours of replays to follow', value: 497 },
+        { label: '4,000 free credits to use Empire (the content machine)', value: 297 },
+        { label: 'Empire certification (gold, silver, bronze)', value: 497 },
+      ],
+    },
+    {
+      title: 'To produce',
+      lines: [
+        { label: 'Viral templates directly in your calendar', value: 297 },
+        { label: 'Secret share of the most effective posts each week', value: 997 },
+      ],
+    },
+    {
+      title: 'To find clients',
+      lines: [
+        { label: 'Added to the directory', value: 197 },
+        { label: 'Missions from the site', value: null },
+        { label: '« How to find Empire clients » course', value: 497 },
+        { label: 'Payment page included', value: 197 },
+      ],
+    },
+    {
+      title: 'To sell',
+      lines: [
+        { label: 'Closing templates', value: 297 },
+        { label: 'Setting templates', value: 297 },
+      ],
+    },
+  ],
+}
+
 export default function PartnerProgramPage() {
   const { lang } = useLanguage()
   const fr = lang === 'fr'
@@ -1108,104 +1201,40 @@ export default function PartnerProgramPage() {
                 : '€297 on Monday · €397 on Tuesday · €497 from Wednesday · back to €297 every Monday.'}
             </p>
             <div className="mt-8 space-y-7">
-              {(fr
-                ? [
-                    {
-                      title: 'Le bootcamp',
-                      lines: [
-                        'Bootcamp de 21 jours accessible immédiatement (début après paiement)',
-                        'Accès à vie à la communauté de créateurs',
-                        'Mises à jour et nouveautés offertes',
-                      ],
-                    },
-                    {
-                      title: 'Les lives et les crédits',
-                      lines: [
-                        'Live chaque mercredi',
-                        '6 h de replays à suivre',
-                        '4 000 crédits offerts pour utiliser Empire (la machine à contenu)',
-                        'Certification Empire (or, argent, bronze)',
-                      ],
-                    },
-                    {
-                      title: 'Pour produire',
-                      lines: [
-                        'Templates viraux directement dans votre calendrier',
-                        'Partage (secret) des posts les plus efficaces chaque semaine',
-                      ],
-                    },
-                    {
-                      title: 'Pour trouver des clients',
-                      lines: [
-                        'Ajout dans l’annuaire',
-                        'Réception de missions venant du site',
-                        'Cours « comment trouver des clients Empire »',
-                        'Page de paiement incluse',
-                      ],
-                    },
-                    {
-                      title: 'Pour vendre',
-                      lines: [
-                        'Templates de closing',
-                        'Templates de setting',
-                      ],
-                    },
-                  ]
-                : [
-                    {
-                      title: 'The bootcamp',
-                      lines: [
-                        '21-day bootcamp, accessible immediately (starts after payment)',
-                        'Lifetime access to the creators’ community',
-                        'Updates and new features included',
-                      ],
-                    },
-                    {
-                      title: 'Lives and credits',
-                      lines: [
-                        'Live every Wednesday',
-                        '6 hours of replays to follow',
-                        '4,000 free credits to use Empire (the content machine)',
-                        'Empire certification (gold, silver, bronze)',
-                      ],
-                    },
-                    {
-                      title: 'To produce',
-                      lines: [
-                        'Viral templates directly in your calendar',
-                        'Secret share of the most effective posts each week',
-                      ],
-                    },
-                    {
-                      title: 'To find clients',
-                      lines: [
-                        'Added to the directory',
-                        'Missions from the site',
-                        '« How to find Empire clients » course',
-                        'Payment page included',
-                      ],
-                    },
-                    {
-                      title: 'To sell',
-                      lines: [
-                        'Closing templates',
-                        'Setting templates',
-                      ],
-                    },
-                  ]
-              ).map((group) => (
+              {VALUE_STACK[fr ? 'fr' : 'en'].map((group) => (
                 <div key={group.title}>
                   <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-academy">{group.title}</p>
                   <ul className="mt-3 space-y-2.5">
                     {group.lines.map((line) => (
-                      <li key={line} className="flex items-start gap-2.5 text-[14px] leading-snug text-neutral-300">
+                      <li key={line.label} className="flex items-start gap-2.5 text-[14px] leading-snug text-neutral-300">
                         <Check className="mt-0.5 h-4 w-4 shrink-0 text-academy" />
-                        <span>{line}</span>
+                        <span className="flex-1">{line.label}</span>
+                        <span className="shrink-0 tabular-nums text-white/70">
+                          {line.value === null ? (fr ? 'Selon mission' : 'Varies') : `${line.value.toLocaleString('fr-FR')} €`}
+                        </span>
                       </li>
                     ))}
                   </ul>
                 </div>
               ))}
+            </div>
+
+            <div className="mt-8 rounded-2xl border border-academy/25 bg-academy/[0.06] px-5 py-4">
+              <p className="flex items-center justify-between text-[14px]">
+                <span className="text-neutral-400">{fr ? 'Valeur totale' : 'Total value'}</span>
+                <span className="font-semibold tabular-nums text-neutral-500 line-through decoration-neutral-600">
+                  {VALUE_STACK[fr ? 'fr' : 'en']
+                    .reduce((s, g) => s + g.lines.reduce((a, l) => a + (l.value ?? 0), 0), 0)
+                    .toLocaleString('fr-FR')} €
+                </span>
+              </p>
+              <p className="mt-2 flex items-center justify-between text-[17px]">
+                <span className="font-semibold text-white">{fr ? 'Aujourd’hui' : 'Today'}</span>
+                <span className="text-2xl font-extrabold tabular-nums text-academy">{festival.price} €</span>
+              </p>
+              <p className="mt-3 border-t border-white/[0.08] pt-3 text-[13px] text-neutral-400">
+                {fr ? 'Satisfait ou remboursé sous 14 jours.' : 'Satisfied or refunded within 14 days.'}
+              </p>
             </div>
             <div className="mt-8">
               <PartnerPayLink fr={fr} source="program" price={festival.price} audience={audience} />
