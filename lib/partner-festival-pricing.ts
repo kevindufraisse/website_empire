@@ -26,20 +26,20 @@ export const PARTNER_FESTIVAL_TIERS: PartnerFestivalTier[] = [
   {
     id: 'live',
     price: 297,
-    labelFr: 'Prix du lundi',
-    labelEn: 'Monday price',
+    labelFr: 'Early · lundi',
+    labelEn: 'Early · Monday',
   },
   {
     id: 'after_live',
     price: 397,
-    labelFr: 'Mardi',
-    labelEn: 'Tuesday',
+    labelFr: 'Late · mardi',
+    labelEn: 'Late · Tuesday',
   },
   {
     id: 'last_chance',
     price: 497,
-    labelFr: 'Mercredi (live)',
-    labelEn: 'Wednesday (live)',
+    labelFr: 'Very late · mercredi',
+    labelEn: 'Very late · Wednesday',
   },
 ]
 
@@ -157,8 +157,8 @@ export function getPartnerFestivalPricing(now: Date = new Date()): PartnerFestiv
     labelFr: tier.labelFr,
     labelEn: tier.labelEn,
     nextPrice: next.price,
-    nextLabelFr: isLast ? 'Prix du lundi (lundi)' : next.labelFr,
-    nextLabelEn: isLast ? 'Monday price (Monday)' : next.labelEn,
+    nextLabelFr: isLast ? 'Early · lundi' : next.labelFr,
+    nextLabelEn: isLast ? 'Early · Monday' : next.labelEn,
     msUntilNext: Math.max(0, nextAt.getTime() - now.getTime()),
     tiers: PARTNER_FESTIVAL_TIERS,
   }

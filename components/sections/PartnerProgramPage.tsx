@@ -85,7 +85,7 @@ export function FestivalPriceBlock({
   return (
     <div className="mx-auto w-full max-w-md rounded-2xl border border-academy/30 bg-academy/[0.06] px-4 py-4 text-left">
       <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-academy">
-        {fr ? 'Bootcamp 21 jours · vidéos' : '21-day bootcamp · videos'}
+        {fr ? 'Bootcamp 21 jours · live chaque mercredi' : '21-day bootcamp · live every Wednesday'}
       </p>
 
       <p className="mt-3 flex flex-wrap items-baseline gap-x-3">
@@ -97,24 +97,49 @@ export function FestivalPriceBlock({
         <span className="text-4xl font-extrabold tabular-nums text-white">{pricing.price} €</span>
         <span className="text-sm text-neutral-500">{fr ? 'une fois' : 'one-time'}</span>
       </p>
-      {nextIsIncrease && (
-        <p className="mt-2 flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-[12px] text-neutral-400">
-          <span>
-            {fr ? 'Ce prix se termine dans' : 'This price ends in'}
+
+      {/* Trois paliers façon ticketing : le palier courant est mis en avant. */}
+      <div className="mt-4 space-y-1.5">
+        {pricing.tiers.map((tier) => {
+          const isCurrent = tier.id === pricing.tierId
+          return (
+            <div
+              key={tier.id}
+              className={`flex items-center justify-between rounded-lg px-3 py-2 ${
+                isCurrent ? 'bg-academy/15 ring-1 ring-academy/40' : ''
+              }`}
+            >
+              <span className={`text-[12px] ${isCurrent ? 'font-semibold text-white' : 'text-neutral-500'}`}>
+                {fr ? tier.labelFr : tier.labelEn}
+                {isCurrent && (
+                  <span className="ml-2 rounded bg-academy px-1.5 py-0.5 text-[10px] font-bold text-black">
+                    {fr ? 'actuel' : 'current'}
+                  </span>
+                )}
+              </span>
+              <span className={`text-[13px] tabular-nums ${isCurrent ? 'font-bold text-white' : 'text-neutral-500'}`}>
+                {tier.price} €
+              </span>
+            </div>
+          )
+        })}
+      </div>
+
+      {nextIsIncrease && pricing.ready && (
+        <p className="mt-3 text-[12px] text-neutral-400">
+          {fr ? 'Ce palier passe au suivant dans' : 'This tier moves to the next in'}{' '}
+          <span className="font-mono font-semibold tabular-nums text-academy">
+            {priceCountdown(pricing.msUntilNext, fr)}
           </span>
-          {pricing.ready && (
-            <span className="font-mono text-[13px] font-semibold tabular-nums text-academy">
-              {priceCountdown(pricing.msUntilNext, fr)}
-            </span>
-          )}
         </p>
       )}
-      <p className="mt-1 text-[11px] leading-snug text-neutral-600">
+
+      <p className="mt-3 text-[12px] leading-snug text-neutral-500">
         {fr
-          ? 'Le prix monte après le lundi : 297 € le lundi (la cohorte démarre), 397 € le mardi, 497 € dès le mercredi (jour du live). Il revient à 297 € chaque lundi.'
-          : 'The price rises after Monday: €297 on Monday (the cohort starts), €397 on Tuesday, €497 from Wednesday (live day). Back to €297 every Monday.'}
+          ? 'Le live d’onboarding est chaque mercredi. Inscris-toi avant mercredi pour démarrer cette semaine.'
+          : 'The onboarding live is every Wednesday. Register before Wednesday to start this week.'}
       </p>
-      <p className="mt-2 text-[12px] text-neutral-500">
+      <p className="mt-1.5 text-[12px] text-neutral-500">
         {fr ? 'Accès immédiat, à ton rythme. Pas d’abonnement.' : 'Instant access, at your own pace. No subscription.'}
       </p>
     </div>
@@ -183,7 +208,7 @@ export function CtaBlock({
       }`}
     >
       <span className="text-[15px] font-bold leading-snug">
-        {fr ? 'Voir les portes ouvertes' : 'Watch the open house'}
+        {fr ? "S'inscrire aux portes ouvertes" : 'Register for the open house'}
       </span>
       <span className="text-[11px] font-medium text-neutral-400">
         {fr ? '· Gratuit' : '· Free'}
@@ -319,10 +344,8 @@ export default function PartnerProgramPage() {
                   : 'Earn €3,000 a month in 6 hours a week, coaching entrepreneurs with Empire.'}
               </p>
             )}
-            <AcademyPlatformLogos fr={fr} />
             <div className="mt-8 flex w-full flex-col items-center gap-3">
               <PartnerPayLink fr={fr} source="hero" price={festival.price} audience={audience} />
-              <p className="text-xs text-neutral-400">{fr ? 'Paiement unique · Accès immédiat · Formation, replays et communauté inclus' : 'One-time payment · Instant access · Training, replays and community included'}</p>
               <CtaBlock fr={fr} source="hero" audience={audience} />
               <FestivalPriceBlock fr={fr} pricing={festival} />
             </div>
@@ -1084,25 +1107,30 @@ export default function PartnerProgramPage() {
                 ? '297 € le lundi · 397 € le mardi · 497 € dès le mercredi · retour à 297 € chaque lundi.'
                 : '€297 on Monday · €397 on Tuesday · €497 from Wednesday · back to €297 every Monday.'}
             </p>
-            <ul className="mt-8 space-y-3">
+            <div className="mt-8 grid gap-3 sm:grid-cols-2">
               {(fr
                 ? [
-                    'Le bootcamp de 21 jours en vidéo : 1 action concrète par jour, environ 1 h, à ton rythme.',
-                    'L’accès à vie à la communauté.',
-                    'Les mises à jour et les nouveautés.',
+                    { t: 'Bootcamp 21 jours en vidéo', d: '1 action concrète par jour, environ 1 h, à ton rythme.' },
+                    { t: 'Les replays', d: 'Toutes les sessions passées, accessibles à vie.' },
+                    { t: 'La communauté', d: 'Accès à vie pour avancer et débloquer tes questions.' },
+                    { t: 'Les mises à jour', d: 'Les nouveautés et améliorations, incluses.' },
                   ]
                 : [
-                    'The 21-day video bootcamp: 1 concrete action a day, about 1 hour, at your own pace.',
-                    'Lifetime access to the community.',
-                    'Updates and new content.',
+                    { t: '21-day video bootcamp', d: '1 concrete action a day, about 1 hour, at your own pace.' },
+                    { t: 'The replays', d: 'All past sessions, with lifetime access.' },
+                    { t: 'The community', d: 'Lifetime access to move forward and unblock questions.' },
+                    { t: 'Updates', d: 'New content and improvements, included.' },
                   ]
-              ).map((line) => (
-                <li key={line} className="flex gap-3 text-[15px] leading-snug text-neutral-300">
-                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-academy" />
-                  {line}
-                </li>
+              ).map((row) => (
+                <div key={row.t} className="rounded-2xl border border-white/[0.08] bg-white/[0.025] p-4">
+                  <p className="flex items-center gap-2 text-[15px] font-semibold text-white">
+                    <Check className="h-4 w-4 shrink-0 text-academy" />
+                    {row.t}
+                  </p>
+                  <p className="mt-1.5 text-[13px] leading-snug text-neutral-400">{row.d}</p>
+                </div>
               ))}
-            </ul>
+            </div>
             <div className="mt-8">
               <PartnerPayLink fr={fr} source="program" price={festival.price} audience={audience} />
             </div>
