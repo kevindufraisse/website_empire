@@ -1107,49 +1107,106 @@ export default function PartnerProgramPage() {
                 ? '297 € le lundi · 397 € le mardi · 497 € dès le mercredi · retour à 297 € chaque lundi.'
                 : '€297 on Monday · €397 on Tuesday · €497 from Wednesday · back to €297 every Monday.'}
             </p>
-            <ul className="mt-8 grid gap-x-8 gap-y-3 sm:grid-cols-2">
+            <div className="mt-8 space-y-7">
               {(fr
                 ? [
-                    'Bootcamp de 21 jours accessible immédiatement (début après paiement)',
-                    'Accès à vie à la communauté de créateurs',
-                    'Live tous les lundis à 14 h',
-                    '6 h de replays à suivre',
-                    'Mises à jour et nouveautés offertes',
-                    'Ajout dans l’annuaire',
-                    'Certification Empire (or, argent, bronze)',
-                    'Réception de missions venant du site',
-                    'Templates de closing',
-                    'Templates de setting',
-                    'Partage (secret) des posts les plus efficaces chaque semaine',
-                    'Templates viraux directement dans votre calendrier',
-                    'Cours « comment trouver des clients Empire »',
-                    'Page de paiement incluse',
-                    '4 000 crédits offerts pour utiliser Empire (la machine à contenu)',
+                    {
+                      title: 'Le bootcamp',
+                      lines: [
+                        'Bootcamp de 21 jours accessible immédiatement (début après paiement)',
+                        'Accès à vie à la communauté de créateurs',
+                        'Mises à jour et nouveautés offertes',
+                      ],
+                    },
+                    {
+                      title: 'Les lives et les crédits',
+                      lines: [
+                        'Live chaque mercredi',
+                        '6 h de replays à suivre',
+                        '4 000 crédits offerts pour utiliser Empire (la machine à contenu)',
+                        'Certification Empire (or, argent, bronze)',
+                      ],
+                    },
+                    {
+                      title: 'Pour produire',
+                      lines: [
+                        'Templates viraux directement dans votre calendrier',
+                        'Partage (secret) des posts les plus efficaces chaque semaine',
+                      ],
+                    },
+                    {
+                      title: 'Pour trouver des clients',
+                      lines: [
+                        'Ajout dans l’annuaire',
+                        'Réception de missions venant du site',
+                        'Cours « comment trouver des clients Empire »',
+                        'Page de paiement incluse',
+                      ],
+                    },
+                    {
+                      title: 'Pour vendre',
+                      lines: [
+                        'Templates de closing',
+                        'Templates de setting',
+                      ],
+                    },
                   ]
                 : [
-                    '21-day bootcamp, accessible immediately (starts after payment)',
-                    'Lifetime access to the creators’ community',
-                    'Live every Monday at 2 pm',
-                    '6 hours of replays to follow',
-                    'Updates and new features included',
-                    'Added to the directory',
-                    'Empire certification (gold, silver, bronze)',
-                    'Missions from the site',
-                    'Closing templates',
-                    'Setting templates',
-                    'Secret share of the most effective posts each week',
-                    'Viral templates directly in your calendar',
-                    '« How to find Empire clients » course',
-                    'Payment page included',
-                    '4,000 free credits to use Empire (the content machine)',
+                    {
+                      title: 'The bootcamp',
+                      lines: [
+                        '21-day bootcamp, accessible immediately (starts after payment)',
+                        'Lifetime access to the creators’ community',
+                        'Updates and new features included',
+                      ],
+                    },
+                    {
+                      title: 'Lives and credits',
+                      lines: [
+                        'Live every Wednesday',
+                        '6 hours of replays to follow',
+                        '4,000 free credits to use Empire (the content machine)',
+                        'Empire certification (gold, silver, bronze)',
+                      ],
+                    },
+                    {
+                      title: 'To produce',
+                      lines: [
+                        'Viral templates directly in your calendar',
+                        'Secret share of the most effective posts each week',
+                      ],
+                    },
+                    {
+                      title: 'To find clients',
+                      lines: [
+                        'Added to the directory',
+                        'Missions from the site',
+                        '« How to find Empire clients » course',
+                        'Payment page included',
+                      ],
+                    },
+                    {
+                      title: 'To sell',
+                      lines: [
+                        'Closing templates',
+                        'Setting templates',
+                      ],
+                    },
                   ]
-              ).map((line) => (
-                <li key={line} className="flex items-start gap-2.5 text-[14px] leading-snug text-neutral-300">
-                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-academy" />
-                  <span>{line}</span>
-                </li>
+              ).map((group) => (
+                <div key={group.title}>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-academy">{group.title}</p>
+                  <ul className="mt-3 space-y-2.5">
+                    {group.lines.map((line) => (
+                      <li key={line} className="flex items-start gap-2.5 text-[14px] leading-snug text-neutral-300">
+                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-academy" />
+                        <span>{line}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               ))}
-            </ul>
+            </div>
             <div className="mt-8">
               <PartnerPayLink fr={fr} source="program" price={festival.price} audience={audience} />
             </div>
