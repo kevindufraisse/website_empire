@@ -37,7 +37,7 @@ export default function Header() {
   const isAcademyPage = pathname === '/academy' || pathname?.startsWith('/academy/')
 
   if (isCandidaturePage) return null
-  if (pathname === '/live' || pathname === '/tarifs') return null
+  if (pathname === '/live' || pathname === '/tarifs' || pathname === '/demo') return null
 
   if (pathname === '/academy/merci' || pathname === '/thank-you' || pathname === '/webinar' || pathname === '/webinar/merci' || pathname === '/final-offer' || pathname === '/vsl' || pathname === '/partenaire') {
     return (
@@ -138,6 +138,8 @@ export default function Header() {
                     <a
                       key={l.name}
                       href={l.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       onClick={() => setLivesOpen(false)}
                       className="block rounded-lg px-3 py-2.5 transition hover:bg-white/[0.05]"
                     >
@@ -194,6 +196,8 @@ export default function Header() {
                 <a
                   key={l.name}
                   href={l.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => setIsMenuOpen(false)}
                   className="block rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3"
                 >

@@ -11,6 +11,7 @@ import {
   WEBINARJAM_ID,
   WEBINARJAM_LIVE,
   webinarJamBarSrc,
+  webinarJamButtonSrc,
   webinarJamEmbedSrc,
 } from '@/lib/webinarjam'
 
@@ -70,11 +71,18 @@ export function WebinarJamBar({
   useWebinarJamConversion(source, hash)
   if (!WEBINARJAM_LIVE) return null
   return (
-    <Script
-      id="webinarjam-open-house-bar"
-      src={webinarJamBarSrc({ buttonText, id: hash })}
-      strategy="afterInteractive"
-    />
+    <>
+      <Script
+        id="webinarjam-open-house-bar"
+        src={webinarJamBarSrc({ buttonText, id: hash })}
+        strategy="afterInteractive"
+      />
+      <Script
+        id="webinarjam-open-house-button"
+        src={webinarJamButtonSrc({ buttonText, id: hash })}
+        strategy="afterInteractive"
+      />
+    </>
   )
 }
 
@@ -106,7 +114,7 @@ export function WebinarJamButton({
       type="button"
       data-webinarhash={hash}
       onClick={onClick}
-      className={className}
+      className={`wj-embed-button ${className}`}
     >
       {children}
     </button>

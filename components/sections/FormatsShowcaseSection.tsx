@@ -521,6 +521,12 @@ export default function FormatsShowcaseSection() {
             <ChevronRight className="h-5 w-5" />
           </button>
         </div>
+
+        {/* L'app contient d'autres formats qu'on garde secrets pour éviter les
+            copies : on les annonce sans les montrer. */}
+        <p className="mt-6 text-center text-sm text-neutral-500">
+          {fr ? 'Et encore d’autres formats, réservés à l’app.' : 'And even more formats, reserved for the app.'}
+        </p>
       </div>
     </section>
   )

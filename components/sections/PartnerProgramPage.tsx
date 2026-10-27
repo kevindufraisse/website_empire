@@ -4,13 +4,13 @@ import { useMemo, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Script from 'next/script'
-import { ArrowRight, Check, X } from 'lucide-react'
+import { ArrowRight, Check } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { trackAmplitude } from '@/lib/amplitude'
 import { partnerPayHref } from '@/lib/partner-festival-pricing'
 import { getPlan } from '@/lib/plans'
 import { usePartnerFestivalPricing } from '@/hooks/usePartnerFestivalPricing'
-import { WebinarJamEmbed } from '@/components/WebinarJamRegister'
+import { WebinarJamBar, WebinarJamButton } from '@/components/WebinarJamRegister'
 import FeaturedInSection from '@/components/FeaturedInSection'
 import TopCreatorsSection from '@/components/sections/TopCreatorsSection'
 import AcademyProductDemo from '@/components/AcademyProductDemo'
@@ -100,7 +100,7 @@ export function FestivalPriceBlock({
       {nextIsIncrease && (
         <p className="mt-2 flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-[12px] text-neutral-400">
           <span>
-            {fr ? `Passe à ${pricing.nextPrice} € dans` : `Goes up to €${pricing.nextPrice} in`}
+            {fr ? 'Ce prix se termine dans' : 'This price ends in'}
           </span>
           {pricing.ready && (
             <span className="font-mono text-[13px] font-semibold tabular-nums text-academy">
@@ -167,24 +167,17 @@ export function CtaBlock({
   fr,
   source,
   audience,
-  onOpen,
   fullWidth = false,
 }: {
   fr: boolean
   source: string
   audience: Audience
-  /** Ouvre la popup d'inscription WebinarJam (au lieu de la page). */
-  onOpen?: () => void
   /** Aligné sur la largeur du bloc parent (ex. simulation). */
   fullWidth?: boolean
 }) {
   return (
-    <button
-      type="button"
-      onClick={() => {
-        trackOpen(source, audience)
-        onOpen?.()
-      }}
+    <WebinarJamButton
+      onClick={() => trackOpen(source, audience)}
       className={`inline-flex h-12 items-center justify-center gap-2 rounded-2xl border border-white/20 px-6 text-white transition hover:border-white/40 hover:bg-white/[0.04] ${
         fullWidth ? 'w-full' : 'mx-auto w-full max-w-md'
       }`}
@@ -196,7 +189,7 @@ export function CtaBlock({
         {fr ? '· Gratuit' : '· Free'}
       </span>
       <ArrowRight className="h-4 w-4 shrink-0" />
-    </button>
+    </WebinarJamButton>
   )
 }
 
@@ -208,7 +201,6 @@ export default function PartnerProgramPage() {
   const audience: Audience = 'reconversion'
   const [level, setLevel] = useState<Level>('debutant')
   const [hours, setHours] = useState(12)
-  const [openHouseOpen, setOpenHouseOpen] = useState(false)
   const agency = false
 
   const sim = useMemo(() => {
@@ -270,6 +262,7 @@ export default function PartnerProgramPage() {
         src="https://widget.senja.io/widget/2a990f91-6426-436a-b50d-318fc49a7851/platform.js"
         strategy="lazyOnload"
       />
+      <WebinarJamBar buttonText={fr ? "S'inscrire" : 'Register'} />
 
       {/* Hero : texte d’origine, densifié pour passer au-dessus de la barre WJ */}
       <section className="relative overflow-hidden border-b border-white/[0.06] pt-[4.5rem] pb-12 md:pt-20 md:pb-16">
@@ -310,19 +303,6 @@ export default function PartnerProgramPage() {
               ))}
             </nav>
 
-            <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-academy">
-              {fr ? 'Empire · Programme partenaire' : 'Empire · Partner program'}
-            </p>
-            <p className="mt-1.5 text-[14px] text-neutral-400">
-              {fr
-                ? agency
-                  ? 'Pour les agences, studios et consultants'
-                  : 'Pour une reconversion ou une nouvelle activité'
-                : agency
-                  ? 'For agencies, studios and consultants'
-                  : 'For a career change or a new business'}
-            </p>
-
             <h1 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl md:text-[2.75rem] md:leading-[1.15]">
               {fr
                 ? agency
@@ -338,28 +318,6 @@ export default function PartnerProgramPage() {
                   ? 'Gagnez 3 000 € par mois en 6 h par semaine, en accompagnant des entrepreneurs avec Empire.'
                   : 'Earn €3,000 a month in 6 hours a week, coaching entrepreneurs with Empire.'}
               </p>
-            )}
-            <p className="mx-auto mt-4 text-lg font-semibold text-white sm:text-xl">
-              {fr
-                ? <>Bootcamp de 21 jours · <span className="text-academy">{festival.price} €</span> <span className="font-normal text-neutral-400">une fois · à ton rythme</span></>
-                : <>21-day bootcamp · <span className="text-academy">€{festival.price}</span> <span className="font-normal text-neutral-400">one-time · at your own pace</span></>}
-            </p>
-            {!agency && (
-              <div className="mx-auto mt-4 flex items-center justify-center gap-3">
-                <div className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full ring-2 ring-academy/40">
-                  <Image
-                    src="/founders/marc.jpg"
-                    alt="Marc Dufraisse"
-                    fill
-                    sizes="36px"
-                    className="object-cover object-top"
-                  />
-                </div>
-                <p className="text-sm text-neutral-300">
-                  <span className="font-semibold text-white">Marc Dufraisse</span>
-                  {fr ? ' · 15 K€ générés en 3 mois' : ' · €15K generated in 3 months'}
-                </p>
-              </div>
             )}
             <p className="mx-auto mt-4 max-w-xl text-[17px] leading-[1.55] text-neutral-300">
               {fr
@@ -379,13 +337,12 @@ export default function PartnerProgramPage() {
             <div className="mt-8 flex w-full flex-col items-center gap-3">
               <PartnerPayLink fr={fr} source="hero" price={festival.price} audience={audience} />
               <p className="text-xs text-neutral-400">{fr ? 'Paiement unique · Accès immédiat · Formation, replays et communauté inclus' : 'One-time payment · Instant access · Training, replays and community included'}</p>
-              <button
-                type="button"
-                onClick={() => { trackOpen('hero', audience); setOpenHouseOpen(true) }}
+              <WebinarJamButton
+                onClick={() => trackOpen('hero', audience)}
                 className="min-h-0 text-sm text-neutral-400 underline-offset-4 transition hover:text-white hover:underline"
               >
                 {fr ? 'ou regarde d’abord la présentation gratuite' : 'or watch the free presentation first'}
-              </button>
+              </WebinarJamButton>
               <FestivalPriceBlock fr={fr} pricing={festival} />
             </div>
             <dl className="mx-auto mt-6 grid max-w-2xl grid-cols-3 divide-x divide-white/[0.08] border-y border-white/[0.08] py-4">
@@ -875,7 +832,7 @@ export default function PartnerProgramPage() {
 
               <div className="mt-10 w-full">
                 <PartnerPayLink fr={fr} source="simulation" price={festival.price} audience={audience} />
-                <div className="mt-3"><CtaBlock fr={fr} source="simulation" audience={audience} fullWidth onOpen={() => setOpenHouseOpen(true)} /></div>
+                <div className="mt-3"><CtaBlock fr={fr} source="simulation" audience={audience} fullWidth /></div>
               </div>
             </div>
           </div>
@@ -961,7 +918,7 @@ export default function PartnerProgramPage() {
                   ))}
                 </ul>
                 <div className="mt-8">
-                  <CtaBlock fr={fr} source="section" audience={audience} onOpen={() => setOpenHouseOpen(true)} />
+                  <CtaBlock fr={fr} source="section" audience={audience} />
                 </div>
                 <p className="mt-4 text-[13px] text-neutral-600">
                   {fr
@@ -1204,40 +1161,11 @@ export default function PartnerProgramPage() {
 
             <div className="mt-16 text-center">
               <PartnerPayLink fr={fr} source="faq" price={festival.price} audience={audience} />
-              <div className="mt-3"><CtaBlock fr={fr} source="faq" audience={audience} onOpen={() => setOpenHouseOpen(true)} /></div>
+              <div className="mt-3"><CtaBlock fr={fr} source="faq" audience={audience} /></div>
             </div>
           </div>
         </div>
       </section>
-
-      {/* Popup d'inscription aux portes ouvertes (WebinarJam embed), ouverte par
-          tous les boutons « Voir les portes ouvertes » au lieu de la page. */}
-      {openHouseOpen && (
-        <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
-          role="dialog"
-          aria-modal="true"
-          aria-label={fr ? 'Inscription aux portes ouvertes' : 'Open house registration'}
-          onClick={() => setOpenHouseOpen(false)}
-        >
-          <div
-            className="relative w-full max-w-md rounded-2xl border border-white/10 bg-[#0a0a0a] p-4 shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              type="button"
-              onClick={() => setOpenHouseOpen(false)}
-              aria-label={fr ? 'Fermer' : 'Close'}
-              className="absolute right-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 text-neutral-300 hover:text-white"
-            >
-              <X className="h-4 w-4" />
-            </button>
-            <div className="max-h-[80vh] overflow-y-auto pt-2">
-              <WebinarJamEmbed fr={fr} />
-            </div>
-          </div>
-        </div>
-      )}
     </main>
   )
 }

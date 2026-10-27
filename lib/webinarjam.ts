@@ -29,6 +29,15 @@ export function webinarJamBarSrc(opts?: {
   return `https://event.webinarjam.com/register/${opts?.id || WEBINARJAM_ID}/embed-bar?buttonText=${buttonText}&buttonBgColor=${buttonBg}&buttonBgOpacity=1&barBgColor=${barBg}&barBgOpacity=0.96&formTemplate=2&formColor=1`
 }
 
+/** Bouton d'inscription (WebinarJam embed-button) : ouvre la popup au clic sur un `data-webinarhash`. */
+export function webinarJamButtonSrc(opts?: {
+  buttonText?: string
+  id?: string
+}): string {
+  const buttonText = encodeURIComponent(opts?.buttonText ?? 'Register')
+  return `https://event.webinarjam.com/register/${opts?.id || WEBINARJAM_ID}/embed-button?formTemplate=2&formColor=1&buttonText=${buttonText}`
+}
+
 /** Formulaire embarqué (même session, thème sombre). */
 export function webinarJamEmbedSrc(): string {
   return `https://event.webinarjam.com/register/${WEBINARJAM_ID}/embed?formTemplate=2&formColor=1`

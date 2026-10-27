@@ -215,18 +215,6 @@ export default function HeroSection() {
                     : <>They use this formula. <span className="text-neutral-500">Ready for you.</span></>}
                 </span>
               </div>
-              {!autopilot && (
-                <div className="flex flex-wrap items-center justify-center gap-2 text-[11px] font-semibold text-neutral-400 sm:gap-2.5 sm:text-xs">
-                  {(lang === 'fr'
-                    ? ['1 an de R&D', '10 000+ posts testés', '1M de vues garanties']
-                    : ['1 year of R&D', '10,000+ posts tested', '1M views guaranteed']
-                  ).map((item) => (
-                    <span key={item} className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-0.5">
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              )}
             </div>
           </motion.div>
 
