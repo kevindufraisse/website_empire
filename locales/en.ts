@@ -14,7 +14,7 @@ export const en = {
   },
   hero: {
     targetAudience: '',
-    title: 'The unfair advantage that gets you seen and bought through your content.',
+    title: 'The unfair advantage<br/>that gets you seen and<br/>bought through your content.',
     titleH2: 'Without having to write or edit your videos.',
     titleNote: '',
     subtitle: 'Our virality team spots the formats that blow up, templates them for you and duplicates them across 7 platforms. No writing, no editing, no wondering what to say.',

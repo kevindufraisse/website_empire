@@ -46,7 +46,7 @@ export function PartnerPayLink({
     <a
       href={partnerPayHref()}
       onClick={() => trackAmplitude('academy_partner_checkout_clicked', { source, price, audience })}
-      className="inline-flex min-h-12 w-full max-w-md items-center justify-center gap-2 rounded-2xl bg-academy px-6 text-[14px] font-bold text-black transition hover:brightness-110"
+      className="mx-auto inline-flex min-h-12 w-full max-w-md items-center justify-center gap-2 rounded-2xl bg-academy px-6 text-[14px] font-bold text-black transition hover:brightness-110"
     >
       {fr
         ? audience === 'agency'
@@ -100,8 +100,9 @@ export function FestivalPriceBlock({
 
       {/* Trois paliers façon ticketing : le palier courant est mis en avant. */}
       <div className="mt-4 space-y-1.5">
-        {pricing.tiers.map((tier) => {
+        {pricing.tiers.map((tier, i) => {
           const isCurrent = tier.id === pricing.tierId
+          const isPast = i < pricing.tiers.findIndex((t) => t.id === pricing.tierId)
           return (
             <div
               key={tier.id}
@@ -118,7 +119,7 @@ export function FestivalPriceBlock({
                 )}
               </span>
               <span className={`text-[13px] tabular-nums ${isCurrent ? 'font-bold text-white' : 'text-neutral-500'}`}>
-                {tier.price} €
+                {isPast ? (fr ? 'Complet' : 'Full') : `${tier.price} €`}
               </span>
             </div>
           )
@@ -203,7 +204,7 @@ export function CtaBlock({
   return (
     <WebinarJamButton
       onClick={() => trackOpen(source, audience)}
-      className={`inline-flex h-12 items-center justify-center gap-2 rounded-2xl border border-white/20 px-6 text-white transition hover:border-white/40 hover:bg-white/[0.04] ${
+      className={`inline-flex h-12 items-center justify-center gap-2 rounded-2xl border border-white/40 bg-white/[0.08] px-6 text-white transition hover:border-white/60 hover:bg-white/[0.14] ${
         fullWidth ? 'w-full' : 'mx-auto w-full max-w-md'
       }`}
     >
@@ -621,7 +622,7 @@ export default function PartnerProgramPage() {
                       ]
                   ).map((line) => (
                     <li key={line} className="flex gap-2">
-                      <span aria-hidden className="text-neutral-700">—</span>
+                      <span aria-hidden className="text-neutral-700">-</span>
                       {line}
                     </li>
                   ))}
@@ -1027,11 +1028,6 @@ export default function PartnerProgramPage() {
                 <div className="mt-8">
                   <CtaBlock fr={fr} source="section" audience={audience} />
                 </div>
-                <p className="mt-4 text-[13px] text-neutral-600">
-                  {fr
-                    ? `Gratuit · Date et heure confirmées lors de l’inscription · Ensuite, le bootcamp : ${festival.price} €.`
-                    : `Free · Date and time confirmed when you register · Then, the bootcamp: €${festival.price}.`}
-                </p>
               </div>
             </div>
             </div>
@@ -1075,20 +1071,20 @@ export default function PartnerProgramPage() {
               <p className="font-medium text-neutral-200">
                 {fr
                   ? agency
-                    ? 'Vous apprenez en déployant — sur votre agence ou sur un premier client pilote.'
-                    : 'Vous apprenez en faisant — et votre personal branding devient votre première vitrine.'
+                    ? 'Vous apprenez en déployant - sur votre agence ou sur un premier client pilote.'
+                    : 'Vous apprenez en faisant - et votre personal branding devient votre première vitrine.'
                   : agency
-                    ? 'You learn by deploying — on your agency or with a first pilot client.'
-                    : 'You learn by doing — and your personal brand becomes your first showcase.'}
+                    ? 'You learn by deploying - on your agency or with a first pilot client.'
+                    : 'You learn by doing - and your personal brand becomes your first showcase.'}
               </p>
               <p>
                 {fr
                   ? agency
                     ? 'L’objectif au jour 21 : disposer d’une offre claire, d’un processus maîtrisé et d’une démonstration concrète à présenter à vos clients existants.'
-                    : 'L’objectif au jour 21 : maîtriser la plateforme et être prêt à convertir un premier client — avec une offre claire, des contenus publiés, une prospection lancée et le processus d’accompagnement en main.'
+                    : 'L’objectif au jour 21 : maîtriser la plateforme et être prêt à convertir un premier client - avec une offre claire, des contenus publiés, une prospection lancée et le processus d’accompagnement en main.'
                   : agency
                     ? 'The day-21 goal: have a clear offer, a mastered workflow and a concrete demonstration to present to existing clients.'
-                    : 'The day-21 goal: master the platform and be ready to convert a first client — with a clear offer, published content, active outreach and a working client-delivery process.'}
+                    : 'The day-21 goal: master the platform and be ready to convert a first client - with a clear offer, published content, active outreach and a working client-delivery process.'}
               </p>
               <p className="text-white">
                 {fr
@@ -1109,58 +1105,58 @@ export default function PartnerProgramPage() {
                 ? agency
                   ? [
                       {
-                        t: 'Semaine 1 — Construire l’offre agence',
+                        t: 'Semaine 1 - Construire l’offre agence',
                         d: 'Vous choisissez le positionnement, identifiez un client pilote et créez une première démonstration avec Empire.',
                       },
                       {
-                        t: 'Semaine 2 — Installer la production',
+                        t: 'Semaine 2 - Installer la production',
                         d: 'Vous maîtrisez les sujets, les validations, la création et le calendrier pour livrer une prestation régulière.',
                       },
                       {
-                        t: 'Semaine 3 — Déployer sur le portefeuille',
+                        t: 'Semaine 3 - Déployer sur le portefeuille',
                         d: 'Vous apprenez à présenter l’offre, organiser l’onboarding et la proposer à vos clients existants ou en marque blanche.',
                       },
                     ]
                   : [
                       {
-                        t: 'Semaine 1 — Publier et prospecter immédiatement',
+                        t: 'Semaine 1 - Publier et prospecter immédiatement',
                         d: 'Vous configurez Empire, clarifiez votre offre, adaptez vos premiers formats, publiez et lancez vos premières conversations avec des prospects.',
                       },
                       {
-                        t: 'Semaine 2 — Comprendre la viralité et produire',
+                        t: 'Semaine 2 - Comprendre la viralité et produire',
                         d: 'Vous apprenez les hooks, formats et mécaniques de viralité, puis adaptez vos contenus aux 7 réseaux.',
                       },
                       {
-                        t: 'Semaine 3 — Devenir prêt pour un premier client',
+                        t: 'Semaine 3 - Devenir prêt pour un premier client',
                         d: 'Vous apprenez à présenter votre accompagnement, conduire l’entretien, organiser la prestation et ouvrir votre page consultant.',
                       },
                     ]
                 : agency
                   ? [
                       {
-                        t: 'Week 1 — Build the agency offer',
+                        t: 'Week 1 - Build the agency offer',
                         d: 'Choose the positioning, identify a pilot client and create a first demonstration with Empire.',
                       },
                       {
-                        t: 'Week 2 — Install production',
+                        t: 'Week 2 - Install production',
                         d: 'Master topics, approvals, creation and scheduling to deliver a consistent service.',
                       },
                       {
-                        t: 'Week 3 — Deploy across the portfolio',
+                        t: 'Week 3 - Deploy across the portfolio',
                         d: 'Learn to present the offer, organize onboarding and sell it to existing clients or white-label partners.',
                       },
                     ]
                   : [
                       {
-                        t: 'Week 1 — Publish and reach out immediately',
+                        t: 'Week 1 - Publish and reach out immediately',
                         d: 'Set up Empire, clarify your offer, adapt your first formats, publish and start your first prospect conversations.',
                       },
                       {
-                        t: 'Week 2 — Understand virality and produce',
+                        t: 'Week 2 - Understand virality and produce',
                         d: 'Learn hooks, formats and viral mechanics, then adapt your content across all 7 networks.',
                       },
                       {
-                        t: 'Week 3 — Become first-client ready',
+                        t: 'Week 3 - Become first-client ready',
                         d: 'Learn to present your service, run the interview, organize delivery and open your consultant page.',
                       },
                     ]
@@ -1232,12 +1228,10 @@ export default function PartnerProgramPage() {
                 <span className="font-semibold text-white">{fr ? 'Aujourd’hui' : 'Today'}</span>
                 <span className="text-2xl font-extrabold tabular-nums text-academy">{festival.price} €</span>
               </p>
-              <p className="mt-3 border-t border-white/[0.08] pt-3 text-[13px] text-neutral-400">
-                {fr ? 'Satisfait ou remboursé sous 14 jours.' : 'Satisfied or refunded within 14 days.'}
-              </p>
             </div>
-            <div className="mt-8">
+            <div className="mt-8 flex w-full flex-col items-center gap-3">
               <PartnerPayLink fr={fr} source="program" price={festival.price} audience={audience} />
+              <CtaBlock fr={fr} source="program" audience={audience} />
             </div>
 
             <h3 className="mt-12 text-xl font-semibold tracking-tight">

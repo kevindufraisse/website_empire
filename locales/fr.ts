@@ -137,7 +137,7 @@ export const fr: Translations = {
   },
   hero: {
     targetAudience: '',
-    title: 'L’avantage injuste qui vous permet d’être vu et acheté grâce à votre contenu.',
+    title: 'L’avantage injuste<br/>qui vous permet d’être vu et<br/>acheté grâce à votre contenu.',
     titleH2: 'Sans avoir à écrire ni monter vos vidéos.',
     titleNote: '',
     subtitle: 'Notre équipe de viralité repère les formats qui explosent, les templatise pour vous et les duplique sur 7 plateformes. Sans écrire, sans monter, sans chercher quoi dire.',
