@@ -307,10 +307,10 @@ export default function PartnerProgramPage() {
               {fr
                 ? agency
                   ? 'Ajoutez une offre de personal branding à votre agence. Sans recruter une équipe de production.'
-                  : 'Devenez Content Operator pour entrepreneurs.'
+                  : 'Devenez Content Operator pour entrepreneurs en 21 jours.'
                 : agency
                   ? 'Add a personal-branding offer to your agency. Without hiring a production team.'
-                  : 'Become a Content Operator for entrepreneurs.'}
+                  : 'Become a Content Operator for entrepreneurs in 21 days.'}
             </h1>
             {!agency && (
               <p className="mx-auto mt-4 max-w-xl text-lg font-medium text-white sm:text-xl">
@@ -319,30 +319,11 @@ export default function PartnerProgramPage() {
                   : 'Earn €3,000 a month in 6 hours a week, coaching entrepreneurs with Empire.'}
               </p>
             )}
-            <p className="mx-auto mt-4 max-w-xl text-[17px] leading-[1.55] text-neutral-300">
-              {fr
-                ? agency
-                  ? 'Vous gardez la stratégie, la relation et les décisions avec vos clients. Empire propose les sujets, rédige, monte et programme les contenus pour déployer cette offre auprès de votre portefeuille.'
-                  : 'En 21 jours, apprenez à trouver un client, recueillir son expertise et piloter sa présence en ligne. Empire propose les sujets, rédige, monte et programme les contenus.'
-                : agency
-                  ? 'You keep strategy, client relationships and decisions. Empire suggests topics, writes, edits and schedules content so you can deploy the offer across your portfolio.'
-                  : 'In 21 days, learn to find a client, capture their expertise and lead their online presence. Empire suggests topics, writes, edits and schedules the content.'}
-            </p>
-            <p className="mx-auto mt-3 max-w-xl text-[13px] leading-relaxed text-neutral-500">
-              {fr
-                ? 'Aucune compétence en montage ou en copywriting n’est requise. Vous apprenez la stratégie, la relation client et les mécaniques de viralité.'
-                : 'No editing or copywriting skill is required. You learn strategy, client relationships and viral mechanics.'}
-            </p>
             <AcademyPlatformLogos fr={fr} />
             <div className="mt-8 flex w-full flex-col items-center gap-3">
               <PartnerPayLink fr={fr} source="hero" price={festival.price} audience={audience} />
               <p className="text-xs text-neutral-400">{fr ? 'Paiement unique · Accès immédiat · Formation, replays et communauté inclus' : 'One-time payment · Instant access · Training, replays and community included'}</p>
-              <WebinarJamButton
-                onClick={() => trackOpen('hero', audience)}
-                className="min-h-0 text-sm text-neutral-400 underline-offset-4 transition hover:text-white hover:underline"
-              >
-                {fr ? 'ou regarde d’abord la présentation gratuite' : 'or watch the free presentation first'}
-              </WebinarJamButton>
+              <CtaBlock fr={fr} source="hero" audience={audience} />
               <FestivalPriceBlock fr={fr} pricing={festival} />
             </div>
             <dl className="mx-auto mt-6 grid max-w-2xl grid-cols-3 divide-x divide-white/[0.08] border-y border-white/[0.08] py-4">
@@ -704,6 +685,7 @@ export default function PartnerProgramPage() {
                     {
                       t: 'Votre temps',
                       d: 'Une fois le système maîtrisé, le repère est d’environ 4 h par mois et par client. L’apprentissage, l’installation et la prospection sont en plus.',
+                      hl: '4 h par mois et par client',
                     },
                     {
                       t: 'Vos clients',
@@ -722,6 +704,7 @@ export default function PartnerProgramPage() {
                     {
                       t: 'Your time',
                       d: 'Once fluent, the benchmark is about four hours per client per month. Training, setup and outreach are additional.',
+                      hl: 'four hours per client per month',
                     },
                     {
                       t: 'Your clients',
@@ -731,7 +714,15 @@ export default function PartnerProgramPage() {
               ).map((row) => (
                 <div key={row.t} className="rounded-2xl border border-white/[0.08] bg-white/[0.025] p-5">
                   <dt className="text-[15px] font-semibold text-white">{row.t}</dt>
-                  <dd className="mt-2 text-[13px] leading-relaxed text-neutral-500">{row.d}</dd>
+                  <dd className="mt-2 text-[14px] leading-relaxed text-neutral-400">
+                    {'hl' in row && row.hl ? (
+                      <>
+                        {row.d.split(row.hl)[0]}
+                        <strong className="font-semibold text-white">{row.hl}</strong>
+                        {row.d.split(row.hl)[1]}
+                      </>
+                    ) : row.d}
+                  </dd>
                 </div>
               ))}
             </dl>
