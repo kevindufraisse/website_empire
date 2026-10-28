@@ -386,3 +386,12 @@ body.calendar-dialog-open header {
     display: none;
   }
 }
+
+/* Popup d'inscription WebinarJam (embed-button) : l'overlay est un conteneur
+   fixe qui défile par-dessus la page. Sur iOS, on lui laisse le geste de
+   défilement et on l'empêche de remonter à la page en dessous. */
+.wj_registration-overlay {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+}
