@@ -4,8 +4,11 @@ import { useEffect, useRef, useState } from 'react'
 import Script from 'next/script'
 import { Play, Pause, Volume2, VolumeX, Maximize, Check, Calendar, ArrowRight, ChevronDown, MonitorPlay } from 'lucide-react'
 import CalPopupButton from '@/components/CalPopupButton'
-import { trackAmplitude, withAmplitudeDeviceId } from '@/lib/amplitude'
+import { trackAmplitude } from '@/lib/amplitude'
+import { withAmplitudeDeviceId } from '@/lib/amplitude'
 import VideoEmailGate, { adoptEmailFromUrl, storedVideoEmail } from '@/components/VideoEmailGate'
+import { AudioPlayerCard, TextVersionSection, ExitFormatsPopup, useExitIntent } from '@/components/ListenReadFormats'
+import { SCRIPT_SECTIONS, READ_MINUTES } from './vslScript'
 
 const VIDEO_ID = 'AKfoDblGUNs'
 const VIDEO_TITLE = 'Le système de personnalisation des entrepreneurs à 7 chiffres par an, expliqué'
@@ -77,7 +80,15 @@ declare global {
 }
 
 // L'email est demandé avant la lecture (choix de Kevin, 17 octobre 2026).
+// La même porte email vaut pour les trois formats : vidéo, texte, audio.
 const TIME_KEY = 'empire_vsl_time_v1'
+const AUDIO_TIME_KEY = 'empire_vsl_audio_time_v1'
+const TEXT_POS_KEY = 'empire_vsl_text_pos_v1'
+
+// L'audio de la VSL (extrait de la vidéo, 64 kbit/s mono), hébergé sur le
+// bucket public `user-files` comme les autres assets publics d'Empire.
+const AUDIO_URL =
+  'https://aaaaktbefgvyokfrzrmb.supabase.co/storage/v1/object/public/user-files/public-assets/vsl/v1/vsl-live-2026-audio.mp3'
 
 function readStore(key: string): string | null {
   try {
@@ -95,7 +106,7 @@ function writeStore(key: string, value: string) {
   }
 }
 
-function VideoPlayer() {
+function VideoPlayer({ onPlayingChange }: { onPlayingChange?: (playing: boolean) => void }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const playerRef = useRef<any>(null)
   const sentRef = useRef<Set<number>>(new Set())
@@ -116,6 +127,10 @@ function VideoPlayer() {
     setStartAt(Number(readStore(TIME_KEY)) || 0)
     setCanFullscreen(Boolean(document.fullscreenEnabled))
   }, [])
+
+  useEffect(() => {
+    onPlayingChange?.(isPlaying)
+  }, [isPlaying, onPlayingChange])
 
   useEffect(() => {
     if (!started) return
@@ -169,6 +184,8 @@ function VideoPlayer() {
   }, [started])
 
   const start = () => {
+    // L'email a pu être donné après le montage, via la porte texte ou audio.
+    if (!unlockedRef.current) unlockedRef.current = Boolean(storedVideoEmail())
     if (!unlockedRef.current) {
       setAskEmail(true)
       trackAmplitude('vsl_email_gate_shown', { funnel: 'empire' })
@@ -473,12 +490,59 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 }
 
 export default function VslClient() {
+  const [textOpen, setTextOpen] = useState(false)
+  const [audioOpen, setAudioOpen] = useState(false)
+  const [popupOpen, setPopupOpen] = useState(false)
+  const [gateFor, setGateFor] = useState<'text' | 'audio' | null>(null)
+  const [videoPlaying, setVideoPlaying] = useState(false)
+
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     const emp = params.get('emp')
     if (emp) sessionStorage.setItem('emp', emp)
     trackAmplitude('vsl_viewed', { has_emp: Boolean(emp) || undefined })
   }, [])
+
+  const reveal = (kind: 'text' | 'audio') => {
+    setGateFor(null)
+    setPopupOpen(false)
+    if (kind === 'text') {
+      setTextOpen(true)
+      trackAmplitude('vsl_text_opened')
+    } else {
+      setAudioOpen(true)
+      trackAmplitude('vsl_audio_opened')
+      requestAnimationFrame(() => {
+        document.getElementById('version-audio')?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      })
+    }
+  }
+
+  // Même porte email que la vidéo : un email donné pour un format ouvre les trois.
+  const pickFormat = (kind: 'text' | 'audio') => {
+    if (!storedVideoEmail()) {
+      setGateFor(kind)
+      trackAmplitude('vsl_email_gate_shown', { funnel: 'empire', format: kind })
+      return
+    }
+    reveal(kind)
+  }
+
+  // « Pas le temps ? Lis-la ou écoute-la » : en exit popup, jamais pendant
+  // que la vidéo joue, une fois par session.
+  useExitIntent({
+    enabled: !popupOpen && !textOpen && !audioOpen && !videoPlaying,
+    sessionKey: 'empire_vsl_exit_v1',
+    onTrigger: () => {
+      setPopupOpen(true)
+      trackAmplitude('vsl_exit_popup_shown')
+    },
+  })
+
+  const closePopup = () => {
+    setPopupOpen(false)
+    setGateFor(null)
+  }
 
   return (
     <main className="min-h-screen bg-black text-white overflow-x-hidden">
@@ -496,14 +560,67 @@ export default function VslClient() {
 
           {/* Largeur bornée par la hauteur d'écran : les boutons restent au-dessus de la ligne de flottaison. */}
           <div className="mx-auto w-full max-w-[max(18rem,calc((100svh-24rem)*16/9))]">
-            <VideoPlayer />
+            <VideoPlayer onPlayingChange={setVideoPlaying} />
           </div>
+
+          {audioOpen && (
+            <div id="version-audio">
+              <AudioPlayerCard
+                src={AUDIO_URL}
+                title={VIDEO_TITLE}
+                storageKey={AUDIO_TIME_KEY}
+                eventPrefix="vsl_audio"
+                accent="empire"
+                fallbackDuration="1:26:42"
+              />
+            </div>
+          )}
 
           <div className="mt-6">
             <Ctas location="top" />
           </div>
         </div>
       </section>
+
+      <ExitFormatsPopup
+        open={popupOpen}
+        accent="empire"
+        title="Pas le temps de regarder la vidéo en entier ?"
+        subtitle="La même formule, dans le format qui te va."
+        readTitle={`Lire la version texte (${READ_MINUTES} min)`}
+        readSub="Le script complet, scannable : titres, chiffres, mêmes offres."
+        listenTitle="Écouter en podcast"
+        listenSub="L’audio continue téléphone verrouillé, et reprend où tu t’arrêtes."
+        onPick={pickFormat}
+        onClose={closePopup}
+        gate={
+          gateFor ? (
+            <VideoEmailGate
+              funnel="empire"
+              title="Où on t’envoie la formule ?"
+              subtitle={
+                gateFor === 'text'
+                  ? 'Ton email, et la version texte s’affiche tout de suite.'
+                  : 'Ton email, et l’audio démarre tout de suite.'
+              }
+              cta={gateFor === 'text' ? 'Lire' : 'Écouter'}
+              onUnlocked={() => reveal(gateFor)}
+            />
+          ) : undefined
+        }
+      />
+
+      {textOpen && (
+        <TextVersionSection
+          sections={SCRIPT_SECTIONS}
+          storageKey={TEXT_POS_KEY}
+          eventPrefix="vsl_text"
+          accent="empire"
+          heading="La vidéo, en page écrite"
+          intro={`Les mêmes idées, les mêmes chiffres, les mêmes offres — environ ${READ_MINUTES} minutes de lecture. Ta position est retenue : tu reprends où tu t’es arrêté.`}
+          renderCta={(location) => <Ctas location={location} />}
+        />
+      )}
 
       <section className="relative py-12 md:py-16">
         <div className="container max-w-5xl mx-auto px-4">
