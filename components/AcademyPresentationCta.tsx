@@ -12,7 +12,7 @@ import { trackAmplitude } from '@/lib/amplitude'
  * email du site : un robot le remplit, rien ne part chez Systeme.io.
  */
 // Une seule source, tenue à jour par Kevin sur Drive : jamais de copie dans /public.
-export const PRESENTATION_PDF_URL = 'https://drive.google.com/file/d/1YIru7CKLjMbcFlIS2dZRU61GTKc_Nghj/view'
+export const PRESENTATION_PDF_URL = 'https://drive.google.com/file/d/1pIcg0n4BNG8IGrQpiwZM4xPI4otpHuBo/view'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
 
