@@ -135,7 +135,7 @@ export default function PostitClient() {
   }, [])
 
   const live = session?.live ?? false
-  const dateLabel = session ? formatPostitDate(session.start, fr) : fr ? 'mercredi' : 'Wednesday'
+  const dateLabel = session ? formatPostitDate(session.start, fr) : fr ? 'lundi' : 'Monday'
 
   return (
     <main className="relative min-h-screen bg-black text-white">
@@ -160,7 +160,7 @@ export default function PostitClient() {
               )}
               {live
                 ? fr ? 'En direct maintenant' : 'Live now'
-                : fr ? 'Tous les mercredis · 12h · en direct' : 'Every Wednesday · noon (Paris) · live'}
+                : fr ? 'Tous les lundis · 14h · en direct' : 'Every Monday · 2 pm (Paris) · live'}
             </div>
 
             <p className="mt-6 text-sm font-semibold text-neutral-400">
@@ -183,7 +183,7 @@ export default function PostitClient() {
               <p className="text-sm font-semibold text-neutral-300">
                 {live
                   ? fr ? 'Le live a commencé.' : 'The live has started.'
-                  : <>{fr ? 'Prochain live : ' : 'Next live: '}<span className="font-bold text-white">{dateLabel}</span>{fr ? ' à 12h00' : ' at 12:00 (Paris)'}</>}
+                  : <>{fr ? 'Prochain live : ' : 'Next live: '}<span className="font-bold text-white">{dateLabel}</span>{fr ? ' à 14h00' : ' at 2:00 pm (Paris)'}</>}
               </p>
               {!live && (
                 <div className="mt-4">
@@ -333,7 +333,7 @@ export default function PostitClient() {
             <p className="mt-2 text-lg text-neutral-300">{fr ? 'Et si c\u2019était ta prochaine ?' : 'What if it is your next one?'}</p>
             <JoinButton source="postit_footer" live={live} fr={fr} className="mt-7" />
             <p className="mt-3 text-[13px] text-neutral-500">
-              {live ? (fr ? 'En direct maintenant' : 'Live now') : <>{fr ? 'Prochain live ' : 'Next live '}{dateLabel}{fr ? ' · 12h' : ' · noon'}</>}
+              {live ? (fr ? 'En direct maintenant' : 'Live now') : <>{fr ? 'Prochain live ' : 'Next live '}{dateLabel}{fr ? ' · 14h' : ' · 2 pm'}</>}
             </p>
           </div>
         </div>

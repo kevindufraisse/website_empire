@@ -373,7 +373,7 @@ function CommunityArt({ fr }: { fr: boolean }) {
           <span className="relative inline-flex h-2 w-2 rounded-full bg-red-500" />
         </span>
         <Radio className="h-3.5 w-3.5 text-neutral-300" />
-        <span className="text-[11px] font-semibold text-white">{fr ? 'Live jeudi 12 h · relecture de vos contenus' : 'Live Thursday 12pm · your content reviewed'}</span>
+        <span className="text-[11px] font-semibold text-white">{fr ? 'Live lundi 14 h · relecture de vos contenus' : 'Live Monday 2pm · your content reviewed'}</span>
       </div>
     </div>
   )

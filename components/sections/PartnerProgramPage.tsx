@@ -10,6 +10,7 @@ import { trackAmplitude } from '@/lib/amplitude'
 import { partnerPayHref } from '@/lib/partner-festival-pricing'
 import { getPlan } from '@/lib/plans'
 import { usePartnerFestivalPricing } from '@/hooks/usePartnerFestivalPricing'
+import { postitJoinUrl } from '@/lib/postit'
 import { WebinarJamBar, WebinarJamButton } from '@/components/WebinarJamRegister'
 import AcademyPresentationCta from '@/components/AcademyPresentationCta'
 import FeaturedInSection from '@/components/FeaturedInSection'
@@ -1173,6 +1174,28 @@ export default function PartnerProgramPage() {
                 ? 'La communauté vous aide à avancer et à débloquer vos questions. La formation, les replays et la communauté sont inclus dans le bootcamp et restent accessibles à vie. Les rendez-vous partenaires viennent avec le statut partenaire.'
                 : 'The community helps you move forward and unblock questions. Training, replays and community are included in the bootcamp with lifetime access. Partner sessions come with partner status.'}
             </p>
+            {/* À côté de la communauté : le live gratuit Post it like it's hot,
+                ouvert à tous (inscription sur la page Systeme.io de POSTIT_URL). */}
+            <a
+              href={postitJoinUrl('academy')}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackAmplitude('academy_postit_clicked', { source: 'community' })}
+              className="mt-5 flex items-center justify-between gap-4 rounded-2xl border border-white/[0.1] bg-white/[0.03] px-4 py-3.5 transition hover:border-white/25"
+            >
+              <span>
+                <span className="block text-[14px] font-semibold text-white">Post it like it’s hot</span>
+                <span className="mt-0.5 block text-[13px] text-neutral-400">
+                  {fr
+                    ? 'Le live gratuit, chaque lundi à 14 h : on trouve votre prochain contenu viral, en direct.'
+                    : 'The free live, every Monday at 2 pm: we find your next viral post, live.'}
+                </span>
+              </span>
+              <span className="inline-flex shrink-0 items-center gap-1 text-[13px] font-semibold text-academy">
+                {fr ? "S'inscrire" : 'Register'}
+                <ArrowRight className="h-4 w-4" />
+              </span>
+            </a>
           </div>
         </div>
       </section>

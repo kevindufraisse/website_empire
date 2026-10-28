@@ -1,6 +1,6 @@
 /**
- * « Post it like it's hot » : le live gratuit de Kevin, chaque mercredi à
- * midi (heure de Paris). Remplace la communauté Slack comme offre gratuite
+ * « Post it like it's hot » : le live gratuit de Kevin, chaque lundi à
+ * 14 h (heure de Paris), le même créneau que le live hebdo des clients. Remplace la communauté Slack comme offre gratuite
  * du site (page `/postit`, popup de sortie, header, footer).
  *
  * L'inscription (prénom + email, séquence de rappels) se fait sur la page
@@ -22,9 +22,9 @@ export function postitJoinUrl(source: string): string {
 }
 
 const TZ = 'Europe/Paris'
-/** Mercredi, en index `Date.getUTCDay()`. */
-const WEEKDAY = 3
-const HOUR = 12
+/** Lundi, en index `Date.getUTCDay()`. */
+const WEEKDAY = 1
+const HOUR = 14
 export const POSTIT_DURATION_MIN = 60
 
 const WEEKDAYS: Record<string, number> = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 }
@@ -81,7 +81,7 @@ export function nextPostitSession(now: Date = new Date()): PostitSession {
   return { start, end, live: now >= start && now < end }
 }
 
-/** Invitation Google Agenda récurrente (chaque mercredi) à partir de `start`. */
+/** Invitation Google Agenda récurrente (chaque lundi) à partir de `start`. */
 export function postitCalendarUrl(start: Date, fr: boolean): string {
   const p = parisParts(start)
   const pad = (n: number) => String(n).padStart(2, '0')
@@ -93,10 +93,10 @@ export function postitCalendarUrl(start: Date, fr: boolean): string {
     text: POSTIT_NAME,
     dates: `${day}T${pad(HOUR)}0000/${day}T${pad(endHour)}${pad(endMin)}00`,
     ctz: TZ,
-    recur: 'RRULE:FREQ=WEEKLY;BYDAY=WE',
+    recur: 'RRULE:FREQ=WEEKLY;BYDAY=MO',
     details: fr
-      ? `Le live de Kevin Dufraisse, chaque mercredi à midi.${POSTIT_URL ? `\n\nRejoindre : ${POSTIT_URL}` : ''}`
-      : `Kevin Dufraisse's live, every Wednesday at noon (Paris).${POSTIT_URL ? `\n\nJoin: ${POSTIT_URL}` : ''}`,
+      ? `Le live de Kevin Dufraisse, chaque lundi à 14 h.${POSTIT_URL ? `\n\nRejoindre : ${POSTIT_URL}` : ''}`
+      : `Kevin Dufraisse's live, every Monday at 2 pm (Paris).${POSTIT_URL ? `\n\nJoin: ${POSTIT_URL}` : ''}`,
   })
   if (POSTIT_URL) params.set('location', POSTIT_URL)
   return `https://calendar.google.com/calendar/render?${params.toString()}`

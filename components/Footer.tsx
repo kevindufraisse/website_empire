@@ -83,7 +83,7 @@ export default function Footer() {
                     {lang === 'fr' ? 'Quiz : quel créateur êtes-vous ?' : 'Quiz: what creator are you?'}
                   </a>
                   <a href={postitJoinUrl('footer')} className="text-sm text-neutral-400 hover:text-empire transition-colors">
-                    {lang === 'fr' ? 'Live gratuit : Post it like it’s hot (mercredi 12h)' : 'Free live: Post it like it’s hot (Wed noon)'}
+                    {lang === 'fr' ? 'Live gratuit : Post it like it’s hot (lundi 14h)' : 'Free live: Post it like it’s hot (Mon 2 pm)'}
                   </a>
                   <GiftFooterLink />
                 </div>

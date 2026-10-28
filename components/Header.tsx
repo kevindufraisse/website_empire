@@ -64,7 +64,7 @@ export default function Header() {
     {
       href: postitJoinUrl('header'),
       name: 'Post it like it’s hot',
-      when: fr ? 'Mercredi · 12h Paris' : 'Wednesday · 12pm Paris',
+      when: fr ? 'Lundi · 14h Paris' : 'Monday · 2pm Paris',
       what: fr ? 'On trouve ton prochain contenu viral, en direct, sur ton business.' : 'We find your next viral piece, live, on your business.',
     },
     { href: 'https://join.empire-internet.com/instagram-scrapper', name: fr ? 'Trouver les Reels viraux' : 'Find viral Reels', when: fr ? 'Gratuit' : 'Free', what: fr ? 'd’un compte Instagram' : 'from any Instagram account' },
