@@ -30,10 +30,11 @@ const nextConfig = {
         destination: '/tarifs',
         permanent: true,
       },
-      // L'offre webinar vit dans l'app : les liens des anciens emails y arrivent.
+      // L'offre du live (deadline personnelle de 72 h) vit dans l'app :
+      // /final-offer y arrive, et Next conserve la query (?email= des emails).
       {
         source: '/final-offer',
-        destination: 'https://app.empire-internet.com/join/internet?offer=webinar',
+        destination: 'https://app.empire-internet.com/join/internet?offer=live',
         permanent: false,
       },
       {

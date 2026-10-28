@@ -2,11 +2,10 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Script from 'next/script'
-import { Play, Pause, Volume2, VolumeX, Maximize, Check, Calendar, ArrowRight, ChevronDown } from 'lucide-react'
+import { Play, Pause, Volume2, VolumeX, Maximize, Check, Calendar, ArrowRight, ChevronDown, MonitorPlay } from 'lucide-react'
 import CalPopupButton from '@/components/CalPopupButton'
-import { trackAmplitude } from '@/lib/amplitude'
-import { startFreeTrial } from '@/lib/startTrial'
-import VideoEmailGate, { adoptEmailFromUrl } from '@/components/VideoEmailGate'
+import { trackAmplitude, withAmplitudeDeviceId } from '@/lib/amplitude'
+import VideoEmailGate, { adoptEmailFromUrl, storedVideoEmail } from '@/components/VideoEmailGate'
 
 const VIDEO_ID = 'AKfoDblGUNs'
 const VIDEO_TITLE = 'Le système de personnalisation des entrepreneurs à 7 chiffres par an, expliqué'
@@ -18,10 +17,18 @@ const clock = (sec: number) => {
   return `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`
 }
 
-const TRIAL_POINTS = [
-  '7 jours gratuits avec 500 crédits',
-  'Carte demandée : l’abonnement démarre au 8e jour, ou dès que tu dépasses les 500 crédits',
-  'Tu arrêtes en un clic depuis l’app',
+// L'offre du live (app, /join/internet?offer=live) : 300 € de moins par mois
+// pendant 3 mois, sur Growth ou Scale, pendant 72 h à partir de la première
+// visite d'un email. L'email donné pour la vidéo part avec le lien, la page
+// ne le redemande pas.
+const OFFER_URL = 'https://app.empire-internet.com/join/internet?offer=live'
+// La démo interactive d'Empire (compte rempli + visite guidée) : l'étape
+// naturelle après la VSL, avant ou à la place de l'offre.
+const DEMO_URL = 'https://app.empire-internet.com/demo'
+const OFFER_POINTS = [
+  '300 € de moins par mois pendant 3 mois, sur Growth ou Scale',
+  'Valable 72 h à partir de ta première visite',
+  'Ton premier contenu livré sous 48 h',
 ]
 
 const WHAT_YOU_GET = [
@@ -389,37 +396,55 @@ function VideoPlayer() {
   )
 }
 
-function Ctas({ location }: { location: 'top' | 'bottom' }) {
+function Ctas({ location }: { location: string }) {
   const [loading, setLoading] = useState(false)
 
-  const startTrial = async () => {
+  const openOffer = () => {
     if (loading) return
     setLoading(true)
-    trackAmplitude('vsl_trial_clicked', { location })
-    await startFreeTrial()
+    trackAmplitude('vsl_offer_clicked', { location })
+    const url = new URL(OFFER_URL)
+    const email = storedVideoEmail()
+    if (email) url.searchParams.set('email', email)
+    window.location.href = withAmplitudeDeviceId(url.toString())
+  }
+
+  const openDemo = () => {
+    trackAmplitude('vsl_demo_clicked', { location })
+    window.location.href = withAmplitudeDeviceId(DEMO_URL)
   }
 
   return (
     <div className="w-full max-w-xl mx-auto">
-      <div className="flex flex-col sm:flex-row gap-3">
+      <div className="flex flex-col gap-3">
         <button
           type="button"
-          onClick={startTrial}
+          onClick={openOffer}
           disabled={loading}
-          className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-empire text-black font-bold px-6 py-4 text-base hover:brightness-110 transition disabled:opacity-60"
+          className="inline-flex items-center justify-center gap-2 rounded-xl bg-empire text-black font-bold px-6 py-4 text-base hover:brightness-110 transition disabled:opacity-60"
         >
-          {loading ? 'Ouverture…' : 'Tester 7 jours gratuitement'}
+          {loading ? 'Ouverture…' : 'Voir l’offre'}
           {!loading && <ArrowRight className="w-5 h-5" />}
         </button>
-        <span data-cal-keep onClickCapture={() => trackAmplitude('vsl_call_clicked', { location })} className="flex-1 flex">
-          <CalPopupButton className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/[0.04] text-white font-semibold px-6 py-4 text-base hover:bg-white/[0.08] transition">
-            <Calendar className="w-5 h-5" />
-            Réserver un appel
-          </CalPopupButton>
-        </span>
+        <div className="flex flex-col sm:flex-row gap-3">
+          <button
+            type="button"
+            onClick={openDemo}
+            className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/[0.04] text-white font-semibold px-6 py-3.5 text-base hover:bg-white/[0.08] transition"
+          >
+            <MonitorPlay className="w-5 h-5 text-empire" />
+            Voir la démo d’Empire
+          </button>
+          <span data-cal-keep onClickCapture={() => trackAmplitude('vsl_call_clicked', { location })} className="flex-1 flex">
+            <CalPopupButton className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/[0.04] text-white font-semibold px-6 py-3.5 text-base hover:bg-white/[0.08] transition">
+              <Calendar className="w-5 h-5" />
+              Réserver un appel
+            </CalPopupButton>
+          </span>
+        </div>
       </div>
       <ul className="mt-4 flex flex-col sm:flex-row sm:flex-wrap sm:justify-center gap-x-5 gap-y-1.5 text-sm text-neutral-400">
-        {TRIAL_POINTS.map((p) => (
+        {OFFER_POINTS.map((p) => (
           <li key={p} className="flex items-center gap-1.5">
             <Check className="w-4 h-4 text-empire shrink-0" />
             {p}
