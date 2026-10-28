@@ -86,6 +86,32 @@ export function WebinarJamBar({
   )
 }
 
+/**
+ * Popup d'inscription seule, sans la barre du bas : un seul script WebinarJam
+ * (`embed-button`), qui ouvre la popup au clic sur tout `data-webinarhash`.
+ * La barre (`WebinarJamBar`) charge les deux scripts et chacun pose ses
+ * écouteurs `message` : sur /partenaire on n'en veut qu'un.
+ */
+export function WebinarJamPopup({
+  buttonText = "S'inscrire",
+  source = 'site',
+  hash = WEBINARJAM_ID,
+}: {
+  buttonText?: string
+  source?: string
+  hash?: string
+}) {
+  useWebinarJamConversion(source, hash)
+  if (!WEBINARJAM_LIVE) return null
+  return (
+    <Script
+      id="webinarjam-open-house-button"
+      src={webinarJamButtonSrc({ buttonText, id: hash })}
+      strategy="afterInteractive"
+    />
+  )
+}
+
 export function WebinarJamButton({
   children,
   className = '',

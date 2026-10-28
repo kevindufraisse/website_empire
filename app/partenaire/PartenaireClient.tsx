@@ -3,7 +3,8 @@
 import { useEffect, useRef } from 'react'
 import { ArrowRight, Check } from 'lucide-react'
 import LoomEmbed from '@/components/LoomEmbed'
-import { WebinarJamBar, WebinarJamButton } from '@/components/WebinarJamRegister'
+import { WebinarJamPopup, WebinarJamButton } from '@/components/WebinarJamRegister'
+import PartnerStickyCta from '@/components/PartnerStickyCta'
 import { OPEN_HOUSE_REPLAY_ID } from '@/lib/webinarjam'
 import { trackAmplitude } from '@/lib/amplitude'
 import { trackMeta } from '@/lib/meta'
@@ -65,6 +66,7 @@ const HOW = [
 
 export default function PartenaireClient() {
   const videoRef = useLoomEngagementTracking()
+  const heroCtaRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     trackAmplitude('partner_vsl_viewed')
@@ -94,7 +96,7 @@ export default function PartenaireClient() {
             <LoomEmbed id={PARTNER_LOOM_ID} title="Devenir partenaire Empire" />
           </div>
 
-          <div className="mt-5 flex flex-col items-center gap-2">
+          <div ref={heroCtaRef} className="mt-5 flex flex-col items-center gap-2">
             <WebinarJamButton
               hash={OPEN_HOUSE_REPLAY_ID}
               onClick={() => trackAmplitude('academy_open_house_clicked', { source: 'partner_vsl', session: 'replay' })}
@@ -138,7 +140,14 @@ export default function PartenaireClient() {
           </p>
         </div>
       </section>
-      <WebinarJamBar buttonText="S’inscrire" source="partner_vsl" hash={OPEN_HOUSE_REPLAY_ID} />
+      {/* Popup WebinarJam seule : la barre à compte à rebours est remplacée par
+          un rappel discret qui n'apparaît qu'une fois le hero passé. */}
+      <WebinarJamPopup buttonText="S’inscrire" source="partner_vsl" hash={OPEN_HOUSE_REPLAY_ID} />
+      <PartnerStickyCta
+        anchorRef={heroCtaRef}
+        hash={OPEN_HOUSE_REPLAY_ID}
+        onClick={() => trackAmplitude('academy_open_house_clicked', { source: 'partner_vsl_sticky', session: 'replay' })}
+      />
     </main>
   )
 }

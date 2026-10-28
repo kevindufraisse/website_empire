@@ -1,6 +1,14 @@
 "use client"
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type CSSProperties } from 'react'
 import { Consent, readConsent, saveConsent, clearOptionalStorage, CONSENT_EVENT } from '../lib/marketingConsent'
+
+/**
+ * Bandeau de consentement : une carte compacte en bas de l'écran, jamais un
+ * mur. Sur un iPhone la version précédente prenait 340 px (40 % de l'écran)
+ * sous une page dont le bouton principal est en bas. Meta, Google, Amplitude
+ * et PostHog ne se chargent qu'après un « oui » (voir `MarketingConsent`),
+ * donc le bandeau reste nécessaire : il doit juste rester petit.
+ */
 export default function CookiePreferences({ onChange }: { onChange?: (consent: Consent | null) => void }) {
   const [ready, setReady] = useState(false)
   const [open, setOpen] = useState(false)
@@ -24,24 +32,59 @@ export default function CookiePreferences({ onChange }: { onChange?: (consent: C
     if ((previous?.marketing && !m) || (previous?.analytics && !a)) location.reload()
   }
   if (!ready) return null
-  const button = { border: '1px solid #777', borderRadius: 8, padding: '10px 14px', background: '#fff', color: '#111', cursor: 'pointer', fontSize: 14, fontWeight: 600 } as const
+
+  const base: CSSProperties = { borderRadius: 10, padding: '8px 12px', cursor: 'pointer', fontSize: 13, fontWeight: 600, lineHeight: 1.2, flex: '1 1 0' }
+  const primary: CSSProperties = { ...base, border: '1px solid #fff', background: '#fff', color: '#111' }
+  const secondary: CSSProperties = { ...base, border: '1px solid #444', background: 'transparent', color: '#fff' }
+  const link: CSSProperties = { background: 'none', border: 0, padding: 0, color: 'inherit', textDecoration: 'underline', cursor: 'pointer', font: 'inherit', lineHeight: 'inherit', display: 'inline', verticalAlign: 'baseline', minHeight: 0 }
+
   return <>
-    {!hasConsent && <button type="button" onClick={() => { setOpen(true); setDetails(false) }} style={{ ...button, position: 'fixed', bottom: 8, left: 8, zIndex: 9998, fontSize: 12, padding: '5px 9px' }}>Cookies</button>}
-    {open && <section role="dialog" aria-label="Vos choix de cookies" style={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 9999, background: '#171717', color: '#fff', padding: 20, boxShadow: '0 -2px 20px #0006', fontSize: 14, lineHeight: 1.5 }}>
-      <div style={{ maxWidth: 1000, margin: 'auto' }}>
-        <p style={{ fontWeight: 700, marginBottom: 8 }}>Tu gardes le choix.</p>
-        <p>Empire utilise, avec ton accord, Meta et Google pour mesurer les campagnes et personnaliser la publicité, ainsi qu’Amplitude et PostHog pour comprendre la navigation et améliorer le site. Refuser ne bloque ni l’inscription ni l’achat. Tu peux revenir sur ton choix avec le bouton Cookies. <a href="https://www.empire-internet.com/privacy" style={{ textDecoration: 'underline' }}>En savoir plus</a></p>
-        {details && <div style={{ display: 'grid', gap: 10, marginTop: 12 }}>
-          <label><input type="checkbox" checked={marketing} onChange={e => setMarketing(e.target.checked)} /> Publicité et mesure des campagnes (Meta, Google)</label>
-          <label><input type="checkbox" checked={analytics} onChange={e => setAnalytics(e.target.checked)} /> Statistiques et amélioration (Amplitude, PostHog)</label>
-          <p>Les cookies nécessaires au fonctionnement et à la mémorisation de ton choix restent actifs. Choix conservé 6 mois sur le site et l’application Empire.</p>
-        </div>}
-        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 14 }}>
-          <button type="button" style={button} onClick={() => choose(false, false)}>Tout refuser</button>
-          <button type="button" style={button} onClick={() => choose(true, true)}>Tout accepter</button>
-          <button type="button" style={button} onClick={() => details ? choose(marketing, analytics) : setDetails(true)}>{details ? 'Enregistrer mes choix' : 'Personnaliser'}</button>
+    {!hasConsent && !open && (
+      <button
+        type="button"
+        onClick={() => { setOpen(true); setDetails(false) }}
+        style={{ position: 'fixed', bottom: 'calc(8px + env(safe-area-inset-bottom, 0px))', left: 8, zIndex: 9998, border: '1px solid #444', borderRadius: 999, padding: '5px 10px', background: '#171717', color: '#fff', cursor: 'pointer', fontSize: 12, fontWeight: 600 }}
+      >
+        Cookies
+      </button>
+    )}
+    {open && (
+      <section
+        role="dialog"
+        aria-label="Vos choix de cookies"
+        style={{ position: 'fixed', left: 0, right: 0, bottom: 0, zIndex: 9999, padding: '0 10px calc(10px + env(safe-area-inset-bottom, 0px))', pointerEvents: 'none' }}
+      >
+        <div style={{ pointerEvents: 'auto', maxWidth: 520, margin: '0 auto', background: '#171717', color: '#fff', border: '1px solid #2e2e2e', borderRadius: 14, padding: '10px 12px', boxShadow: '0 8px 30px #0008', fontSize: 12.5, lineHeight: 1.4 }}>
+          <p style={{ margin: 0, color: '#c4c4c4' }}>
+            <strong style={{ color: '#fff' }}>Cookies ?</strong> Mesure d’audience, seulement avec ton accord. Refuser ne bloque rien.{' '}
+            <a href="https://www.empire-internet.com/privacy" style={{ color: '#c4c4c4', textDecoration: 'underline' }}>En savoir plus</a>
+            {!details && <>{' · '}<button type="button" style={link} onClick={() => setDetails(true)}>Personnaliser</button></>}
+          </p>
+          {details && (
+            <div style={{ display: 'grid', gap: 8, marginTop: 10, color: '#e5e5e5' }}>
+              <label style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
+                <input type="checkbox" checked={marketing} onChange={e => setMarketing(e.target.checked)} style={{ marginTop: 2 }} />
+                <span>Publicité et mesure des campagnes (Meta, Google)</span>
+              </label>
+              <label style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
+                <input type="checkbox" checked={analytics} onChange={e => setAnalytics(e.target.checked)} style={{ marginTop: 2 }} />
+                <span>Statistiques et amélioration (Amplitude, PostHog)</span>
+              </label>
+              <p style={{ margin: 0, fontSize: 12, color: '#8a8a8a' }}>Les cookies nécessaires au fonctionnement et à la mémorisation de ton choix restent actifs. Choix conservé 6 mois sur le site et l’application Empire.</p>
+            </div>
+          )}
+          <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
+            {details ? (
+              <button type="button" style={primary} onClick={() => choose(marketing, analytics)}>Enregistrer mes choix</button>
+            ) : (
+              <>
+                <button type="button" style={primary} onClick={() => choose(true, true)}>Tout accepter</button>
+                <button type="button" style={secondary} onClick={() => choose(false, false)}>Tout refuser</button>
+              </>
+            )}
+          </div>
         </div>
-      </div>
-    </section>}
+      </section>
+    )}
   </>
 }
