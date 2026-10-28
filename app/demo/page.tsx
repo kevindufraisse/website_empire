@@ -8,6 +8,7 @@ import { storeVideoEmail } from '@/components/VideoEmailGate'
 import { trackAmplitude } from '@/lib/amplitude'
 import { startFreeTrial } from '@/lib/startTrial'
 import styles from './demo.module.css'
+import DemoExitOffer from './DemoExitOffer'
 
 const DEMO_LOOM_ID = '00bc46ef533b4243ad108ed7549047be'
 // Prénom + email, puis la démo enregistrée tout de suite (l'email part chez
@@ -145,6 +146,7 @@ export default function DemoPage() {
           </>
         )}
       </div>
+      <DemoExitOffer email={step === 'contact' ? '' : lead.email} fr={fr} />
     </main>
   )
 }
