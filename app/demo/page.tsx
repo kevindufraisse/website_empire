@@ -1,7 +1,7 @@
 'use client'
 
 import { FormEvent, useEffect, useRef, useState } from 'react'
-import { ArrowLeft, ArrowRight, Calendar } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Calendar, Play, Star } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import YtLeadForm from '@/components/YtLeadForm'
 import { storeVideoEmail } from '@/components/VideoEmailGate'
@@ -11,6 +11,14 @@ import styles from './demo.module.css'
 import DemoExitOffer from './DemoExitOffer'
 
 const DEMO_LOOM_ID = '00bc46ef533b4243ad108ed7549047be'
+// Mêmes portraits locaux que le hero de la home (public/creators) : jamais de hotlink.
+const DEMO_CREATORS = [
+  { name: 'Alex Hormozi', img: '/creators/hormozi.jpg' },
+  { name: 'Matt Gray', img: '/creators/gray.jpg' },
+  { name: 'Ali Abdaal', img: '/creators/abdaal.webp' },
+  { name: 'Justin Welsh', img: '/creators/welsh.webp' },
+  { name: 'Dan Koe', img: '/creators/koe.webp' },
+]
 // Prénom + email, puis la démo enregistrée tout de suite (l'email part chez
 // Systeme.io en arrière-plan), avec deux suites : l'essai ou un rendez-vous.
 type Step = 'contact' | 'watch' | 'book'
@@ -71,6 +79,30 @@ export default function DemoPage() {
   const buttonClass = styles.primaryButton
   const inputClass = styles.input
 
+  const creatorsBand = (
+    <div className={styles.proofBand}>
+      <div className={styles.proofAvatars}>
+        {DEMO_CREATORS.map(c => (
+          <img key={c.name} src={c.img} alt={c.name} title={c.name} width={40} height={40} loading="lazy" />
+        ))}
+      </div>
+      <span className={styles.proofText}>
+        {fr
+          ? <>Le système exact derrière Hormozi, Matt Gray ou Justin Welsh. <span>Prêt à filmer pour toi.</span></>
+          : <>The exact system behind Hormozi, Matt Gray or Justin Welsh. <span>Ready to film for you.</span></>}
+      </span>
+    </div>
+  )
+
+  const ratingLine = (
+    <p className={styles.ratingLine}>
+      <span className={styles.stars} aria-hidden="true">
+        {[0, 1, 2, 3, 4].map(i => <Star key={i} size={14} aria-hidden />)}
+      </span>
+      {fr ? 'Validé par plus de 100 créateurs' : 'Trusted by 100+ creators'}
+    </p>
+  )
+
   return (
     <main className={styles.page}>
       <div className={styles.atmosphere} aria-hidden="true" />
@@ -80,12 +112,20 @@ export default function DemoPage() {
             <p className={styles.eyebrow}>{fr ? 'La démo d’Empire' : 'The Empire demo'}</p>
             <h1 className={styles.title}>{fr ? <>Découvre Empire<br /><span>en vidéo.</span></> : <>Discover Empire<br /><span>on video.</span></>}</h1>
             <p className={styles.intro}>{fr ? 'La démo enregistrée par Kevin, disponible tout de suite.' : 'Kevin’s recorded walkthrough, available right away.'}</p>
+            <div className={styles.heroProof}>
+              {creatorsBand}
+              {ratingLine}
+            </div>
           </header>
         )}
 
         {step === 'contact' && (
           <section className={`${styles.panel} ${styles.formPanel}`} aria-labelledby="contact-heading">
-            <div className={styles.panelIcon}><ArrowRight size={23} aria-hidden /></div>
+            <div className={styles.thumb} aria-hidden="true">
+              <img src="/demo/demo-thumb.jpg" alt="" width={1024} height={580} />
+              <span className={styles.thumbPlay}><Play size={20} fill="currentColor" aria-hidden /></span>
+              <span className={styles.thumbBadge}>{fr ? 'Démo · 24 min' : 'Demo · 24 min'}</span>
+            </div>
             <h2 id="contact-heading" className={styles.panelTitle}>{fr ? 'Voir la démo' : 'Watch the demo'}</h2>
             <p className={styles.panelIntro}>{fr ? 'Ton prénom et ton email, et la démo démarre tout de suite.' : 'Your first name and email, and the demo starts right away.'}</p>
             <form onSubmit={submit} className={styles.form}>
@@ -103,6 +143,7 @@ export default function DemoPage() {
               </div>
               {error && <p role="alert" className="text-sm text-red-300">{error}</p>}
               <button type="submit" className={`${buttonClass} w-full`}>{fr ? 'Voir la démo' : 'Watch the demo'}<ArrowRight size={18} aria-hidden /></button>
+              <p className={styles.formNote}>{fr ? 'Accès immédiat · Aucune carte demandée' : 'Instant access · No card required'}</p>
             </form>
           </section>
         )}
@@ -123,20 +164,24 @@ export default function DemoPage() {
               </div>
             </div>
             <p className={styles.loomFallback}><a href={`https://www.loom.com/share/${DEMO_LOOM_ID}`} target="_blank" rel="noopener noreferrer">{fr ? 'Ouvrir sur Loom ↗' : 'Open on Loom ↗'}</a>{!fr && ' · Video in French'}</p>
+            <div className={styles.watchProof}>{creatorsBand}</div>
             <div className={`${styles.panel} ${styles.ctaPanel}`}>
               <div className={styles.ctaCopy}>
                 <p className={styles.ctaTitle}>{fr ? 'Essaie Empire sur ton propre contenu.' : 'Try Empire on your own content.'}</p>
                 <p className={styles.ctaNote}>{fr ? '7 jours gratuits avec 500 crédits · annulable en un clic' : '7 days free with 500 credits · cancel in one click'}</p>
               </div>
-              <div className={styles.ctaButtons}>
-                <button type="button" onClick={trial} disabled={trialLoading} className={buttonClass}>
-                  {trialLoading ? (fr ? 'Ouverture…' : 'Opening…') : (fr ? 'Tester gratuitement' : 'Try it for free')}
-                  {!trialLoading && <ArrowRight size={18} aria-hidden />}
-                </button>
-                <button type="button" onClick={book} className={styles.secondaryButton}>
-                  <Calendar size={18} aria-hidden />
-                  {fr ? 'Prendre rendez-vous avec un expert' : 'Book a call with an expert'}
-                </button>
+              <div className={styles.ctaActions}>
+                <div className={styles.ctaButtons}>
+                  <button type="button" onClick={trial} disabled={trialLoading} className={buttonClass}>
+                    {trialLoading ? (fr ? 'Ouverture…' : 'Opening…') : (fr ? 'Tester gratuitement' : 'Try it for free')}
+                    {!trialLoading && <ArrowRight size={18} aria-hidden />}
+                  </button>
+                  <button type="button" onClick={book} className={styles.secondaryButton}>
+                    <Calendar size={18} aria-hidden />
+                    {fr ? 'Prendre rendez-vous avec un expert' : 'Book a call with an expert'}
+                  </button>
+                </div>
+                {ratingLine}
               </div>
             </div>
           </section>
