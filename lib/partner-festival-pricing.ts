@@ -3,11 +3,11 @@
  * Le statut partenaire est proposé juste après le paiement, dans l'app
  * (/join/academy, upsell en un clic) : le site ne vend que le bootcamp.
  *
- * Semaine Europe/Paris, reset chaque lundi 00:00 (le lundi, l'onboarding
- * de la cohorte démarre — tout le monde commence ensemble) :
- * - Lun 00:00 → Mar 00:00 : 297 €  (onboarding du lundi, prix le plus bas)
- * - Mar 00:00 → Mer 00:00 : 397 €
- * - Mer 00:00 → Lun 00:00 : 497 €  (live du mercredi passé)
+ * Semaine Europe/Paris, reset chaque lundi 00:00 (grille du 28 octobre 2026 ;
+ * le live d'onboarding est chaque lundi à 14 h) :
+ * - Lun 00:00 → Ven 00:00 : 297 €  (du lundi au jeudi)
+ * - Ven 00:00 → Dim 00:00 : 397 €  (vendredi et samedi)
+ * - Dim 00:00 → Lun 00:00 : 497 €  (dimanche)
  *
  * Miroir côté app : `BOOTCAMP_WEEKLY_TIERS` dans
  * empire-tracking/src/lib/waSetter.cjs (montant réel du checkout Stripe).
@@ -127,20 +127,20 @@ export function getPartnerFestivalPricing(now: Date = new Date()): PartnerFestiv
   const minutesSinceMonday =
     (p.weekday - 1) * 24 * 60 + p.hour * 60 + p.minute + p.second / 60
 
-  const TUE_00 = 1 * 24 * 60 // Tuesday 00:00
-  const WED_00 = 2 * 24 * 60 // Wednesday 00:00
+  const FRI_00 = 4 * 24 * 60 // Friday 00:00
+  const SUN_00 = 6 * 24 * 60 // Sunday 00:00
 
   let tier: PartnerFestivalTier
   let nextAt: Date
 
-  if (minutesSinceMonday < TUE_00) {
+  if (minutesSinceMonday < FRI_00) {
     tier = PARTNER_FESTIVAL_TIERS[0]
-    const tue = addParisDays(p.year, p.month, p.day, 2 - p.weekday)
-    nextAt = parisWallToUtc(tue.year, tue.month, tue.day, 0, 0, 0)
-  } else if (minutesSinceMonday < WED_00) {
+    const fri = addParisDays(p.year, p.month, p.day, 5 - p.weekday)
+    nextAt = parisWallToUtc(fri.year, fri.month, fri.day, 0, 0, 0)
+  } else if (minutesSinceMonday < SUN_00) {
     tier = PARTNER_FESTIVAL_TIERS[1]
-    const wed = addParisDays(p.year, p.month, p.day, 3 - p.weekday)
-    nextAt = parisWallToUtc(wed.year, wed.month, wed.day, 0, 0, 0)
+    const sun = addParisDays(p.year, p.month, p.day, 7 - p.weekday)
+    nextAt = parisWallToUtc(sun.year, sun.month, sun.day, 0, 0, 0)
   } else {
     tier = PARTNER_FESTIVAL_TIERS[2]
     const mon = addParisDays(p.year, p.month, p.day, 8 - p.weekday)

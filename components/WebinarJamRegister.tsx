@@ -44,8 +44,13 @@ function useWebinarJamConversion(source: string, hash: string) {
         open_house_source: source,
       })
       trackAmplitude('open_house_registered', { source })
+      // Au lieu d'atterrir sur la page WebinarJam, on passe par notre page
+      // « place réservée » (/academy/inscrit) : elle donne la présentation PDF
+      // au moment le plus chaud, et son bouton principal reprend `next` - la
+      // salle WebinarJam - après validation du domaine (jamais d'open redirect).
       const url = data.url
-      window.setTimeout(() => window.location.assign(url), 600)
+      const dest = `/academy/inscrit?next=${encodeURIComponent(url)}`
+      window.setTimeout(() => window.location.assign(dest), 600)
     }
     window.addEventListener('message', onMessage, true)
     return () => window.removeEventListener('message', onMessage, true)

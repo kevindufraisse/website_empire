@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { getCalApi } from '@calcom/embed-react'
 import { CheckCircle2, Share2, X } from 'lucide-react'
-import { COHORT_RANGE_SHORT } from '@/lib/cohort-config'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useCalLink } from '@/hooks/useCalLink'
 
@@ -116,8 +115,8 @@ export default function AcademyThankYouClient() {
               className="text-sm md:text-base text-neutral-400 max-w-lg mx-auto"
             >
               {fr
-                ? `Votre paiement est confirmé. Vous recevrez votre accès au groupe privé 3 jours avant le démarrage (${COHORT_RANGE_SHORT}).`
-                : `Your payment is confirmed. You'll receive access to the private group 3 days before launch (${COHORT_RANGE_SHORT}).`}
+                ? 'Votre paiement est confirmé. Le bootcamp s’ouvre tout de suite dans votre espace, à votre rythme, avec la communauté.'
+                : 'Your payment is confirmed. The bootcamp opens right away in your account, at your own pace, with the community.'}
             </motion.p>
           </div>
 
@@ -360,8 +359,8 @@ export default function AcademyThankYouClient() {
                 </p>
                 <p className="text-neutral-400 text-xs leading-relaxed">
                   {fr
-                    ? `${COHORT_RANGE_SHORT}. 15 min/jour pour publier.`
-                    : `${COHORT_RANGE_SHORT}. 15 min/day to publish.`}
+                    ? '21 jours à votre rythme. 15 min/jour pour publier.'
+                    : '21 days at your own pace. 15 min/day to publish.'}
                 </p>
               </div>
               <div className="p-4 rounded-xl bg-white/[0.04] border border-white/10">

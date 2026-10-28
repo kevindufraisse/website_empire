@@ -11,6 +11,7 @@ import { partnerPayHref } from '@/lib/partner-festival-pricing'
 import { getPlan } from '@/lib/plans'
 import { usePartnerFestivalPricing } from '@/hooks/usePartnerFestivalPricing'
 import { WebinarJamBar, WebinarJamButton } from '@/components/WebinarJamRegister'
+import AcademyPresentationCta from '@/components/AcademyPresentationCta'
 import FeaturedInSection from '@/components/FeaturedInSection'
 import TopCreatorsSection from '@/components/sections/TopCreatorsSection'
 import AcademyProductDemo from '@/components/AcademyProductDemo'
@@ -85,7 +86,7 @@ export function FestivalPriceBlock({
   return (
     <div className="mx-auto w-full max-w-md rounded-2xl border border-academy/30 bg-academy/[0.06] px-4 py-4 text-left">
       <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-academy">
-        {fr ? 'Bootcamp 21 jours · live chaque mercredi' : '21-day bootcamp · live every Wednesday'}
+        {fr ? 'Bootcamp 21 jours · live chaque lundi à 14 h' : '21-day bootcamp · live every Monday at 2 pm'}
       </p>
 
       <p className="mt-3 flex flex-wrap items-baseline gap-x-3">
@@ -137,8 +138,8 @@ export function FestivalPriceBlock({
 
       <p className="mt-3 text-[12px] leading-snug text-neutral-500">
         {fr
-          ? 'Le live d’onboarding est chaque mercredi. Inscris-toi avant mercredi pour démarrer cette semaine.'
-          : 'The onboarding live is every Wednesday. Register before Wednesday to start this week.'}
+          ? 'Le live d’onboarding est chaque lundi à 14 h. Inscris-toi avant lundi pour démarrer cette semaine.'
+          : 'The onboarding live is every Monday at 2 pm. Register before Monday to start this week.'}
       </p>
       <p className="mt-1.5 text-[12px] text-neutral-500">
         {fr ? 'Accès immédiat, à ton rythme. Pas d’abonnement.' : 'Instant access, at your own pace. No subscription.'}
@@ -238,7 +239,7 @@ const VALUE_STACK: Record<'fr' | 'en', ValueGroup[]> = {
     {
       title: 'Les lives et les crédits',
       lines: [
-        { label: 'Live chaque mercredi (1 an)', value: 1997 },
+        { label: 'Live chaque lundi à 14 h (1 an)', value: 1997 },
         { label: '6 h de replays à suivre', value: 497 },
         { label: '4 000 crédits offerts pour utiliser Empire (la machine à contenu)', value: 297 },
         { label: 'Certification Empire (or, argent, bronze)', value: 497 },
@@ -280,7 +281,7 @@ const VALUE_STACK: Record<'fr' | 'en', ValueGroup[]> = {
     {
       title: 'Lives and credits',
       lines: [
-        { label: 'Live every Wednesday (1 year)', value: 1997 },
+        { label: 'Live every Monday at 2 pm (1 year)', value: 1997 },
         { label: '6 hours of replays to follow', value: 497 },
         { label: '4,000 free credits to use Empire (the content machine)', value: 297 },
         { label: 'Empire certification (gold, silver, bronze)', value: 497 },
@@ -344,11 +345,11 @@ export default function PartnerProgramPage() {
         },
         {
           q: 'Les portes ouvertes sont-elles payantes ?',
-          a: `Non. La présentation enregistrée est gratuite. Vous pouvez regarder le replay immédiatement ou choisir une session, dont l’horaire est affiché dans votre fuseau lors de l’inscription. Le bootcamp (actuellement ${festival.price} €) se paie ensuite : 297 € le lundi, 397 € le mardi, 497 € à partir du mercredi. Lundi, il repart à 297 €.`,
+          a: `Non. La présentation enregistrée est gratuite. Vous pouvez regarder le replay immédiatement ou choisir une session, dont l’horaire est affiché dans votre fuseau lors de l’inscription. Le bootcamp (actuellement ${festival.price} €) se paie ensuite : 297 € du lundi au jeudi, 397 € le vendredi et le samedi, 497 € le dimanche. Lundi, il repart à 297 €.`,
         },
         {
           q: 'Que se passe-t-il après le paiement ?',
-          a: 'Vous créez votre compte avec l’email du paiement, et le bootcamp s’ouvre tout de suite : les 21 vidéos, les replays et la communauté. Vous avancez à votre rythme, sans cohorte ni date à tenir.',
+          a: 'Vous créez votre compte avec l’email du paiement, et le bootcamp s’ouvre tout de suite : les 21 vidéos, les replays et la communauté. Vous avancez à votre rythme, sans date de démarrage à attendre.',
         },
       ]
     : [
@@ -366,11 +367,11 @@ export default function PartnerProgramPage() {
         },
         {
           q: 'Is the open house free?',
-          a: `Yes. The recorded presentation is free. Watch the replay immediately or choose a session; its time is shown in your time zone when you register. The bootcamp (currently €${festival.price}) is paid after: €297 on Monday, €397 on Tuesday, €497 from Wednesday. Monday resets to €297.`,
+          a: `Yes. The recorded presentation is free. Watch the replay immediately or choose a session; its time is shown in your time zone when you register. The bootcamp (currently €${festival.price}) is paid after: €297 Monday to Thursday, €397 on Friday and Saturday, €497 on Sunday. Monday resets to €297.`,
         },
         {
           q: 'What happens after payment?',
-          a: 'You create your account with the payment email, and the bootcamp opens right away: the 21 videos, the replays and the community. You move at your own pace, with no cohort or deadline.',
+          a: 'You create your account with the payment email, and the bootcamp opens right away: the 21 videos, the replays and the community. You move at your own pace, with no start date to wait for.',
         },
       ]
 
@@ -1193,8 +1194,8 @@ export default function PartnerProgramPage() {
             </p>
             <p className="mt-2 text-[14px] text-neutral-500">
               {fr
-                ? '297 € le lundi · 397 € le mardi · 497 € dès le mercredi · retour à 297 € chaque lundi.'
-                : '€297 on Monday · €397 on Tuesday · €497 from Wednesday · back to €297 every Monday.'}
+                ? '297 € du lundi au jeudi · 397 € le vendredi et le samedi · 497 € le dimanche · retour à 297 € le lundi.'
+                : '€297 Monday to Thursday · €397 on Friday and Saturday · €497 on Sunday · back to €297 on Monday.'}
             </p>
             <div className="mt-8 space-y-7">
               {VALUE_STACK[fr ? 'fr' : 'en'].map((group) => (
@@ -1276,6 +1277,24 @@ export default function PartnerProgramPage() {
                 </details>
               ))}
             </div>
+
+            {/* La présentation PDF, une seule fois sur la page (jamais sous les
+                boutons d'inscription), puis WhatsApp pour le reste. */}
+            <div className="mx-auto mt-8 max-w-md">
+              <AcademyPresentationCta fr={fr} source="faq" />
+            </div>
+            <p className="mt-5 text-center text-[14px] text-neutral-400">
+              {fr ? 'Une autre question ? ' : 'Another question? '}
+              <a
+                href="https://wa.me/33665427470"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackAmplitude('academy_whatsapp_clicked', { source: 'faq' })}
+                className="font-semibold text-white underline decoration-white/30 underline-offset-4 hover:decoration-white"
+              >
+                {fr ? 'Écris à Kevin sur WhatsApp' : 'Message Kevin on WhatsApp'}
+              </a>
+            </p>
 
             <div className="mt-16 text-center">
               <PartnerPayLink fr={fr} source="faq" price={festival.price} audience={audience} />
