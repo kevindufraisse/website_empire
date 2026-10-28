@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { waitUntil } from '@vercel/functions'
 import { createOrUpdateContact, addTagToContact, ensureTagByName, ValidationError } from '@/lib/systemeio'
 
 export const runtime = 'nodejs'
@@ -30,13 +31,19 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ code: 'unavailable' }, { status: 503 })
   }
 
+  // Systeme.io met jusqu'à ~20 s à retrouver un contact existant : la démo
+  // s'ouvre tout de suite, l'enregistrement finit après la réponse.
+  waitUntil(saveDemoLead(firstName, email, body.locale === 'en' ? 'en' : 'fr'))
+  return NextResponse.json({ success: true })
+}
+
+async function saveDemoLead(firstName: string, email: string, locale: 'fr' | 'en') {
   try {
     const tagId = await ensureTagByName(DEMO_TAG)
-    const contact = await createOrUpdateContact({ firstName, email, locale: body.locale === 'en' ? 'en' : 'fr' }, { lookupTimeoutMs: 40000 })
+    const contact = await createOrUpdateContact({ firstName, email, locale }, { lookupTimeoutMs: 40000 })
     await addTagToContact(contact.id, tagId)
-    return NextResponse.json({ success: true })
   } catch (error) {
-    console.error('[demo-email] Capture failed', error instanceof Error ? error.name : 'UnknownError')
-    return NextResponse.json({ code: error instanceof ValidationError ? 'invalid_fields' : 'unavailable' }, { status: error instanceof ValidationError ? 400 : 503 })
+    if (error instanceof ValidationError) console.warn('[demo-email] email refusé par Systeme.io', email)
+    else console.error('[demo-email] Capture failed', error instanceof Error ? error.name : 'UnknownError')
   }
 }

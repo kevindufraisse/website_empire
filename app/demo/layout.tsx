@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 
 export const metadata = {
-  title: 'Demander une démo | Empire Internet',
+  title: 'La démo d’Empire | Empire Internet',
   description: 'Découvre Empire à ton rythme avec la démo enregistrée, ou réserve une démonstration personnelle avec Kevin Dufraisse.',
 }
 

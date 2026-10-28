@@ -13,6 +13,10 @@ const VIDEO_TITLE = 'Le système de personnalisation des entrepreneurs à 7 chif
 const PROGRESS_MARKS = [25, 50, 75, 95]
 const SPEEDS = [1, 1.25, 1.5, 1.75, 2]
 const speedLabel = (v: number) => `${String(v).replace('.', ',')}x`
+const clock = (sec: number) => {
+  const t = Math.max(0, Math.floor(sec))
+  return `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`
+}
 
 const TRIAL_POINTS = [
   '7 jours gratuits avec 500 crédits',
@@ -97,6 +101,8 @@ function VideoPlayer() {
   const [speedOpen, setSpeedOpen] = useState(false)
   const [muted, setMuted] = useState(false)
   const [canFullscreen, setCanFullscreen] = useState(false)
+  const [current, setCurrent] = useState(0)
+  const [duration, setDuration] = useState(0)
 
   useEffect(() => {
     unlockedRef.current = adoptEmailFromUrl('empire')
@@ -115,7 +121,11 @@ function VideoPlayer() {
           onStateChange: (e: any) => {
             const S = window.YT.PlayerState
             setIsPlaying(e.data === S.PLAYING)
-            if (e.data === S.ENDED) trackAmplitude('vsl_video_progress', { percent: 100 })
+            if (e.data === S.ENDED) {
+              trackAmplitude('vsl_video_progress', { percent: 100 })
+              // Vue jusqu'au bout : la prochaine visite repart du début.
+              writeStore(TIME_KEY, '0')
+            }
           },
         },
       })
@@ -124,7 +134,9 @@ function VideoPlayer() {
         if (!p?.getCurrentTime) return
         const t = p.getCurrentTime()
         const duration = p.getDuration?.() || 0
-        if (t > 0) writeStore(TIME_KEY, String(Math.floor(t)))
+        setCurrent(t)
+        if (duration) setDuration(duration)
+        if (t > 0 && p.getPlayerState?.() !== window.YT?.PlayerState?.ENDED) writeStore(TIME_KEY, String(Math.floor(t)))
         if (!duration) return
         const pct = (t / duration) * 100
         for (const mark of PROGRESS_MARKS) {
@@ -133,7 +145,7 @@ function VideoPlayer() {
             trackAmplitude('vsl_video_progress', { percent: mark })
           }
         }
-      }, 1000)
+      }, 500)
     }
 
     if (window.YT?.Player) attach()
@@ -181,6 +193,18 @@ function VideoPlayer() {
     setMuted(!muted)
   }
 
+  // Barre de progression : on avance ou on recule où on veut.
+  const seekFromPointer = (clientX: number, target: HTMLElement) => {
+    const p = playerRef.current
+    if (!p?.seekTo || !duration) return
+    const rect = target.getBoundingClientRect()
+    const ratio = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width))
+    const to = ratio * duration
+    p.seekTo(to, true)
+    setCurrent(to)
+    writeStore(TIME_KEY, String(Math.floor(to)))
+  }
+
   const toggleFullscreen = () => {
     const el = containerRef.current
     if (!el) return
@@ -218,7 +242,9 @@ function VideoPlayer() {
           <Script src="https://www.youtube.com/iframe_api" strategy="afterInteractive" />
           <iframe
             id="vsl-player"
-            className="absolute inset-0 w-full h-full pointer-events-none"
+            // Plus haute que le cadre : la vidéo garde sa taille, le titre et
+            // la chaîne YouTube tombent dans la bande noire, hors du cadre.
+            className="absolute inset-x-0 top-[-30%] w-full h-[160%] pointer-events-none"
             src={`https://www.youtube-nocookie.com/embed/${VIDEO_ID}?${embedParams.toString()}`}
             title={VIDEO_TITLE}
             allow="autoplay; encrypted-media; picture-in-picture"
@@ -230,13 +256,45 @@ function VideoPlayer() {
             aria-label={isPlaying ? 'Pause' : 'Lecture'}
             className="absolute inset-0 z-10 w-full h-full"
           >
+            {!isPlaying && <span className="absolute inset-0 bg-black/40" />}
             {!isPlaying && (
               <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center w-16 h-16 rounded-full bg-empire text-black shadow-xl">
                 <Play className="w-7 h-7 ml-1" fill="currentColor" />
               </span>
             )}
           </button>
-          <div className="absolute bottom-0 inset-x-0 z-10 flex items-center justify-between gap-2 px-3 py-2 bg-gradient-to-t from-black/70 to-transparent">
+          <div className="absolute bottom-0 inset-x-0 z-10 px-3 pb-2 pt-6 bg-gradient-to-t from-black/80 to-transparent">
+          <div
+            role="slider"
+            tabIndex={0}
+            aria-label="Avancer dans la vidéo"
+            aria-valuemin={0}
+            aria-valuemax={Math.floor(duration)}
+            aria-valuenow={Math.floor(current)}
+            onPointerDown={(e) => {
+              e.currentTarget.setPointerCapture(e.pointerId)
+              seekFromPointer(e.clientX, e.currentTarget)
+            }}
+            onPointerMove={(e) => {
+              if (e.buttons) seekFromPointer(e.clientX, e.currentTarget)
+            }}
+            onKeyDown={(e) => {
+              const p = playerRef.current
+              if (!p?.seekTo || !duration) return
+              const step = e.key === 'ArrowRight' ? 10 : e.key === 'ArrowLeft' ? -10 : 0
+              if (!step) return
+              e.preventDefault()
+              const to = Math.min(duration, Math.max(0, current + step))
+              p.seekTo(to, true)
+              setCurrent(to)
+            }}
+            className="group/seek relative mb-1 flex h-5 cursor-pointer touch-none items-center"
+          >
+            <div className="h-1.5 w-full rounded-full bg-white/25 group-hover/seek:h-2 transition-all">
+              <div className="h-full rounded-full bg-empire" style={{ width: `${duration ? (current / duration) * 100 : 0}%` }} />
+            </div>
+          </div>
+          <div className="flex items-center justify-between gap-2">
             <button
               type="button"
               onClick={togglePlay}
@@ -245,6 +303,7 @@ function VideoPlayer() {
             >
               {isPlaying ? <Pause className="w-5 h-5" fill="currentColor" /> : <Play className="w-5 h-5" fill="currentColor" />}
             </button>
+            <span className="mr-auto text-xs tabular-nums text-white/80">{clock(current)}{duration ? ` / ${clock(duration)}` : ''}</span>
             <div className="flex items-center gap-1">
               <div className="relative">
                 <button
@@ -290,6 +349,7 @@ function VideoPlayer() {
                 </button>
               )}
             </div>
+          </div>
           </div>
         </>
       ) : (
