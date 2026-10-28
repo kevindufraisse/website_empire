@@ -36,7 +36,11 @@ export default function DemoPage() {
   // Pas d'attente du serveur : la démo s'ouvre au clic.
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    const clean = { firstName: lead.firstName.trim(), email: lead.email.trim().toLowerCase() }
+    const rawName = lead.firstName.trim()
+    const clean = {
+      firstName: rawName ? rawName.charAt(0).toLocaleUpperCase(fr ? 'fr-FR' : 'en-US') + rawName.slice(1) : '',
+      email: lead.email.trim().toLowerCase(),
+    }
     if (!clean.firstName || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(clean.email)) {
       setError(fr ? 'Vérifie ton prénom et ton email.' : 'Check your first name and email.')
       return
@@ -57,29 +61,15 @@ export default function DemoPage() {
     trackAmplitude('empire_demo_path_selected', { path: 'book' })
   }
 
-  async function trial(location: 'top' | 'bottom') {
+  async function trial() {
     if (trialLoading) return
     setTrialLoading(true)
-    trackAmplitude('empire_demo_trial_clicked', { location })
+    trackAmplitude('empire_demo_trial_clicked', { location: 'bottom' })
     await startFreeTrial()
   }
 
   const buttonClass = styles.primaryButton
   const inputClass = styles.input
-  const secondaryClass = 'inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/[0.04] px-6 py-3 font-semibold text-white transition hover:bg-white/[0.08]'
-
-  const ctas = (location: 'top' | 'bottom') => (
-    <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
-      <button type="button" onClick={() => trial(location)} disabled={trialLoading} className={buttonClass}>
-        {trialLoading ? (fr ? 'Ouverture…' : 'Opening…') : (fr ? 'Tester gratuitement' : 'Try it for free')}
-        {!trialLoading && <ArrowRight size={18} aria-hidden />}
-      </button>
-      <button type="button" onClick={book} className={secondaryClass}>
-        <Calendar size={18} aria-hidden />
-        {fr ? 'Prendre rendez-vous avec un expert' : 'Book a call with an expert'}
-      </button>
-    </div>
-  )
 
   return (
     <main className={styles.page}>
@@ -118,19 +108,37 @@ export default function DemoPage() {
         )}
 
         {step === 'watch' && (
-          <section aria-labelledby="watch-heading">
-            <h2 id="watch-heading" ref={headingRef} tabIndex={-1} className="mb-5 text-center text-2xl font-bold text-white outline-none sm:text-3xl">
-              {fr ? (lead.firstName ? `${lead.firstName}, voici la démo d’Empire` : 'La démo d’Empire') : (lead.firstName ? `${lead.firstName}, here is the Empire demo` : 'The Empire demo')}
-            </h2>
-            <div className="mb-6">{ctas('top')}</div>
-            <div className="mx-auto max-w-3xl">
-            <div className={styles.videoFrame} style={{ paddingTop: '75%' }}>
-              <iframe src={`https://www.loom.com/embed/${DEMO_LOOM_ID}?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true`} title={fr ? 'Démo complète d’Empire par Kevin' : 'Full Empire demo by Kevin (in French)'} className="absolute inset-0 h-full w-full" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen />
+          <section aria-labelledby="watch-heading" className={styles.watch}>
+            <header className={styles.watchHero}>
+              <p className={styles.eyebrow}>{fr ? 'Démo complète · 24 min' : 'Full demo · 24 min'}</p>
+              <h2 id="watch-heading" ref={headingRef} tabIndex={-1} className={styles.watchTitle}>
+                {lead.firstName
+                  ? (fr ? <>{lead.firstName}, voici la démo <span>d’Empire.</span></> : <>{lead.firstName}, here is <span>the Empire demo.</span></>)
+                  : (fr ? 'La démo d’Empire' : 'The Empire demo')}
+              </h2>
+            </header>
+            <div className={styles.playerShell}>
+              <div className={styles.videoFrame} style={{ paddingTop: '75%' }}>
+                <iframe src={`https://www.loom.com/embed/${DEMO_LOOM_ID}?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true`} title={fr ? 'Démo complète d’Empire par Kevin' : 'Full Empire demo by Kevin (in French)'} className="absolute inset-0 h-full w-full" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen />
+              </div>
             </div>
-            <p className="mt-3 text-center text-sm text-neutral-400">{fr ? 'Un souci avec le lecteur ? ' : 'Having trouble with the player? '}<a href={`https://www.loom.com/share/${DEMO_LOOM_ID}`} target="_blank" rel="noopener noreferrer" className="text-neutral-300 underline underline-offset-4">{fr ? 'Ouvrir sur Loom' : 'Open on Loom'}</a>{!fr && ' · Video in French'}</p>
+            <p className={styles.loomFallback}><a href={`https://www.loom.com/share/${DEMO_LOOM_ID}`} target="_blank" rel="noopener noreferrer">{fr ? 'Ouvrir sur Loom ↗' : 'Open on Loom ↗'}</a>{!fr && ' · Video in French'}</p>
+            <div className={`${styles.panel} ${styles.ctaPanel}`}>
+              <div className={styles.ctaCopy}>
+                <p className={styles.ctaTitle}>{fr ? 'Essaie Empire sur ton propre contenu.' : 'Try Empire on your own content.'}</p>
+                <p className={styles.ctaNote}>{fr ? '7 jours gratuits avec 500 crédits · annulable en un clic' : '7 days free with 500 credits · cancel in one click'}</p>
+              </div>
+              <div className={styles.ctaButtons}>
+                <button type="button" onClick={trial} disabled={trialLoading} className={buttonClass}>
+                  {trialLoading ? (fr ? 'Ouverture…' : 'Opening…') : (fr ? 'Tester gratuitement' : 'Try it for free')}
+                  {!trialLoading && <ArrowRight size={18} aria-hidden />}
+                </button>
+                <button type="button" onClick={book} className={styles.secondaryButton}>
+                  <Calendar size={18} aria-hidden />
+                  {fr ? 'Prendre rendez-vous avec un expert' : 'Book a call with an expert'}
+                </button>
+              </div>
             </div>
-            <div className="mt-6">{ctas('bottom')}</div>
-            <p className="mt-3 text-center text-sm text-neutral-400">{fr ? '7 jours gratuits avec 500 crédits · annulable en un clic' : '7 days free with 500 credits · cancel in one click'}</p>
           </section>
         )}
 
