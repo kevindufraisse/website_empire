@@ -11,7 +11,7 @@ declare global {
 }
 import { createPortal } from 'react-dom'
 import Cal, { getCalApi } from '@calcom/embed-react'
-import { ChevronDown, Loader2, X } from 'lucide-react'
+import { ChevronDown, X } from 'lucide-react'
 import { getEmpParam } from '@/hooks/useCalLink'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
@@ -148,7 +148,6 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
         dropdownActive: 'bg-empire/10 text-empire',
         submit: 'bg-empire text-black shadow-[0_0_20px_-4px_rgb(var(--empire-rgb)_/_0.35)] hover:shadow-[0_0_28px_-4px_rgb(var(--empire-rgb)_/_0.5)]',
       }
-  const [loading, setLoading] = useState(false)
   const [showCal, setShowCal] = useState(false)
   const [form, setForm] = useState<Lead>({ firstName: prefilledLead?.firstName || '', email: prefilledLead?.email || '', phone: '' })
   const [countryIdx, setCountryIdx] = useState(0)
@@ -177,27 +176,26 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
     return Object.keys(e).length === 0
   }
 
-  async function handleSubmit(ev: React.FormEvent) {
+  function handleSubmit(ev: React.FormEvent) {
     ev.preventDefault()
     if (!validate()) return
 
-    setLoading(true)
     const fullPhone = `${COUNTRIES[countryIdx].code}${form.phone}`
-    try {
-      await fetch('/api/callback', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          firstName: form.firstName,
-          email: form.email,
-          phone: fullPhone,
-          emp: getEmpParam() || undefined,
-          offer: autopilot ? 'legende' : 'empire',
-          budget: 'call',
-        }),
-      })
-    } catch { /* best-effort */ }
-    setLoading(false)
+    // La notification du lead (Folk, Slack, WhatsApp) prend plusieurs secondes :
+    // le calendrier s'ouvre tout de suite, l'envoi continue en fond.
+    fetch('/api/callback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      keepalive: true,
+      body: JSON.stringify({
+        firstName: form.firstName,
+        email: form.email,
+        phone: fullPhone,
+        emp: getEmpParam() || undefined,
+        offer: autopilot ? 'legende' : 'empire',
+        budget: 'call',
+      }),
+    }).catch(() => { /* best-effort */ })
 
     // Fire GA4 conversion event via GTM dataLayer
     if (typeof window !== 'undefined') {
@@ -274,17 +272,9 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
 
         <button
           type="submit"
-          disabled={loading}
-          className={`w-full py-4 rounded-xl ${accent.submit} font-bold text-base hover:brightness-110 transition-all flex items-center justify-center gap-2 disabled:opacity-70 mt-2`}
+          className={`w-full py-4 rounded-xl ${accent.submit} font-bold text-base hover:brightness-110 transition-all flex items-center justify-center gap-2 mt-2`}
         >
-          {loading
-            ? (
-              <>
-                <Loader2 size={18} className="animate-spin" />
-                {lang === 'fr' ? 'Envoi en cours...' : 'Sending...'}
-              </>
-            )
-            : autopilot
+          {autopilot
               ? (lang === 'fr' ? 'Vérifier mon éligibilité →' : 'Check my eligibility →')
               : (lang === 'fr' ? 'Valider et planifier un RDV →' : 'Submit and book a call →')
           }

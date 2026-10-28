@@ -2,8 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Script from 'next/script'
-import { Play, Pause, Volume2, VolumeX, Maximize, Check, Calendar, ArrowRight, ChevronDown } from 'lucide-react'
-import CalPopupButton from '@/components/CalPopupButton'
+import { Play, Pause, Volume2, VolumeX, Maximize, Check, ArrowRight, ChevronDown } from 'lucide-react'
 import { trackAmplitude } from '@/lib/amplitude'
 import { startFreeTrial } from '@/lib/startTrial'
 import VideoEmailGate, { adoptEmailFromUrl } from '@/components/VideoEmailGate'
@@ -53,8 +52,8 @@ const FAQ = [
     a: 'Non. Une actu devient un post LinkedIn illustré, une citation se pose sur une de tes vidéos, et une vidéo virale peut être refaite avec ton visage et ta voix. Ton avis suffit.',
   },
   {
-    q: 'Je préfère en parler avant',
-    a: 'Réserve un appel : on regarde ta situation et on te dit si Empire est fait pour toi, sans engagement. Pour une question rapide, écris-nous sur WhatsApp (bulle en bas à droite).',
+    q: 'Je préfère voir l\u2019outil avant',
+    a: 'Demande une démo : tu vois l\u2019app de bout en bout en vidéo, et tu peux prendre rendez-vous ensuite si tu veux en savoir plus. Pour une question rapide, écris-nous sur WhatsApp (bulle en bas à droite).',
   },
 ]
 
@@ -351,12 +350,13 @@ function Ctas({ location }: { location: 'top' | 'bottom' }) {
           {loading ? 'Ouverture…' : 'Tester 7 jours gratuitement'}
           {!loading && <ArrowRight className="w-5 h-5" />}
         </button>
-        <span data-cal-keep onClickCapture={() => trackAmplitude('vsl_call_clicked', { location })} className="flex-1 flex">
-          <CalPopupButton className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/[0.04] text-white font-semibold px-6 py-4 text-base hover:bg-white/[0.08] transition">
-            <Calendar className="w-5 h-5" />
-            Réserver un appel
-          </CalPopupButton>
-        </span>
+        <a
+          href="/demo"
+          onClick={() => trackAmplitude('empire_demo_clicked', { source: `vsl-${location}` })}
+          className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/[0.04] text-white font-semibold px-6 py-4 text-base hover:bg-white/[0.08] transition"
+        >
+          Demander une démo
+        </a>
       </div>
       <ul className="mt-4 flex flex-col sm:flex-row sm:flex-wrap sm:justify-center gap-x-5 gap-y-1.5 text-sm text-neutral-400">
         {TRIAL_POINTS.map((p) => (
