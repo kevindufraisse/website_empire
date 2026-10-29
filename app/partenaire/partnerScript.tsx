@@ -4,7 +4,8 @@ import type { TextSection } from '@/components/ListenReadFormats'
 // Version écrite de la vidéo partenaire (Loom 5ac5b550…, 21 min 52).
 // Fidèle au transcript ElevenLabs Scribe : mêmes chiffres, mêmes témoignages,
 // CTA (portes ouvertes) aux mêmes moments qu'en vidéo (~14:44, ~17:36, fin).
-// Les prix 500/700/800 € sont ceux du festival partenaire (PARTNER_FESTIVAL_TIERS).
+// Prix : la vidéo dit 500 / 700 / 800 € (lapsus). Le texte donne la vraie grille,
+// 500 / 600 / 700 € selon le jour (PARTNER_FESTIVAL_TIERS de l'app, 29 octobre 2026).
 
 export const PARTNER_READ_MINUTES = 6
 
@@ -203,10 +204,10 @@ export const PARTNER_SECTIONS: TextSection[] = [
       <>
         <P>
           Le programme n’est pas fait pour tout le monde : il faut être prêt à investir une heure
-          par jour pendant 21 jours. Les frais d’inscription sont clairs : <B>entre 500 et 800 €</B>{' '}
-          selon le moment où tu prends ta place dans la semaine — <B>500 € jusqu’au live du
-          jeudi</B>, 700 € après, 800 € le dimanche avant la fermeture. Paiement unique, accès à
-          vie.
+          par jour pendant 21 jours. Les frais d’inscription sont clairs : <B>entre 500 et 700 €</B>{' '}
+          selon le jour où tu prends ta place dans la semaine — <B>500 € du lundi au
+          jeudi</B>, 600 € le vendredi et le samedi, 700 € le dimanche, et retour à 500 € le
+          lundi. Paiement unique, accès à vie.
         </P>
         <P>
           Rien que payer des prestataires pour tes posts et tes montages te coûterait{' '}
