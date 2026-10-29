@@ -1,23 +1,25 @@
 /**
- * Prix hebdo du bootcamp Academy (/academy), l'entrée du programme partenaire.
- * Le statut partenaire est proposé juste après le paiement, dans l'app
- * (/join/academy, upsell en un clic) : le site ne vend que le bootcamp.
+ * Prix hebdo de /academy (Kevin, 29 octobre 2026) : une seule page d'entrée,
+ * le programme partenaire, avec « juste l'Academy » (le bootcamp seul) en
+ * dessous sur /join/academy, puis l'upsell partenaire après le paiement.
  *
- * Semaine Europe/Paris, reset chaque lundi 00:00 (grille du 28 octobre 2026 ;
- * le live d'onboarding est chaque lundi à 14 h) :
- * - Lun 00:00 → Ven 00:00 : 297 €  (du lundi au jeudi)
- * - Ven 00:00 → Dim 00:00 : 397 €  (vendredi et samedi)
- * - Dim 00:00 → Lun 00:00 : 497 €  (dimanche)
+ * Semaine Europe/Paris, reset chaque lundi 00:00 :
+ * - Lun 00:00 → Ven 00:00 : programme 500 € · bootcamp seul 297 €
+ * - Ven 00:00 → Dim 00:00 : programme 600 € · bootcamp seul 397 €
+ * - Dim 00:00 → Lun 00:00 : programme 700 € · bootcamp seul 497 €
  *
- * Miroir côté app : `BOOTCAMP_WEEKLY_TIERS` dans
- * empire-tracking/src/lib/waSetter.cjs (montant réel du checkout Stripe).
+ * Miroirs côté app (montant réel du checkout Stripe) : `PARTNER_FESTIVAL_TIERS`
+ * et `BOOTCAMP_WEEKLY_TIERS` dans empire-tracking/src/lib/waSetter.cjs.
  */
 
 export type PartnerTierId = 'live' | 'after_live' | 'last_chance'
 
 export type PartnerFestivalTier = {
   id: PartnerTierId
+  /** Programme partenaire, le prix mis en avant. */
   price: number
+  /** L'Academy seule (le bootcamp), proposée en dessous. */
+  bootcampPrice: number
   labelFr: string
   labelEn: string
 }
@@ -25,19 +27,22 @@ export type PartnerFestivalTier = {
 export const PARTNER_FESTIVAL_TIERS: PartnerFestivalTier[] = [
   {
     id: 'live',
-    price: 297,
+    price: 500,
+    bootcampPrice: 297,
     labelFr: 'Lundi → jeudi',
     labelEn: 'Monday → Thursday',
   },
   {
     id: 'after_live',
-    price: 397,
+    price: 600,
+    bootcampPrice: 397,
     labelFr: 'Vendredi et samedi',
     labelEn: 'Friday and Saturday',
   },
   {
     id: 'last_chance',
-    price: 497,
+    price: 700,
+    bootcampPrice: 497,
     labelFr: 'Dimanche',
     labelEn: 'Sunday',
   },
@@ -45,6 +50,7 @@ export const PARTNER_FESTIVAL_TIERS: PartnerFestivalTier[] = [
 
 export type PartnerFestivalPricing = {
   price: number
+  bootcampPrice: number
   tierId: PartnerTierId
   labelFr: string
   labelEn: string
@@ -153,6 +159,7 @@ export function getPartnerFestivalPricing(now: Date = new Date()): PartnerFestiv
 
   return {
     price: tier.price,
+    bootcampPrice: tier.bootcampPrice,
     tierId: tier.id,
     labelFr: tier.labelFr,
     labelEn: tier.labelEn,

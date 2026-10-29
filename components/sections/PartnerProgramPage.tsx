@@ -50,13 +50,7 @@ export function PartnerPayLink({
       onClick={() => trackAmplitude('academy_partner_checkout_clicked', { source, price, audience })}
       className="mx-auto inline-flex min-h-12 w-full max-w-md items-center justify-center gap-2 rounded-2xl bg-academy px-6 text-[14px] font-bold text-black transition hover:brightness-110"
     >
-      {fr
-        ? audience === 'agency'
-          ? `Rejoindre l’Academy · ${price} €`
-          : `Rejoindre l’Academy · ${price} €`
-        : audience === 'agency'
-          ? `Join the Academy · €${price}`
-          : `Join the Academy · €${price}`}
+      {fr ? `Rejoindre le programme · ${price} €` : `Join the program · €${price}`}
       <ArrowRight className="h-4 w-4" />
     </a>
   )
@@ -74,7 +68,7 @@ function priceCountdown(ms: number, fr: boolean): string {
   return d > 0 ? `${d} ${fr ? 'j' : 'd'} ${clock}` : clock
 }
 
-/** Prix du bootcamp cette semaine. Seul prix barré : le palier qui arrive, s'il est plus cher. */
+/** Prix du programme cette semaine (le bootcamp seul est cité dessous). Seul prix barré : le palier qui arrive, s'il est plus cher. */
 export function FestivalPriceBlock({
   fr,
   pricing,
@@ -87,7 +81,7 @@ export function FestivalPriceBlock({
   return (
     <div className="mx-auto w-full max-w-md rounded-2xl border border-academy/30 bg-academy/[0.06] px-4 py-4 text-left">
       <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-academy">
-        {fr ? 'Bootcamp 21 jours · live chaque lundi à 14 h' : '21-day bootcamp · live every Monday at 2 pm'}
+        {fr ? 'Programme partenaire · live chaque lundi à 14 h' : 'Partner program · live every Monday at 2 pm'}
       </p>
 
       <p className="mt-3 flex flex-wrap items-baseline gap-x-3">
@@ -155,6 +149,11 @@ export function FestivalPriceBlock({
       </p>
       <p className="mt-1.5 text-[12px] text-neutral-500">
         {fr ? 'Accès immédiat, à ton rythme. Pas d’abonnement.' : 'Instant access, at your own pace. No subscription.'}
+      </p>
+      <p className="mt-1.5 text-[12px] text-neutral-500">
+        {fr
+          ? `Juste la formation ? L’Academy seule (le bootcamp) est à ${pricing.bootcampPrice} € cette semaine, sur la même page.`
+          : `Just the training? The Academy alone (the bootcamp) is €${pricing.bootcampPrice} this week, on the same page.`}
       </p>
       <p className="mt-3 border-t border-white/[0.08] pt-3 text-[12px] text-neutral-400">
         {fr ? 'Déjà abonné Empire ? Le bootcamp est à 147 € pour toi, ' : 'Already an Empire subscriber? The bootcamp is €147 for you, '}
@@ -428,7 +427,7 @@ export default function PartnerProgramPage() {
         },
         {
           q: 'Les portes ouvertes sont-elles payantes ?',
-          a: `Non. La présentation enregistrée est gratuite. Vous pouvez regarder le replay immédiatement ou choisir une session, dont l’horaire est affiché dans votre fuseau lors de l’inscription. Le bootcamp (actuellement ${festival.price} €) se paie ensuite : 297 € du lundi au jeudi, 397 € le vendredi et le samedi, 497 € le dimanche. Lundi, il repart à 297 €.`,
+          a: `Non. La présentation enregistrée est gratuite. Vous pouvez regarder le replay immédiatement ou choisir une session, dont l’horaire est affiché dans votre fuseau lors de l’inscription. Le programme partenaire (actuellement ${festival.price} €) se paie ensuite : 500 € du lundi au jeudi, 600 € le vendredi et le samedi, 700 € le dimanche. Lundi, il repart à 500 €. L’Academy seule (le bootcamp) est aussi proposée, actuellement à ${festival.bootcampPrice} €.`,
         },
         {
           q: 'Que se passe-t-il après le paiement ?',
@@ -450,7 +449,7 @@ export default function PartnerProgramPage() {
         },
         {
           q: 'Is the open house free?',
-          a: `Yes. The recorded presentation is free. Watch the replay immediately or choose a session; its time is shown in your time zone when you register. The bootcamp (currently €${festival.price}) is paid after: €297 Monday to Thursday, €397 on Friday and Saturday, €497 on Sunday. Monday resets to €297.`,
+          a: `Yes. The recorded presentation is free. Watch the replay immediately or choose a session; its time is shown in your time zone when you register. The partner program (currently €${festival.price}) is paid after: €500 Monday to Thursday, €600 on Friday and Saturday, €700 on Sunday. Monday resets to €500. The Academy alone (the bootcamp) is also available, currently €${festival.bootcampPrice}.`,
         },
         {
           q: 'What happens after payment?',
@@ -1305,8 +1304,8 @@ export default function PartnerProgramPage() {
             </p>
             <p className="mt-2 text-[14px] text-neutral-500">
               {fr
-                ? '297 € du lundi au jeudi · 397 € le vendredi et le samedi · 497 € le dimanche · retour à 297 € le lundi. Comme pour un festival, ceux qui se décident tôt paient moins.'
-                : '€297 Monday to Thursday · €397 on Friday and Saturday · €497 on Sunday · back to €297 on Monday. Like festival tickets, those who decide early pay less.'}
+                ? '500 € du lundi au jeudi · 600 € le vendredi et le samedi · 700 € le dimanche · retour à 500 € le lundi. Comme pour un festival, ceux qui se décident tôt paient moins.'
+                : '€500 Monday to Thursday · €600 on Friday and Saturday · €700 on Sunday · back to €500 on Monday. Like festival tickets, those who decide early pay less.'}
             </p>
             <div className="mt-8 space-y-7">
               {VALUE_STACK[fr ? 'fr' : 'en'].map((group) => (
