@@ -83,16 +83,22 @@ type Props = {
   onPeriodChange?: (p: BillingId) => void
   /** /tarifs montre le paiement à l'usage dans son propre onglet. */
   hidePayg?: boolean
+  /** Panier de /tarifs : le bouton d'une carte choisit la formule au lieu
+   *  d'ouvrir l'inscription ; le panier porte le seul bouton d'achat. */
+  chosen?: PlanId
+  onChoose?: (plan: PlanId) => void
 }
 
-export default function PlanCards({ location, period: controlled, onPeriodChange, hidePayg = false }: Props) {
+export default function PlanCards({ location, period: controlled, onPeriodChange, hidePayg = false, chosen, onChoose }: Props) {
   const { lang } = useLanguage()
   const fr = lang === 'fr'
   const locale = fr ? 'fr-FR' : 'en-US'
   const [own, setOwn] = useState<BillingId>('monthly')
   const period = controlled ?? own
   const setPeriod = (p: BillingId) => (onPeriodChange ? onPeriodChange(p) : setOwn(p))
-  const [selected, setSelected] = useState<PlanId>('growth')
+  const [ownSelected, setOwnSelected] = useState<PlanId>('growth')
+  const selected = chosen ?? ownSelected
+  const setSelected = (p: PlanId) => (onChoose ? onChoose(p) : setOwnSelected(p))
   const [opening, setOpening] = useState<PlanId | 'payg' | null>(null)
   const billing = BILLING_PERIODS.find((p) => p.id === period)!
   const discount = billing.discount
@@ -101,6 +107,11 @@ export default function PlanCards({ location, period: controlled, onPeriodChange
   const perMonth = fr ? '/mois' : '/mo'
 
   const choose = async (col: PlanId | 'payg') => {
+    if (onChoose && col !== 'payg') {
+      onChoose(col)
+      trackAmplitude('pricing_page_plan_chosen', { plan: col, billing_period: period, location })
+      return
+    }
     if (opening) return
     setOpening(col)
     trackAmplitude('pricing_page_plan_clicked', { plan: col, billing_period: col === 'payg' ? 'payg' : period, location })
@@ -157,7 +168,7 @@ export default function PlanCards({ location, period: controlled, onPeriodChange
 
       <div className="grid gap-5 lg:grid-cols-3 lg:items-stretch">
         {PLANS.map((plan) => {
-          const featured = !!plan.highlighted
+          const featured = onChoose ? plan.id === selected : !!plan.highlighted
           const price = finalPrice(plan.price, period, 1)
           const total = (price * billing.months).toLocaleString(locale)
           const d = PLAN_DELIVERABLES[plan.id]
@@ -171,7 +182,7 @@ export default function PlanCards({ location, period: controlled, onPeriodChange
                       <p className="text-base font-semibold leading-snug text-white">{PLAN_LABELS[plan.id][fr ? 'fr' : 'en']}</p>
                       <p className="text-sm text-neutral-300">{fr ? RHYTHM_TU[plan.id] : plan.rhythmEn}</p>
                     </div>
-                    {featured && <span className={`whitespace-nowrap ${ORDER_TAG}`}>{fr ? 'Populaire' : 'Popular'}</span>}
+                    {plan.highlighted && <span className={`whitespace-nowrap ${ORDER_TAG}`}>{fr ? 'Populaire' : 'Popular'}</span>}
                   </div>
 
                   <div className="space-y-1">
@@ -212,8 +223,13 @@ export default function PlanCards({ location, period: controlled, onPeriodChange
                       onClick={() => choose(plan.id)}
                       disabled={opening !== null}
                       className={featured ? ORDER_CTA : ORDER_CTA_SECONDARY}
+                      aria-pressed={onChoose ? plan.id === selected : undefined}
                     >
-                      {opening === plan.id
+                      {onChoose
+                        ? (plan.id === selected
+                          ? <><Check className="h-4 w-4" />{fr ? 'Dans ton panier' : 'In your cart'}</>
+                          : (fr ? `Choisir ${PLAN_LABELS[plan.id].fr}` : `Choose ${PLAN_LABELS[plan.id].en}`))
+                        : opening === plan.id
                         ? (fr ? 'Ouverture…' : 'Opening…')
                         : (
                           <>

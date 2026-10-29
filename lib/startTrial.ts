@@ -15,13 +15,22 @@ export const TRIAL_URL = `https://app.empire-internet.com/onboarding?plan=${TRIA
 export const TRIAL_TERMS_FR = `7 jours gratuits avec ${TRIAL_CREDITS} crédits. L’abonnement démarre au 8e jour, ou dès que tu dépasses les ${TRIAL_CREDITS} crédits. Annule avant : 0 €.`
 export const TRIAL_TERMS_EN = `7 days free with ${TRIAL_CREDITS} credits. Your plan starts on day 8, or as soon as you go past ${TRIAL_CREDITS} credits. Cancel before: €0.`
 
+export type TrialOption = 'bootcamp' | 'expert'
+
+/**
+ * Inscription puis paiement d'essai. `options` = le panier de /tarifs
+ * (29 octobre 2026) : le bootcamp part dans le même paiement Stripe, l'expert
+ * prévient Marc au retour du paiement.
+ */
 export async function startFreeTrial(
   plan: 'starter' | 'growth' | 'scale' = TRIAL_PLAN,
   billing: 'monthly' | 'quarterly' | 'yearly' = TRIAL_BILLING,
+  options: TrialOption[] = [],
 ): Promise<void> {
   const url = new URL(TRIAL_URL)
   url.searchParams.set('plan', plan)
   url.searchParams.set('intent', 'trial')
   url.searchParams.set('billing', billing)
+  if (options.length) url.searchParams.set('options', options.join(','))
   window.location.href = withAmplitudeDeviceId(url.toString())
 }

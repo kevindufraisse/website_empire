@@ -296,6 +296,8 @@ export default function TarifsClient() {
   const [period, setPeriod] = useState<BillingId>('monthly')
   const [opening, setOpening] = useState<PlanId | null>(null)
   const [tab, setTab] = useState<Tab>('solo')
+  // Panier (29 octobre 2026) : la formule choisie dans les cartes Solo.
+  const [chosenPlan, setChosenPlan] = useState<PlanId>('growth')
 
   useEffect(() => {
     const sync = () => {
@@ -360,13 +362,13 @@ export default function TarifsClient() {
         </div>
 
         <div className="mt-6" role="tabpanel">
-          {tab === 'solo' && <PlanCards location="cards" period={period} onPeriodChange={setPeriod} hidePayg />}
+          {tab === 'solo' && <PlanCards location="cards" period={period} onPeriodChange={setPeriod} hidePayg chosen={chosenPlan} onChoose={setChosenPlan} />}
           {tab === 'team' && <TeamCards period={period} onPeriodChange={setPeriod} />}
           {tab === 'payg' && <PaygCards />}
         </div>
 
-        {/* Les options se prennent avec un abonnement (Solo ou Équipe). */}
-        {tab !== 'payg' && <OptionsPanel plan={tab === 'team' ? 'equipe' : 'solo'} />}
+        {/* Le panier : formule choisie, options, un seul bouton (onglet Solo). */}
+        {tab === 'solo' && <OptionsPanel plan={chosenPlan} period={period} />}
 
         <FeaturedInSection className="mt-12" variant="compact" title={fr ? 'Mis en avant par' : 'Featured by'} />
 
