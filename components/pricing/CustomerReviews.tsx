@@ -22,7 +22,8 @@ const mux = (id: string, time: number) => ({
 })
 
 /** Les témoignages vidéo du mur Senja, tous (miroir de l'app). Vignette quand le
- *  client parle. Sébastien et Amélie parlent du bootcamp, pas de l'abonnement. */
+ *  client parle. Sébastien et Amélie parlent du bootcamp, Marc (frère de Kevin,
+ *  dit dans son rôle) du programme partenaire. */
 const VIDEOS: VideoTestimonial[] = [
   { name: 'Olivier Sarezinski', role: 'Gérant associé', ...mux('01shigG5pv5dcW02r00NJI8sYwALp64oqL29ZztP8ZraxU', 40) },
   { name: 'Sophie Guibaud', role: 'Board-Level Growth Advisor', ...mux('Ihbs1Ay3AMfsadLsUL3JaqBm01Sbt01Fk01KvbTatoMYsU', 30) },
@@ -30,6 +31,7 @@ const VIDEOS: VideoTestimonial[] = [
   { name: 'Léa Marie', role: 'Consultante marketing digital & branding', ...mux('8k3Y2wvixY3wN02apY6lo2SQvWcwZDSZhC02LiCGthvFo', 20) },
   { name: 'Amélie Faligot', role: 'Growth marketeuse', tag: 'Bootcamp', ...mux('8fzR9Inuae1s3l4Z3NTt01OwiJktsvSUGuE5Lx78L9dI', 5) },
   { name: 'Sébastien Min', role: 'LeadGen Consulting', tag: 'Bootcamp', ...mux('ujvVeDFFJ3MaZm8bsHDd1dfDOZ5KgVm1GXXB7NSamOg', 10) },
+  { name: 'Marc Dufraisse', role: 'Partenaire Empire, frère de Kevin', tag: 'Partenaire', ...mux('nxgu0275x00yQe01pECaRLhBs02L6udvY4RiEOblhBSsOdc', 10) },
 ]
 
 const REVIEWS: Array<{ name: string; role: string; photo: string; text: string }> = [
