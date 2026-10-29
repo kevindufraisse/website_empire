@@ -7,6 +7,7 @@ import FeaturedInSection from '@/components/FeaturedInSection'
 import PlanCards from '@/components/pricing/PlanCards'
 import TeamCards from '@/components/pricing/TeamCards'
 import PaygCards from '@/components/pricing/PaygCards'
+import OptionsPanel from '@/components/pricing/OptionsPanel'
 import glass from '@/components/pricing/pricing.module.css'
 import {
   CONTENT_CREDITS,
@@ -228,6 +229,9 @@ export default function TarifsClient() {
           {tab === 'team' && <TeamCards period={period} onPeriodChange={setPeriod} />}
           {tab === 'payg' && <PaygCards />}
         </div>
+
+        {/* Les options se prennent avec un abonnement (Solo ou Équipe). */}
+        {tab !== 'payg' && <OptionsPanel plan={tab === 'team' ? 'equipe' : 'solo'} />}
 
         <p className={`mx-auto mt-8 max-w-2xl px-4 py-3 text-center text-sm text-neutral-300 ${glass.panel} ${glass.compact}`}>
           {fr ? 'Tu veux apprendre à le faire, ou le proposer à tes clients ? ' : 'Want to learn to do it, or offer it to your clients? '}
