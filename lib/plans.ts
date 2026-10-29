@@ -20,9 +20,9 @@ export type Plan = {
 }
 
 export const PLAN_LABELS: Record<PlanId, { fr: string; en: string }> = {
-  starter: { fr: 'Débutant', en: 'Starter' },
-  growth: { fr: 'Intermédiaire', en: 'Intermediate' },
-  scale: { fr: 'Expert', en: 'Expert' },
+  starter: { fr: 'Starter', en: 'Starter' },
+  growth: { fr: 'Growth', en: 'Growth' },
+  scale: { fr: 'Scale', en: 'Scale' },
 }
 
 export const PLANS: Plan[] = [

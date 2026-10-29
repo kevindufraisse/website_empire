@@ -88,8 +88,8 @@ export default function EmpireWhatsIncludedSection() {
 
           <p className="mt-6 text-center text-sm text-neutral-500">
             {fr
-              ? 'Lives, communauté et replays dès Intermédiaire. Revue stratégique dès Expert.'
-              : 'Lives, community and replays from Intermediate. Strategy review from Expert.'}
+              ? 'Lives, communauté et replays dès Growth. Revue stratégique dès Scale.'
+              : 'Lives, community and replays from Growth. Strategy review from Scale.'}
           </p>
         </motion.div>
       </div>

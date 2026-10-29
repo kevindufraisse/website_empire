@@ -803,13 +803,13 @@ export default function HowItWorksAccordion() {
                         : 'We read your numbers, we keep what works'}
                     </h3>
                     <span className="hidden whitespace-nowrap rounded-full border border-empire/30 bg-empire/10 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-empire sm:inline">
-                      {lang === 'fr' ? 'Dès Intermédiaire' : 'From Intermediate'}
+                      {lang === 'fr' ? 'Dès Growth' : 'From Growth'}
                     </span>
                   </div>
                   <p className="text-sm text-neutral-400 md:text-base">
                     {lang === 'fr'
-                      ? 'Vues, abonnés, leads : chaque semaine on regarde quels formats ont marché chez vous, on les garde, on retire les autres. Dès Intermédiaire, on le fait en live : 1 h sur Zoom avec nos experts et la communauté.'
-                      : 'Views, followers, leads: every week we look at which formats worked for you, keep those, drop the rest. From Intermediate we do it live: 1 hour on Zoom with our experts and community.'}
+                      ? 'Vues, abonnés, leads : chaque semaine on regarde quels formats ont marché chez vous, on les garde, on retire les autres. Dès Growth, on le fait en live : 1 h sur Zoom avec nos experts et la communauté.'
+                      : 'Views, followers, leads: every week we look at which formats worked for you, keep those, drop the rest. From Growth we do it live: 1 hour on Zoom with our experts and community.'}
                   </p>
                   <p className="mt-2 flex items-center gap-1.5 text-xs font-semibold text-empire">
                     <RotateCw size={13} />

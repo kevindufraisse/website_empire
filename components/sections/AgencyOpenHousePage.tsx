@@ -22,7 +22,7 @@ const AcademyTestimonialsSection = dynamic(
 const INCLUDES_FR = [
   { title: 'Formation + replay', desc: 'Personal branding, monétisation de votre audience - et le replay des sessions.' },
   { title: 'Bootcamp 21 jours', desc: 'Un défi par jour. Objectif : publier avec Empire et closer un premier client pour rentabiliser les 500€.' },
-  { title: '4 000 crédits Empire (~360€)', desc: 'La monnaie de prod Empire Internet. ≈ ~45 posts LinkedIn/X, ou un mix LinkedIn + Reels Instagram + newsletters - assez pour ~1,5 à 2 mois au rythme Débutant (tous les 2 jours, 7 réseaux).' },
+  { title: '4 000 crédits Empire (~360€)', desc: 'La monnaie de prod Empire Internet. ≈ ~45 posts LinkedIn/X, ou un mix LinkedIn + Reels Instagram + newsletters - assez pour ~1,5 à 2 mois au rythme Starter (tous les 2 jours, 7 réseaux).' },
   { title: 'Comment closer', desc: 'Scripts et process pour signer sur la plateforme.' },
   { title: 'Messages de prospection', desc: 'Templates prêts - en plus de ce que votre propre contenu amène.' },
   { title: 'Empire pour vos clients', desc: 'Empire propose les sujets, produit (montage, écriture), diffuse et track. Vous : choisir + être présent au live.' },
@@ -52,7 +52,7 @@ const STEPS_EN = [
 const FAQ_FR = [
   {
     q: 'C’est quoi les 4 000 crédits Empire ?',
-    a: 'C’est la monnaie de production d’Empire Internet (posts, reels, newsletters, etc.). 4 000 crédits ≈ 360€ (réf. Débutant : 2 200 crédits à 199€/mois). En volume : ~45 posts LinkedIn/X, ou un mix LinkedIn + Reels Instagram + newsletters - grosso modo 1,5 à 2 mois au rythme « tous les 2 jours » sur les 7 réseaux. Ils sont sur VOTRE compte pour publier, montrer votre savoir-faire et closer. Client signé = son propre compte, crédits à part (dès ~199€/mois).',
+    a: 'C’est la monnaie de production d’Empire Internet (posts, reels, newsletters, etc.). 4 000 crédits ≈ 360€ (réf. Starter : 2 200 crédits à 199€/mois). En volume : ~45 posts LinkedIn/X, ou un mix LinkedIn + Reels Instagram + newsletters - grosso modo 1,5 à 2 mois au rythme « tous les 2 jours » sur les 7 réseaux. Ils sont sur VOTRE compte pour publier, montrer votre savoir-faire et closer. Client signé = son propre compte, crédits à part (dès ~199€/mois).',
   },
   {
     q: 'On apprend aussi à monétiser ?',
@@ -482,7 +482,7 @@ export default function AgencyOpenHousePage() {
             </h2>
             <p className="mt-6 text-[17px] leading-[1.55] text-neutral-300">
               {fr
-                ? 'Les 4 000 crédits Empire Internet, c’est de la prod pour VOUS : LinkedIn, Instagram, newsletters… Assez pour ~1,5 à 2 mois au rythme Débutant (tous les 2 jours). Vous publiez, vous monétisez votre audience, vous montrez le savoir-faire - et dans le bootcamp 21 jours, l’objectif c’est de closer un premier client pour rentabiliser les 500€.'
+                ? 'Les 4 000 crédits Empire Internet, c’est de la prod pour VOUS : LinkedIn, Instagram, newsletters… Assez pour ~1,5 à 2 mois au rythme Starter (tous les 2 jours). Vous publiez, vous monétisez votre audience, vous montrez le savoir-faire - et dans le bootcamp 21 jours, l’objectif c’est de closer un premier client pour rentabiliser les 500€.'
                 : 'The 4,000 Empire Internet credits are production for YOU: LinkedIn, Instagram, newsletters… Enough for ~1.5-2 months at Starter pace (every other day). You publish, monetize your audience, show the craft - and in the 21-day bootcamp, the goal is to close a first client to recoup the €500.'}
             </p>
             <p className="mt-4 text-[16px] leading-relaxed text-neutral-500">

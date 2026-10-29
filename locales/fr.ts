@@ -285,7 +285,7 @@ export const fr: Translations = {
     specific: {
       howManyPosts: {
         question: 'Combien de contenus vais-je recevoir ?',
-        answer: 'Débutant : vous postez tous les 2 jours. Intermédiaire : tous les jours. Expert : 2 fois par jour. Reels, LinkedIn, newsletter - vous choisissez le mix. Les 7 réseaux sont inclus.',
+        answer: 'Starter : vous postez tous les 2 jours. Growth : tous les jours. Scale : 2 fois par jour. Reels, LinkedIn, newsletter - vous choisissez le mix. Les 7 réseaux sont inclus.',
       },
       whatIfDontLike: {
         question: 'Et si je ne sais pas quoi dire ?',
@@ -297,7 +297,7 @@ export const fr: Translations = {
       },
       lives: {
         question: 'Que se passe-t-il pendant les lives ?',
-        answer: 'Chaque semaine, 1 h sur Zoom avec nos experts et la communauté (dès Intermédiaire). On analyse vos contenus et vos chiffres, on trouve vos prochains angles, vous posez vos questions. Ce n\'est pas un cours : c\'est votre comité éditorial hebdomadaire.',
+        answer: 'Chaque semaine, 1 h sur Zoom avec nos experts et la communauté (dès Growth). On analyse vos contenus et vos chiffres, on trouve vos prochains angles, vous posez vos questions. Ce n\'est pas un cours : c\'est votre comité éditorial hebdomadaire.',
       },
     },
   },
@@ -687,7 +687,7 @@ export const fr: Translations = {
     },
     {
       question: 'Quelle différence avec une agence ?',
-      answer: 'Une agence = 5–15 K€/mois, semaines à livrer, voix souvent générique. Empire = ~1 h/semaine de votre côté, production + publication. Lives et communauté dès Intermédiaire.',
+      answer: 'Une agence = 5–15 K€/mois, semaines à livrer, voix souvent générique. Empire = ~1 h/semaine de votre côté, production + publication. Lives et communauté dès Growth.',
     },
     {
       question: 'Puis-je annuler ?',

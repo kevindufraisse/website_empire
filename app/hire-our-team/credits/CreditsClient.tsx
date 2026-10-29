@@ -49,7 +49,7 @@ const PERSONAS = [
   {
     name: 'Thomas',
     role: 'Coach business',
-    pack: 'Débutant · 199€/mois',
+    pack: 'Starter · 199€/mois',
     color: 'from-blue-500 to-indigo-600',
     avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
     desc: 'Thomas démarre. Il poste tous les 2 jours, surtout LinkedIn et une newsletter. Les 7 réseaux sont inclus, il n\'utilise pas tout.',
@@ -59,7 +59,7 @@ const PERSONAS = [
   {
     name: 'Sarah',
     role: 'Consultante marketing',
-    pack: 'Intermédiaire · 499€/mois',
+    pack: 'Growth · 499€/mois',
     color: 'from-empire to-yellow-500',
     avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
     desc: 'Sarah poste tous les jours. Reels pour Instagram, posts LinkedIn, newsletter - elle choisit le mix. Lives et communauté inclus.',
@@ -97,7 +97,7 @@ const FAQS = [
   },
   {
     q: 'C\'est quoi la différence entre les packs ?',
-    a: 'Le rythme. Débutant : tous les 2 jours. Intermédiaire : tous les jours. Expert : 2 fois par jour. Reels, LinkedIn, newsletter - tu choisis le mix. Les 7 réseaux sont inclus partout, sans crédit en plus.',
+    a: 'Le rythme. Starter : tous les 2 jours. Growth : tous les jours. Scale : 2 fois par jour. Reels, LinkedIn, newsletter - tu choisis le mix. Les 7 réseaux sont inclus partout, sans crédit en plus.',
   },
   {
     q: 'Je peux résilier quand je veux ?',

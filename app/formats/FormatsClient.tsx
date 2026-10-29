@@ -88,8 +88,8 @@ export default function FormatsClient() {
           </h2>
           <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-neutral-400">
             {fr
-              ? `7 jours ou ${TRIAL_CREDITS} crédits gratuits sur la formule Intermédiaire. Annule avant : 0 €.`
-              : `7 days or ${TRIAL_CREDITS} credits free on the Intermediate plan. Cancel before: €0.`}
+              ? `7 jours ou ${TRIAL_CREDITS} crédits gratuits sur la formule Growth. Annule avant : 0 €.`
+              : `7 days or ${TRIAL_CREDITS} credits free on the Growth plan. Cancel before: €0.`}
           </p>
           <button
             type="button"

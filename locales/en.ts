@@ -162,7 +162,7 @@ export const en = {
     specific: {
       howManyPosts: {
         question: 'How much content will I get?',
-        answer: 'Starter: you post every other day. Intermediate: every day. Expert: twice a day. Reels, LinkedIn, newsletter - you pick the mix. All 7 networks included.',
+        answer: 'Starter: you post every other day. Growth: every day. Scale: twice a day. Reels, LinkedIn, newsletter - you pick the mix. All 7 networks included.',
       },
       whatIfDontLike: {
         question: 'What if I don\'t know what to say?',
@@ -174,7 +174,7 @@ export const en = {
       },
       lives: {
         question: 'What happens during the lives?',
-        answer: 'Every week, 1 hour on Zoom with our experts and community (from Intermediate). We review your content and numbers, find your next angles, you ask questions. Not a course - your weekly editorial board.',
+        answer: 'Every week, 1 hour on Zoom with our experts and community (from Growth). We review your content and numbers, find your next angles, you ask questions. Not a course - your weekly editorial board.',
       },
     },
   },
@@ -564,7 +564,7 @@ export const en = {
     },
     {
       question: 'How is this different from an agency?',
-      answer: 'An agency = €5–15K/month, weeks to deliver, often generic voice. Empire = ~1h/week from you, production + publishing. Lives and community from Intermediate.',
+      answer: 'An agency = €5–15K/month, weeks to deliver, often generic voice. Empire = ~1h/week from you, production + publishing. Lives and community from Growth.',
     },
     {
       question: 'Can I cancel?',
