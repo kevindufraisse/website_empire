@@ -46,9 +46,9 @@ export default function OptionsPanel({ plan, period }: { plan: PlanId; period: B
 
   const full = spots?.left === 0
   const spotsLine = full
-    ? (fr ? 'Plus de place ce mois-ci : liste d’attente.' : 'No spot left this month: waiting list.')
+    ? (fr ? 'Complet ce mois-ci : tu passes en liste d’attente.' : 'Full this month: you join the waiting list.')
     : typeof spots?.left === 'number'
-      ? (fr ? `${spots.left} place${spots.left > 1 ? 's' : ''} ce mois-ci.` : `${spots.left} spot${spots.left > 1 ? 's' : ''} this month.`)
+      ? (fr ? `Encore ${spots.left} place${spots.left > 1 ? 's' : ''} ce mois-ci.` : `${spots.left} spot${spots.left > 1 ? 's' : ''} left this month.`)
       : ''
 
   const planInfo = PLANS.find((p) => p.id === plan)!
@@ -110,48 +110,53 @@ export default function OptionsPanel({ plan, period }: { plan: PlanId; period: B
   return (
     <section className="mx-auto mt-10 grid max-w-5xl gap-5 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:items-start">
       <div className="space-y-3">
-        <p className={ORDER_LABEL}>{fr ? 'Options, à ajouter à ta formule' : 'Add-ons for your plan'}</p>
+        <p className={ORDER_LABEL}>{fr ? 'Ajoute à ta formule' : 'Add to your plan'}</p>
         {optionRow(
           'bootcamp', bootcamp, <GraduationCap className="h-4 w-4 text-neutral-300" />,
-          fr ? 'Le bootcamp Academy 21 jours' : 'The 21-day Academy bootcamp',
+          fr ? 'Bootcamp Academy' : 'Academy bootcamp',
           `+${bootcampEuros} €`,
-          fr ? 'Apprends la méthode à ton rythme : 21 vidéos, la certification et la communauté. Payé une fois, au prix de la semaine.' : 'Learn the method at your own pace: 21 videos, the certification and the community. Paid once, at this week’s price.',
+          fr ? '21 vidéos pour apprendre la méthode Empire à ton rythme, avec la certification. Paiement unique.' : '21 videos to learn the Empire method at your own pace, with the certification. One-time payment.',
         )}
         {optionRow(
           'expert', expert, <UserRound className="h-4 w-4 text-neutral-300" />,
-          fr ? 'Un expert Empire t’accompagne' : 'An Empire expert coaches you',
+          fr ? 'Expert Empire' : 'Empire expert',
           fr ? `${EXPERT_MONTHLY_EUROS} €/mois` : `€${EXPERT_MONTHLY_EUROS}/mo`,
-          fr ? 'Un expert Empire Partners t’accompagne, en plus de ta formule. 0 € aujourd’hui : ton expert te contacte en privé sous 48 h et vous réglez ensemble.' : 'An Empire Partners expert coaches you, on top of your plan. €0 today: your expert contacts you privately within 48h and you settle it together.',
+          fr ? 'Un expert Empire Partners t’accompagne chaque mois. Il te contacte sous 48 h et tu le règles directement.' : 'An Empire Partners expert coaches you every month. They contact you within 48h and you pay them directly.',
           spotsLine,
         )}
       </div>
 
-      <div className={`p-5 sm:p-6 lg:sticky lg:top-24 ${ORDER_CARD}`}>
+      <div className={`p-5 sm:p-6 ${ORDER_CARD}`}>
         <p className="text-base font-semibold text-white">{fr ? 'Ton panier' : 'Your cart'}</p>
         <div className="mt-4 space-y-2">
           {line(`${PLAN_LABELS[plan][fr ? 'fr' : 'en']} · ${fr ? billing.labelFr.toLowerCase() : billing.labelEn.toLowerCase()}`, `${perMonth} €${fr ? '/mois' : '/mo'}`)}
           {bootcamp && line(fr ? 'Bootcamp Academy' : 'Academy bootcamp', `${bootcampEuros} €`, () => toggle('bootcamp'))}
-          {expert && line(full ? (fr ? 'Expert Empire (liste d’attente)' : 'Empire expert (waiting list)') : (fr ? 'Expert Empire' : 'Empire expert'), '0 €', () => toggle('expert'))}
+          {expert && line(full ? (fr ? 'Expert Empire (liste d’attente)' : 'Empire expert (waiting list)') : (fr ? 'Expert Empire' : 'Empire expert'), fr ? 'réglé avec l’expert' : 'paid to the expert', () => toggle('expert'))}
         </div>
         <div className="my-4 h-px bg-white/15" />
         <p className="flex items-baseline justify-between text-sm">
-          <span className="text-neutral-300">{fr ? `Aujourd’hui (essai 7 jours ou ${TRIAL_CREDITS} crédits)` : `Today (7-day or ${TRIAL_CREDITS}-credit trial)`}</span>
+          <span className="font-medium text-white">{fr ? 'À payer aujourd’hui' : 'Due today'}</span>
           <span className="text-lg font-semibold tabular-nums text-white">{today.toLocaleString(locale)} €</span>
         </p>
-        <p className="mt-1 flex items-baseline justify-between text-sm">
-          <span className="text-neutral-300">{billing.months > 1 ? (fr ? `Puis tous les ${billing.months} mois` : `Then every ${billing.months} months`) : (fr ? 'Puis chaque mois' : 'Then every month')}</span>
-          <span className="tabular-nums text-white">{cycleTotal.toLocaleString(locale)} €</span>
+        <p className="mt-1 text-xs text-neutral-300">
+          {bootcamp
+            ? (fr ? `Le bootcamp. Ta formule démarre après 7 jours d’essai gratuit (ou ${TRIAL_CREDITS} crédits).` : `The bootcamp. Your plan starts after a 7-day free trial (or ${TRIAL_CREDITS} credits).`)
+            : (fr ? `Ta formule démarre après 7 jours d’essai gratuit (ou ${TRIAL_CREDITS} crédits).` : `Your plan starts after a 7-day free trial (or ${TRIAL_CREDITS} credits).`)}
+        </p>
+        <p className="mt-3 flex items-baseline justify-between text-sm">
+          <span className="text-neutral-300">{fr ? 'Ensuite' : 'Then'}</span>
+          <span className="tabular-nums text-white">{billing.months > 1 ? (fr ? `${cycleTotal.toLocaleString(locale)} € tous les ${billing.months} mois` : `€${cycleTotal.toLocaleString(locale)} every ${billing.months} months`) : `${perMonth} €${fr ? '/mois' : '/mo'}`}</span>
         </p>
         <button type="button" onClick={checkout} disabled={opening} className={`mt-5 ${ORDER_CTA}`}>
           {opening ? (fr ? 'Ouverture…' : 'Opening…') : (
             <>
-              {fr ? 'Commencer' : 'Start'}
+              {fr ? 'Continuer' : 'Continue'}
               <ArrowRight className="ml-1 h-4 w-4" />
             </>
           )}
         </button>
         <p className="mt-2 text-center text-xs text-neutral-300">
-          {fr ? 'Un seul paiement Stripe pour tout. Annule avant la fin de l’essai : 0 € pour l’abonnement.' : 'One Stripe payment for everything. Cancel before the trial ends: €0 for the plan.'}
+          {fr ? 'Sans engagement : annule pendant l’essai et ta formule ne te coûte rien.' : 'No commitment: cancel during the trial and your plan costs nothing.'}
         </p>
       </div>
     </section>

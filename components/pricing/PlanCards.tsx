@@ -227,7 +227,7 @@ export default function PlanCards({ location, period: controlled, onPeriodChange
                     >
                       {onChoose
                         ? (plan.id === selected
-                          ? <><Check className="h-4 w-4" />{fr ? 'Dans ton panier' : 'In your cart'}</>
+                          ? <><Check className="h-4 w-4" />{fr ? 'Formule choisie' : 'Chosen plan'}</>
                           : (fr ? `Choisir ${PLAN_LABELS[plan.id].fr}` : `Choose ${PLAN_LABELS[plan.id].en}`))
                         : opening === plan.id
                         ? (fr ? 'Ouverture…' : 'Opening…')
