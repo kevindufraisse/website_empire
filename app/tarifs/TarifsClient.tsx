@@ -37,7 +37,7 @@ type Row = { fr: string; en: string; cells: Record<PlanId, boolean | string>; gr
 
 const GROUP_LABELS: Record<Group, { fr: string; en: string }> = {
   features: { fr: 'Dans chaque formule', en: 'In every plan' },
-  bonus: { fr: 'À partir d’Intermédiaire', en: 'From Intermediate' },
+  bonus: { fr: 'À partir de Growth', en: 'From Growth' },
 }
 
 // Fourchettes publiées en 2026 : un reel simple chez un monteur 50-120 € (Le Cut),
@@ -179,8 +179,8 @@ const PACK = [
     en: ['The app', 'Publishing to 7 networks, comments and DMs in one place, links tracked to the client, weekly report.'],
   },
   {
-    fr: ['Le live et la communauté', 'À partir d’Intermédiaire : la masterclass Empire pour bien utiliser l’outil pour ta marque (replays), un live client chaque semaine et la communauté privée Slack.'],
-    en: ['Live and community', 'From Intermediate: the Empire masterclass on using the tool for your brand (replays), a weekly client live and the private Slack community.'],
+    fr: ['Le live et la communauté', 'À partir de Growth : la masterclass Empire pour bien utiliser l’outil pour ta marque (replays), un live client chaque semaine et la communauté privée Slack.'],
+    en: ['Live and community', 'From Growth: the Empire masterclass on using the tool for your brand (replays), a weekly client live and the private Slack community.'],
   },
 ]
 
@@ -431,8 +431,8 @@ export default function TarifsClient() {
           <SectionTitle
             title={fr ? 'Ce que tu devrais organiser sans Empire' : 'What you’d have to organise without Empire'}
             intro={fr
-              ? `Pour le volume d’Intermédiaire, la moitié des crédits en reels et l’autre en posts, aux tarifs freelance publiés en 2026.`
-              : `For the Intermediate volume, half the credits as reels and half as posts, at 2026 published freelance rates.`}
+              ? `Pour le volume de Growth, la moitié des crédits en reels et l’autre en posts, aux tarifs freelance publiés en 2026.`
+              : `For the Growth volume, half the credits as reels and half as posts, at 2026 published freelance rates.`}
           />
           <div className="mx-auto mt-10 grid max-w-4xl gap-4 md:grid-cols-2">
             <div className={`p-6 ${glass.panel}`}>
@@ -456,7 +456,7 @@ export default function TarifsClient() {
               </p>
             </div>
             <div className={`flex flex-col p-6 ${glass.panel} ${glass.featured}`}>
-              <p className="text-sm font-semibold">{fr ? 'Empire Intermédiaire' : 'Empire Intermediate'}</p>
+              <p className="text-sm font-semibold">Empire Growth</p>
               <p className="mt-4 flex items-baseline gap-2">
                 <span className="text-[2.75rem] font-semibold leading-none tracking-tight tabular-nums">{growth.price} €</span>
                 <span className="text-sm text-neutral-300">{fr ? '/mois' : '/mo'}</span>
@@ -559,8 +559,8 @@ export default function TarifsClient() {
           </h2>
           <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-neutral-300">
             {fr
-              ? `Formule Intermédiaire, 7 jours ou ${TRIAL_CREDITS} crédits gratuits, puis ${growth.price} €/mois. Annule avant : 0 €.`
-              : `Intermediate plan, 7 days or ${TRIAL_CREDITS} credits free, then €${growth.price}/mo. Cancel before: €0.`}
+              ? `Formule Growth, 7 jours ou ${TRIAL_CREDITS} crédits gratuits, puis ${growth.price} €/mois. Annule avant : 0 €.`
+              : `Growth plan, 7 days or ${TRIAL_CREDITS} credits free, then €${growth.price}/mo. Cancel before: €0.`}
           </p>
           <button
             type="button"

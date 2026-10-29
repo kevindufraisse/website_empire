@@ -11,7 +11,7 @@
  * YouTube générés depuis la vidéo, brief de veille quotidien, republication
  * automatique des meilleurs posts, boîte de réception commentaires + DM
  * (webhooks Postproxy), relecture humaine des écrits, lives et communauté à
- * partir du palier Intermédiaire.
+ * partir du palier Growth.
  *
  * Chaque carte porte une illustration : du HTML/Tailwind et du SVG inline,
  * visibles sans JS (aucune n'attend une animation pour apparaître - seul le
@@ -532,7 +532,7 @@ export default function IncludedFeaturesSection() {
           <motion.div {...appear(0.45)} className={`${card} md:col-span-3`}>
             <p className={kicker}><Users className="mr-1.5 inline h-3.5 w-3.5" />{fr ? 'Communauté & lives' : 'Community & lives'}</p>
             <p className={title}>{fr ? 'Un live par semaine avec Kevin, et les autres membres à côté.' : 'A live session every week with Kevin, and the other members next to you.'}</p>
-            <p className={desc}>{fr ? 'Vos contenus relus en direct, les replays, et des gens qui publient autant que vous. Dès le palier Intermédiaire.' : 'Your content reviewed live, the replays, and people who publish as much as you do. From the Intermediate tier.'}</p>
+            <p className={desc}>{fr ? 'Vos contenus relus en direct, les replays, et des gens qui publient autant que vous. Dès le palier Growth.' : 'Your content reviewed live, the replays, and people who publish as much as you do. From the Growth tier.'}</p>
             <CommunityArt fr={fr} />
           </motion.div>
         </div>
