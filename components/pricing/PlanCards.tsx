@@ -81,9 +81,11 @@ type Props = {
   location: string
   period?: BillingId
   onPeriodChange?: (p: BillingId) => void
+  /** /tarifs montre le paiement à l'usage dans son propre onglet. */
+  hidePayg?: boolean
 }
 
-export default function PlanCards({ location, period: controlled, onPeriodChange }: Props) {
+export default function PlanCards({ location, period: controlled, onPeriodChange, hidePayg = false }: Props) {
   const { lang } = useLanguage()
   const fr = lang === 'fr'
   const locale = fr ? 'fr-FR' : 'en-US'
@@ -254,6 +256,7 @@ export default function PlanCards({ location, period: controlled, onPeriodChange
         ))}
       </div>
 
+      {!hidePayg && (
       <details className={`group mx-auto w-full max-w-2xl ${glass.panel} ${glass.compact}`}>
         <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-sm text-neutral-300 hover:text-white [&::-webkit-details-marker]:hidden">
           <span className="flex items-center gap-2">
@@ -278,6 +281,7 @@ export default function PlanCards({ location, period: controlled, onPeriodChange
           </button>
         </div>
       </details>
+      )}
     </div>
   )
 }

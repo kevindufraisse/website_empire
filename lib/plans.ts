@@ -69,6 +69,18 @@ export const PLAN_DELIVERABLES: Record<PlanId, { reels: number; posts: number; n
 // Recharge à la consommation de l'app (`src/lib/payg.ts`, `payg_25`).
 export const PAYG_RECHARGE = { euros: 25, credits: 200 }
 
+// Les recharges à la consommation de l'app (`src/lib/payg.ts`, PAYG_PACKS),
+// ouvertes par /join/empire?plan=payg&pack=<id>.
+export const PAYG_PACKS = [
+  { id: 'payg_25', euros: 25, credits: 200 },
+  { id: 'payg_50', euros: 50, credits: 420 },
+  { id: 'payg_100', euros: 100, credits: 900 },
+] as const
+
+// Équipe : de 2 à 20 places sur /join/empire (`seats`) ; au-delà, l'offre
+// agence et entreprise (crédits illimités) se fait sur devis.
+export const MAX_SELF_SERVE_SEATS = 20
+
 export const APP_JOIN_URL = 'https://app.empire-internet.com/join/empire'
 
 export const BILLING_PERIODS: {
