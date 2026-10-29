@@ -13,6 +13,8 @@ import {
   ORDER_CTA_SECONDARY,
   ORDER_LABEL,
   ORDER_PRICE,
+  ORDER_SEGMENT,
+  ORDER_SEGMENTS,
   ORDER_TAG,
 } from '@/lib/orderStyles'
 
@@ -35,6 +37,9 @@ export default function PaygCards() {
   const { lang } = useLanguage()
   const fr = lang === 'fr'
   const [opening, setOpening] = useState<PackId | null>(null)
+  // Recharge automatique : le plafond du mois, choisi avant de payer (mêmes
+  // choix que l'app, PAYG_MONTHLY_CAP_CHOICES_EUR).
+  const [cap, setCap] = useState(100)
   const base = PAYG_PACKS[0]
 
   const choose = (pack: PackId) => {
@@ -44,6 +49,7 @@ export default function PaygCards() {
     const url = new URL(APP_ONBOARDING_URL)
     url.searchParams.set('intent', 'payg')
     url.searchParams.set('pack', pack)
+    url.searchParams.set('cap', String(cap))
     window.location.href = withAmplitudeDeviceId(url.toString())
   }
 
@@ -51,6 +57,21 @@ export default function PaygCards() {
 
   return (
     <div className="space-y-6">
+      <div className={`mx-auto max-w-3xl p-4 sm:p-5 ${ORDER_CARD_QUIET}`}>
+        <p className="text-sm font-semibold text-white">{fr ? 'Recharge automatique' : 'Auto top-up'}</p>
+        <p className="mt-1 text-sm leading-relaxed text-neutral-300">
+          {fr
+            ? `Quand ton solde est bas, ta recharge repart toute seule. Jamais plus de ${cap} € par mois : tu choisis la limite, et tu la changes quand tu veux.`
+            : `When your balance runs low, your top-up runs again on its own. Never more than €${cap} a month: you choose the limit and change it anytime.`}
+        </p>
+        <div className={`mt-3 grid-cols-4 ${ORDER_SEGMENTS}`} role="tablist">
+          {[50, 100, 200, 500].map((c) => (
+            <button key={c} type="button" role="tab" aria-selected={cap === c} onClick={() => setCap(c)} className={`text-xs font-semibold ${ORDER_SEGMENT}`}>
+              {c} €{fr ? '/mois' : '/mo'}
+            </button>
+          ))}
+        </div>
+      </div>
       <div className="grid gap-5 lg:grid-cols-3 lg:items-stretch">
         {PAYG_PACKS.map((pack, i) => {
           const featured = i === 0
