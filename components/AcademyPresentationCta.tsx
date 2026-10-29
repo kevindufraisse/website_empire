@@ -23,6 +23,8 @@ export default function AcademyPresentationCta({ fr, source }: { fr: boolean; so
   const [company, setCompany] = useState('')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
+  // 'opened' : l'onglet du PDF est ouvert ; 'blocked' : le navigateur l'a bloqué.
+  const [sent, setSent] = useState<null | 'opened' | 'blocked'>(null)
 
   async function submit(e: React.FormEvent) {
     e.preventDefault()
@@ -34,6 +36,9 @@ export default function AcademyPresentationCta({ fr, source }: { fr: boolean; so
       return
     }
     setBusy(true)
+    // Le PDF s'ouvre dans un nouvel onglet. L'onglet est ouvert pendant le
+    // clic : ouvert après l'envoi, le navigateur le bloquerait.
+    const tab = window.open('', '_blank')
     try {
       const res = await fetch('/api/academy-presentation', {
         method: 'POST',
@@ -42,9 +47,15 @@ export default function AcademyPresentationCta({ fr, source }: { fr: boolean; so
       })
       if (!res.ok) throw new Error(String(res.status))
       trackAmplitude('presentation_pdf_requested', { source })
-      // Redirection vers le PDF : le tag part en tâche de fond côté serveur.
-      window.location.assign(PRESENTATION_PDF_URL)
+      // Le tag part en tâche de fond côté serveur.
+      if (tab) {
+        tab.opener = null
+        tab.location.href = PRESENTATION_PDF_URL
+      }
+      setBusy(false)
+      setSent(tab ? 'opened' : 'blocked')
     } catch {
+      tab?.close()
       setBusy(false)
       setError(fr ? 'L’envoi a échoué. Réessaie.' : 'Something failed. Try again.')
     }
@@ -66,10 +77,33 @@ export default function AcademyPresentationCta({ fr, source }: { fr: boolean; so
     )
   }
 
+  if (sent) {
+    return (
+      <div className="mt-2.5 w-full rounded-2xl border border-white/[0.14] bg-white/[0.03] p-4 text-left">
+        <p className="text-[13px] font-semibold text-white">
+          {sent === 'opened'
+            ? (fr ? 'La présentation s’est ouverte dans un nouvel onglet.' : 'The deck opened in a new tab.')
+            : (fr ? 'Ta présentation est prête.' : 'Your deck is ready.')}
+        </p>
+        <a
+          href={PRESENTATION_PDF_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={sent === 'opened'
+            ? 'mt-2 inline-flex items-center gap-1.5 text-[13px] font-semibold text-academy hover:underline'
+            : 'mt-3 inline-flex h-11 items-center justify-center gap-1.5 rounded-xl bg-academy px-4 text-[13px] font-bold text-black transition hover:brightness-110'}
+        >
+          <FileText className="h-4 w-4 shrink-0" />
+          {sent === 'opened' ? (fr ? 'Rouvrir le PDF' : 'Open the PDF again') : (fr ? 'Ouvrir le PDF' : 'Open the PDF')}
+        </a>
+      </div>
+    )
+  }
+
   return (
     <form onSubmit={submit} className="mt-2.5 w-full rounded-2xl border border-white/[0.14] bg-white/[0.03] p-4 text-left">
       <p className="text-[13px] font-semibold text-white">
-        {fr ? 'La présentation Empire Partners (5 min)' : 'The Content Operator deck (5 min)'}
+        {fr ? 'La présentation Empire Partners (5 min)' : 'The Empire Partners deck (5 min)'}
       </p>
       <div className="mt-3 flex flex-col gap-2 sm:flex-row">
         <input
@@ -111,7 +145,7 @@ export default function AcademyPresentationCta({ fr, source }: { fr: boolean; so
       </div>
       {error && <p className="mt-2 text-[12px] text-red-400">{error}</p>}
       <p className="mt-2 text-[11px] text-white/40">
-        {fr ? 'Le PDF s’ouvre tout de suite. Zéro spam.' : 'The PDF opens right away. No spam.'}
+        {fr ? 'Le PDF s’ouvre dans un nouvel onglet. Zéro spam.' : 'The PDF opens in a new tab. No spam.'}
       </p>
     </form>
   )
