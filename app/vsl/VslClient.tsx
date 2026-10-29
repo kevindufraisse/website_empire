@@ -2,8 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Script from 'next/script'
-import { Play, Pause, Volume2, VolumeX, Maximize, Check, Calendar, ArrowRight, ChevronDown, MonitorPlay } from 'lucide-react'
-import CalPopupButton from '@/components/CalPopupButton'
+import { Play, Pause, Volume2, VolumeX, Maximize, Check, ArrowRight, ChevronDown } from 'lucide-react'
 import { trackAmplitude } from '@/lib/amplitude'
 import { withAmplitudeDeviceId } from '@/lib/amplitude'
 import VideoEmailGate, { adoptEmailFromUrl, storedVideoEmail } from '@/components/VideoEmailGate'
@@ -25,9 +24,10 @@ const clock = (sec: number) => {
 // visite d'un email. L'email donné pour la vidéo part avec le lien, la page
 // ne le redemande pas.
 const OFFER_URL = 'https://app.empire-internet.com/join/internet?offer=live'
-// La démo interactive d'Empire (compte rempli + visite guidée) : l'étape
-// naturelle après la VSL, avant ou à la place de l'offre.
-const DEMO_URL = 'https://app.empire-internet.com/demo'
+// Les boutons de l'offre n'apparaissent qu'après 10 min de vidéo
+// réellement regardées (avancer dans la barre ne compte pas).
+const OFFER_UNLOCK_SECONDS = 600
+const WATCHED_KEY = 'empire_vsl_watched_v1'
 const OFFER_POINTS = [
   '300 € de moins par mois pendant 3 mois, sur Growth ou Scale',
   'Valable 72 h à partir de ta première visite',
@@ -106,10 +106,20 @@ function writeStore(key: string, value: string) {
   }
 }
 
-function VideoPlayer({ onPlayingChange }: { onPlayingChange?: (playing: boolean) => void }) {
+function VideoPlayer({
+  onPlayingChange,
+  onWatched,
+}: {
+  onPlayingChange?: (playing: boolean) => void
+  onWatched?: (seconds: number) => void
+}) {
   const containerRef = useRef<HTMLDivElement>(null)
   const playerRef = useRef<any>(null)
   const sentRef = useRef<Set<number>>(new Set())
+  const lastTimeRef = useRef<number | null>(null)
+  const watchedRef = useRef(0)
+  const onWatchedRef = useRef(onWatched)
+  onWatchedRef.current = onWatched
   const unlockedRef = useRef(false)
   const [askEmail, setAskEmail] = useState(false)
   const [started, setStarted] = useState(false)
@@ -124,6 +134,7 @@ function VideoPlayer({ onPlayingChange }: { onPlayingChange?: (playing: boolean)
 
   useEffect(() => {
     unlockedRef.current = adoptEmailFromUrl('empire')
+    watchedRef.current = Number(readStore(WATCHED_KEY)) || 0
     setStartAt(Number(readStore(TIME_KEY)) || 0)
     setCanFullscreen(Boolean(document.fullscreenEnabled))
   }, [])
@@ -156,6 +167,17 @@ function VideoPlayer({ onPlayingChange }: { onPlayingChange?: (playing: boolean)
         if (!p?.getCurrentTime) return
         const t = p.getCurrentTime()
         const duration = p.getDuration?.() || 0
+        // Temps regardé : seulement l'avance normale de la lecture, jamais un saut.
+        const prev = lastTimeRef.current
+        lastTimeRef.current = t
+        if (prev !== null && p.getPlayerState?.() === window.YT?.PlayerState?.PLAYING) {
+          const delta = t - prev
+          if (delta > 0 && delta < 3) {
+            watchedRef.current += delta
+            writeStore(WATCHED_KEY, String(Math.floor(watchedRef.current)))
+            onWatchedRef.current?.(watchedRef.current)
+          }
+        }
         setCurrent(t)
         if (duration) setDuration(duration)
         if (t > 0 && p.getPlayerState?.() !== window.YT?.PlayerState?.ENDED) writeStore(TIME_KEY, String(Math.floor(t)))
@@ -413,8 +435,25 @@ function VideoPlayer({ onPlayingChange }: { onPlayingChange?: (playing: boolean)
   )
 }
 
-function Ctas({ location }: { location: string }) {
+function Ctas({ location, remaining = 0 }: { location: string; remaining?: number }) {
   const [loading, setLoading] = useState(false)
+
+  if (remaining > 0) {
+    const min = Math.ceil(remaining / 60)
+    return (
+      <div className="w-full max-w-xl mx-auto rounded-xl border border-white/10 bg-white/[0.03] px-5 py-4 text-center">
+        <p className="text-sm text-neutral-300">
+          Une offre apparaît dans <span className="font-bold text-empire">{min} min</span> de vidéo
+        </p>
+        <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+          <div
+            className="h-full bg-empire transition-all"
+            style={{ width: `${Math.min(100, ((OFFER_UNLOCK_SECONDS - remaining) / OFFER_UNLOCK_SECONDS) * 100)}%` }}
+          />
+        </div>
+      </div>
+    )
+  }
 
   const openOffer = () => {
     if (loading) return
@@ -426,39 +465,26 @@ function Ctas({ location }: { location: string }) {
     window.location.href = withAmplitudeDeviceId(url.toString())
   }
 
-  const openDemo = () => {
-    trackAmplitude('vsl_demo_clicked', { location })
-    window.location.href = withAmplitudeDeviceId(DEMO_URL)
-  }
-
   return (
     <div className="w-full max-w-xl mx-auto">
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col sm:flex-row gap-3">
         <button
           type="button"
           onClick={openOffer}
           disabled={loading}
-          className="inline-flex items-center justify-center gap-2 rounded-xl bg-empire text-black font-bold px-6 py-4 text-base hover:brightness-110 transition disabled:opacity-60"
+          className="flex-1 inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-empire px-7 py-3.5 text-base font-bold text-black shadow-[0_0_24px_rgb(var(--empire-rgb)_/_0.2)] transition hover:brightness-110 disabled:opacity-60"
         >
           {loading ? 'Ouverture…' : 'Voir l’offre'}
           {!loading && <ArrowRight className="w-5 h-5" />}
         </button>
-        <div className="flex flex-col sm:flex-row gap-3">
-          <button
-            type="button"
-            onClick={openDemo}
-            className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/[0.04] text-white font-semibold px-6 py-3.5 text-base hover:bg-white/[0.08] transition"
-          >
-            <MonitorPlay className="w-5 h-5 text-empire" />
-            Voir la démo d’Empire
-          </button>
-          <span data-cal-keep onClickCapture={() => trackAmplitude('vsl_call_clicked', { location })} className="flex-1 flex">
-            <CalPopupButton className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/[0.04] text-white font-semibold px-6 py-3.5 text-base hover:bg-white/[0.08] transition">
-              <Calendar className="w-5 h-5" />
-              Réserver un appel
-            </CalPopupButton>
-          </span>
-        </div>
+        {/* Le même bouton que « Demander une démo » du site (EmpireSalesCta). */}
+        <a
+          href="/demo"
+          onClick={() => trackAmplitude('empire_demo_clicked', { source: `vsl_${location}` })}
+          className="flex-1 inline-flex min-h-12 items-center justify-center rounded-xl border border-white/25 px-6 py-3.5 text-base font-semibold text-white transition hover:bg-white/5"
+        >
+          Demander une démo
+        </a>
       </div>
       <ul className="mt-4 flex flex-col sm:flex-row sm:flex-wrap sm:justify-center gap-x-5 gap-y-1.5 text-sm text-neutral-400">
         {OFFER_POINTS.map((p) => (
@@ -495,6 +521,12 @@ export default function VslClient() {
   const [popupOpen, setPopupOpen] = useState(false)
   const [gateFor, setGateFor] = useState<'text' | 'audio' | null>(null)
   const [videoPlaying, setVideoPlaying] = useState(false)
+  const [watched, setWatched] = useState(0)
+  const remaining = Math.max(0, OFFER_UNLOCK_SECONDS - watched)
+
+  useEffect(() => {
+    setWatched(Number(readStore(WATCHED_KEY)) || 0)
+  }, [])
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
@@ -560,7 +592,7 @@ export default function VslClient() {
 
           {/* Largeur bornée par la hauteur d'écran : les boutons restent au-dessus de la ligne de flottaison. */}
           <div className="mx-auto w-full max-w-[max(18rem,calc((100svh-24rem)*16/9))]">
-            <VideoPlayer onPlayingChange={setVideoPlaying} />
+            <VideoPlayer onPlayingChange={setVideoPlaying} onWatched={setWatched} />
           </div>
 
           {audioOpen && (
@@ -577,7 +609,7 @@ export default function VslClient() {
           )}
 
           <div className="mt-6">
-            <Ctas location="top" />
+            <Ctas location="top" remaining={remaining} />
           </div>
         </div>
       </section>
@@ -666,7 +698,7 @@ export default function VslClient() {
       <section className="relative pb-20 pt-4">
         <div className="container max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-2xl md:text-3xl font-bold mb-6">Prêt à appliquer la formule ?</h2>
-          <Ctas location="bottom" />
+          <Ctas location="bottom" remaining={remaining} />
         </div>
       </section>
     </main>

@@ -55,7 +55,6 @@ export default function Header() {
   }
 
   const doors = [
-    { href: '/', label: 'Empire', active: pathname === '/' },
     { href: '/tarifs', label: fr ? 'Tarifs' : 'Pricing', active: pathname === '/tarifs' },
     { href: '/academy', label: fr ? 'Devenir partenaire' : 'Become a partner', active: isAcademyPage },
   ]
