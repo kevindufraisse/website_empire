@@ -215,34 +215,45 @@ export default function PlanCards({ location, period: controlled, onPeriodChange
                     </div>
                     {onChoose && plan.id === selected
                       ? <span className={`inline-flex items-center gap-1 whitespace-nowrap ${ORDER_TAG}`}><Check className="h-3 w-3" />{fr ? 'Choisie' : 'Chosen'}</span>
-                      : liveDeal
-                        ? <span className={`whitespace-nowrap ${ORDER_TAG}`}>{fr ? 'Offre du live' : 'Live offer'}</span>
-                        : plan.highlighted && <span className={`whitespace-nowrap ${ORDER_TAG}`}>{fr ? 'Populaire' : 'Popular'}</span>}
+                      : plan.highlighted && <span className={`whitespace-nowrap ${ORDER_TAG}`}>{fr ? 'Populaire' : 'Popular'}</span>}
                   </div>
 
+                  {liveDeal ? (
+                    // Présentation reprise d'ElevenLabs : pastille de fin,
+                    // ancien prix barré + offre en petit, puis le prix payé.
+                    <div className="space-y-1.5">
+                      {countdown && (
+                        <span className="inline-flex rounded-full bg-white px-2.5 py-0.5 text-[11px] font-semibold tabular-nums text-black">
+                          {fr ? `Encore ${countdown}` : `${countdown} left`}
+                        </span>
+                      )}
+                      <p className="text-sm text-neutral-300">
+                        <span className="mr-1.5 line-through decoration-neutral-400">{plan.price} €</span>
+                        {fr
+                          ? `${LIVE_OFFER.discountMonths} premiers mois à -${LIVE_OFFER.discountMonthly} €`
+                          : `First ${LIVE_OFFER.discountMonths} months -€${LIVE_OFFER.discountMonthly}`}
+                      </p>
+                      <div className="flex items-baseline gap-1.5">
+                        <span className={`text-[2.75rem] ${ORDER_PRICE}`}>{price}€</span>
+                        <span className="text-sm text-neutral-300">{perMonth}</span>
+                      </div>
+                      <p className="text-xs text-neutral-400">
+                        {fr ? `Puis ${liveDeal.listMonthly} €/mois` : `Then €${liveDeal.listMonthly}/mo`}
+                      </p>
+                    </div>
+                  ) : (
                   <div className="space-y-1">
                     <div className="flex flex-wrap items-baseline gap-2">
-                      {(discount > 0 || liveDeal) && <span className={`text-xl ${ORDER_STRUCK}`}>{plan.price}€</span>}
+                      {discount > 0 && <span className={`text-xl ${ORDER_STRUCK}`}>{plan.price}€</span>}
                       <span className={`text-[2.75rem] ${ORDER_PRICE}`}>{price}€</span>
                       <span className="text-sm text-neutral-300">{perMonth}</span>
-                      {liveDeal
-                        ? <span className={ORDER_TAG}>-{LIVE_OFFER.discountMonthly} €</span>
-                        : badge && <span className={ORDER_TAG}>{badge}</span>}
+                      {badge && <span className={ORDER_TAG}>{badge}</span>}
                     </div>
-                    {liveDeal && (
-                      <div className="space-y-0.5 pt-1.5 text-xs">
-                        <p className="text-neutral-200">
-                          {fr
-                            ? `Les ${LIVE_OFFER.discountMonths} premiers mois, puis ${liveDeal.listMonthly} €/mois`
-                            : `For the first ${LIVE_OFFER.discountMonths} months, then €${liveDeal.listMonthly}/mo`}
-                        </p>
-                        {countdown && <p className="font-semibold tabular-nums text-white">{fr ? `Encore ${countdown}` : `${countdown} left`}</p>}
-                      </div>
-                    )}
-                    {!liveDeal && discount > 0 && (
+                    {discount > 0 && (
                       <p className="pt-1.5 text-xs text-neutral-300">{fr ? `Facturé ${total}€${suffix}` : `Billed €${total}${suffix}`}</p>
                     )}
                   </div>
+                  )}
 
                   <div className="space-y-1.5">
                     <p className={ORDER_LABEL}>{fr ? 'Chaque mois, au choix, jusqu’à' : 'Every month, your pick, up to'}</p>

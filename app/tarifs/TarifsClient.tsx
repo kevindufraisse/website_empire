@@ -25,7 +25,7 @@ import {
 import { TRIAL_CREDITS, TRIAL_TERMS_EN, TRIAL_TERMS_FR } from '@/lib/startTrial'
 import { trackAmplitude } from '@/lib/amplitude'
 import { ORDER_SEGMENT, ORDER_SEGMENTS } from '@/lib/orderStyles'
-import { LIVE_OFFER, useCountdown, useLiveOffer } from '@/lib/liveOffer'
+import { useLiveOffer } from '@/lib/liveOffer'
 
 /**
  * Page tarifs du site, construite sur le pricing de l'app (cartes, sélecteur
@@ -301,7 +301,6 @@ export default function TarifsClient() {
   // Arrivé par le lien du live : prix du live sur les cartes (Growth, Scale).
   const liveOffer = useLiveOffer()
   const live = liveOffer.live
-  const liveLeft = useCountdown(live?.endsAt)
   const [liveEmail, setLiveEmail] = useState('')
   useEffect(() => {
     if (!live) return
@@ -349,16 +348,6 @@ export default function TarifsClient() {
           </p>
         </header>
 
-        {live && (
-          <div className={`mx-auto mt-6 max-w-2xl px-4 py-3 text-center text-sm ${glass.panel} ${glass.compact}`}>
-            <p className="font-semibold text-white">
-              {fr
-                ? `Offre du live : -${LIVE_OFFER.discountMonthly} € par mois pendant ${LIVE_OFFER.discountMonths} mois sur Growth et Scale`
-                : `Live offer: -€${LIVE_OFFER.discountMonthly} a month for ${LIVE_OFFER.discountMonths} months on Growth and Scale`}
-            </p>
-            {liveLeft && <p className="mt-0.5 tabular-nums text-neutral-300">{fr ? `Encore ${liveLeft}` : `${liveLeft} left`}</p>}
-          </div>
-        )}
         {liveOffer.status === 'need_email' && (
           <form
             className={`mx-auto mt-6 flex max-w-xl flex-col gap-2 px-4 py-3 sm:flex-row sm:items-center ${glass.panel} ${glass.compact}`}
