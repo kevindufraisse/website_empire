@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, type KeyboardEvent } from 'react'
 import glass from './pricing.module.css'
 import { ArrowRight, Check, ChevronDown, Coins, Linkedin, Mail, Video, Zap } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
@@ -18,6 +18,7 @@ import {
 } from '@/lib/plans'
 import { startFreeTrial, TRIAL_CREDITS } from '@/lib/startTrial'
 import { trackAmplitude, withAmplitudeDeviceId } from '@/lib/amplitude'
+import { LIVE_OFFER, isLivePlan, useCountdown, type LiveWindow } from '@/lib/liveOffer'
 import {
   ORDER_CARD,
   ORDER_CARD_QUIET,
@@ -81,24 +82,42 @@ type Props = {
   location: string
   period?: BillingId
   onPeriodChange?: (p: BillingId) => void
+  /** /tarifs montre le paiement à l'usage dans son propre onglet. */
+  hidePayg?: boolean
+  /** Panier de /tarifs : le bouton d'une carte choisit la formule au lieu
+   *  d'ouvrir l'inscription ; le panier porte le seul bouton d'achat. */
+  chosen?: PlanId
+  onChoose?: (plan: PlanId) => void
+  /** Arrivé par le lien du live : Growth et Scale à -300 €/mois pendant 3 mois (mensuel seulement). */
+  live?: LiveWindow | null
 }
 
-export default function PlanCards({ location, period: controlled, onPeriodChange }: Props) {
+export default function PlanCards({ location, period: controlled, onPeriodChange, hidePayg = false, chosen, onChoose, live = null }: Props) {
   const { lang } = useLanguage()
   const fr = lang === 'fr'
   const locale = fr ? 'fr-FR' : 'en-US'
   const [own, setOwn] = useState<BillingId>('monthly')
   const period = controlled ?? own
   const setPeriod = (p: BillingId) => (onPeriodChange ? onPeriodChange(p) : setOwn(p))
-  const [selected, setSelected] = useState<PlanId>('growth')
+  const [ownSelected, setOwnSelected] = useState<PlanId>('growth')
+  const selected = chosen ?? ownSelected
+  const setSelected = (p: PlanId) => (onChoose ? onChoose(p) : setOwnSelected(p))
   const [opening, setOpening] = useState<PlanId | 'payg' | null>(null)
   const billing = BILLING_PERIODS.find((p) => p.id === period)!
   const discount = billing.discount
   const badge = discount > 0 ? `-${Math.round(discount * 100)}%` : null
   const suffix = SUFFIX[period][fr ? 'fr' : 'en']
   const perMonth = fr ? '/mois' : '/mo'
+  const countdown = useCountdown(live?.endsAt)
+  // Offre du live : seuls Growth et Scale sont concernés, Starter est masqué.
+  const plans = live ? PLANS.filter((p) => isLivePlan(p.id)) : PLANS
 
   const choose = async (col: PlanId | 'payg') => {
+    if (onChoose && col !== 'payg') {
+      onChoose(col)
+      trackAmplitude('pricing_page_plan_chosen', { plan: col, billing_period: period, location })
+      return
+    }
     if (opening) return
     setOpening(col)
     trackAmplitude('pricing_page_plan_clicked', { plan: col, billing_period: col === 'payg' ? 'payg' : period, location })
@@ -128,8 +147,8 @@ export default function PlanCards({ location, period: controlled, onPeriodChange
           ))}
         </div>
 
-        <div className="grid grid-cols-3 gap-2 lg:hidden" role="radiogroup" aria-label={fr ? 'Formule' : 'Plan'}>
-          {PLANS.map((p) => {
+        <div className={`grid gap-2 lg:hidden ${plans.length === 2 ? 'grid-cols-2' : 'grid-cols-3'}`} role="radiogroup" aria-label={fr ? 'Formule' : 'Plan'}>
+          {plans.map((p) => {
             const active = p.id === selected
             return (
               <button
@@ -146,32 +165,83 @@ export default function PlanCards({ location, period: controlled, onPeriodChange
                   </span>
                 )}
                 <span className="text-xs font-semibold leading-tight text-white">{PLAN_LABELS[p.id][fr ? 'fr' : 'en']}</span>
-                <span className="text-[11px] tabular-nums text-neutral-300">{finalPrice(p.price, period, 1)}€{perMonth}</span>
+                <span className="text-[11px] tabular-nums text-neutral-300">
+                  {live && period === 'monthly' && isLivePlan(p.id) ? LIVE_OFFER.plans[p.id].monthly : finalPrice(p.price, period, 1)}€{perMonth}
+                </span>
               </button>
             )
           })}
         </div>
       </div>
 
-      <div className="grid gap-5 lg:grid-cols-3 lg:items-stretch">
-        {PLANS.map((plan) => {
-          const featured = !!plan.highlighted
-          const price = finalPrice(plan.price, period, 1)
+      {live && period !== 'monthly' && (
+        <p className="text-center text-xs text-neutral-300">
+          {fr
+            ? `Ton offre du live (-${LIVE_OFFER.discountMonthly} € par mois pendant ${LIVE_OFFER.discountMonths} mois) est en mensuel. `
+            : `Your live offer (-€${LIVE_OFFER.discountMonthly} a month for ${LIVE_OFFER.discountMonths} months) is monthly. `}
+          <button type="button" onClick={() => setPeriod('monthly')} className="cursor-pointer font-semibold text-white underline decoration-white/30 underline-offset-2">
+            {fr ? 'Voir en mensuel' : 'See monthly'}
+          </button>
+        </p>
+      )}
+
+      <div className={`mx-auto grid gap-5 lg:items-stretch ${plans.length === 2 ? 'max-w-3xl lg:grid-cols-2' : 'lg:grid-cols-3'}`}>
+        {plans.map((plan) => {
+          const featured = onChoose ? plan.id === selected : !!plan.highlighted
+          const liveDeal = live && period === 'monthly' && isLivePlan(plan.id) ? LIVE_OFFER.plans[plan.id] : null
+          const price = liveDeal ? liveDeal.monthly : finalPrice(plan.price, period, 1)
           const total = (price * billing.months).toLocaleString(locale)
           const d = PLAN_DELIVERABLES[plan.id]
           const extras = EXTRAS[plan.id]
           return (
             <div key={plan.id} className={plan.id === selected ? '' : 'hidden lg:block'}>
-              <div className={`flex h-full flex-col ${featured ? ORDER_CARD : ORDER_CARD_QUIET}`}>
+              {/* Panier : la carte entière choisit la formule, sans bouton ; le seul
+                  bouton d'achat est « Continuer » dans le panier. */}
+              <div
+                className={`flex h-full flex-col ${featured ? ORDER_CARD : ORDER_CARD_QUIET} ${onChoose ? 'cursor-pointer' : ''}`}
+                {...(onChoose ? {
+                  role: 'radio',
+                  'aria-checked': plan.id === selected,
+                  tabIndex: 0,
+                  onClick: () => choose(plan.id),
+                  onKeyDown: (e: KeyboardEvent) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); choose(plan.id) } },
+                } : {})}
+              >
                 <div className="flex flex-1 flex-col gap-5 p-5 sm:p-6">
                   <div className="flex items-start justify-between gap-2">
                     <div className="min-w-0">
                       <p className="text-base font-semibold leading-snug text-white">{PLAN_LABELS[plan.id][fr ? 'fr' : 'en']}</p>
                       <p className="text-sm text-neutral-300">{fr ? RHYTHM_TU[plan.id] : plan.rhythmEn}</p>
                     </div>
-                    {featured && <span className={`whitespace-nowrap ${ORDER_TAG}`}>{fr ? 'Populaire' : 'Popular'}</span>}
+                    {onChoose && plan.id === selected
+                      ? <span className={`inline-flex items-center gap-1 whitespace-nowrap ${ORDER_TAG}`}><Check className="h-3 w-3" />{fr ? 'Choisie' : 'Chosen'}</span>
+                      : plan.highlighted && <span className={`whitespace-nowrap ${ORDER_TAG}`}>{fr ? 'Populaire' : 'Popular'}</span>}
                   </div>
 
+                  {liveDeal ? (
+                    // Présentation reprise d'ElevenLabs : pastille de fin,
+                    // ancien prix barré + offre en petit, puis le prix payé.
+                    <div className="space-y-1.5">
+                      {countdown && (
+                        <span className="inline-flex rounded-full bg-[#DAFC68] px-2.5 py-0.5 text-[11px] font-semibold tabular-nums text-black">
+                          {fr ? `Encore ${countdown}` : `${countdown} left`}
+                        </span>
+                      )}
+                      <p className="text-sm text-neutral-300">
+                        <span className="mr-1.5 line-through decoration-neutral-400">{plan.price} €</span>
+                        {fr
+                          ? `${LIVE_OFFER.discountMonths} premiers mois à -${LIVE_OFFER.discountMonthly} €`
+                          : `First ${LIVE_OFFER.discountMonths} months -€${LIVE_OFFER.discountMonthly}`}
+                      </p>
+                      <div className="flex items-baseline gap-1.5">
+                        <span className={`text-[2.75rem] ${ORDER_PRICE}`}>{price}€</span>
+                        <span className="text-sm text-neutral-300">{perMonth}</span>
+                      </div>
+                      <p className="text-xs text-neutral-400">
+                        {fr ? `Puis ${liveDeal.listMonthly} €/mois` : `Then €${liveDeal.listMonthly}/mo`}
+                      </p>
+                    </div>
+                  ) : (
                   <div className="space-y-1">
                     <div className="flex flex-wrap items-baseline gap-2">
                       {discount > 0 && <span className={`text-xl ${ORDER_STRUCK}`}>{plan.price}€</span>}
@@ -183,6 +253,7 @@ export default function PlanCards({ location, period: controlled, onPeriodChange
                       <p className="pt-1.5 text-xs text-neutral-300">{fr ? `Facturé ${total}€${suffix}` : `Billed €${total}${suffix}`}</p>
                     )}
                   </div>
+                  )}
 
                   <div className="space-y-1.5">
                     <p className={ORDER_LABEL}>{fr ? 'Chaque mois, au choix, jusqu’à' : 'Every month, your pick, up to'}</p>
@@ -205,6 +276,7 @@ export default function PlanCards({ location, period: controlled, onPeriodChange
                   </div>
 
                   <div>
+                    {!onChoose && (
                     <button
                       type="button"
                       onClick={() => choose(plan.id)}
@@ -220,10 +292,13 @@ export default function PlanCards({ location, period: controlled, onPeriodChange
                           </>
                         )}
                     </button>
+                    )}
                     <p className="mt-2 text-center text-xs leading-snug text-neutral-300">
-                      {fr
-                        ? `Essai gratuit : 7 jours ou ${TRIAL_CREDITS} crédits`
-                        : `Free trial: 7 days or ${TRIAL_CREDITS} credits`}
+                      {liveDeal
+                        ? (fr ? 'Premier mois prélevé aujourd’hui, sans engagement' : 'First month charged today, no commitment')
+                        : fr
+                          ? `Essai gratuit : 7 jours ou ${TRIAL_CREDITS} crédits`
+                          : `Free trial: 7 days or ${TRIAL_CREDITS} credits`}
                     </p>
                   </div>
 
@@ -254,6 +329,7 @@ export default function PlanCards({ location, period: controlled, onPeriodChange
         ))}
       </div>
 
+      {!hidePayg && (
       <details className={`group mx-auto w-full max-w-2xl ${glass.panel} ${glass.compact}`}>
         <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-sm text-neutral-300 hover:text-white [&::-webkit-details-marker]:hidden">
           <span className="flex items-center gap-2">
@@ -265,8 +341,8 @@ export default function PlanCards({ location, period: controlled, onPeriodChange
         <div className="space-y-3 px-4 pb-4">
           <p className="text-xs leading-relaxed text-neutral-300">
             {fr
-              ? `Pas d’abonnement. Tu enregistres ta carte, 0 € aujourd’hui. À ta première action payante, une recharge de ${PAYG_RECHARGE.euros} € (${PAYG_RECHARGE.credits} crédits, environ ${Math.floor(PAYG_RECHARGE.credits / CONTENT_CREDITS.post)} posts LinkedIn), puis une nouvelle dès que ton solde ne suffit plus. Plafond mensuel au choix. Sans live, Slack ni replays.`
-              : `No subscription. Save your card, €0 today. On your first paid action, a €${PAYG_RECHARGE.euros} top-up (${PAYG_RECHARGE.credits} credits, about ${Math.floor(PAYG_RECHARGE.credits / CONTENT_CREDITS.post)} LinkedIn posts), then another when your balance runs low. Monthly cap of your choice. No live, Slack or replays.`}
+              ? `Pas d’abonnement. Tu enregistres ta carte, 0 € aujourd’hui. À ta première action payante, une recharge de ${PAYG_RECHARGE.euros} € (${PAYG_RECHARGE.credits} crédits, environ ${Math.floor(PAYG_RECHARGE.credits / CONTENT_CREDITS.post)} posts LinkedIn), puis une nouvelle dès que ton solde ne suffit plus. Plafond mensuel au choix. Slack inclus ; sans live ni replays.`
+              : `No subscription. Save your card, €0 today. On your first paid action, a €${PAYG_RECHARGE.euros} top-up (${PAYG_RECHARGE.credits} credits, about ${Math.floor(PAYG_RECHARGE.credits / CONTENT_CREDITS.post)} LinkedIn posts), then another when your balance runs low. Monthly cap of your choice. Slack included; no live or replays.`}
           </p>
           <button
             type="button"
@@ -278,6 +354,7 @@ export default function PlanCards({ location, period: controlled, onPeriodChange
           </button>
         </div>
       </details>
+      )}
     </div>
   )
 }

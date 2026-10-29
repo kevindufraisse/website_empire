@@ -1,12 +1,15 @@
 'use client'
 
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import Image from 'next/image'
 import { ArrowRight, Check, ChevronDown, Minus } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import FeaturedInSection from '@/components/FeaturedInSection'
 import CustomerReviews from '@/components/pricing/CustomerReviews'
 import PlanCards from '@/components/pricing/PlanCards'
+import TeamCards from '@/components/pricing/TeamCards'
+import PaygCards from '@/components/pricing/PaygCards'
+import OptionsPanel from '@/components/pricing/OptionsPanel'
 import glass from '@/components/pricing/pricing.module.css'
 import {
   CONTENT_CREDITS,
@@ -15,11 +18,14 @@ import {
   PLAN_DELIVERABLES,
   PLAN_LABELS,
   finalPrice,
+  MAX_SELF_SERVE_SEATS,
   type BillingId,
   type PlanId,
 } from '@/lib/plans'
-import { startFreeTrial, TRIAL_CREDITS, TRIAL_TERMS_EN, TRIAL_TERMS_FR } from '@/lib/startTrial'
+import { TRIAL_CREDITS, TRIAL_TERMS_EN, TRIAL_TERMS_FR } from '@/lib/startTrial'
 import { trackAmplitude } from '@/lib/amplitude'
+import { ORDER_SEGMENT, ORDER_SEGMENTS } from '@/lib/orderStyles'
+import { useLiveOffer } from '@/lib/liveOffer'
 
 /**
  * Page tarifs du site, construite sur le pricing de l'app (cartes, sélecteur
@@ -29,11 +35,24 @@ import { trackAmplitude } from '@/lib/amplitude'
  * qu'il faudrait organiser sans Empire). Prix et remises : `lib/plans.ts`,
  * les mêmes que `/join/empire`. Chaque formule ouvre l'essai (7 jours, 500
  * crédits), en mensuel comme en trimestriel / annuel.
+ *
+ * Trois onglets sous le titre (29 octobre 2026, modèle Claude / ChatGPT) :
+ * Solo, Équipe et agence, À l'usage, puis les options (bootcamp, expert).
+ * Le reste de la page ne change pas (choix de Kevin).
  */
 
 type Group = 'features' | 'bonus'
 
 type Row = { fr: string; en: string; cells: Record<PlanId, boolean | string>; group?: Group }
+
+type Tab = 'solo' | 'team' | 'payg'
+
+// L'ancre garde l'onglet dans l'adresse (#equipe, #usage), comme Claude.
+const TABS: { id: Tab; hash: string; fr: string; en: string }[] = [
+  { id: 'solo', hash: 'solo', fr: 'Solo', en: 'Solo' },
+  { id: 'team', hash: 'equipe', fr: 'Équipe et agence', en: 'Team and agency' },
+  { id: 'payg', hash: 'usage', fr: 'À l’usage', en: 'Pay as you go' },
+]
 
 const GROUP_LABELS: Record<Group, { fr: string; en: string }> = {
   features: { fr: 'Dans chaque formule', en: 'In every plan' },
@@ -227,8 +246,8 @@ const FAQ = [
   {
     q: { fr: 'Et le paiement à l’usage ?', en: 'And pay as you go?' },
     a: {
-      fr: `Tu enregistres ta carte, 0 € aujourd’hui. À ta première action payante, une recharge de ${PAYG_RECHARGE.euros} € (${PAYG_RECHARGE.credits} crédits), puis une nouvelle dès que ton solde ne suffit plus. Tu fixes un plafond par mois. Pas d’abonnement, mais ni live, ni Slack, ni replays.`,
-      en: `Save your card, €0 today. On your first paid action, a €${PAYG_RECHARGE.euros} top-up (${PAYG_RECHARGE.credits} credits), then another when your balance runs low. You set a monthly cap. No subscription, but no live, Slack or replays.`,
+      fr: `Pas d’abonnement : tu recharges ${PAYG_RECHARGE.euros}, 50 ou 100 €, et une nouvelle recharge part quand ton solde ne suffit plus. Tu fixes un plafond par mois. La communauté Slack est incluse ; le live et les replays restent réservés aux abonnés.`,
+      en: `No subscription: top up €${PAYG_RECHARGE.euros}, €50 or €100, and a new top-up runs when your balance runs low. You set a monthly cap. The Slack community is included; the live and replays stay for subscribers.`,
     },
   },
   {
@@ -238,6 +257,13 @@ const FAQ = [
       en: 'Those tools cover part of the job: writing LinkedIn posts, cutting a long video, or handing everything off at agency prices. Empire gives you the topics, the formats tested on Kevin’s account and publishing to 7 networks.',
     },
     link: { href: '/comparatif', fr: 'Voir le comparatif', en: 'See the comparison' },
+  },
+  {
+    q: { fr: 'Et pour une équipe ou une agence ?', en: 'What about a team or an agency?' },
+    a: {
+      fr: `De 2 à ${MAX_SELF_SERVE_SEATS} comptes, tu prends des places dans l’onglet Équipe et agence : -10 % dès 3 places, -15 % dès 5, -20 % dès 10, en plus de la remise trimestrielle ou annuelle. Au-delà, ou pour des crédits illimités, l’offre agence et entreprise se fait sur devis.`,
+      en: `From 2 to ${MAX_SELF_SERVE_SEATS} accounts, get seats in the Team and agency tab: -10% from 3 seats, -15% from 5, -20% from 10, on top of the quarterly or yearly discount. Beyond that, or for unlimited credits, the agency and enterprise offer is custom-priced.`,
+    },
   },
   {
     q: { fr: 'Je peux changer de formule ?', en: 'Can I change plan?' },
@@ -269,7 +295,35 @@ export default function TarifsClient() {
   const fr = lang === 'fr'
   const locale = fr ? 'fr-FR' : 'en-US'
   const [period, setPeriod] = useState<BillingId>('monthly')
-  const [opening, setOpening] = useState<PlanId | null>(null)
+  const [tab, setTab] = useState<Tab>('solo')
+  // Panier (29 octobre 2026) : la formule choisie dans les cartes Solo.
+  const [chosenPlan, setChosenPlan] = useState<PlanId>('growth')
+  // Arrivé par le lien du live : prix du live sur les cartes (Growth, Scale).
+  const liveOffer = useLiveOffer()
+  const live = liveOffer.live
+  const [liveEmail, setLiveEmail] = useState('')
+  useEffect(() => {
+    if (!live) return
+    setPeriod('monthly')
+    setChosenPlan('scale')
+  }, [live])
+
+  useEffect(() => {
+    const sync = () => {
+      const fromHash = TABS.find((t) => `#${t.hash}` === window.location.hash)
+      if (fromHash) setTab(fromHash.id)
+    }
+    sync()
+    window.addEventListener('hashchange', sync)
+    return () => window.removeEventListener('hashchange', sync)
+  }, [])
+
+  const openTab = (next: Tab) => {
+    setTab(next)
+    const hash = TABS.find((t) => t.id === next)!.hash
+    window.history.replaceState(null, '', next === 'solo' ? window.location.pathname : `#${hash}`)
+    trackAmplitude('pricing_page_tab_clicked', { tab: next })
+  }
   const growth = PLANS.find((p) => p.id === 'growth')!
   const growthTeam = teamMix('growth')
   const teamLines = [
@@ -279,13 +333,6 @@ export default function TarifsClient() {
   ]
   const teamTotal = teamLines.reduce((sum, l) => sum + l.euros, 0)
 
-  // Les boutons hors des cartes ouvrent toujours l'essai, quelle que soit la période affichée.
-  const startTrial = async (location: string) => {
-    if (opening) return
-    setOpening('growth')
-    trackAmplitude('pricing_page_plan_clicked', { plan: 'growth', billing_period: 'monthly', location })
-    await startFreeTrial('growth')
-  }
 
   return (
     <main className={`min-h-screen overflow-x-hidden pb-16 pt-10 text-white md:pt-14 ${glass.page}`}>
@@ -301,9 +348,52 @@ export default function TarifsClient() {
           </p>
         </header>
 
-        <div className="mt-8">
-          <PlanCards location="cards" period={period} onPeriodChange={setPeriod} />
+        {liveOffer.status === 'need_email' && (
+          <form
+            className={`mx-auto mt-6 flex max-w-xl flex-col gap-2 px-4 py-3 sm:flex-row sm:items-center ${glass.panel} ${glass.compact}`}
+            onSubmit={(e) => { e.preventDefault(); liveOffer.check(liveEmail) }}
+          >
+            <p className="flex-1 text-sm text-neutral-200">{fr ? 'Ton email pour voir ton prix du live' : 'Your email to see your live price'}</p>
+            <input
+              type="email"
+              required
+              value={liveEmail}
+              onChange={(e) => setLiveEmail(e.target.value)}
+              placeholder="toi@exemple.com"
+              className="min-h-10 rounded-md border border-white/20 bg-black/40 px-3 text-sm text-white placeholder:text-neutral-500"
+            />
+            <button type="submit" className={`min-h-10 cursor-pointer px-4 text-sm font-semibold ${glass.primaryButton}`}>
+              {fr ? 'Voir' : 'See'}
+            </button>
+          </form>
+        )}
+        {liveOffer.status === 'need_email' && liveOffer.error && (
+          <p className="mt-2 text-center text-xs text-neutral-300">{fr ? 'Cet email n’a pas l’air valide.' : 'This email does not look valid.'}</p>
+        )}
+
+        <div className={`mx-auto mt-8 max-w-lg grid-cols-3 ${ORDER_SEGMENTS}`} role="tablist" aria-label={fr ? 'Type d’offre' : 'Offer type'}>
+          {TABS.map((t) => (
+            <button
+              key={t.id}
+              type="button"
+              role="tab"
+              aria-selected={t.id === tab}
+              onClick={() => openTab(t.id)}
+              className={`text-xs font-semibold sm:text-sm ${ORDER_SEGMENT}`}
+            >
+              {fr ? t.fr : t.en}
+            </button>
+          ))}
         </div>
+
+        <div className="mt-6" role="tabpanel">
+          {tab === 'solo' && <PlanCards location="cards" period={period} onPeriodChange={setPeriod} hidePayg chosen={chosenPlan} onChoose={setChosenPlan} live={live} />}
+          {tab === 'team' && <TeamCards period={period} onPeriodChange={setPeriod} />}
+          {tab === 'payg' && <PaygCards />}
+        </div>
+
+        {/* Le panier : formule choisie, options, un seul bouton (onglet Solo). */}
+        {tab === 'solo' && <OptionsPanel plan={chosenPlan} period={period} live={live} />}
 
         <FeaturedInSection className="mt-12" variant="compact" title={fr ? 'Mis en avant par' : 'Featured by'} />
 
@@ -466,14 +556,6 @@ export default function TarifsClient() {
                   ? 'Les idées, les formats, l’écriture, le montage, la vérification de chaque reel et la publication, plus le live, le Slack et la masterclass Empire.'
                   : 'Ideas, formats, writing, editing, every reel checked and publishing, plus the live, the Slack and the Empire masterclass.'}
               </p>
-              <button
-                type="button"
-                onClick={() => startTrial('comparison')}
-                disabled={opening !== null}
-                className={`mt-auto inline-flex min-h-12 w-full cursor-pointer items-center justify-center gap-2 px-4 text-sm font-semibold disabled:opacity-60 md:mt-6 ${glass.primaryButton}`}
-              >
-                {opening === 'growth' ? (fr ? 'Ouverture…' : 'Opening…') : (fr ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial')}
-              </button>
             </div>
           </div>
           <p className="mx-auto mt-4 max-w-4xl text-center text-[11px] text-neutral-300">
@@ -553,25 +635,7 @@ export default function TarifsClient() {
           ))}
         </section>
 
-        <section className={`mx-auto mt-24 max-w-2xl px-6 py-10 text-center ${glass.panel} ${glass.featured}`}>
-          <h2 className="text-2xl font-bold tracking-tight md:text-3xl">
-            {fr ? 'Essaie 7 jours, sans payer.' : 'Try it for 7 days, free.'}
-          </h2>
-          <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-neutral-300">
-            {fr
-              ? `Formule Growth, 7 jours ou ${TRIAL_CREDITS} crédits gratuits, puis ${growth.price} €/mois. Annule avant : 0 €.`
-              : `Growth plan, 7 days or ${TRIAL_CREDITS} credits free, then €${growth.price}/mo. Cancel before: €0.`}
-          </p>
-          <button
-            type="button"
-            onClick={() => startTrial('footer')}
-            disabled={opening !== null}
-            className={`mt-6 inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 px-6 text-sm font-semibold disabled:opacity-60 ${glass.primaryButton}`}
-          >
-            {opening === 'growth' ? (fr ? 'Ouverture…' : 'Opening…') : (fr ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial')}
-            <ArrowRight className="h-4 w-4" />
-          </button>
-        </section>
+        {/* Plus de bloc « Essaie 7 jours » ici : le seul bouton d'achat est celui du panier (29 octobre 2026). */}
 
         <p className="mt-16 text-center text-sm text-neutral-300">
           {fr ? 'Tu accompagnes des clients (freelance, consultant, agence) ? ' : 'You coach clients (freelancer, consultant, agency)? '}
