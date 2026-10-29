@@ -22,7 +22,7 @@ import {
   type BillingId,
   type PlanId,
 } from '@/lib/plans'
-import { startFreeTrial, TRIAL_CREDITS, TRIAL_TERMS_EN, TRIAL_TERMS_FR } from '@/lib/startTrial'
+import { TRIAL_CREDITS, TRIAL_TERMS_EN, TRIAL_TERMS_FR } from '@/lib/startTrial'
 import { trackAmplitude } from '@/lib/amplitude'
 import { ORDER_SEGMENT, ORDER_SEGMENTS } from '@/lib/orderStyles'
 
@@ -294,7 +294,6 @@ export default function TarifsClient() {
   const fr = lang === 'fr'
   const locale = fr ? 'fr-FR' : 'en-US'
   const [period, setPeriod] = useState<BillingId>('monthly')
-  const [opening, setOpening] = useState<PlanId | null>(null)
   const [tab, setTab] = useState<Tab>('solo')
   // Panier (29 octobre 2026) : la formule choisie dans les cartes Solo.
   const [chosenPlan, setChosenPlan] = useState<PlanId>('growth')
@@ -324,13 +323,6 @@ export default function TarifsClient() {
   ]
   const teamTotal = teamLines.reduce((sum, l) => sum + l.euros, 0)
 
-  // Les boutons hors des cartes ouvrent toujours l'essai, quelle que soit la période affichée.
-  const startTrial = async (location: string) => {
-    if (opening) return
-    setOpening('growth')
-    trackAmplitude('pricing_page_plan_clicked', { plan: 'growth', billing_period: 'monthly', location })
-    await startFreeTrial('growth')
-  }
 
   return (
     <main className={`min-h-screen overflow-x-hidden pb-16 pt-10 text-white md:pt-14 ${glass.page}`}>
@@ -531,14 +523,6 @@ export default function TarifsClient() {
                   ? 'Les idées, les formats, l’écriture, le montage, la vérification de chaque reel et la publication, plus le live, le Slack et la masterclass Empire.'
                   : 'Ideas, formats, writing, editing, every reel checked and publishing, plus the live, the Slack and the Empire masterclass.'}
               </p>
-              <button
-                type="button"
-                onClick={() => startTrial('comparison')}
-                disabled={opening !== null}
-                className={`mt-auto inline-flex min-h-12 w-full cursor-pointer items-center justify-center gap-2 px-4 text-sm font-semibold disabled:opacity-60 md:mt-6 ${glass.primaryButton}`}
-              >
-                {opening === 'growth' ? (fr ? 'Ouverture…' : 'Opening…') : (fr ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial')}
-              </button>
             </div>
           </div>
           <p className="mx-auto mt-4 max-w-4xl text-center text-[11px] text-neutral-300">
@@ -618,25 +602,7 @@ export default function TarifsClient() {
           ))}
         </section>
 
-        <section className={`mx-auto mt-24 max-w-2xl px-6 py-10 text-center ${glass.panel} ${glass.featured}`}>
-          <h2 className="text-2xl font-bold tracking-tight md:text-3xl">
-            {fr ? 'Essaie 7 jours, sans payer.' : 'Try it for 7 days, free.'}
-          </h2>
-          <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-neutral-300">
-            {fr
-              ? `Formule Growth, 7 jours ou ${TRIAL_CREDITS} crédits gratuits, puis ${growth.price} €/mois. Annule avant : 0 €.`
-              : `Growth plan, 7 days or ${TRIAL_CREDITS} credits free, then €${growth.price}/mo. Cancel before: €0.`}
-          </p>
-          <button
-            type="button"
-            onClick={() => startTrial('footer')}
-            disabled={opening !== null}
-            className={`mt-6 inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 px-6 text-sm font-semibold disabled:opacity-60 ${glass.primaryButton}`}
-          >
-            {opening === 'growth' ? (fr ? 'Ouverture…' : 'Opening…') : (fr ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial')}
-            <ArrowRight className="h-4 w-4" />
-          </button>
-        </section>
+        {/* Plus de bloc « Essaie 7 jours » ici : le seul bouton d'achat est celui du panier (29 octobre 2026). */}
 
         <p className="mt-16 text-center text-sm text-neutral-300">
           {fr ? 'Tu accompagnes des clients (freelance, consultant, agence) ? ' : 'You coach clients (freelancer, consultant, agency)? '}

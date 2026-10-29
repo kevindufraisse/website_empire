@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, type KeyboardEvent } from 'react'
 import glass from './pricing.module.css'
 import { ArrowRight, Check, ChevronDown, Coins, Linkedin, Mail, Video, Zap } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
@@ -175,14 +175,27 @@ export default function PlanCards({ location, period: controlled, onPeriodChange
           const extras = EXTRAS[plan.id]
           return (
             <div key={plan.id} className={plan.id === selected ? '' : 'hidden lg:block'}>
-              <div className={`flex h-full flex-col ${featured ? ORDER_CARD : ORDER_CARD_QUIET}`}>
+              {/* Panier : la carte entière choisit la formule, sans bouton ; le seul
+                  bouton d'achat est « Continuer » dans le panier. */}
+              <div
+                className={`flex h-full flex-col ${featured ? ORDER_CARD : ORDER_CARD_QUIET} ${onChoose ? 'cursor-pointer' : ''}`}
+                {...(onChoose ? {
+                  role: 'radio',
+                  'aria-checked': plan.id === selected,
+                  tabIndex: 0,
+                  onClick: () => choose(plan.id),
+                  onKeyDown: (e: KeyboardEvent) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); choose(plan.id) } },
+                } : {})}
+              >
                 <div className="flex flex-1 flex-col gap-5 p-5 sm:p-6">
                   <div className="flex items-start justify-between gap-2">
                     <div className="min-w-0">
                       <p className="text-base font-semibold leading-snug text-white">{PLAN_LABELS[plan.id][fr ? 'fr' : 'en']}</p>
                       <p className="text-sm text-neutral-300">{fr ? RHYTHM_TU[plan.id] : plan.rhythmEn}</p>
                     </div>
-                    {plan.highlighted && <span className={`whitespace-nowrap ${ORDER_TAG}`}>{fr ? 'Populaire' : 'Popular'}</span>}
+                    {onChoose && plan.id === selected
+                      ? <span className={`inline-flex items-center gap-1 whitespace-nowrap ${ORDER_TAG}`}><Check className="h-3 w-3" />{fr ? 'Choisie' : 'Chosen'}</span>
+                      : plan.highlighted && <span className={`whitespace-nowrap ${ORDER_TAG}`}>{fr ? 'Populaire' : 'Popular'}</span>}
                   </div>
 
                   <div className="space-y-1">
@@ -218,18 +231,14 @@ export default function PlanCards({ location, period: controlled, onPeriodChange
                   </div>
 
                   <div>
+                    {!onChoose && (
                     <button
                       type="button"
                       onClick={() => choose(plan.id)}
                       disabled={opening !== null}
                       className={featured ? ORDER_CTA : ORDER_CTA_SECONDARY}
-                      aria-pressed={onChoose ? plan.id === selected : undefined}
                     >
-                      {onChoose
-                        ? (plan.id === selected
-                          ? <><Check className="h-4 w-4" />{fr ? 'Formule choisie' : 'Chosen plan'}</>
-                          : (fr ? `Choisir ${PLAN_LABELS[plan.id].fr}` : `Choose ${PLAN_LABELS[plan.id].en}`))
-                        : opening === plan.id
+                      {opening === plan.id
                         ? (fr ? 'Ouverture…' : 'Opening…')
                         : (
                           <>
@@ -238,6 +247,7 @@ export default function PlanCards({ location, period: controlled, onPeriodChange
                           </>
                         )}
                     </button>
+                    )}
                     <p className="mt-2 text-center text-xs leading-snug text-neutral-300">
                       {fr
                         ? `Essai gratuit : 7 jours ou ${TRIAL_CREDITS} crédits`
