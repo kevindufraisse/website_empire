@@ -19,19 +19,17 @@ const clock = (sec: number) => {
   return `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`
 }
 
-// L'offre du live (app, /join/internet?offer=live) : 300 € de moins par mois
-// pendant 3 mois, sur Growth ou Scale, pendant 72 h à partir de la première
-// visite d'un email. L'email donné pour la vidéo part avec le lien, la page
-// ne le redemande pas.
-const OFFER_URL = 'https://app.empire-internet.com/join/internet?offer=live'
+// Une seule offre depuis le 29 octobre 2026, celle de /tarifs : plus de remise
+// du live. « Voir l'offre » ouvre la page des tarifs du site.
+const OFFER_PATH = '/tarifs'
 // Les boutons de l'offre n'apparaissent qu'après 10 min de vidéo
 // réellement regardées (avancer dans la barre ne compte pas).
 const OFFER_UNLOCK_SECONDS = 600
 const WATCHED_KEY = 'empire_vsl_watched_v1'
 const OFFER_POINTS = [
-  '300 € de moins par mois pendant 3 mois, sur Growth ou Scale',
-  'Valable 72 h à partir de ta première visite',
-  'Ton premier contenu livré sous 48 h',
+  'Starter, Growth ou Scale : 199, 499 ou 799 €/mois',
+  'Essai gratuit : 7 jours ou 500 crédits',
+  'Sans engagement',
 ]
 
 const WHAT_YOU_GET = [
@@ -459,10 +457,7 @@ function Ctas({ location, remaining = 0 }: { location: string; remaining?: numbe
     if (loading) return
     setLoading(true)
     trackAmplitude('vsl_offer_clicked', { location })
-    const url = new URL(OFFER_URL)
-    const email = storedVideoEmail()
-    if (email) url.searchParams.set('email', email)
-    window.location.href = withAmplitudeDeviceId(url.toString())
+    window.location.href = withAmplitudeDeviceId(new URL(OFFER_PATH, window.location.origin).toString())
   }
 
   return (

@@ -109,10 +109,10 @@ export async function POST(request: Request) {
     }
     const plan = body.plan ?? ''
     const billing = body.billing ?? 'monthly'
-    // Offre webinar (/final-offer) : prix promo TOUJOURS appliqué (pas de
-    // deadline par visiteur - l'accès à la page vaut éligibilité) et pas
-    // d'essai gratuit : le participant paie 499€ immédiatement.
-    const isWebinarOffer = body.offer === 'webinar' && plan === 'scale' && billing === 'monthly'
+    // Une seule offre depuis le 29 octobre 2026, celle de /tarifs : l'ancienne
+    // offre webinar (/final-offer, Scale à 499 € à vie, sans essai) ne
+    // s'applique plus, même si un ancien onglet envoie encore offer: 'webinar'.
+    const isWebinarOffer = false
 
     const config = PLAN_CONFIG[plan]?.[billing]
     if (!config) {
