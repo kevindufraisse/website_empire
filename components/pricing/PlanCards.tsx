@@ -268,8 +268,8 @@ export default function PlanCards({ location, period: controlled, onPeriodChange
         <div className="space-y-3 px-4 pb-4">
           <p className="text-xs leading-relaxed text-neutral-300">
             {fr
-              ? `Pas d’abonnement. Tu enregistres ta carte, 0 € aujourd’hui. À ta première action payante, une recharge de ${PAYG_RECHARGE.euros} € (${PAYG_RECHARGE.credits} crédits, environ ${Math.floor(PAYG_RECHARGE.credits / CONTENT_CREDITS.post)} posts LinkedIn), puis une nouvelle dès que ton solde ne suffit plus. Plafond mensuel au choix. Sans live, Slack ni replays.`
-              : `No subscription. Save your card, €0 today. On your first paid action, a €${PAYG_RECHARGE.euros} top-up (${PAYG_RECHARGE.credits} credits, about ${Math.floor(PAYG_RECHARGE.credits / CONTENT_CREDITS.post)} LinkedIn posts), then another when your balance runs low. Monthly cap of your choice. No live, Slack or replays.`}
+              ? `Pas d’abonnement. Tu enregistres ta carte, 0 € aujourd’hui. À ta première action payante, une recharge de ${PAYG_RECHARGE.euros} € (${PAYG_RECHARGE.credits} crédits, environ ${Math.floor(PAYG_RECHARGE.credits / CONTENT_CREDITS.post)} posts LinkedIn), puis une nouvelle dès que ton solde ne suffit plus. Plafond mensuel au choix. Slack inclus ; sans live ni replays.`
+              : `No subscription. Save your card, €0 today. On your first paid action, a €${PAYG_RECHARGE.euros} top-up (${PAYG_RECHARGE.credits} credits, about ${Math.floor(PAYG_RECHARGE.credits / CONTENT_CREDITS.post)} LinkedIn posts), then another when your balance runs low. Monthly cap of your choice. Slack included; no live or replays.`}
           </p>
           <button
             type="button"

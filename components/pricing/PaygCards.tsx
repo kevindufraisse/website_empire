@@ -23,8 +23,8 @@ import {
  */
 
 const INCLUDED = {
-  fr: ['Publication sur 7 réseaux', 'Chaque action affiche son prix avant de partir', 'Les crédits n’expirent jamais', 'Un plafond mensuel que tu choisis'],
-  en: ['Publishing to 7 networks', 'Every action shows its price before it runs', 'Credits never expire', 'A monthly cap you choose'],
+  fr: ['Publication sur 7 réseaux et communauté Slack', 'Chaque action affiche son prix avant de partir', 'Les crédits n’expirent jamais', 'Un plafond mensuel que tu choisis'],
+  en: ['Publishing to 7 networks and the Slack community', 'Every action shows its price before it runs', 'Credits never expire', 'A monthly cap you choose'],
 }
 
 type Choice = 'payg_start' | (typeof PAYG_PACKS)[number]['id']
