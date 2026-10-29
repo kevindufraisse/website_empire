@@ -13,12 +13,24 @@ import { Play, Star } from 'lucide-react'
 
 const SENJA = 'https://cdn.senja.io/public'
 
-const VIDEO = {
-  name: 'Julien Guyard',
-  role: 'Associé fondateur',
-  poster: 'https://image.mux.com/ISakJLHUhWKFVozK7yNojMMJkIUdWqDQBIAEj102ab6c/thumbnail.jpg?time=4',
-  src: 'https://stream.mux.com/ISakJLHUhWKFVozK7yNojMMJkIUdWqDQBIAEj102ab6c/medium.mp4',
-}
+type VideoTestimonial = { name: string; role: string; poster: string; src: string; tag?: string }
+
+/** Vidéo Mux d'un témoignage Senja : vignette prise à `time` secondes. */
+const mux = (id: string, time: number) => ({
+  poster: `https://image.mux.com/${id}/thumbnail.jpg?time=${time}`,
+  src: `https://stream.mux.com/${id}/medium.mp4`,
+})
+
+/** Les témoignages vidéo du mur Senja, tous (miroir de l'app). Vignette quand le
+ *  client parle. Sébastien et Amélie parlent du bootcamp, pas de l'abonnement. */
+const VIDEOS: VideoTestimonial[] = [
+  { name: 'Olivier Sarezinski', role: 'Gérant associé', ...mux('01shigG5pv5dcW02r00NJI8sYwALp64oqL29ZztP8ZraxU', 40) },
+  { name: 'Sophie Guibaud', role: 'Board-Level Growth Advisor', ...mux('Ihbs1Ay3AMfsadLsUL3JaqBm01Sbt01Fk01KvbTatoMYsU', 30) },
+  { name: 'Julien Guyard', role: 'Associé fondateur', ...mux('ISakJLHUhWKFVozK7yNojMMJkIUdWqDQBIAEj102ab6c', 4) },
+  { name: 'Léa Marie', role: 'Consultante marketing digital & branding', ...mux('8k3Y2wvixY3wN02apY6lo2SQvWcwZDSZhC02LiCGthvFo', 20) },
+  { name: 'Amélie Faligot', role: 'Growth marketeuse', tag: 'Bootcamp', ...mux('8fzR9Inuae1s3l4Z3NTt01OwiJktsvSUGuE5Lx78L9dI', 5) },
+  { name: 'Sébastien Min', role: 'LeadGen Consulting', tag: 'Bootcamp', ...mux('ujvVeDFFJ3MaZm8bsHDd1dfDOZ5KgVm1GXXB7NSamOg', 10) },
+]
 
 const REVIEWS: Array<{ name: string; role: string; photo: string; text: string }> = [
   {
@@ -56,30 +68,41 @@ function Stars() {
 }
 
 export default function CustomerReviews({ title }: { title: string }) {
-  const [playing, setPlaying] = useState(false)
+  const [playing, setPlaying] = useState<string | null>(null)
   return (
     <section>
       <h2 className="text-center text-sm font-semibold text-white">{title}</h2>
-      <div className="mt-8 grid gap-3 md:grid-cols-3">
-        <div className={`overflow-hidden md:row-span-2 ${glass.panel}`}>
-          {playing ? (
-            <video src={VIDEO.src} poster={VIDEO.poster} controls autoPlay playsInline className="h-full w-full object-cover" />
-          ) : (
-            <button type="button" onClick={() => setPlaying(true)} className="group relative block h-full min-h-[300px] w-full cursor-pointer text-left">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={VIDEO.poster} alt="" className="absolute inset-0 h-full w-full object-cover" />
-              <span className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
-              <span className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-black transition group-hover:scale-105">
-                <Play className="h-4 w-4 fill-current" />
-              </span>
-              <span className="absolute bottom-3 left-3 space-y-1">
-                <Stars />
-                <span className="block text-sm font-semibold text-white">{VIDEO.name}</span>
-                <span className="block text-xs text-neutral-300">{VIDEO.role}</span>
-              </span>
-            </button>
-          )}
-        </div>
+      <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-3">
+        {VIDEOS.map((v) => (
+          <div key={v.name} className={`relative aspect-video overflow-hidden ${glass.panel}`}>
+            {playing === v.name ? (
+              <video src={v.src} poster={v.poster} controls autoPlay playsInline className="h-full w-full object-cover" />
+            ) : (
+              <button
+                type="button"
+                onClick={() => setPlaying(v.name)}
+                aria-label={`Voir le témoignage ${/^[aeiouyhéèêàâîôû]/i.test(v.name) ? 'd’' : 'de '}${v.name}`}
+                className="group absolute inset-0 cursor-pointer text-left"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={v.poster} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+                <span className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
+                <span className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-black transition group-hover:scale-105 md:left-1/2 md:right-auto md:top-1/2 md:h-10 md:w-10 md:-translate-x-1/2 md:-translate-y-1/2">
+                  <Play className="h-4 w-4 fill-current" />
+                </span>
+                {v.tag && (
+                  <span className="absolute left-2 top-2 rounded bg-black/70 px-1.5 py-0.5 text-[10px] font-semibold text-white/85">{v.tag}</span>
+                )}
+                <span className="absolute bottom-2 left-2.5 right-2.5">
+                  <span className="block truncate text-[13px] font-semibold text-white">{v.name}</span>
+                  <span className="block truncate text-[11px] text-neutral-300">{v.role}</span>
+                </span>
+              </button>
+            )}
+          </div>
+        ))}
+      </div>
+      <div className="mt-3 grid gap-3 md:grid-cols-2">
         {REVIEWS.map((r) => (
           <figure key={r.name} className={`flex flex-col gap-3 p-5 ${glass.panel}`}>
             <Stars />
