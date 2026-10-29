@@ -223,7 +223,7 @@ export default function PlanCards({ location, period: controlled, onPeriodChange
                     // ancien prix barré + offre en petit, puis le prix payé.
                     <div className="space-y-1.5">
                       {countdown && (
-                        <span className="inline-flex rounded-full bg-white px-2.5 py-0.5 text-[11px] font-semibold tabular-nums text-black">
+                        <span className="inline-flex rounded-full bg-[#DAFC68] px-2.5 py-0.5 text-[11px] font-semibold tabular-nums text-black">
                           {fr ? `Encore ${countdown}` : `${countdown} left`}
                         </span>
                       )}
