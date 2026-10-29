@@ -50,7 +50,7 @@ export function PartnerPayLink({
       onClick={() => trackAmplitude('academy_partner_checkout_clicked', { source, price, audience })}
       className="mx-auto inline-flex min-h-12 w-full max-w-md items-center justify-center gap-2 rounded-2xl bg-academy px-6 text-[14px] font-bold text-black transition hover:brightness-110"
     >
-      {fr ? `Rejoindre le programme · ${price} €` : `Join the program · €${price}`}
+      {fr ? `Rejoindre Empire Partners · ${price} €` : `Join Empire Partners · €${price}`}
       <ArrowRight className="h-4 w-4" />
     </a>
   )
@@ -81,7 +81,7 @@ export function FestivalPriceBlock({
   return (
     <div className="mx-auto w-full max-w-md rounded-2xl border border-academy/30 bg-academy/[0.06] px-4 py-4 text-left">
       <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-academy">
-        {fr ? 'Programme partenaire · live chaque lundi à 14 h' : 'Partner program · live every Monday at 2 pm'}
+        {fr ? 'Empire Partners · un live chaque lundi à 14 h' : 'Empire Partners · a live every Monday at 2 pm'}
       </p>
 
       <p className="mt-3 flex flex-wrap items-baseline gap-x-3">
@@ -128,7 +128,9 @@ export function FestivalPriceBlock({
 
       {nextIsIncrease && pricing.ready && (
         <p className="mt-3 text-[12px] text-neutral-400">
-          {fr ? 'Ce palier passe au suivant dans' : 'This tier moves to the next in'}{' '}
+          {fr
+            ? `Le prix passe à ${pricing.nextPrice} € ${pricing.tierId === 'live' ? 'vendredi' : 'dimanche'}, dans`
+            : `The price goes to €${pricing.nextPrice} on ${pricing.tierId === 'live' ? 'Friday' : 'Sunday'}, in`}{' '}
           <span className="font-mono font-semibold tabular-nums text-academy">
             {priceCountdown(pricing.msUntilNext, fr)}
           </span>
@@ -142,26 +144,10 @@ export function FestivalPriceBlock({
           ? 'Comme pour un festival : plus tôt dans la semaine, moins cher. C’est notre façon de remercier ceux qui se décident en premier. Chaque lundi, le prix repart du bas.'
           : 'Like festival tickets: earlier in the week costs less. It’s our way of thanking those who decide first. Every Monday, the price starts low again.'}
       </p>
-      <p className="mt-3 text-[12px] leading-snug text-neutral-500">
-        {fr
-          ? 'Le live d’onboarding est chaque lundi à 14 h. Inscris-toi avant lundi pour démarrer cette semaine.'
-          : 'The onboarding live is every Monday at 2 pm. Register before Monday to start this week.'}
-      </p>
       <p className="mt-1.5 text-[12px] text-neutral-500">
         {fr ? 'Accès immédiat, à ton rythme. Pas d’abonnement.' : 'Instant access, at your own pace. No subscription.'}
       </p>
-      <p className="mt-1.5 text-[12px] text-neutral-500">
-        {fr
-          ? `Juste la formation ? L’Academy seule (le bootcamp) est à ${pricing.bootcampPrice} € cette semaine, sur la même page.`
-          : `Just the training? The Academy alone (the bootcamp) is €${pricing.bootcampPrice} this week, on the same page.`}
-      </p>
-      <p className="mt-3 border-t border-white/[0.08] pt-3 text-[12px] text-neutral-400">
-        {fr ? 'Déjà abonné Empire ? Le bootcamp est à 147 € pour toi, ' : 'Already an Empire subscriber? The bootcamp is €147 for you, '}
-        <a href="https://app.empire-internet.com/academy" className="text-academy underline decoration-academy/30 underline-offset-4 hover:text-white">
-          {fr ? 'depuis ton app' : 'from your app'}
-        </a>
-        .
-      </p>
+
     </div>
   )
 }
@@ -246,11 +232,11 @@ function WhyKevinSection({ fr }: { fr: boolean }) {
   const lines = fr
     ? [
         'J’étais en échec scolaire, et tout le monde pensait que je ne ferais rien de ma vie. À 19 ans, j’ai découvert WordPress. Les entrepreneurs voulaient tous un site pour se faire voir : c’était le personal branding de l’époque. Cet outil m’a lancé dans l’entrepreneuriat.',
-        'L’Academy, c’est ce que j’aurais voulu trouver à 19 ans : un réseau, et une compétence qui ne sera pas remplacée. Comprendre la psychologie humaine et les algorithmes, pour aider des entrepreneurs à se faire connaître dans un monde incertain.',
+        'Empire Partners, c’est ce que j’aurais voulu trouver à 19 ans : un réseau, et une compétence qui ne sera pas remplacée. Comprendre la psychologie humaine et les algorithmes, pour aider des entrepreneurs à se faire connaître dans un monde incertain.',
       ]
     : [
         'I was failing at school, and everyone thought I would amount to nothing. At 19, I discovered WordPress. Every entrepreneur wanted a website to get noticed: it was the personal branding of the time. That tool got me into entrepreneurship.',
-        'The Academy is what I wish I had found at 19: a network, and a skill that won’t be replaced. Understanding human psychology and algorithms, to help entrepreneurs get known in an uncertain world.',
+        'Empire Partners is what I wish I had found at 19: a network, and a skill that won’t be replaced. Understanding human psychology and algorithms, to help entrepreneurs get known in an uncertain world.',
       ]
   return (
     <section id="pourquoi" className="scroll-mt-36 border-b border-white/[0.06] py-16 md:py-24">
@@ -265,7 +251,7 @@ function WhyKevinSection({ fr }: { fr: boolean }) {
           <div className="relative mt-8 aspect-[4/3] w-full overflow-hidden rounded-2xl border border-white/15 bg-neutral-900/50">
             <iframe
               src={`https://www.loom.com/embed/${WHY_LOOM_ID}?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_title=true`}
-              title={fr ? 'Pourquoi l’Academy, par Kevin' : 'Why the Academy, by Kevin'}
+              title={fr ? 'Pourquoi Empire Partners, par Kevin' : 'Why Empire Partners, by Kevin'}
               loading="lazy"
               allow="autoplay; fullscreen; picture-in-picture"
               allowFullScreen
@@ -283,8 +269,8 @@ function WhyKevinSection({ fr }: { fr: boolean }) {
             </p>
             <p>
               {fr
-                ? 'Le prix d’inscription sert à maintenir l’Academy à jour et à rémunérer le temps que j’y mets. Je travaille sur Empire depuis un an et demi, depuis Lisbonne.'
-                : 'The registration fee keeps the Academy up to date and pays for the time I put into it. I’ve been building Empire for a year and a half, from Lisbon.'}
+                ? 'Le prix d’inscription sert à maintenir le programme à jour et à rémunérer le temps que j’y mets. Je travaille sur Empire depuis un an et demi, depuis Lisbonne.'
+                : 'The registration fee keeps the program up to date and pays for the time I put into it. I’ve been building Empire for a year and a half, from Lisbon.'}
             </p>
           </div>
           <div className="mt-6 flex items-center gap-3">
@@ -321,7 +307,7 @@ const VALUE_STACK: Record<'fr' | 'en', ValueGroup[]> = {
     {
       title: 'Les lives et les crédits',
       lines: [
-        { label: 'Live chaque lundi à 14 h (1 an)', value: 1997 },
+        { label: 'Un live chaque lundi à 14 h', value: null },
         { label: '6 h de replays à suivre', value: 497 },
         { label: '4 000 crédits offerts pour utiliser Empire (la machine à contenu)', value: 297 },
         { label: 'Certification Empire (or, argent, bronze)', value: 497 },
@@ -338,7 +324,7 @@ const VALUE_STACK: Record<'fr' | 'en', ValueGroup[]> = {
       title: 'Pour trouver des clients',
       lines: [
         { label: 'Ajout dans l’annuaire', value: 197 },
-        { label: 'Réception de missions venant du site', value: null },
+        { label: 'Des missions venant du site, sans garantie', value: null },
         { label: 'Cours « comment trouver des clients Empire »', value: 497 },
         { label: 'Page de paiement incluse', value: 197 },
       ],
@@ -363,7 +349,7 @@ const VALUE_STACK: Record<'fr' | 'en', ValueGroup[]> = {
     {
       title: 'Lives and credits',
       lines: [
-        { label: 'Live every Monday at 2 pm (1 year)', value: 1997 },
+        { label: 'A live every Monday at 2 pm', value: null },
         { label: '6 hours of replays to follow', value: 497 },
         { label: '4,000 free credits to use Empire (the content machine)', value: 297 },
         { label: 'Empire certification (gold, silver, bronze)', value: 497 },
@@ -380,7 +366,7 @@ const VALUE_STACK: Record<'fr' | 'en', ValueGroup[]> = {
       title: 'To find clients',
       lines: [
         { label: 'Added to the directory', value: 197 },
-        { label: 'Missions from the site', value: null },
+        { label: 'Missions from the site, not guaranteed', value: null },
         { label: '« How to find Empire clients » course', value: 497 },
         { label: 'Payment page included', value: 197 },
       ],
@@ -422,16 +408,28 @@ export default function PartnerProgramPage() {
           a: 'Oui. Le programme s’adresse aux freelances et aux agences qui souhaitent accompagner des entrepreneurs dans leur présence en ligne.',
         },
         {
-          q: 'Les 4 heures et les revenus annoncés sont-ils garantis ?',
+          q: 'Le temps et les revenus annoncés sont-ils garantis ?',
           a: 'Ce sont des repères. Le temps réel et la rémunération dépendent de la mission, de votre maîtrise du système et de vos clients.',
         },
         {
           q: 'Les portes ouvertes sont-elles payantes ?',
-          a: `Non. La présentation enregistrée est gratuite. Vous pouvez regarder le replay immédiatement ou choisir une session, dont l’horaire est affiché dans votre fuseau lors de l’inscription. Le programme partenaire (actuellement ${festival.price} €) se paie ensuite : 500 € du lundi au jeudi, 600 € le vendredi et le samedi, 700 € le dimanche. Lundi, il repart à 500 €. L’Academy seule (le bootcamp) est aussi proposée, actuellement à ${festival.bootcampPrice} €.`,
+          a: `Non. La présentation enregistrée est gratuite. Vous pouvez regarder le replay immédiatement ou choisir une session, dont l’horaire est affiché dans votre fuseau lors de l’inscription. Empire Partners (actuellement ${festival.price} €) se paie ensuite : 500 € du lundi au jeudi, 600 € le vendredi et le samedi, 700 € le dimanche. Lundi, il repart à 500 €.`,
         },
         {
           q: 'Que se passe-t-il après le paiement ?',
           a: 'Vous créez votre compte avec l’email du paiement, et le bootcamp s’ouvre tout de suite : les 21 vidéos, les replays et la communauté. Vous avancez à votre rythme, sans date de démarrage à attendre.',
+        },
+        {
+          q: 'Et si ça ne me convient pas ?',
+          a: 'Vous avez 14 jours pour changer d’avis : remboursé à 100 %, tant que vous n’avez produit aucun contenu ni utilisé de crédit.',
+        },
+        {
+          q: 'Et après les 4 000 crédits ?',
+          a: 'Vous continuez à utiliser Empire au prix coûtant.',
+        },
+        {
+          q: 'Combien paie mon client ?',
+          a: 'Exemple : votre client paie 699 € par mois, 500 € pour vous et 199 € pour Empire. Vous fixez votre prix, votre part arrive directement sur votre compte.',
         },
       ]
     : [
@@ -444,16 +442,28 @@ export default function PartnerProgramPage() {
           a: 'Yes. The program is for freelancers and agencies who want to help entrepreneurs with their online presence.',
         },
         {
-          q: 'Are the 4 hours and earnings guaranteed?',
+          q: 'Are the time and earnings guaranteed?',
           a: 'They’re benchmarks. Real time and pay depend on the mission, how well you run the system, and your clients.',
         },
         {
           q: 'Is the open house free?',
-          a: `Yes. The recorded presentation is free. Watch the replay immediately or choose a session; its time is shown in your time zone when you register. The partner program (currently €${festival.price}) is paid after: €500 Monday to Thursday, €600 on Friday and Saturday, €700 on Sunday. Monday resets to €500. The Academy alone (the bootcamp) is also available, currently €${festival.bootcampPrice}.`,
+          a: `Yes. The recorded presentation is free. Watch the replay immediately or choose a session; its time is shown in your time zone when you register. Empire Partners (currently €${festival.price}) is paid after: €500 Monday to Thursday, €600 on Friday and Saturday, €700 on Sunday. Monday resets to €500.`,
         },
         {
           q: 'What happens after payment?',
           a: 'You create your account with the payment email, and the bootcamp opens right away: the 21 videos, the replays and the community. You move at your own pace, with no start date to wait for.',
+        },
+        {
+          q: 'What if it’s not for me?',
+          a: 'You have 14 days to change your mind: 100% refunded, as long as you haven’t produced any content or used any credit.',
+        },
+        {
+          q: 'What happens after the 4,000 credits?',
+          a: 'You keep using Empire at cost.',
+        },
+        {
+          q: 'How much does my client pay?',
+          a: 'Example: your client pays €699 a month, €500 for you and €199 for Empire. You set your price, and your share goes straight to your account.',
         },
       ]
 
@@ -505,7 +515,11 @@ export default function PartnerProgramPage() {
               ))}
             </nav>
 
-            <h1 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl md:text-[2.75rem] md:leading-[1.15]">
+            {/* Un seul nom (29 octobre 2026) : la phrase n'apparaît qu'ici. */}
+            <p className="mt-4 text-[13px] font-semibold text-academy">
+              {fr ? 'Empire Partners, le programme partenaire d’Empire' : 'Empire Partners, Empire’s partner program'}
+            </p>
+            <h1 className="mt-3 text-balance text-3xl font-semibold tracking-tight sm:text-4xl md:text-[2.75rem] md:leading-[1.15]">
               {fr
                 ? agency
                   ? 'Ajoutez une offre de personal branding à votre agence. Sans recruter une équipe de production.'
@@ -526,17 +540,15 @@ export default function PartnerProgramPage() {
               <CtaBlock fr={fr} source="hero" audience={audience} />
               <FestivalPriceBlock fr={fr} pricing={festival} />
             </div>
-            <dl className="mx-auto mt-6 grid max-w-2xl grid-cols-3 divide-x divide-white/[0.08] border-y border-white/[0.08] py-4">
+            <dl className="mx-auto mt-6 grid max-w-md grid-cols-2 divide-x divide-white/[0.08] border-y border-white/[0.08] py-4">
               {(fr
                 ? [
                     ['21 jours', 'pour maîtriser le système'],
-                    ['~4 h', 'par mois et par client*'],
-                    ['500–2 000 €', 'd’honoraires indicatifs'],
+                    ['~1 h', 'par jour, à votre rythme'],
                   ]
                 : [
                     ['21 days', 'to master the system'],
-                    ['~4 hrs', 'per month, per client*'],
-                    ['€500–2,000', 'indicative monthly fees'],
+                    ['~1 hr', 'a day, at your own pace'],
                   ]
               ).map(([value, label]) => (
                 <div key={value} className="px-2 sm:px-4">
@@ -545,11 +557,6 @@ export default function PartnerProgramPage() {
                 </div>
               ))}
             </dl>
-            <p className="mx-auto mt-2 max-w-xl text-[10px] leading-relaxed text-neutral-600">
-              {fr
-                ? '*Une fois le système maîtrisé, hors apprentissage, installation et prospection. Honoraires variables selon la mission et le client.'
-                : '*Once fluent, excluding training, setup and outreach. Fees vary by engagement and client.'}
-            </p>
           </div>
         </div>
       </section>
@@ -593,7 +600,7 @@ export default function PartnerProgramPage() {
               href={partnerPayHref()}
               className="ml-auto shrink-0 rounded-lg bg-academy px-3.5 py-2 text-[12px] font-bold text-black transition hover:brightness-110"
             >
-              {fr ? 'Rejoindre l’Academy' : 'Join the Academy'}
+              {fr ? `Rejoindre Empire Partners · ${festival.price} €` : `Join Empire Partners · €${festival.price}`}
             </a>
           </div>
         </div>
@@ -882,7 +889,7 @@ export default function PartnerProgramPage() {
                 ? [
                     {
                       t: 'Vos honoraires',
-                      d: 'Vous fixez le prix de votre accompagnement. Repères indicatifs : environ 500 € au démarrage, puis 1 000 € ou plus avec l’expérience.',
+                      d: 'Vous fixez le prix de votre accompagnement. Repères indicatifs : environ 500 € par client au démarrage, puis 1 000 € ou plus avec l’expérience.',
                     },
                     {
                       t: 'La production Empire',
@@ -1099,7 +1106,7 @@ export default function PartnerProgramPage() {
                         'Comment un partenaire accompagne un client dans Empire.',
                         'Ce que vous faites et ce que la plateforme prend en charge.',
                         'Comment fonctionnent les missions, la rémunération et les crédits.',
-                        'Comment se déroule la formation et comment rejoindre le programme.',
+                        'Comment se déroule la formation et comment rejoindre Empire Partners.',
                       ]
                     : [
                         'How a partner supports a client inside Empire.',
@@ -1258,8 +1265,8 @@ export default function PartnerProgramPage() {
             </div>
             <p className="mt-6 text-[14px] text-neutral-500">
               {fr
-                ? 'La communauté vous aide à avancer et à débloquer vos questions. La formation, les replays et la communauté sont inclus dans le bootcamp et restent accessibles à vie. Les rendez-vous partenaires viennent avec le statut partenaire.'
-                : 'The community helps you move forward and unblock questions. Training, replays and community are included in the bootcamp with lifetime access. Partner sessions come with partner status.'}
+                ? 'La communauté vous aide à avancer et à débloquer vos questions. La formation, les replays et la communauté sont inclus dans le bootcamp et restent accessibles à vie. Un live chaque lundi à 14 h avec Empire Partners.'
+                : 'The community helps you move forward and unblock questions. Training, replays and community are included in the bootcamp with lifetime access. A live every Monday at 2 pm with Empire Partners.'}
             </p>
             {/* À côté de la communauté : le live gratuit Post it like it's hot,
                 ouvert à tous (inscription sur la page Systeme.io de POSTIT_URL). */}
@@ -1287,7 +1294,7 @@ export default function PartnerProgramPage() {
         </div>
       </section>
 
-      {/* Le bootcamp, puis le statut partenaire proposé après le paiement */}
+      {/* Ce que reçoit un membre d'Empire Partners : liste simple, sans montant. */}
       <section className="border-y border-white/[0.06] bg-[#0a0a0a] py-20 md:py-28">
         <div className="container">
           <div className="mx-auto max-w-[38rem]">
@@ -1316,9 +1323,6 @@ export default function PartnerProgramPage() {
                       <li key={line.label} className="flex items-start gap-2.5 text-[14px] leading-snug text-neutral-300">
                         <Check className="mt-0.5 h-4 w-4 shrink-0 text-academy" />
                         <span className="flex-1">{line.label}</span>
-                        <span className="shrink-0 tabular-nums text-white/70">
-                          {line.value === null ? (fr ? 'Selon mission' : 'Varies') : `${line.value.toLocaleString('fr-FR')} €`}
-                        </span>
                       </li>
                     ))}
                   </ul>
@@ -1326,25 +1330,6 @@ export default function PartnerProgramPage() {
               ))}
             </div>
 
-            <div className="mt-8 rounded-2xl border border-academy/25 bg-academy/[0.06] px-5 py-4">
-              <p className="flex items-center justify-between text-[14px]">
-                <span className="text-neutral-400">{fr ? 'Valeur totale' : 'Total value'}</span>
-                <span className="font-semibold tabular-nums text-neutral-500 line-through decoration-neutral-600">
-                  {VALUE_STACK[fr ? 'fr' : 'en']
-                    .reduce((s, g) => s + g.lines.reduce((a, l) => a + (l.value ?? 0), 0), 0)
-                    .toLocaleString('fr-FR')} €
-                </span>
-              </p>
-              <p className="mt-2 flex items-center justify-between text-[17px]">
-                <span className="font-semibold text-white">{fr ? 'Aujourd’hui' : 'Today'}</span>
-                <span className="text-2xl font-extrabold tabular-nums text-academy">{festival.price} €</span>
-              </p>
-              <p className="mt-3 border-t border-white/[0.08] pt-3 text-[11px] leading-relaxed text-neutral-500">
-                {fr
-                  ? 'Valeurs indicatives, estimées d’après le temps passé, l’investissement en formation et en coaching, l’investissement du fondateur et le prix des prestations équivalentes.'
-                  : 'Indicative values, estimated from time spent, training and coaching investment, the founder’s investment and the price of equivalent services.'}
-              </p>
-            </div>
             <div className="mt-8 flex w-full flex-col items-center gap-3">
               <PartnerPayLink fr={fr} source="program" price={festival.price} audience={audience} />
               <CtaBlock fr={fr} source="program" audience={audience} />

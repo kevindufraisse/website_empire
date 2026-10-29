@@ -229,7 +229,7 @@ export default function AgencyProgramPage() {
               href={partnerPayHref()}
               className="ml-auto shrink-0 rounded-lg bg-academy px-3.5 py-2 text-[12px] font-bold text-black transition hover:brightness-110"
             >
-              {fr ? 'Rejoindre l’Academy' : 'Join the Academy'}
+              {fr ? `Rejoindre Empire Partners · ${festival.price} €` : `Join Empire Partners · €${festival.price}`}
             </a>
           </div>
         </div>

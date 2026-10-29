@@ -6,6 +6,7 @@ import { Mail } from 'lucide-react'
 import { GiftFooterLink } from '@/components/GiftCountdownContext'
 import OnboardingLink from '@/components/OnboardingLink'
 import { partnerPayHref } from '@/lib/partner-festival-pricing'
+import JoinPartnersLabel from '@/components/JoinPartnersLabel'
 import { postitJoinUrl } from '@/lib/postit'
 
 export default function Footer() {
@@ -99,7 +100,7 @@ export default function Footer() {
                 className={`inline-flex flex-col items-start rounded-xl px-6 py-3.5 text-left font-bold text-black transition hover:brightness-110 ${isAcademyPage ? 'bg-academy' : 'bg-empire'}`}
               >
                 <span>{isAcademyPage
-                  ? (lang === 'fr' ? 'Rejoindre l’Academy' : 'Join the Academy')
+                  ? <JoinPartnersLabel fr={lang === 'fr'} />
                   : (lang === 'fr' ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial')}</span>
                 <span className="mt-1 text-[10px] font-semibold opacity-70">{isAcademyPage
                   ? (lang === 'fr' ? 'Paiement unique · Accès immédiat' : 'One-time payment · Instant access')

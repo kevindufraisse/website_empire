@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { getCalApi } from '@calcom/embed-react'
-import { CheckCircle2, Share2, X } from 'lucide-react'
+import { ArrowRight, CheckCircle2, Share2, X } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useCalLink } from '@/hooks/useCalLink'
 
@@ -11,10 +11,10 @@ type Choice = null | 'later' | 'maybe'
 
 const CAL_NAMESPACE = 'academy-upsell'
 
-const founders = [
-  { name: 'Kevin', img: '/founders/kevin.jpg' },
-  { name: 'Marc', img: '/founders/marc.jpg' },
-]
+// Les trois accès d'un membre (29 octobre 2026).
+const SLACK_INVITE_URL = 'https://join.slack.com/t/empire-community/shared_invite/zt-48r5is0lz-MiYTUfVBYgNymUbb56h_6g'
+const MONDAY_LIVE_URL = 'https://join.empire-internet.com/masterclass-empire-internet'
+const APP_URL = 'https://app.empire-internet.com'
 
 export default function AcademyThankYouClient() {
   const { lang } = useLanguage()
@@ -73,7 +73,7 @@ export default function AcademyThankYouClient() {
   function shareLink() {
     const url = 'https://empire-internet.com/academy'
     if (navigator.share) {
-      navigator.share({ title: 'Empire Academy', url })
+      navigator.share({ title: 'Empire Partners', url })
     } else {
       navigator.clipboard.writeText(url)
       setCopied(true)
@@ -105,7 +105,7 @@ export default function AcademyThankYouClient() {
               transition={{ delay: 0.2 }}
               className="text-2xl md:text-4xl font-black text-white mb-3"
             >
-              {fr ? 'Bienvenue dans ' : 'Welcome to '}<span className="text-academy">Empire Academy.</span>
+              {fr ? 'Bienvenue dans ' : 'Welcome to '}<span className="text-academy">Empire Partners</span>
             </motion.h1>
 
             <motion.p
@@ -115,10 +115,46 @@ export default function AcademyThankYouClient() {
               className="text-sm md:text-base text-neutral-400 max-w-lg mx-auto"
             >
               {fr
-                ? 'Votre paiement est confirmé. Le bootcamp s’ouvre tout de suite dans votre espace, à votre rythme, avec la communauté.'
-                : 'Your payment is confirmed. The bootcamp opens right away in your account, at your own pace, with the community.'}
+                ? 'Votre paiement est confirmé. Le bootcamp s’ouvre tout de suite dans votre espace : environ 1 heure par jour, à votre rythme, avec la communauté.'
+                : 'Your payment is confirmed. The bootcamp opens right away in your account: about 1 hour a day, at your own pace, with the community.'}
             </motion.p>
           </div>
+
+          {/* Les trois accès */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35 }}
+            className="mb-10 space-y-3"
+          >
+            {(fr
+              ? [
+                  { href: APP_URL, t: 'Ouvrir l’app Empire', d: 'Connectez-vous avec l’email du paiement : le bootcamp vous y attend.' },
+                  { href: SLACK_INVITE_URL, t: 'Rejoindre le Slack', d: 'La communauté Empire Partners, pour avancer et poser vos questions.' },
+                  { href: MONDAY_LIVE_URL, t: 'S’inscrire au live du lundi', d: 'Un live chaque lundi à 14 h.' },
+                ]
+              : [
+                  { href: APP_URL, t: 'Open the Empire app', d: 'Sign in with your payment email: the bootcamp is waiting for you.' },
+                  { href: SLACK_INVITE_URL, t: 'Join the Slack', d: 'The Empire Partners community, to move forward and ask your questions.' },
+                  { href: MONDAY_LIVE_URL, t: 'Register for the Monday live', d: 'A live every Monday at 2 pm.' },
+                ]
+            ).map((a, i) => (
+              <a
+                key={a.href}
+                href={a.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-4 rounded-2xl border border-academy/25 bg-academy/[0.05] px-5 py-4 transition hover:border-academy/50"
+              >
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-academy text-[12px] font-black text-black">{i + 1}</span>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-[15px] font-semibold text-white">{a.t}</span>
+                  <span className="mt-0.5 block text-[13px] leading-snug text-neutral-400">{a.d}</span>
+                </span>
+                <ArrowRight className="h-4 w-4 shrink-0 text-academy" />
+              </a>
+            ))}
+          </motion.div>
 
           {/* Upsell card */}
           <AnimatePresence mode="wait">
@@ -143,25 +179,20 @@ export default function AcademyThankYouClient() {
                   <div className="space-y-2 mb-5 text-sm text-neutral-300 leading-relaxed">
                     <p>
                       {fr
-                        ? <>L&apos;Academy vous apprend le systeme. <span className="text-white font-semibold">Empire, c&apos;est l&apos;etape d&apos;apres :</span> on prend en charge votre production de contenu. Vous n&apos;avez plus a publier.</>
-                        : <>The Academy teaches you the system. <span className="text-white font-semibold">Empire is the next step:</span> we handle your entire content production. You don&apos;t have to publish anymore.</>}
-                    </p>
-                    <p className="text-empire font-semibold text-sm">
-                      {fr
-                        ? "Si vous rejoignez Empire, vos 497 euros d'Academy sont rembourses."
-                        : "If you join Empire, your €497 Academy fee is refunded."}
+                        ? <>Empire Partners vous apprend le système. <span className="text-white font-semibold">Empire, c&apos;est l&apos;étape d&apos;après :</span> on prend en charge votre production de contenu. Vous n&apos;avez plus à publier.</>
+                        : <>Empire Partners teaches you the system. <span className="text-white font-semibold">Empire is the next step:</span> we handle your entire content production. You don&apos;t have to publish anymore.</>}
                     </p>
                   </div>
 
                   {showPrefill ? (
                     <form onSubmit={handlePrefillSubmit} className="space-y-2 mb-2">
                       <p className="text-xs text-neutral-400 mb-3">
-                        {fr ? 'Pour pre-remplir votre reservation :' : 'To pre-fill your booking:'}
+                        {fr ? 'Pour pré-remplir votre réservation :' : 'To pre-fill your booking:'}
                       </p>
                       <input
                         required
                         type="text"
-                        placeholder={fr ? 'Votre prenom et nom' : 'Your full name'}
+                        placeholder={fr ? 'Votre prénom et nom' : 'Your full name'}
                         value={prefillName}
                         onChange={e => setPrefillName(e.target.value)}
                         className="w-full px-4 py-2.5 rounded-lg bg-white/[0.06] border border-white/15 text-white text-sm placeholder:text-neutral-500 outline-none focus:border-empire/50"
@@ -178,7 +209,7 @@ export default function AcademyThankYouClient() {
                         type="submit"
                         className="w-full p-3.5 rounded-xl bg-empire text-black font-bold text-sm hover:scale-[1.02] transition-all shadow-[0_0_20px_rgba(218,252,104,0.2)] cursor-pointer"
                       >
-                        {fr ? 'Choisir mon creneau →' : 'Pick my slot →'}
+                        {fr ? 'Choisir mon créneau →' : 'Pick my slot →'}
                       </button>
                       <button type="button" onClick={() => setShowPrefill(false)} className="block mx-auto text-xs text-neutral-500 hover:text-neutral-300 transition-colors pt-1">
                         {fr ? 'Annuler' : 'Cancel'}
@@ -190,7 +221,7 @@ export default function AcademyThankYouClient() {
                         onClick={handleBookClick}
                         className="p-3.5 rounded-xl bg-empire text-black font-bold text-sm hover:scale-[1.02] transition-all shadow-[0_0_20px_rgba(218,252,104,0.2)] cursor-pointer text-center"
                       >
-                        {fr ? 'Reserver un appel' : 'Book a call'}
+                        {fr ? 'Réserver un appel' : 'Book a call'}
                       </button>
                       <button
                         onClick={() => setChoice('maybe')}
@@ -226,23 +257,23 @@ export default function AcademyThankYouClient() {
                   </button>
 
                   <p className="text-xs font-bold text-empire tracking-widest uppercase mb-2">
-                    {fr ? 'Comment ca se passe' : 'How it works'}
+                    {fr ? 'Comment ça se passe' : 'How it works'}
                   </p>
                   <h2 className="text-xl md:text-2xl font-bold text-white leading-tight mb-5">
-                    {fr ? 'Un appel de 45 minutes avec notre equipe.' : 'A 45-minute call with our team.'}
+                    {fr ? 'Un appel de 45 minutes avec notre équipe.' : 'A 45-minute call with our team.'}
                   </h2>
 
                   <div className="space-y-3 mb-6">
                     {(fr
                       ? [
-                          { t: 'On regarde votre business', d: 'Votre activite, vos objectifs, ce que vous faites deja.' },
+                          { t: 'On regarde votre business', d: 'Votre activité, vos objectifs, ce que vous faites déjà.' },
                           { t: "On vous explique ce qu'on ferait", d: 'Production quotidienne LinkedIn + Shorts + newsletter. Vous validez, on publie.' },
-                          { t: 'Vous decidez', d: "Si c'est non, l'Academy demarre comme prevu. Si c'est oui, on rembourse les 497 euros." },
+                          { t: 'Vous décidez', d: "Si c'est non, vous continuez avec Empire Partners comme prévu." },
                         ]
                       : [
                           { t: 'We look at your business', d: 'Your activity, your goals, what you already do.' },
                           { t: "We explain what we'd do", d: 'Daily LinkedIn + Shorts + newsletter production. You approve, we publish.' },
-                          { t: 'You decide', d: "If it's a no, the Academy starts as planned. If yes, we refund the €497." },
+                          { t: 'You decide', d: "If it's a no, you carry on with Empire Partners as planned." },
                         ]
                     ).map((s, i) => (
                       <div key={i} className="flex items-start gap-3">
@@ -260,12 +291,12 @@ export default function AcademyThankYouClient() {
                   {showPrefill ? (
                     <form onSubmit={handlePrefillSubmit} className="space-y-2">
                       <p className="text-xs text-neutral-400 mb-3">
-                        {fr ? 'Pour pre-remplir votre reservation :' : 'To pre-fill your booking:'}
+                        {fr ? 'Pour pré-remplir votre réservation :' : 'To pre-fill your booking:'}
                       </p>
                       <input
                         required
                         type="text"
-                        placeholder={fr ? 'Votre prenom et nom' : 'Your full name'}
+                        placeholder={fr ? 'Votre prénom et nom' : 'Your full name'}
                         value={prefillName}
                         onChange={e => setPrefillName(e.target.value)}
                         className="w-full px-4 py-2.5 rounded-lg bg-white/[0.06] border border-white/15 text-white text-sm placeholder:text-neutral-500 outline-none focus:border-empire/50"
@@ -282,7 +313,7 @@ export default function AcademyThankYouClient() {
                         type="submit"
                         className="w-full px-6 py-3.5 bg-empire text-black font-bold text-sm rounded-xl hover:scale-[1.01] transition-all shadow-[0_0_20px_rgba(218,252,104,0.25)] cursor-pointer"
                       >
-                        {fr ? 'Choisir mon creneau →' : 'Pick my slot →'}
+                        {fr ? 'Choisir mon créneau →' : 'Pick my slot →'}
                       </button>
                       <button type="button" onClick={() => setShowPrefill(false)} className="block mx-auto text-xs text-neutral-500 hover:text-neutral-300 transition-colors pt-1">
                         {fr ? 'Annuler' : 'Cancel'}
@@ -294,13 +325,13 @@ export default function AcademyThankYouClient() {
                         onClick={handleBookClick}
                         className="w-full block px-6 py-3.5 bg-empire text-black font-bold text-sm rounded-xl hover:scale-[1.01] transition-all shadow-[0_0_20px_rgba(218,252,104,0.25)] cursor-pointer text-center"
                       >
-                        {fr ? 'Reserver mon creneau' : 'Book my slot'}
+                        {fr ? 'Réserver mon créneau' : 'Book my slot'}
                       </button>
                       <button
                         onClick={() => setChoice('later')}
                         className="block mx-auto mt-3 text-xs text-neutral-500 hover:text-neutral-300 transition-colors"
                       >
-                        {fr ? "Plus tard, je commence l'Academy" : "Later, I'll start the Academy"}
+                        {fr ? 'Plus tard, je commence le bootcamp' : "Later, I'll start the bootcamp"}
                       </button>
                     </>
                   )}
@@ -324,11 +355,11 @@ export default function AcademyThankYouClient() {
                   </button>
 
                   <p className="text-lg font-bold text-white mb-2">
-                    {fr ? "Pas de souci. Concentrez-vous sur l'Academy." : "No worries. Focus on the Academy."}
+                    {fr ? 'Pas de souci. Concentrez-vous sur le bootcamp.' : 'No worries. Focus on the bootcamp.'}
                   </p>
                   <p className="text-sm text-neutral-400 max-w-md mx-auto">
                     {fr
-                      ? "L'offre reste valable pendant les 21 jours du bootcamp. Ecrivez-nous a tout moment a support@empire-internet.com."
+                      ? "L'offre reste valable pendant les 21 jours du bootcamp. Écrivez-nous à tout moment à support@empire-internet.com."
                       : "The offer remains valid for the 21 days of the bootcamp. Write to us anytime at support@empire-internet.com."}
                   </p>
                   <button
@@ -350,7 +381,7 @@ export default function AcademyThankYouClient() {
             className="mt-10"
           >
             <p className="text-xs font-bold text-neutral-500 tracking-widest uppercase mb-3 text-center">
-              {fr ? 'Prochaines etapes' : 'Next steps'}
+              {fr ? 'Prochaines étapes' : 'Next steps'}
             </p>
             <div className="grid sm:grid-cols-2 gap-3">
               <div className="p-4 rounded-xl bg-white/[0.04] border border-white/10">
@@ -359,17 +390,17 @@ export default function AcademyThankYouClient() {
                 </p>
                 <p className="text-neutral-400 text-xs leading-relaxed">
                   {fr
-                    ? '21 jours à votre rythme. 15 min/jour pour publier.'
-                    : '21 days at your own pace. 15 min/day to publish.'}
+                    ? '21 jours à votre rythme, environ 1 heure par jour.'
+                    : '21 days at your own pace, about 1 hour a day.'}
                 </p>
               </div>
               <div className="p-4 rounded-xl bg-white/[0.04] border border-white/10">
                 <p className="text-white text-sm font-semibold mb-1">
-                  {fr ? 'Preparez 3 sujets' : 'Prepare 3 topics'}
+                  {fr ? 'Préparez 3 sujets' : 'Prepare 3 topics'}
                 </p>
                 <p className="text-neutral-400 text-xs leading-relaxed">
                   {fr
-                    ? 'Les themes sur lesquels vous voulez etre reconnu.'
+                    ? 'Les thèmes sur lesquels vous voulez être reconnu.'
                     : 'The topics you want to be known for.'}
                 </p>
               </div>
@@ -385,8 +416,8 @@ export default function AcademyThankYouClient() {
           >
             <p className="text-sm text-neutral-500 mb-3">
               {fr
-                ? "Quelqu'un dans votre entourage devrait faire le bootcamp ?"
-                : 'Someone in your circle should do the bootcamp?'}
+                ? "Quelqu'un dans votre entourage devrait rejoindre Empire Partners ?"
+                : 'Someone in your circle should join Empire Partners?'}
             </p>
             <button
               onClick={shareLink}
@@ -394,8 +425,8 @@ export default function AcademyThankYouClient() {
             >
               <Share2 size={14} className="text-academy" />
               {copied
-                ? (fr ? 'Lien copie' : 'Link copied')
-                : (fr ? 'Partager le bootcamp' : 'Share the bootcamp')}
+                ? (fr ? 'Lien copié' : 'Link copied')
+                : (fr ? 'Partager Empire Partners' : 'Share Empire Partners')}
             </button>
           </motion.div>
 

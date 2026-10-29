@@ -6,6 +6,7 @@ import { ChevronDown, Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { postitJoinUrl } from '@/lib/postit'
 import { partnerPayHref } from '@/lib/partner-festival-pricing'
+import JoinPartnersLabel from '@/components/JoinPartnersLabel'
 import { startFreeTrial } from '@/lib/startTrial'
 import { trackAmplitude } from '@/lib/amplitude'
 
@@ -90,7 +91,7 @@ export default function Header() {
       onClick={() => setIsMenuOpen(false)}
       className="rounded-lg bg-academy px-4 py-2 text-sm font-semibold text-black transition hover:brightness-110"
     >
-      {fr ? 'Rejoindre l’Academy' : 'Join the Academy'}
+      <JoinPartnersLabel fr={fr} />
     </a>
   ) : (
     <button
