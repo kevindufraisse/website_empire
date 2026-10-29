@@ -18,6 +18,7 @@ import {
 } from '@/lib/plans'
 import { startFreeTrial, TRIAL_CREDITS } from '@/lib/startTrial'
 import { trackAmplitude, withAmplitudeDeviceId } from '@/lib/amplitude'
+import { LIVE_OFFER, isLivePlan, useCountdown, type LiveWindow } from '@/lib/liveOffer'
 import {
   ORDER_CARD,
   ORDER_CARD_QUIET,
@@ -87,9 +88,11 @@ type Props = {
    *  d'ouvrir l'inscription ; le panier porte le seul bouton d'achat. */
   chosen?: PlanId
   onChoose?: (plan: PlanId) => void
+  /** Arrivé par le lien du live : Growth et Scale à -300 €/mois pendant 3 mois (mensuel seulement). */
+  live?: LiveWindow | null
 }
 
-export default function PlanCards({ location, period: controlled, onPeriodChange, hidePayg = false, chosen, onChoose }: Props) {
+export default function PlanCards({ location, period: controlled, onPeriodChange, hidePayg = false, chosen, onChoose, live = null }: Props) {
   const { lang } = useLanguage()
   const fr = lang === 'fr'
   const locale = fr ? 'fr-FR' : 'en-US'
@@ -105,6 +108,7 @@ export default function PlanCards({ location, period: controlled, onPeriodChange
   const badge = discount > 0 ? `-${Math.round(discount * 100)}%` : null
   const suffix = SUFFIX[period][fr ? 'fr' : 'en']
   const perMonth = fr ? '/mois' : '/mo'
+  const countdown = useCountdown(live?.endsAt)
 
   const choose = async (col: PlanId | 'payg') => {
     if (onChoose && col !== 'payg') {
@@ -159,17 +163,31 @@ export default function PlanCards({ location, period: controlled, onPeriodChange
                   </span>
                 )}
                 <span className="text-xs font-semibold leading-tight text-white">{PLAN_LABELS[p.id][fr ? 'fr' : 'en']}</span>
-                <span className="text-[11px] tabular-nums text-neutral-300">{finalPrice(p.price, period, 1)}€{perMonth}</span>
+                <span className="text-[11px] tabular-nums text-neutral-300">
+                  {live && period === 'monthly' && isLivePlan(p.id) ? LIVE_OFFER.plans[p.id].monthly : finalPrice(p.price, period, 1)}€{perMonth}
+                </span>
               </button>
             )
           })}
         </div>
       </div>
 
+      {live && period !== 'monthly' && (
+        <p className="text-center text-xs text-neutral-300">
+          {fr
+            ? `Ton offre du live (-${LIVE_OFFER.discountMonthly} € par mois pendant ${LIVE_OFFER.discountMonths} mois) est en mensuel. `
+            : `Your live offer (-€${LIVE_OFFER.discountMonthly} a month for ${LIVE_OFFER.discountMonths} months) is monthly. `}
+          <button type="button" onClick={() => setPeriod('monthly')} className="cursor-pointer font-semibold text-white underline decoration-white/30 underline-offset-2">
+            {fr ? 'Voir en mensuel' : 'See monthly'}
+          </button>
+        </p>
+      )}
+
       <div className="grid gap-5 lg:grid-cols-3 lg:items-stretch">
         {PLANS.map((plan) => {
           const featured = onChoose ? plan.id === selected : !!plan.highlighted
-          const price = finalPrice(plan.price, period, 1)
+          const liveDeal = live && period === 'monthly' && isLivePlan(plan.id) ? LIVE_OFFER.plans[plan.id] : null
+          const price = liveDeal ? liveDeal.monthly : finalPrice(plan.price, period, 1)
           const total = (price * billing.months).toLocaleString(locale)
           const d = PLAN_DELIVERABLES[plan.id]
           const extras = EXTRAS[plan.id]
@@ -195,17 +213,31 @@ export default function PlanCards({ location, period: controlled, onPeriodChange
                     </div>
                     {onChoose && plan.id === selected
                       ? <span className={`inline-flex items-center gap-1 whitespace-nowrap ${ORDER_TAG}`}><Check className="h-3 w-3" />{fr ? 'Choisie' : 'Chosen'}</span>
-                      : plan.highlighted && <span className={`whitespace-nowrap ${ORDER_TAG}`}>{fr ? 'Populaire' : 'Popular'}</span>}
+                      : liveDeal
+                        ? <span className={`whitespace-nowrap ${ORDER_TAG}`}>{fr ? 'Offre du live' : 'Live offer'}</span>
+                        : plan.highlighted && <span className={`whitespace-nowrap ${ORDER_TAG}`}>{fr ? 'Populaire' : 'Popular'}</span>}
                   </div>
 
                   <div className="space-y-1">
                     <div className="flex flex-wrap items-baseline gap-2">
-                      {discount > 0 && <span className={`text-xl ${ORDER_STRUCK}`}>{plan.price}€</span>}
+                      {(discount > 0 || liveDeal) && <span className={`text-xl ${ORDER_STRUCK}`}>{plan.price}€</span>}
                       <span className={`text-[2.75rem] ${ORDER_PRICE}`}>{price}€</span>
                       <span className="text-sm text-neutral-300">{perMonth}</span>
-                      {badge && <span className={ORDER_TAG}>{badge}</span>}
+                      {liveDeal
+                        ? <span className={ORDER_TAG}>-{LIVE_OFFER.discountMonthly} €</span>
+                        : badge && <span className={ORDER_TAG}>{badge}</span>}
                     </div>
-                    {discount > 0 && (
+                    {liveDeal && (
+                      <div className="space-y-0.5 pt-1.5 text-xs">
+                        <p className="text-neutral-200">
+                          {fr
+                            ? `Les ${LIVE_OFFER.discountMonths} premiers mois, puis ${liveDeal.listMonthly} €/mois`
+                            : `For the first ${LIVE_OFFER.discountMonths} months, then €${liveDeal.listMonthly}/mo`}
+                        </p>
+                        {countdown && <p className="font-semibold tabular-nums text-white">{fr ? `Encore ${countdown}` : `${countdown} left`}</p>}
+                      </div>
+                    )}
+                    {!liveDeal && discount > 0 && (
                       <p className="pt-1.5 text-xs text-neutral-300">{fr ? `Facturé ${total}€${suffix}` : `Billed €${total}${suffix}`}</p>
                     )}
                   </div>
@@ -249,9 +281,11 @@ export default function PlanCards({ location, period: controlled, onPeriodChange
                     </button>
                     )}
                     <p className="mt-2 text-center text-xs leading-snug text-neutral-300">
-                      {fr
-                        ? `Essai gratuit : 7 jours ou ${TRIAL_CREDITS} crédits`
-                        : `Free trial: 7 days or ${TRIAL_CREDITS} credits`}
+                      {liveDeal
+                        ? (fr ? 'Premier mois prélevé aujourd’hui, sans engagement' : 'First month charged today, no commitment')
+                        : fr
+                          ? `Essai gratuit : 7 jours ou ${TRIAL_CREDITS} crédits`
+                          : `Free trial: 7 days or ${TRIAL_CREDITS} credits`}
                     </p>
                   </div>
 

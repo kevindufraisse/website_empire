@@ -7,6 +7,7 @@ import { getPartnerFestivalPricing } from '@/lib/partner-festival-pricing'
 import { BILLING_PERIODS, PLAN_LABELS, PLANS, finalPrice, type BillingId, type PlanId } from '@/lib/plans'
 import { startFreeTrial, TRIAL_CREDITS, type TrialOption } from '@/lib/startTrial'
 import { trackAmplitude } from '@/lib/amplitude'
+import { LIVE_OFFER, isLivePlan, liveCheckoutUrl, type LiveWindow } from '@/lib/liveOffer'
 import glass from '@/components/pricing/pricing.module.css'
 import { ORDER_CARD, ORDER_CTA, ORDER_LABEL, ORDER_TAG } from '@/lib/orderStyles'
 
@@ -25,7 +26,7 @@ const EXPERT_MONTHLY_EUROS = 500
 
 type Spots = { total: number | null; left: number | null }
 
-export default function OptionsPanel({ plan, period }: { plan: PlanId; period: BillingId }) {
+export default function OptionsPanel({ plan, period, live = null }: { plan: PlanId; period: BillingId; live?: LiveWindow | null }) {
   const { lang } = useLanguage()
   const fr = lang === 'fr'
   const locale = fr ? 'fr-FR' : 'en-US'
@@ -64,9 +65,12 @@ export default function OptionsPanel({ plan, period }: { plan: PlanId; period: B
 
   const planInfo = PLANS.find((p) => p.id === plan)!
   const billing = BILLING_PERIODS.find((b) => b.id === period)!
-  const perMonth = finalPrice(planInfo.price, period, 1)
+  // Offre du live : Growth / Scale en mensuel, premier mois prélevé
+  // aujourd'hui par la page de l'app, sans essai ni options.
+  const liveDeal = live && period === 'monthly' && isLivePlan(plan) ? LIVE_OFFER.plans[plan] : null
+  const perMonth = liveDeal ? liveDeal.monthly : finalPrice(planInfo.price, period, 1)
   const cycleTotal = perMonth * billing.months
-  const today = bootcamp ? bootcampEuros : 0
+  const today = liveDeal ? liveDeal.monthly : bootcamp ? bootcampEuros : 0
   const toggle = (which: TrialOption) => {
     const next = which === 'bootcamp' ? !bootcamp : !expert
     if (which === 'bootcamp') setBootcamp(next)
@@ -77,6 +81,11 @@ export default function OptionsPanel({ plan, period }: { plan: PlanId; period: B
   const checkout = async () => {
     if (opening) return
     setOpening(true)
+    if (liveDeal && live && isLivePlan(plan)) {
+      trackAmplitude('pricing_page_plan_clicked', { plan, billing_period: 'monthly', location: 'cart', offer: 'live' })
+      window.location.href = liveCheckoutUrl(live.email, plan)
+      return
+    }
     const options: TrialOption[] = [...(bootcamp ? ['bootcamp' as const] : []), ...(expert ? ['expert' as const] : [])]
     trackAmplitude('pricing_page_plan_clicked', { plan, billing_period: period, location: 'cart', options: options.join(',') })
     await startFreeTrial(plan, period, options)
@@ -120,6 +129,21 @@ export default function OptionsPanel({ plan, period }: { plan: PlanId; period: B
 
   return (
     <section className="mx-auto mt-10 grid max-w-5xl gap-5 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:items-start">
+      {liveDeal ? (
+        <div className="space-y-2 p-1 text-sm leading-relaxed text-neutral-300">
+          <p className={ORDER_LABEL}>{fr ? 'Ton offre du live' : 'Your live offer'}</p>
+          <p className="text-white">
+            {fr
+              ? `${PLAN_LABELS[plan].fr} à ${liveDeal.monthly} €/mois au lieu de ${liveDeal.listMonthly} €, les ${LIVE_OFFER.discountMonths} premiers mois.`
+              : `${PLAN_LABELS[plan].en} at €${liveDeal.monthly}/mo instead of €${liveDeal.listMonthly}, for the first ${LIVE_OFFER.discountMonths} months.`}
+          </p>
+          <p>
+            {fr
+              ? `Ensuite ${liveDeal.listMonthly} €/mois, sans engagement : tu arrêtes quand tu veux depuis l’app.`
+              : `Then €${liveDeal.listMonthly}/mo, no commitment: stop anytime from the app.`}
+          </p>
+        </div>
+      ) : (
       <div className="space-y-3">
         <p className={ORDER_LABEL}>{fr ? 'Ajoute à ta formule' : 'Add to your plan'}</p>
         {optionRow(
@@ -136,13 +160,16 @@ export default function OptionsPanel({ plan, period }: { plan: PlanId; period: B
           spotsLine,
         )}
       </div>
+      )}
 
       <div ref={cartRef} className={`p-5 sm:p-6 ${ORDER_CARD}`}>
         <p className="text-base font-semibold text-white">{fr ? 'Ton panier' : 'Your cart'}</p>
         <div className="mt-4 space-y-2">
-          {line(`${PLAN_LABELS[plan][fr ? 'fr' : 'en']} · ${fr ? billing.labelFr.toLowerCase() : billing.labelEn.toLowerCase()}`, `${perMonth} €${fr ? '/mois' : '/mo'}`)}
-          {bootcamp && line(fr ? 'Bootcamp Academy' : 'Academy bootcamp', `${bootcampEuros} €`, () => toggle('bootcamp'))}
-          {expert && line(full ? (fr ? 'Expert Empire (liste d’attente)' : 'Empire expert (waiting list)') : (fr ? 'Expert Empire' : 'Empire expert'), fr ? 'réglé avec l’expert' : 'paid to the expert', () => toggle('expert'))}
+          {line(liveDeal
+            ? `${PLAN_LABELS[plan][fr ? 'fr' : 'en']} · ${fr ? 'offre du live' : 'live offer'}`
+            : `${PLAN_LABELS[plan][fr ? 'fr' : 'en']} · ${fr ? billing.labelFr.toLowerCase() : billing.labelEn.toLowerCase()}`, `${perMonth} €${fr ? '/mois' : '/mo'}`)}
+          {!liveDeal && bootcamp && line(fr ? 'Bootcamp Academy' : 'Academy bootcamp', `${bootcampEuros} €`, () => toggle('bootcamp'))}
+          {!liveDeal && expert && line(full ? (fr ? 'Expert Empire (liste d’attente)' : 'Empire expert (waiting list)') : (fr ? 'Expert Empire' : 'Empire expert'), fr ? 'réglé avec l’expert' : 'paid to the expert', () => toggle('expert'))}
         </div>
         <div className="my-4 h-px bg-white/15" />
         <p className="flex items-baseline justify-between text-sm">
@@ -150,13 +177,17 @@ export default function OptionsPanel({ plan, period }: { plan: PlanId; period: B
           <span className="text-lg font-semibold tabular-nums text-white">{today.toLocaleString(locale)} €</span>
         </p>
         <p className="mt-1 text-xs text-neutral-300">
-          {bootcamp
+          {liveDeal
+            ? (fr ? 'Ton premier mois, prélevé aujourd’hui.' : 'Your first month, charged today.')
+            : bootcamp
             ? (fr ? `Le bootcamp. Ta formule démarre après 7 jours d’essai gratuit (ou ${TRIAL_CREDITS} crédits).` : `The bootcamp. Your plan starts after a 7-day free trial (or ${TRIAL_CREDITS} credits).`)
             : (fr ? `Ta formule démarre après 7 jours d’essai gratuit (ou ${TRIAL_CREDITS} crédits).` : `Your plan starts after a 7-day free trial (or ${TRIAL_CREDITS} credits).`)}
         </p>
         <p className="mt-3 flex items-baseline justify-between text-sm">
           <span className="text-neutral-300">{fr ? 'Ensuite' : 'Then'}</span>
-          <span className="tabular-nums text-white">{billing.months > 1 ? (fr ? `${cycleTotal.toLocaleString(locale)} € tous les ${billing.months} mois` : `€${cycleTotal.toLocaleString(locale)} every ${billing.months} months`) : `${perMonth} €${fr ? '/mois' : '/mo'}`}</span>
+          <span className="tabular-nums text-white">{liveDeal
+            ? (fr ? `${liveDeal.monthly} €/mois jusqu’au 3e mois, puis ${liveDeal.listMonthly} €` : `€${liveDeal.monthly}/mo through month 3, then €${liveDeal.listMonthly}`)
+            : billing.months > 1 ? (fr ? `${cycleTotal.toLocaleString(locale)} € tous les ${billing.months} mois` : `€${cycleTotal.toLocaleString(locale)} every ${billing.months} months`) : `${perMonth} €${fr ? '/mois' : '/mo'}`}</span>
         </p>
         <button type="button" onClick={checkout} disabled={opening} className={`mt-5 ${ORDER_CTA}`}>
           {opening ? (fr ? 'Ouverture…' : 'Opening…') : (
@@ -167,7 +198,9 @@ export default function OptionsPanel({ plan, period }: { plan: PlanId; period: B
           )}
         </button>
         <p className="mt-2 text-center text-xs text-neutral-300">
-          {fr ? 'Sans engagement : annule pendant l’essai et ta formule ne te coûte rien.' : 'No commitment: cancel during the trial and your plan costs nothing.'}
+          {liveDeal
+            ? (fr ? 'Sans engagement : tu arrêtes quand tu veux depuis l’app.' : 'No commitment: stop anytime from the app.')
+            : (fr ? 'Sans engagement : annule pendant l’essai et ta formule ne te coûte rien.' : 'No commitment: cancel during the trial and your plan costs nothing.')}
         </p>
       </div>
 
@@ -178,7 +211,7 @@ export default function OptionsPanel({ plan, period }: { plan: PlanId; period: B
         <div className={`flex items-center gap-3 p-2.5 pl-4 ${ORDER_CARD}`}>
           <div className="min-w-0 flex-1">
             <p className="truncate text-sm font-semibold text-white">
-              {PLAN_LABELS[plan][fr ? 'fr' : 'en']}{bootcamp ? ' + bootcamp' : ''}{expert ? (fr ? ' + expert' : ' + expert') : ''}
+              {PLAN_LABELS[plan][fr ? 'fr' : 'en']}{liveDeal ? (fr ? ' · offre du live' : ' · live offer') : `${bootcamp ? ' + bootcamp' : ''}${expert ? ' + expert' : ''}`}
             </p>
             <p className="truncate text-xs text-neutral-300">
               {fr ? `${today.toLocaleString(locale)} € aujourd’hui, puis ${perMonth} €/mois` : `€${today.toLocaleString(locale)} today, then €${perMonth}/mo`}

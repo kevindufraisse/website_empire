@@ -25,6 +25,7 @@ import {
 import { TRIAL_CREDITS, TRIAL_TERMS_EN, TRIAL_TERMS_FR } from '@/lib/startTrial'
 import { trackAmplitude } from '@/lib/amplitude'
 import { ORDER_SEGMENT, ORDER_SEGMENTS } from '@/lib/orderStyles'
+import { LIVE_OFFER, useCountdown, useLiveOffer } from '@/lib/liveOffer'
 
 /**
  * Page tarifs du site, construite sur le pricing de l'app (cartes, sélecteur
@@ -297,6 +298,16 @@ export default function TarifsClient() {
   const [tab, setTab] = useState<Tab>('solo')
   // Panier (29 octobre 2026) : la formule choisie dans les cartes Solo.
   const [chosenPlan, setChosenPlan] = useState<PlanId>('growth')
+  // Arrivé par le lien du live : prix du live sur les cartes (Growth, Scale).
+  const liveOffer = useLiveOffer()
+  const live = liveOffer.live
+  const liveLeft = useCountdown(live?.endsAt)
+  const [liveEmail, setLiveEmail] = useState('')
+  useEffect(() => {
+    if (!live) return
+    setPeriod('monthly')
+    setChosenPlan('scale')
+  }, [live])
 
   useEffect(() => {
     const sync = () => {
@@ -338,6 +349,39 @@ export default function TarifsClient() {
           </p>
         </header>
 
+        {live && (
+          <div className={`mx-auto mt-6 max-w-2xl px-4 py-3 text-center text-sm ${glass.panel} ${glass.compact}`}>
+            <p className="font-semibold text-white">
+              {fr
+                ? `Offre du live : -${LIVE_OFFER.discountMonthly} € par mois pendant ${LIVE_OFFER.discountMonths} mois sur Growth et Scale`
+                : `Live offer: -€${LIVE_OFFER.discountMonthly} a month for ${LIVE_OFFER.discountMonths} months on Growth and Scale`}
+            </p>
+            {liveLeft && <p className="mt-0.5 tabular-nums text-neutral-300">{fr ? `Encore ${liveLeft}` : `${liveLeft} left`}</p>}
+          </div>
+        )}
+        {liveOffer.status === 'need_email' && (
+          <form
+            className={`mx-auto mt-6 flex max-w-xl flex-col gap-2 px-4 py-3 sm:flex-row sm:items-center ${glass.panel} ${glass.compact}`}
+            onSubmit={(e) => { e.preventDefault(); liveOffer.check(liveEmail) }}
+          >
+            <p className="flex-1 text-sm text-neutral-200">{fr ? 'Ton email pour voir ton prix du live' : 'Your email to see your live price'}</p>
+            <input
+              type="email"
+              required
+              value={liveEmail}
+              onChange={(e) => setLiveEmail(e.target.value)}
+              placeholder="toi@exemple.com"
+              className="min-h-10 rounded-md border border-white/20 bg-black/40 px-3 text-sm text-white placeholder:text-neutral-500"
+            />
+            <button type="submit" className={`min-h-10 cursor-pointer px-4 text-sm font-semibold ${glass.primaryButton}`}>
+              {fr ? 'Voir' : 'See'}
+            </button>
+          </form>
+        )}
+        {liveOffer.status === 'need_email' && liveOffer.error && (
+          <p className="mt-2 text-center text-xs text-neutral-300">{fr ? 'Cet email n’a pas l’air valide.' : 'This email does not look valid.'}</p>
+        )}
+
         <div className={`mx-auto mt-8 max-w-lg grid-cols-3 ${ORDER_SEGMENTS}`} role="tablist" aria-label={fr ? 'Type d’offre' : 'Offer type'}>
           {TABS.map((t) => (
             <button
@@ -354,13 +398,13 @@ export default function TarifsClient() {
         </div>
 
         <div className="mt-6" role="tabpanel">
-          {tab === 'solo' && <PlanCards location="cards" period={period} onPeriodChange={setPeriod} hidePayg chosen={chosenPlan} onChoose={setChosenPlan} />}
+          {tab === 'solo' && <PlanCards location="cards" period={period} onPeriodChange={setPeriod} hidePayg chosen={chosenPlan} onChoose={setChosenPlan} live={live} />}
           {tab === 'team' && <TeamCards period={period} onPeriodChange={setPeriod} />}
           {tab === 'payg' && <PaygCards />}
         </div>
 
         {/* Le panier : formule choisie, options, un seul bouton (onglet Solo). */}
-        {tab === 'solo' && <OptionsPanel plan={chosenPlan} period={period} />}
+        {tab === 'solo' && <OptionsPanel plan={chosenPlan} period={period} live={live} />}
 
         <FeaturedInSection className="mt-12" variant="compact" title={fr ? 'Mis en avant par' : 'Featured by'} />
 
