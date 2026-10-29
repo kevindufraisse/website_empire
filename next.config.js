@@ -30,11 +30,11 @@ const nextConfig = {
         destination: '/tarifs',
         permanent: true,
       },
-      // Une seule offre depuis le 29 octobre 2026, celle de /tarifs : l'ancienne
-      // page /final-offer et l'offre du live n'existent plus.
+      // L'offre du live (deadline personnelle de 72 h) vit dans l'app :
+      // /final-offer y arrive, et Next conserve la query (?email= des emails).
       {
         source: '/final-offer',
-        destination: '/tarifs',
+        destination: 'https://app.empire-internet.com/join/internet?offer=live',
         permanent: false,
       },
       {
