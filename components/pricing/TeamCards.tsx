@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { ArrowRight, Check, Minus, Plus } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import {
-  APP_JOIN_URL,
+  APP_ONBOARDING_URL,
   BILLING_PERIODS,
   MAX_SELF_SERVE_SEATS,
   PLANS,
@@ -32,7 +32,8 @@ import {
 /**
  * Onglet « Équipe et agence » de /tarifs (29 octobre 2026), sur le modèle
  * Team & Enterprise de Claude : les places en libre-service (2 à 20, remise de
- * volume de /join/empire), et l'offre agence et entreprise sur devis.
+ * volume de l'app), et l'offre agence et entreprise sur devis. Le bouton
+ * mène à l'inscription (?intent=enterprise), puis au paiement.
  */
 
 const AGENCY = {
@@ -75,9 +76,12 @@ export default function TeamCards({ period, onPeriodChange }: { period: BillingI
     if (opening) return
     setOpening(true)
     trackAmplitude('pricing_page_plan_clicked', { plan, billing_period: period, seats, location: 'team' })
-    const url = new URL(APP_JOIN_URL)
+    // Inscription d'abord, paiement ensuite (29 octobre 2026) : l'onboarding
+    // de l'app garde la config et ouvre le paiement équipe juste après.
+    const url = new URL(APP_ONBOARDING_URL)
+    url.searchParams.set('intent', 'enterprise')
     url.searchParams.set('plan', plan)
-    url.searchParams.set('period', period)
+    url.searchParams.set('billing', period)
     url.searchParams.set('seats', String(seats))
     window.location.href = withAmplitudeDeviceId(url.toString())
   }

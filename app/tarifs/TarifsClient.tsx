@@ -132,8 +132,8 @@ const FAQ = [
   {
     q: { fr: 'Et le paiement à l’usage ?', en: 'And pay as you go?' },
     a: {
-      fr: `Tu enregistres ta carte, 0 € aujourd’hui. À ta première action payante, une recharge de ${PAYG_RECHARGE.euros} € (${PAYG_RECHARGE.credits} crédits), puis une nouvelle dès que ton solde ne suffit plus. Tu fixes un plafond par mois. Pas d’abonnement. La communauté Slack est incluse ; le live et les replays restent réservés aux abonnés.`,
-      en: `Save your card, €0 today. On your first paid action, a €${PAYG_RECHARGE.euros} top-up (${PAYG_RECHARGE.credits} credits), then another when your balance runs low. You set a monthly cap. No subscription. The Slack community is included; the live and replays stay for subscribers.`,
+      fr: `Pas d’abonnement : tu recharges ${PAYG_RECHARGE.euros}, 50 ou 100 €, et une nouvelle recharge part quand ton solde ne suffit plus. Tu fixes un plafond par mois. La communauté Slack est incluse ; le live et les replays restent réservés aux abonnés.`,
+      en: `No subscription: top up €${PAYG_RECHARGE.euros}, €50 or €100, and a new top-up runs when your balance runs low. You set a monthly cap. The Slack community is included; the live and replays stay for subscribers.`,
     },
   },
   {

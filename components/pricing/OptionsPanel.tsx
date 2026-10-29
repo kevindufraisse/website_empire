@@ -11,14 +11,16 @@ import { ORDER_CTA_SECONDARY, ORDER_LABEL, ORDER_TAG } from '@/lib/orderStyles'
 /**
  * Les options de /tarifs (29 octobre 2026), à ajouter à une formule comme dans
  * un panier :
- *  - le bootcamp Academy, au prix du jour de la grille de la semaine, à cocher
- *    au moment du paiement (/join/empire) ;
+ *  - le bootcamp Academy, au prix du jour de la grille de la semaine, payé à
+ *    part sur /join/academy?offer=bootcamp ;
  *  - un expert Empire Partners, 500 €/mois réglés avec l'expert : sur demande,
  *    rien n'est payé en ligne. La demande part à Marc (via /api/expert-request)
  *    et l'expert contacte le client en privé sous 48 h.
  */
 
 const EXPERT_MONTHLY_EUROS = 500
+// Le paiement du bootcamp seul, au prix de la grille de la semaine.
+const BOOTCAMP_CHECKOUT_URL = 'https://app.empire-internet.com/join/academy?offer=bootcamp'
 
 type Spots = { total: number | null; left: number | null }
 
@@ -90,9 +92,17 @@ export default function OptionsPanel({ plan }: { plan: string }) {
           </div>
           <p className="text-sm leading-relaxed text-neutral-300">
             {fr
-              ? 'Apprends la méthode à ton rythme : 21 vidéos, la certification et la communauté. Payé une fois, au prix de la semaine : tu le coches au moment du paiement.'
-              : 'Learn the method at your own pace: 21 videos, the certification and the community. Paid once, at this week’s price: tick it at checkout.'}
+              ? 'Apprends la méthode à ton rythme : 21 vidéos, la certification et la communauté. Payé une fois, au prix de la semaine.'
+              : 'Learn the method at your own pace: 21 videos, the certification and the community. Paid once, at this week’s price.'}
           </p>
+          <a
+            href={BOOTCAMP_CHECKOUT_URL}
+            onClick={() => trackAmplitude('pricing_page_bootcamp_clicked', { plan, price: bootcampEuros })}
+            className={`mt-auto ${ORDER_CTA_SECONDARY}`}
+          >
+            {fr ? `Ajouter le bootcamp · ${bootcampEuros} €` : `Add the bootcamp · €${bootcampEuros}`}
+            <ArrowRight className="ml-1 h-4 w-4" />
+          </a>
         </div>
 
         <div className={`flex flex-col gap-3 p-5 ${glass.panel}`}>
