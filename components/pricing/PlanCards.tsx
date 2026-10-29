@@ -109,6 +109,8 @@ export default function PlanCards({ location, period: controlled, onPeriodChange
   const suffix = SUFFIX[period][fr ? 'fr' : 'en']
   const perMonth = fr ? '/mois' : '/mo'
   const countdown = useCountdown(live?.endsAt)
+  // Offre du live : seuls Growth et Scale sont concernés, Starter est masqué.
+  const plans = live ? PLANS.filter((p) => isLivePlan(p.id)) : PLANS
 
   const choose = async (col: PlanId | 'payg') => {
     if (onChoose && col !== 'payg') {
@@ -145,8 +147,8 @@ export default function PlanCards({ location, period: controlled, onPeriodChange
           ))}
         </div>
 
-        <div className="grid grid-cols-3 gap-2 lg:hidden" role="radiogroup" aria-label={fr ? 'Formule' : 'Plan'}>
-          {PLANS.map((p) => {
+        <div className={`grid gap-2 lg:hidden ${plans.length === 2 ? 'grid-cols-2' : 'grid-cols-3'}`} role="radiogroup" aria-label={fr ? 'Formule' : 'Plan'}>
+          {plans.map((p) => {
             const active = p.id === selected
             return (
               <button
@@ -183,8 +185,8 @@ export default function PlanCards({ location, period: controlled, onPeriodChange
         </p>
       )}
 
-      <div className="grid gap-5 lg:grid-cols-3 lg:items-stretch">
-        {PLANS.map((plan) => {
+      <div className={`mx-auto grid gap-5 lg:items-stretch ${plans.length === 2 ? 'max-w-3xl lg:grid-cols-2' : 'lg:grid-cols-3'}`}>
+        {plans.map((plan) => {
           const featured = onChoose ? plan.id === selected : !!plan.highlighted
           const liveDeal = live && period === 'monthly' && isLivePlan(plan.id) ? LIVE_OFFER.plans[plan.id] : null
           const price = liveDeal ? liveDeal.monthly : finalPrice(plan.price, period, 1)
