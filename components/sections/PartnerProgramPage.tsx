@@ -121,7 +121,11 @@ export function FestivalPriceBlock({
                 )}
               </span>
               <span className={`text-[13px] tabular-nums ${isCurrent ? 'font-bold text-white' : 'text-neutral-500'}`}>
-                {isPast ? (fr ? 'Complet' : 'Full') : `${tier.price} €`}
+                {isPast ? (
+                  <span className="line-through decoration-neutral-600">{tier.price} €</span>
+                ) : (
+                  `${tier.price} €`
+                )}
               </span>
             </div>
           )
@@ -137,6 +141,13 @@ export function FestivalPriceBlock({
         </p>
       )}
 
+      {/* Comme une billetterie de festival : le prix monte au fil de la semaine.
+          Pas de « places limitées » : il n'y a pas de limite réelle. */}
+      <p className="mt-3 text-[12px] leading-snug text-neutral-400">
+        {fr
+          ? 'Comme pour un festival : plus tôt dans la semaine, moins cher. C’est notre façon de remercier ceux qui se décident en premier. Chaque lundi, le prix repart du bas.'
+          : 'Like festival tickets: earlier in the week costs less. It’s our way of thanking those who decide first. Every Monday, the price starts low again.'}
+      </p>
       <p className="mt-3 text-[12px] leading-snug text-neutral-500">
         {fr
           ? 'Le live d’onboarding est chaque lundi à 14 h. Inscris-toi avant lundi pour démarrer cette semaine.'
@@ -225,6 +236,70 @@ export function CtaBlock({
       </span>
       <ArrowRight className="h-4 w-4 shrink-0" />
     </WebinarJamButton>
+  )
+}
+
+const WHY_LOOM_ID = '4029ade36c6d435ea579ea1f861d6565'
+
+/** « Pourquoi je travaillerais pour vous ? » : réponse de Kevin en vidéo
+ *  (Loom, 6 min, 4:3) et en quelques lignes, fidèles à son message. */
+function WhyKevinSection({ fr }: { fr: boolean }) {
+  const lines = fr
+    ? [
+        'J’étais en échec scolaire, et tout le monde pensait que je ne ferais rien de ma vie. À 19 ans, j’ai découvert WordPress. Les entrepreneurs voulaient tous un site pour se faire voir : c’était le personal branding de l’époque. Cet outil m’a lancé dans l’entrepreneuriat.',
+        'L’Academy, c’est ce que j’aurais voulu trouver à 19 ans : un réseau, et une compétence qui ne sera pas remplacée. Comprendre la psychologie humaine et les algorithmes, pour aider des entrepreneurs à se faire connaître dans un monde incertain.',
+      ]
+    : [
+        'I was failing at school, and everyone thought I would amount to nothing. At 19, I discovered WordPress. Every entrepreneur wanted a website to get noticed: it was the personal branding of the time. That tool got me into entrepreneurship.',
+        'The Academy is what I wish I had found at 19: a network, and a skill that won’t be replaced. Understanding human psychology and algorithms, to help entrepreneurs get known in an uncertain world.',
+      ]
+  return (
+    <section id="pourquoi" className="scroll-mt-36 border-b border-white/[0.06] py-16 md:py-24">
+      <div className="container">
+        <div className="mx-auto max-w-[40rem]">
+          <SectionLabel>{fr ? 'Pourquoi je fais ça' : 'Why I do this'}</SectionLabel>
+          <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
+            {fr
+              ? '« Pourquoi je travaillerais pour vous ? » On me pose souvent la question.'
+              : '“Why would I work for you?” I get asked this a lot.'}
+          </h2>
+          <div className="relative mt-8 aspect-[4/3] w-full overflow-hidden rounded-2xl border border-white/15 bg-neutral-900/50">
+            <iframe
+              src={`https://www.loom.com/embed/${WHY_LOOM_ID}?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_title=true`}
+              title={fr ? 'Pourquoi l’Academy, par Kevin' : 'Why the Academy, by Kevin'}
+              loading="lazy"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowFullScreen
+              className="absolute inset-0 h-full w-full"
+            />
+          </div>
+          <div className="mt-8 space-y-4 text-[16px] leading-[1.6] text-neutral-400">
+            {lines.map((line) => (
+              <p key={line}>{line}</p>
+            ))}
+            <p className="font-medium text-white">
+              {fr
+                ? 'Je ne peux pas vous garantir un client. Ce que je peux vous garantir : pendant 21 jours, vous travaillez votre propre marque et vous apprenez les mécaniques qui font qu’un contenu est vu.'
+                : 'I can’t guarantee you a client. What I can guarantee: for 21 days, you work on your own brand and learn the mechanics that make content get seen.'}
+            </p>
+            <p>
+              {fr
+                ? 'Le prix d’inscription sert à maintenir l’Academy à jour et à rémunérer le temps que j’y mets. Je travaille sur Empire depuis un an et demi, depuis Lisbonne.'
+                : 'The registration fee keeps the Academy up to date and pays for the time I put into it. I’ve been building Empire for a year and a half, from Lisbon.'}
+            </p>
+          </div>
+          <div className="mt-6 flex items-center gap-3">
+            <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full ring-2 ring-academy/40">
+              <Image src="/founders/kevin.jpg" alt="Kevin Dufraisse" fill sizes="44px" className="object-cover" />
+            </div>
+            <p className="text-[13px] text-neutral-500">
+              <span className="font-semibold text-white">Kevin Dufraisse</span>
+              {fr ? ' · Fondateur d’Empire Internet' : ' · Founder of Empire Internet'}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }
 
@@ -443,8 +518,8 @@ export default function PartnerProgramPage() {
             {!agency && (
               <p className="mx-auto mt-4 max-w-xl text-lg font-medium text-white sm:text-xl">
                 {fr
-                  ? 'Gagnez 3 000 € par mois en 6 h par semaine, en accompagnant des entrepreneurs avec Empire.'
-                  : 'Earn €3,000 a month in 6 hours a week, coaching entrepreneurs with Empire.'}
+                  ? 'Vous fixez votre prix. Votre client vous paie chaque mois par votre page Empire, et l’outil produit ses contenus à votre place.'
+                  : 'You set your price. Your client pays you every month through your Empire page, and the tool produces their content for you.'}
               </p>
             )}
             <div className="mt-8 flex w-full flex-col items-center gap-3">
@@ -489,6 +564,7 @@ export default function PartnerProgramPage() {
           <div className="mx-auto flex max-w-6xl items-center gap-1 overflow-x-auto py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {(fr
               ? [
+                  ['#pourquoi', 'Pourquoi'],
                   ['#opportunite', 'Opportunité'],
                   ['#mission', 'Mission'],
                   ['#parcours', 'Fonctionnement'],
@@ -497,6 +573,7 @@ export default function PartnerProgramPage() {
                   ['#faq', 'FAQ'],
                 ]
               : [
+                  ['#pourquoi', 'Why'],
                   ['#opportunite', 'Opportunity'],
                   ['#mission', 'Mission'],
                   ['#parcours', 'How it works'],
@@ -530,6 +607,10 @@ export default function PartnerProgramPage() {
         </div>
       </section>
       <TopCreatorsSection compact accent="academy" />
+
+      {/* Pourquoi je fais ça : le message de Kevin (Loom du 29 octobre 2026),
+          avec ses mots. Aucun montant de revenu ici. */}
+      <WhyKevinSection fr={fr} />
 
       {/* Opportunité et besoin client, dans un seul argument */}
       <section id="opportunite" className="scroll-mt-36 border-b border-white/[0.06] py-16 md:py-24">
@@ -806,7 +887,7 @@ export default function PartnerProgramPage() {
                     },
                     {
                       t: 'La production Empire',
-                      d: `Le client paie séparément son abonnement de production, à partir de ${clientStarterPrice} € / mois. Ce montant ne vient pas réduire vos honoraires.`,
+                      d: `Votre client paie un seul montant chaque mois sur votre page : votre accompagnement plus son abonnement Empire (à partir de ${clientStarterPrice} € / mois). Votre part arrive directement sur votre compte Stripe.`,
                     },
                     {
                       t: 'Votre temps',
@@ -825,7 +906,7 @@ export default function PartnerProgramPage() {
                     },
                     {
                       t: 'Empire production',
-                      d: `The client separately pays for production, starting at €${clientStarterPrice} / month. This does not reduce your fees.`,
+                      d: `Your client pays one amount each month on your page: your support plus their Empire subscription (from €${clientStarterPrice} / month). Your share goes straight to your Stripe account.`,
                     },
                     {
                       t: 'Your time',
@@ -1224,8 +1305,8 @@ export default function PartnerProgramPage() {
             </p>
             <p className="mt-2 text-[14px] text-neutral-500">
               {fr
-                ? '297 € du lundi au jeudi · 397 € le vendredi et le samedi · 497 € le dimanche · retour à 297 € le lundi.'
-                : '€297 Monday to Thursday · €397 on Friday and Saturday · €497 on Sunday · back to €297 on Monday.'}
+                ? '297 € du lundi au jeudi · 397 € le vendredi et le samedi · 497 € le dimanche · retour à 297 € le lundi. Comme pour un festival, ceux qui se décident tôt paient moins.'
+                : '€297 Monday to Thursday · €397 on Friday and Saturday · €497 on Sunday · back to €297 on Monday. Like festival tickets, those who decide early pay less.'}
             </p>
             <div className="mt-8 space-y-7">
               {VALUE_STACK[fr ? 'fr' : 'en'].map((group) => (
@@ -1258,6 +1339,11 @@ export default function PartnerProgramPage() {
               <p className="mt-2 flex items-center justify-between text-[17px]">
                 <span className="font-semibold text-white">{fr ? 'Aujourd’hui' : 'Today'}</span>
                 <span className="text-2xl font-extrabold tabular-nums text-academy">{festival.price} €</span>
+              </p>
+              <p className="mt-3 border-t border-white/[0.08] pt-3 text-[11px] leading-relaxed text-neutral-500">
+                {fr
+                  ? 'Valeurs indicatives, estimées d’après le temps passé, l’investissement en formation et en coaching, l’investissement du fondateur et le prix des prestations équivalentes.'
+                  : 'Indicative values, estimated from time spent, training and coaching investment, the founder’s investment and the price of equivalent services.'}
               </p>
             </div>
             <div className="mt-8 flex w-full flex-col items-center gap-3">
