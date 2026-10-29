@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ArrowRight, Check, GraduationCap, Plus, UserRound, X } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { getPartnerFestivalPricing } from '@/lib/partner-festival-pricing'
@@ -34,6 +34,17 @@ export default function OptionsPanel({ plan, period }: { plan: PlanId; period: B
   const [bootcamp, setBootcamp] = useState(false)
   const [expert, setExpert] = useState(false)
   const [opening, setOpening] = useState(false)
+  // Barre flottante : le bouton d'achat reste visible pendant qu'on fait
+  // défiler la page ; elle se cache quand le panier lui-même est à l'écran.
+  const cartRef = useRef<HTMLDivElement>(null)
+  const [cartVisible, setCartVisible] = useState(false)
+  useEffect(() => {
+    const el = cartRef.current
+    if (!el || typeof IntersectionObserver === 'undefined') return
+    const obs = new IntersectionObserver(([entry]) => setCartVisible(entry.isIntersecting), { threshold: 0.3 })
+    obs.observe(el)
+    return () => obs.disconnect()
+  }, [])
 
   useEffect(() => {
     let cancelled = false
@@ -126,7 +137,7 @@ export default function OptionsPanel({ plan, period }: { plan: PlanId; period: B
         )}
       </div>
 
-      <div className={`p-5 sm:p-6 ${ORDER_CARD}`}>
+      <div ref={cartRef} className={`p-5 sm:p-6 ${ORDER_CARD}`}>
         <p className="text-base font-semibold text-white">{fr ? 'Ton panier' : 'Your cart'}</p>
         <div className="mt-4 space-y-2">
           {line(`${PLAN_LABELS[plan][fr ? 'fr' : 'en']} · ${fr ? billing.labelFr.toLowerCase() : billing.labelEn.toLowerCase()}`, `${perMonth} €${fr ? '/mois' : '/mo'}`)}
@@ -158,6 +169,26 @@ export default function OptionsPanel({ plan, period }: { plan: PlanId; period: B
         <p className="mt-2 text-center text-xs text-neutral-300">
           {fr ? 'Sans engagement : annule pendant l’essai et ta formule ne te coûte rien.' : 'No commitment: cancel during the trial and your plan costs nothing.'}
         </p>
+      </div>
+
+      <div
+        aria-hidden={cartVisible}
+        className={`fixed inset-x-0 bottom-4 z-40 mx-auto w-[min(640px,calc(100%-2rem))] transition-all duration-200 ${cartVisible ? 'pointer-events-none translate-y-4 opacity-0' : 'opacity-100'}`}
+      >
+        <div className={`flex items-center gap-3 p-2.5 pl-4 ${ORDER_CARD}`}>
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-sm font-semibold text-white">
+              {PLAN_LABELS[plan][fr ? 'fr' : 'en']}{bootcamp ? ' + bootcamp' : ''}{expert ? (fr ? ' + expert' : ' + expert') : ''}
+            </p>
+            <p className="truncate text-xs text-neutral-300">
+              {fr ? `${today.toLocaleString(locale)} € aujourd’hui, puis ${perMonth} €/mois` : `€${today.toLocaleString(locale)} today, then €${perMonth}/mo`}
+            </p>
+          </div>
+          <button type="button" onClick={checkout} disabled={opening} tabIndex={cartVisible ? -1 : 0} className={`!w-auto shrink-0 px-5 ${ORDER_CTA}`}>
+            {opening ? (fr ? 'Ouverture…' : 'Opening…') : (fr ? 'Continuer' : 'Continue')}
+            {!opening && <ArrowRight className="ml-1 h-4 w-4" />}
+          </button>
+        </div>
       </div>
     </section>
   )
