@@ -30,7 +30,7 @@ export default function AcademyPresentationCta({ fr, source }: { fr: boolean; so
     setError('')
     const clean = email.trim().toLowerCase()
     if (!EMAIL_RE.test(clean)) {
-      setError(fr ? 'Entrez un email valide.' : 'Enter a valid email.')
+      setError(fr ? 'Entre un email valide.' : 'Enter a valid email.')
       return
     }
     setBusy(true)
@@ -46,7 +46,7 @@ export default function AcademyPresentationCta({ fr, source }: { fr: boolean; so
       window.location.assign(PRESENTATION_PDF_URL)
     } catch {
       setBusy(false)
-      setError(fr ? 'L’envoi a échoué. Réessayez.' : 'Something failed. Try again.')
+      setError(fr ? 'L’envoi a échoué. Réessaie.' : 'Something failed. Try again.')
     }
   }
 
@@ -69,7 +69,7 @@ export default function AcademyPresentationCta({ fr, source }: { fr: boolean; so
   return (
     <form onSubmit={submit} className="mt-2.5 w-full rounded-2xl border border-white/[0.14] bg-white/[0.03] p-4 text-left">
       <p className="text-[13px] font-semibold text-white">
-        {fr ? 'La présentation Content Operator (5 min)' : 'The Content Operator deck (5 min)'}
+        {fr ? 'La présentation Empire Partners (5 min)' : 'The Content Operator deck (5 min)'}
       </p>
       <div className="mt-3 flex flex-col gap-2 sm:flex-row">
         <input
@@ -85,7 +85,7 @@ export default function AcademyPresentationCta({ fr, source }: { fr: boolean; so
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder={fr ? 'votre@email.com' : 'you@email.com'}
+          placeholder={fr ? 'ton@email.com' : 'you@email.com'}
           autoComplete="email"
           className="h-11 w-full flex-1 rounded-xl border border-white/[0.12] bg-black/50 px-3 text-sm text-white placeholder:text-white/35 focus:border-academy focus:outline-none"
         />

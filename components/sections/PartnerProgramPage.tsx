@@ -226,7 +226,67 @@ export function CtaBlock({
 
 const WHY_LOOM_ID = '4029ade36c6d435ea579ea1f861d6565'
 
-/** « Pourquoi je travaillerais pour vous ? » : réponse de Kevin en vidéo
+/** Avis Senja de participants du bootcamp, leurs mots (pas les études de cas
+ *  « Draft », rédigées par l'IA de Senja). Même bloc que /join/academy. */
+const BOOTCAMP_RESULTS = [
+  { name: 'Evelyne', text: 'En seulement 21 jours, j’ai franchi le cap des 100 000 vues et des 1 050 abonnés.' },
+  { name: 'Tristan', text: 'J’ai démarré il y a 50 jours et je suis à près d’1 million d’impressions.' },
+  { name: 'Caroline', text: 'Mon premier succès : 18K d’impressions. Le maximum jusqu’à présent était 2K !' },
+]
+
+/** Vidéo Senja de Marc (Mux), la même que sur /join/academy et /tarifs. */
+const MARC_MUX_ID = 'nxgu0275x00yQe01pECaRLhBs02L6udvY4RiEOblhBSsOdc'
+
+/** Résultats de participants, puis le témoignage partenaire de Marc. Le lien
+ *  de parenté est dit, et le fait que ses clients lui étaient apportés. */
+function PartnerProofSection({ fr }: { fr: boolean }) {
+  if (!fr) return null
+  return (
+    <section className="border-b border-white/[0.06] py-16 md:py-24">
+      <div className="container">
+        <div className="mx-auto max-w-[40rem]">
+          <SectionLabel>Ce que le bootcamp a donné à des participants</SectionLabel>
+          <div className="mt-6 space-y-3">
+            {BOOTCAMP_RESULTS.map((r) => (
+              <figure key={r.name} className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+                <blockquote className="text-[16px] leading-relaxed text-white">« {r.text} »</blockquote>
+                <figcaption className="mt-2 text-[13px] text-neutral-500">{r.name}</figcaption>
+              </figure>
+            ))}
+          </div>
+          <p className="mt-3 text-[13px] text-neutral-500">Résultats sur leur propre compte, ils varient selon chacun.</p>
+
+          <div className="mt-14">
+            <SectionLabel>Un partenaire raconte</SectionLabel>
+            <div className="mt-6 grid items-start gap-6 sm:grid-cols-[240px_1fr]">
+              <video
+                src={`https://stream.mux.com/${MARC_MUX_ID}/medium.mp4`}
+                poster={`https://image.mux.com/${MARC_MUX_ID}/thumbnail.jpg?time=10`}
+                controls
+                playsInline
+                preload="none"
+                className="mx-auto aspect-[9/16] w-full max-w-[240px] rounded-2xl border border-white/15 bg-black object-cover"
+              />
+              <div className="space-y-4 text-[16px] leading-[1.6] text-neutral-400">
+                <p className="text-[18px] leading-relaxed text-white">
+                  « Je faisais quatre heures de coaching, payé 500 euros. […] Ça me demandait très peu de charge de travail. En 1,5 jour, j’avais déjà généré 1 500 euros. »
+                </p>
+                <p>
+                  Marc a accompagné les premiers clients Empire : il leur montrait l’app et les aidait à repérer les sujets viraux de leur niche, en complément de son activité.
+                </p>
+                <p className="text-[13px] text-neutral-500">
+                  Marc Dufraisse · partenaire Empire, et mon frère. Ces premiers clients, c’est moi qui les lui apportais : aujourd’hui, les missions venant du site ne sont pas garanties.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/** « Pourquoi je travaillerais pour toi ? » : réponse de Kevin en vidéo
  *  (Loom, 6 min, 4:3) et en quelques lignes, fidèles à son message. */
 function WhyKevinSection({ fr }: { fr: boolean }) {
   const lines = fr
@@ -245,7 +305,7 @@ function WhyKevinSection({ fr }: { fr: boolean }) {
           <SectionLabel>{fr ? 'Pourquoi je fais ça' : 'Why I do this'}</SectionLabel>
           <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
             {fr
-              ? '« Pourquoi je travaillerais pour vous ? » On me pose souvent la question.'
+              ? '« Pourquoi je travaillerais pour toi ? » On me pose souvent la question.'
               : '“Why would I work for you?” I get asked this a lot.'}
           </h2>
           <div className="relative mt-8 aspect-[4/3] w-full overflow-hidden rounded-2xl border border-white/15 bg-neutral-900/50">
@@ -264,13 +324,18 @@ function WhyKevinSection({ fr }: { fr: boolean }) {
             ))}
             <p className="font-medium text-white">
               {fr
-                ? 'Je ne peux pas vous garantir un client. Ce que je peux vous garantir : pendant 21 jours, vous travaillez votre propre marque et vous apprenez les mécaniques qui font qu’un contenu est vu.'
+                ? 'Je ne peux pas te garantir un client. Ce que je peux te garantir : pendant 21 jours, tu travailles ta propre marque et tu apprends les mécaniques qui font qu’un contenu est vu.'
                 : 'I can’t guarantee you a client. What I can guarantee: for 21 days, you work on your own brand and learn the mechanics that make content get seen.'}
+            </p>
+            <p className="font-medium text-white">
+              {fr
+                ? 'Tu ne travailles pas pour moi. Tes clients te paient toi, tu fixes ton prix, et ta part arrive directement sur ton compte. Moi, je gagne quand ton client utilise Empire. On gagne ensemble.'
+                : 'You don’t work for me. Your clients pay you, you set your price, and your share lands directly in your account. I earn when your client uses Empire. We win together.'}
             </p>
             <p>
               {fr
-                ? 'Le prix d’inscription sert à maintenir le programme à jour et à rémunérer le temps que j’y mets. Je travaille sur Empire depuis un an et demi, depuis Lisbonne.'
-                : 'The registration fee keeps the program up to date and pays for the time I put into it. I’ve been building Empire for a year and a half, from Lisbon.'}
+                ? 'Les 500 €, ce sont tes frais d’inscription, comme dans une école : ils paient le bootcamp, les 4 000 crédits et le temps que j’y mets. Je travaille sur Empire depuis un an et demi, depuis Lisbonne.'
+                : 'The €500 is your registration fee, like at a school: it pays for the bootcamp, the 4,000 credits and the time I put in. I’ve been building Empire for a year and a half, from Lisbon.'}
             </p>
           </div>
           <div className="mt-6 flex items-center gap-3">
@@ -310,14 +375,14 @@ const VALUE_STACK: Record<'fr' | 'en', ValueGroup[]> = {
         { label: 'Un live chaque lundi à 14 h', value: null },
         { label: '6 h de replays à suivre', value: 497 },
         { label: '4 000 crédits offerts pour utiliser Empire (la machine à contenu)', value: 297 },
-        { label: 'Certification Empire (or, argent, bronze)', value: 497 },
+        { label: 'Un certificat Empire (or, argent ou bronze) selon les vues de tes contenus, à montrer à tes clients', value: 497 },
       ],
     },
     {
       title: 'Pour produire',
       lines: [
-        { label: 'Templates viraux directement dans votre calendrier', value: 297 },
-        { label: 'Partage (secret) des posts les plus efficaces chaque semaine', value: 997 },
+        { label: 'Des modèles de posts viraux, directement dans ton calendrier', value: 297 },
+        { label: 'Les posts qui marchent le mieux, chaque semaine', value: 997 },
       ],
     },
     {
@@ -332,8 +397,8 @@ const VALUE_STACK: Record<'fr' | 'en', ValueGroup[]> = {
     {
       title: 'Pour vendre',
       lines: [
-        { label: 'Templates de closing', value: 297 },
-        { label: 'Templates de setting', value: 297 },
+        { label: 'Modèles de messages pour vendre ton accompagnement', value: 297 },
+        { label: 'Modèles de messages pour décrocher des rendez-vous', value: 297 },
       ],
     },
   ],
@@ -400,36 +465,36 @@ export default function PartnerProgramPage() {
   const faqs = fr
     ? [
         {
-          q: 'Dois-je savoir monter des vidéos ou rédiger des posts ?',
-          a: 'Empire prend en charge cette production. Vous apprenez à accompagner le client, orienter ses contenus et les valider.',
+          q: 'Je dois savoir monter des vidéos ou rédiger des posts ?',
+          a: 'Empire prend en charge cette production. Tu apprends à accompagner le client, orienter ses contenus et les valider.',
         },
         {
-          q: 'Puis-je utiliser Empire avec mes clients actuels ?',
+          q: 'Je peux utiliser Empire avec mes clients actuels ?',
           a: 'Oui. Le programme s’adresse aux freelances et aux agences qui souhaitent accompagner des entrepreneurs dans leur présence en ligne.',
         },
         {
-          q: 'Le temps et les revenus annoncés sont-ils garantis ?',
-          a: 'Ce sont des repères. Le temps réel et la rémunération dépendent de la mission, de votre maîtrise du système et de vos clients.',
+          q: 'Le temps et les revenus annoncés sont garantis ?',
+          a: 'Ce sont des repères. Le temps réel et la rémunération dépendent de la mission, de ta maîtrise du système et de tes clients.',
         },
         {
-          q: 'Les portes ouvertes sont-elles payantes ?',
-          a: `Non. La présentation enregistrée est gratuite. Vous pouvez regarder le replay immédiatement ou choisir une session, dont l’horaire est affiché dans votre fuseau lors de l’inscription. Empire Partners (actuellement ${festival.price} €) se paie ensuite : 500 € du lundi au jeudi, 600 € le vendredi et le samedi, 700 € le dimanche. Lundi, il repart à 500 €.`,
+          q: 'Les portes ouvertes sont payantes ?',
+          a: `Non. La présentation enregistrée est gratuite. Tu peux regarder le replay tout de suite ou choisir une session, dont l’horaire est affiché dans ton fuseau à l’inscription. Empire Partners (actuellement ${festival.price} €) se paie ensuite : 500 € du lundi au jeudi, 600 € le vendredi et le samedi, 700 € le dimanche. Lundi, il repart à 500 €.`,
         },
         {
           q: 'Que se passe-t-il après le paiement ?',
-          a: 'Vous créez votre compte avec l’email du paiement, et le bootcamp s’ouvre tout de suite : les 21 vidéos, les replays et la communauté. Vous avancez à votre rythme, sans date de démarrage à attendre.',
+          a: 'Tu crées ton compte avec l’email du paiement, et le bootcamp s’ouvre tout de suite : les 21 vidéos, les replays et la communauté. Tu avances à ton rythme, sans date de démarrage à attendre.',
         },
         {
           q: 'Et si ça ne me convient pas ?',
-          a: 'Vous avez 14 jours pour changer d’avis : remboursé à 100 %, tant que vous n’avez produit aucun contenu ni utilisé de crédit.',
+          a: 'Tu as 14 jours pour changer d’avis : remboursé à 100 %, tant que tu n’as produit aucun contenu ni utilisé de crédit.',
         },
         {
           q: 'Et après les 4 000 crédits ?',
-          a: 'Vous continuez à utiliser Empire au prix coûtant.',
+          a: 'Tu as accès aux crédits partenaire, à un tarif réservé aux membres du programme.',
         },
         {
           q: 'Combien paie mon client ?',
-          a: 'Exemple : votre client paie 699 € par mois, 500 € pour vous et 199 € pour Empire. Vous fixez votre prix, votre part arrive directement sur votre compte.',
+          a: 'Exemple : ton client paie 699 € par mois, 500 € pour toi et 199 € pour Empire. Tu fixes ton prix, ta part arrive directement sur ton compte.',
         },
       ]
     : [
@@ -482,7 +547,7 @@ export default function PartnerProgramPage() {
         <div className="container relative z-10">
           <div className="mx-auto max-w-[40rem] text-center">
             <nav
-              aria-label={fr ? 'Choisissez votre parcours' : 'Choose your path'}
+              aria-label={fr ? 'Choisis ton parcours' : 'Choose your path'}
               className="mx-auto mb-5 inline-flex rounded-full border border-white/[0.08] bg-white/[0.025] p-0.5"
             >
               {(
@@ -522,8 +587,8 @@ export default function PartnerProgramPage() {
             <h1 className="mt-3 text-balance text-3xl font-semibold tracking-tight sm:text-4xl md:text-[2.75rem] md:leading-[1.15]">
               {fr
                 ? agency
-                  ? 'Ajoutez une offre de personal branding à votre agence. Sans recruter une équipe de production.'
-                  : 'Devenez Content Operator pour entrepreneurs en 21 jours.'
+                  ? 'Ajoute une offre de personal branding à ton agence. Sans recruter une équipe de production.'
+                  : 'Apprends à faire publier des entrepreneurs, et fais-toi payer pour ça.'
                 : agency
                   ? 'Add a personal-branding offer to your agency. Without hiring a production team.'
                   : 'Become a Content Operator for entrepreneurs in 21 days.'}
@@ -531,7 +596,7 @@ export default function PartnerProgramPage() {
             {!agency && (
               <p className="mx-auto mt-4 max-w-xl text-lg font-medium text-white sm:text-xl">
                 {fr
-                  ? 'Vous fixez votre prix. Votre client vous paie chaque mois par votre page Empire, et l’outil produit ses contenus à votre place.'
+                  ? 'Tu fixes ton prix. Ton client te paie chaque mois par ta page Empire, et l’outil produit ses contenus à ta place.'
                   : 'You set your price. Your client pays you every month through your Empire page, and the tool produces their content for you.'}
               </p>
             )}
@@ -544,7 +609,7 @@ export default function PartnerProgramPage() {
               {(fr
                 ? [
                     ['21 jours', 'pour maîtriser le système'],
-                    ['~1 h', 'par jour, à votre rythme'],
+                    ['~1 h', 'par jour, à ton rythme'],
                   ]
                 : [
                     ['21 days', 'to master the system'],
@@ -617,6 +682,7 @@ export default function PartnerProgramPage() {
       {/* Pourquoi je fais ça : le message de Kevin (Loom du 29 octobre 2026),
           avec ses mots. Aucun montant de revenu ici. */}
       <WhyKevinSection fr={fr} />
+      <PartnerProofSection fr={fr} />
 
       {/* Opportunité et besoin client, dans un seul argument */}
       <section id="opportunite" className="scroll-mt-36 border-b border-white/[0.06] py-16 md:py-24">
@@ -626,7 +692,7 @@ export default function PartnerProgramPage() {
             <h2 className="mt-4 max-w-3xl text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
               {fr
                 ? agency
-                  ? 'Vos clients ont besoin de créer de la demande. Mais ils n’arrivent pas à publier seuls.'
+                  ? 'Tes clients ont besoin de créer de la demande. Mais ils n’arrivent pas à publier seuls.'
                   : 'Les entreprises ont besoin de visibilité. Peu arrivent à publier seules.'
                 : agency
                   ? 'Your clients need to create demand. But they struggle to publish on their own.'
@@ -635,7 +701,7 @@ export default function PartnerProgramPage() {
             <p className="mt-5 max-w-3xl text-[16px] leading-relaxed text-neutral-400">
               {fr
                 ? agency
-                  ? 'Quand le chiffre d’affaires ralentit, vos clients cherchent plus de visibilité et de conversations commerciales. Le personal branding devient une offre complémentaire naturelle pour votre agence.'
+                  ? 'Quand le chiffre d’affaires ralentit, tes clients cherchent plus de visibilité et de conversations commerciales. Le personal branding devient une offre complémentaire naturelle pour ton agence.'
                   : 'Ce décalage crée une activité concrète : accompagner des entrepreneurs qui ont l’expertise, mais ni le temps, ni l’équipe, ni la méthode pour la transformer en contenus réguliers.'
                 : agency
                   ? 'When revenue slows, your clients need more visibility and sales conversations. Personal branding becomes a natural complementary offer for your agency.'
@@ -683,7 +749,7 @@ export default function PartnerProgramPage() {
             <div className="mt-8 rounded-2xl border border-academy/20 bg-academy/[0.045] px-5 py-4 sm:px-6">
               <p className="text-[15px] font-medium text-white">
                 {fr
-                  ? 'Votre prochain client a déjà des choses à raconter.'
+                  ? 'Ton prochain client a déjà des choses à raconter.'
                   : 'Your next client already has things to say.'}
               </p>
               <p className="mt-1.5 text-[13px] leading-relaxed text-neutral-400">
@@ -692,7 +758,7 @@ export default function PartnerProgramPage() {
                   : 'They know their craft, but choosing topics, recording and publishing consistently comes after everything else. What they need is someone who asks the right questions, sets priorities with them and keeps things moving every week.'}
               </p>
               <p className="mt-3 text-[14px] font-medium text-white">
-                {fr ? 'C’est votre rôle en tant que partenaire Empire.' : 'That is your role as an Empire partner.'}
+                {fr ? 'C’est ton rôle en tant que partenaire Empire.' : 'That is your role as an Empire partner.'}
               </p>
             </div>
 
@@ -702,7 +768,7 @@ export default function PartnerProgramPage() {
                   {fr ? 'Sans infrastructure' : 'Without infrastructure'}
                 </p>
                 <h3 className="mt-3 text-lg font-semibold text-white">
-                  {fr ? 'Vous vendez votre temps de production.' : 'You sell production time.'}
+                  {fr ? 'Tu vends ton temps de production.' : 'You sell production time.'}
                 </h3>
                 <ul className="mt-4 space-y-3 text-[14px] leading-relaxed text-neutral-500">
                   {(fr
@@ -729,14 +795,14 @@ export default function PartnerProgramPage() {
                   {fr ? 'Avec Empire' : 'With Empire'}
                 </p>
                 <h3 className="mt-3 text-lg font-semibold text-white">
-                  {fr ? 'Vous vendez le pilotage et la régularité.' : 'You sell leadership and consistency.'}
+                  {fr ? 'Tu vends le pilotage et la régularité.' : 'You sell leadership and consistency.'}
                 </h3>
                 <ul className="mt-4 space-y-3 text-[14px] leading-relaxed text-neutral-300">
                   {(fr
                     ? [
-                        'Vous choisissez les priorités avec le client.',
+                        'Tu choisis les priorités avec le client.',
                         'Empire rédige, monte et organise la production.',
-                        'Votre temps reste centré sur la relation et les décisions.',
+                        'Ton temps reste centré sur la relation et les décisions.',
                       ]
                     : [
                         'You choose priorities with the client.',
@@ -760,24 +826,24 @@ export default function PartnerProgramPage() {
       <section id="mission" className="scroll-mt-36 border-y border-white/[0.06] bg-[#0a0a0a] py-20 md:py-28">
         <div className="container">
           <div className="mx-auto max-w-[38rem]">
-            <SectionLabel>{fr ? 'Votre mission' : 'Your mission'}</SectionLabel>
+            <SectionLabel>{fr ? 'Ta mission' : 'Your mission'}</SectionLabel>
             <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
               {fr
                 ? agency
-                  ? 'Faire avancer la présence de vos clients, chaque semaine.'
-                  : 'Devenez la personne qui les fait enfin publier.'
+                  ? 'Faire avancer la présence de tes clients, chaque semaine.'
+                  : 'Deviens la personne qui les fait enfin publier.'
                 : agency
                   ? 'Move your clients’ online presence forward every week.'
                   : 'Become the person who finally gets them publishing.'}
             </h2>
             <p className="mt-6 text-[16px] leading-relaxed text-neutral-400">
               {fr
-                ? 'Vous transformez l’expertise du client en décisions : les bons sujets, les priorités, les retours et la régularité. Empire exécute la production en arrière-plan.'
+                ? 'Tu transformes l’expertise du client en décisions : les bons sujets, les priorités, les retours et la régularité. Empire exécute la production en arrière-plan.'
                 : 'You turn the client’s expertise into decisions: the right topics, priorities, feedback and consistency. Empire executes production in the background.'}
             </p>
             <p className="mt-4 text-[16px] font-medium leading-relaxed text-white">
               {fr
-                ? 'Vous ne vendez pas des posts. Vous vendez le suivi qui fait enfin publier le client.'
+                ? 'Tu ne vends pas des posts. Tu vends le suivi qui fait enfin publier le client.'
                 : 'You are not selling posts. You are selling the follow-through that finally gets the client publishing.'}
             </p>
             <p className="mt-6 text-[13px] leading-relaxed text-neutral-600">
@@ -792,10 +858,10 @@ export default function PartnerProgramPage() {
               </p>
               {(fr
                 ? [
-                    ['01', 'Préparer', 'Vous sélectionnez les sujets adaptés à son expertise et à ses priorités.'],
-                    ['02', 'Échanger', 'Vous guidez la session pour l’aider à exprimer ses meilleures idées.'],
-                    ['03', 'Valider', 'Vous relisez les contenus produits par Empire et centralisez les retours.'],
-                    ['04', 'Piloter', 'Vous organisez le calendrier et suivez ce qui fonctionne.'],
+                    ['01', 'Préparer', 'Tu sélectionnes les sujets adaptés à son expertise et à ses priorités.'],
+                    ['02', 'Échanger', 'Tu guides la session pour l’aider à exprimer ses meilleures idées.'],
+                    ['03', 'Valider', 'Tu relis les contenus produits par Empire et centralises les retours.'],
+                    ['04', 'Piloter', 'Tu organises le calendrier et suis ce qui fonctionne.'],
                   ]
                 : [
                     ['01', 'Prepare', 'Select topics adapted to their expertise and priorities.'],
@@ -843,22 +909,22 @@ export default function PartnerProgramPage() {
               <p>{fr ? 'Il le peut.' : 'They can.'}</p>
               <p>
                 {fr
-                  ? 'Mais utiliser une plateforme et avoir quelqu’un qui vous accompagne chaque semaine sont deux choses différentes.'
+                  ? 'Mais utiliser une plateforme et avoir quelqu’un qui t’accompagne chaque semaine sont deux choses différentes.'
                   : 'But using a platform and having someone support you every week are two different things.'}
               </p>
               <p>
                 {fr
-                  ? 'Votre client peut manquer de temps, hésiter sur ce qu’il veut raconter ou repousser ses enregistrements.'
+                  ? 'Ton client peut manquer de temps, hésiter sur ce qu’il veut raconter ou repousser ses enregistrements.'
                   : 'Your client may lack time, hesitate on what to say, or keep postponing recordings.'}
               </p>
               <p className="font-medium text-neutral-200">
                 {fr
-                  ? 'Vous apportez le suivi, le contexte et les décisions qui font avancer sa présence en ligne.'
+                  ? 'Tu apportes le suivi, le contexte et les décisions qui font avancer sa présence en ligne.'
                   : 'You bring the follow-through, context and decisions that move their presence forward.'}
               </p>
               <p className="text-white">
                 {fr
-                  ? 'Empire vous aide à réaliser la prestation. La relation avec le client, c’est vous.'
+                  ? 'Empire t’aide à réaliser la prestation. La relation avec le client, c’est toi.'
                   : 'Empire helps you deliver the work. The client relationship is yours.'}
               </p>
             </div>
@@ -871,15 +937,15 @@ export default function PartnerProgramPage() {
         <div className="container">
           <div className="mx-auto max-w-[40rem]">
             <div className="text-center">
-              <SectionLabel>{fr ? 'Votre activité' : 'Your business'}</SectionLabel>
+              <SectionLabel>{fr ? 'Ton activité' : 'Your business'}</SectionLabel>
               <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
                 {fr
-                  ? 'Qu’est-ce que cela peut représenter pour votre activité ?'
+                  ? 'Qu’est-ce que ça peut représenter pour ton activité ?'
                   : 'What could this mean for your business?'}
               </h2>
               <p className="mt-5 text-[16px] text-neutral-400">
                 {fr
-                  ? 'Avant de simuler vos revenus, voici précisément ce que paie le client et ce qui reste à votre charge.'
+                  ? 'Avant de simuler tes revenus, voici précisément ce que paie le client et ce qui reste à ta charge.'
                   : 'Before estimating revenue, here is exactly what the client pays and what remains your responsibility.'}
               </p>
             </div>
@@ -888,21 +954,21 @@ export default function PartnerProgramPage() {
               {(fr
                 ? [
                     {
-                      t: 'Vos honoraires',
-                      d: 'Vous fixez le prix de votre accompagnement. Repères indicatifs : environ 500 € par client au démarrage, puis 1 000 € ou plus avec l’expérience.',
+                      t: 'Tes honoraires',
+                      d: 'Tu fixes le prix de ton accompagnement. Repères indicatifs : environ 500 € par client au démarrage, puis 1 000 € ou plus avec l’expérience.',
                     },
                     {
                       t: 'La production Empire',
-                      d: `Votre client paie un seul montant chaque mois sur votre page : votre accompagnement plus son abonnement Empire (à partir de ${clientStarterPrice} € / mois). Votre part arrive directement sur votre compte Stripe.`,
+                      d: `Ton client paie un seul montant chaque mois sur ta page : ton accompagnement plus son abonnement Empire (à partir de ${clientStarterPrice} € / mois). Ta part arrive directement sur ton compte Stripe.`,
                     },
                     {
-                      t: 'Votre temps',
+                      t: 'Ton temps',
                       d: 'Une fois le système maîtrisé, le repère est d’environ 4 h par mois et par client. L’apprentissage, l’installation et la prospection sont en plus.',
                       hl: '4 h par mois et par client',
                     },
                     {
-                      t: 'Vos clients',
-                      d: 'Vous les trouvez grâce à votre contenu, vos recommandations et votre prospection. Empire peut proposer des missions, sans les garantir.',
+                      t: 'Tes clients',
+                      d: 'Tu les trouves grâce à ton contenu, tes recommandations et ta prospection. Empire peut proposer des missions, sans les garantir.',
                     },
                   ]
                 : [
@@ -941,19 +1007,19 @@ export default function PartnerProgramPage() {
             </dl>
             <p className="mt-4 text-center text-[12px] text-neutral-600">
               {fr
-                ? 'Vos honoraires dépendent de votre expérience, de la mission et du client. Ils sont indiqués avant frais, charges et impôts.'
+                ? 'Tes honoraires dépendent de ton expérience, de la mission et du client. Ils sont indiqués avant frais, charges et impôts.'
                 : 'Your fees depend on experience, mission and client. Figures are before fees, costs and tax.'}
             </p>
 
             <div className="mt-14">
               <h3 className="text-center text-xl font-semibold tracking-tight">
-                {fr ? 'Faites votre simulation.' : 'Run your simulation.'}
+                {fr ? 'Fais ta simulation.' : 'Run your simulation.'}
               </h3>
 
               <div className="mt-8 space-y-6">
                 <div>
                   <p className="text-[13px] font-medium text-neutral-400">
-                    {fr ? 'Votre niveau' : 'Your level'}
+                    {fr ? 'Ton niveau' : 'Your level'}
                   </p>
                   <div className="mt-2 grid grid-cols-3 gap-2">
                     {(
@@ -982,7 +1048,7 @@ export default function PartnerProgramPage() {
                 <div>
                   <div className="flex items-baseline justify-between gap-3">
                     <p className="text-[13px] font-medium text-neutral-400">
-                      {fr ? 'Votre disponibilité' : 'Your availability'}
+                      {fr ? 'Ta disponibilité' : 'Your availability'}
                     </p>
                     <p className="text-[14px] font-semibold text-white">
                       {hours} h / {fr ? 'mois' : 'month'}
@@ -999,14 +1065,14 @@ export default function PartnerProgramPage() {
                   />
                   <p className="mt-2 text-[12px] text-neutral-600">
                     {fr
-                      ? 'Combien d’heures par mois souhaitez-vous consacrer à vos clients ?'
+                      ? 'Combien d’heures par mois veux-tu consacrer à tes clients ?'
                       : 'How many hours per month do you want to spend with clients?'}
                   </p>
                 </div>
 
                 <div className="rounded-2xl bg-white/[0.04] px-5 py-5 ring-1 ring-white/[0.08]">
                   <p className="text-[13px] font-medium text-neutral-400">
-                    {fr ? 'Votre résultat' : 'Your result'}
+                    {fr ? 'Ton résultat' : 'Your result'}
                   </p>
                   <div className="mt-3 grid gap-3 sm:grid-cols-2">
                     <div>
@@ -1068,7 +1134,7 @@ export default function PartnerProgramPage() {
               <div>
                 <SectionLabel>{fr ? 'Portes ouvertes' : 'Open house'}</SectionLabel>
                 <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
-                  {fr ? 'Je vous montre le parcours, étape par étape.' : 'I’ll show you the workflow, step by step.'}
+                  {fr ? 'Je te montre le parcours, étape par étape.' : 'I’ll show you the workflow, step by step.'}
                 </h2>
 
                 <div className="mt-6 flex items-center gap-4">
@@ -1091,20 +1157,20 @@ export default function PartnerProgramPage() {
 
                 <p className="mt-5 text-[16px] leading-relaxed text-neutral-400">
                   {fr
-                ? 'Dans cette présentation enregistrée, je vous montre le fonctionnement du programme. Regardez le replay immédiatement ou choisissez une session. L’horaire affiché à l’inscription est celui de votre fuseau. Pour vos questions, répondez à l’email de confirmation.'
+                ? 'Dans cette présentation enregistrée, je te montre le fonctionnement du programme. Regarde le replay tout de suite ou choisis une session. L’horaire affiché à l’inscription est celui de ton fuseau. Pour tes questions, réponds à l’email de confirmation.'
                 : 'This recorded presentation shows how the program works. Watch the replay immediately or choose a session. Registration times are shown in your time zone. For questions, reply to your confirmation email.'}
                 </p>
               </div>
 
               <div className="lg:pt-8">
                 <p className="text-[15px] font-medium text-white">
-                  {fr ? 'En un peu plus d’une heure, vous allez voir :' : 'In just over an hour, you’ll see:'}
+                  {fr ? 'En un peu plus d’une heure, tu vas voir :' : 'In just over an hour, you’ll see:'}
                 </p>
                 <ul className="mt-4 space-y-3">
                   {(fr
                     ? [
                         'Comment un partenaire accompagne un client dans Empire.',
-                        'Ce que vous faites et ce que la plateforme prend en charge.',
+                        'Ce que tu fais et ce que la plateforme prend en charge.',
                         'Comment fonctionnent les missions, la rémunération et les crédits.',
                         'Comment se déroule la formation et comment rejoindre Empire Partners.',
                       ]
@@ -1139,7 +1205,7 @@ export default function PartnerProgramPage() {
             <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
               {fr
                 ? agency
-                  ? '1 heure par jour pour déployer votre offre en 21 jours.'
+                  ? '1 heure par jour pour déployer ton offre en 21 jours.'
                   : '1 heure par jour. 1 action concrète. Pendant 21 jours.'
                 : agency
                   ? '1 hour a day to deploy your offer in 21 days.'
@@ -1149,8 +1215,8 @@ export default function PartnerProgramPage() {
               <p>
                 {fr
                   ? agency
-                    ? 'Ce n’est pas une formation passive. Chaque jour, vous consacrez environ 1 heure à une action autonome pour structurer l’offre, maîtriser Empire et installer votre processus de production.'
-                    : 'Ce n’est pas une formation passive à terminer avant de commencer. Le bootcamp est autonome et à votre rythme : chaque jour, vous réalisez en environ 1 heure une action qui fait avancer votre maîtrise d’Empire, votre contenu ou votre prospection.'
+                    ? 'Ce n’est pas une formation passive. Chaque jour, tu consacres environ 1 heure à une action autonome pour structurer l’offre, maîtriser Empire et installer ton processus de production.'
+                    : 'Ce n’est pas une formation passive à terminer avant de commencer. Le bootcamp est autonome et à ton rythme : chaque jour, tu réalises en environ 1 heure une action qui fait avancer ta maîtrise d’Empire, ton contenu ou ta prospection.'
                   : agency
                     ? 'This is not a passive course. Each day, spend about 1 hour on one self-paced action to structure the offer, master Empire and install your production workflow.'
                     : 'This is not a passive course you have to finish before getting started. The bootcamp is self-paced and action-based: each day, you spend about 1 hour completing one step that advances your Empire skills, content or outreach.'}
@@ -1158,8 +1224,8 @@ export default function PartnerProgramPage() {
               <p>
                 {fr
                   ? agency
-                    ? 'Dès la première semaine, vous pouvez sélectionner un client pilote dans votre portefeuille, créer ses premiers contenus dans Empire et lui présenter cette nouvelle offre.'
-                    : 'Vous commencez à publier et à prospecter dès la première semaine. Vous adaptez des formats issus de « Mes posts les plus viraux », créez vos contenus dans Empire et présentez votre offre à de vrais prospects.'
+                    ? 'Dès la première semaine, tu peux sélectionner un client pilote dans ton portefeuille, créer ses premiers contenus dans Empire et lui présenter cette nouvelle offre.'
+                    : 'Tu commences à publier et à prospecter dès la première semaine. Tu adaptes des formats issus de « Mes posts les plus viraux », crées tes contenus dans Empire et présentes ton offre à de vrais prospects.'
                   : agency
                     ? 'In week one, you can select a pilot client from your portfolio, create their first content in Empire and present the new offer.'
                     : 'You start publishing and reaching out in week one. You adapt formats from “My most viral posts,” create content in Empire and present your offer to real prospects.'}
@@ -1167,8 +1233,8 @@ export default function PartnerProgramPage() {
               <p className="font-medium text-neutral-200">
                 {fr
                   ? agency
-                    ? 'Vous apprenez en déployant - sur votre agence ou sur un premier client pilote.'
-                    : 'Vous apprenez en faisant - et votre personal branding devient votre première vitrine.'
+                    ? 'Tu apprends en déployant - sur ton agence ou sur un premier client pilote.'
+                    : 'Tu apprends en faisant - et ton personal branding devient ta première vitrine.'
                   : agency
                     ? 'You learn by deploying - on your agency or with a first pilot client.'
                     : 'You learn by doing - and your personal brand becomes your first showcase.'}
@@ -1176,7 +1242,7 @@ export default function PartnerProgramPage() {
               <p>
                 {fr
                   ? agency
-                    ? 'L’objectif au jour 21 : disposer d’une offre claire, d’un processus maîtrisé et d’une démonstration concrète à présenter à vos clients existants.'
+                    ? 'L’objectif au jour 21 : disposer d’une offre claire, d’un processus maîtrisé et d’une démonstration concrète à présenter à tes clients existants.'
                     : 'L’objectif au jour 21 : maîtriser la plateforme et être prêt à convertir un premier client - avec une offre claire, des contenus publiés, une prospection lancée et le processus d’accompagnement en main.'
                   : agency
                     ? 'The day-21 goal: have a clear offer, a mastered workflow and a concrete demonstration to present to existing clients.'
@@ -1185,8 +1251,8 @@ export default function PartnerProgramPage() {
               <p className="text-white">
                 {fr
                   ? agency
-                    ? 'Certaines agences peuvent présenter ou vendre l’offre dès la première semaine. Ce résultat n’est pas garanti : il dépend de votre portefeuille, de votre exécution et de votre positionnement.'
-                    : 'Certains participants peuvent obtenir dès la première semaine des contenus à forte portée, des conversations avec des prospects, voire un premier client. Ce ne sont pas des résultats garantis : ils varient selon votre exécution, votre marché, vos sujets et votre régularité.'
+                    ? 'Certaines agences peuvent présenter ou vendre l’offre dès la première semaine. Ce résultat n’est pas garanti : il dépend de ton portefeuille, de ton exécution et de ton positionnement.'
+                    : 'Certains participants peuvent obtenir dès la première semaine des contenus à forte portée, des conversations avec des prospects, voire un premier client. Ce ne sont pas des résultats garantis : ils varient selon ton exécution, ton marché, tes sujets et ta régularité.'
                   : agency
                     ? 'Some agencies may present or sell the offer in week one. This is not guaranteed: results depend on your portfolio, execution and positioning.'
                     : 'Some participants may see high-reach content, prospect conversations or even a first client in week one. These outcomes are not guaranteed: results vary with your execution, market, topics and consistency.'}
@@ -1194,7 +1260,7 @@ export default function PartnerProgramPage() {
             </div>
 
             <h3 className="mt-12 text-xl font-semibold tracking-tight">
-              {fr ? 'Votre progression, une action par jour.' : 'Your progress, one action a day.'}
+              {fr ? 'Ta progression, une action par jour.' : 'Your progress, one action a day.'}
             </h3>
             <div className="mt-6 divide-y divide-white/[0.08] border-y border-white/[0.08]">
               {(fr
@@ -1202,29 +1268,29 @@ export default function PartnerProgramPage() {
                   ? [
                       {
                         t: 'Semaine 1 - Construire l’offre agence',
-                        d: 'Vous choisissez le positionnement, identifiez un client pilote et créez une première démonstration avec Empire.',
+                        d: 'Tu choisis le positionnement, identifies un client pilote et crées une première démonstration avec Empire.',
                       },
                       {
                         t: 'Semaine 2 - Installer la production',
-                        d: 'Vous maîtrisez les sujets, les validations, la création et le calendrier pour livrer une prestation régulière.',
+                        d: 'Tu maîtrises les sujets, les validations, la création et le calendrier pour livrer une prestation régulière.',
                       },
                       {
                         t: 'Semaine 3 - Déployer sur le portefeuille',
-                        d: 'Vous apprenez à présenter l’offre, organiser l’onboarding et la proposer à vos clients existants ou en marque blanche.',
+                        d: 'Tu apprends à présenter l’offre, organiser l’onboarding et la proposer à tes clients existants ou en marque blanche.',
                       },
                     ]
                   : [
                       {
                         t: 'Semaine 1 - Publier et prospecter immédiatement',
-                        d: 'Vous configurez Empire, clarifiez votre offre, adaptez vos premiers formats, publiez et lancez vos premières conversations avec des prospects.',
+                        d: 'Tu configures Empire, clarifies ton offre, adaptes tes premiers formats, publies et lances tes premières conversations avec des prospects.',
                       },
                       {
                         t: 'Semaine 2 - Comprendre la viralité et produire',
-                        d: 'Vous apprenez les hooks, formats et mécaniques de viralité, puis adaptez vos contenus aux 7 réseaux.',
+                        d: 'Tu apprends les hooks, formats et mécaniques de viralité, puis adaptes tes contenus aux 7 réseaux.',
                       },
                       {
                         t: 'Semaine 3 - Devenir prêt pour un premier client',
-                        d: 'Vous apprenez à présenter votre accompagnement, conduire l’entretien, organiser la prestation et ouvrir votre page consultant.',
+                        d: 'Tu apprends à présenter ton accompagnement, conduire l’entretien, organiser la prestation et ouvrir ta page consultant.',
                       },
                     ]
                 : agency
@@ -1265,7 +1331,7 @@ export default function PartnerProgramPage() {
             </div>
             <p className="mt-6 text-[14px] text-neutral-500">
               {fr
-                ? 'La communauté vous aide à avancer et à débloquer vos questions. La formation, les replays et la communauté sont inclus dans le bootcamp et restent accessibles à vie. Un live chaque lundi à 14 h avec Empire Partners.'
+                ? 'La communauté t’aide à avancer et à débloquer tes questions. La formation, les replays et la communauté sont inclus dans le bootcamp et restent accessibles à vie. Un live chaque lundi à 14 h avec Empire Partners.'
                 : 'The community helps you move forward and unblock questions. Training, replays and community are included in the bootcamp with lifetime access. A live every Monday at 2 pm with Empire Partners.'}
             </p>
             {/* À côté de la communauté : le live gratuit Post it like it's hot,
@@ -1281,7 +1347,7 @@ export default function PartnerProgramPage() {
                 <span className="block text-[14px] font-semibold text-white">Post it like it’s hot</span>
                 <span className="mt-0.5 block text-[13px] text-neutral-400">
                   {fr
-                    ? 'Le live gratuit, chaque lundi à 14 h : on trouve votre prochain contenu viral, en direct.'
+                    ? 'Le live gratuit, chaque lundi à 14 h : on trouve ton prochain contenu viral, en direct.'
                     : 'The free live, every Monday at 2 pm: we find your next viral post, live.'}
                 </span>
               </span>
@@ -1301,7 +1367,7 @@ export default function PartnerProgramPage() {
             <SectionLabel>{fr ? 'Le programme' : 'The program'}</SectionLabel>
             <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
               {fr
-                ? 'Ce que vous recevez'
+                ? 'Ce que tu reçois'
                 : 'Everything you get'}
             </h2>
             <p className="mt-5 text-[17px] font-medium text-white">
@@ -1340,12 +1406,12 @@ export default function PartnerProgramPage() {
             </h3>
             <p className="mt-4 text-[16px] leading-relaxed text-neutral-400">
               {fr
-                ? 'Vous pouvez développer votre portefeuille grâce à votre contenu, aux recommandations et à la prospection.'
+                ? 'Tu peux développer ton portefeuille grâce à ton contenu, aux recommandations et à la prospection.'
                 : 'You can grow your book through your content, referrals and outreach.'}
             </p>
             <p className="mt-3 text-[16px] leading-relaxed text-neutral-400">
               {fr
-                ? 'Des missions peuvent également être proposées par Empire selon les besoins du réseau, votre profil et votre disponibilité. Le programme ne garantit pas de mission.'
+                ? 'Des missions peuvent également être proposées par Empire selon les besoins du réseau, ton profil et ta disponibilité. Le programme ne garantit pas de mission.'
                 : 'Missions may also be proposed by Empire based on network needs, your profile and availability. The program does not guarantee a mission.'}
             </p>
           </div>

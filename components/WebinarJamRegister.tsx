@@ -188,7 +188,7 @@ function OpenHouseInterestForm({ fr }: { fr: boolean }) {
         </p>
         <p className="mt-2 text-[13px] text-neutral-300">
           {fr
-            ? 'Votre demande est enregistrée. Pour une question, écrivez à kevin@empire-internet.com.'
+            ? 'Ta demande est enregistrée. Pour une question, écris à kevin@empire-internet.com.'
             : 'Your request has been recorded. For questions, email kevin@empire-internet.com.'}
         </p>
       </div>
@@ -240,7 +240,7 @@ function OpenHouseInterestForm({ fr }: { fr: boolean }) {
         </button>
         {status === 'error' && (
           <p className="text-center text-[12px] text-red-400">
-            {fr ? 'Erreur - réessayez ou écrivez à kevin@empire-internet.com' : 'Error - try again or email kevin@empire-internet.com'}
+            {fr ? 'Erreur - réessaie ou écris à kevin@empire-internet.com' : 'Error - try again or email kevin@empire-internet.com'}
           </p>
         )}
       </div>

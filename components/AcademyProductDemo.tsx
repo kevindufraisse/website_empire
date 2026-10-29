@@ -4,11 +4,11 @@ import { useState } from 'react'
 import Image from 'next/image'
 
 const screens = [
-  { file: 'choose-topics', fr: 'Choisissez les sujets', en: 'Choose topics', textFr: 'Empire propose les idées. Vous sélectionnez celles qui correspondent à votre client.', textEn: 'Empire suggests ideas. Select the ones that suit your client.' },
-  { file: 'client-link', fr: 'Envoyez son lien', en: 'Send their link', textFr: 'Choisissez le client et préparez sa liste de sujets. Il reçoit un lien pour vous rejoindre.', textEn: 'Choose the client and prepare their list of topics. Send a link to join you.' },
-  { file: 'client-session', fr: 'Guidez la session', en: 'Guide the session', textFr: 'Vous voyez votre client, vous lui parlez et vous pilotez les prises depuis Empire.', textEn: 'See your client, talk with them and guide the recordings from Empire.' },
+  { file: 'choose-topics', fr: 'Choisis les sujets', en: 'Choose topics', textFr: 'Empire propose les idées. Tu sélectionnes celles qui correspondent à ton client.', textEn: 'Empire suggests ideas. Select the ones that suit your client.' },
+  { file: 'client-link', fr: 'Envoie son lien', en: 'Send their link', textFr: 'Choisis le client et prépare sa liste de sujets. Il reçoit un lien pour te rejoindre.', textEn: 'Choose the client and prepare their list of topics. Send a link to join you.' },
+  { file: 'client-session', fr: 'Guide la session', en: 'Guide the session', textFr: 'Tu vois ton client, tu lui parles et tu pilotes les prises depuis Empire.', textEn: 'See your client, talk with them and guide the recordings from Empire.' },
   { file: 'record-answer', fr: 'Il partage son expertise', en: 'They share their expertise', textFr: 'Les sujets s’affichent à l’écran. Le client répond et passe à la prise suivante.', textEn: 'Topics appear on screen. Your client responds and moves to the next recording.' },
-  { file: 'content-calendar', fr: 'Validez et publiez', en: 'Review and publish', textFr: 'Retrouvez les contenus préparés dans le calendrier du client. Vous vérifiez, ajustez et programmez.', textEn: 'Find the prepared content in the client’s calendar. Review, adjust and schedule it.' },
+  { file: 'content-calendar', fr: 'Valide et publie', en: 'Review and publish', textFr: 'Retrouve les contenus préparés dans le calendrier du client. Tu vérifies, ajustes et programmes.', textEn: 'Find the prepared content in the client’s calendar. Review, adjust and schedule it.' },
 ]
 
 export default function AcademyProductDemo({ fr }: { fr: boolean }) {

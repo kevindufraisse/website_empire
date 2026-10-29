@@ -1,15 +1,9 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { getCalApi } from '@calcom/embed-react'
-import { ArrowRight, CheckCircle2, Share2, X } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
+import { ArrowRight, CheckCircle2, Share2 } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { useCalLink } from '@/hooks/useCalLink'
-
-type Choice = null | 'later' | 'maybe'
-
-const CAL_NAMESPACE = 'academy-upsell'
 
 // Les trois accès d'un membre (29 octobre 2026).
 const SLACK_INVITE_URL = 'https://join.slack.com/t/empire-community/shared_invite/zt-48r5is0lz-MiYTUfVBYgNymUbb56h_6g'
@@ -19,14 +13,8 @@ const APP_URL = 'https://app.empire-internet.com'
 export default function AcademyThankYouClient() {
   const { lang } = useLanguage()
   const fr = lang === 'fr'
-  const calLink = useCalLink()
 
-  const [choice, setChoice] = useState<Choice>(null)
   const [copied, setCopied] = useState(false)
-  const [prefillName, setPrefillName] = useState('')
-  const [prefillEmail, setPrefillEmail] = useState('')
-  const [showPrefill, setShowPrefill] = useState(false)
-  const calReadyRef = useRef(false)
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -35,40 +23,6 @@ export default function AcademyThankYouClient() {
       ;(window as any).dataLayer.push({ event: 'academy_thank_you_view' })
     }
   }, [])
-
-  useEffect(() => {
-    ;(async () => {
-      const cal = await getCalApi({ namespace: CAL_NAMESPACE })
-      cal('ui', {
-        theme: 'dark',
-        hideEventTypeDetails: false,
-        layout: 'month_view',
-        cssVarsPerTheme: {
-          light: { 'cal-brand': '#dafc68' },
-          dark: { 'cal-brand': '#dafc68' },
-        },
-      })
-      calReadyRef.current = true
-    })()
-  }, [])
-
-  async function openCalWithPrefill(name: string, email: string) {
-    const cal = await getCalApi({ namespace: CAL_NAMESPACE })
-    cal('modal', {
-      calLink,
-      config: { name, email, theme: 'dark' },
-    })
-  }
-
-  function handleBookClick() {
-    setShowPrefill(true)
-  }
-
-  function handlePrefillSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    setShowPrefill(false)
-    openCalWithPrefill(prefillName, prefillEmail)
-  }
 
   function shareLink() {
     const url = 'https://empire-internet.com/academy'
@@ -115,7 +69,7 @@ export default function AcademyThankYouClient() {
               className="text-sm md:text-base text-neutral-400 max-w-lg mx-auto"
             >
               {fr
-                ? 'Votre paiement est confirmé. Le bootcamp s’ouvre tout de suite dans votre espace : environ 1 heure par jour, à votre rythme, avec la communauté.'
+                ? 'Ton paiement est confirmé. Le bootcamp s’ouvre tout de suite dans ton espace : environ 1 heure par jour, à ton rythme, avec la communauté.'
                 : 'Your payment is confirmed. The bootcamp opens right away in your account: about 1 hour a day, at your own pace, with the community.'}
             </motion.p>
           </div>
@@ -129,9 +83,9 @@ export default function AcademyThankYouClient() {
           >
             {(fr
               ? [
-                  { href: APP_URL, t: 'Ouvrir l’app Empire', d: 'Connectez-vous avec l’email du paiement : le bootcamp vous y attend.' },
-                  { href: SLACK_INVITE_URL, t: 'Rejoindre le Slack', d: 'La communauté Empire Partners, pour avancer et poser vos questions.' },
-                  { href: MONDAY_LIVE_URL, t: 'S’inscrire au live du lundi', d: 'Un live chaque lundi à 14 h.' },
+                  { href: APP_URL, t: 'Ouvre l’app Empire', d: 'Connecte-toi avec l’email du paiement : le bootcamp t’y attend.' },
+                  { href: SLACK_INVITE_URL, t: 'Rejoins le Slack', d: 'La communauté Empire Partners, pour avancer et poser tes questions.' },
+                  { href: MONDAY_LIVE_URL, t: 'Inscris-toi au live du lundi', d: 'Un live chaque lundi à 14 h.' },
                 ]
               : [
                   { href: APP_URL, t: 'Open the Empire app', d: 'Sign in with your payment email: the bootcamp is waiting for you.' },
@@ -156,223 +110,6 @@ export default function AcademyThankYouClient() {
             ))}
           </motion.div>
 
-          {/* Upsell card */}
-          <AnimatePresence mode="wait">
-            {choice === null && (
-              <motion.div
-                key="offer"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ delay: 0.4 }}
-              >
-                <div className="relative rounded-2xl border border-empire/30 bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-6 md:p-8 overflow-hidden">
-                  <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-empire to-transparent" />
-
-                  <p className="text-xs font-bold text-empire tracking-widest uppercase mb-2">
-                    {fr ? 'Vous voulez aller plus loin ?' : 'Want to go further?'}
-                  </p>
-                  <h2 className="text-lg md:text-xl font-bold text-white leading-tight mb-4">
-                    {fr ? 'Empire peut tout faire pour vous.' : 'Empire can do everything for you.'}
-                  </h2>
-
-                  <div className="space-y-2 mb-5 text-sm text-neutral-300 leading-relaxed">
-                    <p>
-                      {fr
-                        ? <>Empire Partners vous apprend le système. <span className="text-white font-semibold">Empire, c&apos;est l&apos;étape d&apos;après :</span> on prend en charge votre production de contenu. Vous n&apos;avez plus à publier.</>
-                        : <>Empire Partners teaches you the system. <span className="text-white font-semibold">Empire is the next step:</span> we handle your entire content production. You don&apos;t have to publish anymore.</>}
-                    </p>
-                  </div>
-
-                  {showPrefill ? (
-                    <form onSubmit={handlePrefillSubmit} className="space-y-2 mb-2">
-                      <p className="text-xs text-neutral-400 mb-3">
-                        {fr ? 'Pour pré-remplir votre réservation :' : 'To pre-fill your booking:'}
-                      </p>
-                      <input
-                        required
-                        type="text"
-                        placeholder={fr ? 'Votre prénom et nom' : 'Your full name'}
-                        value={prefillName}
-                        onChange={e => setPrefillName(e.target.value)}
-                        className="w-full px-4 py-2.5 rounded-lg bg-white/[0.06] border border-white/15 text-white text-sm placeholder:text-neutral-500 outline-none focus:border-empire/50"
-                      />
-                      <input
-                        required
-                        type="email"
-                        placeholder={fr ? 'Votre email' : 'Your email'}
-                        value={prefillEmail}
-                        onChange={e => setPrefillEmail(e.target.value)}
-                        className="w-full px-4 py-2.5 rounded-lg bg-white/[0.06] border border-white/15 text-white text-sm placeholder:text-neutral-500 outline-none focus:border-empire/50"
-                      />
-                      <button
-                        type="submit"
-                        className="w-full p-3.5 rounded-xl bg-empire text-black font-bold text-sm hover:scale-[1.02] transition-all shadow-[0_0_20px_rgba(218,252,104,0.2)] cursor-pointer"
-                      >
-                        {fr ? 'Choisir mon créneau →' : 'Pick my slot →'}
-                      </button>
-                      <button type="button" onClick={() => setShowPrefill(false)} className="block mx-auto text-xs text-neutral-500 hover:text-neutral-300 transition-colors pt-1">
-                        {fr ? 'Annuler' : 'Cancel'}
-                      </button>
-                    </form>
-                  ) : (
-                    <div className="grid sm:grid-cols-3 gap-2">
-                      <button
-                        onClick={handleBookClick}
-                        className="p-3.5 rounded-xl bg-empire text-black font-bold text-sm hover:scale-[1.02] transition-all shadow-[0_0_20px_rgba(218,252,104,0.2)] cursor-pointer text-center"
-                      >
-                        {fr ? 'Réserver un appel' : 'Book a call'}
-                      </button>
-                      <button
-                        onClick={() => setChoice('maybe')}
-                        className="p-3.5 rounded-xl bg-white/[0.06] border border-white/15 text-white font-semibold text-sm hover:bg-white/[0.1] transition-all text-center"
-                      >
-                        {fr ? 'En savoir plus' : 'Learn more'}
-                      </button>
-                      <button
-                        onClick={() => setChoice('later')}
-                        className="p-3.5 rounded-xl bg-white/[0.03] border border-white/10 text-neutral-400 text-sm hover:bg-white/[0.06] transition-all text-center"
-                      >
-                        {fr ? 'Plus tard' : 'Later'}
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </motion.div>
-            )}
-
-            {choice === 'maybe' && (
-              <motion.div
-                key="maybe"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-              >
-                <div className="relative rounded-2xl border border-empire/30 bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-6 md:p-8 overflow-hidden">
-                  <button
-                    onClick={() => setChoice(null)}
-                    className="absolute top-4 right-4 text-neutral-500 hover:text-white transition-colors"
-                  >
-                    <X size={18} />
-                  </button>
-
-                  <p className="text-xs font-bold text-empire tracking-widest uppercase mb-2">
-                    {fr ? 'Comment ça se passe' : 'How it works'}
-                  </p>
-                  <h2 className="text-xl md:text-2xl font-bold text-white leading-tight mb-5">
-                    {fr ? 'Un appel de 45 minutes avec notre équipe.' : 'A 45-minute call with our team.'}
-                  </h2>
-
-                  <div className="space-y-3 mb-6">
-                    {(fr
-                      ? [
-                          { t: 'On regarde votre business', d: 'Votre activité, vos objectifs, ce que vous faites déjà.' },
-                          { t: "On vous explique ce qu'on ferait", d: 'Production quotidienne LinkedIn + Shorts + newsletter. Vous validez, on publie.' },
-                          { t: 'Vous décidez', d: "Si c'est non, vous continuez avec Empire Partners comme prévu." },
-                        ]
-                      : [
-                          { t: 'We look at your business', d: 'Your activity, your goals, what you already do.' },
-                          { t: "We explain what we'd do", d: 'Daily LinkedIn + Shorts + newsletter production. You approve, we publish.' },
-                          { t: 'You decide', d: "If it's a no, you carry on with Empire Partners as planned." },
-                        ]
-                    ).map((s, i) => (
-                      <div key={i} className="flex items-start gap-3">
-                        <div className="w-6 h-6 rounded-full bg-empire/10 border border-empire/30 flex items-center justify-center flex-shrink-0 text-[10px] font-black text-empire">
-                          {i + 1}
-                        </div>
-                        <div>
-                          <p className="text-white font-semibold text-sm">{s.t}</p>
-                          <p className="text-xs text-neutral-400 leading-relaxed">{s.d}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {showPrefill ? (
-                    <form onSubmit={handlePrefillSubmit} className="space-y-2">
-                      <p className="text-xs text-neutral-400 mb-3">
-                        {fr ? 'Pour pré-remplir votre réservation :' : 'To pre-fill your booking:'}
-                      </p>
-                      <input
-                        required
-                        type="text"
-                        placeholder={fr ? 'Votre prénom et nom' : 'Your full name'}
-                        value={prefillName}
-                        onChange={e => setPrefillName(e.target.value)}
-                        className="w-full px-4 py-2.5 rounded-lg bg-white/[0.06] border border-white/15 text-white text-sm placeholder:text-neutral-500 outline-none focus:border-empire/50"
-                      />
-                      <input
-                        required
-                        type="email"
-                        placeholder={fr ? 'Votre email' : 'Your email'}
-                        value={prefillEmail}
-                        onChange={e => setPrefillEmail(e.target.value)}
-                        className="w-full px-4 py-2.5 rounded-lg bg-white/[0.06] border border-white/15 text-white text-sm placeholder:text-neutral-500 outline-none focus:border-empire/50"
-                      />
-                      <button
-                        type="submit"
-                        className="w-full px-6 py-3.5 bg-empire text-black font-bold text-sm rounded-xl hover:scale-[1.01] transition-all shadow-[0_0_20px_rgba(218,252,104,0.25)] cursor-pointer"
-                      >
-                        {fr ? 'Choisir mon créneau →' : 'Pick my slot →'}
-                      </button>
-                      <button type="button" onClick={() => setShowPrefill(false)} className="block mx-auto text-xs text-neutral-500 hover:text-neutral-300 transition-colors pt-1">
-                        {fr ? 'Annuler' : 'Cancel'}
-                      </button>
-                    </form>
-                  ) : (
-                    <>
-                      <button
-                        onClick={handleBookClick}
-                        className="w-full block px-6 py-3.5 bg-empire text-black font-bold text-sm rounded-xl hover:scale-[1.01] transition-all shadow-[0_0_20px_rgba(218,252,104,0.25)] cursor-pointer text-center"
-                      >
-                        {fr ? 'Réserver mon créneau' : 'Book my slot'}
-                      </button>
-                      <button
-                        onClick={() => setChoice('later')}
-                        className="block mx-auto mt-3 text-xs text-neutral-500 hover:text-neutral-300 transition-colors"
-                      >
-                        {fr ? 'Plus tard, je commence le bootcamp' : "Later, I'll start the bootcamp"}
-                      </button>
-                    </>
-                  )}
-                </div>
-              </motion.div>
-            )}
-
-            {choice === 'later' && (
-              <motion.div
-                key="later"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-              >
-                <div className="rounded-2xl border border-white/15 bg-white/[0.03] p-6 md:p-8 text-center">
-                  <button
-                    onClick={() => setChoice(null)}
-                    className="absolute top-4 right-4 text-neutral-500 hover:text-white transition-colors"
-                  >
-                    <X size={18} />
-                  </button>
-
-                  <p className="text-lg font-bold text-white mb-2">
-                    {fr ? 'Pas de souci. Concentrez-vous sur le bootcamp.' : 'No worries. Focus on the bootcamp.'}
-                  </p>
-                  <p className="text-sm text-neutral-400 max-w-md mx-auto">
-                    {fr
-                      ? "L'offre reste valable pendant les 21 jours du bootcamp. Écrivez-nous à tout moment à support@empire-internet.com."
-                      : "The offer remains valid for the 21 days of the bootcamp. Write to us anytime at support@empire-internet.com."}
-                  </p>
-                  <button
-                    onClick={() => setChoice(null)}
-                    className="mt-4 text-xs text-academy hover:underline"
-                  >
-                    {fr ? "Revoir l'offre" : 'See the offer again'}
-                  </button>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
           {/* Next steps */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -386,21 +123,21 @@ export default function AcademyThankYouClient() {
             <div className="grid sm:grid-cols-2 gap-3">
               <div className="p-4 rounded-xl bg-white/[0.04] border border-white/10">
                 <p className="text-white text-sm font-semibold mb-1">
-                  {fr ? 'Bloquez votre agenda' : 'Block your calendar'}
+                  {fr ? 'Bloque ton agenda' : 'Block your calendar'}
                 </p>
                 <p className="text-neutral-400 text-xs leading-relaxed">
                   {fr
-                    ? '21 jours à votre rythme, environ 1 heure par jour.'
+                    ? '21 jours à ton rythme, environ 1 heure par jour.'
                     : '21 days at your own pace, about 1 hour a day.'}
                 </p>
               </div>
               <div className="p-4 rounded-xl bg-white/[0.04] border border-white/10">
                 <p className="text-white text-sm font-semibold mb-1">
-                  {fr ? 'Préparez 3 sujets' : 'Prepare 3 topics'}
+                  {fr ? 'Prépare 3 sujets' : 'Prepare 3 topics'}
                 </p>
                 <p className="text-neutral-400 text-xs leading-relaxed">
                   {fr
-                    ? 'Les thèmes sur lesquels vous voulez être reconnu.'
+                    ? 'Les thèmes sur lesquels tu veux être reconnu.'
                     : 'The topics you want to be known for.'}
                 </p>
               </div>
@@ -416,7 +153,7 @@ export default function AcademyThankYouClient() {
           >
             <p className="text-sm text-neutral-500 mb-3">
               {fr
-                ? "Quelqu'un dans votre entourage devrait rejoindre Empire Partners ?"
+                ? "Quelqu'un dans ton entourage devrait rejoindre Empire Partners ?"
                 : 'Someone in your circle should join Empire Partners?'}
             </p>
             <button
