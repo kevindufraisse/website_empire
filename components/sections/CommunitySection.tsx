@@ -73,10 +73,10 @@ export default function CommunitySection() {
     {
       key: 'replays',
       icon: GraduationCap,
-      title: fr ? 'Les replays masterclass' : 'Masterclass replays',
+      title: fr ? 'La masterclass Empire' : 'The Empire masterclass',
       desc: fr
-        ? 'Tout le système Empire en vidéo : accroches, structures, formats, distribution. Vous rattrapez ce que vous avez manqué et vous formez votre équipe avec (valeur 197 €).'
-        : 'The whole Empire system on video: hooks, structures, formats, distribution. Catch up on what you missed and train your team with it (€197 value).',
+        ? 'Bien utiliser l\'outil pour votre marque, en replays. Vous rattrapez ce que vous avez manqué et vous formez votre équipe avec.'
+        : 'Using the tool for your brand, on replay. Catch up on what you missed and train your team with it.',
       badge: fr ? 'DÈS INTERMÉDIAIRE' : 'FROM INTERMEDIATE',
     },
     {

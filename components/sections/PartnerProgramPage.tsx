@@ -145,6 +145,13 @@ export function FestivalPriceBlock({
       <p className="mt-1.5 text-[12px] text-neutral-500">
         {fr ? 'Accès immédiat, à ton rythme. Pas d’abonnement.' : 'Instant access, at your own pace. No subscription.'}
       </p>
+      <p className="mt-3 border-t border-white/[0.08] pt-3 text-[12px] text-neutral-400">
+        {fr ? 'Déjà abonné Empire ? Le bootcamp est à 147 € pour toi, ' : 'Already an Empire subscriber? The bootcamp is €147 for you, '}
+        <a href="https://app.empire-internet.com/academy" className="text-academy underline decoration-academy/30 underline-offset-4 hover:text-white">
+          {fr ? 'depuis ton app' : 'from your app'}
+        </a>
+        .
+      </p>
     </div>
   )
 }

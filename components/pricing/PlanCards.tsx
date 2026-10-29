@@ -43,19 +43,18 @@ const RHYTHM_TU: Record<PlanId, string> = {
   scale: 'Tu postes 2 fois par jour',
 }
 
-const ACADEMY_VALUE_EUROS = 297
 
 const EXTRAS: Record<PlanId, { fr: string; en: string }[]> = {
   starter: [],
   growth: [
     { fr: 'Support prioritaire sous 4 h', en: 'Priority support within 4h' },
     { fr: 'Live client chaque semaine', en: 'Weekly client live' },
-    { fr: `Replays masterclass (valeur ${ACADEMY_VALUE_EUROS} €)`, en: `Masterclass replays (worth €${ACADEMY_VALUE_EUROS})` },
+    { fr: 'Masterclass Empire : bien utiliser l’outil pour ta marque (replays)', en: 'Empire masterclass: using the tool for your brand (replays)' },
   ],
   scale: [
     { fr: 'Support prioritaire sous 4 h', en: 'Priority support within 4h' },
     { fr: 'Live client chaque semaine', en: 'Weekly client live' },
-    { fr: `Replays masterclass (valeur ${ACADEMY_VALUE_EUROS} €)`, en: `Masterclass replays (worth €${ACADEMY_VALUE_EUROS})` },
+    { fr: 'Masterclass Empire : bien utiliser l’outil pour ta marque (replays)', en: 'Empire masterclass: using the tool for your brand (replays)' },
     { fr: 'Revue stratégique mensuelle (retours Loom)', en: 'Monthly strategy review (Loom feedback)' },
   ],
 }

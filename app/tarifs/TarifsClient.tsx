@@ -59,7 +59,6 @@ function teamMix(plan: PlanId) {
   return { reels: Math.floor(half / CONTENT_CREDITS.reel), posts: Math.floor(half / CONTENT_CREDITS.post) }
 }
 
-const ACADEMY_VALUE_EUROS = 297
 
 const TOP50_SCREENSHOT = 'https://d1yei2z3i6k35z.cloudfront.net/3647172/68c9e9f667659_1.png'
 
@@ -95,7 +94,7 @@ const ROWS: Row[] = [
   { fr: 'Rapport hebdo : vues, abonnés et leads par format', en: 'Weekly report: views, followers and leads per format', cells: ALL, group: 'features' },
   { fr: 'Live client chaque semaine', en: 'Weekly client live', cells: FROM_GROWTH, group: 'bonus' },
   { fr: 'Communauté privée Slack', en: 'Private Slack community', cells: FROM_GROWTH, group: 'bonus' },
-  { fr: `Replays masterclass (valeur ${ACADEMY_VALUE_EUROS} €)`, en: `Masterclass replays (worth €${ACADEMY_VALUE_EUROS})`, cells: FROM_GROWTH, group: 'bonus' },
+  { fr: 'Masterclass Empire : bien utiliser l’outil pour ta marque (replays)', en: 'Empire masterclass: using the tool for your brand (replays)', cells: FROM_GROWTH, group: 'bonus' },
 ]
 
 const FORMATS = [
@@ -180,8 +179,8 @@ const PACK = [
     en: ['The app', 'Publishing to 7 networks, comments and DMs in one place, links tracked to the client, weekly report.'],
   },
   {
-    fr: ['L’Academy et le live', `À partir d’Intermédiaire : les replays masterclass (valeur ${ACADEMY_VALUE_EUROS} €), un live client chaque semaine et la communauté privée Slack.`],
-    en: ['Academy and live', `From Intermediate: masterclass replays (worth €${ACADEMY_VALUE_EUROS}), a weekly client live and the private Slack community.`],
+    fr: ['Le live et la communauté', 'À partir d’Intermédiaire : la masterclass Empire pour bien utiliser l’outil pour ta marque (replays), un live client chaque semaine et la communauté privée Slack.'],
+    en: ['Live and community', 'From Intermediate: the Empire masterclass on using the tool for your brand (replays), a weekly client live and the private Slack community.'],
   },
 ]
 
@@ -464,8 +463,8 @@ export default function TarifsClient() {
               </p>
               <p className="mt-3 text-sm leading-relaxed text-neutral-300">
                 {fr
-                  ? 'Les idées, les formats, l’écriture, le montage, la vérification de chaque reel et la publication, plus le live, le Slack et les replays.'
-                  : 'Ideas, formats, writing, editing, every reel checked and publishing, plus the live, the Slack and the replays.'}
+                  ? 'Les idées, les formats, l’écriture, le montage, la vérification de chaque reel et la publication, plus le live, le Slack et la masterclass Empire.'
+                  : 'Ideas, formats, writing, editing, every reel checked and publishing, plus the live, the Slack and the Empire masterclass.'}
               </p>
               <button
                 type="button"

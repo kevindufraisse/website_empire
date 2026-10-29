@@ -34,7 +34,7 @@ const PLAN_BASE_FEATURES: PlanFeature[] = [
 ]
 
 const SUPPORT: PlanFeature = { fr: 'Support prioritaire sous 4h', en: 'Priority support within 4h' }
-const REPLAYS: PlanFeature = { fr: 'Replays masterclass (valeur 197€)', en: 'Masterclass replays (€197 value)' }
+const REPLAYS: PlanFeature = { fr: 'Masterclass Empire : bien utiliser l’outil pour ta marque (replays)', en: 'Empire masterclass: using the tool for your brand (replays)' }
 const LIVES: PlanFeature = { fr: 'Lives hebdomadaires avec nos experts', en: 'Weekly lives with our experts' }
 const COMMUNITY: PlanFeature = { fr: 'Communauté privée Slack', en: 'Private Slack community' }
 const REVIEW: PlanFeature = { fr: 'Revue stratégique mensuelle (retours Loom)', en: 'Monthly strategy review (Loom feedback)' }
@@ -97,7 +97,7 @@ const PILLARS: Pillar[] = [
       { fr: 'Support prioritaire sous 4h', en: 'Priority support within 4h', descFr: 'Une question, une correction : réponse le jour même.', descEn: 'A question, a fix: same-day answer.', icon: HeadphonesIcon, badge: 'DÈS INTERMÉDIAIRE' },
       { fr: 'Communauté privée Slack', en: 'Private Slack community', descFr: 'Des fondateurs et des créateurs qui publient déjà : un avis sur une accroche en quelques minutes.', descEn: 'Founders and creators who already publish: an opinion on a hook within minutes.', icon: Users, badge: 'DÈS INTERMÉDIAIRE' },
       { fr: 'Lives hebdomadaires', en: 'Weekly live sessions', descFr: 'Vous posez vos questions, on analyse vos contenus de la semaine et on cherche vos prochains angles ensemble.', descEn: 'You bring your questions, we review your week\'s content and work out your next angles together.', icon: Mic, badge: 'DÈS INTERMÉDIAIRE' },
-      { fr: 'Replays masterclass', en: 'Masterclass replays', descFr: 'Tout le système Empire en vidéo (valeur 197€).', descEn: 'The whole Empire system on video (€197 value).', icon: GraduationCap, badge: 'DÈS INTERMÉDIAIRE' },
+      { fr: 'Masterclass Empire', en: 'Empire masterclass', descFr: 'Bien utiliser l’outil pour ta marque, en replays.', descEn: 'Using the tool for your brand, on replay.', icon: GraduationCap, badge: 'DÈS INTERMÉDIAIRE' },
       { fr: 'Revue stratégique mensuelle', en: 'Monthly strategy review', descFr: 'Un expert reprend vos chiffres du mois en vidéo Loom et vous dit quoi changer.', descEn: 'An expert walks through your month\'s numbers on Loom and tells you what to change.', icon: Compass, badge: 'DÈS EXPERT' },
     ],
   },
