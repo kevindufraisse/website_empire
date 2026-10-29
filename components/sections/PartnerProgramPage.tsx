@@ -286,7 +286,7 @@ function PartnerProofSection({ fr }: { fr: boolean }) {
   )
 }
 
-/** « Pourquoi je travaillerais pour toi ? » : réponse de Kevin en vidéo
+/** Pourquoi Kevin fait ça : réponse en vidéo
  *  (Loom, 6 min, 4:3) et en quelques lignes, fidèles à son message. */
 function WhyKevinSection({ fr }: { fr: boolean }) {
   const lines = fr
@@ -305,8 +305,8 @@ function WhyKevinSection({ fr }: { fr: boolean }) {
           <SectionLabel>{fr ? 'Pourquoi je fais ça' : 'Why I do this'}</SectionLabel>
           <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
             {fr
-              ? '« Pourquoi je travaillerais pour toi ? » On me pose souvent la question.'
-              : '“Why would I work for you?” I get asked this a lot.'}
+              ? 'Apprends à faire publier des entrepreneurs, et fais-toi payer pour ça.'
+              : 'Learn to get entrepreneurs publishing, and get paid for it.'}
           </h2>
           <div className="relative mt-8 aspect-[4/3] w-full overflow-hidden rounded-2xl border border-white/15 bg-neutral-900/50">
             <iframe
@@ -588,7 +588,7 @@ export default function PartnerProgramPage() {
               {fr
                 ? agency
                   ? 'Ajoute une offre de personal branding à ton agence. Sans recruter une équipe de production.'
-                  : 'Apprends à faire publier des entrepreneurs, et fais-toi payer pour ça.'
+                  : 'Deviens Content Operator pour entrepreneurs en 21 jours.'
                 : agency
                   ? 'Add a personal-branding offer to your agency. Without hiring a production team.'
                   : 'Become a Content Operator for entrepreneurs in 21 days.'}
