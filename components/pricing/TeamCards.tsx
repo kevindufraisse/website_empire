@@ -15,6 +15,7 @@ import {
   type PlanId,
 } from '@/lib/plans'
 import { trackAmplitude, withAmplitudeDeviceId } from '@/lib/amplitude'
+import glass from '@/components/pricing/pricing.module.css'
 import {
   ORDER_CARD,
   ORDER_CARD_QUIET,
@@ -53,9 +54,23 @@ const AGENCY = {
   ],
 }
 
+// Ce que comprend une équipe : la page équipe de l'app (Enterprise.tsx).
 const TEAM = {
-  fr: ['Une formule par compte, au même rythme', 'Facturation centralisée', 'Chaque compte publie sur ses 7 réseaux', 'Remise de volume dès 3 places'],
-  en: ['One plan per account, same pace', 'Centralised billing', 'Each account publishes to its 7 networks', 'Volume discount from 3 seats'],
+  fr: ['Un espace par membre, chacun avec ses réseaux', 'Un tableau de bord manager pour suivre toute l’équipe', 'Tous les types de contenus inclus', 'Les crédits non utilisés passent au mois suivant', 'Support prioritaire et onboarding dédié', 'Une seule facture pour toute l’équipe'],
+  en: ['One workspace per member, each with their own networks', 'A manager dashboard to follow the whole team', 'Every content type included', 'Unused credits roll over to next month', 'Priority support and dedicated onboarding', 'One invoice for the whole team'],
+}
+
+const TEAM_STEPS = {
+  fr: [
+    ['Tu choisis', 'La formule de chaque compte et le nombre de places.'],
+    ['Tu paies une fois', 'Une seule facture, la remise de volume appliquée.'],
+    ['Tu invites ton équipe', 'Chaque membre a son espace, toi tu vois tout.'],
+  ],
+  en: [
+    ['You choose', 'The plan for each account and the number of seats.'],
+    ['You pay once', 'One invoice, with the volume discount applied.'],
+    ['You invite your team', 'Each member gets a workspace, you see everything.'],
+  ],
 }
 
 export default function TeamCards({ period, onPeriodChange }: { period: BillingId; onPeriodChange: (p: BillingId) => void }) {
@@ -223,6 +238,16 @@ export default function TeamCards({ period, onPeriodChange }: { period: BillingI
             </ul>
           </div>
         </div>
+      </div>
+
+      <div className="mx-auto grid max-w-4xl gap-3 sm:grid-cols-3">
+        {TEAM_STEPS[fr ? 'fr' : 'en'].map(([title, body], i) => (
+          <div key={title} className={`p-4 ${glass.panel} ${glass.compact}`}>
+            <p className="text-xs font-semibold text-neutral-300">{i + 1}</p>
+            <p className="mt-1 text-sm font-semibold text-white">{title}</p>
+            <p className="mt-1 text-xs leading-relaxed text-neutral-300">{body}</p>
+          </div>
+        ))}
       </div>
     </div>
   )

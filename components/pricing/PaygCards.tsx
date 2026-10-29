@@ -3,7 +3,8 @@
 import { useState } from 'react'
 import { ArrowRight, Check, Linkedin, Video } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { APP_ONBOARDING_URL, CONTENT_CREDITS, PAYG_PACKS } from '@/lib/plans'
+import { APP_ONBOARDING_URL, CONTENT_CREDITS, PAYG_PACKS, PLANS } from '@/lib/plans'
+import glass from '@/components/pricing/pricing.module.css'
 import { trackAmplitude, withAmplitudeDeviceId } from '@/lib/amplitude'
 import {
   ORDER_CARD,
@@ -29,6 +30,21 @@ import {
 const INCLUDED = {
   fr: ['Publication sur 7 réseaux et communauté Slack', 'Chaque action affiche son prix avant de partir', 'Les crédits n’expirent jamais', 'Recharge automatique et plafond mensuel au choix'],
   en: ['Publishing to 7 networks and the Slack community', 'Every action shows its price before it runs', 'Credits never expire', 'Auto top-up and a monthly cap you choose'],
+}
+
+// Comment ça marche, repris de /join/empire (PAYG_STEPS), en version
+// « inscription d'abord ».
+const STEPS = {
+  fr: [
+    ['Aujourd’hui', 'Tu crées ton compte et tu paies ta première recharge. Ta carte est mémorisée.'],
+    ['Tu produis', 'Chaque action affiche son prix en crédits avant de partir. Pas de mensualité, pas d’engagement.'],
+    ['Solde bas', 'La recharge repart toute seule, dans la limite de ton plafond, et tu es prévenu par email. Tu la coupes quand tu veux.'],
+  ],
+  en: [
+    ['Today', 'You create your account and pay your first top-up. Your card is saved.'],
+    ['You create', 'Every action shows its price in credits before it runs. No monthly fee, no commitment.'],
+    ['Low balance', 'The top-up runs again on its own, within your cap, and you get an email. Turn it off anytime.'],
+  ],
 }
 
 type PackId = (typeof PAYG_PACKS)[number]['id']
@@ -124,6 +140,47 @@ export default function PaygCards() {
             </div>
           )
         })}
+      </div>
+
+      <div className="mx-auto grid max-w-5xl gap-4 md:grid-cols-2">
+        <div className={`p-5 ${glass.panel}`}>
+          <p className="text-sm font-semibold text-white">{fr ? 'Comment ça marche' : 'How it works'}</p>
+          <ol className="mt-3 space-y-3">
+            {STEPS[fr ? 'fr' : 'en'].map(([when, what]) => (
+              <li key={when}>
+                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-neutral-300">{when}</p>
+                <p className="mt-0.5 text-sm leading-relaxed text-neutral-200">{what}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+        <div className={`p-5 ${glass.panel}`}>
+          <p className="text-sm font-semibold text-white">{fr ? 'Ce que coûte un contenu' : 'What a piece of content costs'}</p>
+          <ul className="mt-3 divide-y divide-white/10">
+            {([
+              [fr ? 'Reel monté' : 'Edited reel', CONTENT_CREDITS.reel],
+              [fr ? 'Post LinkedIn' : 'LinkedIn post', CONTENT_CREDITS.post],
+              [fr ? 'Newsletter' : 'Newsletter', CONTENT_CREDITS.newsletter],
+            ] as const).map(([label, credits]) => (
+              <li key={label} className="flex items-baseline justify-between gap-3 py-2 text-sm">
+                <span className="text-neutral-200">{label}</span>
+                <span className="tabular-nums text-white">
+                  {credits} {fr ? 'crédits' : 'credits'}
+                  <span className="ml-2 text-xs text-neutral-300">≈ {Math.round(credits * base.euros / base.credits)} €</span>
+                </span>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-3 text-xs leading-relaxed text-neutral-300">
+            {(() => {
+              const scale = PLANS.find((p) => p.id === 'scale')!
+              const save = Math.round((1 - (scale.price / scale.credits) / (base.euros / base.credits)) * 100)
+              return fr
+                ? `Tu publies souvent ? Avec un abonnement, le crédit coûte jusqu’à ${save} % de moins, avec le live chaque semaine et les replays.`
+                : `Posting often? With a plan, a credit costs up to ${save}% less, with the weekly live and the replays.`
+            })()}
+          </p>
+        </div>
       </div>
 
       <div className="flex flex-wrap justify-center gap-x-5 gap-y-1.5 text-xs">
