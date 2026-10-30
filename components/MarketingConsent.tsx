@@ -1,17 +1,19 @@
 "use client"
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 import CookiePreferences from './CookiePreferences'
 import { Consent } from '@/lib/marketingConsent'
 import { captureAttribution } from '@/lib/meta'
+
+function loadGtm() {
+  if (document.getElementById('empire-gtm')) return
+  const w = window as unknown as { dataLayer?: unknown[] }
+  w.dataLayer = w.dataLayer || []; w.dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' })
+  const script = document.createElement('script'); script.id = 'empire-gtm'; script.async = true
+  script.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-MJCWGM8D'; document.head.appendChild(script)
+}
+
 export default function MarketingConsent() {
-  const changed = useCallback((c: Consent | null) => {
-    if (!c?.marketing) return
-    captureAttribution()
-    if (document.getElementById('empire-consented-gtm')) return
-    const w = window as unknown as { dataLayer?: unknown[] }
-    w.dataLayer = w.dataLayer || []; w.dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' })
-    const script = document.createElement('script'); script.id = 'empire-consented-gtm'; script.async = true
-    script.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-MJCWGM8D'; document.head.appendChild(script)
-  }, [])
+  useEffect(() => { captureAttribution(); loadGtm() }, [])
+  const changed = useCallback((_c: Consent | null) => {}, [])
   return <CookiePreferences onChange={changed} />
 }

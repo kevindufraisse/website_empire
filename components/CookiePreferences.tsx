@@ -56,7 +56,7 @@ export default function CookiePreferences({ onChange }: { onChange?: (consent: C
       >
         <div style={{ pointerEvents: 'auto', maxWidth: 520, margin: '0 auto', background: '#171717', color: '#fff', border: '1px solid #2e2e2e', borderRadius: 14, padding: '10px 12px', boxShadow: '0 8px 30px #0008', fontSize: 12.5, lineHeight: 1.4 }}>
           <p style={{ margin: 0, color: '#c4c4c4' }}>
-            <strong style={{ color: '#fff' }}>Cookies ?</strong> Mesure d’audience, seulement avec ton accord. Refuser ne bloque rien.{' '}
+            <strong style={{ color: '#fff' }}>Cookies ?</strong> Mesure d’audience, pour améliorer ton expérience. Refuser ne bloque rien.{' '}
             <a href="https://www.empire-internet.com/privacy" style={{ color: '#c4c4c4', textDecoration: 'underline' }}>En savoir plus</a>
             {!details && <>{' · '}<button type="button" style={link} onClick={() => setDetails(true)}>Personnaliser</button></>}
           </p>
