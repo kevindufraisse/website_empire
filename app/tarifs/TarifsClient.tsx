@@ -8,12 +8,10 @@ import FeaturedInSection from '@/components/FeaturedInSection'
 import CustomerReviews from '@/components/pricing/CustomerReviews'
 import PlanCards from '@/components/pricing/PlanCards'
 import TeamCards from '@/components/pricing/TeamCards'
-import PaygCards from '@/components/pricing/PaygCards'
 import OptionsPanel from '@/components/pricing/OptionsPanel'
 import glass from '@/components/pricing/pricing.module.css'
 import {
   CONTENT_CREDITS,
-  PAYG_RECHARGE,
   PLANS,
   PLAN_DELIVERABLES,
   PLAN_LABELS,
@@ -36,8 +34,11 @@ import { useLiveOffer } from '@/lib/liveOffer'
  * les mêmes que `/join/empire`. Chaque formule ouvre l'essai (7 jours, 500
  * crédits), en mensuel comme en trimestriel / annuel.
  *
- * Trois onglets sous le titre (29 octobre 2026, modèle Claude / ChatGPT) :
- * Solo, Équipe et agence, À l'usage, puis les options (bootcamp, expert).
+ * Deux onglets sous le titre (29 octobre 2026, modèle Claude / ChatGPT) :
+ * Solo, Équipe et agence, puis les options (bootcamp, expert). L'onglet
+ * À l'usage est retiré le 30 octobre 2026 (Kevin) : 200 crédits pour 25 € à
+ * côté de 500 crédits offerts pendant l'essai n'a aucun sens. La conso reste
+ * vendue par le setter (/join/empire?plan=payg) et dans l'app après un essai.
  * Le reste de la page ne change pas (choix de Kevin).
  */
 
@@ -45,13 +46,12 @@ type Group = 'features' | 'bonus'
 
 type Row = { fr: string; en: string; cells: Record<PlanId, boolean | string>; group?: Group }
 
-type Tab = 'solo' | 'team' | 'payg'
+type Tab = 'solo' | 'team'
 
 // L'ancre garde l'onglet dans l'adresse (#equipe, #usage), comme Claude.
 const TABS: { id: Tab; hash: string; fr: string; en: string }[] = [
   { id: 'solo', hash: 'solo', fr: 'Solo', en: 'Solo' },
   { id: 'team', hash: 'equipe', fr: 'Équipe et agence', en: 'Team and agency' },
-  { id: 'payg', hash: 'usage', fr: 'À l’usage', en: 'Pay as you go' },
 ]
 
 const GROUP_LABELS: Record<Group, { fr: string; en: string }> = {
@@ -244,13 +244,6 @@ const FAQ = [
     },
   },
   {
-    q: { fr: 'Et le paiement à l’usage ?', en: 'And pay as you go?' },
-    a: {
-      fr: `Pas d’abonnement : tu recharges ${PAYG_RECHARGE.euros}, 50 ou 100 €, et une nouvelle recharge part quand ton solde ne suffit plus. Tu fixes un plafond par mois. La communauté Slack est incluse ; le live et les replays restent réservés aux abonnés.`,
-      en: `No subscription: top up €${PAYG_RECHARGE.euros}, €50 or €100, and a new top-up runs when your balance runs low. You set a monthly cap. The Slack community is included; the live and replays stay for subscribers.`,
-    },
-  },
-  {
     q: { fr: 'Quelle différence avec MagicPost, Opus Clip ou une agence ?', en: 'How is it different from MagicPost, Opus Clip or an agency?' },
     a: {
       fr: 'Ces outils couvrent une partie du travail : écrire des posts LinkedIn, découper une vidéo longue, ou tout déléguer à prix d’agence. Empire te donne les sujets, les formats testés sur le compte de Kevin et la publication sur 7 réseaux.',
@@ -371,7 +364,7 @@ export default function TarifsClient() {
           <p className="mt-2 text-center text-xs text-neutral-300">{fr ? 'Cet email n’a pas l’air valide.' : 'This email does not look valid.'}</p>
         )}
 
-        <div className={`mx-auto mt-8 max-w-lg grid-cols-3 ${ORDER_SEGMENTS}`} role="tablist" aria-label={fr ? 'Type d’offre' : 'Offer type'}>
+        <div className={`mx-auto mt-8 max-w-lg grid-cols-2 ${ORDER_SEGMENTS}`} role="tablist" aria-label={fr ? 'Type d’offre' : 'Offer type'}>
           {TABS.map((t) => (
             <button
               key={t.id}
@@ -389,7 +382,6 @@ export default function TarifsClient() {
         <div className="mt-6" role="tabpanel">
           {tab === 'solo' && <PlanCards location="cards" period={period} onPeriodChange={setPeriod} hidePayg chosen={chosenPlan} onChoose={setChosenPlan} live={live} />}
           {tab === 'team' && <TeamCards period={period} onPeriodChange={setPeriod} />}
-          {tab === 'payg' && <PaygCards />}
         </div>
 
         {/* Le panier : formule choisie, options, un seul bouton (onglet Solo). */}
