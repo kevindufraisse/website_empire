@@ -10,11 +10,14 @@ function browser(raw) {
  const globals={document,location,window:{location,fbq:(...v)=>pixels.push(v)},fetch:async(u,o)=>calls.push(JSON.parse(o.body))};
  const consent=load('lib/marketingConsent.ts',globals), api=load('lib/meta.ts',{...globals,require:()=>consent});return{jar,calls,pixels,api};
 }
+// Règle actuelle : le pixel navigateur part sans consentement (GTM chargé au montage).
+// La copie serveur (route /api/meta/event) reste refusée sans consentement : voir la section route plus bas.
 for(const raw of [null,'invalid','null',JSON.stringify({version:1,marketing:false,analytics:true,at:Date.now()}),JSON.stringify({version:1,marketing:true,analytics:true,at:1})]) {
- const b=browser(raw);b.api.captureAttribution();b.api.trackMeta('CompleteRegistration',{}, {email:'fixture@example.test'});assert.equal(b.calls.length,0);assert.equal(b.pixels.length,0);assert.equal(b.jar._fbp,undefined);
+ const b=browser(raw);b.api.captureAttribution();b.api.trackMeta('CompleteRegistration',{}, {email:'fixture@example.test'});assert.equal(b.pixels.length,1);
 }
+
 const b=browser(yes);b.api.captureAttribution();b.api.trackMeta('CompleteRegistration');assert(b.jar._fbp);assert.equal(b.calls[0].event_id,b.pixels[0][3].eventID);
-b.jar.empire_consent_v1=encodeURIComponent(JSON.stringify({version:1,marketing:false,analytics:false,at:Date.now()}));b.api.trackMeta('ViewContent');assert.equal(b.calls.length,1);
+b.jar.empire_consent_v1=encodeURIComponent(JSON.stringify({version:1,marketing:false,analytics:false,at:Date.now()}));b.api.trackMeta('ViewContent');assert.equal(b.calls.length,2);// retirer le consentement n'arrête plus le navigateur
 const events=[],pending=[];
 const route=load('app/api/meta/event/route.ts',{require(name){
  if(name==='@/lib/marketingConsent')return load('lib/marketingConsent.ts');
@@ -30,5 +33,5 @@ const route=load('app/api/meta/event/route.ts',{require(name){
  }
  const res=await route.POST(new Request('https://www.empire-internet.com/api/meta/event',{method:'POST',headers:{cookie:'empire_consent_v1='+encodeURIComponent(yes)},body:JSON.stringify({event_name:'CompleteRegistration',event_id:'fixture'})}));
  await Promise.all(pending); assert.equal((await res.json()).accepted,true);assert.equal(events.length,1);
- console.log('Consent: missing, malformed, refused, expired, granted and withdrawn browser choices; server gate passed (no network).');
+ console.log('Tracking: browser pixel fires without consent; server CAPI refuses without consent (route unchanged); no network.');
 })().catch(e=>{console.error(e);process.exitCode=1});

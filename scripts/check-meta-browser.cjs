@@ -50,9 +50,9 @@ test('malformed, null and array cookies never interrupt capture or registration'
     assert.equal(b.calls.length, 1);
   }
 });
-test('blocked storage does not break signup and cannot imply consent', () => {
+test('blocked storage does not break signup', () => {
   const b = browser({}, true); b.captureAttribution(); b.trackMeta('CompleteRegistration');
-  assert.equal(b.calls.length, 0);
+  assert.equal(b.calls.length, 1);
 });
 test('new shared click wins over stale pixel cookie and remains stable', () => {
   const b = browser({ empire_attr: encodeURIComponent(JSON.stringify({ fbc: 'fb.1.200.new' })), _fbc: 'fb.1.100.old' });
