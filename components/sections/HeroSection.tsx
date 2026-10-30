@@ -6,7 +6,8 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import { SocialIcons } from '@/components/ui/social-icons'
 import FloatingSocialReactions from '@/components/FloatingSocialReactions'
-import EmpireSalesCta from '@/components/EmpireSalesCta'
+import { trackAmplitude } from '@/lib/amplitude'
+import { startFreeTrial } from '@/lib/startTrial'
 import { FormulaHeroStatic } from '@/components/FormulaBar'
 // Même jeu de portraits que `/vsl` et `FormatsShowcaseSection` (public/creators).
 const HERO_CREATORS = [
@@ -34,6 +35,24 @@ export default function HeroSection() {
   // du paragraphe, avec une phrase qui invite à la découvrir en descendant. Voir `FormulaBar` et le slot `formula-hero-slot`.
   const heroSubtitle = autopilot ? t.autopilot.hero.subtitle : null
   const heroCta = autopilot ? t.autopilot.hero.cta1 : t.hero.cta1
+  const [trialLoading, setTrialLoading] = useState(false)
+  // Trafic chaud (setter WhatsApp, lien parrainage, email) : le visiteur arrive
+  // déjà convaincu, on lui propose l'essai directement au lieu du workshop.
+  const [warm, setWarm] = useState(false)
+  useEffect(() => {
+    try {
+      const p = new URLSearchParams(window.location.search)
+      setWarm(Boolean(p.get('ref') || p.get('wa_ref')))
+    } catch {
+      setWarm(false)
+    }
+  }, [])
+  const onTrial = async () => {
+    if (trialLoading) return
+    setTrialLoading(true)
+    trackAmplitude('home_hero_trial_clicked')
+    await startFreeTrial()
+  }
 
   return (
     <>
@@ -105,7 +124,7 @@ export default function HeroSection() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="mt-5 flex items-center justify-center gap-2"
             >
-              <span className="text-[11px] text-neutral-500">{lang === 'fr' ? 'Sur tous les réseaux' : 'On every network'}</span>
+              <span className="text-[11px] text-neutral-500">{lang === 'fr' ? 'Adapté pour' : 'Adapted for'}</span>
               <div className="flex items-center gap-3 text-neutral-400 [&_path]:fill-current [&_circle]:fill-current">
                 <SocialIcons.linkedin />
                 <SocialIcons.youtube />
@@ -185,7 +204,56 @@ export default function HeroSection() {
                   <span className="text-[11px] font-semibold opacity-70">{t.autopilot.hero.ctaReassurance}</span>
                 </a>
               ) : (
-                <EmpireSalesCta source="hero" />
+                /* Deux actions de poids différent : le workshop pour qui
+                   découvre, l'essai pour qui est déjà convaincu. */
+                <div className="flex w-full flex-col items-center gap-2 sm:w-auto">
+                  {warm ? (
+                    <button
+                      type="button"
+                      onClick={onTrial}
+                      disabled={trialLoading}
+                      className="group flex w-full flex-col items-center justify-center gap-0.5 rounded-xl bg-empire px-8 py-3.5 sm:px-12 sm:py-4 text-black shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.35)] transition-all hover:scale-[1.02] sm:w-auto"
+                    >
+                      <span className="flex items-center gap-2 text-base font-bold sm:text-lg">
+                        {trialLoading
+                          ? (lang === 'fr' ? 'Ouverture…' : 'Opening…')
+                          : (lang === 'fr' ? 'Démarrer l’essai gratuit' : 'Start your free trial')}
+                        <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
+                      </span>
+                      <span className="text-[11px] font-semibold opacity-70">
+                        {lang === 'fr' ? '7 jours · 500 crédits · annulable en 1 clic' : '7 days · 500 credits · cancel in 1 click'}
+                      </span>
+                    </button>
+                  ) : (
+                    <>
+                      <a
+                        href="/vsl"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => trackAmplitude('home_hero_workshop_clicked')}
+                        className="group flex w-full flex-col items-center justify-center gap-0.5 rounded-xl bg-empire px-8 py-3.5 sm:px-12 sm:py-4 text-black shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.35)] transition-all hover:scale-[1.02] sm:w-auto"
+                      >
+                        <span className="flex items-center gap-2 text-base font-bold sm:text-lg">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M7 4.5v15l13-7.5z" /></svg>
+                          {lang === 'fr' ? 'Voir le workshop gratuit' : 'Watch the free workshop'}
+                        </span>
+                        <span className="text-[11px] font-semibold opacity-70">
+                          {lang === 'fr' ? '1 h 26 · la formule expliquée pas à pas' : '1h26 · the formula explained step by step'}
+                        </span>
+                      </a>
+                      <button
+                        type="button"
+                        onClick={onTrial}
+                        disabled={trialLoading}
+                        className="mt-1 inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/[0.04] px-6 py-2.5 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/[0.08] disabled:opacity-60"
+                      >
+                        {trialLoading
+                          ? (lang === 'fr' ? 'Ouverture…' : 'Opening…')
+                          : (lang === 'fr' ? 'Essayer Empire gratuitement (7 jours, 500 crédits)' : 'Try Empire free (7 days, 500 credits)')}
+                      </button>
+                    </>
+                  )}
+                </div>
               )}
             </div>
             {/* Preuve alignée sur la promesse : la promesse est « les formats
@@ -215,6 +283,18 @@ export default function HeroSection() {
                     : <>They use this formula. <span className="text-neutral-500">Ready for you.</span></>}
                 </span>
               </div>
+              {!autopilot && (
+                <div className="flex flex-wrap items-center justify-center gap-2 text-[11px] font-semibold text-neutral-400 sm:gap-2.5 sm:text-xs">
+                  {(lang === 'fr'
+                    ? ['1 an de R&D', '10 000+ posts testés', '10M de vues par mois']
+                    : ['1 year of R&D', '10,000+ posts tested', '10M views a month']
+                  ).map((item) => (
+                    <span key={item} className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-0.5">
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
           </motion.div>
 

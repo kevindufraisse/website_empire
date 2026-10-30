@@ -137,8 +137,8 @@ export const fr: Translations = {
   },
   hero: {
     targetAudience: '',
-    title: 'L’avantage injuste qui vous permet <br>d’être vu et acheté grâce <br>à votre contenu.',
-    titleH2: 'Sans avoir à écrire ni monter vos vidéos.',
+    title: 'Le système de personal branding des entreprises de 7 à 10 chiffres par an accessible à n\'importe qui',
+    titleH2: 'Pour les consultants, coachs et experts qui veulent être visibles sans y passer leurs soirées.',
     titleNote: '',
     subtitle: 'Notre équipe de viralité repère les formats qui explosent, les templatise pour vous et les duplique sur 7 plateformes. Sans écrire, sans monter, sans chercher quoi dire.',
     description: '',
