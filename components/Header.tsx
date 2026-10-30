@@ -77,6 +77,12 @@ export default function Header() {
     startFreeTrial()
   }
 
+  const loginHref = `https://app.empire-internet.com/login${fr ? '?lang=fr' : ''}`
+  const onLogin = () => {
+    trackAmplitude('header_login_clicked', { path: pathname })
+    setIsMenuOpen(false)
+  }
+
   const cta = isPartnersPage ? (
     <button
       type="button"
@@ -157,6 +163,13 @@ export default function Header() {
           </div>
 
           <div className="flex min-w-0 items-center justify-end gap-2">
+            <a
+              href={loginHref}
+              onClick={onLogin}
+              className="hidden whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium text-neutral-300 transition hover:bg-white/[0.04] hover:text-white sm:block"
+            >
+              {fr ? 'Se connecter' : 'Log in'}
+            </a>
             <div className="hidden sm:block">{cta}</div>
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -208,6 +221,13 @@ export default function Header() {
                   <span className="mt-1 block text-[12px] text-neutral-400">{l.what}</span>
                 </a>
               ))}
+              <a
+                href={loginHref}
+                onClick={onLogin}
+                className="mt-3 block rounded-lg border border-white/15 px-3 py-3 text-center text-base font-semibold text-white"
+              >
+                {fr ? 'Se connecter' : 'Log in'}
+              </a>
               <div className="pt-4 [&>*]:block [&>*]:w-full [&>*]:py-3.5 [&>*]:text-center [&>*]:text-base">{cta}</div>
             </div>
           </motion.div>
