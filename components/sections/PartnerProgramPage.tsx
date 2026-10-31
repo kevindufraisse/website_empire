@@ -10,7 +10,6 @@ import { trackAmplitude } from '@/lib/amplitude'
 import { partnerPayHref } from '@/lib/partner-festival-pricing'
 import { getPlan } from '@/lib/plans'
 import { usePartnerFestivalPricing } from '@/hooks/usePartnerFestivalPricing'
-import { postitJoinUrl } from '@/lib/postit'
 import { WebinarJamBar, WebinarJamButton } from '@/components/WebinarJamRegister'
 import AcademyPresentationCta from '@/components/AcademyPresentationCta'
 import FeaturedInSection from '@/components/FeaturedInSection'
@@ -199,28 +198,164 @@ export function CtaBlock({
   source,
   audience,
   fullWidth = false,
+  variant = 'secondary',
 }: {
   fr: boolean
   source: string
   audience: Audience
   /** Aligné sur la largeur du bloc parent (ex. simulation). */
   fullWidth?: boolean
+  /** `primary` : bouton plein, le seul appel principal de /academy (hero, simulation).
+   *  `secondary` (défaut) : bouton bordé, inchangé pour /academy/agence. */
+  variant?: 'primary' | 'secondary'
 }) {
+  const primary = variant === 'primary'
   return (
     <WebinarJamButton
       onClick={() => trackOpen(source, audience)}
-      className={`inline-flex h-12 items-center justify-center gap-2 rounded-2xl border border-white/40 bg-white/[0.08] px-6 text-white transition hover:border-white/60 hover:bg-white/[0.14] ${
-        fullWidth ? 'w-full' : 'mx-auto w-full max-w-md'
-      }`}
+      className={`inline-flex h-12 items-center justify-center gap-2 rounded-2xl px-6 transition ${
+        primary
+          ? 'bg-academy font-bold text-black hover:brightness-110'
+          : 'border border-white/40 bg-white/[0.08] text-white hover:border-white/60 hover:bg-white/[0.14]'
+      } ${fullWidth ? 'w-full' : 'mx-auto w-full max-w-md'}`}
     >
       <span className="text-[15px] font-bold leading-snug">
         {fr ? "S'inscrire aux portes ouvertes" : 'Register for the open house'}
       </span>
-      <span className="text-[11px] font-medium text-neutral-400">
+      <span className={`text-[11px] font-medium ${primary ? 'text-black/60' : 'text-neutral-400'}`}>
         {fr ? '· Gratuit' : '· Free'}
       </span>
       <ArrowRight className="h-4 w-4 shrink-0" />
     </WebinarJamButton>
+  )
+}
+
+/** Portes ouvertes : la porte d'entrée de la page, juste après « Pourquoi je
+ *  fais ça ». Avant le 31 octobre 2026 ce bloc vivait en 17e position, sous les
+ *  témoignages Senja, derrière quatre boutons de paiement. */
+function OpenHouseSection({ fr, audience }: { fr: boolean; audience: Audience }) {
+  return (
+    <section id="portes-ouvertes" className="scroll-mt-36 border-b border-white/[0.06] py-16 md:py-24">
+      <div className="container">
+        <div className="mx-auto max-w-6xl">
+          <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
+            <div>
+              <SectionLabel>{fr ? 'Portes ouvertes' : 'Open house'}</SectionLabel>
+              <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
+                {fr ? 'Je te montre le parcours, étape par étape.' : 'I’ll show you the workflow, step by step.'}
+              </h2>
+
+              <div className="mt-6 flex items-center gap-4">
+                <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full ring-2 ring-academy/40">
+                  <Image
+                    src="/founders/kevin.jpg"
+                    alt="Kevin Dufraisse"
+                    fill
+                    sizes="64px"
+                    className="object-cover"
+                  />
+                </div>
+                <div>
+                  <p className="text-[15px] font-semibold text-white">Kevin Dufraisse</p>
+                  <p className="text-[13px] text-neutral-500">
+                    {fr ? 'Fondateur d’Empire Internet' : 'Founder of Empire Internet'}
+                  </p>
+                </div>
+              </div>
+
+              <p className="mt-5 text-[16px] leading-relaxed text-neutral-400">
+                {fr
+                  ? 'Dans cette présentation enregistrée, je te montre le fonctionnement du programme. Regarde le replay tout de suite ou choisis une session. L’horaire affiché à l’inscription est celui de ton fuseau. Pour tes questions, réponds à l’email de confirmation.'
+                  : 'This recorded presentation shows how the program works. Watch the replay immediately or choose a session. Registration times are shown in your time zone. For questions, reply to your confirmation email.'}
+              </p>
+            </div>
+
+            <div className="lg:pt-8">
+              <p className="text-[15px] font-medium text-white">
+                {fr ? 'En un peu plus d’une heure, tu vas voir :' : 'In just over an hour, you’ll see:'}
+              </p>
+              <ul className="mt-4 space-y-3">
+                {(fr
+                  ? [
+                      'Comment un partenaire accompagne un client dans Empire.',
+                      'Ce que tu fais et ce que la plateforme prend en charge.',
+                      'Comment fonctionnent les missions, la rémunération et les crédits.',
+                      'Comment se déroule la formation et comment rejoindre Empire Partners.',
+                    ]
+                  : [
+                      'How a partner supports a client inside Empire.',
+                      'What you do vs what the platform handles.',
+                      'How missions, pay and credits work.',
+                      'How training works and how to join the program.',
+                    ]
+                ).map((line) => (
+                  <li key={line} className="flex gap-3 text-[14px] text-neutral-400">
+                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-academy" strokeWidth={2.5} />
+                    {line}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-8">
+                <CtaBlock fr={fr} source="section" audience={audience} variant="primary" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/** Garantie puis l'offre : le seul endroit de la page où le prix s'affiche
+ *  (bloc « L'offre », ancre #offre). Le visiteur l'atteint après l'histoire,
+ *  la mission, la simulation, les preuves et le programme. */
+function OfferSection({
+  fr,
+  audience,
+  festival,
+}: {
+  fr: boolean
+  audience: Audience
+  festival: ReturnType<typeof usePartnerFestivalPricing>
+}) {
+  return (
+    <section id="offre" className="scroll-mt-36 border-b border-white/[0.06] py-20 md:py-28">
+      <div className="container">
+        <div className="mx-auto max-w-[38rem]">
+          <SectionLabel>{fr ? 'Garantie' : 'Guarantee'}</SectionLabel>
+          <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
+            {fr ? '14 jours pour changer d’avis, remboursé à 100 %.' : '14 days to change your mind, 100% refunded.'}
+          </h2>
+          <p className="mt-4 text-[16px] leading-relaxed text-neutral-400">
+            {fr
+              ? 'Tant que tu n’as produit aucun contenu ni utilisé de crédit, tu es remboursé en entier. Tu ouvres le bootcamp, tu regardes, tu décides.'
+              : 'As long as you haven’t produced any content or used any credit, you get a full refund. Open the bootcamp, look around, decide.'}
+          </p>
+
+          <div className="mt-14">
+            <SectionLabel>{fr ? 'L’offre' : 'The offer'}</SectionLabel>
+            <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
+              {fr ? 'Rejoindre Empire Partners' : 'Join Empire Partners'}
+            </h2>
+            <p className="mt-3 text-[15px] text-neutral-400">
+              {fr
+                ? 'Paiement unique, accès immédiat au bootcamp, aux replays, aux crédits et à la communauté.'
+                : 'One-time payment, instant access to the bootcamp, the replays, the credits and the community.'}
+            </p>
+            <div className="mt-8 flex w-full flex-col items-center gap-3">
+              <FestivalPriceBlock fr={fr} pricing={festival} />
+              <PartnerPayLink fr={fr} source="offer" price={festival.price} audience={audience} />
+            </div>
+            <p className="mt-8 text-center text-[14px] text-neutral-400">
+              {fr ? 'Tu préfères voir le parcours avant de te décider ?' : 'Prefer to see the workflow before deciding?'}
+            </p>
+            <div className="mt-3">
+              <CtaBlock fr={fr} source="offer" audience={audience} />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }
 
@@ -600,10 +735,21 @@ export default function PartnerProgramPage() {
                   : 'You set your price. Your client pays you every month through your Empire page, and the tool produces their content for you.'}
               </p>
             )}
+            {/* Un seul appel : les portes ouvertes. Le prix vit dans le bloc
+                « L'offre » (#offre), après les preuves et le programme ; un lien
+                y mène pour celui qui le cherche tout de suite. */}
             <div className="mt-8 flex w-full flex-col items-center gap-3">
-              <PartnerPayLink fr={fr} source="hero" price={festival.price} audience={audience} />
-              <CtaBlock fr={fr} source="hero" audience={audience} />
-              <FestivalPriceBlock fr={fr} pricing={festival} />
+              <CtaBlock fr={fr} source="hero" audience={audience} variant="primary" />
+              <p className="text-[12px] text-neutral-500">
+                {fr ? 'Replay immédiat ou séance programmée · ' : 'Instant replay or a scheduled session · '}
+                <a
+                  href="#offre"
+                  onClick={() => trackAmplitude('academy_offer_anchor_clicked', { source: 'hero', audience })}
+                  className="underline decoration-white/30 underline-offset-4 hover:text-white hover:decoration-white"
+                >
+                  {fr ? 'voir le prix et ce qui est inclus' : 'see the price and what’s included'}
+                </a>
+              </p>
             </div>
             <dl className="mx-auto mt-6 grid max-w-md grid-cols-2 divide-x divide-white/[0.08] border-y border-white/[0.08] py-4">
               {(fr
@@ -636,20 +782,24 @@ export default function PartnerProgramPage() {
             {(fr
               ? [
                   ['#pourquoi', 'Pourquoi'],
+                  ['#portes-ouvertes', 'Portes ouvertes'],
                   ['#opportunite', 'Opportunité'],
                   ['#mission', 'Mission'],
                   ['#parcours', 'Fonctionnement'],
                   ['#simulation', 'Revenus'],
                   ['#formation', 'Formation'],
+                  ['#offre', 'Prix'],
                   ['#faq', 'FAQ'],
                 ]
               : [
                   ['#pourquoi', 'Why'],
+                  ['#portes-ouvertes', 'Open house'],
                   ['#opportunite', 'Opportunity'],
                   ['#mission', 'Mission'],
                   ['#parcours', 'How it works'],
                   ['#simulation', 'Earnings'],
                   ['#formation', 'Training'],
+                  ['#offre', 'Price'],
                   ['#faq', 'FAQ'],
                 ]
             ).map(([href, label]) => (
@@ -661,12 +811,12 @@ export default function PartnerProgramPage() {
                 {label}
               </a>
             ))}
-            <a
-              href={partnerPayHref()}
+            <WebinarJamButton
+              onClick={() => trackOpen('nav', audience)}
               className="ml-auto shrink-0 rounded-lg bg-academy px-3.5 py-2 text-[12px] font-bold text-black transition hover:brightness-110"
             >
-              {fr ? `Rejoindre Empire Partners · ${festival.price} €` : `Join Empire Partners · €${festival.price}`}
-            </a>
+              {fr ? 'Portes ouvertes · Gratuit' : 'Open house · Free'}
+            </WebinarJamButton>
           </div>
         </div>
       </nav>
@@ -682,6 +832,7 @@ export default function PartnerProgramPage() {
       {/* Pourquoi je fais ça : le message de Kevin (Loom du 29 octobre 2026),
           avec ses mots. Aucun montant de revenu ici. */}
       <WhyKevinSection fr={fr} />
+      <OpenHouseSection fr={fr} audience={audience} />
       <PartnerProofSection fr={fr} />
 
       {/* Opportunité et besoin client, dans un seul argument */}
@@ -1101,15 +1252,23 @@ export default function PartnerProgramPage() {
               </div>
 
               <div className="mt-10 w-full">
-                <PartnerPayLink fr={fr} source="simulation" price={festival.price} audience={audience} />
-                <div className="mt-3"><CtaBlock fr={fr} source="simulation" audience={audience} fullWidth /></div>
+                <CtaBlock fr={fr} source="simulation" audience={audience} fullWidth variant="primary" />
+                <p className="mt-3 text-center text-[12px] text-neutral-500">
+                  <a
+                    href="#offre"
+                    onClick={() => trackAmplitude('academy_offer_anchor_clicked', { source: 'simulation', audience })}
+                    className="underline decoration-white/30 underline-offset-4 hover:text-white hover:decoration-white"
+                  >
+                    {fr ? 'Voir le prix et ce qui est inclus' : 'See the price and what’s included'}
+                  </a>
+                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* La preuve valide la projection, puis la porte ouverte devient la conclusion */}
+      {/* La preuve valide la projection ; la porte ouverte est plus haut (OpenHouseSection). */}
       <section className="border-b border-white/[0.06] py-20 md:py-28">
         <div className="container">
           <div className="mx-auto max-w-6xl">
@@ -1129,70 +1288,6 @@ export default function PartnerProgramPage() {
               />
             </div>
 
-            <div id="portes-ouvertes" className="mt-16 scroll-mt-36 border-t border-white/[0.08] pt-12">
-              <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
-              <div>
-                <SectionLabel>{fr ? 'Portes ouvertes' : 'Open house'}</SectionLabel>
-                <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
-                  {fr ? 'Je te montre le parcours, étape par étape.' : 'I’ll show you the workflow, step by step.'}
-                </h2>
-
-                <div className="mt-6 flex items-center gap-4">
-                  <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full ring-2 ring-academy/40">
-                    <Image
-                      src="/founders/kevin.jpg"
-                      alt="Kevin Dufraisse"
-                      fill
-                      sizes="64px"
-                      className="object-cover"
-                    />
-                  </div>
-                  <div>
-                    <p className="text-[15px] font-semibold text-white">Kevin Dufraisse</p>
-                    <p className="text-[13px] text-neutral-500">
-                      {fr ? 'Fondateur d’Empire Internet' : 'Founder of Empire Internet'}
-                    </p>
-                  </div>
-                </div>
-
-                <p className="mt-5 text-[16px] leading-relaxed text-neutral-400">
-                  {fr
-                ? 'Dans cette présentation enregistrée, je te montre le fonctionnement du programme. Regarde le replay tout de suite ou choisis une session. L’horaire affiché à l’inscription est celui de ton fuseau. Pour tes questions, réponds à l’email de confirmation.'
-                : 'This recorded presentation shows how the program works. Watch the replay immediately or choose a session. Registration times are shown in your time zone. For questions, reply to your confirmation email.'}
-                </p>
-              </div>
-
-              <div className="lg:pt-8">
-                <p className="text-[15px] font-medium text-white">
-                  {fr ? 'En un peu plus d’une heure, tu vas voir :' : 'In just over an hour, you’ll see:'}
-                </p>
-                <ul className="mt-4 space-y-3">
-                  {(fr
-                    ? [
-                        'Comment un partenaire accompagne un client dans Empire.',
-                        'Ce que tu fais et ce que la plateforme prend en charge.',
-                        'Comment fonctionnent les missions, la rémunération et les crédits.',
-                        'Comment se déroule la formation et comment rejoindre Empire Partners.',
-                      ]
-                    : [
-                        'How a partner supports a client inside Empire.',
-                        'What you do vs what the platform handles.',
-                        'How missions, pay and credits work.',
-                        'How training works and how to join the program.',
-                      ]
-                  ).map((line) => (
-                    <li key={line} className="flex gap-3 text-[14px] text-neutral-400">
-                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-academy" strokeWidth={2.5} />
-                      {line}
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-8">
-                  <CtaBlock fr={fr} source="section" audience={audience} />
-                </div>
-              </div>
-            </div>
-            </div>
           </div>
         </div>
       </section>
@@ -1334,28 +1429,6 @@ export default function PartnerProgramPage() {
                 ? 'La communauté t’aide à avancer et à débloquer tes questions. La formation, les replays et la communauté sont inclus dans le bootcamp et restent accessibles à vie. Un live chaque lundi à 14 h avec Empire Partners.'
                 : 'The community helps you move forward and unblock questions. Training, replays and community are included in the bootcamp with lifetime access. A live every Monday at 2 pm with Empire Partners.'}
             </p>
-            {/* À côté de la communauté : le live gratuit Post it like it's hot,
-                ouvert à tous (inscription sur la page Systeme.io de POSTIT_URL). */}
-            <a
-              href={postitJoinUrl('academy')}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackAmplitude('academy_postit_clicked', { source: 'community' })}
-              className="mt-5 flex items-center justify-between gap-4 rounded-2xl border border-white/[0.1] bg-white/[0.03] px-4 py-3.5 transition hover:border-white/25"
-            >
-              <span>
-                <span className="block text-[14px] font-semibold text-white">Post it like it’s hot</span>
-                <span className="mt-0.5 block text-[13px] text-neutral-400">
-                  {fr
-                    ? 'Le live gratuit, chaque lundi à 14 h : on trouve ton prochain contenu viral, en direct.'
-                    : 'The free live, every Monday at 2 pm: we find your next viral post, live.'}
-                </span>
-              </span>
-              <span className="inline-flex shrink-0 items-center gap-1 text-[13px] font-semibold text-academy">
-                {fr ? "S'inscrire" : 'Register'}
-                <ArrowRight className="h-4 w-4" />
-              </span>
-            </a>
           </div>
         </div>
       </section>
@@ -1370,15 +1443,8 @@ export default function PartnerProgramPage() {
                 ? 'Ce que tu reçois'
                 : 'Everything you get'}
             </h2>
-            <p className="mt-5 text-[17px] font-medium text-white">
-              {fr
-                ? `Cette semaine : ${festival.price} €, payés une fois.`
-                : `This week: €${festival.price}, paid once.`}
-            </p>
-            <p className="mt-2 text-[14px] text-neutral-500">
-              {fr
-                ? '500 € du lundi au jeudi · 600 € le vendredi et le samedi · 700 € le dimanche · retour à 500 € le lundi. Comme pour un festival, ceux qui se décident tôt paient moins.'
-                : '€500 Monday to Thursday · €600 on Friday and Saturday · €700 on Sunday · back to €500 on Monday. Like festival tickets, those who decide early pay less.'}
+            <p className="mt-3 text-[15px] text-neutral-500">
+              {fr ? 'Paiement unique. Le prix est juste en dessous.' : 'One-time payment. The price is right below.'}
             </p>
             <div className="mt-8 space-y-7">
               {VALUE_STACK[fr ? 'fr' : 'en'].map((group) => (
@@ -1394,11 +1460,6 @@ export default function PartnerProgramPage() {
                   </ul>
                 </div>
               ))}
-            </div>
-
-            <div className="mt-8 flex w-full flex-col items-center gap-3">
-              <PartnerPayLink fr={fr} source="program" price={festival.price} audience={audience} />
-              <CtaBlock fr={fr} source="program" audience={audience} />
             </div>
 
             <h3 className="mt-12 text-xl font-semibold tracking-tight">
@@ -1417,6 +1478,8 @@ export default function PartnerProgramPage() {
           </div>
         </div>
       </section>
+
+      <OfferSection fr={fr} audience={audience} festival={festival} />
 
       {/* FAQ */}
       <section id="faq" className="scroll-mt-36 border-t border-white/[0.06] py-20 md:py-28">
@@ -1445,26 +1508,24 @@ export default function PartnerProgramPage() {
             </div>
 
             {/* La présentation PDF, une seule fois sur la page (jamais sous les
-                boutons d'inscription), puis WhatsApp pour le reste. */}
+                boutons d'inscription). Les questions se posent en répondant à
+                l'email de confirmation des portes ouvertes. */}
             <div className="mx-auto mt-8 max-w-md">
               <AcademyPresentationCta fr={fr} source="faq" />
             </div>
-            <p className="mt-5 text-center text-[14px] text-neutral-400">
-              {fr ? 'Une autre question ? ' : 'Another question? '}
-              <a
-                href="https://wa.me/33665427470"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackAmplitude('academy_whatsapp_clicked', { source: 'faq' })}
-                className="font-semibold text-white underline decoration-white/30 underline-offset-4 hover:decoration-white"
-              >
-                {fr ? 'Écris à Kevin sur WhatsApp' : 'Message Kevin on WhatsApp'}
-              </a>
-            </p>
 
             <div className="mt-16 text-center">
-              <PartnerPayLink fr={fr} source="faq" price={festival.price} audience={audience} />
-              <div className="mt-3"><CtaBlock fr={fr} source="faq" audience={audience} /></div>
+              <CtaBlock fr={fr} source="faq" audience={audience} variant="primary" />
+              <p className="mt-4 text-[13px] text-neutral-500">
+                {fr ? 'Déjà décidé ? ' : 'Already decided? '}
+                <a
+                  href="#offre"
+                  onClick={() => trackAmplitude('academy_offer_anchor_clicked', { source: 'faq', audience })}
+                  className="font-semibold text-white underline decoration-white/30 underline-offset-4 hover:decoration-white"
+                >
+                  {fr ? `Rejoindre Empire Partners · ${festival.price} €` : `Join Empire Partners · €${festival.price}`}
+                </a>
+              </p>
             </div>
           </div>
         </div>
