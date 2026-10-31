@@ -8,6 +8,7 @@ import OnboardingLink from '@/components/OnboardingLink'
 import { partnerPayHref } from '@/lib/partner-festival-pricing'
 import JoinPartnersLabel from '@/components/JoinPartnersLabel'
 import { postitJoinUrl } from '@/lib/postit'
+import { openCookiePreferences } from '@/lib/marketingConsent'
 
 export default function Footer() {
   const { t, lang } = useLanguage()
@@ -127,6 +128,10 @@ export default function Footer() {
               <a href="/data-deletion" className="hover:text-empire transition-colors">
                 {lang === 'fr' ? 'Suppression des données' : 'Data deletion'}
               </a>
+              {/* Seule entrée vers le panneau de choix : la mesure est active par défaut. */}
+              <button type="button" onClick={openCookiePreferences} className="hover:text-empire transition-colors">
+                Cookies
+              </button>
             </nav>
           </div>
         </div>

@@ -338,9 +338,11 @@ function FrenchContent() {
 
       <h2>11. Cookies</h2>
       <p>
-        Nous utilisons uniquement des cookies strictement nécessaires (authentification,
-        préférences linguistiques, sécurité). Aucun cookie publicitaire ou de tracking tiers
-        n&apos;est utilisé en dehors d&apos;un consentement explicite.
+        Outre les cookies strictement nécessaires (authentification, préférences
+        linguistiques, sécurité), nous utilisons par défaut des cookies de mesure
+        d&apos;audience (Amplitude, PostHog) et de mesure des campagnes (pixel Meta, Google).
+        Vous pouvez les refuser à tout moment depuis le lien « Cookies » en bas de chaque
+        page ; votre choix est conservé 6 mois et s&apos;applique au site et à l&apos;application.
       </p>
 
       <h2>12. Transferts internationaux</h2>
@@ -697,8 +699,10 @@ function EnglishContent() {
 
       <h2>11. Cookies</h2>
       <p>
-        We use only strictly necessary cookies (authentication, language preferences, security).
-        No advertising or third-party tracking cookies are used without explicit consent.
+        Besides strictly necessary cookies (authentication, language preferences, security), we
+        use audience measurement cookies (Amplitude, PostHog) and campaign measurement cookies
+        (Meta pixel, Google) by default. You can refuse them at any time from the “Cookies” link
+        at the bottom of every page; your choice is kept for 6 months and applies to the site and the app.
       </p>
 
       <h2>12. International transfers</h2>

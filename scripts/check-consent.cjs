@@ -10,8 +10,14 @@ function browser(raw) {
  const globals={document,location,window:{location,fbq:(...v)=>pixels.push(v)},fetch:async(u,o)=>calls.push(JSON.parse(o.body))};
  const consent=load('lib/marketingConsent.ts',globals), api=load('lib/meta.ts',{...globals,require:()=>consent});return{jar,calls,pixels,api};
 }
-// Règle actuelle : le pixel navigateur part sans consentement (GTM chargé au montage).
-// La copie serveur (route /api/meta/event) reste refusée sans consentement : voir la section route plus bas.
+// Règle depuis le 31 octobre 2026 : tout est actif par défaut (navigateur ET copie serveur),
+// seul un refus enregistré coupe. Le bandeau ne s'ouvre plus au chargement.
+const consentSrc=fs.readFileSync(path.join(root,'lib/marketingConsent.ts'),'utf8');
+assert.equal(load('lib/marketingConsent.ts',{document:{cookie:''}}).marketingAllowed(), true, 'sans cookie, marketing actif');
+const prefsSrc=fs.readFileSync(path.join(root,'components/CookiePreferences.tsx'),'utf8');
+assert(!/setOpen\(!c\)/.test(prefsSrc), 'le panneau ne doit plus s\'ouvrir au chargement');
+assert(/OPEN_PREFS_EVENT/.test(prefsSrc) && /openCookiePreferences/.test(fs.readFileSync(path.join(root,'components/Footer.tsx'),'utf8')), 'le pied de page doit ouvrir le panneau');
+assert(/marketing !== false/.test(consentSrc) && /analytics !== false/.test(consentSrc), 'seul un refus enregistré coupe');
 for(const raw of [null,'invalid','null',JSON.stringify({version:1,marketing:false,analytics:true,at:Date.now()}),JSON.stringify({version:1,marketing:true,analytics:true,at:1})]) {
  const b=browser(raw);b.api.captureAttribution();b.api.trackMeta('CompleteRegistration',{}, {email:'fixture@example.test'});assert.equal(b.pixels.length,1);
 }
@@ -27,11 +33,14 @@ const route=load('app/api/meta/event/route.ts',{require(name){
  throw new Error(name);
 }});
 (async()=>{
- for(const cookie of ['', 'empire_consent_v1=bad', 'empire_consent_v1='+encodeURIComponent(JSON.stringify({version:1,marketing:false,analytics:true,at:Date.now()}))]){
- const res=await route.POST(new Request('https://www.empire-internet.com/api/meta/event',{method:'POST',headers:{cookie},body:JSON.stringify({event_name:'CompleteRegistration',event_id:'fixture',email:'fixture@example.test'})}));
- assert.equal((await res.json()).accepted,false);assert.equal(events.length,0);
+ // Refus enregistré : la copie serveur ne part pas.
+ const refused=await route.POST(new Request('https://www.empire-internet.com/api/meta/event',{method:'POST',headers:{cookie:'empire_consent_v1='+encodeURIComponent(JSON.stringify({version:1,marketing:false,analytics:true,at:Date.now()}))},body:JSON.stringify({event_name:'CompleteRegistration',event_id:'fixture',email:'fixture@example.test'})}));
+ assert.equal((await refused.json()).accepted,false);assert.equal(events.length,0);
+ // Pas de cookie, cookie illisible, ou oui : la copie serveur part.
+ for(const cookie of ['', 'empire_consent_v1=bad', 'empire_consent_v1='+encodeURIComponent(yes)]){
+ const res=await route.POST(new Request('https://www.empire-internet.com/api/meta/event',{method:'POST',headers:{cookie},body:JSON.stringify({event_name:'CompleteRegistration',event_id:'fixture'})}));
+ await Promise.all(pending); assert.equal((await res.json()).accepted,true,`accepté sans refus (${cookie||'sans cookie'})`);
  }
- const res=await route.POST(new Request('https://www.empire-internet.com/api/meta/event',{method:'POST',headers:{cookie:'empire_consent_v1='+encodeURIComponent(yes)},body:JSON.stringify({event_name:'CompleteRegistration',event_id:'fixture'})}));
- await Promise.all(pending); assert.equal((await res.json()).accepted,true);assert.equal(events.length,1);
- console.log('Tracking: browser pixel fires without consent; server CAPI refuses without consent (route unchanged); no network.');
+ assert.equal(events.length,3);
+ console.log('Tracking: active by default in browser and server; a recorded refusal stops both; banner closed on load; no network.');
 })().catch(e=>{console.error(e);process.exitCode=1});

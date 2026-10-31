@@ -1,5 +1,10 @@
 export const CONSENT_COOKIE = 'empire_consent_v1'
 export const CONSENT_EVENT = 'empire-consent-change'
+/** Ouvre le panneau de choix (lien « Cookies » du pied de page). */
+export const OPEN_PREFS_EVENT = 'empire-open-cookie-prefs'
+export function openCookiePreferences() {
+  try { window.dispatchEvent(new Event(OPEN_PREFS_EVENT)) } catch {}
+}
 export type Consent = { version: 1; marketing: boolean; analytics: boolean; at: number }
 export function parseConsent(raw: string | undefined | null): Consent | null {
   try {
@@ -14,8 +19,12 @@ export function consentFromCookieHeader(header: string): Consent | null {
 export function readConsent(): Consent | null {
   try { return consentFromCookieHeader(document.cookie) } catch { return null }
 }
-export function marketingAllowed(): boolean { return readConsent()?.marketing === true }
-export function analyticsAllowed(): boolean { return readConsent()?.analytics === true }
+/** Règle depuis le 31 octobre 2026 : actif par défaut, seul un refus enregistré coupe.
+ *  Avant, le pixel Meta partait déjà sans consentement (commit 066b29c) pendant que le
+ *  bandeau gardait Amplitude et PostHog derrière un « oui » : 13 visiteurs vus par mois
+ *  sur /academy. Le refus reste possible à tout moment (« Cookies », pied de page). */
+export function marketingAllowed(): boolean { return readConsent()?.marketing !== false }
+export function analyticsAllowed(): boolean { return readConsent()?.analytics !== false }
 export function clearOptionalStorage(marketing = true, analytics = true) {
   if (typeof document === 'undefined') return
   try {

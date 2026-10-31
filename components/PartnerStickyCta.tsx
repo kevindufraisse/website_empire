@@ -3,16 +3,15 @@
 import { useEffect, useState, type RefObject } from 'react'
 import { ArrowRight, X } from 'lucide-react'
 import { WebinarJamButton } from '@/components/WebinarJamRegister'
-import { readConsent, CONSENT_EVENT } from '@/lib/marketingConsent'
 
 /**
  * Rappel discret en bas de page, à la place de la barre WebinarJam (compte à
  * rebours, date, fuseau : trop lourd sur mobile). Une ligne, un bouton.
  *
  * Elle n'apparaît que lorsque le bouton du hero a quitté l'écran, et jamais
- * par-dessus quelque chose qui demande déjà l'attention : la popup
- * d'inscription WebinarJam (body `wj_body_reset`) ou le bandeau cookies
- * (aucun consentement enregistré). Fermable pour la session.
+ * par-dessus la popup d'inscription WebinarJam (body `wj_body_reset`).
+ * Fermable pour la session. (Le bandeau cookies ne s'ouvre plus au chargement
+ * depuis le 31 octobre 2026 : il n'a plus à être attendu.)
  */
 export default function PartnerStickyCta({
   anchorRef,
@@ -26,7 +25,6 @@ export default function PartnerStickyCta({
 }) {
   const [anchorOffscreen, setAnchorOffscreen] = useState(false)
   const [popupOpen, setPopupOpen] = useState(false)
-  const [consentPending, setConsentPending] = useState(true)
   const [dismissed, setDismissed] = useState(false)
 
   useEffect(() => {
@@ -53,14 +51,7 @@ export default function PartnerStickyCta({
     return () => observer.disconnect()
   }, [])
 
-  useEffect(() => {
-    const sync = () => setConsentPending(!readConsent())
-    sync()
-    window.addEventListener(CONSENT_EVENT, sync)
-    return () => window.removeEventListener(CONSENT_EVENT, sync)
-  }, [])
-
-  const visible = anchorOffscreen && !popupOpen && !consentPending && !dismissed
+  const visible = anchorOffscreen && !popupOpen && !dismissed
 
   return (
     <div

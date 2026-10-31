@@ -41,7 +41,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'invalid_event' }, { status: 400, headers })
   }
 
-  if (!consentFromCookieHeader(req.headers.get('cookie') || '')?.marketing) return NextResponse.json({ accepted: false, reason: 'consent_required' }, { headers })
+  // Même règle que le navigateur : actif par défaut, seul un refus enregistré coupe.
+  if (consentFromCookieHeader(req.headers.get('cookie') || '')?.marketing === false) return NextResponse.json({ accepted: false, reason: 'consent_refused' }, { headers })
 
   const sourceUrl = str(body?.event_source_url, 1000)
   let eventSourceUrl: string | undefined
