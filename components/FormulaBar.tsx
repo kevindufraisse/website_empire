@@ -138,63 +138,46 @@ export default function FormulaBar() {
     if (slot && mode !== 'hidden') slot.setAttribute('data-live', 'true')
   }, [slot, mode])
 
-  // Révélation des termes : un observer par ancre, déclenché quand le haut
-  // de la section passe les 60 % du viewport. Une fois net, on n'y revient pas.
+  // Mesurer le seuil plutôt qu'observer un repère de 1 px : un grand coup
+  // de molette ou une ancre peut sauter le repère entre deux images.
   useEffect(() => {
-    if (typeof IntersectionObserver === 'undefined') {
-      setRevealed(new Set(FORMULA_TERMS.map((t) => t.id)))
-      return
+    const seen = new Set<TermId>()
+    let frame = 0
+    let completed = false
+    const measure = () => {
+      frame = 0
+      for (const term of FORMULA_TERMS) {
+        const el = document.getElementById(term.anchor)
+        if (!el || seen.has(term.id) || el.getBoundingClientRect().top > window.innerHeight * 0.6) continue
+        seen.add(term.id)
+        setRevealed(new Set(seen))
+        setHint(term.id)
+        if (hintTimer.current) clearTimeout(hintTimer.current)
+        hintTimer.current = setTimeout(() => setHint(null), HINT_MS)
+      }
+      const apply = document.getElementById(APPLY_ANCHOR)
+      if (!completed && apply && apply.getBoundingClientRect().top < window.innerHeight * 0.7) {
+        completed = true
+        FORMULA_TERMS.forEach(term => seen.add(term.id))
+        setRevealed(new Set(seen))
+        setDone(true)
+      }
     }
-    const observers: IntersectionObserver[] = []
-
-    const reveal = (id: TermId) => {
-      setRevealed((prev) => {
-        if (prev.has(id)) return prev
-        const next = new Set(prev)
-        next.add(id)
-        return next
-      })
-      setHint(id)
-      if (hintTimer.current) clearTimeout(hintTimer.current)
-      hintTimer.current = setTimeout(() => setHint(null), HINT_MS)
-    }
-
-    FORMULA_TERMS.forEach((term) => {
-      const el = document.getElementById(term.anchor)
-      if (!el) return
-      const io = new IntersectionObserver(
-        (entries) => {
-          if (entries.some((e) => e.isIntersecting)) {
-            reveal(term.id)
-            io.disconnect()
-          }
-        },
-        { rootMargin: '0px 0px -40% 0px' },
-      )
-      io.observe(el)
-      observers.push(io)
-    })
-
-    const applyEl = document.getElementById(APPLY_ANCHOR)
-    if (applyEl) {
-      const io = new IntersectionObserver(
-        (entries) => {
-          if (entries.some((e) => e.isIntersecting)) {
-            // Tout devient net, même si l'utilisateur a sauté des sections.
-            setRevealed(new Set(FORMULA_TERMS.map((t) => t.id)))
-            setDone(true)
-            io.disconnect()
-          }
-        },
-        { rootMargin: '0px 0px -30% 0px' },
-      )
-      io.observe(applyEl)
-      observers.push(io)
-    }
-
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(measure) }
+    measure()
+    document.addEventListener('scroll', schedule, { passive: true, capture: true })
+    window.addEventListener('resize', schedule)
+    // Les témoignages et composants chargés à la demande peuvent déplacer
+    // les repères après le premier rendu.
+    const resize = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(schedule) : null
+    const main = document.querySelector('main')
+    if (main) resize?.observe(main)
     return () => {
-      observers.forEach((o) => o.disconnect())
+      if (frame) cancelAnimationFrame(frame)
       if (hintTimer.current) clearTimeout(hintTimer.current)
+      document.removeEventListener('scroll', schedule, { capture: true })
+      window.removeEventListener('resize', schedule)
+      resize?.disconnect()
     }
   }, [])
 
