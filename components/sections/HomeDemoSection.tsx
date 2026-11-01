@@ -5,7 +5,7 @@ import { motion, useInView } from 'framer-motion'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 
-const VoiceToContentAnimation = dynamic(() => import('@/components/VoiceToContentAnimation'), { ssr: false })
+const FormulaProductDemo = dynamic(() => import('@/components/FormulaProductDemo'))
 
 export default function HomeDemoSection() {
   const { lang } = useLanguage()
@@ -48,14 +48,14 @@ export default function HomeDemoSection() {
           transition={{ duration: 0.5, delay: 0.1, ease: 'easeOut' }}
           className="mx-auto w-full max-w-3xl"
         >
-          {/* À la place d'une démo produit : le message dit à voix haute, et
-              ce qu'il devient. C'est le terme 1 de la formule, montré. */}
+          {/* Exemple illustratif interactif ; les sections suivantes détaillent
+              chaque terme et conservent les ancres de la formule au scroll. */}
           <p className="mb-5 text-center text-base text-neutral-400 md:text-lg">
             {lang === 'fr'
               ? 'Vous ouvrez l\'app, les sujets sont prêts. Il reste un bouton à presser.'
               : 'You open the app, the topics are ready. One button left to press.'}
           </p>
-          <VoiceToContentAnimation />
+          <FormulaProductDemo />
         </motion.div>
       </div>
     </section>

@@ -91,8 +91,8 @@ export const FORMULA_TERMS: Term[] = [
   {
     id: 'visibility',
     anchor: 'formula-visibility',
-    fr: '100 M de vues',
-    en: '100M views',
+    fr: 'Visibilité',
+    en: 'Visibility',
     hintFr: 'Trackée jusqu\'au client, format par format.',
     hintEn: 'Tracked down to the client, format by format.',
   },
@@ -243,7 +243,7 @@ export default function FormulaBar() {
     document.getElementById(t.anchor)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
-  // Le résultat (« 100 M de vues ») est toujours net : c'est la promesse.
+  // L'objectif (« Visibilité ») reste lisible, sans promesse de volume de vues.
   // Les cinq termes du mécanisme sont floutés et se dévoilent un par un,
   // quand la section qui les démontre arrive à l'écran (format flou → net,
   // appliqué à la page). Plus flou dans le hero qu'en bas d'écran.
