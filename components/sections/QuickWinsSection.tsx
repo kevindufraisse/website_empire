@@ -3,68 +3,61 @@ import { motion } from 'framer-motion'
 import { useReveal } from '@/hooks/useReveal'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
-import { X, Minus, Check } from 'lucide-react'
+import { Minus, Check } from 'lucide-react'
 import EmpireSalesCta from '@/components/EmpireSalesCta'
 
 type Cell = { fr: string; en: string }
 
 type ComparisonRow = {
   dimension: Cell
-  /** Seul, sans aide. */
-  alone: Cell
-  /** Avec des freelances (monteur, rédacteur, CM). */
-  freelance: Cell
-  /** Avec Empire. */
+  chatgpt: Cell
+  tools: Cell
   empire: Cell
 }
 
-/**
- * Trois façons de faire du contenu : seul, avec des freelances, avec Empire.
- * Chaque ligne est une dimension de la formule (sujets, format, temps, coût,
- * visibilité). La colonne Empire est la seule qui répond à tout.
- */
+// Compare the standard workflows, not every custom integration or future feature.
 const COMPARISONS: ComparisonRow[] = [
   {
-    dimension: { fr: 'Quoi filmer', en: 'What to shoot' },
-    alone: { fr: 'Deviner, tester, recommencer', en: 'Guess, test, start over' },
-    freelance: { fr: 'Vous devez leur dire quoi faire', en: 'You have to tell them what to do' },
-    empire: { fr: 'Les sujets sont déjà là. Vous cliquez.', en: 'The topics are already there. You click.' },
+    dimension: { fr: 'Trouver un sujet', en: 'Find a topic' },
+    chatgpt: { fr: 'Brainstorming et recherche dans une conversation', en: 'Brainstorming and research in a conversation' },
+    tools: { fr: 'Idées et contenus à réunir dans vos outils', en: 'Gather your ideas and content across tools' },
+    empire: { fr: 'Vos liens, vocaux et votre veille deviennent des sujets', en: 'Your links, voice notes and research become topics' },
   },
   {
-    dimension: { fr: 'Temps investi', en: 'Time invested' },
-    alone: { fr: '10-15 h/semaine', en: '10-15 h/week' },
-    freelance: { fr: '5 h/semaine à briefer, relire, relancer', en: '5 h/week briefing, proofreading, chasing' },
-    empire: { fr: '20 min à 1 h/semaine, le reste en cascade', en: '20 min to 1 h/week, the rest in a cascade' },
+    dimension: { fr: 'Donner une forme', en: 'Choose a format' },
+    chatgpt: { fr: 'Angles, plans, scripts et textes à affiner', en: 'Angles, outlines, scripts and text to refine' },
+    tools: { fr: 'Montage et sous-titres dans CapCut', en: 'Editing and captions in CapCut' },
+    empire: { fr: 'Formats guidés, montage et déclinaisons à partir de votre prise', en: 'Guided formats, editing and adaptations from your recording' },
   },
   {
-    dimension: { fr: 'Volume', en: 'Volume' },
-    alone: { fr: 'Quelques posts, un réseau', en: 'A few posts, one network' },
-    freelance: { fr: 'Ce que le budget permet', en: 'Whatever the budget allows' },
-    empire: { fr: 'Chaque idée en 10+ contenus, 7 réseaux', en: 'Every idea into 10+ pieces, 7 networks' },
+    dimension: { fr: 'Publier', en: 'Publish' },
+    chatgpt: { fr: 'Contenus à transférer vers votre circuit de publication', en: 'Move content into your publishing workflow' },
+    tools: { fr: 'Planification et publication multiréseau dans Buffer', en: 'Multi-channel scheduling and publishing in Buffer' },
+    empire: { fr: 'Vous validez, puis publiez sur vos réseaux connectés', en: 'Approve, then publish on your connected channels' },
   },
   {
-    dimension: { fr: 'Sujets', en: 'Topics' },
-    alone: { fr: 'La page blanche', en: 'The blank page' },
-    freelance: { fr: 'La page blanche (c\'est vous qui briefez)', en: 'The blank page (you write the brief)' },
-    empire: { fr: 'Telegram + veille concurrents + sujets viraux', en: 'Telegram + competitor watch + viral topics' },
+    dimension: { fr: 'Ce que vous pilotez', en: 'What you manage' },
+    chatgpt: { fr: 'Les échanges, le choix des formats et la production', en: 'Prompts, format selection and production' },
+    tools: { fr: 'Les fichiers, les exports et le passage d’un outil à l’autre', en: 'Files, exports and moving between tools' },
+    empire: { fr: 'Votre point de vue, votre enregistrement, votre validation', en: 'Your point of view, your recording, your approval' },
   },
   {
-    dimension: { fr: 'Résultat', en: 'Result' },
-    alone: { fr: 'Des vues, peut-être', en: 'Views, maybe' },
-    freelance: { fr: 'Des vues, sans savoir ce qu\'elles rapportent', en: 'Views, with no idea what they bring in' },
-    empire: { fr: 'Des leads tracés du reel au rendez-vous', en: 'Leads tracked from the reel to the meeting' },
+    dimension: { fr: 'Budget', en: 'Budget' },
+    chatgpt: { fr: 'Selon l’offre choisie, puis vos outils de production', en: 'Your chosen plan, plus your production tools' },
+    tools: { fr: 'Des offres distinctes pour le montage et la diffusion', en: 'Separate plans for editing and publishing' },
+    empire: { fr: 'Un budget de crédits selon les contenus que vous produisez', en: 'A credit budget based on the content you produce' },
   },
   {
-    dimension: { fr: 'Coût', en: 'Cost' },
-    alone: { fr: 'Votre temps (le plus cher)', en: 'Your time (the most expensive)' },
-    freelance: { fr: 'Monteur + rédacteur + CM : 5 000 €+/mois', en: 'Editor + writer + CM: €5,000+/month' },
-    empire: { fr: 'Divisé par 100. Vous pouvez payer à l\'usage.', en: 'Divided by 100. You can pay for what you use.' },
+    dimension: { fr: 'Le bon usage', en: 'Best fit' },
+    chatgpt: { fr: 'Réfléchir et écrire avec un assistant polyvalent', en: 'Think and write with a versatile assistant' },
+    tools: { fr: 'Construire votre propre chaîne de production', en: 'Build your own production workflow' },
+    empire: { fr: 'Relier le sujet, la production et la diffusion au même endroit', en: 'Connect topics, production and distribution in one place' },
   },
 ]
 
 const COLUMNS = [
-  { key: 'alone', label: { fr: 'Seul', en: 'Alone' } },
-  { key: 'freelance', label: { fr: 'Freelances', en: 'Freelancers' } },
+  { key: 'chatgpt', label: { fr: 'ChatGPT', en: 'ChatGPT' } },
+  { key: 'tools', label: { fr: 'CapCut + Buffer', en: 'CapCut + Buffer' } },
   { key: 'empire', label: { fr: 'Empire', en: 'Empire' } },
 ] as const
 
@@ -91,17 +84,17 @@ export default function QuickWinsSection() {
           className="text-center mb-12"
         >
           <p className="mb-3 text-xs font-bold uppercase tracking-widest text-empire">
-            {fr ? 'Étape 5 · Le prix' : 'Step 5 · The price'}
+            {fr ? 'Outils ou chaîne complète ?' : 'Tools or a complete workflow?'}
           </p>
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
             {fr
-              ? <>Le prix d’une équipe, <span className="text-empire">divisé par 100.</span></>
-              : <>The price of a team, <span className="text-empire">divided by 100.</span></>}
+              ? <>Des outils pour chaque tâche.<br /><span className="text-empire">Empire pour les relier.</span></>
+              : <>Tools for every task.<br /><span className="text-empire">Empire to connect them.</span></>}
           </h2>
           <p className="mx-auto max-w-2xl text-base leading-relaxed text-neutral-400 md:text-lg">
             {fr
-              ? 'Monteur, rédacteur, community manager, veille : ce que vous paieriez pour faire la même chose. Ici, vous pouvez ne payer que ce que vous consommez.'
-              : 'Editor, writer, community manager, research: what you would pay to do the same thing. Here, you can pay only for what you use.'}
+              ? 'ChatGPT vous aide à réfléchir et à écrire. CapCut monte. Buffer programme. Empire réunit le parcours, du premier sujet au contenu publié.'
+              : 'ChatGPT helps you think and write. CapCut edits. Buffer schedules. Empire connects the journey, from the first topic to published content.'}
           </p>
         </motion.div>
 
@@ -146,8 +139,7 @@ export default function QuickWinsSection() {
 
               {COLUMNS.map((c) => {
                 const isEmpire = c.key === 'empire'
-                const isAlone = c.key === 'alone'
-                const Icon = isEmpire ? Check : isAlone ? X : Minus
+                const Icon = isEmpire ? Check : Minus
                 return (
                   <div
                     key={c.key}
@@ -160,7 +152,7 @@ export default function QuickWinsSection() {
                     <Icon
                       size={14}
                       className={`mt-0.5 shrink-0 md:mt-0 ${
-                        isEmpire ? 'text-empire' : isAlone ? 'text-red-400/70' : 'text-neutral-500'
+                        isEmpire ? 'text-empire' : 'text-neutral-500'
                       }`}
                     />
                     <div className="min-w-0">
@@ -183,6 +175,12 @@ export default function QuickWinsSection() {
           ))}
         </motion.div>
 
+        <p className="mx-auto -mt-6 mb-10 max-w-3xl text-center text-[11px] leading-relaxed text-neutral-500">
+          {fr ? 'Comparaison des parcours standards, hors intégrations sur mesure. Fonctions selon les offres. Références : ' : 'Standard workflows, excluding custom integrations. Features vary by plan. References: '}
+          <a href="https://openai.com/chatgpt/use-cases/writing-with-ai/" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">ChatGPT</a>{' · '}
+          <a href="https://www.capcut.com/tools/add-subtitles-to-video" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">CapCut</a>{' · '}
+          <a href="https://buffer.com/publish" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">Buffer</a>.
+        </p>
         {/* CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

@@ -1,32 +1,6 @@
 'use client'
 
-/**
- * FormulaBar - la formule de la visibilité, en pilule « glass » fixée en bas
- * de la home. Le résultat est net dès le hero ; les cinq termes sont floutés
- * et se dévoilent au fil du scroll, section par section.
- *
- *        Message × Format × Diffusion
- *        ────────────────────────────  = Visibilité   (→ Clients)
- *               Temps + Coût
- *
- * Temps et Coût sont deux termes distincts : le temps se révèle à l'app
- * (une heure par mois), le coût au comparatif Seul / Freelances / Empire.
- *
- * Chaque terme démarre flou et devient net quand la section qui le démontre
- * entre dans le viewport (ancres `formula-*` dans `app/page.tsx`, dans
- * l'ordre de la formule). Un terme révélé reste révélé. Il n'y a pas de porte
- * email : on découvre la formule en lisant, rien ne bloque le scroll. Arrivé
- * au bas de la démonstration, la pilule passe en vert et affiche « → Clients ».
- *
- * Trois états, dans l'ordre du scroll :
- * - `docked` : dans le hero, sous l'accroche, rendue par portal dans le slot
- *   `formula-hero-slot` : résultat net, mécanisme flou.
- * - `floating` : dès que le slot passe sous le header, la pilule file en bas
- *   de l'écran (même `layoutId`, Framer anime le déplacement) et dévoile le
- *   terme de chaque section.
- * - `hidden` : à partir de la FAQ, la démonstration est finie, la place
- *   revient au formulaire et au footer.
- */
+/** La formule seule. Chaque terme se révèle au passage de sa section. */
 
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
@@ -36,7 +10,7 @@ import { useAutopilot } from '@/contexts/AutopilotContext'
 import { trackAmplitude } from '@/lib/amplitude'
 import { startFreeTrial } from '@/lib/startTrial'
 
-type TermId = 'message' | 'format' | 'diffusion' | 'time' | 'cost' | 'visibility'
+type TermId = 'message' | 'format' | 'diffusion' | 'time' | 'cost'
 
 type Term = {
   id: TermId
@@ -85,17 +59,10 @@ export const FORMULA_TERMS: Term[] = [
     anchor: 'formula-cost',
     fr: 'Coût',
     en: 'Cost',
-    hintFr: 'Le prix d\'une équipe, divisé par 100. Vous pouvez payer à l\'usage.',
-    hintEn: 'The price of a team, divided by 100. You can pay for what you use.',
+    hintFr: 'Une chaîne de production, du sujet à la publication.',
+    hintEn: 'A production workflow, from topic to publication.',
   },
-  {
-    id: 'visibility',
-    anchor: 'formula-visibility',
-    fr: 'Visibilité',
-    en: 'Visibility',
-    hintFr: 'Trackée jusqu\'au client, format par format.',
-    hintEn: 'Tracked down to the client, format by format.',
-  },
+
 ]
 
 const APPLY_ANCHOR = 'formula-apply'
@@ -237,13 +204,11 @@ export default function FormulaBar() {
   const label = (t: Term) => (fr ? t.fr : t.en)
   const isOn = (id: TermId) => revealed.has(id)
   const progress = revealed.size / FORMULA_TERMS.length
-  const hintTerm = hint ? term(hint) : null
 
   const scrollToTerm = (t: Term) => {
     document.getElementById(t.anchor)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
-  // L'objectif (« Visibilité ») reste lisible, sans promesse de volume de vues.
   // Les cinq termes du mécanisme sont floutés et se dévoilent un par un,
   // quand la section qui les démontre arrive à l'écran (format flou → net,
   // appliqué à la page). Plus flou dans le hero qu'en bas d'écran.
@@ -251,8 +216,8 @@ export default function FormulaBar() {
 
   const TermChip = ({ id }: { id: TermId }) => {
     const t = term(id)
-    const on = id === 'visibility' || isOn(id)
-    const hot = hint === id || (id === 'visibility' && (docked || done))
+    const on = isOn(id)
+    const hot = hint === id
     return (
       <button
         type="button"
@@ -320,25 +285,7 @@ export default function FormulaBar() {
             </div>
           </div>
 
-          <Op>=</Op>
-          <div className="whitespace-nowrap">
-            <TermChip id="visibility" />
-          </div>
 
-          {/* La chute : visible quand toute la formule est nette */}
-          <AnimatePresence>
-            {done && (
-              <motion.span
-                initial={{ opacity: 0, x: -6 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.4, delay: 0.3 }}
-                className="ml-0.5 whitespace-nowrap rounded-lg bg-empire px-2 py-1 text-[10px] font-extrabold uppercase tracking-wider text-black sm:text-[11px]"
-              >
-                → {fr ? 'Clients' : 'Clients'}
-              </motion.span>
-            )}
-          </AnimatePresence>
         </div>
         {/* Le bouton d’essai reste accessible pendant la lecture : dessous sur mobile, à droite sur grand écran. */}
         {!docked && (
@@ -372,7 +319,7 @@ export default function FormulaBar() {
   // Dans le hero : la pilule, lisible.
   if (mode === 'docked' && slot) {
     // Tampon « Secret » tant que des termes restent flous.
-    const stillSecret = revealed.size < FORMULA_TERMS.length - 1
+    const stillSecret = revealed.size < FORMULA_TERMS.length
     return createPortal(
       <div className="flex flex-col items-center">
         <div className="relative">
@@ -449,8 +396,6 @@ export function FormulaHeroStatic({ fr }: { fr: boolean }) {
                 <Blur id="time" /><Op>+</Op><Blur id="cost" />
               </div>
             </div>
-            <Op>=</Op>
-            <span className="whitespace-nowrap rounded-md px-1 font-extrabold tracking-tight text-empire">{label('visibility')}</span>
           </div>
           <div className="absolute inset-x-0 bottom-0 h-[2px] bg-white/10" />
         </div>

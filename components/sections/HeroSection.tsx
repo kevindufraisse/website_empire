@@ -7,7 +7,7 @@ import { useAutopilot } from '@/contexts/AutopilotContext'
 import { SocialIcons } from '@/components/ui/social-icons'
 import FloatingSocialReactions from '@/components/FloatingSocialReactions'
 import { trackAmplitude } from '@/lib/amplitude'
-import { startFreeTrial, TRIAL_TERMS_FR, TRIAL_TERMS_EN } from '@/lib/startTrial'
+import { startFreeTrial } from '@/lib/startTrial'
 import { FormulaHeroStatic } from '@/components/FormulaBar'
 // Même jeu de portraits que `/vsl` et `FormatsShowcaseSection` (public/creators).
 const HERO_CREATORS = [
@@ -208,26 +208,7 @@ export default function HeroSection() {
                           : (lang === 'fr' ? 'Tester gratuitement' : 'Try it free')}
                         <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
                       </span>
-                      <span className="text-[11px] font-semibold opacity-70">
-                        {lang === 'fr' ? '7 jours ou 500 crédits' : '7 days or 500 credits'}
-                      </span>
                     </button>
-                    <p className="max-w-md text-xs leading-relaxed text-neutral-400">
-                      {lang === 'fr' ? 'Carte bancaire demandée. ' : 'Card required. '}
-                      {lang === 'fr' ? TRIAL_TERMS_FR : TRIAL_TERMS_EN}
-                    </p>
-                      <a
-                        href="/vsl"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={() => trackAmplitude('home_hero_workshop_clicked')}
-                        className="mt-2 inline-flex min-h-11 items-center gap-2 rounded-lg px-3 text-sm font-medium text-neutral-300 underline decoration-white/20 underline-offset-4 transition hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-empire"
-                      >
-                        <span className="flex items-center gap-2">
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M7 4.5v15l13-7.5z" /></svg>
-                          {lang === 'fr' ? 'Comprendre la formule en vidéo' : 'Watch the formula explained'}
-                        </span>
-                      </a>
                 </div>
               )}
             </div>
