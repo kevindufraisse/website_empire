@@ -30,7 +30,7 @@ const ROWS: { label: Copy; cells: Copy[] }[] = [
     ['Conception selon le périmètre', 'Designed within the agreed scope'],
     ['Angles, structures et scripts', 'Angles, structures and scripts'],
     ['Montage, modèles et sous-titres', 'Editing, templates and captions'],
-    ['Réaction, FAQ, illustration… inspirés de votre marché', 'Reaction, Q&A, illustration… inspired by your market'],
+    ['FAQ, tier list, post, interview… adaptés à votre sujet', 'Q&A, tier list, post, interview… adapted to your topic'],
   ] },
   { label: ['Production', 'Production'], cells: [
     ['Écriture, tournage et montage', 'Writing, recording and editing'],
@@ -94,9 +94,9 @@ export default function QuickWinsSection() {
   return <section className="relative bg-[#090909] px-4 py-20 md:py-28" aria-labelledby="comparison-title">
     <div className="mx-auto max-w-7xl">
       <div className="mb-9 text-center">
-        <p className="mb-3 text-[10px] font-bold uppercase tracking-[.18em] text-empire">{fr ? 'TEMPS + COÛT' : 'TIME + COST'}</p>
-        <h2 id="comparison-title" className="text-3xl font-bold tracking-tight md:text-5xl">{fr ? 'Créer du contenu a un coût.' : 'Content has a cost.'}<br/><span className="text-empire">{fr ? 'Votre temps en fait partie.' : 'Your time is part of it.'}</span></h2>
-        <p className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-neutral-400">{fr ? 'Comparez toute la chaîne : les sujets, les formats, la production, la diffusion et ce qu’il vous reste à faire.' : 'Compare the entire workflow: topics, formats, production, publishing and what remains on your plate.'}</p>
+        <p className="mb-3 text-[10px] font-bold uppercase tracking-[.18em] text-empire">{fr ? '05 · COÛT' : '05 · COST'}</p>
+        <h2 id="comparison-title" className="text-3xl font-bold tracking-tight md:text-5xl">{fr ? 'Faire seul. Déléguer. Utiliser des outils.' : 'Do it yourself. Delegate. Use tools.'}<br/><span className="text-empire">{fr ? 'Comparez ce qu’il reste à votre charge.' : 'Compare what is left on your plate.'}</span></h2>
+        <p className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-neutral-400">{fr ? 'Même besoin : des idées, des contenus et une publication régulière. Chaque option vous laisse un budget et du travail différents.' : 'Compare the entire workflow: topics, formats, production, publishing and what remains on your plate.'}</p>
       </div>
       <div className="mx-auto mb-7 grid max-w-4xl gap-3 sm:grid-cols-2">
         <div className="flex items-center gap-3 rounded-xl border border-white/10 p-4"><Clock3 size={23} className="shrink-0 text-empire"/><p className="text-xs leading-relaxed text-neutral-300">{fr ? 'Votre expertise, votre voix, vos validations. Le reste s’enchaîne.' : 'Your expertise, your voice, your approval. The rest follows.'}</p></div>
@@ -109,11 +109,12 @@ export default function QuickWinsSection() {
       <table className="w-full table-fixed border-separate border-spacing-0 text-left" aria-label={fr ? 'Comparaison des solutions de création de contenu' : 'Content creation approaches compared'}>
         <caption className="sr-only">{fr ? 'Fonctionnalités, temps et coût. Sur mobile, choisissez une solution à comparer à Empire.' : 'Features, time and cost. On mobile, choose an alternative to compare with Empire.'}</caption>
         <thead className="sticky top-16 z-20">
+          <tr className="hidden lg:table-row text-[10px] text-neutral-400"><th className="bg-[#090909] pb-3"/><th className="bg-[#090909] pb-3 px-2">{fr ? 'Tout faire' : 'Do everything'}</th><th colSpan={2} className="bg-[#090909] pb-3 px-2">{fr ? 'Déléguer à un prestataire' : 'Hire a service provider'}</th><th colSpan={2} className="bg-[#090909] pb-3 px-2">{fr ? 'Piloter des outils' : 'Operate tools'}</th><th className="bg-[#090909] pb-3 px-2 text-empire">{fr ? 'Plateforme + équipe' : 'Platform + team'}</th></tr>
           <tr><th scope="col" className="w-[27%] rounded-tl-xl border-y border-l border-white/20 bg-[#222222] px-2 py-4 text-[11px] font-bold text-white sm:px-3 lg:w-[14%]">{fr ? 'Ce que vous comparez' : 'What you compare'}</th>
             {COLUMNS.map(c => <th key={c.id} scope="col" className={`${columnClass(c.id)} border-y border-l border-white/20 px-2 py-4 text-xs font-bold sm:px-3 ${c.id === 'empire' ? 'rounded-tr-xl border-r border-empire/40 bg-[#242424] text-empire' : 'bg-[#222222] text-white'}`}><span className="inline-flex flex-wrap items-center gap-1">{t(c.label)}{c.id === 'empire' && <Check size={13}/>}</span></th>)}
           </tr>
         </thead>
-        <tbody>{ROWS.map((row, index) => <tr key={row.label[1]}>
+        <tbody>{[ROWS[7], ROWS[6], ...ROWS.slice(0, 6)].map((row, index) => <tr key={row.label[1]}>
           <th scope="row" className={`border-b border-l border-white/10 bg-[#181818] px-2 py-4 text-[11px] font-semibold leading-relaxed text-neutral-200 sm:px-3 ${index === ROWS.length - 1 ? 'rounded-bl-xl' : ''}`}>{t(row.label)}</th>
           {COLUMNS.map((column, i) => <td key={column.id} className={`${columnClass(column.id)} border-b border-l border-white/10 px-2 py-4 align-top text-[11px] leading-relaxed sm:px-3 ${column.id === 'empire' ? `border-r border-empire/20 bg-[#202020] font-medium text-neutral-100 ${index === ROWS.length - 1 ? 'rounded-br-xl' : ''}` : 'bg-[#111111] text-neutral-400'}`}>{t(row.cells[i])}</td>)}
         </tr>)}</tbody>

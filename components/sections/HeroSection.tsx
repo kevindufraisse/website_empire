@@ -195,7 +195,7 @@ export default function HeroSection() {
               ) : (
                 /* L'essai est l'action principale pour tous les visiteurs.
                    Le workshop reste accessible comme explication secondaire. */
-                <div className="flex w-full flex-col items-center gap-2 sm:w-auto">
+                <div className="flex w-full flex-col items-stretch justify-center gap-3 sm:w-auto sm:flex-row">
                     <button
                       type="button"
                       onClick={onTrial}
@@ -209,6 +209,7 @@ export default function HeroSection() {
                         <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
                       </span>
                     </button>
+                    <a href="/demo" onClick={() => trackAmplitude('empire_demo_clicked', { source: 'home-hero' })} className="flex min-h-12 items-center justify-center rounded-xl border border-white/30 px-7 py-3.5 text-base font-semibold text-white hover:bg-white/5">{lang === 'fr' ? 'Demander une démo' : 'Request a demo'}</a>
                 </div>
               )}
             </div>

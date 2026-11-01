@@ -9,9 +9,6 @@ import HomeMasterclassGate from '@/components/sections/HomeMasterclassGate'
 import HomeTrialPrompt from '@/components/sections/HomeTrialPrompt'
 
 const HomeDemoSection = dynamic(() => import('@/components/sections/HomeDemoSection'))
-const FormatsShowcaseSection = dynamic(() => import('@/components/sections/FormatsShowcaseSection'))
-const RepurposingSection = dynamic(() => import('@/components/sections/RepurposingSection'))
-const MobileAppSection = dynamic(() => import('@/components/sections/MobileAppSection'))
 const IncludedFeaturesSection = dynamic(() => import('@/components/sections/IncludedFeaturesSection'))
 const CaseStudiesSection = dynamic(() => import('@/components/sections/CaseStudiesSection'))
 const TestimonialsSection = dynamic(() => import('@/components/sections/TestimonialsSection'))
@@ -40,17 +37,7 @@ export default function Page() {
       <div id="formula-message">
         <HomeDemoSection />
       </div>
-      <HomeTrialPrompt moment="formats" />
-      <div id="diffusion-proof">
-        <RepurposingSection />
-      </div>
-      <div id="formula-time">
-        <MobileAppSection />
-      </div>
       <div id="formula-cost"><QuickWinsSection /></div>
-      <div id="format-examples">
-        <FormatsShowcaseSection />
-      </div>
       <TestimonialsSection />
       <HomeTrialPrompt moment="proof" />
       <div id="formula-visibility">
