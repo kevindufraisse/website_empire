@@ -1,33 +1,124 @@
 'use client'
+
+import { useState } from 'react'
+import { Check, Clock3, Wallet } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
-import { Check, Clock3, Wallet } from 'lucide-react'
 import EmpireSalesCta from '@/components/EmpireSalesCta'
 
-type Copy = { fr:string;en:string }
-const ROWS: { name:Copy; time:Copy; cost:Copy; workflow:Copy; empire?:boolean }[] = [
-  { name:{fr:'Tout faire soi-même',en:'Do it yourself'},time:{fr:'Veille, script, tournage, montage, publication',en:'Research, script, record, edit, publish'},cost:{fr:'Vos outils + votre temps',en:'Your tools + your time'},workflow:{fr:'Vous produisez et adaptez chaque contenu.',en:'You produce and adapt every piece.'} },
-  { name:{fr:'Freelance',en:'Freelancer'},time:{fr:'Briefs, échanges, tournage et validations',en:'Briefs, feedback, recording and approvals'},cost:{fr:'Honoraires selon le volume et la mission',en:'Fees depend on volume and scope'},workflow:{fr:'Une ou plusieurs expertises, selon la mission.',en:'One or more specialities, depending on scope.'} },
-  { name:{fr:'Agence',en:'Agency'},time:{fr:'Cadrage, points de suivi et validations',en:'Kick-off, coordination and approvals'},cost:{fr:'Devis selon l’équipe et le périmètre',en:'Quote based on team and scope'},workflow:{fr:'Une équipe qui pilote la production convenue.',en:'A team manages the agreed production.'} },
-  { name:{fr:'ChatGPT',en:'ChatGPT'},time:{fr:'Échanges, sélection des idées, puis production',en:'Prompts, idea selection, then production'},cost:{fr:'Selon l’offre + vos outils de production',en:'Chosen plan + your production tools'},workflow:{fr:'Un assistant pour réfléchir, structurer et écrire.',en:'An assistant for ideas, structure and writing.'} },
-  { name:{fr:'CapCut + Buffer',en:'CapCut + Buffer'},time:{fr:'Montage, exports et préparation des publications',en:'Editing, exporting and preparing posts'},cost:{fr:'Des offres distinctes pour chaque outil',en:'Separate plans for each tool'},workflow:{fr:'Montage dans CapCut, programmation dans Buffer.',en:'Edit in CapCut, schedule in Buffer.'} },
-  { name:{fr:'Empire',en:'Empire'},time:{fr:'Votre point de vue, votre prise, votre validation',en:'Your point of view, your take, your approval'},cost:{fr:'Un abonnement et des crédits selon votre production',en:'One subscription and credits for your production'},workflow:{fr:'Du lien au format, puis aux contenus adaptés à vos réseaux.',en:'From link to format, then content adapted to your channels.'},empire:true },
+type Copy = [fr: string, en: string]
+const COLUMNS = [
+  { id: 'alone', label: ['Soi-même', 'Yourself'] as Copy },
+  { id: 'freelance', label: ['Freelance', 'Freelancer'] as Copy },
+  { id: 'agency', label: ['Agence', 'Agency'] as Copy },
+  { id: 'chatgpt', label: ['ChatGPT', 'ChatGPT'] as Copy },
+  { id: 'tools', label: ['CapCut + Buffer', 'CapCut + Buffer'] as Copy },
+  { id: 'empire', label: ['Empire', 'Empire'] as Copy },
+] as const
+const ROWS: { label: Copy; cells: Copy[] }[] = [
+  { label: ['Sujets & veille', 'Topics & research'], cells: [
+    ['Vos idées et votre recherche', 'Your ideas and research'],
+    ['Recherche selon la mission et votre brief', 'Research based on scope and your brief'],
+    ['Stratégie et veille selon le contrat', 'Strategy and research based on scope'],
+    ['Exploration et recherche à piloter', 'Research and exploration to guide'],
+    ['Vos idées et vos fichiers en entrée', 'Your ideas and files as input'],
+    ['Idées, vocaux, questions clients + veille concurrents', 'Ideas, voice notes, client questions + competitor research'],
+  ] },
+  { label: ['Formats', 'Formats'], cells: [
+    ['À repérer, adapter et tester', 'Find, adapt and test them'],
+    ['Selon la spécialité et le brief', 'Depends on specialisation and brief'],
+    ['Conception selon le périmètre', 'Designed within the agreed scope'],
+    ['Angles, structures et scripts', 'Angles, structures and scripts'],
+    ['Montage, modèles et sous-titres', 'Editing, templates and captions'],
+    ['Réaction, FAQ, illustration… inspirés de votre marché', 'Reaction, Q&A, illustration… inspired by your market'],
+  ] },
+  { label: ['Production', 'Production'], cells: [
+    ['Écriture, tournage et montage', 'Writing, recording and editing'],
+    ['Écriture ou montage selon la mission', 'Writing or editing based on scope'],
+    ['Production par l’équipe prévue', 'Production by the assigned team'],
+    ['Textes et scripts, production à organiser', 'Text and scripts; arrange production'],
+    ['Vous pilotez le montage et les exports', 'You manage editing and exports'],
+    ['Votre prise, puis montage et relecture humaine', 'Your take, then editing and human review'],
+  ] },
+  { label: ['Diffusion & volume', 'Publishing & volume'], cells: [
+    ['Adapter et publier sur chaque réseau', 'Adapt and publish on each channel'],
+    ['Réseaux et volume selon la mission', 'Channels and volume depend on scope'],
+    ['Réseaux et volume selon le contrat', 'Channels and volume depend on contract'],
+    ['Transfert vers vos outils de publication', 'Transfer to your publishing tools'],
+    ['Publication multiréseau dans Buffer', 'Multi-channel publishing in Buffer'],
+    ['Une idée déclinée en contenus pour 7 réseaux', 'One idea adapted into content for 7 channels'],
+  ] },
+  { label: ['Republication', 'Republishing'], cells: [
+    ['Sélectionner et reprogrammer', 'Select and reschedule'],
+    ['À inclure dans la mission', 'Include it in the scope'],
+    ['Selon le calendrier convenu', 'Based on the agreed calendar'],
+    ['À organiser avec vos outils', 'Arrange it with your tools'],
+    ['Réutilisation et programmation dans Buffer', 'Reuse and schedule content in Buffer'],
+    ['Vos meilleurs contenus reprogrammés avec votre accord', 'Your best content rescheduled with your approval'],
+  ] },
+  { label: ['Suivi des résultats', 'Results tracking'], cells: [
+    ['Vos mesures à réunir', 'Gather your metrics'],
+    ['Reporting selon la mission', 'Reporting depends on scope'],
+    ['Reporting selon le contrat', 'Reporting depends on contract'],
+    ['Analyse des données que vous fournissez', 'Analyse data you provide'],
+    ['Statistiques selon les offres', 'Analytics vary by plan'],
+    ['Vues, abonnés et leads suivis par contenu', 'Views, followers and leads tracked by content'],
+  ] },
+  { label: ['Votre temps', 'Your time'], cells: [
+    ['Toute la chaîne à prendre en charge', 'Manage the entire workflow'],
+    ['Briefs, tournage, échanges et validations', 'Briefs, recording, feedback and approvals'],
+    ['Cadrage, suivi et validations', 'Kick-off, coordination and approvals'],
+    ['Prompts, choix et production', 'Prompts, selection and production'],
+    ['Montage, exports et programmation', 'Editing, exports and scheduling'],
+    ['20 min à 1 h / semaine, selon votre production', '20 min to 1 h / week, depending on your production'],
+  ] },
+  { label: ['Votre budget', 'Your budget'], cells: [
+    ['Vos outils + votre temps', 'Your tools + your time'],
+    ['Honoraires selon volume et mission', 'Fees depend on volume and scope'],
+    ['Devis selon l’équipe et le périmètre', 'Quote based on team and scope'],
+    ['Selon l’offre + vos outils de production', 'Chosen plan + production tools'],
+    ['Des offres distinctes pour chaque outil', 'Separate plans for each tool'],
+    ['Un abonnement + les crédits utilisés', 'One subscription + credits used'],
+  ] },
 ]
+
 export default function QuickWinsSection() {
-  const {lang}=useLanguage();const {autopilot}=useAutopilot();const fr=lang==='fr';const t=(c:Copy)=>fr?c.fr:c.en
-  if(autopilot)return null
+  const { lang } = useLanguage()
+  const { autopilot } = useAutopilot()
+  const [compared, setCompared] = useState<string>('alone')
+  const fr = lang === 'fr'
+  const t = (copy: Copy) => copy[fr ? 0 : 1]
+  const columnClass = (id: string) => id === compared || id === 'empire' ? '' : 'hidden lg:table-cell'
+  if (autopilot) return null
+
   return <section className="relative bg-[#0c1009] px-4 py-20 md:py-28" aria-labelledby="comparison-title">
-    <div className="mx-auto max-w-6xl">
-      <div className="mb-10 text-center"><p className="mb-3 text-[10px] font-bold uppercase tracking-[.18em] text-empire">{fr?'TEMPS + COÛT':'TIME + COST'}</p><h2 id="comparison-title" className="text-3xl font-bold tracking-tight md:text-5xl">{fr?'Créer du contenu a un coût.':'Content has a cost.'}<br/><span className="text-empire">{fr?'Votre temps en fait partie.':'Your time is part of it.'}</span></h2><p className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-neutral-400">{fr?'Seul, accompagné, avec des outils ou avec Empire : comparez ce que vous payez et ce qu’il vous reste à faire.':'On your own, with a team, with tools or with Empire: compare what you pay for and what remains on your plate.'}</p></div>
-      <div className="mb-6 grid gap-3 sm:grid-cols-2"><div className="flex items-center gap-4 rounded-xl border border-white/10 bg-white/[.025] p-5"><Clock3 className="shrink-0 text-empire" size={23}/><div><b className="text-sm">{fr?'Votre temps':'Your time'}</b><p className="mt-1 text-xs leading-relaxed text-neutral-400">{fr?'L’expertise et la prise de parole restent les vôtres. Le reste peut s’enchaîner.':'The expertise and voice stay yours. The rest can follow in one workflow.'}</p></div></div><div className="flex items-center gap-4 rounded-xl border border-white/10 bg-white/[.025] p-5"><Wallet className="shrink-0 text-empire" size={23}/><div><b className="text-sm">{fr?'Votre budget':'Your budget'}</b><p className="mt-1 text-xs leading-relaxed text-neutral-400">{fr?'Regardez toute la chaîne : création, montage, adaptation et diffusion.':'Look at the entire chain: creation, editing, adaptation and publishing.'}</p></div></div></div>
-      <div className="overflow-hidden rounded-2xl border border-white/15 bg-[#141811]">
-        <div className="hidden grid-cols-[.8fr_1.2fr_1fr_1.3fr] border-b border-white/10 md:grid">{[fr?'Votre solution':'Your approach',fr?'Ce que vous faites encore':'What you still do',fr?'Ce que vous payez':'What you pay for',fr?'Ce qui est pris en charge':'What it covers'].map(h=><div key={h} className="px-5 py-4 text-[10px] font-bold uppercase tracking-wider text-neutral-500">{h}</div>)}</div>
-        {ROWS.map(row=><div key={row.name.en} className={`border-b border-white/[.07] last:border-0 md:grid md:grid-cols-[.8fr_1.2fr_1fr_1.3fr] ${row.empire?'bg-empire/[.07]':''}`}>
-          <div className="flex items-center gap-2 px-5 pt-5 pb-2 md:py-5"><b className={`text-sm ${row.empire?'text-empire':'text-white'}`}>{t(row.name)}</b>{row.empire&&<Check className="text-empire" size={15}/>}</div>
-          {[{label:fr?'Votre temps':'Your time',value:row.time},{label:fr?'Votre budget':'Your budget',value:row.cost},{label:fr?'Prise en charge':'Coverage',value:row.workflow}].map(cell=><div key={cell.label} className={`px-5 py-2 last:pb-5 md:border-l md:border-white/[.05] md:py-5 ${row.empire?'text-neutral-100':'text-neutral-400'}`}><p className="mb-1 text-[9px] uppercase tracking-wider text-neutral-500 md:hidden">{cell.label}</p><p className="text-[12px] leading-relaxed">{t(cell.value)}</p></div>)}
-        </div>)}
+    <div className="mx-auto max-w-7xl">
+      <div className="mb-9 text-center">
+        <p className="mb-3 text-[10px] font-bold uppercase tracking-[.18em] text-empire">{fr ? 'TEMPS + COÛT' : 'TIME + COST'}</p>
+        <h2 id="comparison-title" className="text-3xl font-bold tracking-tight md:text-5xl">{fr ? 'Créer du contenu a un coût.' : 'Content has a cost.'}<br/><span className="text-empire">{fr ? 'Votre temps en fait partie.' : 'Your time is part of it.'}</span></h2>
+        <p className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-neutral-400">{fr ? 'Comparez toute la chaîne : les sujets, les formats, la production, la diffusion et ce qu’il vous reste à faire.' : 'Compare the entire workflow: topics, formats, production, publishing and what remains on your plate.'}</p>
       </div>
-      <p className="mx-auto mt-5 max-w-3xl text-center text-[10px] leading-relaxed text-neutral-500">{fr?'Périmètre et tarifs selon les prestations et les offres. Fonctions des outils : ':'Scope and pricing depend on the service and plan. Tool features: '}<a className="underline underline-offset-2" href="https://openai.com/chatgpt/use-cases/writing-with-ai/" target="_blank" rel="noopener noreferrer">ChatGPT</a>{' · '}<a className="underline underline-offset-2" href="https://www.capcut.com/tools/add-subtitles-to-video" target="_blank" rel="noopener noreferrer">CapCut</a>{' · '}<a className="underline underline-offset-2" href="https://buffer.com/publish" target="_blank" rel="noopener noreferrer">Buffer</a>.</p>
+      <div className="mx-auto mb-7 grid max-w-4xl gap-3 sm:grid-cols-2">
+        <div className="flex items-center gap-3 rounded-xl border border-white/10 p-4"><Clock3 size={23} className="shrink-0 text-empire"/><p className="text-xs leading-relaxed text-neutral-300">{fr ? 'Votre expertise, votre voix, vos validations. Le reste s’enchaîne.' : 'Your expertise, your voice, your approval. The rest follows.'}</p></div>
+        <div className="flex items-center gap-3 rounded-xl border border-white/10 p-4"><Wallet size={23} className="shrink-0 text-empire"/><p className="text-xs leading-relaxed text-neutral-300">{fr ? 'Le budget couvre aussi l’adaptation, la diffusion et la republication.' : 'Your budget also covers adaptation, publishing and republishing.'}</p></div>
+      </div>
+      <div className="mb-4 flex items-center justify-between gap-3 lg:hidden">
+        <label htmlFor="comparison-alternative" className="text-xs font-semibold text-neutral-300">{fr ? 'Comparer Empire à' : 'Compare Empire with'}</label>
+        <select id="comparison-alternative" value={compared} onChange={event => setCompared(event.target.value)} className="min-h-11 rounded-lg border border-white/25 bg-[#1d2418] px-3 text-sm text-white outline-empire">{COLUMNS.filter(c => c.id !== 'empire').map(c => <option key={c.id} value={c.id}>{t(c.label)}</option>)}</select>
+      </div>
+      <table className="w-full table-fixed border-separate border-spacing-0 text-left" aria-label={fr ? 'Comparaison des solutions de création de contenu' : 'Content creation approaches compared'}>
+        <caption className="sr-only">{fr ? 'Fonctionnalités, temps et coût. Sur mobile, choisissez une solution à comparer à Empire.' : 'Features, time and cost. On mobile, choose an alternative to compare with Empire.'}</caption>
+        <thead className="sticky top-16 z-20">
+          <tr><th scope="col" className="w-[27%] rounded-tl-xl border-y border-l border-white/20 bg-[#1d2418] px-2 py-4 text-[11px] font-bold text-white sm:px-3 lg:w-[14%]">{fr ? 'Ce que vous comparez' : 'What you compare'}</th>
+            {COLUMNS.map(c => <th key={c.id} scope="col" className={`${columnClass(c.id)} border-y border-l border-white/20 px-2 py-4 text-xs font-bold sm:px-3 ${c.id === 'empire' ? 'rounded-tr-xl border-r border-empire/40 bg-[#29391b] text-empire' : 'bg-[#1d2418] text-white'}`}><span className="inline-flex flex-wrap items-center gap-1">{t(c.label)}{c.id === 'empire' && <Check size={13}/>}</span></th>)}
+          </tr>
+        </thead>
+        <tbody>{ROWS.map((row, index) => <tr key={row.label[1]}>
+          <th scope="row" className={`border-b border-l border-white/10 bg-[#151a11] px-2 py-4 text-[11px] font-semibold leading-relaxed text-neutral-200 sm:px-3 ${index === ROWS.length - 1 ? 'rounded-bl-xl' : ''}`}>{t(row.label)}</th>
+          {COLUMNS.map((column, i) => <td key={column.id} className={`${columnClass(column.id)} border-b border-l border-white/10 px-2 py-4 align-top text-[11px] leading-relaxed sm:px-3 ${column.id === 'empire' ? `border-r border-empire/20 bg-[#1c2715] font-medium text-neutral-100 ${index === ROWS.length - 1 ? 'rounded-br-xl' : ''}` : 'bg-[#11160e] text-neutral-400'}`}>{t(row.cells[i])}</td>)}
+        </tr>)}</tbody>
+      </table>
+      <p className="mx-auto mt-5 max-w-3xl text-center text-[10px] leading-relaxed text-neutral-500">{fr ? 'Périmètre, temps et tarifs selon les prestations, le volume et les offres. Fonctions des outils : ' : 'Scope, time and pricing depend on service, volume and plan. Tool features: '}<a className="underline underline-offset-2" href="https://openai.com/chatgpt/use-cases/writing-with-ai/" target="_blank" rel="noopener noreferrer">ChatGPT</a>{' · '}<a className="underline underline-offset-2" href="https://www.capcut.com/tools/add-subtitles-to-video" target="_blank" rel="noopener noreferrer">CapCut</a>{' · '}<a className="underline underline-offset-2" href="https://buffer.com/publish" target="_blank" rel="noopener noreferrer">Buffer</a>.</p>
       <div className="mt-9 text-center"><EmpireSalesCta source="home-comparison"/></div>
     </div>
   </section>
