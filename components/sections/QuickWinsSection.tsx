@@ -99,7 +99,7 @@ export default function QuickWinsSection() {
         <p className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-neutral-400">{fr ? 'Comparez toute la chaîne : les sujets, les formats, la production, la diffusion et ce qu’il vous reste à faire.' : 'Compare the entire workflow: topics, formats, production, publishing and what remains on your plate.'}</p>
       </div>
       <div className="mx-auto mb-7 grid max-w-4xl gap-3 sm:grid-cols-2">
-        <div className="flex items-center gap-3 rounded-xl border border-white/10 p-4"><Clock3 size={23} className="shrink-0 text-empire"/><p className="text-xs leading-relaxed text-neutral-300">{fr ? 'Votre expertise, votre voix, vos validations. Le reste s’enchaîne.' : 'Your expertise, your voice, your approval. The rest follows.'}</p></div>
+        <div className="flex items-center gap-3 rounded-xl border border-white/10 p-4"><Clock3 size={23} className="shrink-0 text-empire"/><p className="text-xs leading-relaxed text-neutral-300">{fr ? '20 min à 1 h par semaine : vos prises et vos validations, selon votre volume de production.' : '20 min to 1 h per week: your recordings and approvals, depending on your production volume.'}</p></div>
         <div className="flex items-center gap-3 rounded-xl border border-white/10 p-4"><Wallet size={23} className="shrink-0 text-empire"/><p className="text-xs leading-relaxed text-neutral-300">{fr ? 'Le budget couvre aussi l’adaptation, la diffusion et la republication.' : 'Your budget also covers adaptation, publishing and republishing.'}</p></div>
       </div>
       <div className="mb-4 flex items-center justify-between gap-3 lg:hidden">
