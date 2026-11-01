@@ -28,12 +28,13 @@ export default function HomeMasterclassGate() {
   }
   return <section className="relative border-y border-white/10 bg-[#10130e] py-16 md:py-20" aria-labelledby="masterclass-title" id="home-masterclass">
     <div className="container mx-auto grid max-w-5xl items-center gap-9 md:grid-cols-[0.8fr_1.2fr] md:gap-14">
-      <div className="relative mx-auto w-full max-w-[300px] overflow-hidden rounded-2xl border border-white/15 bg-[#20291b] p-6 md:max-w-none md:rotate-[-3deg]">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,#dafc6820,transparent_70%)]"/>
-        <div className="relative flex items-center justify-between text-[9px] font-bold tracking-[0.18em] text-neutral-400"><span>EMPIRE · MASTERCLASS</span><span className="rounded-full bg-white/10 px-2 py-1 text-white">1 H 26</span></div>
-        <div className="relative my-7 text-3xl font-bold leading-[1.05] tracking-tight text-white md:text-4xl">{fr?<>La formule<br/>pour <span className="text-empire">être vu.</span></>:<>The formula<br/>to <span className="text-empire">get seen.</span></>}</div>
-        <div className="relative flex items-center gap-3 border-t border-white/10 pt-5"><img src="/founders/kevin.jpg" alt="Kevin Dufraisse" width={40} height={40} className="h-10 w-10 rounded-full object-cover" loading="lazy"/><div className="text-[11px] text-white">Kevin Dufraisse<span className="mt-0.5 block text-[9px] text-neutral-400">{fr?'Fondateur d’Empire Internet':'Founder of Empire Internet'}</span></div><span className="ml-auto grid h-10 w-10 place-items-center rounded-full bg-empire text-black"><Play size={15} fill="currentColor"/></span></div>
-      </div>
+      <a href="/vsl" target="_blank" rel="noopener noreferrer" aria-label={fr ? 'Voir la masterclass gratuite de 1 h 26' : 'Watch the free 1h26 masterclass'} className="group relative mx-auto block w-full max-w-md overflow-hidden rounded-2xl border border-white/15 bg-black shadow-[0_20px_70px_#0005] transition hover:border-empire/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-empire">
+        <div className="relative aspect-video overflow-hidden">
+          <img src="/webinar/masterclass-original.jpg" alt={fr ? 'Capture de la présentation originale de la masterclass avec Kevin Dufraisse au micro' : 'Screenshot of the original masterclass presentation with Kevin Dufraisse at the microphone'} width={1363} height={936} loading="lazy" className="absolute inset-0 h-full w-full scale-[1.065] object-cover" />
+          <span className="absolute right-3 top-3 rounded bg-black/75 px-2 py-1 text-[10px] font-bold tracking-wider text-white">1 H 26</span>
+          <span className="absolute bottom-3 right-3 grid h-10 w-10 place-items-center rounded-full bg-empire text-black shadow-lg transition group-hover:scale-110"><Play size={16} fill="currentColor" aria-hidden /></span>
+        </div>
+      </a>
       <div>
         <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.18em] text-empire">{fr?'Gratuite · Très recommandée':'Free · Highly recommended'}</p>
         <h2 id="masterclass-title" className="text-3xl font-bold leading-[1.1] tracking-tight text-white md:text-4xl">{fr?'Avant de découvrir la suite…':'Before you discover the rest…'}</h2>
