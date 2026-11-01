@@ -19,7 +19,7 @@ type SceneProps = { progress:MotionValue<number>;fr:boolean }
 
 function Panel({progress,index,children,className=''}:{progress:MotionValue<number>;index:number;children:ReactNode;className?:string}) {
   const start=index*.25
-  const opacity=useTransform(progress,index===0?[0,.18,.26]:index===3?[.69,.77,1]:[start-.06,start+.02,start+.18,start+.26],index===0?[1,1,0]:index===3?[0,1,1]:[0,1,1,0])
+  const opacity=useTransform(progress,index===0?[0,.18,.24]:index===3?[.745,.79,1]:[start-.005,start+.04,start+.18,start+.245],index===0?[1,1,0]:index===3?[0,1,1]:[0,1,1,0])
   const y=useTransform(progress,[start-.06,start+.03,start+.18,start+.26],[24,0,0,-24])
   return <motion.div className={`${s.panel} ${className}`} style={{opacity,y}} aria-hidden>{children}</motion.div>
 }
