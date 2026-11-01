@@ -51,12 +51,12 @@ function TelegramArt({ fr }: { fr: boolean }) {
   return (
     <div className={`${MOCK} mt-4 p-3.5`}>
       <div className="flex items-center gap-2 border-b border-white/8 pb-2.5">
-        <span className="flex h-6 w-6 items-center justify-center rounded-md" style={{ background: '#26A5E4' }}>
-          <img src="/integrations/telegram.svg" alt="" aria-hidden className="h-3.5 w-3.5" loading="lazy" draggable={false} />
+        <span className="flex h-6 w-6 items-center justify-center rounded-md" style={{ background: '#222' }}>
+          <Send className="h-3.5 w-3.5" />
         </span>
         <div>
           <p className="text-[11px] font-bold text-white">Empire</p>
-          <p className="text-[9px] text-neutral-500">bot</p>
+          <p className="text-[9px] text-neutral-500">Messages</p>
         </div>
       </div>
       {/* Message envoyé : un lot de liens à traiter */}
@@ -82,9 +82,7 @@ function TelegramArt({ fr }: { fr: boolean }) {
           <p className="mt-1.5 text-[10px] font-semibold text-empire">
             {fr ? 'Short déjà vu : réaction directe, pas de doublon ajouté.' : 'Duplicate short: direct reaction, no extra duplicate.'}
           </p>
-          <p className="mt-1 rounded-lg bg-black/35 px-2 py-1 font-mono text-[9px] text-neutral-400">
-            [log] short=ehu8PawFKIk duplicate=true reaction=direct
-          </p>
+
         </div>
       </div>
     </div>
@@ -510,8 +508,8 @@ export default function IncludedFeaturesSection() {
 
           {/* Liens Telegram */}
           <motion.div {...appear(0.42)} className={`${card} md:col-span-3`}>
-            <p className={kicker}><Send className="mr-1.5 inline h-3.5 w-3.5" />{fr ? 'Liens Telegram' : 'Telegram links'}</p>
-            <p className={title}>{fr ? 'Vous envoyez des liens, le bot reconnaît le format et confirme.' : 'You send links, the bot recognizes the format and confirms it.'}</p>
+            <p className={kicker}><Send className="mr-1.5 inline h-3.5 w-3.5" />{fr ? 'Vos inspirations' : 'Your inspirations'}</p>
+            <p className={title}>{fr ? 'Partagez un contenu. Empire en récupère le sujet.' : 'You send links, the bot recognizes the format and confirms it.'}</p>
             <p className={desc}>
               {fr
                 ? 'Instagram, TikTok, YouTube Shorts : chaque lien est détecté, validé, puis envoyé en traitement sans doublons.'
