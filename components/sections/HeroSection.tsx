@@ -36,17 +36,6 @@ export default function HeroSection() {
   const heroSubtitle = autopilot ? t.autopilot.hero.subtitle : null
   const heroCta = autopilot ? t.autopilot.hero.cta1 : t.hero.cta1
   const [trialLoading, setTrialLoading] = useState(false)
-  // Trafic chaud (setter WhatsApp, lien parrainage, email) : le visiteur arrive
-  // déjà convaincu, on lui propose l'essai directement au lieu du workshop.
-  const [warm, setWarm] = useState(false)
-  useEffect(() => {
-    try {
-      const p = new URLSearchParams(window.location.search)
-      setWarm(Boolean(p.get('ref') || p.get('wa_ref')))
-    } catch {
-      setWarm(false)
-    }
-  }, [])
   const onTrial = async () => {
     if (trialLoading) return
     setTrialLoading(true)
@@ -153,8 +142,8 @@ export default function HeroSection() {
               >
                 <span className="max-w-[230px] text-[11px] italic leading-snug text-neutral-300 sm:max-w-[260px] sm:text-xs">
                   {lang === 'fr'
-                    ? 'Dans 30 jours, tout votre marché vous aura vu, grâce à cette formule'
-                    : 'In 30 days, your whole market will have seen you, thanks to this formula'}
+                    ? 'Découvrez comment chaque élément de la formule travaille pour vous'
+                    : 'Discover how each part of the formula works for you'}
                 </span>
                 <svg width="34" height="34" viewBox="0 0 34 34" fill="none" className="mt-1.5 text-empire">
                   <path d="M4 4 C14 6, 24 12, 27 26" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" fill="none" strokeDasharray="3 3" />
@@ -204,10 +193,9 @@ export default function HeroSection() {
                   <span className="text-[11px] font-semibold opacity-70">{t.autopilot.hero.ctaReassurance}</span>
                 </a>
               ) : (
-                /* Deux actions de poids différent : le workshop pour qui
-                   découvre, l'essai pour qui est déjà convaincu. */
-                <div className="flex w-full flex-col items-center gap-2 sm:w-auto">
-                  {warm ? (
+                /* L'essai est l'action principale pour tous les visiteurs.
+                   Le workshop reste accessible comme explication secondaire. */
+                <div className="flex w-full flex-col items-stretch justify-center gap-3 sm:w-auto sm:flex-row">
                     <button
                       type="button"
                       onClick={onTrial}
@@ -217,42 +205,11 @@ export default function HeroSection() {
                       <span className="flex items-center gap-2 text-base font-bold sm:text-lg">
                         {trialLoading
                           ? (lang === 'fr' ? 'Ouverture…' : 'Opening…')
-                          : (lang === 'fr' ? 'Démarrer l’essai gratuit' : 'Start your free trial')}
+                          : (lang === 'fr' ? 'Tester gratuitement' : 'Try it free')}
                         <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
                       </span>
-                      <span className="text-[11px] font-semibold opacity-70">
-                        {lang === 'fr' ? '7 jours · 500 crédits · annulable en 1 clic' : '7 days · 500 credits · cancel in 1 click'}
-                      </span>
                     </button>
-                  ) : (
-                    <>
-                      <a
-                        href="/vsl"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={() => trackAmplitude('home_hero_workshop_clicked')}
-                        className="group flex w-full flex-col items-center justify-center gap-0.5 rounded-xl bg-empire px-8 py-3.5 sm:px-12 sm:py-4 text-black shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.35)] transition-all hover:scale-[1.02] sm:w-auto"
-                      >
-                        <span className="flex items-center gap-2 text-base font-bold sm:text-lg">
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M7 4.5v15l13-7.5z" /></svg>
-                          {lang === 'fr' ? 'Voir le workshop gratuit' : 'Watch the free workshop'}
-                        </span>
-                        <span className="text-[11px] font-semibold opacity-70">
-                          {lang === 'fr' ? '1 h 26 · la formule expliquée pas à pas' : '1h26 · the formula explained step by step'}
-                        </span>
-                      </a>
-                      <button
-                        type="button"
-                        onClick={onTrial}
-                        disabled={trialLoading}
-                        className="mt-1 inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/[0.04] px-6 py-2.5 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/[0.08] disabled:opacity-60"
-                      >
-                        {trialLoading
-                          ? (lang === 'fr' ? 'Ouverture…' : 'Opening…')
-                          : (lang === 'fr' ? 'Essayer Empire gratuitement (7 jours, 500 crédits)' : 'Try Empire free (7 days, 500 credits)')}
-                      </button>
-                    </>
-                  )}
+                    <a href="/demo" onClick={() => trackAmplitude('empire_demo_clicked', { source: 'home-hero' })} className="flex min-h-12 items-center justify-center rounded-xl border border-white/30 px-7 py-3.5 text-base font-semibold text-white hover:bg-white/5">{lang === 'fr' ? 'Demander une démo' : 'Request a demo'}</a>
                 </div>
               )}
             </div>

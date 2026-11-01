@@ -1,32 +1,6 @@
 'use client'
 
-/**
- * FormulaBar - la formule de la visibilité, en pilule « glass » fixée en bas
- * de la home. Le résultat est net dès le hero ; les cinq termes sont floutés
- * et se dévoilent au fil du scroll, section par section.
- *
- *        Message × Format × Diffusion
- *        ────────────────────────────  = Visibilité   (→ Clients)
- *               Temps + Coût
- *
- * Temps et Coût sont deux termes distincts : le temps se révèle à l'app
- * (une heure par mois), le coût au comparatif Seul / Freelances / Empire.
- *
- * Chaque terme démarre flou et devient net quand la section qui le démontre
- * entre dans le viewport (ancres `formula-*` dans `app/page.tsx`, dans
- * l'ordre de la formule). Un terme révélé reste révélé. Il n'y a pas de porte
- * email : on découvre la formule en lisant, rien ne bloque le scroll. Arrivé
- * au bas de la démonstration, la pilule passe en vert et affiche « → Clients ».
- *
- * Trois états, dans l'ordre du scroll :
- * - `docked` : dans le hero, sous l'accroche, rendue par portal dans le slot
- *   `formula-hero-slot` : résultat net, mécanisme flou.
- * - `floating` : dès que le slot passe sous le header, la pilule file en bas
- *   de l'écran (même `layoutId`, Framer anime le déplacement) et dévoile le
- *   terme de chaque section.
- * - `hidden` : à partir de la FAQ, la démonstration est finie, la place
- *   revient au formulaire et au footer.
- */
+/** La formule seule. Chaque terme se révèle au passage de sa section. */
 
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
@@ -36,7 +10,7 @@ import { useAutopilot } from '@/contexts/AutopilotContext'
 import { trackAmplitude } from '@/lib/amplitude'
 import { startFreeTrial } from '@/lib/startTrial'
 
-type TermId = 'message' | 'format' | 'diffusion' | 'time' | 'cost' | 'visibility'
+type TermId = 'message' | 'format' | 'diffusion' | 'time' | 'cost'
 
 type Term = {
   id: TermId
@@ -53,16 +27,16 @@ export const FORMULA_TERMS: Term[] = [
     anchor: 'formula-message',
     fr: 'Message',
     en: 'Message',
-    hintFr: 'Telegram, veille concurrents, sujets viraux. Vous cliquez.',
-    hintEn: 'Telegram, competitor watch, viral topics. You click.',
+    hintFr: 'Vos idées, vocaux et questions clients, enrichis par la veille de votre marché.',
+    hintEn: 'Your ideas, voice notes and client questions, enriched by research from your market.',
   },
   {
     id: 'format',
     anchor: 'formula-format',
     fr: 'Format',
     en: 'Format',
-    hintFr: 'Le sujet rentre dans un format qui se regarde, pour le bon réseau.',
-    hintEn: 'The topic goes into a format people watch, for the right network.',
+    hintFr: 'Les formats qui marchent chez vos concurrents, adaptés à votre sujet et votre voix.',
+    hintEn: 'Formats that work for your competitors, adapted to your topic and voice.',
   },
   {
     id: 'diffusion',
@@ -85,17 +59,10 @@ export const FORMULA_TERMS: Term[] = [
     anchor: 'formula-cost',
     fr: 'Coût',
     en: 'Cost',
-    hintFr: 'Le prix d\'une équipe, divisé par 100. Vous pouvez payer à l\'usage.',
-    hintEn: 'The price of a team, divided by 100. You can pay for what you use.',
+    hintFr: 'Une chaîne de production, du sujet à la publication.',
+    hintEn: 'A production workflow, from topic to publication.',
   },
-  {
-    id: 'visibility',
-    anchor: 'formula-visibility',
-    fr: '100 M de vues',
-    en: '100M views',
-    hintFr: 'Trackée jusqu\'au client, format par format.',
-    hintEn: 'Tracked down to the client, format by format.',
-  },
+
 ]
 
 const APPLY_ANCHOR = 'formula-apply'
@@ -171,63 +138,46 @@ export default function FormulaBar() {
     if (slot && mode !== 'hidden') slot.setAttribute('data-live', 'true')
   }, [slot, mode])
 
-  // Révélation des termes : un observer par ancre, déclenché quand le haut
-  // de la section passe les 60 % du viewport. Une fois net, on n'y revient pas.
+  // Mesurer le seuil plutôt qu'observer un repère de 1 px : un grand coup
+  // de molette ou une ancre peut sauter le repère entre deux images.
   useEffect(() => {
-    if (typeof IntersectionObserver === 'undefined') {
-      setRevealed(new Set(FORMULA_TERMS.map((t) => t.id)))
-      return
+    const seen = new Set<TermId>()
+    let frame = 0
+    let completed = false
+    const measure = () => {
+      frame = 0
+      for (const term of FORMULA_TERMS) {
+        const el = document.getElementById(term.anchor)
+        if (!el || seen.has(term.id) || el.getBoundingClientRect().top > window.innerHeight * 0.6) continue
+        seen.add(term.id)
+        setRevealed(new Set(seen))
+        setHint(term.id)
+        if (hintTimer.current) clearTimeout(hintTimer.current)
+        hintTimer.current = setTimeout(() => setHint(null), HINT_MS)
+      }
+      const apply = document.getElementById(APPLY_ANCHOR)
+      if (!completed && apply && apply.getBoundingClientRect().top < window.innerHeight * 0.7) {
+        completed = true
+        FORMULA_TERMS.forEach(term => seen.add(term.id))
+        setRevealed(new Set(seen))
+        setDone(true)
+      }
     }
-    const observers: IntersectionObserver[] = []
-
-    const reveal = (id: TermId) => {
-      setRevealed((prev) => {
-        if (prev.has(id)) return prev
-        const next = new Set(prev)
-        next.add(id)
-        return next
-      })
-      setHint(id)
-      if (hintTimer.current) clearTimeout(hintTimer.current)
-      hintTimer.current = setTimeout(() => setHint(null), HINT_MS)
-    }
-
-    FORMULA_TERMS.forEach((term) => {
-      const el = document.getElementById(term.anchor)
-      if (!el) return
-      const io = new IntersectionObserver(
-        (entries) => {
-          if (entries.some((e) => e.isIntersecting)) {
-            reveal(term.id)
-            io.disconnect()
-          }
-        },
-        { rootMargin: '0px 0px -40% 0px' },
-      )
-      io.observe(el)
-      observers.push(io)
-    })
-
-    const applyEl = document.getElementById(APPLY_ANCHOR)
-    if (applyEl) {
-      const io = new IntersectionObserver(
-        (entries) => {
-          if (entries.some((e) => e.isIntersecting)) {
-            // Tout devient net, même si l'utilisateur a sauté des sections.
-            setRevealed(new Set(FORMULA_TERMS.map((t) => t.id)))
-            setDone(true)
-            io.disconnect()
-          }
-        },
-        { rootMargin: '0px 0px -30% 0px' },
-      )
-      io.observe(applyEl)
-      observers.push(io)
-    }
-
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(measure) }
+    measure()
+    document.addEventListener('scroll', schedule, { passive: true, capture: true })
+    window.addEventListener('resize', schedule)
+    // Les témoignages et composants chargés à la demande peuvent déplacer
+    // les repères après le premier rendu.
+    const resize = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(schedule) : null
+    const main = document.querySelector('main')
+    if (main) resize?.observe(main)
     return () => {
-      observers.forEach((o) => o.disconnect())
+      if (frame) cancelAnimationFrame(frame)
       if (hintTimer.current) clearTimeout(hintTimer.current)
+      document.removeEventListener('scroll', schedule, { capture: true })
+      window.removeEventListener('resize', schedule)
+      resize?.disconnect()
     }
   }, [])
 
@@ -237,13 +187,11 @@ export default function FormulaBar() {
   const label = (t: Term) => (fr ? t.fr : t.en)
   const isOn = (id: TermId) => revealed.has(id)
   const progress = revealed.size / FORMULA_TERMS.length
-  const hintTerm = hint ? term(hint) : null
 
   const scrollToTerm = (t: Term) => {
     document.getElementById(t.anchor)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
-  // Le résultat (« 100 M de vues ») est toujours net : c'est la promesse.
   // Les cinq termes du mécanisme sont floutés et se dévoilent un par un,
   // quand la section qui les démontre arrive à l'écran (format flou → net,
   // appliqué à la page). Plus flou dans le hero qu'en bas d'écran.
@@ -251,8 +199,8 @@ export default function FormulaBar() {
 
   const TermChip = ({ id }: { id: TermId }) => {
     const t = term(id)
-    const on = id === 'visibility' || isOn(id)
-    const hot = hint === id || (id === 'visibility' && (docked || done))
+    const on = isOn(id)
+    const hot = hint === id
     return (
       <button
         type="button"
@@ -297,7 +245,7 @@ export default function FormulaBar() {
       {/* Reflet haut, le détail qui fait « verre » */}
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.12),rgba(255,255,255,0)_45%)]" />
 
-      <div className="relative flex flex-col lg:flex-row lg:items-center">
+      <div data-formula-ui className="relative flex flex-col lg:flex-row lg:items-center">
         <div className={[
           'relative flex items-center gap-2.5 px-4 py-2.5 text-xs sm:gap-3.5 sm:px-6 sm:py-3 sm:text-base',
           // Dans le hero, la formule est la pièce centrale : plus grande sur grand écran.
@@ -320,25 +268,7 @@ export default function FormulaBar() {
             </div>
           </div>
 
-          <Op>=</Op>
-          <div className="whitespace-nowrap">
-            <TermChip id="visibility" />
-          </div>
 
-          {/* La chute : visible quand toute la formule est nette */}
-          <AnimatePresence>
-            {done && (
-              <motion.span
-                initial={{ opacity: 0, x: -6 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.4, delay: 0.3 }}
-                className="ml-0.5 whitespace-nowrap rounded-lg bg-empire px-2 py-1 text-[10px] font-extrabold uppercase tracking-wider text-black sm:text-[11px]"
-              >
-                → {fr ? 'Clients' : 'Clients'}
-              </motion.span>
-            )}
-          </AnimatePresence>
         </div>
         {/* Le bouton d’essai reste accessible pendant la lecture : dessous sur mobile, à droite sur grand écran. */}
         {!docked && (
@@ -351,7 +281,7 @@ export default function FormulaBar() {
             }}
             className="mx-2 mb-2 flex min-h-0 items-center justify-center gap-1.5 rounded-xl bg-empire px-4 py-2 text-xs font-bold text-black transition hover:brightness-110 sm:text-sm lg:mx-0 lg:mb-0 lg:mr-2.5 lg:py-2.5"
           >
-            {fr ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial'}
+            {fr ? 'Tester gratuitement' : 'Try it free'}
             <span aria-hidden>→</span>
           </button>
         )}
@@ -372,7 +302,7 @@ export default function FormulaBar() {
   // Dans le hero : la pilule, lisible.
   if (mode === 'docked' && slot) {
     // Tampon « Secret » tant que des termes restent flous.
-    const stillSecret = revealed.size < FORMULA_TERMS.length - 1
+    const stillSecret = revealed.size < FORMULA_TERMS.length
     return createPortal(
       <div className="flex flex-col items-center">
         <div className="relative">
@@ -449,8 +379,6 @@ export function FormulaHeroStatic({ fr }: { fr: boolean }) {
                 <Blur id="time" /><Op>+</Op><Blur id="cost" />
               </div>
             </div>
-            <Op>=</Op>
-            <span className="whitespace-nowrap rounded-md px-1 font-extrabold tracking-tight text-empire">{label('visibility')}</span>
           </div>
           <div className="absolute inset-x-0 bottom-0 h-[2px] bg-white/10" />
         </div>
