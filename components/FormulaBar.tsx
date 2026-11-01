@@ -27,8 +27,8 @@ export const FORMULA_TERMS: Term[] = [
     anchor: 'formula-message',
     fr: 'Message',
     en: 'Message',
-    hintFr: 'Telegram, veille concurrents, sujets viraux. Vous cliquez.',
-    hintEn: 'Telegram, competitor watch, viral topics. You click.',
+    hintFr: 'Un lien Instagram, YouTube ou TikTok devient votre prochain sujet.',
+    hintEn: 'An Instagram, YouTube or TikTok link becomes your next topic.',
   },
   {
     id: 'format',

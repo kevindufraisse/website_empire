@@ -5,7 +5,6 @@ import HomeApplySection from '@/components/sections/HomeApplySection'
 import FeaturedInSection from '@/components/FeaturedInSection'
 import FormulaBar from '@/components/FormulaBar'
 import HomeMasterclassGate from '@/components/sections/HomeMasterclassGate'
-import { RecordingStory } from '@/components/FormulaScrollStory'
 import HomeTrialPrompt from '@/components/sections/HomeTrialPrompt'
 
 const HomeDemoSection = dynamic(() => import('@/components/sections/HomeDemoSection'))
@@ -36,33 +35,24 @@ export default function Page() {
       {/* Les ancres `formula-*` pilotent la FormulaBar : chaque section révèle
           le terme de la formule qu'elle démontre, dans l'ordre de la formule
           (Message × Format × Diffusion) / (Temps + Coût). C'est
-          pour ça que l'app (÷ Temps) vient juste après la diffusion, et pas
-          en dernier argument. */}
+          pour ça que le comparatif (Temps + Coût) suit la diffusion. */}
       <div id="formula-message">
         <HomeDemoSection />
       </div>
-      <div id="format-examples">
-        <FormatsShowcaseSection />
-      </div>
-      <RecordingStory />
       <HomeTrialPrompt moment="formats" />
       <div id="diffusion-proof">
         <RepurposingSection />
       </div>
-      {/* Témoignages clients ici et pas en haut (choix Kevin, 9 septembre) :
-          le début de page avance plus vite vers la formule, et la preuve
-          arrive une fois qu'on a vu ce que le produit fait. */}
+      <div id="formula-time">
+        <div id="formula-cost"><QuickWinsSection /></div>
+      </div>
+      <div id="format-examples">
+        <FormatsShowcaseSection />
+      </div>
       <TestimonialsSection />
       <HomeTrialPrompt moment="proof" />
-      {/* ÷ Temps se révèle à l'app (20 min à 1 h / semaine), ÷ Coût au
-          comparatif ChatGPT / outils spécialisés / Empire. */}
-      <div id="formula-time">
-        <MobileAppSection />
-      </div>
+      <MobileAppSection />
       <HomeTrialPrompt moment="time" />
-      <div id="formula-cost">
-        <QuickWinsSection />
-      </div>
       <div id="formula-visibility">
         <IncludedFeaturesSection />
       </div>

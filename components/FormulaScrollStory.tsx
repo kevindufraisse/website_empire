@@ -1,145 +1,94 @@
 'use client'
-
-import { useRef, useState } from 'react'
+import { useRef, useState, type ReactNode } from 'react'
 import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform, type MotionValue } from 'framer-motion'
-import { ArrowDown, ArrowUpRight, Check, Link2, Mic, Play, Send } from 'lucide-react'
+import { ArrowDown, ArrowRight, Check, Circle, Layers, Link2, Mic, MousePointer2, Play, Plus, Share2, Video } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import { SocialIcons } from '@/components/ui/social-icons'
 import s from './FormulaScrollStory.module.css'
 
-const FORMATS = [
-  { image: 'reaction.webp', fr: 'Réaction', en: 'Reaction' },
-  { image: 'faq.webp', fr: 'Question / réponse', en: 'Q&A' },
-  { image: 'tierlist.webp', fr: 'Tier list', en: 'Tier list' },
+const STEPS = [
+  { fr:'Un lien vous inspire.',en:'A link inspires you.',accentFr:'Tout commence ici.',accentEn:'It starts here.',descFr:'Un Reel Instagram, un TikTok, une vidéo YouTube. Ajoutez le lien dans Empire.',descEn:'An Instagram Reel, a TikTok, a YouTube video. Add the link to Empire.',labelFr:'Ajouter un lien',labelEn:'Add a link',icon:Link2 },
+  { fr:'Le même sujet.',en:'The same topic.',accentFr:'Plusieurs façons de le raconter.',accentEn:'More ways to tell it.',descFr:'Réagissez au Reel. Répondez en FAQ. Illustrez votre idée. Choisissez votre format.',descEn:'React to the Reel. Answer a question. Illustrate your idea. Choose your format.',labelFr:'Choisir un format',labelEn:'Pick a format',icon:Layers },
+  { fr:'Le cadre est prêt.',en:'The structure is ready.',accentFr:'À vous de parler.',accentEn:'Your turn to speak.',descFr:'Vous enregistrez votre point de vue. Empire prépare le montage et les déclinaisons.',descEn:'Record your point of view. Empire prepares the edit and adaptations.',labelFr:'Enregistrer',labelEn:'Record',icon:Video },
+  { fr:'Une prise.',en:'One take.',accentFr:'Chaque réseau a sa version.',accentEn:'Every channel gets its version.',descFr:'Reels, posts LinkedIn, threads, carrousels… Vous validez avant la diffusion.',descEn:'Reels, LinkedIn posts, threads, carousels… You approve before publishing.',labelFr:'Diffuser',labelEn:'Publish',icon:Share2 },
 ]
-const NETWORKS = ['linkedin', 'instagram', 'youtube', 'tiktok', 'threads', 'facebook', 'twitter'] as const
-const NETWORK_NAMES = ['LinkedIn', 'Instagram', 'YouTube', 'TikTok', 'Threads', 'Facebook', 'X']
+const NETWORKS = ['instagram','tiktok','youtube','linkedin','threads','twitter','facebook'] as const
+const NETWORK_NAMES = ['Instagram','TikTok','YouTube','LinkedIn','Threads','X','Facebook']
+type SceneProps = { progress:MotionValue<number>;fr:boolean }
 
-function useStory() {
-  const ref = useRef<HTMLElement>(null)
-  const { scrollYProgress: progress } = useScroll({ target: ref, offset: ['start start', 'end end'] })
-  const [second, setSecond] = useState(false)
-  useMotionValueEvent(progress, 'change', v => setSecond(v >= 0.48))
-  return { ref, progress, second }
+function Panel({progress,index,children,className=''}:{progress:MotionValue<number>;index:number;children:ReactNode;className?:string}) {
+  const start=index*.25
+  const opacity=useTransform(progress,index===0?[0,.18,.26]:index===3?[.69,.77,1]:[start-.06,start+.02,start+.18,start+.26],index===0?[1,1,0]:index===3?[0,1,1]:[0,1,1,0])
+  const y=useTransform(progress,[start-.06,start+.03,start+.18,start+.26],[24,0,0,-24])
+  return <motion.div className={`${s.panel} ${className}`} style={{opacity,y}} aria-hidden>{children}</motion.div>
 }
-
-function Chat({ progress, fr }: { progress: MotionValue<number>; fr: boolean }) {
-  const opacity = useTransform(progress, [0, 0.33, 0.46], [1, 1, 0])
-  const scale = useTransform(progress, [0.3, 0.47], [1, 0.82])
-  const y = useTransform(progress, [0, 0.15, 0.45], [24, 0, -35])
-  const replyOpacity = useTransform(progress, [0.13, 0.25], [0, 1])
-  const replyY = useTransform(progress, [0.13, 0.25], [25, 0])
-  return <motion.div className={`${s.scene} ${s.chatScene}`} style={{ opacity, scale }} aria-hidden>
-    <motion.div className={s.sourceNote} style={{ y }}>
-      <span className={s.sourceIcon}><SocialIcons.linkedin /></span>
-      <small>{fr ? 'VU DANS VOTRE VEILLE' : 'FROM YOUR FEED'}</small>
-      <strong>{fr ? '« Publier tous les jours ne suffit pas. »' : '“Posting every day isn’t enough.”'}</strong>
-      <span className={s.noteLines}><i /><i /><i /></span>
-      <span className={s.sourceFoot}>{fr ? 'Un point de vue à challenger.' : 'A point of view to challenge.'} <ArrowUpRight size={14}/></span>
-    </motion.div>
-    <div className={s.chat}>
-      <div className={s.chatHeader}><img src="/integrations/telegram.svg" width={32} height={32} alt=""/><div><b>Empire · {fr ? 'mes idées' : 'my ideas'}</b><span>{fr ? 'Votre conversation créative' : 'Your creative conversation'}</span></div><span className={s.online}/></div>
-      <div className={s.chatBody}>
-        <div className={s.sent}>{fr ? 'Mon concurrent a partagé ça sur LinkedIn 👀' : 'My competitor shared this on LinkedIn 👀'}<div className={s.link}><Link2 size={13}/> linkedin.com/posts/…</div><small>09:41 ✓✓</small></div>
-        <div className={`${s.sent} ${s.voice}`}><Play size={15} fill="currentColor"/><span className={s.wave}>{[8,15,22,12,26,19,10,23,16,28,12,20,15,9,21,14].map((h,i)=><i key={i} style={{height:h}}/>)}</span><span>0:18</span></div>
-        <motion.div className={s.reply} style={{opacity:replyOpacity,y:replyY}}><span className={s.spark}>✦</span><div><b>{fr ? 'Une idée à creuser' : 'An idea to explore'}</b><p>{fr ? 'Comment trouver des clients sans faire de pub ?' : 'How do you find clients without ads?'}</p><small><Check size={12}/>{fr ? 'Ajoutée à vos sujets' : 'Added to your topics'}</small></div></motion.div>
-      </div>
-      <div className={s.chatInput}>{fr ? 'Une idée, un lien, un vocal…' : 'An idea, a link, a voice note…'}<Send size={16}/></div>
-    </div>
-    <motion.div className={s.screenshot} style={{ y:replyY }}><img src="/formats/reaction.webp" alt="" width={128} height={225}/><span><Check size={13}/>{fr ? 'Capture ajoutée' : 'Screenshot added'}</span></motion.div>
+function ImportPanel({progress,fr}:SceneProps) {
+  const url=useTransform(progress,v=>'instagram.com/reel/exemple'.slice(0,Math.round(Math.min(v/.09,1)*26)))
+  const imported=useTransform(progress,[.08,.14],[0,1])
+  const cursorX=useTransform(progress,[0,.07,.11,.18],[12,120,120,170]);const cursorY=useTransform(progress,[0,.07,.11,.18],[0,45,45,15]);const cursorOpacity=useTransform(progress,[0,.02,.13,.18],[0,1,1,0])
+  return <Panel progress={progress} index={0}><div className={s.importCopy}>
+    <span className={s.eyebrow}>{fr?'NOUVELLE INSPIRATION':'NEW INSPIRATION'}</span><h3>{fr?'Ce Reel mérite votre réaction.':'This Reel deserves your take.'}</h3>
+    <div className={s.sourcePlatforms}><SocialIcons.instagram/><SocialIcons.youtube/><SocialIcons.tiktok/><span>{fr?'Collez un lien':'Paste a link'}</span></div>
+    <div className={s.urlField}><Link2 size={15}/><motion.span>{url}</motion.span><i/></div>
+    <span className={s.importButton}><Plus size={15}/>{fr?'Ajouter à mes inspirations':'Add to my inspirations'}</span>
+    <motion.div className={s.imported} style={{opacity:imported}}><Check size={15}/>{fr?'Reel ajouté. Prêt à être utilisé.':'Reel added. Ready to use.'}</motion.div>
+    <motion.div className={s.demoCursor} style={{x:cursorX,y:cursorY,opacity:cursorOpacity}}><MousePointer2 size={23} fill="white"/></motion.div>
+  </div></Panel>
+}
+function FormatOption({progress,index,fr}:SceneProps&{index:number}) {
+  const x=useTransform(progress,[.22+index*.025,.38+index*.025],[-100-index*55,0]);const opacity=useTransform(progress,[.23+index*.035,.33+index*.035],[0,1]);const scale=useTransform(progress,[.23,.4],[.8,1])
+  return <motion.div className={s.formatOption} style={{left:index===0?'42%':'67%',x,opacity,scale}}><img src={`/formats/${index===0?'faq':'auto-edit'}.webp`} width={230} height={408} alt=""/><span><b>{index===0?'FAQ':'Illustration'}</b><small>{index===0?(fr?'Répondre à une question':'Answer a question'):(fr?'Montrer ce que vous racontez':'Show what you mean')}</small></span></motion.div>
+}
+function FormatPanel({progress,fr}:SceneProps) {
+  const opacity=useTransform(progress,[.35,.43],[0,1])
+  return <Panel progress={progress} index={1}><div className={s.panelTitle}><span className={s.sourcePill}><SocialIcons.instagram/>{fr?'Votre Reel importé':'Your imported Reel'}<Check size={11}/></span><span>{fr?'Choisir comment le raconter':'Choose how to tell it'}</span></div><FormatOption progress={progress} index={0} fr={fr}/><FormatOption progress={progress} index={1} fr={fr}/><motion.div className={s.moreFormats} style={{opacity}}>{['Tier list',fr?'Citation':'Quote','Podcast',fr?'Actualité':'News','Storytelling'].map(f=><span key={f}>{f}</span>)}<b>{fr?'… et bien d’autres':'… and more'}</b></motion.div></Panel>
+}
+function RecordPanel({progress,fr}:SceneProps) {
+  const words=useTransform(progress,[.52,.67],[0,1])
+  return <Panel progress={progress} index={2}><div className={s.recordCopy}><span className={s.eyebrow}>{fr?'FORMAT RÉACTION · VOTRE ANGLE':'REACTION FORMAT · YOUR ANGLE'}</span><h3>{fr?'Ce que ce Reel ne vous dit pas…':'What this Reel doesn’t tell you…'}</h3><p>{fr?'Votre avis. Votre expérience. Votre voix.':'Your opinion. Your experience. Your voice.'}</p><div className={s.recordLines}><motion.i style={{scaleX:words}}/><motion.i style={{scaleX:words}}/><motion.i style={{scaleX:words}}/></div><span className={s.recordHint}><Mic size={16}/>{fr?'Parlez comme vous êtes.':'Speak in your own voice.'}</span></div></Panel>
+}
+function Publication({progress,side,fr}:SceneProps&{side:'left'|'right'}) {
+  const opacity=useTransform(progress,[.73,.85],[0,1]);const x=useTransform(progress,[.73,.87],[side==='left'?120:-120,0]);const rotate=useTransform(progress,[.73,.87],[0,side==='left'?-3:3])
+  return <motion.div className={`${s.publication} ${side==='left'?s.linkedIn:s.thread}`} style={{opacity,x,rotate}}>
+    <div className={s.postProfile}><img src="/founders/kevin.jpg" width={28} height={28} alt=""/><div><b>Kevin Dufraisse</b><small>{side==='left'?'LinkedIn':'Threads · X'}</small></div>{side==='left'?<SocialIcons.linkedin/>:<SocialIcons.threads/>}</div>
+    <h4>{fr?'Publier plus ne suffit pas.':'Posting more isn’t enough.'}</h4>
+    {side==='left'?<><p>{fr?'Ce qui change tout, c’est le point de vue que vous apportez.':'What changes everything is the point of view you bring.'}</p><p>{fr?'Voilà ce que j’aurais aimé savoir avant de commencer…':'Here’s what I wish I’d known before I started…'}</p><span className={s.postFoot}>{fr?'Un post adapté à LinkedIn':'Adapted for LinkedIn'}</span></>:<div className={s.threadLines}>{[fr?'1. Partez d’une vraie idée.':'1. Start with a real idea.',fr?'2. Apportez votre expérience.':'2. Add your experience.',fr?'3. Choisissez le bon format.':'3. Pick the right format.'].map(t=><p key={t}>{t}</p>)}<span className={s.postFoot}>{fr?'Une idée, un fil de discussion':'One idea, one thread'}</span></div>}
   </motion.div>
 }
-
-function FormatCard({ index, progress, fr }: { index:number; progress:MotionValue<number>;fr:boolean }) {
-  const x = useTransform(progress, [0.44, 0.76], [0, (index-1)*210])
-  const y = useTransform(progress, [0.44, 0.76], [-45, index===1 ? 0:24])
-  const rotate = useTransform(progress, [0.44, 0.76], [0, (index-1)*9])
-  const opacity = useTransform(progress, [0.44+index*0.025, 0.58+index*0.025], [0, 1])
-  const scale = useTransform(progress,[0.44,0.76],[0.45,1])
-  const f=FORMATS[index]
-  return <motion.div className={s.formatCard} style={{translateX:x,y,rotate,opacity,scale,zIndex:index===1?3:2}}>
-    <img src={`/formats/${f.image}`} width={230} height={408} alt="" loading="lazy"/>
-    <div className={s.formatName}><span>0{index+1}</span>{fr?f.fr:f.en}</div>
+function PublishPanel({progress,fr}:SceneProps) {
+  const opacity=useTransform(progress,[.84,.94],[0,1]);const y=useTransform(progress,[.83,.94],[20,0])
+  return <Panel progress={progress} index={3}><div className={s.panelTitle}><span><Check size={14}/>{fr?'Déclinaisons prêtes à valider':'Adaptations ready to approve'}</span><b>{fr?'Un contenu adapté par réseau':'Adapted for each channel'}</b></div><Publication progress={progress} side="left" fr={fr}/><Publication progress={progress} side="right" fr={fr}/><motion.div className={s.networks} style={{opacity,y}}>{NETWORKS.map((n,i)=>{const Icon=SocialIcons[n];return <span key={n}><Icon/><small>{NETWORK_NAMES[i]}</small></span>})}</motion.div></Panel>
+}
+// One persistent video connects the four stages; it is never replaced by a new scene.
+function SharedVideo({progress,phase,fr}:SceneProps&{phase:number}) {
+  const left=useTransform(progress,[0,.18,.29,.44,.55,.69,.8,1],['74%','74%','27%','27%','72%','72%','50%','50%'])
+  const width=useTransform(progress,[0,.18,.29,.44,.55,.69,.8],['24%','24%','20%','20%','24%','24%','20%'])
+  const top=useTransform(progress,[0,.18,.29,.44,.55,.69,.8],['50%','50%','49%','49%','50%','50%','49%'])
+  const rotate=useTransform(progress,[0,.18,.29,.44,.55,.69,.8],[2,2,0,0,0,0,0]);const reveal=useTransform(progress,[0,.08,.14],[.3,.3,1]);const recording=useTransform(progress,[.46,.54,.7,.8],[0,1,1,0]);const saved=useTransform(progress,[.64,.68,.71,.76],[0,1,1,0]);const timer=useTransform(progress,v=>`00:${String(Math.round(Math.max(0,Math.min((v-.5)/.15,1))*42)).padStart(2,'0')}`);const meter=useTransform(progress,[.5,.65],[0,1])
+  return <motion.div className={s.sharedVideo} style={{left,width,top,rotate,opacity:reveal,x:'-50%',y:'-50%'}} aria-hidden>
+    <img src="/formats/reaction.webp" width={230} height={408} alt=""/><motion.img className={s.recordImage} src="/formats/earphones.webp" width={230} height={408} alt="" style={{opacity:recording}}/>
+    <div className={s.clipTop}>{phase===2?<><span className={s.recDot}/> REC <motion.b>{timer}</motion.b></>:<><Play size={11} fill="currentColor"/><span>{phase===0?(fr?'Reel importé':'Imported Reel'):phase===1?(fr?'Réaction':'Reaction'):'Reel · Short'}</span>{phase===1&&<Check size={13}/>}</>}</div>
+    <div className={s.clipBottom}>{phase===0?(fr?'L’inspiration de départ':'Your starting point'):phase===1?<><b>{fr?'Réaction à ce Reel':'React to this Reel'}</b><small>{fr?'Le contenu + votre point de vue':'The content + your point of view'}</small></>:phase===2?<><div className={s.meter}><motion.i style={{scaleX:meter}}/></div><span className={s.recButton}><i/></span></>:<><b>{fr?'Votre vidéo montée':'Your edited video'}</b><small>{fr?'Sous-titres · format vertical':'Captions · vertical format'}</small></>}</div>
+    <motion.span className={s.saved} style={{opacity:saved}}><Check size={17}/>{fr?'Enregistré':'Recorded'}</motion.span>
   </motion.div>
 }
-
-function Formats({ progress, fr }: {progress:MotionValue<number>;fr:boolean}) {
-  const opacity=useTransform(progress,[0.37,0.46],[0,1])
-  const ideaY=useTransform(progress,[0.4,0.68],[70,0])
-  const ideaScale=useTransform(progress,[0.4,0.68],[1.15,1])
-  return <motion.div className={`${s.scene} ${s.formatsScene}`} style={{opacity}} aria-hidden>
-    <motion.div className={s.idea} style={{x:"-50%",y:ideaY,scale:ideaScale}}><span>✦</span>{fr?'Trouver des clients sans pub':'Finding clients without ads'}<ArrowDown size={15}/></motion.div>
-    <div className={s.formatFan}>{FORMATS.map((_,i)=><FormatCard key={i} index={i} progress={progress} fr={fr}/>)}</div>
-    <div className={s.formatsFoot}><span className={s.online}/>{fr?'Le même sujet. Plusieurs façons de le raconter.':'One topic. More than one way to tell it.'}</div>
-  </motion.div>
-}
-
 export function SourcesStory() {
-  const {lang}=useLanguage();const fr=lang==='fr';const {autopilot}=useAutopilot()
-  const {ref,progress,second}=useStory();const reduced=useReducedMotion()
+  const {lang}=useLanguage();const fr=lang==='fr';const {autopilot}=useAutopilot();const ref=useRef<HTMLElement>(null)
+  const {scrollYProgress:progress}=useScroll({target:ref,offset:['start start','end end']});const [phase,setPhase]=useState(0)
+  useMotionValueEvent(progress,'change',v=>setPhase(Math.min(3,Math.floor((v+.015)*4))))
+  const reduced=useReducedMotion()
   if(autopilot)return null
-  return <section ref={ref} className={`${s.story} ${reduced?s.reduced:''}`} aria-label={fr?'Du message au format':'From message to format'} data-story="sources" data-step={second?'formats':'message'}>
-    <span id="formula-format" className={s.chapterAnchor} aria-hidden/>
-    <div className={s.sticky}>
-      <div className={s.storyTop}><span>EMPIRE, {fr?'EN ACTION':'IN ACTION'}</span><span>01 — 02 <span className={s.dim}>/ 04</span></span></div>
-      <div className={s.headings}>
-        <div className={`${s.heading} ${!second?s.active:''}`}><p>01 · MESSAGE</p><h2>{fr?<>Tout commence par<br/><em>ce qui vous fait réagir.</em></>:<>It starts with<br/><em>what makes you react.</em></>}</h2><span>{fr?'Un lien, une capture, un vocal. Envoyez. Vos prochains sujets prennent forme.':'A link, a screenshot, a voice note. Send it. Your next topics take shape.'}</span></div>
-        <div className={`${s.heading} ${second?s.active:''}`}><p>02 · FORMAT</p><h2>{fr?<>Votre idée trouve<br/><em>le bon format.</em></>:<>Your idea finds<br/><em>the right format.</em></>}</h2><span>{fr?'Réaction, FAQ, tier list… Le fond vient de vous. Le cadre est déjà prêt.':'Reaction, Q&A, tier list… Your point of view. A proven structure.'}</span></div>
-      </div>
-      <div className={s.stage}><Chat progress={progress} fr={fr}/><Formats progress={progress} fr={fr}/></div>
-      <StoryProgress progress={progress} fr={fr}/>
-    </div>
-    <p className="sr-only">{fr?'Envoyez vos liens, captures et vocaux sur Telegram. Empire en tire des sujets, puis les adapte à des formats comme la réaction, la FAQ et la tier list. Les exemples de formats sont présentés ci-dessous.':'Send links, screenshots and voice notes on Telegram. Empire turns them into topics and adapts them to reaction, Q&A and tier list formats. Explore the examples below.'}</p>
-  </section>
-}
-
-function StoryProgress({progress,fr}:{progress:MotionValue<number>;fr:boolean}) {
-  return <div className={s.storyBottom}><span>{fr?'Continuez à scroller':'Keep scrolling'} <ArrowDown size={13}/></span><div><motion.i style={{scaleX:progress}}/></div><small>{fr?'Démonstration illustrée':'Illustrated walkthrough'}</small></div>
-}
-
-function Recording({progress,fr}:{progress:MotionValue<number>;fr:boolean}) {
-  const opacity=useTransform(progress,[0,0.46,0.58],[1,1,0]);const scale=useTransform(progress,[0.4,0.58],[1,0.75])
-  const timer=useTransform(progress,v=>`00:${String(Math.round(Math.min(v/0.4,1)*42)).padStart(2,'0')}`)
-  const saved=useTransform(progress,[0.35,0.42],[0,1])
-  const meter=useTransform(progress,[0,0.4],[0.03,1])
-  return <motion.div className={`${s.scene} ${s.recordScene}`} style={{opacity,scale}} aria-hidden>
-    <div className={s.recordPrompt}><span>{fr?'VOTRE SUJET EST PRÊT':'YOUR TOPIC IS READY'}</span><h3>{fr?'Comment trouver des clients sans faire de pub ?':'How do you find clients without ads?'}</h3><p>{fr?'Votre expérience. Votre avis. Votre voix.':'Your experience. Your opinion. Your voice.'}</p><div><Mic size={15}/>{fr?'À vous de parler.':'Over to you.'}</div></div>
-    <div className={s.camera}><img src="/formats/earphones.webp" width={260} height={462} alt="" loading="lazy"/><div className={s.cameraTop}><span><i/> REC</span><motion.b>{timer}</motion.b></div><span className={s.focus}/><div className={s.recordControl}><div><motion.i style={{scaleX:meter}}/></div><span><i/></span></div><motion.div className={s.saved} style={{opacity:saved}}><Check size={19}/>{fr?'Enregistré':'Recorded'}</motion.div></div>
-  </motion.div>
-}
-
-function PublishCard({progress,index,fr}:{progress:MotionValue<number>;index:number;fr:boolean}) {
-  const x=useTransform(progress,[0.52,0.82],[0,(index-1)*210]);const y=useTransform(progress,[0.52,0.82],[40,index===1?0:28]);const rotate=useTransform(progress,[0.52,0.82],[0,(index-1)*6]);const opacity=useTransform(progress,[0.52+index*0.035,0.66+index*0.035],[0,1])
-  return <motion.div className={s.publishCard} style={{translateX:x,y,rotate,opacity,zIndex:index===1?3:2}}>
-    {index===0?<><div className={s.postProfile}><img src="/founders/kevin.jpg" width={28} height={28} alt=""/><div><b>Kevin Dufraisse</b><span>LinkedIn</span></div><SocialIcons.linkedin/></div><h3>{fr?'Trouver des clients sans pub.':'Finding clients without ads.'}</h3><p>{fr?'Ce n’est pas en publiant plus que tout change. C’est en ayant quelque chose à dire.':'Posting more isn’t what changes everything. Having something to say does.'}</p><div className={s.postLines}><i/><i/><i/><i/></div><span className={s.postTag}>{fr?'Post écrit':'Written post'}</span></>:<><img className={s.publishPhoto} src={`/formats/${index===1?'faq.webp':'captions.webp'}`} width={230} height={408} alt="" loading="lazy"/><span className={s.videoTag}>{index===1?'Reel':'Short'}</span></>}
-  </motion.div>
-}
-
-function Publishing({progress,fr}:{progress:MotionValue<number>;fr:boolean}) {
-  const opacity=useTransform(progress,[0.48,0.57],[0,1]);const netY=useTransform(progress,[0.64,0.88],[25,0]);const netOpacity=useTransform(progress,[0.64,0.88],[0,1])
-  return <motion.div className={`${s.scene} ${s.publishScene}`} style={{opacity}} aria-hidden>
-    <div className={s.validation}><Check size={14}/>{fr?'Montage → relecture → votre validation':'Editing → review → your approval'}</div>
-    <div className={s.publishFan}>{[0,1,2].map(i=><PublishCard key={i} progress={progress} index={i} fr={fr}/>)}</div>
-    <motion.div className={s.networks} style={{y:netY,opacity:netOpacity}}>{NETWORKS.map((n,i)=>{const Icon=SocialIcons[n];return <span key={n} title={NETWORK_NAMES[i]}><Icon/><small>{NETWORK_NAMES[i]}</small></span>})}</motion.div>
-  </motion.div>
-}
-
-export function RecordingStory() {
-  const {lang}=useLanguage();const fr=lang==='fr';const {autopilot}=useAutopilot()
-  const {ref,progress,second}=useStory();const reduced=useReducedMotion()
-  if(autopilot)return null
-  return <section ref={ref} className={`${s.story} ${s.recordStory} ${reduced?s.reduced:''}`} aria-label={fr?'De l’enregistrement à la diffusion':'From recording to distribution'} data-story="recording" data-step={second?'diffusion':'recording'}>
-    <span id="formula-diffusion" className={s.chapterAnchor} aria-hidden/>
-    <div className={s.sticky}>
-      <div className={s.storyTop}><span>EMPIRE, {fr?'EN ACTION':'IN ACTION'}</span><span>03 — 04 <span className={s.dim}>/ 04</span></span></div>
-      <div className={s.headings}>
-        <div className={`${s.heading} ${!second?s.active:''}`}><p>03 · {fr?'ENREGISTREMENT':'RECORDING'}</p><h2>{fr?<>Vous appuyez sur REC.<br/><em>Vous restez vous.</em></>:<>You press REC.<br/><em>You stay you.</em></>}</h2><span>{fr?'Le sujet et le format sont prêts. Vous apportez ce qu’aucune IA ne peut inventer : votre vécu.':'Your topic and format are ready. You bring what AI cannot invent: your experience.'}</span></div>
-        <div className={`${s.heading} ${second?s.active:''}`}><p>04 · {fr?'DIFFUSION':'DISTRIBUTION'}</p><h2>{fr?<>Une prise.<br/><em>De quoi remplir vos réseaux.</em></>:<>One recording.<br/><em>Content for your channels.</em></>}</h2><span>{fr?'Empire monte, décline et prépare les publications. Vous validez. Le contenu circule.':'Empire edits, adapts and prepares your posts. You approve. Your content travels.'}</span></div>
-      </div>
-      <div className={s.stage}><Recording progress={progress} fr={fr}/><Publishing progress={progress} fr={fr}/></div>
-      <StoryProgress progress={progress} fr={fr}/>
-    </div>
-    <p className="sr-only">{fr?'Enregistrez votre point de vue. Empire prépare le montage et les déclinaisons. Après relecture et validation, publiez sur vos réseaux connectés.':'Record your point of view. Empire prepares the edit and adaptations. After review and approval, publish on your connected channels.'}</p>
+  if(reduced)return <section className={s.reduced} aria-label={fr?'Empire, du lien à la publication':'Empire, from link to publication'}><span id="formula-format"/><span id="formula-diffusion"/>{STEPS.map((step,i)=><article key={step.en}><span>0{i+1}</span><h2>{fr?step.fr:step.en} {fr?step.accentFr:step.accentEn}</h2><p>{fr?step.descFr:step.descEn}</p><img src={`/formats/${['reaction','faq','earphones','captions'][i]}.webp`} alt="" width={160} height={284}/></article>)}</section>
+  return <section ref={ref} className={s.story} data-story="studio" data-step={['message','formats','recording','diffusion'][phase]} aria-label={fr?'Empire, du lien à la publication':'Empire, from link to publication'}>
+    <span id="formula-format" className={s.chapterAnchor} style={{top:'23%'}}/><span id="formula-recording" className={s.chapterAnchor} style={{top:'44%'}}/><span id="formula-diffusion" className={s.chapterAnchor} style={{top:'67%'}}/>
+    <div className={s.sticky}><div className={s.storyTop}><span>EMPIRE, {fr?'EN ACTION':'IN ACTION'}</span><span>0{phase+1} <i>/ 04</i></span></div>
+      <div className={s.headings}>{STEPS.map((step,i)=><Panel key={step.en} progress={progress} index={i}><h2>{fr?step.fr:step.en}<br/><em>{fr?step.accentFr:step.accentEn}</em></h2><p>{fr?step.descFr:step.descEn}</p></Panel>)}</div>
+      <div className={s.appFrame}><div className={s.appChrome}><b><span>E</span> Empire</b><span>{fr?'Mon studio':'My studio'} <span className={s.chromeSlash}>/</span> {fr?'Nouveau contenu':'New content'}</span><small><Circle size={6} fill="currentColor"/>{fr?'Démo au scroll':'Scroll demo'}</small></div>
+        <div className={s.appBody}><aside className={s.sidebar}><span className={s.sidebarLabel}>{fr?'MON CONTENU':'MY CONTENT'}</span>{STEPS.map((step,i)=><a key={step.en} href={`#${['formula-message','formula-format','formula-recording','formula-diffusion'][i]}`} aria-current={phase===i?'step':undefined} className={phase===i?s.selected:''}><step.icon size={16}/><span>{fr?step.labelFr:step.labelEn}</span>{phase>i&&<Check size={12}/>}</a>)}<div className={s.sidebarBottom}><img src="/founders/kevin.jpg" width={24} height={24} alt=""/><span>Kevin<small>{fr?'Mon espace':'My workspace'}</small></span></div></aside>
+        <div className={s.canvas}><ImportPanel progress={progress} fr={fr}/><FormatPanel progress={progress} fr={fr}/><RecordPanel progress={progress} fr={fr}/><PublishPanel progress={progress} fr={fr}/><SharedVideo progress={progress} phase={phase} fr={fr}/></div></div>
+        <div className={s.appFooter}><span><Check size={12}/>{fr?'Votre expertise, du premier lien au dernier post.':'Your expertise, from the first link to the last post.'}</span><span>{fr?'Vous gardez la validation':'You keep approval'} <ArrowRight size={12}/></span></div>
+      </div><div className={s.storyBottom}><span>{fr?'Le scroll fait avancer la démo':'Scroll to move through the demo'} <ArrowDown size={13}/></span><div><motion.i style={{scaleX:progress}}/></div><small>{fr?'Exemple illustré':'Illustrated example'}</small></div>
+    </div><ol className="sr-only">{STEPS.map(step=><li key={step.en}>{fr?step.descFr:step.descEn}</li>)}</ol>
   </section>
 }
