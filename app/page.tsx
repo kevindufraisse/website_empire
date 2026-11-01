@@ -35,7 +35,7 @@ export default function Page() {
       {/* Les ancres `formula-*` pilotent la FormulaBar : chaque section révèle
           le terme de la formule qu'elle démontre, dans l'ordre de la formule
           (Message × Format × Diffusion) / (Temps + Coût). C'est
-          pour ça que le comparatif (Temps + Coût) suit la diffusion. */}
+          pour ça que l'application (Temps), puis le comparatif (Coût), suivent la diffusion. */}
       <div id="formula-message">
         <HomeDemoSection />
       </div>
@@ -44,15 +44,14 @@ export default function Page() {
         <RepurposingSection />
       </div>
       <div id="formula-time">
-        <div id="formula-cost"><QuickWinsSection /></div>
+        <MobileAppSection />
       </div>
+      <div id="formula-cost"><QuickWinsSection /></div>
       <div id="format-examples">
         <FormatsShowcaseSection />
       </div>
       <TestimonialsSection />
       <HomeTrialPrompt moment="proof" />
-      <MobileAppSection />
-      <HomeTrialPrompt moment="time" />
       <div id="formula-visibility">
         <IncludedFeaturesSection />
       </div>
