@@ -15,9 +15,9 @@ const STEPS: { label: Copy; title: Copy; description: Copy }[] = [
   { label: ['Vous validez', 'You approve'], title: ['Vous rouvrez l’app. Tout est prêt à valider.', 'Open the app. Everything is ready to approve.'], description: ['Vous gardez le dernier mot. Les contenus validés rejoignent le calendrier, puis vos réseaux.', 'You have the final say. Approved content moves to your calendar, then your channels.'] },
 ]
 const OUTPUTS = [
-  { image: 'earphones', label: ['Reel · Réaction', 'Reel · Reaction'], channel: 'instagram', day: ['LUN', 'MON'] },
-  { image: 'quote', label: ['Post · Votre point de vue', 'Post · Your perspective'], channel: 'linkedin', day: ['MER', 'WED'] },
-  { image: 'faq', label: ['Thread · Vos conseils', 'Thread · Your advice'], channel: 'threads', day: ['VEN', 'FRI'] },
+  { image: 'reaction', label: ['Reel · Réaction', 'Reel · Reaction'], channel: 'instagram', day: ['LUN', 'MON'] },
+  { image: 'reaction', label: ['Post · Votre point de vue', 'Post · Your perspective'], channel: 'linkedin', day: ['MER', 'WED'] },
+  { image: 'reaction', label: ['3 messages · Vos conseils', '3 messages · Your advice'], channel: 'threads', day: ['VEN', 'FRI'] },
 ] as const
 
 function Layer({ progress, index, children, className = '' }: { progress: MotionValue<number>; index: number; children: React.ReactNode; className?: string }) {
@@ -40,16 +40,16 @@ function Phone({ progress, fr }: { progress: MotionValue<number>; fr: boolean })
   const approved = useTransform(progress, [.87, .93], [0, 1])
   return <div className={s.phone} aria-hidden><div className={s.island}/><div className={s.phoneStatus}><span>9:41</span><span>● ▰</span></div>
     <Layer progress={progress} index={0} className={s.recordScreen}>
-      <img className={s.recordPhoto} src="/formats/earphones.webp" width={300} height={534} alt=""/>
+      <img className={s.recordPhoto} src="/formats/reaction.webp" width={300} height={534} alt=""/>
       <div className={s.phoneTop}><span className={s.appWordmark}>E</span><b>Empire</b><Headphones size={16}/></div>
       <div className={s.formatTabs}><b>{fr ? 'Réaction' : 'Reaction'}</b><span>FAQ</span><span>Interview</span><span>{fr ? 'Dictée' : 'Voice'}</span></div>
-      <div className={s.question}><small>{fr ? 'VOTRE ANGLE' : 'YOUR ANGLE'}</small><b>{fr ? '« Pourquoi publier plus ne suffit pas ? »' : '“Why is posting more not enough?”'}</b></div>
+      <div className={s.question}><small>{fr ? 'VOTRE ANGLE' : 'YOUR ANGLE'}</small><b>{fr ? '« Quels outils pour lancer une boutique en ligne ? »' : '“Which tools do I need to launch an online store?”'}</b></div>
       <div className={s.recordControls}><div className={s.wave}>{[4,8,5,12,17,9,20,13,7,16,10,6,12,5,9].map((h,i)=><motion.i key={i} style={{height:h}} animate={{scaleY:[.5,1,.5]}} transition={{duration:.7+i*.04,repeat:Infinity}}/>)}</div><div className={s.recordRow}><Mic size={16}/><span className={s.recordButton}><Pause size={18} fill="currentColor"/></span><motion.b>{timer}</motion.b></div></div>
     </Layer>
     <Layer progress={progress} index={1} className={s.workScreen}>
       <div className={s.screenHeading}><span className={s.appWordmark}>E</span><b>{fr ? 'En préparation' : 'In production'}</b></div>
-      <div className={s.editPreview}><img src="/formats/earphones.webp" width={230} height={408} alt=""/><span>{fr ? 'VOTRE POINT DE VUE' : 'YOUR PERSPECTIVE'}</span><Play size={18} fill="currentColor"/></div>
-      <div className={s.editTimeline}><div>{Array.from({length:7},(_,i)=><img key={i} src="/formats/earphones.webp" alt="" width={30} height={35}/>)}</div><motion.i style={{scaleX:playback}}/></div>
+      <div className={s.editPreview}><img src="/formats/reaction.webp" width={230} height={408} alt=""/><span>{fr ? 'LANCER SA BOUTIQUE' : 'LAUNCH YOUR STORE'}</span><Play size={18} fill="currentColor"/></div>
+      <div className={s.editTimeline}><div>{Array.from({length:7},(_,i)=><img key={i} src="/formats/reaction.webp" alt="" width={30} height={35}/>)}</div><motion.i style={{scaleX:playback}}/></div>
       <div className={s.phoneCheck}><Scissors size={14}/>{fr ? 'Montage & sous-titres' : 'Editing & captions'}<Check size={14}/></div>
       <motion.div className={s.humanCheck} style={{opacity:reviewed}}><ShieldCheck size={20}/><div><b>{fr ? 'Relu par un humain' : 'Human-reviewed'}</b><small>{fr ? 'Prêt pour votre validation' : 'Ready for your approval'}</small></div></motion.div>
     </Layer>

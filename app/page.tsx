@@ -1,14 +1,70 @@
 import dynamic from 'next/dynamic'
-import HomeHero from '@/components/sections/HomeHero'
+import './home-flat.css'
+import HeroSection from '@/components/sections/HeroSection'
 import TopCreatorsSection from '@/components/sections/TopCreatorsSection'
 import HomeApplySection from '@/components/sections/HomeApplySection'
 import FeaturedInSection from '@/components/FeaturedInSection'
-import FormulaBar from '@/components/HomeFormula'
+import FormulaBar from '@/components/FormulaBar'
 import HomeMasterclassGate from '@/components/sections/HomeMasterclassGate'
-import HomeDetails from '@/components/sections/HomeDetails'
-import './home.css'
-const HomeDemoSection=dynamic(()=>import('@/components/sections/HomeDemoSection'))
-const TestimonialsSection=dynamic(()=>import('@/components/sections/TestimonialsSection'))
-const QuickWinsSection=dynamic(()=>import('@/components/sections/QuickWinsSection'))
-const FAQSection=dynamic(()=>import('@/components/sections/FAQSection'))
-export default function Page(){return <main className="home-page"><HomeHero/><div className="home-press"><FeaturedInSection/></div><div className="home-legacy home-creators"><TopCreatorsSection compact/></div><div className="home-legacy"><HomeMasterclassGate/></div><div id="formula-message"><HomeDemoSection/></div><div id="formula-time"><div id="formula-cost" className="home-legacy home-comparison"><QuickWinsSection/></div></div><HomeDetails/><div className="home-legacy home-testimonials"><TestimonialsSection/></div><div id="formula-apply" className="home-legacy"><HomeApplySection/></div><div className="home-legacy"><FAQSection variant="home"/></div><FormulaBar/></main>}
+import HomeTrialPrompt from '@/components/sections/HomeTrialPrompt'
+
+const HomeDemoSection = dynamic(() => import('@/components/sections/HomeDemoSection'))
+const FormatsShowcaseSection = dynamic(() => import('@/components/sections/FormatsShowcaseSection'))
+const RepurposingSection = dynamic(() => import('@/components/sections/RepurposingSection'))
+const MobileAppSection = dynamic(() => import('@/components/sections/MobileAppSection'))
+const IncludedFeaturesSection = dynamic(() => import('@/components/sections/IncludedFeaturesSection'))
+const CaseStudiesSection = dynamic(() => import('@/components/sections/CaseStudiesSection'))
+const TestimonialsSection = dynamic(() => import('@/components/sections/TestimonialsSection'))
+const QuickWinsSection = dynamic(() => import('@/components/sections/QuickWinsSection'))
+const FounderSection = dynamic(() => import('@/components/sections/FounderSection'))
+const FAQSection = dynamic(() => import('@/components/sections/FAQSection'))
+const FinalBoostCTA = dynamic(() => import('@/components/sections/FinalBoostCTA'))
+
+export default function Page() {
+  return (
+    <main className="relative home-flat">
+      <HeroSection />
+      {/* Preuve d'abord (choix Kevin, 8 septembre) : presse, créateurs,
+          clients, puis la démo. Tout ce qui explique le produit vient après. */}
+      <section className="w-full bg-black py-4 sm:py-5">
+        <div className="container mx-auto max-w-5xl px-4">
+          <FeaturedInSection />
+        </div>
+      </section>
+      <TopCreatorsSection />
+      <HomeMasterclassGate />
+      {/* Les ancres `formula-*` pilotent la FormulaBar : chaque section révèle
+          le terme de la formule qu'elle démontre, dans l'ordre de la formule
+          (Message × Format × Diffusion) / (Temps + Coût). C'est
+          pour ça que l'application (Temps), puis le comparatif (Coût), suivent la diffusion. */}
+      <div id="formula-message">
+        <HomeDemoSection />
+      </div>
+      <HomeTrialPrompt moment="formats" />
+      <div id="diffusion-proof">
+        <RepurposingSection />
+      </div>
+      <div id="formula-time">
+        <MobileAppSection />
+      </div>
+      <div id="formula-cost"><QuickWinsSection /></div>
+      <div id="format-examples">
+        <FormatsShowcaseSection />
+      </div>
+      <TestimonialsSection />
+      <HomeTrialPrompt moment="proof" />
+      <div id="formula-visibility">
+        <IncludedFeaturesSection />
+      </div>
+      <CaseStudiesSection />
+      {/* Les prix restent sur /tarifs ; l'accueil propose l'essai et un lien vers les offres. */}
+      <div id="formula-apply" className="scroll-mt-20">
+        <HomeApplySection />
+      </div>
+      <FounderSection />
+      <FAQSection variant="home" />
+      <FinalBoostCTA />
+      <FormulaBar />
+    </main>
+  )
+}

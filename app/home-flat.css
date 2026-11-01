@@ -1,0 +1,8 @@
+/* Homepage only: retain the existing layout and brand accent, with flat surfaces. */
+.home-flat{background:#090909}
+.home-flat [class*="gradient"]{background-image:none!important}
+.home-flat [class*="bg-clip-text"]{color:rgb(var(--empire-rgb));-webkit-text-fill-color:currentColor}
+.home-flat section[class*="bg-gradient"]{background-color:#090909}
+.home-flat [class*="from-empire/10"]{background-color:#151515}
+.home-flat .bg-empire\/10,.home-flat .bg-empire\/5{background-color:#1c1c1c}
+body:has(.home-flat) [class*="gradient"]{background-image:none!important}

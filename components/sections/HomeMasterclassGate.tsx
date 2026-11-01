@@ -27,7 +27,7 @@ export default function HomeMasterclassGate() {
       trackAmplitude('home_masterclass_requested')
     } catch {setStatus('error')}
   }
-  return <section className="relative border-y border-white/10 bg-[#10130e] py-16 md:py-20" aria-labelledby="masterclass-title" id="home-masterclass">
+  return <section className="relative border-y border-white/10 bg-[#111111] py-16 md:py-20" aria-labelledby="masterclass-title" id="home-masterclass">
     <div className="container mx-auto grid max-w-5xl items-center gap-9 md:grid-cols-[0.8fr_1.2fr] md:gap-14">
       <a href="/vsl" target="_blank" rel="noopener noreferrer" aria-label={fr ? 'Voir la masterclass gratuite de 1 h 26' : 'Watch the free 1h26 masterclass'} className="group relative mx-auto block w-full max-w-md overflow-hidden rounded-2xl border border-white/15 bg-black shadow-[0_20px_70px_#0005] transition hover:border-empire/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-empire">
         <div className="relative aspect-video overflow-hidden">

@@ -91,7 +91,7 @@ export default function QuickWinsSection() {
   const columnClass = (id: string) => id === compared || id === 'empire' ? '' : 'hidden lg:table-cell'
   if (autopilot) return null
 
-  return <section className="relative bg-[#0c1009] px-4 py-20 md:py-28" aria-labelledby="comparison-title">
+  return <section className="relative bg-[#090909] px-4 py-20 md:py-28" aria-labelledby="comparison-title">
     <div className="mx-auto max-w-7xl">
       <div className="mb-9 text-center">
         <p className="mb-3 text-[10px] font-bold uppercase tracking-[.18em] text-empire">{fr ? 'TEMPS + COÛT' : 'TIME + COST'}</p>
@@ -99,23 +99,23 @@ export default function QuickWinsSection() {
         <p className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-neutral-400">{fr ? 'Comparez toute la chaîne : les sujets, les formats, la production, la diffusion et ce qu’il vous reste à faire.' : 'Compare the entire workflow: topics, formats, production, publishing and what remains on your plate.'}</p>
       </div>
       <div className="mx-auto mb-7 grid max-w-4xl gap-3 sm:grid-cols-2">
-        <div className="flex items-center gap-3 rounded-xl border border-white/10 p-4"><Clock3 size={23} className="shrink-0 text-empire"/><p className="text-xs leading-relaxed text-neutral-300">{fr ? '20 min à 1 h par semaine : vos prises et vos validations, selon votre volume de production.' : '20 min to 1 h per week: your recordings and approvals, depending on your production volume.'}</p></div>
+        <div className="flex items-center gap-3 rounded-xl border border-white/10 p-4"><Clock3 size={23} className="shrink-0 text-empire"/><p className="text-xs leading-relaxed text-neutral-300">{fr ? 'Votre expertise, votre voix, vos validations. Le reste s’enchaîne.' : 'Your expertise, your voice, your approval. The rest follows.'}</p></div>
         <div className="flex items-center gap-3 rounded-xl border border-white/10 p-4"><Wallet size={23} className="shrink-0 text-empire"/><p className="text-xs leading-relaxed text-neutral-300">{fr ? 'Le budget couvre aussi l’adaptation, la diffusion et la republication.' : 'Your budget also covers adaptation, publishing and republishing.'}</p></div>
       </div>
       <div className="mb-4 flex items-center justify-between gap-3 lg:hidden">
         <label htmlFor="comparison-alternative" className="text-xs font-semibold text-neutral-300">{fr ? 'Comparer Empire à' : 'Compare Empire with'}</label>
-        <select id="comparison-alternative" value={compared} onChange={event => setCompared(event.target.value)} className="min-h-11 rounded-lg border border-white/25 bg-[#1d2418] px-3 text-sm text-white outline-empire">{COLUMNS.filter(c => c.id !== 'empire').map(c => <option key={c.id} value={c.id}>{t(c.label)}</option>)}</select>
+        <select id="comparison-alternative" value={compared} onChange={event => setCompared(event.target.value)} className="min-h-11 rounded-lg border border-white/25 bg-[#222222] px-3 text-sm text-white outline-empire">{COLUMNS.filter(c => c.id !== 'empire').map(c => <option key={c.id} value={c.id}>{t(c.label)}</option>)}</select>
       </div>
       <table className="w-full table-fixed border-separate border-spacing-0 text-left" aria-label={fr ? 'Comparaison des solutions de création de contenu' : 'Content creation approaches compared'}>
         <caption className="sr-only">{fr ? 'Fonctionnalités, temps et coût. Sur mobile, choisissez une solution à comparer à Empire.' : 'Features, time and cost. On mobile, choose an alternative to compare with Empire.'}</caption>
         <thead className="sticky top-16 z-20">
-          <tr><th scope="col" className="w-[27%] rounded-tl-xl border-y border-l border-white/20 bg-[#1d2418] px-2 py-4 text-[11px] font-bold text-white sm:px-3 lg:w-[14%]">{fr ? 'Ce que vous comparez' : 'What you compare'}</th>
-            {COLUMNS.map(c => <th key={c.id} scope="col" className={`${columnClass(c.id)} border-y border-l border-white/20 px-2 py-4 text-xs font-bold sm:px-3 ${c.id === 'empire' ? 'rounded-tr-xl border-r border-empire/40 bg-[#29391b] text-empire' : 'bg-[#1d2418] text-white'}`}><span className="inline-flex flex-wrap items-center gap-1">{t(c.label)}{c.id === 'empire' && <Check size={13}/>}</span></th>)}
+          <tr><th scope="col" className="w-[27%] rounded-tl-xl border-y border-l border-white/20 bg-[#222222] px-2 py-4 text-[11px] font-bold text-white sm:px-3 lg:w-[14%]">{fr ? 'Ce que vous comparez' : 'What you compare'}</th>
+            {COLUMNS.map(c => <th key={c.id} scope="col" className={`${columnClass(c.id)} border-y border-l border-white/20 px-2 py-4 text-xs font-bold sm:px-3 ${c.id === 'empire' ? 'rounded-tr-xl border-r border-empire/40 bg-[#242424] text-empire' : 'bg-[#222222] text-white'}`}><span className="inline-flex flex-wrap items-center gap-1">{t(c.label)}{c.id === 'empire' && <Check size={13}/>}</span></th>)}
           </tr>
         </thead>
         <tbody>{ROWS.map((row, index) => <tr key={row.label[1]}>
-          <th scope="row" className={`border-b border-l border-white/10 bg-[#151a11] px-2 py-4 text-[11px] font-semibold leading-relaxed text-neutral-200 sm:px-3 ${index === ROWS.length - 1 ? 'rounded-bl-xl' : ''}`}>{t(row.label)}</th>
-          {COLUMNS.map((column, i) => <td key={column.id} className={`${columnClass(column.id)} border-b border-l border-white/10 px-2 py-4 align-top text-[11px] leading-relaxed sm:px-3 ${column.id === 'empire' ? `border-r border-empire/20 bg-[#1c2715] font-medium text-neutral-100 ${index === ROWS.length - 1 ? 'rounded-br-xl' : ''}` : 'bg-[#11160e] text-neutral-400'}`}>{t(row.cells[i])}</td>)}
+          <th scope="row" className={`border-b border-l border-white/10 bg-[#181818] px-2 py-4 text-[11px] font-semibold leading-relaxed text-neutral-200 sm:px-3 ${index === ROWS.length - 1 ? 'rounded-bl-xl' : ''}`}>{t(row.label)}</th>
+          {COLUMNS.map((column, i) => <td key={column.id} className={`${columnClass(column.id)} border-b border-l border-white/10 px-2 py-4 align-top text-[11px] leading-relaxed sm:px-3 ${column.id === 'empire' ? `border-r border-empire/20 bg-[#202020] font-medium text-neutral-100 ${index === ROWS.length - 1 ? 'rounded-br-xl' : ''}` : 'bg-[#111111] text-neutral-400'}`}>{t(row.cells[i])}</td>)}
         </tr>)}</tbody>
       </table>
       <p className="mx-auto mt-5 max-w-3xl text-center text-[10px] leading-relaxed text-neutral-500">{fr ? 'Périmètre, temps et tarifs selon les prestations, le volume et les offres. Fonctions des outils : ' : 'Scope, time and pricing depend on service, volume and plan. Tool features: '}<a className="underline underline-offset-2" href="https://openai.com/chatgpt/use-cases/writing-with-ai/" target="_blank" rel="noopener noreferrer">ChatGPT</a>{' · '}<a className="underline underline-offset-2" href="https://www.capcut.com/tools/add-subtitles-to-video" target="_blank" rel="noopener noreferrer">CapCut</a>{' · '}<a className="underline underline-offset-2" href="https://buffer.com/publish" target="_blank" rel="noopener noreferrer">Buffer</a>.</p>
