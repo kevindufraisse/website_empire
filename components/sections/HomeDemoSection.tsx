@@ -1,3 +1,3 @@
 'use client'
-import FormulaScrollStory from '@/components/FormulaScrollStory'
-export default function HomeDemoSection() { return <FormulaScrollStory /> }
+import { SourcesStory } from '@/components/FormulaScrollStory'
+export default function HomeDemoSection() { return <SourcesStory /> }
