@@ -119,7 +119,7 @@ export default function PartenaireClient() {
         Réserver ma place aux portes ouvertes
         <ArrowRight className="h-5 w-5" />
       </WebinarJamButton>
-      <p className="text-center text-xs text-neutral-400">Gratuit · inscription en 10 secondes · tu choisis ton créneau</p>
+      <p className="text-center text-xs text-neutral-400">Gratuit · choisis le créneau qui te convient</p>
     </div>
   )
 
@@ -169,7 +169,7 @@ export default function PartenaireClient() {
               Réserver ma place aux portes ouvertes
               <ArrowRight className="h-5 w-5" />
             </WebinarJamButton>
-            <p className="text-center text-xs text-neutral-400">Gratuit · replay disponible immédiatement ou séance programmée</p>
+            <p className="text-center text-xs text-neutral-400">Gratuit · choisis le créneau qui te convient</p>
           </div>
         </div>
       </section>
