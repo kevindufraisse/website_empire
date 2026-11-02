@@ -30,7 +30,9 @@ export default function HeroSection() {
   }, [])
 
   const heroBadge = autopilot ? t.autopilot.hero.targetAudience : t.hero.targetAudience
-  const heroTitle = autopilot ? t.autopilot.hero.title : t.hero.title
+  const heroTitle = autopilot ? t.autopilot.hero.title : (lang === 'fr' ? 'L’avantage injuste pour développer votre marque personnelle, accessible à tous.' : 'The unfair advantage for growing your personal brand, available to everyone.')
+  const heroTitleH2 = autopilot ? null : (lang === 'fr' ? 'Soyez vus, achetés et recommandés grâce à votre contenu.' : 'Get seen, chosen and recommended through your content.')
+  const heroTitleNote = autopilot ? null : (lang === 'fr' ? 'Sans avoir à l’écrire ni à le monter. Créez votre contenu en 15 minutes, à raison d’une heure par semaine.' : 'Without writing or editing it yourself. Create your content in 15 minutes, in just one hour a week.')
   // Hors autopilot, la formule (résultat net, termes floutés) prend la place
   // du paragraphe, avec une phrase qui invite à la découvrir en descendant. Voir `FormulaBar` et le slot `formula-hero-slot`.
   const heroSubtitle = autopilot ? t.autopilot.hero.subtitle : null
@@ -95,24 +97,24 @@ export default function HeroSection() {
             />
           </AnimatePresence>
 
-          {!autopilot && t.hero.titleH2 && (
+          {!autopilot && heroTitleH2 && (
             <motion.h2
               initial={mounted ? { opacity: 0, y: 8 } : false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.1 }}
               className="mt-4 text-xl sm:text-2xl md:text-3xl font-semibold leading-snug text-neutral-300 max-w-3xl mx-auto text-balance"
-              dangerouslySetInnerHTML={{ __html: t.hero.titleH2.replace(/<br\/>/g, '<br>') }}
+              dangerouslySetInnerHTML={{ __html: heroTitleH2.replace(/<br\/>/g, '<br>') }}
             />
           )}
 
-          {!autopilot && t.hero.titleNote && (
+          {!autopilot && heroTitleNote && (
             <motion.p
               initial={mounted ? { opacity: 0, y: 8 } : false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.1 }}
               className="mt-3 text-lg sm:text-xl md:text-2xl font-medium text-neutral-300 max-w-2xl mx-auto text-balance"
             >
-              {t.hero.titleNote}
+              {heroTitleNote}
             </motion.p>
           )}
 

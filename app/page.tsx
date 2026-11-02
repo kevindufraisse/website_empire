@@ -1,26 +1,25 @@
 import dynamic from 'next/dynamic'
+import './home-flat.css'
 import HeroSection from '@/components/sections/HeroSection'
 import TopCreatorsSection from '@/components/sections/TopCreatorsSection'
 import HomeApplySection from '@/components/sections/HomeApplySection'
 import FeaturedInSection from '@/components/FeaturedInSection'
 import FormulaBar from '@/components/FormulaBar'
+import HomeMasterclassGate, { MasterclassReminder } from '@/components/sections/HomeMasterclassGate'
 import HomeTrialPrompt from '@/components/sections/HomeTrialPrompt'
+import CompactIntegrations from '@/components/sections/CompactIntegrations'
 
 const HomeDemoSection = dynamic(() => import('@/components/sections/HomeDemoSection'))
-const FormatsShowcaseSection = dynamic(() => import('@/components/sections/FormatsShowcaseSection'))
-const RepurposingSection = dynamic(() => import('@/components/sections/RepurposingSection'))
-const MobileAppSection = dynamic(() => import('@/components/sections/MobileAppSection'))
 const IncludedFeaturesSection = dynamic(() => import('@/components/sections/IncludedFeaturesSection'))
 const CaseStudiesSection = dynamic(() => import('@/components/sections/CaseStudiesSection'))
 const TestimonialsSection = dynamic(() => import('@/components/sections/TestimonialsSection'))
 const QuickWinsSection = dynamic(() => import('@/components/sections/QuickWinsSection'))
-const FounderSection = dynamic(() => import('@/components/sections/FounderSection'))
 const FAQSection = dynamic(() => import('@/components/sections/FAQSection'))
 const FinalBoostCTA = dynamic(() => import('@/components/sections/FinalBoostCTA'))
 
 export default function Page() {
   return (
-    <main className="relative">
+    <main className="relative home-flat">
       <HeroSection />
       {/* Preuve d'abord (choix Kevin, 8 septembre) : presse, créateurs,
           clients, puis la démo. Tout ce qui explique le produit vient après. */}
@@ -30,35 +29,18 @@ export default function Page() {
         </div>
       </section>
       <TopCreatorsSection />
+      <HomeMasterclassGate>
       {/* Les ancres `formula-*` pilotent la FormulaBar : chaque section révèle
           le terme de la formule qu'elle démontre, dans l'ordre de la formule
-          (Message × Format × Diffusion ÷ Temps + Coût = Visibilité). C'est
-          pour ça que l'app (÷ Temps) vient juste après la diffusion, et pas
-          en dernier argument. */}
+          (Message × Format × Diffusion) / (Temps + Coût). C'est
+          pour ça que l'application (Temps), puis le comparatif (Coût), suivent la diffusion. */}
       <div id="formula-message">
         <HomeDemoSection />
       </div>
-      <div id="formula-format">
-        <FormatsShowcaseSection />
-      </div>
-      <HomeTrialPrompt moment="formats" />
-      <div id="formula-diffusion">
-        <RepurposingSection />
-      </div>
-      {/* Témoignages clients ici et pas en haut (choix Kevin, 9 septembre) :
-          le début de page avance plus vite vers la formule, et la preuve
-          arrive une fois qu'on a vu ce que le produit fait. */}
+      <div id="formula-cost"><QuickWinsSection /></div>
+      <CompactIntegrations />
       <TestimonialsSection />
       <HomeTrialPrompt moment="proof" />
-      {/* ÷ Temps se révèle à l'app (20 min à 1 h / semaine), ÷ Coût au
-          comparatif Seul / Freelances / Empire. */}
-      <div id="formula-time">
-        <MobileAppSection />
-      </div>
-      <HomeTrialPrompt moment="time" />
-      <div id="formula-cost">
-        <QuickWinsSection />
-      </div>
       <div id="formula-visibility">
         <IncludedFeaturesSection />
       </div>
@@ -67,9 +49,10 @@ export default function Page() {
       <div id="formula-apply" className="scroll-mt-20">
         <HomeApplySection />
       </div>
-      <FounderSection />
+      <MasterclassReminder />
       <FAQSection variant="home" />
       <FinalBoostCTA />
+      </HomeMasterclassGate>
       <FormulaBar />
     </main>
   )
