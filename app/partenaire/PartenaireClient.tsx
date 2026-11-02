@@ -116,10 +116,10 @@ export default function PartenaireClient() {
         onClick={() => trackAmplitude('academy_open_house_clicked', { source: 'partner_vsl', session: 'replay', location })}
         className="inline-flex h-14 w-full max-w-md items-center justify-center gap-2 rounded-2xl bg-academy px-6 text-base font-bold text-black transition hover:brightness-110"
       >
-        Réserver ma place aux portes ouvertes
+        M’inscrire aux portes ouvertes
         <ArrowRight className="h-5 w-5" />
       </WebinarJamButton>
-      <p className="text-center text-xs text-neutral-400">Gratuit · choisis le créneau qui te convient</p>
+      <p className="text-center text-xs text-neutral-400">Inscription gratuite aux portes ouvertes</p>
     </div>
   )
 
@@ -166,10 +166,10 @@ export default function PartenaireClient() {
               onClick={() => trackAmplitude('academy_open_house_clicked', { source: 'partner_vsl', session: 'replay' })}
               className="inline-flex h-14 w-full max-w-md items-center justify-center gap-2 rounded-2xl bg-academy px-6 text-base font-bold text-black transition hover:brightness-110"
             >
-              Réserver ma place aux portes ouvertes
+              M’inscrire aux portes ouvertes
               <ArrowRight className="h-5 w-5" />
             </WebinarJamButton>
-            <p className="text-center text-xs text-neutral-400">Gratuit · choisis le créneau qui te convient</p>
+            <p className="text-center text-xs text-neutral-400">Inscription gratuite aux portes ouvertes</p>
           </div>
         </div>
       </section>
