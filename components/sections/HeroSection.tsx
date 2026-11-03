@@ -206,8 +206,7 @@ export default function HeroSection() {
                   <span className="text-[11px] font-semibold opacity-70">{t.autopilot.hero.ctaReassurance}</span>
                 </a>
               ) : (
-                /* Deux actions de poids différent : le workshop pour qui
-                   découvre, l'essai pour qui est déjà convaincu. */
+                /* L’essai est l’action principale ; le workshop reste accessible en second choix. */
                 <div className="flex w-full flex-col items-center gap-2 sm:w-auto">
                   {warm ? (
                     <button
@@ -219,7 +218,7 @@ export default function HeroSection() {
                       <span className="flex items-center gap-2 text-base font-bold sm:text-lg">
                         {trialLoading
                           ? (lang === 'fr' ? 'Ouverture…' : 'Opening…')
-                          : (lang === 'fr' ? 'Démarrer l’essai gratuit' : 'Start your free trial')}
+                          : (lang === 'fr' ? 'Tester gratuitement' : 'Try for free')}
                         <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
                       </span>
                       <span className="text-[11px] font-semibold opacity-70">
@@ -228,31 +227,35 @@ export default function HeroSection() {
                     </button>
                   ) : (
                     <>
+                      <button
+                        type="button"
+                        onClick={onTrial}
+                        disabled={trialLoading}
+                        className="group flex w-full flex-col items-center justify-center gap-0.5 rounded-xl bg-empire px-8 py-3.5 sm:px-12 sm:py-4 text-black shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.35)] transition-all hover:scale-[1.02] sm:w-auto"
+                      >
+                        <span className="flex items-center gap-2 text-base font-bold sm:text-lg">
+                          {trialLoading
+                            ? (lang === 'fr' ? 'Ouverture…' : 'Opening…')
+                            : (lang === 'fr' ? 'Tester gratuitement' : 'Try for free')}
+                          <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
+                        </span>
+                        <span className="text-[11px] font-semibold opacity-70">
+                          {lang === 'fr' ? '7 jours · 500 crédits · annulable en 1 clic' : '7 days · 500 credits · cancel in 1 click'}
+                        </span>
+                      </button>
                       <a
                         href="/vsl"
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={() => trackAmplitude('home_hero_workshop_clicked')}
-                        className="group flex w-full flex-col items-center justify-center gap-0.5 rounded-xl bg-empire px-8 py-3.5 sm:px-12 sm:py-4 text-black shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.35)] transition-all hover:scale-[1.02] sm:w-auto"
+                        className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/[0.04] px-6 py-2.5 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/[0.08]"
                       >
-                        <span className="flex items-center gap-2 text-base font-bold sm:text-lg">
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M7 4.5v15l13-7.5z" /></svg>
-                          {lang === 'fr' ? 'Voir le workshop gratuit' : 'Watch the free workshop'}
-                        </span>
-                        <span className="text-[11px] font-semibold opacity-70">
-                          {lang === 'fr' ? '1 h 26 · la formule expliquée pas à pas' : '1h26 · the formula explained step by step'}
-                        </span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M7 4.5v15l13-7.5z" /></svg>
+                        {lang === 'fr' ? 'Voir le workshop gratuit' : 'Watch the free workshop'}
                       </a>
-                      <button
-                        type="button"
-                        onClick={onTrial}
-                        disabled={trialLoading}
-                        className="mt-1 inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/[0.04] px-6 py-2.5 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/[0.08] disabled:opacity-60"
-                      >
-                        {trialLoading
-                          ? (lang === 'fr' ? 'Ouverture…' : 'Opening…')
-                          : (lang === 'fr' ? 'Essayer Empire gratuitement (7 jours, 500 crédits)' : 'Try Empire free (7 days, 500 credits)')}
-                      </button>
+                    </>
+                  )}
+                </div>
                     </>
                   )}
                 </div>
