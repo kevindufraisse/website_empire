@@ -36,7 +36,7 @@ import { useAutopilot } from '@/contexts/AutopilotContext'
 import { trackAmplitude } from '@/lib/amplitude'
 import { startFreeTrial } from '@/lib/startTrial'
 
-type TermId = 'message' | 'format' | 'diffusion' | 'time' | 'cost' | 'visibility'
+type TermId = 'message' | 'format' | 'diffusion' | 'time' | 'cost'
 
 type Term = {
   id: TermId
@@ -87,14 +87,6 @@ export const FORMULA_TERMS: Term[] = [
     en: 'Cost',
     hintFr: 'Le prix d\'une équipe, divisé par 100. Vous pouvez payer à l\'usage.',
     hintEn: 'The price of a team, divided by 100. You can pay for what you use.',
-  },
-  {
-    id: 'visibility',
-    anchor: 'formula-visibility',
-    fr: '100 M de vues',
-    en: '100M views',
-    hintFr: 'Trackée jusqu\'au client, format par format.',
-    hintEn: 'Tracked down to the client, format by format.',
   },
 ]
 
@@ -243,7 +235,6 @@ export default function FormulaBar() {
     document.getElementById(t.anchor)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
-  // Le résultat (« 100 M de vues ») est toujours net : c'est la promesse.
   // Les cinq termes du mécanisme sont floutés et se dévoilent un par un,
   // quand la section qui les démontre arrive à l'écran (format flou → net,
   // appliqué à la page). Plus flou dans le hero qu'en bas d'écran.
@@ -251,8 +242,8 @@ export default function FormulaBar() {
 
   const TermChip = ({ id }: { id: TermId }) => {
     const t = term(id)
-    const on = id === 'visibility' || isOn(id)
-    const hot = hint === id || (id === 'visibility' && (docked || done))
+    const on = isOn(id)
+    const hot = hint === id
     return (
       <button
         type="button"
@@ -297,11 +288,12 @@ export default function FormulaBar() {
       {/* Reflet haut, le détail qui fait « verre » */}
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.12),rgba(255,255,255,0)_45%)]" />
 
-      <div className="relative flex flex-col lg:flex-row lg:items-center">
+      <div className={docked ? 'relative flex flex-col lg:flex-row lg:items-center' : 'relative flex items-center'}>
         <div className={[
-          'relative flex items-center gap-2.5 px-4 py-2.5 text-xs sm:gap-3.5 sm:px-6 sm:py-3 sm:text-base',
-          // Dans le hero, la formule est la pièce centrale : plus grande sur grand écran.
-          docked ? 'md:gap-5 md:px-9 md:py-5 md:text-2xl' : '',
+          'relative flex items-center',
+          // Dans le hero, la formule est la pièce centrale ; en bas de l'écran,
+          // une barre fine qui ne cache pas la page.
+          docked ? 'gap-2.5 px-4 py-2.5 text-xs sm:gap-3.5 sm:px-6 sm:py-3 sm:text-base md:gap-5 md:px-9 md:py-5 md:text-2xl' : 'px-3 py-1.5 text-[10px] sm:px-4 sm:text-xs',
         ].join(' ')}>
           {/* Fraction */}
           <div className="flex flex-col items-center leading-none">
@@ -312,7 +304,7 @@ export default function FormulaBar() {
               <Op>×</Op>
               <TermChip id="diffusion" />
             </div>
-            <div className="my-1 h-px w-full bg-white/30" />
+            <div className={docked ? 'my-1 h-px w-full bg-white/30' : 'my-0.5 h-px w-full bg-white/30'} />
             <div className="flex items-center whitespace-nowrap">
               <TermChip id="time" />
               <Op>+</Op>
@@ -320,32 +312,10 @@ export default function FormulaBar() {
             </div>
           </div>
 
-          {/* En bas de l'écran : la formule seule, sans le résultat chiffré. */}
-          {docked && <Op>=</Op>}
-          {docked && (
-            <div className="whitespace-nowrap">
-              <TermChip id="visibility" />
-            </div>
-          )}
-
-          {/* La chute : visible quand toute la formule est nette */}
-          <AnimatePresence>
-            {done && docked && (
-              <motion.span
-                initial={{ opacity: 0, x: -6 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.4, delay: 0.3 }}
-                className="ml-0.5 whitespace-nowrap rounded-lg bg-empire px-2 py-1 text-[10px] font-extrabold uppercase tracking-wider text-black sm:text-[11px]"
-              >
-                → {fr ? 'Clients' : 'Clients'}
-              </motion.span>
-            )}
-          </AnimatePresence>
         </div>
-        {/* Le bouton d’essai reste accessible pendant la lecture : dessous sur mobile, à droite sur grand écran. */}
+        {/* Essai (et démo dès la tablette) à droite de la formule, sur une seule ligne. */}
         {!docked && (
-          <div className="mx-2 mb-2 flex items-center gap-2 lg:mx-0 lg:mb-0 lg:mr-2.5">
+          <div className="mr-1.5 flex items-center gap-1.5 sm:mr-2">
           <button
             type="button"
             data-cta="sticky-trial"
@@ -353,7 +323,7 @@ export default function FormulaBar() {
               trackAmplitude('formula_bar_trial_clicked')
               startFreeTrial()
             }}
-            className="flex min-h-0 flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-xl bg-empire px-4 py-2 text-xs font-bold text-black transition hover:brightness-110 sm:text-sm lg:flex-none lg:py-2.5"
+            className="flex min-h-0 items-center justify-center gap-1 whitespace-nowrap rounded-lg bg-empire px-3 py-1.5 text-[11px] font-bold text-black transition hover:brightness-110 sm:text-xs"
           >
             {fr ? 'Tester gratuitement' : 'Try it free'}
             <span aria-hidden>→</span>
@@ -362,7 +332,7 @@ export default function FormulaBar() {
             href="/demo"
             data-cta="sticky-demo"
             onClick={() => trackAmplitude('empire_demo_clicked', { source: 'formula_bar' })}
-            className="flex min-h-0 items-center justify-center whitespace-nowrap rounded-xl border border-white/25 px-3 py-2 text-xs font-semibold text-white transition hover:bg-white/10 sm:text-sm lg:py-2.5"
+            className="hidden min-h-0 items-center justify-center whitespace-nowrap rounded-lg border border-white/25 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-white/10 sm:flex"
           >
             {fr ? 'Demander une démo' : 'Request a demo'}
           </a>
@@ -385,7 +355,7 @@ export default function FormulaBar() {
   // Dans le hero : la pilule, lisible.
   if (mode === 'docked' && slot) {
     // Tampon « Secret » tant que des termes restent flous.
-    const stillSecret = revealed.size < FORMULA_TERMS.length - 1
+    const stillSecret = revealed.size < FORMULA_TERMS.length
     return createPortal(
       <div className="flex flex-col items-center">
         <div className="relative">
@@ -462,8 +432,6 @@ export function FormulaHeroStatic({ fr }: { fr: boolean }) {
                 <Blur id="time" /><Op>+</Op><Blur id="cost" />
               </div>
             </div>
-            <Op>=</Op>
-            <span className="whitespace-nowrap rounded-md px-1 font-extrabold tracking-tight text-empire">{label('visibility')}</span>
           </div>
           <div className="absolute inset-x-0 bottom-0 h-[2px] bg-white/10" />
         </div>

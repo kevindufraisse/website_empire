@@ -22,8 +22,7 @@ export default function ComparatifPage() {
             Chaque outil couvre un morceau de la formule. Empire couvre la formule entière, avec des formats testés sur le compte de Kevin Dufraisse.
           </p>
           <p className="mx-auto max-w-3xl rounded-full border border-white/10 bg-white/[0.04] px-5 py-2.5 text-sm text-neutral-400 md:text-base">
-            {part('Message')} × {part('Format')} × {part('Diffusion')} ÷ ({part('Temps')} + {part('Coût')}) ={' '}
-            <span className="font-bold text-empire">100 M de vues → Clients</span>
+            {part('Message')} × {part('Format')} × {part('Diffusion')} ÷ ({part('Temps')} + {part('Coût')})
           </p>
         </div>
       </section>
