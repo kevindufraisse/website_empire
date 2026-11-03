@@ -6,14 +6,14 @@ window.makeAcademyContinuation=({show,move,el,ease,lerp,caption,jump})=>{
  const cohortCount=el('a33-cohort').querySelector('.next-huge');
  const studentDots=Array.from(el('a33-cohort').querySelectorAll('.student-dot'),n=>({n,base:n.getAttribute('transform')}));
  const lines=[
- [0,'','Une agence, c’était 20 000 € et six mois. <br><em>Moi, moins cher, plus rapide, et je leur apprenais à s’en servir.</em>','',''],
- [0.055,'','Pendant cinq ans : 3 000, 5 000, puis 10 000 € par mois. <br><em>Et j’étais encore en cours.</em>','',''],
+ [0,'','Une agence, c’était 20 000 € et six mois. <br><em>Kevin : moins cher, plus rapide, et il apprenait à ses clients à s’en servir.</em>','',''],
+ [0.055,'','Pendant cinq ans : 3 000, 5 000, puis 10 000 € par mois. <br><em>Et il était encore en cours.</em>','',''],
  [0.105,'','Et puis tout le monde a découvert WordPress. <br><em>Du jour au lendemain, plus un seul appel.</em>','',''],
- [0.127,'','J’étais terrifié. <br><em>Tout ce que j’avais construit était en train de s’effondrer.</em>','',''],
- [0.145,'','Là, j’ai compris un truc : un outil secret, ça peut rendre riche. <br><em>Et donner un avantage injuste à ses clients.</em>','',''],
- [0.175,'','Alors j’ai cherché des outils. <br><em>Puis d’autres. Tous les jours.</em>','',''],
- [0.205,'','J’en ai fait une formation. <br><em>Plus de 4 000 personnes l’ont suivie.</em>','',''],
- [0.255,'','On m’a invité dans les plus gros podcasts francophones <br><em>pour parler de ces avantages injustes.</em>','',''],
+ [0.127,'','Kevin était terrifié. <br><em>Tout ce qu’il avait construit était en train de s’effondrer.</em>','',''],
+ [0.145,'','Là, il a compris un truc : un outil secret, ça peut rendre riche. <br><em>Et donner un avantage injuste à ses clients.</em>','',''],
+ [0.175,'','Alors il a cherché des outils. <br><em>Puis d’autres. Tous les jours.</em>','',''],
+ [0.205,'','Il en a fait une formation. <br><em>Plus de 4 000 personnes l’ont suivie.</em>','',''],
+ [0.255,'','On l’a invité dans les plus gros podcasts francophones <br><em>pour parler de ces avantages injustes.</em>','',''],
  [0.335,'','Et puis l’IA est arrivée. <br><em>Et elle a commencé à détruire des métiers entiers.</em>','',''],
  [0.425,'','Écrire, monter, coder… elle sait tout faire. <br><em>Alors franchement, il nous reste quoi, à nous, les humains ?</em>','',''],
  [0.445,'','Si vous êtes rédacteur, monteur, graphiste ou community manager… <br><em>c’est peut-être votre téléphone qui va arrêter de sonner.</em>','',''],
