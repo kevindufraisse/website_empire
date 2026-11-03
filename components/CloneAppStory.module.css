@@ -52,3 +52,9 @@
 .stage{max-width:1090px;gap:0;justify-content:center;padding:0}.workspace{left:50%;transform:translate(-50%,-50%);width:min(87%,1000px)}.workspaceCards img{height:108px}
 @media(max-width:1000px){.workspaceCards img{height:80px}}
 @media(max-width:700px){.stage{padding:0;justify-content:center}.workspace{display:none}.workspaceCards img{height:auto}}
+
+/* Fenêtre ordinateur plus haute, en-tête plus compact : les miniatures
+   « Reprendre votre création » s'affichent en entier (16:9, sans recadrage). */
+@media(min-width:701px){.workspace{height:96%;max-height:640px;top:50%}.workspaceGreeting{padding-top:12px}.workspaceGreeting h3{font-size:17px;margin:5px 0 0}.workspaceGreeting p{display:none}.workspaceStats{margin-top:10px}.workspaceStats>span{padding:6px 8px}.workspaceStats b{font-size:14px;margin-bottom:1px}.workspaceSection{padding:12px 0 8px}.workspaceCards img{height:auto;aspect-ratio:16/9;object-fit:cover;object-position:center!important}.workspaceActivity{padding-top:8px}}
+@media(min-width:701px) and (max-height:780px){.workspace{height:97%}.workspaceGreeting h3{font-size:15px}.workspaceStats>span{padding:5px 6px}.workspaceStats b{font-size:13px}.workspaceSection{padding:9px 0 6px}.workspaceActivity{display:none}}
+@media(min-width:701px) and (max-height:720px){.workspaceStats{display:none}}
