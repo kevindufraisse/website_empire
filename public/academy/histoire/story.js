@@ -16,15 +16,14 @@ function show(id,a=1){const n=el(id);n.style.opacity=String(clamp(a));n.style.vi
 function move(id,x=0,y=0,s=1,r=0){el(id).setAttribute('transform',`translate(${x.toFixed(2)} ${y.toFixed(2)}) scale(${s.toFixed(4)}) rotate(${r.toFixed(2)})`);}
 const layers=['chair','floor','bedroom','school','client-room','parcel-0','parcel-1','parcel-2','kevin','teacher','parent','desk','laptop','invoice','teacher-speech','ouch','success','parent-speech','client-label','delivery','order-0','order-1','small-spark-0','small-spark-1','first-payment'];
 const captions=[
- [0,'','<span class="founder-kicker">Une histoire vraie</span>Il était une fois un garçon <br><em>dont personne n’attendait rien.</em>','',''],
- [0.05,'','Voici Kevin. À l’école, il était nul. <br><em>Tout le monde pensait qu’il ne ferait rien de sa vie.</em>','',''],
- [0.1,'','Lui, il voulait vendre un truc sur Internet. Il lui fallait un site… 20 000 €. <br><em>Impossible.</em>','',''],
- [0.29,'','Alors il s’est dit : je vais le faire moi-même. <br><em>Même en plein cours.</em>','',''],
- [0.45,'','Ses profs ? Ils lui ont pris son ordi. <br><em>Pour eux, il était encore en train de tout rater.</em>','',''],
- [0.68,'','Mais Kevin n’a pas lâché. Pendant deux semaines, chaque soir, <br><em>il a appris à se servir d’un outil. Tout seul.</em>','',''],
- [0.745,'','Deux semaines plus tard, <br><em>son site était prêt.</em>','',''],
- [0.79,'','Ses potes l’ont montré à leurs parents. <br><em>Et ils sont devenus ses premiers clients.</em>','',''],
- [0.94,'','Premier site vendu : 3 000 €, en quelques heures. <br><em>Lui, le gamin dont personne n’attendait rien.</em>','','']
+ [0,'','Voici Kevin. Il a 19 ans et il est nul à l’école. <br><em>Ses profs ne parient pas un euro sur lui.</em>','',''],
+ [0.1,'','Il veut vendre ses services sur Internet. Il lui faut un site. <br><em>Le devis : 20 000 €. Il ne les a pas.</em>','',''],
+ [0.29,'','Alors il apprend à le faire lui-même. <br><em>Même pendant les cours.</em>','',''],
+ [0.45,'','Ses profs n’aiment pas ça. <br><em>Ils lui confisquent son ordinateur.</em>','',''],
+ [0.68,'','Le soir, dans sa chambre, il continue. <br><em>Deux semaines, tous les soirs.</em>','',''],
+ [0.745,'','Au bout de deux semaines, <br><em>son site est en ligne.</em>','',''],
+ [0.79,'','Ses amis le montrent à leurs parents. <br><em>Les parents lui demandent de faire le leur.</em>','',''],
+ [0.94,'','Son premier site lui rapporte 3 000 €, <br><em>pour quelques heures de travail.</em>','','']
 ];
 let currentCaption=-1,currentP=0,pending=0,playing=false,playRaf=0,playStart=0,playFrom=0,simple=false,modeChosen=false;
 // Complete rendered poses keep shoulders, elbows and hands anatomically consistent.
