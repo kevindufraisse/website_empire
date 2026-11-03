@@ -115,7 +115,7 @@ export default function EmpireCommunitySection() {
                 ># {channel}</motion.div>
               ))}
               <small className="mb-2 mt-6 block text-[9px] uppercase tracking-wider text-[#a98aad]">Équipe Empire</small>
-              {PEOPLE.map((person, index) => <Member key={person.name} {...person} index={index} reduced={reduced} />)}
+              {PEOPLE.map((person, index) => <Member key={person.name} {...person} index={index} reduced={Boolean(reduced)} />)}
             </aside>
 
             <div className="flex min-w-0 flex-col text-[#222]">
