@@ -44,9 +44,9 @@ function paintPrologue(p){
 place('laptop','surface-plane');layers.forEach(id=>show(id,0));show('two-weeks',0);show('floor');show('moon',0);show('sun');show('lamp-beam',0);show('stamp',0);show('code-cover');move('camera');move('desk');move('bedroom');move('school');move('client-room');move('laptop');move('invoice');move('floor');
  const compact=innerWidth<=700,compactTw=compact;
  // Photos : la classe, la nuit où le site est fini, le premier client.
- if(p>=.555&&p<.675)scenePhoto('./assets/classe.webp',ease(p,.555,.585)*(1-ease(p,.655,.675)));
- else if(p>=.75&&p<.79)scenePhoto('./assets/site-fini.webp',ease(p,.75,.765)*(1-ease(p,.78,.79)));
- else if(p>=.945)scenePhoto('./assets/premier-client.webp',ease(p,.945,.965));
+ if(p>=.555&&p<.675)scenePhoto('/academy/histoire/assets/classe.webp',ease(p,.555,.585)*(1-ease(p,.655,.675)));
+ else if(p>=.75&&p<.79)scenePhoto('/academy/histoire/assets/site-fini.webp',ease(p,.75,.765)*(1-ease(p,.78,.79)));
+ else if(p>=.945)scenePhoto('/academy/histoire/assets/premier-client.webp',ease(p,.945,.965));
  else scenePhoto(null);
  // The mobile camera follows the important action while retaining the shared scene.
  let cameraX=compact?255:0, cameraW=compact?700:1200;

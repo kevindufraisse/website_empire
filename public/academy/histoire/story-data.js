@@ -1,9 +1,9 @@
 'use strict';
 window.academyStoryData={
  media:[
- {name:'Little Big Things',detail:'Épisode 42 · Growth hacking',image:'./assets/media/little-big-things.jpg',url:'https://www.youtube.com/watch?v=uPW_OHnGKVQ'},
- {name:'Le Déclic · Alec Henry',detail:'Épisode 086 · Hacker le système',image:'./assets/media/le-declic.png',url:'https://podcastledeclic.fr/podcast/hacker-le-systeme-pour-reussir-il-devoile-ses-secrets-du-growth-hacking-pour-booster-sa-croissance/'},
- {name:'La Chapelle · Hugo Bentz',detail:'Tout recommencer avec l’IA',image:'./assets/media/la-chapelle.jpeg',url:'https://podcast.ausha.co/la-chapelle-radio-hugo-bentz/pourquoi-90-des-entrepreneurs-se-trompent-sur-le-scaling-kevin-dufraisse'}
+ {name:'Little Big Things',detail:'Épisode 42 · Growth hacking',image:'/academy/histoire/assets/media/little-big-things.jpg',url:'https://www.youtube.com/watch?v=uPW_OHnGKVQ'},
+ {name:'Le Déclic · Alec Henry',detail:'Épisode 086 · Hacker le système',image:'/academy/histoire/assets/media/le-declic.png',url:'https://podcastledeclic.fr/podcast/hacker-le-systeme-pour-reussir-il-devoile-ses-secrets-du-growth-hacking-pour-booster-sa-croissance/'},
+ {name:'La Chapelle · Hugo Bentz',detail:'Tout recommencer avec l’IA',image:'/academy/histoire/assets/media/la-chapelle.jpeg',url:'https://podcast.ausha.co/la-chapelle-radio-hugo-bentz/pourquoi-90-des-entrepreneurs-se-trompent-sur-le-scaling-kevin-dufraisse'}
  ],
  studies:[
  {source:'Organisation internationale du Travail × NASK',date:'20 mai 2025',kind:'1 · LES MÉTIERS EXPOSÉS',title:'Un emploi sur quatre est dans la ligne de mire de l’IA.',number:'1 sur 4',unit:'travailleurs dans un métier exposé',body:'Rédaction, image, vidéo, développement web : l’IA générative sait déjà faire une partie de ces tâches.',note:'Exposition ≠ suppression. L’OIT juge la transformation plus probable.',url:'https://www.ilo.org/publications/generative-ai-and-jobs-2025-update'},

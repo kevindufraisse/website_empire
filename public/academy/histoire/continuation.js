@@ -55,7 +55,7 @@ window.makeAcademyContinuation=({show,move,el,ease,lerp,caption,jump})=>{
    for(let i=0;i<9;i++){const q=ease(t,.218+i*.0015,.239+i*.0015);put('a34-tool-'+i,lerp(300+(i%5)*150,600+(i%3)*50,q),lerp(400+Math.floor(i/5)*155,565,q),lerp(.85,.12,q),1-q);}
    put('a33-cohort',660,465,1.18,gather);cohortCount.textContent=new Intl.NumberFormat('fr-FR').format(Math.round(4000*gather/50)*50);studentDots.forEach(({n,base},i)=>{const enter=ease(gather,i/45,Math.min(1,i/45+.28));n.style.opacity=String(enter);n.setAttribute('transform',base+' scale('+enter.toFixed(3)+')');});actor('guide',285,720,.78,gather);note(gather<.5?'Les découvertes deviennent une bibliothèque de techniques.':'Plus de 4 000 élèves dans ma formation francophone de growth hacking.');
   }else if(t<.335){feature('media',panels.media(data));}
-  else if(t<.352){window.scenePhoto('./assets/ia-bureaux.webp',ease(t,.335,.342));}
+  else if(t<.352){window.scenePhoto('/academy/histoire/assets/ia-bureaux.webp',ease(t,.335,.342));}
   else if(t<.425){const n=Math.min(4,Math.floor((t-.352)/.0146));feature('jobs-news-'+n,panels.newspaper(data.studies[n],n,5));note('Cinq études : des missions, des emplois ou des intentions, selon la source.');}
   else if(t<.465){feature('ai',panels.ai);el('story-feature').style.setProperty('--phase',ease(t,.427,.46));note('L’exécution devient plus accessible. La question du choix reste entière.');}
   else if(t<.535){const pick=t>=.5?'story':'';feature('choice-'+pick,panels.choice(pick));note('Choisissez une approche. Il n’y a pas de bonne réponse imposée.');}

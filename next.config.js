@@ -6,10 +6,12 @@ const nextConfig = {
   },
   // Histoire Empire Academy (récit au scroll) : page statique dans public/academy/histoire.
   async rewrites() {
-    return { beforeFiles: [{ source: '/academy/histoire', destination: '/academy/histoire/index.html' }] }
+    return { beforeFiles: [{ source: '/academy', destination: '/academy/histoire/index.html' }] }
   },
   async redirects() {
     return [
+      // La page histoire est devenue /academy (3 novembre 2026).
+      { source: '/academy/histoire', destination: '/academy', permanent: false },
       // La candidature (formulaire puis bot WhatsApp) est remplacée par la
       // vidéo : les anciens liens /postuler (pubs, bios) atterrissent dessus.
       {
