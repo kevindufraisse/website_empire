@@ -16,6 +16,7 @@ window.makeAcademyContinuation=({show,move,el,ease,lerp,caption,jump})=>{
  [0.255,'','J’ai été invité dans les plus gros podcasts francophones <br><em>pour parler de ces avantages injustes.</em>','',''],
  [0.335,'','Puis l’IA est arrivée <br><em>et a détruit des métiers.</em>','',''],
  [0.425,'','Elle peut écrire, monter, coder. Elle peut remplacer un humain. <br><em>Alors, quelle place reste-t-il aux humains ?</em>','',''],
+ [0.445,'','Si vous êtes rédacteur, monteur, graphiste ou community manager… <br><em>c’est peut-être votre téléphone qui va arrêter de sonner.</em>','',''],
  [0.465,'','Deux formateurs, la même offre. <br><em>Lequel choisiriez-vous ?</em>','',''],
  [0.535,'','Vous avez choisi le formateur B, <br><em>parce que vous connaissez déjà son histoire.</em>','',''],
  [0.555,'','Le métier de demain, c’est ce que l’IA ne remplacera jamais : <br><em>l’histoire.</em>','',''],

@@ -90,7 +90,7 @@ place('laptop','surface-plane');layers.forEach(id=>show(id,0));show('floor');sho
 const next=window.makeAcademyContinuation({show,move,el,ease,lerp,caption:setCaption,jump});
 const chapterPoints=[0, 0.26, 0.4117, 0.5079, 0.6041000000000001, 0.7151000000000001, 0.8446];
 function paint(p){
- currentP=p;el('stage-cta').hidden=p<.985;
+ currentP=p;el('stage-cta').hidden=p<.985;el('skip-offer').hidden=p>.03;
  el('camera').style.display=p<.26?'':'none';
  el('continuation').style.display=p>=.26?'':'none';
  if(p<.26){el('study-link').hidden=true;paintPrologue(p/.26);}
