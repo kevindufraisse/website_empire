@@ -8,13 +8,13 @@ window.makeAcademyContinuation=({show,move,el,ease,lerp,caption,jump})=>{
  const lines=[
  [0,'','Moins cher, plus rapide, <br><em>et je leur apprenais à s’en servir.</em>','',''],
  [0.055,'','Pendant cinq ans : 3 000, 5 000, puis 10 000 € par mois, <br><em>pendant que j’étais encore en cours.</em>','',''],
- [0.105,'','Puis tout le monde a découvert WordPress. <br><em>Un jour, le téléphone a arrêté de sonner.</em>','',''],
- [0.127,'','J’étais en panique. <br><em>Mon avance avait disparu.</em>','',''],
+ [0.105,'','Puis tout le monde a découvert WordPress. <br><em>Du jour au lendemain, le téléphone s’est tu.</em>','',''],
+ [0.127,'','J’étais terrifié. <br><em>Tout ce que j’avais construit s’effondrait.</em>','',''],
  [0.145,'','J’ai compris qu’un outil secret pouvait rendre riche <br><em>et donner un avantage injuste à mes clients.</em>','',''],
  [0.175,'','Alors, j’ai cherché des outils. <br><em>Puis d’autres. Chaque jour.</em>','',''],
  [0.205,'','Et j’en ai fait une formation <br><em>qui a rassemblé plus de 4 000 personnes.</em>','',''],
  [0.255,'','J’ai été invité dans les plus gros podcasts francophones <br><em>pour parler de ces avantages injustes.</em>','',''],
- [0.335,'','Puis l’IA est arrivée <br><em>et a détruit des métiers.</em>','',''],
+ [0.335,'','Puis l’IA est arrivée. <br><em>Et elle a commencé à détruire des métiers entiers.</em>','',''],
  [0.425,'','Elle peut écrire, monter, coder. Elle peut remplacer un humain. <br><em>Alors, quelle place reste-t-il aux humains ?</em>','',''],
  [0.445,'','Si vous êtes rédacteur, monteur, graphiste ou community manager… <br><em>c’est peut-être votre téléphone qui va arrêter de sonner.</em>','',''],
  [0.465,'','Deux formateurs, la même offre. <br><em>Lequel choisiriez-vous ?</em>','',''],
@@ -39,16 +39,16 @@ window.makeAcademyContinuation=({show,move,el,ease,lerp,caption,jump})=>{
  activate('a33-pass',()=>{clientNumber=clientNumber%3+1;el('a33-client-name').textContent='Entrepreneuse '+clientNumber;});
  el('story-feature').addEventListener('click',e=>{const approve=e.target.closest('[data-approve]');if(approve){approved=true;featureKey='';feature('board-review-true',panels.board('review',true));el('scene-note').textContent='Les quatre contenus sont validés. Faites défiler pour les voir dans le calendrier.';}});
  const note=copy=>el('scene-note').textContent=copy;
- return {paint(t){
-  currentT=t;el('story-feature').classList.remove('panic');pieces.forEach(id=>show(id,0));feature('',null);
+ return {points:lines.map(l=>l[0]),paint(t){
+  currentT=t;el('stage').classList.toggle('night',(t>=.105&&t<.145)||(t>=.335&&t<.465));el('story-feature').classList.remove('panic');pieces.forEach(id=>show(id,0));feature('',null);
   if(innerWidth<=700)el('world').setAttribute('viewBox',t>=.79&&t<.825?'300 200 600 540':t>=.825&&t<.89?'230 200 740 540':'140 185 920 560');
   el('study-link').hidden=true;el('session-timer').hidden=t<.825;note('');
   let index=0;for(let i=1;i<lines.length;i++)if(t>=lines[i][0])index=i;caption('next-'+index,lines[index]);
   if(t<.105){feature('comparison',panels.comparison);const fs=el('story-feature'),q=ease(t,.057,.10);fs.style.setProperty('--phase',ease(t,0,.05));fs.style.setProperty('--phase2',q);const v=document.getElementById('my-price'),u=document.getElementById('my-price-unit');if(v){v.textContent=q<.45?'3 000 €':q<.8?'5 000 €':'10 000 €';u.textContent=q<.05?'pour un site':'par mois';}}
   else if(t<.145){feature('decline',panels.decline);const q=ease(t,.107,.142);el('story-feature').style.setProperty('--phase',q);el('story-feature').classList.toggle('panic',q>.62);note('WordPress devient largement connu. Le logiciel était déjà libre.');}
   else if(t<.205){
-   put('a34-studio',0,0,1,.18);for(let i=0;i<9;i++)put('a34-tool-'+i,340+(i%3)*250,310+Math.floor(i/3)*155,1);
-   const q=ease(t,.145,.204)*8,j=Math.floor(q),f=q-j,n=Math.min(8,j+1);put('a34-lens',lerp(340+(j%3)*250,340+(n%3)*250,f),lerp(310+Math.floor(j/3)*155,310+Math.floor(n/3)*155,f));
+   for(let i=0;i<9;i++)put('a34-tool-'+i,480+(i%3)*230,310+Math.floor(i/3)*155,1);actor('guide',270,720,.82);
+   const q=ease(t,.145,.204)*8,j=Math.floor(q),f=q-j,n=Math.min(8,j+1);put('a34-lens',lerp(480+(j%3)*230,480+(n%3)*230,f),lerp(310+Math.floor(j/3)*155,310+Math.floor(n/3)*155,f));
    note('Trouver. Tester. Garder les techniques utiles. Recommencer le lendemain.');
   }else if(t<.255){
    const gather=ease(t,.218,.248);put('a34-library',0,0,1,1-gather);
@@ -62,7 +62,7 @@ window.makeAcademyContinuation=({show,move,el,ease,lerp,caption,jump})=>{
   else if(t<.615){feature('operator',panels.operator);note('Créer une légende : révéler un parcours, sans inventer une vie.');}
   else if(t<.67){const n=t<.6425?0:1;feature('trust-news-'+n,panels.newspaper(data.contentStudies[n],n,2,true));note('Ce que disent les enquêtes sur le contenu, le réseau et la confiance.');}
   else if(t<.73){const n=t<.70?0:1;feature('cases-'+n,panels.cases(data,n));}
-  else if(t<.79){feature('team-cost',panels.teamCost);el('story-feature').style.setProperty('--phase',ease(t,.735,.775));
+  else if(t<.79){feature('team-cost',panels.teamCost);el('story-feature').style.setProperty('--phase',ease(t,.73,.76));
   }else if(t<.825){put('a34-studio',0,0,1,.35);put('a33-phone');note('Scénario de mission : accepter l’appel ou passer.');}
   else if(t<.865){put('a34-studio',0,0,1,.2);put('a33-call');note('« Pourquoi avez-vous créé votre activité ? Qu’avez-vous appris sur le terrain ? »');}
   else if(t<.89){feature('link',panels.link);note('Le lien donne accès à son espace de création.');}

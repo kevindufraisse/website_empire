@@ -17,13 +17,13 @@ function move(id,x=0,y=0,s=1,r=0){el(id).setAttribute('transform',`translate(${x
 const layers=['chair','floor','bedroom','school','client-room','parcel-0','parcel-1','parcel-2','kevin','teacher','parent','desk','laptop','invoice','teacher-speech','ouch','success','parent-speech','client-label','delivery','order-0','order-1','small-spark-0','small-spark-1','first-payment'];
 const captions=[
  [0,'','<span class="founder-kicker">L’histoire du fondateur</span>Pourquoi j’ai créé un nouveau métier : <br><em>Content Operator.</em>','',''],
- [.05,'','À 19 ans, je voulais vendre un service sur Internet. <br><em>Il me fallait un site.</em>','',''],
- [.10,'','On m’a fait un devis : 20 000 € pour un site. <br><em>Je n’avais pas les moyens.</em>','',''],
- [.29,'','Alors, j’ai commencé à construire mon site seul, <br><em>même pendant les cours.</em>','',''],
- [.45,'','Mes professeurs n’ont pas aimé. <br><em>Ils m’ont pris mon ordinateur.</em>','',''],
- [.68,'','J’ai continué, le soir, dans ma chambre. <br><em>Mon site était prêt.</em>','',''],
- [.79,'','Par le bouche-à-oreille, les parents de mes amis <br><em>sont devenus mes premiers clients.</em>','',''],
- [.94,'','Mon premier site vendu : 3 000 €, <br><em>pour quelques heures de travail. Grâce à un outil.</em>','','']
+ [0.05,'','J’étais en échec scolaire. <br><em>Tout le monde pensait que je ne ferais rien de ma vie.</em>','',''],
+ [0.1,'','Je voulais vendre un service sur Internet. Un site coûtait 20 000 €. <br><em>Impossible pour moi.</em>','',''],
+ [0.29,'','Alors j’ai appris seul, en cachette, <br><em>même pendant les cours.</em>','',''],
+ [0.45,'','Mes profs m’ont confisqué mon ordinateur. <br><em>Encore un échec, pensaient-ils.</em>','',''],
+ [0.68,'','Je n’ai pas lâché. La nuit, dans ma chambre, <br><em>j’ai fini mon site.</em>','',''],
+ [0.79,'','Par le bouche-à-oreille, les parents de mes amis <br><em>sont devenus mes premiers clients.</em>','',''],
+ [0.94,'','Mon premier site vendu : 3 000 € pour quelques heures de travail. <br><em>Moi, l’élève dont personne n’attendait rien.</em>','','']
 ];
 let currentCaption=-1,currentP=0,pending=0,playing=false,playRaf=0,playStart=0,playFrom=0,simple=false,modeChosen=false;
 // Complete rendered poses keep shoulders, elbows and hands anatomically consistent.
@@ -40,9 +40,9 @@ function paintPrologue(p){
 place('laptop','surface-plane');layers.forEach(id=>show(id,0));show('floor');show('moon',0);show('sun');show('lamp-beam',0);show('stamp',0);show('code-cover');move('camera');move('desk');move('bedroom');move('school');move('client-room');move('laptop');move('invoice');move('floor');
  const compact=innerWidth<=700;
  // The mobile camera follows the important action while retaining the shared scene.
- let cameraX=compact?235:0, cameraW=compact?780:1200;
- if(compact&&p>=.45&&p<.68)cameraX=lerp(235,290,ease(p,.45,.55));
- world.setAttribute('viewBox',compact?`${cameraX} 160 ${cameraW} 570`:'0 140 1200 600');
+ let cameraX=compact?255:0, cameraW=compact?700:1200;
+ if(compact&&p>=.40&&p<.68)cameraX=lerp(255,330,ease(p,.40,.50));if(compact&&p>=.79)cameraX=lerp(255,330,ease(p,.79,.84));
+ world.setAttribute('viewBox',compact?`${cameraX} 200 ${cameraW} 520`:'0 140 1200 600');
  stage.classList.toggle('night',p>=.685&&p<.785);
  show('bedroom',p<.29?1-ease(p,.23,.29):p>=.68&&p<.79?ease(p,.68,.705)*(1-ease(p,.77,.79)):0);
  show('school',ease(p,.23,.29)*(1-ease(p,.65,.705)));
@@ -102,6 +102,16 @@ function paint(p){
 }
 const seen=new Set();
 function track(chapter,p){const key=p>.985?'fin':'chapitre_'+(chapter+1);if(seen.has(key))return;seen.add(key);try{(window.dataLayer=window.dataLayer||[]).push({event:'academy_story_progress',story_step:key});}catch(e){}}
+let settleTimer=0;
+function scenePoints(){return [...captions.map(c=>c[0]*.26),...next.points.map(t=>.26+.74*t),1];}
+function settle(){
+ if(playing||simple||media.matches)return;
+ const d=distance(),p=(scrollY-top())/d;if(p<=.002||p>=.995)return;
+ const pts=scenePoints();let i=0;for(let k=1;k<pts.length;k++)if(p>=pts[k])i=k;
+ const a=pts[i],b=pts[Math.min(i+1,pts.length-1)],target=a+(b-a)*.72;
+ if(Math.abs(target-p)*d<6)return;
+ scrollTo({top:top()+d*target,behavior:'smooth'});
+}
 function distance(){return Math.max(1,scene.offsetHeight-innerHeight);}
 function top(){return scene.getBoundingClientRect().top+scrollY;}
 function update(){pending=0;if(!simple)paint(clamp((scrollY-top())/distance()));}
@@ -114,6 +124,6 @@ $('#play').addEventListener('click',()=>{if(playing){stop();return;}playFrom=cur
 addEventListener('wheel',stop,{passive:true});addEventListener('touchstart',stop,{passive:true});addEventListener('keydown',e=>{if(['ArrowDown','ArrowUp','PageDown','PageUp','Home','End',' '].includes(e.key))stop();});
 function reading(on){stop();simple=on;document.body.classList.toggle('simple',on);$('#reading').hidden=!on;$('#reading-toggle').setAttribute('aria-pressed',String(on));$('#reading-toggle').textContent=on?'Voir l’animation':'Lire sans animation';scrollTo({top:0,behavior:'auto'});schedule();}
 $('#reading-toggle').addEventListener('click',()=>{modeChosen=true;reading(!simple);});$('#back-animation').addEventListener('click',()=>{modeChosen=true;reading(false);});$('#replay').addEventListener('click',()=>{if(simple)reading(false);jump(0);});
-addEventListener('scroll',schedule,{passive:true});addEventListener('resize',schedule);media.addEventListener('change',()=>{if(!modeChosen)reading(media.matches);});
+addEventListener('scroll',()=>{schedule();clearTimeout(settleTimer);settleTimer=setTimeout(settle,220);},{passive:true});addEventListener('resize',schedule);media.addEventListener('change',()=>{if(!modeChosen)reading(media.matches);});
 if(media.matches)reading(true);update();
 })();
