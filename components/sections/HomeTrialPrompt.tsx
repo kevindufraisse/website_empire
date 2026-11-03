@@ -17,7 +17,7 @@ export default function HomeTrialPrompt({ moment }: { moment: keyof typeof COPY 
   return (
     <section data-trial-prompt={moment} className="border-y border-white/[0.06] bg-empire/[0.025] px-5 py-10 md:py-12">
       <p className="mx-auto mb-5 max-w-2xl text-center text-xl font-semibold text-white">{COPY[moment][lang]}</p>
-      <EmpireSalesCta source={`home-${moment}`} showDemo={false} />
+      <EmpireSalesCta source={`home-${moment}`} />
     </section>
   )
 }

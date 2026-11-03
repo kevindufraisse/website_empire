@@ -18,7 +18,7 @@ import { CloneVideo, CloneDetails, SecretFormats } from './ExtraFormatScenes'
 
 type Progress = MotionValue<number>
 const TOPIC = 'Quels créateurs business français suivre ?'
-const FACE = 'https://empire-apercu-kevin-novembre-2026.austra1.chatgpt.site/demo/kevin-speaking-v11.jpg'
+const FACE = '/demo/kevin-speaking-v11.jpg'
 const AVATAR = '/founders/kevin.jpg'
 const CREATORS = [
   { name: 'Anthony Bourbon', photo: '/webinar/anthony-bourbon.jpg', position: '50% 30%', zoom: 1.15 },
@@ -38,7 +38,7 @@ const VIEWS = [10000, 50000, 53000, 150000, 3000, 6000, 8000]
 const TOTAL = VIEWS.reduce((a, b) => a + b, 0)
 const LABELS = ['Réaction', 'Tier list', 'FAQ', 'Devine', 'Clonage', 'YouTube long']
 const CHAPTERS = [['message', 'Message'], ['format', 'Format'], ['diffusion', 'Diffusion'], ['time', 'Temps'], ['cost', 'Coût']]
-const rawAt = (t: number) => t <= .28 ? t / .28 * 34 : 34 + (t - .28) / .85 * 66
+const rawAt = (t: number) => t <= .28 ? t / .28 * 21 : 21 + (t - .28) / .85 * 79
 const anchorAt = (n: number) => rawAt(n/100 + (n>=56.8?.13:n>=53.5?.06:0))
 const fmt = (v: number) => Math.round(v).toLocaleString('fr-FR')
 const clamp = (v: number) => Math.max(0, Math.min(1, v))
@@ -76,10 +76,12 @@ function ReelArtwork({ small = false }: { small?: boolean }) {
     observer.observe(video)
     return () => { observer.disconnect(); sceneObserver.disconnect(); video.pause() }
   }, [reduced])
-  return <div className={`${s.sourceReel} ${small ? s.sourceReelSmall : ''}`}><video ref={ref} src="https://empire-apercu-kevin-novembre-2026.austra1.chatgpt.site/demo/hormozi-reaction-v10.mp4" poster="https://empire-apercu-kevin-novembre-2026.austra1.chatgpt.site/demo/hormozi-reaction-v10.jpg" autoPlay={!reduced} muted loop playsInline preload="metadata" aria-label="Extrait vidéo de six secondes d’Alex Hormozi"/><span><Play size={11} fill="currentColor"/>Alex Hormozi · extrait vidéo</span></div>
+  return <div className={`${s.sourceReel} ${small ? s.sourceReelSmall : ''}`}><video ref={ref} src="/demo/hormozi-reaction-v10.mp4" poster="/demo/hormozi-reaction-v10.jpg" autoPlay={!reduced} muted loop playsInline preload="metadata" aria-label="Extrait vidéo de six secondes d’Alex Hormozi"/><span><Play size={11} fill="currentColor"/>Alex Hormozi · extrait vidéo</span></div>
 }
 
 const SENDS = IDEA_TIMELINE.slice(0,6).map(item=>item.at)
+// Étapes du chat : six envois, puis la veille concurrentielle (un seul message).
+const STEPS = [...SENDS, IDEA_TIMELINE[6].at]
 const FORMATS = ['FAQ','Tier list','FAQ','Réaction','FAQ','Devine']
 function ChatExchange({ p, index }: { p: Progress; index: number }) {
  const at=SENDS[index]
@@ -87,7 +89,7 @@ function ChatExchange({ p, index }: { p: Progress; index: number }) {
   <Reveal p={p} start={at} className={s.outgoing}>
    {index===0?<div className={s.voice}><Play size={14} fill="currentColor"/><VoiceWave/><b>0:18</b></div>
    :index===1?<p>Faisons une tier list des créateurs business français. Je veux expliquer qui suivre selon son objectif.</p>
-   :index===2?<><div className={s.captureAttachment}><img src="https://empire-apercu-kevin-novembre-2026.austra1.chatgpt.site/demo/capture-entrepreneur-v18.png" alt="Capture partagée : une citation de davissalestraining sur la persévérance des entrepreneurs"/><span><Camera size={10}/>Capture d’écran.png</span></div><p>J’aimerais parler de la réalité de l’entrepreneuriat.</p></>
+   :index===2?<><div className={s.captureAttachment}><img src="/demo/capture-entrepreneur-v18.webp" alt="Capture partagée : une citation de davissalestraining sur la persévérance des entrepreneurs"/><span><Camera size={10}/>Capture d’écran.png</span></div><p>J’aimerais parler de la réalité de l’entrepreneuriat.</p></>
    :index===3?<><span className={s.messageLink}>instagram.com/reel/extrait-hormozi</span><div className={s.reelLink}><ReelArtwork small/><span><SocialIcons.instagram/><b>Les conseils business d’Alex Hormozi</b></span></div></>
    :index===4?<><span className={s.messageLink}>youtube.com/shorts/KFYfMgU82ZA</span><a className={s.youtubeLink} href="https://www.youtube.com/shorts/KFYfMgU82ZA" target="_blank" rel="noreferrer" aria-label="Voir le Short d’Ali Abdaal"><img src="/creators/abdaal.webp" alt="Ali Abdaal"/><SocialIcons.youtube/><b>3 conseils aux créateurs qui débutent<small>Ali Abdaal · YouTube Shorts</small></b></a><p>Je veux répondre aux questions que ça soulève.</p></>
    :<><span className={s.messageLink}>linkedin.com/posts/exemple-createurs</span><div className={s.linkedinLink}><SocialIcons.linkedin/><b>{TOPIC}</b><p>Voici les critères que je regarde avant de suivre un conseil business.</p></div><p>Je veux donner mon avis sur ce sujet.</p></>}
@@ -100,15 +102,24 @@ function ChatExchange({ p, index }: { p: Progress; index: number }) {
   </Reveal>
  </div>
 }
-function MarketMessage({p,index}:{p:Progress;index:number}){
- const at=IDEA_TIMELINE[index+6].at
- const Icon=index===0?SocialIcons.instagram:index===1?SocialIcons.linkedin:SocialIcons.youtube
+// Un seul message pour la veille concurrentielle : les comptes suivis
+// apparaissent un à un dans la même bulle, au lieu de quatre messages.
+const WATCHED=[
+ {img:'/webinar/yomi-denzel.jpg',name:'Yomi Denzel',net:'Reel Instagram',Icon:SocialIcons.instagram,title:'Les conseils business à remettre en question'},
+ {img:'/creators/welsh.webp',name:'Justin Welsh',net:'Post LinkedIn',Icon:SocialIcons.linkedin,title:'Qui écouter quand on entreprend ?'},
+ {img:'/creators/abdaal.webp',name:'Ali Abdaal',net:'Vidéo YouTube',Icon:SocialIcons.youtube,title:'Les erreurs des entrepreneurs qui démarrent'},
+ {img:'',name:'BFM Business',net:'Actualité',Icon:null,title:'PME : l’heure de l’IA agentique a-t-elle sonné ?'},
+]
+function CompetitorsMessage({p}:{p:Progress}){
+ const at=IDEA_TIMELINE[6].at
  return <div className={s.marketExchange}><Reveal p={p} start={at} className={s.incoming}>
   <span className={s.marketSender}><span>E</span>Empire vous propose</span>
-  <p>{['Un concurrent suivi a partagé ce Reel.','Ce post LinkedIn décolle chez un concurrent.','Une vidéo repérée chez un créateur suivi.','Un sujet repéré dans BFM Business.'][index]}</p>
-  {index===3?<a className={s.newsPreview} href="https://www.bfmtv.com/economie/replay-emissions/tech-and-co/video-pme-l-heure-de-l-ia-agentique-a-t-elle-sonne-13-10_VN-202610130909.html" target="_blank" rel="noreferrer"><span><b>BFM<small>BUSINESS</small></b><span>Tech & Co<br/><small>13 octobre 2026</small></span></span><strong>PME : l’heure de l’IA agentique a-t-elle sonné ?</strong><small>Lire la source sur bfmtv.com ↗</small></a>:<div className={s.marketPost}><img src={['/webinar/yomi-denzel.jpg','/creators/welsh.webp','/creators/abdaal.webp'][index]} alt={['Yomi Denzel','Justin Welsh','Ali Abdaal'][index]+' — photo réelle'}/><div><Icon/><small>{['Yomi Denzel · Reel Instagram','Justin Welsh · post LinkedIn · exemple','Ali Abdaal · vidéo YouTube'][index]}</small><b>{['Les conseils business à remettre en question','Qui écouter quand on entreprend ?','Les erreurs des entrepreneurs qui démarrent'][index]}</b></div></div>}
-  <p className={s.marketAngle}>Votre angle : {['les conseils que vous appliquez vraiment.','votre classement, avec vos critères.','les erreurs à éviter dans votre activité.','ce que l’IA peut changer dans votre quotidien.'][index]}</p>
-  <Reveal p={p} start={at+.010} className={s.marketSaved}><Check size={12}/>Idée ajoutée à Empire</Reveal>
+  <p>Ce qui marche cette semaine chez les comptes que vous suivez :</p>
+  <div className={s.watchList}>{WATCHED.map((w,i)=><Reveal key={w.name} p={p} start={IDEA_TIMELINE[6+i].at+(i===0?.004:0)} className={s.watchRow}>
+   {w.img?<img src={w.img} alt={w.name}/>:<span className={s.watchNews}>BFM</span>}
+   <div><small>{w.Icon&&<w.Icon/>}{w.name} · {w.net}</small><b>{w.title}</b></div><Check size={12}/>
+  </Reveal>)}</div>
+  <Reveal p={p} start={IDEA_TIMELINE[9].at+.010} className={s.marketSaved}><Check size={12}/>4 idées ajoutées à Empire, avec votre angle</Reveal>
  </Reveal></div>
 }
 function Chat({ p, active }: { p: Progress; active: boolean }) {
@@ -123,13 +134,13 @@ function Chat({ p, active }: { p: Progress; active: boolean }) {
  const opacity=useTransform(p,[.269,.29],[1,0]),y=useTransform(p,[.269,.29],[0,-55])
  const trackY=useTransform(p,v=>{
   let offset=0
-  for(let i=1;i<IDEA_TIMELINE.length;i++){
-   const height=320,at=IDEA_TIMELINE[i].at
+  for(let i=1;i<STEPS.length;i++){
+   const height=320,at=STEPS[i]
    offset-=height*clamp((v-(at-.006))/.006)
   }
   // Bring each acknowledgement into view, using the phone's actual available height.
   let lift=0
-  IDEA_TIMELINE.forEach((item,i)=>{const next=IDEA_TIMELINE[i+1]?.at??.29;lift+=(messageOverflow.current[i]||0)*clamp((v-(item.at+.010))/.007)*(1-clamp((v-(next-.006))/.006))})
+  STEPS.forEach((at,i)=>{const next=STEPS[i+1]??.29;lift+=(messageOverflow.current[i]||0)*clamp((v-(at+.010))/.007)*(1-clamp((v-(next-.006))/.006))})
   return offset-lift
  })
  const tap=useTransform(p,v=>Math.max(...SENDS.map(at=>Math.max(0,1-Math.abs(v-at)/.003))))
@@ -142,7 +153,7 @@ function Chat({ p, active }: { p: Progress; active: boolean }) {
  return <motion.div className={s.chatScene} style={{opacity,y}} aria-hidden={!active}>
   <IdeaSources p={p}/><div className={`${s.phone} ${s.chatPhone}`}><PhoneTop/>
    <div className={s.chatHeader}><ChevronLeft size={19}/><span className={s.empireBadge}>E</span><div><b>Empire</b><small>Votre assistant contenu</small></div><Video size={18}/></div>
-   <div ref={viewportRef} className={s.chatViewport}><span className={s.dayStamp}>Aujourd’hui</span><motion.div ref={trackRef} className={s.chatTrack} style={{y:trackY}}>{SENDS.map((_,i)=><ChatExchange key={i} p={p} index={i}/>)}{[0,1,2,3].map(i=><MarketMessage key={`market-${i}`} p={p} index={i}/>)}</motion.div></div>
+   <div ref={viewportRef} className={s.chatViewport}><span className={s.dayStamp}>Aujourd’hui</span><motion.div ref={trackRef} className={s.chatTrack} style={{y:trackY}}>{SENDS.map((_,i)=><ChatExchange key={i} p={p} index={i}/>)}<CompetitorsMessage p={p}/></motion.div></div>
    <div className={s.composer}><Plus size={18}/><div><motion.span>{typed}</motion.span><span className={s.composePlaceholder}>Message</span></div><span className={s.sendIcon}><Send size={16}/><motion.i style={{opacity:tap,scale:tapScale}}/></span></div><div className={s.phoneHome}/>
   </div>
  </motion.div>
@@ -173,7 +184,7 @@ function GuessCreators({ p, still }: { p: Progress; still?: boolean }) {
 function Composition({ kind, p, still = false, preview = false }: { kind: number; p: Progress; still?: boolean; preview?: boolean }) {
   const question = useTransform(p, v => TOPIC.slice(0, Math.floor(clamp((v - .425) / .02) * TOPIC.length)))
   return <div className={`${s.composition} ${s[`composition${kind}`]}`}>
-    <PreviewVideo src="https://empire-apercu-kevin-novembre-2026.austra1.chatgpt.site/demo/kevin-speaking-v11.mp4" poster={FACE} label="Kevin en vidéo — illustration du format" className={s.cameraFace} still={preview}/>
+    <PreviewVideo src="/demo/kevin-speaking-v11.mp4" poster={FACE} label="Kevin en vidéo — illustration du format" className={s.cameraFace} still={preview}/>
     {kind === 0 && <><div className={s.reactionClip}><ReelArtwork/></div><span className={s.reactionVoice}><Mic size={11}/>Votre réaction</span></>}
     {kind === 1 && <TierList p={p} still={still}/>}
     {kind === 2 && <div className={s.questionSticker}><small>Posez-moi une question</small>{still ? <b>{TOPIC}</b> : <motion.b>{question}</motion.b>}</div>}
@@ -222,9 +233,9 @@ function NetworkPost({ p, index }: { p: Progress; index: number }) {
  return <motion.article className={`${s.post} ${index===3?s.winningPost:''}`} data-network={CHANNELS[index]} style={{opacity,y}}>
   <header className={s.platformChrome}><Icon/><b>{NETWORKS[index]}</b><span>{['Reels','Fil professionnel','Vidéo longue','Pour toi','Fil de discussion','Pour vous','Fil d’actualité'][index]}</span></header>
   {index!==2&&index!==3&&<div className={s.postAuthor}><img src={AVATAR} alt=""/><span><b>{index===4?'kevindufraisse':'Kevin Dufraisse'}</b><small>{index===1?'Conseils business · 2 h':index===5?'@kevindufraisse · 2 h':index===6?'Publication publique · 2 h':'@kevindufraisse'}</small></span><MoreHorizontal size={14}/></div>}
-  {index===2?<div className={s.youtubePublication}><div className={s.youtubePlayer}><LongVideoArtwork/><motion.div className={s.youtubeGeneratedCover} style={{opacity:assetOpacity,y:assetY}}><div className={s.youtubeThumbnail}><img className={s.youtubeThumbnailImage} src="https://empire-apercu-kevin-novembre-2026.austra1.chatgpt.site/demo/youtube-tierlist-v18.png" alt="Miniature générée par Empire : Je les classe, Kevin et la tier list des créateurs business"/></div><span className={s.youtubeGeneratedLabel}><Sparkles size={11}/><span>Miniature créée par Empire</span><Check size={11}/></span></motion.div><span>12:48</span><div><Play size={14} fill="currentColor"/><span/><span>HD</span></div></div><div className={s.youtubeTitle}><b>Ma tier list des créateurs business français.</b><span>Vidéo longue · 3 chapitres</span></div><div className={s.youtubeChannel}><img src={AVATAR} alt=""/><span>Kevin Dufraisse<small>Votre chaîne YouTube</small></span><b>S’abonner</b></div></div>
+  {index===2?<div className={s.youtubePublication}><div className={s.youtubePlayer}><LongVideoArtwork/><motion.div className={s.youtubeGeneratedCover} style={{opacity:assetOpacity,y:assetY}}><div className={s.youtubeThumbnail}><img className={s.youtubeThumbnailImage} src="/demo/youtube-tierlist-v18.webp" alt="Miniature générée par Empire : Je les classe, Kevin et la tier list des créateurs business"/></div><span className={s.youtubeGeneratedLabel}><Sparkles size={11}/><span>Miniature créée par Empire</span><Check size={11}/></span></motion.div><span>12:48</span><div><Play size={14} fill="currentColor"/><span/><span>HD</span></div></div><div className={s.youtubeTitle}><b>Ma tier list des créateurs business français.</b><span>Vidéo longue · 3 chapitres</span></div><div className={s.youtubeChannel}><img src={AVATAR} alt=""/><span>Kevin Dufraisse<small>Votre chaîne YouTube</small></span><b>S’abonner</b></div></div>
   :video?<div className={s.postVideo}><Composition kind={index===0?2:1} p={p} still/>{index===3?<><div className={s.tiktokActions}><img src={AVATAR} alt=""/><Heart/><MessageCircle/><Bookmark/><Share2/></div><div className={s.tiktokCaption}><b>@kevindufraisse</b><span>Mon classement des créateurs business.</span><small><Music2 size={10}/>son original · Kevin</small></div></>:<span className={s.formatPostTag}>FAQ · votre Reel</span>}{index===0&&<motion.div className={s.generatedCover} style={{opacity:assetOpacity,y:assetY}}><PhotoThumbnail/><span className={s.empireGenerated}><Sparkles size={12}/><span><b>Miniature créée par Empire</b></span><Check size={12}/></span></motion.div>}</div>
-  :<div className={s.postText}><b>{index===5?'1/3 · Qui suivre pour progresser ?':index===4?'Le nombre d’abonnés ne fait pas le bon conseil.':'Qui suivre en business ?'}</b><p>{index===4?'Le bon créateur, c’est celui dont tu peux appliquer les conseils à ton activité. Voici mon classement.':index===5?'Un créateur. Une expertise. Voici les critères que je regarde. ↓':'Un créateur, une expertise. Voici les critères que je regarde avant de suivre ses conseils.'}</p><motion.div className={s.generatedLinkedin} style={{opacity:assetOpacity,y:assetY}}><img src="https://empire-apercu-kevin-novembre-2026.austra1.chatgpt.site/demo/kevin-portrait-v13.png" alt={`Portrait studio généré par Empire pour ${NETWORKS[index]}`}/><span className={s.empireGenerated}><Sparkles size={12}/><span><b>Portrait créé par Empire</b></span><Check size={12}/></span></motion.div><small>{index===5?'Afficher ce fil':index===4?'Afficher les réponses':'Adapté depuis votre vidéo · Tier list'}</small></div>}
+  :<div className={s.postText}><b>{index===5?'1/3 · Qui suivre pour progresser ?':index===4?'Le nombre d’abonnés ne fait pas le bon conseil.':'Qui suivre en business ?'}</b><p>{index===4?'Le bon créateur, c’est celui dont tu peux appliquer les conseils à ton activité. Voici mon classement.':index===5?'Un créateur. Une expertise. Voici les critères que je regarde. ↓':'Un créateur, une expertise. Voici les critères que je regarde avant de suivre ses conseils.'}</p><motion.div className={s.generatedLinkedin} style={{opacity:assetOpacity,y:assetY}}><img src="/demo/kevin-portrait-v13.webp" alt={`Portrait studio généré par Empire pour ${NETWORKS[index]}`}/><span className={s.empireGenerated}><Sparkles size={12}/><span><b>Portrait créé par Empire</b></span><Check size={12}/></span></motion.div><small>{index===5?'Afficher ce fil':index===4?'Afficher les réponses':'Adapté depuis votre vidéo · Tier list'}</small></div>}
   <PlatformMetrics index={index} count={count}/>
  </motion.article>
 }
@@ -268,7 +279,7 @@ export function SourcesStory() {
   const reduced = useReducedMotion()
   const ref = useRef<HTMLElement>(null)
   const { scrollYProgress: rawP } = useScroll({ target: ref, offset: ['start start', 'end end'] })
-  const timeline = useTransform(rawP, [0,.34,1], [0,.28,1.13])
+  const timeline = useTransform(rawP, [0,.21,1], [0,.28,1.13])
   const sequenceP = useTransform(timeline, [0,.535,.595,.628,.698,1.13], [0,.535,.535,.568,.568,1])
   const [formatsEnded,setFormatsEnded]=useState(false)
   const p = useTransform(sequenceP, [0, .82, .92, 1], [0, .82, .82, 1])
