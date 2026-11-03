@@ -1,0 +1,27 @@
+/* v43 : personne A sans visage, téléphone lisible sur mobile, robot seul. */
+.trainer-a .generic-portrait{display:grid;place-items:center;background:#ece4e0}
+.trainer-a .generic-portrait svg{width:46%;height:auto;fill:#c9bcb7}
+.trainer-card h2{font-size:22px;letter-spacing:-.03em}
+.ai-character svg{max-height:100%}
+@media(max-width:700px){
+ .ai-panel{grid-template-columns:1fr 112px!important;gap:10px!important}
+ .ai-character{height:auto}
+ .ai-character svg{width:112px;height:auto;aspect-ratio:512/476}
+ .ai-character>span{top:-26px;right:4px}
+ .phone-decline{gap:6px}
+ .ringing-phone{width:min(300px,82vw)!important;aspect-ratio:9/13;padding:30px 14px 14px!important;border-width:8px}
+ .rp-head b{font-size:18px}.rp-count{font-size:11px}
+ .rp-call{padding:11px 12px;gap:11px;margin-bottom:9px}
+ .rp-call b{font-size:14px!important}.rp-call small{font-size:12px!important}
+ .rp-icon{flex-basis:34px;height:34px}
+ .diy-side{min-height:0}
+ .diy-wp img{width:36px;margin-bottom:4px}.diy-wp p{font-size:13px}
+ .diy-panic svg{width:96px}
+ .trainer-card h2{font-size:17px}
+}
+/* Mode sombre : le contenu des cartes claires reste foncé. */
+.ringing-phone,.ringing-phone b{color:#242326}
+.stage.night .ai-tasks div{background:#fffaf5!important;color:#242326!important;opacity:1}
+.stage.night .ai-tasks div small{color:#6f5f68!important}
+.trainer-a h2{white-space:normal;text-wrap:balance}
+@media(max-width:700px){.ai-tasks{margin-left:8px}}

@@ -1,0 +1,11 @@
+/* v44 : nouvelles illustrations (Flora). */
+.diy-panic img{display:block;width:100%;height:auto;border-radius:18px;box-shadow:0 24px 60px -20px #000c}
+.story-feature.panic .phone-decline{gap:0}
+.story-feature.panic .ringing-phone{display:none}
+.story-feature.panic .diy-side{width:min(760px,96%);max-width:none}
+.story-feature.panic .diy-panic{width:100%}
+.story-feature.panic .diy-panic b{position:absolute;left:18px;bottom:16px;background:#242326cc;color:#fff;padding:8px 14px;border-radius:12px;font-size:18px}
+.diy-panic{position:relative}
+.trainer-portrait.person-a{background:#f3e6ea;overflow:hidden}
+.trainer-portrait.person-a img{width:100%;height:100%;object-fit:cover;object-position:50% 8%}
+@media(max-width:700px){.story-feature.panic .diy-side{width:100%}.story-feature.panic .diy-panic b{font-size:13px;left:10px;bottom:10px}}

@@ -1,0 +1,5 @@
+/* v45 : photos plein cadre aux moments clés. */
+.scene-photo{position:absolute;inset:0;z-index:4;display:flex;align-items:center;justify-content:center;padding:8px 5%;opacity:0;visibility:hidden;pointer-events:none}
+.scene-photo img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;border-radius:20px;box-shadow:0 26px 70px -24px #24232699}
+@media(max-width:700px){.scene-photo{padding:4px 12px}.scene-photo img{border-radius:14px}}
+.f-final-img{display:block;width:min(720px,100%);height:auto;margin:0 auto 34px;border-radius:22px;box-shadow:0 26px 60px -24px #8a3a5a80}
