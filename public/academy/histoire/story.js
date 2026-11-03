@@ -35,10 +35,19 @@ function laptop(x,y,open=1,rotation=0,scale=.7){show('laptop');move('laptop',x,y
 function screens(shop,code,done){show('shop-screen',shop);show('code-screen',code);show('done-screen',done);}
 function setCaption(key,c){if(currentCaption===key)return;currentCaption=key;$('#era').textContent=c[1];$('#headline').innerHTML=c[2];$('#caption').textContent=c[3];$('#scene-word').textContent=c[4];}
 function text(p){let index=0;for(let n=1;n<captions.length;n++)if(p>=captions[n][0])index=n;setCaption('start-'+index,captions[index]);}
+const photoBox=document.getElementById('scene-photo'),photoImg=document.getElementById('scene-photo-img');
+let photoSrc='';
+function scenePhoto(src,a=1){if(!src||a<=.001){photoBox.style.opacity='0';photoBox.style.visibility='hidden';return;}if(src!==photoSrc){photoImg.src=src;photoSrc=src;}photoBox.style.opacity=String(Math.min(1,a));photoBox.style.visibility='visible';}
+window.scenePhoto=scenePhoto;
 function paintPrologue(p){
  text(p);el('stage').classList.remove('feature-mode');el('story-feature').hidden=true;el('session-timer').hidden=true;el('scene-note').textContent=p>=.45&&p<.61?'Le professeur : « On ferme l’ordinateur. »':p>=.755&&p<.79?'Mon premier site est en ligne.':p>=.82&&p<.925?'Un parent d’un ami : « Tu pourrais faire le mien ? »':p>=.925?'Mon premier site vendu : 3 000 €. Le raccourci s’appelait WordPress.':' ';
 place('laptop','surface-plane');layers.forEach(id=>show(id,0));show('two-weeks',0);show('floor');show('moon',0);show('sun');show('lamp-beam',0);show('stamp',0);show('code-cover');move('camera');move('desk');move('bedroom');move('school');move('client-room');move('laptop');move('invoice');move('floor');
  const compact=innerWidth<=700,compactTw=compact;
+ // Photos : la classe, la nuit où le site est fini, le premier client.
+ if(p>=.555&&p<.675)scenePhoto('./assets/classe.webp',ease(p,.555,.585)*(1-ease(p,.655,.675)));
+ else if(p>=.75&&p<.79)scenePhoto('./assets/site-fini.webp',ease(p,.75,.765)*(1-ease(p,.78,.79)));
+ else if(p>=.945)scenePhoto('./assets/premier-client.webp',ease(p,.945,.965));
+ else scenePhoto(null);
  // The mobile camera follows the important action while retaining the shared scene.
  let cameraX=compact?255:0, cameraW=compact?700:1200;
  if(compact&&p>=.40&&p<.68)cameraX=lerp(255,330,ease(p,.40,.50));if(compact&&p>=.79)cameraX=lerp(255,330,ease(p,.79,.84));
@@ -95,7 +104,7 @@ function paint(p){
  el('camera').style.display=p<.26?'':'none';
  el('continuation').style.display=p>=.26?'':'none';
  if(p<.26){el('study-link').hidden=true;paintPrologue(p/.26);}
- else{stage.classList.remove('night');world.setAttribute('viewBox',innerWidth<=700?'140 185 920 560':'0 185 1200 560');next.paint((p-.26)/.74);}
+ else{scenePhoto(null);stage.classList.remove('night');world.setAttribute('viewBox',innerWidth<=700?'140 185 920 560':'0 185 1200 560');next.paint((p-.26)/.74);}
  let chapter=0;for(let i=1;i<chapterPoints.length;i++)if(p>=chapterPoints[i]-.0001)chapter=i;
  $$('.chapters [data-at]').forEach((n,i)=>n.setAttribute('aria-current',String(chapter===i)));track(chapter,p);
  $('#progress').style.width=(p*100)+'%';
