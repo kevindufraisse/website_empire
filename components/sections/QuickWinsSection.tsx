@@ -1,198 +1,29 @@
 'use client'
-import { motion } from 'framer-motion'
-import { useReveal } from '@/hooks/useReveal'
-import { useLanguage } from '@/contexts/LanguageContext'
+import { motion, useReducedMotion } from 'framer-motion'
+import { Check, ArrowLeftRight } from 'lucide-react'
 import { useAutopilot } from '@/contexts/AutopilotContext'
-import { X, Minus, Check } from 'lucide-react'
 import EmpireSalesCta from '@/components/EmpireSalesCta'
-
-type Cell = { fr: string; en: string }
-
-type ComparisonRow = {
-  dimension: Cell
-  /** Seul, sans aide. */
-  alone: Cell
-  /** Avec des freelances (monteur, rédacteur, CM). */
-  freelance: Cell
-  /** Avec Empire. */
-  empire: Cell
-}
-
-/**
- * Trois façons de faire du contenu : seul, avec des freelances, avec Empire.
- * Chaque ligne est une dimension de la formule (sujets, format, temps, coût,
- * visibilité). La colonne Empire est la seule qui répond à tout.
- */
-const COMPARISONS: ComparisonRow[] = [
-  {
-    dimension: { fr: 'Quoi filmer', en: 'What to shoot' },
-    alone: { fr: 'Deviner, tester, recommencer', en: 'Guess, test, start over' },
-    freelance: { fr: 'Vous devez leur dire quoi faire', en: 'You have to tell them what to do' },
-    empire: { fr: 'Les sujets sont déjà là. Vous cliquez.', en: 'The topics are already there. You click.' },
-  },
-  {
-    dimension: { fr: 'Temps investi', en: 'Time invested' },
-    alone: { fr: '10-15 h/semaine', en: '10-15 h/week' },
-    freelance: { fr: '5 h/semaine à briefer, relire, relancer', en: '5 h/week briefing, proofreading, chasing' },
-    empire: { fr: '20 min à 1 h/semaine, le reste en cascade', en: '20 min to 1 h/week, the rest in a cascade' },
-  },
-  {
-    dimension: { fr: 'Volume', en: 'Volume' },
-    alone: { fr: 'Quelques posts, un réseau', en: 'A few posts, one network' },
-    freelance: { fr: 'Ce que le budget permet', en: 'Whatever the budget allows' },
-    empire: { fr: 'Chaque idée en 10+ contenus, 7 réseaux', en: 'Every idea into 10+ pieces, 7 networks' },
-  },
-  {
-    dimension: { fr: 'Sujets', en: 'Topics' },
-    alone: { fr: 'La page blanche', en: 'The blank page' },
-    freelance: { fr: 'La page blanche (c\'est vous qui briefez)', en: 'The blank page (you write the brief)' },
-    empire: { fr: 'Telegram + veille concurrents + sujets viraux', en: 'Telegram + competitor watch + viral topics' },
-  },
-  {
-    dimension: { fr: 'Résultat', en: 'Result' },
-    alone: { fr: 'Des vues, peut-être', en: 'Views, maybe' },
-    freelance: { fr: 'Des vues, sans savoir ce qu\'elles rapportent', en: 'Views, with no idea what they bring in' },
-    empire: { fr: 'Des leads tracés du reel au rendez-vous', en: 'Leads tracked from the reel to the meeting' },
-  },
-  {
-    dimension: { fr: 'Coût', en: 'Cost' },
-    alone: { fr: 'Votre temps (le plus cher)', en: 'Your time (the most expensive)' },
-    freelance: { fr: 'Monteur + rédacteur + CM : 5 000 €+/mois', en: 'Editor + writer + CM: €5,000+/month' },
-    empire: { fr: 'Divisé par 100. Vous pouvez payer à l\'usage.', en: 'Divided by 100. You can pay for what you use.' },
-  },
+import s from './QuickWinsSection.module.css'
+const PEOPLE=[['Lucas','Analyste de veille','1 000'],['Emma','Stratège de contenu','1 500'],['Thomas','Scénariste','1 500'],['Léa','Monteur vidéo','2 000'],['Hugo','Copywriter','1 000'],['Inès','Responsable diffusion','1 000'],['Camille','Graphiste','1 500'],['Nicolas','Community manager','1 000']]
+const COLUMNS=['Empire','Freelance','Agence','ChatGPT','CapCut + Buffer']
+const ROWS=[
+ ['Idées & veille','Inclus','Selon mission','Selon contrat','À guider','À votre charge'],
+ ['Création','Formats + montage','Sa spécialité','Selon contrat','Textes & scripts','Votre montage'],
+ ['Diffusion','7 réseaux + republication','Selon mission','Selon contrat','Outils à ajouter','Via Buffer'],
+ ['Conversions','Reliées au post','Selon mission','Selon contrat','Données à fournir','Selon les offres'],
+ ['Budget','Abonnement + crédits','Honoraires','Devis','Abonnement + outils','Offres distinctes'],
 ]
-
-const COLUMNS = [
-  { key: 'alone', label: { fr: 'Seul', en: 'Alone' } },
-  { key: 'freelance', label: { fr: 'Freelances', en: 'Freelancers' } },
-  { key: 'empire', label: { fr: 'Empire', en: 'Empire' } },
-] as const
-
-export default function QuickWinsSection() {
-  const { lang } = useLanguage()
-  const { autopilot } = useAutopilot()
-  const fr = lang === 'fr'
-  const [ref, isInView] = useReveal('-80px')
-
-  if (autopilot) return null
-
-  const t = (c: Cell) => (fr ? c.fr : c.en)
-
-  return (
-    <section className="relative w-full py-20 md:py-32 overflow-hidden bg-[#0a0a0a]">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgb(var(--empire-rgb)_/_0.05),transparent)]" />
-
-      <div ref={ref} className="relative z-10 container max-w-5xl mx-auto px-4">
-        {/* Title */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-center mb-12"
-        >
-          <p className="mb-3 text-xs font-bold uppercase tracking-widest text-empire">
-            {fr ? 'Étape 5 · Le prix' : 'Step 5 · The price'}
-          </p>
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
-            {fr
-              ? <>Le prix d’une équipe, <span className="text-empire">divisé par 100.</span></>
-              : <>The price of a team, <span className="text-empire">divided by 100.</span></>}
-          </h2>
-          <p className="mx-auto max-w-2xl text-base leading-relaxed text-neutral-400 md:text-lg">
-            {fr
-              ? 'Monteur, rédacteur, community manager, veille : ce que vous paieriez pour faire la même chose. Ici, vous pouvez ne payer que ce que vous consommez.'
-              : 'Editor, writer, community manager, research: what you would pay to do the same thing. Here, you can pay only for what you use.'}
-          </p>
-        </motion.div>
-
-        {/* Comparison Table */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.25 }}
-          className="rounded-2xl border border-white/[0.14] bg-[#141414] overflow-hidden mb-12 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]"
-        >
-          {/* Header - desktop only. Sur mobile chaque ligne porte ses propres
-              libellés, donc pas d'en-tête à faire tenir sur 3 colonnes. */}
-          <div className="hidden border-b border-white/10 md:grid md:grid-cols-[0.9fr_1fr_1fr_1.25fr]">
-            <div className="px-5 py-4" />
-            {COLUMNS.map((c) => (
-              <div
-                key={c.key}
-                className={`px-5 py-4 text-center border-l ${
-                  c.key === 'empire' ? 'border-empire/20 bg-empire/[0.06]' : 'border-white/[0.06]'
-                }`}
-              >
-                <p className={`text-xs font-bold uppercase tracking-wider ${c.key === 'empire' ? 'text-empire' : 'text-neutral-500'}`}>
-                  {t(c.label)}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          {/* Rows */}
-          {COMPARISONS.map((row, i) => (
-            <motion.div
-              key={row.dimension.en}
-              initial={{ opacity: 0, x: -10 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.4, delay: 0.3 + i * 0.06 }}
-              className={`md:grid md:grid-cols-[0.9fr_1fr_1fr_1.25fr] ${i < COMPARISONS.length - 1 ? 'border-b border-white/[0.06]' : ''}`}
-            >
-              {/* Dimension : titre de la ligne sur mobile, première colonne sur md+ */}
-              <div className="flex items-center px-4 pt-4 pb-2 md:px-5 md:py-4">
-                <p className="text-sm font-bold text-white">{t(row.dimension)}</p>
-              </div>
-
-              {COLUMNS.map((c) => {
-                const isEmpire = c.key === 'empire'
-                const isAlone = c.key === 'alone'
-                const Icon = isEmpire ? Check : isAlone ? X : Minus
-                return (
-                  <div
-                    key={c.key}
-                    className={`flex min-w-0 items-start gap-2.5 px-4 py-2 md:items-center md:border-l md:px-5 md:py-4 ${
-                      isEmpire
-                        ? 'mb-0 border-t border-empire/20 bg-empire/[0.06] pt-3 pb-4 md:border-t-0 md:pt-4'
-                        : 'md:border-white/[0.06]'
-                    }`}
-                  >
-                    <Icon
-                      size={14}
-                      className={`mt-0.5 shrink-0 md:mt-0 ${
-                        isEmpire ? 'text-empire' : isAlone ? 'text-red-400/70' : 'text-neutral-500'
-                      }`}
-                    />
-                    <div className="min-w-0">
-                      {/* Libellé de colonne, mobile uniquement */}
-                      <p className={`text-[10px] font-bold uppercase tracking-wider md:hidden ${isEmpire ? 'text-empire' : 'text-neutral-500'}`}>
-                        {t(c.label)}
-                      </p>
-                      <p
-                        className={`text-[13px] leading-snug [overflow-wrap:anywhere] ${
-                          isEmpire ? 'font-medium text-neutral-100' : 'text-neutral-400'
-                        }`}
-                      >
-                        {t(row[c.key])}
-                      </p>
-                    </div>
-                  </div>
-                )
-              })}
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="text-center"
-        >
-          <EmpireSalesCta source="home-comparison" />
-        </motion.div>
-      </div>
-    </section>
-  )
+export default function QuickWinsSection(){
+ const {autopilot}=useAutopilot(),reduced=useReducedMotion()
+ if(autopilot)return null
+ return <section className={s.section} aria-labelledby="comparison-title"><div className={s.wrap}>
+  <header className={s.heading}><small>05 · COÛT</small><h2 id="comparison-title">Le travail de toute une équipe.<br/><em>Réuni dans Empire.</em></h2></header>
+  <div className={s.team}>{PEOPLE.map(([name,role,cost],i)=><motion.article key={name} initial={reduced?false:{opacity:0,y:24}} whileInView={{opacity:1,y:0}} viewport={{once:true,amount:.25}} transition={{duration:.45,delay:(i%4)*.06}}><div role="img" aria-label={`Portrait illustratif : ${name}`} className={s.portrait} style={{backgroundImage:i<6?'url(https://empire-apercu-kevin-novembre-2026.austra1.chatgpt.site/demo/content-team.webp)':'url(https://empire-apercu-kevin-novembre-2026.austra1.chatgpt.site/demo/content-team-extra.webp)',backgroundSize:i<6?'300% 200%':'200% 100%',backgroundPosition:i<6?`${(i%3)*50}% ${Math.floor(i/3)*100}%`:`${(i-6)*100}% 50%`}}/><h3>{role}</h3><p>{name}</p><div className={s.price}>{cost} €<small>/ mois</small></div><motion.span initial={reduced?false:{opacity:0,y:5}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:.2}}><Check size={12}/>Inclus dans Empire</motion.span></motion.article>)}</div>
+  <div className={s.teamTotal}><span>Le budget de cette équipe</span><strong>10 500 €<small>/ mois</small></strong><span><Check size={14}/>Ces missions sont réunies dans Empire.</span></div>
+  <p className={s.illustration}>Équipe illustrée · exemple de budget mensuel, variable selon les missions.</p>
+  <div className={s.comparison}><header><span>UN SEUL SYSTÈME, DE L’IDÉE AU CLIENT</span><h3>Ce qui est pris en charge.</h3><p>Comparez en un regard.</p></header>
+   <div className={s.tableScroll} role="region" aria-label="Tableau comparatif, défilement horizontal sur petit écran" tabIndex={0}><table><caption className="sr-only">Création, diffusion et suivi : Empire, freelance, agence, ChatGPT et CapCut avec Buffer.</caption><thead><tr><th scope="col">Votre besoin</th>{COLUMNS.map((name,i)=><th key={name} scope="col" data-empire={i===0}>{i===0&&<b>E</b>}{name}</th>)}</tr></thead><tbody>{ROWS.map(([title,...cells])=><tr key={title}><th scope="row">{title}</th>{cells.map((cell,i)=><td key={i} data-empire={i===0}><span>{i===0&&<Check size={13}/>}<span>{cell}</span></span></td>)}</tr>)}</tbody></table></div>
+   <div className={s.tableFooter}><span><ArrowLeftRight size={13}/>Faites glisser pour comparer les solutions.</span><p>Prestations selon la mission, le contrat et l’offre. <a href="https://openai.com/chatgpt/use-cases/writing-with-ai/" target="_blank" rel="noreferrer">ChatGPT</a> · <a href="https://www.capcut.com/tools/add-subtitles-to-video" target="_blank" rel="noreferrer">CapCut</a> · <a href="https://buffer.com/publish" target="_blank" rel="noreferrer">Buffer</a>.</p></div>
+  </div><div className={s.cta}><EmpireSalesCta source="home-comparison"/></div>
+ </div></section>
 }
