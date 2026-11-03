@@ -1,0 +1,28 @@
+/* Navigation follows the current empire-internet.com/academy page. */
+:root{--header:61px}
+.empire-header{height:var(--header);padding:0;background:rgba(0,0,0,.95);border-bottom:1px solid #ffffff33;backdrop-filter:blur(12px);z-index:50;color:white}
+.empire-nav{max-width:1280px;width:100%;margin:auto;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;min-width:0}
+.empire-logo{font-size:20px;font-weight:700;letter-spacing:-.5px;flex-shrink:0}
+.empire-menu,.empire-account{display:flex;align-items:center;gap:4px}
+.empire-account{gap:8px}
+.empire-menu>a,.empire-resources summary,.empire-login{font-size:14px;font-weight:500;line-height:20px;color:#d4d4d4;padding:8px 12px;border-radius:8px;white-space:nowrap}
+.empire-menu>a[aria-current],.empire-menu>a:hover,.empire-login:hover,.empire-resources summary:hover{background:#ffffff12;color:white}
+.empire-join{font-size:14px;font-weight:650;line-height:20px;background:#fca5a5;color:#000;padding:8px 16px;border-radius:8px;white-space:nowrap}
+.empire-resources{position:relative}
+.empire-resources summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:5px}
+.empire-resources summary::-webkit-details-marker{display:none}
+.empire-dropdown{position:absolute;top:calc(100% + 12px);right:0;width:300px;padding:8px;background:#111;border:1px solid #ffffff26;border-radius:12px;box-shadow:0 12px 25px #0005}
+.empire-dropdown a{display:block;padding:12px;border-radius:6px;font-size:14px;line-height:1.5}
+.empire-dropdown a:hover{background:#ffffff0d}
+.empire-dropdown small{display:block;color:#a3a3a3;font-size:12px}
+.empire-menu-toggle{display:none;border:0;background:none;color:#fff;padding:5px}
+@media(max-width:1050px){
+ .empire-menu-toggle{display:flex}
+ .empire-menu{display:none;position:absolute;top:var(--header);left:0;right:0;padding:14px 16px;background:#0b0b0b;border-bottom:1px solid #ffffff26;max-height:calc(100svh - var(--header));overflow:auto;align-items:stretch}
+ .empire-menu.open{display:flex;flex-direction:column}
+ .empire-dropdown{position:static;width:auto;margin-top:5px}
+}
+@media(max-width:639px){.empire-join,.empire-login{display:none}.empire-nav{padding:12px 20px}.empire-logo{font-size:18px}.empire-header{height:61px}}
+
+.empire-menu .mobile-account{display:none}
+@media(max-width:639px){.empire-menu.open .mobile-account{display:block}}
