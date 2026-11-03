@@ -206,7 +206,7 @@ export default function HeroSection() {
                   <span className="text-[11px] font-semibold opacity-70">{t.autopilot.hero.ctaReassurance}</span>
                 </a>
               ) : (
-                /* L’essai est l’action principale ; le workshop reste accessible en second choix. */
+                /* L’essai est l’action principale ; la démo en second choix. */
                 <div className="flex w-full flex-col items-center gap-2 sm:w-auto">
                   {warm ? (
                     <button
@@ -244,14 +244,11 @@ export default function HeroSection() {
                         </span>
                       </button>
                       <a
-                        href="/vsl"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={() => trackAmplitude('home_hero_workshop_clicked')}
-                        className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/[0.04] px-6 py-2.5 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/[0.08]"
+                        href="/demo"
+                        onClick={() => trackAmplitude('empire_demo_clicked', { source: 'home-hero' })}
+                        className="inline-flex items-center gap-2 rounded-xl border border-white/25 px-6 py-2.5 text-sm font-semibold text-white transition hover:border-white/40 hover:bg-white/[0.06]"
                       >
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M7 4.5v15l13-7.5z" /></svg>
-                        {lang === 'fr' ? 'Voir le workshop gratuit' : 'Watch the free workshop'}
+                        {lang === 'fr' ? 'Demander une démo' : 'Request a demo'}
                       </a>
                     </>
                   )}
