@@ -16,7 +16,8 @@ function show(id,a=1){const n=el(id);n.style.opacity=String(clamp(a));n.style.vi
 function move(id,x=0,y=0,s=1,r=0){el(id).setAttribute('transform',`translate(${x.toFixed(2)} ${y.toFixed(2)}) scale(${s.toFixed(4)}) rotate(${r.toFixed(2)})`);}
 const layers=['chair','floor','bedroom','school','client-room','parcel-0','parcel-1','parcel-2','kevin','teacher','parent','desk','laptop','invoice','teacher-speech','ouch','success','parent-speech','client-label','delivery','order-0','order-1','small-spark-0','small-spark-1','first-payment'];
 const captions=[
- [0,'','À 19 ans, je voulais vendre un service sur Internet. <br><em>Il me fallait un site.</em>','',''],
+ [0,'','<span class="founder-kicker">L’histoire du fondateur</span>Pourquoi j’ai créé un nouveau métier : <br><em>Content Operator.</em>','',''],
+ [.05,'','À 19 ans, je voulais vendre un service sur Internet. <br><em>Il me fallait un site.</em>','',''],
  [.10,'','On m’a fait un devis : 20 000 € pour un site. <br><em>Je n’avais pas les moyens.</em>','',''],
  [.29,'','Alors, j’ai commencé à construire mon site seul, <br><em>même pendant les cours.</em>','',''],
  [.45,'','Mes professeurs n’ont pas aimé. <br><em>Ils m’ont pris mon ordinateur.</em>','',''],
@@ -49,9 +50,9 @@ place('laptop','surface-plane');layers.forEach(id=>show(id,0));show('floor');sho
  actor('kevin',460,490);studentPose();teacherPose();show('desk');show('chair',1-ease(p,.77,.82));laptop(620,482,1);screens(1,0,0);
  if(p<.29){
   for(let n=0;n<3;n++){const a=1-ease(p,.105,.17);show(`parcel-${n}`,a);move(`parcel-${n}`,840+(n%2)*105,425+n*65,.76,Math.sin(p*25+n)*5);}
-  const entry=ease(p,.015,.095),exit=ease(p,.22,.29);show('invoice',entry*(1-exit));
+  const entry=ease(p,.055,.11),exit=ease(p,.22,.29);show('invoice',entry*(1-exit));
   move('invoice',lerp(920,760,entry)+exit*280,lerp(510,444,entry)-exit*460,lerp(.55,.92,entry)*(1-exit*.55),lerp(14,-5,entry)+exit*30);
-  studentPose(ease(p,.09,.115)*(1-ease(p,.23,.27)));
+  studentPose(ease(p,.105,.125)*(1-ease(p,.23,.27)));
   show('stamp',ease(p,.16,.2));move('stamp',0,73,1,-9);
  }
  if(p>=.23&&p<.68){
@@ -89,16 +90,18 @@ place('laptop','surface-plane');layers.forEach(id=>show(id,0));show('floor');sho
 const next=window.makeAcademyContinuation({show,move,el,ease,lerp,caption:setCaption,jump});
 const chapterPoints=[0, 0.26, 0.4117, 0.5079, 0.6041000000000001, 0.7151000000000001, 0.8446];
 function paint(p){
- currentP=p;
+ currentP=p;el('stage-cta').hidden=p<.985;
  el('camera').style.display=p<.26?'':'none';
  el('continuation').style.display=p>=.26?'':'none';
  if(p<.26){el('study-link').hidden=true;paintPrologue(p/.26);}
  else{stage.classList.remove('night');world.setAttribute('viewBox',innerWidth<=700?'140 185 920 560':'0 185 1200 560');next.paint((p-.26)/.74);}
  let chapter=0;for(let i=1;i<chapterPoints.length;i++)if(p>=chapterPoints[i]-.0001)chapter=i;
- $$('.chapters [data-at]').forEach((n,i)=>n.setAttribute('aria-current',String(chapter===i)));
+ $$('.chapters [data-at]').forEach((n,i)=>n.setAttribute('aria-current',String(chapter===i)));track(chapter,p);
  $('#progress').style.width=(p*100)+'%';
  $('#scroll-cue').innerHTML=p>.985?'<i>↓</i> Découvrez le programme.':'<i>↓</i> Faites défiler, l’histoire avance.';
 }
+const seen=new Set();
+function track(chapter,p){const key=p>.985?'fin':'chapitre_'+(chapter+1);if(seen.has(key))return;seen.add(key);try{(window.dataLayer=window.dataLayer||[]).push({event:'academy_story_progress',story_step:key});}catch(e){}}
 function distance(){return Math.max(1,scene.offsetHeight-innerHeight);}
 function top(){return scene.getBoundingClientRect().top+scrollY;}
 function update(){pending=0;if(!simple)paint(clamp((scrollY-top())/distance()));}

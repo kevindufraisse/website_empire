@@ -8,7 +8,8 @@ window.makeAcademyContinuation=({show,move,el,ease,lerp,caption,jump})=>{
  const lines=[
  [0,'','Moins cher, plus rapide, <br><em>et je leur apprenais à s’en servir.</em>','',''],
  [0.055,'','Pendant cinq ans : 3 000, 5 000, puis 10 000 € par mois, <br><em>pendant que j’étais encore en cours.</em>','',''],
- [0.105,'','Puis tout le monde a découvert WordPress. <br><em>Un jour, le téléphone a moins sonné.</em>','',''],
+ [0.105,'','Puis tout le monde a découvert WordPress. <br><em>Un jour, le téléphone a arrêté de sonner.</em>','',''],
+ [0.127,'','J’étais en panique. <br><em>Mon avance avait disparu.</em>','',''],
  [0.145,'','J’ai compris qu’un outil secret pouvait rendre riche <br><em>et donner un avantage injuste à mes clients.</em>','',''],
  [0.175,'','Alors, j’ai cherché des outils. <br><em>Puis d’autres. Chaque jour.</em>','',''],
  [0.205,'','Et j’en ai fait une formation <br><em>qui a rassemblé plus de 4 000 personnes.</em>','',''],
@@ -38,13 +39,12 @@ window.makeAcademyContinuation=({show,move,el,ease,lerp,caption,jump})=>{
  el('story-feature').addEventListener('click',e=>{const approve=e.target.closest('[data-approve]');if(approve){approved=true;featureKey='';feature('board-review-true',panels.board('review',true));el('scene-note').textContent='Les quatre contenus sont validés. Faites défiler pour les voir dans le calendrier.';}});
  const note=copy=>el('scene-note').textContent=copy;
  return {paint(t){
-  currentT=t;pieces.forEach(id=>show(id,0));feature('',null);
+  currentT=t;el('story-feature').classList.remove('panic');pieces.forEach(id=>show(id,0));feature('',null);
   if(innerWidth<=700)el('world').setAttribute('viewBox',t>=.79&&t<.825?'300 200 600 540':t>=.825&&t<.89?'230 200 740 540':'140 185 920 560');
   el('study-link').hidden=true;el('session-timer').hidden=t<.825;note('');
   let index=0;for(let i=1;i<lines.length;i++)if(t>=lines[i][0])index=i;caption('next-'+index,lines[index]);
-  if(t<.055){feature('comparison',panels.comparison);el('story-feature').style.setProperty('--phase',ease(t,0,.05));note('Le devis reçu et mon service de l’époque, d’après mon expérience.');}
-  else if(t<.105){feature('earnings',panels.earnings);const q=ease(t,.057,.10);el('story-feature').style.setProperty('--phase',q);document.getElementById('earnings-value').textContent=q<.3?'3 000 €':q<.65?'5 000 €':'10 000 €';note('Chiffre d’affaires de mon parcours, avant frais et charges.');}
-  else if(t<.145){feature('decline',panels.decline);el('story-feature').style.setProperty('--phase',ease(t,.107,.14));note('WordPress devient largement connu. Le logiciel était déjà libre.');}
+  if(t<.105){feature('comparison',panels.comparison);const fs=el('story-feature'),q=ease(t,.057,.10);fs.style.setProperty('--phase',ease(t,0,.05));fs.style.setProperty('--phase2',q);const v=document.getElementById('my-price'),u=document.getElementById('my-price-unit');if(v){v.textContent=q<.45?'3 000 €':q<.8?'5 000 €':'10 000 €';u.textContent=q<.05?'pour un site':'par mois';}}
+  else if(t<.145){feature('decline',panels.decline);const q=ease(t,.107,.142);el('story-feature').style.setProperty('--phase',q);el('story-feature').classList.toggle('panic',q>.62);note('WordPress devient largement connu. Le logiciel était déjà libre.');}
   else if(t<.205){
    put('a34-studio',0,0,1,.18);for(let i=0;i<9;i++)put('a34-tool-'+i,340+(i%3)*250,310+Math.floor(i/3)*155,1);
    const q=ease(t,.145,.204)*8,j=Math.floor(q),f=q-j,n=Math.min(8,j+1);put('a34-lens',lerp(340+(j%3)*250,340+(n%3)*250,f),lerp(310+Math.floor(j/3)*155,310+Math.floor(n/3)*155,f));
