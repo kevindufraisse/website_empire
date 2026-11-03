@@ -11,7 +11,6 @@ import CompactIntegrations from '@/components/sections/CompactIntegrations'
 import EmpireCommunitySection from '@/components/sections/EmpireCommunitySection'
 
 const HomeDemoSection = dynamic(() => import('@/components/sections/HomeDemoSection'))
-const IncludedFeaturesSection = dynamic(() => import('@/components/sections/IncludedFeaturesSection'))
 const CaseStudiesSection = dynamic(() => import('@/components/sections/CaseStudiesSection'))
 const TestimonialsSection = dynamic(() => import('@/components/sections/TestimonialsSection'))
 const QuickWinsSection = dynamic(() => import('@/components/sections/QuickWinsSection'))
@@ -43,9 +42,6 @@ export default function Page() {
       <CompactIntegrations />
       <TestimonialsSection />
       <HomeTrialPrompt moment="proof" />
-      <div id="formula-visibility">
-        <IncludedFeaturesSection />
-      </div>
       <CaseStudiesSection />
       {/* Les prix restent sur /tarifs ; l'accueil propose l'essai et un lien vers les offres. */}
       <div id="formula-apply" className="scroll-mt-20">
