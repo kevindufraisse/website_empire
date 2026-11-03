@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createOrUpdateContact, addTagToContact, ValidationError } from '@/lib/systemeio'
+import { waitUntil } from '@vercel/functions'
+import { createOrUpdateContact, addTagToContact } from '@/lib/systemeio'
 
 export const runtime = 'nodejs'
 export const maxDuration = 120
@@ -28,15 +29,19 @@ export async function POST(req: NextRequest) {
   if (!process.env.SYSTEMEIO_API_KEY) {
     return NextResponse.json({ code: 'unavailable' }, { status: 503 })
   }
+  // Answer at once: Systeme.io can take up to 40 s to find an existing contact.
+  // The contact and the empire_home_gate tag are saved after the response.
+  waitUntil(register(email, body.locale === 'en' ? 'en' : 'fr'))
+  return NextResponse.json({ success: true })
+}
+
+async function register(email: string, locale: 'fr' | 'en') {
   try {
-    const contact = await createOrUpdateContact({ email, locale: body.locale === 'en' ? 'en' : 'fr' }, { lookupTimeoutMs: 40000 })
+    const contact = await createOrUpdateContact({ email, locale }, { lookupTimeoutMs: 40000 })
     const configured = Number(process.env.SYSTEMEIO_TAG_HOME_GATE)
     const tagId = Number.isSafeInteger(configured) && configured > 0 ? configured : HOME_GATE_TAG
     await addTagToContact(contact.id, tagId)
-    // Acknowledge registration only after the workflow tag has been applied.
-    return NextResponse.json({ success: true })
   } catch (error) {
     console.error('[home-masterclass] Registration failed', error instanceof Error ? error.name : 'UnknownError')
-    return NextResponse.json({ code: error instanceof ValidationError ? 'invalid_fields' : 'unavailable' }, { status: error instanceof ValidationError ? 400 : 502 })
   }
 }

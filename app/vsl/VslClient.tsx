@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import Script from 'next/script'
 import { Play, Pause, Volume2, VolumeX, Maximize, Check, ArrowRight, ChevronDown } from 'lucide-react'
 import { trackAmplitude } from '@/lib/amplitude'
-import { withAmplitudeDeviceId } from '@/lib/amplitude'
+import { startFreeTrial, TRIAL_TERMS_FR } from '@/lib/startTrial'
 import VideoEmailGate, { adoptEmailFromUrl, storedVideoEmail } from '@/components/VideoEmailGate'
 import { AudioPlayerCard, TextVersionSection, ExitFormatsPopup, useExitIntent } from '@/components/ListenReadFormats'
 import { SCRIPT_SECTIONS, READ_MINUTES } from './vslScript'
@@ -23,17 +23,9 @@ const clock = (sec: number) => {
 // pendant 3 mois, sur Growth ou Scale, pendant 72 h à partir de la première
 // visite d'un email. L'email donné pour la vidéo part avec le lien, la page
 // ne le redemande pas.
-const OFFER_URL = 'https://app.empire-internet.com/join/internet?offer=live'
 // Les boutons de l'offre n'apparaissent qu'après 10 min de vidéo
 // réellement regardées (avancer dans la barre ne compte pas).
-const OFFER_UNLOCK_SECONDS = 600
 const WATCHED_KEY = 'empire_vsl_watched_v1'
-const OFFER_POINTS = [
-  '300 € de moins par mois pendant 3 mois, sur Growth ou Scale',
-  'Valable 72 h à partir de ta première visite',
-  'Ton premier contenu livré sous 48 h',
-]
-
 const WHAT_YOU_GET = [
   {
     title: 'Des idées prêtes à filmer',
@@ -435,34 +427,15 @@ function VideoPlayer({
   )
 }
 
-function Ctas({ location, remaining = 0 }: { location: string; remaining?: number }) {
+// Pas d'attente : les deux choix sont visibles dès l'arrivée sur la page.
+function Ctas({ location }: { location: string }) {
   const [loading, setLoading] = useState(false)
 
-  if (remaining > 0) {
-    const min = Math.ceil(remaining / 60)
-    return (
-      <div className="w-full max-w-xl mx-auto rounded-xl border border-white/10 bg-white/[0.03] px-5 py-4 text-center">
-        <p className="text-sm text-neutral-300">
-          Une offre apparaît dans <span className="font-bold text-empire">{min} min</span> de vidéo
-        </p>
-        <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-white/10">
-          <div
-            className="h-full bg-empire transition-all"
-            style={{ width: `${Math.min(100, ((OFFER_UNLOCK_SECONDS - remaining) / OFFER_UNLOCK_SECONDS) * 100)}%` }}
-          />
-        </div>
-      </div>
-    )
-  }
-
-  const openOffer = () => {
+  const startTrial = () => {
     if (loading) return
     setLoading(true)
-    trackAmplitude('vsl_offer_clicked', { location })
-    const url = new URL(OFFER_URL)
-    const email = storedVideoEmail()
-    if (email) url.searchParams.set('email', email)
-    window.location.href = withAmplitudeDeviceId(url.toString())
+    trackAmplitude('vsl_trial_clicked', { location })
+    void startFreeTrial()
   }
 
   return (
@@ -470,11 +443,11 @@ function Ctas({ location, remaining = 0 }: { location: string; remaining?: numbe
       <div className="flex flex-col sm:flex-row gap-3">
         <button
           type="button"
-          onClick={openOffer}
+          onClick={startTrial}
           disabled={loading}
           className="flex-1 inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-empire px-7 py-3.5 text-base font-bold text-black shadow-[0_0_24px_rgb(var(--empire-rgb)_/_0.2)] transition hover:brightness-110 disabled:opacity-60"
         >
-          {loading ? 'Ouverture…' : 'Voir l’offre'}
+          {loading ? 'Ouverture…' : 'Commencer gratuitement'}
           {!loading && <ArrowRight className="w-5 h-5" />}
         </button>
         {/* Le même bouton que « Demander une démo » du site (EmpireSalesCta). */}
@@ -486,14 +459,7 @@ function Ctas({ location, remaining = 0 }: { location: string; remaining?: numbe
           Demander une démo
         </a>
       </div>
-      <ul className="mt-4 flex flex-col sm:flex-row sm:flex-wrap sm:justify-center gap-x-5 gap-y-1.5 text-sm text-neutral-400">
-        {OFFER_POINTS.map((p) => (
-          <li key={p} className="flex items-center gap-1.5">
-            <Check className="w-4 h-4 text-empire shrink-0" />
-            {p}
-          </li>
-        ))}
-      </ul>
+      <p className="mt-4 text-center text-sm text-neutral-400">{TRIAL_TERMS_FR}</p>
     </div>
   )
 }
@@ -521,8 +487,7 @@ export default function VslClient() {
   const [popupOpen, setPopupOpen] = useState(false)
   const [gateFor, setGateFor] = useState<'text' | 'audio' | null>(null)
   const [videoPlaying, setVideoPlaying] = useState(false)
-  const [watched, setWatched] = useState(0)
-  const remaining = Math.max(0, OFFER_UNLOCK_SECONDS - watched)
+  const [, setWatched] = useState(0)
 
   useEffect(() => {
     setWatched(Number(readStore(WATCHED_KEY)) || 0)
@@ -609,7 +574,7 @@ export default function VslClient() {
           )}
 
           <div className="mt-6">
-            <Ctas location="top" remaining={remaining} />
+            <Ctas location="top" />
           </div>
         </div>
       </section>
@@ -698,7 +663,7 @@ export default function VslClient() {
       <section className="relative pb-20 pt-4">
         <div className="container max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-2xl md:text-3xl font-bold mb-6">Prêt à appliquer la formule ?</h2>
-          <Ctas location="bottom" remaining={remaining} />
+          <Ctas location="bottom" />
         </div>
       </section>
     </main>
