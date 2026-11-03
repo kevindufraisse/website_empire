@@ -16,14 +16,14 @@ function show(id,a=1){const n=el(id);n.style.opacity=String(clamp(a));n.style.vi
 function move(id,x=0,y=0,s=1,r=0){el(id).setAttribute('transform',`translate(${x.toFixed(2)} ${y.toFixed(2)}) scale(${s.toFixed(4)}) rotate(${r.toFixed(2)})`);}
 const layers=['chair','floor','bedroom','school','client-room','parcel-0','parcel-1','parcel-2','kevin','teacher','parent','desk','laptop','invoice','teacher-speech','ouch','success','parent-speech','client-label','delivery','order-0','order-1','small-spark-0','small-spark-1','first-payment'];
 const captions=[
- [0,'','<span class="founder-kicker">L’histoire du fondateur</span>Pourquoi j’ai créé un nouveau métier : <br><em>Content Operator.</em>','',''],
- [0.05,'','J’étais en échec scolaire. <br><em>Tout le monde pensait que je ne ferais rien de ma vie.</em>','',''],
- [0.1,'','Je voulais vendre un service sur Internet. Un site coûtait 20 000 €. <br><em>Impossible pour moi.</em>','',''],
- [0.29,'','Alors j’ai appris seul, en cachette, <br><em>même pendant les cours.</em>','',''],
- [0.45,'','Mes profs m’ont confisqué mon ordinateur. <br><em>Encore un échec, pensaient-ils.</em>','',''],
- [0.68,'','Je n’ai pas lâché. La nuit, dans ma chambre, <br><em>j’ai fini mon site.</em>','',''],
- [0.79,'','Par le bouche-à-oreille, les parents de mes amis <br><em>sont devenus mes premiers clients.</em>','',''],
- [0.94,'','Mon premier site vendu : 3 000 € pour quelques heures de travail. <br><em>Moi, l’élève dont personne n’attendait rien.</em>','','']
+ [0,'','<span class="founder-kicker">L’histoire du fondateur</span>Je vais vous raconter pourquoi j’ai créé un nouveau métier : <br><em>Content Operator.</em>','',''],
+ [0.05,'','À l’école, j’étais nul. <br><em>Tout le monde pensait que je ne ferais rien de ma vie.</em>','',''],
+ [0.1,'','Moi, je voulais vendre un truc sur Internet. Il me fallait un site… 20 000 €. <br><em>Impossible.</em>','',''],
+ [0.29,'','Alors je me suis dit : je vais le faire moi-même. <br><em>Même en plein cours.</em>','',''],
+ [0.45,'','Mes profs ? Ils m’ont pris mon ordi. <br><em>Pour eux, j’étais encore en train de tout rater.</em>','',''],
+ [0.68,'','Mais je n’ai pas lâché. Le soir, dans ma chambre, <br><em>j’ai fini mon site.</em>','',''],
+ [0.79,'','Mes potes l’ont montré à leurs parents. <br><em>Et ils sont devenus mes premiers clients.</em>','',''],
+ [0.94,'','Premier site vendu : 3 000 €, en quelques heures. <br><em>Moi, le mec dont personne n’attendait rien.</em>','','']
 ];
 let currentCaption=-1,currentP=0,pending=0,playing=false,playRaf=0,playStart=0,playFrom=0,simple=false,modeChosen=false;
 // Complete rendered poses keep shoulders, elbows and hands anatomically consistent.
