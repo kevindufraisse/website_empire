@@ -10,9 +10,6 @@ export const maxDuration = 120
 const HOME_GATE_TAG = 2179856
 const HOME_GATE_TAG_NAME = 'empire_home_gate'
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
-// Au-delà, on répond « c'est enregistré » et l'inscription finit en arrière-plan.
-// Systeme.io met parfois 15 à 40 s à retrouver un contact existant.
-const FAST_REPLY_MS = 2500
 
 export async function POST(req: NextRequest) {
   let body: Record<string, unknown>
@@ -34,17 +31,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ code: 'unavailable' }, { status: 503 })
   }
 
-  const registration = register(email, body.locale === 'en' ? 'en' : 'fr')
-  waitUntil(registration.catch(() => {}))
-  const outcome = await Promise.race([
-    registration.then(() => 'done' as const, (err) => err),
-    new Promise<'pending'>((resolve) => setTimeout(() => resolve('pending'), FAST_REPLY_MS)),
-  ])
-  // Seule une adresse refusée par Systeme.io est signalée : le reste est fini
-  // ou continue en arrière-plan (et journalisé en cas d'échec).
-  if (outcome instanceof ValidationError) {
-    return NextResponse.json({ code: 'invalid_fields' }, { status: 400 })
-  }
+  // Réponse immédiate : l'inscription Systeme.io (parfois 15 à 40 s pour un
+  // contact existant) se termine après la réponse. L'email part via
+  // l'automatisation Systeme.io déclenchée par le tag.
+  waitUntil(register(email, body.locale === 'en' ? 'en' : 'fr').catch(() => {}))
   return NextResponse.json({ success: true })
 }
 
