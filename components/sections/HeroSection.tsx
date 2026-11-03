@@ -256,9 +256,6 @@ export default function HeroSection() {
                     </>
                   )}
                 </div>
-                    </>
-                  )}
-                </div>
               )}
             </div>
             {/* Preuve alignée sur la promesse : la promesse est « les formats
