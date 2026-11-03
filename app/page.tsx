@@ -9,6 +9,7 @@ import HomeMasterclassGate, { MasterclassReminder } from '@/components/sections/
 import HomeTrialPrompt from '@/components/sections/HomeTrialPrompt'
 import CompactIntegrations from '@/components/sections/CompactIntegrations'
 import EmpireCommunitySection from '@/components/sections/EmpireCommunitySection'
+import FormulaCompareSection from '@/components/sections/FormulaCompareSection'
 
 const HomeDemoSection = dynamic(() => import('@/components/sections/HomeDemoSection'))
 const CaseStudiesSection = dynamic(() => import('@/components/sections/CaseStudiesSection'))
@@ -38,6 +39,7 @@ export default function Page() {
         <HomeDemoSection />
       </div>
       <div id="formula-cost"><QuickWinsSection /></div>
+      <FormulaCompareSection />
       <CompactIntegrations />
       <TestimonialsSection />
       <HomeTrialPrompt moment="proof" />
