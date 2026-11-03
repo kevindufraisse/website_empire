@@ -4,6 +4,10 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react', 'framer-motion'],
   },
+  // Histoire Empire Academy (récit au scroll) : page statique dans public/academy/histoire.
+  async rewrites() {
+    return { beforeFiles: [{ source: '/academy/histoire', destination: '/academy/histoire/index.html' }] }
+  },
   async redirects() {
     return [
       // La candidature (formulaire puis bot WhatsApp) est remplacée par la
