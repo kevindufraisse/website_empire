@@ -13,9 +13,9 @@ const ROWS: { name: string; example: string; cells: [Mark, string][]; empire?: b
     name: 'Montage IA automatique',
     example: '« Un outil découpe mes vidéos »',
     cells: [
-      ['no', 'Insipide, aucune personnalité'],
+      ['no', 'Des extraits pris au hasard, sans angle'],
       ['partial', 'Un seul format : l’extrait découpé'],
-      ['partial', 'Souvent un seul réseau'],
+      ['partial', 'Vidéo seulement, rien pour l’écrit'],
       ['no', '10 à 15 h par semaine'],
       ['yes', '20 à 100 € par mois'],
     ],
@@ -135,7 +135,7 @@ export default function FormulaCompareSection() {
         <p className="mt-3 text-center text-[11px] text-neutral-600">Temps estimés pour une semaine type : 5 posts, 2 posts illustrés, 3 à 5 vidéos et leurs miniatures, publiés sur 7 réseaux. Coûts moyens, variables selon les prestataires.</p>
         <p className="mx-auto mt-8 max-w-2xl text-center text-lg font-semibold leading-snug text-white">
           Montage IA, studio, freelance : c’est un format sur dix, et vous ne l’avez jamais testé sur votre audience.{' '}
-          <span className="text-neutral-400">Si vous voulez continuer à payer cher pour peu de résultats, continuez.</span>
+          <span className="text-neutral-400">Si vous voulez continuer à y passer vos soirées ou à payer cher pour peu de résultats, continuez.</span>
         </p>
         <div className="mt-8">
           <EmpireSalesCta source="home-formula-compare" />
