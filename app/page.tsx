@@ -8,6 +8,7 @@ import FormulaBar from '@/components/FormulaBar'
 import HomeMasterclassGate, { MasterclassReminder } from '@/components/sections/HomeMasterclassGate'
 import HomeTrialPrompt from '@/components/sections/HomeTrialPrompt'
 import CompactIntegrations from '@/components/sections/CompactIntegrations'
+import EmpireCommunitySection from '@/components/sections/EmpireCommunitySection'
 
 const HomeDemoSection = dynamic(() => import('@/components/sections/HomeDemoSection'))
 const IncludedFeaturesSection = dynamic(() => import('@/components/sections/IncludedFeaturesSection'))
@@ -38,6 +39,7 @@ export default function Page() {
         <HomeDemoSection />
       </div>
       <div id="formula-cost"><QuickWinsSection /></div>
+      <EmpireCommunitySection />
       <CompactIntegrations />
       <TestimonialsSection />
       <HomeTrialPrompt moment="proof" />
