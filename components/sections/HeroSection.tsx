@@ -30,9 +30,9 @@ export default function HeroSection() {
   }, [])
 
   const heroBadge = autopilot ? t.autopilot.hero.targetAudience : t.hero.targetAudience
-  const heroTitle = autopilot ? t.autopilot.hero.title : (lang === 'fr' ? 'L’avantage injuste pour développer votre marque personnelle, accessible à tous.' : 'The unfair advantage for growing your personal brand, available to everyone.')
-  const heroTitleH2 = autopilot ? null : (lang === 'fr' ? 'Soyez vus, achetés et recommandés grâce à votre contenu.' : 'Get seen, chosen and recommended through your content.')
-  const heroTitleNote = autopilot ? null : (lang === 'fr' ? 'Sans avoir à l’écrire ni à le monter. Créez votre contenu en 15 minutes, à raison d’une heure par semaine.' : 'Without writing or editing it yourself. Create your content in 15 minutes, in just one hour a week.')
+  const heroTitle = autopilot ? t.autopilot.hero.title : (lang === 'fr' ? 'L’avantage injuste pour développer votre marque personnelle.' : 'The unfair advantage for growing your personal brand.')
+  const heroTitleH2 = autopilot ? null : (lang === 'fr' ? 'Soyez vus, achetés et recommandés grâce à votre contenu en 1h par semaine.' : 'Get seen, chosen and recommended through your content in one hour a week.')
+  const heroTitleNote = null
   // Hors autopilot, la formule (résultat net, termes floutés) prend la place
   // du paragraphe, avec une phrase qui invite à la découvrir en descendant. Voir `FormulaBar` et le slot `formula-hero-slot`.
   const heroSubtitle = autopilot ? t.autopilot.hero.subtitle : null
