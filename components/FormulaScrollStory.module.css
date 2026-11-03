@@ -244,3 +244,12 @@
 .watchRow small svg{width:9px;height:9px}
 .watchRow b{display:block;font-size:8px;line-height:1.3;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .watchRow>svg{color:#348050;flex-shrink:0}
+
+/* Lecteur YouTube toujours au format 16:9 (il s'écrasait sur les écrans peu hauts). */
+.youtubePlayer{flex:none;aspect-ratio:16/9;height:auto;max-height:none}
+.youtubePlayer>div:first-child{height:calc(100% - 18px);width:100%;max-width:none;aspect-ratio:auto}
+.youtubePlayer>div:last-child{height:18px}
+.youtubeGeneratedCover{inset:0 0 18px}
+.youtubeThumbnail{max-height:none;height:100%}
+.youtubeTitle{padding:8px 11px 3px}.youtubeTitle>b{font-size:12px;line-height:1.2}.youtubeTitle>span{font-size:7px;margin-top:3px}
+.youtubeChannel{padding:4px 11px 6px}
