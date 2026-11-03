@@ -38,7 +38,7 @@ const VIEWS = [10000, 50000, 53000, 150000, 3000, 6000, 8000]
 const TOTAL = VIEWS.reduce((a, b) => a + b, 0)
 const LABELS = ['Réaction', 'Tier list', 'FAQ', 'Devine', 'Clonage', 'YouTube long']
 const CHAPTERS = [['message', 'Message'], ['format', 'Format'], ['diffusion', 'Diffusion'], ['time', 'Temps'], ['cost', 'Coût']]
-const rawAt = (t: number) => t <= .28 ? t / .28 * 34 : 34 + (t - .28) / .85 * 66
+const rawAt = (t: number) => t <= .28 ? t / .28 * 21 : 21 + (t - .28) / .85 * 79
 const anchorAt = (n: number) => rawAt(n/100 + (n>=56.8?.13:n>=53.5?.06:0))
 const fmt = (v: number) => Math.round(v).toLocaleString('fr-FR')
 const clamp = (v: number) => Math.max(0, Math.min(1, v))
@@ -80,6 +80,8 @@ function ReelArtwork({ small = false }: { small?: boolean }) {
 }
 
 const SENDS = IDEA_TIMELINE.slice(0,6).map(item=>item.at)
+// Étapes du chat : six envois, puis la veille concurrentielle (un seul message).
+const STEPS = [...SENDS, IDEA_TIMELINE[6].at]
 const FORMATS = ['FAQ','Tier list','FAQ','Réaction','FAQ','Devine']
 function ChatExchange({ p, index }: { p: Progress; index: number }) {
  const at=SENDS[index]
@@ -100,15 +102,24 @@ function ChatExchange({ p, index }: { p: Progress; index: number }) {
   </Reveal>
  </div>
 }
-function MarketMessage({p,index}:{p:Progress;index:number}){
- const at=IDEA_TIMELINE[index+6].at
- const Icon=index===0?SocialIcons.instagram:index===1?SocialIcons.linkedin:SocialIcons.youtube
+// Un seul message pour la veille concurrentielle : les comptes suivis
+// apparaissent un à un dans la même bulle, au lieu de quatre messages.
+const WATCHED=[
+ {img:'/webinar/yomi-denzel.jpg',name:'Yomi Denzel',net:'Reel Instagram',Icon:SocialIcons.instagram,title:'Les conseils business à remettre en question'},
+ {img:'/creators/welsh.webp',name:'Justin Welsh',net:'Post LinkedIn',Icon:SocialIcons.linkedin,title:'Qui écouter quand on entreprend ?'},
+ {img:'/creators/abdaal.webp',name:'Ali Abdaal',net:'Vidéo YouTube',Icon:SocialIcons.youtube,title:'Les erreurs des entrepreneurs qui démarrent'},
+ {img:'',name:'BFM Business',net:'Actualité',Icon:null,title:'PME : l’heure de l’IA agentique a-t-elle sonné ?'},
+]
+function CompetitorsMessage({p}:{p:Progress}){
+ const at=IDEA_TIMELINE[6].at
  return <div className={s.marketExchange}><Reveal p={p} start={at} className={s.incoming}>
   <span className={s.marketSender}><span>E</span>Empire vous propose</span>
-  <p>{['Un concurrent suivi a partagé ce Reel.','Ce post LinkedIn décolle chez un concurrent.','Une vidéo repérée chez un créateur suivi.','Un sujet repéré dans BFM Business.'][index]}</p>
-  {index===3?<a className={s.newsPreview} href="https://www.bfmtv.com/economie/replay-emissions/tech-and-co/video-pme-l-heure-de-l-ia-agentique-a-t-elle-sonne-13-10_VN-202610130909.html" target="_blank" rel="noreferrer"><span><b>BFM<small>BUSINESS</small></b><span>Tech & Co<br/><small>13 octobre 2026</small></span></span><strong>PME : l’heure de l’IA agentique a-t-elle sonné ?</strong><small>Lire la source sur bfmtv.com ↗</small></a>:<div className={s.marketPost}><img src={['/webinar/yomi-denzel.jpg','/creators/welsh.webp','/creators/abdaal.webp'][index]} alt={['Yomi Denzel','Justin Welsh','Ali Abdaal'][index]+' — photo réelle'}/><div><Icon/><small>{['Yomi Denzel · Reel Instagram','Justin Welsh · post LinkedIn · exemple','Ali Abdaal · vidéo YouTube'][index]}</small><b>{['Les conseils business à remettre en question','Qui écouter quand on entreprend ?','Les erreurs des entrepreneurs qui démarrent'][index]}</b></div></div>}
-  <p className={s.marketAngle}>Votre angle : {['les conseils que vous appliquez vraiment.','votre classement, avec vos critères.','les erreurs à éviter dans votre activité.','ce que l’IA peut changer dans votre quotidien.'][index]}</p>
-  <Reveal p={p} start={at+.010} className={s.marketSaved}><Check size={12}/>Idée ajoutée à Empire</Reveal>
+  <p>Ce qui marche cette semaine chez les comptes que vous suivez :</p>
+  <div className={s.watchList}>{WATCHED.map((w,i)=><Reveal key={w.name} p={p} start={IDEA_TIMELINE[6+i].at+(i===0?.004:0)} className={s.watchRow}>
+   {w.img?<img src={w.img} alt={w.name}/>:<span className={s.watchNews}>BFM</span>}
+   <div><small>{w.Icon&&<w.Icon/>}{w.name} · {w.net}</small><b>{w.title}</b></div><Check size={12}/>
+  </Reveal>)}</div>
+  <Reveal p={p} start={IDEA_TIMELINE[9].at+.010} className={s.marketSaved}><Check size={12}/>4 idées ajoutées à Empire, avec votre angle</Reveal>
  </Reveal></div>
 }
 function Chat({ p, active }: { p: Progress; active: boolean }) {
@@ -123,13 +134,13 @@ function Chat({ p, active }: { p: Progress; active: boolean }) {
  const opacity=useTransform(p,[.269,.29],[1,0]),y=useTransform(p,[.269,.29],[0,-55])
  const trackY=useTransform(p,v=>{
   let offset=0
-  for(let i=1;i<IDEA_TIMELINE.length;i++){
-   const height=320,at=IDEA_TIMELINE[i].at
+  for(let i=1;i<STEPS.length;i++){
+   const height=320,at=STEPS[i]
    offset-=height*clamp((v-(at-.006))/.006)
   }
   // Bring each acknowledgement into view, using the phone's actual available height.
   let lift=0
-  IDEA_TIMELINE.forEach((item,i)=>{const next=IDEA_TIMELINE[i+1]?.at??.29;lift+=(messageOverflow.current[i]||0)*clamp((v-(item.at+.010))/.007)*(1-clamp((v-(next-.006))/.006))})
+  STEPS.forEach((at,i)=>{const next=STEPS[i+1]??.29;lift+=(messageOverflow.current[i]||0)*clamp((v-(at+.010))/.007)*(1-clamp((v-(next-.006))/.006))})
   return offset-lift
  })
  const tap=useTransform(p,v=>Math.max(...SENDS.map(at=>Math.max(0,1-Math.abs(v-at)/.003))))
@@ -142,7 +153,7 @@ function Chat({ p, active }: { p: Progress; active: boolean }) {
  return <motion.div className={s.chatScene} style={{opacity,y}} aria-hidden={!active}>
   <IdeaSources p={p}/><div className={`${s.phone} ${s.chatPhone}`}><PhoneTop/>
    <div className={s.chatHeader}><ChevronLeft size={19}/><span className={s.empireBadge}>E</span><div><b>Empire</b><small>Votre assistant contenu</small></div><Video size={18}/></div>
-   <div ref={viewportRef} className={s.chatViewport}><span className={s.dayStamp}>Aujourd’hui</span><motion.div ref={trackRef} className={s.chatTrack} style={{y:trackY}}>{SENDS.map((_,i)=><ChatExchange key={i} p={p} index={i}/>)}{[0,1,2,3].map(i=><MarketMessage key={`market-${i}`} p={p} index={i}/>)}</motion.div></div>
+   <div ref={viewportRef} className={s.chatViewport}><span className={s.dayStamp}>Aujourd’hui</span><motion.div ref={trackRef} className={s.chatTrack} style={{y:trackY}}>{SENDS.map((_,i)=><ChatExchange key={i} p={p} index={i}/>)}<CompetitorsMessage p={p}/></motion.div></div>
    <div className={s.composer}><Plus size={18}/><div><motion.span>{typed}</motion.span><span className={s.composePlaceholder}>Message</span></div><span className={s.sendIcon}><Send size={16}/><motion.i style={{opacity:tap,scale:tapScale}}/></span></div><div className={s.phoneHome}/>
   </div>
  </motion.div>
@@ -268,7 +279,7 @@ export function SourcesStory() {
   const reduced = useReducedMotion()
   const ref = useRef<HTMLElement>(null)
   const { scrollYProgress: rawP } = useScroll({ target: ref, offset: ['start start', 'end end'] })
-  const timeline = useTransform(rawP, [0,.34,1], [0,.28,1.13])
+  const timeline = useTransform(rawP, [0,.21,1], [0,.28,1.13])
   const sequenceP = useTransform(timeline, [0,.535,.595,.628,.698,1.13], [0,.535,.535,.568,.568,1])
   const [formatsEnded,setFormatsEnded]=useState(false)
   const p = useTransform(sequenceP, [0, .82, .92, 1], [0, .82, .82, 1])
