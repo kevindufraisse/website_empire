@@ -1,0 +1,59 @@
+/* v36 (3 nov. 2026) : une seule grande phrase par étape, comme une BD. */
+#era,#caption,.title-block .eyebrow,.title-block p,.scene-word,#scene-note{display:none!important}
+.title-block h1{font-size:clamp(28px,3.1vw,46px);max-width:1000px;margin-left:auto;margin-right:auto;text-wrap:balance}
+@media(max-width:700px){.title-block h1{font-size:clamp(23px,6.4vw,30px)}.title-block h1 br{display:none}}
+/* La nuit tombe sur la chambre quand le site se termine. */
+.night-layer{opacity:0;transition:opacity .5s}
+.stage.night .night-layer{opacity:1}
+.stage.night #bedroom image{filter:brightness(.42) saturate(.7) hue-rotate(-12deg);transition:filter .5s}
+.stage.night #kevin{filter:brightness(.82)}
+/* Moi + WordPress : le gagnant. */
+.comparison-panel .agency-quote{opacity:calc(1 - var(--phase,0)*.45);transform:scale(calc(1 - var(--phase,0)*.05))}
+.comparison-panel .my-quote{position:relative;transform:scale(calc(1 + var(--phase,0)*.06));box-shadow:0 0 0 calc(var(--phase,0)*3px) #f45b91,0 18px 40px #d9367333}
+.winner-badge{position:absolute;top:-16px;right:18px;background:#f45b91;color:#fff;font-weight:700;font-size:12px;letter-spacing:.04em;padding:7px 12px;border-radius:999px;opacity:var(--phase,0);transform:rotate(4deg)}
+/* Le téléphone sonne de moins en moins. */
+.phone-decline{display:flex;align-items:center;justify-content:center;gap:clamp(24px,6vw,90px);height:100%;padding:10px}
+.ringing-phone{position:relative;width:min(270px,60vw);aspect-ratio:9/17;background:#fffaf5;border:9px solid #242326;border-radius:38px;padding:30px 14px 14px;box-shadow:0 22px 50px #24232633;overflow:hidden}
+.rp-notch{position:absolute;top:8px;left:50%;width:70px;height:16px;margin-left:-35px;background:#242326;border-radius:10px}
+.rp-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}.rp-head b{font-size:17px}
+.rp-count{position:relative;font-size:9px;color:#d93673;text-align:right}.rp-count i{font-style:normal;display:block;transition:opacity .2s}
+.rp-few{position:absolute;right:0;top:0;opacity:0}
+.rp-call{display:flex;align-items:center;gap:9px;background:#fff;border:1px solid #ecdcd4;border-radius:13px;padding:9px 10px;margin-bottom:8px;opacity:clamp(0,calc((1 - var(--phase,0)*1.25) * 5 - var(--i)),1);transform:translateX(calc((1 - clamp(0,calc((1 - var(--phase,0)*1.25) * 5 - var(--i)),1))*-40px))}
+.rp-call:first-child{opacity:1;transform:none}
+.rp-icon{flex:0 0 30px;height:30px;border-radius:50%;background:#f45b91;color:#fff;display:grid;place-items:center;font-size:14px;animation:rp-ring .5s infinite alternate}
+.rp-call div{flex:1;min-width:0}.rp-call b{display:block;font-size:11px}.rp-call small{font-size:9px;color:#816977}.rp-call em{font-style:normal;font-size:8px;color:#d93673;white-space:nowrap}
+.rp-silence{position:absolute;bottom:22px;left:0;right:0;text-align:center;font-size:14px;color:#816977;opacity:clamp(0,calc(var(--phase,0)*3 - 2),1)}
+.phone-decline .rp-many{opacity:clamp(0,calc(3 - var(--phase,0)*4),1)}.phone-decline .rp-few{opacity:clamp(0,calc(var(--phase,0)*4 - 2),1)}
+.diy-side{text-align:center;max-width:220px;opacity:clamp(0,calc(var(--phase,0)*2),1)}.diy-side img{width:76px;margin:0 auto 14px}.diy-side p{font-size:18px;line-height:1.3;font-weight:600;color:#242326}
+@keyframes rp-ring{from{transform:rotate(-12deg)}to{transform:rotate(12deg)}}
+@media(prefers-reduced-motion:reduce){.rp-icon{animation:none}}
+@media(max-width:700px){.phone-decline{flex-direction:column;gap:12px}.ringing-phone{width:min(200px,52vw)}.diy-side p{font-size:14px}.diy-side img{width:50px;margin-bottom:6px}}
+/* Formateurs : rien à cliquer, le défilement choisit B. */
+.choice-panel .trainer-card{cursor:default;transition:opacity .4s,transform .4s,box-shadow .4s;position:relative}
+.choice-panel.is-decided .trainer-a{opacity:.42;transform:scale(.96)}
+.choice-panel.is-decided .personal-trainer{transform:scale(1.04);box-shadow:0 0 0 3px #f45b91,0 18px 40px #d9367333}
+.choice-check{position:absolute;top:-14px;right:14px;z-index:2;background:#f45b91;color:#fff;font-weight:700;font-size:12px;padding:6px 12px;border-radius:999px;opacity:0;transition:opacity .3s}
+.choice-panel.is-decided .choice-check{opacity:1}
+.trainer-a-portrait{width:100%;height:100%;display:block}
+/* L'équipe d'avant, son coût, et Empire. */
+.team-cost{display:flex;align-items:center;justify-content:center;gap:clamp(14px,3vw,40px);height:100%;padding:10px}
+.team-cost article{background:#fffaf5;border:1px solid #e5d3cb;border-radius:22px;padding:22px 24px;width:min(360px,44%)}
+.team-cost small{font-size:10px;letter-spacing:.14em;color:#816977;font-weight:700}
+.tc-team ul{list-style:none;margin:14px 0 10px;padding:0}
+.tc-team li{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dashed #e5d3cb;font-size:15px;opacity:clamp(0,calc(var(--phase,0)*6 - var(--i)),1)}
+.tc-team li b{font-variant-numeric:tabular-nums}
+.tc-total{display:flex;justify-content:space-between;align-items:baseline;margin-top:8px;opacity:clamp(0,calc(var(--phase,0)*3 - 1.2),1)}
+.tc-total span{font-size:13px;color:#816977}.tc-total b{font-size:34px;letter-spacing:-.04em;color:#242326;text-decoration:line-through;text-decoration-color:#f45b91;text-decoration-thickness:calc(var(--phase,0)*4px)}
+.tc-team p{font-size:10px;color:#9a8790;margin:10px 0 0}
+.tc-arrow{font-size:30px;color:#d93673;opacity:clamp(0,calc(var(--phase,0)*3 - 1.6),1)}
+.tc-empire{background:#f45b91!important;border-color:#f45b91!important;color:#fff;opacity:clamp(0,calc(var(--phase,0)*3 - 1.8),1);transform:scale(calc(.94 + clamp(0,calc(var(--phase,0)*3 - 1.8),1)*.06))}
+.tc-empire small{color:#ffe3ee}.tc-empire h2{font-size:44px;letter-spacing:-.05em;margin:10px 0}.tc-empire p{font-size:14px;line-height:1.5;margin:0 0 18px;color:#fff}
+.tc-price{display:flex;align-items:baseline;gap:8px}.tc-price b{font-size:40px;letter-spacing:-.04em}.tc-price span{font-size:13px}
+@media(max-width:700px){.team-cost{flex-direction:column;gap:8px}.team-cost article{width:100%;padding:12px 16px;border-radius:16px}.tc-team ul{margin:6px 0}.tc-team li{padding:4px 0;font-size:12px}.tc-total b{font-size:24px}.tc-arrow{transform:rotate(90deg);font-size:20px}.tc-empire h2{font-size:28px;margin:4px 0}.tc-empire p{font-size:11px;margin-bottom:6px}.tc-price b{font-size:26px}}
+/* Chaque mois, la mission recommence. */
+.receipt-month rect{fill:#fff7ef;stroke:#d9c3bc;stroke-width:2;transition:fill .3s}
+.receipt-month text{font-size:15px;font-weight:700;text-anchor:middle;fill:#b9a3aa}
+.receipt-month.on rect{fill:#f45b91;stroke:#f45b91}.receipt-month.on text{fill:#fff}
+/* Les têtes ne sont plus coupées dans les formats. */
+.content-image .content-still{object-position:top}
+@media(max-width:700px){.ringing-phone{width:min(235px,64vw);padding:26px 10px 10px}.rp-call em{display:none}.rp-call b{font-size:10px}.rp-call small{font-size:8px}}

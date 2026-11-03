@@ -16,13 +16,13 @@ function show(id,a=1){const n=el(id);n.style.opacity=String(clamp(a));n.style.vi
 function move(id,x=0,y=0,s=1,r=0){el(id).setAttribute('transform',`translate(${x.toFixed(2)} ${y.toFixed(2)}) scale(${s.toFixed(4)}) rotate(${r.toFixed(2)})`);}
 const layers=['chair','floor','bedroom','school','client-room','parcel-0','parcel-1','parcel-2','kevin','teacher','parent','desk','laptop','invoice','teacher-speech','ouch','success','parent-speech','client-label','delivery','order-0','order-1','small-spark-0','small-spark-1','first-payment'];
 const captions=[
- [0,'À 19 ANS · LE POINT DE DÉPART','Je voulais vendre un service<br><em>sur Internet.</em>','Il me fallait un site.','UN PROJET'],
- [.10,'LE DEVIS','20 000 € pour un site.<br><em>J’étais étudiant.</em>','Je n’avais pas les moyens.','UN OBSTACLE'],
- [.29,'AU LYCÉE','Alors, j’ai commencé<br><em>à le construire seul.</em>','Même pendant les cours.','APPRENDRE EN FAISANT'],
- [.45,'EN CLASSE','Mes professeurs<br><em>n’ont pas aimé.</em>','Ils m’ont privé de mon ordinateur.','UN ORDINATEUR CONFISQUÉ'],
- [.68,'DEUX SEMAINES PLUS TARD','J’ai continué.<br><em>Mon site était prêt.</em>','Je l’ai montré à mes amis. Ils l’ont montré à leurs parents.','LE PREMIER SITE'],
- [.79,'LE BOUCHE-À-OREILLE','« Tu peux faire le mien<br><em>pour 3 000 € ? »</em>','Les parents de mes amis sont devenus mes premiers clients.','UNE PREMIÈRE DEMANDE'],
- [.94,'MES PREMIERS 3 000 €','Quelques heures de travail.<br><em>Grâce à un outil.</em>','Et mes clients étaient contents de me payer. Voici pourquoi.','LE DÉCLIC']
+ [0,'','À 19 ans, je voulais vendre un service sur Internet. <br><em>Il me fallait un site.</em>','',''],
+ [.10,'','On m’a fait un devis : 20 000 € pour un site. <br><em>Je n’avais pas les moyens.</em>','',''],
+ [.29,'','Alors, j’ai commencé à construire mon site seul, <br><em>même pendant les cours.</em>','',''],
+ [.45,'','Mes professeurs n’ont pas aimé. <br><em>Ils m’ont pris mon ordinateur.</em>','',''],
+ [.68,'','J’ai continué, le soir, dans ma chambre. <br><em>Mon site était prêt.</em>','',''],
+ [.79,'','Par le bouche-à-oreille, les parents de mes amis <br><em>sont devenus mes premiers clients.</em>','',''],
+ [.94,'','Mon premier site vendu : 3 000 €, <br><em>pour quelques heures de travail. Grâce à un outil.</em>','','']
 ];
 let currentCaption=-1,currentP=0,pending=0,playing=false,playRaf=0,playStart=0,playFrom=0,simple=false,modeChosen=false;
 // Complete rendered poses keep shoulders, elbows and hands anatomically consistent.
