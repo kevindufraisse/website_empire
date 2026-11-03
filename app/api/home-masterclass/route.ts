@@ -1,13 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createOrUpdateContact, addTagToContact, ValidationError } from '@/lib/systemeio'
+import { waitUntil } from '@vercel/functions'
+import { createOrUpdateContact, addTagToContact, ensureTagByName, ValidationError, ContactLookupError } from '@/lib/systemeio'
 
 export const runtime = 'nodejs'
 export const maxDuration = 120
 
-// Restore the existing homepage tag. The delivery automation in Systeme.io
-// must be attached to empire_home_gate; do not use the VSL or demo-request tags.
+// L'automatisation d'envoi de la masterclass dans Systeme.io est attachée au
+// tag « empire_home_gate » (id 2179856). Ne pas utiliser les tags VSL ou démo.
 const HOME_GATE_TAG = 2179856
+const HOME_GATE_TAG_NAME = 'empire_home_gate'
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
+// Au-delà, on répond « c'est enregistré » et l'inscription finit en arrière-plan.
+// Systeme.io met parfois 15 à 40 s à retrouver un contact existant.
+const FAST_REPLY_MS = 2500
 
 export async function POST(req: NextRequest) {
   let body: Record<string, unknown>
@@ -28,15 +33,39 @@ export async function POST(req: NextRequest) {
   if (!process.env.SYSTEMEIO_API_KEY) {
     return NextResponse.json({ code: 'unavailable' }, { status: 503 })
   }
+
+  const registration = register(email, body.locale === 'en' ? 'en' : 'fr')
+  waitUntil(registration.catch(() => {}))
+  const outcome = await Promise.race([
+    registration.then(() => 'done' as const, (err) => err),
+    new Promise<'pending'>((resolve) => setTimeout(() => resolve('pending'), FAST_REPLY_MS)),
+  ])
+  // Seule une adresse refusée par Systeme.io est signalée : le reste est fini
+  // ou continue en arrière-plan (et journalisé en cas d'échec).
+  if (outcome instanceof ValidationError) {
+    return NextResponse.json({ code: 'invalid_fields' }, { status: 400 })
+  }
+  return NextResponse.json({ success: true })
+}
+
+async function register(email: string, locale: 'fr' | 'en') {
+  const startedAt = Date.now()
   try {
-    const contact = await createOrUpdateContact({ email, locale: body.locale === 'en' ? 'en' : 'fr' }, { lookupTimeoutMs: 40000 })
+    const contact = await createOrUpdateContact({ email, locale }, { lookupTimeoutMs: 60000 })
     const configured = Number(process.env.SYSTEMEIO_TAG_HOME_GATE)
     const tagId = Number.isSafeInteger(configured) && configured > 0 ? configured : HOME_GATE_TAG
-    await addTagToContact(contact.id, tagId)
-    // Acknowledge registration only after the workflow tag has been applied.
-    return NextResponse.json({ success: true })
+    try {
+      await addTagToContact(contact.id, tagId)
+    } catch (tagErr) {
+      // Id introuvable ou changé : on retrouve le tag par son nom.
+      console.error('[home-masterclass] tag id', tagId, 'failed, retrying by name', tagErr)
+      await addTagToContact(contact.id, await ensureTagByName(HOME_GATE_TAG_NAME))
+    }
+    console.log('[home-masterclass] ok', Date.now() - startedAt, 'ms')
   } catch (error) {
-    console.error('[home-masterclass] Registration failed', error instanceof Error ? error.name : 'UnknownError')
-    return NextResponse.json({ code: error instanceof ValidationError ? 'invalid_fields' : 'unavailable' }, { status: error instanceof ValidationError ? 400 : 502 })
+    if (error instanceof ValidationError) console.warn('[home-masterclass] email refusé par Systeme.io', error.message)
+    else if (error instanceof ContactLookupError) console.error('[home-masterclass] contact existant introuvable, tag non posé', error)
+    else console.error('[home-masterclass] registration failed', error)
+    throw error
   }
 }

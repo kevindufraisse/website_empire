@@ -38,10 +38,10 @@ export default function Page() {
         <HomeDemoSection />
       </div>
       <div id="formula-cost"><QuickWinsSection /></div>
-      <EmpireCommunitySection />
       <CompactIntegrations />
       <TestimonialsSection />
       <HomeTrialPrompt moment="proof" />
+      <EmpireCommunitySection />
       <CaseStudiesSection />
       {/* Les prix restent sur /tarifs ; l'accueil propose l'essai et un lien vers les offres. */}
       <div id="formula-apply" className="scroll-mt-20">
