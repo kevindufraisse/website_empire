@@ -21,7 +21,8 @@ const captions=[
  [0.1,'','Moi, je voulais vendre un truc sur Internet. Il me fallait un site… 20 000 €. <br><em>Impossible.</em>','',''],
  [0.29,'','Alors je me suis dit : je vais le faire moi-même. <br><em>Même en plein cours.</em>','',''],
  [0.45,'','Mes profs ? Ils m’ont pris mon ordi. <br><em>Pour eux, j’étais encore en train de tout rater.</em>','',''],
- [0.68,'','Mais je n’ai pas lâché. Le soir, dans ma chambre, <br><em>j’ai fini mon site.</em>','',''],
+ [0.68,'','Mais je n’ai pas lâché. Pendant deux semaines, chaque soir, <br><em>j’ai appris à me servir d’un outil. Tout seul.</em>','',''],
+ [0.745,'','Deux semaines plus tard, <br><em>mon site était prêt.</em>','',''],
  [0.79,'','Mes potes l’ont montré à leurs parents. <br><em>Et ils sont devenus mes premiers clients.</em>','',''],
  [0.94,'','Premier site vendu : 3 000 €, en quelques heures. <br><em>Moi, le mec dont personne n’attendait rien.</em>','','']
 ];
@@ -37,8 +38,8 @@ function setCaption(key,c){if(currentCaption===key)return;currentCaption=key;$('
 function text(p){let index=0;for(let n=1;n<captions.length;n++)if(p>=captions[n][0])index=n;setCaption('start-'+index,captions[index]);}
 function paintPrologue(p){
  text(p);el('stage').classList.remove('feature-mode');el('story-feature').hidden=true;el('session-timer').hidden=true;el('scene-note').textContent=p>=.45&&p<.61?'Le professeur : « On ferme l’ordinateur. »':p>=.755&&p<.79?'Mon premier site est en ligne.':p>=.82&&p<.925?'Un parent d’un ami : « Tu pourrais faire le mien ? »':p>=.925?'Mon premier site vendu : 3 000 €. Le raccourci s’appelait WordPress.':' ';
-place('laptop','surface-plane');layers.forEach(id=>show(id,0));show('floor');show('moon',0);show('sun');show('lamp-beam',0);show('stamp',0);show('code-cover');move('camera');move('desk');move('bedroom');move('school');move('client-room');move('laptop');move('invoice');move('floor');
- const compact=innerWidth<=700;
+place('laptop','surface-plane');layers.forEach(id=>show(id,0));show('two-weeks',0);show('floor');show('moon',0);show('sun');show('lamp-beam',0);show('stamp',0);show('code-cover');move('camera');move('desk');move('bedroom');move('school');move('client-room');move('laptop');move('invoice');move('floor');
+ const compact=innerWidth<=700,compactTw=compact;
  // The mobile camera follows the important action while retaining the shared scene.
  let cameraX=compact?255:0, cameraW=compact?700:1200;
  if(compact&&p>=.40&&p<.68)cameraX=lerp(255,330,ease(p,.40,.50));if(compact&&p>=.79)cameraX=lerp(255,330,ease(p,.79,.84));
@@ -69,7 +70,8 @@ place('laptop','surface-plane');layers.forEach(id=>show(id,0));show('floor');sho
   show('moon');show('sun',0);show('lamp-beam');screens(0,1-ease(p,.737,.762),ease(p,.737,.762));
   const arrive=ease(p,.68,.705);laptop(lerp(1010,620,arrive),lerp(445,482,arrive),ease(p,.693,.72));
   el('code-cover').setAttribute('y',-112+ease(p,.7,.74)*100);el('code-cover').setAttribute('height',100-ease(p,.7,.74)*100);move('cursor',0,Math.floor(ease(p,.7,.74)*4)*20);
-  studentPose();show('success',ease(p,.755,.77));move('success',558,253,.75);
+  studentPose();show('success',ease(p,.755,.77));
+  const tw=ease(p,.69,.745),twOn=ease(p,.685,.70)*(1-ease(p,.765,.78));show('two-weeks',twOn);move('two-weeks',compactTw?600:790,compactTw?265:250,compactTw?.78:.92);const days=Math.min(14,Math.floor(tw*14.999));document.querySelectorAll('#two-weeks .tw-day').forEach((n,i)=>n.classList.toggle('done',i<days));el('tw-foot').textContent=days>=14?'Soir 14 · mon site est prêt':'Soir '+Math.max(1,days+1)+' · j’apprends l’outil';move('success',558,253,.75);
   show('small-spark-0',ease(p,.755,.77));move('small-spark-0',775,393,.5,p*200);
  }
  if(p>=.77){

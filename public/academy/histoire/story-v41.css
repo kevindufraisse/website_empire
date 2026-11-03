@@ -1,0 +1,10 @@
+/* v41 : les deux semaines d'apprentissage, soir après soir. */
+#two-weeks .tw-card{fill:#fffaf5;stroke:#f45b91;stroke-width:2}
+#two-weeks .tw-title{font-size:13px;font-weight:800;letter-spacing:1.5px;fill:#d93673}
+#two-weeks .tw-day rect{fill:#f3e6ea;stroke:#e5d3cb;stroke-width:1.5;transition:fill .25s}
+#two-weeks .tw-num{font-size:11px;font-weight:700;text-anchor:middle;fill:#9a8790}
+#two-weeks .tw-check{fill:none;stroke:#fff;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity .25s}
+#two-weeks .tw-day.done rect{fill:#f45b91;stroke:#f45b91}
+#two-weeks .tw-day.done .tw-num{fill:#fff}
+#two-weeks .tw-day.done .tw-check{opacity:1}
+#two-weeks .tw-foot{font-size:15px;font-weight:700;fill:#242326}
