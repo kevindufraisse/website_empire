@@ -157,3 +157,10 @@
 .f-logos img{height:52px;width:auto;max-width:150px;filter:none;opacity:1;background:#fff;border-radius:10px;padding:8px 14px;box-shadow:0 1px 3px #0000000f;border:1px solid #ecdcd4;box-sizing:border-box}
 @media(max-width:700px){.f-logos img{height:40px;max-width:110px;padding:6px 10px}}
 .f-offer .big-cta,.f-founder .big-cta,.f-final .big-cta{font-size:18px;padding:18px 26px}
+/* Badges dans les cartes : le cadre de l'illustration coupe ce qui dépasse. */
+.comparison-panel .my-quote{padding-top:44px}
+.winner-badge{top:12px;right:12px;transform:none}
+.choice-panel .personal-trainer{padding-top:40px}
+.choice-check{top:10px;right:10px}
+.choice-panel.is-decided .personal-trainer,.comparison-panel .my-quote{transform-origin:center}
+.comparison-panel .agency-quote{opacity:calc((1 - var(--phase,0)*.45)*(1 - var(--phase2,0)*2.2))}
