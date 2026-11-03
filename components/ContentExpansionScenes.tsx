@@ -9,7 +9,7 @@ type Progress=MotionValue<number>
 const clamp=(v:number)=>Math.min(1,Math.max(0,v))
 const fmt=(n:number)=>Math.round(n).toLocaleString('fr-FR')
 export function PhotoThumbnail(){
- return <div className={s.thumbnail}><img src="https://empire-apercu-kevin-novembre-2026.austra1.chatgpt.site/demo/kevin-thumbnail-v13.png" alt="Miniature créée par Empire : Qui suivre en business ? Mon classement"/></div>
+ return <div className={s.thumbnail}><img src="/demo/kevin-thumbnail-v13.webp" alt="Miniature créée par Empire : Qui suivre en business ? Mon classement"/></div>
 }
 const ACCOUNTS=[
  {handle:'@kevindufraisse',network:'instagram',views:10000},

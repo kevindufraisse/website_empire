@@ -320,14 +320,17 @@ export default function FormulaBar() {
             </div>
           </div>
 
-          <Op>=</Op>
-          <div className="whitespace-nowrap">
-            <TermChip id="visibility" />
-          </div>
+          {/* En bas de l'écran : la formule seule, sans le résultat chiffré. */}
+          {docked && <Op>=</Op>}
+          {docked && (
+            <div className="whitespace-nowrap">
+              <TermChip id="visibility" />
+            </div>
+          )}
 
           {/* La chute : visible quand toute la formule est nette */}
           <AnimatePresence>
-            {done && (
+            {done && docked && (
               <motion.span
                 initial={{ opacity: 0, x: -6 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -342,6 +345,7 @@ export default function FormulaBar() {
         </div>
         {/* Le bouton d’essai reste accessible pendant la lecture : dessous sur mobile, à droite sur grand écran. */}
         {!docked && (
+          <div className="mx-2 mb-2 flex items-center gap-2 lg:mx-0 lg:mb-0 lg:mr-2.5">
           <button
             type="button"
             data-cta="sticky-trial"
@@ -349,11 +353,20 @@ export default function FormulaBar() {
               trackAmplitude('formula_bar_trial_clicked')
               startFreeTrial()
             }}
-            className="mx-2 mb-2 flex min-h-0 items-center justify-center gap-1.5 rounded-xl bg-empire px-4 py-2 text-xs font-bold text-black transition hover:brightness-110 sm:text-sm lg:mx-0 lg:mb-0 lg:mr-2.5 lg:py-2.5"
+            className="flex min-h-0 flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-xl bg-empire px-4 py-2 text-xs font-bold text-black transition hover:brightness-110 sm:text-sm lg:flex-none lg:py-2.5"
           >
-            {fr ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial'}
+            {fr ? 'Tester gratuitement' : 'Try it free'}
             <span aria-hidden>→</span>
           </button>
+          <a
+            href="/demo"
+            data-cta="sticky-demo"
+            onClick={() => trackAmplitude('empire_demo_clicked', { source: 'formula_bar' })}
+            className="flex min-h-0 items-center justify-center whitespace-nowrap rounded-xl border border-white/25 px-3 py-2 text-xs font-semibold text-white transition hover:bg-white/10 sm:text-sm lg:py-2.5"
+          >
+            {fr ? 'Demander une démo' : 'Request a demo'}
+          </a>
+          </div>
         )}
       </div>
 

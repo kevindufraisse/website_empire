@@ -16,7 +16,7 @@ export function LongVideoArtwork({still=false,p}:{still?:boolean;p?:MotionValue<
  const settled=useMotionValue(1),progress=p||settled
  return <div className={s.artwork}>
   <div className={s.board}><header><span>MON CLASSEMENT</span><h4>Les créateurs business français</h4><small>Qui suivre, selon votre objectif ?</small></header><div className={s.ranks}>{RANKS.map((rank,i)=><div key={rank}><strong>{rank}</strong><span>{i<3&&<RankedCreator p={progress} index={i} still={still||!p}/>}</span></div>)}</div><footer>Mon point de vue · Mes critères · Mes raisons</footer></div>
-  <div className={s.presenter}><PreviewVideo src="https://empire-apercu-kevin-novembre-2026.austra1.chatgpt.site/demo/kevin-speaking-v11.mp4" poster="https://empire-apercu-kevin-novembre-2026.austra1.chatgpt.site/demo/kevin-speaking-v11.jpg" label="Kevin commente sa tier list — aperçu du format long" still={still}/><span><Mic/>Kevin Dufraisse</span></div>
+  <div className={s.presenter}><PreviewVideo src="/demo/kevin-speaking-v11.mp4" poster="/demo/kevin-speaking-v11.jpg" label="Kevin commente sa tier list — aperçu du format long" still={still}/><span><Mic/>Kevin Dufraisse</span></div>
  </div>
 }
 export function LongVideoFormat({p}:{p:MotionValue<number>}){
