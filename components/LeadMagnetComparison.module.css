@@ -1,13 +1,23 @@
-.compareHeader{padding:0 5px!important;min-height:38px}
-.switcher{width:100%;display:flex;align-items:center;justify-content:center;gap:4px;min-width:0}
-.switcher>svg{flex-shrink:0;color:#858585}
-.switcher button{flex:1;min-width:0;border:0;border-radius:5px;padding:7px 3px;min-height:30px;color:#b8b8b8;background:transparent;font-size:9px;font-weight:600;line-height:1.15;white-space:nowrap;cursor:pointer}
-.switcher button[aria-pressed=true]{color:#141414;background:#dafc68}
-.switcher button:hover:not([aria-pressed=true]){background:#272727;color:white}
-.switcher button:focus-visible{outline:2px solid #dafc68;outline-offset:1px}
-.media{position:absolute;inset:0;overflow:hidden;background:#f6f6f2}
-.backdrop,.activeMedia,.activeMedia>img,.activeMedia>video{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain}
-.activeMedia{overflow:hidden;background:#f6f6f2}
-.sourceIcon{width:25px;height:25px;border-radius:50%;background:#292929;display:grid;place-items:center;color:#bdbdbd;flex-shrink:0}
-@media(max-width:760px){.compareHeader{min-height:38px;height:38px!important}.switcher button{min-height:34px;font-size:9px}}
-@media(max-height:700px){.compareHeader{min-height:32px;height:32px!important}.switcher button{min-height:28px;font-size:8px}.switcher{gap:3px}.switcher>svg{width:10px}}
+.comparison{width:100%;max-width:780px;margin:0 auto;color:#fff}
+.pair{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:76px;align-items:start;max-width:650px;margin:0 auto}
+.clip{min-width:0;margin:0;text-align:center}
+.clip figcaption{min-height:64px;margin-bottom:14px;display:flex;flex-direction:column;justify-content:flex-end;gap:7px}
+.clip figcaption b{font-size:22px;font-weight:650;letter-spacing:-.035em;line-height:1.2}
+.clip figcaption span{font-size:12px;color:#aaa;line-height:1.4}
+.clip:last-of-type figcaption b{color:#dafc68}
+.phone{display:flex;flex-direction:column;width:100%;max-width:260px;margin:0 auto;border:3px solid #5d5d59;border-radius:23px;overflow:hidden;background:#101010;box-shadow:0 18px 40px #0004}
+.phone.result{border-color:#a6b672}
+.phone>video,.phone>img{display:block;width:100%;aspect-ratio:9/16;object-fit:contain;background:#f3f3f1}
+.phoneTop{height:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.phoneTop i{height:6px;width:35px;border-radius:12px;background:#030303}
+.phoneBottom{font-size:9px;letter-spacing:.09em;line-height:1.3;padding:10px;color:#c7c7c7;min-height:31px}
+.result .phoneBottom{color:#dafc68}
+.arrow{position:absolute;left:50%;top:54%;transform:translate(-50%,-50%);display:grid;place-items:center;width:46px;height:46px;border-radius:50%;border:1px solid #4e5836;background:#1c2312;color:#dafc68}
+.connection{text-align:center;font-size:15px;line-height:1.5;color:#ccc;margin:24px auto 0}
+.controls{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:16px auto 0}
+.controls button{display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;border:1px solid #414141;border-radius:8px;padding:10px 15px;background:#141414;color:#ddd;font-size:12px;cursor:pointer}
+.controls button:hover{color:#dafc68;border-color:#738342}
+.controls button:focus-visible,.reelLink:focus-visible{outline:2px solid #dafc68;outline-offset:4px}
+.reelLink{display:flex;align-items:center;justify-content:center;gap:6px;min-height:44px;width:fit-content;margin:8px auto 0;font-size:12px;text-decoration:underline;text-underline-offset:4px;color:#aaa}
+@media(min-width:761px) and (max-height:800px){.pair{max-width:490px;gap:64px}.phone{max-width:210px}.clip figcaption b{font-size:20px}.clip figcaption{min-height:54px;margin-bottom:10px}.connection{margin-top:20px}}
+@media(max-width:760px){.pair{gap:22px;max-width:500px}.clip figcaption{min-height:65px;margin-bottom:10px;gap:5px;justify-content:center}.clip figcaption b{font-size:17px;line-height:1.2}.clip figcaption span{font-size:11px;line-height:1.3}.phone{border-width:2px;border-radius:14px;max-width:230px}.phoneTop{height:13px}.phoneTop i{height:4px;width:25px}.phoneBottom{font-size:8px;padding:8px 4px;min-height:27px}.arrow{width:28px;height:28px;top:55%}.arrow svg{width:17px;height:17px}.connection{font-size:13px;margin-top:19px;max-width:30ch}.controls{gap:7px;margin-top:12px}.controls button{font-size:11px;padding:10px;gap:6px}.reelLink{font-size:11px}}
