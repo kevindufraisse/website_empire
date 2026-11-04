@@ -36,8 +36,10 @@ try{
    const scene=page.locator('[data-scene="lead-magnet"]'),video=scene.locator('video')
    assert((await video.getAttribute('src')).includes('kevin-leadmagnet-claude-20261023.mp4'),'Must use the inspected original video')
    await page.waitForFunction(()=>{const v=document.querySelector('[data-scene="lead-magnet"] video');return v&&v.readyState>=2&&v.videoHeight>v.videoWidth},null,{timeout:12000})
-   const before=await video.evaluate(v=>v.currentTime);await page.waitForTimeout(450)
-   assert(await video.evaluate(v=>v.currentTime)>before,'Original footage must actually play, not only show its poster')
+   const before=await video.evaluate(v=>v.currentTime)
+   // Asynchronous playback may start later on a shared Linux WebKit runner.
+   // Keep a real decoding assertion, with polling, rather than accepting a poster.
+   await page.waitForFunction(before=>{const v=document.querySelector('[data-scene="lead-magnet"] video');return v&&!v.paused&&v.currentTime>before+.1},before,{timeout:8000})
    await fits(page,video,`${name} original video`)
    assert.equal(await scene.getAttribute('data-lead-step'),'0')
    await page.screenshot({path:`${out}/${name}-montage.png`})
@@ -68,7 +70,7 @@ try{
    reports.push({name,result:'passed',browser:name.startsWith('webkit')?'WebKit Linux':'Google Chrome',originalVideoPlayback:true,manualNavigation:true,dmFits:true,noNestedScroll:true})
   }catch(e){
    await page.screenshot({path:`${out}/${name}-failure.png`}).catch(()=>{})
-   const media=await page.locator('[data-scene="lead-magnet"] video').evaluateAll(videos=>videos.map(v=>({src:v.currentSrc,readyState:v.readyState,error:v.error?.message,support:v.canPlayType('video/mp4; codecs="avc1.42E01E"'),width:v.videoWidth,height:v.videoHeight}))).catch(()=>[])
+   const media=await page.locator('[data-scene="lead-magnet"] video').evaluateAll(videos=>videos.map(v=>({src:v.currentSrc,readyState:v.readyState,paused:v.paused,time:v.currentTime,error:v.error?.message,support:v.canPlayType('video/mp4; codecs="avc1.42E01E"'),width:v.videoWidth,height:v.videoHeight}))).catch(()=>[])
    reports.push({name,result:'failed',error:String(e),errors,media})
   }finally{await context.close()}
  }
