@@ -80,6 +80,11 @@
  .ideaPhone.ideaPhone{width:275px}
  .sticky{gap:10px}
  .progress{font-size:9px}
+ /* Compact only the watch-list spacing, keeping every word and font size. */
+ .exchange[data-idea-layer="6"]>small{margin-bottom:6px}
+ .exchange[data-idea-layer="6"] [data-idea-outgoing]>div{margin-bottom:6px}
+ .exchange[data-idea-layer="6"] [data-idea-outgoing]>div>b{margin-bottom:4px}
+ .exchange[data-idea-layer="6"] [data-idea-outgoing]>div>span{padding:3px 0}
 }
 /* User preference: every message is readable in normal flow, with no animation. */
 .ideas[data-static=true],.comparisonStory[data-static=true],.messages[data-static=true]{height:auto;padding-top:36px;padding-bottom:36px}
