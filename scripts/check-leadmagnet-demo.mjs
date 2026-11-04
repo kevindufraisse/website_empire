@@ -46,6 +46,7 @@ try{
    await locate(page,.681)
    assert.equal(await scene.getAttribute('data-lead-step'),'2')
    const dm=scene.locator('[data-lead-dm]')
+   await page.screenshot({path:`${out}/${name}-dm.png`})
    await fits(page,dm,`${name} Instagram DM`)
    await fits(page,dm.locator('[data-lead-resource]'),`${name} resource card`)
    await fits(page,dm.getByText('Réponse envoyée automatiquement'),`${name} auto-response label`)
@@ -53,18 +54,17 @@ try{
    assert((await scene.innerText()).includes('commentaire, message et ressource illustrés'))
    const scrollAreas=await dm.evaluate(el=>Array.from(el.querySelectorAll('*')).filter(n=>['auto','scroll'].includes(getComputedStyle(n).overflowY)&&n.scrollHeight>n.clientHeight+3).map(n=>({class:n.className,overflow:n.scrollHeight-n.clientHeight})))
    assert.deepEqual(scrollAreas,[],`${name}: no nested scrolling in the demo`)
-   await page.screenshot({path:`${out}/${name}-dm.png`})
    const y=await page.evaluate(()=>scrollY)
-   await scene.getByRole('button',{name:'1 Montage IA'}).click()
+   await scene.getByRole('button',{name:'Montage IA',exact:true}).click()
    assert.equal(await scene.getAttribute('data-lead-step'),'0')
    await fits(page,video,`${name} replayed video`)
    assert(Math.abs(await page.evaluate(()=>scrollY)-y)<3,'Step buttons must not scroll the page')
-   await scene.getByRole('button',{name:'3 Message privé'}).click()
+   await scene.getByRole('button',{name:'Message privé',exact:true}).click()
    assert.equal(await scene.getAttribute('data-lead-step'),'2')
    assert.equal(await dm.locator('a,button').count(),0,'Illustrative resource is not a fake live download')
    assert.deepEqual(errors,[])
    reports.push({name,result:'passed',originalVideo:true,manualNavigation:true,dmFits:true,noNestedScroll:true})
-  }catch(e){await page.screenshot({path:`${out}/${name}-failure.png`}).catch(()=>{});reports.push({name,result:'failed',error:String(e),errors});throw e}finally{await context.close()}
+  }catch(e){await page.screenshot({path:`${out}/${name}-failure.png`}).catch(()=>{});reports.push({name,result:'failed',error:String(e),errors})}finally{await context.close()}
  }
  const context=await c.newContext({viewport:{width:390,height:844},reducedMotion:'reduce',locale:'fr-FR'})
  await context.route('**/*',r=>r.request().url().startsWith(base)?r.continue():r.abort())
@@ -75,6 +75,7 @@ try{
  reports.push({name:'reduced-motion',result:'passed',bothStagesPresent:true});await context.close()
  const provenance=JSON.parse(await readFile('public/demo/kevin-leadmagnet-claude-20261023.json','utf8'))
  assert.equal(provenance.username,'kevin.dufraisse');assert.equal(provenance.excerpt_duration_seconds,20)
+ assert.equal(reports.filter(r=>r.result==='failed').length,0,'One or more viewport checks failed; inspect screenshots and report')
 }finally{
  await writeFile(`${out}/report.json`,JSON.stringify(reports,null,2));await writeFile(`${out}/server.log`,log)
  console.log(JSON.stringify(reports,null,2))
