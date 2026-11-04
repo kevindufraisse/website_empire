@@ -34,6 +34,9 @@ export default function LeadMagnetScene({p,staticMode=false}:{p:MotionValue<numb
  const step=staticMode?2:selected??autoStep
  const opacity=useTransform(p,[.628,.638,.689,.698],[0,1,1,0])
  const y=useTransform(p,[.628,.638],[18,0])
+ const messageOpacity=useTransform(p,[.666,.671],[0,1])
+ const resourceOpacity=useTransform(p,[.671,.678],[0,1])
+ const showImmediately=staticMode||selected===2
  return <motion.section className={s.scene} data-scene="lead-magnet" data-lead-step={step} data-static={staticMode} aria-label="Un vrai montage de Kevin, puis le parcours de réponse automatique illustré" style={staticMode?{}:{opacity,y}}>
   {!staticMode&&<div className={s.steps} aria-label="Revoir une étape de la démonstration">{STEPS.map((label,i)=><button type="button" key={label} aria-pressed={step===i} aria-controls={`${uid}-panels`} onClick={()=>setSelected(i)}><span aria-hidden="true">{i+1}</span>{label}{i<2&&<ArrowRight size={12} aria-hidden="true"/>}</button>)}</div>}
   <div id={`${uid}-panels`} className={s.panels}>
@@ -42,7 +45,6 @@ export default function LeadMagnetScene({p,staticMode=false}:{p:MotionValue<numb
      <div className={s.reelHeader}><ArrowLeft size={19} aria-hidden="true"/><b>Reels</b><SocialIcons.instagram/></div>
      <div className={s.reelViewport}>
       <PreviewVideo src={VIDEO} poster={POSTER} label="Extrait réel du Reel Commente CLAUDE de Kevin, publié le 23 octobre 2026 : illustrations, écran partagé et sous-titres" still={staticMode}/>
-      <span className={s.originalBadge}><Sparkles size={11} aria-hidden="true"/>Montage original</span>
       <div className={s.reelActions} aria-hidden="true"><Heart/><MessageCircle/><Send/><MoreHorizontal/></div>
       {!staticMode&&step===1&&<div className={s.commentSheet}><div className={s.sheetHandle}/><b>Commentaires</b><KeywordComment reply/></div>}
      </div>
@@ -62,12 +64,11 @@ export default function LeadMagnetScene({p,staticMode=false}:{p:MotionValue<numb
     <div className={s.dmPhone}>
      <header className={s.dmHeader}><ArrowLeft size={20} aria-hidden="true"/><img src={AVATAR} alt=""/><div><b>kevin.dufraisse <ChevronDown size={12} aria-hidden="true"/></b><small>Kevin Dufraisse</small></div><Phone size={17} aria-hidden="true"/><Video size={19} aria-hidden="true"/></header>
      <div className={s.dmBody}>
-      <div className={s.dmProfile}><img src={AVATAR} alt=""/><b>Kevin Dufraisse</b><small>kevin.dufraisse · Instagram</small></div>
       <small className={s.today}>Aujourd’hui</small>
       <div className={s.commentContext}><img src={POSTER} alt="Miniature du Reel sur lequel le mot-clé est commenté"/><span>Vous avez commenté ce Reel.<b>CLAUDE 🙌</b></span></div>
-      <div className={s.incomingRow}><img src={AVATAR} alt=""/><div className={s.incoming}><p>Merci pour ton commentaire ! 👋</p><p>Voici la ressource promise dans la vidéo.</p></div></div>
-      <div className={s.resource} data-lead-resource><div><span className={s.resourceIcon}><FileText size={25} aria-hidden="true"/></span><b>La ressource de la vidéo<small>Pour aller plus loin avec Claude</small></b></div><span className={s.resourceButton}>Ouvrir la ressource <ArrowRight size={14} aria-hidden="true"/></span></div>
-      <div className={s.sent}><CheckCheck size={14} aria-hidden="true"/>Réponse envoyée automatiquement</div>
+      <motion.div className={s.incomingRow} style={{opacity:showImmediately?1:messageOpacity}}><img src={AVATAR} alt=""/><div className={s.incoming}><p>Merci pour ton commentaire ! 👋</p><p>Voici la ressource promise dans la vidéo.</p></div></motion.div>
+      <motion.div className={s.resource} data-lead-resource style={{opacity:showImmediately?1:resourceOpacity}}><div><span className={s.resourceIcon}><FileText size={25} aria-hidden="true"/></span><b>La ressource de la vidéo<small>Pour aller plus loin avec Claude</small></b></div><span className={s.resourceButton}>Ouvrir la ressource <ArrowRight size={14} aria-hidden="true"/></span></motion.div>
+      <motion.div className={s.sent} style={{opacity:showImmediately?1:resourceOpacity}}><CheckCheck size={14} aria-hidden="true"/>Réponse envoyée automatiquement</motion.div>
      </div>
      <div className={s.composer} aria-hidden="true"><span><SocialIcons.instagram/></span><i>Message…</i><ImageIcon size={18}/><Smile size={18}/></div>
     </div>
