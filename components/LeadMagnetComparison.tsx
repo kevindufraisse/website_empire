@@ -8,9 +8,11 @@ import PreviewVideo from './PreviewVideo'
 import s from './LeadMagnetScene.module.css'
 import c from './LeadMagnetComparison.module.css'
 
-const SOURCE='/demo/leadmagnet-source-20261104.mp4'
+// Start on the visual explanation rather than the talking-head preamble.
+// The locally hosted excerpts retain the two supplied edits unchanged.
+const SOURCE='/demo/leadmagnet-source-20261104.mp4#t=3'
 const SOURCE_POSTER='/demo/leadmagnet-source-20261104.jpg'
-const RESULT='/demo/leadmagnet-result-20261104.mp4'
+const RESULT='/demo/leadmagnet-result-20261104.mp4#t=3'
 export const LEAD_RESULT_POSTER='/demo/leadmagnet-result-20261104.jpg'
 const REEL='https://www.instagram.com/reel/De1ncaACJuN/'
 type Clip='source'|'result'
