@@ -8,6 +8,8 @@ import { SocialIcons } from '@/components/ui/social-icons'
 import s from './FormulaScrollStory.module.css'
 import r from './HomeStoryRefinement.module.css'
 import stable from './StableHomeJourney.module.css'
+import journey from './LeadMagnetJourney.module.css'
+import IdeaMessagesStory from './IdeaMessagesStory'
 import ClaudeMcpDemo from './ClaudeMcpDemo'
 import CloneAppStory from './CloneAppStory'
 import { PhotoThumbnail, MultiAccountBroadcast } from './ContentExpansionScenes'
@@ -41,7 +43,7 @@ const VIEWS = [10000, 50000, 53000, 150000, 3000, 6000, 8000]
 const LABELS = ['Réaction', 'Tier list', 'FAQ', 'Devine', 'Clonage', 'YouTube long']
 // Creation and distribution now have separate native scroll regions. The form
 // between them is ordinary document content, never a timed animation frame.
-const rawAt = (t: number) => t <= .28 ? t / .28 * 37 : 37 + (t - .28) / .418 * 63
+const rawAt = (t: number) => Math.max(0, Math.min(1, (t - .305) / .285)) * 100
 const anchorAt = (n: number) => rawAt(n / 100 + (n >= 53.5 ? .06 : 0))
 const fmt = (v: number) => Math.round(v).toLocaleString('fr-FR')
 const clamp = (v: number) => Math.max(0, Math.min(1, v))
@@ -192,7 +194,7 @@ function FormatFrame({ p, index }: { p: Progress; index: number }) {
   const start = [.28, .35, .415, .475][index], end = [.35, .415, .475, .535][index]
   const opacity = useTransform(p, [start, start + .01, end - .006, end + .005], [0, 1, 1, 0])
   const y = useTransform(p, [start, start + .012, end - .006, end + .005], [32, 0, 0, -32])
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(() => p.get() >= start && p.get() < end)
   useMotionValueEvent(p, 'change', v => setVisible(v >= start && v < end))
   return <motion.div className={s.formatFrame} style={{ opacity, y }} aria-hidden={!visible}><Composition kind={index} p={p}/></motion.div>
 }
@@ -260,44 +262,45 @@ function Calendar({ p, active }: { p: Progress; active: boolean }) {
     <div className={s.calendarApp}><header><span className={s.empireBadge}>E</span><div><b>Calendrier</b><small>Vos publications</small></div><CalendarDays size={20}/></header><div className={s.month}><b>Novembre</b><span>{done ? '1 republication ajoutée' : 'Sélection du meilleur contenu'}</span></div><div className={s.weekdays}>{['L', 'M', 'M', 'J', 'V', 'S', 'D'].map((v, i) => <span key={i}>{v}</span>)}</div><div className={s.calendarGrid}>{Array.from({ length: 42 }, (_, i) => { const day = i - 5; return <div key={i} className={day === 25 ? s.targetDay : ''}><span>{day > 0 && day <= 30 ? day : ''}</span>{day === 4 && <small className={s.publishedMark}><Check size={10}/>Publié</small>}{day === 25 && <small className={s.targetTime}>12:00</small>}</div> })}<motion.div className={s.movingWinner} style={{ left, top, width, height, opacity: picked }}><div className={s.winnerVisual}><Composition kind={1} p={p} still/></div><div className={s.winnerMeta}><SocialIcons.tiktok/><b>150 000 vues</b><span>{TOPIC}</span></div><motion.span className={s.scheduledCheck} style={{ opacity: confirmed }}><Check size={11}/></motion.span></motion.div></div><footer><span><Check size={13}/>Le contenu qui a déjà trouvé son public.</span><motion.b style={{ opacity: confirmed }}>Reprogrammé</motion.b></footer></div>
   </motion.div>
 }
+function LongFormatStory() {
+  const settled = useMotionValue(.558)
+  return <section id="formula-youtube" className={journey.longSection} data-story="long-format" aria-labelledby="long-format-title">
+    <header className={journey.heading}><h2 id="long-format-title">Votre sujet mérite plus ?<br/><em>Passez au format long.</em></h2></header>
+    <div className={journey.longGrid} data-scene="formats" data-format="5" aria-hidden="false">
+      <div className={journey.longPreview} data-format-preview="long"><LongVideoFormat p={settled}/></div>
+      <div className={journey.longCopy}><h3>Le même sujet.<br/>Plus de place pour l’expliquer.</h3><p>Réaction, classement ou réponse client : développez votre point de vue dans une vidéo YouTube.</p></div>
+    </div>
+  </section>
+}
+
 function AccessibleStory() {
-  const settled = useMotionValue(1)
-  return <><section className={s.accessible} data-story="accessible">
-    <h2>Dès que vous avez une idée, partagez-la.</h2><p>Partagez vos idées et vos liens dans le chat Empire. Retrouvez-les dans votre espace, avec les inspirations proposées par la veille concurrentielle.</p>
-    <h2 id="formula-format">Nous mettons votre idée dans le bon format.</h2><p>Un lien devient une réaction. Un classement devient une tier list. Une question client devient une réponse en vidéo. Un Reel inspirant devient votre propre version, à valider. Vous pouvez aussi développer votre sujet en format long.</p>
-    <LeadMagnetScene p={settled} staticMode/>
+  return <><div data-story="accessible">
+    <IdeaMessagesStory/>
+    <section className={s.accessible}><h2 id="formula-format">Nous mettons votre idée dans le bon format.</h2><p>Un lien devient une réaction. Un classement devient une tier list. Une question client devient une réponse en vidéo.</p></section>
+    <LeadMagnetScene staticMode/>
+    <LongFormatStory/>
     <SecretFormatsGate staticMode/>
-    <h2 id="formula-diffusion">Nous adaptons et diffusons vos vidéos et vos textes sur tous vos réseaux.</h2><p>{NETWORKS.join(' · ')}. Les miniatures et les visuels accompagnent les publications.</p>
-    <h3>Publiez la même vidéo sur plusieurs comptes, instantanément.</h3><p>Connectez vos comptes principaux et secondaires.</p>
-    <h3>Nous republions automatiquement vos meilleurs contenus.</h3><p>Les contenus qui fonctionnent reviennent dans votre calendrier. Les scènes et les chiffres de la démonstration sont illustratifs.</p>
-  </section><CloneAppStory/><ClaudeMcpDemo/></>
+    <section className={s.accessible}>
+      <h2 id="formula-diffusion">Nous adaptons et diffusons vos vidéos et vos textes sur tous vos réseaux.</h2><p>{NETWORKS.join(' · ')}. Les miniatures et les visuels accompagnent les publications.</p>
+      <h3>Publiez la même vidéo sur plusieurs comptes, instantanément.</h3><p>Connectez vos comptes principaux et secondaires.</p>
+      <h3>Nous republions automatiquement vos meilleurs contenus.</h3><p>Les contenus qui fonctionnent reviennent dans votre calendrier. Les scènes et les chiffres de la démonstration sont illustratifs.</p>
+    </section>
+  </div><CloneAppStory/><ClaudeMcpDemo/></>
 }
 
 function CreationStory() {
   const ref = useRef<HTMLElement>(null)
   const { scrollYProgress: rawP } = useScroll({ target: ref, offset: ['start start', 'end end'] })
-  const timeline = useTransform(rawP, [0, .37, 1], [0, .28, .698])
-  const p = useTransform(timeline, [0, .535, .595, .628, .698], [0, .535, .535, .568, .568])
-  // Leave the final lead-magnet result readable as this native section exits.
-  const leadP = useTransform(timeline, v => Math.min(v, .681))
-  const [extra, setExtra] = useState(0), [phase, setPhase] = useState(0), [kind, setKind] = useState(0)
-  useMotionValueEvent(timeline, 'change', t => {
-    setExtra(t >= .628 ? 4 : t >= .535 && t < .595 ? 1 : 0)
-    setPhase(t < .28 ? 0 : 1)
-  })
-  useMotionValueEvent(p, 'change', v => setKind(v < .35 ? 0 : v < .415 ? 1 : v < .475 ? 2 : v < .535 ? 3 : 5))
-  const title = extra === 4 ? 'Un mot-clé, et votre ressource est envoyée.' : phase === 0 ? 'Dès que vous avez une idée, partagez-la.' : 'Nous mettons votre idée dans le bon format.'
-  return <section ref={ref} className={`${s.story} ${r.story} ${stable.creation}`} data-story="formula" data-story-part="creation" data-focus={extra === 4 ? 'lead-magnet' : 'story'} data-step={phase === 0 ? 'message' : 'format'} aria-label="De votre idée à votre contenu">
-    {([['reaction', 30.5], ['tierlist', 38.5], ['faq', 44.5], ['youtube', 55.5]] as const).map(([name, at]) => <span key={name} id={`formula-${name}`} className={s.anchor} style={{ top: `calc(${anchorAt(at)}% - ${anchorAt(at)}svh)` }}/>)}
-    {([['clone', .565], ['lead-magnet', .665]] as const).map(([name, t]) => <span key={name} id={`formula-${name}`} className={s.anchor} style={{ top: `calc(${rawAt(t)}% - ${rawAt(t)}svh)` }}/>)}
-    <span id="formula-format" className={s.anchor} style={{ top: `calc(${anchorAt(30.5)}% - ${anchorAt(30.5)}svh)` }}/>
+  const timeline = useTransform(rawP, [0, 1], [.305, .590])
+  const p = useTransform(timeline, v => Math.min(v, .535))
+  const [kind, setKind] = useState(0)
+  useMotionValueEvent(timeline, 'change', v => setKind(v < .35 ? 0 : v < .415 ? 1 : v < .475 ? 2 : v < .535 ? 3 : 4))
+  return <section ref={ref} className={`${s.story} ${r.story} ${journey.shortStory}`} data-story="formula" data-story-part="creation" data-step="format" aria-label="Les formats courts">
+    {([['reaction', .32], ['tierlist', .385], ['faq', .445], ['clone', .565]] as const).map(([name, t]) => <span key={name} id={`formula-${name}`} className={s.anchor} style={{ top: `calc(${rawAt(t)}% - ${rawAt(t)}svh)` }}/>)}
+    <span id="formula-format" className={s.anchor}/>
     <div data-viewport-stage className={s.sticky}>
-      <div className={`${s.headline} ${r.headline}`} data-story-title><h2>{title}</h2></div>
-      <div className={`${s.stage} ${r.stage}`}>
-        <Chat p={p} active={phase === 0}/>
-        <Formats p={p} cloneP={timeline} active={phase === 1 && extra !== 4} kind={extra === 1 ? 4 : kind}/>
-        {extra === 4 && <LeadMagnetScene p={leadP}/>}
-      </div>
+      <div className={`${s.headline} ${r.headline}`} data-story-title><h2>Nous mettons votre idée dans le bon format.</h2></div>
+      <div className={`${s.stage} ${r.stage}`}><Formats p={p} cloneP={timeline} active kind={kind}/></div>
       <div className={s.progress}><span><ArrowDown size={12}/>Continuez la découverte</span><div><motion.i style={{ scaleX: rawP }}/></div><small>Démonstration illustrée</small></div>
     </div>
   </section>
@@ -330,5 +333,5 @@ export function SourcesStory() {
   const reduced = useReducedMotion()
   if (autopilot) return null
   if (reduced) return <AccessibleStory/>
-  return <><CreationStory/><SecretFormatsGate/><DistributionStory/><CloneAppStory/><ClaudeMcpDemo/></>
+  return <><IdeaMessagesStory/><CreationStory/><LeadMagnetScene/><LongFormatStory/><SecretFormatsGate/><DistributionStory/><CloneAppStory/><ClaudeMcpDemo/></>
 }

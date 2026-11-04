@@ -29,16 +29,16 @@ async function ready() {
   throw new Error('Local homepage did not start')
 }
 async function at(page, t) {
-  if (t > .698 && t < .768) {
-    await page.locator('#formula-secret').evaluate(el => el.scrollIntoView({ behavior: 'instant', block: 'start' }))
+  const native = t < .28 ? '#formula-ideas' : t >= .595 && t < .628 ? '#formula-youtube' : t >= .628 && t <= .698 ? '#formula-lead-messages' : t > .698 && t < .768 ? '#formula-secret' : null
+  if (native) {
+    await page.locator(native).evaluate(el => el.scrollIntoView({ behavior: 'instant', block: 'start' }))
   } else {
     await page.evaluate(t => {
-      const creation = t <= .698
+      const creation = t < .595
       const el = document.querySelector(creation ? '[data-story="formula"]' : '[data-story="distribution"]')
       if (!el) throw new Error('Missing animated story')
-      const raw = creation ? (t <= .28 ? t / .28 * .37 : .37 + (t - .28) / .418 * .63) : (t - .768) / .432
-      const top = el.getBoundingClientRect().top + window.scrollY
-      window.scrollTo({ top: top + raw * (el.getBoundingClientRect().height - innerHeight), behavior: 'instant' })
+      const raw = creation ? (t - .305) / .285 : (t - .768) / .432
+      window.scrollTo({ top: el.getBoundingClientRect().top + scrollY + raw * (el.getBoundingClientRect().height - innerHeight), behavior: 'instant' })
     }, t)
   }
   await page.waitForTimeout(450)
@@ -137,7 +137,7 @@ try {
       assert.equal(await secret.evaluate(el => !!el.closest('[data-viewport-stage]')), false, 'Form must not live inside a pinned scene')
       assert.equal(await secret.evaluate(el => getComputedStyle(el).position), 'relative')
       await at(page, .18)
-      assert.equal((await page.locator('[data-story="formula"] [data-story-title]').innerText()).trim(), 'Dès que vous avez une idée, partagez-la.')
+      assert.equal((await page.locator('#formula-ideas h2').innerText()).replace(/\s+/g, ' ').trim(), 'Dès que vous avez une idée, partagez-la.')
       await screenshot(page, `${name}-chat`)
       let firstPreview
       for (const [t, kind] of [[.32, 0], [.385, 1], [.445, 2], [.505, 3], [.565, 4], [.614, 5]]) {
@@ -147,7 +147,8 @@ try {
         const preview = await inside(page, scene.locator('[data-format-preview]>div'), `${name} format ${kind}`)
         const column = await scene.locator('[data-format-preview]').boundingBox()
         if (!firstPreview) firstPreview = column
-        assert(Math.abs(column.x - firstPreview.x) < 3, `${name}: short/long column shifts`)
+        if (kind < 5) assert(Math.abs(column.x - firstPreview.x) < 3, `${name}: short format column shifts`)
+        else assert(column.x < viewport.width / 2, `${name}: long player must stay in the left column`)
         assert(preview.width > 50)
         if (kind === 0 || kind === 5) await screenshot(page, `${name}-${kind === 0 ? 'short' : 'long'}`)
       }
