@@ -1,0 +1,45 @@
+/* Split only the animated demonstration. Conversion controls stay in normal flow. */
+.creation[data-story="formula"]{height:1000svh}
+.distribution[data-story="distribution"]{height:600svh}
+.formFrame{min-height:200px;margin-top:23px}
+.formFrame>form{margin-top:0}
+.formFrame input[type="email"]{font-size:16px}
+.formFrame label{font-size:13px}
+.formFrame form>small{font-size:11px;line-height:1.5}
+.receipt{display:flex;align-items:flex-start;gap:12px;padding:20px;border:1px solid #39442a;border-radius:8px;background:#151a10;color:#dafc68}
+.receipt>svg{flex-shrink:0;margin-top:2px}
+.receipt b{display:block;font-size:15px;line-height:1.45;font-weight:650}
+.receipt p{margin:8px 0 0;font-size:13px;line-height:1.6;color:#b8bfae}
+.secret{position:relative;min-height:calc(100svh - 64px);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:30px;padding:56px 28px;background:#090909;color:#fff;border-top:1px solid #262626;border-bottom:1px solid #262626;scroll-margin-top:80px;box-sizing:border-box;overflow:visible}
+.secretInner{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:56px;max-width:1020px;width:100%;margin:0 auto}
+.secretCopy{min-width:0}
+.reserved{display:inline-flex;align-items:center;gap:8px;color:#dafc68;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:20px}
+.secretCopy h2{font-size:clamp(32px,4.2vw,56px);font-weight:650;line-height:1.08;letter-spacing:-.05em;margin:0 0 20px;text-wrap:balance}
+.secretCopy p{font-size:17px;line-height:1.6;color:#b5b5b5;max-width:36ch;margin:0}
+.secretAction{display:flex;flex-direction:column;justify-content:center;min-height:340px;min-width:0;max-width:420px;width:100%;justify-self:center;padding:24px;border:1px solid #303030;background:#141414;border-radius:20px}
+.secretThumbnail{width:100%}
+.secretThumbnail>div{width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:10px}
+.secretThumbnail>div>span{display:none}
+.secretThumbnail img{width:100%;height:100%;object-fit:cover}
+.placeholder{height:350px}
+.trial{display:flex;align-items:center;justify-content:center;gap:12px;min-height:52px;padding:16px 20px;border:0;border-radius:10px;background:#dafc68;color:#111;font-size:16px;font-weight:650;cursor:pointer;text-align:center}
+.confirmation{color:#dafc68;font-size:15px;line-height:1.5;margin:0 0 24px;text-align:center}
+.continue{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:44px;padding:10px 18px;color:#ccc;font-size:14px;text-decoration:none;border-radius:8px}
+.continue:hover{color:#dafc68;background:#ffffff08}
+.trial:focus-visible,.continue:focus-visible{outline:2px solid #dafc68;outline-offset:4px}
+.staticSecret{min-height:0;margin:32px 0;border:1px solid #303030;border-radius:16px}
+@media(max-width:760px){
+ .secret{padding:36px 20px;gap:20px}
+ .secretInner{grid-template-columns:minmax(0,1fr);gap:24px;max-width:440px}
+ .secretCopy{text-align:center}
+ .reserved{font-size:10px;margin-bottom:14px}
+ .secretCopy h2{font-size:32px;line-height:1.1;margin-bottom:14px}
+ .secretCopy p{font-size:14px;line-height:1.6;margin:0 auto}
+ .secretAction{padding:20px;border-radius:14px;min-height:280px}
+ .secretThumbnail{max-width:270px;margin:0 auto}
+ .secretAction .formFrame{margin-top:18px}
+ .placeholder{height:320px}
+ .confirmation{font-size:14px}
+ .continue{font-size:13px}
+ .staticSecret{padding:26px 14px}
+}

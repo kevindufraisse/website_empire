@@ -7,6 +7,8 @@ on:
       - 'app/home-flat.css'
       - 'components/FormulaScrollStory*'
       - 'components/HomeStoryRefinement*'
+      - 'components/StableHomeJourney*'
+      - 'components/LongVideoFormat*'
       - 'components/LeadMagnetScene*'
       - 'components/SecretFormatsGate*'
       - 'components/sections/HomeMasterclassGate*'
@@ -35,11 +37,11 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci
-      - name: Install an isolated browser test dependency
+      - name: Install isolated browser test dependencies
         run: |
           npm install --prefix "$RUNNER_TEMP/empire-browser" --no-package-lock playwright@1.56.1
           ln -s "$RUNNER_TEMP/empire-browser/node_modules/playwright" node_modules/playwright
-          "$RUNNER_TEMP/empire-browser/node_modules/.bin/playwright" install --with-deps chromium
+          "$RUNNER_TEMP/empire-browser/node_modules/.bin/playwright" install --with-deps chromium webkit
       - run: node scripts/check-homepage-story.mjs
       - uses: actions/upload-artifact@v4
         if: always()
