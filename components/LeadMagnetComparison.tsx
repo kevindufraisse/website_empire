@@ -1,55 +1,58 @@
 'use client'
 
-import { useState, type ReactNode } from 'react'
-import { motion, useMotionValueEvent, useReducedMotion, type MotionValue } from 'framer-motion'
-import { ArrowLeft, ArrowRight, Bookmark, Heart, MessageCircle, MoreHorizontal, Send, Video } from 'lucide-react'
-import { SocialIcons } from './ui/social-icons'
-import PreviewVideo from './PreviewVideo'
-import s from './LeadMagnetScene.module.css'
-import c from './LeadMagnetComparison.module.css'
+import { useEffect, useRef, useState } from 'react'
+import { useReducedMotion } from 'framer-motion'
+import { ArrowRight, Pause, Play, RotateCcw } from 'lucide-react'
+import s from './LeadMagnetJourney.module.css'
 
-// Start on the visual explanation rather than the talking-head preamble.
-// The locally hosted excerpts retain the two supplied edits unchanged.
-const SOURCE='/demo/leadmagnet-source-20261104.mp4#t=3'
-const SOURCE_POSTER='/demo/leadmagnet-source-20261104.jpg'
-const RESULT='/demo/leadmagnet-result-20261104.mp4#t=3'
-export const LEAD_RESULT_POSTER='/demo/leadmagnet-result-20261104.jpg'
-const REEL='https://www.instagram.com/reel/De1ncaACJuN/'
-type Clip='source'|'result'
+export const LEAD_RESULT_POSTER = '/demo/leadmagnet-result-20261104.jpg'
+const CLIPS = [
+  { key: 'source', title: 'Le Reel original', detail: 'Le format de départ', video: '/demo/leadmagnet-source-20261104.mp4', poster: '/demo/leadmagnet-source-20261104.jpg' },
+  { key: 'result', title: 'La version de Kevin', detail: 'Le même format, recréé avec Empire', video: '/demo/leadmagnet-result-20261104.mp4', poster: LEAD_RESULT_POSTER },
+] as const
 
-/** The actual source and Kevin's actual adaptation, not a recreated montage.
- * Only one video is mounted. The native controls below select a clip without
- * scrolling, sending a message, or starting any generation/paid operation.
- */
-export default function LeadMagnetComparison({p,step,staticMode=false,children}:{p:MotionValue<number>;step:number;staticMode?:boolean;children?:ReactNode}){
- const reduced=useReducedMotion()
- const [automatic,setAutomatic]=useState<Clip>(()=>p.get()<.641?'source':'result')
- const [selected,setSelected]=useState<Clip|null>(null)
- useMotionValueEvent(p,'change',v=>setAutomatic(v<.641?'source':'result'))
- const clip=staticMode?(selected??'result'):step===0?(selected??automatic):'result'
- const result=clip==='result'
- const compare=step===0||staticMode
- return <figure className={s.reelPanel} data-lead-reel data-lead-clip={clip}>
-  <div className={s.reelPhone}>
-   <div className={`${s.reelHeader} ${compare?c.compareHeader:''}`}>
-    {compare?<div className={c.switcher} aria-label="Comparer la vidéo source et la version de Kevin"><button type="button" aria-pressed={!result} onClick={()=>setSelected('source')}>Original</button><ArrowRight size={12} aria-hidden="true"/><button type="button" aria-pressed={result} onClick={()=>setSelected('result')}>Version de Kevin</button></div>:<><ArrowLeft size={19} aria-hidden="true"/><b>Reels</b><SocialIcons.instagram/></>}
-   </div>
-   <div className={s.reelViewport}>
-    <div className={c.media} data-lead-comparison>
-     <img className={c.backdrop} src={SOURCE_POSTER} alt="" aria-hidden="true"/>
-     <motion.div key={clip} className={c.activeMedia} initial={result&&!reduced&&!staticMode?{clipPath:'inset(0 100% 0 0)'}:false} animate={{clipPath:'inset(0 0% 0 0)'}} transition={{duration:reduced||staticMode?0:.4,ease:'easeOut'}}>
-      <PreviewVideo src={result?RESULT:SOURCE} poster={result?LEAD_RESULT_POSTER:SOURCE_POSTER} label={result?'Version réelle de Kevin : le format adapté en français avec ses illustrations et ses sous-titres':'Bref extrait de la vidéo source fournie par Kevin : illustrations au-dessus du présentateur'} still={staticMode}/>
-     </motion.div>
+/** Both supplied edits are always visible together. No scroll-based swapping,
+ * automatic step selection or generated replacement footage. */
+export default function LeadMagnetComparison({ staticMode = false }: { staticMode?: boolean }) {
+  const root = useRef<HTMLDivElement>(null)
+  const reduced = useReducedMotion()
+  const [paused, setPaused] = useState(false)
+  const [failed, setFailed] = useState(false)
+  const still = staticMode || reduced
+  useEffect(() => {
+    const element = root.current
+    if (!element || still) return
+    const videos = Array.from(element.querySelectorAll('video'))
+    let visible = false
+    const sync = () => videos.forEach(video => {
+      if (visible && !paused && !document.hidden) video.play().catch(() => {})
+      else video.pause()
+    })
+    const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; sync() }, { threshold: .15 })
+    observer.observe(element)
+    document.addEventListener('visibilitychange', sync)
+    return () => { observer.disconnect(); document.removeEventListener('visibilitychange', sync); videos.forEach(video => video.pause()) }
+  }, [paused, still])
+  function restart() {
+    root.current?.querySelectorAll('video').forEach(video => {
+      if (Number.isFinite(video.duration)) video.currentTime = Math.min(3, Math.max(0, video.duration - .1))
+      video.play().catch(() => {})
+    })
+    setPaused(false)
+  }
+  return <div ref={root} className={s.comparison} data-lead-comparison>
+    <div className={s.pair}>
+      {CLIPS.map(clip => <figure key={clip.key} className={s.clip} data-lead-clip={clip.key}>
+        <figcaption><b>{clip.title}</b><span>{clip.detail}</span></figcaption>
+        <div className={s.screen}>{still ? <img src={clip.poster} alt={clip.title + ' : illustrations et présentateur dans le même cadre'}/> : <video src={clip.video + '#t=3'} poster={clip.poster} aria-label={clip.title + ' — extrait réel'} muted loop playsInline preload="metadata" onError={() => setFailed(true)} />}</div>
+      </figure>)}
+      <span className={s.pairArrow} aria-hidden="true"><ArrowRight size={22}/></span>
     </div>
-    {result&&<div className={s.reelActions} aria-hidden="true"><Heart/><MessageCircle/><Send/><MoreHorizontal/></div>}
-    {children}
-   </div>
-   <div className={s.reelCaption}>
-    {result?<img src="/founders/kevin.jpg" alt=""/>:<span className={c.sourceIcon}><Video size={16} aria-hidden="true"/></span>}
-    <div><b>{result?'kevin.dufraisse':'Vidéo source'}</b><p>{result?<>Commente « <strong>CLAUDE</strong> »</>:'Extrait du Reel d’origine'}</p></div>
-    {result&&<Bookmark size={16} aria-hidden="true"/>}
-   </div>
+    <div className={s.comparisonFooter}>
+      <p>Le format d’origine, repris en français avec Kevin.</p>
+      {!still && <div className={s.playback}><button type="button" onClick={() => setPaused(value => !value)} aria-label={paused ? 'Lire les deux vidéos' : 'Mettre les deux vidéos en pause'}>{paused ? <Play size={15}/> : <Pause size={15}/>}<span>{paused ? 'Lire' : 'Pause'}</span></button><button type="button" onClick={restart} aria-label="Revoir les deux vidéos depuis le début"><RotateCcw size={15}/><span>Revoir</span></button></div>}
+      <a href="https://www.instagram.com/reel/De1ncaACJuN/" target="_blank" rel="noreferrer">Voir le Reel de Kevin <ArrowRight size={13}/></a>
+    </div>
+    {failed && <p className={s.mediaError} role="status">La vidéo ne se charge pas. Les aperçus restent affichés ; le Reel de Kevin est accessible avec le lien ci-dessus.</p>}
   </div>
-  <figcaption><a href={REEL} target="_blank" rel="noreferrer">Voir le Reel de Kevin <ArrowRight size={12} aria-hidden="true"/></a></figcaption>
- </figure>
 }

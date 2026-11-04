@@ -1,0 +1,25 @@
+name: Prepare persistent journey
+on:
+  push:
+    branches: [codex/leadmagnet-persistent-comparison-20261105]
+    paths: [scripts/apply-persistent-journey.py, .github/workflows/prepare-persistent-journey.yml]
+permissions:
+  contents: write
+jobs:
+  prepare:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: codex/leadmagnet-persistent-comparison-20261105
+      - name: Apply reviewed layout patch on the working branch only
+        run: |
+          python3 scripts/apply-persistent-journey.py
+          sed -i 's/^.messageStory{margin-top:76px;/.messageStory{position:relative;margin-top:76px;/' components/LeadMagnetJourney.module.css
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add components/FormulaScrollStory.tsx components/LeadMagnetJourney.module.css scripts/check-homepage-story.mjs .github/workflows/homepage-smoke.yml
+          git rm scripts/apply-persistent-journey.py .github/workflows/prepare-persistent-journey.yml
+          git commit -m 'Place persistent before-after and messages before YouTube; retain homepage checks'
+          git push origin HEAD:codex/leadmagnet-persistent-comparison-20261105
