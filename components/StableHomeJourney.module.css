@@ -1,5 +1,5 @@
 /* Split only the animated demonstration. Conversion controls stay in normal flow. */
-.creation[data-story="formula"]{height:850svh}
+.creation[data-story="formula"]{height:1000svh}
 .distribution[data-story="distribution"]{height:600svh}
 .formFrame{min-height:200px;margin-top:23px}
 .formFrame>form{margin-top:0}

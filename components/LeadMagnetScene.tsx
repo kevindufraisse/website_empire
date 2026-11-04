@@ -41,7 +41,7 @@ export default function LeadMagnetScene({staticMode=false}:{staticMode?:boolean}
       </div>
       <div className={j.composer} aria-hidden="true"><i>Message…</i><ImageIcon size={19}/><Smile size={19}/></div>
      </div>
-     <figcaption>Le commentaire et le message restent visibles : rien à rattraper au scroll.</figcaption>
+     <figcaption>Depuis votre compte Instagram, sans répondre à la main.</figcaption>
     </figure>
    </div>
    <p className={j.note}><Info size={14} aria-hidden="true"/>Extraits réels · commentaire, message et ressource illustrés. Aucun message envoyé depuis cette page.</p>
