@@ -66,19 +66,29 @@ async function contextFor(browser, viewport, reducedMotion = 'no-preference') {
 async function open(page) {
   await page.goto(base, { waitUntil: 'domcontentloaded', timeout: 120000 })
   await page.locator('[data-story="formula"]').waitFor()
+  // DOMContentLoaded includes server-rendered controls. Wait for the shared
+  // completion hook to hydrate before filling a controlled React input.
+  await page.locator('#formula-secret[data-requested="false"]').waitFor({ state: 'attached' })
   const reject = page.getByRole('button', { name: /Tout refuser|Continuer sans accepter/i }).first()
   if (await reject.isVisible().catch(() => false)) await reject.click()
 }
 async function testInitialReceipt(browser, viewport, name) {
   const context = await contextFor(browser, viewport)
   const page = await context.newPage()
-  await page.route('**/api/home-masterclass', route => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true }) }))
+  let requests = 0
+  await page.route('**/api/home-masterclass', route => {
+    requests++
+    assert.equal(route.request().postDataJSON().email, testEmail)
+    return route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true }) })
+  })
   try {
     await open(page)
     const form = page.locator('#home-masterclass')
     await form.locator('input[type="email"]').fill(testEmail)
+    assert.equal(await form.locator('input[type="email"]').inputValue(), testEmail)
     await form.getByRole('button', { name: 'Recevoir la masterclass gratuite' }).click()
     await form.getByRole('status').waitFor()
+    assert.equal(requests, 1)
     await page.waitForTimeout(250)
     const y = await page.evaluate(() => scrollY)
     await page.waitForTimeout(3000)
@@ -86,6 +96,11 @@ async function testInitialReceipt(browser, viewport, name) {
     assert(await form.getByRole('status').isVisible(), `${name}: receipt disappeared`)
     assert.equal(await page.locator('[data-discovery-gate="true"], [data-locked="true"]').count(), 0)
     await screenshot(page, `${name}-initial-receipt`)
+  } catch (error) {
+    await screenshot(page, `${name}-initial-failure`).catch(() => {})
+    await writeFile(`${out}/${name}-initial-failure.html`, await page.content()).catch(() => {})
+    await writeFile(`${out}/${name}-initial-diagnostics.json`, JSON.stringify({ requests, error: String(error), form: await page.locator('#home-masterclass').innerText() }, null, 2)).catch(() => {})
+    throw error
   } finally { await context.close() }
 }
 try {
