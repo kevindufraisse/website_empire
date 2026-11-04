@@ -122,7 +122,7 @@ try {
       assert.equal(await secret.evaluate(el => !!el.closest('[data-viewport-stage]')), false, 'Form must not live inside a pinned scene')
       assert.equal(await secret.evaluate(el => getComputedStyle(el).position), 'relative')
       await at(page, .18)
-      assert.equal(await page.locator('[data-story="formula"] [data-story-title]').innerText(), 'Dès que vous avez une idée, partagez-la.')
+      assert.equal((await page.locator('[data-story="formula"] [data-story-title]').innerText()).trim(), 'Dès que vous avez une idée, partagez-la.')
       await screenshot(page, `${name}-chat`)
       let firstPreview
       for (const [t, kind] of [[.32, 0], [.385, 1], [.445, 2], [.505, 3], [.565, 4], [.614, 5]]) {
