@@ -145,7 +145,7 @@
   css.rel = 'stylesheet'; css.href = '/academy/histoire/animated-v50.css?v=50';
   css.addEventListener('load', () => {
     const script = document.createElement('script');
-    script.src = '/academy/histoire/animated-v50.js?v=50';
+    script.src = '/academy/histoire/animated-v50.js?v=51';
     document.head.appendChild(script);
   }, { once: true });
   document.head.appendChild(css);
