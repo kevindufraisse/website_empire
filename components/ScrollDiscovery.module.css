@@ -45,6 +45,7 @@
  .exchange>div:nth-child(3)>p{margin:6px 0}
  .exchange img{max-height:68px}
  .exchange>div>div:has(>svg)>span{height:28px}
+ .compareSticky.compareSticky [data-lead-clip] figcaption{min-height:80px}
  .messageSticky .dmPhone>header{min-height:48px;padding:10px 11px}
  .messageSticky .dmPhone>div:nth-child(2){padding:10px 13px 12px}
  .messageSticky .dmPhone>div:nth-child(2)>small{margin-bottom:10px}
