@@ -4,22 +4,38 @@ on:
     branches: [codex/leadmagnet-real-example-20261104]
     paths:
       - scripts/inspect-leadmagnet-media.py
+      - scripts/prepare-leadmagnet-pair.py
       - .github/workflows/inspect-leadmagnet-media.yml
 permissions:
-  contents: read
+  contents: write
 jobs:
   inspect:
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: codex/leadmagnet-real-example-20261104
       - name: Install media inspection tools
         run: |
           if ! command -v ffmpeg >/dev/null; then sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg; fi
       - run: python3 scripts/inspect-leadmagnet-media.py
+      - run: python3 scripts/prepare-leadmagnet-pair.py
+      - name: Save only the reviewed comparison assets on the working branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add public/demo/leadmagnet-source-20261104.mp4 public/demo/leadmagnet-source-20261104.jpg public/demo/leadmagnet-result-20261104.mp4 public/demo/leadmagnet-result-20261104.jpg public/demo/leadmagnet-pair-20261104.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Ajouter les extraits originaux et adaptés fournis par Kevin'
+            git push origin HEAD:codex/leadmagnet-real-example-20261104
+          fi
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: supplied-leadmagnet-media
-          path: artifacts/leadmagnet-media/
+          path: |
+            artifacts/leadmagnet-media/*-contact.jpg
+            artifacts/leadmagnet-media/report.json
+            public/demo/leadmagnet-*-20261104.*
           retention-days: 1
