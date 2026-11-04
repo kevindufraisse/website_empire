@@ -138,3 +138,15 @@
   if (document.fonts) document.fonts.ready.then(measure);
   setReading(reducedMotion.matches);
 })();
+
+// v50: progressively enhance the existing accessible narrative with the original animated cast.
+(() => {
+  const css = document.createElement('link');
+  css.rel = 'stylesheet'; css.href = '/academy/histoire/animated-v50.css?v=50';
+  css.addEventListener('load', () => {
+    const script = document.createElement('script');
+    script.src = '/academy/histoire/animated-v50.js?v=50';
+    document.head.appendChild(script);
+  }, { once: true });
+  document.head.appendChild(css);
+})();
