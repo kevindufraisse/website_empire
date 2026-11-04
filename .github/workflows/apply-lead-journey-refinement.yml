@@ -15,11 +15,11 @@ jobs:
           ref: codex/lead-compare-persistent-20261105
       - run: python3 scripts/apply-lead-journey-refinement.py
       - run: git diff --check
-      - name: Save only the bounded source changes on the working branch
+      - name: Save only source and test changes on the working branch
         run: |
+          git restore .github/workflows/homepage-smoke.yml
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add components/FormulaScrollStory.tsx components/StableHomeJourney.module.css scripts/check-homepage-story.mjs .github/workflows/homepage-smoke.yml
-          git rm scripts/apply-lead-journey-refinement.py .github/workflows/apply-lead-journey-refinement.yml
+          git add components/FormulaScrollStory.tsx components/StableHomeJourney.module.css scripts/check-homepage-story.mjs
           git commit -m 'Placer la comparaison et les messages persistants avant YouTube'
           git push origin HEAD:codex/lead-compare-persistent-20261105
