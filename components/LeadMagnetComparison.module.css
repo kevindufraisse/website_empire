@@ -1,0 +1,13 @@
+.compareHeader{padding:0 5px!important;min-height:38px}
+.switcher{width:100%;display:flex;align-items:center;justify-content:center;gap:4px;min-width:0}
+.switcher>svg{flex-shrink:0;color:#858585}
+.switcher button{flex:1;min-width:0;border:0;border-radius:5px;padding:7px 3px;min-height:30px;color:#b8b8b8;background:transparent;font-size:9px;font-weight:600;line-height:1.15;white-space:nowrap;cursor:pointer}
+.switcher button[aria-pressed=true]{color:#141414;background:#dafc68}
+.switcher button:hover:not([aria-pressed=true]){background:#272727;color:white}
+.switcher button:focus-visible{outline:2px solid #dafc68;outline-offset:1px}
+.media{position:absolute;inset:0;overflow:hidden;background:#f6f6f2}
+.backdrop,.activeMedia,.activeMedia>img,.activeMedia>video{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain}
+.activeMedia{overflow:hidden;background:#f6f6f2}
+.sourceIcon{width:25px;height:25px;border-radius:50%;background:#292929;display:grid;place-items:center;color:#bdbdbd;flex-shrink:0}
+@media(max-width:760px){.compareHeader{min-height:38px;height:38px!important}.switcher button{min-height:34px;font-size:9px}}
+@media(max-height:700px){.compareHeader{min-height:32px;height:32px!important}.switcher button{min-height:28px;font-size:8px}.switcher{gap:3px}.switcher>svg{width:10px}}

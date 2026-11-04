@@ -20,10 +20,13 @@ async function fits(page,locator,label){
  const clipped=await locator.evaluate(el=>{const r=el.getBoundingClientRect();let p=el.parentElement;while(p){const s=getComputedStyle(p),b=p.getBoundingClientRect();if(['hidden','clip','auto','scroll'].includes(s.overflowY)&&(r.top<b.top-2||r.bottom>b.bottom+2))return {class:p.className,childBottom:r.bottom,parentBottom:b.bottom};p=p.parentElement}return null})
  assert.equal(clipped,null,`${label}: ancestor clips content ${JSON.stringify(clipped)}`)
 }
+async function playing(page,filename){
+ await page.waitForFunction(filename=>{const v=document.querySelector('[data-scene="lead-magnet"] video');return v&&v.currentSrc.includes(filename)&&v.readyState>=2&&v.videoHeight>v.videoWidth},filename,{timeout:12000})
+ const before=await page.locator('[data-scene="lead-magnet"] video').evaluate(v=>v.currentTime)
+ await page.waitForFunction(before=>{const v=document.querySelector('[data-scene="lead-magnet"] video');return v&&!v.paused&&(v.currentTime>before+.1||v.currentTime<before-.1)},before,{timeout:8000})
+}
 try{
  for(let i=0;i<160;i++){try{if((await fetch(base)).ok)break}catch{}if(i===159)throw Error('Server not ready');await wait(750)}
- // H.264 playback needs branded Chrome, not a Chromium build without proprietary codecs.
- // Geometry/form regression checks still run on bundled Chromium in the other script.
  const c=await chromium.launch({channel:'chrome'}),w=await webkit.launch();browsers.push(c,w)
  for(const [name,viewport,browser] of [['desktop',{width:1440,height:1000},c],['laptop',{width:1280,height:720},c],['mobile',{width:390,height:844},c],['mobile-small',{width:375,height:667},c],['webkit-mobile',{width:390,height:844},w]]){
   const context=await browser.newContext({viewport,locale:'fr-FR'})
@@ -32,17 +35,27 @@ try{
   try{
    await page.goto(base,{waitUntil:'domcontentloaded',timeout:120000});await page.locator('[data-story="formula"]').waitFor()
    const reject=page.getByRole('button',{name:/Tout refuser|Continuer sans accepter/i}).first();if(await reject.isVisible().catch(()=>false))await reject.click()
+   await locate(page,.639)
+   const scene=page.locator('[data-scene="lead-magnet"]'),video=scene.locator('video'),reel=scene.locator('[data-lead-reel]')
+   assert.equal(await reel.getAttribute('data-lead-clip'),'source')
+   await playing(page,'leadmagnet-source-20261104.mp4')
+   await fits(page,video,`${name} source video`)
+   await page.screenshot({path:`${out}/${name}-original.png`})
    await locate(page,.643)
-   const scene=page.locator('[data-scene="lead-magnet"]'),video=scene.locator('video')
-   assert((await video.getAttribute('src')).includes('kevin-leadmagnet-claude-20261023.mp4'),'Must use the inspected original video')
-   await page.waitForFunction(()=>{const v=document.querySelector('[data-scene="lead-magnet"] video');return v&&v.readyState>=2&&v.videoHeight>v.videoWidth},null,{timeout:12000})
-   const before=await video.evaluate(v=>v.currentTime)
-   // Asynchronous playback may start later on a shared Linux WebKit runner.
-   // Keep a real decoding assertion, with polling, rather than accepting a poster.
-   await page.waitForFunction(before=>{const v=document.querySelector('[data-scene="lead-magnet"] video');return v&&!v.paused&&v.currentTime>before+.1},before,{timeout:8000})
-   await fits(page,video,`${name} original video`)
+   assert.equal(await reel.getAttribute('data-lead-clip'),'result')
+   await playing(page,'leadmagnet-result-20261104.mp4')
+   await fits(page,video,`${name} Kevin video`)
    assert.equal(await scene.getAttribute('data-lead-step'),'0')
    await page.screenshot({path:`${out}/${name}-montage.png`})
+   const comparisonY=await page.evaluate(()=>scrollY)
+   await scene.getByRole('button',{name:'Original',exact:true}).click()
+   assert.equal(await reel.getAttribute('data-lead-clip'),'source')
+   await playing(page,'leadmagnet-source-20261104.mp4')
+   await scene.getByRole('button',{name:'Version de Kevin',exact:true}).click()
+   assert.equal(await reel.getAttribute('data-lead-clip'),'result')
+   await playing(page,'leadmagnet-result-20261104.mp4')
+   assert(Math.abs(await page.evaluate(()=>scrollY)-comparisonY)<3,'Comparison controls must never scroll')
+   assert.equal(await video.count(),1,'Never decode two stacked videos')
    await locate(page,.659)
    assert.equal(await scene.getAttribute('data-lead-step'),'1')
    assert((await scene.locator('[data-lead-comment]').first().innerText()).includes('CLAUDE'))
@@ -67,10 +80,10 @@ try{
    assert.equal(await scene.getAttribute('data-lead-step'),'2')
    assert.equal(await dm.locator('a,button').count(),0,'Illustrative resource is not a fake live download')
    assert.deepEqual(errors,[])
-   reports.push({name,result:'passed',browser:name.startsWith('webkit')?'WebKit Linux':'Google Chrome',originalVideoPlayback:true,manualNavigation:true,dmFits:true,noNestedScroll:true})
+   reports.push({name,result:'passed',browser:name.startsWith('webkit')?'WebKit Linux':'Google Chrome',sourceAndResultPlayback:true,manualComparison:true,manualNavigation:true,dmFits:true,noNestedScroll:true})
   }catch(e){
    await page.screenshot({path:`${out}/${name}-failure.png`}).catch(()=>{})
-   const media=await page.locator('[data-scene="lead-magnet"] video').evaluateAll(videos=>videos.map(v=>({src:v.currentSrc,readyState:v.readyState,paused:v.paused,time:v.currentTime,error:v.error?.message,support:v.canPlayType('video/mp4; codecs="avc1.42E01E"'),width:v.videoWidth,height:v.videoHeight}))).catch(()=>[])
+   const media=await page.locator('[data-scene="lead-magnet"] video').evaluateAll(videos=>videos.map(v=>({src:v.currentSrc,readyState:v.readyState,paused:v.paused,time:v.currentTime,error:v.error?.message,width:v.videoWidth,height:v.videoHeight}))).catch(()=>[])
    reports.push({name,result:'failed',error:String(e),errors,media})
   }finally{await context.close()}
  }
@@ -80,9 +93,17 @@ try{
  assert.equal(await scene.locator('video').count(),0)
  assert.equal(await scene.locator('[data-lead-reel]').isVisible(),true)
  assert.equal(await scene.locator('[data-lead-dm]').isVisible(),true)
- reports.push({name:'reduced-motion',result:'passed',bothStagesPresent:true});await context.close()
- const provenance=JSON.parse(await readFile('public/demo/kevin-leadmagnet-claude-20261023.json','utf8'))
- assert.equal(provenance.username,'kevin.dufraisse');assert.equal(provenance.excerpt_duration_seconds,20)
+ await scene.getByRole('button',{name:'Original',exact:true}).click()
+ assert.equal(await scene.locator('[data-lead-reel]').getAttribute('data-lead-clip'),'source')
+ await scene.getByRole('button',{name:'Version de Kevin',exact:true}).click()
+ assert.equal(await scene.locator('[data-lead-reel]').getAttribute('data-lead-clip'),'result')
+ assert.equal(await scene.locator('video').count(),0)
+ reports.push({name:'reduced-motion',result:'passed',bothStagesPresent:true,comparisonWithoutAnimation:true});await context.close()
+ const provenance=JSON.parse(await readFile('public/demo/leadmagnet-pair-20261104.json','utf8'))
+ assert.equal(provenance.keyword,'CLAUDE')
+ assert.equal(provenance.files.find(f=>f.role==='source').durationSeconds,6)
+ assert.equal(provenance.files.find(f=>f.role==='result').durationSeconds,16)
+ for(const file of provenance.files){assert.match(file.suppliedFileSha256,/^[0-9a-f]{64}$/);assert(file.bytes>10000)}
  assert.equal(reports.filter(r=>r.result==='failed').length,0,'One or more viewport checks failed; inspect screenshots and report')
 }finally{
  await writeFile(`${out}/report.json`,JSON.stringify(reports,null,2));await writeFile(`${out}/server.log`,log)

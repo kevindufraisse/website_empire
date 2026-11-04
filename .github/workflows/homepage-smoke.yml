@@ -10,6 +10,8 @@ on:
       - 'components/StableHomeJourney*'
       - 'components/LongVideoFormat*'
       - 'components/LeadMagnetScene*'
+      - 'components/LeadMagnetComparison*'
+      - 'public/demo/leadmagnet-*'
       - 'components/SecretFormatsGate*'
       - 'components/sections/HomeMasterclassGate*'
       - 'components/sections/FormulaCompareSection*'
