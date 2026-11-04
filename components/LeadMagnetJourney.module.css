@@ -24,7 +24,7 @@
 .playback button:hover,.ideaControls button:hover{background:#222;border-color:#727b5e}
 .comparison button:focus-visible,.comparison a:focus-visible,.ideaControls button:focus-visible{outline:2px solid #dafc68;outline-offset:4px}
 .mediaError{font-size:13px;line-height:1.5;color:#c5c5b6;margin-top:15px;text-align:center}
-.messageStory{margin-top:76px;padding-top:55px;border-top:1px solid #292929;scroll-margin-top:90px}
+.messageStory{position:relative;margin-top:76px;padding-top:55px;border-top:1px solid #292929;scroll-margin-top:90px}
 .messageStory .heading h2{font-size:clamp(29px,3.5vw,44px)}
 .messagePair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:60px;max-width:890px;margin:0 auto}
 .commentCard{padding:24px;border:1px solid #383838;background:#131313;border-radius:22px;min-width:0}
