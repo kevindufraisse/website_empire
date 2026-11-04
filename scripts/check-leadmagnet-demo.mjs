@@ -22,20 +22,22 @@ async function fits(page,locator,label){
 }
 try{
  for(let i=0;i<160;i++){try{if((await fetch(base)).ok)break}catch{}if(i===159)throw Error('Server not ready');await wait(750)}
- const c=await chromium.launch(),w=await webkit.launch();browsers.push(c,w)
+ // H.264 playback needs branded Chrome, not a Chromium build without proprietary codecs.
+ // Geometry/form regression checks still run on bundled Chromium in the other script.
+ const c=await chromium.launch({channel:'chrome'}),w=await webkit.launch();browsers.push(c,w)
  for(const [name,viewport,browser] of [['desktop',{width:1440,height:1000},c],['laptop',{width:1280,height:720},c],['mobile',{width:390,height:844},c],['mobile-small',{width:375,height:667},c],['webkit-mobile',{width:390,height:844},w]]){
   const context=await browser.newContext({viewport,locale:'fr-FR'})
-  // All network activity is local; no IG or private-message API is contacted.
   await context.route('**/*',route=>route.request().url().startsWith(base)?route.continue():route.abort())
   const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message))
   try{
    await page.goto(base,{waitUntil:'domcontentloaded',timeout:120000});await page.locator('[data-story="formula"]').waitFor()
    const reject=page.getByRole('button',{name:/Tout refuser|Continuer sans accepter/i}).first();if(await reject.isVisible().catch(()=>false))await reject.click()
    await locate(page,.643)
-   const scene=page.locator('[data-scene="lead-magnet"]')
-   const video=scene.locator('video')
+   const scene=page.locator('[data-scene="lead-magnet"]'),video=scene.locator('video')
    assert((await video.getAttribute('src')).includes('kevin-leadmagnet-claude-20261023.mp4'),'Must use the inspected original video')
-   await page.waitForFunction(()=>{const v=document.querySelector('[data-scene="lead-magnet"] video');return v&&v.readyState>=2&&v.videoHeight>v.videoWidth})
+   await page.waitForFunction(()=>{const v=document.querySelector('[data-scene="lead-magnet"] video');return v&&v.readyState>=2&&v.videoHeight>v.videoWidth},null,{timeout:12000})
+   const before=await video.evaluate(v=>v.currentTime);await page.waitForTimeout(450)
+   assert(await video.evaluate(v=>v.currentTime)>before,'Original footage must actually play, not only show its poster')
    await fits(page,video,`${name} original video`)
    assert.equal(await scene.getAttribute('data-lead-step'),'0')
    await page.screenshot({path:`${out}/${name}-montage.png`})
@@ -63,8 +65,12 @@ try{
    assert.equal(await scene.getAttribute('data-lead-step'),'2')
    assert.equal(await dm.locator('a,button').count(),0,'Illustrative resource is not a fake live download')
    assert.deepEqual(errors,[])
-   reports.push({name,result:'passed',originalVideo:true,manualNavigation:true,dmFits:true,noNestedScroll:true})
-  }catch(e){await page.screenshot({path:`${out}/${name}-failure.png`}).catch(()=>{});reports.push({name,result:'failed',error:String(e),errors})}finally{await context.close()}
+   reports.push({name,result:'passed',browser:name.startsWith('webkit')?'WebKit Linux':'Google Chrome',originalVideoPlayback:true,manualNavigation:true,dmFits:true,noNestedScroll:true})
+  }catch(e){
+   await page.screenshot({path:`${out}/${name}-failure.png`}).catch(()=>{})
+   const media=await page.locator('[data-scene="lead-magnet"] video').evaluateAll(videos=>videos.map(v=>({src:v.currentSrc,readyState:v.readyState,error:v.error?.message,support:v.canPlayType('video/mp4; codecs="avc1.42E01E"'),width:v.videoWidth,height:v.videoHeight}))).catch(()=>[])
+   reports.push({name,result:'failed',error:String(e),errors,media})
+  }finally{await context.close()}
  }
  const context=await c.newContext({viewport:{width:390,height:844},reducedMotion:'reduce',locale:'fr-FR'})
  await context.route('**/*',r=>r.request().url().startsWith(base)?r.continue():r.abort())
