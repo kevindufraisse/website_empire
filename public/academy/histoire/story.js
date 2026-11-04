@@ -33,11 +33,40 @@ function studentPose(shock=0,standing=0){const upright=standing>=.5;show('studen
 function teacherPose(carry=0){show('teacher-reach',carry<.5?1:0);show('teacher-carry',carry>=.5?1:0);}
 function laptop(x,y,open=1,rotation=0,scale=.7){show('laptop');move('laptop',x,y,scale,rotation);el('lid').setAttribute('transform',`matrix(1 ${lerp(.04,0,open)} 0 ${Math.max(.035,open)} 0 0)`);}
 function screens(shop,code,done){show('shop-screen',shop);show('code-screen',code);show('done-screen',done);}
-function setCaption(key,c){if(currentCaption===key)return;currentCaption=key;$('#era').textContent=c[1];$('#headline').innerHTML=c[2];$('#caption').textContent=c[3];$('#scene-word').textContent=c[4];}
+function setCaption(key,c){
+ if(currentCaption===key)return;
+ currentCaption=key;$('#era').textContent=c[1];$('#headline').innerHTML=c[2];$('#caption').textContent=c[3];$('#scene-word').textContent=c[4];
+ stage.dataset.caption=key;
+ if(!media.matches&&$('#headline').animate){
+  $('#headline').getAnimations().forEach(a=>a.cancel());
+  $('#headline').animate([{opacity:.35,transform:'translateY(10px)'},{opacity:1,transform:'translateY(0)'}],{duration:240,easing:'cubic-bezier(.2,.7,.2,1)'});
+ }
+}
 function text(p){let index=0;for(let n=1;n<captions.length;n++)if(p>=captions[n][0])index=n;setCaption('start-'+index,captions[index]);}
 const photoBox=document.getElementById('scene-photo'),photoImg=document.getElementById('scene-photo-img');
-let photoSrc='';
-function scenePhoto(src,a=1){if(!src||a<=.001){photoBox.style.opacity='0';photoBox.style.visibility='hidden';return;}if(src!==photoSrc){photoImg.src=src;photoSrc=src;}photoBox.style.opacity=String(Math.min(1,a));photoBox.style.visibility='visible';}
+let photoSrc='',photoRequested=false;
+const photoDescriptions={
+ 'classe.webp':'Le professeur confisque l’ordinateur de Kevin en classe.',
+ 'site-fini.webp':'Le soir, Kevin termine son premier site dans sa chambre.',
+ 'premier-client.webp':'Kevin présente son site à son premier client.',
+ 'ia-bureaux.webp':'Illustration du changement des métiers avec l’intelligence artificielle.'
+};
+function revealPhoto(){
+ const visible=photoRequested&&photoImg.complete&&photoImg.naturalWidth>0;
+ // A photograph and the SVG set never compete for the same picture plane.
+ stage.classList.toggle('photo-mode',visible);
+ photoBox.style.opacity=visible?'1':'0';
+ photoBox.style.visibility=visible?'visible':'hidden';
+}
+photoImg.addEventListener('load',revealPhoto);
+photoImg.addEventListener('error',revealPhoto);
+function scenePhoto(src,a=1){
+ photoRequested=!!src&&a>.12;
+ if(photoRequested&&src!==photoSrc){
+  photoSrc=src;photoImg.alt=photoDescriptions[src.split('/').pop()]||'Illustration de cette étape de l’histoire';photoImg.src=src;
+ }
+ revealPhoto();
+}
 window.scenePhoto=scenePhoto;
 function paintPrologue(p){
  text(p);el('stage').classList.remove('feature-mode');el('story-feature').hidden=true;el('session-timer').hidden=true;el('scene-note').textContent=p>=.45&&p<.61?'Le professeur : « On ferme l’ordinateur. »':p>=.755&&p<.79?'Mon premier site est en ligne.':p>=.82&&p<.925?'Un parent d’un ami : « Tu pourrais faire le mien ? »':p>=.925?'Mon premier site vendu : 3 000 €. Le raccourci s’appelait WordPress.':' ';
@@ -112,28 +141,93 @@ function paint(p){
 }
 const seen=new Set();
 function track(chapter,p){const key=p>.985?'fin':'chapitre_'+(chapter+1);if(seen.has(key))return;seen.add(key);try{(window.dataLayer=window.dataLayer||[]).push({event:'academy_story_progress',story_step:key});}catch(e){}}
-let settleTimer=0;
-function scenePoints(){return [...captions.map(c=>c[0]*.26),...next.points.map(t=>.26+.74*t),1];}
-function settle(){
- if(playing||simple||media.matches)return;
- const d=distance(),p=(scrollY-top())/d;if(p<=.002||p>=.995)return;
- const pts=scenePoints();let i=0;for(let k=1;k<pts.length;k++)if(p>=pts[k])i=k;
- const a=pts[i],b=pts[Math.min(i+1,pts.length-1)],target=a+(b-a)*.72;
- if(Math.abs(target-p)*d<6)return;
- scrollTo({top:top()+d*target,behavior:'smooth'});
+/* v48: native scrolling, equal narrative beats, and intentional reading plateaus.
+ * No wheel/touch interception and no delayed scrollTo after the user stops.
+ * Keep the authored timeline for the art; map physical distance to that timeline.
+ */
+const extraPoints=[.352,.3666,.3812,.3958,.4104,.5,.6425,.7];
+const beatPoints=[...new Set([
+ ...captions.map(c=>Number((c[0]*.26).toFixed(7))),
+ ...next.points.map(t=>Number((.26+.74*t).toFixed(7))),
+ ...extraPoints.map(t=>Number((.26+.74*t).toFixed(7))),1
+])].sort((a,b)=>a-b);
+const beatCount=beatPoints.length-1;
+const prologueHolds=[.035,.205,.375,.615,.739,.77,.915,.982].map(p=>p*.26);
+const steps=document.createElement('div');
+steps.className='story-steps';steps.setAttribute('role','group');steps.setAttribute('aria-label','Parcourir les scènes de l’histoire');
+steps.innerHTML='<button type="button" class="scene-prev" aria-label="Scène précédente">←</button><span class="scene-counter"></span><button type="button" class="scene-next" aria-label="Scène suivante">→</button>';
+$('#play').before(steps);
+const previousStep=steps.querySelector('.scene-prev'),nextStep=steps.querySelector('.scene-next'),counter=steps.querySelector('.scene-counter');
+let currentBeat=0,lastPose=-1,lastTick=0;
+function setStoryHeight(){
+ if(simple){scene.style.removeProperty('height');return;}
+ // svh keeps the travel distance stable when the mobile browser chrome retracts.
+ scene.style.height=`calc(100svh + ${beatCount} * clamp(600px, 92svh, 1050px))`;
 }
 function distance(){return Math.max(1,scene.offsetHeight-innerHeight);}
 function top(){return scene.getBoundingClientRect().top+scrollY;}
-function update(){pending=0;if(!simple)paint(clamp((scrollY-top())/distance()));}
+function rawProgress(){return clamp((scrollY-top())/distance());}
+function poseAt(raw){
+ const scaled=clamp(raw)*beatCount,index=Math.min(beatCount-1,Math.floor(scaled)),local=raw>=1?1:scaled-index;
+ const a=beatPoints[index],b=beatPoints[index+1];
+ const hold=index<prologueHolds.length?prologueHolds[index]:lerp(a,b,.8);
+ let pose;
+ if(local<.28)pose=lerp(a,hold,ease(local,0,.28));
+ else if(local<=.78)pose=hold;
+ else pose=lerp(hold,b,ease(local,.78,1));
+ return {index,pose:clamp(pose)};
+}
+function update(){
+ pending=0;if(simple)return;
+ const raw=rawProgress(),frame=poseAt(raw);currentBeat=frame.index;
+ stage.dataset.sceneIndex=String(currentBeat);stage.dataset.sceneCount=String(beatCount);
+ counter.textContent=String(currentBeat+1).padStart(2,'0')+' / '+beatCount;
+ counter.setAttribute('aria-label',`Scène ${currentBeat+1} sur ${beatCount}`);
+ previousStep.disabled=currentBeat===0;nextStep.disabled=currentBeat===beatCount-1;
+ // A plateau is genuinely still: do not reset hundreds of SVG attributes on every wheel event.
+ if(Math.abs(frame.pose-lastPose)>.000001){paint(frame.pose);lastPose=frame.pose;}
+ $('#progress').style.width=(raw*100)+'%';
+}
 function schedule(){if(!pending)pending=requestAnimationFrame(update);}
 function stop(){playing=false;cancelAnimationFrame(playRaf);$('#play').setAttribute('aria-pressed','false');$('#play').innerHTML='<span aria-hidden="true">▷</span> Lecture automatique';}
-function jump(p){stop();scrollTo({top:top()+distance()*Math.min(1,p+.0001),behavior:media.matches?'auto':'smooth'});}
+function goToBeat(index){
+ stop();const i=Math.max(0,Math.min(beatCount-1,index));
+ scrollTo({top:top()+distance()*(i+.5)/beatCount,behavior:media.matches?'auto':'smooth'});
+}
+function jump(p){
+ let i=0;for(let n=1;n<beatCount;n++)if(p>=beatPoints[n]-.00001)i=n;
+ goToBeat(i);
+}
+previousStep.addEventListener('click',()=>goToBeat(currentBeat-1));
+nextStep.addEventListener('click',()=>goToBeat(currentBeat+1));
 $$('[data-at]').forEach(b=>b.addEventListener('click',()=>jump(Number(b.dataset.at))));
-function tick(now){if(!playing)return;const p=Math.min(1,playFrom+(now-playStart)/245000);scrollTo({top:top()+distance()*p,behavior:'auto'});if(p>=1){stop();return;}playRaf=requestAnimationFrame(tick);}
-$('#play').addEventListener('click',()=>{if(playing){stop();return;}playFrom=currentP>.985?0:currentP;playStart=performance.now();playing=true;$('#play').setAttribute('aria-pressed','true');$('#play').innerHTML='<span aria-hidden="true">Ⅱ</span> Mettre en pause';playRaf=requestAnimationFrame(tick);});
-addEventListener('wheel',stop,{passive:true});addEventListener('touchstart',stop,{passive:true});addEventListener('keydown',e=>{if(['ArrowDown','ArrowUp','PageDown','PageUp','Home','End',' '].includes(e.key))stop();});
-function reading(on){stop();simple=on;document.body.classList.toggle('simple',on);$('#reading').hidden=!on;$('#reading-toggle').setAttribute('aria-pressed',String(on));$('#reading-toggle').textContent=on?'Voir l’animation':'Lire sans animation';scrollTo({top:0,behavior:'auto'});schedule();}
-$('#reading-toggle').addEventListener('click',()=>{modeChosen=true;reading(!simple);});$('#back-animation').addEventListener('click',()=>{modeChosen=true;reading(false);});$('#replay').addEventListener('click',()=>{if(simple)reading(false);jump(0);});
-addEventListener('scroll',()=>{schedule();clearTimeout(settleTimer);settleTimer=setTimeout(settle,220);},{passive:true});addEventListener('resize',schedule);media.addEventListener('change',()=>{if(!modeChosen)reading(media.matches);});
-if(media.matches)reading(true);update();
+function tick(now){
+ if(!playing)return;
+ // Pause elapsed time while the tab is hidden instead of skipping several scenes on return.
+ if(lastTick&&now-lastTick>250)playStart+=now-lastTick;
+ lastTick=now;
+ const p=Math.min(1,playFrom+(now-playStart)/245000);
+ scrollTo({top:top()+distance()*p,behavior:'auto'});
+ if(p>=1){stop();return;}playRaf=requestAnimationFrame(tick);
+}
+$('#play').addEventListener('click',()=>{
+ if(playing){stop();return;}
+ playFrom=rawProgress()>.985?0:rawProgress();playStart=performance.now();lastTick=playStart;playing=true;
+ $('#play').setAttribute('aria-pressed','true');$('#play').innerHTML='<span aria-hidden="true">Ⅱ</span> Mettre en pause';
+ playRaf=requestAnimationFrame(tick);
+});
+addEventListener('wheel',stop,{passive:true});addEventListener('touchstart',stop,{passive:true});
+addEventListener('keydown',e=>{if(['ArrowDown','ArrowUp','PageDown','PageUp','Home','End',' '].includes(e.key))stop();});
+function reading(on){
+ stop();simple=on;document.body.classList.toggle('simple',on);$('#reading').hidden=!on;
+ $('#reading-toggle').setAttribute('aria-pressed',String(on));$('#reading-toggle').textContent=on?'Voir l’animation':'Lire sans animation';
+ setStoryHeight();lastPose=-1;scrollTo({top:0,behavior:'auto'});schedule();
+}
+$('#reading-toggle').addEventListener('click',()=>{modeChosen=true;reading(!simple);});
+$('#back-animation').addEventListener('click',()=>{modeChosen=true;reading(false);});
+$('#replay').addEventListener('click',()=>{if(simple)reading(false);jump(0);});
+addEventListener('scroll',schedule,{passive:true});
+addEventListener('resize',()=>{lastPose=-1;schedule();});
+media.addEventListener('change',()=>{if(!modeChosen)reading(media.matches);});
+setStoryHeight();if(media.matches)reading(true);update();
 })();
