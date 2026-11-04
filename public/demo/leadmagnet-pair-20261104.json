@@ -1,0 +1,27 @@
+{
+  "source": "Two direct MP4 links supplied by Kevin in the conversation on 2026-11-04.",
+  "resultReel": "https://www.instagram.com/reel/De1ncaACJuN/",
+  "keyword": "CLAUDE",
+  "processing": "Silent excerpts, trimmed and resized only; the two original edits are preserved.",
+  "conversation": "Illustrative only. No Instagram message is sent and no real resource delivery is asserted.",
+  "files": [
+    {
+      "role": "source",
+      "suppliedFileSha256": "00749c4459a343fd0296a661d1f3907e4a8c7a370a426c606bb491868ade374d",
+      "startSeconds": 6,
+      "durationSeconds": 6,
+      "video": "/demo/leadmagnet-source-20261104.mp4",
+      "poster": "/demo/leadmagnet-source-20261104.jpg",
+      "bytes": 359307
+    },
+    {
+      "role": "result",
+      "suppliedFileSha256": "99991cd2df44179a4f30ae688a4355638b1649044fdc55d0bf0a6f953c791709",
+      "startSeconds": 6,
+      "durationSeconds": 16,
+      "video": "/demo/leadmagnet-result-20261104.mp4",
+      "poster": "/demo/leadmagnet-result-20261104.jpg",
+      "bytes": 1165738
+    }
+  ]
+}
