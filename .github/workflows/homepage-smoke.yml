@@ -14,6 +14,7 @@ on:
       - 'components/sections/HomeMasterclassGate*'
       - 'components/sections/FormulaCompareSection*'
       - 'scripts/check-homepage-story.mjs'
+      - 'scripts/check-leadmagnet-demo.mjs'
       - '.github/workflows/homepage-smoke.yml'
 
 permissions:
@@ -42,6 +43,7 @@ jobs:
           npm install --prefix "$RUNNER_TEMP/empire-browser" --no-package-lock playwright@1.56.1
           ln -s "$RUNNER_TEMP/empire-browser/node_modules/playwright" node_modules/playwright
           "$RUNNER_TEMP/empire-browser/node_modules/.bin/playwright" install --with-deps chromium webkit
+      - run: node scripts/check-leadmagnet-demo.mjs
       - run: node scripts/check-homepage-story.mjs
       - uses: actions/upload-artifact@v4
         if: always()
