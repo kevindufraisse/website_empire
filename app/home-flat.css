@@ -1,5 +1,5 @@
 /* Homepage only: retain the existing layout and brand accent, with flat surfaces. */
-.home-flat{background:#090909}
+.home-flat{background:#090909;--empire-dock-space:24px}
 .home-flat [class*="gradient"]{background-image:none!important}
 .home-flat [class*="bg-clip-text"]{color:rgb(var(--empire-rgb));-webkit-text-fill-color:currentColor}
 .home-flat section[class*="bg-gradient"]{background-color:#090909}
@@ -9,7 +9,7 @@ body:has(.home-flat) [class*="gradient"]{background-image:none!important}
 
 @media(max-width:700px){body:has(.home-flat) [data-formula-ui]{flex-direction:row;align-items:center}body:has(.home-flat) [data-cta="sticky-trial"]{margin:4px 6px 4px 0;padding:10px 12px;font-size:10px;line-height:1.3;max-width:125px;min-height:38px}body:has(.home-flat) [data-formula-ui]>div:first-child{padding:9px 11px;font-size:10px}}
 
-/* Shared space for the formula dock: pinned stories never sit underneath it. */
+/* Shared viewport dimensions. The homepage no longer renders the formula dock. */
 :root{--empire-viewport-height:100svh;--empire-header-height:64px;--empire-safe-bottom:env(safe-area-inset-bottom,0px);--empire-dock-space:calc(80px + var(--empire-safe-bottom))}
 body:has(.home-flat) .formula-dock{bottom:8px;padding-bottom:var(--empire-safe-bottom)}
 @media(prefers-reduced-motion:no-preference){
@@ -33,3 +33,10 @@ body:has(.home-flat) .formula-dock{bottom:8px;padding-bottom:var(--empire-safe-b
  html .home-flat [data-viewport-stage]{padding-bottom:calc(14px + var(--empire-safe-bottom))}
 }
 body:has(.home-flat) [data-mobile-menu]{max-height:calc(var(--empire-viewport-height) - var(--empire-header-height) - var(--empire-safe-bottom))}
+
+/* Supersede the legacy mobile format rules: keep the explanation, not the shelf.
+   The shelf otherwise creates an implicit third grid column and collapses the player. */
+@media(max-width:760px){
+ .home-flat [data-story="formula"] [data-scene="formats"]>div:nth-child(2){display:block}
+ .home-flat [data-story="formula"] [data-scene="formats"]>div:last-child{display:none}
+}

@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react'
 import { animate, motion, useMotionValue, useReducedMotion, useSpring, useTransform, type MotionStyle } from 'framer-motion'
-import { ArrowDown, ArrowRight, ArrowUp, Check, LockKeyhole, Mail } from 'lucide-react'
+import { ArrowDown, ArrowRight, ArrowUp, Check, Mail } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import { storeVideoEmail } from '@/components/VideoEmailGate'
@@ -10,12 +10,27 @@ import s from './HomeMasterclassGate.module.css'
 const DONE='empire-masterclass-requested-v16'
 const PASSED='empire-discovery-passed-v18'
 const PREVIEW=process.env.NEXT_PUBLIC_SITE_PREVIEW==='1'
-function remembered(key:string){try{return sessionStorage.getItem(key)==='1'}catch{return false}}
-function remember(key:string){try{sessionStorage.setItem(key,'1')}catch{}}
-function MasterclassForm({onReady,reminder=false}:{onReady?:()=>void;reminder?:boolean}){
+function remembered(key:string){
+ try{return sessionStorage.getItem(key)==='1'||(key===DONE&&localStorage.getItem(key)==='1')}catch{return false}
+}
+function remember(key:string){
+ try{sessionStorage.setItem(key,'1')}catch{}
+ if(key===DONE&&!PREVIEW){try{localStorage.setItem(key,'1')}catch{}}
+}
+// One shared completion state for the initial form, the secret-formats CTA and the reminder.
+export function useMasterclassRequested(){
+ const [requested,setRequested]=useState<boolean|null>(null)
+ useEffect(()=>{
+  const sync=()=>{const done=remembered(DONE);if(done)remember(DONE);setRequested(done)}
+  sync();window.addEventListener('empire-masterclass-updated',sync);window.addEventListener('storage',sync)
+  return()=>{window.removeEventListener('empire-masterclass-updated',sync);window.removeEventListener('storage',sync)}
+ },[])
+ return requested
+}
+export function MasterclassForm({onReady,reminder=false,idPrefix}:{onReady?:()=>void;reminder?:boolean;idPrefix?:string}){
  const {lang}=useLanguage(),fr=lang==='fr'
  const [email,setEmail]=useState(''),[company,setCompany]=useState(''),[status,setStatus]=useState<'idle'|'loading'|'success'|'preview'|'error'>('idle'),[invalid,setInvalid]=useState(false)
- const suffix=reminder?'reminder':'gate'
+ const suffix=idPrefix||(reminder?'reminder':'gate')
  async function submit(e:FormEvent<HTMLFormElement>){
   e.preventDefault();if(status==='loading')return
   setInvalid(false)
@@ -38,14 +53,13 @@ function MasterclassForm({onReady,reminder=false}:{onReady?:()=>void;reminder?:b
   {status==='error'&&<p role="alert" className={s.error}>{invalid?'Vérifiez votre adresse email.':'L’envoi n’a pas abouti. Vous pouvez réessayer ou passer pour continuer.'}</p>}
  </form>
 }
-function MasterclassThumbnail(){
+export function MasterclassThumbnail(){
  const [unavailable,setUnavailable]=useState(false)
  return <div className={s.thumbnail}>{unavailable?<div className={s.thumbnailFallback}><img src="/founders/kevin.jpg" alt="Kevin Dufraisse"/><div><span>LA MASTERCLASS EMPIRE</span><b>La formule<br/>pour être vu.</b><small>Avec Kevin Dufraisse</small></div></div>:<img src="https://i.ytimg.com/vi/AKfoDblGUNs/maxresdefault.jpg" alt="La masterclass de Kevin Dufraisse : comprendre la formule Empire" width={1280} height={720} onError={()=>setUnavailable(true)} ref={node=>{if(node?.complete&&!node.naturalWidth)setUnavailable(true)}} loading="lazy"/>}<span>MASTERCLASS · 1 H 26</span></div>
 }
 export function MasterclassReminder(){
- const [hidden,setHidden]=useState(true)
- useEffect(()=>{const sync=()=>setHidden(remembered(DONE));sync();window.addEventListener('empire-masterclass-updated',sync);return()=>window.removeEventListener('empire-masterclass-updated',sync)},[])
- if(hidden)return null
+ const requested=useMasterclassRequested()
+ if(requested!==false)return null
  return <section className={s.reminder} aria-labelledby="masterclass-reminder-title"><div className={s.reminderVisual}><MasterclassThumbnail/></div><div className={s.reminderCopy}><small>DERNIER RAPPEL · GRATUITE</small><h2 id="masterclass-reminder-title">Ne partez pas sans<br/>la masterclass.</h2><p>La formule, expliquée par Kevin en 1 h 26.<br/>Recevez la vidéo et regardez-la à votre rythme.</p><MasterclassForm reminder/></div></section>
 }
 export default function HomeMasterclassGate({children}:{children:ReactNode}){
