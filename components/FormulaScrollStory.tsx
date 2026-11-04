@@ -17,6 +17,7 @@ import PreviewVideo from './PreviewVideo'
 import { LongVideoFormat, LongVideoArtwork } from './LongVideoFormat'
 import { CloneVideo, CloneDetails } from './ExtraFormatScenes'
 import LeadMagnetScene from './LeadMagnetScene'
+import LongFormatScene from './LongFormatScene'
 import SecretFormatsGate from './SecretFormatsGate'
 
 type Progress = MotionValue<number>
@@ -41,7 +42,7 @@ const VIEWS = [10000, 50000, 53000, 150000, 3000, 6000, 8000]
 const LABELS = ['Réaction', 'Tier list', 'FAQ', 'Devine', 'Clonage', 'YouTube long']
 // Creation and distribution now have separate native scroll regions. The form
 // between them is ordinary document content, never a timed animation frame.
-const rawAt = (t: number) => t <= .28 ? t / .28 * 37 : 37 + (t - .28) / .418 * 63
+const rawAt = (t: number) => t <= .28 ? t / .28 * 37 : 37 + (t - .28) / .315 * 63
 const anchorAt = (n: number) => rawAt(n / 100 + (n >= 53.5 ? .06 : 0))
 const fmt = (v: number) => Math.round(v).toLocaleString('fr-FR')
 const clamp = (v: number) => Math.max(0, Math.min(1, v))
@@ -261,11 +262,11 @@ function Calendar({ p, active }: { p: Progress; active: boolean }) {
   </motion.div>
 }
 function AccessibleStory() {
-  const settled = useMotionValue(1)
   return <><section className={s.accessible} data-story="accessible">
     <h2>Dès que vous avez une idée, partagez-la.</h2><p>Partagez vos idées et vos liens dans le chat Empire. Retrouvez-les dans votre espace, avec les inspirations proposées par la veille concurrentielle.</p>
     <h2 id="formula-format">Nous mettons votre idée dans le bon format.</h2><p>Un lien devient une réaction. Un classement devient une tier list. Une question client devient une réponse en vidéo. Un Reel inspirant devient votre propre version, à valider. Vous pouvez aussi développer votre sujet en format long.</p>
-    <LeadMagnetScene p={settled} staticMode/>
+    <LeadMagnetScene staticMode/>
+    <LongFormatScene/>
     <SecretFormatsGate staticMode/>
     <h2 id="formula-diffusion">Nous adaptons et diffusons vos vidéos et vos textes sur tous vos réseaux.</h2><p>{NETWORKS.join(' · ')}. Les miniatures et les visuels accompagnent les publications.</p>
     <h3>Publiez la même vidéo sur plusieurs comptes, instantanément.</h3><p>Connectez vos comptes principaux et secondaires.</p>
@@ -276,27 +277,22 @@ function AccessibleStory() {
 function CreationStory() {
   const ref = useRef<HTMLElement>(null)
   const { scrollYProgress: rawP } = useScroll({ target: ref, offset: ['start start', 'end end'] })
-  const timeline = useTransform(rawP, [0, .37, 1], [0, .28, .698])
-  const p = useTransform(timeline, [0, .535, .595, .628, .698], [0, .535, .535, .568, .568])
-  // Leave the final lead-magnet result readable as this native section exits.
-  const leadP = useTransform(timeline, v => Math.min(v, .681))
+  // The native lead-magnet comparison and YouTube example follow this short-format story.
+  const timeline = useTransform(rawP, [0, .37, 1], [0, .28, .595])
+  const p = useTransform(timeline, [0, .535, .595], [0, .535, .535])
   const [extra, setExtra] = useState(0), [phase, setPhase] = useState(0), [kind, setKind] = useState(0)
-  useMotionValueEvent(timeline, 'change', t => {
-    setExtra(t >= .628 ? 4 : t >= .535 && t < .595 ? 1 : 0)
-    setPhase(t < .28 ? 0 : 1)
-  })
-  useMotionValueEvent(p, 'change', v => setKind(v < .35 ? 0 : v < .415 ? 1 : v < .475 ? 2 : v < .535 ? 3 : 5))
-  const title = extra === 4 ? 'Un mot-clé, et votre ressource est envoyée.' : phase === 0 ? 'Dès que vous avez une idée, partagez-la.' : 'Nous mettons votre idée dans le bon format.'
-  return <section ref={ref} className={`${s.story} ${r.story} ${stable.creation}`} data-story="formula" data-story-part="creation" data-focus={extra === 4 ? 'lead-magnet' : 'story'} data-step={phase === 0 ? 'message' : 'format'} aria-label="De votre idée à votre contenu">
-    {([['reaction', 30.5], ['tierlist', 38.5], ['faq', 44.5], ['youtube', 55.5]] as const).map(([name, at]) => <span key={name} id={`formula-${name}`} className={s.anchor} style={{ top: `calc(${anchorAt(at)}% - ${anchorAt(at)}svh)` }}/>)}
-    {([['clone', .565], ['lead-magnet', .665]] as const).map(([name, t]) => <span key={name} id={`formula-${name}`} className={s.anchor} style={{ top: `calc(${rawAt(t)}% - ${rawAt(t)}svh)` }}/>)}
+  useMotionValueEvent(timeline, 'change', t => { setExtra(t >= .535 ? 1 : 0); setPhase(t < .28 ? 0 : 1) })
+  useMotionValueEvent(p, 'change', v => setKind(v < .35 ? 0 : v < .415 ? 1 : v < .475 ? 2 : 3))
+  const title = phase === 0 ? 'Dès que vous avez une idée, partagez-la.' : 'Nous mettons votre idée dans le bon format.'
+  return <section ref={ref} className={`${s.story} ${r.story} ${stable.creation}`} data-story="formula" data-story-part="creation" data-focus="story" data-step={phase === 0 ? 'message' : 'format'} aria-label="De votre idée à votre contenu">
+    {([['reaction', 30.5], ['tierlist', 38.5], ['faq', 44.5]] as const).map(([name, at]) => <span key={name} id={`formula-${name}`} className={s.anchor} style={{ top: `calc(${anchorAt(at)}% - ${anchorAt(at)}svh)` }}/>) }
+    <span id="formula-clone" className={s.anchor} style={{ top: `calc(${rawAt(.565)}% - ${rawAt(.565)}svh)` }}/>
     <span id="formula-format" className={s.anchor} style={{ top: `calc(${anchorAt(30.5)}% - ${anchorAt(30.5)}svh)` }}/>
     <div data-viewport-stage className={s.sticky}>
       <div className={`${s.headline} ${r.headline}`} data-story-title><h2>{title}</h2></div>
       <div className={`${s.stage} ${r.stage}`}>
         <Chat p={p} active={phase === 0}/>
-        <Formats p={p} cloneP={timeline} active={phase === 1 && extra !== 4} kind={extra === 1 ? 4 : kind}/>
-        {extra === 4 && <LeadMagnetScene p={leadP}/>}
+        <Formats p={p} cloneP={timeline} active={phase === 1} kind={extra === 1 ? 4 : kind}/>
       </div>
       <div className={s.progress}><span><ArrowDown size={12}/>Continuez la découverte</span><div><motion.i style={{ scaleX: rawP }}/></div><small>Démonstration illustrée</small></div>
     </div>
@@ -330,5 +326,5 @@ export function SourcesStory() {
   const reduced = useReducedMotion()
   if (autopilot) return null
   if (reduced) return <AccessibleStory/>
-  return <><CreationStory/><SecretFormatsGate/><DistributionStory/><CloneAppStory/><ClaudeMcpDemo/></>
+  return <><CreationStory/><LeadMagnetScene/><LongFormatScene/><SecretFormatsGate/><DistributionStory/><CloneAppStory/><ClaudeMcpDemo/></>
 }

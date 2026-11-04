@@ -29,14 +29,18 @@ async function ready() {
   throw new Error('Local homepage did not start')
 }
 async function at(page, t) {
-  if (t > .698 && t < .768) {
+  if (t >= .595 && t < .628) {
+    await page.locator('#formula-youtube').evaluate(el => el.scrollIntoView({ behavior: 'instant', block: 'start' }))
+  } else if (t >= .628 && t <= .698) {
+    await page.locator('#formula-lead-magnet').evaluate(el => el.scrollIntoView({ behavior: 'instant', block: 'start' }))
+  } else if (t > .698 && t < .768) {
     await page.locator('#formula-secret').evaluate(el => el.scrollIntoView({ behavior: 'instant', block: 'start' }))
   } else {
     await page.evaluate(t => {
       const creation = t <= .698
       const el = document.querySelector(creation ? '[data-story="formula"]' : '[data-story="distribution"]')
       if (!el) throw new Error('Missing animated story')
-      const raw = creation ? (t <= .28 ? t / .28 * .37 : .37 + (t - .28) / .418 * .63) : (t - .768) / .432
+      const raw = creation ? (t <= .28 ? t / .28 * .37 : .37 + (t - .28) / .315 * .63) : (t - .768) / .432
       const top = el.getBoundingClientRect().top + window.scrollY
       window.scrollTo({ top: top + raw * (el.getBoundingClientRect().height - innerHeight), behavior: 'instant' })
     }, t)
@@ -147,7 +151,8 @@ try {
         const preview = await inside(page, scene.locator('[data-format-preview]>div'), `${name} format ${kind}`)
         const column = await scene.locator('[data-format-preview]').boundingBox()
         if (!firstPreview) firstPreview = column
-        assert(Math.abs(column.x - firstPreview.x) < 3, `${name}: short/long column shifts`)
+        if (kind !== 5) assert(Math.abs(column.x - firstPreview.x) < 3, `${name}: short-format column shifts`)
+        else if (viewport.width > 760) assert(column.x < viewport.width / 2, `${name}: YouTube preview must stay on the left`)
         assert(preview.width > 50)
         if (kind === 0 || kind === 5) await screenshot(page, `${name}-${kind === 0 ? 'short' : 'long'}`)
       }
