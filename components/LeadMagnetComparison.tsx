@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useReducedMotion } from 'framer-motion'
 import { ArrowRight, Pause, Play, RotateCcw } from 'lucide-react'
 import s from './LeadMagnetJourney.module.css'
+import './PersistentJourneyViewport.css'
 
 export const LEAD_RESULT_POSTER = '/demo/leadmagnet-result-20261104.jpg'
 const CLIPS = [
