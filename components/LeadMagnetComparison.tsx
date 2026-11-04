@@ -7,13 +7,15 @@ import s from './LeadMagnetJourney.module.css'
 import './PersistentJourneyViewport.css'
 
 export const LEAD_RESULT_POSTER = '/demo/leadmagnet-result-20261104.jpg'
+// Matching visual passage: the original steps card and its French adaptation.
+// Offsets are relative to the previously inspected, locally hosted excerpts.
 const CLIPS = [
-  { key: 'source', title: 'Le Reel original', detail: 'Le format de départ', video: '/demo/leadmagnet-source-20261104.mp4', poster: '/demo/leadmagnet-source-20261104.jpg' },
-  { key: 'result', title: 'La version de Kevin', detail: 'Le même format, recréé avec Empire', video: '/demo/leadmagnet-result-20261104.mp4', poster: LEAD_RESULT_POSTER },
+  { key: 'source', title: 'Le Reel original', detail: 'Le format de départ', video: '/demo/leadmagnet-source-20261104.mp4', poster: '/demo/leadmagnet-source-20261104.jpg', start: 3, end: 5.95 },
+  { key: 'result', title: 'La version de Kevin', detail: 'Le même format, recréé avec Empire', video: '/demo/leadmagnet-result-20261104.mp4', poster: LEAD_RESULT_POSTER, start: 6, end: 10 },
 ] as const
 
-/** Both supplied edits are always visible together. No scroll-based swapping,
- * automatic step selection or generated replacement footage. */
+/** Both supplied edits stay visible together. Only playback offsets change;
+ * the actual video assets, illustrations and subtitles are not reconstructed. */
 export default function LeadMagnetComparison({ staticMode = false }: { staticMode?: boolean }) {
   const root = useRef<HTMLDivElement>(null)
   const reduced = useReducedMotion()
@@ -36,7 +38,7 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
   }, [paused, still])
   function restart() {
     root.current?.querySelectorAll('video').forEach(video => {
-      if (Number.isFinite(video.duration)) video.currentTime = Math.min(3, Math.max(0, video.duration - .1))
+      if (Number.isFinite(video.duration)) video.currentTime = Math.min(Number(video.dataset.start || 0), Math.max(0, video.duration - .1))
       video.play().catch(() => {})
     })
     setPaused(false)
@@ -45,7 +47,7 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
     <div className={s.pair}>
       {CLIPS.map(clip => <figure key={clip.key} className={s.clip} data-lead-clip={clip.key}>
         <figcaption><b>{clip.title}</b><span>{clip.detail}</span></figcaption>
-        <div className={s.screen}>{still ? <img src={clip.poster} alt={clip.title + ' : illustrations et présentateur dans le même cadre'}/> : <video src={clip.video + '#t=3'} poster={clip.poster} aria-label={clip.title + ' — extrait réel'} muted loop playsInline preload="metadata" onError={() => setFailed(true)} />}</div>
+        <div className={s.screen}>{still ? <img src={clip.poster} alt={clip.title + ' : illustrations et présentateur dans le même cadre'}/> : <video src={clip.video + '#t=' + clip.start} data-start={clip.start} poster={clip.poster} aria-label={clip.title + ' — extrait réel'} muted playsInline preload="metadata" onLoadedMetadata={event => { event.currentTarget.currentTime = clip.start }} onTimeUpdate={event => { const video = event.currentTarget; if (video.currentTime >= clip.end) video.currentTime = clip.start }} onEnded={event => { const video = event.currentTarget; video.currentTime = clip.start; if (!paused && !document.hidden) video.play().catch(() => {}) }} onError={() => setFailed(true)} />}</div>
       </figure>)}
       <span className={s.pairArrow} aria-hidden="true"><ArrowRight size={22}/></span>
     </div>
