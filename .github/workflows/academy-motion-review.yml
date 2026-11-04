@@ -1,0 +1,40 @@
+name: Academy motion review
+
+on:
+  push:
+    branches: [codex/academy-scroll-scenes-20261104]
+    paths:
+      - 'public/academy/histoire/**'
+      - '.github/workflows/academy-motion-review.yml'
+      - 'scripts/academy-motion-review*'
+  pull_request:
+    paths:
+      - 'public/academy/histoire/**'
+      - '.github/workflows/academy-motion-review.yml'
+      - 'scripts/academy-motion-review*'
+
+permissions:
+  contents: read
+
+jobs:
+  static-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Check Academy scripts and prepare review source
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p academy-review
+          for script in public/academy/histoire/*.js; do node --check "$script"; done
+          tar -czf academy-review/academy-source.tar.gz -C public academy/histoire
+          git rev-parse HEAD > academy-review/source-commit.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: academy-motion-review-${{ github.run_number }}
+          path: academy-review/
+          retention-days: 3
+          if-no-files-found: error

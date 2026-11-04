@@ -3,3 +3,163 @@
 .scene-photo img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;border-radius:20px;box-shadow:0 26px 70px -24px #24232699}
 @media(max-width:700px){.scene-photo{padding:4px 12px}.scene-photo img{border-radius:14px}}
 .f-final-img{display:block;width:min(720px,100%);height:auto;margin:0 auto 34px;border-radius:22px;box-shadow:0 26px 60px -24px #8a3a5a80}
+
+/* v48 — fixed reading zones, exclusive visual planes and usable mobile UI. */
+.stage{background-color:var(--paper)}
+.title-block{padding:clamp(16px,2.6svh,28px) 24px 14px}
+.title-block h1{max-width:1100px;font-size:clamp(28px,3.25vw,49px);line-height:1.07}
+.scene-area{overflow:clip}
+.story-feature{padding:16px clamp(16px,4vw,60px)}
+.scene-legend{min-height:0;padding:5px 0;height:32px}
+.scene-legend:has(.session-timer[hidden]){display:none}
+.bottom-line{height:52px}
+.chapters{height:47px;gap:18px}
+.chapters button{min-height:44px}
+.story-steps{display:flex;align-items:center;justify-content:center;gap:12px;flex-shrink:0}
+.story-steps button{display:grid;place-items:center;width:42px;height:42px;padding:0;border:1px solid #bdaab1;border-radius:50%;background:#fff9f3;color:#242326;font-size:19px;transition:background-color .15s}
+.story-steps button:hover:not(:disabled){background:#f45b91;color:#fff;border-color:#f45b91}
+.story-steps button:disabled{opacity:.28;cursor:default}
+.scene-counter{font-size:12px;font-weight:600;min-width:55px;text-align:center;font-variant-numeric:tabular-nums;color:#806575}
+.night .scene-counter{color:#e8d6df}
+.night .story-steps button{background:#38313b;border-color:#725361;color:#fff}
+.play{font-size:11px;min-height:40px}
+.scene-photo{padding:14px clamp(16px,4vw,60px);background:var(--paper);z-index:4}
+.scene-photo img{max-width:min(1120px,100%);max-height:100%;object-fit:contain;border-radius:24px;box-shadow:0 18px 45px -24px #24232680}
+.photo-mode #world,.photo-mode #story-feature{visibility:hidden!important;pointer-events:none}
+.photo-mode .scene-photo img{animation:academy-photo-enter .36s cubic-bezier(.2,.7,.2,1) both}
+@keyframes academy-photo-enter{from{opacity:.4;transform:translateY(16px) scale(.98)}to{opacity:1;transform:none}}
+.platform-board{width:min(1080px,100%);height:100%;max-height:570px;border-radius:18px;box-shadow:0 22px 60px -32px #81395370}
+.platform-top{padding:13px 17px}
+.platform-top small{font-size:10px;letter-spacing:.06em}
+.platform-status{font-size:12px}
+.content-grid{gap:12px;padding:14px}
+.content-image{min-height:65px;background-image:none}
+.content-caption{padding:10px 12px}
+.content-caption small{font-size:11px}
+.content-caption h3{font-size:14px;line-height:1.4;min-height:40px}
+.content-image>span{font-size:11px}
+.format-state{font-size:11px;padding:8px 12px}
+.platform-bottom{padding:11px 14px}
+.platform-bottom>span,.platform-bottom>b{font-size:12px}
+.platform-bottom button{font-size:12px;min-height:42px;padding:11px 16px}
+.scheduled-day,.scheduled-day b{font-size:10px}
+.comparison-panel{padding:16px 12px}
+.comparison-panel .my-quote{transform:scale(calc(1 + var(--phase,0)*.025))}
+.comparison-panel .agency-quote{opacity:calc(1 - var(--phase,0)*.28);transform:none}
+.earnings-panel{padding:8px 12px}
+.earnings-number{color:#d93673}
+.stage.night .earnings-panel{color:#242326}
+.simple .scene-area,.simple .scene-legend{display:none!important}
+.simple .chapters{overflow:visible}
+@media(max-width:700px){
+ .title-block{padding:18px 18px 12px}
+ .title-block h1{font-size:clamp(23px,6.1vw,30px);line-height:1.13}
+ .story-feature{padding:10px 12px}
+ .scene-photo{padding:8px 12px}
+ .scene-photo img{border-radius:18px}
+ .bottom-line{height:54px;padding:0 14px;justify-content:space-between}
+ .scroll-cue{display:none}
+ .story-steps{gap:8px}
+ .story-steps button{width:40px;height:40px}
+ .scene-counter{font-size:11px;min-width:48px}
+ .play{font-size:10px;padding:8px 11px;min-height:40px}
+ .chapters{height:46px;gap:15px;margin:0 14px;overflow-x:auto;scrollbar-width:none;overscroll-behavior-x:contain}
+ .chapters button{font-size:10px;flex-shrink:0;gap:0;padding:8px 0}
+ .chapters button span{display:none}
+ .chapters .reading-toggle{font-size:10px;white-space:nowrap;padding:8px 10px;margin-left:auto}
+ .scene-legend{height:29px;padding:3px 0}
+ .session-timer b{font-size:17px}
+ .session-timer small{max-width:none;font-size:10px}
+ .platform-board{max-height:none;border-radius:14px}
+ .platform-top{padding:10px 11px;gap:8px}
+ .platform-top>div>span{font-size:15px}
+ .platform-top small{font-size:8px;letter-spacing:.02em}
+ .platform-status{font-size:10px;padding:6px 8px}
+ .content-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:8px;padding:9px}
+ .content-image{min-height:40px}
+ .content-image>span{font-size:10px;padding:3px 7px}
+ .content-caption{padding:7px 8px}
+ .content-caption small{font-size:9px;line-height:1.2;display:block}
+ .content-caption h3{font-size:11px;line-height:1.3;min-height:28px;margin:4px 0 0}
+ .format-state{font-size:9px;padding:5px 8px}
+ .platform-bottom{padding:8px 9px;gap:9px}
+ .platform-bottom>span{font-size:10px;line-height:1.35;max-width:44%}
+ .platform-bottom button{font-size:10px;white-space:normal;padding:8px 10px;min-height:42px}
+ .platform-bottom>b{font-size:10px;max-width:100px}
+ .scheduled-day,.scheduled-day b{font-size:8px}
+ .topic-stream{padding:7px 8px 0;gap:4px;flex-wrap:wrap}
+ .topic-stream span{font-size:9px;padding:4px 6px}
+ .comparison-panel{padding:8px 5px;gap:10px}
+ .comparison-panel .my-quote{transform:none}
+ .earnings-panel{grid-template-columns:1fr;gap:12px;max-width:420px}
+ .earnings-cast{display:none}
+ .earnings-ledger{width:100%;align-self:center;padding:16px;background:#fff8f4;border:1px solid #d9a5b8;border-radius:18px}
+ .earnings-ledger>small{font-size:10px}
+ .earnings-number{font-size:58px;letter-spacing:-3px}
+ .income-steps{gap:5px}.income-steps span{font-size:11px;padding:6px 9px}
+ .secret-tool span{font-size:12px}
+ .five-years{gap:9px}.five-years i{width:35px;height:35px}
+}
+@media(max-width:700px) and (max-height:710px){
+ .title-block{padding:12px 16px 8px}
+ .title-block h1{font-size:23px;line-height:1.1}
+ .story-feature{padding:6px 10px}
+ .content-grid{gap:6px;padding:6px}
+ .platform-top{padding:7px 9px}
+ .content-caption{padding:4px 6px}
+ .content-caption h3{font-size:10px;min-height:26px}
+ .content-caption small{font-size:8px}
+ .format-state{font-size:8px;padding:4px 6px}
+ .content-image{min-height:24px}
+ .platform-bottom{padding:5px 8px}
+ .platform-bottom>span{font-size:9px}
+ .scene-legend{height:24px}
+ .bottom-line{height:47px}
+ .chapters{height:44px}
+}
+@media(max-height:520px) and (min-width:701px){
+ .title-block{padding:10px 20px 6px}.title-block h1{font-size:26px}
+ .story-feature{padding:7px 20px}.bottom-line{height:42px}.chapters{height:44px}
+ .platform-top{padding:6px 10px}.platform-bottom{padding:5px 10px}
+ .content-grid{padding:7px;gap:8px}.content-caption{padding:4px 7px}
+ .content-caption h3{font-size:11px;min-height:27px;margin:3px 0 0}
+ .format-state{padding:4px 7px;font-size:9px}.content-image{min-height:20px}
+}
+@media(prefers-reduced-motion:reduce){
+ .photo-mode .scene-photo img{animation:none}
+ .story-steps button,.stage{transition:none}
+}
+/* Short landscape screens: title beside the visual, not stacked above it. */
+@media(min-width:600px) and (max-height:520px) and (orientation:landscape){
+ .stage{display:grid;grid-template-columns:minmax(190px,30%) minmax(0,1fr);grid-template-rows:minmax(0,1fr) 46px}
+ .title-block{grid-column:1;grid-row:1;align-self:center;padding:14px 18px}
+ .title-block h1{font-size:clamp(20px,2.7vw,28px);line-height:1.15;text-align:left}
+ .title-block h1 br{display:none}
+ .scene-area{grid-column:2;grid-row:1;min-width:0;height:100%}
+ .story-feature{padding:9px 14px 9px 4px}
+ .scene-photo{padding:9px 14px 9px 4px}
+ .scene-legend{display:none}
+ .bottom-line{grid-column:1/-1;grid-row:2;height:46px;padding:0 145px 0 22px}
+ .scroll-cue{display:none}
+ .chapters{position:absolute;inset:auto 18px 0 auto;margin:0;height:46px;border:0}
+ .chapters button[data-at]{display:none}
+ .chapters .reading-toggle{font-size:10px;white-space:nowrap}
+ .platform-board{height:100%;max-height:none;border-radius:12px}
+ .platform-top{padding:6px 9px}.platform-top small{font-size:8px}
+ .platform-top>div>b{width:25px;height:25px;font-size:18px}
+ .platform-top>div>span{font-size:14px}.platform-status{font-size:9px;padding:5px 8px}
+ .content-grid{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:1fr;gap:6px;padding:7px}
+ .content-caption{padding:4px 6px}.content-caption small{font-size:8px}
+ .content-caption h3{font-size:10px;line-height:1.25;min-height:37px;margin:3px 0 0}
+ .content-image{min-height:30px}.content-image>span{font-size:8px;padding:3px 5px}
+ .format-state{font-size:8px;padding:4px 6px}
+ .platform-bottom{padding:5px 8px;gap:8px}
+ .platform-bottom>span{font-size:9px;max-width:52%}
+ .platform-bottom button{font-size:10px;min-height:32px;padding:6px 10px}
+ .earnings-panel{grid-template-columns:1fr;gap:0;padding:8px;align-items:center}
+ .earnings-cast{display:none}.earnings-number{font-size:46px;line-height:1}
+ .earnings-ledger>p{margin:3px 0 8px}.earnings-ledger>small{font-size:9px}
+ .five-years{margin:8px 0}.five-years i{width:26px;height:26px;font-size:14px}
+ .secret-tool{padding-top:8px}.secret-tool img{width:28px;height:28px}
+ .secret-tool span{font-size:10px}.income-steps span{font-size:10px;padding:4px 9px}
+}

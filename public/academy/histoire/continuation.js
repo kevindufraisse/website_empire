@@ -33,7 +33,7 @@ window.makeAcademyContinuation=({show,move,el,ease,lerp,caption,jump})=>{
  [0.975,'','Elle vous paie chaque mois pour ça. <br><em>Et le mois suivant, vous recommencez.</em>','','']
  ];
  let featureKey='',clientNumber=1,selection='',approved=false,currentT=0;
- const feature=(key,html)=>{el('stage').classList.toggle('feature-mode',!!key);el('story-feature').hidden=!key;if(key&&key!==featureKey){el('story-feature').innerHTML=html;featureKey=key;}};
+ const feature=(key,html)=>{el('stage').dataset.feature=key;el('stage').classList.toggle('feature-mode',!!key);el('story-feature').hidden=!key;if(key&&key!==featureKey){el('story-feature').innerHTML=html;featureKey=key;}};
  const activate=(id,fn)=>{el(id).addEventListener('click',fn);el(id).addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();fn();}});};
  activate('a33-accept',()=>jump(.26+.74*.832));
  activate('a33-pass',()=>{clientNumber=clientNumber%3+1;el('a33-client-name').textContent='Entrepreneuse '+clientNumber;});
@@ -44,7 +44,8 @@ window.makeAcademyContinuation=({show,move,el,ease,lerp,caption,jump})=>{
   if(innerWidth<=700)el('world').setAttribute('viewBox',t>=.79&&t<.825?'300 200 600 540':t>=.825&&t<.89?'230 200 740 540':'140 185 920 560');
   el('study-link').hidden=true;el('session-timer').hidden=t<.825;note('');
   let index=0;for(let i=1;i<lines.length;i++)if(t>=lines[i][0])index=i;caption('next-'+index,lines[index]);
-  if(t<.105){feature('comparison',panels.comparison);const fs=el('story-feature'),q=ease(t,.057,.10);fs.style.setProperty('--phase',ease(t,0,.05));fs.style.setProperty('--phase2',q);const v=document.getElementById('my-price'),u=document.getElementById('my-price-unit');if(v){v.textContent=q<.45?'3 000 €':q<.8?'5 000 €':'10 000 €';u.textContent=q<.05?'pour un site':'par mois';}}
+  if(t<.055){feature('comparison',panels.comparison);el('story-feature').style.setProperty('--phase',ease(t,0,.045));el('story-feature').style.setProperty('--phase2',0);}
+  else if(t<.105){feature('earnings',panels.earnings);const q=ease(t,.055,.10);el('story-feature').style.setProperty('--phase',q);const value=document.getElementById('earnings-value');if(value)value.textContent=q<.4?'3 000 €':q<.78?'5 000 €':'10 000 €';}
   else if(t<.145){feature('decline',panels.decline);const q=ease(t,.107,.142);el('story-feature').style.setProperty('--phase',q);el('story-feature').classList.toggle('panic',q>.62);note('WordPress devient largement connu. Le logiciel était déjà libre.');}
   else if(t<.205){
    for(let i=0;i<9;i++)put('a34-tool-'+i,480+(i%3)*230,310+Math.floor(i/3)*155,1);actor('guide',270,720,.82);
