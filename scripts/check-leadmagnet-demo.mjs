@@ -14,7 +14,19 @@ async function at(page,selector,progress){
   const top=el.getBoundingClientRect().top+scrollY
   scrollTo({top:top+p*(el.getBoundingClientRect().height-innerHeight),behavior:'instant'})
  },progress)
- await page.waitForTimeout(350)
+ // WebKit on shared runners can paint the preceding React frame after scrollTo.
+ // Poll for the exact intended state rather than accepting it after a fixed delay.
+ await page.waitForFunction(({selector,progress})=>{
+  const root=document.querySelector(selector)
+  const visible=(query,wanted)=>{const node=root?.querySelector(query);if(!node)return false;const value=Number(getComputedStyle(node).opacity);return wanted?value>.99:value<.01}
+  if(selector==='#formula-ideas'){
+   const index=Math.min(6,Math.floor(progress*7))
+   return root?.querySelector('[data-idea-example]')?.getAttribute('data-idea-example')===String(index)&&visible(`[data-idea-layer="${index}"] [data-idea-reply]`,true)
+  }
+  if(selector==='#formula-lead-messages')return visible('[data-scroll-reveal="comment"]',progress>=.12)&&visible('[data-scroll-reveal="reply"]',progress>=.29)&&visible('[data-lead-dm]',progress>=.54)&&visible('[data-lead-resource]',progress>=.78)
+  return visible('[data-lead-clip="result"]',true)
+ },{selector,progress},{timeout:5000})
+ await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))))
 }
 async function fits(page,locator,label){
  const box=await locator.boundingBox(),v=page.viewportSize()
@@ -57,7 +69,7 @@ try{
     assert(await opacity(exchange.locator('[data-idea-reply]'))>.99,'Reply must stay readable through the hold')
     await fits(page,exchange.locator('[data-idea-outgoing]'),`${name} outgoing ${i}`)
     await fits(page,exchange.locator('[data-idea-reply]'),`${name} reply ${i}`)
-    if(i===0||i===3)await page.screenshot({path:`${out}/${name}-ideas-${i}.png`})
+    if(i===0||i===3||i===6)await page.screenshot({path:`${out}/${name}-ideas-${i}.png`})
    }
    // Backward scroll must restore the preceding message, without clicking anything.
    await at(page,'#formula-ideas',2.55/7)
@@ -66,8 +78,8 @@ try{
    await page.waitForTimeout(900)
    assert.equal(await ideas.locator('[data-idea-example]').getAttribute('data-idea-example'),'2','No time-based auto advance')
    assert(Math.abs(await page.evaluate(()=>scrollY)-y)<3,'No forced scroll')
-   await page.mouse.wheel(0,180);await page.waitForTimeout(400)
-   assert(await page.evaluate(()=>scrollY)>y+100,'Native wheel must remain effective')
+   await page.mouse.wheel(0,180)
+   await page.waitForFunction(y=>scrollY>y+100,y,{timeout:3000})
    await at(page,'[data-scroll-discovery="comparison"]',.55)
    const source=pair.locator('[data-lead-clip="source"]'),result=pair.locator('[data-lead-clip="result"]')
    assert.equal(await pair.locator('video').count(),2)
@@ -75,6 +87,8 @@ try{
    assert(Math.abs(a.y-b.y)<3&&a.x+a.width<=b.x,'Both real edits must remain side by side')
    assert(await opacity(result)>.99)
    await fits(page,source,`${name} source`);await fits(page,result,`${name} result`)
+   const va=await source.locator('video').boundingBox(),vb=await result.locator('video').boundingBox()
+   assert(Math.abs(va.y-vb.y)<3&&Math.abs(va.height-vb.height)<3,'The two video windows must align, not just their figures')
    await page.waitForFunction(()=>[...document.querySelectorAll('[data-lead-comparison] video')].every(v=>v.readyState>=2&&v.videoHeight>v.videoWidth&&!v.paused),null,{timeout:15000})
    const times=await pair.locator('video').evaluateAll(vs=>vs.map(v=>v.currentTime))
    await page.waitForFunction(times=>[...document.querySelectorAll('[data-lead-comparison] video')].every((v,i)=>Math.abs(v.currentTime-times[i])>.1),times,{timeout:8000})
@@ -106,7 +120,7 @@ try{
    assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2),'No horizontal overflow')
    assert.deepEqual(errors,[])
    reports.push({name,result:'passed',scrollDrivenChat:true,noNavigationArrows:true,readingHolds:true,instagramProgressiveReveal:true,bothClipsVisibleTogether:true,realPlayback:true,leadBeforeYouTube:true})
-  }catch(error){await page.screenshot({path:`${out}/${name}-failure.png`}).catch(()=>{});reports.push({name,result:'failed',error:String(error),errors})}
+  }catch(error){await page.screenshot({path:`${out}/${name}-failure.png`}).catch(()=>{});reports.push({name,result:'failed',error:String(error),stack:error.stack,errors})}
   finally{await context.close()}
  }
  const context=await contextFor(chrome,{width:390,height:844},'reduce'),page=await context.newPage()
