@@ -1,0 +1,25 @@
+name: Inspect supplied lead magnet media
+on:
+  push:
+    branches: [codex/leadmagnet-real-example-20261104]
+    paths:
+      - scripts/inspect-leadmagnet-media.py
+      - .github/workflows/inspect-leadmagnet-media.yml
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install media inspection tools
+        run: |
+          if ! command -v ffmpeg >/dev/null; then sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg; fi
+      - run: python3 scripts/inspect-leadmagnet-media.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: supplied-leadmagnet-media
+          path: artifacts/leadmagnet-media/
+          retention-days: 1
