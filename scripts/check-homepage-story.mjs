@@ -28,20 +28,21 @@ async function ready() {
   }
   throw new Error('Local homepage did not start')
 }
-async function at(page, t) {
-  const native = t < .28 ? '#formula-ideas' : t >= .595 && t < .628 ? '#formula-youtube' : t >= .628 && t <= .698 ? '#formula-lead-messages' : t > .698 && t < .768 ? '#formula-secret' : null
-  if (native) {
-    await page.locator(native).evaluate(el => el.scrollIntoView({ behavior: 'instant', block: 'start' }))
-  } else {
-    await page.evaluate(t => {
-      const creation = t < .595
-      const el = document.querySelector(creation ? '[data-story="formula"]' : '[data-story="distribution"]')
-      if (!el) throw new Error('Missing animated story')
-      const raw = creation ? (t - .305) / .285 : (t - .768) / .432
-      window.scrollTo({ top: el.getBoundingClientRect().top + scrollY + raw * (el.getBoundingClientRect().height - innerHeight), behavior: 'instant' })
-    }, t)
+async function at(page,t){
+ const root=t>=.28&&t<=.698?'[data-unified-formats]':null
+ if(root){
+  let raw
+  if(t>=.628)raw=.72+Math.min(.999,(t-.628)/.07)*.16
+  else if(t>=.595)raw=.88+(t-.595)/.033*.12
+  else{
+   const a=[.305,.35,.415,.475,.535,.590],b=[0,.08,.16,.24,.32,.40]
+   let i=a.findIndex((v,j)=>j<a.length-1&&t>=v&&t<a[j+1]);if(i<0)i=t<a[0]?0:4
+   raw=b[i]+(t-a[i])/(a[i+1]-a[i])*(b[i+1]-b[i])
   }
-  await page.waitForTimeout(450)
+  await page.locator(root).evaluate((el,p)=>scrollTo({top:el.getBoundingClientRect().top+scrollY+Math.max(0,Math.min(1,p))*(el.getBoundingClientRect().height-innerHeight),behavior:'instant'}),raw)
+ }else if(t<.28||t<.768){await page.locator(t<.28?'#formula-ideas':'#formula-secret').evaluate(el=>el.scrollIntoView({behavior:'instant',block:'start'}))}
+ else{await page.locator('[data-story="distribution"]').evaluate((el,t)=>scrollTo({top:el.getBoundingClientRect().top+scrollY+(t-.768)/.432*(el.getBoundingClientRect().height-innerHeight),behavior:'instant'}),t)}
+ await page.waitForTimeout(600)
 }
 async function inside(page, locator, label) {
   await locator.waitFor({ state: 'visible' })
@@ -153,10 +154,10 @@ try {
         if (kind === 0 || kind === 5) await screenshot(page, `${name}-${kind === 0 ? 'short' : 'long'}`)
       }
       await at(page, .681)
-      await page.locator('[data-scene="lead-magnet"]').waitFor({ state: 'visible' })
+      await page.locator('[data-journey-pane="instagram"]').waitFor({ state: 'visible' })
       await screenshot(page, `${name}-lead-magnet`)
       await at(page, .698)
-      assert(Number(await page.locator('[data-scene="lead-magnet"]').evaluate(el => getComputedStyle(el).opacity)) > .95, 'Final result must not fade into an empty frame')
+      assert(Number(await page.locator('[data-journey-pane="instagram"]').evaluate(el => getComputedStyle(el).opacity)) > .95, 'Final result must not fade into an empty frame')
       await at(page, .735)
       const input = secret.locator('input[type="email"]')
       await input.waitFor({ state: 'visible' })

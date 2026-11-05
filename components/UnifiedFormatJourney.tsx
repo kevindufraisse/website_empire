@@ -50,7 +50,7 @@ export default function UnifiedFormatJourney({ renderShort }: {
           <div className={s.longScreen} data-format-preview="long"><LongVideoFormat p={longP}/></div>
           <div className={s.longCopy}><h3>Plus de place pour<br/>votre point de vue.</h3><p>Réaction, classement ou réponse client : développez votre sujet, sans changer de parcours.</p></div>
         </section>
-        <div className={s.rail}><FormatRail active={active}/></div>
+        <div className={s.rail} data-unified-rail><FormatRail active={active}/></div>
       </div>
       <div className={s.cue}><span>Continuez à scroller</span><div><motion.i style={{ scaleX: progress }}/></div><small>Démonstration illustrée</small></div>
     </div>

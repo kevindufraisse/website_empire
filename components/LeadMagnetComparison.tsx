@@ -28,13 +28,16 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
     const videos = Array.from(element.querySelectorAll('video'))
     let visible = false
     const sync = () => videos.forEach(video => {
-      if (visible && !paused && !document.hidden) video.play().catch(() => {})
+      if (visible && !paused && !document.hidden && !element.closest('[aria-hidden="true"]')) video.play().catch(() => {})
       else video.pause()
     })
     const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; sync() }, { threshold: .15 })
     observer.observe(element)
+    const pane=element.closest('[data-journey-pane]')
+    const mutations=new MutationObserver(sync)
+    if(pane)mutations.observe(pane,{attributes:true,attributeFilter:['aria-hidden']})
     document.addEventListener('visibilitychange', sync)
-    return () => { observer.disconnect(); document.removeEventListener('visibilitychange', sync); videos.forEach(video => video.pause()) }
+    return () => { observer.disconnect(); mutations.disconnect(); document.removeEventListener('visibilitychange', sync); videos.forEach(video => video.pause()) }
   }, [paused, still])
   function restart() {
     root.current?.querySelectorAll('video').forEach(video => {
