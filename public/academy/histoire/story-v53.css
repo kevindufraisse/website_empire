@@ -33,3 +33,16 @@
 @media(prefers-reduced-motion:reduce){.v53-person{transition:none}.ac-story .v53-scene{height:auto!important}.ac-story .v53-scene .ac-frame{position:relative;top:auto;height:auto;overflow:visible}.ac-story .v53-scene .ac-visual{height:auto;max-height:none}}
 .v53-payoff{font-size:13px;line-height:1.6;color:#775869;margin:0 0 4px}
 .v53-community-image strong{white-space:nowrap}
+
+/* Shared column tracks keep each character above its own figures. */
+.v53-comparison{--v54-label:70px}
+.v53-vs-people{position:relative;grid-template-columns:var(--v54-label) minmax(0,1fr) minmax(0,1fr)}
+.v53-vs-people figure:first-child{grid-column:2}.v53-vs-people figure:last-child{grid-column:3}
+.v53-vs-people>span{position:absolute;left:calc((100% + var(--v54-label) + 8px)/2);top:45%;transform:translate(-50%,-50%)}
+.v53-compare-row{grid-template-columns:var(--v54-label) minmax(0,1fr) minmax(0,1fr)}
+.v53-person{display:grid;grid-template-rows:175px minmax(28px,auto) auto 1fr auto;align-items:start}
+.v53-person>span{margin-top:14px}.v53-person h3{align-self:start}.v53-person button{align-self:end}
+.ac-animated .am-cinema .ac-copy{flex-direction:column}.ac-animated .am-cinema .ac-copy>.v53-kicker{margin-bottom:12px;text-align:center}
+.v53-choice-answer{min-height:112px;text-wrap:pretty}
+@media(max-width:1000px){.v53-person{grid-template-rows:150px minmax(28px,auto) auto 1fr auto}}
+@media(max-width:700px){.v53-comparison{--v54-label:55px}.v53-person{grid-template-rows:140px minmax(30px,auto) auto 1fr auto}.v53-person>span{margin-top:12px}.v53-choice-answer{min-height:112px}}

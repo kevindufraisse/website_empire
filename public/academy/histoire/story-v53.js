@@ -13,9 +13,9 @@
   choice.querySelectorAll('[data-v53-choice]').forEach(n => n.setAttribute('aria-pressed', String(n.dataset.v53Choice === value)));
   choice.querySelectorAll('[data-profile]').forEach(n => n.classList.toggle('is-selected', n.dataset.profile === value));
   choice.querySelector('.v53-choice-answer').textContent = value === 'left'
-   ? (automatic ? 'Le récit sélectionne Kevin. Pourquoi ? ' : 'Vous avez choisi Kevin. ') + 'Vous connaissez son parcours, sa façon de résoudre un problème et la personne derrière le service. Le contenu aide à construire cette confiance.'
-   : value === 'right' ? 'Vous avez choisi l’autre professionnel. Une prestation claire peut convaincre aussi. Le parcours apporte du contexte ; il ne décide pas à votre place.'
-   : 'Le même service. Faites défiler pour voir ce que l’histoire change.';
+   ? 'Maintenant, vous connaissez mon histoire. Vous m’avez vu apprendre, chercher et trouver des raccourcis. Vous connaissez la personne derrière le service. C’est ce lien que le contenu peut créer.'
+   : value === 'right' ? 'Vous préférez mon concurrent. C’est possible aussi. Connaître une histoire apporte du contexte et peut créer de la confiance ; cela ne décide pas à votre place.'
+   : 'Vous venez de suivre mon aventure. Est-ce que cela change votre choix ?';
  }
  choice?.addEventListener('click', e => { const b=e.target.closest('[data-v53-choice]'); if (!b) return; manualChoice=true; choose(b.dataset.v53Choice); });
  function paint() {
