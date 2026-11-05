@@ -1,63 +1,67 @@
 'use client'
-import { ArrowRight, Coins, Workflow, Brain } from 'lucide-react'
+
+import { useEffect, useRef, useState } from 'react'
+import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from 'framer-motion'
+import { ArrowRight, Brain, Coins, Workflow } from 'lucide-react'
 import EmpireSalesCta from '@/components/EmpireSalesCta'
+import { CONTENT_CREDITS, PLANS } from '@/lib/plans'
 import s from './FormulaCompareClear.module.css'
 
-const CRITERIA = [
-  { key: 'money', label: 'Coût en argent', Icon: Coins },
-  { key: 'sophistication', label: 'Sophistication', Icon: Workflow },
-  { key: 'mental-load', label: 'Charge mentale', Icon: Brain },
-] as const
-
-// Compare how each approach is organized, not invented prices or objective scores.
-// A provider can offer a fully managed system; its scope depends on the contract.
 const OPTIONS = [
-  {
-    key: 'tools', category: 'SOI-MÊME · OUTILS IA', title: 'Vous assemblez votre système.',
-    cells: [
-      { value: 'Des outils à additionner.', detail: 'Rédaction, montage, programmation, suivi : le budget dépend des abonnements et des usages choisis.' },
-      { value: 'Un système à construire.', detail: 'Choisir les outils, les connecter et maintenir les automatisations. Le résultat dépend de votre assemblage.' },
-      { value: 'Tout à orchestrer.', detail: 'Produire, transférer, adapter, publier, vérifier les résultats et résoudre les blocages entre les outils.' },
-    ],
-  },
-  {
-    key: 'providers', category: 'FREELANCE · STUDIO · AGENCE', title: 'Vous déléguez une prestation.',
-    cells: [
-      { value: 'Des honoraires sur devis.', detail: 'Une mission ou un forfait, selon les livrables, le volume et le niveau de prise en charge.' },
-      { value: 'Un périmètre sur mesure.', detail: 'D’une expertise spécialisée à un système complet : ce qui est relié et automatisé dépend du contrat.' },
-      { value: 'Briefs et validations.', detail: 'Vous transmettez vos idées et faites vos retours. La coordination peut être incluse ou rester à votre charge.' },
-    ],
-  },
-  {
-    key: 'empire', category: 'EMPIRE', title: 'Vous utilisez un parcours déjà relié.',
-    cells: [
-      { value: 'Une offre + des crédits.', detail: 'Un budget selon votre volume de création et les fonctionnalités choisies. Les tarifs détaillent ce qui est inclus.' },
-      { value: 'Le système est intégré.', detail: 'Idées, création, diffusion et suivi réunis dans Empire. Vos comptes et intégrations restent à connecter.' },
-      { value: 'Un seul parcours à piloter.', detail: 'Vous partagez vos idées, enregistrez et validez. Les contenus, leur programmation et leur suivi restent au même endroit.' },
-    ],
-  },
+ {key:'tools',name:'Seul + outils',detail:'Vous assemblez.'},
+ {key:'freelance',name:'Un freelance',detail:'Vous confiez une mission.'},
+ {key:'agency',name:'Une agence',detail:'Vous déléguez un dispositif.'},
+ {key:'empire',name:'Empire',detail:'Le système est déjà construit.'},
 ] as const
+const AXES = [
+ {key:'money',name:'Coût en argent',question:'Ce que vous payez.',Icon:Coins},
+ {key:'sophistication',name:'Sophistication',question:'Ce qui fonctionne ensemble.',Icon:Workflow},
+ {key:'mental-load',name:'Charge mentale',question:'Ce que vous faites.',Icon:Brain},
+] as const
+const EXAMPLE = {reels:6,posts:6}
+const credits = EXAMPLE.reels*CONTENT_CREDITS.reel+EXAMPLE.posts*CONTENT_CREDITS.post
+const plan = [...PLANS].sort((a,b)=>a.price-b.price).find(p=>p.credits>=credits)
+const fmt=(n:number)=>n.toLocaleString('fr-FR')
+const planName=plan?plan.id.charAt(0).toUpperCase()+plan.id.slice(1):''
 
-export default function FormulaCompareSection() {
-  return <section id="home-comparison" className={s.section} aria-labelledby="formula-compare-title" data-comparison-criteria>
-    <div className={s.wrap}>
-      <header className={s.heading}>
-        <h2 id="formula-compare-title">Ce que ça vous coûte.<br/><em>Ce que ça vous demande.</em></h2>
-        <p>Coût en argent, sophistication du système et charge mentale.<br/>Ce que vous payez. Ce que vous devez construire. Ce que vous faites au quotidien.</p>
-      </header>
-      <div className={s.cards}>
-        {OPTIONS.map(option => <article key={option.key} className={`${s.card} ${option.key === 'empire' ? s.empire : ''}`} data-comparison-option={option.key}>
-          <header className={s.cardHeading}><span className={s.category}>{option.category}</span><h3>{option.title}</h3></header>
-          <dl>{CRITERIA.map(({ key, label, Icon }, index) => <div key={key} data-comparison-axis={key}>
-            <dt><Icon size={15} aria-hidden="true"/>{label}</dt>
-            <dd><strong>{option.cells[index].value}</strong><p>{option.cells[index].detail}</p></dd>
-          </div>)}</dl>
-          {option.key === 'empire' && <a href="/tarifs">Voir les offres et les tarifs Empire <ArrowRight size={15} aria-hidden="true"/></a>}
-        </article>)}
-      </div>
-      <p className={s.takeaway}><strong>La différence avec Empire :</strong> vous apportez votre expertise, sans assembler chaque étape entre des outils séparés.</p>
-      <p className={s.note}>Repères d’organisation, pas des notes de performance. Un prestataire peut aussi tout prendre en charge. Le budget et la coordination varient selon l’usage et le contrat. Les fonctionnalités Empire dépendent de l’offre ; le suivi des conversions nécessite les liens et intégrations configurés.</p>
-      <div className={s.cta}><EmpireSalesCta source="home-formula-compare"/></div>
-    </div>
-  </section>
+function Cell({row,col}:{row:number;col:number}){
+ if(row===0){
+  if(col===3)return <><strong className={s.price} data-comparison-price={plan?.price}>{plan?<>{fmt(plan.price)} €<small>/ mois</small></>:'Selon votre volume'}</strong><p>{plan?`${planName} mensuel · ${fmt(plan.credits)} crédits.`:'Une formule adaptée à votre volume.'}</p><small>Pour l’exemple ci-dessus.</small></>
+  return <><strong>{['Vos abonnements','Un devis de mission','Un forfait sur devis'][col]}</strong><p>{['Rédaction + montage + publication + suivi.','Création et diffusion à préciser dans la mission.','Livrables et niveau de délégation à définir.'][col]}</p><small>{col===0?'Votre travail s’ajoute aux outils.':'À chiffrer pour ce même volume.'}</small></>
+ }
+ if(row===1){
+  const labels=[['Outil texte','Outil vidéo','Planning'],['Expertise','Livrables'],['Stratégie','Équipe','Pilotage'],['Idée','Création','Diffusion','Suivi']]
+  return <><strong>{['À connecter vous-même.','Selon sa mission.','Sur mesure.','Déjà relié.'][col]}</strong><div className={s.pipeline} data-connected={col===3}>{labels[col].map((label,i)=><span key={label}>{i>0&&<ArrowRight size={9} aria-hidden="true"/>}<b>{label}</b></span>)}</div><p>{['Vous construisez les liens entre les étapes.','Une expertise ciblée ou une prise en charge plus large.','Un dispositif défini par le contrat.','Vos contenus et leurs résultats au même endroit.'][col]}</p></>
+ }
+ const tasks=[['Produire','Transférer','Programmer','Coordonner'],['Briefer','Faire vos retours','Gérer le hors-mission'],['Transmettre votre expertise','Valider'],['Partager vos idées','Enregistrer','Valider']]
+ return <><strong>{['Vous orchestrez tout.','Vous gérez la mission.','Vous suivez le projet.','Vous apportez votre expertise.'][col]}</strong><div className={s.tasks}>{tasks[col].map(task=><span key={task}>{task}</span>)}</div></>
+}
+function ComparisonRow({index,p,animated}:{index:number;p:MotionValue<number>;animated:boolean}){
+ const opacity=useTransform(p,[index*.19,index*.19+.08],[0,1])
+ const y=useTransform(p,[index*.19,index*.19+.08],[18,0])
+ const axis=AXES[index],Icon=axis.Icon
+ return <motion.div className={s.row} role="row" data-comparison-axis={axis.key} style={animated?{opacity,y}:{}}>
+  <div className={s.axis} role="rowheader"><Icon size={18}/><strong>{axis.name}</strong><span>{axis.question}</span></div>
+  {OPTIONS.map((option,col)=><div className={`${s.cell} ${col===3?s.empire:''}`} role="cell" key={option.key} data-comparison-cell={option.key}><span className={s.mobileLabel}>{option.name}</span><Cell row={index} col={col}/></div>)}
+ </motion.div>
+}
+export default function FormulaCompareSection(){
+ const ref=useRef<HTMLElement>(null),reduced=!!useReducedMotion()
+ const {scrollYProgress:p}=useScroll({target:ref,offset:['start start','end end']})
+ const [desktop,setDesktop]=useState(false)
+ useEffect(()=>{const media=matchMedia('(min-width: 901px) and (min-height: 650px)');const sync=()=>setDesktop(media.matches);sync();media.addEventListener('change',sync);return()=>media.removeEventListener('change',sync)},[])
+ const animated=desktop&&!reduced
+ return <section id="home-comparison" ref={ref} className={s.section} data-comparison-criteria data-animated={animated} aria-labelledby="formula-compare-title">
+  <div className={s.sticky}>
+   <header className={s.heading}><h2 id="formula-compare-title">Votre expertise.<br/><em>Pas un deuxième métier.</em></h2><p>Ce que vous payez. Ce que le système fait. Ce qu’il vous reste à gérer.</p><span className={s.example}>Un même exemple : <b>6 Reels standard + 6 posts texte / mois.</b></span></header>
+   <div className={s.matrix} role="table" aria-label="Coût en argent, sophistication et charge mentale de quatre solutions">
+    <div className={s.columnHeads} role="row"><div role="columnheader">Comparez.</div>{OPTIONS.map(option=><div key={option.key} role="columnheader" className={option.key==='empire'?s.empire:''} data-comparison-option={option.key}><b>{option.name}</b><small>{option.detail}</small></div>)}</div>
+    <div role="rowgroup">{AXES.map((axis,index)=><ComparisonRow key={axis.key} index={index} p={p} animated={animated}/>)}</div>
+   </div>
+   <div className={s.bottom}><p><strong>Gardez votre point de vue.</strong> Empire réunit la production, la diffusion et le suivi.</p><EmpireSalesCta source="home-formula-compare" showDemo={false}/></div>
+   <p className={s.note}>Un prestataire peut aussi tout prendre en charge. Le périmètre dépend du contrat. Comptes et intégrations à connecter dans Empire. Aucun gain financier ni résultat garanti.</p>
+   {animated&&<span className={s.cue}>Continuez à scroller · les lignes restent visibles.</span>}
+  </div>
+  <div className={s.method}><details><summary>Base de calcul et périmètre de la comparaison</summary><p>L’exemple représente {EXAMPLE.reels} Reels standard à {CONTENT_CREDITS.reel} crédits et {EXAMPLE.posts} posts texte à {CONTENT_CREDITS.post} crédits, soit {fmt(credits)} crédits selon le barème du site. {plan?`${planName} inclut ${fmt(plan.credits)} crédits pour ${fmt(plan.price)} € en facturation mensuelle.`:''} Les formats IA spécifiques et les vidéos longues peuvent consommer un nombre de crédits différent.</p><p>Les budgets outils, freelance et agence ne sont pas chiffrés faute de devis portant sur ce même périmètre. Ce comparatif n’établit donc pas une économie mesurée. Le temps de travail n’est pas converti en euros.</p><a href="/tarifs">Consulter les offres et les conditions Empire <ArrowRight size={14}/></a></details></div>
+ </section>
 }
