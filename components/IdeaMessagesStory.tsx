@@ -52,7 +52,7 @@ function Exchange({ index, progress, active, still }: { index: number; progress:
     <motion.div className={s.outgoing} data-idea-outgoing style={still ? {} : { opacity: outgoing, y: outgoingY }}>
       {item.kind === 'voice' && <div className={s.voice}><Mic size={17}/><span aria-hidden="true">{[12,22,30,16,25,36,17,27,13,34,20,28,16,35,23,13,28,18].map((height,i)=><i key={i} style={{height}}/>)}</span><b>0:18</b></div>}
       <SourcePreview kind={item.kind}/>
-      <p>{item.text}</p><small>9:41 <CheckCheck size={12}/></small>
+      {item.kind!='watch'&&<p>{item.text}</p>}<small>9:41 <CheckCheck size={12}/></small>
     </motion.div>
     <motion.div className={s.incomingIdea} data-idea-reply style={still ? {} : { opacity: incoming, y: incomingY }}><span><Check size={13}/>Ajouté à Empire</span><p>{item.reply}</p><small>Format proposé : {item.format}</small></motion.div>
   </div>

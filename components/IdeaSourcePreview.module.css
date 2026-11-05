@@ -1,7 +1,7 @@
 .ideas>div{gap:12px}
 .ideas .heading{min-height:94px;display:grid;place-items:center}
 .headingIcon{display:inline-block;width:25px;height:25px;color:#dafc68;margin-right:10px;vertical-align:baseline}
-.ideas>div>div:has([data-idea-example]){width:270px;height:560px;flex-basis:560px;border-radius:32px}
+.ideas>div>div:has([data-idea-example]){width:270px;height:620px;flex-basis:620px;border-radius:32px}
 .ideas [data-idea-example]{min-height:0}
 .ideas [data-idea-source]{border:1px solid #d9dfd3;border-radius:8px;overflow:hidden;background:#fff;color:#202020;margin-bottom:8px}
 .fileLabel,.linkHeading{display:flex;align-items:center;gap:6px;font-size:12px;padding:7px 8px}
