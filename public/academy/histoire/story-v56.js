@@ -16,7 +16,7 @@
    n.querySelectorAll('[data-v56-beat]').forEach(el=>{const i=+el.dataset.v56Beat,t=still?1:ease(p,.08+i*.17,.30+i*.17);el.style.opacity=String(t);el.style.transform=`translateY(${(1-t)*16}px)`;});
    const art=n.querySelector('.v56-stage>.v56-art');
    if(art&&!still)art.style.transform=`translateY(${(1-ease(p,.02,.35))*12}px)`;
-   if(n.id==='histoire-cours'){
+   if(n.id==='histoire-cours' && n.querySelector('[data-v56-confiscated]')){
     const take=still?1:ease(p,.3,.62),laptop=n.querySelector('[data-v56-confiscated]');
     laptop.style.transform=`translate(${take*85}px,${-take*50}px)`;laptop.style.opacity=String(1-take);
     const teacher=n.querySelector('.v56-teacher');if(teacher)teacher.style.transform=still?'none':`translateX(${(1-ease(p,.02,.25))*80+ease(p,.7,.95)*150}px)`;
@@ -30,8 +30,9 @@
     n.querySelectorAll('[data-v56-day]').forEach(el=>el.classList.toggle('is-done',+el.dataset.v56Day<day));
     const label=n.querySelector('[data-v56-day-label]'),text=finished?'14 jours ✓':`${darkness>.5?'Nuit':'Jour'} ${day}`;
     if(label.textContent!==text)label.textContent=text;
-    const status=n.querySelector('[data-v56-night-status]'),message=finished?'Deux semaines plus tard, mon site était prêt.':'Je teste. Je bloque. Je recommence.';
+    const status=n.querySelector('[data-v56-night-status]'),message=finished?'mon site était prêt.':'Chez moi, pendant deux semaines.';
     if(status.textContent!==message)status.textContent=message;
+    const first=finished?'Deux semaines plus tard,':'Déterminé, je teste encore et encore.';if(n.querySelector('h2').firstChild.textContent!==first)n.querySelector('h2').firstChild.textContent=first;
     const end=n.querySelector('[data-v56-finish]');end.style.opacity=finished?'1':'0';end.style.transform=`translateY(${finished?0:15}px)`;end.setAttribute('aria-hidden',String(!finished));
     const work=n.querySelector('.v56-bedroom>.v56-art:not(.v56-night-end)'), endPose=n.querySelector('.v56-night-end');
     work.style.opacity=finished?'0':'1';endPose.style.opacity=finished?'1':'0';
@@ -63,5 +64,5 @@
  addEventListener('scroll',schedule,{passive:true});addEventListener('resize',measure,{passive:true});addEventListener('pageshow',measure);
  reduced.addEventListener('change',measure);new MutationObserver(measure).observe(root,{attributes:true,attributeFilter:['class']});
  if('ResizeObserver'in window){const ro=new ResizeObserver(measure);nodes.forEach(n=>ro.observe(n))}
- document.fonts?.ready.then(measure);root.dataset.v56Ready='true';root.dataset.storyVersion='v57';measure();
+ document.fonts?.ready.then(measure);root.dataset.v56Ready='true';root.dataset.storyVersion='v58';measure();
 })();

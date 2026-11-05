@@ -48,7 +48,7 @@
     }
     if (inStory && !seen.has(current)) {
       seen.add(current);
-      track('academy_story_progress', { story_version: 'v57', story_step: scenes[current].id, chapter });
+      track('academy_story_progress', { story_version: 'v58', story_step: scenes[current].id, chapter });
     }
   }
   function schedule() { if (!pending) pending = requestAnimationFrame(paint); }
@@ -91,31 +91,6 @@
     history.replaceState(null, '', a.hash);
     goTo(target, true);
   }));
-  // Demo only: no network requests, recording, publishing or payment.
-  const review = document.getElementById('ac-review');
-  const correct = document.getElementById('ac-correct');
-  const approve = document.getElementById('ac-approve');
-  const calendar = document.getElementById('ac-calendar');
-  const reset = document.getElementById('ac-reset');
-  const status = document.getElementById('ac-review-status');
-  correct.addEventListener('click', () => {
-    review.classList.add('is-corrected');
-    correct.hidden = true; approve.hidden = false;
-    status.textContent = 'Correction appliquée : la formulation respecte maintenant son expérience.';
-    approve.focus({ preventScroll: true });
-    track('academy_demo_corrected', { story_version: 'v57' });
-  });
-  approve.addEventListener('click', () => {
-    review.classList.add('is-approved'); approve.hidden = true; calendar.hidden = false; reset.hidden = false;
-    status.textContent = 'Version validée. Voici sa programmation illustrative ; rien n’a été publié.';
-    reset.focus({ preventScroll: true });
-    track('academy_demo_approved', { story_version: 'v57' });
-  });
-  reset.addEventListener('click', () => {
-    review.classList.remove('is-corrected', 'is-approved'); correct.hidden = false; approve.hidden = true; calendar.hidden = true; reset.hidden = true;
-    status.textContent = 'Le sens change. Votre relecture fait la différence.';
-    correct.focus({ preventScroll: true });
-  });
   // Header behavior previously provided by story.js.
   const toggle = document.getElementById('empire-menu-toggle');
   const menu = document.getElementById('empire-menu');
@@ -149,7 +124,7 @@
     script.addEventListener('load', () => {
       const extra = document.createElement('script');
       extra.src = '/academy/histoire/story-v52.js?v=52';
-      extra.addEventListener('load', () => { const final = document.createElement('script'); final.src = '/academy/histoire/story-v53.js?v=57'; final.addEventListener('load', () => { const cinema = document.createElement('script'); cinema.src='/academy/histoire/story-v56.js?v=57'; document.head.appendChild(cinema); }, {once:true}); document.head.appendChild(final); }, { once: true });
+      extra.addEventListener('load', () => { const final = document.createElement('script'); final.src = '/academy/histoire/story-v53.js?v=58'; final.addEventListener('load', () => { const cinema = document.createElement('script'); cinema.src='/academy/histoire/story-v56.js?v=58'; cinema.addEventListener('load', () => { const refine=document.createElement('script'); refine.src='/academy/histoire/story-v58.js?v=58'; document.head.appendChild(refine); }, {once:true}); document.head.appendChild(cinema); }, {once:true}); document.head.appendChild(final); }, { once: true });
       document.head.appendChild(extra);
     }, { once: true });
     document.head.appendChild(script);

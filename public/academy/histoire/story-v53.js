@@ -13,10 +13,10 @@
   choice.querySelectorAll('[data-v53-choice]').forEach(n => n.setAttribute('aria-pressed', String(n.dataset.v53Choice === value)));
   choice.querySelectorAll('[data-profile]').forEach(n => n.classList.toggle('is-selected', n.dataset.profile === value));
   choice.querySelector('.v53-choice-answer').textContent = value === 'left'
-   ? 'Vous avez suivi mon aventure : les vêtements, les cours, le premier client. Vous avez vu comment je réagis et comment je travaille. À service égal, cela peut vous donner davantage envie de travailler avec moi. C’est ce que vous allez aider un entrepreneur à montrer.'
+   ? 'Vous connaissez mes débuts, mes choix et ma façon de travailler. À outil et service égaux, cette familiarité peut créer une préférence. C’est cette histoire que vous aiderez les entrepreneurs à transmettre à leurs futurs clients.'
    : value === 'right' ? 'Vous préférez mon concurrent. C’est possible aussi. Connaître une histoire apporte du contexte et peut créer de la confiance ; cela ne décide pas à votre place.'
    : value === 'ai' ? 'Pour une tâche précise, un outil peut suffire. Votre histoire, votre façon de décider et la relation avec votre client apportent un autre contexte au choix.'
-   : 'Moi, un concurrent, une IA : une même tâche. Qu’est-ce qui change votre choix ?';
+   : 'Deux personnes utilisent l’IA. Une seule vous est déjà familière.';
  }
  choice?.addEventListener('click', e => { const b=e.target.closest('[data-v53-choice]'); if (!b) return; manualChoice=true; choose(b.dataset.v53Choice); });
  function paint() {
