@@ -28,11 +28,10 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
     const [master, follower] = videos
     if (!master || !follower) return
     let visible = false, disposed = false, starting = false
-    const buffering = new Set<HTMLVideoElement>()
     let lastRateUpdate = 0, lastSeek = 0
     const shouldPlay = () => visible && !paused && !document.hidden && !element.closest('[aria-hidden="true"]')
     const stop = () => videos.forEach(video => video.pause())
-    const ready = () => buffering.size === 0 && videos.every(video => video.readyState >= 2 && !video.seeking)
+    const ready = () => videos.every(video => video.readyState >= 2 && !video.seeking)
     const reset = () => {
       stop()
       videos.forEach(video => { if (video.playbackRate !== 1) video.playbackRate = 1; if (Number.isFinite(video.duration)) video.currentTime = 0 })
@@ -75,16 +74,13 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
     const pane = element.closest('[data-journey-pane]')
     const mutations = new MutationObserver(wake)
     if (pane) mutations.observe(pane, { attributes: true, attributeFilter: ['aria-hidden'] })
-    const onWaiting = (event: Event) => {
-      // Let the buffering player recover naturally; hold its partner meanwhile.
-      buffering.add(event.currentTarget as HTMLVideoElement)
-      videos.filter(video => video !== event.currentTarget).forEach(video => video.pause())
-      sync()
-    }
-    const onReady = (event: Event) => { buffering.delete(event.currentTarget as HTMLVideoElement); sync() }
+    // A decoded frame is enough to request playback after a seek. Holding both
+    // players on "waiting" can deadlock WebKit at HAVE_CURRENT_DATA even when
+    // the complete file is buffered. Let each decoder resume, then align clocks.
+    const onReady = () => wake()
     videos.forEach(video => {
       video.addEventListener('canplay', onReady)
-      video.addEventListener('waiting', onWaiting)
+      video.addEventListener('waiting', onReady)
       video.addEventListener('seeked', onReady)
       video.addEventListener('ended', reset)
     })
@@ -101,7 +97,7 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
       window.removeEventListener('scroll', onScroll)
       videos.forEach(video => {
         video.removeEventListener('canplay', onReady)
-        video.removeEventListener('waiting', onWaiting)
+        video.removeEventListener('waiting', onReady)
         video.removeEventListener('seeked', onReady)
         video.removeEventListener('ended', reset)
       })
