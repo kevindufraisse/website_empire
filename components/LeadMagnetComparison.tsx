@@ -27,7 +27,7 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
     const videos = Array.from(element.querySelectorAll('video'))
     const [master, follower] = videos
     if (!master || !follower) return
-    let visible = false, frame = 0, disposed = false, starting = false
+    let visible = false, disposed = false, starting = false
     const buffering = new Set<HTMLVideoElement>()
     let lastRateUpdate = 0, lastSeek = 0
     const shouldPlay = () => visible && !paused && !document.hidden && !element.closest('[aria-hidden="true"]')
@@ -45,10 +45,8 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
         starting = true
         Promise.all(videos.map(video => video.play())).catch(() => {}).finally(() => { starting = false })
       }
-      if (!frame) frame = requestAnimationFrame(tick)
     }
     function tick() {
-      frame = 0
       if (disposed || !shouldPlay()) { stop(); return }
       if (videos.some(video => video.ended) || master.currentTime >= 14.96) {
         reset()
@@ -87,13 +85,14 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
       video.addEventListener('seeked', onReady)
       video.addEventListener('ended', reset)
     })
+    master.addEventListener('timeupdate', tick)
     document.addEventListener('visibilitychange', sync)
     restartPair.current = reset
     return () => {
       disposed = true
-      cancelAnimationFrame(frame)
       observer.disconnect()
       mutations.disconnect()
+      master.removeEventListener('timeupdate', tick)
       document.removeEventListener('visibilitychange', sync)
       videos.forEach(video => {
         video.removeEventListener('canplay', onReady)
