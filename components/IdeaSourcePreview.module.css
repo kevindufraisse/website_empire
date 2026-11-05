@@ -14,3 +14,4 @@
 @media(max-height:720px){.ideas>div>header h2{font-size:23px}.ideas>div>div:has([data-idea-example]){width:min(305px,100%)}.reelImage{height:100px}.attachment>img{height:95px!important}.ideas [data-idea-outgoing]>p,.ideas [data-idea-reply]>p{font-size:11px;line-height:1.4}.ideas [data-idea-outgoing]>small{margin-top:4px}.ideas [data-idea-layer]{padding:8px}.ideas [data-idea-layer]>small{margin-bottom:4px}.ideas [data-idea-source]{margin-bottom:6px}}
 
 .postAvatar{display:grid;place-items:center;width:29px;height:29px;border-radius:50%;background:#e1ebf4;color:#0a66c2;font-weight:700;flex:none}
+@media(max-height:720px){.ideas>div>div:has([data-idea-example])>div:first-child{display:none}.ideas [data-idea-layer]>small{display:none}.ideas>div>div:has([data-idea-example])>div:last-child{padding-top:6px;padding-bottom:6px}.ideas [data-idea-reply]>small{font-size:9px}.ideas [data-idea-reply]>span{font-size:10px}}
