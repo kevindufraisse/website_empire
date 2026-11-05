@@ -49,7 +49,7 @@ try{
    assert.equal(await messages.locator('button').count(),0,'Messages must be discovered by scrolling')
    assert(await page.evaluate(()=>{const ids=['#formula-ideas','[data-story="formula"]','#formula-lead-magnet','#formula-youtube','#formula-secret'];return ids.slice(1).every((id,i)=>!!(document.querySelector(ids[i]).compareDocumentPosition(document.querySelector(id))&4))}),'Keep lead magnet before YouTube and the conditional form')
    assert((await ideas.locator('#ideas-title').innerText()).includes('partagez-la'))
-   assert((await ideas.innerText()).includes('Ou inspirez-vous de ce que publient vos concurrents.'))
+
    const travel=await ideas.evaluate(el=>el.offsetHeight-innerHeight)
    assert(travel/7>=viewport.height*1.15,'Each exchange needs at least 1.15 viewport heights of scrolling')
    for(let i=0;i<7;i++){
@@ -59,7 +59,12 @@ try{
     assert(await opacity(exchange.locator('[data-idea-reply]'))>.99,'Reply must stay readable through the hold')
     await fits(page,exchange.locator('[data-idea-outgoing]'),`${name} outgoing ${i}`)
     await fits(page,exchange.locator('[data-idea-reply]'),`${name} reply ${i}`)
-    await fits(page,ideas.locator('[data-idea-source-label]'),`${name} source label ${i}`)
+    const heading=ideas.locator('#ideas-title')
+    assert((await heading.innerText()).includes(i===6?'publient vos concurrents.':'partagez-la.'),'The competitor headline replaces the idea headline only during watch')
+    const phone=await ideas.locator('[data-idea-example]').evaluate(el=>el.parentElement.getBoundingClientRect().toJSON())
+    assert(phone.width<=280&&phone.width/phone.height<.60,'Keep the phone slim and portrait')
+    if([3,4,5].includes(i)){const link=exchange.locator('[data-idea-source]');assert(await link.locator('svg').count()>0);assert((await link.innerText()).includes(['instagram.com/reel/','youtube.com/shorts/','linkedin.com/posts/'][i===3?0:i===4?1:2]))}
+    if(i===6)assert((await exchange.innerText()).includes('tiktok.com/'))
     if([2,3,5,6].includes(i)){const preview=exchange.locator('[data-idea-source]');assert.equal(await preview.count(),1);await fits(page,preview,`${name} source preview ${i}`)}
     if([0,2,3,5,6].includes(i))await page.screenshot({path:`${out}/${name}-ideas-${i}.png`})
    }

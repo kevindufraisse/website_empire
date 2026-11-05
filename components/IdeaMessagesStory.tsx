@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react'
 import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform, type MotionValue } from 'framer-motion'
-import { BatteryFull, Check, CheckCheck, ChevronLeft, Mic, Plus, Send, Signal, Video, Camera, Play, Heart, MessageCircle, Bookmark, MoreHorizontal, FileText, Radar } from 'lucide-react'
+import { BatteryFull, Check, CheckCheck, ChevronLeft, Mic, Plus, Send, Signal, Video, Camera, Play, Radar } from 'lucide-react'
 import s from './LeadMagnetJourney.module.css'
 import scroll from './ScrollDiscovery.module.css'
 import v from './IdeaSourcePreview.module.css'
@@ -18,21 +18,22 @@ const EXAMPLES = [
   { name: 'Vos concurrents', kind: 'watch', text: 'Les idées des comptes que vous suivez arrivent aussi ici.', reply: 'Retrouvez les sujets à adapter à votre activité dans Empire.', format: 'À développer avec votre angle' },
 ] as const
 
-function SourceIcon({kind}:{kind:string}) {
-  if(kind==='reel')return <SocialIcons.instagram/>
-  if(kind==='linkedin')return <SocialIcons.linkedin/>
-  if(kind==='youtube')return <SocialIcons.youtube/>
-  if(kind==='capture')return <Camera size={18}/>
-  if(kind==='watch')return <Radar size={18}/>
-  if(kind==='voice')return <Mic size={18}/>
-  return <FileText size={18}/>
-}
+const SOURCE_LINKS = {
+  reel: { Icon: SocialIcons.instagram, label: 'Reel Instagram', url: 'instagram.com/reel/…', image: '/demo/hormozi-reaction-v10.jpg', title: 'Un conseil business à commenter' },
+  youtube: { Icon: SocialIcons.youtube, label: 'YouTube Shorts', url: 'youtube.com/shorts/…', image: '/creators/abdaal.webp', title: 'Des conseils pour commencer' },
+  linkedin: { Icon: SocialIcons.linkedin, label: 'Post LinkedIn', url: 'linkedin.com/posts/…', image: '', title: 'Qui suivre en business ?' },
+} as const
 function SourcePreview({kind}:{kind:string}) {
   if(kind==='capture')return <div className={v.attachment} data-idea-source="capture"><div className={v.fileLabel}><Camera size={14}/><b>Capture d’écran</b><span>PNG</span></div><img src="/demo/capture-entrepreneur-v18.webp" alt="Capture d’écran : citation sur la persévérance des entrepreneurs"/><small>capture-écran.png · Image jointe</small></div>
-  if(kind==='reel')return <div className={v.reel} data-idea-source="reel"><div className={v.platform}><SocialIcons.instagram/><b>Instagram</b><span>Reel</span></div><div className={v.reelImage}><img src="/demo/hormozi-reaction-v10.jpg" alt="Alex Hormozi dans un Reel Instagram"/><span className={v.play}><Play size={24} fill="currentColor"/></span><div className={v.reelActions}><Heart size={17}/><MessageCircle size={17}/><Bookmark size={17}/></div><b>@hormozi</b></div></div>
-  if(kind==='youtube')return <div className={v.youtube} data-idea-source="youtube"><div className={v.platform}><SocialIcons.youtube/><b>YouTube</b><span>Shorts</span></div><div className={v.youtubeBody}><img src="/creators/abdaal.webp" alt="Ali Abdaal"/><Play size={20} fill="currentColor"/><b>Des conseils pour commencer<small>Ali Abdaal</small></b></div></div>
-  if(kind==='linkedin')return <div className={v.linkedin} data-idea-source="linkedin"><div className={v.platform}><SocialIcons.linkedin/><b>LinkedIn</b><span>Post</span></div><div className={v.postAuthor}><span className={v.postAvatar}>C</span><div><b>Un compte de votre niche</b><small>Aperçu illustratif · LinkedIn</small></div><MoreHorizontal size={16}/></div><p>Qui suivre en business ?</p><p>Mon critère : l’expérience.</p><div className={v.postActions}><Heart size={13}/>J’aime <MessageCircle size={13}/>Commenter</div></div>
-  if(kind==='watch')return <div className={v.watch} data-idea-source="watch"><b><Radar size={16}/>La veille de vos concurrents</b><span><SocialIcons.instagram/>Un Reel qui marche dans votre niche</span><span><SocialIcons.linkedin/>Un post d’un compte que vous suivez</span><small>Des pistes à adapter avec votre point de vue.</small></div>
+  if(kind==='reel'||kind==='youtube'||kind==='linkedin'){
+    const link=SOURCE_LINKS[kind]
+    return <div className={v.sourceLink} data-idea-source={kind}>
+      <div className={v.linkHeading}><link.Icon/><b>{link.label}</b></div>
+      <span className={v.url}>{link.url}</span>
+      <div className={v.linkBody}>{link.image&&<span className={v.thumbnail}><img src={link.image} alt=""/><Play size={13} fill="currentColor"/></span>}<b>{link.title}</b></div>
+    </div>
+  }
+  if(kind==='watch')return <div className={v.watch} data-idea-source="watch"><b><Radar size={16}/>La veille de vos concurrents</b><span><SocialIcons.instagram/><div><b>Reel Instagram</b><small>instagram.com/reel/…</small></div></span><span><SocialIcons.tiktok/><div><b>Vidéo TikTok</b><small>tiktok.com/@…/video/…</small></div></span><span><SocialIcons.linkedin/><div><b>Post LinkedIn</b><small>linkedin.com/posts/…</small></div></span></div>
   return null
 }
 
@@ -46,11 +47,12 @@ function Exchange({ index, progress, active, still }: { index: number; progress:
   // The remaining 72% of each segment is a full reading hold. No timers and
   // no wheel/touch handlers: only the page's native scroll controls the story.
   return <div className={scroll.exchange} data-idea-layer={index} aria-hidden={!still && !active}>
+    {still && item.kind==='watch' && <h3 className={v.staticHeading}><Radar size={18}/>Ou inspirez-vous de ce que publient vos concurrents.</h3>}
     <small className={s.chatDay}>Aujourd’hui</small>
     <motion.div className={s.outgoing} data-idea-outgoing style={still ? {} : { opacity: outgoing, y: outgoingY }}>
       {item.kind === 'voice' && <div className={s.voice}><Mic size={17}/><span aria-hidden="true">{[12,22,30,16,25,36,17,27,13,34,20,28,16,35,23,13,28,18].map((height,i)=><i key={i} style={{height}}/>)}</span><b>0:18</b></div>}
       <SourcePreview kind={item.kind}/>
-      <p>{item.text}</p><small>9:41 <CheckCheck size={12}/></small>
+      {item.kind!='watch'&&<p>{item.text}</p>}<small>9:41 <CheckCheck size={12}/></small>
     </motion.div>
     <motion.div className={s.incomingIdea} data-idea-reply style={still ? {} : { opacity: incoming, y: incomingY }}><span><Check size={13}/>Ajouté à Empire</span><p>{item.reply}</p><small>Format proposé : {item.format}</small></motion.div>
   </div>
@@ -67,8 +69,7 @@ export default function IdeaMessagesStory() {
   useMotionValueEvent(scrollYProgress, 'change', value => setIndex(Math.min(EXAMPLES.length - 1, Math.max(0, Math.floor(value * EXAMPLES.length)))))
   return <section ref={root} id="formula-ideas" className={`${s.ideas} ${scroll.ideas} ${v.ideas}`} data-story="messages" data-scroll-discovery="ideas" data-static={still} aria-labelledby="ideas-title">
     <div className={scroll.sticky} data-scroll-stage>
-      <header className={`${s.heading} ${scroll.heading}`}><h2 id="ideas-title">Dès que vous avez une idée,<br/><em>partagez-la.</em></h2><p className={v.subtitle}>Ou inspirez-vous de ce que publient vos concurrents.</p></header>
-      {!still && <div className={v.sourceLabel} data-idea-source-label><SourceIcon kind={EXAMPLES[index].kind}/><b>{EXAMPLES[index].name}</b><span>{index + 1} / {EXAMPLES.length}</span></div>}
+      <header className={`${s.heading} ${scroll.heading} ${v.heading}`} data-ideas-heading={index===6&&!still?'competitors':'idea'}><h2 id="ideas-title">{index===6&&!still?<><Radar className={v.headingIcon} aria-hidden="true"/>Ou inspirez-vous de ce que<br/><em>publient vos concurrents.</em></>:<>Dès que vous avez une idée,<br/><em>partagez-la.</em></>}</h2></header>
       <div className={`${s.ideaPhone} ${scroll.ideaPhone}`}>
         <div className={s.phoneStatus} aria-hidden="true"><b>9:41</b><i/><span><Signal size={12}/><BatteryFull size={18}/></span></div>
         <header className={s.chatHeader}><ChevronLeft size={20} aria-hidden="true"/><span className={s.empireAvatar}>E</span><div><b>Empire</b><small>Votre assistant contenu</small></div><Video size={19} aria-hidden="true"/></header>
