@@ -209,7 +209,7 @@ try{
    await page.screenshot({path:`${out}/${name}-comparison-matrix.png`})
 
    reports.push({name,result:'passed',scrollDrivenChat:true,noNavigationArrows:true,readingHolds:true,instagramProgressiveReveal:true,bothClipsVisibleTogether:true,realPlayback:true,leadBeforeYouTube:true,youTubeScrollReversible:true,sevenFormatRail:true,teamConverges:true})
-  }catch(error){await page.screenshot({path:`${out}/${name}-failure.png`}).catch(()=>{});reports.push({name,result:'failed',error:String(error),stack:error.stack,errors})}
+  }catch(error){await page.screenshot({path:`${out}/${name}-failure.png`}).catch(()=>{});reports.push({name,result:'failed',error:String(error),stack:error.stack,errors,media:await page.locator('[data-lead-comparison] video').evaluateAll(vs=>vs.map(v=>({time:v.currentTime,paused:v.paused,seeking:v.seeking,ready:v.readyState,ended:v.ended,buffered:Array.from({length:v.buffered.length},(_,i)=>[v.buffered.start(i),v.buffered.end(i)])}))).catch(()=>[])})}
   finally{await context.close()}
  }
  const context=await contextFor(chrome,{width:390,height:844},'reduce'),page=await context.newPage()

@@ -30,7 +30,7 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
     let visible = false, frame = 0, disposed = false, starting = false
     const shouldPlay = () => visible && !paused && !document.hidden && !element.closest('[aria-hidden="true"]')
     const stop = () => videos.forEach(video => video.pause())
-    const ready = () => videos.every(video => video.readyState >= 3 && !video.seeking)
+    const ready = () => videos.every(video => video.readyState >= 2 && !video.seeking)
     const reset = () => {
       stop()
       videos.forEach(video => { if (Number.isFinite(video.duration)) video.currentTime = 0 })
