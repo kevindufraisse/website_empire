@@ -29,12 +29,13 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
     if (!master || !follower) return
     let visible = false, frame = 0, disposed = false, starting = false
     const buffering = new Set<HTMLVideoElement>()
+    let lastRateUpdate = 0, lastSeek = 0
     const shouldPlay = () => visible && !paused && !document.hidden && !element.closest('[aria-hidden="true"]')
     const stop = () => videos.forEach(video => video.pause())
     const ready = () => buffering.size === 0 && videos.every(video => video.readyState >= 2 && !video.seeking)
     const reset = () => {
       stop()
-      videos.forEach(video => { video.playbackRate = 1; if (Number.isFinite(video.duration)) video.currentTime = 0 })
+      videos.forEach(video => { if (video.playbackRate !== 1) video.playbackRate = 1; if (Number.isFinite(video.duration)) video.currentTime = 0 })
       sync()
     }
     function sync() {
@@ -56,8 +57,15 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
         const drift = master.currentTime - follower.currentTime
         // Small decoder differences need a gentle rate correction, not repeated
         // seeks that flush WebKit's decoder and can prevent forward playback.
-        if (Math.abs(drift) > .6) follower.currentTime = master.currentTime
-        else follower.playbackRate = Math.max(.94, Math.min(1.06, 1 + drift * .5))
+        const now = performance.now()
+        if (Math.abs(drift) > .6 && now - lastSeek > 1000) {
+          follower.currentTime = master.currentTime
+          lastSeek = lastRateUpdate = now
+        } else if (Math.abs(drift) <= .6 && now - lastRateUpdate > 500) {
+          const rate = Math.abs(drift) < .08 ? 1 : drift > 0 ? 1.03 : .97
+          if (Math.abs(follower.playbackRate - rate) > .01) follower.playbackRate = rate
+          lastRateUpdate = now
+        }
       }
       sync()
     }
