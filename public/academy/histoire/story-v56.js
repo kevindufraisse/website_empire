@@ -23,8 +23,9 @@
     n.querySelectorAll('[data-v56-teacher]').forEach(el=>el.style.opacity=String(el.dataset.v56Teacher==='holding'?take:1-take));
    }
    if(n.id==='histoire-nuits'){
-    const t=clamp(p/.86),day=Math.min(14,Math.floor(t*14)+1),finished=still||p>=.86;
-    const darkness=finished?0:.5-.5*Math.cos((t*14%1)*Math.PI*2);
+    const t=clamp(p/.86),early=t<.62,day=early?Math.min(3,Math.floor(t/.62*3)+1):Math.min(14,4+Math.floor((t-.62)/.38*11)),finished=still||p>=.86;
+    const cycles=early?t/.62*3:3+(t-.62)/.38;
+    const darkness=finished?0:.5-.5*Math.cos(cycles*Math.PI*2);
     n.querySelector('.v56-bedroom').style.setProperty('--v56-night',darkness.toFixed(3));
     n.querySelectorAll('[data-v56-day]').forEach(el=>el.classList.toggle('is-done',+el.dataset.v56Day<day));
     const label=n.querySelector('[data-v56-day-label]'),text=finished?'14 jours ✓':`${darkness>.5?'Nuit':'Jour'} ${day}`;
@@ -36,6 +37,15 @@
     work.style.opacity=finished?'0':'1';endPose.style.opacity=finished?'1':'0';
     work.setAttribute('aria-hidden',String(finished));endPose.setAttribute('aria-hidden',String(!finished));
     n.dataset.v56Finished=String(finished);n.dataset.v56Day=String(day);
+   }
+   if(n.classList.contains('v57-negotiation')){
+    const change=p>=.43?1:0,hand=n.querySelector('[data-v57-shot="handshake"]'),reaction=n.querySelector('[data-v57-shot="reaction"]');
+    hand.style.opacity=still?'1':String(1-change);reaction.style.opacity=still?'1':String(change);
+    const title=n.querySelector('[data-v57-negotiation-title]'),sub=n.querySelector('[data-v57-negotiation-subtitle]');
+    title.textContent=still?'On s’est serré la main.':change>.5?'Je lui ai répondu : demain.':'On s’est serré la main.';
+    sub.textContent=still?'Il pensait six mois. Je lui ai répondu : demain.':change>.5?'Il m’a regardé, incrédule.':'Il pensait attendre six mois.';
+    const month=n.querySelector('[data-v57-dialogue="month"]'),tomorrow=n.querySelector('[data-v57-dialogue="tomorrow"]'),challenge=n.querySelector('[data-v57-dialogue="challenge"]');
+    month.style.opacity=still?'1':String(ease(p,.02,.16)*(1-change));tomorrow.style.opacity=still?'1':String(ease(p,.44,.6));challenge.style.opacity=still?'1':String(ease(p,.65,.82));
    }
    if(n.classList.contains('v56-press-scene')){
     const viewport=n.querySelector('.v56-mag-viewport'),track=n.querySelector('.v56-mag-track'),cards=[...track.children];
@@ -53,5 +63,5 @@
  addEventListener('scroll',schedule,{passive:true});addEventListener('resize',measure,{passive:true});addEventListener('pageshow',measure);
  reduced.addEventListener('change',measure);new MutationObserver(measure).observe(root,{attributes:true,attributeFilter:['class']});
  if('ResizeObserver'in window){const ro=new ResizeObserver(measure);nodes.forEach(n=>ro.observe(n))}
- document.fonts?.ready.then(measure);root.dataset.v56Ready='true';measure();
+ document.fonts?.ready.then(measure);root.dataset.v56Ready='true';root.dataset.storyVersion='v57';measure();
 })();
