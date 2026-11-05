@@ -51,13 +51,11 @@
     if (id === 'histoire-vecu') section.classList.add('am-choice-scene');
     state.set(id, { section, visual, parts: Object.fromEntries([...visual.querySelectorAll('[data-part]')].map(n => [n.dataset.part, n])) });
   }
-  const silenceHeading = document.querySelector('#histoire-silence .ac-copy h2');
-  if (silenceHeading) silenceHeading.innerHTML = 'J’ai gardé ce raccourci pendant cinq ans.<br><em>Puis les clients l’ont trouvé. Plus aucun appel.</em>';
   const choiceHeading = document.querySelector('#histoire-vecu .ac-copy h2');
   if (choiceHeading) choiceHeading.innerHTML = 'Deux personnes proposent le même service.<br><em>Laquelle avez-vous envie de choisir ?</em>';
   // A separate original cut-out remains visible beside the tools: never flatten the cast into a screenshot.
   const tools = document.querySelector('#histoire-partager .ac-visual');
-  if (tools) { tools.classList.add('am-tools'); tools.insertAdjacentHTML('afterbegin', `<div class="am-tools-actor">${stage(sprite(2, 20, 20, 570, 'guide'), 'Le personnage présente les outils qu’il teste et transmet.')}</div>`); }
+  if (tools && !tools.querySelector('.v52-stage')) { tools.classList.add('am-tools'); tools.insertAdjacentHTML('afterbegin', `<div class="am-tools-actor">${stage(sprite(2, 20, 20, 570, 'guide'), 'Le personnage présente les outils qu’il teste et transmet.')}</div>`); }
   root.classList.add('ac-animated');
   function part(s, name, x = 0, y = 0, scale = 1, opacity = 1, rotate = 0, px = 450, py = 300) {
     const n = s.parts[name]; if (!n) return;
