@@ -76,6 +76,8 @@ try{
    assert(Math.abs(await page.evaluate(()=>scrollY)-y)<3,'No forced scroll')
    await page.mouse.wheel(0,180)
    await page.waitForFunction(y=>scrollY>y+100,y,{timeout:3000})
+   await at(page,'[data-scroll-discovery="comparison"]',.02)
+   assert(await opacity(pair.locator('[data-lead-clip="result"]'))>.99,'The translated clone must be fully visible from the start')
    await at(page,'[data-scroll-discovery="comparison"]',.55)
    const source=pair.locator('[data-lead-clip="source"]'),result=pair.locator('[data-lead-clip="result"]')
    assert.equal(await pair.locator('video').count(),2)
@@ -97,6 +99,17 @@ try{
    await page.waitForFunction(()=>[...document.querySelectorAll('[data-lead-comparison] video')].every(v=>v.currentTime>13.2&&v.currentTime<15),null,{timeout:5000})
    await pair.getByRole('button',{name:'Revoir les deux vidéos depuis le début'}).click()
    await page.waitForFunction(()=>[...document.querySelectorAll('[data-lead-comparison] video')].every(v=>v.currentTime<1&&!v.paused),null,{timeout:5000})
+   assert((await pair.innerText()).includes('Même script traduit · français'))
+   // Force a desynchronisation: the shared clock must recover it automatically.
+   await pair.locator('video').nth(1).evaluate(v=>{v.currentTime=Math.min(12,v.currentTime+1)})
+   await page.waitForFunction(()=>{const [a,b]=document.querySelectorAll('[data-lead-comparison] video');return !a.paused&&!b.paused&&!a.seeking&&!b.seeking&&Math.abs(a.currentTime-b.currentTime)<.16},null,{timeout:8000})
+   await pair.getByRole('button',{name:'Mettre les deux vidéos en pause'}).click()
+   await pair.locator('video').evaluateAll(vs=>vs.forEach(v=>{v.currentTime=9.3}))
+   await page.waitForFunction(()=>[...document.querySelectorAll('[data-lead-comparison] video')].every(v=>!v.seeking&&v.paused&&Math.abs(v.currentTime-9.3)<.1))
+   await page.screenshot({path:`${out}/${name}-translated-script-aligned.png`})
+   await pair.locator('video').evaluateAll(vs=>vs.forEach(v=>{v.currentTime=14.8}))
+   await pair.getByRole('button',{name:'Lire les deux vidéos'}).click()
+   await page.waitForFunction(()=>[...document.querySelectorAll('[data-lead-comparison] video')].every(v=>v.currentTime<.8&&!v.paused),null,{timeout:8000})
    await at(page,'#formula-lead-messages',.17)
    assert(await opacity(messages.locator('[data-scroll-reveal="comment"]'))>.99)
    assert(await opacity(messages.locator('[data-scroll-reveal="reply"]'))<.01)
@@ -196,7 +209,7 @@ try{
    await page.screenshot({path:`${out}/${name}-comparison-matrix.png`})
 
    reports.push({name,result:'passed',scrollDrivenChat:true,noNavigationArrows:true,readingHolds:true,instagramProgressiveReveal:true,bothClipsVisibleTogether:true,realPlayback:true,leadBeforeYouTube:true,youTubeScrollReversible:true,sevenFormatRail:true,teamConverges:true})
-  }catch(error){await page.screenshot({path:`${out}/${name}-failure.png`}).catch(()=>{});reports.push({name,result:'failed',error:String(error),stack:error.stack,errors})}
+  }catch(error){await page.screenshot({path:`${out}/${name}-failure.png`}).catch(()=>{});reports.push({name,result:'failed',error:String(error),stack:error.stack,errors,media:await page.locator('[data-lead-comparison] video').evaluateAll(vs=>vs.map(v=>({time:v.currentTime,paused:v.paused,seeking:v.seeking,ready:v.readyState,ended:v.ended,buffered:Array.from({length:v.buffered.length},(_,i)=>[v.buffered.start(i),v.buffered.end(i)])}))).catch(()=>[])})}
   finally{await context.close()}
  }
  const context=await contextFor(chrome,{width:390,height:844},'reduce'),page=await context.newPage()

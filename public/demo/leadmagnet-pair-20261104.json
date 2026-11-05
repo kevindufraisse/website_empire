@@ -2,7 +2,7 @@
   "source": "Original supplied MP4; Kevin full edit retrieved from the same public resultReel on 2026-11-05.",
   "resultReel": "https://www.instagram.com/reel/De1ncaACJuN/",
   "keyword": "CLAUDE",
-  "processing": "Silent excerpts, trimmed and resized only; the two original edits are preserved.",
+  "processing": "Silent original edits, resized only. The French preview is retimed between matching script and graphic landmarks to align with the English preview; no generated images, subtitles or dialogue.",
   "conversation": "Illustrative only. No Instagram message is sent and no real resource delivery is asserted.",
   "files": [
     {
@@ -11,7 +11,7 @@
       "startSeconds": 0,
       "durationSeconds": 15,
       "video": "/demo/leadmagnet-source-opening-20261105.mp4",
-      "poster": "/demo/leadmagnet-source-opening-20261105.jpg",
+      "poster": "/demo/leadmagnet-source-synced-20261105.jpg",
       "bytes": 1004600
     },
     {
@@ -19,9 +19,57 @@
       "suppliedFileSha256": "ff5d73cd194178ff65d86e8da47e7c8d55c97d4993a822caf111bba98279f4d1",
       "startSeconds": 0,
       "durationSeconds": 15,
-      "video": "/demo/leadmagnet-result-opening-20261105.mp4",
-      "poster": "/demo/leadmagnet-result-opening-20261105.jpg",
-      "bytes": 1194072
+      "video": "/demo/leadmagnet-result-synced-20261105.mp4",
+      "poster": "/demo/leadmagnet-result-synced-20261105.jpg",
+      "bytes": 1318390,
+      "sourceEndSeconds": 19.8
     }
-  ]
+  ],
+  "synchronization": {
+    "durationSeconds": 15,
+    "anchors": [
+      {
+        "sourceSeconds": 0,
+        "frenchOriginalSeconds": 0
+      },
+      {
+        "sourceSeconds": 2.8,
+        "frenchOriginalSeconds": 2.92
+      },
+      {
+        "sourceSeconds": 4.6,
+        "frenchOriginalSeconds": 5.52
+      },
+      {
+        "sourceSeconds": 8.56,
+        "frenchOriginalSeconds": 11.44
+      },
+      {
+        "sourceSeconds": 9.96,
+        "frenchOriginalSeconds": 12.96
+      },
+      {
+        "sourceSeconds": 11.04,
+        "frenchOriginalSeconds": 14.96
+      },
+      {
+        "sourceSeconds": 12.48,
+        "frenchOriginalSeconds": 16.56
+      },
+      {
+        "sourceSeconds": 15,
+        "frenchOriginalSeconds": 19.8
+      }
+    ],
+    "landmarks": [
+      "opening",
+      "YouTube examples",
+      "explanation",
+      "step one",
+      "numbered list",
+      "call to action",
+      "return to presenter",
+      "end of preview"
+    ]
+  }
 }
