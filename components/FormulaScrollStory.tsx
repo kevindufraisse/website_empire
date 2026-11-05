@@ -22,6 +22,9 @@ import LeadMagnetScene from './LeadMagnetScene'
 import FormatRail from './FormatRail'
 import LongFormatScroll from './LongFormatScroll'
 import SecretFormatsGate from './SecretFormatsGate'
+import UnifiedFormatJourney from './UnifiedFormatJourney'
+import DistributionCounter, { NETWORK_VIEWS } from './DistributionCounter'
+import metrics from './DistributionCounter.module.css'
 
 type Progress = MotionValue<number>
 const TOPIC = 'Quels créateurs business français suivre ?'
@@ -41,7 +44,7 @@ function CreatorPhoto({ index, className = '' }: { index: number; className?: st
 const CHANNELS = ['instagram', 'linkedin', 'youtube', 'tiktok', 'threads', 'twitter', 'facebook'] as const
 const NETWORKS = ['Instagram', 'LinkedIn', 'YouTube', 'TikTok', 'Threads', 'X', 'Facebook']
 // Demonstration figures, never presented as observed customer results.
-const VIEWS = [10000, 50000, 53000, 150000, 3000, 6000, 8000]
+const VIEWS = NETWORK_VIEWS
 const LABELS = ['Réaction', 'Tier list', 'FAQ', 'Devine', 'Clonage', 'YouTube long']
 // Creation and distribution now have separate native scroll regions. The form
 // between them is ordinary document content, never a timed animation frame.
@@ -248,8 +251,6 @@ function Reach({ p, active }: { p: Progress; active: boolean }) {
   return <motion.div className={s.reachScene} data-scene="diffusion" style={{ opacity }} aria-hidden={!active}>
     <motion.div className={s.networkLegend} style={{ opacity: cardsOpacity }}>{CHANNELS.map((name, i) => { const Icon = SocialIcons[name]; return <span key={name}><Icon/>{NETWORKS[i]}</span> })}</motion.div>
     <motion.div ref={viewport} className={s.postsViewport} style={{ opacity: cardsOpacity }}><motion.div ref={track} className={s.posts} style={{ x }}>{CHANNELS.map((name, i) => <NetworkPost key={name} p={p} index={i}/>)}</motion.div></motion.div>
-    <motion.div className={s.reachTotal} style={{ opacity: cardsOpacity }}><span>Chaque publication compte.</span><div><motion.b>{total}</motion.b><span>vues + impressions cumulées</span></div></motion.div>
-    <small className={s.simulation}>Simulation de vues et d’impressions, pas une promesse de résultats ni une audience unique.</small>
   </motion.div>
 }
 function Calendar({ p, active }: { p: Progress; active: boolean }) {
@@ -281,21 +282,7 @@ function AccessibleStory() {
 }
 
 function CreationStory() {
-  const ref = useRef<HTMLElement>(null)
-  const { scrollYProgress: rawP } = useScroll({ target: ref, offset: ['start start', 'end end'] })
-  const timeline = useTransform(rawP, [0, 1], [.305, .590])
-  const p = useTransform(timeline, v => Math.min(v, .535))
-  const [kind, setKind] = useState(0)
-  useMotionValueEvent(timeline, 'change', v => setKind(v < .35 ? 0 : v < .415 ? 1 : v < .475 ? 2 : v < .535 ? 3 : 4))
-  return <section ref={ref} className={`${s.story} ${r.story} ${journey.shortStory}`} data-story="formula" data-story-part="creation" data-step="format" aria-label="Les formats courts">
-    {([['reaction', .32], ['tierlist', .385], ['faq', .445], ['clone', .565]] as const).map(([name, t]) => <span key={name} id={`formula-${name}`} className={s.anchor} style={{ top: `calc(${rawAt(t)}% - ${rawAt(t)}svh)` }}/>)}
-    <span id="formula-format" className={s.anchor}/>
-    <div data-viewport-stage className={s.sticky}>
-      <div className={`${s.headline} ${r.headline}`} data-story-title><h2>Nous mettons votre idée dans le bon format.</h2></div>
-      <div className={`${s.stage} ${r.stage}`}><Formats p={p} cloneP={timeline} active kind={kind}/></div>
-      <div className={s.progress}><span><ArrowDown size={12}/>Continuez la découverte</span><div><motion.i style={{ scaleX: rawP }}/></div><small>Démonstration illustrée</small></div>
-    </div>
-  </section>
+  return <UnifiedFormatJourney renderShort={(p, timeline, kind, active) => <Formats p={p} cloneP={timeline} kind={kind} active={active}/>}/>
 }
 
 function DistributionStory() {
@@ -306,7 +293,7 @@ function DistributionStory() {
   const [multi, setMulti] = useState(false), [calendar, setCalendar] = useState(false)
   useMotionValueEvent(sequenceP, 'change', v => { setMulti(v >= .82 && v < .92); setCalendar(v >= .92) })
   const title = multi ? 'Publiez la même vidéo sur plusieurs comptes, instantanément.' : calendar ? 'Republiez la même publication, encore et encore.' : 'Nous adaptons votre message à chaque format et le diffusons sur tous vos réseaux.'
-  return <section ref={ref} className={`${s.story} ${r.story} ${stable.distribution}`} data-story="distribution" data-step={multi ? 'multi-accounts' : calendar ? 'republication' : 'diffusion'} aria-label="La diffusion de vos contenus">
+  return <section ref={ref} className={`${s.story} ${r.story} ${stable.distribution} ${metrics.distribution}`} data-story="distribution" data-step={multi ? 'multi-accounts' : calendar ? 'republication' : 'diffusion'} aria-label="La diffusion de vos contenus">
     <span id="formula-diffusion" className={s.anchor} style={{ top: 'calc(7.407407% - 7.407407svh)' }}/>
     <div data-viewport-stage className={s.sticky}>
       <div className={`${s.headline} ${r.headline}`} data-story-title><h2>{title}</h2></div>
@@ -315,6 +302,7 @@ function DistributionStory() {
         <Calendar p={p} active={calendar}/>
         {multi && <MultiAccountBroadcast p={sequenceP} reel={<Composition kind={1} p={p} still/>}/>}
       </div>
+      <DistributionCounter p={sequenceP}/>
       <div className={s.progress}><span><ArrowDown size={12}/>Continuez la découverte</span><div><motion.i style={{ scaleX: rawP }}/></div><small>Démonstration illustrée</small></div>
     </div>
   </section>
@@ -325,5 +313,5 @@ export function SourcesStory() {
   const reduced = useReducedMotion()
   if (autopilot) return null
   if (reduced) return <AccessibleStory/>
-  return <><IdeaMessagesStory/><CreationStory/><LeadMagnetScene/><LongFormatScroll/><SecretFormatsGate/><DistributionStory/><CloneAppStory/><ClaudeMcpDemo/></>
+  return <><IdeaMessagesStory/><CreationStory/><SecretFormatsGate/><DistributionStory/><CloneAppStory/><ClaudeMcpDemo/></>
 }

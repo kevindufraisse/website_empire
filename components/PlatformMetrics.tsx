@@ -8,7 +8,7 @@ export default function PlatformMetrics({index,count}:{index:number;count:Motion
   <div className={s.actions}>
    {index===1||index===2||index===6?<ThumbsUp/>:<Heart/>}<MessageCircle/>{index===4||index===5?<Repeat2/>:index===2||index===6?<Share2/>:<Send/>}{index===5?<BarChart3/>:<Bookmark/>}
   </div>
-  <div className={s.count}><span>{index===1||index===5?<BarChart3/>:<Play fill="currentColor"/>}</span><div><motion.b>{count}</motion.b><small>{index===1?'impressions':'vues'}</small></div></div>
+  <div className={s.count}><span>{index===1||index===5?<BarChart3/>:<Play fill="currentColor"/>}</span><div><motion.b data-metric-value>{count}</motion.b><small>{index===1?'impressions':'vues'}</small></div></div>
   <span className={s.insight}>{['Voir les statistiques','Voir les statistiques du post','Performances de la vidéo','Données analytiques','Voir l’activité','Statistiques de la publication','Statistiques du Reel'][index]}</span>
  </div>
 }

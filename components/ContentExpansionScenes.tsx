@@ -4,6 +4,7 @@ import { motion, useTransform, type MotionValue } from 'framer-motion'
 import { Check, Play, Eye } from 'lucide-react'
 import { SocialIcons } from '@/components/ui/social-icons'
 import FlowConnection from './FlowConnection'
+import { ACCOUNT_VIEWS } from './DistributionCounter'
 import s from './ContentExpansionScenes.module.css'
 type Progress=MotionValue<number>
 const clamp=(v:number)=>Math.min(1,Math.max(0,v))
@@ -12,24 +13,24 @@ export function PhotoThumbnail(){
  return <div className={s.thumbnail}><img src="/demo/kevin-thumbnail-v13.webp" alt="Miniature créée par Empire : Qui suivre en business ? Mon classement"/></div>
 }
 const ACCOUNTS=[
- {handle:'@kevindufraisse',network:'instagram',views:10000},
- {handle:'@kevin.clip',network:'tiktok',views:42000},
- {handle:'@kevindufraisse.viral',network:'instagram',views:25000},
- {handle:'@kevin.business',network:'youtube',views:53000},
- {handle:'@kevin.extraits',network:'tiktok',views:68000},
- {handle:'@kevin.insights',network:'instagram',views:12000},
- {handle:'@kevin.shorts',network:'youtube',views:31000},
- {handle:'@kevin.daily',network:'tiktok',views:18000},
+ {handle:'@kevindufraisse',network:'instagram',views:ACCOUNT_VIEWS[0]},
+ {handle:'@kevin.clip',network:'tiktok',views:ACCOUNT_VIEWS[1]},
+ {handle:'@kevindufraisse.viral',network:'instagram',views:ACCOUNT_VIEWS[2]},
+ {handle:'@kevin.business',network:'youtube',views:ACCOUNT_VIEWS[3]},
+ {handle:'@kevin.extraits',network:'tiktok',views:ACCOUNT_VIEWS[4]},
+ {handle:'@kevin.insights',network:'instagram',views:ACCOUNT_VIEWS[5]},
+ {handle:'@kevin.shorts',network:'youtube',views:ACCOUNT_VIEWS[6]},
+ {handle:'@kevin.daily',network:'tiktok',views:ACCOUNT_VIEWS[7]},
 ] as const
 function Account({p,index}:{p:Progress;index:number}){
  const account=ACCOUNTS[index],Icon=SocialIcons[account.network]
  const start=.832+index*.006
  const opacity=useTransform(p,[start,start+.012],[.35,1])
  const checked=useTransform(p,[start+.012,start+.015],[0,1])
- const count=useTransform(p,v=>fmt(account.views*clamp((v-start-.012)/.012)))
+ const count=useTransform(p,v=>fmt(index===0?account.views:account.views*clamp((v-start-.012)/.012)))
  return <motion.article className={s.account} data-side={index<4?'left':'right'} style={{opacity,top:`${14+(index%4)*22}%`}}>
   <div className={s.avatar}><img src="/founders/kevin.jpg" alt=""/><span><Icon/></span><motion.i style={{opacity:checked}}><Check size={10}/></motion.i></div>
-  <div className={s.identity}><b>{account.handle}</b><small>{index===0?'Compte principal':'Compte secondaire'}</small><span><Eye size={11}/><motion.b>{count}</motion.b> vues</span></div>
+  <div className={s.identity}><b>{account.handle}</b><small>{index===0?'Compte principal':'Compte secondaire'}</small><span data-account-views><Eye size={11}/><motion.b>{count}</motion.b> vues</span></div>
  </motion.article>
 }
 function Routes({p,mobile=false}:{p:Progress;mobile?:boolean}){
@@ -46,7 +47,5 @@ export function MultiAccountBroadcast({p,reel}:{p:Progress;reel:ReactNode}){
    <div className={s.broadcastSource}><div className={s.sourceReel}>{reel}<span><Play size={11} fill="currentColor"/>Votre Reel</span></div><small>UNE VIDÉO DANS EMPIRE</small></div>
    {ACCOUNTS.map((a,i)=><Account key={a.handle} p={p} index={i}/>)}
   </div>
-  <div className={s.total}><span>Vos comptes la font circuler.<br/><b>Les vues s’additionnent.</b></span><div><motion.b>{total}</motion.b><small>vues cumulées</small></div></div>
-  <small className={s.demo}>Comptes et résultats illustratifs.</small>
  </motion.div>
 }

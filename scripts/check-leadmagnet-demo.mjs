@@ -10,31 +10,12 @@ let log='';for(const stream of [server.stdout,server.stderr])stream.on('data',da
 const reports=[],browsers=[]
 const delay=ms=>new Promise(resolve=>setTimeout(resolve,ms))
 async function at(page,selector,progress){
- await page.locator(selector).evaluate((el,p)=>{
-  const top=el.getBoundingClientRect().top+scrollY
-  scrollTo({top:top+p*(el.getBoundingClientRect().height-innerHeight),behavior:'instant'})
- },progress)
- // Poll the state actually painted by each scene, including WebKit.
- await page.waitForFunction(({selector,progress})=>{
-  const root=document.querySelector(selector)
-  const visible=(query,wanted)=>{const node=root?.querySelector(query);if(!node)return false;const value=Number(getComputedStyle(node).opacity);return wanted?value>.99:value<.01}
-  if(selector==='#formula-ideas'){
-   const index=Math.min(6,Math.floor(progress*7))
-   return root?.querySelector('[data-idea-example]')?.getAttribute('data-idea-example')===String(index)&&visible(`[data-idea-layer="${index}"] [data-idea-reply]`,true)
-  }
-  if(selector==='#formula-lead-messages')return visible('[data-scroll-reveal="comment"]',progress>=.12)&&visible('[data-scroll-reveal="reply"]',progress>=.29)&&visible('[data-lead-dm]',progress>=.54)&&visible('[data-lead-resource]',progress>=.78)
-  if(selector==='#formula-youtube'){
-   const text=root?.querySelector('[data-format-preview="long"]')?.textContent||''
-   const match=text.match(/(\d{1,2}):(\d{2})\s*\/\s*12:48/)
-   const p=.540+Math.max(0,Math.min(1,(progress-.10)/.62))*.027
-   const expected=Math.round(Math.max(0,Math.min(1,(p-.537)/.03))*720)
-   return !!match&&Math.abs(Number(match[1])*60+Number(match[2])-expected)<=2
-  }
-  if(selector==='[data-story="team"]')return visible('[data-team-role]',progress<.5)&&visible('[data-team-summary]',progress>.8)
-  if(selector==='[data-scroll-discovery="comparison"]')return visible('[data-lead-clip="result"]',true)
-  return !!root
- },{selector,progress},{timeout:5000})
- await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))))
+ const mapped=selector==='[data-scroll-discovery="comparison"]'?{value:.40+progress*.32,phase:'comparison'}:selector==='#formula-lead-messages'?{value:.72+progress*.16,phase:'instagram'}:selector==='#formula-youtube'?{value:.88+progress*.12,phase:'long'}:null
+ await page.locator(mapped?'[data-unified-formats]':selector).evaluate((el,p)=>{scrollTo({top:el.getBoundingClientRect().top+scrollY+p*(el.getBoundingClientRect().height-innerHeight),behavior:'instant'})},mapped?mapped.value:progress)
+ if(mapped)await page.waitForFunction(phase=>document.querySelector('[data-unified-formats]')?.getAttribute('data-journey-phase')===phase,mapped.phase)
+ if(selector==='#formula-ideas')await page.waitForFunction(p=>{const i=Math.min(6,Math.floor(p*7)),root=document.querySelector('#formula-ideas');return root?.querySelector('[data-idea-example]')?.getAttribute('data-idea-example')===String(i)&&Number(getComputedStyle(root.querySelector(`[data-idea-layer="${i}"] [data-idea-reply]`)).opacity)>.99},progress)
+ if(selector==='#formula-lead-messages')await page.waitForFunction(p=>{const root=document.querySelector('[data-journey-pane="instagram"]');return [['[data-scroll-reveal="comment"]',.12],['[data-scroll-reveal="reply"]',.29],['[data-lead-dm]',.54],['[data-lead-resource]',.78]].every(([q,n])=>{const v=Number(getComputedStyle(root.querySelector(q)).opacity);return p>=n?v>.99:v<.01})},progress)
+ await page.waitForTimeout(450)
 }
 async function fits(page,locator,label){
  const box=await locator.boundingBox(),v=page.viewportSize()
@@ -63,7 +44,7 @@ try{
   try{
    await page.goto(base,{waitUntil:'domcontentloaded',timeout:120000});await page.locator('#formula-secret[data-requested="false"]').waitFor({state:'attached'})
    const reject=page.getByRole('button',{name:/Tout refuser|Continuer sans accepter/i}).first();if(await reject.isVisible().catch(()=>false))await reject.click()
-   const ideas=page.locator('#formula-ideas'),pair=page.locator('[data-lead-comparison]'),messages=page.locator('#formula-lead-messages')
+   const ideas=page.locator('#formula-ideas'),pair=page.locator('[data-lead-comparison]'),messages=page.locator('[data-journey-pane="instagram"]')
    assert.equal(await ideas.locator('button').count(),0,'The chat must never require previous/next buttons')
    assert.equal(await messages.locator('button').count(),0,'Messages must be discovered by scrolling')
    assert(await page.evaluate(()=>{const ids=['#formula-ideas','[data-story="formula"]','#formula-lead-magnet','#formula-youtube','#formula-secret'];return ids.slice(1).every((id,i)=>!!(document.querySelector(ids[i]).compareDocumentPosition(document.querySelector(id))&4))}),'Keep lead magnet before YouTube and the conditional form')
@@ -125,17 +106,17 @@ try{
    assert(await opacity(resource)>.99,'Fast forward still renders the correct final result')
    assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2),'No horizontal overflow')
 
-   const long=page.locator('#formula-youtube')
+   const long=page.locator('[data-journey-pane="long"]')
    await at(page,'#formula-youtube',.24)
    await fits(page,long.locator('[data-format-preview="long"]'),`${name} YouTube player`)
    const beforeLong=await long.locator('[data-format-preview="long"]').innerText()
    await at(page,'#formula-youtube',.80)
    const afterLong=await long.locator('[data-format-preview="long"]').innerText()
    assert.notEqual(beforeLong,afterLong,'YouTube timeline must advance with page scroll')
-   assert.deepEqual(await long.locator('[data-format-list] li span').allTextContents(),['Réaction','Tier list','FAQ','Devine','Clonage','Lead magnet','YouTube long'])
-   assert.equal(await long.locator('[data-format-list]').getAttribute('data-active-format'),'YouTube long')
-   assert.equal(await long.locator('[data-format-list] button').count(),0)
-   if(viewport.width>1000) await fits(page,long.locator('[data-format-list]'),`${name} seven-format rail`)
+   assert.deepEqual(await page.locator('[data-unified-rail] [data-format-list] li span').allTextContents(),['Réaction','Tier list','FAQ','Devine','Clonage','Lead magnet','YouTube long'])
+   assert.equal(await page.locator('[data-unified-rail] [data-format-list]').getAttribute('data-active-format'),'YouTube long')
+   assert.equal(await page.locator('[data-unified-rail] [data-format-list] button').count(),0)
+   if(viewport.width>1000) await fits(page,page.locator('[data-unified-rail] [data-format-list]'),`${name} seven-format rail`)
    await page.screenshot({path:`${out}/${name}-youtube-scroll.png`})
    await at(page,'#formula-youtube',.24)
    assert.equal(await long.locator('[data-format-preview="long"]').innerText(),beforeLong,'YouTube reverses with scroll')
@@ -164,6 +145,42 @@ try{
     await page.screenshot({path:`${out}/${name}-application.png`})
    }
    assert.deepEqual(errors,[])
+
+   // The transition from Clone to lead magnet to YouTube shares one viewport.
+   const shared=page.locator('[data-format-viewport]')
+   let priorBox
+   for(const [progress,phase] of [[.36,'short'],[.56,'comparison'],[.85,'instagram'],[.96,'long']]){
+    await page.locator('[data-unified-formats]').evaluate((el,p)=>scrollTo({top:el.getBoundingClientRect().top+scrollY+p*(el.getBoundingClientRect().height-innerHeight),behavior:'instant'}),progress)
+    await page.waitForFunction(phase=>document.querySelector('[data-unified-formats]')?.getAttribute('data-journey-phase')===phase,phase)
+    await page.waitForTimeout(200)
+    const box=await shared.boundingBox()
+    if(priorBox)assert(Math.abs(box.y-priorBox.y)<2&&Math.abs(box.height-priorBox.height)<2,'The viewport must not unpin between formats')
+    priorBox=box
+   }
+   const travelUnified=await page.locator('[data-unified-formats]').evaluate(el=>el.offsetHeight-innerHeight)
+   assert(travelUnified*.32>viewport.height*3,'Lead comparison has more than three viewport heights of travel')
+   await at(page,'[data-story="team"]',.86)
+   assert.equal(await team.locator('[data-team-cost-total]').innerText(),'0 €')
+   const distribution=page.locator('[data-story="distribution"]')
+   const counter=page.locator('[data-distribution-total]')
+   async function distributionAt(sequence){await distribution.evaluate((el,sequence)=>scrollTo({top:el.getBoundingClientRect().top+scrollY+(sequence-.568)/.432*(el.getBoundingClientRect().height-innerHeight),behavior:'instant'}),sequence);await page.waitForTimeout(400)}
+   await distributionAt(.810);assert.equal(await counter.getAttribute('data-total'),'280000')
+   const counterNode=await counter.elementHandle()
+   await distributionAt(.825);assert.equal(await counter.getAttribute('data-total'),'280000','Do not restart the total at the multi-account transition')
+   await distributionAt(.902);assert.equal(await counter.getAttribute('data-total'),'529000','280000 plus 249000 secondary views; never double count the 10000 original views')
+   assert(await counterNode.evaluate(el=>el.isConnected),'Keep the same counter mounted')
+   assert.equal(await counter.getAttribute('data-complete'),'true')
+   await fits(page,counter,`${name} cumulative counter`)
+   await page.screenshot({path:`${out}/${name}-cumulative-views.png`})
+   await at(page,'#home-comparison',.65)
+   const matrix=page.locator('#home-comparison')
+   assert.equal(await matrix.locator('[data-comparison-axis]').count(),3)
+   assert.deepEqual(await matrix.locator('[data-comparison-option]').evaluateAll(nodes=>nodes.map(n=>n.dataset.comparisonOption)),['tools','freelance','agency','empire'])
+   assert.equal(await matrix.locator('[data-comparison-cell]').count(),12)
+   assert.equal(await matrix.locator('[data-comparison-price]').getAttribute('data-comparison-price'),'199')
+   if(viewport.width>900)for(const row of await matrix.locator('[data-comparison-axis]').all()){assert(await opacity(row)>.99);await fits(page,row,`${name} comparison row`)}
+   await page.screenshot({path:`${out}/${name}-comparison-matrix.png`})
+
    reports.push({name,result:'passed',scrollDrivenChat:true,noNavigationArrows:true,readingHolds:true,instagramProgressiveReveal:true,bothClipsVisibleTogether:true,realPlayback:true,leadBeforeYouTube:true,youTubeScrollReversible:true,sevenFormatRail:true,teamConverges:true})
   }catch(error){await page.screenshot({path:`${out}/${name}-failure.png`}).catch(()=>{});reports.push({name,result:'failed',error:String(error),stack:error.stack,errors})}
   finally{await context.close()}
@@ -176,7 +193,10 @@ try{
  assert.equal(await page.locator('[data-lead-clip]').count(),2)
  assert.equal(await opacity(page.locator('[data-lead-resource]')),1)
  assert.equal(await page.locator('#formula-ideas>[data-scroll-stage]').evaluate(el=>getComputedStyle(el).position),'relative')
+ // Reduced motion intentionally renders the standalone static long section,
+ // not a hidden pane of the unified animation.
  assert.equal(await page.locator('#formula-youtube').getAttribute('data-static'),'true')
+ assert.equal(await page.locator('[data-unified-formats]').count(),0)
  assert.equal(await page.locator('[data-story="team"]').getAttribute('data-static'),'true')
  reports.push({name:'reduced-motion',result:'passed',allMessagesInNormalFlow:true});await context.close()
  assert.equal(reports.filter(r=>r.result==='failed').length,0,'Inspect scroll discovery screenshots and report')
