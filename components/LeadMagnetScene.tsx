@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
-import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from 'framer-motion'
+import { motion, useReducedMotion, useScroll, useTransform, type MotionStyle, type MotionValue } from 'framer-motion'
 import { ArrowLeft, ArrowRight, Check, ChevronDown, FileText, Heart, Image as ImageIcon, MessageCircle, Phone, Send, Smile, Video } from 'lucide-react'
 import LeadMagnetComparison, { LEAD_RESULT_POSTER } from './LeadMagnetComparison'
 import s from './LeadMagnetJourney.module.css'
