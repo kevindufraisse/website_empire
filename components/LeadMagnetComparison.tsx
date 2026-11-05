@@ -38,10 +38,10 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
       videos.forEach(video => { if (video.playbackRate !== 1) video.playbackRate = 1; if (Number.isFinite(video.duration)) video.currentTime = 0 })
       sync()
     }
-    function sync() {
+    function sync(force = false) {
       if (disposed) return
       if (!shouldPlay()) { stop(); return }
-      if (ready() && !starting && videos.some(video => video.paused)) {
+      if (ready() && !starting && (force || videos.some(video => video.paused))) {
         starting = true
         Promise.all(videos.map(video => video.play())).catch(() => {}).finally(() => { starting = false })
       }
@@ -67,10 +67,13 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
       }
       sync()
     }
-    const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; sync() }, { threshold: .15 })
+    const wake = () => sync(true)
+    let lastWake = 0
+    const onScroll = () => { const now = performance.now(); if (now - lastWake > 150) { lastWake = now; wake() } }
+    const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; wake() }, { threshold: .15 })
     observer.observe(element)
     const pane = element.closest('[data-journey-pane]')
-    const mutations = new MutationObserver(sync)
+    const mutations = new MutationObserver(wake)
     if (pane) mutations.observe(pane, { attributes: true, attributeFilter: ['aria-hidden'] })
     const onWaiting = (event: Event) => {
       // Let the buffering player recover naturally; hold its partner meanwhile.
@@ -86,14 +89,16 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
       video.addEventListener('ended', reset)
     })
     master.addEventListener('timeupdate', tick)
-    document.addEventListener('visibilitychange', sync)
+    document.addEventListener('visibilitychange', wake)
+    window.addEventListener('scroll', onScroll, { passive: true })
     restartPair.current = reset
     return () => {
       disposed = true
       observer.disconnect()
       mutations.disconnect()
       master.removeEventListener('timeupdate', tick)
-      document.removeEventListener('visibilitychange', sync)
+      document.removeEventListener('visibilitychange', wake)
+      window.removeEventListener('scroll', onScroll)
       videos.forEach(video => {
         video.removeEventListener('canplay', onReady)
         video.removeEventListener('waiting', onWaiting)
