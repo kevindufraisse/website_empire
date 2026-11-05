@@ -1,0 +1,15 @@
+{
+  "offre_unchanged": true,
+  "programme_unchanged": true,
+  "funnel.js_unchanged": true,
+  "attribution.js_unchanged": true,
+  "continuation.js_unchanged": true,
+  "existing_quotes_retained": true,
+  "existing_videos_retained": true,
+  "press_logos_retained": true,
+  "unique_ids": true,
+  "one_h1": true,
+  "sections_balanced": true,
+  "local_assets_exist": true,
+  "three_choices": true
+}

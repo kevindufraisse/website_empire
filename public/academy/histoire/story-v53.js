@@ -15,7 +15,8 @@
   choice.querySelector('.v53-choice-answer').textContent = value === 'left'
    ? 'Vous avez suivi mon aventure : le devis, les cours, le premier client. Vous avez vu comment je réagis et comment je travaille. À service égal, cela peut vous donner davantage envie de travailler avec moi.'
    : value === 'right' ? 'Vous préférez mon concurrent. C’est possible aussi. Connaître une histoire apporte du contexte et peut créer de la confiance ; cela ne décide pas à votre place.'
-   : 'Vous venez de suivre mon aventure. Est-ce que cela change votre choix ?';
+   : value === 'ai' ? 'Pour une tâche précise, un outil peut suffire. Votre histoire, votre façon de décider et la relation avec votre client apportent un autre contexte au choix.'
+   : 'Moi, un concurrent, une IA : une même tâche. Qu’est-ce qui change votre choix ?';
  }
  choice?.addEventListener('click', e => { const b=e.target.closest('[data-v53-choice]'); if (!b) return; manualChoice=true; choose(b.dataset.v53Choice); });
  function paint() {
