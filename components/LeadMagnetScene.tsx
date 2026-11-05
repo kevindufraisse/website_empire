@@ -37,8 +37,8 @@ export default function LeadMagnetScene({ staticMode = false }: { p?: MotionValu
       <div className={`${scroll.sticky} ${scroll.compareSticky} ${formats.withRail}`} data-scroll-stage>
         <FormatRail active={5} floating/>
         <header className={`${s.heading} ${scroll.heading}`}>
-          <h2 id="lead-comparison-title">Ce Reel vous inspire ?<br/><em>Recréez-le à votre façon.</em></h2>
-          <p>L’original à gauche. Sa version adaptée avec Empire à droite.<br className={s.desktopBreak}/> Même idée, votre vidéo, vos illustrations et vos sous-titres.</p>
+          <h2 id="lead-comparison-title">Le même script.<br/><em>De l’anglais au français.</em></h2>
+          <p>L’original à gauche. Le clone de Kevin à droite.<br className={s.desktopBreak}/> Le script traduit, avec ses propres visuels et sous-titres.</p>
         </header>
         <motion.div className={scroll.comparisonReveal} style={{ '--result-opacity': still ? 1 : resultOpacity } as MotionStyle}><LeadMagnetComparison staticMode={still}/></motion.div>
         {!still && <div className={scroll.progress} aria-hidden="true"><span>Continuez à scroller</span><div><motion.i style={{ scaleX: compareP }}/></div></div>}

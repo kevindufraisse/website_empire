@@ -34,7 +34,7 @@ export default function UnifiedFormatJourney({ renderShort }: {
   useEffect(() => { sync(progress.get()) }, [progress])
   useMotionValueEvent(progress, 'change', sync)
   const resultOpacity = useTransform(compareP, [0, .07, .20], [.15, .15, 1])
-  const title = phase === 'comparison' ? 'Le Reel original. Votre version avec Empire.' : phase === 'instagram' ? 'Ils commentent. Vous répondez automatiquement.' : phase === 'long' ? 'Le même sujet, aussi en vidéo YouTube.' : 'Nous mettons votre idée dans le bon format.'
+  const title = phase === 'comparison' ? 'Le même script. De l’anglais au français.' : phase === 'instagram' ? 'Ils commentent. Vous répondez automatiquement.' : phase === 'long' ? 'Le même sujet, aussi en vidéo YouTube.' : 'Nous mettons votre idée dans le bon format.'
   const active = phase === 'short' ? kind : phase === 'long' ? 6 : 5
   return <section ref={ref} className={`${base.story} ${refinement.story} ${s.story}`} data-story="formula" data-unified-formats data-journey-phase={phase} data-step="format" aria-label="Sept formats à découvrir au scroll">
     {ANCHORS.map(([id, p]) => <span key={id} id={`formula-${id}`} className={s.anchor} style={{ top: `calc(${p * 100}% - ${p * 100}svh)` }}/>) }
