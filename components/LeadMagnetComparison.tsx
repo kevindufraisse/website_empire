@@ -27,12 +27,15 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
     const videos = Array.from(element.querySelectorAll('video'))
     const [master, follower] = videos
     if (!master || !follower) return
-    let visible = false, disposed = false, starting = false
+    let visible = false, disposed = false, starting = false, resetting = false
     let lastRateUpdate = 0, lastSeek = 0
     const shouldPlay = () => visible && !paused && !document.hidden && !element.closest('[aria-hidden="true"]')
     const stop = () => videos.forEach(video => video.pause())
-    const ready = () => videos.every(video => video.readyState >= 2 && !video.seeking)
+    const playable = () => videos.every(video => video.readyState >= 2)
+    const ready = () => playable() && videos.every(video => !video.seeking)
     const reset = () => {
+      if (resetting) return
+      resetting = true
       stop()
       videos.forEach(video => { if (video.playbackRate !== 1) video.playbackRate = 1; if (Number.isFinite(video.duration)) video.currentTime = 0 })
       sync()
@@ -40,7 +43,7 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
     function sync(force = false) {
       if (disposed) return
       if (!shouldPlay()) { stop(); return }
-      if (ready() && !starting && (force || videos.some(video => video.paused))) {
+      if (playable() && !starting && (force || videos.some(video => video.paused || video.seeking))) {
         starting = true
         Promise.all(videos.map(video => video.play())).catch(() => {}).finally(() => { starting = false })
       }
@@ -77,8 +80,12 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
     // A decoded frame is enough to request playback after a seek. Holding both
     // players on "waiting" can deadlock WebKit at HAVE_CURRENT_DATA even when
     // the complete file is buffered. Let each decoder resume, then align clocks.
-    const onReady = () => wake()
+    const onReady = () => {
+      if (videos.every(video => !video.seeking && !video.ended)) resetting = false
+      wake()
+    }
     videos.forEach(video => {
+      video.addEventListener('loadeddata', onReady)
       video.addEventListener('canplay', onReady)
       video.addEventListener('waiting', onReady)
       video.addEventListener('seeked', onReady)
@@ -96,6 +103,7 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
       document.removeEventListener('visibilitychange', wake)
       window.removeEventListener('scroll', onScroll)
       videos.forEach(video => {
+        video.removeEventListener('loadeddata', onReady)
         video.removeEventListener('canplay', onReady)
         video.removeEventListener('waiting', onReady)
         video.removeEventListener('seeked', onReady)
