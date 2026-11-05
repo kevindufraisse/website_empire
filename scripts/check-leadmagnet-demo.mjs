@@ -193,7 +193,10 @@ try{
  assert.equal(await page.locator('[data-lead-clip]').count(),2)
  assert.equal(await opacity(page.locator('[data-lead-resource]')),1)
  assert.equal(await page.locator('#formula-ideas>[data-scroll-stage]').evaluate(el=>getComputedStyle(el).position),'relative')
- assert.equal(await page.locator('[data-journey-pane="long"]').getAttribute('data-static'),'true')
+ // Reduced motion intentionally renders the standalone static long section,
+ // not a hidden pane of the unified animation.
+ assert.equal(await page.locator('#formula-youtube').getAttribute('data-static'),'true')
+ assert.equal(await page.locator('[data-unified-formats]').count(),0)
  assert.equal(await page.locator('[data-story="team"]').getAttribute('data-static'),'true')
  reports.push({name:'reduced-motion',result:'passed',allMessagesInNormalFlow:true});await context.close()
  assert.equal(reports.filter(r=>r.result==='failed').length,0,'Inspect scroll discovery screenshots and report')
