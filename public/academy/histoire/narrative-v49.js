@@ -149,7 +149,7 @@
     script.addEventListener('load', () => {
       const extra = document.createElement('script');
       extra.src = '/academy/histoire/story-v52.js?v=52';
-      extra.addEventListener('load', () => { const final = document.createElement('script'); final.src = '/academy/histoire/story-v53.js?v=54'; document.head.appendChild(final); }, { once: true });
+      extra.addEventListener('load', () => { const final = document.createElement('script'); final.src = '/academy/histoire/story-v53.js?v=55'; document.head.appendChild(final); }, { once: true });
       document.head.appendChild(extra);
     }, { once: true });
     document.head.appendChild(script);

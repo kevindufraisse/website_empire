@@ -13,7 +13,7 @@
   choice.querySelectorAll('[data-v53-choice]').forEach(n => n.setAttribute('aria-pressed', String(n.dataset.v53Choice === value)));
   choice.querySelectorAll('[data-profile]').forEach(n => n.classList.toggle('is-selected', n.dataset.profile === value));
   choice.querySelector('.v53-choice-answer').textContent = value === 'left'
-   ? 'Maintenant, vous connaissez mon histoire. Vous m’avez vu apprendre, chercher et trouver des raccourcis. Vous connaissez la personne derrière le service. C’est ce lien que le contenu peut créer.'
+   ? 'Vous avez suivi mon aventure : le devis, les cours, le premier client. Vous avez vu comment je réagis et comment je travaille. À service égal, cela peut vous donner davantage envie de travailler avec moi.'
    : value === 'right' ? 'Vous préférez mon concurrent. C’est possible aussi. Connaître une histoire apporte du contexte et peut créer de la confiance ; cela ne décide pas à votre place.'
    : 'Vous venez de suivre mon aventure. Est-ce que cela change votre choix ?';
  }
