@@ -1,0 +1,28 @@
+name: Academy v52 evidence snapshot
+on:
+  push:
+    branches: [codex/academy-rebondissements-preuves-v52]
+    paths: ['.github/workflows/academy-v52-evidence-snapshot.yml']
+permissions:
+  contents: read
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Package public evidence and existing source
+        run: |
+          python3 - <<'PY'
+          import tarfile, pathlib
+          with tarfile.open('academy-evidence.tar.gz', 'w:gz') as archive:
+              for name in ['public/press','public/case-studies','components','lib','data']:
+                  if pathlib.Path(name).exists(): archive.add(name)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: academy-v52-evidence
+          path: academy-evidence.tar.gz
+          retention-days: 3
