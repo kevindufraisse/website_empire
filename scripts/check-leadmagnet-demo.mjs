@@ -48,6 +48,8 @@ try{
    assert.equal(await ideas.locator('button').count(),0,'The chat must never require previous/next buttons')
    assert.equal(await messages.locator('button').count(),0,'Messages must be discovered by scrolling')
    assert(await page.evaluate(()=>{const ids=['#formula-ideas','[data-story="formula"]','#formula-lead-magnet','#formula-youtube','#formula-secret'];return ids.slice(1).every((id,i)=>!!(document.querySelector(ids[i]).compareDocumentPosition(document.querySelector(id))&4))}),'Keep lead magnet before YouTube and the conditional form')
+   assert((await ideas.locator('#ideas-title').innerText()).includes('partagez-la'))
+   assert((await ideas.innerText()).includes('Ou inspirez-vous de ce que publient vos concurrents.'))
    const travel=await ideas.evaluate(el=>el.offsetHeight-innerHeight)
    assert(travel/7>=viewport.height*1.15,'Each exchange needs at least 1.15 viewport heights of scrolling')
    for(let i=0;i<7;i++){
@@ -57,7 +59,9 @@ try{
     assert(await opacity(exchange.locator('[data-idea-reply]'))>.99,'Reply must stay readable through the hold')
     await fits(page,exchange.locator('[data-idea-outgoing]'),`${name} outgoing ${i}`)
     await fits(page,exchange.locator('[data-idea-reply]'),`${name} reply ${i}`)
-    if(i===0||i===3||i===6)await page.screenshot({path:`${out}/${name}-ideas-${i}.png`})
+    await fits(page,ideas.locator('[data-idea-source-label]'),`${name} source label ${i}`)
+    if([2,3,5,6].includes(i)){const preview=exchange.locator('[data-idea-source]');assert.equal(await preview.count(),1);await fits(page,preview,`${name} source preview ${i}`)}
+    if([0,2,3,5,6].includes(i))await page.screenshot({path:`${out}/${name}-ideas-${i}.png`})
    }
    await at(page,'#formula-ideas',2.55/7)
    assert.equal(await ideas.locator('[data-idea-example]').getAttribute('data-idea-example'),'2')
@@ -172,7 +176,7 @@ try{
    await distributionAt(.810);assert.equal(await counter.getAttribute('data-total'),'280000')
    const counterNode=await counter.elementHandle()
    await distributionAt(.825);assert.equal(await counter.getAttribute('data-total'),'280000','Do not restart the total at the multi-account transition')
-   await distributionAt(.902);assert.equal(await counter.getAttribute('data-total'),'529000','280000 plus 249000 secondary views; never double count the 10000 original views')
+   await distributionAt(.902);await page.waitForFunction(()=>document.querySelector('[data-distribution-total]')?.getAttribute('data-total')==='529000',null,{timeout:5000});assert.equal(await counter.getAttribute('data-total'),'529000','280000 plus 249000 secondary views; never double count the 10000 original views')
    assert(await counterNode.evaluate(el=>el.isConnected),'Keep the same counter mounted')
    assert.equal(await counter.getAttribute('data-complete'),'true')
    await fits(page,counter,`${name} cumulative counter`)
