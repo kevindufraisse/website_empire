@@ -48,7 +48,7 @@
     }
     if (inStory && !seen.has(current)) {
       seen.add(current);
-      track('academy_story_progress', { story_version: 'v52', story_step: scenes[current].id, chapter });
+      track('academy_story_progress', { story_version: 'v53', story_step: scenes[current].id, chapter });
     }
   }
   function schedule() { if (!pending) pending = requestAnimationFrame(paint); }
@@ -103,13 +103,13 @@
     correct.hidden = true; approve.hidden = false;
     status.textContent = 'Correction appliquée : la formulation respecte maintenant son expérience.';
     approve.focus({ preventScroll: true });
-    track('academy_demo_corrected', { story_version: 'v52' });
+    track('academy_demo_corrected', { story_version: 'v53' });
   });
   approve.addEventListener('click', () => {
     review.classList.add('is-approved'); approve.hidden = true; calendar.hidden = false; reset.hidden = false;
     status.textContent = 'Version validée. Voici sa programmation illustrative ; rien n’a été publié.';
     reset.focus({ preventScroll: true });
-    track('academy_demo_approved', { story_version: 'v52' });
+    track('academy_demo_approved', { story_version: 'v53' });
   });
   reset.addEventListener('click', () => {
     review.classList.remove('is-corrected', 'is-approved'); correct.hidden = false; approve.hidden = true; calendar.hidden = true; reset.hidden = true;
@@ -145,10 +145,11 @@
   css.rel = 'stylesheet'; css.href = '/academy/histoire/animated-v50.css?v=50';
   css.addEventListener('load', () => {
     const script = document.createElement('script');
-    script.src = '/academy/histoire/animated-v50.js?v=52';
+    script.src = '/academy/histoire/animated-v50.js?v=53';
     script.addEventListener('load', () => {
       const extra = document.createElement('script');
       extra.src = '/academy/histoire/story-v52.js?v=52';
+      extra.addEventListener('load', () => { const final = document.createElement('script'); final.src = '/academy/histoire/story-v53.js?v=53'; document.head.appendChild(final); }, { once: true });
       document.head.appendChild(extra);
     }, { once: true });
     document.head.appendChild(script);
