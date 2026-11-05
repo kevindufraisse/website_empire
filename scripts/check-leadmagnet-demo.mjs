@@ -14,8 +14,7 @@ async function at(page,selector,progress){
   const top=el.getBoundingClientRect().top+scrollY
   scrollTo({top:top+p*(el.getBoundingClientRect().height-innerHeight),behavior:'instant'})
  },progress)
- // WebKit on shared runners can paint the preceding React frame after scrollTo.
- // Poll for the exact intended state rather than accepting it after a fixed delay.
+ // Poll the state actually painted by each scene, including WebKit.
  await page.waitForFunction(({selector,progress})=>{
   const root=document.querySelector(selector)
   const visible=(query,wanted)=>{const node=root?.querySelector(query);if(!node)return false;const value=Number(getComputedStyle(node).opacity);return wanted?value>.99:value<.01}
@@ -24,7 +23,16 @@ async function at(page,selector,progress){
    return root?.querySelector('[data-idea-example]')?.getAttribute('data-idea-example')===String(index)&&visible(`[data-idea-layer="${index}"] [data-idea-reply]`,true)
   }
   if(selector==='#formula-lead-messages')return visible('[data-scroll-reveal="comment"]',progress>=.12)&&visible('[data-scroll-reveal="reply"]',progress>=.29)&&visible('[data-lead-dm]',progress>=.54)&&visible('[data-lead-resource]',progress>=.78)
-  return visible('[data-lead-clip="result"]',true)
+  if(selector==='#formula-youtube'){
+   const text=root?.querySelector('[data-format-preview="long"]')?.textContent||''
+   const match=text.match(/(\d{1,2}):(\d{2})\s*\/\s*12:48/)
+   const p=.540+Math.max(0,Math.min(1,(progress-.10)/.62))*.027
+   const expected=Math.round(Math.max(0,Math.min(1,(p-.537)/.03))*720)
+   return !!match&&Math.abs(Number(match[1])*60+Number(match[2])-expected)<=2
+  }
+  if(selector==='[data-story="team"]')return visible('[data-team-role]',progress<.5)&&visible('[data-team-summary]',progress>.8)
+  if(selector==='[data-scroll-discovery="comparison"]')return visible('[data-lead-clip="result"]',true)
+  return !!root
  },{selector,progress},{timeout:5000})
  await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))))
 }
@@ -43,8 +51,7 @@ async function contextFor(browser,viewport,reducedMotion='no-preference'){
  return context
 }
 try{
- // Native scrolling only: ensure no interception or scheduled scene navigation was introduced.
- for(const path of ['components/IdeaMessagesStory.tsx','components/LeadMagnetScene.tsx']){
+ for(const path of ['components/IdeaMessagesStory.tsx','components/LeadMagnetScene.tsx','components/LongFormatScroll.tsx','components/sections/QuickWinsSection.tsx']){
   const source=await readFile(path,'utf8')
   assert(!/preventDefault|setTimeout|setInterval|scrollIntoView|scrollTo\(/.test(source),`${path}: no forced navigation`)
  }
@@ -71,7 +78,6 @@ try{
     await fits(page,exchange.locator('[data-idea-reply]'),`${name} reply ${i}`)
     if(i===0||i===3||i===6)await page.screenshot({path:`${out}/${name}-ideas-${i}.png`})
    }
-   // Backward scroll must restore the preceding message, without clicking anything.
    await at(page,'#formula-ideas',2.55/7)
    assert.equal(await ideas.locator('[data-idea-example]').getAttribute('data-idea-example'),'2')
    const y=await page.evaluate(()=>scrollY)
@@ -88,7 +94,7 @@ try{
    assert(await opacity(result)>.99)
    await fits(page,source,`${name} source`);await fits(page,result,`${name} result`)
    const va=await source.locator('video').boundingBox(),vb=await result.locator('video').boundingBox()
-   assert(Math.abs(va.y-vb.y)<3&&Math.abs(va.height-vb.height)<3,'The two video windows must align, not just their figures')
+   assert(Math.abs(va.y-vb.y)<3&&Math.abs(va.height-vb.height)<3,'The two video windows must align')
    await page.waitForFunction(()=>[...document.querySelectorAll('[data-lead-comparison] video')].every(v=>v.readyState>=2&&v.videoHeight>v.videoWidth&&!v.paused),null,{timeout:15000})
    const times=await pair.locator('video').evaluateAll(vs=>vs.map(v=>v.currentTime))
    await page.waitForFunction(times=>[...document.querySelectorAll('[data-lead-comparison] video')].every((v,i)=>Math.abs(v.currentTime-times[i])>.1),times,{timeout:8000})
@@ -118,7 +124,6 @@ try{
    await at(page,'#formula-lead-messages',.90)
    assert(await opacity(resource)>.99,'Fast forward still renders the correct final result')
    assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2),'No horizontal overflow')
-   assert.deepEqual(errors,[])
 
    const long=page.locator('#formula-youtube')
    await at(page,'#formula-youtube',.24)
@@ -132,6 +137,8 @@ try{
    assert.equal(await long.locator('[data-format-list] button').count(),0)
    if(viewport.width>1000) await fits(page,long.locator('[data-format-list]'),`${name} seven-format rail`)
    await page.screenshot({path:`${out}/${name}-youtube-scroll.png`})
+   await at(page,'#formula-youtube',.24)
+   assert.equal(await long.locator('[data-format-preview="long"]').innerText(),beforeLong,'YouTube reverses with scroll')
    await at(page,'[data-story="team"]',.10)
    const team=page.locator('[data-story="team"]')
    assert.equal(await team.locator('[data-team-role]').count(),8)
@@ -146,8 +153,18 @@ try{
    assert.equal(await page.locator('#home-comparison table').count(),0)
    assert((await page.locator('#home-comparison').innerText()).includes('Ce que vous faites'))
    assert((await page.locator('#empire-integrations').innerText()).includes('revenus attribués'))
-
-   reports.push({name,result:'passed',scrollDrivenChat:true,noNavigationArrows:true,readingHolds:true,instagramProgressiveReveal:true,bothClipsVisibleTogether:true,realPlayback:true,leadBeforeYouTube:true})
+   if(name==='desktop'||name==='mobile-small'){
+    const compare=page.locator('#home-comparison')
+    await compare.screenshot({path:`${out}/${name}-clear-comparison.png`})
+    await at(page,'#empire-integrations',.90)
+    await page.screenshot({path:`${out}/${name}-revenues.png`})
+    await at(page,'#empire-community',.84)
+    await page.screenshot({path:`${out}/${name}-community.png`})
+    await at(page,'#formula-time',.06)
+    await page.screenshot({path:`${out}/${name}-application.png`})
+   }
+   assert.deepEqual(errors,[])
+   reports.push({name,result:'passed',scrollDrivenChat:true,noNavigationArrows:true,readingHolds:true,instagramProgressiveReveal:true,bothClipsVisibleTogether:true,realPlayback:true,leadBeforeYouTube:true,youTubeScrollReversible:true,sevenFormatRail:true,teamConverges:true})
   }catch(error){await page.screenshot({path:`${out}/${name}-failure.png`}).catch(()=>{});reports.push({name,result:'failed',error:String(error),stack:error.stack,errors})}
   finally{await context.close()}
  }
@@ -159,6 +176,8 @@ try{
  assert.equal(await page.locator('[data-lead-clip]').count(),2)
  assert.equal(await opacity(page.locator('[data-lead-resource]')),1)
  assert.equal(await page.locator('#formula-ideas>[data-scroll-stage]').evaluate(el=>getComputedStyle(el).position),'relative')
+ assert.equal(await page.locator('#formula-youtube').getAttribute('data-static'),'true')
+ assert.equal(await page.locator('[data-story="team"]').getAttribute('data-static'),'true')
  reports.push({name:'reduced-motion',result:'passed',allMessagesInNormalFlow:true});await context.close()
  assert.equal(reports.filter(r=>r.result==='failed').length,0,'Inspect scroll discovery screenshots and report')
 }finally{

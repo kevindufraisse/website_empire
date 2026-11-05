@@ -1,4 +1,4 @@
-/* Scoped to the homepage's persistent comparison and message sections. */
+/* Scoped to the homepage's comparison and message sections. */
 .home-flat [data-lead-comparison] > div:first-child { max-width: 600px; }
 .home-flat [data-lead-dm] { scroll-margin-top: 80px; }
 
@@ -11,10 +11,10 @@
   .home-flat [data-lead-clip] figcaption { min-height: 46px; margin-bottom: 8px; }
   .home-flat [data-lead-clip] figcaption b { font-size: 17px; }
   .home-flat [data-lead-clip] figcaption span { font-size: 10px; margin-top: 4px; }
-  .home-flat [data-story="long-format"] { padding-top: 32px; padding-bottom: 40px; }
+  /* Legacy non-sticky long-format layout only. Never constrain its new sticky stage. */
   .home-flat [data-story="long-format"] > header { margin-bottom: 24px; }
   .home-flat [data-story="long-format"] > header h2 { font-size: 38px; }
-  .home-flat [data-story="long-format"] > div { max-width: 1000px; gap: 38px; }
+  .home-flat [data-story="long-format"] > [data-scene="formats"] { max-width: 1000px; gap: 38px; }
 }
 
 @media (max-width: 760px) {
