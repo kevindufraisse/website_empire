@@ -6,12 +6,11 @@ import { ArrowRight, Pause, Play, RotateCcw } from 'lucide-react'
 import s from './LeadMagnetJourney.module.css'
 import './PersistentJourneyViewport.css'
 
-export const LEAD_RESULT_POSTER = '/demo/leadmagnet-result-20261104.jpg'
-// Matching visual passage: the original steps card and its French adaptation.
-// Offsets are relative to the previously inspected, locally hosted excerpts.
+export const LEAD_RESULT_POSTER = '/demo/leadmagnet-result-opening-20261105.jpg'
+// Play the first fifteen seconds of each complete supplied edit.
 const CLIPS = [
-  { key: 'source', title: 'Le Reel original', detail: 'Le format de départ', video: '/demo/leadmagnet-source-20261104.mp4', poster: '/demo/leadmagnet-source-20261104.jpg', start: 3, end: 5.95 },
-  { key: 'result', title: 'La version de Kevin', detail: 'Le même format, recréé avec Empire', video: '/demo/leadmagnet-result-20261104.mp4', poster: LEAD_RESULT_POSTER, start: 6, end: 10 },
+  { key: 'source', title: 'Le Reel original', detail: 'Le format de départ', video: '/demo/leadmagnet-source-opening-20261105.mp4', poster: '/demo/leadmagnet-source-opening-20261105.jpg', start: 0, end: 15 },
+  { key: 'result', title: 'La version de Kevin', detail: 'Le même format, recréé avec Empire', video: '/demo/leadmagnet-result-opening-20261105.mp4', poster: LEAD_RESULT_POSTER, start: 0, end: 15 },
 ] as const
 
 /** Both supplied edits stay visible together. Only playback offsets change;
