@@ -25,7 +25,6 @@ export default function UnifiedFormatJourney({ renderShort }: {
   const { scrollYProgress: progress } = useScroll({ target: ref, offset: ['start start', 'end end'] })
   const shortTimeline = useTransform(progress, [0, .08, .16, .24, .32, .40, 1], [.305, .350, .415, .475, .535, .590, .590])
   const shortP = useTransform(shortTimeline, p => Math.min(p, .535))
-  const compareP = useTransform(progress, [.40, .72], [0, 1])
   const messageP = useTransform(progress, [.72, .88], [0, 1])
   const longP = useTransform(progress, [.88, .92, .97, 1], [.540, .547, .567, .567])
   const [phase, setPhase] = useState<Phase>(() => phaseAt(progress.get()))
@@ -33,7 +32,6 @@ export default function UnifiedFormatJourney({ renderShort }: {
   const sync = (p: number) => { setPhase(phaseAt(p)); setKind(kindAt(p)) }
   useEffect(() => { sync(progress.get()) }, [progress])
   useMotionValueEvent(progress, 'change', sync)
-  const resultOpacity = useTransform(compareP, [0, .07, .20], [.15, .15, 1])
   const title = phase === 'comparison' ? 'Le même script. De l’anglais au français.' : phase === 'instagram' ? 'Ils commentent. Vous répondez automatiquement.' : phase === 'long' ? 'Le même sujet, aussi en vidéo YouTube.' : 'Nous mettons votre idée dans le bon format.'
   const active = phase === 'short' ? kind : phase === 'long' ? 6 : 5
   return <section ref={ref} className={`${base.story} ${refinement.story} ${s.story}`} data-story="formula" data-unified-formats data-journey-phase={phase} data-step="format" aria-label="Sept formats à découvrir au scroll">
@@ -43,7 +41,7 @@ export default function UnifiedFormatJourney({ renderShort }: {
       <div className={`${base.stage} ${refinement.stage} ${s.frame}`}>
         <div className={`${s.pane} ${s.short}`} data-journey-pane="short" aria-hidden={phase !== 'short'}>{renderShort(shortP, shortTimeline, kind, phase === 'short')}</div>
         <section className={`${s.pane} ${s.comparison}`} data-journey-pane="comparison" data-scene="lead-magnet" aria-hidden={phase !== 'comparison'}>
-          <motion.div className={s.comparisonInner} style={{ '--paired-opacity': resultOpacity } as import('framer-motion').MotionStyle}><LeadMagnetComparison/></motion.div>
+          <div className={s.comparisonInner}><LeadMagnetComparison/></div>
         </section>
         <section className={`${s.pane} ${s.instagram}`} data-journey-pane="instagram" aria-hidden={phase !== 'instagram'}><LeadMagnetConversation p={messageP}/></section>
         <section className={`${s.pane} ${s.long}`} data-journey-pane="long" data-scene="formats" data-format="5" aria-hidden={phase !== 'long'}>

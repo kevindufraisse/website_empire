@@ -76,6 +76,8 @@ try{
    assert(Math.abs(await page.evaluate(()=>scrollY)-y)<3,'No forced scroll')
    await page.mouse.wheel(0,180)
    await page.waitForFunction(y=>scrollY>y+100,y,{timeout:3000})
+   await at(page,'[data-scroll-discovery="comparison"]',.02)
+   assert(await opacity(pair.locator('[data-lead-clip="result"]'))>.99,'The translated clone must be fully visible from the start')
    await at(page,'[data-scroll-discovery="comparison"]',.55)
    const source=pair.locator('[data-lead-clip="source"]'),result=pair.locator('[data-lead-clip="result"]')
    assert.equal(await pair.locator('video').count(),2)

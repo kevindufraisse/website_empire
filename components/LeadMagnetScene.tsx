@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
-import { motion, useReducedMotion, useScroll, useTransform, type MotionStyle, type MotionValue } from 'framer-motion'
+import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from 'framer-motion'
 import { ArrowLeft, ArrowRight, Check, ChevronDown, FileText, Heart, Image as ImageIcon, MessageCircle, Phone, Send, Smile, Video } from 'lucide-react'
 import LeadMagnetComparison, { LEAD_RESULT_POSTER } from './LeadMagnetComparison'
 import s from './LeadMagnetJourney.module.css'
@@ -21,7 +21,6 @@ export default function LeadMagnetScene({ staticMode = false }: { p?: MotionValu
   const still = staticMode || !!reduced
   const { scrollYProgress: compareP } = useScroll({ target: comparison, offset: ['start start', 'end end'] })
   const { scrollYProgress: messageP } = useScroll({ target: messages, offset: ['start start', 'end end'] })
-  const resultOpacity = useTransform(compareP, [.06, .20], [.15, 1])
   const commentOpacity = useTransform(messageP, [.02, .12], [0, 1])
   const commentY = useTransform(messageP, [.02, .12], [14, 0])
   const replyOpacity = useTransform(messageP, [.20, .29], [0, 1])
@@ -40,7 +39,7 @@ export default function LeadMagnetScene({ staticMode = false }: { p?: MotionValu
           <h2 id="lead-comparison-title">Le même script.<br/><em>De l’anglais au français.</em></h2>
           <p>L’original à gauche. Le clone de Kevin à droite.<br className={s.desktopBreak}/> Le script traduit, avec ses propres visuels et sous-titres.</p>
         </header>
-        <motion.div className={scroll.comparisonReveal} style={{ '--result-opacity': still ? 1 : resultOpacity } as MotionStyle}><LeadMagnetComparison staticMode={still}/></motion.div>
+        <div className={scroll.comparisonReveal}><LeadMagnetComparison staticMode={still}/></div>
         {!still && <div className={scroll.progress} aria-hidden="true"><span>Continuez à scroller</span><div><motion.i style={{ scaleX: compareP }}/></div></div>}
       </div>
     </div>
