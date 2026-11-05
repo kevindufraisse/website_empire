@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { motion, useMotionValue, useMotionValueEvent, useReducedMotion, useScroll, useTransform, type MotionValue } from 'framer-motion'
 import { ArrowDown, ArrowRight, BatteryFull, CalendarDays, Check, ChevronLeft, ChevronRight, Copy, Link2, Library, PlusSquare, Signal, UserRound, Volume2, Wifi, Sparkles, Mic, Video, MessageSquare, LayoutGrid, Search, Bell, MoreHorizontal, MousePointer2 } from 'lucide-react'
 import s from './CloneAppStory.module.css'
+import formats from './FormatJourney.module.css'
 import PreviewVideo from './PreviewVideo'
 
 const SOURCE = '/formats/clone-avant-apres.jpg'
@@ -99,7 +100,7 @@ export default function CloneAppStory() {
   const afterOpacity = useTransform(p, [.7, .86], [0, 1])
   const afterY = useTransform(p, [.7, .86], [45, 0])
   return <section id="formula-time" ref={ref} className={`${s.section} ${reduced ? s.reduced : ''}`} aria-label="L’application Empire et son studio de clonage"><div data-viewport-stage className={s.sticky}>
-    <div className={s.heading}><small>04 · TEMPS / L’APPLICATION</small><h2>Créez du contenu partout.<br/><em>Tout le temps. Quand vous voulez.</em></h2></div>
+    <div className={s.heading}><h2>Créez du contenu partout.<br/><em>Tout le temps. Quand vous voulez.</em></h2><p className={formats.appSource}>Depuis l’application Empire.</p></div>
     <div className={s.stage}>
       <Workspace phase={phase}/>
       <IPhone p={p} homeP={rawP} phase={phase} onHome={()=>setManual(0)} onClone={()=>setManual(1)}/>

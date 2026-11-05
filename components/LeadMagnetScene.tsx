@@ -6,6 +6,8 @@ import { ArrowLeft, ArrowRight, Check, ChevronDown, FileText, Heart, Image as Im
 import LeadMagnetComparison, { LEAD_RESULT_POSTER } from './LeadMagnetComparison'
 import s from './LeadMagnetJourney.module.css'
 import scroll from './ScrollDiscovery.module.css'
+import FormatRail from './FormatRail'
+import formats from './FormatJourney.module.css'
 
 const AVATAR = '/founders/kevin.jpg'
 
@@ -32,7 +34,8 @@ export default function LeadMagnetScene({ staticMode = false }: { p?: MotionValu
   const sentOpacity = useTransform(messageP, [.76, .82], [0, 1])
   return <section id="formula-lead-magnet" className={scroll.journey} data-scene="lead-magnet" data-static={still} aria-labelledby="lead-comparison-title">
     <div ref={comparison} className={scroll.comparisonStory} data-scroll-discovery="comparison" data-static={still}>
-      <div className={`${scroll.sticky} ${scroll.compareSticky}`} data-scroll-stage>
+      <div className={`${scroll.sticky} ${scroll.compareSticky} ${formats.withRail}`} data-scroll-stage>
+        <FormatRail active={5} floating/>
         <header className={`${s.heading} ${scroll.heading}`}>
           <h2 id="lead-comparison-title">Ce Reel vous inspire ?<br/><em>Recréez-le à votre façon.</em></h2>
           <p>L’original à gauche. Sa version adaptée avec Empire à droite.<br className={s.desktopBreak}/> Même idée, votre vidéo, vos illustrations et vos sous-titres.</p>
@@ -42,7 +45,8 @@ export default function LeadMagnetScene({ staticMode = false }: { p?: MotionValu
       </div>
     </div>
     <section ref={messages} id="formula-lead-messages" className={scroll.messages} data-scroll-discovery="instagram" data-static={still} data-lead-message-story aria-labelledby="lead-messages-title">
-      <div className={`${scroll.sticky} ${scroll.messageSticky}`} data-scroll-stage>
+      <div className={`${scroll.sticky} ${scroll.messageSticky} ${formats.withRail}`} data-scroll-stage>
+        <FormatRail active={5} floating/>
         <header className={`${s.heading} ${scroll.heading}`}>
           <h2 id="lead-messages-title">Ils commentent.<br/><em>Vous répondez automatiquement.</em></h2>
           <p>Associez un mot-clé à votre ressource.<br/>Le commentaire déclenche l’envoi du lien en privé.</p>
