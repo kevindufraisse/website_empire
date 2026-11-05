@@ -28,12 +28,13 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
     const [master, follower] = videos
     if (!master || !follower) return
     let visible = false, frame = 0, disposed = false, starting = false
+    const buffering = new Set<HTMLVideoElement>()
     const shouldPlay = () => visible && !paused && !document.hidden && !element.closest('[aria-hidden="true"]')
     const stop = () => videos.forEach(video => video.pause())
-    const ready = () => videos.every(video => video.readyState >= 2 && !video.seeking)
+    const ready = () => buffering.size === 0 && videos.every(video => video.readyState >= 2 && !video.seeking)
     const reset = () => {
       stop()
-      videos.forEach(video => { if (Number.isFinite(video.duration)) video.currentTime = 0 })
+      videos.forEach(video => { video.playbackRate = 1; if (Number.isFinite(video.duration)) video.currentTime = 0 })
       sync()
     }
     function sync() {
@@ -41,8 +42,8 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
       if (!shouldPlay()) { stop(); return }
       if (ready() && !starting && videos.some(video => video.paused)) {
         starting = true
-        Promise.all(videos.map(video => video.play())).catch(stop).finally(() => { starting = false })
-      } else if (!ready()) stop()
+        Promise.all(videos.map(video => video.play())).catch(() => {}).finally(() => { starting = false })
+      }
       if (!frame) frame = requestAnimationFrame(tick)
     }
     function tick() {
@@ -50,14 +51,13 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
       if (disposed || !shouldPlay()) { stop(); return }
       if (videos.some(video => video.ended) || master.currentTime >= 14.96) {
         reset()
-      } else if (!ready()) {
-        stop()
-      } else {
+      } else if (ready()) {
         // One clock owns both previews, including after buffering and tab changes.
-        if (Math.abs(master.currentTime - follower.currentTime) > .12) {
-          stop()
-          follower.currentTime = master.currentTime
-        }
+        const drift = master.currentTime - follower.currentTime
+        // Small decoder differences need a gentle rate correction, not repeated
+        // seeks that flush WebKit's decoder and can prevent forward playback.
+        if (Math.abs(drift) > .6) follower.currentTime = master.currentTime
+        else follower.playbackRate = Math.max(.94, Math.min(1.06, 1 + drift * .5))
       }
       sync()
     }
@@ -66,17 +66,17 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
     const pane = element.closest('[data-journey-pane]')
     const mutations = new MutationObserver(sync)
     if (pane) mutations.observe(pane, { attributes: true, attributeFilter: ['aria-hidden'] })
-    const onWaiting = () => { stop(); sync() }
-    const onSeeked = () => {
-      // External seeks and "Revoir" also keep the follower on the shared clock.
-      if (!master.seeking && !follower.seeking && Math.abs(master.currentTime - follower.currentTime) > .12) follower.currentTime = master.currentTime
+    const onWaiting = (event: Event) => {
+      // Let the buffering player recover naturally; hold its partner meanwhile.
+      buffering.add(event.currentTarget as HTMLVideoElement)
+      videos.filter(video => video !== event.currentTarget).forEach(video => video.pause())
       sync()
     }
+    const onReady = (event: Event) => { buffering.delete(event.currentTarget as HTMLVideoElement); sync() }
     videos.forEach(video => {
-      video.addEventListener('canplay', sync)
+      video.addEventListener('canplay', onReady)
       video.addEventListener('waiting', onWaiting)
-      video.addEventListener('seeking', stop)
-      video.addEventListener('seeked', onSeeked)
+      video.addEventListener('seeked', onReady)
       video.addEventListener('ended', reset)
     })
     document.addEventListener('visibilitychange', sync)
@@ -88,10 +88,9 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
       mutations.disconnect()
       document.removeEventListener('visibilitychange', sync)
       videos.forEach(video => {
-        video.removeEventListener('canplay', sync)
+        video.removeEventListener('canplay', onReady)
         video.removeEventListener('waiting', onWaiting)
-        video.removeEventListener('seeking', stop)
-        video.removeEventListener('seeked', onSeeked)
+        video.removeEventListener('seeked', onReady)
         video.removeEventListener('ended', reset)
       })
       stop()
