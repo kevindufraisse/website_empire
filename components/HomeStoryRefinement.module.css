@@ -5,13 +5,13 @@
 .story .stage{max-height:650px;min-height:0}
 .story [data-scene][aria-hidden="true"]{visibility:hidden;pointer-events:none}
 .story [data-scene="chat"]{gap:0}
-.story .formats,.story .formats[data-long="true"]{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) 106px;grid-template-rows:minmax(0,1fr);align-items:center;justify-content:normal;gap:30px;height:100%;width:100%}
+.story .formats,.story .formats[data-long="true"]{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) 128px;grid-template-rows:minmax(0,1fr);align-items:center;justify-content:normal;gap:30px;height:100%;width:100%}
 .story .preview{grid-column:1;grid-row:1;min-width:0;min-height:0;height:100%;display:flex;align-items:center;justify-content:center}
 .story .preview>div{height:100%;width:auto;max-height:100%;max-width:100%;flex-shrink:1}
 .story .formatCopy{grid-column:2;grid-row:1;width:auto;min-width:0;text-align:left}
 .story .formatCopy h3{font-size:clamp(24px,2.5vw,36px);line-height:1.14;margin:0 0 18px;letter-spacing:-.04em;text-wrap:balance}
 .story .formatCopy p{font-size:15px;line-height:1.6;max-width:32ch;color:#b5b5b5;margin:0}
-.story .shelf{grid-column:3;grid-row:1;width:106px;max-height:100%;gap:8px}
+.story .shelf{grid-column:3;grid-row:1;width:128px;max-height:100%;gap:8px}
 .story .shelf>div>div{height:52px;width:30px}
 .story .longPreview>div{width:100%;height:auto;max-height:100%;max-width:none;display:block;aspect-ratio:auto;flex:none}
 .story .longPreview>div>header{display:none}

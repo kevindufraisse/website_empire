@@ -124,15 +124,15 @@ export default function EmpireCommunitySection() {
         <div className={s.wrap}>
           <header className={s.heading}>
             <div>
-              <span>06 · LA COMMUNAUTÉ EMPIRE</span>
+
               <h2>
-                {live ? 'Vos comptes. Vos questions.' : 'Des créateurs qui partagent.'}
+                {live ? 'Vos comptes. Vos questions.' : 'Posez vos questions.'}
                 <br />
-                <em>{live ? 'En live avec Kevin Dufraisse.' : 'Des experts qui vous répondent.'}</em>
+                <em>{live ? 'Notre live hebdomadaire.' : 'Nos experts vous répondent.'}</em>
               </h2>
               <p>{live
-                ? 'Chaque semaine, avec Kevin Dufraisse. Vos contenus, vos prochains tests, les techniques de personal branding.'
-                : 'Formats à tester, retours sur vos contenus et conseils en viralité. La communauté avance avec vous.'}</p>
+                ? 'Chaque semaine, posez vos questions et échangez avec nos experts sur vos contenus et votre stratégie.'
+                : 'Rejoignez notre live hebdomadaire pour faire analyser vos contenus et préparer vos prochains tests.'}</p>
             </div>
             <a className={s.hostCredit} href="/community/kevin-favikon.webp" target="_blank" rel="noreferrer" aria-label="Voir le classement Favikon de Kevin Dufraisse">
               <img src="/community/kevin-favikon.webp" alt="Kevin Dufraisse classé numéro 1 Growth et Lead Generation France par Favikon, février 2025" />

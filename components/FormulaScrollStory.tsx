@@ -19,6 +19,8 @@ import PreviewVideo from './PreviewVideo'
 import { LongVideoFormat, LongVideoArtwork } from './LongVideoFormat'
 import { CloneVideo, CloneDetails } from './ExtraFormatScenes'
 import LeadMagnetScene from './LeadMagnetScene'
+import FormatRail from './FormatRail'
+import LongFormatScroll from './LongFormatScroll'
 import SecretFormatsGate from './SecretFormatsGate'
 
 type Progress = MotionValue<number>
@@ -216,7 +218,7 @@ function Formats({ p, cloneP, active, kind }: { p: Progress; cloneP: Progress; a
   return <motion.div className={`${s.formatScene} ${r.formats}`} data-scene="formats" data-format={kind} data-long={kind === 5} style={{ opacity, scale }} aria-hidden={!active}>
     <div className={`${r.preview} ${kind === 5 ? r.longPreview : ''}`} data-format-preview={kind === 5 ? 'long' : 'short'}>{kind === 5 ? <LongVideoFormat p={p}/> : <Recording p={p} cloneP={cloneP} kind={kind}/>}</div>
     <div className={`${s.formatExplanation} ${r.formatCopy}`}><h3>{titles[kind].split('\n').map((line, i) => <span key={line}>{i > 0 && <br/>}{line}</span>)}</h3><p>{descriptions[kind]}</p>{kind === 4 && <CloneDetails p={cloneP}/>}</div>
-    <div className={`${s.formatShelf} ${r.shelf}`} aria-label="Formats présentés">{LABELS.map((name, i) => <div key={name} className={`${s.formatMini} ${kind === i ? s.chosen : ''}`}><div>{i === 5 ? <LongVideoArtwork still/> : i === 4 ? <CloneVideo p={cloneP} still/> : <Composition kind={i} p={p} still preview/>}</div><span>{name}{kind > i ? <Check size={12}/> : kind === i ? <span className={s.liveDot}/> : null}</span></div>)}</div>
+    <FormatRail active={kind}/>
   </motion.div>
 }
 function NetworkPost({ p, index }: { p: Progress; index: number }) {
@@ -258,19 +260,9 @@ function Calendar({ p, active }: { p: Progress; active: boolean }) {
   const [done, setDone] = useState(false)
   useMotionValueEvent(p, 'change', v => setDone(v >= .942))
   return <motion.div className={s.calendarScene} data-scene="republication" style={{ opacity }} aria-hidden={!active}>
-    <div className={s.calendarIntro}><h3>150 000 vues.<br/><em>Une nouvelle date.</em></h3><p>Le contenu qui fonctionne revient dans votre calendrier pour une nouvelle diffusion.</p><motion.div className={s.scheduleConfirmed} style={{ opacity: confirmed }}><Check size={18}/><span><b>Republication programmée</b><small>Mercredi 25 · 12:00</small></span></motion.div></div>
+    <div className={s.calendarIntro}><h3>150 000 vues.<br/><em>Une nouvelle date.</em></h3><p>Vos meilleurs contenus reviennent automatiquement dans votre calendrier, pour être diffusés à nouveau.</p><motion.div className={s.scheduleConfirmed} style={{ opacity: confirmed }}><Check size={18}/><span><b>Republication programmée</b><small>Mercredi 25 · 12:00</small></span></motion.div></div>
     <div className={s.calendarApp}><header><span className={s.empireBadge}>E</span><div><b>Calendrier</b><small>Vos publications</small></div><CalendarDays size={20}/></header><div className={s.month}><b>Novembre</b><span>{done ? '1 republication ajoutée' : 'Sélection du meilleur contenu'}</span></div><div className={s.weekdays}>{['L', 'M', 'M', 'J', 'V', 'S', 'D'].map((v, i) => <span key={i}>{v}</span>)}</div><div className={s.calendarGrid}>{Array.from({ length: 42 }, (_, i) => { const day = i - 5; return <div key={i} className={day === 25 ? s.targetDay : ''}><span>{day > 0 && day <= 30 ? day : ''}</span>{day === 4 && <small className={s.publishedMark}><Check size={10}/>Publié</small>}{day === 25 && <small className={s.targetTime}>12:00</small>}</div> })}<motion.div className={s.movingWinner} style={{ left, top, width, height, opacity: picked }}><div className={s.winnerVisual}><Composition kind={1} p={p} still/></div><div className={s.winnerMeta}><SocialIcons.tiktok/><b>150 000 vues</b><span>{TOPIC}</span></div><motion.span className={s.scheduledCheck} style={{ opacity: confirmed }}><Check size={11}/></motion.span></motion.div></div><footer><span><Check size={13}/>Le contenu qui a déjà trouvé son public.</span><motion.b style={{ opacity: confirmed }}>Reprogrammé</motion.b></footer></div>
   </motion.div>
-}
-function LongFormatStory() {
-  const settled = useMotionValue(.558)
-  return <section id="formula-youtube" className={journey.longSection} data-story="long-format" aria-labelledby="long-format-title">
-    <header className={journey.heading}><h2 id="long-format-title">Votre sujet mérite plus ?<br/><em>Passez au format long.</em></h2></header>
-    <div className={journey.longGrid} data-scene="formats" data-format="5" aria-hidden="false">
-      <div className={journey.longPreview} data-format-preview="long"><LongVideoFormat p={settled}/></div>
-      <div className={journey.longCopy}><h3>Le même sujet.<br/>Plus de place pour l’expliquer.</h3><p>Réaction, classement ou réponse client : développez votre point de vue dans une vidéo YouTube.</p></div>
-    </div>
-  </section>
 }
 
 function AccessibleStory() {
@@ -278,12 +270,12 @@ function AccessibleStory() {
     <IdeaMessagesStory/>
     <section className={s.accessible}><h2 id="formula-format">Nous mettons votre idée dans le bon format.</h2><p>Un lien devient une réaction. Un classement devient une tier list. Une question client devient une réponse en vidéo.</p></section>
     <LeadMagnetScene staticMode/>
-    <LongFormatStory/>
+    <LongFormatScroll/>
     <SecretFormatsGate staticMode/>
     <section className={s.accessible}>
-      <h2 id="formula-diffusion">Nous adaptons et diffusons vos vidéos et vos textes sur tous vos réseaux.</h2><p>{NETWORKS.join(' · ')}. Les miniatures et les visuels accompagnent les publications.</p>
+      <h2 id="formula-diffusion">Nous adaptons votre message à chaque format et le diffusons sur tous vos réseaux.</h2><p>{NETWORKS.join(' · ')}. Les miniatures et les visuels accompagnent les publications.</p>
       <h3>Publiez la même vidéo sur plusieurs comptes, instantanément.</h3><p>Connectez vos comptes principaux et secondaires.</p>
-      <h3>Nous republions automatiquement vos meilleurs contenus.</h3><p>Les contenus qui fonctionnent reviennent dans votre calendrier. Les scènes et les chiffres de la démonstration sont illustratifs.</p>
+      <h3>Republiez la même publication, encore et encore.</h3><p>Les contenus qui fonctionnent reviennent dans votre calendrier. Les scènes et les chiffres de la démonstration sont illustratifs.</p>
     </section>
   </div><CloneAppStory/><ClaudeMcpDemo/></>
 }
@@ -313,7 +305,7 @@ function DistributionStory() {
   const p = useTransform(sequenceP, [0, .82, .92, 1], [0, .82, .82, 1])
   const [multi, setMulti] = useState(false), [calendar, setCalendar] = useState(false)
   useMotionValueEvent(sequenceP, 'change', v => { setMulti(v >= .82 && v < .92); setCalendar(v >= .92) })
-  const title = multi ? 'Publiez la même vidéo sur plusieurs comptes, instantanément.' : calendar ? 'Nous republions automatiquement vos meilleurs contenus.' : 'Nous adaptons et diffusons vos vidéos et vos textes sur tous vos réseaux.'
+  const title = multi ? 'Publiez la même vidéo sur plusieurs comptes, instantanément.' : calendar ? 'Republiez la même publication, encore et encore.' : 'Nous adaptons votre message à chaque format et le diffusons sur tous vos réseaux.'
   return <section ref={ref} className={`${s.story} ${r.story} ${stable.distribution}`} data-story="distribution" data-step={multi ? 'multi-accounts' : calendar ? 'republication' : 'diffusion'} aria-label="La diffusion de vos contenus">
     <span id="formula-diffusion" className={s.anchor} style={{ top: 'calc(7.407407% - 7.407407svh)' }}/>
     <div data-viewport-stage className={s.sticky}>
@@ -333,5 +325,5 @@ export function SourcesStory() {
   const reduced = useReducedMotion()
   if (autopilot) return null
   if (reduced) return <AccessibleStory/>
-  return <><IdeaMessagesStory/><CreationStory/><LeadMagnetScene/><LongFormatStory/><SecretFormatsGate/><DistributionStory/><CloneAppStory/><ClaudeMcpDemo/></>
+  return <><IdeaMessagesStory/><CreationStory/><LeadMagnetScene/><LongFormatScroll/><SecretFormatsGate/><DistributionStory/><CloneAppStory/><ClaudeMcpDemo/></>
 }
