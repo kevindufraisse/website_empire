@@ -53,7 +53,7 @@ function loadExtras() {
   wj.src = 'https://event.webinarjam.com/register/r0w4xps2/embed-button?formTemplate=2&formColor=1&buttonText=' + encodeURIComponent('S’inscrire');
   document.body.appendChild(wj);
 }
-const after = $('#apres');
+const after = $('#suite') || $('#apres');
 if (after && 'IntersectionObserver' in window) {
   const io = new IntersectionObserver(e => { if (e[0].isIntersecting) { io.disconnect(); loadExtras(); } }, { rootMargin: '2500px' });
   io.observe(after);
