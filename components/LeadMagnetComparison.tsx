@@ -30,6 +30,7 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
     const [master, follower] = videos
     if (!master || !follower) return
     let visible = false, disposed = false, starting = false, resetting = false
+    let stallCheck: ReturnType<typeof setTimeout> | undefined
     let lastRateUpdate = 0, lastSeek = 0
     const shouldPlay = () => visible && !pausedRef.current && !document.hidden && !element.closest('[aria-hidden="true"]')
     const stop = () => videos.forEach(video => video.pause())
@@ -47,8 +48,22 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
       if (!shouldPlay()) { stop(); return }
       if (playable() && !starting && (force || videos.some(video => video.paused || video.seeking))) {
         starting = true
+        const startedAt = videos.map(video => video.currentTime)
         Promise.all(videos.map(video => video.play()))
-          .then(() => setAutoplayBlocked(false))
+          .then(() => {
+            setAutoplayBlocked(false)
+            clearTimeout(stallCheck)
+            stallCheck = setTimeout(() => {
+              if (!shouldPlay() || videos.some(video => video.seeking)) return
+              const stalled = videos.some((video, index) =>
+                video.paused || video.currentTime < startedAt[index] + .08
+              )
+              if (stalled) {
+                stop()
+                setAutoplayBlocked(true)
+              }
+            }, 1600)
+          })
           .catch(() => {
             // WebKit can transiently reject play() while one decoder is
             // seeking during clock correction. That is not an autoplay block.
@@ -112,6 +127,7 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
     restartPair.current = reset
     return () => {
       disposed = true
+      clearTimeout(stallCheck)
       observer.disconnect()
       mutations.disconnect()
       master.removeEventListener('timeupdate', tick)
@@ -164,7 +180,7 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
             `poster` once loading starts and, when the pane was `visibility:hidden`
             at that moment, can leave the element unpainted (a blank, off-white
             box). The background keeps the still visible until a frame draws. */}
-        <div className={s.screen}>{still ? <img src={clip.poster} alt={clip.title + ' : même script, de l’anglais au français'}/> : <video src={clip.video} data-start="0" poster={clip.poster} style={{ backgroundImage: `url(${clip.poster})` }} aria-label={clip.title + ' — extrait réel'} autoPlay muted playsInline preload="auto" onError={() => setFailed(true)} />}</div>
+        <div className={s.screen}>{still ? <img src={clip.poster} alt={clip.title + ' : même script, de l’anglais au français'}/> : <video src={clip.video} data-start="0" poster={clip.poster} style={{ backgroundImage: `url(${clip.poster})` }} aria-label={clip.title + ' — extrait réel'} muted playsInline preload="auto" onError={() => setFailed(true)} />}</div>
       </figure>)}
       <span className={s.pairArrow} aria-hidden="true"><ArrowRight size={22}/></span>
     </div>
