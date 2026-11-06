@@ -78,9 +78,9 @@ export default function FormulaCompareSection() {
       <p className={s.scope} id="comparison-scope">Les fourchettes décrivent les offres citées, pas une moyenne du marché. Les durées viennent des prestataires ; elles ne sont pas des mesures indépendantes. Les postes de temps exclus sont indiqués dans chaque colonne.</p>
 
       <aside className={s.video} aria-labelledby="comparison-video-title" data-comparison-video>
-        <div><Video size={22} aria-hidden="true" /><h3 id="comparison-video-title">Et si vous ajoutez<br /><em>4 Reels par mois ?</em></h3><p>Montage de vidéos courtes à partir de vos rushs. Le tournage reste à votre charge.</p></div>
+        <div><Video size={22} aria-hidden="true" /><h3 id="comparison-video-title">Et si vous ajoutez<br /> <em>4 Reels par mois ?</em></h3><p>Montage de vidéos courtes à partir de vos rushs. Le tournage reste à votre charge.</p></div>
         <div><span className={s.label}>Exemple de studio de montage</span><strong className={s.price}>+ 289 € HT</strong><p>Clic’N Start : 4 shorts, 2 révisions par vidéo, sans engagement. Délai annoncé : 72 h. Son repère pour un montage manuel : 12–16 h pour 4 shorts, hors tournage.</p><Source name="Voir l’offre du studio" href={SOURCES.video} /></div>
-        <div className={s.videoEmpire}><span className={s.label}>Avec Empire Starter</span><strong className={s.price}>Toujours {plan ? `${fmt(plan.price)} €` : 'selon le volume'}</strong><p><b>8 posts + 4 Reels standard = {fmt(mixedCredits)} crédits.</b> Ce volume tient dans les {plan ? fmt(plan.credits) : 'crédits'} du forfait. Rendu et accompagnement différents d’un montage humain sur mesure.</p></div>
+        <div className={s.videoEmpire}><span className={s.label}>Empire Starter · même tarif</span><strong className={s.price}>{plan ? `${fmt(plan.price)} €` : 'selon le volume'}</strong><p><b>8 posts + 4 Reels standard = {fmt(mixedCredits)} crédits.</b> Ce volume tient dans les {plan ? fmt(plan.credits) : 'crédits'} du forfait. Rendu et accompagnement différents d’un montage humain sur mesure.</p></div>
       </aside>
 
       <div className={s.performance} data-comparison-performance>
