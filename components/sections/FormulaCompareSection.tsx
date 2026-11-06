@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { ArrowRight, Check, CircleDashed, Minus } from 'lucide-react'
+import { ArrowRight, Building2, Check, CircleDashed, Clapperboard, Mail, MessageCircle, Minus, Palette, PenLine, Sparkles } from 'lucide-react'
 import EmpireSalesCta from '@/components/EmpireSalesCta'
 import { CONTENT_CREDITS, PLANS } from '@/lib/plans'
 import s from './FormulaCompareClear.module.css'
@@ -135,6 +135,26 @@ const FEATURES: FeatureRow[] = [
     { text: 'YouTube long à part', note: `+2 500 €/mois chez MYROR`, status: 'conditional' }, { text: 'Disponibles', note: 'Crédits selon le format¹', status: 'conditional' },
   ] },
 ]
+
+/** Bandeau de synthèse : quatre cartes alignées sur une grille (visuel, €/mois, h/mois, ce que vous faites). */
+const TOOL_PILLS = ['ChatGPT', 'Taplio', 'Submagic', 'Opus Clip', 'Metricool', 'ManyChat', 'Gemini']
+const TEAM_ICONS = [
+  { label: 'Ghostwriter', Icon: PenLine }, { label: 'Monteur', Icon: Clapperboard }, { label: 'Community manager', Icon: MessageCircle },
+  { label: 'Graphiste', Icon: Palette }, { label: 'Rédacteur', Icon: Mail },
+]
+const SUMMARY = {
+  tools: { price: `${fmt(toolsFloor)}–${fmt(toolsFull)} €`, priceNote: '/ mois · 7 à 9 abonnements', hours: `${manualHours.low}–${manualHours.high} h +`, hoursNote: '/ mois, tout à la main', you: 'Tout : idées, écriture, montage, publication, réponses' },
+  freelance: { price: `${fmt(teamLow)}–${fmt(teamHigh)} €`, priceNote: 'HT / mois · 5 prestataires', hours: `${coordMonthLow}–${coordMonthHigh} h`, hoursNote: '/ mois de coordination', you: 'Recruter, briefer, filmer, valider' },
+  agency: { price: `${fmt(agencyLow)}–${fmt(agencyWithYouTube)} €`, priceNote: 'HT / mois · 4 à 6 mois d’engagement', hours: '2–3 h', hoursNote: '/ mois (MYROR)', you: 'Transmettre vos idées, tourner' },
+  empire: { price: `${fmt(empirePrice)} €`, priceNote: '/ mois · sans engagement', hours: '≈ 1 h', hoursNote: '/ mois', you: 'Parler et valider' },
+} as const
+
+function CardVisual({ option }: { option: typeof OPTIONS[number]['key'] }) {
+  if (option === 'tools') return <div className={s.pills} aria-label="Outils à empiler">{TOOL_PILLS.map(name => <span key={name}>{name}</span>)}<span className={s.pillMore}>+2</span></div>
+  if (option === 'freelance') return <div className={s.roles} aria-label="Cinq métiers">{TEAM_ICONS.map(({ label, Icon }) => <span key={label}><Icon size={15} aria-hidden="true" />{label}</span>)}</div>
+  if (option === 'agency') return <div className={s.single}><Building2 size={26} aria-hidden="true" /><span>1 contrat<small>Un périmètre, un engagement</small></span></div>
+  return <div className={`${s.single} ${s.singleEmpire}`}><Sparkles size={26} aria-hidden="true" /><span>1 abonnement<small>Le travail des 5 métiers</small></span></div>
+}
 function Source({ name, href }: { name: string; href: string }) {
   return <a className={s.source} href={href} target="_blank" rel="noopener noreferrer">{name}<ArrowRight size={11} aria-hidden="true" /></a>
 }
@@ -157,12 +177,25 @@ export default function FormulaCompareSection() {
       <header className={s.heading}>
         <span className={s.eyebrow}>Le comparatif</span>
         <h2 id="formula-compare-title">Ce qui est inclus.<br /><em>Ce que ça vous coûte.</em></h2>
-        <p>Même périmètre partout : idées, écriture, montage, visuels, publication sur 7 réseaux, réponses aux DM et suivi des leads. Trois façons de l’obtenir sans Empire, et ce qu’elles coûtent en argent et en temps.</p>
+        <p className={s.takeaway} data-comparison-takeaway><strong>Le travail de 5 métiers.</strong> <strong>{fmt(empirePrice)} €/mois.</strong> <strong>1 h de votre temps.</strong></p>
+        <p>Même périmètre partout : idées, écriture, montage, visuels, 7 réseaux, réponses, suivi des leads. Seule la façon de l’obtenir change, en argent et surtout en temps.</p>
       </header>
-      <div className={s.basis} data-comparison-basket><span>Un mois type</span><strong>4 vidéos courtes + 8 posts + 2 newsletters</strong><small>Exemple Empire : {originals} contenus originaux, publiés sur 7 réseaux. Les volumes des prestataires dépendent de leur offre.</small></div>
       <div className={s.mobilePicker} role="group" aria-label="Comparer Empire avec">
-        <span>Comparer Empire avec</span><div>{OPTIONS.filter(option => option.key !== 'empire').map(option => <button key={option.key} type="button" aria-pressed={alternative === option.key} aria-controls="comparison-table" onClick={() => setAlternative(option.key as Alternative)}>{option.short}</button>)}</div>
+        <span>Comparer Empire avec</span><div>{OPTIONS.filter(option => option.key !== 'empire').map(option => <button key={option.key} type="button" aria-pressed={alternative === option.key} aria-controls="comparison-table comparison-cards" onClick={() => setAlternative(option.key as Alternative)}>{option.short}</button>)}</div>
       </div>
+      <div id="comparison-cards" className={s.cards} data-comparison-cards>
+        {OPTIONS.map(option => <article key={option.key} className={`${s.card} ${option.key === 'empire' ? s.cardEmpire : ''}`} data-comparison-card={option.key} data-mobile-visible={option.key === alternative || option.key === 'empire'} aria-label={option.name}>
+          <h3>{option.name}</h3>
+          <CardVisual option={option.key} />
+          <p className={s.cardPrice}><strong>{SUMMARY[option.key].price}</strong><small>{SUMMARY[option.key].priceNote}</small></p>
+          <p className={s.cardHours}><strong>{SUMMARY[option.key].hours}</strong><small>{SUMMARY[option.key].hoursNote}</small></p>
+          <p className={s.cardYou}><span>Vous faites</span>{SUMMARY[option.key].you}</p>
+        </article>)}
+      </div>
+      <p className={s.savingsLine} data-comparison-savings>Avec Empire : <b>{fmt(Math.round(savingsFreelance.low / 100) * 100)} à {fmt(Math.round(savingsFreelance.high / 100) * 100)} €</b> de moins par mois qu’une équipe de freelances, <b>{fmt(Math.round(savingsAgency.low / 100) * 100)} à {fmt(Math.round(savingsAgency.high / 100) * 100)} €</b> de moins qu’une agence, et <b>{coordMonthLow - 1} à {coordMonthHigh - 1} h</b> de votre mois récupérées face à une équipe.</p>
+      <div className={s.basis} data-comparison-basket><span>Un mois type</span><strong>4 vidéos courtes + 8 posts + 2 newsletters</strong><small>Exemple Empire : {originals} contenus originaux, publiés sur 7 réseaux. Les volumes des prestataires dépendent de leur offre.</small></div>
+      <details className={s.detailsBlock} id="comparison-details" data-comparison-details>
+      <summary>Voir le comparatif détaillé, ligne par ligne <ArrowRight size={14} aria-hidden="true" /></summary>
       <div className={s.tableWrap}>
         <table id="comparison-table" className={s.table} aria-describedby="comparison-scope comparison-format-note">
           <caption className={s.srOnly}>Prestations incluses et coûts : seul avec des outils, une équipe de freelances, une agence ou Empire.</caption>
@@ -217,6 +250,7 @@ export default function FormulaCompareSection() {
           <p><strong>² Votre temps avec Empire.</strong> Environ une heure par mois est le repère d’usage communiqué par Empire pour sa production mensuelle habituelle, une fois le compte configuré. C’est une estimation de la marque, pas une moyenne issue d’une étude comparative. Le temps dépend du démarrage, des formats choisis et des retours.</p>
           <p><strong>Méthode et résultats.</strong> Les formats testés sur les comptes de Kevin, le montage vérifié par l’équipe et la programmation sur plusieurs réseaux constituent les moyens fournis par Empire. Ils ne démontrent pas qu’un outil seul obtient forcément de moins bons résultats. Sur notre exemple, tenir trois mois représente {originals * 3} originaux ; aucun taux de continuité comparable n’a été mesuré entre ces solutions. Les prix ne permettent pas de prédire les vues ou les ventes.</p>
         </div>
+      </details>
       </details>
 
       <div className={s.continuity} data-comparison-performance><div><span className={s.eyebrow}>Tenir dans la durée</span><strong>Votre expertise. Environ 1 h par mois².</strong><p>Des formats guidés, un montage vérifié et une diffusion programmée : votre présence ne repose plus sur une pile d’outils à coordonner ni sur cinq prestataires à briefer.</p></div><p data-comparison-success>Dans cet exemple : {originals * 3} contenus originaux sur trois mois. Un planning à tenir avec votre expertise, la création et la diffusion réunies dans Empire.</p></div>
