@@ -132,4 +132,4 @@
 #story .v63-video-poster img{object-position:32% center}
 /* Compact windows use the complete reading layout, with no floating controls over the text. */
 @media(max-height:700px){#story.v60-reading+.ac-nav{display:none!important}}
-@media(min-width:701px){#story .v63-conversation .v60-client-camera img{object-position:28% center}}
+@media(min-width:701px){#story .v63-conversation .v60-client-camera img{object-position:28% top}}
