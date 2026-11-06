@@ -41,7 +41,7 @@ export default function UnifiedFormatJourney({ renderShort }: {
       <div className={`${base.stage} ${refinement.stage} ${s.frame}`}>
         <div className={`${s.pane} ${s.short}`} data-journey-pane="short" aria-hidden={phase !== 'short'}>{renderShort(shortP, shortTimeline, kind, phase === 'short')}</div>
         <section className={`${s.pane} ${s.comparison}`} data-journey-pane="comparison" data-scene="lead-magnet" aria-hidden={phase !== 'comparison'}>
-          <div className={s.comparisonInner}><LeadMagnetComparison/></div>
+          <div className={s.comparisonInner}>{phase === 'comparison' && <LeadMagnetComparison/>}</div>
         </section>
         <section className={`${s.pane} ${s.instagram}`} data-journey-pane="instagram" aria-hidden={phase !== 'instagram'}><LeadMagnetConversation p={messageP}/></section>
         <section className={`${s.pane} ${s.long}`} data-journey-pane="long" data-scene="formats" data-format="5" aria-hidden={phase !== 'long'}>
