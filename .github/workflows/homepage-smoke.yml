@@ -50,6 +50,11 @@ jobs:
       - name: Install isolated browser test dependencies
         timeout-minutes: 4
         run: |
+          # Avoid the slow Azure mirror; retain Ubuntu's official archive/security fallbacks.
+          # https://github.com/actions/runner-images/issues/14823
+          if [ -f /etc/apt/apt-mirrors.txt ]; then
+            sudo sed -i '/azure\.archive\.ubuntu\.com/d' /etc/apt/apt-mirrors.txt
+          fi
           printf 'Acquire::http::Timeout "25";\nAcquire::https::Timeout "25";\nAcquire::Retries "1";\n' | sudo tee /etc/apt/apt.conf.d/99-empire-ci-timeouts >/dev/null
           npm install --prefix "$RUNNER_TEMP/empire-browser" --no-package-lock playwright@1.56.1
           ln -s "$RUNNER_TEMP/empire-browser/node_modules/playwright" node_modules/playwright
