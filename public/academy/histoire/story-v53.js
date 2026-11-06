@@ -13,7 +13,7 @@
   choice.querySelectorAll('[data-v53-choice]').forEach(n => n.setAttribute('aria-pressed', String(n.dataset.v53Choice === value)));
   choice.querySelectorAll('[data-profile]').forEach(n => n.classList.toggle('is-selected', n.dataset.profile === value));
   choice.querySelector('.v53-choice-answer').textContent = value === 'left'
-   ? 'Vous connaissez mes débuts, mes choix et ma façon de travailler. À outil et service égaux, cette familiarité peut créer une préférence. C’est cette histoire que vous aiderez les entrepreneurs à transmettre à leurs futurs clients.'
+   ? 'Vous m’avez vu chercher une solution, annoncer un délai et le tenir. Ces actes racontés donnent des raisons de me faire confiance. Votre rôle : faire émerger des preuves aussi concrètes chez vos clients.'
    : value === 'right' ? 'Vous préférez mon concurrent. C’est possible aussi. Connaître une histoire apporte du contexte et peut créer de la confiance ; cela ne décide pas à votre place.'
    : value === 'ai' ? 'Pour une tâche précise, un outil peut suffire. Votre histoire, votre façon de décider et la relation avec votre client apportent un autre contexte au choix.'
    : 'Deux personnes utilisent l’IA. Une seule vous est déjà familière.';

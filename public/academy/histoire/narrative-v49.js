@@ -9,7 +9,7 @@
   const next = document.getElementById('ac-next');
   const readingButton = document.getElementById('ac-reading');
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-  const compactScreen = matchMedia('(max-width:360px) and (max-height:620px)');
+  const compactScreen = matchMedia('(max-height:650px)');
   const header = document.querySelector('.empire-header');
   const clamp = (n, a = 0, b = 1) => Math.min(b, Math.max(a, n));
   let current = 0, pending = 0, readingChosen = null;
@@ -48,7 +48,7 @@
     }
     if (inStory && !seen.has(current)) {
       seen.add(current);
-      track('academy_story_progress', { story_version: 'v58', story_step: scenes[current].id, chapter });
+      track('academy_story_progress', { story_version: 'v59', story_step: scenes[current].id, chapter });
     }
   }
   function schedule() { if (!pending) pending = requestAnimationFrame(paint); }
@@ -124,7 +124,7 @@
     script.addEventListener('load', () => {
       const extra = document.createElement('script');
       extra.src = '/academy/histoire/story-v52.js?v=52';
-      extra.addEventListener('load', () => { const final = document.createElement('script'); final.src = '/academy/histoire/story-v53.js?v=58'; final.addEventListener('load', () => { const cinema = document.createElement('script'); cinema.src='/academy/histoire/story-v56.js?v=58'; cinema.addEventListener('load', () => { const refine=document.createElement('script'); refine.src='/academy/histoire/story-v58.js?v=58'; document.head.appendChild(refine); }, {once:true}); document.head.appendChild(cinema); }, {once:true}); document.head.appendChild(final); }, { once: true });
+      extra.addEventListener('load', () => { const final = document.createElement('script'); final.src = '/academy/histoire/story-v53.js?v=59'; final.addEventListener('load', () => { const cinema = document.createElement('script'); cinema.src='/academy/histoire/story-v56.js?v=59'; cinema.addEventListener('load', () => { const refine=document.createElement('script'); refine.src='/academy/histoire/story-v58.js?v=59'; document.head.appendChild(refine); }, {once:true}); document.head.appendChild(cinema); }, {once:true}); document.head.appendChild(final); }, { once: true });
       document.head.appendChild(extra);
     }, { once: true });
     document.head.appendChild(script);
