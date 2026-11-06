@@ -1,6 +1,7 @@
 'use client'
 
-import { ArrowRight, Clock3, Coins, ListChecks, Video, Mail, FileText, Search, Send, ChartNoAxesCombined, Target } from 'lucide-react'
+import { useState } from 'react'
+import { ArrowRight, Check, CircleDashed, Minus } from 'lucide-react'
 import EmpireSalesCta from '@/components/EmpireSalesCta'
 import { CONTENT_CREDITS, PLANS } from '@/lib/plans'
 import s from './FormulaCompareClear.module.css'
@@ -21,79 +22,112 @@ const SOURCES = {
   agency: 'https://flowify.fr/tarifs/',
 }
 const OPTIONS = [
-  { key: 'tools', name: 'Seul + outils', detail: 'Vous reliez les étapes.' },
-  { key: 'freelance', name: 'Des prestataires', detail: 'Écriture, montage, newsletter.' },
-  { key: 'agency', name: 'Une agence', detail: 'Production et gestion déléguées.' },
-  { key: 'empire', name: 'Empire', detail: 'Un studio pour tous vos formats.' },
+  { key: 'tools', name: 'Seul + outils', short: 'Seul + outils', detail: 'Vous faites la production' },
+  { key: 'freelance', name: 'Freelances + studio', short: 'Freelances', detail: '3 offres additionnées' },
+  { key: 'agency', name: 'Une agence', short: 'Agence', detail: 'Exemple Flowify' },
+  { key: 'empire', name: 'Empire', short: 'Empire', detail: 'Formule Starter' },
 ] as const
-const JOURNEY = [
-  { title: 'Trouver les idées', detail: 'Vos idées, la veille et les publications de vos concurrents.', Icon: Search },
-  { title: 'Créer vos contenus', detail: 'Vidéos courtes, posts et newsletters à partir de votre expertise.', Icon: Video },
-  { title: 'Diffuser', detail: 'Programmation sur 7 réseaux et plusieurs comptes, selon les formats.', Icon: Send },
-  { title: 'Suivre les résultats', detail: 'Clics, contacts et revenus attribués via vos liens et outils connectés.', Icon: ChartNoAxesCombined },
+type Alternative = 'tools' | 'freelance' | 'agency'
+type FeatureCell = { text: string; note?: string; status: 'included' | 'conditional' | 'manual' | 'excluded' }
+type FeatureRow = { key: string; name: string; cells: [FeatureCell, FeatureCell, FeatureCell, FeatureCell] }
+const FEATURES: FeatureRow[] = [
+  { key: 'ideas', name: 'Recherche d’idées', cells: [
+    { text: 'À faire', status: 'manual' }, { text: 'Angles des posts', status: 'conditional' },
+    { text: 'Veille incluse', status: 'included' }, { text: 'Veille + idées', status: 'included' },
+  ] },
+  { key: 'posts', name: 'Posts / publications', cells: [
+    { text: 'À rédiger', status: 'manual' }, { text: '8 posts', note: 'LinkedIn', status: 'included' },
+    { text: '24 publications', note: 'Mix à préciser', status: 'included' }, { text: '8 posts', note: 'Dans cet exemple', status: 'included' },
+  ] },
+  { key: 'reels', name: 'Vidéos courtes', cells: [
+    { text: 'À monter', status: 'manual' }, { text: '4 shorts', note: 'Montage + sous-titres', status: 'included' },
+    { text: '4 Reels', note: 'Production incluse', status: 'included' }, { text: '4 Reels', note: 'Montage + sous-titres', status: 'included' },
+  ] },
+  { key: 'newsletters', name: 'Newsletters', cells: [
+    { text: 'À rédiger', status: 'manual' }, { text: '2 newsletters', note: 'Rédaction seule', status: 'included' },
+    { text: '2 newsletters', note: 'Automatisation email', status: 'included' }, { text: '2 newsletters', note: 'Envoi via outil connecté', status: 'included' },
+  ] },
+  { key: 'publishing', name: 'Programmation et publication', cells: [
+    { text: 'À organiser', status: 'manual' }, { text: 'Non inclus', note: 'Dans les offres retenues', status: 'excluded' },
+    { text: '4 réseaux', status: 'included' }, { text: '7 réseaux', note: 'Selon les formats', status: 'included' },
+  ] },
+  { key: 'accounts', name: 'Plusieurs comptes', cells: [
+    { text: 'Selon vos outils', status: 'conditional' }, { text: 'Non inclus', status: 'excluded' },
+    { text: 'À confirmer', note: 'Nombre non précisé', status: 'conditional' }, { text: 'Multi-comptes', note: 'Comptes connectés', status: 'included' },
+  ] },
+  { key: 'tracking', name: 'Suivi des résultats', cells: [
+    { text: 'À relier', status: 'manual' }, { text: 'Non inclus', note: 'Suivi global', status: 'excluded' },
+    { text: 'Rapports email', note: 'Ouvertures, conversions', status: 'included' }, { text: 'Clics, contacts, ventes', note: 'Liens et outils connectés', status: 'included' },
+  ] },
+  { key: 'clone', name: 'Clonage vidéo', cells: [
+    { text: 'Outil à prévoir', status: 'conditional' }, { text: 'En option', note: 'Auprès du studio', status: 'conditional' },
+    { text: 'Non mentionné', status: 'conditional' }, { text: 'Disponible', note: 'Crédits selon le format¹', status: 'conditional' },
+  ] },
+  { key: 'lead', name: 'Lead magnets', cells: [
+    { text: 'À créer', status: 'manual' }, { text: 'Non prévu', status: 'excluded' },
+    { text: 'Non mentionné', status: 'conditional' }, { text: 'Disponible', note: 'Crédits selon le format¹', status: 'conditional' },
+  ] },
+  { key: 'youtube', name: 'YouTube long', cells: [
+    { text: 'À produire', status: 'manual' }, { text: 'En supplément', note: 'Hors pack de shorts', status: 'conditional' },
+    { text: 'Non mentionné', status: 'conditional' }, { text: 'Disponible', note: 'Crédits selon le format¹', status: 'conditional' },
+  ] },
 ]
 function Source({ name, href }: { name: string; href: string }) {
   return <a className={s.source} href={href} target="_blank" rel="noopener noreferrer">{name}<ArrowRight size={11} aria-hidden="true" /></a>
 }
 function CalculationLink() {
-  return <a className={s.source} href="#comparison-method" onClick={() => { const details = document.querySelector<HTMLDetailsElement>('#comparison-method'); if (details) details.open = true }}>Voir le calcul<ArrowRight size={11} aria-hidden="true" /></a>
+  return <a className={s.source} href="#comparison-method" onClick={() => { const details = document.querySelector<HTMLDetailsElement>('#comparison-method'); if (details) details.open = true }}>Sources et calculs<ArrowRight size={11} aria-hidden="true" /></a>
+}
+function Feature({ cell }: { cell: FeatureCell }) {
+  const Icon = cell.status === 'included' ? Check : cell.status === 'conditional' ? CircleDashed : Minus
+  const status = { included: 'Inclus', conditional: 'Selon conditions', manual: 'À votre charge', excluded: 'Non inclus' }[cell.status]
+  return <div className={s.feature} data-status={cell.status}><Icon size={16} aria-hidden="true" /><span><span className={s.srOnly}>{status} : </span>{cell.text}{cell.note && <small>{cell.note}</small>}</span></div>
 }
 
 export default function FormulaCompareSection() {
-  const rows = [
-    { key: 'money', name: 'Votre budget', description: 'Textes, vidéos et newsletters. Périmètres précisés pour chaque offre.', Icon: Coins },
-    { key: 'time', name: 'Votre temps', description: 'Produire, transmettre votre expertise, valider et coordonner.', Icon: Clock3 },
-    { key: 'coverage', name: 'Qui fait quoi ?', description: 'De la recherche d’idées au suivi des résultats.', Icon: ListChecks },
-  ]
-  const cells = [
-    [
-      <><span className={s.label}>Vos abonnements</span><strong className={s.value}>Selon vos outils</strong><p>Écriture, montage, emailing, programmation et statistiques : vous composez votre équipement.</p></>,
-      <><span className={s.label}>Exemple de production séparée · HT / mois</span><strong className={s.price}>Dès {fmt(productionFloor)} €</strong><p><b>8 posts + 4 shorts + 2 newsletters.</b> Trois offres additionnées ; diffusion et suivi global à compléter.</p><CalculationLink /></>,
-      <><span className={s.label}>Exemple Flowify · prix affichés / mois</span><strong className={s.price}>{fmt(agencyExample)} €</strong><p>890 € de social + 390 € d’emailing. <b>Offre plus large :</b> 24 publications, 4 Reels et 2 newsletters, avec gestion et suivi.</p><Source name="Voir les deux offres" href={SOURCES.agency} /></>,
-      <><span className={s.label}>Starter · facturation mensuelle</span><strong className={s.price} data-comparison-price={plan?.price}>{plan ? `${fmt(plan.price)} €` : 'Selon le volume'}</strong><p><b>Les 3 formats dans le même abonnement.</b> {fmt(credits)} crédits sur {plan ? fmt(plan.credits) : 'le forfait'}. Sur 3 mois au tarif mensuel : {plan ? `${fmt(plan.price * 3)} €` : 'selon le volume'}.</p><a className={s.source} href="/tarifs">Voir les formules<ArrowRight size={11} aria-hidden="true" /></a></>,
-    ],
-    [
-      <><span className={s.label}>Posts + montage manuel seulement</span><strong className={s.value}>≈ 15–21 h / mois</strong><p>Repères de prestataires, sans assistance IA. Ajouter newsletters, tournage, recherche, diffusion et bilan.</p><CalculationLink /></>,
-      <><span className={s.label}>Repère pour les 8 posts seuls</span><strong className={s.value}>46 min + le reste</strong><p>Brief et relecture annoncés par le rédacteur. Ajouter tournage, retours vidéo, validation des newsletters et coordination.</p><Source name="Méthode du rédacteur" href={SOURCES.writing} /></>,
-      <><span className={s.label}>Temps client non chiffré</span><strong className={s.value}>Briefer, valider</strong><p>Vous fournissez la matière et faites vos retours. Le devis précise qui filme, qui publie et qui répond à l’audience.</p></>,
-      <><span className={s.label}>Pas encore de moyenne chronométrée</span><strong className={s.value}>Créer depuis vos idées</strong><p>Vous apportez votre expertise, enregistrez et validez. Les étapes de création et de diffusion restent réunies dans Empire.</p></>,
-    ],
-    [
-      <><strong className={s.value}>Tout coordonner</strong><p>Veille, textes, montage, déclinaisons, programmation et analyse. Vous passez d’un outil à l’autre selon votre équipement.</p></>,
-      <><strong className={s.value}>Assembler les missions</strong><p>Dans cet exemple, les prestataires livrent les contenus. La diffusion sur vos comptes et l’analyse commune restent à organiser.</p></>,
-      <><strong className={s.value}>Déléguer un périmètre</strong><p>L’offre citée prévoit 4 réseaux, la veille, la gestion des messages et l’emailing. Les formats et comptes supplémentaires se négocient.</p></>,
-      <><strong className={s.value}>Un parcours commun</strong><p>Idées, vidéos, textes, newsletters, multi-comptes et suivi des résultats. Vos contenus restent reliés à leur diffusion.</p></>,
-    ],
-  ]
+  const [alternative, setAlternative] = useState<Alternative>('freelance')
+  const columnProps = (key: string) => ({ 'data-comparison-column': key, 'data-mobile-visible': key === alternative || key === 'empire', className: key === 'empire' ? s.empire : undefined })
 
   return <section id="home-comparison" className={s.section} data-comparison-criteria data-animated="false" aria-labelledby="formula-compare-title">
     <div className={s.inner}>
       <header className={s.heading}>
-        <span className={s.eyebrow}>Votre studio de contenu complet</span>
-        <h2 id="formula-compare-title">Vidéos, posts, newsletters.<br /><em>De vos idées à leurs résultats.</em></h2>
-        <p>Empire réunit la recherche d’idées, la création dans plusieurs formats, la diffusion et le suivi. Comparons ce travail dans son ensemble.</p>
+        <span className={s.eyebrow}>Le comparatif</span>
+        <h2 id="formula-compare-title">Ce qui est inclus.<br /><em>Ce que ça vous coûte.</em></h2>
+        <p>Créer vos contenus, les publier et suivre leurs résultats : qui s’occupe de quoi ?</p>
       </header>
-
-      <div className={s.journey} data-comparison-journey aria-label="Le parcours de contenu Empire">
-        {JOURNEY.map(({ title, detail, Icon }, i) => <div key={title}><span className={s.journeyNumber}>0{i + 1}</span><Icon size={21} aria-hidden="true" /><h3>{title}</h3><p>{detail}</p></div>)}
+      <div className={s.basis} data-comparison-basket><span>Un mois type</span><strong>4 vidéos courtes + 8 posts + 2 newsletters</strong><small>14 contenus originaux. L’agence citée propose un volume plus large.</small></div>
+      <div className={s.mobilePicker} role="group" aria-label="Comparer Empire avec">
+        <span>Comparer Empire avec</span><div>{OPTIONS.filter(option => option.key !== 'empire').map(option => <button key={option.key} type="button" aria-pressed={alternative === option.key} aria-controls="comparison-table" onClick={() => setAlternative(option.key as Alternative)}>{option.short}</button>)}</div>
       </div>
-      <div className={s.formats} data-comparison-formats><strong>Et selon votre stratégie :</strong><span>Clonage</span><span>Lead magnets</span><span>YouTube long</span><p>Ces formats ont leurs propres coûts en crédits et ne sont pas ajoutés au volume d’exemple ci-dessous.</p></div>
-
-      <div className={s.basket} data-comparison-basket>
-        <div className={s.basketHeading}><b>Un mois de contenu, par exemple</b><span>{originals} contenus originaux · 3 formats</span></div>
-        <ul>
-          <li><Video size={19} aria-hidden="true" /><strong>{MONTH.reels}</strong><span>vidéos courtes<small>Reels, Shorts, TikTok</small></span></li>
-          <li><FileText size={19} aria-hidden="true" /><strong>{MONTH.posts}</strong><span>posts texte<small>LinkedIn dans cet exemple</small></span></li>
-          <li><Mail size={19} aria-hidden="true" /><strong>{MONTH.newsletters}</strong><span>newsletters<small>Pour votre audience email</small></span></li>
-        </ul>
-        <p>Les republications sur plusieurs comptes ne comptent pas comme de nouveaux contenus. Vos formats et comptes connectés déterminent les canaux de diffusion.</p>
+      <div className={s.tableWrap}>
+        <table id="comparison-table" className={s.table} aria-describedby="comparison-scope comparison-format-note">
+          <caption className={s.srOnly}>Prestations incluses et coûts : seul avec des outils, freelances et studio, agence ou Empire.</caption>
+          <thead><tr><th scope="col" className={s.criteria}>Votre contenu,<br />de l’idée au résultat</th>{OPTIONS.map(option => <th scope="col" key={option.key} data-comparison-option={option.key} {...columnProps(option.key)}><strong>{option.name}</strong><small>{option.detail}</small></th>)}</tr></thead>
+          <tbody data-comparison-axis="money">
+            <tr data-comparison-row="monthly"><th scope="row">Budget mensuel</th>
+              <td {...columnProps('tools')}><strong className={s.price}>Variable</strong><small>Selon vos abonnements</small></td>
+              <td {...columnProps('freelance')}><span className={s.overline}>À partir de</span><strong className={s.price}>{fmt(productionFloor)} €</strong><small>HT / mois · production seule</small></td>
+              <td {...columnProps('agency')}><strong className={s.price}>{fmt(agencyExample)} €</strong><small>/ mois · prix affichés<br />Volume plus large</small></td>
+              <td {...columnProps('empire')}><strong className={s.price} data-comparison-price={plan?.price}>{plan ? `${fmt(plan.price)} €` : 'Selon le volume'}</strong><small>/ mois · facturation mensuelle<br />{fmt(credits)} / {plan ? fmt(plan.credits) : 'forfait'} crédits utilisés</small></td>
+            </tr>
+            <tr data-comparison-row="quarter"><th scope="row">Budget sur 3 mois</th><td {...columnProps('tools')}>Selon vos outils</td><td {...columnProps('freelance')}>Dès {fmt(productionFloor * 3)} € HT</td><td {...columnProps('agency')}>{fmt(agencyExample * 3)} €</td><td {...columnProps('empire')}>{plan ? `${fmt(plan.price * 3)} €` : 'Selon le volume'}</td></tr>
+          </tbody>
+          <tbody data-comparison-axis="coverage">{FEATURES.map(row => <tr key={row.key} data-comparison-row={row.key}><th scope="row">{row.name}</th>{row.cells.map((cell, i) => <td key={OPTIONS[i].key} {...columnProps(OPTIONS[i].key)}><Feature cell={cell} /></td>)}</tr>)}</tbody>
+          <tbody data-comparison-axis="time">
+            <tr data-comparison-row="effort"><th scope="row">Votre temps / mois<small>Repères partiels</small></th>
+              <td {...columnProps('tools')}><strong>≈ 15–21 h + le reste</strong><small>Écriture des posts + montage seuls</small></td>
+              <td {...columnProps('freelance')}><strong>46 min + le reste</strong><small>Brief et relecture des 8 posts seuls</small></td>
+              <td {...columnProps('agency')}><strong>Non chiffré</strong><small>Temps client non publié</small></td>
+              <td {...columnProps('empire')}><strong>À mesurer</strong><small>Pas encore de moyenne chronométrée</small></td>
+            </tr>
+            <tr data-comparison-row="work"><th scope="row">Ce qu’il vous reste à faire</th><td {...columnProps('tools')}>Créer, publier, analyser</td><td {...columnProps('freelance')}>Filmer, valider, coordonner et publier</td><td {...columnProps('agency')}>Briefer et valider<small>Tournage à préciser</small></td><td {...columnProps('empire')}>Partager votre expertise, enregistrer et valider</td></tr>
+          </tbody>
+        </table>
       </div>
-
-      <div className={s.matrix} role="table" aria-label="Comparer la production de vidéos, posts et newsletters et leur diffusion" aria-describedby="comparison-scope">
-        <div className={s.columnHeads} role="row"><div role="columnheader">Une présence dans plusieurs formats</div>{OPTIONS.map(option => <div role="columnheader" key={option.key} data-comparison-option={option.key} className={option.key === 'empire' ? s.empire : ''}><b>{option.name}</b><small>{option.detail}</small></div>)}</div>
-        <div role="rowgroup">{rows.map(({ key, name, description, Icon }, row) => <div className={s.row} role="row" data-comparison-axis={key} key={key}><div className={s.axis} role="rowheader"><Icon size={18} aria-hidden="true" /><strong>{name}</strong><span>{description}</span></div>{OPTIONS.map((option, col) => <div className={`${s.cell} ${col === 3 ? s.empire : ''}`} role="cell" key={option.key} data-comparison-cell={option.key}><span className={s.mobileLabel}>{option.name}</span>{cells[row][col]}</div>)}</div>)}</div>
-      </div>
-      <p className={s.scope} id="comparison-scope">Repères tirés d’offres publiques consultées le 6 novembre 2026. Les prestations séparées, l’agence et le logiciel n’incluent pas le même accompagnement. Le total des prestataires est un point de départ, pas une moyenne du marché ni un devis global. L’agence propose un volume plus large.</p>
+      <div className={s.legend}><span><Check size={14} aria-hidden="true" /> Inclus dans l’exemple</span><span><CircleDashed size={14} aria-hidden="true" /> Selon conditions / en option</span><span><Minus size={14} aria-hidden="true" /> À votre charge / non inclus</span></div>
+      <p className={s.scope} id="comparison-format-note"><b>¹ Clonage, lead magnets et YouTube long :</b> disponibles dans Empire, avec leurs coûts en crédits. Ils ne sont pas ajoutés aux {fmt(credits)} crédits de cet exemple. Les services connectés peuvent avoir leur propre abonnement.</p>
+      <p className={s.scope} id="comparison-scope">Offres publiques consultées le 6 novembre 2026. Les prestataires sont trois offres séparées, pas une moyenne du marché. L’agence offre davantage de publications. « Non mentionné » ne signifie pas « impossible ». Les republications sur plusieurs comptes ne comptent pas comme de nouveaux contenus.</p>
+      <div className={s.references}><CalculationLink /><a className={s.source} href="/tarifs">Toutes les formules Empire<ArrowRight size={11} aria-hidden="true" /></a></div>
 
       <details className={s.method} id="comparison-method">
         <summary>Voir le détail des prix, des temps et des crédits <ArrowRight size={14} aria-hidden="true" /></summary>
@@ -109,16 +143,8 @@ export default function FormulaCompareSection() {
         </div>
       </details>
 
-      <div className={s.performance} data-comparison-performance>
-        <div className={s.performanceHeading}><Target size={21} aria-hidden="true" /><div><span className={s.eyebrow}>Tenir dans la durée</span><h3>Le même rythme,<br /><em>sur tous vos formats.</em></h3></div></div>
-        <div className={s.metrics}>
-          <div><span>OBJECTIF SUR 3 MOIS</span><h4>{originals * 3} contenus originaux</h4><p>12 vidéos, 24 posts et 6 newsletters dans cet exemple. Les republications ne gonflent pas le total.</p></div>
-          <div><span>RÉGULARITÉ RÉELLE</span><h4>Publiés ÷ prévus</h4><p>Vérifiez votre cadence format par format, et les semaines où votre planning s’interrompt.</p></div>
-          <div><span>EFFORT SOUTENABLE</span><h4>Votre temps par semaine</h4><p>Comptez aussi le tournage, les validations et la coordination pour savoir si ce rythme tient dans votre agenda.</p></div>
-        </div>
-        <p className={s.success} data-comparison-success><strong>Pas de taux de continuité mesuré.</strong> Nous ne disposons pas d’un suivi comparable des personnes qui maintiennent ce rythme pendant trois mois, abandons compris, y compris pour Empire. La cadence indiquée est un objectif, pas une probabilité de réussite.</p>
-      </div>
-      <div className={s.bottom}><p>Vos idées deviennent plusieurs formats.<br /><strong>Leur création, leur diffusion et leurs résultats restent reliés.</strong></p><EmpireSalesCta source="home-formula-compare" showDemo={false} /></div>
+      <div className={s.continuity} data-comparison-performance><div><span className={s.eyebrow}>Tenir dans la durée</span><strong>{originals * 3} contenus originaux sur 3 mois</strong><p>12 vidéos, 24 posts, 6 newsletters. Suivez les contenus publiés par rapport au planning et votre temps réel chaque semaine.</p></div><p data-comparison-success>Objectif de cadence, pas probabilité de réussite : aucun taux de continuité comparable n’a encore été mesuré, y compris pour Empire.</p></div>
+      <div className={s.bottom}><p>Choisissez ce que vous déléguez.<br /><strong>Gardez votre expertise.</strong></p><EmpireSalesCta source="home-formula-compare" showDemo={false} /></div>
     </div>
   </section>
 }

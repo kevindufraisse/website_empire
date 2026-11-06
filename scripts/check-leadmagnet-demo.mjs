@@ -204,7 +204,7 @@ try{
    const matrix=page.locator('#home-comparison')
    assert.equal(await matrix.locator('[data-comparison-axis]').count(),3)
    assert.deepEqual(await matrix.locator('[data-comparison-option]').evaluateAll(nodes=>nodes.map(n=>n.dataset.comparisonOption)),['tools','freelance','agency','empire'])
-   assert.equal(await matrix.locator('[data-comparison-cell]').count(),12)
+   assert.equal(await matrix.getByRole('table').count(),1)
    assert.equal(await matrix.locator('[data-comparison-price]').getAttribute('data-comparison-price'),'199')
    for(const row of await matrix.locator('[data-comparison-axis]').all())assert(await opacity(row)>.99)
    await checkContentComparison(page)
