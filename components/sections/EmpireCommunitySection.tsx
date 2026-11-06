@@ -1,7 +1,8 @@
 'use client'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
 import { useEffect, useRef, useState } from 'react'
-import { motion, useMotionValue, useMotionValueEvent, useReducedMotion, useScroll, useTransform, type MotionValue } from 'framer-motion'
+import { motion, useMotionValue, useMotionValueEvent, useScroll, useTransform, type MotionValue } from 'framer-motion'
 import { ArrowDown, Check, ChevronDown, Eye, Hash, Headphones, MessageCircle, Mic, MicOff, Monitor, Phone, Plus, Search, Send, Smile, Users, Video } from 'lucide-react'
 import s from './EmpireCommunity.module.css'
 
@@ -58,7 +59,7 @@ function ThreadMessage({ p, index, reduced }: { p: MotionValue<number>; index: n
   const opacity = useTransform(p, range, [0, 1])
   const y = useTransform(p, range, [20, 0])
   return (
-    <motion.article className={s.threadMessage} style={reduced ? {} : { opacity, y }}>
+    <motion.article className={s.threadMessage} style={reduced ? { opacity: 1, y: 0 } : { opacity, y }}>
       <div className={s.messageAvatar}>{kevin ? <img src={KEVIN} alt="Kevin" /> : <Member index={m.person} />}</div>
       <div className={s.messageCopy}>
         <header>
@@ -88,7 +89,7 @@ export default function EmpireCommunitySection() {
   const section = useRef<HTMLElement>(null)
   const viewport = useRef<HTMLDivElement>(null)
   const track = useRef<HTMLDivElement>(null)
-  const reduced = !!useReducedMotion()
+  const reduced = !!usePrefersReducedMotion()
   const { scrollYProgress } = useScroll({ target: section, offset: ['start start', 'end end'] })
   const progress = useMotionValue(0)
   const overflow = useMotionValue(0)
@@ -179,7 +180,7 @@ export default function EmpireCommunitySection() {
                 <div className={s.channelStage}>
                   <motion.div className={s.messagesPane} style={{ opacity: messagesOpacity }} aria-hidden={live}>
                     <div ref={viewport} className={s.messagesViewport}>
-                      <motion.div ref={track} className={s.messagesTrack} style={reduced ? {} : { y: trackY }}>
+                      <motion.div ref={track} className={s.messagesTrack} style={reduced ? { y: 0 } : { y: trackY }}>
                         <div className={s.chatDay}>Dans la communauté</div>
                         {MESSAGES.map((_, i) => <ThreadMessage key={i} p={progress} index={i} reduced={reduced} />)}
                       </motion.div>

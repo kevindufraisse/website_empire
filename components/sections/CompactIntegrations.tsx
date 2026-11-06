@@ -1,13 +1,14 @@
 'use client'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 import { useRef } from 'react'
-import { motion, useScroll, useTransform, useReducedMotion, useMotionValue } from 'framer-motion'
+import { motion, useScroll, useTransform, useMotionValue } from 'framer-motion'
 import { Link2, Check, MousePointer2, ArrowDown, ArrowUpRight } from 'lucide-react'
 import { SocialIcons } from '../ui/social-icons'
 import PreviewVideo from '../PreviewVideo'
 import s from './CompactIntegrations.module.css'
 const clamp=(n:number)=>Math.max(0,Math.min(1,n))
 export default function CompactIntegrations(){
- const ref=useRef<HTMLElement>(null),reduced=!!useReducedMotion(),settled=useMotionValue(1)
+ const ref=useRef<HTMLElement>(null),reduced=!!usePrefersReducedMotion(),settled=useMotionValue(1)
  const {scrollYProgress}=useScroll({target:ref,offset:['start start','end end']});const p=reduced?settled:scrollYProgress
  const clicks=useTransform(p,v=>Math.round(clamp((v-.08)/.20)*1240).toLocaleString('fr-FR'))
  const leads=useTransform(p,v=>Math.round(clamp((v-.32)/.20)*18).toString())

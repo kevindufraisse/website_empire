@@ -1,7 +1,8 @@
 'use client'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
 import { useRef, useState } from 'react'
-import { motion, useScroll, useTransform, useMotionValueEvent, useReducedMotion, type MotionValue } from 'framer-motion'
+import { motion, useScroll, useTransform, useMotionValueEvent, type MotionValue } from 'framer-motion'
 import { Asterisk, ArrowUp, ArrowDown, Check, FileText, CalendarDays, RefreshCw, BookOpen, Paperclip, Plus, ArrowRight } from 'lucide-react'
 import { SocialIcons } from '@/components/ui/social-icons'
 import s from './ClaudeMcpDemo.module.css'
@@ -41,7 +42,7 @@ export default function ClaudeMcpDemo() {
   const [phase, setPhase] = useState(0)
   const lastPhase = useRef(0)
   const [manual, setManual] = useState<number | null>(null)
-  const reduced = useReducedMotion()
+  const reduced = usePrefersReducedMotion()
   useMotionValueEvent(p, 'change', value => {
     const next = Math.min(3, Math.floor(value * 4))
     if (next !== lastPhase.current) { lastPhase.current = next; setPhase(next); setManual(null) }

@@ -1,7 +1,8 @@
 'use client'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
 import { useEffect, useRef, useState } from 'react'
-import { motion, useMotionValue, useMotionValueEvent, useReducedMotion, useScroll, useTransform, type MotionValue } from 'framer-motion'
+import { motion, useMotionValue, useMotionValueEvent, useScroll, useTransform, type MotionValue } from 'framer-motion'
 import { ArrowDown, ArrowRight, BatteryFull, CalendarDays, Check, ChevronLeft, ChevronRight, Copy, Link2, Library, PlusSquare, Signal, UserRound, Volume2, Wifi, Sparkles, Mic, Video, MessageSquare, LayoutGrid, Search, Bell, MoreHorizontal, MousePointer2 } from 'lucide-react'
 import s from './CloneAppStory.module.css'
 import formats from './FormatJourney.module.css'
@@ -92,7 +93,7 @@ export default function CloneAppStory() {
   const p = useTransform(rawP, [0,.14,.30,.56,.73,1], [0,0,.30,.65,1,1])
   const [phase, setPhase] = useState(0)
   const [manual, setManual] = useState<number | null>(null)
-  const reduced = useReducedMotion()
+  const reduced = usePrefersReducedMotion()
   useEffect(() => { rawP.set(manual !== null ? [.07, .29, .55, .90][manual] : reduced ? .99 : scrollYProgress.get()) }, [manual, reduced, rawP, scrollYProgress])
   useMotionValueEvent(scrollYProgress, 'change', v => { if (!reduced) { setManual(null); rawP.set(v) } })
   useMotionValueEvent(rawP, 'change', v => setPhase(v < .14 ? 0 : v < .30 ? 1 : v < .56 ? 2 : 3))

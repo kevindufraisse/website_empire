@@ -1,7 +1,8 @@
 'use client'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
 import { useRef, useState } from 'react'
-import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform, type MotionValue } from 'framer-motion'
+import { motion, useMotionValueEvent, useScroll, useTransform, type MotionValue } from 'framer-motion'
 import { BatteryFull, Check, CheckCheck, ChevronLeft, Mic, Plus, Send, Signal, Video, Camera, Play, Radar } from 'lucide-react'
 import s from './LeadMagnetJourney.module.css'
 import scroll from './ScrollDiscovery.module.css'
@@ -62,7 +63,7 @@ function Exchange({ index, progress, active, still }: { index: number; progress:
  * Scrolling back restores the corresponding exchange; no click is required. */
 export default function IdeaMessagesStory() {
   const root = useRef<HTMLElement>(null)
-  const reduced = useReducedMotion()
+  const reduced = usePrefersReducedMotion()
   const still = !!reduced
   const { scrollYProgress } = useScroll({ target: root, offset: ['start start', 'end end'] })
   const [index, setIndex] = useState(0)

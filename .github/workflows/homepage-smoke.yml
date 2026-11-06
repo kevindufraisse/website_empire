@@ -18,8 +18,11 @@ on:
       - 'components/SecretFormatsGate*'
       - 'components/sections/HomeMasterclassGate*'
       - 'components/sections/FormulaCompareSection*'
+      - 'components/sections/FormulaCompareClear*'
       - 'scripts/check-homepage-story.mjs'
       - 'scripts/check-leadmagnet-demo.mjs'
+      - 'scripts/check-content-comparison.mjs'
+      - 'hooks/usePrefersReducedMotion.ts'
       - '.github/workflows/homepage-smoke.yml'
 
 permissions:

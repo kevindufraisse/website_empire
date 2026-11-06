@@ -1,6 +1,7 @@
 'use client'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 import { useRef } from 'react'
-import { motion, useMotionValue, useReducedMotion, useScroll, useTransform } from 'framer-motion'
+import { motion, useMotionValue, useScroll, useTransform } from 'framer-motion'
 import { LongVideoFormat } from './LongVideoFormat'
 import FormatRail from './FormatRail'
 import s from './FormatJourney.module.css'
@@ -9,7 +10,7 @@ import s from './FormatJourney.module.css'
  * advances the YouTube timeline, then holds the completed composition. */
 export default function LongFormatScroll() {
   const ref = useRef<HTMLElement>(null)
-  const reduced = !!useReducedMotion()
+  const reduced = !!usePrefersReducedMotion()
   const settled = useMotionValue(.567)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] })
   const animated = useTransform(scrollYProgress, [0, .10, .72, 1], [.540, .540, .567, .567])

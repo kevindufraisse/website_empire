@@ -1,7 +1,8 @@
 'use client'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
 import { useRef } from 'react'
-import { motion, useReducedMotion, useScroll, useTransform, type MotionStyle, type MotionValue } from 'framer-motion'
+import { motion, useScroll, useTransform, type MotionStyle, type MotionValue } from 'framer-motion'
 import { ArrowLeft, ArrowRight, Check, ChevronDown, FileText, Heart, Image as ImageIcon, MessageCircle, Phone, Send, Smile, Video } from 'lucide-react'
 import LeadMagnetComparison, { LEAD_RESULT_POSTER } from './LeadMagnetComparison'
 import s from './LeadMagnetJourney.module.css'
@@ -17,7 +18,7 @@ const AVATAR = '/founders/kevin.jpg'
 export default function LeadMagnetScene({ staticMode = false }: { p?: MotionValue<number>; staticMode?: boolean }) {
   const comparison = useRef<HTMLDivElement>(null)
   const messages = useRef<HTMLElement>(null)
-  const reduced = useReducedMotion()
+  const reduced = usePrefersReducedMotion()
   const still = staticMode || !!reduced
   const { scrollYProgress: compareP } = useScroll({ target: comparison, offset: ['start start', 'end end'] })
   const { scrollYProgress: messageP } = useScroll({ target: messages, offset: ['start start', 'end end'] })
