@@ -32,6 +32,9 @@
 .table .empire small { color: #b5c3a7; }
 .price { display: block; color: #fff; font-size: clamp(24px, 2.3vw, 31px); font-weight: 550; letter-spacing: -.045em; line-height: 1.2; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .priceRange { font-size: clamp(19px, 1.7vw, 24px); white-space: normal; }
+.cellSources { margin-top: 8px; color: #8a8a8a; font-size: 10px; line-height: 1.6; }
+.cellSources a { color: #a9b88f; text-decoration: underline; text-underline-offset: 3px; }
+.empire .cellSources a { color: #c7d5a9; }
 .overline { display: block; margin-bottom: 4px; color: #b3b3b3; font-size: 11px; }
 .table tbody[data-comparison-axis=money] tr:first-child > * { padding-top: 24px; padding-bottom: 24px; }
 .table tbody[data-comparison-axis=time] td strong { font-weight: 550; color: #eee; }

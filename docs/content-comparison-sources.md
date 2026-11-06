@@ -24,6 +24,14 @@ One freelancer does not cover the scope. Published monthly ranges, HT:
 
 800 + 700 + 2 000 + 800 + 240 = **4 540 €**; 1 500 + 1 000 + 3 500 + 800 + 240 = **7 040 €**. No project manager is added: the client coordinates five people. The production-only floor (Clément Aouadène 600 € for 8 posts, Clic’N Start 289 € for 4 shorts, Webplume 2 × 120 €) = **1 129 € HT** stays visible but labelled “production seule, sans publication ni réponses”. Ranges are published grids, not quotes; a provider may bundle tasks.
 
+### Client time with freelances (row « Votre temps / mois »)
+
+Per provider the claimed time is small: Clément Aouadène 30 min call/month + 2 min/post (< 1 h) ([source](https://clement-aouadene.fr/ghostwriter-linkedin)); Katalyx 30 min weekly interview + 15 min validation (≈ 3 h/month) ([source](https://katalyx.fr/linkedin/personal-branding-dirigeants)); iPeople cites 2 h/week of briefs, calls and edits with a traditional freelance copywriter ([source](https://ipeople.it/fr/comment-ca-marche/)); editors deliver a V1 in 24 h–7 days with 1–2 revision rounds per video to review ([Fox Rider](https://fox-rider.com/prestations/montage-video)); a CM asks for the monthly calendar to be validated within 5 working days ([Les Créavores](https://lescreavores.fr/services/social-media/)). The cost is the addition: Heysimon measures 3–6 h/week of coordination for a marketing lead once several providers coexist, “adding a second provider doubles the load” ([source](https://www.heysimon.fr/articles/cout-coordination-creation-graphique)); a B2B benchmark counts 3–5 h/week per freelancer and 30–40 % of deliverables going back for revision ([Lolopepe](https://lolopepe.com/blog/hidden-costs-managing-freelancers-b2b-cmos)). Displayed: **3–6 h/week = 12–24 h/month, excluding filming**, labelled as third-party references, not a measurement on Empire clients.
+
+### Row « Par rapport à Empire »
+
+Plain subtractions against Starter 199 €: freelances +4 341 to +6 841 €/month (52 092 to 82 092 €/year); agency +2 301 to +6 801 €/month; tools “prix équivalent” (155–253 € vs 199 €), the gap being hours. Hours “en plus” = displayed range minus Empire’s 1 h estimate. No revenue gains (views, leads, sales) are quantified.
+
 ## Column 3 — Dedicated agency
 
 | Agency | Published price / scope | Commitment |

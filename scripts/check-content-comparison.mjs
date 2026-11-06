@@ -20,8 +20,13 @@ export async function checkContentComparison(page) {
   assert(normal(await cell('monthly', 'empire').innerText()).includes('1690/2200'))
   assert((await cell('monthly', 'empire').innerText()).includes('sans engagement'))
   assert((await cell('engagement', 'agency').innerText()).includes('4 à 6 mois'))
-  assert((await cell('effort', 'tools').innerText()).includes('15 à 21 h'), 'Manual time remains a sourced, partial reference')
-  assert((await cell('effort', 'freelance').innerText()).includes('temps total non publié'), 'A partial 46-minute brief must not be presented as the entire workload')
+  assert((await cell('effort', 'tools').innerText()).includes('15–21 h / mois minimum'), 'Manual time remains a sourced, partial reference')
+  assert((await cell('effort', 'freelance').innerText()).includes('12–24 h / mois'), 'Freelance client time is a sourced coordination range, not a 46-minute brief')
+  assert((await cell('effort', 'freelance').innerText()).includes('hors tournage'))
+  assert(normal(await cell('savings', 'freelance').innerText()).includes('+4341à+6841€'), 'Savings are the range minus the Empire price')
+  assert(normal(await cell('savings', 'agency').innerText()).includes('+2301à+6801€'))
+  assert((await cell('savings', 'tools').innerText()).includes('Prix équivalent'), 'Tools are not claimed to be more expensive than Empire')
+  for (const option of ['tools', 'freelance', 'agency', 'empire']) assert((await cell('monthly', option).innerText()).includes('Sources :'), `Price sources must be visible in the ${option} cell`)
   assert((await cell('effort', 'empire').innerText()).includes('≈ 1 h / mois'))
   assert((await cell('effort', 'empire').innerText()).includes('Repère d’usage Empire'))
   assert((await cell('effort', 'agency').innerText()).includes('2–3 h / mois'))
@@ -67,6 +72,7 @@ export async function checkContentComparison(page) {
     'https://www.submagic.co/pricing', 'https://taplio.com/pricing', 'https://metricool.com/pricing/', 'https://manychat.com/pricing',
     'https://copylinker.fr/tarif-ghostwriter-linkedin/', 'https://www.transacts.fr/blog/tarif-community-manager', 'https://www.malt.fr/t/barometre-tarifs/web-graphic-design/graphiste',
     'https://studio-fragment.fr/', 'https://teazit.com/landing-page-abonnement-location-studio/',
+    'https://www.heysimon.fr/articles/cout-coordination-creation-graphique', 'https://lolopepe.com/blog/hidden-costs-managing-freelancers-b2b-cmos', 'https://clement-aouadene.fr/ghostwriter-linkedin',
   ]) assert(urls.includes(url), `Missing primary offer source: ${url}`)
   await section.getByRole('link', { name: 'Sources et calculs' }).focus()
   await page.keyboard.press('Enter')
@@ -81,6 +87,9 @@ export async function checkContentComparison(page) {
   assert(calculation.includes('800+700+2000+800+240=4540'))
   assert(calculation.includes('1500+1000+3500+800+240=7040'))
   assert(sourceText.includes('Les dollars sont comptés pour un euro'))
+  assert(sourceText.includes('pas une mesure sur nos clients'), 'Coordination time is labelled as third-party references')
+  assert(sourceText.includes('Nous ne chiffrons pas les gains'), 'No invented revenue gains')
+  assert(calculation.includes('4540−199=4341'))
   assert(calculation.includes('8posts×85crédits+4Reelsstandard×195+2newsletters×115=1690crédits'))
   assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 2), 'Sources must not overflow horizontally')
   await details.locator('summary').focus()
