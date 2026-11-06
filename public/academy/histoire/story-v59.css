@@ -1,0 +1,228 @@
+/* Shorter reading plateaus; extra scroll is reserved for actual changes of state. */
+#story .ac-scene:not(.v53-intro){height:110svh;min-height:0}
+#story #histoire-vetements{height:145svh}
+#story #histoire-cours{height:165svh}
+#story #histoire-nuits{height:180svh}
+#story #histoire-delai{height:205svh}
+#story #histoire-silence{height:150svh}
+#story #histoire-vecu{height:160svh}
+#story #histoire-presse{height:185svh}
+#story .v58-press{height:185svh!important}
+#story .v53-choice-scene{height:160svh!important}
+#story .ac-scene:not(.v53-intro) .ac-frame{height:calc(100svh - var(--header));min-height:0;padding:22px 32px 82px;gap:18px}
+#story .v56-scene .ac-frame{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr)}
+#story .v56-scene .ac-copy,#story .v53-community-scene .ac-copy{width:100%;min-height:90px;display:flex;align-items:center;justify-content:center;flex-direction:column}
+#story .v56-scene .ac-copy h2{width:100%;max-width:1100px;text-align:center;font-size:clamp(30px,3.2vw,44px);line-height:1.15}
+#story #histoire-vetements .ac-copy{min-height:145px}
+#story .ac-visual{min-height:0;transform:none;max-height:100%}
+#story .v56-stage{padding-top:0}
+
+/* Dialogues have their own row; neither text nor another character can cover a face. */
+#story #histoire-client .v56-stage,#story #histoire-parents .v56-stage,#story #histoire-proposition .v56-stage{display:grid;grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr);gap:12px}
+#story #histoire-client .v56-bubble,#story #histoire-parents .v56-bubble,#story #histoire-proposition .v56-bubble{position:relative;inset:auto;grid-area:1/1;width:min(100%,560px);max-width:none;justify-self:center;padding:13px 20px;transform:none!important}
+#story #histoire-client .v56-art,#story #histoire-parents .v56-art,#story #histoire-proposition .v56-art{grid-area:2/1;min-height:0;justify-self:center;max-height:100%}
+#story .v57-project-token{width:135px;bottom:0;left:0}
+#story .v57-negotiation-stage{display:grid;grid-template-rows:135px minmax(0,1fr);grid-template-columns:1fr;gap:8px;padding:0}
+#story .v58-negotiation [data-v57-shot]{position:relative;inset:auto;grid-area:2/1;min-height:0;height:100%;width:100%}
+#story .v58-negotiation [data-v57-shot=reaction]>svg{transform:scaleX(-1);transform-origin:center;transform-box:view-box}
+#story .v58-negotiation [data-v57-dialogue]{position:relative;inset:auto!important;grid-area:1/1;align-self:center;justify-self:start;width:min(100%,620px)!important;max-width:none;padding:14px 22px;border-radius:20px 20px 20px 4px}
+#story .v58-negotiation [data-v57-dialogue=tomorrow]{justify-self:end;border-radius:20px 20px 4px 20px}
+#story .v58-negotiation [data-v57-dialogue] p{font-size:clamp(19px,2vw,25px)}
+#story #histoire-hesitation .v56-stage,#story #histoire-devis .v56-stage{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:20px;max-width:900px}
+#story #histoire-hesitation .v56-art,#story #histoire-devis .v56-art{margin:0;width:100%;max-height:100%;min-height:0}
+#story .v56-thought,#story .v56-invoice{position:relative;inset:auto;max-width:100%;width:100%;transform:none!important;grid-column:2;padding:24px}
+#story .v56-thought p{font-size:22px}
+#story .v58-payment{right:1%;bottom:0;transform:none!important}
+
+/* A comparison has exactly two aligned columns. */
+#story .v58-compare{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+#story .v58-compare>div{padding:16px 20px}
+#story .v58-compare p{font-size:13px;line-height:1.45;color:#785b6b;margin:8px 0 0}
+#story .v58-compare span{font-size:10px;font-weight:650;letter-spacing:.04em}
+#story .v58-compare b{font-size:22px}
+#story .v58-agency-people b{padding:6px}
+#story .v58-family-logo{width:120px;max-width:20%;height:auto}
+#story .v53-community figcaption{font-size:12px;line-height:1.5;color:#715766}
+#story .v58-ai-orb{font-size:clamp(65px,9vw,115px)}
+#story .v58-ai>p{margin:14px 0;font-size:clamp(18px,2vw,25px)}
+
+/* Give the important choice the same readable pause as the opening. */
+#story #histoire-vecu .ac-frame{position:sticky;top:var(--header);display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);grid-template-rows:1fr;align-items:center;overflow:clip;gap:30px}
+#story #histoire-vecu h2{font-size:clamp(30px,3vw,42px)}
+#story #histoire-vecu .ac-visual{height:auto}
+#story .v58-two .v53-person{grid-template-rows:130px auto auto 1fr auto;padding:14px}
+#story .v58-two .v53-person-art{height:130px}
+#story .v58-two .v53-person h3{font-size:21px;margin:8px 0}
+#story .v58-two .v53-person p{font-size:12px;min-height:56px;margin-bottom:10px}
+#story .v53-choice-answer{font-size:14px;min-height:90px;line-height:1.5;margin:14px 0 0}
+#story .v53-choice>.v53-fine{font-size:10px;margin-top:4px}
+#story .v58-bridge{max-width:940px;gap:16px;justify-content:center}
+#story .v58-bridge>p{font-size:20px}
+#story .v58-bridge>strong{font-size:30px}
+#story .v58-bridge .v59-human-value{font-size:17px;max-width:740px;margin:auto}
+#story .f-objection{background:#f3e4e9;border:0;border-radius:16px;padding:18px 24px;text-align:left;margin:0}
+#story .f-objection h3{font-size:18px;line-height:1.3;margin:0 0 8px}
+#story .f-objection p{font-size:14px;line-height:1.5;margin:0;color:#705363}
+
+/* Client example: a visible before, the interview, then usable weekly deliverables. */
+#story .v56-appointment{display:grid;grid-template-rows:minmax(0,1fr) auto;gap:14px;padding:0;max-width:780px;align-items:stretch}
+#story .v56-client-portrait{min-height:0;width:100%;height:100%;aspect-ratio:auto;background:#ecd6cd}
+#story .v56-client-portrait img{display:block;width:100%;height:100%;object-fit:contain}
+#story .v56-meeting{position:relative;inset:auto;width:100%;max-width:none;transform:none!important;box-shadow:none;padding:14px 20px;text-align:center}
+#story .v56-meeting b{font-size:20px}
+#story .ac-mission .ac-frame{gap:32px}
+#story .ac-mission .ac-copy h2{font-size:clamp(29px,3vw,42px)}
+#story .v58-product-payoff{max-width:1040px;gap:24px;justify-content:center}
+.v59-delivery{width:100%;background:#fffaf7;border:1px solid #dec9d3;border-radius:22px;padding:24px;text-align:left}
+.v59-delivery>span{font-size:10px;font-weight:650;color:#96526f;letter-spacing:.08em;display:block;margin-bottom:20px}
+.v59-delivery>div{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.v59-delivery article{background:#f5e7ec;padding:22px 18px;border-radius:15px;display:flex;flex-direction:column;gap:15px}
+.v59-delivery b{font-size:11px;color:#9e3963}
+#story .v59-delivery article p{font-size:21px;line-height:1.3;color:#392c35;font-weight:650}
+.v59-delivery small{font-size:12px;color:#80596e;margin-top:auto}
+#story .v58-product-payoff>p{font-size:20px;max-width:760px;align-self:center}
+
+/* Press is read between the IA turning point and the human choice, never inside the client case. */
+#story #histoire-presse .ac-frame{position:sticky;top:var(--header);overflow:clip;grid-template-rows:auto minmax(0,1fr)}
+#story #histoire-presse .ac-visual,#story .v58-press .v56-press{height:100%;min-height:0}
+#story .v58-press .v56-mag-viewport{overflow:hidden;height:100%;min-height:0;padding:5px 10px 10px}
+#story .v58-press .v56-mag-track{display:flex;width:max-content;height:100%;gap:24px}
+#story .v58-newspaper{width:460px;height:100%;min-height:0;max-height:none;padding:18px 23px}
+#story .v58-masthead{font-size:30px;padding:9px 0}
+#story .v58-byline{margin:10px 0;font-size:10px}
+#story .v58-paper-topic{margin:5px 0 12px;font-size:8px}
+#story .v58-newspaper h3{font-size:30px;line-height:1.12;margin-bottom:14px}
+#story .v58-newspaper>p:not(.v58-byline){font-size:14px;line-height:1.5;margin:0 0 14px}
+#story .v58-newspaper>a{padding-top:12px;font-size:12px}
+#story .v56-rail-footer{display:flex;font-size:10px;margin-top:8px}
+#story .v56-editor-note{font-size:10px;line-height:1.5;margin-top:8px}
+
+/* Evidence stays available, but repeated walls no longer prolong the main story. */
+.v59-extra-reviews,.v59-platform-details{border-top:1px solid #dcc5d0;padding:18px 0;margin:20px 0}
+.v59-extra-reviews>summary,.v59-platform-details>summary,.story-sources>details>summary{cursor:pointer;font-size:16px;font-weight:650;line-height:1.4;min-height:44px;padding:8px 0}
+.v59-extra-reviews[open]>summary,.v59-platform-details[open]>summary{margin-bottom:25px}
+.f-how,.f-compare{padding-top:10px!important;padding-bottom:10px!important}
+.v59-platform-details>.eyebrow,.v59-platform-details>h2{display:none}
+.f-proof .partner-proof{margin-top:25px}
+.f-proof{padding-bottom:35px!important}
+.v52-testimonials{padding-top:35px!important;padding-bottom:40px!important}
+.story-sources{padding-top:28px!important;padding-bottom:28px!important}
+#story .v57-proof-section{padding:18px 24px}
+#story .v57-source-library{margin:0;padding-top:15px}
+.ac-nav{bottom:12px;padding:7px 14px;gap:18px}
+
+@media(max-width:700px){
+ #story .ac-scene:not(.v53-intro) .ac-frame{padding:20px 20px 88px;gap:16px;grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr)}
+ #story .v56-scene .ac-copy,#story .v53-community-scene .ac-copy{min-height:100px;align-items:flex-start;justify-content:flex-start}
+ #story .v56-scene .ac-copy h2,#story .v53-community-scene h2{text-align:left;font-size:clamp(24px,6.7vw,30px);line-height:1.16}
+ #story #histoire-vetements .ac-copy{min-height:145px}
+ #story #histoire-client .v56-bubble,#story #histoire-parents .v56-bubble,#story #histoire-proposition .v56-bubble{padding:13px 16px}
+ #story .v57-project-token{width:95px;padding:7px;bottom:0}
+ #story .v57-project-token svg{height:33px;margin:4px 0}
+ #story .v57-project-token>b{font-size:12px}
+ #story .v57-project-token>span{font-size:6px}
+ #story .v57-negotiation-stage{grid-template-rows:140px minmax(0,1fr)}
+ #story .v58-negotiation [data-v57-dialogue]{width:100%!important;padding:14px 16px}
+ #story .v58-negotiation [data-v57-dialogue] p{font-size:20px}
+ #story #histoire-hesitation .v56-stage,#story #histoire-devis .v56-stage{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr);gap:12px}
+ #story .v56-thought,#story .v56-invoice{grid-area:1/1;padding:16px 20px}
+ #story .v56-thought p{font-size:19px;margin:7px 0}
+ #story .v56-thought small{font-size:11px}
+ #story #histoire-hesitation .v56-art,#story #histoire-devis .v56-art{grid-area:2/1;width:100%;height:100%;min-height:0;justify-self:center}
+ #story .v56-invoice strong{font-size:34px;margin:5px 0}
+ #story .v56-invoice p{font-size:12px}
+ #story .v58-compare{gap:10px}
+ #story .v58-compare>div{padding:12px}
+ #story .v58-compare b{font-size:17px}
+ #story .v58-compare span{font-size:9px}
+ #story .v58-compare p{font-size:11px;line-height:1.4}
+ #story .v58-agency>.v53-fine{font-size:11px}
+ #story .v58-agency-people b{font-size:12px}
+ #story .v53-community figcaption{font-size:11px}
+ #story .v58-media-logos{gap:9px}
+ #story .v58-media-logos>div,#story .v58-media-logos>a{height:66px}
+ #story #histoire-vecu .ac-frame{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr);gap:14px}
+ #story #histoire-vecu h2{font-size:27px;max-width:none}
+ #story #histoire-vecu .ac-visual{align-items:flex-start;height:100%}
+ #story .v58-two .v53-person{padding:10px;grid-template-rows:110px auto auto 1fr auto}
+ #story .v58-two .v53-person-art{height:110px}
+ #story .v58-two .v53-person>span{font-size:11px;min-height:0;margin-top:10px}
+ #story .v58-two .v53-person h3{font-size:18px;line-height:1.2;min-height:0}
+ #story .v58-two .v53-person p{font-size:11px;min-height:66px}
+ #story .v58-two .v53-person button{font-size:11px}
+ #story .v53-choice-answer{font-size:13px;min-height:112px;margin-top:14px}
+ #story .v58-bridge{gap:13px;justify-content:flex-start}
+ #story .v58-bridge>p{font-size:17px}
+ #story .v58-bridge>strong{font-size:25px}
+ #story .v58-bridge .v59-human-value{font-size:15px;margin:0}
+ #story .f-objection{padding:15px 17px}
+ #story .f-objection h3{font-size:16px}
+ #story .f-objection p{font-size:13px}
+ #story .v56-appointment{gap:12px}
+ #story .v56-client-portrait{align-self:center;height:auto;aspect-ratio:3/2}
+ #story .v56-meeting{padding:14px 17px}
+ #story .v56-meeting b{font-size:18px}
+ #story .ac-mission .ac-copy h2{font-size:27px;line-height:1.16}
+ #story .v58-product-payoff{gap:16px}
+ .v59-delivery{padding:16px}
+ .v59-delivery>span{font-size:9px;margin-bottom:13px}
+ .v59-delivery>div{grid-template-columns:1fr;gap:9px}
+ .v59-delivery article{padding:12px 14px;gap:5px}
+ #story .v59-delivery article p{font-size:17px}
+ .v59-delivery small{font-size:11px}
+ #story .v58-product-payoff>p{font-size:16px}
+ #story .v58-product-payoff>.ac-primary{font-size:13px}
+ #story .v58-newspaper{width:300px;padding:16px 18px}
+ #story .v58-masthead{font-size:28px}
+ #story .v58-newspaper h3{font-size:28px}
+ #story .v58-newspaper>p:not(.v58-byline){font-size:13px}
+ #story .v56-editor-note{font-size:9px}
+ #story .v58-press .v56-mag-track{gap:18px}
+ .ac-nav{bottom:12px;padding:5px 10px}
+}
+
+/* Short windows and reading mode show all content in flow, without clipped bubbles. */
+@media(max-height:650px){
+ #story .ac-scene:not(.v53-intro){height:auto!important}
+ #story .ac-scene:not(.v53-intro) .ac-frame{position:relative!important;top:auto!important;height:auto!important;min-height:0;overflow:visible;padding-top:35px;padding-bottom:80px;grid-template-rows:auto auto}
+ #story .ac-scene .ac-visual{height:auto;max-height:none}
+ #story .v56-stage{height:420px}
+ #story .v58-school,#story .v58-phone{height:360px}
+ #story .v58-research,#story .v58-talk,#story .v58-adoption{height:360px}
+ #story .v58-agency{height:500px}
+ #story #histoire-vecu .ac-visual{height:auto}
+ #story .v56-appointment{height:auto}
+ #story .v56-client-portrait{height:auto;aspect-ratio:3/2}
+ #story .v58-product-payoff{height:auto}
+ #story .v58-press .v56-mag-viewport{height:auto;overflow:visible}
+ #story .v58-press .v56-mag-track{display:grid;grid-template-columns:1fr;transform:none!important;width:100%;height:auto}
+ #story .v58-newspaper{width:100%;height:auto;min-height:390px}
+ #story .v56-rail-footer{display:none}
+}
+#story.ac-reading .ac-scene:not(.v53-intro){height:auto!important}
+#story.ac-reading .ac-scene:not(.v53-intro) .ac-frame{position:relative!important;top:auto!important;height:auto!important;overflow:visible;grid-template-rows:auto auto;padding-top:35px;padding-bottom:65px}
+#story.ac-reading .ac-visual{height:auto;max-height:none}
+#story.ac-reading .v56-stage{height:420px}
+#story.ac-reading .v58-negotiation .v57-negotiation-stage{height:auto;min-height:0;display:flex;flex-direction:column}
+#story.ac-reading .v58-negotiation [data-v57-shot]{height:300px;flex:none}
+#story.ac-reading .v58-negotiation [data-v57-dialogue]{opacity:1!important}
+#story.ac-reading .v58-press .v56-mag-viewport{height:auto;overflow:visible}
+#story.ac-reading .v58-press .v56-mag-track{display:grid;grid-template-columns:1fr;width:100%;height:auto;transform:none!important}
+#story.ac-reading .v58-newspaper{width:100%;height:auto;min-height:360px}
+#story.ac-reading .v56-rail-footer{display:none}
+#story.ac-reading .v56-appointment{height:auto}
+#story.ac-reading .v56-client-portrait{height:auto;aspect-ratio:3/2}
+#story.ac-reading .v58-product-payoff{height:auto}
+@media(prefers-reduced-motion:reduce){#story *{scroll-behavior:auto!important;transition:none!important}}
+
+/* On shorter phones, longer explanations flow normally instead of being cut by the pinned frame. */
+@media(max-height:740px) and (min-height:651px) and (max-width:700px){
+ #story #histoire-confiance,#story #histoire-metier,#story #histoire-vecu,#story #histoire-presse{height:auto!important}
+ #story #histoire-confiance .ac-frame,#story #histoire-metier .ac-frame,#story #histoire-vecu .ac-frame,#story #histoire-presse .ac-frame{position:relative;top:auto;height:auto;min-height:0;overflow:visible;grid-template-rows:auto auto;padding-top:32px;padding-bottom:85px}
+ #story #histoire-confiance .ac-visual,#story #histoire-metier .ac-visual,#story #histoire-vecu .ac-visual,#story #histoire-presse .ac-visual{height:auto;max-height:none}
+ #story .v58-product-payoff{height:auto}
+ #story .v58-press .v56-press,#story .v58-press .v56-mag-viewport{height:auto;overflow:visible}
+ #story .v58-press .v56-mag-track{display:grid;grid-template-columns:1fr;transform:none!important;width:100%;height:auto}
+ #story .v58-newspaper{width:100%;height:auto;min-height:390px}
+ #story .v56-rail-footer{display:none}
+}

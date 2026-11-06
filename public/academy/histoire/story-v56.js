@@ -64,5 +64,5 @@
  addEventListener('scroll',schedule,{passive:true});addEventListener('resize',measure,{passive:true});addEventListener('pageshow',measure);
  reduced.addEventListener('change',measure);new MutationObserver(measure).observe(root,{attributes:true,attributeFilter:['class']});
  if('ResizeObserver'in window){const ro=new ResizeObserver(measure);nodes.forEach(n=>ro.observe(n))}
- document.fonts?.ready.then(measure);root.dataset.v56Ready='true';root.dataset.storyVersion='v58';measure();
+ document.fonts?.ready.then(measure);root.dataset.v56Ready='true';root.dataset.storyVersion='v59';measure();
 })();
