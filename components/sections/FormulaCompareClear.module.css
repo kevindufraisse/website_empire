@@ -31,6 +31,7 @@
 .table thead .empire strong, .empire .price { color: #dafc68; }
 .table .empire small { color: #b5c3a7; }
 .price { display: block; color: #fff; font-size: clamp(24px, 2.3vw, 31px); font-weight: 550; letter-spacing: -.045em; line-height: 1.2; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.priceRange { font-size: clamp(19px, 1.7vw, 24px); white-space: normal; }
 .overline { display: block; margin-bottom: 4px; color: #b3b3b3; font-size: 11px; }
 .table tbody[data-comparison-axis=money] tr:first-child > * { padding-top: 24px; padding-bottom: 24px; }
 .table tbody[data-comparison-axis=time] td strong { font-weight: 550; color: #eee; }
@@ -96,6 +97,7 @@
   .table small { font-size: 10px; }
   .table tbody[data-comparison-axis=money] tr:first-child > * { padding-top: 18px; padding-bottom: 18px; }
   .price { font-size: 25px; }
+  .priceRange { font-size: 18px; }
   .overline { font-size: 10px; }
   .feature { flex-direction: column; gap: 5px; }
   .feature > svg { margin-top: 0; }
