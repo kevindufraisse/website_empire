@@ -1,0 +1,43 @@
+/* v61 : cold open chiffré, coach sportif, chrono des 4 heures, note signée. */
+/* Older sheets (v57–v59) pin per-scene heights by ID; the length computed from the panel count must win. */
+#story.v60-ready:not(.v60-reading) .v60-tableau:not(.v60-flow){height:calc(var(--scroll)*1svh)!important}
+#story .v60-caption a{color:inherit;text-decoration:underline;text-underline-offset:3px;margin-left:4px;white-space:nowrap}
+.v61-stat small{display:block;margin-top:12px;font-size:15px;line-height:1.4;color:#795c6d;letter-spacing:0}
+.v61-climate .v60-ai>span{font-weight:650}
+
+.v61-gym{display:grid;grid-template-columns:1fr 1fr;gap:36px;width:min(100%,1000px);height:min(100%,440px);align-items:stretch}
+.v61-gym article{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:16px;padding:36px 40px;border:2px solid var(--v60-ink);border-radius:24px;background:#fffaf7;box-shadow:8px 8px 0 var(--v60-ink);transition:opacity .3s ease,transform .3s ease,background .3s ease}
+.v61-gym svg{width:96px;height:96px;fill:currentColor}
+.v61-gym-machine{color:#6d6470}
+.v61-gym-coach{color:var(--v60-rose)}
+.v61-gym span{font-size:13px;font-weight:700;letter-spacing:.1em}
+.v61-gym p{margin:0;font-size:clamp(21px,2.3vw,31px);line-height:1.25;letter-spacing:-.025em;color:var(--v60-ink)}
+.v61-gym[data-focus=coach] .v61-gym-machine{opacity:.45;transform:scale(.96)}
+.v61-gym[data-focus=coach] .v61-gym-coach{background:#fbe6ef;transform:scale(1.02)}
+
+/* Récitatif de bande dessinée : l'heure du métier en cours. */
+.v61-clock,.v60-beat[data-clock]::before{display:inline-block;transform:rotate(-1.5deg);white-space:nowrap;background:#ffe7a3;color:#29252a;border:2px solid #29252a;box-shadow:3px 3px 0 #29252a;font-size:12px;font-weight:750;letter-spacing:.06em;padding:6px 12px}
+.v61-clock[hidden]{display:none}
+.v60-reading .v60-chapter .v61-clock,.v60-flow .v60-chapter .v61-clock{display:none}
+.v60-beat[data-clock]::before{content:none}
+.v60-reading .v60-beat[data-clock]::before,.v60-flow .v60-beat[data-clock]::before{content:attr(data-clock);position:absolute;top:2px;left:0}
+
+.f-section.f-honest{background:#241f2b;color:#fff7f2}
+.v61-honest{max-width:760px;margin:0 auto}
+.v61-honest .eyebrow{color:#ff8fb8}
+.v61-honest p{font-size:clamp(20px,2.4vw,28px);line-height:1.4;letter-spacing:-.02em;margin:18px 0 0;color:#fff7f2}
+.v61-sign{display:flex;align-items:center;gap:12px;margin-top:28px;font-size:14px;color:#e1c9d6}
+.v61-sign img{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid #ff8fb8}
+.v61-sign b{color:#fff}
+
+@media(max-width:700px){
+ .v61-stat small{font-size:12px;margin-top:6px}
+ .v61-gym{grid-template-columns:1fr;gap:14px;height:auto}
+ .v61-gym article{padding:16px 18px;gap:6px;box-shadow:4px 4px 0 var(--v60-ink)}
+ .v61-gym svg{width:36px;height:36px}
+ .v61-gym span{font-size:10px}
+ .v61-gym p{font-size:17px}
+ .v61-clock,.v60-beat[data-clock]::before{font-size:10px;padding:4px 9px}
+ .v60-chapter:has(.v61-clock:not([hidden]))>span:first-child{display:none}
+}
+@media(prefers-reduced-motion:reduce){.v61-gym article{transition:none}}

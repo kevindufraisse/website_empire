@@ -23,6 +23,8 @@
   const beats=[...panel.querySelectorAll('.v60-beat')];
   beats.forEach((beat,i)=>{const active=all||i===index;beat.classList.toggle('is-active',active);beat.inert=!active;if(active)beat.removeAttribute('aria-hidden');else beat.setAttribute('aria-hidden','true')});
   panel.querySelectorAll('[data-dot]').forEach((dot,i)=>dot.classList.toggle('is-active',i===index));
+  const clock=panel.querySelector('.v61-clock');
+  if(clock){const label=beats[index]?.dataset.clock||'';if(clock.textContent!==label)clock.textContent=label;clock.hidden=!label}
   panel.dataset.activeStep=String(index);
  }
  function measure(){
@@ -84,7 +86,7 @@
  function advance(direction){
   const b=bounds[current],index=Number(b.n.dataset.activeStep||0);
   if(!reading&&!b.n.classList.contains('v60-flow')&&b.beats.length&&index+direction>=0&&index+direction<b.beats.length){go(b.n,index+direction);return}
-  go(scenes[current+direction]||document.getElementById(direction>0?'apres':'histoire-intro'));
+  go(scenes[current+direction]||document.getElementById(direction>0?'suite':'histoire-intro'));
  }
  previous.addEventListener('click',()=>advance(-1));next.addEventListener('click',()=>advance(1));
  function setReading(preserve=false){
@@ -116,6 +118,9 @@
  document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeMenu();document.querySelectorAll('.empire-resources').forEach(n=>n.open=false)}});
  const day=new Intl.DateTimeFormat('en-US',{timeZone:'Europe/Paris',weekday:'short'}).format(new Date());
  document.querySelectorAll('[data-partner-price]').forEach(n=>n.textContent=String(day==='Sun'?700:['Fri','Sat'].includes(day)?600:500));
+ // Scroll distance per panel, in svh: long enough that a wheel flick or a swipe never skips a panel.
+ const PER_BEAT=80;
+ panels.forEach(n=>n.style.setProperty('--scroll',String(100+PER_BEAT*(Number(n.dataset.weight)||n.querySelectorAll('.v60-beat').length||1))));
  root.classList.add('v60-ready');root.dataset.storyVersion='v60';
  panels.forEach(n=>setBeat(n,0,false));setReading();
  addEventListener('scroll',schedule,{passive:true});addEventListener('resize',measure,{passive:true});addEventListener('pageshow',measure);
