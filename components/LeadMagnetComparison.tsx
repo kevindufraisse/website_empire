@@ -17,8 +17,10 @@ const CLIPS = [
 export default function LeadMagnetComparison({ staticMode = false }: { staticMode?: boolean }) {
   const root = useRef<HTMLDivElement>(null)
   const restartPair = useRef<() => void>(() => {})
+  const pausedRef = useRef(false)
   const reduced = usePrefersReducedMotion()
   const [paused, setPaused] = useState(false)
+  const [autoplayBlocked, setAutoplayBlocked] = useState(false)
   const [failed, setFailed] = useState(false)
   const still = staticMode || reduced
   useEffect(() => {
@@ -29,7 +31,7 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
     if (!master || !follower) return
     let visible = false, disposed = false, starting = false, resetting = false
     let lastRateUpdate = 0, lastSeek = 0
-    const shouldPlay = () => visible && !paused && !document.hidden && !element.closest('[aria-hidden="true"]')
+    const shouldPlay = () => visible && !pausedRef.current && !document.hidden && !element.closest('[aria-hidden="true"]')
     const stop = () => videos.forEach(video => video.pause())
     const playable = () => videos.every(video => video.readyState >= 2)
     const ready = () => playable() && videos.every(video => !video.seeking)
@@ -45,7 +47,10 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
       if (!shouldPlay()) { stop(); return }
       if (playable() && !starting && (force || videos.some(video => video.paused || video.seeking))) {
         starting = true
-        Promise.all(videos.map(video => video.play())).catch(() => {}).finally(() => { starting = false })
+        Promise.all(videos.map(video => video.play()))
+          .then(() => setAutoplayBlocked(false))
+          .catch(() => { stop(); setAutoplayBlocked(true) })
+          .finally(() => { starting = false })
       }
     }
     function tick() {
@@ -112,11 +117,35 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
       stop()
       restartPair.current = () => {}
     }
-  }, [paused, still])
+  }, [still])
+  function togglePlayback() {
+    const videos = Array.from(root.current?.querySelectorAll('video') ?? [])
+    if (paused || autoplayBlocked) {
+      pausedRef.current = false
+      setPaused(false)
+      setAutoplayBlocked(false)
+      // Keep play() in the tap event. Mobile Safari can reject a retry made
+      // later by an effect because it no longer has user activation.
+      Promise.all(videos.map(video => {
+        video.muted = true
+        return video.play()
+      })).catch(() => {
+        videos.forEach(video => video.pause())
+        setAutoplayBlocked(true)
+      })
+    } else {
+      pausedRef.current = true
+      videos.forEach(video => video.pause())
+      setPaused(true)
+    }
+  }
   function restart() {
+    pausedRef.current = false
+    setAutoplayBlocked(false)
     restartPair.current()
     setPaused(false)
   }
+  const waitingForTap = paused || autoplayBlocked
   return <div ref={root} className={s.comparison} data-lead-comparison>
     <div className={s.pair}>
       {CLIPS.map(clip => <figure key={clip.key} className={s.clip} data-lead-clip={clip.key}>
@@ -125,13 +154,13 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
             `poster` once loading starts and, when the pane was `visibility:hidden`
             at that moment, can leave the element unpainted (a blank, off-white
             box). The background keeps the still visible until a frame draws. */}
-        <div className={s.screen}>{still ? <img src={clip.poster} alt={clip.title + ' : même script, de l’anglais au français'}/> : <video src={clip.video} data-start="0" poster={clip.poster} style={{ backgroundImage: `url(${clip.poster})` }} aria-label={clip.title + ' — extrait réel'} muted playsInline preload="auto" onError={() => setFailed(true)} />}</div>
+        <div className={s.screen}>{still ? <img src={clip.poster} alt={clip.title + ' : même script, de l’anglais au français'}/> : <video src={clip.video} data-start="0" poster={clip.poster} style={{ backgroundImage: `url(${clip.poster})` }} aria-label={clip.title + ' — extrait réel'} autoPlay muted playsInline preload="auto" onError={() => setFailed(true)} />}</div>
       </figure>)}
       <span className={s.pairArrow} aria-hidden="true"><ArrowRight size={22}/></span>
     </div>
     <div className={s.comparisonFooter}>
       <p>Même script. Traduit en français, recréé avec Kevin.</p>
-      {!still && <div className={s.playback}><button type="button" onClick={() => setPaused(value => !value)} aria-label={paused ? 'Lire les deux vidéos' : 'Mettre les deux vidéos en pause'}>{paused ? <Play size={15}/> : <Pause size={15}/>}<span>{paused ? 'Lire' : 'Pause'}</span></button><button type="button" onClick={restart} aria-label="Revoir les deux vidéos depuis le début"><RotateCcw size={15}/><span>Revoir</span></button></div>}
+      {!still && <div className={s.playback}><button type="button" onClick={togglePlayback} aria-label={waitingForTap ? 'Lire les deux vidéos' : 'Mettre les deux vidéos en pause'}>{waitingForTap ? <Play size={15}/> : <Pause size={15}/>}<span>{waitingForTap ? 'Lire' : 'Pause'}</span></button><button type="button" onClick={restart} aria-label="Revoir les deux vidéos depuis le début"><RotateCcw size={15}/><span>Revoir</span></button></div>}
       <a href="https://www.instagram.com/reel/De1ncaACJuN/" target="_blank" rel="noreferrer">Voir le Reel de Kevin <ArrowRight size={13}/></a>
     </div>
     {failed && <p className={s.mediaError} role="status">La vidéo ne se charge pas. Les aperçus restent affichés ; le Reel de Kevin est accessible avec le lien ci-dessus.</p>}
