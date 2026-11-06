@@ -29,7 +29,7 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
     const videos = Array.from(element.querySelectorAll('video'))
     const [master, follower] = videos
     if (!master || !follower) return
-    let visible = false, disposed = false, starting = false, resetting = false
+    let visible = false, disposed = false, starting = false, resetting = false, hasPlayed = false
     let stallCheck: ReturnType<typeof setTimeout> | undefined
     let lastRateUpdate = 0, lastSeek = 0
     const shouldPlay = () => visible && !pausedRef.current && !document.hidden && !element.closest('[aria-hidden="true"]')
@@ -69,7 +69,7 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
           .catch(() => {
             // WebKit can transiently reject play() while one decoder is
             // seeking during clock correction. That is not an autoplay block.
-            const blockedAtStart = videos.every(video =>
+            const blockedAtStart = !hasPlayed && videos.every(video =>
               video.paused && !video.seeking && video.currentTime < .1
             )
             if (blockedAtStart) {
@@ -82,6 +82,7 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
     }
     function tick() {
       if (disposed || !shouldPlay()) { stop(); return }
+      if (master.currentTime > .15) hasPlayed = true
       if (videos.some(video => video.ended) || master.currentTime >= 14.96) {
         reset()
       } else if (ready()) {
