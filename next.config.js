@@ -4,14 +4,16 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react', 'framer-motion'],
   },
-  // /academy est la page Empire Partners en 7 séquences (6 novembre 2026).
-  // Le prototype « histoire » (récit au scroll, HTML statique dans
-  // public/academy/histoire) reste consultable sur /academy/histoire.
+  // Histoire Empire Academy (récit animé au scroll) : page statique dans
+  // public/academy/histoire. La page Empire Partners en 7 séquences
+  // (PartnerProgramPage) reste sur /academy/ancienne, non référencée.
   async rewrites() {
-    return { beforeFiles: [{ source: '/academy/histoire', destination: '/academy/histoire/index.html' }] }
+    return { beforeFiles: [{ source: '/academy', destination: '/academy/histoire/index.html' }] }
   },
   async redirects() {
     return [
+      // La page histoire est devenue /academy (3 novembre 2026).
+      { source: '/academy/histoire', destination: '/academy', permanent: false },
       // La candidature (formulaire puis bot WhatsApp) est remplacée par la
       // vidéo : les anciens liens /postuler (pubs, bios) atterrissent dessus.
       {
