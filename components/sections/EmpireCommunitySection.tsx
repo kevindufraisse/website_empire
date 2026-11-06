@@ -1,7 +1,8 @@
 'use client'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
 import { useEffect, useRef, useState } from 'react'
-import { motion, useMotionValue, useMotionValueEvent, useReducedMotion, useScroll, useTransform, type MotionValue } from 'framer-motion'
+import { motion, useMotionValue, useMotionValueEvent, useScroll, useTransform, type MotionValue } from 'framer-motion'
 import { ArrowDown, Check, ChevronDown, Eye, Hash, Headphones, MessageCircle, Mic, MicOff, Monitor, Phone, Plus, Search, Send, Smile, Users, Video } from 'lucide-react'
 import s from './EmpireCommunity.module.css'
 
@@ -88,7 +89,7 @@ export default function EmpireCommunitySection() {
   const section = useRef<HTMLElement>(null)
   const viewport = useRef<HTMLDivElement>(null)
   const track = useRef<HTMLDivElement>(null)
-  const reduced = !!useReducedMotion()
+  const reduced = !!usePrefersReducedMotion()
   const { scrollYProgress } = useScroll({ target: section, offset: ['start start', 'end end'] })
   const progress = useMotionValue(0)
   const overflow = useMotionValue(0)

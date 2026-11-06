@@ -1,7 +1,8 @@
 'use client'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
 import { useEffect, useRef, useState, type ReactNode } from 'react'
-import { motion, useScroll, useTransform, useMotionValue, useMotionValueEvent, useReducedMotion, type MotionValue } from 'framer-motion'
+import { motion, useScroll, useTransform, useMotionValue, useMotionValueEvent, type MotionValue } from 'framer-motion'
 import { Mic, Send, CheckCheck, Check, Play, ArrowDown, ArrowRight, Plus, MoreHorizontal, ChevronLeft, Video, Signal, BatteryFull, CalendarDays, Camera, RotateCw, MessageCircle, Heart, Bookmark, Sparkles, Share2, Music2 } from 'lucide-react'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import { SocialIcons } from '@/components/ui/social-icons'
@@ -67,7 +68,7 @@ function VoiceWave() {
 }
 function ReelArtwork({ small = false }: { small?: boolean }) {
   const ref = useRef<HTMLVideoElement>(null)
-  const reduced = useReducedMotion()
+  const reduced = usePrefersReducedMotion()
   useEffect(() => {
     const video = ref.current
     if (!video || reduced) return
@@ -310,7 +311,7 @@ function DistributionStory() {
 
 export function SourcesStory() {
   const { autopilot } = useAutopilot()
-  const reduced = useReducedMotion()
+  const reduced = usePrefersReducedMotion()
   if (autopilot) return null
   if (reduced) return <AccessibleStory/>
   return <><IdeaMessagesStory/><CreationStory/><SecretFormatsGate/><DistributionStory/><CloneAppStory/><ClaudeMcpDemo/></>

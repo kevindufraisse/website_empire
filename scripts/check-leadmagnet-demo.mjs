@@ -1,3 +1,4 @@
+import { checkContentComparison } from './check-content-comparison.mjs'
 import assert from 'node:assert/strict'
 import {spawn} from 'node:child_process'
 import {mkdir,writeFile,readFile} from 'node:fs/promises'
@@ -159,7 +160,7 @@ try{
    await fits(page,team.locator('[data-team-summary]'),`${name} team result`)
    await page.screenshot({path:`${out}/${name}-team-merged.png`})
    assert.equal(await page.locator('#home-comparison table').count(),0)
-   assert((await page.locator('#home-comparison').innerText()).includes('Ce que vous faites'))
+   assert((await page.locator('#home-comparison').innerText()).includes('Qui fait quoi ?'))
    assert((await page.locator('#empire-integrations').innerText()).includes('revenus attribués'))
    if(name==='desktop'||name==='mobile-small'){
     const compare=page.locator('#home-comparison')
@@ -205,14 +206,17 @@ try{
    assert.deepEqual(await matrix.locator('[data-comparison-option]').evaluateAll(nodes=>nodes.map(n=>n.dataset.comparisonOption)),['tools','freelance','agency','empire'])
    assert.equal(await matrix.locator('[data-comparison-cell]').count(),12)
    assert.equal(await matrix.locator('[data-comparison-price]').getAttribute('data-comparison-price'),'199')
-   if(viewport.width>900)for(const row of await matrix.locator('[data-comparison-axis]').all()){assert(await opacity(row)>.99);await fits(page,row,`${name} comparison row`)}
+   for(const row of await matrix.locator('[data-comparison-axis]').all())assert(await opacity(row)>.99)
+   await checkContentComparison(page)
+   await matrix.locator('[data-comparison-axis=money]').scrollIntoViewIfNeeded()
    await page.screenshot({path:`${out}/${name}-comparison-matrix.png`})
 
    reports.push({name,result:'passed',scrollDrivenChat:true,noNavigationArrows:true,readingHolds:true,instagramProgressiveReveal:true,bothClipsVisibleTogether:true,realPlayback:true,leadBeforeYouTube:true,youTubeScrollReversible:true,sevenFormatRail:true,teamConverges:true})
   }catch(error){await page.screenshot({path:`${out}/${name}-failure.png`}).catch(()=>{});reports.push({name,result:'failed',error:String(error),stack:error.stack,errors,media:await page.locator('[data-lead-comparison] video').evaluateAll(vs=>vs.map(v=>({time:v.currentTime,paused:v.paused,seeking:v.seeking,ready:v.readyState,ended:v.ended,buffered:Array.from({length:v.buffered.length},(_,i)=>[v.buffered.start(i),v.buffered.end(i)])}))).catch(()=>[])})}
   finally{await context.close()}
  }
- const context=await contextFor(chrome,{width:390,height:844},'reduce'),page=await context.newPage()
+ const context=await contextFor(chrome,{width:390,height:844},'reduce'),page=await context.newPage(),reducedErrors=[]
+ page.on('pageerror', error => reducedErrors.push(error.message))
  await page.goto(base,{waitUntil:'domcontentloaded'});await page.locator('[data-story="accessible"]').waitFor()
  assert.equal(await page.locator('#formula-ideas button').count(),0)
  assert.equal(await page.locator('[data-idea-layer][aria-hidden="false"]').count(),7)
@@ -225,6 +229,8 @@ try{
  assert.equal(await page.locator('#formula-youtube').getAttribute('data-static'),'true')
  assert.equal(await page.locator('[data-unified-formats]').count(),0)
  assert.equal(await page.locator('[data-story="team"]').getAttribute('data-static'),'true')
+ await checkContentComparison(page)
+ assert.deepEqual(reducedErrors,[], 'Reduced motion must hydrate without replacing the page')
  reports.push({name:'reduced-motion',result:'passed',allMessagesInNormalFlow:true});await context.close()
  assert.equal(reports.filter(r=>r.result==='failed').length,0,'Inspect scroll discovery screenshots and report')
 }finally{

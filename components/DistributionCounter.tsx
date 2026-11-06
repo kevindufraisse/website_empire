@@ -1,6 +1,7 @@
 'use client'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 import { useEffect, useState } from 'react'
-import { motion, useMotionValueEvent, useReducedMotion, useTransform, type MotionValue } from 'framer-motion'
+import { motion, useMotionValueEvent, useTransform, type MotionValue } from 'framer-motion'
 import { Check } from 'lucide-react'
 import s from './DistributionCounter.module.css'
 
@@ -13,7 +14,7 @@ export function reachBefore(p:number){return NETWORK_VIEWS.reduce((sum,n,i)=>sum
 // NETWORK_VIEWS and MUST NOT be counted a second time.
 export function reachAdded(p:number){return ACCOUNT_VIEWS.reduce((sum,n,i)=>sum+(i===0?0:Math.round(n*clamp((p-(.832+i*.006)-.012)/.012))),0)}
 export default function DistributionCounter({p}:{p:MotionValue<number>}){
- const reduced=!!useReducedMotion()
+ const reduced=!!usePrefersReducedMotion()
  const [value,setValue]=useState(()=>p.get()),[completed,setCompleted]=useState(false)
  const sync=(v:number)=>{setValue(v);setCompleted(v>=.900&&v<.920)}
  useEffect(()=>sync(p.get()),[p]);useMotionValueEvent(p,'change',sync)

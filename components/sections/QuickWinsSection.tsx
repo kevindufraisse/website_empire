@@ -1,6 +1,7 @@
 'use client'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 import { useRef } from 'react'
-import { motion, useMotionValue, useReducedMotion, useScroll, useTransform, type MotionValue } from 'framer-motion'
+import { motion, useMotionValue, useScroll, useTransform, type MotionValue } from 'framer-motion'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import EmpireSalesCta from '@/components/EmpireSalesCta'
 import s from './TeamConvergence.module.css'
@@ -30,7 +31,7 @@ function RoleCard({index,p,still}:{index:number;p:MotionValue<number>;still:bool
 }
 export default function QuickWinsSection(){
  const {autopilot}=useAutopilot(),ref=useRef<HTMLElement>(null)
- const reduced=!!useReducedMotion(),settled=useMotionValue(1)
+ const reduced=!!usePrefersReducedMotion(),settled=useMotionValue(1)
  const {scrollYProgress}=useScroll({target:ref,offset:['start start','end end']})
  const p=reduced?settled:scrollYProgress
  const coreScale=useTransform(p,[.18,.78],[.66,1]),coreOpacity=useTransform(p,[.18,.74],[.28,1])

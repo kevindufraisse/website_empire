@@ -1,7 +1,7 @@
 'use client'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
 import { useEffect, useRef, useState } from 'react'
-import { useReducedMotion } from 'framer-motion'
 import { ArrowRight, Pause, Play, RotateCcw } from 'lucide-react'
 import s from './LeadMagnetJourney.module.css'
 import './PersistentJourneyViewport.css'
@@ -17,7 +17,7 @@ const CLIPS = [
 export default function LeadMagnetComparison({ staticMode = false }: { staticMode?: boolean }) {
   const root = useRef<HTMLDivElement>(null)
   const restartPair = useRef<() => void>(() => {})
-  const reduced = useReducedMotion()
+  const reduced = usePrefersReducedMotion()
   const [paused, setPaused] = useState(false)
   const [failed, setFailed] = useState(false)
   const still = staticMode || reduced

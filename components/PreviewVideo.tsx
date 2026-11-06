@@ -1,11 +1,11 @@
 'use client'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 import { useEffect, useRef } from 'react'
-import { useReducedMotion } from 'framer-motion'
 
 /** Muted, real footage. Only visible compositions decode the loop. */
 export default function PreviewVideo({ src, poster, className, label, still = false }: { src: string; poster: string; className?: string; label: string; still?: boolean }) {
   const ref = useRef<HTMLVideoElement>(null)
-  const reduced = useReducedMotion()
+  const reduced = usePrefersReducedMotion()
   useEffect(() => {
     const video = ref.current
     if (!video || reduced || still) return
