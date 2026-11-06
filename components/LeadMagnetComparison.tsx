@@ -55,7 +55,7 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
             if (!stallCheck) {
               stallCheck = setTimeout(() => {
                 stallCheck = undefined
-                if (!shouldPlay() || videos.some(video => video.seeking)) return
+                if (hasPlayed || !shouldPlay() || videos.some(video => video.seeking)) return
                 const stalled = videos.some((video, index) =>
                   video.paused || video.currentTime < startedAt[index] + .08
                 )
