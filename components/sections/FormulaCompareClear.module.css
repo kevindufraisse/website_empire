@@ -10,6 +10,40 @@
 .basis strong { font-size: 15px; font-weight: 550; }
 .basis small { width: 100%; color: #aaa; font-size: 12px; line-height: 1.5; }
 .mobilePicker { display: none; }
+.takeaway { margin: 20px 0 0 !important; color: #fff !important; font-size: clamp(17px, 1.6vw, 22px) !important; line-height: 1.4 !important; letter-spacing: -.02em; }
+.takeaway strong { font-weight: 600; }
+.takeaway strong:nth-child(2) { color: #dafc68; }
+.cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: auto 112px auto auto auto; gap: 12px; margin-bottom: 18px; }
+.card { display: grid; grid-row: span 5; grid-template-rows: subgrid; row-gap: 14px; padding: 24px 22px; border: 1px solid #262626; border-radius: 18px; background: linear-gradient(180deg, #121212, #0c0c0c); }
+.card h3 { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -.02em; }
+.cardEmpire { border-color: #dafc68; background: linear-gradient(180deg, #1a2210, #0f140a); box-shadow: 0 0 0 1px rgba(218, 252, 104, .25), 0 24px 60px -30px rgba(218, 252, 104, .35); }
+.cardEmpire h3 { color: #dafc68; }
+.pills { display: flex; flex-wrap: wrap; align-content: flex-start; gap: 6px; }
+.pills > span { padding: 5px 10px; border-radius: 999px; background: #1f1f1f; color: #cfcfcf; font-size: 11px; font-weight: 500; white-space: nowrap; }
+.pills .pillMore { color: #8a8a8a; background: transparent; border: 1px dashed #3a3a3a; }
+.roles { display: flex; flex-wrap: wrap; align-content: flex-start; gap: 6px; }
+.roles > span { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 999px; background: #1f1f1f; color: #cfcfcf; font-size: 11px; font-weight: 500; }
+.roles svg { color: #9a9a9a; flex: none; }
+.single { display: flex; align-items: center; gap: 12px; color: #ddd; }
+.single svg { flex: none; color: #9a9a9a; }
+.single span { display: flex; flex-direction: column; font-size: 15px; font-weight: 600; }
+.single small { margin-top: 2px; color: #999; font-size: 11px; font-weight: 400; }
+.wordmark { display: flex; flex-direction: column; justify-content: center; gap: 6px; }
+.wordmark > span { color: #dafc68; font-size: 26px; font-weight: 700; letter-spacing: -.04em; line-height: 1.05; }
+.wordmark small { color: #b5c3a7; font-size: 11px; }
+.cardPrice, .cardHours, .cardYou { margin: 0; }
+.cardPrice strong, .cardHours strong { display: block; color: #fff; font-size: clamp(24px, 2.2vw, 32px); font-weight: 600; letter-spacing: -.045em; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.cardEmpire .cardPrice strong, .cardEmpire .cardHours strong { color: #dafc68; }
+.cardPrice small, .cardHours small { display: block; margin-top: 4px; color: #aaa; font-size: 11px; line-height: 1.5; }
+.cardYou { padding-top: 14px; border-top: 1px solid #222; color: #d1d1d1; font-size: 13px; line-height: 1.5; }
+.cardYou span { display: block; margin-bottom: 3px; color: #777; font-size: 11px; }
+.savingsLine { margin: 0 0 22px; padding: 16px 20px; border: 1px solid #2a3318; border-radius: 14px; background: #0f130a; color: #c9d4b4; font-size: 14px; line-height: 1.6; text-align: center; }
+.savingsLine b { color: #dafc68; font-weight: 600; }
+.detailsBlock { border-top: 1px solid #292929; }
+.detailsBlock > summary { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 52px; padding: 12px 0; color: #ddd; font-size: 14px; font-weight: 500; cursor: pointer; list-style: none; }
+.detailsBlock > summary::-webkit-details-marker { display: none; }
+.detailsBlock[open] > summary svg { transform: rotate(90deg); }
+.detailsBlock[open] > summary { margin-bottom: 14px; }
 .tableWrap { border: 1px solid #343434; border-radius: 14px; }
 .table { width: 100%; border-spacing: 0; table-layout: fixed; font-size: 13px; line-height: 1.5; text-align: left; }
 .table th, .table td { padding: 17px 18px; vertical-align: middle; overflow-wrap: break-word; }
@@ -31,6 +65,16 @@
 .table thead .empire strong, .empire .price { color: #dafc68; }
 .table .empire small { color: #b5c3a7; }
 .price { display: block; color: #fff; font-size: clamp(24px, 2.3vw, 31px); font-weight: 550; letter-spacing: -.045em; line-height: 1.2; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.priceRange { font-size: clamp(19px, 1.7vw, 24px); white-space: normal; }
+.moreCell { padding: 8px 18px; border-top: 1px solid #2a2a2a; border-radius: 0 0 13px 13px; background: #0d0d0d; text-align: center; }
+.tableWrap:has(.moreCell) .table tbody:last-child tr:last-child th, .tableWrap:has(.moreCell) .table tbody:last-child tr:last-child td:last-child { border-radius: 0; }
+.moreButton { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px; border: 1px solid #3a3a3a; border-radius: 8px; background: #151515; color: #c7d5a9; font-size: 12px; cursor: pointer; }
+.moreButton:hover { border-color: #dafc68; }
+.moreButton svg { transform: rotate(90deg); }
+.moreButton[aria-expanded=true] svg { transform: rotate(-90deg); }
+.cellSources { margin-top: 8px; color: #8a8a8a; font-size: 10px; line-height: 1.6; }
+.cellSources a { color: #a9b88f; text-decoration: underline; text-underline-offset: 3px; }
+.empire .cellSources a { color: #c7d5a9; }
 .overline { display: block; margin-bottom: 4px; color: #b3b3b3; font-size: 11px; }
 .table tbody[data-comparison-axis=money] tr:first-child > * { padding-top: 24px; padding-bottom: 24px; }
 .table tbody[data-comparison-axis=time] td strong { font-weight: 550; color: #eee; }
@@ -83,6 +127,17 @@
   .basis strong { font-size: 14px; }
   .basis small { font-size: 11px; }
   .mobilePicker { display: block; margin-bottom: 16px; }
+  .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: auto 128px auto auto auto; gap: 8px; }
+  .card { padding: 16px 14px; row-gap: 10px; border-radius: 14px; }
+  .wordmark > span { font-size: 20px; }
+  .card[data-mobile-visible=false] { display: none; }
+  .card h3 { font-size: 15px; }
+  .pills > span, .roles > span { padding: 4px 7px; font-size: 10px; }
+  .cardPrice strong, .cardHours strong { font-size: 20px; }
+  .cardYou { font-size: 12px; }
+  .takeaway { font-size: 16px !important; }
+  .savingsLine { font-size: 12px; padding: 12px 14px; }
+  .detailsBlock > summary { font-size: 13px; }
   .mobilePicker > span { display: block; margin-bottom: 8px; font-size: 12px; color: #aaa; }
   .mobilePicker > div { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
   .mobilePicker button { padding: 10px 5px; min-height: 44px; border: 1px solid #444; border-radius: 8px; background: #141414; color: #bbb; font-size: 12px; cursor: pointer; }
@@ -96,6 +151,7 @@
   .table small { font-size: 10px; }
   .table tbody[data-comparison-axis=money] tr:first-child > * { padding-top: 18px; padding-bottom: 18px; }
   .price { font-size: 25px; }
+  .priceRange { font-size: 18px; }
   .overline { font-size: 10px; }
   .feature { flex-direction: column; gap: 5px; }
   .feature > svg { margin-top: 0; }

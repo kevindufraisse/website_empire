@@ -1,49 +1,58 @@
 # Homepage comparison — source record
 
-Reviewed 2026-11-06. Compare a month of **4 short videos + 8 text posts + 2 newsletters**, not LinkedIn ghostwriting alone. A semantic comparison table puts costs first, then one row for each service, then client effort. Desktop shows all four options; mobile keeps Empire beside the selected alternative. Cloning, lead magnets and long YouTube videos have their own credit costs, excluded from this costed basket.
+Reviewed 2026-11-06. Compare a month of **4 short videos + 8 text posts + 2 newsletters**, published on 7 networks, with DM/comment replies and lead tracking — the scope Empire covers. Each column prices **the same scope**, not a slice of it. Desktop shows all four options; mobile keeps Empire beside the selected alternative. Cloning, lead magnets and long YouTube videos have their own credit costs, excluded from this costed basket.
 
-The 14 originals remain 14 when reposted to several accounts. Three months at that cadence means 42 originals: 12 videos, 24 posts, 6 newsletters. This is a planning target, not an observed result.
+The 14 originals remain 14 when reposted to several accounts. Three months at that cadence means 42 originals. This is a planning target, not an observed result.
 
-## Public offers
+## Column 1 — Tools alone
 
-| Primary source | Published price / scope used | Limits |
+Public prices checked 2026-11-06, dollars counted as euros, before tax. Seven core tools: ChatGPT Plus 23 € ([openai.com](https://openai.com/chatgpt/pricing/)), Taplio Starter 39 $ ([taplio.com](https://taplio.com/pricing), AI writing only from Growth 69 $), Submagic Starter 19 € for 15 videos ([submagic.co](https://www.submagic.co/pricing)), Opus Clip Starter 15 $ ([opus.pro](https://www.opus.pro/pricing)), Metricool Starter 20 € ([metricool.com](https://metricool.com/pricing/), X add-on 10 € not counted), ManyChat Essential 17 $ ([manychat.com](https://manychat.com/pricing), Pro with AI 39 $), Google AI Pro 21,99 € for Nano Banana ([gemini.google](https://gemini.google/fr/subscriptions/)). Sum **≈ 155 €/month**. With HeyGen Creator 29 $ ([heygen.com](https://www.heygen.com/pricing)), Switchy Team 47 $ ([switchy.io](https://www.switchy.io/pricing)) and ManyChat Pro: **≈ 253 €/month**. Substack and a free CRM tier are not priced. The headline for this column is time, not price: everything (topics, format testing, writing, editing, visuals, scheduling, replies) is manual.
+
+Manual-time reference (partial, provider estimates, no AI): Nina Senoyer 20–40 min per post → 8 posts = 2 h 40–5 h 20 ([source](https://ninasenoyer.fr/blog/tarif-ghostwriter-linkedin/)); Clic’N Start 3–4 h per edited short → 4 shorts = 12–16 h ([source](https://studio.clicnstart.com/)). Displayed as ≈ 15–21 h, explicitly excluding research, format tests, recording, visuals, newsletters, publishing, replies and analysis.
+
+## Column 2 — Freelances (five trades)
+
+One freelancer does not cover the scope. Published monthly ranges, HT:
+
+| Trade | Scope used | Low | High | Source |
+| --- | --- | --- | --- | --- |
+| Ghostwriter LinkedIn | 8 posts/month | 800 € | 1 500 € | [CopyLinker grid](https://copylinker.fr/tarif-ghostwriter-linkedin/) (also SaySend, Nina Senoyer) |
+| Video editor | monthly retainer | 700 € | 1 000 € | [Montage Guépard](https://www.montageguepard.com/forfait-mensuel-monteur-video/) real retainers |
+| Community manager | 4+ networks, full strategy, moderation | 2 000 € | 3 500 € | [Transacts 2026 grid](https://www.transacts.fr/blog/tarif-community-manager) |
+| Graphic designer | 2 days × 402 € (Malt average, 8–15 yrs) | 800 € | 800 € | [Malt barometer](https://www.malt.fr/t/barometre-tarifs/web-graphic-design/graphiste) |
+| Newsletter writer | 2 × 120 € | 240 € | 240 € | [Webplume](https://www.webplume.net/tarifs/) |
+
+800 + 700 + 2 000 + 800 + 240 = **4 540 €**; 1 500 + 1 000 + 3 500 + 800 + 240 = **7 040 €**. No project manager is added: the client coordinates five people. The production-only floor (Clément Aouadène 600 € for 8 posts, Clic’N Start 289 € for 4 shorts, Webplume 2 × 120 €) = **1 129 € HT** stays visible but labelled “production seule, sans publication ni réponses”. Ranges are published grids, not quotes; a provider may bundle tasks.
+
+### Client time with freelances (row « Votre temps / mois »)
+
+Per provider the claimed time is small: Clément Aouadène 30 min call/month + 2 min/post (< 1 h) ([source](https://clement-aouadene.fr/ghostwriter-linkedin)); Katalyx 30 min weekly interview + 15 min validation (≈ 3 h/month) ([source](https://katalyx.fr/linkedin/personal-branding-dirigeants)); iPeople cites 2 h/week of briefs, calls and edits with a traditional freelance copywriter ([source](https://ipeople.it/fr/comment-ca-marche/)); editors deliver a V1 in 24 h–7 days with 1–2 revision rounds per video to review ([Fox Rider](https://fox-rider.com/prestations/montage-video)); a CM asks for the monthly calendar to be validated within 5 working days ([Les Créavores](https://lescreavores.fr/services/social-media/)). The cost is the addition: Heysimon measures 3–6 h/week of coordination for a marketing lead once several providers coexist, “adding a second provider doubles the load” ([source](https://www.heysimon.fr/articles/cout-coordination-creation-graphique)); a B2B benchmark counts 3–5 h/week per freelancer and 30–40 % of deliverables going back for revision ([Lolopepe](https://lolopepe.com/blog/hidden-costs-managing-freelancers-b2b-cmos)). Displayed: **3–6 h/week = 12–24 h/month, excluding filming**, labelled as third-party references, not a measurement on Empire clients.
+
+### Row « Par rapport à Empire »
+
+Plain subtractions against Starter 199 €: freelances +4 341 to +6 841 €/month (52 092 to 82 092 €/year); agency +2 301 to +6 801 €/month; tools “prix équivalent” (155–253 € vs 199 €), the gap being hours. Hours “en plus” = displayed range minus Empire’s 1 h estimate. No revenue gains (views, leads, sales) are quantified.
+
+## Column 3 — Dedicated agency
+
+| Agency | Published price / scope | Commitment |
 | --- | --- | --- |
-| [Clément Aouadène](https://clement-aouadene.fr/) | 600 € HT/month, 8 LinkedIn posts; 30 min interview + 2 min review/post | 46 min excludes calendar approval, publication, audience conversations and all video/newsletter work. Provider statement, not independent timing. |
-| [Clic’N Start](https://studio.clicnstart.com/) | Essentiel: 289 € HT/month, 4 shorts, 2 revisions/video, no commitment; 72 h delivery after footage receipt | Footage and publication supplied by client. Delivery time is not labor time. |
-| [Webplume](https://www.webplume.net/tarifs/) | Newsletter writing from 120 € each, so 2 from 240 € | Minimum estimate, confirm length, exact scope, availability and volume discount by quote. Delivery availability on site may be several months away. Not an immediately bookable combined package. [Terms](https://www.webplume.net/conditions-generales-de-vente-internet/) state VAT not applicable. Email sending/platform excluded. |
-| [MYROR](https://www.myroragency.com/agence-personal-branding) | 2,500 €/month per video network + 2,000 € LinkedIn; provider says 2–3 h/month client time | Illustrative addition 4,500 €, not a bundled quote. Volumes, taxes, discounts, commitment and newsletters need confirmation. Dedicated personal-branding service; not the agency market average. |
-| [Nina Senoyer — writing time](https://ninasenoyer.fr/blog/tarif-ghostwriter-linkedin/) | 20–40 min to write a post on a mastered subject | 8 posts = 160–320 min, excluding research and publishing. Not an AI-assisted benchmark. |
-| [Clic’N Start — editing time](https://studio.clicnstart.com/) | Provider estimates 3–4 h manual editing for a short | 4 shorts = 12–16 h, excluding recording. Combining these writing/editing estimates gives 14 h 40–21 h 20, displayed as approximately 15–21 h. Newsletters, recording, research, distribution and analysis still excluded. |
+| [MYROR](https://www.myroragency.com/agence-personal-branding) | 2 500 €/month per short-video network (Instagram, TikTok or Shorts) + 2 000 € LinkedIn = **4 500 €** for two networks; long YouTube separate at 2 500 € → **7 000 €** for three. Volume “selon la proposition commerciale”; 2–3 h client time/month; Instagram comment replies announced. | To confirm |
+| [Studio Fragment](https://studio-fragment.fr/) | 2 500 € HT complete formula: 4 long + 10–15 short videos, 6–7 carousels, 8–10 posts, 4–6 newsletters **per quarter**, one shoot per quarter | 6 months |
+| [Teazit](https://teazit.com/landing-page-abonnement-location-studio/) | 2 500 € HT for 10 videos/month, 4 500 € for 20 | 4 months |
+| [Agence Vidéo](https://www.agence-video.net/autorite-dirigeant-influence/) | from 3 200 € HT | 6 months |
 
-Selected separate production offers: 600 + 289 + 2 × 120 = **from 1,129 € HT/month**, or from 3,387 € HT for three months. Not a market average, maximum, common package, or complete managed service. One provider can bundle those tasks for another price. No full-service price or price for cross-platform publishing is fabricated.
+Cheaper agencies exist for a smaller scope: [Persona One](https://personaone.fr/) 890 € HT/month (one video a week, community manager, 6 months), [Agence Personnelle Présence](https://agence-prsnl.com/entrepreneurs/) 1 000 € HT/month (4 videos, 6 months). They cover one main network and no posts/newsletters, so the price cell says “Dès 890 € pour 1 vidéo par semaine sur un seul réseau” outside the equal-scope range.
+
+Displayed range **2 500–7 000 € HT/month, 4–6 months commitment**.
+
+## Layout
+
+Eight rows visible by default (budget, vs Empire, your time, what remains yours, commitment, publishing rhythm, publication + DM/comments on 7 networks, lead tracking). Nine detail rows (ideas, formats, posts, videos, human review, visuals, newsletters, multi-account, advanced formats) are folded behind “Voir tout ce qui est inclus”, rendered as `hidden` rows inside the same table so screen readers and the checks still see one table. Sources are linked under the four price cells; time sources live in the calculation accordion. None of these offers advertises daily publishing on 7 networks; the “Rythme de publication” row says “Selon devis” with Fragment and Teazit volumes as examples. The founder’s own estimate of 10–15 k€/month for a full-service agency is **not** published anywhere we found and is not displayed.
 
 ## Empire
 
-Shared prices/credit costs imported from `lib/plans.ts`:
+Shared prices/credit costs imported from `lib/plans.ts`: 8 posts × 85 + 4 Reels × 195 + 2 newsletters × 115 = **1 690 of 2 200 Starter credits**; 199 €/month, monthly billing, no commitment (cancel from the app). Scale 799 € shown as the ceiling for twice-daily publishing. Advanced formats remain conditional on credits. The founder supplied an approximate 1 hour/month usage estimate (after setup) on 2026-11-06; the page labels it as a brand estimate, not a measured customer average.
 
-- 8 posts × 85 = 680 credits.
-- 4 standard Reels × 195 = 780 credits.
-- 2 newsletters × 115 = 230 credits.
-- Total **1,690 of 2,200 Starter credits**; monthly displayed price 199 €, 597 € for 3 months at monthly billing.
+## Guardrails kept
 
-No duplicate counting for reposting; special AI formats, clones, long videos and repeat generations can consume more. Connected email/services may have their own subscriptions. Software and dedicated human production are different services/finishing levels. The founder supplied an approximate 1 hour/month usage estimate on 2026-11-06. The page labels its provenance (Empire estimate), not a measured customer average or a guaranteed maximum. Scope can vary with initial setup, formats and revisions. No tax-adjusted savings or measured time-saving ratio is calculated.
-
-The 7 social networks already represented by the homepage are Instagram, LinkedIn, YouTube, TikTok, Threads, X and Facebook. Distribution depends on format and connected accounts. Attribution requires tracked links and connected tools. Do not imply that every original is published on all seven networks, or that every listed advanced format fits the 1,690-credit example.
-
-## Sustained publishing
-
-The user defines success as maintaining publication in the long term. Show the target, completion against calendar, and real weekly effort. No comparable starting cohort, denominator or three-month continuation data was supplied. No success percentage, rating, predicted reach or client conversion is invented.
-
-## Included-service table
-
-Statuses describe only the selected offers, not the limits of all freelancers or agencies. An absent agency capability is “Non mentionné”, not “Non inclus”. Clic’N Start offers a talking-head/clone option and separate long-form production, so those cells say “En option” / “En supplément”. MYROR scopes its network services individually; the table does not infer newsletters, fixed publication counts, or sales attribution. Empire's advanced formats show conditional credit usage rather than unconditional inclusion in the 1,690-credit example.
-
-MYROR's 4,500 € column explicitly breaks down 2,500 € for **one** short-video network (Instagram, TikTok or YouTube Shorts) and 2,000 € for LinkedIn. Its service card groups the short-video formats, but its FAQ prices management per network; do not read the card as all three networks included. The separate 2,500 €/month long-form YouTube offer is outside the 4,500 € sum. Other networks and newsletters are not costed in that sum. The table now states these boundaries beside the price and on the relevant feature rows, not only in the source accordion.
-
-The calculation accordion retains partial-time boundaries, taxes, service differences and connected-service costs. The continuity target remains 42 originals over three months, without an invented success rate.
-
-## Reference selection and performance claims
-
-The previous Flowify calculation (890 + 390 = 1,280 €) was verified again on its public price page; it was not invented. It is no longer the sole proxy for a dedicated founder-brand service. Cheaper agency offers exist: [Agence Personnelle Présence](https://agence-prsnl.com/entrepreneurs/) lists 1,000 € HT/month for 4 videos with a six-month commitment. Do not claim that all agencies cost more than 1,300 €. [Teazit](https://teazit.com/landing-page-abonnement-studio/) also lists 2,500 € HT/month for 10 videos with at least four months' commitment; those volumes are not the Empire basket.
-
-The performance comparison now concerns provided methods, human review and workload. Empire's existing PlanCards copy promises each Reel is checked by the team; its comparison reference data describes formats tested on Kevin's accounts. Neither establishes a causal performance advantage over a capable user of separate tools. No guaranteed ranking, views multiplier, success rate or fabricated customer measurement is added. Manual time estimates remain in the methodology only, not as the headline workload of AI-assisted tools. The 46-minute ghostwriting reference remains explicitly partial.
+No success rate, views multiplier or causal performance claim. Statuses describe only the cited offers; an absent agency capability is “Non mentionné”, not “Non inclus”. Tool totals are additions of entry-level plans; freelance and agency totals are additions of public grids, labelled as such. `scripts/check-content-comparison.mjs` asserts the displayed totals, the source links and the calculation strings.
