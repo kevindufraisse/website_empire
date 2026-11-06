@@ -10,12 +10,16 @@ export async function checkContentComparison(page) {
   const normal = value => value.replace(/\s/g, '')
   assert((await section.locator('[data-comparison-basket]').innerText()).includes('4 vidéos courtes + 8 posts + 2 newsletters'))
   assert(normal(await cell('monthly', 'freelance').innerText()).includes('1129€'))
-  assert((await cell('monthly', 'agency').innerText()).includes('Volume plus large'))
+  assert(normal(await cell('monthly', 'agency').innerText()).includes('4500€'))
+  assert((await cell('monthly', 'agency').innerText()).includes('un réseau vidéo court + LinkedIn'))
+  assert((await cell('monthly', 'agency').innerText()).includes('Newsletters à chiffrer'))
   assert(normal(await cell('monthly', 'empire').innerText()).includes('1690/2200'))
   assert((await cell('quarter', 'empire').innerText()).includes('597 €'))
-  assert((await cell('effort', 'freelance').innerText()).includes('8 posts seuls'), 'Partial briefing time must not be presented as the entire workload')
-  assert((await cell('effort', 'empire').innerText()).includes('Pas encore de moyenne chronométrée'))
-  for (const row of ['ideas', 'posts', 'reels', 'newsletters', 'publishing', 'accounts', 'tracking', 'clone', 'lead', 'youtube']) {
+  assert((await cell('effort', 'freelance').innerText()).includes('Temps total non publié'), 'A partial 46-minute brief must not be presented as the entire workload')
+  assert((await cell('effort', 'empire').innerText()).includes('≈ 1 h / mois'))
+  assert((await cell('effort', 'empire').innerText()).includes('Repère d’usage Empire'))
+  assert((await cell('effort', 'agency').innerText()).includes('2–3 h / mois'))
+  for (const row of ['ideas', 'method', 'review', 'posts', 'reels', 'newsletters', 'publishing', 'accounts', 'tracking', 'clone', 'lead', 'youtube']) {
     assert.equal(await table.locator(`[data-comparison-row=${row}] th[scope=row]`).count(), 1)
     assert.equal(await table.locator(`[data-comparison-row=${row}] td`).count(), 4)
   }
@@ -27,10 +31,9 @@ export async function checkContentComparison(page) {
   assert((await cell('publishing', 'empire').innerText()).includes('7 réseaux'))
   assert((await section.locator('#comparison-scope').innerText()).includes('ne comptent pas comme de nouveaux contenus'))
   assert((await section.locator('[data-comparison-performance]').innerText()).includes('42 contenus originaux'))
-  assert((await section.locator('[data-comparison-success]').innerText()).includes('aucun taux de continuité comparable'))
   const picker = section.getByRole('group', { name: 'Comparer Empire avec' })
   if (await picker.isVisible()) {
-    for (const [name, key] of [['Seul + outils', 'tools'], ['Agence', 'agency'], ['Freelances', 'freelance']]) {
+    for (const [name, key] of [['Outils seuls', 'tools'], ['Agence', 'agency'], ['Freelances', 'freelance']]) {
       const button = picker.getByRole('button', { name, exact: true })
       await button.focus()
       await page.keyboard.press('Enter')
@@ -53,12 +56,16 @@ export async function checkContentComparison(page) {
     assert.equal(await table.getByRole('columnheader').count(), 5)
   }
   const urls = await section.locator('a[target=_blank]').evaluateAll(nodes => nodes.map(a => a.href))
-  for (const url of ['https://clement-aouadene.fr/', 'https://studio.clicnstart.com/', 'https://www.webplume.net/tarifs/', 'https://flowify.fr/tarifs/']) assert(urls.includes(url), `Missing primary offer source: ${url}`)
+  for (const url of ['https://clement-aouadene.fr/', 'https://studio.clicnstart.com/', 'https://www.webplume.net/tarifs/', 'https://www.myroragency.com/agence-personal-branding']) assert(urls.includes(url), `Missing primary offer source: ${url}`)
   await section.getByRole('link', { name: 'Sources et calculs' }).focus()
   await page.keyboard.press('Enter')
   const details = section.locator('#comparison-method')
   assert(await details.evaluate(el => el.open), 'Source link must open the calculation')
-  const calculation = normal(await details.innerText())
+  const sourceText = await details.innerText()
+  assert(sourceText.includes('une estimation de la marque'))
+  assert(sourceText.includes('aucun taux de continuité comparable'))
+  const calculation = normal(sourceText)
+  assert(calculation.includes('2500+2000=4500'))
   assert(calculation.includes('600+289+2×120=1129'))
   assert(calculation.includes('8posts×85crédits+4Reelsstandard×195+2newsletters×115=1690crédits'))
   assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 2), 'Sources must not overflow horizontally')

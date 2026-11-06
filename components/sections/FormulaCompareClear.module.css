@@ -34,6 +34,7 @@
 .overline { display: block; margin-bottom: 4px; color: #b3b3b3; font-size: 11px; }
 .table tbody[data-comparison-axis=money] tr:first-child > * { padding-top: 24px; padding-bottom: 24px; }
 .table tbody[data-comparison-axis=time] td strong { font-weight: 550; color: #eee; }
+.table tbody[data-comparison-axis=time] .effort { color: #dafc68; font-size: 21px; letter-spacing: -.03em; }
 .feature { display: flex; gap: 9px; align-items: flex-start; }
 .feature > svg { flex: 0 0 16px; margin-top: 2px; color: #929292; }
 .feature[data-status=included] > svg { color: #dafc68; }
