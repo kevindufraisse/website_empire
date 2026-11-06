@@ -90,7 +90,7 @@ export default function Header() {
     >
       {fr ? 'Obtenir mon lien' : 'Get my sharable link'}
     </button>
-  ) : pathname === '/academy' ? (
+  ) : pathname === '/academy/ancienne' ? (
     // Sur la page récit (PartnerProgramPage), le prix n'apparaît qu'à la porte
     // (dernière séquence) : le bouton y descend, sans montant.
     <a
