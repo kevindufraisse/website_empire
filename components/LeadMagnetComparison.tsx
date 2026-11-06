@@ -49,7 +49,17 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
         starting = true
         Promise.all(videos.map(video => video.play()))
           .then(() => setAutoplayBlocked(false))
-          .catch(() => { stop(); setAutoplayBlocked(true) })
+          .catch(() => {
+            // WebKit can transiently reject play() while one decoder is
+            // seeking during clock correction. That is not an autoplay block.
+            const blockedAtStart = videos.every(video =>
+              video.paused && !video.seeking && video.currentTime < .1
+            )
+            if (blockedAtStart) {
+              stop()
+              setAutoplayBlocked(true)
+            }
+          })
           .finally(() => { starting = false })
       }
     }
