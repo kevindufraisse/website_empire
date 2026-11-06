@@ -1,6 +1,6 @@
 # Homepage comparison — source record
 
-Reviewed 2026-11-06. Compare a month of **4 short videos + 8 text posts + 2 newsletters**, not LinkedIn ghostwriting alone. Four stages are visible: ideas, creation, distribution, results. Cloning, lead magnets and long YouTube videos are separately identified capabilities with their own credit costs, excluded from this costed basket.
+Reviewed 2026-11-06. Compare a month of **4 short videos + 8 text posts + 2 newsletters**, not LinkedIn ghostwriting alone. A semantic comparison table puts costs first, then one row for each service, then client effort. Desktop shows all four options; mobile keeps Empire beside the selected alternative. Cloning, lead magnets and long YouTube videos have their own credit costs, excluded from this costed basket.
 
 The 14 originals remain 14 when reposted to several accounts. Three months at that cadence means 42 originals: 12 videos, 24 posts, 6 newsletters. This is a planning target, not an observed result.
 
@@ -33,3 +33,9 @@ The 7 social networks already represented by the homepage are Instagram, LinkedI
 ## Sustained publishing
 
 The user defines success as maintaining publication in the long term. Show the target, completion against calendar, and real weekly effort. No comparable starting cohort, denominator or three-month continuation data was supplied. No success percentage, rating, predicted reach or client conversion is invented.
+
+## Included-service table
+
+Statuses describe only the selected offers, not the limits of all freelancers or agencies. An absent agency capability is “Non mentionné”, not “Non inclus”. Clic’N Start offers a talking-head/clone option and separate long-form production, so those cells say “En option” / “En supplément”. Flowify publishes email opening/conversion reporting; the table does not infer sales attribution across all channels. Empire's advanced formats show conditional credit usage rather than unconditional inclusion in the 1,690-credit example.
+
+The calculation accordion retains partial-time boundaries, taxes, service differences and connected-service costs. The continuity target remains 42 originals over three months, without an invented success rate.
