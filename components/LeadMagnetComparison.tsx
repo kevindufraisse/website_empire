@@ -52,17 +52,19 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
         Promise.all(videos.map(video => video.play()))
           .then(() => {
             setAutoplayBlocked(false)
-            clearTimeout(stallCheck)
-            stallCheck = setTimeout(() => {
-              if (!shouldPlay() || videos.some(video => video.seeking)) return
-              const stalled = videos.some((video, index) =>
-                video.paused || video.currentTime < startedAt[index] + .08
-              )
-              if (stalled) {
-                stop()
-                setAutoplayBlocked(true)
-              }
-            }, 1600)
+            if (!stallCheck) {
+              stallCheck = setTimeout(() => {
+                stallCheck = undefined
+                if (!shouldPlay() || videos.some(video => video.seeking)) return
+                const stalled = videos.some((video, index) =>
+                  video.paused || video.currentTime < startedAt[index] + .08
+                )
+                if (stalled) {
+                  stop()
+                  setAutoplayBlocked(true)
+                }
+              }, 1600)
+            }
           })
           .catch(() => {
             // WebKit can transiently reject play() while one decoder is
