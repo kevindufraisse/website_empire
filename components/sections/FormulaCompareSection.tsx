@@ -57,6 +57,8 @@ const SOURCES = {
   fragment: 'https://studio-fragment.fr/',
   teazit: 'https://teazit.com/landing-page-abonnement-location-studio/',
   agenceVideo: 'https://www.agence-video.net/autorite-dirigeant-influence/',
+  personaOne: 'https://personaone.fr/',
+  agencePersonnelle: 'https://agence-prsnl.com/entrepreneurs/',
   coordination: 'https://www.heysimon.fr/articles/cout-coordination-creation-graphique',
   freelanceOverhead: 'https://lolopepe.com/blog/hidden-costs-managing-freelancers-b2b-cmos',
   ghostTime: 'https://clement-aouadene.fr/ghostwriter-linkedin',
@@ -86,53 +88,49 @@ const OPTIONS = [
 ] as const
 type Alternative = 'tools' | 'freelance' | 'agency'
 type FeatureCell = { text: string; note?: string; status: 'included' | 'conditional' | 'manual' | 'excluded' }
-type FeatureRow = { key: string; name: string; cells: [FeatureCell, FeatureCell, FeatureCell, FeatureCell] }
+type FeatureRow = { key: string; name: string; detail?: boolean; cells: [FeatureCell, FeatureCell, FeatureCell, FeatureCell] }
 const FEATURES: FeatureRow[] = [
-  { key: 'ideas', name: 'Idées et sujets', cells: [
-    { text: 'À chercher vous-même', status: 'manual' }, { text: 'Angles LinkedIn', note: 'Par le ghostwriter', status: 'conditional' },
-    { text: 'Stratégie dédiée', status: 'included' }, { text: 'Veille + sujets prêts', note: 'Chaque semaine', status: 'included' },
+  { key: 'distribution', name: 'Publication, DM et commentaires sur 7 réseaux', cells: [
+    { text: 'Vous programmez et répondez', note: 'Metricool, ManyChat', status: 'manual' }, { text: 'Community manager', note: 'Réseaux selon son forfait', status: 'included' },
+    { text: 'Réseaux du contrat', note: 'MYROR : 1 réseau vidéo + LinkedIn · commentaires Instagram', status: 'conditional' }, { text: '7 réseaux + setter IA + boîte unique', note: 'Publication programmée, réponses centralisées', status: 'included' },
   ] },
-  { key: 'method', name: 'Formats et méthode', cells: [
-    { text: 'À tester vous-même', note: 'Vos essais, vos réglages', status: 'manual' }, { text: 'Selon chaque spécialiste', status: 'conditional' },
-    { text: 'Stratégie sur mesure', status: 'included' }, { text: 'Formats déjà testés', note: 'Sur les comptes de Kevin', status: 'included' },
-  ] },
-  { key: 'posts', name: 'Posts écrits', cells: [
-    { text: 'Vous écrivez', note: 'ChatGPT, Taplio', status: 'manual' }, { text: '8 posts', note: 'Ghostwriter', status: 'included' },
-    { text: 'LinkedIn inclus', note: `${fmt(agencyLinkedIn)} € chez MYROR · volume à convenir`, status: 'included' }, { text: '8 posts', note: 'Dans cet exemple', status: 'included' },
-  ] },
-  { key: 'reels', name: 'Vidéos courtes montées', cells: [
-    { text: 'Vous montez', note: 'Submagic, Opus Clip', status: 'manual' }, { text: 'Forfait monteur', note: '4 à 12 vidéos selon l’offre', status: 'included' },
-    { text: '1 réseau court au choix', note: 'Instagram, TikTok ou Shorts · volume à convenir', status: 'included' }, { text: '4 Reels', note: 'Montage + sous-titres', status: 'included' },
-  ] },
-  { key: 'review', name: 'Montage vérifié par un humain', cells: [
-    { text: 'Vous vérifiez', status: 'manual' }, { text: 'Par le monteur', status: 'included' },
-    { text: 'Monteur dédié', status: 'included' }, { text: 'Chaque Reel vérifié', note: 'Par l’équipe Empire', status: 'included' },
-  ] },
-  { key: 'visuals', name: 'Visuels et carrousels', cells: [
-    { text: 'Vous créez', note: 'Nano Banana, Canva', status: 'manual' }, { text: 'Graphiste à la journée', status: 'conditional' },
-    { text: 'Selon devis', status: 'conditional' }, { text: 'Carrousels, miniatures, images', status: 'included' },
-  ] },
-  { key: 'newsletters', name: 'Newsletters', cells: [
-    { text: 'Vous rédigez', note: 'Substack gratuit', status: 'manual' }, { text: '2 newsletters', note: 'Rédaction seule', status: 'included' },
-    { text: 'Non mentionné', note: 'À chiffrer', status: 'conditional' }, { text: '2 newsletters', note: 'Envoi via outil connecté', status: 'included' },
-  ] },
-  { key: 'publishing', name: 'Programmation et publication', cells: [
-    { text: 'Vous programmez', note: 'Metricool', status: 'manual' }, { text: 'Community manager', note: 'À ajouter à l’équipe', status: 'included' },
-    { text: 'Réseaux du contrat', note: 'Les autres à chiffrer', status: 'included' }, { text: '7 réseaux', note: 'Selon les formats', status: 'included' },
-  ] },
-  { key: 'community', name: 'DM et commentaires', cells: [
-    { text: 'Vous répondez', note: 'ManyChat pour l’automatique', status: 'manual' }, { text: 'Community manager', status: 'included' },
-    { text: 'Selon contrat', note: 'MYROR : Instagram', status: 'conditional' }, { text: 'Setter IA + boîte unique', note: 'Tous vos réseaux', status: 'included' },
-  ] },
-  { key: 'accounts', name: 'Plusieurs comptes', cells: [
-    { text: 'Selon vos outils', status: 'conditional' }, { text: 'À renégocier', status: 'conditional' },
-    { text: 'À confirmer', note: 'Nombre non précisé', status: 'conditional' }, { text: 'Multi-comptes', note: 'Comptes connectés', status: 'included' },
-  ] },
-  { key: 'tracking', name: 'Du contenu au client', cells: [
+  { key: 'tracking', name: 'Suivi des leads jusqu’au client', cells: [
     { text: 'À relier', note: 'Switchy, CRM', status: 'manual' }, { text: 'Non inclus', status: 'excluded' },
     { text: 'À définir au contrat', status: 'conditional' }, { text: 'Liens trackés + CRM', note: 'Clics, contacts, ventes', status: 'included' },
   ] },
-  { key: 'advanced', name: 'Clone, lead magnets, YouTube long', cells: [
+  { key: 'ideas', detail: true, name: 'Idées et sujets', cells: [
+    { text: 'À chercher vous-même', status: 'manual' }, { text: 'Angles LinkedIn', note: 'Par le ghostwriter', status: 'conditional' },
+    { text: 'Stratégie dédiée', status: 'included' }, { text: 'Veille + sujets prêts', note: 'Chaque semaine', status: 'included' },
+  ] },
+  { key: 'method', detail: true, name: 'Formats et méthode', cells: [
+    { text: 'À tester vous-même', note: 'Vos essais, vos réglages', status: 'manual' }, { text: 'Selon chaque spécialiste', status: 'conditional' },
+    { text: 'Stratégie sur mesure', status: 'included' }, { text: 'Formats déjà testés', note: 'Sur les comptes de Kevin', status: 'included' },
+  ] },
+  { key: 'posts', detail: true, name: 'Posts écrits', cells: [
+    { text: 'Vous écrivez', note: 'ChatGPT, Taplio', status: 'manual' }, { text: '8 posts', note: 'Ghostwriter', status: 'included' },
+    { text: 'LinkedIn inclus', note: `${fmt(agencyLinkedIn)} € chez MYROR · volume à convenir`, status: 'included' }, { text: '8 posts', note: 'Dans cet exemple', status: 'included' },
+  ] },
+  { key: 'reels', detail: true, name: 'Vidéos courtes montées', cells: [
+    { text: 'Vous montez', note: 'Submagic, Opus Clip', status: 'manual' }, { text: 'Forfait monteur', note: '4 à 12 vidéos selon l’offre', status: 'included' },
+    { text: '1 réseau court au choix', note: 'Instagram, TikTok ou Shorts · volume à convenir', status: 'included' }, { text: '4 Reels', note: 'Montage + sous-titres', status: 'included' },
+  ] },
+  { key: 'review', detail: true, name: 'Montage vérifié par un humain', cells: [
+    { text: 'Vous vérifiez', status: 'manual' }, { text: 'Par le monteur', status: 'included' },
+    { text: 'Monteur dédié', status: 'included' }, { text: 'Chaque Reel vérifié', note: 'Par l’équipe Empire', status: 'included' },
+  ] },
+  { key: 'visuals', detail: true, name: 'Visuels et carrousels', cells: [
+    { text: 'Vous créez', note: 'Nano Banana, Canva', status: 'manual' }, { text: 'Graphiste à la journée', status: 'conditional' },
+    { text: 'Selon devis', status: 'conditional' }, { text: 'Carrousels, miniatures, images', status: 'included' },
+  ] },
+  { key: 'newsletters', detail: true, name: 'Newsletters', cells: [
+    { text: 'Vous rédigez', note: 'Substack gratuit', status: 'manual' }, { text: '2 newsletters', note: 'Rédaction seule', status: 'included' },
+    { text: 'Non mentionné', note: 'À chiffrer', status: 'conditional' }, { text: '2 newsletters', note: 'Envoi via outil connecté', status: 'included' },
+  ] },
+  { key: 'accounts', detail: true, name: 'Plusieurs comptes', cells: [
+    { text: 'Selon vos outils', status: 'conditional' }, { text: 'À renégocier', status: 'conditional' },
+    { text: 'À confirmer', note: 'Nombre non précisé', status: 'conditional' }, { text: 'Multi-comptes', note: 'Comptes connectés', status: 'included' },
+  ] },
+  { key: 'advanced', detail: true, name: 'Clone, lead magnets, YouTube long', cells: [
     { text: 'Outils à ajouter', note: 'HeyGen, montage long', status: 'conditional' }, { text: 'En option', note: 'Auprès du studio', status: 'conditional' },
     { text: 'YouTube long à part', note: `+2 500 €/mois chez MYROR`, status: 'conditional' }, { text: 'Disponibles', note: 'Crédits selon le format¹', status: 'conditional' },
   ] },
@@ -151,6 +149,7 @@ function Feature({ cell }: { cell: FeatureCell }) {
 
 export default function FormulaCompareSection() {
   const [alternative, setAlternative] = useState<Alternative>('freelance')
+  const [showDetails, setShowDetails] = useState(false)
   const columnProps = (key: string) => ({ 'data-comparison-column': key, 'data-mobile-visible': key === alternative || key === 'empire', className: key === 'empire' ? s.empire : undefined })
 
   return <section id="home-comparison" className={s.section} data-comparison-criteria data-animated="false" aria-labelledby="formula-compare-title">
@@ -172,29 +171,33 @@ export default function FormulaCompareSection() {
             <tr data-comparison-row="monthly"><th scope="row">Budget mensuel</th>
               <td {...columnProps('tools')}><span className={s.overline}>Abonnements seuls</span><strong className={`${s.price} ${s.priceRange}`}>{fmt(toolsFloor)}–{fmt(toolsFull)} €</strong><small>/ mois · 7 à 9 outils</small><small>Sans compter votre temps</small><CellSources items={[['Submagic', 'https://www.submagic.co/pricing'], ['Taplio', 'https://taplio.com/pricing'], ['Metricool', 'https://metricool.com/pricing/'], ['ManyChat', 'https://manychat.com/pricing'], ['Google AI', 'https://gemini.google/fr/subscriptions/']]} /></td>
               <td {...columnProps('freelance')}><span className={s.overline}>5 métiers additionnés</span><strong className={`${s.price} ${s.priceRange}`}>{fmt(teamLow)}–{fmt(teamHigh)} €</strong><small>HT / mois · fourchettes publiées</small><small>Production seule, sans publication ni réponses : dès {fmt(productionFloor)} €</small><CellSources items={[['CopyLinker', TEAM[0].href], ['Guépard', TEAM[1].href], ['Transacts', TEAM[2].href], ['Malt', TEAM[3].href], ['Webplume', TEAM[4].href]]} /></td>
-              <td {...columnProps('agency')}><span className={s.overline}>Selon les réseaux couverts</span><strong className={`${s.price} ${s.priceRange}`}>{fmt(agencyLow)}–{fmt(agencyWithYouTube)} €</strong><small>HT / mois · engagement 4 à 6 mois</small><small>MYROR : {fmt(agencyExample)} € pour un réseau vidéo court + LinkedIn<br />{fmt(agencyWithYouTube)} € avec YouTube long</small><CellSources items={[['MYROR', SOURCES.agency], ['Fragment', SOURCES.fragment], ['Teazit', SOURCES.teazit], ['Agence Vidéo', SOURCES.agenceVideo]]} /></td>
+              <td {...columnProps('agency')}><span className={s.overline}>Selon les réseaux couverts</span><strong className={`${s.price} ${s.priceRange}`}>{fmt(agencyLow)}–{fmt(agencyWithYouTube)} €</strong><small>HT / mois · engagement 4 à 6 mois</small><small>MYROR : {fmt(agencyExample)} € pour un réseau vidéo court + LinkedIn<br />{fmt(agencyWithYouTube)} € avec YouTube long</small><small>Dès 890 € pour 1 vidéo par semaine sur un seul réseau, 6 mois d’engagement</small><CellSources items={[['MYROR', SOURCES.agency], ['Fragment', SOURCES.fragment], ['Teazit', SOURCES.teazit], ['Persona One', SOURCES.personaOne], ['Agence Personnelle', SOURCES.agencePersonnelle]]} /></td>
               <td {...columnProps('empire')}><strong className={s.price} data-comparison-price={plan?.price}>{plan ? `${fmt(plan.price)} €` : 'Selon le volume'}</strong><small>/ mois · sans engagement<br />{fmt(credits)} / {plan ? fmt(plan.credits) : 'forfait'} crédits utilisés</small><small>Jusqu’à {fmt(topPlan.price)} € pour publier 2 fois par jour</small><CellSources items={[['Tarifs Empire', '/tarifs']]} /></td>
             </tr>
             <tr data-comparison-row="savings"><th scope="row">Par rapport à Empire ({fmt(empirePrice)} €)</th>
-              <td {...columnProps('tools')}><strong>Prix équivalent</strong><small>L’écart n’est pas l’argent, c’est {manualHours.low} à {manualHours.high} h de production par mois en plus³</small></td>
-              <td {...columnProps('freelance')}><strong>+{fmt(savingsFreelance.low)} à +{fmt(savingsFreelance.high)} € / mois</strong><small>{fmt(savingsFreelance.low * 12)} à {fmt(savingsFreelance.high * 12)} € par an, et {coordMonthLow - 1} à {coordMonthHigh - 1} h de coordination en plus par mois⁴</small></td>
+              <td {...columnProps('tools')}><strong>Prix équivalent</strong><small>L’écart n’est pas l’argent, c’est {manualHours.low} à {manualHours.high} h de production par mois en plus</small></td>
+              <td {...columnProps('freelance')}><strong>+{fmt(savingsFreelance.low)} à +{fmt(savingsFreelance.high)} € / mois</strong><small>{fmt(savingsFreelance.low * 12)} à {fmt(savingsFreelance.high * 12)} € par an, et {coordMonthLow - 1} à {coordMonthHigh - 1} h de coordination en plus par mois</small></td>
               <td {...columnProps('agency')}><strong>+{fmt(savingsAgency.low)} à +{fmt(savingsAgency.high)} € / mois</strong><small>{fmt(savingsAgency.low * 12)} à {fmt(savingsAgency.high * 12)} € par an · temps client proche</small></td>
               <td {...columnProps('empire')}><strong>Référence</strong><small>Starter, facturation mensuelle</small></td>
             </tr>
-            <tr data-comparison-row="engagement"><th scope="row">Engagement</th><td {...columnProps('tools')}>Mensuel, outil par outil</td><td {...columnProps('freelance')}>Selon chaque prestataire</td><td {...columnProps('agency')}>4 à 6 mois<small>Fragment 6 mois · Teazit 4 mois · MYROR à confirmer</small></td><td {...columnProps('empire')}>Aucun<small>Vous arrêtez depuis l’app</small></td></tr>
           </tbody>
-          <tbody data-comparison-axis="coverage">{FEATURES.map(row => <tr key={row.key} data-comparison-row={row.key}><th scope="row">{row.name}</th>{row.cells.map((cell, i) => <td key={OPTIONS[i].key} {...columnProps(OPTIONS[i].key)}><Feature cell={cell} /></td>)}</tr>)}</tbody>
           <tbody data-comparison-axis="time">
             <tr data-comparison-row="effort"><th scope="row">Votre temps / mois</th>
-              <td {...columnProps('tools')}><strong>{manualHours.low}–{manualHours.high} h / mois minimum</strong><small>Rien que pour écrire 8 posts et monter 4 vidéos, hors tests, visuels, publication et réponses³</small><CellSources items={[['Senoyer', SOURCES.writingTime], ['Clic’N Start', SOURCES.video]]} /></td>
-              <td {...columnProps('freelance')}><strong>{coordMonthLow}–{coordMonthHigh} h / mois</strong><small>{COORD_HOURS_WEEK.low} à {COORD_HOURS_WEEK.high} h par semaine de briefs, relectures, allers-retours et relances pour plusieurs prestataires, hors tournage⁴</small><CellSources items={[['Heysimon', SOURCES.coordination], ['Lolopepe', SOURCES.freelanceOverhead], ['Katalyx', SOURCES.ghostTimeKatalyx]]} /></td>
-              <td {...columnProps('agency')}><strong>2–3 h / mois</strong><small>Temps annoncé par MYROR · un valideur, un délai de retour</small><CellSources items={[['MYROR', SOURCES.agency]]} /></td>
+              <td {...columnProps('tools')}><strong>{manualHours.low}–{manualHours.high} h / mois minimum</strong><small>Rien que pour écrire 8 posts et monter 4 vidéos, hors tests, visuels, publication et réponses</small></td>
+              <td {...columnProps('freelance')}><strong>{coordMonthLow}–{coordMonthHigh} h / mois</strong><small>{COORD_HOURS_WEEK.low} à {COORD_HOURS_WEEK.high} h par semaine de briefs, relectures, allers-retours et relances pour plusieurs prestataires, hors tournage</small></td>
+              <td {...columnProps('agency')}><strong>2–3 h / mois</strong><small>Temps annoncé par MYROR · un valideur, un délai de retour</small></td>
               <td {...columnProps('empire')}><strong className={s.effort}>≈ 1 h / mois²</strong><small>Repère d’usage Empire</small></td>
             </tr>
-            <tr data-comparison-row="frequency"><th scope="row">Rythme de publication</th><td {...columnProps('tools')}>Autant que vous produisez</td><td {...columnProps('freelance')}>Selon chaque forfait<small>Ex. 8 posts, 4 à 12 vidéos</small></td><td {...columnProps('agency')}>Selon devis<small>Fragment : 14 à 19 vidéos par trimestre · Teazit : 10 par mois</small></td><td {...columnProps('empire')}>Tous les 2 jours à 2 fois par jour<small>Selon la formule</small></td></tr>
             <tr data-comparison-row="work"><th scope="row">Ce qu’il vous reste à faire</th><td {...columnProps('tools')}>Tout : idées, tests, écriture, montage, visuels, publication, réponses</td><td {...columnProps('freelance')}>Recruter, briefer, filmer, valider, coordonner</td><td {...columnProps('agency')}>Transmettre vos idées et tourner<small>Équipe dédiée pour la suite</small></td><td {...columnProps('empire')}>Parler (filmer ou dicter) et valider</td></tr>
+            <tr data-comparison-row="engagement"><th scope="row">Engagement</th><td {...columnProps('tools')}>Mensuel, outil par outil</td><td {...columnProps('freelance')}>Selon chaque prestataire</td><td {...columnProps('agency')}>4 à 6 mois<small>Fragment 6 mois · Teazit 4 mois · MYROR à confirmer</small></td><td {...columnProps('empire')}>Aucun<small>Vous arrêtez depuis l’app</small></td></tr>
+            <tr data-comparison-row="frequency"><th scope="row">Rythme de publication</th><td {...columnProps('tools')}>Autant que vous produisez</td><td {...columnProps('freelance')}>Selon chaque forfait<small>Ex. 8 posts, 4 à 12 vidéos</small></td><td {...columnProps('agency')}>Selon devis<small>Fragment : 14 à 19 vidéos par trimestre · Teazit : 10 par mois</small></td><td {...columnProps('empire')}>Tous les 2 jours à 2 fois par jour<small>Selon la formule</small></td></tr>
+          </tbody>
+          <tbody data-comparison-axis="coverage">
+            {FEATURES.filter(row => !row.detail).map(row => <tr key={row.key} data-comparison-row={row.key}><th scope="row">{row.name}</th>{row.cells.map((cell, i) => <td key={OPTIONS[i].key} {...columnProps(OPTIONS[i].key)}><Feature cell={cell} /></td>)}</tr>)}
+            {FEATURES.filter(row => row.detail).map(row => <tr key={row.key} data-comparison-row={row.key} data-comparison-detail hidden={!showDetails}><th scope="row">{row.name}</th>{row.cells.map((cell, i) => <td key={OPTIONS[i].key} {...columnProps(OPTIONS[i].key)}><Feature cell={cell} /></td>)}</tr>)}
           </tbody>
         </table>
+        <div className={s.moreCell} data-comparison-more><button type="button" className={s.moreButton} aria-expanded={showDetails} aria-controls="comparison-table" onClick={() => setShowDetails(v => !v)}>{showDetails ? 'Masquer le détail' : `Voir tout ce qui est inclus (${FEATURES.filter(r => r.detail).length} lignes de plus)`}<ArrowRight size={13} aria-hidden="true" /></button></div>
       </div>
       <div className={s.legend}><span><Check size={14} aria-hidden="true" /> Inclus dans l’exemple</span><span><CircleDashed size={14} aria-hidden="true" /> Selon conditions / en option</span><span><Minus size={14} aria-hidden="true" /> À votre charge / non inclus</span></div>
       <p className={s.scope} id="comparison-format-note"><b>¹ Clonage, lead magnets et YouTube long :</b> disponibles dans Empire, avec leurs coûts en crédits. Ils ne sont pas ajoutés aux {fmt(credits)} crédits de cet exemple. Les services connectés peuvent avoir leur propre abonnement.</p>
@@ -205,11 +208,11 @@ export default function FormulaCompareSection() {
         <summary>Voir le détail des prix, des temps et des crédits <ArrowRight size={14} aria-hidden="true" /></summary>
         <div>
           <p><strong>Outils seuls · {fmt(toolsFloor)} à {fmt(toolsFull)} € par mois.</strong> Pour couvrir le périmètre d’Empire avec des outils, il faut en empiler plusieurs : {TOOLS.map((t, i) => <span key={t.name}>{t.name} ({t.role}) {fmt(t.price)} {t.unit}{i < TOOLS.length - 1 ? ', ' : '.'}</span>)} Les sept premiers font {fmt(toolsFloor)} € ; avec le clone vidéo, les liens trackés et l’IA de ManyChat, {fmt(toolsFull)} €. Newsletter via Substack et CRM en version gratuite ne sont pas comptés. Les dollars sont comptés pour un euro, hors taxes. Ces outils ne choisissent pas vos sujets, ne testent pas vos formats, n’écrivent pas, ne montent pas et ne répondent pas à votre place. {TOOLS.map(t => <Source key={t.href} name={t.name} href={t.href} />)}</p>
-          <p><strong>³ Temps de production manuelle, partiel.</strong> Nina Senoyer estime l’écriture d’un post sur un sujet maîtrisé à 20–40 min : 8 posts = 2 h 40–5 h 20. Clic’N Start estime un short habillé à 3–4 h de montage : 4 shorts = 12–16 h. Somme : 14 h 40–21 h 20, arrondie à environ 15–21 h. Il faut encore ajouter recherche, tests de formats, tournage, visuels, newsletters, publication, réponses et analyse. Ces repères viennent de prestataires ; ils ne mesurent ni un débutant ni un utilisateur Empire. <Source name="Repère de rédaction" href={SOURCES.writingTime} /> <Source name="Repère de montage" href={SOURCES.video} /></p>
-          <p><strong>⁴ Temps client avec des freelances · {coordMonthLow} à {coordMonthHigh} h par mois.</strong> Chaque prestataire pris seul demande peu : un ghostwriter annonce 30 min d’appel par mois plus 2 min de relecture par post (moins d’une heure), ou 30 min d’interview par semaine plus 15 min de validation (environ 3 h par mois) ; un monteur livre une V1 sous 24 h à 7 jours avec 1 à 2 révisions par vidéo à relire ; un community manager fait valider le planning du mois sous 5 jours ouvrés. Ce qui coûte, c’est l’addition : Heysimon mesure 3 à 6 h par semaine de coordination pour un responsable marketing dès que plusieurs prestataires coexistent, « ajouter un second prestataire double la charge » ; un benchmark B2B compte 3 à 5 h par semaine et par freelance, avec 30 à 40 % des livrables qui repartent en révision. Nous affichons {COORD_HOURS_WEEK.low} à {COORD_HOURS_WEEK.high} h par semaine, soit {coordMonthLow} à {coordMonthHigh} h par mois, hors tournage, pour cinq prestataires sans chef de projet. Ce sont des repères publiés par des tiers, pas une mesure sur nos clients. <Source name="Ghostwriter : moins d’une heure" href={SOURCES.ghostTime} /> <Source name="Ghostwriter : 30 min par semaine" href={SOURCES.ghostTimeKatalyx} /> <Source name="2 h par semaine avec un copywriter" href={SOURCES.ghostTimeIpeople} /> <Source name="Révisions monteur" href={SOURCES.editorRevisions} /> <Source name="Validation CM" href={SOURCES.cmValidation} /> <Source name="Coût de coordination" href={SOURCES.coordination} /> <Source name="Benchmark B2B" href={SOURCES.freelanceOverhead} /></p>
+          <p><strong>Temps de production manuelle, partiel.</strong> Nina Senoyer estime l’écriture d’un post sur un sujet maîtrisé à 20–40 min : 8 posts = 2 h 40–5 h 20. Clic’N Start estime un short habillé à 3–4 h de montage : 4 shorts = 12–16 h. Somme : 14 h 40–21 h 20, arrondie à environ 15–21 h. Il faut encore ajouter recherche, tests de formats, tournage, visuels, newsletters, publication, réponses et analyse. Ces repères viennent de prestataires ; ils ne mesurent ni un débutant ni un utilisateur Empire. <Source name="Repère de rédaction" href={SOURCES.writingTime} /> <Source name="Repère de montage" href={SOURCES.video} /></p>
+          <p><strong>Temps client avec des freelances · {coordMonthLow} à {coordMonthHigh} h par mois.</strong> Chaque prestataire pris seul demande peu : un ghostwriter annonce 30 min d’appel par mois plus 2 min de relecture par post (moins d’une heure), ou 30 min d’interview par semaine plus 15 min de validation (environ 3 h par mois) ; un monteur livre une V1 sous 24 h à 7 jours avec 1 à 2 révisions par vidéo à relire ; un community manager fait valider le planning du mois sous 5 jours ouvrés. Ce qui coûte, c’est l’addition : Heysimon mesure 3 à 6 h par semaine de coordination pour un responsable marketing dès que plusieurs prestataires coexistent, « ajouter un second prestataire double la charge » ; un benchmark B2B compte 3 à 5 h par semaine et par freelance, avec 30 à 40 % des livrables qui repartent en révision. Nous affichons {COORD_HOURS_WEEK.low} à {COORD_HOURS_WEEK.high} h par semaine, soit {coordMonthLow} à {coordMonthHigh} h par mois, hors tournage, pour cinq prestataires sans chef de projet. Ce sont des repères publiés par des tiers, pas une mesure sur nos clients. <Source name="Ghostwriter : moins d’une heure" href={SOURCES.ghostTime} /> <Source name="Ghostwriter : 30 min par semaine" href={SOURCES.ghostTimeKatalyx} /> <Source name="2 h par semaine avec un copywriter" href={SOURCES.ghostTimeIpeople} /> <Source name="Révisions monteur" href={SOURCES.editorRevisions} /> <Source name="Validation CM" href={SOURCES.cmValidation} /> <Source name="Coût de coordination" href={SOURCES.coordination} /> <Source name="Benchmark B2B" href={SOURCES.freelanceOverhead} /></p>
           <p><strong>Par rapport à Empire.</strong> Les écarts d’argent sont des soustractions simples : bas et haut de chaque fourchette moins {fmt(empirePrice)} € (Starter). Freelances : {fmt(teamLow)} − {fmt(empirePrice)} = {fmt(savingsFreelance.low)} € et {fmt(teamHigh)} − {fmt(empirePrice)} = {fmt(savingsFreelance.high)} € par mois. Agence : {fmt(agencyLow)} − {fmt(empirePrice)} = {fmt(savingsAgency.low)} € et {fmt(agencyWithYouTube)} − {fmt(empirePrice)} = {fmt(savingsAgency.high)} €. Outils seuls : prix comparable, l’écart est en heures. Les heures « en plus » sont la différence entre les repères ci-dessus et l’heure mensuelle estimée pour Empire². Nous ne chiffrons pas les gains (vues, leads, ventes) : aucune source ne permet de les attribuer à une solution plutôt qu’à une autre.</p>
           <p><strong>Freelances · {fmt(teamLow)} à {fmt(teamHigh)} € HT par mois.</strong> Un seul freelance ne couvre pas le périmètre : il faut cinq métiers. {TEAM.map((t, i) => <span key={t.role}>{t.role} ({t.scope}) : {t.low === t.high ? `${fmt(t.low)} €` : `${fmt(t.low)} à ${fmt(t.high)} €`}{i < TEAM.length - 1 ? ' · ' : '.'}</span>)} Addition : {TEAM.map(t => fmt(t.low)).join(' + ')} = <b>{fmt(teamLow)} €</b> en bas de fourchette, {TEAM.map(t => fmt(t.high)).join(' + ')} = <b>{fmt(teamHigh)} €</b> en haut. Sans chef de projet : c’est vous qui coordonnez. Si vous ne prenez que la production (8 posts chez Clément Aouadène 600 € HT, 4 shorts chez Clic’N Start 289 € HT, 2 newsletters chez Webplume 2 × 120 €), le plancher est 600 + 289 + 2 × 120 = <b>{fmt(productionFloor)} € HT</b>, mais tournage, visuels, publication, réponses et suivi restent à votre charge. Ces fourchettes sont des grilles publiées, pas des devis ; un même prestataire peut regrouper plusieurs missions. {TEAM.map(t => <Source key={t.href} name={t.source} href={t.href} />)} <Source name="Offre du rédacteur" href={SOURCES.writing} /> <Source name="Offre du studio" href={SOURCES.video} /> <Source name="Conditions Webplume" href={SOURCES.newsletterTerms} /></p>
-          <p><strong>Agence dédiée · {fmt(agencyLow)} à {fmt(agencyWithYouTube)} € HT par mois.</strong> MYROR affiche la gestion d’un réseau vidéo court à {fmt(agencyVideo)} €/mois et LinkedIn à {fmt(agencyLinkedIn)} €/mois : {fmt(agencyVideo)} + {fmt(agencyLinkedIn)} = <b>{fmt(agencyExample)} €/mois</b> pour deux réseaux ; YouTube long est une offre distincte à 2 500 €/mois, soit <b>{fmt(agencyWithYouTube)} €</b> pour trois. Le nombre de contenus dépend de la proposition commerciale ; l’agence annonce 2–3 h de temps client par mois et la réponse aux commentaires sur Instagram. Studio Fragment propose une formule complète (vidéos, posts, newsletters) à 2 500 € HT avec un tournage par trimestre et six mois d’engagement. Teazit facture 2 500 € HT pour 10 vidéos et 4 500 € pour 20, quatre mois minimum. Agence Vidéo démarre à 3 200 € HT sur six mois. Aucune de ces offres n’affiche une publication quotidienne sur 7 réseaux ; volumes, taxes et remises restent à confirmer sur devis. <Source name="Prix et méthode MYROR" href={SOURCES.agency} /> <Source name="Studio Fragment" href={SOURCES.fragment} /> <Source name="Teazit" href={SOURCES.teazit} /> <Source name="Agence Vidéo" href={SOURCES.agenceVideo} /></p>
+          <p><strong>Agence dédiée · {fmt(agencyLow)} à {fmt(agencyWithYouTube)} € HT par mois.</strong> MYROR affiche la gestion d’un réseau vidéo court à {fmt(agencyVideo)} €/mois et LinkedIn à {fmt(agencyLinkedIn)} €/mois : {fmt(agencyVideo)} + {fmt(agencyLinkedIn)} = <b>{fmt(agencyExample)} €/mois</b> pour deux réseaux ; YouTube long est une offre distincte à 2 500 €/mois, soit <b>{fmt(agencyWithYouTube)} €</b> pour trois. Le nombre de contenus dépend de la proposition commerciale ; l’agence annonce 2–3 h de temps client par mois et la réponse aux commentaires sur Instagram. Studio Fragment propose une formule complète (vidéos, posts, newsletters) à 2 500 € HT avec un tournage par trimestre et six mois d’engagement. Teazit facture 2 500 € HT pour 10 vidéos et 4 500 € pour 20, quatre mois minimum. Agence Vidéo démarre à 3 200 € HT sur six mois. Des agences moins chères existent pour un périmètre plus petit : Persona One 890 € HT/mois pour une vidéo par semaine avec community manager, Agence Personnelle Présence 1 000 € HT/mois pour 4 vidéos, toutes deux sur six mois d’engagement et un seul réseau principal ; elles ne couvrent ni les posts, ni la newsletter, ni 7 réseaux, d’où la mention « dès 890 € » hors fourchette. Aucune de ces offres n’affiche une publication quotidienne sur 7 réseaux ; volumes, taxes et remises restent à confirmer sur devis. <Source name="Prix et méthode MYROR" href={SOURCES.agency} /> <Source name="Studio Fragment" href={SOURCES.fragment} /> <Source name="Teazit" href={SOURCES.teazit} /> <Source name="Agence Vidéo" href={SOURCES.agenceVideo} /> <Source name="Persona One" href={SOURCES.personaOne} /> <Source name="Agence Personnelle" href={SOURCES.agencePersonnelle} /></p>
           <p><strong>Empire · tout dans un seul forfait.</strong> {MONTH.posts} posts × {CONTENT_CREDITS.post} crédits + {MONTH.reels} Reels standard × {CONTENT_CREDITS.reel} + {MONTH.newsletters} newsletters × {CONTENT_CREDITS.newsletter} = <b>{fmt(credits)} crédits</b>, sur {plan ? fmt(plan.credits) : 'le forfait'}. Starter est affiché à {plan ? fmt(plan.price) : 'un tarif variable'} €/mois en facturation mensuelle, sans engagement ; Scale à {fmt(topPlan.price)} €/mois pour publier deux fois par jour. Idées, formats, écriture, montage vérifié, visuels, publication sur 7 réseaux, setter IA Instagram, boîte unique des commentaires et DM, liens trackés et CRM des leads sont compris. Clonage, formats IA spécifiques, nouvelles générations et vidéos longues peuvent demander davantage de crédits. Les 7 réseaux sont Instagram, LinkedIn, YouTube, TikTok, Threads, X et Facebook ; ils ne reçoivent pas tous chaque format. Les services email et autres outils connectés peuvent avoir leurs propres abonnements.</p>
           <p><strong>² Votre temps avec Empire.</strong> Environ une heure par mois est le repère d’usage communiqué par Empire pour sa production mensuelle habituelle, une fois le compte configuré. C’est une estimation de la marque, pas une moyenne issue d’une étude comparative. Le temps dépend du démarrage, des formats choisis et des retours.</p>
           <p><strong>Méthode et résultats.</strong> Les formats testés sur les comptes de Kevin, le montage vérifié par l’équipe et la programmation sur plusieurs réseaux constituent les moyens fournis par Empire. Ils ne démontrent pas qu’un outil seul obtient forcément de moins bons résultats. Sur notre exemple, tenir trois mois représente {originals * 3} originaux ; aucun taux de continuité comparable n’a été mesuré entre ces solutions. Les prix ne permettent pas de prédire les vues ou les ventes.</p>

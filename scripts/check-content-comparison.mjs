@@ -20,6 +20,7 @@ export async function checkContentComparison(page) {
   assert(normal(await cell('monthly', 'empire').innerText()).includes('1690/2200'))
   assert((await cell('monthly', 'empire').innerText()).includes('sans engagement'))
   assert((await cell('engagement', 'agency').innerText()).includes('4 à 6 mois'))
+  assert.equal(await section.locator('a[target=_blank] >> text=Heysimon').count(), 0, 'Time sources live in the calculation, not in the cells')
   assert((await cell('effort', 'tools').innerText()).includes('15–21 h / mois minimum'), 'Manual time remains a sourced, partial reference')
   assert((await cell('effort', 'freelance').innerText()).includes('12–24 h / mois'), 'Freelance client time is a sourced coordination range, not a 46-minute brief')
   assert((await cell('effort', 'freelance').innerText()).includes('hors tournage'))
@@ -31,15 +32,30 @@ export async function checkContentComparison(page) {
   assert((await cell('effort', 'empire').innerText()).includes('Repère d’usage Empire'))
   assert((await cell('effort', 'agency').innerText()).includes('2–3 h / mois'))
   assert((await cell('frequency', 'agency').innerText()).includes('Selon devis'), 'No daily publishing is attributed to agencies')
-  for (const row of ['ideas', 'method', 'posts', 'reels', 'review', 'visuals', 'newsletters', 'publishing', 'community', 'accounts', 'tracking', 'advanced']) {
+  for (const row of ['distribution', 'tracking', 'ideas', 'method', 'posts', 'reels', 'review', 'visuals', 'newsletters', 'accounts', 'advanced']) {
     assert.equal(await table.locator(`[data-comparison-row=${row}] th[scope=row]`).count(), 1)
     assert.equal(await table.locator(`[data-comparison-row=${row}] td`).count(), 4)
   }
+  assert.equal(await table.locator('tbody tr:visible').count(), 8, 'Eight comparison rows stay visible by default')
+  assert.equal(await table.locator('[data-comparison-detail]').count(), 9)
+  assert.equal(await table.locator('[data-comparison-detail]:visible').count(), 0, 'Detail rows are folded by default')
+  const more = section.locator('[data-comparison-more] button')
+  assert((await more.innerText()).includes('Voir tout ce qui est inclus'))
+  await more.focus()
+  await page.keyboard.press('Enter')
+  assert.equal(await more.getAttribute('aria-expanded'), 'true')
+  assert.equal(await table.locator('[data-comparison-detail]:visible').count(), 9, 'Toggle reveals every detail row')
+  assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 2), 'Expanded detail must not overflow horizontally')
+  await more.focus()
+  await page.keyboard.press('Enter')
+  assert.equal(await table.locator('[data-comparison-detail]:visible').count(), 0)
   assert.equal(await cell('advanced', 'empire').locator('[data-status=conditional]').count(), 1, 'Advanced formats are not unconditionally included in the monthly basket')
   assert((await section.locator('#comparison-format-note').innerText()).includes('ne sont pas ajoutés'))
-  assert((await cell('publishing', 'tools').innerText()).includes('Vous programmez'))
-  assert((await cell('community', 'freelance').innerText()).includes('Community manager'))
-  assert((await cell('publishing', 'empire').innerText()).includes('7 réseaux'))
+  assert((await cell('distribution', 'tools').innerText()).includes('Vous programmez et répondez'))
+  assert((await cell('distribution', 'freelance').innerText()).includes('Community manager'))
+  assert((await cell('distribution', 'agency').innerText()).includes('1 réseau vidéo + LinkedIn'), 'Agency distribution stays scoped to the contract')
+  assert((await cell('distribution', 'empire').innerText()).includes('7 réseaux'))
+  assert(normal(await cell('monthly', 'agency').innerText()).includes('Dès890€'), 'Cheaper single-network agencies are acknowledged')
   assert((await section.locator('#comparison-scope').innerText()).includes('ne comptent pas comme de nouveaux contenus'))
   assert((await section.locator('[data-comparison-performance]').innerText()).includes('42 contenus originaux'))
   const picker = section.getByRole('group', { name: 'Comparer Empire avec' })
@@ -52,7 +68,7 @@ export async function checkContentComparison(page) {
       assert.equal(await table.getByRole('columnheader').count(), 3)
       assert(await table.locator(`[data-comparison-option=${key}]`).isVisible())
       assert(await table.locator('[data-comparison-option=empire]').isVisible())
-      for (const row of ['monthly', 'publishing', 'work']) {
+      for (const row of ['monthly', 'distribution', 'work']) {
         // Read both boxes in one frame, even while focus triggers smooth page scrolling.
         const [other, empire] = await table.locator(`[data-comparison-row=${row}]`).evaluate(el =>
           [...el.querySelectorAll('td[data-mobile-visible=true]')].map(td => {
@@ -71,7 +87,7 @@ export async function checkContentComparison(page) {
     'https://clement-aouadene.fr/', 'https://studio.clicnstart.com/', 'https://www.webplume.net/tarifs/', 'https://www.myroragency.com/agence-personal-branding',
     'https://www.submagic.co/pricing', 'https://taplio.com/pricing', 'https://metricool.com/pricing/', 'https://manychat.com/pricing',
     'https://copylinker.fr/tarif-ghostwriter-linkedin/', 'https://www.transacts.fr/blog/tarif-community-manager', 'https://www.malt.fr/t/barometre-tarifs/web-graphic-design/graphiste',
-    'https://studio-fragment.fr/', 'https://teazit.com/landing-page-abonnement-location-studio/',
+    'https://studio-fragment.fr/', 'https://teazit.com/landing-page-abonnement-location-studio/', 'https://personaone.fr/', 'https://agence-prsnl.com/entrepreneurs/',
     'https://www.heysimon.fr/articles/cout-coordination-creation-graphique', 'https://lolopepe.com/blog/hidden-costs-managing-freelancers-b2b-cmos', 'https://clement-aouadene.fr/ghostwriter-linkedin',
   ]) assert(urls.includes(url), `Missing primary offer source: ${url}`)
   await section.getByRole('link', { name: 'Sources et calculs' }).focus()

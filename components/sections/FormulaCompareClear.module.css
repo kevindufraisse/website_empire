@@ -32,6 +32,12 @@
 .table .empire small { color: #b5c3a7; }
 .price { display: block; color: #fff; font-size: clamp(24px, 2.3vw, 31px); font-weight: 550; letter-spacing: -.045em; line-height: 1.2; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .priceRange { font-size: clamp(19px, 1.7vw, 24px); white-space: normal; }
+.moreCell { padding: 8px 18px; border-top: 1px solid #2a2a2a; border-radius: 0 0 13px 13px; background: #0d0d0d; text-align: center; }
+.tableWrap:has(.moreCell) .table tbody:last-child tr:last-child th, .tableWrap:has(.moreCell) .table tbody:last-child tr:last-child td:last-child { border-radius: 0; }
+.moreButton { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px; border: 1px solid #3a3a3a; border-radius: 8px; background: #151515; color: #c7d5a9; font-size: 12px; cursor: pointer; }
+.moreButton:hover { border-color: #dafc68; }
+.moreButton svg { transform: rotate(90deg); }
+.moreButton[aria-expanded=true] svg { transform: rotate(-90deg); }
 .cellSources { margin-top: 8px; color: #8a8a8a; font-size: 10px; line-height: 1.6; }
 .cellSources a { color: #a9b88f; text-decoration: underline; text-underline-offset: 3px; }
 .empire .cellSources a { color: #c7d5a9; }

@@ -41,7 +41,13 @@ Plain subtractions against Starter 199 €: freelances +4 341 to +6 841 €/mont
 | [Teazit](https://teazit.com/landing-page-abonnement-location-studio/) | 2 500 € HT for 10 videos/month, 4 500 € for 20 | 4 months |
 | [Agence Vidéo](https://www.agence-video.net/autorite-dirigeant-influence/) | from 3 200 € HT | 6 months |
 
-Displayed range **2 500–7 000 € HT/month, 4–6 months commitment**. None of these offers advertises daily publishing on 7 networks; the “Rythme de publication” row says “Selon devis” with Fragment and Teazit volumes as examples. The founder’s own estimate of 10–15 k€/month for a full-service agency is **not** published anywhere we found and is not displayed.
+Cheaper agencies exist for a smaller scope: [Persona One](https://personaone.fr/) 890 € HT/month (one video a week, community manager, 6 months), [Agence Personnelle Présence](https://agence-prsnl.com/entrepreneurs/) 1 000 € HT/month (4 videos, 6 months). They cover one main network and no posts/newsletters, so the price cell says “Dès 890 € pour 1 vidéo par semaine sur un seul réseau” outside the equal-scope range.
+
+Displayed range **2 500–7 000 € HT/month, 4–6 months commitment**.
+
+## Layout
+
+Eight rows visible by default (budget, vs Empire, your time, what remains yours, commitment, publishing rhythm, publication + DM/comments on 7 networks, lead tracking). Nine detail rows (ideas, formats, posts, videos, human review, visuals, newsletters, multi-account, advanced formats) are folded behind “Voir tout ce qui est inclus”, rendered as `hidden` rows inside the same table so screen readers and the checks still see one table. Sources are linked under the four price cells; time sources live in the calculation accordion. None of these offers advertises daily publishing on 7 networks; the “Rythme de publication” row says “Selon devis” with Fragment and Teazit volumes as examples. The founder’s own estimate of 10–15 k€/month for a full-service agency is **not** published anywhere we found and is not displayed.
 
 ## Empire
 
