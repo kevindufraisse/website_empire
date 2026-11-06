@@ -18,6 +18,7 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
   const root = useRef<HTMLDivElement>(null)
   const restartPair = useRef<() => void>(() => {})
   const pausedRef = useRef(false)
+  const controlsUsed = useRef(false)
   const reduced = usePrefersReducedMotion()
   const [paused, setPaused] = useState(false)
   const [autoplayBlocked, setAutoplayBlocked] = useState(false)
@@ -55,7 +56,7 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
             if (!stallCheck) {
               stallCheck = setTimeout(() => {
                 stallCheck = undefined
-                if (hasPlayed || !shouldPlay() || videos.some(video => video.seeking)) return
+                if (controlsUsed.current || hasPlayed || !shouldPlay() || videos.some(video => video.seeking)) return
                 const stalled = videos.some((video, index) =>
                   video.paused || video.currentTime < startedAt[index] + .08
                 )
@@ -69,7 +70,7 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
           .catch(() => {
             // WebKit can transiently reject play() while one decoder is
             // seeking during clock correction. That is not an autoplay block.
-            const blockedAtStart = !hasPlayed && videos.every(video =>
+            const blockedAtStart = !controlsUsed.current && !hasPlayed && videos.every(video =>
               video.paused && !video.seeking && video.currentTime < .1
             )
             if (blockedAtStart) {
@@ -148,6 +149,7 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
     }
   }, [still])
   function togglePlayback() {
+    controlsUsed.current = true
     const videos = Array.from(root.current?.querySelectorAll('video') ?? [])
     if (paused || autoplayBlocked) {
       pausedRef.current = false
@@ -169,6 +171,7 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
     }
   }
   function restart() {
+    controlsUsed.current = true
     pausedRef.current = false
     setAutoplayBlocked(false)
     restartPair.current()
