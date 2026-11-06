@@ -1,0 +1,40 @@
+/* v62: récit court, révélation du produit avec de vraies captures Empire. */
+.v62-question small,.v60-price small{display:block;margin-top:10px;font-size:14px;color:#795c6d}
+.v62-question p{color:#29252a}
+
+.v62-reveal{display:grid;grid-template-columns:220px 1fr;gap:45px;align-items:center;width:min(100%,820px);padding:40px;background:#fffaf7;border:1px solid #decbd4;border-radius:24px}
+.v62-reveal>img{width:180px;height:180px;object-fit:contain;justify-self:center}
+.v62-reveal span{font-size:11px;font-weight:700;letter-spacing:.1em;color:#95516e}
+.v62-reveal p{font-size:clamp(24px,3vw,38px);line-height:1.2;letter-spacing:-.035em;margin:16px 0 0}
+
+.v62-before-after{display:grid;grid-template-columns:1fr 1fr;gap:24px;width:min(100%,1050px);height:100%}
+.v62-before-after figure{margin:0;display:grid;grid-template-rows:minmax(0,1fr) auto;overflow:hidden;border-radius:22px;background:#fffaf7;border:1px solid #decbd4}
+#story .v62-before-after img{width:100%;height:100%;object-fit:cover;border-radius:0}
+.v62-before-after figcaption{padding:13px 18px;font-size:13px;line-height:1.35;color:#795c6d}
+
+.v62-product-reveal{display:grid;grid-template-columns:.42fr 1fr;align-items:center;gap:30px;width:min(100%,1100px);height:100%}
+.v62-product-reveal>img{display:block;width:100%;height:100%;min-height:0;object-fit:contain;border-radius:20px;border:1px solid #50505a;background:#090a0b}
+.v62-empire-word{font-size:clamp(52px,8vw,110px);font-weight:750;letter-spacing:-.07em;color:#dfff72}
+
+.v62-screen{display:block;width:min(100%,1120px);height:100%;min-height:0;object-fit:contain;border-radius:22px;border:1px solid #d9c8d0;background:#090a0b;box-shadow:0 20px 55px #36232f1f}
+
+.v62-hours{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;width:min(100%,1050px)}
+.v62-hours article{padding:28px 24px;border:2px solid #29252a;border-radius:20px;background:#fffaf7;box-shadow:5px 5px 0 #29252a}
+.v62-hours b{display:block;font-size:clamp(34px,5vw,64px);line-height:1;color:#b63b70;letter-spacing:-.06em}
+.v62-hours span{display:block;margin-top:16px;font-size:17px;line-height:1.35}
+.v62-hours article:nth-child(2){background:#f1e1e9}
+
+@media(max-width:700px){
+ .v62-reveal{grid-template-columns:110px 1fr;gap:18px;padding:20px}
+ .v62-reveal>img{width:100px;height:100px}
+ .v62-reveal p{font-size:21px;margin-top:10px}
+ .v62-before-after{gap:10px}
+ .v62-before-after figcaption{padding:9px;font-size:10px}
+ .v62-product-reveal{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr);gap:12px}
+ .v62-empire-word{font-size:46px;text-align:center}
+ .v62-screen{border-radius:14px}
+ .v62-hours{grid-template-columns:1fr 1fr;gap:10px}
+ .v62-hours article{padding:16px 14px;box-shadow:3px 3px 0 #29252a}
+ .v62-hours b{font-size:34px}
+ .v62-hours span{font-size:13px;margin-top:9px}
+}

@@ -104,7 +104,7 @@
   const target=document.getElementById(a.hash.slice(1));if(!target)return;e.preventDefault();history.replaceState(null,'',a.hash);go(target);
  }));
  // Off-screen article links remain reachable from the keyboard.
- root.querySelector('.v60-press-track').addEventListener('focusin',e=>{
+ root.querySelector('.v60-press-track')?.addEventListener('focusin',e=>{
   if(reading||document.querySelector('#histoire-presse').classList.contains('v60-flow'))return;
   const article=e.target.closest('.v60-newspaper');if(!article)return;
   const index=[...article.parentElement.children].indexOf(article),b=bounds.find(b=>b.n.id==='histoire-presse');
@@ -118,8 +118,8 @@
  document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeMenu();document.querySelectorAll('.empire-resources').forEach(n=>n.open=false)}});
  const day=new Intl.DateTimeFormat('en-US',{timeZone:'Europe/Paris',weekday:'short'}).format(new Date());
  document.querySelectorAll('[data-partner-price]').forEach(n=>n.textContent=String(day==='Sun'?700:['Fri','Sat'].includes(day)?600:500));
- // Scroll distance per panel, in svh: long enough that a wheel flick or a swipe never skips a panel.
- const PER_BEAT=80;
+ // One deliberate swipe per beat, without stretching a short story into a marathon.
+ const PER_BEAT=50;
  panels.forEach(n=>n.style.setProperty('--scroll',String(100+PER_BEAT*(Number(n.dataset.weight)||n.querySelectorAll('.v60-beat').length||1))));
  root.classList.add('v60-ready');root.dataset.storyVersion='v60';
  panels.forEach(n=>setBeat(n,0,false));setReading();
