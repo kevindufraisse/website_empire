@@ -161,8 +161,13 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
         video.muted = true
         return video.play()
       })).catch(() => {
-        videos.forEach(video => video.pause())
-        setAutoplayBlocked(true)
+        // A play request issued while WebKit is finishing a seek can reject
+        // even though playback resumes a moment later. Only show the fallback
+        // when both decoders remain genuinely stopped.
+        setTimeout(() => {
+          const blocked = videos.every(video => video.paused && !video.seeking)
+          if (blocked) setAutoplayBlocked(true)
+        }, 350)
       })
     } else {
       pausedRef.current = true
