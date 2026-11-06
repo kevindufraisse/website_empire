@@ -1,22 +1,35 @@
 # Homepage comparison — source record
 
-Reviewed 2026-11-06. The former editable 80/900/1800 € and 16/8/4/4 h examples were not observed market data. They are removed.
+Reviewed 2026-11-06. Compare a month of **4 short videos + 8 text posts + 2 newsletters**, not LinkedIn ghostwriting alone. Four stages are visible: ideas, creation, distribution, results. Cloning, lead magnets and long YouTube videos are separately identified capabilities with their own credit costs, excluded from this costed basket.
 
-The comparison now uses **8 LinkedIn text posts per month** because the named providers publish packages at that volume. Equal volume does not imply equal service or output quality. Four short videos are shown separately, as an optional addition, not silently included in ghostwriting prices.
+The 14 originals remain 14 when reposted to several accounts. Three months at that cadence means 42 originals: 12 videos, 24 posts, 6 newsletters. This is a planning target, not an observed result.
 
-| Primary source | Published offer / estimate used | Limits |
+## Public offers
+
+| Primary source | Published price / scope used | Limits |
 | --- | --- | --- |
-| [Clément Aouadène](https://clement-aouadene.fr/) | 600 € HT/month, 8 posts; 30 min interview + 2 min review/post | 46 min arithmetic excludes calendar approval, self-publication and audience conversations. Provider statement, not independent timing. No commitment. |
-| [Nina Senoyer](https://ninasenoyer.fr/services/ghostwriter-linkedin/) | 1,250 € HT/month for 24 posts over 3 months; strategy, profile, scheduling, revisions | The alternative 6-month package is 1,050 € HT/month and is disclosed in details. These two named freelancers do not define a market-wide min/max. |
-| [Nina — time breakdown](https://ninasenoyer.fr/blog/tarif-ghostwriter-linkedin/) | 2 h monthly interviews + 20 min review + 2 h audience comments; approximately 4 h setup. Writing an already understood topic: 20–40 min/post | The main comparison isolates 2 h 20 briefing/review; 4 h 20 includes comments. DIY 160–320 min is writing only, excludes research/publication and is not an AI-tool benchmark. |
-| [Klickbee](https://klickbee.com/fr/services/agence-linkedin) | Intensif: 1,000 € HT/month, 8 posts; setup 900 € HT; 3-month minimum, then one-month notice | First minimum contract = 3,900 € HT. No numeric client-time estimate published. |
-| [Clic’N Start](https://studio.clicnstart.com/) | 289 € HT/month for 4 shorts; 2 revisions/video, no commitment; delivery stated as 72 h after receiving footage | Source footage must be supplied. Its 3–4 h editing estimate is the provider's estimate for manually edited shorts, not time measured with Empire. Delivery lead time is not labor time. |
-| [Empire pricing](https://www.empire-internet.com/tarifs) / `lib/plans.ts` | Monthly Starter price and credits imported from shared plan data. 8 × 85 = 680 credits; + 4 × 195 = 1,460 credits out of 2,200 | Standard Reels only; specific AI/clone formats and extra generations can cost more. Software subscription does not include a dedicated human writer/editor. Tax classification is not asserted beyond the existing displayed price. |
+| [Clément Aouadène](https://clement-aouadene.fr/) | 600 € HT/month, 8 LinkedIn posts; 30 min interview + 2 min review/post | 46 min excludes calendar approval, publication, audience conversations and all video/newsletter work. Provider statement, not independent timing. |
+| [Clic’N Start](https://studio.clicnstart.com/) | Essentiel: 289 € HT/month, 4 shorts, 2 revisions/video, no commitment; 72 h delivery after footage receipt | Footage and publication supplied by client. Delivery time is not labor time. |
+| [Webplume](https://www.webplume.net/tarifs/) | Newsletter writing from 120 € each, so 2 from 240 € | Minimum estimate, confirm length, exact scope, availability and volume discount by quote. Delivery availability on site may be several months away. Not an immediately bookable combined package. [Terms](https://www.webplume.net/conditions-generales-de-vente-internet/) state VAT not applicable. Email sending/platform excluded. |
+| [Flowify](https://flowify.fr/tarifs/) | Social Pro 890 €/month: 24 publications + 4 Reels, 4 networks, monitoring and messages. Email Marketing 390 €/month: 2 newsletters, welcome sequence, segmentation and reports | Sum of two posted offers = 1,280 €/month; 3,840 € for 3 months. **Larger scope than the 14-original example**, not equivalent unit pricing. Do not infer whether all 24 publications are unique originals. Tax treatment and capture scope unspecified; verify by quote. |
+| [Nina Senoyer — writing time](https://ninasenoyer.fr/blog/tarif-ghostwriter-linkedin/) | 20–40 min to write a post on a mastered subject | 8 posts = 160–320 min, excluding research and publishing. Not an AI-assisted benchmark. |
+| [Clic’N Start — editing time](https://studio.clicnstart.com/) | Provider estimates 3–4 h manual editing for a short | 4 shorts = 12–16 h, excluding recording. Combining these writing/editing estimates gives 14 h 40–21 h 20, displayed as approximately 15–21 h. Newsletters, recording, research, distribution and analysis still excluded. |
 
-No tax-adjusted savings or monetary value of time is calculated. No empirical Empire average completion time is available for this exact workload.
+Selected separate production offers: 600 + 289 + 2 × 120 = **from 1,129 € HT/month**, or from 3,387 € HT for three months. Not a market average, maximum, common package, or complete managed service. One provider can bundle those tasks for another price. No full-service price or price for cross-platform publishing is fabricated.
 
-## Sustained publishing and probability
+## Empire
 
-No comparable cohort study or denominator was supplied for the four options. The page does not assign success percentages, stars, or predicted leads. The user defines success as sustaining publication over time. The page therefore shows the 24-post target over three months, calendar completion and real weekly effort. Three-month budgets use the monthly packages (Empire 597 €, freelancers 1,800–3,750 € HT, agency 3,900 € HT including setup). These are financial commitments, not retention outcomes. A selected success story cannot establish a user's probability of success or superiority over a freelancer.
+Shared prices/credit costs imported from `lib/plans.ts`:
 
-To publish a success rate later, define the maintained cadence, three-month observation period and eligible starting cohort, include unsuccessful/inactive users in the denominator as appropriate, and document the source. Comparing options also requires comparable populations and conditions.
+- 8 posts × 85 = 680 credits.
+- 4 standard Reels × 195 = 780 credits.
+- 2 newsletters × 115 = 230 credits.
+- Total **1,690 of 2,200 Starter credits**; monthly displayed price 199 €, 597 € for 3 months at monthly billing.
+
+No duplicate counting for reposting; special AI formats, clones, long videos and repeat generations can consume more. Connected email/services may have their own subscriptions. Software and dedicated human production are different services/finishing levels. No tax-adjusted savings or empirical Empire time saving is calculated.
+
+The 7 social networks already represented by the homepage are Instagram, LinkedIn, YouTube, TikTok, Threads, X and Facebook. Distribution depends on format and connected accounts. Attribution requires tracked links and connected tools. Do not imply that every original is published on all seven networks, or that every listed advanced format fits the 1,690-credit example.
+
+## Sustained publishing
+
+The user defines success as maintaining publication in the long term. Show the target, completion against calendar, and real weekly effort. No comparable starting cohort, denominator or three-month continuation data was supplied. No success percentage, rating, predicted reach or client conversion is invented.
