@@ -121,7 +121,11 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
     <div className={s.pair}>
       {CLIPS.map(clip => <figure key={clip.key} className={s.clip} data-lead-clip={clip.key}>
         <figcaption><b>{clip.title}</b><span>{clip.detail}</span></figcaption>
-        <div className={s.screen}>{still ? <img src={clip.poster} alt={clip.title + ' : même script, de l’anglais au français'}/> : <video src={clip.video} data-start="0" poster={clip.poster} aria-label={clip.title + ' — extrait réel'} muted playsInline preload="auto" onError={() => setFailed(true)} />}</div>
+        {/* The poster is also painted as a CSS background: iOS Safari drops the
+            `poster` once loading starts and, when the pane was `visibility:hidden`
+            at that moment, can leave the element unpainted (a blank, off-white
+            box). The background keeps the still visible until a frame draws. */}
+        <div className={s.screen}>{still ? <img src={clip.poster} alt={clip.title + ' : même script, de l’anglais au français'}/> : <video src={clip.video} data-start="0" poster={clip.poster} style={{ backgroundImage: `url(${clip.poster})` }} aria-label={clip.title + ' — extrait réel'} muted playsInline preload="auto" onError={() => setFailed(true)} />}</div>
       </figure>)}
       <span className={s.pairArrow} aria-hidden="true"><ArrowRight size={22}/></span>
     </div>
