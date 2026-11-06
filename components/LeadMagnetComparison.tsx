@@ -82,7 +82,7 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
     }
     function tick() {
       if (disposed || !shouldPlay()) { stop(); return }
-      if (master.currentTime > .15) hasPlayed = true
+      if (master.currentTime > .02) hasPlayed = true
       if (videos.some(video => video.ended) || master.currentTime >= 14.96) {
         reset()
       } else if (ready()) {
