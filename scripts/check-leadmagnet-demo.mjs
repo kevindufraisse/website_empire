@@ -159,8 +159,8 @@ try{
    await fits(page,team.locator('[data-team-core]'),`${name} Empire team core`)
    await fits(page,team.locator('[data-team-summary]'),`${name} team result`)
    await page.screenshot({path:`${out}/${name}-team-merged.png`})
-   assert.equal(await page.locator('#home-comparison table').count(),0)
-   assert((await page.locator('#home-comparison').innerText()).includes('Qui fait quoi ?'))
+   assert.equal(await page.locator('#home-comparison').getByRole('table').count(),1)
+   assert((await page.locator('#formula-compare-title').innerText()).includes('Ce qui est inclus.'))
    assert((await page.locator('#empire-integrations').innerText()).includes('revenus attribués'))
    if(name==='desktop'||name==='mobile-small'){
     const compare=page.locator('#home-comparison')
