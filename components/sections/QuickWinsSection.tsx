@@ -42,7 +42,7 @@ export default function QuickWinsSection(){
  return <section ref={ref} className={`${s.section} ${cost.section}`} data-story="team" data-static={reduced} aria-labelledby="team-convergence-title">
   <div data-viewport-stage className={`${s.sticky} ${cost.sticky}`}>
    <header className={s.heading}><h2 id="team-convergence-title">Tous ces métiers.<br/><em>Réunis dans Empire.</em></h2></header>
-   <div className={s.canvas}><motion.div className={s.radiance} aria-hidden="true" style={{opacity:glow,scale:rings}}><i/><i/><i/></motion.div><motion.div className={s.core} data-team-core style={reduced?{}:{opacity:coreOpacity,scale:coreScale}}><span>E</span><b>Empire</b></motion.div><div className={s.roles}>{ROLES.map((_,index)=><RoleCard key={index} index={index} p={p} still={reduced}/>)}</div></div>
+   <div className={s.canvas}><motion.div className={s.radiance} aria-hidden="true" style={{opacity:glow,scale:rings}}><i/><i/><i/></motion.div><motion.div className={s.core} data-team-core style={reduced?{opacity:1,scale:1}:{opacity:coreOpacity,scale:coreScale}}><span>E</span><b>Empire</b></motion.div><div className={s.roles}>{ROLES.map((_,index)=><RoleCard key={`${index}-${reduced}`} index={index} p={p} still={reduced}/>)}</div></div>
    <div className={cost.total}><span>Budgets séparés · exemple mensuel</span><motion.b data-team-cost-total>{total}</motion.b><small>Le zéro désigne les postes séparés, pas le prix d’Empire.</small></div>
    <motion.p className={s.summary} data-team-summary style={{opacity:reduced?1:summary}}><strong>Ces missions sont réunies dans votre formule Empire.</strong><br/>Vous partagez vos idées, enregistrez et validez.</motion.p>
    <div className={s.cta}><EmpireSalesCta source="home-team" showDemo={false}/></div>

@@ -229,6 +229,7 @@ try{
  assert.equal(await page.locator('#formula-youtube').getAttribute('data-static'),'true')
  assert.equal(await page.locator('[data-unified-formats]').count(),0)
  assert.equal(await page.locator('[data-story="team"]').getAttribute('data-static'),'true')
+ for(const price of await page.locator('[data-team-role-cost]').allTextContents())assert(!/^0\s*€/.test(price),'Static role budgets must not retain the animated zero value')
  await checkContentComparison(page)
  assert.deepEqual(reducedErrors,[], 'Reduced motion must hydrate without replacing the page')
  reports.push({name:'reduced-motion',result:'passed',allMessagesInNormalFlow:true});await context.close()
