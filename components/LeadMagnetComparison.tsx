@@ -17,8 +17,11 @@ const CLIPS = [
 export default function LeadMagnetComparison({ staticMode = false }: { staticMode?: boolean }) {
   const root = useRef<HTMLDivElement>(null)
   const restartPair = useRef<() => void>(() => {})
+  const pausedRef = useRef(false)
+  const controlsUsed = useRef(false)
   const reduced = usePrefersReducedMotion()
   const [paused, setPaused] = useState(false)
+  const [autoplayBlocked, setAutoplayBlocked] = useState(false)
   const [failed, setFailed] = useState(false)
   const still = staticMode || reduced
   useEffect(() => {
@@ -27,9 +30,10 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
     const videos = Array.from(element.querySelectorAll('video'))
     const [master, follower] = videos
     if (!master || !follower) return
-    let visible = false, disposed = false, starting = false, resetting = false
+    let visible = false, disposed = false, starting = false, resetting = false, hasPlayed = false
+    let stallCheck: ReturnType<typeof setTimeout> | undefined
     let lastRateUpdate = 0, lastSeek = 0
-    const shouldPlay = () => visible && !paused && !document.hidden && !element.closest('[aria-hidden="true"]')
+    const shouldPlay = () => visible && !pausedRef.current && !document.hidden && !element.closest('[aria-hidden="true"]')
     const stop = () => videos.forEach(video => video.pause())
     const playable = () => videos.every(video => video.readyState >= 2)
     const ready = () => playable() && videos.every(video => !video.seeking)
@@ -45,11 +49,41 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
       if (!shouldPlay()) { stop(); return }
       if (playable() && !starting && (force || videos.some(video => video.paused || video.seeking))) {
         starting = true
-        Promise.all(videos.map(video => video.play())).catch(() => {}).finally(() => { starting = false })
+        const startedAt = videos.map(video => video.currentTime)
+        Promise.all(videos.map(video => video.play()))
+          .then(() => {
+            setAutoplayBlocked(false)
+            if (!stallCheck) {
+              stallCheck = setTimeout(() => {
+                stallCheck = undefined
+                if (controlsUsed.current || hasPlayed || !shouldPlay() || videos.some(video => video.seeking)) return
+                const stalled = videos.some((video, index) =>
+                  video.paused || video.currentTime < startedAt[index] + .08
+                )
+                if (stalled) {
+                  stop()
+                  setAutoplayBlocked(true)
+                }
+              }, 1600)
+            }
+          })
+          .catch(() => {
+            // WebKit can transiently reject play() while one decoder is
+            // seeking during clock correction. That is not an autoplay block.
+            const blockedAtStart = !controlsUsed.current && !hasPlayed && videos.every(video =>
+              video.paused && !video.seeking && video.currentTime < .1
+            )
+            if (blockedAtStart) {
+              stop()
+              setAutoplayBlocked(true)
+            }
+          })
+          .finally(() => { starting = false })
       }
     }
     function tick() {
       if (disposed || !shouldPlay()) { stop(); return }
+      if (master.currentTime > .02) hasPlayed = true
       if (videos.some(video => video.ended) || master.currentTime >= 14.96) {
         reset()
       } else if (ready()) {
@@ -97,6 +131,7 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
     restartPair.current = reset
     return () => {
       disposed = true
+      clearTimeout(stallCheck)
       observer.disconnect()
       mutations.disconnect()
       master.removeEventListener('timeupdate', tick)
@@ -112,11 +147,42 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
       stop()
       restartPair.current = () => {}
     }
-  }, [paused, still])
+  }, [still])
+  function togglePlayback() {
+    controlsUsed.current = true
+    const videos = Array.from(root.current?.querySelectorAll('video') ?? [])
+    if (paused || autoplayBlocked) {
+      pausedRef.current = false
+      setPaused(false)
+      setAutoplayBlocked(false)
+      // Keep play() in the tap event. Mobile Safari can reject a retry made
+      // later by an effect because it no longer has user activation.
+      Promise.all(videos.map(video => {
+        video.muted = true
+        return video.play()
+      })).catch(() => {
+        // A play request issued while WebKit is finishing a seek can reject
+        // even though playback resumes a moment later. Only show the fallback
+        // when both decoders remain genuinely stopped.
+        setTimeout(() => {
+          const blocked = videos.every(video => video.paused && !video.seeking)
+          if (blocked) setAutoplayBlocked(true)
+        }, 350)
+      })
+    } else {
+      pausedRef.current = true
+      videos.forEach(video => video.pause())
+      setPaused(true)
+    }
+  }
   function restart() {
+    controlsUsed.current = true
+    pausedRef.current = false
+    setAutoplayBlocked(false)
     restartPair.current()
     setPaused(false)
   }
+  const waitingForTap = paused || autoplayBlocked
   return <div ref={root} className={s.comparison} data-lead-comparison>
     <div className={s.pair}>
       {CLIPS.map(clip => <figure key={clip.key} className={s.clip} data-lead-clip={clip.key}>
@@ -131,7 +197,7 @@ export default function LeadMagnetComparison({ staticMode = false }: { staticMod
     </div>
     <div className={s.comparisonFooter}>
       <p>Même script. Traduit en français, recréé avec Kevin.</p>
-      {!still && <div className={s.playback}><button type="button" onClick={() => setPaused(value => !value)} aria-label={paused ? 'Lire les deux vidéos' : 'Mettre les deux vidéos en pause'}>{paused ? <Play size={15}/> : <Pause size={15}/>}<span>{paused ? 'Lire' : 'Pause'}</span></button><button type="button" onClick={restart} aria-label="Revoir les deux vidéos depuis le début"><RotateCcw size={15}/><span>Revoir</span></button></div>}
+      {!still && <div className={s.playback}><button type="button" onClick={togglePlayback} aria-label={waitingForTap ? 'Lire les deux vidéos' : 'Mettre les deux vidéos en pause'}>{waitingForTap ? <Play size={15}/> : <Pause size={15}/>}<span>{waitingForTap ? 'Lire' : 'Pause'}</span></button><button type="button" onClick={restart} aria-label="Revoir les deux vidéos depuis le début"><RotateCcw size={15}/><span>Revoir</span></button></div>}
       <a href="https://www.instagram.com/reel/De1ncaACJuN/" target="_blank" rel="noreferrer">Voir le Reel de Kevin <ArrowRight size={13}/></a>
     </div>
     {failed && <p className={s.mediaError} role="status">La vidéo ne se charge pas. Les aperçus restent affichés ; le Reel de Kevin est accessible avec le lien ci-dessus.</p>}
