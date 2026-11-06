@@ -90,6 +90,16 @@ export default function Header() {
     >
       {fr ? 'Obtenir mon lien' : 'Get my sharable link'}
     </button>
+  ) : pathname === '/academy' ? (
+    // Sur la page récit (PartnerProgramPage), le prix n'apparaît qu'à la porte
+    // (dernière séquence) : le bouton y descend, sans montant.
+    <a
+      href="#porte"
+      onClick={() => setIsMenuOpen(false)}
+      className="rounded-lg bg-academy px-4 py-2 text-sm font-semibold text-black transition hover:brightness-110"
+    >
+      {fr ? 'Rejoindre Empire Partners' : 'Join Empire Partners'}
+    </a>
   ) : isAcademyPage ? (
     <a
       href={partnerPayHref()}
