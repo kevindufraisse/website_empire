@@ -38,6 +38,8 @@ The user defines success as maintaining publication in the long term. Show the t
 
 Statuses describe only the selected offers, not the limits of all freelancers or agencies. An absent agency capability is “Non mentionné”, not “Non inclus”. Clic’N Start offers a talking-head/clone option and separate long-form production, so those cells say “En option” / “En supplément”. MYROR scopes its network services individually; the table does not infer newsletters, fixed publication counts, or sales attribution. Empire's advanced formats show conditional credit usage rather than unconditional inclusion in the 1,690-credit example.
 
+MYROR's 4,500 € column explicitly breaks down 2,500 € for **one** short-video network (Instagram, TikTok or YouTube Shorts) and 2,000 € for LinkedIn. Its service card groups the short-video formats, but its FAQ prices management per network; do not read the card as all three networks included. The separate 2,500 €/month long-form YouTube offer is outside the 4,500 € sum. Other networks and newsletters are not costed in that sum. The table now states these boundaries beside the price and on the relevant feature rows, not only in the source accordion.
+
 The calculation accordion retains partial-time boundaries, taxes, service differences and connected-service costs. The continuity target remains 42 originals over three months, without an invented success rate.
 
 ## Reference selection and performance claims
