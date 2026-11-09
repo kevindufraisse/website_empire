@@ -49,7 +49,8 @@ type Props = {
 export default function TrialCta({ cart, withTrialLine = false, withCall = false, note = 'today', className = '' }: Props) {
   const { lang } = useLanguage()
   const fr = lang === 'fr'
-  const { liveDeal, bootcamp, bootcampEuros, opening, checkout } = cart
+  const { liveDeal, bootcamp, bootcampEuros, opening, checkout, billing } = cart
+  const monthly = billing.months === 1
 
   const today = bootcamp
     ? (fr
@@ -59,8 +60,8 @@ export default function TrialCta({ cart, withTrialLine = false, withCall = false
       ? `0 € aujourd’hui pour ta formule. À l’étape suivante, tu ajoutes une carte ou un IBAN. Le premier prélèvement part le 8ᵉ jour, ou avant si tu dépasses les ${TRIAL_CREDITS} crédits.`
       : `€0 today for your plan. On the next step, you add a card or an IBAN. The first charge is taken on day 8, or earlier if you go past ${TRIAL_CREDITS} credits.`)
   const cancel = fr
-    ? 'Si tu annules l’essai depuis l’app avant le premier prélèvement, ta formule ne te coûte rien. Ensuite, en mensuel, tu arrêtes quand tu veux.'
-    : 'If you cancel the trial from the app before the first charge, your plan costs you nothing. After that, on monthly, you stop whenever you want.'
+    ? `Si tu annules l’essai depuis l’app avant le premier prélèvement, ta formule ne te coûte rien.${monthly ? ' Ensuite, tu arrêtes quand tu veux.' : ''}`
+    : `If you cancel the trial from the app before the first charge, your plan costs you nothing.${monthly ? ' After that, you stop whenever you want.' : ''}`
   const liveNote = fr ? 'Sans engagement : tu arrêtes quand tu veux depuis l’app.' : 'No commitment: stop anytime from the app.'
   const text = liveDeal ? liveNote : note === 'cancel' ? cancel : today
 
