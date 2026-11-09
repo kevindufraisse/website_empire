@@ -19,7 +19,7 @@ import { CtaReassurance } from '@/components/ui/cta-reassurance'
 
 const CAL_LINK = 'team/empire-internet/audit-empire'
 
-const COUNTRIES = [
+export const COUNTRIES = [
   { code: '+33', flag: '🇫🇷', name: 'France' },
   { code: '+32', flag: '🇧🇪', name: 'Belgique' },
   { code: '+41', flag: '🇨🇭', name: 'Suisse' },
@@ -42,7 +42,11 @@ interface Lead {
 }
 
 // ── Cal.com full-screen modal ─────────────────────────────────────────────────
-function CalModal({ lead, countryCode, informal, onClose }: { lead: Lead; countryCode: string; informal?: boolean; onClose: () => void }) {
+// `informal` : tutoiement et langue de la page (/demo). Sans lui, rien ne change
+// pour /join-us et /decouverte.
+export function CalModal({ lead, countryCode, informal = false, onClose }: { lead: Lead; countryCode: string; informal?: boolean; onClose: () => void }) {
+  const { lang } = useLanguage()
+  const fr = lang === 'fr'
   const calInitialized = useRef(false)
   const fullPhone = `${countryCode}${lead.phone}`
 
@@ -94,14 +98,20 @@ function CalModal({ lead, countryCode, informal, onClose }: { lead: Lead; countr
         <div className="flex items-center justify-between px-5 py-4 border-b border-white/8">
           <div>
             <p className="text-sm font-semibold text-white">
-              C'est noté, {lead.firstName} 👋
+              {informal
+                ? (fr ? `C’est noté, ${lead.firstName}.` : `Got it, ${lead.firstName}.`)
+                : <>C'est noté, {lead.firstName} 👋</>}
             </p>
-            <p className="text-xs text-neutral-400">{informal ? 'Choisis ton créneau. Tes infos sont déjà remplies.' : 'Choisissez votre créneau - vos infos sont pré-remplies.'}</p>
+            <p className="text-xs text-neutral-400">
+              {informal
+                ? (fr ? 'Choisis ton créneau. Tes infos sont déjà remplies.' : 'Pick a time. Your details are already filled in.')
+                : 'Choisissez votre créneau - vos infos sont pré-remplies.'}
+            </p>
           </div>
           <button
             onClick={onClose}
-            aria-label="Fermer"
-            className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-neutral-400 hover:text-white hover:border-white/20 transition-all"
+            aria-label={fr ? 'Fermer' : 'Close'}
+            className={`${informal ? 'h-11 w-11 shrink-0' : 'w-8 h-8'} rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-neutral-400 hover:text-white hover:border-white/20 transition-all`}
           >
             <X size={16} />
           </button>
@@ -128,11 +138,9 @@ function CalModal({ lead, countryCode, informal, onClose }: { lead: Lead; countr
 }
 
 // ── Main form ─────────────────────────────────────────────────────────────────
-export default function YtLeadForm({ eventName = 'ads_conversion_book_appointment', prefilledLead, informal = false }: {
+export default function YtLeadForm({ eventName = 'ads_conversion_book_appointment', prefilledLead }: {
   eventName?: string
   prefilledLead?: Pick<Lead, 'firstName' | 'email'>
-  /** Tutoiement (page /demo). Les autres pages gardent le vouvoiement. */
-  informal?: boolean
 }) {
   const { lang } = useLanguage()
   const { autopilot } = useAutopilot()
@@ -219,7 +227,7 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
         {!prefilledLead && <>
         <input
           type="text"
-          placeholder={informal ? 'Ton prénom *' : 'Votre prénom *'}
+          placeholder="Votre prénom *"
           value={form.firstName}
           onChange={(e) => { setForm({ ...form, firstName: e.target.value }); setErrors({ ...errors, firstName: false }) }}
           className={`w-full px-4 py-3.5 rounded-xl bg-white/[0.06] border text-white placeholder:text-neutral-400 focus:outline-none focus:ring-1 ${accent.ring} transition-all text-sm ${errors.firstName ? 'border-red-500' : `border-white/40 ${accent.border}`}`}
@@ -227,7 +235,7 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
 
         <input
           type="email"
-          placeholder={informal ? 'Ton email *' : 'Votre email *'}
+          placeholder="Votre email *"
           value={form.email}
           onChange={(e) => { setForm({ ...form, email: e.target.value }); setErrors({ ...errors, email: false }) }}
           autoComplete="email"
@@ -241,7 +249,6 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
             <button
               type="button"
               onClick={() => setCountryOpen(!countryOpen)}
-              aria-label={`Indicatif : ${COUNTRIES[countryIdx].name} ${COUNTRIES[countryIdx].code}`}
               className="flex items-center gap-1.5 px-3 py-3.5 text-white hover:bg-white/5 transition-colors border-r border-white/25 whitespace-nowrap"
             >
               <span className="text-base">{COUNTRIES[countryIdx].flag}</span>
@@ -267,8 +274,7 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
           </div>
           <input
             type="tel"
-            placeholder={informal ? 'Ton téléphone *' : 'Votre téléphone *'}
-            aria-label={informal ? 'Ton téléphone' : 'Votre téléphone'}
+            placeholder="Votre téléphone *"
             value={form.phone}
             onChange={(e) => { setForm({ ...form, phone: e.target.value }); setErrors({ ...errors, phone: false }) }}
             autoComplete="tel"
@@ -311,7 +317,6 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
         <CalModal
           lead={form}
           countryCode={COUNTRIES[countryIdx].code}
-          informal={informal}
           onClose={() => setShowCal(false)}
         />
       )}

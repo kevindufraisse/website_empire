@@ -11,31 +11,29 @@
   background: radial-gradient(ellipse 80% 50% at 50% 0%, rgb(var(--empire-rgb) / 0.13), transparent);
 }
 
-/* Étape 1. Téléphone : texte, formulaire, puis miniature. Ordinateur : le
+/* Étape 1. Téléphone : texte, formulaire, puis preuve. Ordinateur : le
    formulaire à droite, sur toute la hauteur. */
 .contactLayout {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  grid-template-areas: 'hero' 'form' 'thumb' 'proof';
+  grid-template-areas: 'hero' 'form' 'proof';
   row-gap: 20px;
 }
 .hero { grid-area: hero; }
 .formCard { grid-area: form; }
-.thumbWrap { grid-area: thumb; }
 .proof { grid-area: proof; }
 
 @media (min-width: 900px) {
   .contactLayout {
     grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-    grid-template-areas: 'hero form' 'thumb form' 'proof form';
+    grid-template-areas: 'hero form' 'proof form';
     column-gap: 64px;
     row-gap: 28px;
     align-items: center;
-    min-height: 560px;
+    min-height: 520px;
     align-content: center;
   }
+  .hero { align-self: end; }
+  .proof { align-self: start; }
   .formCard { align-self: center; }
 }
-
-/* Le formulaire de rendez-vous (YtLeadForm) : 16 px pour éviter le zoom iOS. */
-.bookingForm input[type='tel'] { min-height: 52px; font-size: 16px; }
