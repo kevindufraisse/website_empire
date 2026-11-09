@@ -1,8 +1,8 @@
 /* v45 : photos plein cadre aux moments clés. */
 .scene-photo{position:absolute;inset:0;z-index:4;display:flex;align-items:center;justify-content:center;padding:8px 5%;opacity:0;visibility:hidden;pointer-events:none}
-.scene-photo img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;border-radius:20px;box-shadow:0 26px 70px -24px #24232699}
+.scene-photo img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;border-radius:20px;box-shadow:0 26px 70px -24px rgba(0,0,0,.96)}
 @media(max-width:700px){.scene-photo{padding:4px 12px}.scene-photo img{border-radius:14px}}
-.f-final-img{display:block;width:min(720px,100%);height:auto;margin:0 auto 34px;border-radius:22px;box-shadow:0 26px 60px -24px #8a3a5a80}
+.f-final-img{display:block;width:min(720px,100%);height:auto;margin:0 auto 34px;border-radius:22px;box-shadow:0 26px 60px -24px rgba(0,0,0,.803)}
 
 /* v48 — fixed reading zones, exclusive visual planes and usable mobile UI. */
 .stage{background-color:var(--paper)}
@@ -16,19 +16,19 @@
 .chapters{height:47px;gap:18px}
 .chapters button{min-height:44px}
 .story-steps{display:flex;align-items:center;justify-content:center;gap:12px;flex-shrink:0}
-.story-steps button{display:grid;place-items:center;width:42px;height:42px;padding:0;border:1px solid #bdaab1;border-radius:50%;background:#fff9f3;color:#242326;font-size:19px;transition:background-color .15s}
-.story-steps button:hover:not(:disabled){background:#f45b91;color:#fff;border-color:#f45b91}
+.story-steps button{display:grid;place-items:center;width:42px;height:42px;padding:0;border:1px solid rgba(255,255,255,.197);border-radius:50%;background:#131313;color:#f5f5f5;font-size:19px;transition:background-color .15s}
+.story-steps button:hover:not(:disabled){background:#dafc68;color:#0a0a0a;border-color:#dafc68}
 .story-steps button:disabled{opacity:.28;cursor:default}
-.scene-counter{font-size:12px;font-weight:600;min-width:55px;text-align:center;font-variant-numeric:tabular-nums;color:#806575}
-.night .scene-counter{color:#e8d6df}
-.night .story-steps button{background:#38313b;border-color:#725361;color:#fff}
+.scene-counter{font-size:12px;font-weight:600;min-width:55px;text-align:center;font-variant-numeric:tabular-nums;color:#a3a3a3}
+.night .scene-counter{color:#e5e5e5}
+.night .story-steps button{background:#1b1b1b;border-color:rgba(255,255,255,.372);color:#fff}
 .play{font-size:11px;min-height:40px}
 .scene-photo{padding:14px clamp(16px,4vw,60px);background:var(--paper);z-index:4}
-.scene-photo img{max-width:min(1120px,100%);max-height:100%;object-fit:contain;border-radius:24px;box-shadow:0 18px 45px -24px #24232680}
+.scene-photo img{max-width:min(1120px,100%);max-height:100%;object-fit:contain;border-radius:24px;box-shadow:0 18px 45px -24px rgba(0,0,0,.803)}
 .photo-mode #world,.photo-mode #story-feature{visibility:hidden!important;pointer-events:none}
 .photo-mode .scene-photo img{animation:academy-photo-enter .36s cubic-bezier(.2,.7,.2,1) both}
 @keyframes academy-photo-enter{from{opacity:.4;transform:translateY(16px) scale(.98)}to{opacity:1;transform:none}}
-.platform-board{width:min(1080px,100%);height:100%;max-height:570px;border-radius:18px;box-shadow:0 22px 60px -32px #81395370}
+.platform-board{width:min(1080px,100%);height:100%;max-height:570px;border-radius:18px;box-shadow:0 22px 60px -32px rgba(0,0,0,.703)}
 .platform-top{padding:13px 17px}
 .platform-top small{font-size:10px;letter-spacing:.06em}
 .platform-status{font-size:12px}
@@ -47,8 +47,8 @@
 .comparison-panel .my-quote{transform:scale(calc(1 + var(--phase,0)*.025))}
 .comparison-panel .agency-quote{opacity:calc(1 - var(--phase,0)*.28);transform:none}
 .earnings-panel{padding:8px 12px}
-.earnings-number{color:#d93673}
-.stage.night .earnings-panel{color:#242326}
+.earnings-number{color:#dafc68}
+.stage.night .earnings-panel{color:#f5f5f5}
 .simple .scene-area,.simple .scene-legend{display:none!important}
 .simple .chapters{overflow:visible}
 @media(max-width:700px){
@@ -93,7 +93,7 @@
  .comparison-panel .my-quote{transform:none}
  .earnings-panel{grid-template-columns:1fr;gap:12px;max-width:420px}
  .earnings-cast{display:none}
- .earnings-ledger{width:100%;align-self:center;padding:16px;background:#fff8f4;border:1px solid #d9a5b8;border-radius:18px}
+ .earnings-ledger{width:100%;align-self:center;padding:16px;background:#131313;border:1px solid #dafc68;border-radius:18px}
  .earnings-ledger>small{font-size:10px}
  .earnings-number{font-size:58px;letter-spacing:-3px}
  .income-steps{gap:5px}.income-steps span{font-size:11px;padding:6px 9px}

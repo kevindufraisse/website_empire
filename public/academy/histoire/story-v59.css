@@ -1,12 +1,9 @@
 /* Shorter reading plateaus; extra scroll is reserved for actual changes of state. */
 #story .ac-scene:not(.v53-intro){height:110svh;min-height:0}
-#story #histoire-vetements{height:145svh}
 #story #histoire-cours{height:165svh}
 #story #histoire-nuits{height:180svh}
 #story #histoire-delai{height:205svh}
 #story #histoire-silence{height:150svh}
-#story #histoire-vecu{height:160svh}
-#story #histoire-presse{height:185svh}
 #story .v58-press{height:185svh!important}
 #story .v53-choice-scene{height:160svh!important}
 #story .ac-scene:not(.v53-intro) .ac-frame{height:calc(100svh - var(--header));min-height:0;padding:22px 32px 82px;gap:18px}
@@ -37,12 +34,12 @@
 /* A comparison has exactly two aligned columns. */
 #story .v58-compare{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 #story .v58-compare>div{padding:16px 20px}
-#story .v58-compare p{font-size:13px;line-height:1.45;color:#785b6b;margin:8px 0 0}
+#story .v58-compare p{font-size:13px;line-height:1.45;color:#a3a3a3;margin:8px 0 0}
 #story .v58-compare span{font-size:10px;font-weight:650;letter-spacing:.04em}
 #story .v58-compare b{font-size:22px}
 #story .v58-agency-people b{padding:6px}
 #story .v58-family-logo{width:120px;max-width:20%;height:auto}
-#story .v53-community figcaption{font-size:12px;line-height:1.5;color:#715766}
+#story .v53-community figcaption{font-size:12px;line-height:1.5;color:#a3a3a3}
 #story .v58-ai-orb{font-size:clamp(65px,9vw,115px)}
 #story .v58-ai>p{margin:14px 0;font-size:clamp(18px,2vw,25px)}
 
@@ -60,26 +57,26 @@
 #story .v58-bridge>p{font-size:20px}
 #story .v58-bridge>strong{font-size:30px}
 #story .v58-bridge .v59-human-value{font-size:17px;max-width:740px;margin:auto}
-#story .f-objection{background:#f3e4e9;border:0;border-radius:16px;padding:18px 24px;text-align:left;margin:0}
+#story .f-objection{background:#000;border:0;border-radius:16px;padding:18px 24px;text-align:left;margin:0}
 #story .f-objection h3{font-size:18px;line-height:1.3;margin:0 0 8px}
-#story .f-objection p{font-size:14px;line-height:1.5;margin:0;color:#705363}
+#story .f-objection p{font-size:14px;line-height:1.5;margin:0;color:#a3a3a3}
 
 /* Client example: a visible before, the interview, then usable weekly deliverables. */
 #story .v56-appointment{display:grid;grid-template-rows:minmax(0,1fr) auto;gap:14px;padding:0;max-width:780px;align-items:stretch}
-#story .v56-client-portrait{min-height:0;width:100%;height:100%;aspect-ratio:auto;background:#ecd6cd}
+#story .v56-client-portrait{min-height:0;width:100%;height:100%;aspect-ratio:auto;background:#1e1e1e}
 #story .v56-client-portrait img{display:block;width:100%;height:100%;object-fit:contain}
 #story .v56-meeting{position:relative;inset:auto;width:100%;max-width:none;transform:none!important;box-shadow:none;padding:14px 20px;text-align:center}
 #story .v56-meeting b{font-size:20px}
 #story .ac-mission .ac-frame{gap:32px}
 #story .ac-mission .ac-copy h2{font-size:clamp(29px,3vw,42px)}
 #story .v58-product-payoff{max-width:1040px;gap:24px;justify-content:center}
-.v59-delivery{width:100%;background:#fffaf7;border:1px solid #dec9d3;border-radius:22px;padding:24px;text-align:left}
-.v59-delivery>span{font-size:10px;font-weight:650;color:#96526f;letter-spacing:.08em;display:block;margin-bottom:20px}
+.v59-delivery{width:100%;background:#121212;border:1px solid rgba(255,255,255,.128);border-radius:22px;padding:24px;text-align:left}
+.v59-delivery>span{font-size:10px;font-weight:650;color:#a3a3a3;letter-spacing:.08em;display:block;margin-bottom:20px}
 .v59-delivery>div{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-.v59-delivery article{background:#f5e7ec;padding:22px 18px;border-radius:15px;display:flex;flex-direction:column;gap:15px}
-.v59-delivery b{font-size:11px;color:#9e3963}
-#story .v59-delivery article p{font-size:21px;line-height:1.3;color:#392c35;font-weight:650}
-.v59-delivery small{font-size:12px;color:#80596e;margin-top:auto}
+.v59-delivery article{background:#171717;padding:22px 18px;border-radius:15px;display:flex;flex-direction:column;gap:15px}
+.v59-delivery b{font-size:11px;color:#dafc68}
+#story .v59-delivery article p{font-size:21px;line-height:1.3;color:#f5f5f5;font-weight:650}
+.v59-delivery small{font-size:12px;color:#a3a3a3;margin-top:auto}
 #story .v58-product-payoff>p{font-size:20px;max-width:760px;align-self:center}
 
 /* Press is read between the IA turning point and the human choice, never inside the client case. */
@@ -98,7 +95,7 @@
 #story .v56-editor-note{font-size:10px;line-height:1.5;margin-top:8px}
 
 /* Evidence stays available, but repeated walls no longer prolong the main story. */
-.v59-extra-reviews,.v59-platform-details{border-top:1px solid #dcc5d0;padding:18px 0;margin:20px 0}
+.v59-extra-reviews,.v59-platform-details{border-top:1px solid rgba(255,255,255,.134);padding:18px 0;margin:20px 0}
 .v59-extra-reviews>summary,.v59-platform-details>summary,.story-sources>details>summary{cursor:pointer;font-size:16px;font-weight:650;line-height:1.4;min-height:44px;padding:8px 0}
 .v59-extra-reviews[open]>summary,.v59-platform-details[open]>summary{margin-bottom:25px}
 .f-how,.f-compare{padding-top:10px!important;padding-bottom:10px!important}

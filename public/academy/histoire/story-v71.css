@@ -1,0 +1,40 @@
+/* v71 — dark theme companion and scroll-story smoothing. Colours live in the source files; this file only holds new behaviour. */
+
+/* 1. Beats: the incoming beat fades in, the outgoing one is removed at once, so two beats are never superimposed. */
+@keyframes v71-beat-in{from{opacity:0}to{opacity:1}}
+@keyframes v71-swap-in{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+#story.v60-ready:not(.v60-reading) .v60-tableau:not(.v60-flow) .v60-beat.is-active{animation:v71-beat-in .32s ease-out backwards}
+#story .v71-swap{animation:v71-swap-in .3s ease-out backwards}
+/* Day and night glide instead of flashing when the scroll is fast. */
+#story .v60-room:before,#story .v60-window i,#story .v60-window b{transition:opacity .35s linear}
+#story .v60-two>article{transition:border-color .3s ease,background-color .3s ease,box-shadow .3s ease,opacity .3s ease}
+@media(prefers-reduced-motion:reduce){#story .v60-beat.is-active,#story .v71-swap{animation:none!important}}
+
+/* 2. Story navigation: an opaque bar, so content that scrolls underneath is masked cleanly. */
+.ac-nav{background:#0d0d0d;border-color:rgba(255,255,255,.16);box-shadow:0 -1px 0 rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.6);overflow:visible}
+.ac-nav .ac-progress{border-radius:0 0 18px 18px;overflow:hidden;background:rgba(255,255,255,.08)}
+.ac-nav-actions button:hover{background:rgba(255,255,255,.08)}
+.ac-nav-actions #ac-reading,.ac-skip{font-size:12px;color:#d4d4d4}
+.ac-chapter-links a{font-size:12px}
+@media(max-width:700px){
+ .ac-nav{left:0;right:0;bottom:0;transform:none;width:100%;max-width:none;border-radius:0;border-width:1px 0 0;padding:6px 12px calc(8px + env(safe-area-inset-bottom));min-height:60px;gap:8px}
+ .ac-nav:before{content:"";position:absolute;left:0;right:0;bottom:100%;height:22px;margin-bottom:1px;background:linear-gradient(rgba(0,0,0,0),#000);pointer-events:none}
+ .ac-nav .ac-progress{border-radius:0;inset:0 0 auto}
+ .ac-current-chapter{font-size:12px}
+ .ac-nav-actions button{width:40px;min-height:44px;font-size:19px}
+ .ac-nav-actions #ac-reading{font-size:11px;max-width:92px;padding:8px 6px}
+ .ac-skip{font-size:11px;max-width:78px;padding:8px 0 8px 8px}
+}
+/* Readability floor: no label under 11px, no sentence under 12px. */
+#story .v60-speech>b,#story .v70-reaction-shot figcaption,#story .v70-flow-label,#story .v70-angle>span,#story .v70-draft>span,#story .v70-thought-copy>span,#story .v70-payment>span,#story .v69-invoice>span,#story .v60-client-camera>span,#story .v60-client-camera figcaption,#story .v70-publication-author span,#story .v70-ready-label,#story .v58-byline,#story .v58-paper-topic,#story .v56-mag-source time,#story .v56-mag-foot a,#story .v56-mag-masthead span{font-size:11px}
+#story .v56-mag-foot small{font-size:12px}
+@media(max-width:700px){
+ #story .v60-chapter,#story .v60-chapter>span:first-child{font-size:11px;letter-spacing:.04em}
+ #story .v53-kicker,#story .v69-phone-period,#story .v70-project-label,#story .v60-profile b,#story .v60-two article>span,#story .v70-flow-steps li,#story .v69-call-stream>span,#story .v56-mag-source b{font-size:11px}
+ #story .v60-profile p,#story .v60-two p,#story .v60-two button,#story .v70-formats,#story .v69-invoice>small,#story .v56-magazine>p{font-size:12px}
+ #story .v60-caption{font-size:14px;color:#d4d4d4}
+ #story.v66-story .v66-stakes>.v60-caption{font-size:14px}
+ #story .v70-delivery .v60-cast{padding-bottom:72px}
+ #story .v70-delivery .v70-payment{right:0;bottom:0}
+ #story .v60-flow .v60-newspaper,#story.v60-reading .v60-newspaper{min-height:0}
+}

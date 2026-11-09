@@ -1,6 +1,6 @@
 /* v43 : personne A sans visage, téléphone lisible sur mobile, robot seul. */
-.trainer-a .generic-portrait{display:grid;place-items:center;background:#ece4e0}
-.trainer-a .generic-portrait svg{width:46%;height:auto;fill:#c9bcb7}
+.trainer-a .generic-portrait{display:grid;place-items:center;background:#1b1b1b}
+.trainer-a .generic-portrait svg{width:46%;height:auto;fill:#d4d4d4}
 .trainer-card h2{font-size:22px;letter-spacing:-.03em}
 .ai-character svg{max-height:100%}
 @media(max-width:700px){
@@ -20,8 +20,8 @@
  .trainer-card h2{font-size:17px}
 }
 /* Mode sombre : le contenu des cartes claires reste foncé. */
-.ringing-phone,.ringing-phone b{color:#242326}
-.stage.night .ai-tasks div{background:#fffaf5!important;color:#242326!important;opacity:1}
-.stage.night .ai-tasks div small{color:#6f5f68!important}
+.ringing-phone,.ringing-phone b{color:#f5f5f5}
+.stage.night .ai-tasks div{background:#131313!important;color:#f5f5f5!important;opacity:1}
+.stage.night .ai-tasks div small{color:#a3a3a3!important}
 .trainer-a h2{white-space:normal;text-wrap:balance}
 @media(max-width:700px){.ai-tasks{margin-left:8px}}

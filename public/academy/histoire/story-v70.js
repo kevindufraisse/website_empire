@@ -10,13 +10,16 @@
  const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
  let bounds=[],head=60,pending=0,current=0,readingChosen=false,manualChoice=false,reading=false,navigated=false;
  const seen=new Set();
+ // Replay a short fade on a node whose text has just been swapped (headings, captions).
+ function swap(node){if(reduced.matches||!root.classList.contains('v60-ready'))return;node.classList.remove('v71-swap');void node.offsetWidth;node.classList.add('v71-swap')}
+ function setText(node,text){if(node&&node.textContent!==text){node.textContent=text;swap(node)}}
  function track(event,data){try{(window.dataLayer=window.dataLayer||[]).push({event,story_version:'v70',...data})}catch{}}
  function choose(value){
   const choice=root.querySelector('.v60-choice'); if(!choice)return;
   choice.querySelectorAll('[data-v60-choice]').forEach(b=>b.setAttribute('aria-pressed',String(value===b.dataset.v60Choice)));
   choice.querySelectorAll('[data-profile]').forEach(n=>n.classList.toggle('is-selected',value===n.dataset.profile));
   const text=value==='left'?'Vous avez vu comment je travaille : chercher une solution, annoncer un délai, livrer. Mon histoire donne des raisons concrètes de me faire confiance.':value==='right'?'C’est votre choix. Vous pouvez aussi demander à ce concurrent de montrer ses projets et sa façon de travailler.':'Deux offres similaires. Mais une façon de travailler que vous connaissez déjà.';
-  const answer=choice.querySelector('.v60-choice-answer');if(answer.textContent!==text)answer.textContent=text;
+  setText(choice.querySelector('.v60-choice-answer'),text);
  }
  root.addEventListener('click',e=>{const b=e.target.closest('[data-v60-choice]');if(b){manualChoice=true;choose(b.dataset.v60Choice);track('academy_story_choice',{profile:b.dataset.v60Choice})}});
  function setBeat(panel,index,all){
@@ -31,8 +34,8 @@
   const shared=panel.querySelector('.v70-shared-project');
   if(shared){
    const show=!all&&(index===2||index===3);shared.hidden=!show;
-   const course=panel.querySelector('[data-step="2"]'),confiscated=all||(index===2&&local>.45);
-   if(all||index===2){changeHeading(course,confiscated?'Mon professeur intervient.':'J’apprends, même en cours.',confiscated?'Il me confisque l’ordinateur.':'Mon projet m’obsède.');course.querySelector('.v60-caption').textContent=confiscated?'Il me le confisque. Ce soir, je reprendrai mes essais chez moi.':'En cours, je cherche comment faire fonctionner mon site.';}
+   const course=panel.querySelector('[data-step="2"]'),confiscated=all||(index===2&&local>.5);
+   if(all||index===2){changeHeading(course,confiscated?'Mon professeur intervient.':'J’apprends, même en cours.',confiscated?'Il me confisque l’ordinateur.':'Mon projet m’obsède.');setText(course.querySelector('.v60-caption'),confiscated?'Il me le confisque. Ce soir, je reprendrai mes essais chez moi.':'En cours, je cherche comment faire fonctionner mon site.');}
    if(show){
     const ready=index===3&&local>.62,state=index===2?(confiscated?'confiscated':'classroom'):(ready?'ready':'home');panel.dataset.projectState=state;
     const vr=active.querySelector('.v60-visual').getBoundingClientRect(),pr=panel.querySelector('.v60-pin').getBoundingClientRect(),mobile=innerWidth<=700;
@@ -43,15 +46,15 @@
   }
   const agreement=panel.querySelector('.v70-agreement');
   if(agreement&&(all||active===agreement)){
-   const tomorrow=all||local>.46;
+   const tomorrow=all||local>.5;
    changeHeading(agreement,all?'J’accepte. On se serre la main.':tomorrow?'Je lui annonce :':'J’accepte.',tomorrow?'« Demain, c’est prêt. »':'On se serre la main.');
-   agreement.querySelector('.v60-caption').textContent=all?'Je lui annonce que je peux livrer son site dès le lendemain.':tomorrow?'Sa réaction me surprend.':'Il me reste à lui annoncer quand son site sera prêt.';
+   setText(agreement.querySelector('.v60-caption'),all?'Je lui annonce que je peux livrer son site dès le lendemain.':tomorrow?'Sa réaction me surprend.':'Il me reste à lui annoncer quand son site sera prêt.');
   }
   const delivery=panel.querySelector('.v70-delivery');
   if(delivery&&(all||active===delivery)){
-   const paid=all||local>.58;delivery.dataset.paid=String(paid);delivery.querySelector('.v70-payment').setAttribute('aria-hidden',String(!paid));
+   const paid=all||local>.5;delivery.dataset.paid=String(paid);delivery.querySelector('.v70-payment').setAttribute('aria-hidden',String(!paid));
    changeHeading(delivery,all?'Le lendemain, son site est prêt.':paid?'Il est ravi.':'Le lendemain,',paid?'J’ai gagné 3 000 €.':'je lui livre son site.');
-   delivery.querySelector('.v60-caption').textContent=paid?'Il n’achetait pas mes heures. Il voulait son site, enfin prêt.':'Le site promis est là. Il peut enfin l’utiliser.';
+   setText(delivery.querySelector('.v60-caption'),paid?'Il n’achetait pas mes heures. Il voulait son site, enfin prêt.':'Le site promis est là. Il peut enfin l’utiliser.');
   }
   const production=panel.querySelector('.v70-production');
   if(production&&(all||active===production)){
@@ -59,19 +62,19 @@
    production.querySelectorAll('[data-flow-step]').forEach((card,i)=>{const visible=all||i===phase;card.classList.toggle('is-current',visible);card.inert=!visible;if(visible)card.removeAttribute('aria-hidden');else card.setAttribute('aria-hidden','true')});
    production.querySelectorAll('.v70-flow-steps li').forEach((n,i)=>{if(!all&&i===phase)n.setAttribute('aria-current','step');else n.removeAttribute('aria-current')});
    const words=[['Elle raconte son expérience.','« Juste un petit ajout… »','Le point de départ, ce sont ses mots et son expérience.'],['Vous faites ressortir la leçon.','Poser les limites dès le départ.','Vous choisissez avec elle une idée utile à ses futurs clients.'],['Empire prépare le contenu.','Son expérience devient un post.','Un brouillon à relire et à ajuster avec votre cliente.'],['Vous relisez ensemble.','Le contenu est prêt à publier.','Son expérience devient un contenu qui montre sa façon de travailler.']];
-   if(all){changeHeading(production,'De sa phrase brute','à sa publication.');production.querySelector('.v60-caption').textContent='Vous choisissez l’angle, Empire prépare le contenu, puis vous relisez avec votre cliente avant publication.';}else{changeHeading(production,words[phase][0],words[phase][1]);production.querySelector('.v60-caption').textContent=words[phase][2];}
+   if(all){changeHeading(production,'De sa phrase brute','à sa publication.');setText(production.querySelector('.v60-caption'),'Vous choisissez l’angle, Empire prépare le contenu, puis vous relisez avec votre cliente avant publication.');}else{changeHeading(production,words[phase][0],words[phase][1]);setText(production.querySelector('.v60-caption'),words[phase][2]);}
   }
  }
  function measure(){
   head=header?.offsetHeight||60;
   // Dense content flows on small screens; the comic still animates where there is room.
-  panels.forEach(n=>n.classList.toggle('v60-flow',!reading&&innerWidth<=700&&innerHeight<=740&&n.matches('.v60-client-scene,.v60-choice-scene,.v60-press-scene,.v64-context-scene,.v64-practice-scene,#histoire-formats')));
+  panels.forEach(n=>n.classList.toggle('v60-flow',!reading&&(n.matches('.v60-press-scene')||innerWidth<=700&&innerHeight<=740&&n.matches('.v60-client-scene,.v60-choice-scene,.v64-context-scene,.v64-practice-scene,#histoire-formats'))));
   root.style.setProperty('--stage-height',`${innerHeight-head}px`);
   bounds=scenes.map(n=>{
    const beats=[...n.querySelectorAll('.v60-beat')],weights=beats.map(b=>Math.max(.5,Number(b.dataset.dwell)||1));
    const starts=[];let total=0;weights.forEach(w=>{starts.push(total);total+=w});
    if(beats.length&&!reading&&!n.classList.contains('v60-flow')){
-    const target=`${Math.ceil(innerHeight-head+total*Math.max(540,Math.min(720,innerHeight*.82)))}px`;
+    const target=`${Math.ceil(innerHeight-head+total*Math.max(440,Math.min(600,innerHeight*.66)))}px`;
     if(n.style.height!==target)n.style.height=target;
    }else n.style.removeProperty('height');
    return {n,top:n.getBoundingClientRect().top+scrollY,height:n.offsetHeight,beats,weights,starts,total};
@@ -104,26 +107,26 @@
    const sourceStep=Number(b.beats[index].dataset.v63SourceStep||0);
    b.n.style.setProperty('--beat-progress',String(all?1:local));
    b.n.style.setProperty('--v69-reveal',String(all?1:clamp(local/.35)));
-   const changeHeading=(beat,first,second)=>{const h=beat?.querySelector('h2');if(!h)return;const html=first+'<br><em>'+second+'</em>';if(h.innerHTML!==html)h.innerHTML=html};
+   const changeHeading=(beat,first,second)=>{const h=beat?.querySelector('h2');if(!h)return;const html=first+'<br><em>'+second+'</em>';if(h.dataset.v71Html!==html){h.dataset.v71Html=html;h.innerHTML=html;swap(h)}};
    if(all&&b.n.querySelector('.v69-days-scene')){
-    const beat=b.n.querySelector('.v69-days-scene');changeHeading(beat,'Deux semaines plus tard,','mon site est prêt.');beat.querySelector('.v60-caption').textContent='Fier du résultat, je le montre à mes amis.';b.n.classList.add('is-ready');b.n.style.setProperty('--night','0');const day=b.n.querySelector('[data-day-label]');if(day)day.textContent='Jour 14';
+    const beat=b.n.querySelector('.v69-days-scene');changeHeading(beat,'Deux semaines plus tard,','mon site est prêt.');setText(beat.querySelector('.v60-caption'),'Fier du résultat, je le montre à mes amis.');b.n.classList.add('is-ready');b.n.style.setProperty('--night','0');const day=b.n.querySelector('[data-day-label]');if(day)day.textContent='Jour 14';
    }
    if(origin==='histoire-cours'){
     const finished=all||(sourceStep===1&&local>.62);
     b.n.classList.toggle('is-ready',finished);
     const day=finished?14:Math.min(14,1+Math.floor(local*22.6));
-    const darkness=all?0:(1-Math.cos(local*Math.PI*8))/2;
+    const darkness=all||finished||sourceStep!==1?0:(1-Math.cos(local/.62*Math.PI*4))/2;
     b.n.style.setProperty('--night',String(darkness));
     const label=b.n.querySelector('[data-day-label]');label.textContent=`${darkness>.5?'Nuit':'Jour'} ${day}`;
-    const beat=b.n.querySelector('.v69-days-scene');if(beat){changeHeading(beat,finished?'Deux semaines plus tard,':'Pendant deux semaines,',finished?'mon site est prêt.':'je cherche et je teste.');beat.querySelector('.v60-caption').textContent=finished?'Fier du résultat, je le montre à mes amis.':'Le jour, la nuit, je recommence. Jusqu’à obtenir un site qui fonctionne.';}
+    const beat=b.n.querySelector('.v69-days-scene');if(beat){changeHeading(beat,finished?'Deux semaines plus tard,':'Pendant deux semaines,',finished?'mon site est prêt.':'je cherche et je teste.');setText(beat.querySelector('.v60-caption'),finished?'Fier du résultat, je le montre à mes amis.':'Le jour, la nuit, je recommence. Jusqu’à obtenir un site qui fonctionne.');}
    }
    if(b.n.id==='histoire-cinq-ans'&&(all||sourceStep===1)){
-    const silent=all||local>.4,beat=b.n.querySelector('.v69-phone-scene');
-    b.n.style.setProperty('--busy',all?'0':String(1-clamp(local/.4)));b.n.style.setProperty('--phone-busy',silent?'0':'1');
-    if(beat){changeHeading(beat,silent?'Puis… plus rien.':'Au début,',silent?'Mon téléphone ne sonne plus.':'le téléphone sonnait.');beat.querySelector('[data-phone-period]').textContent=silent?'PLUS TARD':'AU DÉBUT';beat.querySelector('.v60-caption').textContent=silent?'Mon avantage disparaît. Je dois trouver une autre façon d’être utile.':'Puis WordPress se simplifie. Mes clients peuvent créer leur site eux-mêmes.';}
+    const silent=all||local>.5,beat=b.n.querySelector('.v69-phone-scene');
+    b.n.style.setProperty('--busy',all?'0':String(1-clamp((local-.2)/.3)));b.n.style.setProperty('--phone-busy',silent?'0':'1');
+    if(beat){changeHeading(beat,silent?'Puis… plus rien.':'Au début,',silent?'Mon téléphone ne sonne plus.':'le téléphone sonnait.');beat.querySelector('[data-phone-period]').textContent=silent?'PLUS TARD':'AU DÉBUT';setText(beat.querySelector('.v60-caption'),silent?'Mon avantage disparaît. Je dois trouver une autre façon d’être utile.':'Puis WordPress se simplifie. Mes clients peuvent créer leur site eux-mêmes.');}
    }
    paintActions(b.n,index,local,all,changeHeading);
-   if(b.n.id==='histoire-vecu'&&!manualChoice)choose(p>=.43?'left':null);
+   if(b.n.id==='histoire-vecu'&&!manualChoice)choose(p>=.5?'left':null);
    if(b.n.id==='histoire-presse'){
     const window=b.n.querySelector('.v60-press-window'),track=b.n.querySelector('.v60-press-track');
     const smooth=t=>t*t*(3-2*t);

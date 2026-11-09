@@ -7,7 +7,7 @@
 .empire-account{gap:8px}
 .empire-menu>a,.empire-resources summary,.empire-login{font-size:14px;font-weight:500;line-height:20px;color:#d4d4d4;padding:8px 12px;border-radius:8px;white-space:nowrap}
 .empire-menu>a[aria-current],.empire-menu>a:hover,.empire-login:hover,.empire-resources summary:hover{background:#ffffff12;color:white}
-.empire-join{font-size:14px;font-weight:650;line-height:20px;background:#fca5a5;color:#000;padding:8px 16px;border-radius:8px;white-space:nowrap}
+.empire-join{font-size:14px;font-weight:650;line-height:20px;background:#dafc68;color:#000;padding:8px 16px;border-radius:8px;white-space:nowrap}
 .empire-resources{position:relative}
 .empire-resources summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:5px}
 .empire-resources summary::-webkit-details-marker{display:none}

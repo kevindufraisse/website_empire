@@ -1,11 +1,11 @@
 /* v39 : ambiance sombre aux moments durs, cartes souvenirs lisibles. */
 .stage{transition:background-color .6s,color .6s}
-.stage.night .story-feature .press-sheet{box-shadow:0 30px 70px -20px #000a}
-.stage.night .diy-side p{color:#f3e6ea}
-.stage.night .rp-silence{color:#5a4a52}
-.stage.night .ai-tasks div{background:#fffaf5}
+.stage.night .story-feature .press-sheet{box-shadow:0 30px 70px -20px #000}
+.stage.night .diy-side p{color:#e5e5e5}
+.stage.night .rp-silence{color:#d4d4d4}
+.stage.night .ai-tasks div{background:#131313}
 .revelation-panel .memory-ribbon h2{font-size:17px;line-height:1.2}
-.revelation-panel .memory-ribbon small{color:var(--f-pink-dark,#d93673);font-weight:700}
+.revelation-panel .memory-ribbon small{color:var(--f-pink-dark,#dafc68);font-weight:700}
 @media(max-width:700px){.revelation-panel .memory-ribbon h2{font-size:13px}}
-.stage:has(.story-feature.panic),.stage.night:has(.story-feature.panic){background:radial-gradient(circle at 70% 55%,#5a1e33,#28242b 65%)}
-.stage.night .story-feature.panic .diy-panic b{color:#ff99bf}
+.stage:has(.story-feature.panic),.stage.night:has(.story-feature.panic){background:radial-gradient(circle at 70% 55%,#dafc68,#141414 65%)}
+.stage.night .story-feature.panic .diy-panic b{color:#dafc68}
