@@ -219,8 +219,8 @@ const FAQ: FaqItem[] = [
   {
     q: { fr: 'C’est quoi, les crédits ?', en: 'What are credits?' },
     a: {
-      fr: `Les crédits servent à compter tes contenus. Un post LinkedIn utilise ${CONTENT_CREDITS.post} crédits, une newsletter ${CONTENT_CREDITS.newsletter}, un reel ${CONTENT_CREDITS.reel}. Ta formule t’en donne chaque mois et tu les répartis comme tu veux. Ceux que tu n’utilises pas passent au mois suivant tant que ton abonnement est actif.`,
-      en: `Credits count your content. A LinkedIn post uses ${CONTENT_CREDITS.post} credits, a newsletter ${CONTENT_CREDITS.newsletter}, a reel ${CONTENT_CREDITS.reel}. Your plan gives you credits every month and you split them as you like. Unused credits roll over to the next month while your subscription is active.`,
+      fr: `Les crédits servent à compter tes contenus : chaque contenu en utilise une partie, un reel monté plus qu’un post. Ta formule t’en donne chaque mois et tu les répartis comme tu veux. Ceux que tu n’utilises pas passent au mois suivant tant que ton abonnement est actif.`,
+      en: `Credits count your content: each piece uses some, an edited reel more than a post. Your plan gives you credits every month and you split them as you like. Unused credits roll over to the next month while your subscription is active.`,
     },
   },
   {
