@@ -1,118 +1,143 @@
+/* Page tarifs : le même langage que la page d'accueil. Fond noir, cartes
+   #111 à bord blanc translucide, accent citron #dafc68 sur texte noir, rayon
+   12 px sur les boutons. Les noms de classes sont ceux de `lib/orderStyles.ts`. */
+
 .page {
   position: relative;
   isolation: isolate;
-  background: #090a0c;
-}
-
-/* Static light behind the translucent surfaces; no animated blur on scroll. */
-.page::before {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(ellipse 700px 560px at 50% 380px, rgba(216, 224, 238, .12), transparent 75%),
-    radial-gradient(ellipse 430px 500px at 8% 760px, rgba(181, 193, 215, .06), transparent 80%),
-    radial-gradient(ellipse 850px 800px at 80% 56%, rgba(208, 217, 232, .045), transparent 80%);
+  background: #000;
 }
 
 .panel {
   position: relative;
-  border: 1px solid rgba(238, 242, 250, .16);
-  border-top-color: rgba(255, 255, 255, .28);
-  border-radius: 24px;
-  background: linear-gradient(145deg, rgba(255, 255, 255, .085), rgba(255, 255, 255, .018) 65%), rgba(19, 21, 25, .48);
-  -webkit-backdrop-filter: blur(24px);
-  backdrop-filter: blur(24px);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06), inset 0 -1px 0 rgba(0, 0, 0, .22), 0 18px 48px rgba(0, 0, 0, .16);
+  border: 1px solid rgba(255, 255, 255, .1);
+  border-radius: 20px;
+  background: #111;
 }
 
 .featured {
-  border-color: rgba(238, 242, 250, .32);
-  border-top-color: rgba(255, 255, 255, .6);
-  background: radial-gradient(ellipse at 50% 0, rgba(240, 244, 255, .1), transparent 65%), linear-gradient(145deg, rgba(255, 255, 255, .09), rgba(255, 255, 255, .025)), rgba(24, 26, 31, .48);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .13), inset 0 -1px 0 rgba(0, 0, 0, .2), 0 24px 56px rgba(0, 0, 0, .24), 0 0 40px rgba(220, 230, 250, .025);
+  border-color: rgba(218, 252, 104, .55);
+  background: linear-gradient(180deg, rgba(218, 252, 104, .07), rgba(218, 252, 104, 0) 42%), #111;
 }
 
-.plan { border-radius: 26px; }
+.plan { border-radius: 22px; }
+
+/* Carte de formule : choisie = bord citron, les autres restent calmes. */
+.planCard {
+  transition: border-color 180ms, background-color 180ms;
+}
+.planCard:hover { border-color: rgba(255, 255, 255, .22); }
+.planCard[data-selected='true'] {
+  border-color: #dafc68;
+  background: linear-gradient(180deg, rgba(218, 252, 104, .08), rgba(218, 252, 104, 0) 38%), #111;
+  box-shadow: 0 0 0 1px rgba(218, 252, 104, .35), 0 24px 60px -30px rgba(218, 252, 104, .25);
+}
 
 .segments {
-  border: 1px solid rgba(238, 242, 250, .16);
-  border-radius: 16px;
-  background: rgba(255, 255, 255, .035);
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05);
+  border: 1px solid rgba(255, 255, 255, .1);
+  border-radius: 12px;
+  background: #0a0a0a;
 }
 
 .segment {
   border: 1px solid transparent;
-  border-radius: 12px;
-  color: #d4d4d4;
-  transition: background-color 180ms, border-color 180ms, box-shadow 180ms;
+  border-radius: 9px;
+  color: #a3a3a3;
+  transition: background-color 180ms, color 180ms, border-color 180ms;
 }
-.segment:hover { background-color: rgba(255, 255, 255, .06); color: #fff; }
+.segment:hover { color: #fff; }
 .segment[aria-selected='true'] {
   color: #fff;
-  border-color: rgba(255, 255, 255, .26);
-  background: linear-gradient(150deg, rgba(255, 255, 255, .2), rgba(255, 255, 255, .075));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1), 0 3px 10px rgba(0, 0, 0, .16);
+  border-color: rgba(255, 255, 255, .14);
+  background: #1f1f1f;
 }
 
 .planOption {
-  border: 1px solid rgba(238, 242, 250, .14);
-  border-radius: 16px;
-  background: rgba(255, 255, 255, .035);
+  border: 1px solid rgba(255, 255, 255, .1);
+  border-radius: 14px;
+  background: #111;
   transition: border-color 180ms, background-color 180ms;
 }
-.planOption:hover { background-color: rgba(255, 255, 255, .08); }
+.planOption:hover { border-color: rgba(255, 255, 255, .24); }
 .planOption[aria-checked='true'] {
-  border-color: rgba(255, 255, 255, .6);
-  background: linear-gradient(145deg, rgba(255, 255, 255, .17), rgba(255, 255, 255, .04));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1);
+  border-color: #dafc68;
+  background: linear-gradient(180deg, rgba(218, 252, 104, .12), rgba(218, 252, 104, .04)), #111;
+  box-shadow: 0 0 0 1px rgba(218, 252, 104, .35);
 }
 
 .tag {
-  border: 1px solid rgba(255, 255, 255, .24);
+  border: 1px solid rgba(255, 255, 255, .14);
   border-radius: 999px;
-  background: linear-gradient(145deg, rgba(255, 255, 255, .13), rgba(255, 255, 255, .04));
+  background: rgba(255, 255, 255, .06);
   color: #f5f5f5;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06);
+}
+
+.limeTag {
+  border-radius: 999px;
+  background: #dafc68;
+  color: #000;
 }
 
 .primaryButton, .secondaryButton {
-  border-radius: 14px;
-  transition: background-color 180ms, box-shadow 180ms, filter 180ms;
+  border-radius: 12px;
+  transition: background-color 180ms, border-color 180ms, transform 180ms, filter 180ms;
 }
 .primaryButton {
-  color: #0b0d06;
-  border: 1px solid rgba(236, 255, 170, .85);
-  background: linear-gradient(160deg, #ecffa8 0%, #dafc68 55%, #c8ec4c 100%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .7), 0 4px 18px rgba(218, 252, 104, .14);
+  color: #000;
+  font-weight: 700;
+  border: 1px solid #dafc68;
+  background: #dafc68;
 }
-.primaryButton:hover { filter: brightness(1.04); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .7), 0 6px 26px rgba(218, 252, 104, .22); }
+.primaryButton:hover { filter: brightness(1.06); }
+.primaryButton:active { transform: translateY(1px); }
 .secondaryButton {
   color: #fff;
-  border: 1px solid rgba(255, 255, 255, .24);
-  background: linear-gradient(155deg, rgba(255, 255, 255, .12), rgba(255, 255, 255, .035));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08);
+  border: 1px solid rgba(255, 255, 255, .2);
+  background: transparent;
 }
-.secondaryButton:hover { background-color: rgba(255, 255, 255, .07); border-color: rgba(255, 255, 255, .4); }
+.secondaryButton:hover { background-color: rgba(255, 255, 255, .06); border-color: rgba(255, 255, 255, .4); }
 
 .page :is(button, a, summary):focus-visible {
   outline: 2px solid #dafc68;
-  outline-offset: 4px;
+  outline-offset: 3px;
 }
 
-.compact { border-radius: 16px; }
-.tableBand { background: rgba(255, 255, 255, .055); }
-.comparisonColumn { background: rgba(255, 255, 255, .045); }
+.compact { border-radius: 14px; }
+.tableBand { background: rgba(255, 255, 255, .04); }
+.comparisonColumn { background: rgba(218, 252, 104, .05); }
 
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .panel, .segments { background-color: #1c1e23; }
+/* Barre du bas : opaque, pour que rien ne se lise au travers. */
+.stickyBar {
+  border: 1px solid rgba(255, 255, 255, .14);
+  border-radius: 16px;
+  background: rgba(17, 17, 17, .96);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, .6);
 }
+
+/* Bandeau de logos : une seule rangée qui défile lentement. */
+.marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+.marqueeTrack {
+  display: flex;
+  width: max-content;
+  gap: 10px;
+  animation: pricing-marquee 48s linear infinite;
+}
+@keyframes pricing-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-50% - 5px)); }
+}
+
+.noScrollbar { scrollbar-width: none; }
+.noScrollbar::-webkit-scrollbar { display: none; }
 
 @media (prefers-reduced-motion: reduce) {
-  .segment, .planOption, .primaryButton, .secondaryButton { transition: none; }
+  .segment, .planOption, .planCard, .primaryButton, .secondaryButton { transition: none; }
+  .marquee { overflow-x: auto; }
+  .marqueeTrack { animation: none; }
 }

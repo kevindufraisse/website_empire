@@ -1,95 +1,35 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-import { ArrowRight, Check, GraduationCap, Plus, UserRound, X } from 'lucide-react'
+import { Check, GraduationCap, UserRound, X } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { getPartnerFestivalPricing } from '@/lib/partner-festival-pricing'
-import { BILLING_PERIODS, PLAN_LABELS, PLANS, finalPrice, type BillingId, type PlanId } from '@/lib/plans'
-import { startFreeTrial, TRIAL_CREDITS, type TrialOption } from '@/lib/startTrial'
-import { trackAmplitude } from '@/lib/amplitude'
-import { LIVE_OFFER, isLivePlan, liveCheckoutUrl, type LiveWindow } from '@/lib/liveOffer'
+import { PLAN_LABELS } from '@/lib/plans'
+import { TRIAL_CREDITS, type TrialOption } from '@/lib/startTrial'
+import { LIVE_OFFER } from '@/lib/liveOffer'
 import glass from '@/components/pricing/pricing.module.css'
-import { ORDER_CARD, ORDER_CTA, ORDER_LABEL, ORDER_TAG } from '@/lib/orderStyles'
+import { ORDER_LABEL, ORDER_TAG } from '@/lib/orderStyles'
+import TrialCta from './TrialCta'
+import { nbsp, rich } from './typo'
+import { EXPERT_MONTHLY_EUROS, type TrialCart } from './useTrialCart'
 
 /**
- * Le panier de /tarifs (29 octobre 2026, maquette validée par Kevin) : la
- * formule choisie dans les cartes, les options à cocher, et un seul bouton.
+ * Le récapitulatif de /tarifs : les deux options à cocher, puis ce qui est
+ * prélevé aujourd'hui et ensuite, et le bouton d'essai. L'état (formule,
+ * période, options, `checkout`) vient de `useTrialCart`, partagé avec les
+ * autres boutons de la page.
  *  - Bootcamp Academy : payé aujourd'hui avec le premier paiement Stripe, au
  *    prix de la grille de la semaine.
  *  - Expert Empire Partners : 0 € aujourd'hui, 500 €/mois réglés avec
  *    l'expert ; Marc est prévenu au retour du paiement. Selon les places du
  *    mois (liste d'attente à 0).
- * Le bouton mène à l'inscription, puis au paiement d'essai avec tout le panier.
  */
-
-const EXPERT_MONTHLY_EUROS = 500
-
-type Spots = { total: number | null; left: number | null }
-
-export default function OptionsPanel({ plan, period, live = null }: { plan: PlanId; period: BillingId; live?: LiveWindow | null }) {
+export default function OptionsPanel({ cart }: { cart: TrialCart }) {
   const { lang } = useLanguage()
   const fr = lang === 'fr'
   const locale = fr ? 'fr-FR' : 'en-US'
-  const bootcampEuros = getPartnerFestivalPricing().bootcampPrice
-  const [spots, setSpots] = useState<Spots | null>(null)
-  const [bootcamp, setBootcamp] = useState(false)
-  const [expert, setExpert] = useState(false)
-  const [opening, setOpening] = useState(false)
-  // Barre flottante : le bouton d'achat reste visible pendant qu'on fait
-  // défiler la page ; elle se cache quand le panier lui-même est à l'écran.
-  const cartRef = useRef<HTMLDivElement>(null)
-  const [cartVisible, setCartVisible] = useState(false)
-  useEffect(() => {
-    const el = cartRef.current
-    if (!el || typeof IntersectionObserver === 'undefined') return
-    const obs = new IntersectionObserver(([entry]) => setCartVisible(entry.isIntersecting), { threshold: 0.3 })
-    obs.observe(el)
-    return () => obs.disconnect()
-  }, [])
-
-  useEffect(() => {
-    let cancelled = false
-    fetch('/api/expert-request')
-      .then((res) => (res.ok ? res.json() : null))
-      .then((data) => { if (!cancelled && data) setSpots(data) })
-      .catch(() => {})
-    return () => { cancelled = true }
-  }, [])
-
-  const full = spots?.left === 0
-  const spotsLine = full
-    ? (fr ? 'Complet ce mois-ci : tu passes en liste d’attente.' : 'Full this month: you join the waiting list.')
-    : typeof spots?.left === 'number'
-      ? (fr ? `Encore ${spots.left} place${spots.left > 1 ? 's' : ''} ce mois-ci.` : `${spots.left} spot${spots.left > 1 ? 's' : ''} left this month.`)
-      : ''
-
-  const planInfo = PLANS.find((p) => p.id === plan)!
-  const billing = BILLING_PERIODS.find((b) => b.id === period)!
-  // Offre du live : Growth / Scale en mensuel, premier mois prélevé
-  // aujourd'hui par la page de l'app, sans essai ni options.
-  const liveDeal = live && period === 'monthly' && isLivePlan(plan) ? LIVE_OFFER.plans[plan] : null
-  const perMonth = liveDeal ? liveDeal.monthly : finalPrice(planInfo.price, period, 1)
-  const cycleTotal = perMonth * billing.months
-  const today = liveDeal ? liveDeal.monthly : bootcamp ? bootcampEuros : 0
-  const toggle = (which: TrialOption) => {
-    const next = which === 'bootcamp' ? !bootcamp : !expert
-    if (which === 'bootcamp') setBootcamp(next)
-    else setExpert(next)
-    trackAmplitude('pricing_page_option_toggled', { option: which, on: next, plan })
-  }
-
-  const checkout = async () => {
-    if (opening) return
-    setOpening(true)
-    if (liveDeal && live && isLivePlan(plan)) {
-      trackAmplitude('pricing_page_plan_clicked', { plan, billing_period: 'monthly', location: 'cart', offer: 'live' })
-      window.location.href = liveCheckoutUrl(live.email, plan)
-      return
-    }
-    const options: TrialOption[] = [...(bootcamp ? ['bootcamp' as const] : []), ...(expert ? ['expert' as const] : [])]
-    trackAmplitude('pricing_page_plan_clicked', { plan, billing_period: period, location: 'cart', options: options.join(',') })
-    await startFreeTrial(plan, period, options)
-  }
+  const { plan, billing, liveDeal, bootcamp, expert, full, spotsLine, bootcampEuros, perMonth, cycleTotal, today, toggle } = cart
+  const label = PLAN_LABELS[plan][fr ? 'fr' : 'en']
+  const tr = (f: string, e: string) => (fr ? rich(nbsp(f)) : e)
+  const euros = (n: number) => (fr ? `${n.toLocaleString(locale)} €` : `€${n.toLocaleString(locale)}`)
 
   const optionRow = (which: TrialOption, on: boolean, icon: React.ReactNode, title: string, price: string, body: string, extra?: string) => (
     <button
@@ -97,38 +37,38 @@ export default function OptionsPanel({ plan, period, live = null }: { plan: Plan
       role="checkbox"
       aria-checked={on}
       onClick={() => toggle(which)}
-      className={`flex w-full cursor-pointer items-start gap-3 p-4 text-left transition-colors ${glass.panel} ${glass.compact} ${on ? glass.featured : ''}`}
+      className={`flex w-full cursor-pointer items-start gap-3.5 p-4 text-left sm:p-5 ${glass.planOption}`}
     >
-      <span className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md border ${on ? 'border-white bg-white text-black' : 'border-white/40'}`}>
-        {on ? <Check className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5 text-white/60" />}
+      <span className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md border-2 ${on ? 'border-empire bg-empire text-black' : 'border-white/35'}`}>
+        {on && <Check className="h-4 w-4" strokeWidth={3} />}
       </span>
       <span className="min-w-0 flex-1">
-        <span className="flex flex-wrap items-baseline justify-between gap-x-3">
-          <span className="flex items-center gap-2 text-sm font-semibold text-white">{icon}{title}</span>
+        <span className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
+          <span className="flex items-center gap-2 text-[15px] font-semibold text-white">{icon}{title}</span>
           <span className={`whitespace-nowrap ${ORDER_TAG}`}>{price}</span>
         </span>
-        <span className="mt-1 block text-sm leading-relaxed text-neutral-300">{body}</span>
-        {extra && <span className="mt-1 block text-xs text-neutral-300">{extra}</span>}
+        <span className="mt-1.5 block text-sm leading-relaxed text-neutral-300">{body}</span>
+        {extra && <span className="mt-1.5 block text-xs font-medium text-neutral-200">{extra}</span>}
       </span>
     </button>
   )
 
-  const line = (label: string, amount: string, onRemove?: () => void) => (
-    <p className="flex items-baseline justify-between gap-3 text-sm">
-      <span className="text-neutral-200">
-        {label}
+  const line = (text: string, amount: string, onRemove?: () => void) => (
+    <div className="flex items-center justify-between gap-3 text-sm">
+      <span className="flex min-w-0 flex-wrap items-center gap-x-2 text-neutral-200">
+        {text}
         {onRemove && (
-          <button type="button" onClick={onRemove} className="ml-2 inline-flex cursor-pointer items-center gap-0.5 text-xs text-neutral-400 underline decoration-white/20 underline-offset-2 hover:text-white">
+          <button type="button" onClick={onRemove} className="inline-flex min-h-8 cursor-pointer items-center gap-0.5 text-xs text-neutral-400 underline decoration-white/20 underline-offset-2 hover:text-white">
             <X className="h-3 w-3" />{fr ? 'retirer' : 'remove'}
           </button>
         )}
       </span>
-      <span className="shrink-0 tabular-nums text-white">{amount}</span>
-    </p>
+      <span className="shrink-0 text-right tabular-nums text-white">{amount}</span>
+    </div>
   )
 
   return (
-    <section className="mx-auto mt-10 grid max-w-5xl gap-5 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:items-start">
+    <div className="grid gap-5 lg:grid-cols-2 lg:items-start">
       {liveDeal ? (
         <div className="space-y-2 p-1 text-sm leading-relaxed text-neutral-300">
           <p className={ORDER_LABEL}>{fr ? 'Ton offre du live' : 'Your live offer'}</p>
@@ -144,85 +84,92 @@ export default function OptionsPanel({ plan, period, live = null }: { plan: Plan
           </p>
         </div>
       ) : (
-      <div className="space-y-3">
-        <p className={ORDER_LABEL}>{fr ? 'Ajoute à ta formule' : 'Add to your plan'}</p>
-        {optionRow(
-          'bootcamp', bootcamp, <GraduationCap className="h-4 w-4 text-neutral-300" />,
-          fr ? 'Bootcamp Academy' : 'Academy bootcamp',
-          `+${bootcampEuros} €`,
-          fr ? '21 vidéos pour apprendre la méthode Empire à ton rythme, avec la certification. Paiement unique.' : '21 videos to learn the Empire method at your own pace, with the certification. One-time payment.',
-        )}
-        {optionRow(
-          'expert', expert, <UserRound className="h-4 w-4 text-neutral-300" />,
-          fr ? 'Expert Empire' : 'Empire expert',
-          fr ? `${EXPERT_MONTHLY_EUROS} €/mois` : `€${EXPERT_MONTHLY_EUROS}/mo`,
-          fr ? 'Un expert Empire Partners t’accompagne chaque mois. Il te contacte sous 48 h et tu le règles directement.' : 'An Empire Partners expert coaches you every month. They contact you within 48h and you pay them directly.',
-          spotsLine,
-        )}
-      </div>
+        <div className="space-y-3">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-neutral-400">{fr ? 'Options' : 'Add-ons'}</p>
+          {optionRow(
+            'bootcamp', bootcamp, <GraduationCap className="h-4 w-4 text-empire" />,
+            fr ? 'Bootcamp Academy' : 'Academy bootcamp',
+            fr ? `+${bootcampEuros} €` : `+€${bootcampEuros}`,
+            fr
+              ? nbsp('En une fois, prélevés aujourd’hui. 21 vidéos pour apprendre la méthode Empire.')
+              : 'One-time payment, charged today. 21 videos to learn the Empire method.',
+          )}
+          {optionRow(
+            'expert', expert, <UserRound className="h-4 w-4 text-empire" />,
+            fr ? 'Expert Empire' : 'Empire expert',
+            fr ? `${EXPERT_MONTHLY_EUROS} €/mois` : `€${EXPERT_MONTHLY_EUROS}/mo`,
+            fr
+              ? nbsp('Tu règles directement l’expert. Il te contacte sous 48 h. Places limitées chaque mois : si c’est complet, tu passes en liste d’attente.')
+              : 'You pay the expert directly. They contact you within 48h. Limited spots each month: if it’s full, you join the waiting list.',
+            spotsLine ? (fr ? nbsp(spotsLine) : spotsLine) : undefined,
+          )}
+        </div>
       )}
 
-      <div ref={cartRef} className={`p-5 sm:p-6 ${ORDER_CARD}`}>
-        <p className="text-base font-semibold text-white">{fr ? 'Ton panier' : 'Your cart'}</p>
-        <div className="mt-4 space-y-2">
-          {line(liveDeal
-            ? `${PLAN_LABELS[plan][fr ? 'fr' : 'en']} · ${fr ? 'offre du live' : 'live offer'}`
-            : `${PLAN_LABELS[plan][fr ? 'fr' : 'en']} · ${fr ? billing.labelFr.toLowerCase() : billing.labelEn.toLowerCase()}`, `${perMonth} €${fr ? '/mois' : '/mo'}`)}
-          {!liveDeal && bootcamp && line(fr ? 'Bootcamp Academy' : 'Academy bootcamp', `${bootcampEuros} €`, () => toggle('bootcamp'))}
-          {!liveDeal && expert && line(full ? (fr ? 'Expert Empire (liste d’attente)' : 'Empire expert (waiting list)') : (fr ? 'Expert Empire' : 'Empire expert'), fr ? 'réglé avec l’expert' : 'paid to the expert', () => toggle('expert'))}
-        </div>
-        <div className="my-4 h-px bg-white/15" />
-        <p className="flex items-baseline justify-between text-sm">
-          <span className="font-medium text-white">{fr ? 'À payer aujourd’hui' : 'Due today'}</span>
-          <span className="text-lg font-semibold tabular-nums text-white">{today.toLocaleString(locale)} €</span>
-        </p>
-        <p className="mt-1 text-xs text-neutral-300">
-          {liveDeal
-            ? (fr ? 'Ton premier mois, prélevé aujourd’hui.' : 'Your first month, charged today.')
-            : bootcamp
-            ? (fr ? `Le bootcamp. Ta formule démarre après 7 jours d’essai gratuit (ou ${TRIAL_CREDITS} crédits).` : `The bootcamp. Your plan starts after a 7-day free trial (or ${TRIAL_CREDITS} credits).`)
-            : (fr ? `Ta formule démarre après 7 jours d’essai gratuit (ou ${TRIAL_CREDITS} crédits).` : `Your plan starts after a 7-day free trial (or ${TRIAL_CREDITS} credits).`)}
-        </p>
-        <p className="mt-3 flex items-baseline justify-between text-sm">
-          <span className="text-neutral-300">{fr ? 'Ensuite' : 'Then'}</span>
-          <span className="tabular-nums text-white">{liveDeal
-            ? (fr ? `${liveDeal.monthly} €/mois jusqu’au 3e mois, puis ${liveDeal.listMonthly} €` : `€${liveDeal.monthly}/mo through month 3, then €${liveDeal.listMonthly}`)
-            : billing.months > 1 ? (fr ? `${cycleTotal.toLocaleString(locale)} € tous les ${billing.months} mois` : `€${cycleTotal.toLocaleString(locale)} every ${billing.months} months`) : `${perMonth} €${fr ? '/mois' : '/mo'}`}</span>
-        </p>
-        <button type="button" onClick={checkout} disabled={opening} className={`mt-5 ${ORDER_CTA}`}>
-          {opening ? (fr ? 'Ouverture…' : 'Opening…') : (
-            <>
-              {fr ? 'Continuer' : 'Continue'}
-              <ArrowRight className="ml-1 h-4 w-4" />
-            </>
+      <div className={`p-5 sm:p-6 ${glass.panel} ${glass.featured} ${glass.plan}`}>
+        <div className="space-y-2.5">
+          {line(
+            liveDeal
+              ? `${label} · ${fr ? 'offre du live' : 'live offer'}`
+              : `${label} · ${fr ? billing.labelFr.toLowerCase() : billing.labelEn.toLowerCase()}`,
+            fr ? `${perMonth} €/mois` : `€${perMonth}/mo`,
           )}
-        </button>
-        <p className="mt-2 text-center text-xs text-neutral-300">
-          {liveDeal
-            ? (fr ? 'Sans engagement : tu arrêtes quand tu veux depuis l’app.' : 'No commitment: stop anytime from the app.')
-            : (fr ? 'Sans engagement : annule pendant l’essai et ta formule ne te coûte rien.' : 'No commitment: cancel during the trial and your plan costs nothing.')}
-        </p>
-      </div>
-
-      <div
-        aria-hidden={cartVisible}
-        className={`fixed inset-x-0 bottom-4 z-40 mx-auto w-[min(640px,calc(100%-2rem))] transition-all duration-200 ${cartVisible ? 'pointer-events-none translate-y-4 opacity-0' : 'opacity-100'}`}
-      >
-        <div className={`flex items-center gap-3 p-2.5 pl-4 ${ORDER_CARD}`}>
-          <div className="min-w-0 flex-1">
-            <p className="truncate text-sm font-semibold text-white">
-              {PLAN_LABELS[plan][fr ? 'fr' : 'en']}{liveDeal ? (fr ? ' · offre du live' : ' · live offer') : `${bootcamp ? ' + bootcamp' : ''}${expert ? ' + expert' : ''}`}
-            </p>
-            <p className="truncate text-xs text-neutral-300">
-              {fr ? `${today.toLocaleString(locale)} € aujourd’hui, puis ${perMonth} €/mois` : `€${today.toLocaleString(locale)} today, then €${perMonth}/mo`}
-            </p>
-          </div>
-          <button type="button" onClick={checkout} disabled={opening} tabIndex={cartVisible ? -1 : 0} className={`!w-auto shrink-0 px-5 ${ORDER_CTA}`}>
-            {opening ? (fr ? 'Ouverture…' : 'Opening…') : (fr ? 'Continuer' : 'Continue')}
-            {!opening && <ArrowRight className="ml-1 h-4 w-4" />}
-          </button>
+          {!liveDeal && bootcamp && line(fr ? 'Bootcamp Academy' : 'Academy bootcamp', euros(bootcampEuros), () => toggle('bootcamp'))}
+          {!liveDeal && expert && line(
+            full ? (fr ? 'Expert Empire (liste d’attente)' : 'Empire expert (waiting list)') : (fr ? 'Expert Empire' : 'Empire expert'),
+            fr ? 'réglé avec l’expert' : 'paid to the expert',
+            () => toggle('expert'),
+          )}
         </div>
+        <div className="my-5 h-px bg-white/15" />
+
+        {liveDeal ? (
+          <>
+            <p className="flex items-baseline justify-between gap-3">
+              <span className="text-[15px] font-semibold text-white">{fr ? 'À payer aujourd’hui' : 'Due today'}</span>
+              <span className="text-2xl font-bold tabular-nums text-white">{today.toLocaleString(locale)} €</span>
+            </p>
+            <p className="mt-1 text-[13px] text-neutral-300">{fr ? 'Ton premier mois, prélevé aujourd’hui.' : 'Your first month, charged today.'}</p>
+            <p className="mt-4 flex items-baseline justify-between gap-3 text-sm">
+              <span className="text-neutral-300">{fr ? 'Ensuite' : 'Then'}</span>
+              <span className="text-right tabular-nums text-white">
+                {fr ? `${liveDeal.monthly} €/mois jusqu’au 3e mois, puis ${liveDeal.listMonthly} €` : `€${liveDeal.monthly}/mo through month 3, then €${liveDeal.listMonthly}`}
+              </span>
+            </p>
+          </>
+        ) : (
+          <>
+            <p className="flex items-baseline justify-between gap-3">
+              <span className="text-[15px] font-semibold text-white">{fr ? 'Aujourd’hui' : 'Today'}</span>
+              <span className="text-2xl font-bold tabular-nums text-white">{euros(today)}</span>
+            </p>
+            <p className="mt-1 text-[13px] leading-relaxed text-neutral-300">
+              {bootcamp
+                ? tr(`${bootcampEuros} € pour le Bootcamp Academy, 0 € pour ta formule.`, `€${bootcampEuros} for the Academy bootcamp, €0 for your plan.`)
+                : tr('0 € pour ta formule.', '€0 for your plan.')}
+            </p>
+            <p className="mt-4 flex items-baseline justify-between gap-3">
+              <span className="text-[15px] font-semibold text-white">{fr ? 'Ensuite' : 'Then'}</span>
+              <span className="text-base font-semibold tabular-nums text-white">
+                {billing.months > 1 ? euros(cycleTotal) : (fr ? `${perMonth} €/mois` : `€${perMonth}/mo`)}
+              </span>
+            </p>
+            <p className="mt-1 text-[13px] leading-relaxed text-neutral-300">
+              {billing.months > 1
+                ? tr(
+                  `Prélevés en une fois le 8ᵉ jour, ou avant si tu dépasses les ${TRIAL_CREDITS} crédits, puis tous les ${billing.months} mois.`,
+                  `Charged in one go on day 8, or earlier if you go past ${TRIAL_CREDITS} credits, then every ${billing.months} months.`,
+                )
+                : tr(
+                  `À partir du 8ᵉ jour, ou avant si tu dépasses les ${TRIAL_CREDITS} crédits de l’essai.`,
+                  `From day 8, or earlier if you go past the ${TRIAL_CREDITS} trial credits.`,
+                )}
+            </p>
+          </>
+        )}
+
+        <TrialCta cart={cart} note="cancel" className="mt-6" />
       </div>
-    </section>
+    </div>
   )
 }

@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import glass from './pricing.module.css'
-import { Play, Star } from 'lucide-react'
+import { Play } from 'lucide-react'
 
 /**
  * Avis clients de la page tarifs. Même liste que
@@ -61,19 +61,11 @@ const REVIEWS: Array<{ name: string; role: string; photo: string; text: string }
   },
 ]
 
-function Stars() {
-  return (
-    <div className="flex gap-0.5 text-amber-400" aria-label="5 sur 5">
-      {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="h-3 w-3 fill-current" />)}
-    </div>
-  )
-}
-
 export default function CustomerReviews({ title }: { title: string }) {
   const [playing, setPlaying] = useState<string | null>(null)
   return (
     <section>
-      <h2 className="text-center text-sm font-semibold text-white">{title}</h2>
+      <h2 className="text-center text-2xl font-bold tracking-tight text-white md:text-4xl">{title}</h2>
       <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-3">
         {VIDEOS.map((v) => (
           <div key={v.name} className={`relative aspect-video overflow-hidden ${glass.panel}`}>
@@ -106,15 +98,14 @@ export default function CustomerReviews({ title }: { title: string }) {
       </div>
       <div className="mt-3 grid gap-3 md:grid-cols-2">
         {REVIEWS.map((r) => (
-          <figure key={r.name} className={`flex flex-col gap-3 p-5 ${glass.panel}`}>
-            <Stars />
-            <blockquote className="flex-1 text-sm leading-relaxed text-neutral-200">{r.text}</blockquote>
+          <figure key={r.name} className={`flex flex-col gap-4 p-5 sm:p-6 ${glass.panel}`}>
+            <blockquote className="flex-1 text-[15px] leading-relaxed text-neutral-200">{r.text}</blockquote>
             <figcaption className="flex items-center gap-2.5">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={r.photo} alt="" loading="lazy" className="h-8 w-8 rounded-full object-cover" />
+              <img src={r.photo} alt="" loading="lazy" className="h-10 w-10 rounded-full object-cover" />
               <span className="min-w-0">
-                <span className="block truncate text-xs font-semibold text-white">{r.name}</span>
-                <span className="block truncate text-[11px] text-neutral-300">{r.role}</span>
+                <span className="block truncate text-sm font-semibold text-white">{r.name}</span>
+                <span className="block truncate text-xs text-neutral-400">{r.role}</span>
               </span>
             </figcaption>
           </figure>
