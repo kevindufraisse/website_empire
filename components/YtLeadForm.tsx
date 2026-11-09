@@ -42,7 +42,7 @@ interface Lead {
 }
 
 // ── Cal.com full-screen modal ─────────────────────────────────────────────────
-function CalModal({ lead, countryCode, onClose }: { lead: Lead; countryCode: string; onClose: () => void }) {
+function CalModal({ lead, countryCode, informal, onClose }: { lead: Lead; countryCode: string; informal?: boolean; onClose: () => void }) {
   const calInitialized = useRef(false)
   const fullPhone = `${countryCode}${lead.phone}`
 
@@ -96,10 +96,11 @@ function CalModal({ lead, countryCode, onClose }: { lead: Lead; countryCode: str
             <p className="text-sm font-semibold text-white">
               C'est noté, {lead.firstName} 👋
             </p>
-            <p className="text-xs text-neutral-400">Choisissez votre créneau - vos infos sont pré-remplies.</p>
+            <p className="text-xs text-neutral-400">{informal ? 'Choisis ton créneau. Tes infos sont déjà remplies.' : 'Choisissez votre créneau - vos infos sont pré-remplies.'}</p>
           </div>
           <button
             onClick={onClose}
+            aria-label="Fermer"
             className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-neutral-400 hover:text-white hover:border-white/20 transition-all"
           >
             <X size={16} />
@@ -127,9 +128,11 @@ function CalModal({ lead, countryCode, onClose }: { lead: Lead; countryCode: str
 }
 
 // ── Main form ─────────────────────────────────────────────────────────────────
-export default function YtLeadForm({ eventName = 'ads_conversion_book_appointment', prefilledLead }: {
+export default function YtLeadForm({ eventName = 'ads_conversion_book_appointment', prefilledLead, informal = false }: {
   eventName?: string
   prefilledLead?: Pick<Lead, 'firstName' | 'email'>
+  /** Tutoiement (page /demo). Les autres pages gardent le vouvoiement. */
+  informal?: boolean
 }) {
   const { lang } = useLanguage()
   const { autopilot } = useAutopilot()
@@ -216,7 +219,7 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
         {!prefilledLead && <>
         <input
           type="text"
-          placeholder="Votre prénom *"
+          placeholder={informal ? 'Ton prénom *' : 'Votre prénom *'}
           value={form.firstName}
           onChange={(e) => { setForm({ ...form, firstName: e.target.value }); setErrors({ ...errors, firstName: false }) }}
           className={`w-full px-4 py-3.5 rounded-xl bg-white/[0.06] border text-white placeholder:text-neutral-400 focus:outline-none focus:ring-1 ${accent.ring} transition-all text-sm ${errors.firstName ? 'border-red-500' : `border-white/40 ${accent.border}`}`}
@@ -224,7 +227,7 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
 
         <input
           type="email"
-          placeholder="Votre email *"
+          placeholder={informal ? 'Ton email *' : 'Votre email *'}
           value={form.email}
           onChange={(e) => { setForm({ ...form, email: e.target.value }); setErrors({ ...errors, email: false }) }}
           autoComplete="email"
@@ -238,6 +241,7 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
             <button
               type="button"
               onClick={() => setCountryOpen(!countryOpen)}
+              aria-label={`Indicatif : ${COUNTRIES[countryIdx].name} ${COUNTRIES[countryIdx].code}`}
               className="flex items-center gap-1.5 px-3 py-3.5 text-white hover:bg-white/5 transition-colors border-r border-white/25 whitespace-nowrap"
             >
               <span className="text-base">{COUNTRIES[countryIdx].flag}</span>
@@ -263,7 +267,8 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
           </div>
           <input
             type="tel"
-            placeholder="Votre téléphone *"
+            placeholder={informal ? 'Ton téléphone *' : 'Votre téléphone *'}
+            aria-label={informal ? 'Ton téléphone' : 'Votre téléphone'}
             value={form.phone}
             onChange={(e) => { setForm({ ...form, phone: e.target.value }); setErrors({ ...errors, phone: false }) }}
             autoComplete="tel"
@@ -306,6 +311,7 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
         <CalModal
           lead={form}
           countryCode={COUNTRIES[countryIdx].code}
+          informal={informal}
           onClose={() => setShowCal(false)}
         />
       )}

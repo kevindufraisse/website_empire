@@ -25,7 +25,7 @@ export default function Footer() {
   const isVslPage = pathname === '/vsl'
   const isCandidaturePage = pathname === '/candidature' || pathname === '/decouverte' || pathname === '/join-us' || pathname === '/postuler' || pathname?.startsWith('/hire-our-team')
 
-  if (pathname === '/live' || pathname === '/tarifs' || pathname === '/demo') return null
+  if (pathname === '/live' || pathname === '/tarifs') return null
 
   if (isCandidaturePage || pathname === '/academy/merci' || pathname === '/thank-you' || pathname === '/webinar' || pathname === '/webinar/merci' || pathname === '/live') return null
 
