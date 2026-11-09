@@ -1,4 +1,5 @@
 'use client'
+import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
@@ -14,6 +15,10 @@ export default function Footer() {
   const { t, lang } = useLanguage()
   const { autopilot } = useAutopilot()
   const pathname = usePathname()
+  const [signedIn, setSignedIn] = useState(false)
+  useEffect(() => {
+    setSignedIn(document.cookie.split('; ').some((part) => part === 'empire_app=1'))
+  }, [])
   
   const isPartnersPage = pathname === '/partners'
   const isAcademyPage = pathname === '/academy' || pathname?.startsWith('/academy/')
@@ -129,9 +134,11 @@ export default function Footer() {
                 {lang === 'fr' ? 'Suppression des données' : 'Data deletion'}
               </a>
               {/* Seule entrée vers le panneau de choix : la mesure est active par défaut. */}
-              <button type="button" onClick={openCookiePreferences} className="hover:text-empire transition-colors">
-                Cookies
-              </button>
+              {!signedIn && (
+                <button type="button" onClick={openCookiePreferences} className="cursor-pointer appearance-none border-0 bg-transparent p-0 font-inherit text-inherit hover:text-empire transition-colors">
+                  Cookies
+                </button>
+              )}
             </nav>
           </div>
         </div>
