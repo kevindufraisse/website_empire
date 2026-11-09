@@ -3,7 +3,9 @@ import * as amplitude from '@amplitude/analytics-browser'
 
 // Same Amplitude project as the app (app.empire-internet.com) so the full
 // funnel (variant viewed -> plan click -> signup -> trial -> paid) joins up.
-const AMPLITUDE_KEY = process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY
+// Clé publique du projet (la même que celle livrée dans l'app). Sert de secours :
+// la variable n'était pas définie sur Vercel, et le site n'envoyait donc rien.
+const AMPLITUDE_KEY = process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY || '3ebeed5ac0067833cc89f296696d6c1d'
 
 let initialized = false
 
