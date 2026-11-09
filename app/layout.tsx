@@ -1,4 +1,5 @@
 import './globals.css'
+import Script from 'next/script'
 import { ReactNode } from 'react'
 import dynamic from 'next/dynamic'
 import { Inter } from 'next/font/google'
@@ -47,6 +48,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <AutopilotProvider>
             <GiftCountdownProvider>
             <MarketingConsent />
+            <Script src="https://empire-tracking.onrender.com/api/sales-monitor/visit.js" strategy="afterInteractive" />
             <MetaAttribution />
             <div data-chrome="cal-redirect"><CalCtaRedirect /></div>
             <div data-chrome="header"><Header /></div>
