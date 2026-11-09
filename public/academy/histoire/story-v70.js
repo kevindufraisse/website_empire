@@ -205,3 +205,4 @@
  const followInitialAlias=()=>Promise.resolve(document.fonts?.ready).then(()=>{if(!navigated)followAlias()});
  if(document.readyState==='complete')followInitialAlias();else addEventListener('load',followInitialAlias,{once:true});
 })();
+document.querySelectorAll('[data-year]').forEach(function(n){n.textContent=new Date().getFullYear()});

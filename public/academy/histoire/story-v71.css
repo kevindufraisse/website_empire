@@ -10,21 +10,44 @@
 #story .v60-two>article{transition:border-color .3s ease,background-color .3s ease,box-shadow .3s ease,opacity .3s ease}
 @media(prefers-reduced-motion:reduce){#story .v60-beat.is-active,#story .v71-swap{animation:none!important}}
 
-/* 2. Story navigation: an opaque bar, so content that scrolls underneath is masked cleanly. */
-.ac-nav{background:#0d0d0d;border-color:rgba(255,255,255,.16);box-shadow:0 -1px 0 rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.6);overflow:visible}
-.ac-nav .ac-progress{border-radius:0 0 18px 18px;overflow:hidden;background:rgba(255,255,255,.08)}
+/* 2. Story navigation: a bar docked to the bottom edge on every screen. It is opaque and full width, so nothing shows around or through it; scenes keep 80px+ of bottom padding, so settled content always ends above it. */
+.ac-nav{left:0;right:0;bottom:0;transform:none;width:100%;max-width:none;min-height:56px;border-radius:0;border-width:1px 0 0;border-color:rgba(255,255,255,.1);background:#0a0a0a;box-shadow:none;overflow:visible;justify-content:space-between;gap:24px;padding:6px max(24px,calc((100% - 1280px)/2 + 16px)) calc(6px + env(safe-area-inset-bottom))}
+.ac-nav:before{content:"";position:absolute;left:0;right:0;bottom:100%;height:22px;margin-bottom:1px;background:linear-gradient(rgba(0,0,0,0),#000);pointer-events:none}
+.ac-nav .ac-progress{inset:0 0 auto;border-radius:0;overflow:hidden;background:rgba(255,255,255,.08)}
+.ac-chapter-links{gap:28px}
+.ac-chapter-links>a{font-size:13px;font-weight:500;padding:12px 0}
+.ac-chapter-links>a:hover{color:#fff}
+.ac-nav-actions button{border-radius:10px;color:#f5f5f5}
 .ac-nav-actions button:hover{background:rgba(255,255,255,.08)}
-.ac-nav-actions #ac-reading,.ac-skip{font-size:12px;color:#d4d4d4}
-.ac-chapter-links a{font-size:12px}
+.ac-nav-actions button:disabled{opacity:.4}
+.ac-nav-actions #ac-reading,.ac-skip{font-size:13px;color:#d4d4d4;white-space:nowrap;max-width:none}
+.ac-nav-actions #ac-reading{padding:10px 12px}
+.ac-skip{padding:10px 0 10px 16px;margin-left:6px;border-left-color:rgba(255,255,255,.14)}
+.ac-skip:hover,.ac-nav-actions #ac-reading:hover{color:#fff}
+@media(max-width:1000px){.ac-nav{gap:16px}.ac-chapter-links{gap:16px}.ac-chapter-links>a,.ac-nav-actions #ac-reading,.ac-skip{font-size:12px}}
 @media(max-width:700px){
- .ac-nav{left:0;right:0;bottom:0;transform:none;width:100%;max-width:none;border-radius:0;border-width:1px 0 0;padding:6px 12px calc(8px + env(safe-area-inset-bottom));min-height:60px;gap:8px}
- .ac-nav:before{content:"";position:absolute;left:0;right:0;bottom:100%;height:22px;margin-bottom:1px;background:linear-gradient(rgba(0,0,0,0),#000);pointer-events:none}
- .ac-nav .ac-progress{border-radius:0;inset:0 0 auto}
- .ac-current-chapter{font-size:12px}
- .ac-nav-actions button{width:40px;min-height:44px;font-size:19px}
- .ac-nav-actions #ac-reading{font-size:11px;max-width:92px;padding:8px 6px}
- .ac-skip{font-size:11px;max-width:78px;padding:8px 0 8px 8px}
+ .ac-nav{padding:6px 10px calc(6px + env(safe-area-inset-bottom));min-height:58px;gap:6px}
+ .ac-current-chapter{font-size:11px;flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis}
+ .ac-nav-actions{gap:0;flex:none}
+ .ac-nav-actions button{width:33px;min-height:44px;font-size:19px}
+ .ac-nav-actions #ac-reading{font-size:11px;line-height:1.2;padding:8px 4px;margin-left:2px}
+ .ac-skip{font-size:11px;line-height:1.2;padding:8px 0 8px 8px;margin-left:3px}
 }
+/* Narrow phones, or the longer "Reprendre l’animation" label: the chapter name (decorative, aria-hidden) steps aside instead of squeezing the buttons. */
+@media(max-width:389px){
+ .ac-current-chapter{display:none}
+ .ac-nav-actions{flex:1}
+ .ac-nav-actions button{width:38px}
+ .ac-nav-actions #ac-reading{margin-left:auto;font-size:12px;padding:8px 6px}
+ .ac-skip{font-size:12px;padding-left:10px}
+}
+@media(min-width:390px) and (max-width:430px){
+ #story.v60-reading+.ac-nav .ac-current-chapter{display:none}
+ #story.v60-reading+.ac-nav .ac-nav-actions{flex:1}
+ #story.v60-reading+.ac-nav #ac-reading{margin-left:auto}
+}
+@media(max-width:345px){.ac-nav-actions button{width:32px}.ac-nav-actions #ac-reading,.ac-skip{font-size:11px}.ac-nav-actions #ac-reading{padding:8px 4px}}
+@media(orientation:landscape) and (max-height:520px){.ac-nav{min-height:44px;padding-top:2px;padding-bottom:calc(2px + env(safe-area-inset-bottom))}}
 /* Readability floor: no label under 11px, no sentence under 12px. */
 #story .v60-speech>b,#story .v70-reaction-shot figcaption,#story .v70-flow-label,#story .v70-angle>span,#story .v70-draft>span,#story .v70-thought-copy>span,#story .v70-payment>span,#story .v69-invoice>span,#story .v60-client-camera>span,#story .v60-client-camera figcaption,#story .v70-publication-author span,#story .v70-ready-label,#story .v58-byline,#story .v58-paper-topic,#story .v56-mag-source time,#story .v56-mag-foot a,#story .v56-mag-masthead span{font-size:11px}
 #story .v56-mag-foot small{font-size:12px}
@@ -37,4 +60,54 @@
  #story .v70-delivery .v60-cast{padding-bottom:72px}
  #story .v70-delivery .v70-payment{right:0;bottom:0}
  #story .v60-flow .v60-newspaper,#story.v60-reading .v60-newspaper{min-height:0}
+}
+/* 3. Site footer: same structure, widths and tones as the footer of the main site. */
+footer.site-footer{display:block;padding:0 0 env(safe-area-inset-bottom);background:#000;color:#a3a3a3;border-top:1px solid rgba(255,255,255,.1);font-size:14px;line-height:1.45}
+.sf-wrap{max-width:1100px;margin:0 auto;padding:48px 32px}
+.sf-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px;margin-bottom:32px}
+.sf-col{display:flex;flex-direction:column;align-items:flex-start;gap:8px;min-width:0}
+.sf-col p{margin:0}
+.site-footer a{color:#a3a3a3;text-decoration:none;transition:color .15s ease}
+.site-footer a:hover{color:#dafc68}
+.site-footer .sf-name{font-size:18px;font-weight:700;color:#fff;letter-spacing:-.01em}
+.sf-title{font-weight:700;color:#fff}
+.sf-brand{gap:12px}
+.sf-mail{display:inline-flex;align-items:center;gap:8px}
+.sf-mail svg{flex:none}
+.sf-academy{align-items:flex-end;text-align:right}
+.site-footer .sf-cta{margin-top:8px;background:#dafc68;color:#000;font-weight:700;border-radius:12px;padding:14px 24px;line-height:1.2;text-align:center}
+.site-footer .sf-cta:hover{color:#000;background:#e4fd8a}
+.sf-bottom{padding-top:32px;border-top:1px solid rgba(255,255,255,.1);display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px}
+.sf-bottom p{margin:0}
+.sf-bottom nav{display:flex;flex-wrap:wrap;gap:8px 16px}
+@media(max-width:767px){
+ .sf-wrap{padding:32px 20px}
+ .sf-grid{grid-template-columns:1fr;gap:28px}
+ .sf-col,.sf-academy{align-items:center;text-align:center}
+ .sf-bottom{flex-direction:column;justify-content:center;text-align:center;gap:12px}
+ .sf-bottom>span{display:none}
+ .sf-bottom nav{justify-content:center}
+ .site-footer a{padding:4px 0}
+ .site-footer .sf-cta{padding:14px 24px}
+}
+@media(min-width:768px) and (max-width:1023px){.sf-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sf-academy{align-items:flex-start;text-align:left}.sf-bottom>span{display:none}}
+/* 4. Collapsible rows: the chevron of the site instead of the browser triangle. */
+.v52-videos>summary,.v57-source-library>summary,.v59-extra-reviews>summary,.v59-platform-details>summary,.v63-real-product>summary,.story-sources>details>summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.v63-real-product>summary{justify-content:center;gap:10px}
+.v52-videos>summary::-webkit-details-marker,.v57-source-library>summary::-webkit-details-marker,.v59-extra-reviews>summary::-webkit-details-marker,.v59-platform-details>summary::-webkit-details-marker,.v63-real-product>summary::-webkit-details-marker,.story-sources>details>summary::-webkit-details-marker{display:none}
+.v52-videos>summary:after,.v57-source-library>summary:after,.v59-extra-reviews>summary:after,.v59-platform-details>summary:after,.v63-real-product>summary:after,.story-sources>details>summary:after{content:"";flex:none;width:18px;height:18px;background:#a3a3a3;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") center/contain no-repeat;transition:transform .2s ease,background-color .2s ease}
+.v52-videos[open]>summary:after,.v57-source-library[open]>summary:after,.v59-extra-reviews[open]>summary:after,.v59-platform-details[open]>summary:after,.v63-real-product[open]>summary:after,.story-sources>details[open]>summary:after{transform:rotate(180deg);background:#dafc68}
+/* 5. Author line under the founder note. */
+.v61-honest>p{max-width:760px;font-size:17px;line-height:1.6;color:#d4d4d4;margin:0 0 12px}
+.v61-sign{display:flex;align-items:center;gap:12px;margin-top:28px;font-size:14px;color:#a3a3a3}
+.v61-sign img{width:44px;height:44px;border-radius:50%;object-fit:cover;border:1px solid rgba(255,255,255,.16);flex:none}
+.v61-sign b{color:#fff;font-weight:600}
+/* 6. The live-registration popup is a light third-party frame: keep its canvas transparent. */
+#wj_registration_frame{color-scheme:light}
+/* 7. Wide screens: hero aligned on the header column, no label under 12px. */
+@media(min-width:701px){
+ #story .v53-intro .ac-frame{max-width:none;padding-left:max(28px,calc(50% - 624px));padding-right:max(28px,calc(50% - 624px))}
+ #story.v68-story .v53-intro h1{font-weight:700;letter-spacing:-.04em}
+ #story .v53-kicker,#story .v60-chapter>span,#story .v69-invoice>span,#story .v70-project-header>span,#story .v70-project-label,#story .v60-speech>b,#story .v70-thought-copy>span,#story .v70-reaction-shot figcaption,#story .v70-payment>span,#story .v69-ai-outputs figure>span,#story .v60-two article>span,#story .v60-client-camera>span,#story .v60-client-camera figcaption,#story .v69-real-screen figcaption,#story .v70-flow-steps li,#story .v70-flow-label,#story .v70-angle>span,#story .v70-draft>span,#story .v70-formats,#story .v70-publication-author span,#story .v70-ready-label,#story .v58-byline,#story .v58-paper-topic,#story .v60-press-hint b,#story .v56-mag-masthead span,#story .v56-mag-source b,#story .v56-mag-source time,#story .v56-mag-kind,#story .v56-mag-foot a,#story .v56-mag-page{font-size:12px}
+ main .v56-magazine .v56-mag-masthead span,main .v56-magazine .v56-mag-source b,main .v56-magazine .v56-mag-source time,main .v56-magazine .v56-mag-kind,main .v56-magazine .v56-mag-foot a,main .v56-magazine .v56-mag-page,main .v63-bridge>span,main .eyebrow,main .f-result small,main .v60-case-facts dt,main .partner-proof small,main .proof-note{font-size:12px}
 }

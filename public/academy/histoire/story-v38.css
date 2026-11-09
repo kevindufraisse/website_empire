@@ -133,12 +133,12 @@
 
 /* FAQ */
 .f-faq .f-wrap{max-width:760px}
-.f-faq details{border-bottom:1px solid var(--f-line);padding:18px 4px}
-.f-faq summary{cursor:pointer;font-weight:700;font-size:17px;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.f-faq details{border:1px solid rgba(255,255,255,.1);border-radius:12px;background:linear-gradient(to bottom right,rgba(255,255,255,.05),transparent);margin-top:12px;overflow:hidden}
+.f-faq summary{cursor:pointer;font-weight:600;font-size:18px;line-height:1.4;text-wrap:pretty;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px}
 .f-faq summary::-webkit-details-marker{display:none}
-.f-faq summary:after{content:'+';color:var(--f-pink-dark);font-size:22px;line-height:1}
-.f-faq details[open] summary:after{content:'−'}
-.f-faq details p{color:var(--f-muted);font-size:15px;line-height:1.6;margin:12px 0 0}
+.f-faq summary:after{content:'';flex:none;width:18px;height:18px;background:#a3a3a3;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") center/contain no-repeat;transition:transform .2s ease,background-color .2s ease}
+.f-faq details[open] summary:after{transform:rotate(180deg);background:var(--f-pink)}
+.f-faq details p{color:#d4d4d4;font-size:16px;line-height:1.6;margin:0;padding:16px 20px 20px;border-top:1px solid rgba(255,255,255,.1)}
 
 /* Dernier appel */
 .f-final{background:#1b1b1b}
@@ -163,3 +163,5 @@
 .choice-check{top:10px;right:10px}
 .choice-panel.is-decided .personal-trainer,.comparison-panel .my-quote{transform-origin:center}
 .comparison-panel .agency-quote{opacity:calc((1 - var(--phase,0)*.45)*(1 - var(--phase2,0)*2.2))}
+@media(max-width:700px){.f-faq details{border-radius:8px;margin-top:8px}.f-faq summary{font-size:16px;padding:16px}.f-faq details p{font-size:14px;padding:14px 16px 16px}.f-offer .big-cta,.f-founder .big-cta,.f-final .big-cta{font-size:clamp(15px,4.4vw,18px);padding:16px 12px}}
+@media(max-width:345px){.f-offer .big-cta,.f-founder .big-cta,.f-final .big-cta{font-size:14px;padding:16px 8px}}
