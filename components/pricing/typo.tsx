@@ -2,7 +2,7 @@ import { Fragment, type ReactNode } from 'react'
 
 /**
  * Typographie française de la page tarifs : espace insécable avant « ? : ; ! % € »
- * et dans « 4 h », « 15 min », « n° 1 », pour qu'un prix ou une question ne se
+ * et dans « 4 h », « 15 min », « 20 s », « 1 500 », « n° 1 », pour qu'un prix ou une question ne se
  * coupe jamais en fin de ligne sur téléphone.
  */
 export function nbsp(text: string): string {
@@ -10,7 +10,8 @@ export function nbsp(text: string): string {
     .replace(/ (?=[?:;!%€»])/g, ' ')
     .replace(/« /g, '« ')
     .replace(/n° /g, 'n° ')
-    .replace(/(\d) (?=(?:h|min|crédits|jours|mois|reels|posts|newsletters|réseaux|vidéos)\b)/g, '$1 ')
+    .replace(/(\d) (?=\d{3}\b)/g, '$1 ')
+    .replace(/(\d) (?=(?:h|min|s|crédits|jours|mois|reels|posts|newsletters|réseaux|vidéos|millions|étapes|places)\b)/g, '$1 ')
 }
 
 /** « 8ᵉ » rendu avec un vrai exposant (la police n'a pas toujours le caractère). */

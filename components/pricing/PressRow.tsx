@@ -5,6 +5,8 @@ import glass from './pricing.module.css'
  * défile (au lieu de la grille de 12 logos qui prenait un écran de téléphone).
  * Mêmes logos que `FeaturedInSection` (`/press`). Plusieurs sont des PNG sur
  * fond blanc : chacun est posé sur une petite tuile blanche, pour un rendu net.
+ * La rangée va d'un bord à l'autre de l'écran, sans fondu (un fondu sur des
+ * tuiles blanches donnait deux blocs gris sur le fond noir).
  */
 const OUTLETS: { name: string; file: string | null }[] = [
   { name: 'The Family', file: 'the-family.png' },
@@ -23,10 +25,10 @@ const OUTLETS: { name: string; file: string | null }[] = [
 
 export default function PressRow({ title, className = '' }: { title: string; className?: string }) {
   const tile = (o: (typeof OUTLETS)[number], copy: boolean) => (
-    <li key={`${o.name}${copy ? '-2' : ''}`} aria-hidden={copy || undefined} className="flex h-10 w-[104px] shrink-0 items-center justify-center rounded-lg bg-white px-3">
+    <li key={`${o.name}${copy ? '-2' : ''}`} aria-hidden={copy || undefined} className="flex h-11 w-[112px] shrink-0 items-center justify-center rounded-xl bg-white px-3.5">
       {o.file ? (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={`/press/${o.file}`} alt={copy ? '' : o.name} loading="lazy" className="max-h-6 max-w-full object-contain" />
+        <img src={`/press/${o.file}`} alt={copy ? '' : o.name} loading="eager" decoding="async" className="h-6 w-auto max-w-full object-contain" />
       ) : (
         <span className="text-[13px] font-bold tracking-tight text-neutral-900">{o.name}</span>
       )}
@@ -35,7 +37,7 @@ export default function PressRow({ title, className = '' }: { title: string; cla
   return (
     <div className={className}>
       <p className="text-center text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-500">{title}</p>
-      <div className={`mt-3 ${glass.marquee} ${glass.noScrollbar}`}>
+      <div className={`relative left-1/2 mt-4 w-screen -translate-x-1/2 ${glass.marquee} ${glass.noScrollbar}`}>
         <ul className={glass.marqueeTrack}>
           {OUTLETS.map((o) => tile(o, false))}
           {OUTLETS.map((o) => tile(o, true))}

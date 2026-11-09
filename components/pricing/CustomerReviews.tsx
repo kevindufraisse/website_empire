@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import glass from './pricing.module.css'
 import { Play } from 'lucide-react'
+import { nbsp } from './typo'
 
 /**
  * Avis clients de la page tarifs. Même liste que
@@ -39,19 +40,19 @@ const REVIEWS: Array<{ name: string; role: string; photo: string; text: string }
     name: 'Olivier Sarezinski',
     role: 'Gérant associé',
     photo: `${SENJA}/avatar/878666b7-ccb2-4480-b295-cadb7a02bbde_1000129171.jpg?width=80&height=80&format=webp`,
-    text: "Avant de travailler avec Empire, mon activité sur les réseaux sociaux était irrégulière, amatrice et sans stratégie. Empire m'a permis de structurer ma stratégie, de poster quotidiennement des contenus que je n'aurais pas pu produire seul. Et cela en une heure de travail par semaine. Il m'aurait fallu faire appel à plusieurs freelances pour avoir un résultat équivalent.",
+    text: "Avant de travailler avec Empire, mon activité sur les réseaux sociaux était irrégulière, amatrice et sans stratégie. Empire m’a permis de structurer ma stratégie, de poster quotidiennement des contenus que je n’aurais pas pu produire seul. Et cela en une heure de travail par semaine. Il m’aurait fallu faire appel à plusieurs freelances pour avoir un résultat équivalent.",
   },
   {
     name: 'Emmanuelle J.',
     role: 'Jazz Communication',
     photo: `${SENJA}/media/bfa693ba-3fb6-48c0-8e41-d8b1ae23adc7_d572083b-d1c5-4e02-ae8c-ef1b705f4999_1759355418647.jpeg?width=80&height=80&format=webp`,
-    text: "En tournant une seule vidéo, j'ai obtenu une pluie de contenus quasi prêts. Le jour où j'ai vu mon calendrier se remplir tout seul, j'ai compris le potentiel.",
+    text: "En tournant une seule vidéo, j’ai obtenu une pluie de contenus quasi prêts. Le jour où j’ai vu mon calendrier se remplir tout seul, j’ai compris le potentiel.",
   },
   {
     name: 'Gaidig D.',
     role: 'Avocate',
     photo: `${SENJA}/media/7136b611-a541-455c-8ee1-ef638afe7a6f_688f247c-fdf9-448f-8a2d-c1bf240f3ae6_1762441666628.jpeg?width=80&height=80&format=webp`,
-    text: "Ton système a fait sauter toutes mes excuses : plus besoin d'être designer ni monteur. Il m'oblige à oser me montrer et à dire vraiment ce que j'ai à dire.",
+    text: "Ton système a fait sauter toutes mes excuses : plus besoin d’être designer ni monteur. Il m’oblige à oser me montrer et à dire vraiment ce que j’ai à dire.",
   },
   {
     name: 'Sophie Guibaud',
@@ -65,10 +66,12 @@ export default function CustomerReviews({ title }: { title: string }) {
   const [playing, setPlaying] = useState<string | null>(null)
   return (
     <section>
-      <h2 className="text-center text-2xl font-bold tracking-tight text-white md:text-4xl">{title}</h2>
-      <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-3">
-        {VIDEOS.map((v) => (
-          <div key={v.name} className={`relative aspect-video overflow-hidden ${glass.panel}`}>
+      <h2 className="text-center text-[26px] font-bold leading-tight tracking-tight text-white [text-wrap:balance] md:text-4xl">{title}</h2>
+      {/* Sept vidéos : sur téléphone la première prend toute la largeur (puis 3
+          rangées de 2) ; sur ordinateur, 4 puis 3 centrées. Aucune carte seule. */}
+      <div className="mt-8 grid grid-cols-2 gap-3 md:flex md:flex-wrap md:justify-center">
+        {VIDEOS.map((v, i) => (
+          <div key={v.name} className={`relative aspect-video overflow-hidden md:w-[calc(25%-9px)] ${i === 0 ? 'col-span-2 md:col-span-1' : ''} ${glass.panel}`}>
             {playing === v.name ? (
               <video src={v.src} poster={v.poster} controls autoPlay playsInline className="h-full w-full object-cover" />
             ) : (
@@ -80,16 +83,16 @@ export default function CustomerReviews({ title }: { title: string }) {
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={v.poster} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
-                <span className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
+                <span className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
                 <span className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-black transition group-hover:scale-105 md:left-1/2 md:right-auto md:top-1/2 md:h-10 md:w-10 md:-translate-x-1/2 md:-translate-y-1/2">
                   <Play className="h-4 w-4 fill-current" />
                 </span>
                 {v.tag && (
-                  <span className="absolute left-2 top-2 rounded bg-black/70 px-1.5 py-0.5 text-[10px] font-semibold text-white/85">{v.tag}</span>
+                  <span className="absolute left-2 top-2 rounded-md bg-black/70 px-1.5 py-0.5 text-[11px] font-semibold text-white/90">{v.tag}</span>
                 )}
                 <span className="absolute bottom-2 left-2.5 right-2.5">
                   <span className="block truncate text-[13px] font-semibold text-white">{v.name}</span>
-                  <span className="block truncate text-[11px] text-neutral-300">{v.role}</span>
+                  <span className="mt-0.5 line-clamp-2 block text-[11px] leading-snug text-neutral-300">{v.role}</span>
                 </span>
               </button>
             )}
@@ -99,7 +102,7 @@ export default function CustomerReviews({ title }: { title: string }) {
       <div className="mt-3 grid gap-3 md:grid-cols-2">
         {REVIEWS.map((r) => (
           <figure key={r.name} className={`flex flex-col gap-4 p-5 sm:p-6 ${glass.panel}`}>
-            <blockquote className="flex-1 text-[15px] leading-relaxed text-neutral-200">{r.text}</blockquote>
+            <blockquote className="flex-1 text-[15px] leading-relaxed text-neutral-200">{nbsp(r.text)}</blockquote>
             <figcaption className="flex items-center gap-2.5">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={r.photo} alt="" loading="lazy" className="h-10 w-10 rounded-full object-cover" />

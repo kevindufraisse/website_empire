@@ -45,7 +45,7 @@ export default function OptionsPanel({ cart }: { cart: TrialCart }) {
       <span className="min-w-0 flex-1">
         <span className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
           <span className="flex items-center gap-2 text-[15px] font-semibold text-white">{icon}{title}</span>
-          <span className={`whitespace-nowrap ${ORDER_TAG}`}>{price}</span>
+          <span className={`whitespace-nowrap !text-xs ${ORDER_TAG}`}>{price}</span>
         </span>
         <span className="mt-1.5 block text-sm leading-relaxed text-neutral-300">{body}</span>
         {extra && <span className="mt-1.5 block text-xs font-medium text-neutral-200">{extra}</span>}
@@ -58,8 +58,8 @@ export default function OptionsPanel({ cart }: { cart: TrialCart }) {
       <span className="flex min-w-0 flex-wrap items-center gap-x-2 text-neutral-200">
         {text}
         {onRemove && (
-          <button type="button" onClick={onRemove} className="inline-flex min-h-8 cursor-pointer items-center gap-0.5 text-xs text-neutral-400 underline decoration-white/20 underline-offset-2 hover:text-white">
-            <X className="h-3 w-3" />{fr ? 'retirer' : 'remove'}
+          <button type="button" onClick={onRemove} className="-my-2 inline-flex min-h-11 cursor-pointer items-center gap-1 px-1 text-[13px] text-neutral-400 underline decoration-white/20 underline-offset-2 hover:text-white">
+            <X className="h-3.5 w-3.5" />{fr ? 'retirer' : 'remove'}
           </button>
         )}
       </span>
@@ -133,7 +133,7 @@ export default function OptionsPanel({ cart }: { cart: TrialCart }) {
             <p className="mt-4 flex items-baseline justify-between gap-3 text-sm">
               <span className="text-neutral-300">{fr ? 'Ensuite' : 'Then'}</span>
               <span className="text-right tabular-nums text-white">
-                {fr ? `${liveDeal.monthly} €/mois jusqu’au 3e mois, puis ${liveDeal.listMonthly} €` : `€${liveDeal.monthly}/mo through month 3, then €${liveDeal.listMonthly}`}
+                {fr ? rich(nbsp(`${liveDeal.monthly} €/mois jusqu’au 3ᵉ mois, puis ${liveDeal.listMonthly} €`)) : `€${liveDeal.monthly}/mo through month 3, then €${liveDeal.listMonthly}`}
               </span>
             </p>
           </>

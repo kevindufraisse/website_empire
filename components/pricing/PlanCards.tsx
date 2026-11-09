@@ -57,6 +57,7 @@ const EXTRAS: Record<PlanId, { title: { fr: string; en: string }; lines: { fr: s
   growth: {
     title: { fr: 'En plus', en: 'Also included' },
     lines: [
+      { fr: 'Un appel de démarrage en 1-1 (30 min), avec Kevin ou l’équipe', en: 'A 1-1 kickoff call (30 min), with Kevin or the team' },
       { fr: 'Réponse prioritaire sous 4 h', en: 'Priority reply within 4h' },
       { fr: 'Un live réservé aux clients chaque semaine', en: 'A clients-only live every week' },
       { fr: 'La communauté privée sur Slack', en: 'The private Slack community' },
@@ -112,7 +113,7 @@ export default function PlanCards({ location, period, onPeriodChange, chosen, on
           className={`flex min-w-0 flex-1 flex-col items-center justify-center gap-0.5 whitespace-nowrap text-[13px] font-semibold leading-tight lg:flex-row lg:gap-1.5 ${ORDER_SEGMENT}`}
         >
           <span>{fr ? p.labelFr : p.labelEn}</span>
-          {p.discount > 0 && <span className="text-[11px] font-semibold text-empire">{percent(p.discount)}</span>}
+          {p.discount > 0 && <span className="text-xs font-semibold text-empire">{percent(p.discount)}</span>}
         </button>
       ))}
     </div>
@@ -135,14 +136,14 @@ export default function PlanCards({ location, period, onPeriodChange, chosen, on
               className={`relative flex min-h-[68px] cursor-pointer flex-col items-start justify-center gap-0.5 px-3 py-3 text-left ${glass.planOption}`}
             >
               {p.highlighted && (
-                <span className={`absolute -top-2.5 right-2 whitespace-nowrap px-2 py-0.5 text-[10px] font-bold ${glass.limeTag}`}>
+                <span className={`absolute -top-2.5 right-2 whitespace-nowrap px-2 py-0.5 text-[11px] font-bold leading-tight ${glass.limeTag}`}>
                   {fr ? 'Populaire' : 'Popular'}
                 </span>
               )}
               <span className={`text-[13px] font-semibold leading-tight ${active ? 'text-white' : 'text-neutral-300'}`}>{PLAN_LABELS[p.id][fr ? 'fr' : 'en']}</span>
               <span className="whitespace-nowrap leading-tight tabular-nums text-white">
                 <span className="text-[17px] font-bold">{fr ? `${price} €` : `€${price}`}</span>
-                <span className="text-[11px] text-neutral-400">{perMonth}</span>
+                <span className="text-xs text-neutral-400">{perMonth}</span>
               </span>
             </button>
           )
@@ -187,12 +188,19 @@ export default function PlanCards({ location, period, onPeriodChange, chosen, on
                     <span className="mt-1 block text-sm text-neutral-300">{fr ? RHYTHM_TU[plan.id] : plan.rhythmEn.replace('You post', 'You publish')}</span>
                   </span>
                   <span className="flex shrink-0 items-center gap-2">
-                    {plan.highlighted && <span className={`whitespace-nowrap px-2.5 py-1 text-[11px] font-bold ${glass.limeTag}`}>{fr ? 'Populaire' : 'Popular'}</span>}
+                    {plan.highlighted && <span className={`hidden whitespace-nowrap px-2.5 py-1 text-xs font-bold lg:inline-block ${glass.limeTag}`}>{fr ? 'Populaire' : 'Popular'}</span>}
                     <span aria-hidden className={`hidden h-5 w-5 items-center justify-center rounded-full border lg:flex ${isSelected ? 'border-empire bg-empire text-black' : 'border-white/30'}`}>
                       {isSelected && <Check className="h-3.5 w-3.5" strokeWidth={3} />}
                     </span>
                   </span>
                 </button>
+
+                {/* Téléphone : la période se règle dans la carte, au-dessus du prix,
+                    pour que le sélecteur ne bouge pas sous le doigt quand le prix
+                    barré et la ligne de facturation apparaissent. */}
+                <div className="lg:hidden" onClick={(e) => e.stopPropagation()}>
+                  {periodTabs('grid')}
+                </div>
 
                 {liveDeal ? (
                   // Présentation reprise d'ElevenLabs : pastille de fin,
@@ -223,22 +231,19 @@ export default function PlanCards({ location, period, onPeriodChange, chosen, on
                       {discount > 0 && <span className={`text-lg ${ORDER_STRUCK}`}>{fr ? `${plan.price} €` : `€${plan.price}`}</span>}
                       <span className={`text-[2.75rem] !font-bold ${ORDER_PRICE}`}>{fr ? `${price} €` : `€${price}`}</span>
                       <span className="text-sm text-neutral-300">{perMonth}</span>
-                      {discount > 0 && <span className={`self-center ${ORDER_TAG}`}>{percent(discount)}</span>}
                     </div>
                     {discount > 0 && (
-                      <p className="mt-2 text-xs text-neutral-400">
-                        {fr
-                          ? `Facturé ${total} € ${billing.months === 12 ? 'une fois par an' : `tous les ${billing.months} mois`}`
-                          : `Billed €${total} ${billing.months === 12 ? 'once a year' : `every ${billing.months} months`}`}
+                      <p className="mt-2.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-neutral-400">
+                        <span className={`!text-xs ${ORDER_TAG}`}>{percent(discount)}</span>
+                        <span>
+                          {fr
+                            ? nbsp(`Facturé ${total} € ${billing.months === 12 ? 'une fois par an' : `tous les ${billing.months} mois`}`)
+                            : `Billed €${total} ${billing.months === 12 ? 'once a year' : `every ${billing.months} months`}`}
+                        </span>
                       </p>
                     )}
                   </div>
                 )}
-
-                {/* Téléphone : la période se règle dans la carte, sous le prix. */}
-                <div className="lg:hidden" onClick={(e) => e.stopPropagation()}>
-                  {periodTabs('grid')}
-                </div>
 
                 <div className="space-y-2.5 border-t border-white/10 pt-5">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-neutral-400">{fr ? 'Chaque mois, au choix, jusqu’à' : 'Every month, your pick, up to'}</p>

@@ -1,6 +1,6 @@
 'use client'
 
-import { Fragment, useEffect, useRef, useState } from 'react'
+import { Fragment, useEffect, useRef, useState, type ReactNode } from 'react'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { ArrowLeft, ArrowRight, ArrowUpRight, Check, ChevronDown, Minus } from 'lucide-react'
@@ -59,7 +59,7 @@ const TABS: { id: Tab; hash: string; fr: string; en: string }[] = [
 ]
 
 const GROUP_LABELS: Record<Group, { fr: string; en: string }> = {
-  features: { fr: 'Dans chaque formule', en: 'In every plan' },
+  features: { fr: 'Dans toutes les formules', en: 'In every plan' },
   bonus: { fr: 'À partir de Growth', en: 'From Growth' },
 }
 
@@ -100,8 +100,9 @@ const ROWS: Row[] = [
     fr: 'ou newsletters, jusqu’à', en: 'or newsletters, up to',
     cells: { starter: String(PLAN_DELIVERABLES.starter.newsletters), growth: String(PLAN_DELIVERABLES.growth.newsletters), scale: String(PLAN_DELIVERABLES.scale.newsletters) },
   },
-  { fr: 'Support prioritaire sous 4 h', en: 'Priority support within 4h', cells: FROM_GROWTH },
-  { fr: 'Revue stratégique mensuelle (retours Loom)', en: 'Monthly strategy review (Loom feedback)', cells: { starter: false, growth: false, scale: true } },
+  { fr: 'Un appel de démarrage en 1-1 (30 min), avec Kevin ou l’équipe', en: 'A 1-1 kickoff call (30 min), with Kevin or the team', cells: FROM_GROWTH },
+  { fr: 'Réponse prioritaire sous 4 h', en: 'Priority reply within 4h', cells: FROM_GROWTH },
+  { fr: 'Un point stratégie chaque mois (retours par Loom)', en: 'A strategy review every month (Loom feedback)', cells: { starter: false, growth: false, scale: true } },
   { fr: 'Chaque reel vérifié par l’équipe', en: 'Every reel checked by the team', cells: ALL, group: 'features' },
   { fr: 'Publication sur 7 réseaux, sans supplément', en: 'Publishing to 7 networks, no extra cost', cells: ALL, group: 'features' },
   { fr: 'Des idées prêtes à filmer chaque semaine', en: 'Ready-to-film ideas every week', cells: ALL, group: 'features' },
@@ -114,9 +115,9 @@ const ROWS: Row[] = [
   { fr: 'Intégrations Cal.com, Calendly, Tally, ManyChat, Systeme.io, Stripe…', en: 'Cal.com, Calendly, Tally, ManyChat, Systeme.io, Stripe… integrations', cells: ALL, group: 'features' },
   { fr: 'Plusieurs comptes, un seul envoi', en: 'Several accounts, one send', cells: ALL, group: 'features' },
   { fr: 'Rapport hebdo : vues, abonnés et leads par format', en: 'Weekly report: views, followers and leads per format', cells: ALL, group: 'features' },
-  { fr: 'Live client chaque semaine', en: 'Weekly client live', cells: FROM_GROWTH, group: 'bonus' },
-  { fr: 'Communauté privée Slack', en: 'Private Slack community', cells: FROM_GROWTH, group: 'bonus' },
-  { fr: 'Masterclass Empire : bien utiliser l’outil pour ta marque (replays)', en: 'Empire masterclass: using the tool for your brand (replays)', cells: FROM_GROWTH, group: 'bonus' },
+  { fr: 'Un live réservé aux clients chaque semaine', en: 'A clients-only live every week', cells: FROM_GROWTH, group: 'bonus' },
+  { fr: 'La communauté privée sur Slack', en: 'The private Slack community', cells: FROM_GROWTH, group: 'bonus' },
+  { fr: 'La masterclass Empire en replay', en: 'The Empire masterclass replays', cells: FROM_GROWTH, group: 'bonus' },
 ]
 
 // Un vrai reel de Kevin, publié sur son compte Instagram (fiche :
@@ -195,7 +196,7 @@ const FAQ: FaqItem[] = [
     },
   },
   {
-    q: { fr: 'Pourquoi une carte si c’est gratuit ?', en: 'Why a card if it’s free?' },
+    q: { fr: 'Est-ce que je paie quelque chose pendant l’essai ?', en: 'Do I pay anything during the trial?' },
     a: {
       fr: `Rien n’est prélevé pour ta formule avant le 8ᵉ jour, sauf si tu dépasses les ${TRIAL_CREDITS} crédits. Tu peux aussi payer par prélèvement SEPA.`,
       en: `Nothing is charged for your plan before day 8, unless you go past ${TRIAL_CREDITS} credits. You can also pay by SEPA direct debit.`,
@@ -211,8 +212,8 @@ const FAQ: FaqItem[] = [
   {
     q: { fr: 'Trimestriel ou annuel, c’est prélevé comment ?', en: 'How are quarterly and yearly billed?' },
     a: {
-      fr: `En une fois pour la période : tous les 3 mois en trimestriel (−12 %), une fois par an en annuel (−18 %). Même essai qu’au mois : 7 jours et ${TRIAL_CREDITS} crédits offerts, le premier prélèvement part au 8ᵉ jour ou dès que tu dépasses les ${TRIAL_CREDITS} crédits.`,
-      en: `Once per period: every 3 months on quarterly (-12%), once a year on yearly (-18%). Same trial as monthly: 7 days and ${TRIAL_CREDITS} free credits, the first charge is taken on day 8 or as soon as you go past ${TRIAL_CREDITS} credits.`,
+      fr: `En une fois pour la période : tous les 3 mois en trimestriel (−12 %), une fois par an en annuel (−18 %). Même essai qu’au mois : 7 jours et ${TRIAL_CREDITS} crédits offerts, le premier prélèvement part le 8ᵉ jour, ou avant si tu dépasses les ${TRIAL_CREDITS} crédits.`,
+      en: `Once per period: every 3 months on quarterly (−12%), once a year on yearly (−18%). Same trial as monthly: 7 days and ${TRIAL_CREDITS} free credits, the first charge is taken on day 8, or earlier if you go past ${TRIAL_CREDITS} credits.`,
     },
   },
   {
@@ -255,7 +256,9 @@ const FAQ: FaqItem[] = [
 
 const LINK = 'underline decoration-white/30 underline-offset-4 hover:decoration-white'
 const EYEBROW = 'text-[11px] font-semibold uppercase tracking-[0.18em] text-empire'
-const H2 = 'text-[26px] font-bold leading-tight tracking-tight text-white md:text-4xl'
+const H2 = 'text-[26px] font-bold leading-tight tracking-tight text-white [text-wrap:balance] md:text-4xl'
+// Titre d'un bloc encadré (étapes, essai, « Dans toutes les formules »).
+const H3 = 'text-[22px] font-bold leading-tight tracking-tight text-white [text-wrap:balance] md:text-2xl'
 const SECTION = 'mt-20 md:mt-28'
 
 function Cell({ value, fr }: { value: boolean | string; fr: boolean }) {
@@ -264,12 +267,12 @@ function Cell({ value, fr }: { value: boolean | string; fr: boolean }) {
   return <span className="text-sm font-semibold tabular-nums text-white">{value}</span>
 }
 
-function SectionTitle({ eyebrow, title, intro }: { eyebrow?: string; title: string; intro?: string }) {
+function SectionTitle({ eyebrow, title, intro }: { eyebrow?: string; title: ReactNode; intro?: string }) {
   return (
     <div className="mx-auto max-w-2xl text-center">
       {eyebrow && <p className={`mb-3 ${EYEBROW}`}>{eyebrow}</p>}
       <h2 className={H2}>{title}</h2>
-      {intro && <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-neutral-300 md:text-base">{intro}</p>}
+      {intro && <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-neutral-300 [text-wrap:pretty] md:text-base">{intro}</p>}
     </div>
   )
 }
@@ -357,7 +360,7 @@ export default function TarifsClient() {
   const loginHref = `https://app.empire-internet.com/login${fr ? '?lang=fr' : ''}`
 
   return (
-    <main className={`min-h-screen overflow-x-hidden text-white ${solo ? 'pb-28' : 'pb-10'} ${glass.page}`}>
+    <main className={`min-h-screen overflow-x-hidden text-white ${solo ? 'pb-28 lg:pb-10' : 'pb-10'} ${glass.page}`}>
       <div className="border-b border-white/10">
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
           <a href="/" className="flex min-h-11 items-center gap-2.5">
@@ -376,15 +379,15 @@ export default function TarifsClient() {
 
       <div className="mx-auto max-w-6xl px-4">
         <header className="mx-auto max-w-2xl pt-8 text-center md:pt-14">
-          <h1 className="text-[30px] font-bold leading-[1.12] tracking-tight text-white md:text-5xl md:leading-[1.08]">{h1}</h1>
-          <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-neutral-300 md:text-lg">
+          <h1 className="text-[30px] font-bold leading-[1.12] tracking-tight text-white [text-wrap:balance] md:text-5xl md:leading-[1.08]">{h1}</h1>
+          <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-neutral-300 [text-wrap:pretty] md:text-lg">
             {tr(
               'Tu filmes ou tu dictes 1 h par semaine. Empire prépare les idées, écrit, monte et publie sur tes réseaux.',
               'You film or dictate 1 hour a week. Empire prepares the ideas, writes, edits and publishes to your networks.',
             )}
           </p>
-          <p className="mx-auto mt-5 flex max-w-md items-center gap-3 text-left text-[13px] md:max-w-lg leading-snug text-neutral-400">
-            <Image src="/founders/kevin.jpg" alt="" width={36} height={36} className="h-9 w-9 shrink-0 rounded-full object-cover ring-1 ring-white/20" />
+          <p className="mx-auto mt-6 flex max-w-md items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] py-2.5 pl-2.5 pr-4 text-left text-[13px] leading-snug text-neutral-300 md:max-w-lg">
+            <Image src="/founders/kevin.jpg" alt="" width={40} height={40} className="h-10 w-10 shrink-0 rounded-full object-cover ring-1 ring-white/20" />
             <span>
               {tr(
                 'La méthode de Kevin Dufraisse, classé n° 1 en France par Favikon, catégorie growth et lead gen sur LinkedIn (février 2025).',
@@ -419,12 +422,12 @@ export default function TarifsClient() {
 
         {solo ? (
           <>
-            <section className="mt-7 md:mt-12" aria-label={fr ? 'Formules' : 'Plans'}>
+            <section className="mx-auto mt-7 max-w-5xl md:mt-12" aria-label={fr ? 'Formules' : 'Plans'}>
               <PlanCards location="cards" period={period} onPeriodChange={setPeriod} chosen={chosenPlan} onChoose={setChosenPlan} live={live} />
               <TrialCta cart={cart} withTrialLine withCall className="mx-auto mt-6 max-w-md md:mt-8" />
             </section>
 
-            <PressRow title={fr ? 'Mis en avant par' : 'Featured by'} className="mx-auto mt-10 max-w-3xl md:mt-14" />
+            <PressRow title={fr ? 'Mis en avant par' : 'Featured by'} className="mt-12 md:mt-16" />
 
             <section className={SECTION}>
               <SectionTitle title={fr ? 'Un exemple de ce que tu reçois' : 'An example of what you get'} />
@@ -441,7 +444,7 @@ export default function TarifsClient() {
                         'Published on his Instagram account on October 23, 2026. 20-second excerpt, no sound.',
                       )}
                     </p>
-                    <a href={KEVIN_REEL.permalink} target="_blank" rel="noopener noreferrer" className={`mt-1 inline-flex min-h-9 items-center gap-1 text-xs font-semibold text-white ${LINK}`}>
+                    <a href={KEVIN_REEL.permalink} target="_blank" rel="noopener noreferrer" className={`inline-flex min-h-11 items-center gap-1 text-[13px] font-semibold text-white ${LINK}`}>
                       {fr ? 'Voir sur Instagram' : 'See it on Instagram'}
                       <ArrowUpRight className="h-3.5 w-3.5" />
                     </a>
@@ -460,9 +463,9 @@ export default function TarifsClient() {
                 ))}
               </div>
 
-              <div className={`mx-auto mt-10 max-w-3xl p-5 sm:p-7 ${glass.panel}`}>
-                <h3 className="text-lg font-bold text-white">{fr ? 'Dans toutes les formules' : 'In every plan'}</h3>
-                <ul className="mt-4 space-y-3">
+              <div className={`mx-auto mt-12 max-w-5xl p-5 sm:p-7 ${glass.panel}`}>
+                <h3 className={H3}>{fr ? 'Dans toutes les formules' : 'In every plan'}</h3>
+                <ul className="mt-6 grid gap-x-8 gap-y-3.5 md:grid-cols-2">
                   {IN_EVERY_PLAN.map((l) => (
                     <li key={l.fr} className="flex items-start gap-3 text-[15px] leading-snug text-neutral-200">
                       <Check className="mt-0.5 h-[18px] w-[18px] shrink-0 text-empire" strokeWidth={2.5} />
@@ -474,10 +477,10 @@ export default function TarifsClient() {
             </section>
 
             {trial && (
-              <section className={`mx-auto grid max-w-5xl gap-4 md:grid-cols-2 ${SECTION}`}>
+              <section className="mx-auto mt-6 grid max-w-5xl gap-6 md:grid-cols-2">
                 <div className={`p-5 sm:p-7 ${glass.panel}`}>
-                  <p className={EYEBROW}>{fr ? '3 étapes' : '3 steps'}</p>
-                  <h2 className="mt-2 text-[22px] font-bold leading-tight tracking-tight text-white md:text-2xl">{fr ? 'Ce qui se passe ensuite' : 'What happens next'}</h2>
+                  <p className={EYEBROW}>{fr ? nbsp('3 étapes') : '3 steps'}</p>
+                  <h3 className={`mt-2 ${H3}`}>{fr ? 'Ce qui se passe ensuite' : 'What happens next'}</h3>
                   <ol className="mt-6 space-y-5">
                     {NEXT_STEPS.map((s, i) => (
                       <li key={s.fr} className="flex items-start gap-3.5">
@@ -501,8 +504,8 @@ export default function TarifsClient() {
                   </ol>
                 </div>
                 <div className={`p-5 sm:p-7 ${glass.panel}`}>
-                  <p className={EYEBROW}>{fr ? `7 jours, ${TRIAL_CREDITS} crédits` : `7 days, ${TRIAL_CREDITS} credits`}</p>
-                  <h2 className="mt-2 text-[22px] font-bold leading-tight tracking-tight text-white md:text-2xl">{fr ? 'Comment marche l’essai' : 'How the trial works'}</h2>
+                  <p className={EYEBROW}>{fr ? nbsp(`7 jours, ${TRIAL_CREDITS} crédits`) : `7 days, ${TRIAL_CREDITS} credits`}</p>
+                  <h3 className={`mt-2 ${H3}`}>{fr ? 'Comment marche l’essai' : 'How the trial works'}</h3>
                   <ul className="mt-6 space-y-4">
                     {TRIAL_RULES.map((r) => (
                       <li key={r.fr} className="flex items-start gap-3 text-[15px] leading-snug text-neutral-200">
@@ -516,7 +519,7 @@ export default function TarifsClient() {
             )}
 
             <section className={SECTION}>
-              <SectionTitle title={fr ? 'Ce que tu fais, ce que fait Empire' : 'What you do, what Empire does'} />
+              <SectionTitle title={fr ? 'Ce que tu fais, ce que fait Empire' : 'What you do, what Empire does'} />
               <ol className="mx-auto mt-8 grid max-w-5xl gap-3 md:grid-cols-4 md:gap-4">
                 {PROCESS.map((step, i) => {
                   const [title, desc] = fr ? step.fr : step.en
@@ -539,7 +542,7 @@ export default function TarifsClient() {
               </p>
             </section>
 
-            <section className={SECTION} id="recapitulatif">
+            <section className={`scroll-mt-6 ${SECTION}`} id="recapitulatif">
               <SectionTitle title={fr ? 'Récapitulatif' : 'Summary'} />
               <div className="mx-auto mt-8 max-w-5xl">
                 <OptionsPanel cart={cart} />
@@ -556,7 +559,7 @@ export default function TarifsClient() {
               </button>
             </div>
             <TeamCards period={period} onPeriodChange={setPeriod} />
-            <PressRow title={fr ? 'Mis en avant par' : 'Featured by'} className="mx-auto mt-12 max-w-3xl" />
+            <PressRow title={fr ? 'Mis en avant par' : 'Featured by'} className="mt-12" />
           </section>
         )}
 
@@ -573,20 +576,20 @@ export default function TarifsClient() {
             className="order-2 mx-auto block w-full max-w-xs overflow-hidden rounded-2xl border border-white/15 md:order-1"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={TOP50_SCREENSHOT} alt={fr ? 'Classement Favikon : Kevin Dufraisse n°1 Growth & Lead Gen France' : 'Favikon ranking: Kevin Dufraisse #1 Growth & Lead Gen France'} loading="lazy" className="w-full" />
+            <img src={TOP50_SCREENSHOT} alt={fr ? 'Classement Favikon : Kevin Dufraisse n° 1 Growth & Lead Gen France' : 'Favikon ranking: Kevin Dufraisse #1 Growth & Lead Gen France'} width={318} height={383} loading="lazy" className="block aspect-[318/383] h-auto w-full bg-neutral-900 object-cover" />
           </a>
-          <div className="order-1 md:order-2">
+          <div className="order-1 text-center md:order-2 md:text-left">
             <p className={EYEBROW}>{fr ? 'D’où vient la méthode' : 'Where the method comes from'}</p>
             <h2 className={`mt-3 ${H2}`}>
               {fr ? 'Les formats d’Empire tournent d’abord sur mes comptes.' : 'Empire’s formats run on my own accounts first.'}
             </h2>
-            <p className="mt-4 text-[15px] leading-relaxed text-neutral-300 md:text-base">
+            <p className="mt-4 text-[15px] leading-relaxed text-neutral-300 [text-wrap:pretty] md:text-base">
               {tr(
                 'Favikon m’a classé n° 1 des créateurs LinkedIn growth et lead gen en France. Aujourd’hui mes comptes font 10 millions de vues par mois. Empire, c’est ce système : les formats, la production et la diffusion que j’utilise, mis à ta disposition.',
                 'Favikon ranked me #1 growth and lead gen creator on LinkedIn in France. Today my accounts get 10 million views a month. Empire is that system: the formats, production and distribution I use, made available to you.',
               )}
             </p>
-            <div className="mt-6 flex items-center gap-3">
+            <div className="mt-6 flex items-center justify-center gap-3 text-left md:justify-start">
               <Image src="/founders/kevin.jpg" alt="Kevin Dufraisse" width={48} height={48} className="h-12 w-12 rounded-full object-cover ring-1 ring-white/20" />
               <div>
                 <p className="text-sm font-semibold text-white">Kevin Dufraisse</p>
@@ -602,14 +605,22 @@ export default function TarifsClient() {
 
         <section className={SECTION}>
           <SectionTitle
-            title={fr
-              ? nbsp(`Freelances : à partir de ${teamTotal.toLocaleString(locale)} €/mois. Empire Growth : ${growth.price} €/mois.`)
-              : `Freelancers: from €${teamTotal.toLocaleString(locale)}/mo. Empire Growth: €${growth.price}/mo.`}
+            title={fr ? (
+              <>
+                <span className="block">{nbsp(`Freelances : à partir de ${teamTotal.toLocaleString(locale)} €/mois.`)}</span>
+                <span className="block text-empire">{nbsp(`Empire Growth : ${growth.price} €/mois.`)}</span>
+              </>
+            ) : (
+              <>
+                <span className="block">{`Freelancers: from €${teamTotal.toLocaleString(locale)}/mo.`}</span>
+                <span className="block text-empire">{`Empire Growth: €${growth.price}/mo.`}</span>
+              </>
+            )}
             intro={fr
               ? 'Pour le volume de Growth, la moitié des crédits en reels et l’autre en posts, aux tarifs freelance publiés en 2026.'
               : 'For the Growth volume, half the credits as reels and half as posts, at 2026 published freelance rates.'}
           />
-          <div className="mx-auto mt-8 grid max-w-4xl gap-4 md:grid-cols-2">
+          <div className="mx-auto mt-8 grid max-w-5xl gap-6 md:grid-cols-2">
             <div className={`p-5 sm:p-7 ${glass.panel}`}>
               <p className="text-sm font-semibold text-neutral-300">{fr ? 'Une équipe en freelance' : 'A freelance team'}</p>
               <ul className="mt-4 divide-y divide-white/10">
@@ -638,23 +649,24 @@ export default function TarifsClient() {
               </p>
               <p className="mt-4 text-sm leading-relaxed text-neutral-300">
                 {fr
-                  ? 'Les idées, les formats, l’écriture, le montage, la vérification de chaque reel et la publication, plus le live, le Slack et la masterclass Empire.'
-                  : 'Ideas, formats, writing, editing, every reel checked and publishing, plus the live, the Slack and the Empire masterclass.'}
+                  ? 'Les idées, les formats, l’écriture, le montage, la vérification de chaque reel et la publication, plus l’appel de démarrage en 1-1, le live, le Slack et la masterclass Empire.'
+                  : 'Ideas, formats, writing, editing, every reel checked and publishing, plus the 1-1 kickoff call, the live, the Slack and the Empire masterclass.'}
               </p>
             </div>
           </div>
-          <p className="mx-auto mt-4 max-w-4xl text-center text-[11px] leading-relaxed text-neutral-500">
-            {fr
-              ? nbsp('Reel monté : 50 à 120 € ; post LinkedIn : 50 à 250 € ; community manager qui gère aussi la vidéo : 1 500 à 2 500 €/mois. Sources : ')
-              : 'Edited reel: €50 to €120; LinkedIn post: €50 to €250; community manager who also handles video: €1,500 to €2,500/mo. Sources: '}
-            {FREELANCE_SOURCES.map((src, i) => (
-              <span key={src.href}>
-                {i > 0 && ', '}
-                <a href={src.href} target="_blank" rel="noopener noreferrer" className="underline decoration-white/20 underline-offset-2 hover:text-white">{src.label}</a>
-              </span>
-            ))}
-            .
-          </p>
+          <div className="mx-auto mt-5 max-w-5xl text-center text-xs leading-relaxed text-neutral-500">
+            <p className="[text-wrap:pretty]">
+              {fr
+                ? nbsp('Reel monté : 50 à 120 € ; post LinkedIn : 50 à 250 € ; community manager qui gère aussi la vidéo : 1 500 à 2 500 €/mois.')
+                : 'Edited reel: €50 to €120; LinkedIn post: €50 to €250; community manager who also handles video: €1,500 to €2,500/mo.'}
+            </p>
+            <p className="mt-1 flex flex-wrap items-center justify-center gap-x-1">
+              <span>{fr ? nbsp('Sources :') : 'Sources:'}</span>
+              {FREELANCE_SOURCES.map((src) => (
+                <a key={src.href} href={src.href} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center px-1.5 text-neutral-400 underline decoration-white/20 underline-offset-2 hover:text-white">{src.label}</a>
+              ))}
+            </p>
+          </div>
         </section>
 
         <section className={SECTION}>
@@ -664,7 +676,7 @@ export default function TarifsClient() {
               ? nbsp('Tu peux tout faire toi-même. Écrire un texte ou couper une vidéo, ça va vite. Savoir quoi dire, dans quel format, et tenir le rythme : c’est ça qui prend du temps.')
               : 'You can do it all yourself. Writing a text or cutting a video is quick. Knowing what to say, in which format, and keeping the pace: that is what takes time.'}
           />
-          <div className="mx-auto mt-8 max-w-4xl">
+          <div className="mx-auto mt-8 max-w-5xl">
             <button
               type="button"
               aria-expanded={tableOpen}
@@ -734,12 +746,9 @@ export default function TarifsClient() {
                 <p className="px-5 pb-5 text-[15px] leading-relaxed text-neutral-300">
                   {tr(item.a.fr, item.a.en)}
                   {item.link && (
-                    <>
-                      {' '}
-                      <a href={item.link.href} className={`font-semibold text-white ${LINK}`}>
-                        {fr ? item.link.fr : item.link.en}
-                      </a>
-                    </>
+                    <a href={item.link.href} className={`mt-1 flex min-h-11 w-fit items-center font-semibold text-white ${LINK}`}>
+                      {fr ? item.link.fr : item.link.en}
+                    </a>
                   )}
                 </p>
               </details>
@@ -761,11 +770,11 @@ export default function TarifsClient() {
         )}
 
         <p className="mt-12 text-center text-sm leading-relaxed text-neutral-400">
-          {fr ? nbsp('Tu accompagnes des clients (freelance, consultant, agence) ? ') : 'You coach clients (freelancer, consultant, agency)? '}
+          <span className="block [text-wrap:balance]">{fr ? nbsp('Tu accompagnes des clients (freelance, consultant, agence) ?') : 'You coach clients (freelancer, consultant, agency)?'}</span>
           <a
             href="/academy"
             onClick={() => trackAmplitude('pricing_page_partner_clicked')}
-            className={`whitespace-nowrap py-3 font-semibold text-neutral-200 ${LINK}`}
+            className={`inline-flex min-h-11 items-center whitespace-nowrap font-semibold text-neutral-200 ${LINK}`}
           >
             {fr ? 'Le programme partenaire' : 'The partner program'}
             <ArrowRight className="ml-1 inline h-3.5 w-3.5" />
