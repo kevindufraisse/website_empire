@@ -79,11 +79,11 @@ function ThankYouContent() {
                 </span>
                 <div>
                   <p className="text-lg font-bold text-white md:text-xl">
-                    {fr ? 'Un membre vous contacte dans les prochaines 15 minutes.' : 'A team member will contact you in the next 15 minutes.'}
+                    {fr ? 'Un membre te contacte dans les prochaines 15 minutes.' : 'A team member will contact you in the next 15 minutes.'}
                   </p>
                   <p className="mt-1 text-sm leading-relaxed text-neutral-300 md:text-base">
                     {fr
-                      ? 'Un membre de l’équipe lance la discussion sur WhatsApp pour répondre à vos questions, vous proposer l’offre la plus adaptée et vous accompagner dans l’onboarding. Un appel est possible uniquement si vous le souhaitez.'
+                      ? 'Un membre de l’équipe lance la discussion sur WhatsApp pour répondre à tes questions, te proposer l’offre la plus adaptée et t’accompagner dans l’onboarding. Un appel est possible uniquement si tu le souhaites.'
                       : 'A team member will start the conversation on WhatsApp, answer your questions, recommend the best plan and guide your onboarding. A call is only needed if you want one.'}
                   </p>
                 </div>
@@ -99,12 +99,12 @@ function ThankYouContent() {
           >
             <p className="mb-3 text-center text-sm text-neutral-400">
               {fromWaitlist
-                ? (fr ? 'En attendant notre message, regardez le système 👇' : 'While you wait for our message, watch the system 👇')
-                : (fr ? 'Avant notre rendez-vous, regardez cette vidéo de bienvenue 👇' : 'Before our appointment, watch this welcome video 👇')}
+                ? (fr ? 'En attendant notre message, regarde le système 👇' : 'While you wait for our message, watch the system 👇')
+                : (fr ? 'Avant notre rendez-vous, regarde cette vidéo de bienvenue 👇' : 'Before our appointment, watch this welcome video 👇')}
             </p>
             <LoomEmbed
               id={videoId}
-              title={fromWaitlist ? 'Empire - le système' : (fr ? 'Bienvenue — préparez votre rendez-vous' : 'Welcome — prepare for your appointment')}
+              title={fromWaitlist ? 'Empire - le système' : (fr ? 'Bienvenue — prépare ton rendez-vous' : 'Welcome — prepare for your appointment')}
             />
             <div className="text-center mt-2">
               <a
@@ -144,7 +144,7 @@ function ThankYouContent() {
                 </span>
                 <span className="mt-0.5 block text-sm text-neutral-400">
                   {fr
-                    ? 'En attendant notre message, échangez avec les membres Empire.'
+                    ? 'En attendant notre message, échange avec les membres Empire.'
                     : 'While you wait for our message, talk with Empire members.'}
                 </span>
               </span>
@@ -196,7 +196,7 @@ function ThankYouContent() {
                   <span className="w-7 h-7 rounded-lg bg-empire/20 flex items-center justify-center text-empire font-bold text-sm shrink-0">1</span>
                   <p className="text-sm text-neutral-300">
                     {fr
-                      ? 'Vous parlez 20 minutes par semaine depuis l\'app : interview guidée, face caméra ou dictée sans caméra.'
+                      ? 'Tu parles 20 minutes par semaine depuis l\'app : interview guidée, face caméra ou dictée sans caméra.'
                       : 'You talk 20 minutes a week from the app: guided interview, on camera or dictation without a camera.'}
                   </p>
                 </div>
@@ -204,7 +204,7 @@ function ThankYouContent() {
                   <span className="w-7 h-7 rounded-lg bg-empire/20 flex items-center justify-center text-empire font-bold text-sm shrink-0">2</span>
                   <p className="text-sm text-neutral-300">
                     {fr
-                      ? 'Notre équipe fait le montage, rédige vos posts et votre newsletter. Un humain relit chaque texte.'
+                      ? 'Notre équipe fait le montage, rédige tes posts et ta newsletter. Un humain relit chaque texte.'
                       : 'Our team edits, writes your posts and your newsletter. A human proofreads every text.'}
                   </p>
                 </div>

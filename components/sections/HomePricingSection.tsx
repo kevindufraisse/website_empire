@@ -29,8 +29,8 @@ type PlanFeature = { fr: string; en: string; on?: false }
 // d'un pack à l'autre, c'est le rythme de présence.
 const PLAN_BASE_FEATURES: PlanFeature[] = [
   { fr: 'Les 7 réseaux inclus, sans supplément', en: 'All 7 networks included, no extra cost' },
-  { fr: 'Cadence modifiable : plus de Reels, moins de newsletters, comme vous voulez', en: 'Adjustable mix: more Reels, fewer newsletters, however you want' },
-  { fr: 'Cerveau Empire : vos sujets trouvés et classés pour vous', en: 'Empire brain: your topics found and ranked for you' },
+  { fr: 'Cadence modifiable : plus de Reels, moins de newsletters, comme tu veux', en: 'Adjustable mix: more Reels, fewer newsletters, however you want' },
+  { fr: 'Cerveau Empire : tes sujets trouvés et classés pour toi', en: 'Empire brain: your topics found and ranked for you' },
 ]
 
 const SUPPORT: PlanFeature = { fr: 'Support prioritaire sous 4h', en: 'Priority support within 4h' }
@@ -58,15 +58,15 @@ const PILLARS: Pillar[] = [
     labelEn: 'Content',
     icon: Sparkles,
     features: [
-      { fr: 'Posts LinkedIn', en: 'LinkedIn posts', descFr: 'Rédigés, optimisés et planifiés. Ajout automatique de vos lead magnets.', descEn: 'Written, optimized, scheduled. Auto-embed your lead magnets.', icon: FileText },
+      { fr: 'Posts LinkedIn', en: 'LinkedIn posts', descFr: 'Rédigés, optimisés et planifiés. Ajout automatique de tes lead magnets.', descEn: 'Written, optimized, scheduled. Auto-embed your lead magnets.', icon: FileText },
       { fr: 'Reels & Shorts', en: 'Reels & Shorts', descFr: 'Hooks, sous-titres et transitions. Option sans caméra.', descEn: 'Hooks, subtitles and transitions. No-camera option.', icon: Video },
-      { fr: 'Newsletters', en: 'Newsletters', descFr: 'Qui sonnent comme vous, en mieux.', descEn: 'Sound like you, but better.', icon: Mail },
-      { fr: 'Carrousels', en: 'Carousels', descFr: 'Générés depuis vos posts pour LinkedIn + Instagram.', descEn: 'Generated from your posts for LinkedIn + Instagram.', icon: ImageIcon },
+      { fr: 'Newsletters', en: 'Newsletters', descFr: 'Qui sonnent comme toi, en mieux.', descEn: 'Sound like you, but better.', icon: Mail },
+      { fr: 'Carrousels', en: 'Carousels', descFr: 'Générés depuis tes posts pour LinkedIn + Instagram.', descEn: 'Generated from your posts for LinkedIn + Instagram.', icon: ImageIcon },
       { fr: 'Miniatures', en: 'Thumbnails', descFr: 'Créées pour Instagram, YouTube et LinkedIn.', descEn: 'Made for Instagram, YouTube and LinkedIn.', icon: ImageIcon },
-      { fr: 'Personnalisation complète', en: 'Full customization', descFr: 'Sous-titres (45 styles), transitions, vos couleurs, vos b-rolls, votre branding.', descEn: 'Subtitles (45 styles), transitions, your colors, your b-rolls, your branding.', icon: Palette },
-      { fr: 'Multilingue : FR, EN, ES', en: 'Multilingual: FR, EN, ES', descFr: 'Tous vos contenus dans 3 langues.', descEn: 'All your content in 3 languages.', icon: Globe },
-      { fr: 'Cerveau Empire', en: 'Empire Brain', descFr: 'Nos agents IA trouvent les sujets les plus viraux de votre niche.', descEn: 'Our AI agents find the most viral topics in your niche.', icon: Bot },
-      { fr: 'Montage humain', en: 'Human editing', descFr: 'De vrais monteurs découpent vos vidéos et relisent chaque contenu.', descEn: 'Real editors cut your videos and proofread every piece.', icon: Scissors },
+      { fr: 'Personnalisation complète', en: 'Full customization', descFr: 'Sous-titres (45 styles), transitions, tes couleurs, tes b-rolls, ton branding.', descEn: 'Subtitles (45 styles), transitions, your colors, your b-rolls, your branding.', icon: Palette },
+      { fr: 'Multilingue : FR, EN, ES', en: 'Multilingual: FR, EN, ES', descFr: 'Tous tes contenus dans 3 langues.', descEn: 'All your content in 3 languages.', icon: Globe },
+      { fr: 'Cerveau Empire', en: 'Empire Brain', descFr: 'Nos agents IA trouvent les sujets les plus viraux de ta niche.', descEn: 'Our AI agents find the most viral topics in your niche.', icon: Bot },
+      { fr: 'Montage humain', en: 'Human editing', descFr: 'De vrais monteurs découpent tes vidéos et relisent chaque contenu.', descEn: 'Real editors cut your videos and proofread every piece.', icon: Scissors },
     ],
   },
   {
@@ -76,14 +76,14 @@ const PILLARS: Pillar[] = [
     icon: Send,
     features: [
       { fr: '7 réseaux en même temps', en: '7 platforms at once', descFr: 'LinkedIn, Instagram, TikTok, YouTube, X, Threads, Facebook.', descEn: 'LinkedIn, Instagram, TikTok, YouTube, X, Threads, Facebook.', icon: Share2 },
-      { fr: 'Publiez en 1 clic', en: 'Publish in 1 click', descFr: 'Tout est prêt dans votre calendrier, aux bons horaires.', descEn: 'Everything ready in your calendar, at the right times.', icon: CalendarPlus },
-      { fr: 'Employee Advocacy', en: 'Employee advocacy', descFr: 'Faites publier vos employés automatiquement.', descEn: 'Get your employees publishing automatically.', icon: Users },
-      { fr: 'Idées via Telegram', en: 'Ideas via Telegram', descFr: 'Envoyez une idée depuis Telegram, retrouvez-la dans Empire.', descEn: 'Send an idea from Telegram, find it in Empire.', icon: MessageCircle, badge: 'NEW' },
+      { fr: 'Publie en 1 clic', en: 'Publish in 1 click', descFr: 'Tout est prêt dans ton calendrier, aux bons horaires.', descEn: 'Everything ready in your calendar, at the right times.', icon: CalendarPlus },
+      { fr: 'Employee Advocacy', en: 'Employee advocacy', descFr: 'Fais publier tes employés automatiquement.', descEn: 'Get your employees publishing automatically.', icon: Users },
+      { fr: 'Idées via Telegram', en: 'Ideas via Telegram', descFr: 'Envoie une idée depuis Telegram, retrouve-la dans Empire.', descEn: 'Send an idea from Telegram, find it in Empire.', icon: MessageCircle, badge: 'NEW' },
       { fr: 'Multi-comptes', en: 'Multi-account', descFr: 'Compte perso + entreprise, plusieurs marques sur la même plateforme.', descEn: 'Personal + business, multiple brands on the same platform.', icon: Users },
       { fr: '+10 tunnels de conversion', en: '10+ conversion funnels', descFr: 'N8N, Make, ManyChat - prêts à dupliquer.', descEn: 'N8N, Make, ManyChat - ready to duplicate.', icon: Zap },
-      { fr: 'Substack & Skool automatiques', en: 'Auto Substack & Skool', descFr: 'Vos contenus publiés aussi sur Substack et dans votre communauté Skool.', descEn: 'Your content also published on Substack and in your Skool community.', icon: Mail },
+      { fr: 'Substack & Skool automatiques', en: 'Auto Substack & Skool', descFr: 'Tes contenus publiés aussi sur Substack et dans ta communauté Skool.', descEn: 'Your content also published on Substack and in your Skool community.', icon: Mail },
       { fr: 'Analytics & CRM leads', en: 'Analytics & lead CRM', descFr: 'Liens trackés et suivi des leads générés par chaque contenu.', descEn: 'Tracked links and follow-up on the leads each piece generates.', icon: Zap },
-      { fr: 'API & intégrations', en: 'API & integrations', descFr: 'Connectez Empire à Notion, Airtable, Google Drive.', descEn: 'Connect Empire to Notion, Airtable, Google Drive.', icon: Code2 },
+      { fr: 'API & intégrations', en: 'API & integrations', descFr: 'Connecte Empire à Notion, Airtable, Google Drive.', descEn: 'Connect Empire to Notion, Airtable, Google Drive.', icon: Code2 },
     ],
   },
   {
@@ -92,13 +92,13 @@ const PILLARS: Pillar[] = [
     labelEn: 'Support',
     icon: HeadphonesIcon,
     features: [
-      { fr: 'Sessions d\'enregistrement', en: 'Recording sessions', descFr: 'Une session produit jusqu\'à 7 posts, 7 newsletters, 7 Reels, 1 vidéo YouTube et 1 carrousel. Vous choisissez les formats.', descEn: 'One session produces up to 7 posts, 7 newsletters, 7 Reels, 1 YouTube video and 1 carousel. You pick the formats.', icon: Mic },
+      { fr: 'Sessions d\'enregistrement', en: 'Recording sessions', descFr: 'Une session produit jusqu\'à 7 posts, 7 newsletters, 7 Reels, 1 vidéo YouTube et 1 carrousel. Tu choisis les formats.', descEn: 'One session produces up to 7 posts, 7 newsletters, 7 Reels, 1 YouTube video and 1 carousel. You pick the formats.', icon: Mic },
       { fr: 'Équipe humaine dédiée', en: 'Dedicated human team', descFr: 'De vrais humains créent et vérifient chaque contenu avant livraison.', descEn: 'Real humans create and check every piece before delivery.', icon: UserCheck },
       { fr: 'Support prioritaire sous 4h', en: 'Priority support within 4h', descFr: 'Une question, une correction : réponse le jour même.', descEn: 'A question, a fix: same-day answer.', icon: HeadphonesIcon, badge: 'DÈS INTERMÉDIAIRE' },
       { fr: 'Communauté privée Slack', en: 'Private Slack community', descFr: 'Des fondateurs et des créateurs qui publient déjà : un avis sur une accroche en quelques minutes.', descEn: 'Founders and creators who already publish: an opinion on a hook within minutes.', icon: Users, badge: 'DÈS INTERMÉDIAIRE' },
-      { fr: 'Lives hebdomadaires', en: 'Weekly live sessions', descFr: 'Vous posez vos questions, on analyse vos contenus de la semaine et on cherche vos prochains angles ensemble.', descEn: 'You bring your questions, we review your week\'s content and work out your next angles together.', icon: Mic, badge: 'DÈS INTERMÉDIAIRE' },
+      { fr: 'Lives hebdomadaires', en: 'Weekly live sessions', descFr: 'Tu poses tes questions, on analyse tes contenus de la semaine et on cherche tes prochains angles ensemble.', descEn: 'You bring your questions, we review your week\'s content and work out your next angles together.', icon: Mic, badge: 'DÈS INTERMÉDIAIRE' },
       { fr: 'Masterclass Empire', en: 'Empire masterclass', descFr: 'Bien utiliser l’outil pour ta marque, en replays.', descEn: 'Using the tool for your brand, on replay.', icon: GraduationCap, badge: 'DÈS INTERMÉDIAIRE' },
-      { fr: 'Revue stratégique mensuelle', en: 'Monthly strategy review', descFr: 'Un expert reprend vos chiffres du mois en vidéo Loom et vous dit quoi changer.', descEn: 'An expert walks through your month\'s numbers on Loom and tells you what to change.', icon: Compass, badge: 'DÈS EXPERT' },
+      { fr: 'Revue stratégique mensuelle', en: 'Monthly strategy review', descFr: 'Un expert reprend tes chiffres du mois en vidéo Loom et te dit quoi changer.', descEn: 'An expert walks through your month\'s numbers on Loom and tells you what to change.', icon: Compass, badge: 'DÈS EXPERT' },
     ],
   },
 ]
@@ -205,7 +205,7 @@ export default function HomePricingSection() {
           className="text-center max-w-2xl mx-auto"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold">
-            {fr ? 'Choisissez votre rythme' : 'Choose your pace'}
+            {fr ? 'Choisis ton rythme' : 'Choose your pace'}
           </h2>
           <p className="mt-4 text-neutral-400">
             {fr
@@ -244,7 +244,7 @@ export default function HomePricingSection() {
 
         <div className="mt-10 max-w-xl mx-auto">
 
-          {/* ── Créez votre marque - the only self-serve offer ── */}
+          {/* ── Crée ta marque - the only self-serve offer ── */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -257,13 +257,13 @@ export default function HomePricingSection() {
               </span>
             )}
             <div className="flex items-center gap-2">
-              <h3 className="text-lg font-bold">{fr ? 'Créez votre marque' : 'Build your brand'}</h3>
+              <h3 className="text-lg font-bold">{fr ? 'Crée ta marque' : 'Build your brand'}</h3>
               <span className="rounded-full bg-empire/15 border border-empire/30 px-2.5 py-0.5 text-[10px] font-bold text-empire uppercase tracking-wider">
                 {fr ? 'Populaire' : 'Popular'}
               </span>
             </div>
             <p className="mt-1 text-sm text-neutral-400">
-              {fr ? 'On le fait avec vous' : 'We do it with you'}
+              {fr ? 'On le fait avec toi' : 'We do it with you'}
             </p>
 
             {/* Billing period */}
@@ -296,7 +296,7 @@ export default function HomePricingSection() {
 
             {/* Volume dropdown */}
             <p className="mt-4 text-[11px] font-semibold uppercase tracking-wide text-neutral-500">
-              {fr ? 'Votre niveau' : 'Your level'}
+              {fr ? 'Ton niveau' : 'Your level'}
             </p>
             <div ref={dropRef} className="relative mt-2">
               <button
@@ -410,7 +410,7 @@ export default function HomePricingSection() {
               <li className="flex items-start gap-2 text-[13px] text-neutral-300">
                 <Check size={14} className="mt-0.5 shrink-0 text-empire" />
                 {fr
-                  ? `${plan.rhythmFr} - Reels, LinkedIn, newsletter, vous choisissez`
+                  ? `${plan.rhythmFr} - Reels, LinkedIn, newsletter, tu choisis`
                   : `${plan.rhythmEn} - Reels, LinkedIn, newsletter, you choose`}
               </li>
               {PLAN_FEATURES[selectedTier].map((f) => (
@@ -454,7 +454,7 @@ export default function HomePricingSection() {
               {fr ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial'}
             </a>
             <p className="mt-2 text-center text-[11px] text-neutral-500">
-              {fr ? '7 jours ou 500 crédits offerts, au premier des deux · Annulez en 1 clic' : '7 days or 500 credits free, whichever comes first · Cancel in 1 click'}
+              {fr ? '7 jours ou 500 crédits offerts, au premier des deux · Annule en 1 clic' : '7 days or 500 credits free, whichever comes first · Cancel in 1 click'}
             </p>
           </motion.div>
 
@@ -568,12 +568,12 @@ function AllFeatures({ fr }: { fr: boolean }) {
 /** Vertical timeline showing the first weeks after sign-up. */
 function WhatHappensNext({ fr }: { fr: boolean }) {
   const steps = [
-    { icon: UserPlus, fr: 'Créez votre compte', en: 'Create your account' },
-    { icon: CalendarPlus, fr: 'Ajoutez le prochain live à votre calendrier', en: 'Add the next live to your calendar' },
-    { icon: Compass, fr: 'Explorez la plateforme', en: 'Explore the platform' },
-    { icon: Mic, fr: 'Enregistrez votre interview', en: 'Record your interview' },
-    { icon: Send, fr: 'Publiez sur 7 réseaux et soyez omniprésent', en: 'Publish on 7 networks and be everywhere' },
-    { icon: Handshake, fr: 'Recevez des RDVs et signez des clients', en: 'Get meetings and sign clients' },
+    { icon: UserPlus, fr: 'Crée ton compte', en: 'Create your account' },
+    { icon: CalendarPlus, fr: 'Ajoute le prochain live à ton calendrier', en: 'Add the next live to your calendar' },
+    { icon: Compass, fr: 'Explore la plateforme', en: 'Explore the platform' },
+    { icon: Mic, fr: 'Enregistre ton interview', en: 'Record your interview' },
+    { icon: Send, fr: 'Publie sur 7 réseaux et sois omniprésent', en: 'Publish on 7 networks and be everywhere' },
+    { icon: Handshake, fr: 'Reçois des RDVs et signe des clients', en: 'Get meetings and sign clients' },
   ]
 
   return (

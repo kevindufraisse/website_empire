@@ -68,7 +68,7 @@ export default function OfferChoiceSection() {
             {fr ? 'Avant de choisir' : 'Before you choose'}
           </p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight">
-            {fr ? 'Vous préférez apprendre ou déléguer ?' : 'Would you rather learn or delegate?'}
+            {fr ? 'Tu préfères apprendre ou déléguer ?' : 'Would you rather learn or delegate?'}
           </h2>
           <p className="mt-3 text-neutral-400">
             {fr
@@ -113,7 +113,7 @@ export default function OfferChoiceSection() {
             onClick={() => window.dispatchEvent(new Event('open-offer-quiz'))}
             className="mt-6 text-sm text-neutral-400 underline-offset-4 hover:text-white hover:underline"
           >
-            {fr ? 'Pas sûr ? Faire le quiz « Quelle offre pour vous ? »' : 'Not sure? Take the « Which offer for you? » quiz'}
+            {fr ? 'Pas sûr ? Faire le quiz « Quelle offre pour toi ? »' : 'Not sure? Take the « Which offer for you? » quiz'}
           </button>
         </motion.div>
       </div>

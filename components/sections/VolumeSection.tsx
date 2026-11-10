@@ -146,7 +146,7 @@ export default function VolumeSection() {
 
             <p className="text-xs text-empire/70 mt-5 text-center font-semibold">
               {fr
-                ? 'Tous les jours, sur 7 réseaux. Même vous. Juste plus de présence.'
+                ? 'Tous les jours, sur 7 réseaux. Même toi. Juste plus de présence.'
                 : 'Every day, on 7 networks. Same you. Just more presence.'}
             </p>
           </motion.div>
@@ -161,7 +161,7 @@ export default function VolumeSection() {
         >
           <p className="text-white/90 text-base md:text-lg font-bold leading-relaxed">
             {fr
-              ? <>La question n&apos;est pas <span className="text-neutral-500 line-through">si</span> ça marche pour vous.<br />C&apos;est <span className="text-empire">combien de pièces</span> vous mettez dans la machine.</>
+              ? <>La question n&apos;est pas <span className="text-neutral-500 line-through">si</span> ça marche pour toi.<br />C&apos;est <span className="text-empire">combien de pièces</span> tu mets dans la machine.</>
               : <>The question isn&apos;t <span className="text-neutral-500 line-through">whether</span> it works for you.<br />It&apos;s <span className="text-empire">how many coins</span> you put in the machine.</>}
           </p>
         </motion.div>

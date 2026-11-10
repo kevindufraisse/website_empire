@@ -114,7 +114,7 @@ function PostUnlockCountdown({ unlocked, secondsLeft }: { unlocked: boolean; sec
         <span className="text-3xl font-black text-white ml-1">{String(sec).padStart(2, '0')}</span>
         <span className="text-sm text-neutral-400">sec</span>
       </div>
-      <p className="text-[11px] text-neutral-400 mt-2">Restez sur la page pour débloquer</p>
+      <p className="text-[11px] text-neutral-400 mt-2">Reste sur la page pour débloquer</p>
     </div>
   )
 }

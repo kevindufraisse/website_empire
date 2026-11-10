@@ -11,8 +11,8 @@ type Variant = 'academy-to-empire' | 'empire-to-legende'
 const COPY: Record<Variant, { fr: { headline: string; sub: string; cta: string }; en: { headline: string; sub: string; cta: string }; href: string; textClass: string; bgClass: string }> = {
   'academy-to-empire': {
     fr: {
-      headline: 'Vous savez maintenant le faire.',
-      sub: 'Empire le fait avec vous.',
+      headline: 'Tu sais maintenant le faire.',
+      sub: 'Empire le fait avec toi.',
       cta: 'Tester 7 jours gratuitement',
     },
     en: {

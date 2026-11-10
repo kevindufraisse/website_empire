@@ -137,7 +137,7 @@ function paint(p){
  let chapter=0;for(let i=1;i<chapterPoints.length;i++)if(p>=chapterPoints[i]-.0001)chapter=i;
  $$('.chapters [data-at]').forEach((n,i)=>n.setAttribute('aria-current',String(chapter===i)));track(chapter,p);
  $('#progress').style.width=(p*100)+'%';
- $('#scroll-cue').innerHTML=p>.985?'<i>↓</i> Découvrez le programme.':'<i>↓</i> Faites défiler, l’histoire avance.';
+ $('#scroll-cue').innerHTML=p>.985?'<i>↓</i> Découvre le programme.':'<i>↓</i> Fais défiler, l’histoire avance.';
 }
 const seen=new Set();
 function track(chapter,p){const key=p>.985?'fin':'chapitre_'+(chapter+1);if(seen.has(key))return;seen.add(key);try{(window.dataLayer=window.dataLayer||[]).push({event:'academy_story_progress',story_step:key});}catch(e){}}

@@ -526,10 +526,10 @@ function LegendConversionVisual() {
     <div className="flex flex-shrink-0 items-center gap-3">
       <div className="w-[150px] rounded-xl border border-autopilot/30 bg-gradient-to-br from-autopilot/15 to-white/[0.02] p-2.5">
         <p className="text-[9px] font-bold uppercase tracking-wider text-autopilot">
-          {fr ? 'Votre page' : 'Your page'}
+          {fr ? 'Ta page' : 'Your page'}
         </p>
         <div className="mt-1.5 rounded-md border border-white/10 bg-black/40 px-2 py-1.5">
-          <p className="text-[9px] text-neutral-500">votre@email.com</p>
+          <p className="text-[9px] text-neutral-500">ton@email.com</p>
         </div>
         <div className="mt-1.5 rounded-md bg-autopilot px-2 py-1.5 text-center text-[9px] font-bold text-black">
           {fr ? 'Réserver un appel' : 'Book a call'}
@@ -655,12 +655,12 @@ export default function HowItWorksAccordion() {
               </div>
               <h2 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
                 {lang === 'fr'
-                  ? <>Lancez votre <span className="text-empire">machine média</span></>
+                  ? <>Lance ton <span className="text-empire">machine média</span></>
                   : <>Launch your <span className="text-empire">media machine</span></>}
               </h2>
               <p className="text-base md:text-lg text-neutral-400 max-w-2xl mx-auto">
                 {lang === 'fr'
-                  ? 'Vous ne manquez pas de temps. Vous manquez de système. Un format à filmer chaque semaine, on produit le mois.'
+                  ? 'Tu ne manques pas de temps. Tu manques de système. Un format à filmer chaque semaine, on produit le mois.'
                   : 'You don\'t lack time. You lack a system. One format to shoot each week, we produce the month.'}
               </p>
           </div>
@@ -677,7 +677,7 @@ export default function HowItWorksAccordion() {
         <FadeInBlock delay={0.1}>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 items-stretch">
 
-              {/* BLOCK 1 - Le cerveau Empire trouve vos sujets */}
+              {/* BLOCK 1 - Le cerveau Empire trouve tes sujets */}
               <div className="group relative flex flex-col overflow-hidden rounded-xl transition-all min-h-[340px] bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30">
                 <div className="h-[200px] shrink-0">
                   <BrainTopicsVisual topics={topics} />
@@ -691,17 +691,17 @@ export default function HowItWorksAccordion() {
                   </div>
                   <p className="text-neutral-400 text-sm leading-snug">
                     {lang === 'fr'
-                      ? 'Chaque semaine, on mesure ce qui fait des vues sur les 7 réseaux : les formats qui tiennent et les sujets les plus visibles de votre niche.'
+                      ? 'Chaque semaine, on mesure ce qui fait des vues sur les 7 réseaux : les formats qui tiennent et les sujets les plus visibles de ta niche.'
                       : 'Every week we measure what gets views across 7 networks: the formats that hold up and the most visible topics in your niche.'}
                   </p>
                 </div>
               </div>
 
-              {/* BLOCK 2 - Vous enregistrez */}
+              {/* BLOCK 2 - Tu enregistres */}
               <div className="group relative flex flex-col overflow-hidden rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 hover:border-empire/30 transition-all min-h-[340px]">
                 {/* Le format tel qu'on le filme dans l'app (rendu réel, cf.
                     FormatsShowcaseSection), pas un micro abstrait : l'étape
-                    est « vous filmez le format », plus « vous parlez ». */}
+                    est « tu filmes le format », plus « tu parles ». */}
                 <div className="h-[200px] shrink-0 flex items-center justify-center gap-4 p-5">
                   <div className="relative h-[168px] w-[95px] shrink-0 overflow-hidden rounded-[16px] border border-white/15 bg-neutral-900 shadow-lg shadow-black/50">
                     <img src="/formats/tierlist.webp" alt="" className="h-full w-full object-cover" loading="lazy" draggable={false} />
@@ -724,12 +724,12 @@ export default function HowItWorksAccordion() {
                   <div className="flex items-center gap-2 mb-1">
                     <span className="w-6 h-6 rounded-md bg-empire flex items-center justify-center text-black font-bold text-sm">2</span>
                     <h3 className="text-base font-semibold text-white">
-                      {lang === 'fr' ? 'Vous filmez le format' : 'You shoot the format'}
+                      {lang === 'fr' ? 'Tu filmes le format' : 'You shoot the format'}
                     </h3>
                   </div>
                   <p className="text-neutral-400 text-sm leading-snug">
                     {lang === 'fr'
-                      ? 'Vous ouvrez l\'app, vous choisissez un format, vous parlez. Le montage se fait tout seul. 1 h par semaine, zéro script.'
+                      ? 'Tu ouvres l\'app, tu choisis un format, tu parles. Le montage se fait tout seul. 1 h par semaine, zéro script.'
                       : 'You open the app, pick a format, talk. The edit happens on its own. 1 hour a week, zero script.'}
                   </p>
                 </div>
@@ -780,7 +780,7 @@ export default function HowItWorksAccordion() {
                   </div>
                   <p className="text-neutral-400 text-sm">
                     {lang === 'fr'
-                      ? 'Chaque idée est retravaillée pour les codes de chaque plateforme. Vous validez, ça part en 1 clic.'
+                      ? 'Chaque idée est retravaillée pour les codes de chaque plateforme. Tu valides, ça part en 1 clic.'
                       : 'Each idea is reshaped for every platform\'s codes. You approve, it goes out in 1 click.'}
                   </p>
                 </div>
@@ -799,7 +799,7 @@ export default function HowItWorksAccordion() {
                     <span className="flex h-6 w-6 items-center justify-center rounded-md bg-empire text-sm font-bold text-black">5</span>
                     <h3 className="text-base font-semibold text-white md:text-lg">
                       {lang === 'fr'
-                        ? 'On lit vos chiffres, on garde ce qui marche'
+                        ? 'On lit tes chiffres, on garde ce qui marche'
                         : 'We read your numbers, we keep what works'}
                     </h3>
                     <span className="hidden whitespace-nowrap rounded-full border border-empire/30 bg-empire/10 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-empire sm:inline">
@@ -808,7 +808,7 @@ export default function HowItWorksAccordion() {
                   </div>
                   <p className="text-sm text-neutral-400 md:text-base">
                     {lang === 'fr'
-                      ? 'Vues, abonnés, leads : chaque semaine on regarde quels formats ont marché chez vous, on les garde, on retire les autres. Dès Growth, on le fait en live : 1 h sur Zoom avec nos experts et la communauté.'
+                      ? 'Vues, abonnés, leads : chaque semaine on regarde quels formats ont marché chez toi, on les garde, on retire les autres. Dès Growth, on le fait en live : 1 h sur Zoom avec nos experts et la communauté.'
                       : 'Views, followers, leads: every week we look at which formats worked for you, keep those, drop the rest. From Growth we do it live: 1 hour on Zoom with our experts and community.'}
                   </p>
                   <p className="mt-2 flex items-center gap-1.5 text-xs font-semibold text-empire">

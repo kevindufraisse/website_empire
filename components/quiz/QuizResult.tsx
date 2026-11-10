@@ -58,33 +58,33 @@ interface OfferCopy {
 
 const OFFERS: Record<RecommendedOffer, OfferCopy> = {
   copilot: {
-    kicker: 'Recommandé pour votre profil',
+    kicker: 'Recommandé pour ton profil',
     title: 'Empire',
     pitch:
-      "Vous avez du CA et pas le temps de publier. Empire est fait pour ça : 1 h de parole par semaine, on transforme ça en contenus qui amènent des clients.",
+      "Tu as du CA et pas le temps de publier. Empire est fait pour ça : 1 h de parole par semaine, on transforme ça en contenus qui amènent des clients.",
     benefits: [
-      'Un coach senior dédié qui vous interviewe chaque semaine',
-      'On rédige vos posts LinkedIn + Shorts à partir de vos mots',
-      'Un système d\'automatisation qui multi-poste sur tous vos canaux',
-      'Calendrier éditorial 4 semaines à l\'avance - vous savez exactement ce qui va sortir',
+      'Un coach senior dédié qui t\'interviewe chaque semaine',
+      'On rédige tes posts LinkedIn + Shorts à partir de tes mots',
+      'Un système d\'automatisation qui multi-poste sur tous tes canaux',
+      'Calendrier éditorial 4 semaines à l\'avance - tu sais exactement ce qui va sortir',
       'Accès à la communauté privée Empire',
     ],
     cta: {
       label: 'Réserver un appel découverte →',
       href: '/',
     },
-    reassurance: 'Appel gratuit · On vous dit si on peut vous aider',
+    reassurance: 'Appel gratuit · On te dit si on peut t\'aider',
   },
   academy: {
-    kicker: 'Recommandé pour votre profil',
+    kicker: 'Recommandé pour ton profil',
     title: 'Empire Academy · 21 jours',
     pitch:
-      "Pour votre profil, Academy est le bon premier pas : 21 jours pour bâtir vos fondations de contenu, avec 42 publications produites pour vous. Vous repartez avec un système qui tourne et vous pourrez passer à Empire (avec expert dédié) quand vous voudrez accélérer.",
+      "Pour ton profil, Academy est le bon premier pas : 21 jours pour bâtir tes fondations de contenu, avec 42 publications produites pour toi. Tu repars avec un système qui tourne et tu pourras passer à Empire (avec expert dédié) quand tu voudras accélérer.",
     benefits: [
       'Système de viralité copy-paste à appliquer dès le jour 1',
-      '21 posts LinkedIn + 21 Shorts produits POUR vous pendant 21 jours',
+      '21 posts LinkedIn + 21 Shorts produits POUR te pendant 21 jours',
       'Templates d\'automatisation multi-canal (gain de temps immédiat)',
-      'Tunnel newsletter + scripts DMs : vos premiers leads dès J7',
+      'Tunnel newsletter + scripts DMs : tes premiers leads dès J7',
       'Communauté privée + sessions live + accès à vie',
     ],
     cta: {
@@ -94,10 +94,10 @@ const OFFERS: Record<RecommendedOffer, OfferCopy> = {
     reassurance: '20 places · Sur sélection',
   },
   autopilot: {
-    kicker: 'Recommandé pour votre profil',
+    kicker: 'Recommandé pour ton profil',
     title: 'Empire',
     pitch:
-      "Vous avez du CA, vous décidez, vous savez ce que ça vous coûte de ne pas avoir d'audience. Empire est fait pour vous.",
+      "Tu as du CA, tu décides, tu sais ce que ça te coûte de ne pas avoir d'audience. Empire est fait pour toi.",
     benefits: [
       'Coach senior dédié chaque semaine',
       'Production multi-canal (LinkedIn + Shorts)',
@@ -109,13 +109,13 @@ const OFFERS: Record<RecommendedOffer, OfferCopy> = {
     reassurance: 'Appel gratuit',
   },
   nurture: {
-    kicker: 'Recommandé pour votre profil',
+    kicker: 'Recommandé pour ton profil',
     title: 'Empire Academy · 21 jours',
     pitch:
-      "Academy est conçu exactement pour vous : 21 jours pour comprendre la puissance du contenu dans votre business - avec 42 publications produites pour vous.",
+      "Academy est conçu exactement pour toi : 21 jours pour comprendre la puissance du contenu dans ton business - avec 42 publications produites pour toi.",
     benefits: [
       '21 jours pour comprendre comment le contenu génère des clients',
-      '21 posts LinkedIn + 21 Shorts produits POUR vous',
+      '21 posts LinkedIn + 21 Shorts produits POUR TOI',
       'Système de viralité copy-paste à appliquer dès J1',
       'Communauté privée + sessions live + accès à vie',
     ],
@@ -357,7 +357,7 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
                   <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-3">
                     <Sparkles size={12} className="text-empire" />
                     <span className="text-[11px] uppercase tracking-widest text-empire font-bold">
-                      {lang === 'fr' ? 'Votre archétype' : 'Your archetype'}
+                      {lang === 'fr' ? 'Ton archétype' : 'Your archetype'}
                     </span>
                   </div>
                   <h1 className="text-3xl sm:text-4xl font-black text-white leading-tight">
@@ -368,7 +368,7 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
                   </p>
                   <p className="text-empire text-xs sm:text-sm font-bold mt-3">
                     {lang === 'fr'
-                      ? `${sharePct}% des créateurs Empire ont votre profil`
+                      ? `${sharePct}% des créateurs Empire ont ton profil`
                       : `${sharePct}% of Empire creators have your profile`}
                   </p>
                 </div>
@@ -387,11 +387,11 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
               <IconAvatar icon={primaryIcon} size="xl" delay={0.5} />
               <div className="text-center sm:text-left">
                 <p className="text-[10px] uppercase tracking-[0.2em] text-empire font-black mb-2">
-                  {lang === 'fr' ? 'Votre créateur de référence' : 'Your reference creator'}
+                  {lang === 'fr' ? 'Ton créateur de référence' : 'Your reference creator'}
                 </p>
                 <p className="text-white text-2xl sm:text-3xl font-black leading-tight">
                   {lang === 'fr'
-                    ? <>{greeting}vous construisez comme<br className="hidden sm:block" />{' '}<span className="text-empire">{primaryIcon.name}</span></>
+                    ? <>{greeting}tu construis comme<br className="hidden sm:block" />{' '}<span className="text-empire">{primaryIcon.name}</span></>
                     : <>{greeting}you create like<br className="hidden sm:block" />{' '}<span className="text-empire">{primaryIcon.name}</span></>
                   }
                 </p>
@@ -412,7 +412,7 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
           {tribe.length > 0 && (
             <div className="mb-8">
               <p className="text-[11px] uppercase tracking-[0.2em] text-neutral-500 font-bold mb-4 text-center">
-                {lang === 'fr' ? 'Votre tribu de Creators' : 'Your Creator tribe'}
+                {lang === 'fr' ? 'Ta tribu de Creators' : 'Your Creator tribe'}
               </p>
               <div className="grid grid-cols-2 gap-3">
                 {tribe.map((icon, i) => (
@@ -438,7 +438,7 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
           {diagnostic && (
             <div className="mb-8 rounded-2xl p-5 sm:p-6 bg-gradient-to-br from-rose-500/10 to-transparent border border-rose-500/20">
               <p className="text-[11px] uppercase tracking-[0.2em] text-rose-300 font-bold mb-3">
-                {lang === 'fr' ? 'Pourquoi vos posts ne convertissent pas' : "Why your posts don't convert"}
+                {lang === 'fr' ? 'Pourquoi tes posts ne convertissent pas' : "Why your posts don't convert"}
               </p>
               <p className="text-neutral-200 text-sm sm:text-[15px] leading-relaxed">
                 {diagnostic}
@@ -457,12 +457,12 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
               <div className="flex items-center gap-3 mb-3">
                 <Mail className="text-empire flex-shrink-0" size={22} />
                 <p className="text-white font-bold text-base sm:text-lg leading-tight">
-                  {lang === 'fr' ? 'Check votre boîte mail dans 20 minutes' : 'Check your inbox in 20 minutes'}
+                  {lang === 'fr' ? 'Check ta boîte mail dans 20 minutes' : 'Check your inbox in 20 minutes'}
                 </p>
               </div>
               <p className="text-neutral-300 text-sm mb-4 leading-relaxed">
                 {lang === 'fr'
-                  ? <>On vous envoie vos 10 sujets à poster + votre plan 30 jours personnalisé pour l&apos;archétype <span className="text-empire font-semibold">{profile.name.replace('Le ', '').replace("L'", '')}</span>.</>
+                  ? <>On t'envoie tes 10 sujets à poster + ton plan 30 jours personnalisé pour l&apos;archétype <span className="text-empire font-semibold">{profile.name.replace('Le ', '').replace("L'", '')}</span>.</>
                   : <>We&apos;re sending your 10 topics to post + your personalized 30-day plan for the <span className="text-empire font-semibold">{profile.name.replace('The ', '')}</span> archetype.</>
                 }
               </p>
@@ -470,11 +470,11 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
               {/* Email warming - send 'OK' to Kevin to avoid spam */}
               <div className="pt-4 border-t border-white/10">
                 <p className="text-xs font-bold text-empire mb-1">
-                  {lang === 'fr' ? 'Pour être sûr de recevoir vos emails :' : 'To make sure you receive our emails:'}
+                  {lang === 'fr' ? 'Pour être sûr de recevoir tes emails :' : 'To make sure you receive our emails:'}
                 </p>
                 <p className="text-[11px] text-neutral-400 mb-2.5">
                   {lang === 'fr'
-                    ? 'Envoyez-moi un "OK" - ça empêche les futurs emails de tomber en spam.'
+                    ? 'Envoie-moi un "OK" - ça empêche les futurs emails de tomber en spam.'
                     : 'Send me an "OK" - it prevents future emails from going to spam.'}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-2">
@@ -536,7 +536,7 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
               </h3>
               <p className="text-neutral-200 text-[15px] mb-5 leading-relaxed">
                 {lang === 'fr'
-                  ? <>{greeting}voici le système exact qu&apos;on installe chez nos clients pour transformer leur expertise en clients. Regardez-la avant de réserver votre appel.</>
+                  ? <>{greeting}voici le système exact qu&apos;on installe chez nos clients pour transformer leur expertise en clients. Regarde-la avant de réserver ton appel.</>
                   : <>{greeting}here&apos;s the exact system we install for our clients to turn their expertise into customers. Watch it before booking your call.</>
                 }
               </p>
@@ -579,11 +579,11 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
           {result.premiumEligible && (result.recommendedOffer === 'copilot' || result.recommendedOffer === 'autopilot') && (
             <div className="mb-6 rounded-xl p-4 sm:p-5 bg-gradient-to-r from-[#d4a574]/15 via-[#d4a574]/8 to-transparent border border-[#d4a574]/30">
               <p className="text-[10px] uppercase tracking-[0.18em] font-bold mb-2 text-[#d4a574]">
-                {lang === 'fr' ? 'Vous voulez tout déléguer ?' : 'Want to delegate everything?'}
+                {lang === 'fr' ? 'Tu veux tout déléguer ?' : 'Want to delegate everything?'}
               </p>
               <p className="text-sm text-neutral-200 leading-snug">
                 {lang === 'fr'
-                  ? <>Vu votre profil (CA, budget, urgence), vous êtes éligible à notre formule <span className="text-[#d4a574] font-semibold">Done For You</span> : un expert dédié pilote toute votre machine de contenu, vous n&apos;avez plus rien à faire. <span className="text-neutral-400">On en parle pendant l&apos;appel découverte.</span></>
+                  ? <>Vu ton profil (CA, budget, urgence), tu es éligible à notre formule <span className="text-[#d4a574] font-semibold">Done For You</span> : un expert dédié pilote toute ta machine de contenu, te n&apos;aie plus rien à faire. <span className="text-neutral-400">On en parle pendant l&apos;appel découverte.</span></>
                   : <>Based on your profile (revenue, budget, urgency), you qualify for our <span className="text-[#d4a574] font-semibold">Done For You</span> plan: a dedicated expert runs your entire content machine - you don&apos;t lift a finger. <span className="text-neutral-400">We&apos;ll discuss it on the discovery call.</span></>
                 }
               </p>
@@ -610,7 +610,7 @@ export default function QuizResult({ result, email, firstName, answers, onRestar
             <Mail className="text-empire flex-shrink-0 mt-0.5" size={16} />
             <p className="text-xs text-neutral-400">
               {lang === 'fr'
-                ? <>Envoyé à <span className="text-white font-semibold">{email}</span> · Vérifiez vos spams si rien dans 20 min.</>
+                ? <>Envoyé à <span className="text-white font-semibold">{email}</span> · Vérifie tes spams si rien dans 20 min.</>
                 : <>Sent to <span className="text-white font-semibold">{email}</span> · Check spam if nothing arrives in 20 min.</>
               }
             </p>

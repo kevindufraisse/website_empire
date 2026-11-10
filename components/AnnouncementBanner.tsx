@@ -38,7 +38,7 @@ export default function AnnouncementBanner() {
             className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 bg-black/80 text-white font-semibold rounded hover:scale-105 transition-all whitespace-nowrap ml-1"
           >
             <Phone size={10} />
-            {lang === 'fr' ? 'On vous rappelle' : 'We call you'}
+            {lang === 'fr' ? 'On te rappelle' : 'We call you'}
           </button>
 
           <button

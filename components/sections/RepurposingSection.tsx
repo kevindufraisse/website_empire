@@ -165,7 +165,7 @@ export default function RepurposingSection() {
 
         <p className="mx-auto mt-8 max-w-2xl text-center text-base leading-relaxed text-neutral-300 md:text-lg">
           {fr
-            ? <><span className="font-bold text-white">{ELSEWHERE_PCT} % des vues</span> de cette idée sont venues d’ailleurs que là où elle a été écrite. C’est ça, la diffusion : vous ne pariez plus sur une plateforme, vous les prenez toutes.</>
+            ? <><span className="font-bold text-white">{ELSEWHERE_PCT} % des vues</span> de cette idée sont venues d’ailleurs que là où elle a été écrite. C’est ça, la diffusion : tu ne paries plus sur une plateforme, tu les prends toutes.</>
             : <><span className="font-bold text-white">{ELSEWHERE_PCT}% of the views</span> on this idea came from somewhere other than where it was written. That is distribution: you no longer bet on one platform, you take them all.</>}
         </p>
         <div className="mx-auto mt-10 grid max-w-4xl items-center gap-6 md:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
@@ -178,13 +178,13 @@ export default function RepurposingSection() {
               muted
               loop
               playsInline
-              aria-label={fr ? 'Le reel d’origine à gauche, le même plan avec vous à droite' : 'The original reel on the left, the same shot with you on the right'}
+              aria-label={fr ? 'Le reel d’origine à gauche, le même plan avec toi à droite' : 'The original reel on the left, the same shot with you on the right'}
             />
             <figcaption className="px-4 py-3 text-left">
               <p className="text-[13px] font-bold text-white">{fr ? 'Clonage' : 'Cloning'}</p>
               <p className="mt-1 text-[13px] leading-relaxed text-neutral-400">
                 {fr
-                  ? 'Vous collez le lien. À gauche, le reel qui a percé. À droite, le même plan, avec vous.'
+                  ? 'Tu colles le lien. À gauche, le reel qui a percé. À droite, le même plan, avec toi.'
                   : 'You paste the link. On the left, the reel that took off. On the right, the same shot, with you.'}
               </p>
             </figcaption>
@@ -192,8 +192,8 @@ export default function RepurposingSection() {
           <ul className="space-y-3 text-left">
             {(fr
               ? [
-                  { t: 'Republication', d: 'Un post à 100 000 vues le mois dernier ? On le remet en ligne, si vous voulez.' },
-                  { t: 'Court → long', d: 'Les formats courts se combinent en vidéo longue, aussi sur l’actu et vos sujets.' },
+                  { t: 'Republication', d: 'Un post à 100 000 vues le mois dernier ? On le remet en ligne, si tu veux.' },
+                  { t: 'Court → long', d: 'Les formats courts se combinent en vidéo longue, aussi sur l’actu et tes sujets.' },
                 ]
               : [
                   { t: 'Republish', d: 'A post that did 100,000 views last month? We put it out again, if you want.' },

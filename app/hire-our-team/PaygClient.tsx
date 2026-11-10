@@ -50,7 +50,7 @@ function PromoCode({ fr }: { fr: boolean }) {
         </p>
       </div>
       <p className="text-xs text-neutral-400 mb-3">
-        {fr ? 'Utilisez ce code lors de votre premier achat de crédits.' : 'Use this code on your first credit purchase.'}
+        {fr ? 'Utilise ce code lors de ton premier achat de crédits.' : 'Use this code on your first credit purchase.'}
       </p>
       <button
         onClick={handleCopy}
@@ -73,18 +73,18 @@ export default function PaygClient() {
   const SERVICES = [
     {
       icon: Scissors,
-      title: fr ? 'On découpe vos interviews' : 'We cut your interviews',
-      desc: fr ? 'Vos interviews caméra sont découpées en clips viraux, prêts à publier.' : 'Your camera interviews are cut into viral clips, ready to publish.',
+      title: fr ? 'On découpe tes interviews' : 'We cut your interviews',
+      desc: fr ? 'Tes interviews caméra sont découpées en clips viraux, prêts à publier.' : 'Your camera interviews are cut into viral clips, ready to publish.',
     },
     {
       icon: Film,
-      title: fr ? 'On monte vos Reels' : 'We edit your Reels',
+      title: fr ? 'On monte tes Reels' : 'We edit your Reels',
       desc: fr ? "Montage pro avec hooks, sous-titres et transitions qui captent l'attention." : 'Pro editing with hooks, subtitles and transitions that grab attention.',
     },
     {
       icon: PenLine,
-      title: fr ? 'On écrit vos posts & newsletters' : 'We write your posts & newsletters',
-      desc: fr ? 'Posts LinkedIn, newsletters… rédigés avec votre voix, votre style. On trouve les sujets viraux pour vous.' : 'LinkedIn posts, newsletters… written in your voice, your style. We find viral topics for you.',
+      title: fr ? 'On écrit tes posts & newsletters' : 'We write your posts & newsletters',
+      desc: fr ? 'Posts LinkedIn, newsletters… rédigés avec ta voix, ton style. On trouve les sujets viraux pour toi.' : 'LinkedIn posts, newsletters… written in your voice, your style. We find viral topics for you.',
     },
     {
       icon: Share2,
@@ -97,7 +97,7 @@ export default function PaygClient() {
       icon: Bot,
       title: 'Cerveau Empire',
       desc: fr
-        ? 'Nos agents IA trouvent les sujets les plus viraux pour votre niche. Le format le plus simple pour créer du contenu.'
+        ? 'Nos agents IA trouvent les sujets les plus viraux pour ta niche. Le format le plus simple pour créer du contenu.'
         : 'Our AI agents find the most viral topics for your niche. The simplest format to create content.',
     },
   ]
@@ -106,7 +106,7 @@ export default function PaygClient() {
     {
       step: '1',
       icon: Zap,
-      title: fr ? "Vous passez l'interview" : 'You do the interview',
+      title: fr ? "Tu passes l'interview" : 'You do the interview',
       desc: fr ? '30 min face caméra' : '30 min on camera',
     },
     {
@@ -135,15 +135,15 @@ export default function PaygClient() {
   ]
 
   const INCLUDED = [
-    fr ? 'Découpage intelligent de vos interviews' : 'Smart cutting of your interviews',
-    fr ? 'Montage pro de vos Reels & Shorts' : 'Pro editing of your Reels & Shorts',
-    fr ? 'Rédaction de vos posts LinkedIn' : 'Writing your LinkedIn posts',
-    fr ? 'Rédaction de vos newsletters' : 'Writing your newsletters',
+    fr ? 'Découpage intelligent de tes interviews' : 'Smart cutting of your interviews',
+    fr ? 'Montage pro de tes Reels & Shorts' : 'Pro editing of your Reels & Shorts',
+    fr ? 'Rédaction de tes posts LinkedIn' : 'Writing your LinkedIn posts',
+    fr ? 'Rédaction de tes newsletters' : 'Writing your newsletters',
     fr ? 'Multiplication sur tous les réseaux' : 'Multiplication across all platforms',
     fr ? 'Hooks travaillés pour chaque contenu' : 'Crafted hooks for every piece of content',
     fr ? 'Orthographe et style corrigés' : 'Spelling and style corrected',
     fr ? 'Stratégie optimisée pour chaque plateforme' : 'Strategy optimized for each platform',
-    fr ? 'Personnalisation dans votre style' : 'Personalized in your style',
+    fr ? 'Personnalisation dans ton style' : 'Personalized in your style',
     fr ? 'B-roll IA' : 'AI B-roll',
     fr ? 'Miniatures IA' : 'AI Thumbnails',
     'Cerveau Empire',
@@ -201,7 +201,7 @@ export default function PaygClient() {
 
             <p className="text-neutral-400 text-lg sm:text-xl leading-relaxed mb-4 max-w-2xl mx-auto">
               {fr
-                ? 'Envoyez-nous une interview de 15 min et on crée vos contenus - LinkedIn, Instagram, TikTok, YouTube - avec les systèmes des meilleurs entrepreneurs du web.'
+                ? 'Envoie-nous une interview de 15 min et on crée tes contenus - LinkedIn, Instagram, TikTok, YouTube - avec les systèmes des meilleurs entrepreneurs du web.'
                 : 'Send us a 15-min interview and we create your content - LinkedIn, Instagram, TikTok, YouTube - using the systems of the best web entrepreneurs.'}
             </p>
 
@@ -252,7 +252,7 @@ export default function PaygClient() {
                 />
               </div>
               <p className="text-center text-neutral-500 text-xs mt-3">
-                {fr ? 'Regardez la présentation complète (30 min)' : 'Watch the full presentation (30 min)'}
+                {fr ? 'Regarde la présentation complète (30 min)' : 'Watch the full presentation (30 min)'}
               </p>
             </div>
 
@@ -306,10 +306,10 @@ export default function PaygClient() {
         <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 py-12 md:py-16">
           <div className="text-center mb-10">
             <p className="text-empire text-xs font-bold uppercase tracking-widest mb-3">
-              {fr ? 'Votre content machine' : 'Your content machine'}
+              {fr ? 'Ton content machine' : 'Your content machine'}
             </p>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold">
-              {fr ? "On s'occupe de tout. Vous, vous parlez." : 'We handle everything. You just talk.'}
+              {fr ? "On s'occupe de tout. Toi, tu parles." : 'We handle everything. You just talk.'}
             </h2>
           </div>
 
@@ -346,12 +346,12 @@ export default function PaygClient() {
               {fr ? 'Avant / Après' : 'Before / After'}
             </p>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold">
-              {fr ? 'Économisez ' : 'Save '}
+              {fr ? 'Économise ' : 'Save '}
               <span className="text-empire">{fr ? '14h par jour.' : '14h per day.'}</span>
             </h2>
             <p className="text-neutral-400 text-sm mt-3 max-w-lg mx-auto">
               {fr
-                ? "Le temps que vous passez à produire du contenu vs. ce qu'il vous reste avec Empire."
+                ? "Le temps que tu passes à produire du contenu vs. ce qu'il te reste avec Empire."
                 : 'Time you spend producing content vs. what you have left with Empire.'}
             </p>
           </div>
@@ -387,14 +387,14 @@ export default function PaygClient() {
               Pricing
             </p>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold">
-              {fr ? 'Payez avec des crédits. ' : 'Pay with credits. '}
+              {fr ? 'Paie avec des crédits. ' : 'Pay with credits. '}
               <span className="text-empire">
-                {fr ? 'Publiez autant que vous voulez.' : 'Publish as much as you want.'}
+                {fr ? 'Publie autant que tu veux.' : 'Publish as much as you want.'}
               </span>
             </h2>
             <p className="text-neutral-400 text-sm mt-3 max-w-lg mx-auto">
               {fr
-                ? 'Achetez des crédits, utilisez-les pour produire et publier vos contenus sur toutes les plateformes.'
+                ? 'Achète des crédits, utilise-les pour produire et publier tes contenus sur toutes les plateformes.'
                 : 'Buy credits, use them to produce and publish your content across all platforms.'}
             </p>
           </div>
@@ -412,7 +412,7 @@ export default function PaygClient() {
                   </p>
                   <p className="text-xs text-neutral-500">
                     {fr
-                      ? 'Chaque contenu produit consomme des crédits - publiez autant que vous le souhaitez'
+                      ? 'Chaque contenu produit consomme des crédits - publie autant que tu le souhaites'
                       : 'Each piece of content uses credits - publish as much as you want'}
                   </p>
                 </div>
@@ -455,7 +455,7 @@ export default function PaygClient() {
                       {fr ? 'Vs. recruter en interne' : 'Vs. hiring in-house'}
                     </p>
                     <p className="text-sm font-bold text-white">
-                      {fr ? 'Vous économisez' : 'You save'}
+                      {fr ? 'Tu économises' : 'You save'}
                     </p>
                   </div>
                   <p className="text-2xl font-extrabold text-empire">+9 800€<span className="text-sm font-medium text-neutral-400">{fr ? '/mois' : '/mo'}</span></p>

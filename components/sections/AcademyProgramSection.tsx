@@ -50,7 +50,7 @@ export default function AcademyProgramSection() {
       tag: fr ? 'Semaine 2 · Jours 8-14' : 'Week 2 · Days 8-14',
       title: fr ? 'Créer sur tous les réseaux' : 'Creating on every platform',
       desc: fr
-        ? 'Formats par plateforme, rythme, systèmes de production. Vous créez partout sans vous épuiser.'
+        ? 'Formats par plateforme, rythme, systèmes de production. Tu crées partout sans t\'épuiser.'
         : 'Platform-specific formats, rhythm, production systems. You create everywhere without burning out.',
       highlight: false,
       platforms: true,
@@ -60,7 +60,7 @@ export default function AcademyProgramSection() {
       tag: fr ? 'Semaine 3 · Jours 15-21' : 'Week 3 · Days 15-21',
       title: fr ? 'Devenir Head of Viralité' : 'Becoming Head of Virality',
       desc: fr
-        ? 'Transformer les vues en clients, générer des RDV, construire une activité qui tourne sans vous vendre à plein temps.'
+        ? 'Transformer les vues en clients, générer des RDV, construire une activité qui tourne sans te vendre à plein temps.'
         : 'Turn views into clients, generate appointments, build a business that runs without selling full-time.',
       highlight: true,
       platforms: false,
@@ -72,21 +72,21 @@ export default function AcademyProgramSection() {
       icon: PenLine,
       label: fr ? 'Défis quotidiens' : 'Daily challenges',
       desc: fr
-        ? 'Chaque jour, une action concrète. Vous ne regardez pas - vous faites.'
+        ? 'Chaque jour, une action concrète. Tu ne regardes pas - tu fais.'
         : 'Every day, one concrete action. You don\'t watch - you do.',
     },
     {
       icon: Users,
       label: fr ? 'Groupe privé' : 'Private group',
       desc: fr
-        ? "Vous postez, vous recevez des feedbacks, vous voyez les résultats des autres."
+        ? "Tu postes, tu reçois des feedbacks, tu vois les résultats des autres."
         : "You post, you get feedback, you see others' results.",
     },
     {
       icon: Send,
       label: fr ? 'Certification à la clé' : 'Certification at the end',
       desc: fr
-        ? "Bronze, Argent ou Or selon vos vrais résultats. Ajoutable sur LinkedIn."
+        ? "Bronze, Argent ou Or selon tes vrais résultats. Ajoutable sur LinkedIn."
         : "Bronze, Silver or Gold based on your real results. Addable to LinkedIn.",
     },
   ]

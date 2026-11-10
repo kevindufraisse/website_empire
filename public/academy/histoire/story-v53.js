@@ -13,10 +13,10 @@
   choice.querySelectorAll('[data-v53-choice]').forEach(n => n.setAttribute('aria-pressed', String(n.dataset.v53Choice === value)));
   choice.querySelectorAll('[data-profile]').forEach(n => n.classList.toggle('is-selected', n.dataset.profile === value));
   choice.querySelector('.v53-choice-answer').textContent = value === 'left'
-   ? 'Vous m’avez vu chercher une solution, annoncer un délai et le tenir. Ces actes racontés donnent des raisons de me faire confiance. Votre rôle : faire émerger des preuves aussi concrètes chez vos clients.'
-   : value === 'right' ? 'Vous préférez mon concurrent. C’est possible aussi. Connaître une histoire apporte du contexte et peut créer de la confiance ; cela ne décide pas à votre place.'
-   : value === 'ai' ? 'Pour une tâche précise, un outil peut suffire. Votre histoire, votre façon de décider et la relation avec votre client apportent un autre contexte au choix.'
-   : 'Deux personnes utilisent l’IA. Une seule vous est déjà familière.';
+   ? 'Tu m’as vu chercher une solution, annoncer un délai et le tenir. Ces actes racontés donnent des raisons de me faire confiance. Ton rôle : faire émerger des preuves aussi concrètes chez tes clients.'
+   : value === 'right' ? 'Tu préfères mon concurrent. C’est possible aussi. Connaître une histoire apporte du contexte et peut créer de la confiance ; cela ne décide pas à ta place.'
+   : value === 'ai' ? 'Pour une tâche précise, un outil peut suffire. Ton histoire, ta façon de décider et la relation avec ton client apportent un autre contexte au choix.'
+   : 'Deux personnes utilisent l’IA. Une seule t’est déjà familière.';
  }
  choice?.addEventListener('click', e => { const b=e.target.closest('[data-v53-choice]'); if (!b) return; manualChoice=true; choose(b.dataset.v53Choice); });
  function paint() {

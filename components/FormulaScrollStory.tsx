@@ -104,7 +104,7 @@ function ChatExchange({ p, index }: { p: Progress; index: number }) {
     </Reveal>
     <Reveal p={p} start={at + .010} className={s.incoming}><span className={s.added}><Check size={12}/>Ajouté à Empire</span>
       <p>{['Vocal transcrit. Ton idée est prête dans Empire.', 'C’est enregistré. On peut en faire une tier list.', 'Capture reçue. Sujet extrait : persévérer quand on entreprend.', 'Reel récupéré. Tu peux réagir à cet extrait.', 'Vidéo récupérée. Ses idées sont prêtes à développer.', 'Ton post et ton angle sont enregistrés.'][index]}</p>
-      {(index === 0 || index === 3) && <div className={s.transcript}><small>{index === 0 ? 'TRANSCRIPTION' : 'VOTRE ANGLE'}</small>{index === 0 ? '« Comment choisir les bons créateurs business à suivre ? Ça dépend de ce qu’on veut apprendre. »' : 'Les conseils que j’applique à mon activité, et ceux que je nuancerais.'}</div>}
+      {(index === 0 || index === 3) && <div className={s.transcript}><small>{index === 0 ? 'TRANSCRIPTION' : 'TON ANGLE'}</small>{index === 0 ? '« Comment choisir les bons créateurs business à suivre ? Ça dépend de ce qu’on veut apprendre. »' : 'Les conseils que j’applique à mon activité, et ceux que je nuancerais.'}</div>}
       <span className={s.formatSuggestion}>Format proposé : {FORMATS[index]} <ArrowRight size={11}/></span>
     </Reveal>
   </div>
@@ -118,13 +118,13 @@ const WATCHED = [
 function CompetitorsMessage({ p }: { p: Progress }) {
   const at = IDEA_TIMELINE[6].at
   return <div className={s.marketExchange}><Reveal p={p} start={at} className={s.incoming}>
-    <span className={s.marketSender}><span>E</span>Empire vous propose</span>
-    <p>Ce qui marche cette semaine chez les comptes que vous suivez :</p>
+    <span className={s.marketSender}><span>E</span>Empire te propose</span>
+    <p>Ce qui marche cette semaine chez les comptes que tu suis :</p>
     <div className={s.watchList}>{WATCHED.map((w, i) => <Reveal key={w.name} p={p} start={IDEA_TIMELINE[6 + i].at + (i === 0 ? .004 : 0)} className={s.watchRow}>
       {w.img ? <img src={w.img} alt={w.name}/> : <span className={s.watchNews}>BFM</span>}
       <div><small>{w.Icon && <w.Icon/>}{w.name} · {w.net}</small><b>{w.title}</b></div><Check size={12}/>
     </Reveal>)}</div>
-    <Reveal p={p} start={IDEA_TIMELINE[9].at + .010} className={s.marketSaved}><Check size={12}/>4 idées ajoutées à Empire, avec votre angle</Reveal>
+    <Reveal p={p} start={IDEA_TIMELINE[9].at + .010} className={s.marketSaved}><Check size={12}/>4 idées ajoutées à Empire, avec ton angle</Reveal>
   </Reveal></div>
 }
 function Chat({ p, active }: { p: Progress; active: boolean }) {
@@ -157,7 +157,7 @@ function Chat({ p, active }: { p: Progress; active: boolean }) {
   })
   return <motion.div className={s.chatScene} data-scene="chat" style={{ opacity, y }} aria-hidden={!active}>
     <div className={`${s.phone} ${s.chatPhone}`}><PhoneTop/>
-      <div className={s.chatHeader}><ChevronLeft size={19}/><span className={s.empireBadge}>E</span><div><b>Empire</b><small>Votre assistant contenu</small></div><Video size={18}/></div>
+      <div className={s.chatHeader}><ChevronLeft size={19}/><span className={s.empireBadge}>E</span><div><b>Empire</b><small>Ton assistant contenu</small></div><Video size={18}/></div>
       <div ref={viewportRef} className={s.chatViewport}><span className={s.dayStamp}>Aujourd’hui</span><motion.div ref={trackRef} className={s.chatTrack} style={{ y: trackY }}>{SENDS.map((_, i) => <ChatExchange key={i} p={p} index={i}/>)}<CompetitorsMessage p={p}/></motion.div></div>
       <div className={s.composer}><Plus size={18}/><div><motion.span>{typed}</motion.span><span className={s.composePlaceholder}>Message</span></div><span className={s.sendIcon}><Send size={16}/><motion.i style={{ opacity: tap, scale: tapScale }}/></span></div><div className={s.phoneHome}/>
     </div>
@@ -183,15 +183,15 @@ function RevealCreator({ p, index, still }: { p: Progress; index: number; still?
   return <div className={s.revealCreator}><div><motion.span style={still ? { filter: 'none' } : { filter, scale }}><CreatorPhoto index={index}/></motion.span><motion.i style={{ opacity: still ? 0 : tap }}/></div><motion.b style={{ opacity: still ? 1 : nameOpacity }}>{CREATORS[index].name}</motion.b><motion.small style={{ opacity: still ? 0 : hiddenOpacity }}>???</motion.small></div>
 }
 function GuessCreators({ p, still }: { p: Progress; still?: boolean }) {
-  return <div className={s.guessOverlay}><h4>Les entrepreneurs les plus viraux</h4><div>{CREATORS.map((_, i) => <RevealCreator p={p} index={i} still={still} key={i}/>)}</div><span>Un indice. Un visage. Votre explication.</span></div>
+  return <div className={s.guessOverlay}><h4>Les entrepreneurs les plus viraux</h4><div>{CREATORS.map((_, i) => <RevealCreator p={p} index={i} still={still} key={i}/>)}</div><span>Un indice. Un visage. Ton explication.</span></div>
 }
 function Composition({ kind, p, still = false, preview = false }: { kind: number; p: Progress; still?: boolean; preview?: boolean }) {
   const question = useTransform(p, v => TOPIC.slice(0, Math.floor(clamp((v - .425) / .02) * TOPIC.length)))
   return <div className={`${s.composition} ${s[`composition${kind}`]}`}>
     <PreviewVideo src="/demo/kevin-speaking-v11.mp4" poster={FACE} label="Kevin en vidéo — illustration du format" className={s.cameraFace} still={preview}/>
-    {kind === 0 && <><div className={s.reactionClip}><ReelArtwork/></div><span className={s.reactionVoice}><Mic size={11}/>Votre réaction</span></>}
+    {kind === 0 && <><div className={s.reactionClip}><ReelArtwork/></div><span className={s.reactionVoice}><Mic size={11}/>Ta réaction</span></>}
     {kind === 1 && <TierList p={p} still={still}/>}
-    {kind === 2 && <div className={s.questionSticker}><small>Posez-moi une question</small>{still ? <b>{TOPIC}</b> : <motion.b>{question}</motion.b>}</div>}
+    {kind === 2 && <div className={s.questionSticker}><small>Pose-moi une question</small>{still ? <b>{TOPIC}</b> : <motion.b>{question}</motion.b>}</div>}
     {kind === 3 && <GuessCreators p={p} still={still}/>}
     <div className={s.videoCaption}>{['Ce conseil, je l’adapterais à mon activité.', 'MON CLASSEMENT, MES RAISONS', 'Le bon créateur dépend de ton objectif.', 'VOICI MON POINT DE VUE'][kind]}</div>
   </div>
@@ -217,8 +217,8 @@ function Recording({ p, kind, cloneP }: { p: Progress; kind: number; cloneP: Pro
 function Formats({ p, cloneP, active, kind }: { p: Progress; cloneP: Progress; active: boolean; kind: number }) {
   const opacity = useTransform(cloneP, [.275, .292, .620, .628], [0, 1, 1, 0])
   const scale = useTransform(cloneP, [.275, .295, .620, .628], [.96, 1, 1, .98])
-  const titles = ['Un lien vous fait réagir ?\nDonnez votre point de vue.', 'Un classement en tête ?\nExpliquez vos choix.', 'Une question d’un client ?\nRépondez-lui en vidéo.', 'Une opinion à partager ?\nRévélez vos choix.', 'Un Reel vous inspire ?\nCréez votre version.', 'Un sujet mérite plus ?\nDéveloppez-le en format long.']
-  const descriptions = ['Le lien partagé s’affiche à l’écran. Vous réagissez face caméra.', 'Empire prépare votre tier list. Vous classez et commentez.', 'Empire affiche la question. Vous apportez la réponse.', 'Faites deviner les créateurs, puis révélez votre avis et vos critères.', 'Empire reprend le format avec votre visage et votre voix. Vous validez avant publication.', 'Réaction, classement ou réponse client : gardez le même sujet, avec plus de place pour l’expliquer.']
+  const titles = ['Un lien te fait réagir ?\nDonne ton point de vue.', 'Un classement en tête ?\nExplique tes choix.', 'Une question d’un client ?\nRéponds-lui en vidéo.', 'Une opinion à partager ?\nRévèle tes choix.', 'Un Reel t’inspire ?\nCrée ta version.', 'Un sujet mérite plus ?\nDéveloppe-le en format long.']
+  const descriptions = ['Le lien partagé s’affiche à l’écran. Tu réagis face caméra.', 'Empire prépare ta tier list. Tu classes et commentes.', 'Empire affiche la question. Tu apportes la réponse.', 'Fais deviner les créateurs, puis révèle ton avis et tes critères.', 'Empire reprend le format avec ton visage et ta voix. Tu valides avant publication.', 'Réaction, classement ou réponse client : garde le même sujet, avec plus de place pour l’expliquer.']
   return <motion.div className={`${s.formatScene} ${r.formats}`} data-scene="formats" data-format={kind} data-long={kind === 5} style={{ opacity, scale }} aria-hidden={!active}>
     <div className={`${r.preview} ${kind === 5 ? r.longPreview : ''}`} data-format-preview={kind === 5 ? 'long' : 'short'}>{kind === 5 ? <LongVideoFormat p={p}/> : <Recording p={p} cloneP={cloneP} kind={kind}/>}</div>
     <div className={`${s.formatExplanation} ${r.formatCopy}`}><h3>{titles[kind].split('\n').map((line, i) => <span key={line}>{i > 0 && <br/>}{line}</span>)}</h3><p>{descriptions[kind]}</p>{kind === 4 && <CloneDetails p={cloneP}/>}</div>
@@ -234,11 +234,11 @@ function NetworkPost({ p, index }: { p: Progress; index: number }) {
   const assetOpacity = useTransform(p, [assetStart, assetStart + .012], [0, 1])
   const assetY = useTransform(p, [assetStart, assetStart + .012], [30, 0])
   return <motion.article className={`${s.post} ${index === 3 ? s.winningPost : ''}`} data-network={CHANNELS[index]} style={{ opacity, y }}>
-    <header className={s.platformChrome}><Icon/><b>{NETWORKS[index]}</b><span>{['Reels', 'Fil professionnel', 'Vidéo longue', 'Pour toi', 'Fil de discussion', 'Pour vous', 'Fil d’actualité'][index]}</span></header>
+    <header className={s.platformChrome}><Icon/><b>{NETWORKS[index]}</b><span>{['Reels', 'Fil professionnel', 'Vidéo longue', 'Pour toi', 'Fil de discussion', 'Pour toi', 'Fil d’actualité'][index]}</span></header>
     {index !== 2 && index !== 3 && <div className={s.postAuthor}><img src={AVATAR} alt=""/><span><b>{index === 4 ? 'kevindufraisse' : 'Kevin Dufraisse'}</b><small>{index === 1 ? 'Conseils business · 2 h' : index === 5 ? '@kevindufraisse · 2 h' : index === 6 ? 'Publication publique · 2 h' : '@kevindufraisse'}</small></span><MoreHorizontal size={14}/></div>}
-    {index === 2 ? <div className={s.youtubePublication}><div className={s.youtubePlayer}><LongVideoArtwork/><motion.div className={s.youtubeGeneratedCover} style={{ opacity: assetOpacity, y: assetY }}><div className={s.youtubeThumbnail}><img className={s.youtubeThumbnailImage} src="/demo/youtube-tierlist-v18.webp" alt="Miniature générée par Empire : Je les classe, Kevin et la tier list des créateurs business"/></div><span className={s.youtubeGeneratedLabel}><Sparkles size={11}/><span>Miniature créée par Empire</span><Check size={11}/></span></motion.div><span>12:48</span><div><Play size={14} fill="currentColor"/><span/><span>HD</span></div></div><div className={s.youtubeTitle}><b>Ma tier list des créateurs business français.</b><span>Vidéo longue · 3 chapitres</span></div><div className={s.youtubeChannel}><img src={AVATAR} alt=""/><span>Kevin Dufraisse<small>Votre chaîne YouTube</small></span><b>S’abonner</b></div></div>
-    : video ? <div className={s.postVideo}><Composition kind={index === 0 ? 2 : 1} p={p} still/>{index === 3 ? <><div className={s.tiktokActions}><img src={AVATAR} alt=""/><Heart/><MessageCircle/><Bookmark/><Share2/></div><div className={s.tiktokCaption}><b>@kevindufraisse</b><span>Mon classement des créateurs business.</span><small><Music2 size={10}/>son original · Kevin</small></div></> : <span className={s.formatPostTag}>FAQ · votre Reel</span>}{index === 0 && <motion.div className={s.generatedCover} style={{ opacity: assetOpacity, y: assetY }}><PhotoThumbnail/><span className={s.empireGenerated}><Sparkles size={12}/><span><b>Miniature créée par Empire</b></span><Check size={12}/></span></motion.div>}</div>
-    : <div className={s.postText}><b>{index === 5 ? '1/3 · Qui suivre pour progresser ?' : index === 4 ? 'Le nombre d’abonnés ne fait pas le bon conseil.' : 'Qui suivre en business ?'}</b><p>{index === 4 ? 'Le bon créateur, c’est celui dont tu peux appliquer les conseils à ton activité. Voici mon classement.' : index === 5 ? 'Un créateur. Une expertise. Voici les critères que je regarde. ↓' : 'Un créateur, une expertise. Voici les critères que je regarde avant de suivre ses conseils.'}</p><motion.div className={s.generatedLinkedin} style={{ opacity: assetOpacity, y: assetY }}><img src="/demo/kevin-portrait-v13.webp" alt={`Portrait studio généré par Empire pour ${NETWORKS[index]}`}/><span className={s.empireGenerated}><Sparkles size={12}/><span><b>Portrait créé par Empire</b></span><Check size={12}/></span></motion.div><small>{index === 5 ? 'Afficher ce fil' : index === 4 ? 'Afficher les réponses' : 'Adapté depuis votre vidéo · Tier list'}</small></div>}
+    {index === 2 ? <div className={s.youtubePublication}><div className={s.youtubePlayer}><LongVideoArtwork/><motion.div className={s.youtubeGeneratedCover} style={{ opacity: assetOpacity, y: assetY }}><div className={s.youtubeThumbnail}><img className={s.youtubeThumbnailImage} src="/demo/youtube-tierlist-v18.webp" alt="Miniature générée par Empire : Je les classe, Kevin et la tier list des créateurs business"/></div><span className={s.youtubeGeneratedLabel}><Sparkles size={11}/><span>Miniature créée par Empire</span><Check size={11}/></span></motion.div><span>12:48</span><div><Play size={14} fill="currentColor"/><span/><span>HD</span></div></div><div className={s.youtubeTitle}><b>Ma tier list des créateurs business français.</b><span>Vidéo longue · 3 chapitres</span></div><div className={s.youtubeChannel}><img src={AVATAR} alt=""/><span>Kevin Dufraisse<small>Ta chaîne YouTube</small></span><b>S’abonner</b></div></div>
+    : video ? <div className={s.postVideo}><Composition kind={index === 0 ? 2 : 1} p={p} still/>{index === 3 ? <><div className={s.tiktokActions}><img src={AVATAR} alt=""/><Heart/><MessageCircle/><Bookmark/><Share2/></div><div className={s.tiktokCaption}><b>@kevindufraisse</b><span>Mon classement des créateurs business.</span><small><Music2 size={10}/>son original · Kevin</small></div></> : <span className={s.formatPostTag}>FAQ · ton Reel</span>}{index === 0 && <motion.div className={s.generatedCover} style={{ opacity: assetOpacity, y: assetY }}><PhotoThumbnail/><span className={s.empireGenerated}><Sparkles size={12}/><span><b>Miniature créée par Empire</b></span><Check size={12}/></span></motion.div>}</div>
+    : <div className={s.postText}><b>{index === 5 ? '1/3 · Qui suivre pour progresser ?' : index === 4 ? 'Le nombre d’abonnés ne fait pas le bon conseil.' : 'Qui suivre en business ?'}</b><p>{index === 4 ? 'Le bon créateur, c’est celui dont tu peux appliquer les conseils à ton activité. Voici mon classement.' : index === 5 ? 'Un créateur. Une expertise. Voici les critères que je regarde. ↓' : 'Un créateur, une expertise. Voici les critères que je regarde avant de suivre ses conseils.'}</p><motion.div className={s.generatedLinkedin} style={{ opacity: assetOpacity, y: assetY }}><img src="/demo/kevin-portrait-v13.webp" alt={`Portrait studio généré par Empire pour ${NETWORKS[index]}`}/><span className={s.empireGenerated}><Sparkles size={12}/><span><b>Portrait créé par Empire</b></span><Check size={12}/></span></motion.div><small>{index === 5 ? 'Afficher ce fil' : index === 4 ? 'Afficher les réponses' : 'Adapté depuis ta vidéo · Tier list'}</small></div>}
     <PlatformMetrics index={index} count={count}/>
   </motion.article>
 }
@@ -262,22 +262,22 @@ function Calendar({ p, active }: { p: Progress; active: boolean }) {
   const [done, setDone] = useState(false)
   useMotionValueEvent(p, 'change', v => setDone(v >= .942))
   return <motion.div className={s.calendarScene} data-scene="republication" style={{ opacity }} aria-hidden={!active}>
-    <div className={s.calendarIntro}><h3>150 000 vues.<br/><em>Une nouvelle date.</em></h3><p>Vos meilleurs contenus reviennent automatiquement dans votre calendrier, pour être diffusés à nouveau.</p><motion.div className={s.scheduleConfirmed} style={{ opacity: confirmed }}><Check size={18}/><span><b>Republication programmée</b><small>Mercredi 25 · 12:00</small></span></motion.div></div>
-    <div className={s.calendarApp}><header><span className={s.empireBadge}>E</span><div><b>Calendrier</b><small>Vos publications</small></div><CalendarDays size={20}/></header><div className={s.month}><b>Novembre</b><span>{done ? '1 republication ajoutée' : 'Sélection du meilleur contenu'}</span></div><div className={s.weekdays}>{['L', 'M', 'M', 'J', 'V', 'S', 'D'].map((v, i) => <span key={i}>{v}</span>)}</div><div className={s.calendarGrid}>{Array.from({ length: 42 }, (_, i) => { const day = i - 5; return <div key={i} className={day === 25 ? s.targetDay : ''}><span>{day > 0 && day <= 30 ? day : ''}</span>{day === 4 && <small className={s.publishedMark}><Check size={10}/>Publié</small>}{day === 25 && <small className={s.targetTime}>12:00</small>}</div> })}<motion.div className={s.movingWinner} style={{ left, top, width, height, opacity: picked }}><div className={s.winnerVisual}><Composition kind={1} p={p} still/></div><div className={s.winnerMeta}><SocialIcons.tiktok/><b>150 000 vues</b><span>{TOPIC}</span></div><motion.span className={s.scheduledCheck} style={{ opacity: confirmed }}><Check size={11}/></motion.span></motion.div></div><footer><span><Check size={13}/>Le contenu qui a déjà trouvé son public.</span><motion.b style={{ opacity: confirmed }}>Reprogrammé</motion.b></footer></div>
+    <div className={s.calendarIntro}><h3>150 000 vues.<br/><em>Une nouvelle date.</em></h3><p>Tes meilleurs contenus reviennent automatiquement dans ton calendrier, pour être diffusés à nouveau.</p><motion.div className={s.scheduleConfirmed} style={{ opacity: confirmed }}><Check size={18}/><span><b>Republication programmée</b><small>Mercredi 25 · 12:00</small></span></motion.div></div>
+    <div className={s.calendarApp}><header><span className={s.empireBadge}>E</span><div><b>Calendrier</b><small>Tes publications</small></div><CalendarDays size={20}/></header><div className={s.month}><b>Novembre</b><span>{done ? '1 republication ajoutée' : 'Sélection du meilleur contenu'}</span></div><div className={s.weekdays}>{['L', 'M', 'M', 'J', 'V', 'S', 'D'].map((v, i) => <span key={i}>{v}</span>)}</div><div className={s.calendarGrid}>{Array.from({ length: 42 }, (_, i) => { const day = i - 5; return <div key={i} className={day === 25 ? s.targetDay : ''}><span>{day > 0 && day <= 30 ? day : ''}</span>{day === 4 && <small className={s.publishedMark}><Check size={10}/>Publié</small>}{day === 25 && <small className={s.targetTime}>12:00</small>}</div> })}<motion.div className={s.movingWinner} style={{ left, top, width, height, opacity: picked }}><div className={s.winnerVisual}><Composition kind={1} p={p} still/></div><div className={s.winnerMeta}><SocialIcons.tiktok/><b>150 000 vues</b><span>{TOPIC}</span></div><motion.span className={s.scheduledCheck} style={{ opacity: confirmed }}><Check size={11}/></motion.span></motion.div></div><footer><span><Check size={13}/>Le contenu qui a déjà trouvé son public.</span><motion.b style={{ opacity: confirmed }}>Reprogrammé</motion.b></footer></div>
   </motion.div>
 }
 
 function AccessibleStory() {
   return <><div data-story="accessible">
     <IdeaMessagesStory/>
-    <section className={s.accessible}><h2 id="formula-format">Nous mettons votre idée dans le bon format.</h2><p>Un lien devient une réaction. Un classement devient une tier list. Une question client devient une réponse en vidéo.</p></section>
+    <section className={s.accessible}><h2 id="formula-format">Nous mettons ton idée dans le bon format.</h2><p>Un lien devient une réaction. Un classement devient une tier list. Une question client devient une réponse en vidéo.</p></section>
     <LeadMagnetScene staticMode/>
     <LongFormatScroll/>
     <SecretFormatsGate staticMode/>
     <section className={s.accessible}>
-      <h2 id="formula-diffusion">Nous adaptons votre message à chaque format et le diffusons sur tous vos réseaux.</h2><p>{NETWORKS.join(' · ')}. Les miniatures et les visuels accompagnent les publications.</p>
-      <h3>Publiez la même vidéo sur plusieurs comptes, instantanément.</h3><p>Connectez vos comptes principaux et secondaires.</p>
-      <h3>Republiez la même publication, encore et encore.</h3><p>Les contenus qui fonctionnent reviennent dans votre calendrier. Les scènes et les chiffres de la démonstration sont illustratifs.</p>
+      <h2 id="formula-diffusion">Nous adaptons ton message à chaque format et le diffusons sur tous tes réseaux.</h2><p>{NETWORKS.join(' · ')}. Les miniatures et les visuels accompagnent les publications.</p>
+      <h3>Publie la même vidéo sur plusieurs comptes, instantanément.</h3><p>Connecte tes comptes principaux et secondaires.</p>
+      <h3>Republie la même publication, encore et encore.</h3><p>Les contenus qui fonctionnent reviennent dans ton calendrier. Les scènes et les chiffres de la démonstration sont illustratifs.</p>
     </section>
   </div><CloneAppStory/><ClaudeMcpDemo/></>
 }
@@ -293,8 +293,8 @@ function DistributionStory() {
   const p = useTransform(sequenceP, [0, .82, .92, 1], [0, .82, .82, 1])
   const [multi, setMulti] = useState(false), [calendar, setCalendar] = useState(false)
   useMotionValueEvent(sequenceP, 'change', v => { setMulti(v >= .82 && v < .92); setCalendar(v >= .92) })
-  const title = multi ? 'Publiez la même vidéo sur plusieurs comptes, instantanément.' : calendar ? 'Republiez la même publication, encore et encore.' : 'Nous adaptons votre message à chaque format et le diffusons sur tous vos réseaux.'
-  return <section ref={ref} className={`${s.story} ${r.story} ${stable.distribution} ${metrics.distribution}`} data-story="distribution" data-step={multi ? 'multi-accounts' : calendar ? 'republication' : 'diffusion'} aria-label="La diffusion de vos contenus">
+  const title = multi ? 'Publie la même vidéo sur plusieurs comptes, instantanément.' : calendar ? 'Republie la même publication, encore et encore.' : 'Nous adaptons ton message à chaque format et le diffusons sur tous tes réseaux.'
+  return <section ref={ref} className={`${s.story} ${r.story} ${stable.distribution} ${metrics.distribution}`} data-story="distribution" data-step={multi ? 'multi-accounts' : calendar ? 'republication' : 'diffusion'} aria-label="La diffusion de tes contenus">
     <span id="formula-diffusion" className={s.anchor} style={{ top: 'calc(7.407407% - 7.407407svh)' }}/>
     <div data-viewport-stage className={s.sticky}>
       <div className={`${s.headline} ${r.headline}`} data-story-title><h2>{title}</h2></div>
@@ -304,7 +304,7 @@ function DistributionStory() {
         {multi && <MultiAccountBroadcast p={sequenceP} reel={<Composition kind={1} p={p} still/>}/>}
       </div>
       <DistributionCounter p={sequenceP}/>
-      <div className={s.progress}><span><ArrowDown size={12}/>Continuez la découverte</span><div><motion.i style={{ scaleX: rawP }}/></div><small>Démonstration illustrée</small></div>
+      <div className={s.progress}><span><ArrowDown size={12}/>Continue la découverte</span><div><motion.i style={{ scaleX: rawP }}/></div><small>Démonstration illustrée</small></div>
     </div>
   </section>
 }

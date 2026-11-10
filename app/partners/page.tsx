@@ -55,16 +55,16 @@ const benefits = [
     icon: Gift,
     title: 'Avantage Exclusif Clients',
     titleEn: 'Exclusive Client Benefit',
-    description: 'Remise exclusive pour vos clients. Vous devenez "l\'accès privilégié". Vos clients vous voient comme le héros.',
+    description: 'Remise exclusive pour tes clients. Tu deviens "l\'accès privilégié". Tes clients te voient comme le héros.',
     descriptionEn: 'Exclusive discount for your clients. You become "the exclusive access". Your clients see you as the hero.',
     color: 'text-empire',
     bgColor: 'bg-empire/10',
   },
   {
     icon: Rocket,
-    title: 'Augmentez Votre Valeur',
+    title: 'Augmente Ta Valeur',
     titleEn: 'Increase Your Value',
-    description: 'Votre service devient plus complet (stratégie + machine à contenu). Retenez vos clients plus longtemps. Augmentez vos prix.',
+    description: 'Ton service devient plus complet (stratégie + machine à contenu). Retiens tes clients plus longtemps. Augmente tes prix.',
     descriptionEn: 'Your service becomes more complete (strategy + content machine). Retain clients longer. Increase your prices.',
     color: 'text-blue-400',
     bgColor: 'bg-blue-500/10',
@@ -82,7 +82,7 @@ const benefits = [
     icon: Wrench,
     title: 'Zéro Charge Opérationnelle',
     titleEn: 'Zero Operational Load',
-    description: 'On close. On produit. On supporte. Vous recommandez - et c\'est tout.',
+    description: 'On close. On produit. On supporte. Tu recommandes - et c\'est tout.',
     descriptionEn: 'We close. We produce. We support. You recommend - that\'s it.',
     color: 'text-orange-400',
     bgColor: 'bg-orange-500/10',
@@ -172,7 +172,7 @@ export default function PartnersPage() {
             <FadeInBlock delay={0.1}>
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-tight mb-6">
                 {lang === 'fr' ? (
-                  <>Gagnez <span className="text-empire">10%</span> de commission récurrente</>
+                  <>Gagne <span className="text-empire">10%</span> de commission récurrente</>
                 ) : (
                   <>Earn <span className="text-empire">10%</span> recurring commission</>
                 )}
@@ -182,7 +182,7 @@ export default function PartnersPage() {
             <FadeInBlock delay={0.2}>
               <p className="text-xl md:text-2xl text-neutral-300 mb-8 max-w-3xl mx-auto">
                 {lang === 'fr' 
-                  ? 'Recommandez Empire Internet à vos clients et partenaires. Gagnez des commissions tant qu\'ils restent abonnés - sans travail supplémentaire.'
+                  ? 'Recommande Empire Internet à tes clients et partenaires. Gagne des commissions tant qu\'ils restent abonnés - sans travail supplémentaire.'
                   : 'Recommend Empire Internet to your clients and partners. Earn commissions as long as they stay subscribed - no extra work.'}
               </p>
             </FadeInBlock>
@@ -238,10 +238,10 @@ export default function PartnersPage() {
                 {lang === 'fr' ? 'DÉMO PRODUIT' : 'PRODUCT DEMO'}
               </div>
               <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
-                {lang === 'fr' ? 'Découvrez Empire Internet en Action' : 'See Empire Internet in Action'}
+                {lang === 'fr' ? 'Découvre Empire Internet en Action' : 'See Empire Internet in Action'}
               </h2>
               <p className="text-neutral-400">
-                {lang === 'fr' ? 'Regardez comment fonctionne notre machine à contenu' : 'Watch how our content machine works'}
+                {lang === 'fr' ? 'Regarde comment fonctionne notre machine à contenu' : 'Watch how our content machine works'}
               </p>
             </div>
             
@@ -322,17 +322,17 @@ export default function PartnersPage() {
               {[
                 {
                   step: '1',
-                  title: lang === 'fr' ? 'Inscrivez-vous' : 'Sign Up',
-                  desc: lang === 'fr' ? 'Remplissez le formulaire. Recevez vos liens affiliés.' : 'Fill out the form. Receive your affiliate links.',
+                  title: lang === 'fr' ? 'Inscris-toi' : 'Sign Up',
+                  desc: lang === 'fr' ? 'Remplis le formulaire. Reçois tes liens affiliés.' : 'Fill out the form. Receive your affiliate links.',
                 },
                 {
                   step: '2',
-                  title: lang === 'fr' ? 'Partagez' : 'Share',
-                  desc: lang === 'fr' ? 'Emails, DMs, YouTube, LinkedIn, newsletters... où vous voulez.' : 'Emails, DMs, YouTube, LinkedIn, newsletters... wherever you want.',
+                  title: lang === 'fr' ? 'Partage' : 'Share',
+                  desc: lang === 'fr' ? 'Emails, DMs, YouTube, LinkedIn, newsletters... où tu veux.' : 'Emails, DMs, YouTube, LinkedIn, newsletters... wherever you want.',
                 },
                 {
                   step: '3',
-                  title: lang === 'fr' ? 'Gagnez' : 'Earn',
+                  title: lang === 'fr' ? 'Gagne' : 'Earn',
                   desc: lang === 'fr' ? 'Cookie 180 jours. Commission versée chaque mois.' : '180-day cookie. Commission paid monthly.',
                 },
               ].map((item, i) => (
@@ -360,7 +360,7 @@ export default function PartnersPage() {
                 {lang === 'fr' ? 'Ressources Partenaire' : 'Partner Resources'}
               </h2>
               <p className="text-neutral-300">
-                {lang === 'fr' ? 'Tout ce qu\'il vous faut pour promouvoir Empire' : 'Everything you need to promote Empire'}
+                {lang === 'fr' ? 'Tout ce qu\'il te faut pour promouvoir Empire' : 'Everything you need to promote Empire'}
               </p>
             </div>
             
@@ -390,7 +390,7 @@ export default function PartnersPage() {
               </h2>
               <p className="text-lg text-neutral-300 mb-8">
                 {lang === 'fr' 
-                  ? 'Inscrivez-vous maintenant et recevez vos liens affiliés + ressources.'
+                  ? 'Inscris-toi maintenant et reçois tes liens affiliés + ressources.'
                   : 'Sign up now and receive your affiliate links + resources.'}
               </p>
               

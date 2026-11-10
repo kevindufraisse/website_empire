@@ -14,10 +14,10 @@ export default function ForWhoSection() {
   const forYou = fr
     ? [
         'Entrepreneurs, freelances, consultants, coachs',
-        'Vous avez une expertise mais pas le temps de créer du contenu',
-        'Vous voulez attirer des clients via LinkedIn, YouTube, Instagram',
-        'Vous êtes prêt à parler 1 h par semaine',
-        'Vous voulez déléguer le contenu et vous concentrer sur votre business',
+        'Tu as une expertise mais pas le temps de créer du contenu',
+        'Tu veux attirer des clients via LinkedIn, YouTube, Instagram',
+        'Tu es prêt à parler 1 h par semaine',
+        'Tu veux déléguer le contenu et te concentrer sur ton business',
       ]
     : [
         'Entrepreneurs, freelancers, consultants, coaches',
@@ -29,10 +29,10 @@ export default function ForWhoSection() {
 
   const notForYou = fr
     ? [
-        'Vous n\'avez aucune expertise ou offre à vendre',
-        'Vous voulez tout contrôler et réécrire chaque mot',
-        'Vous cherchez des résultats sans rien enregistrer',
-        'Vous n\'êtes pas prêt à investir dans votre visibilité',
+        'Tu n\'as aucune expertise ou offre à vendre',
+        'Tu veux tout contrôler et réécrire chaque mot',
+        'Tu cherches des résultats sans rien enregistrer',
+        'Tu n\'es pas prêt à investir dans ta visibilité',
       ]
     : [
         'You have no expertise or offer to sell',
@@ -53,11 +53,11 @@ export default function ForWhoSection() {
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            {fr ? 'Est-ce fait pour vous ?' : 'Is this right for you?'}
+            {fr ? 'Est-ce fait pour toi ?' : 'Is this right for you?'}
           </h2>
           <p className="text-neutral-400 text-lg">
             {fr
-              ? 'Empire fonctionne pour un profil précis. Vérifiez avant de commencer.'
+              ? 'Empire fonctionne pour un profil précis. Vérifie avant de commencer.'
               : 'Empire works for a specific profile. Check before you start.'}
           </p>
         </motion.div>
@@ -75,7 +75,7 @@ export default function ForWhoSection() {
                 <Check className="text-emerald-400" size={20} />
               </div>
               <h3 className="text-xl font-bold text-emerald-400">
-                {fr ? 'C\'est pour vous si...' : 'It\'s for you if...'}
+                {fr ? 'C\'est pour toi si...' : 'It\'s for you if...'}
               </h3>
             </div>
             <ul className="space-y-4">
@@ -106,7 +106,7 @@ export default function ForWhoSection() {
                 <X className="text-red-400" size={20} />
               </div>
               <h3 className="text-xl font-bold text-red-400">
-                {fr ? 'Ce n\'est PAS pour vous si...' : 'It\'s NOT for you if...'}
+                {fr ? 'Ce n\'est PAS pour toi si...' : 'It\'s NOT for you if...'}
               </h3>
             </div>
             <ul className="space-y-4">

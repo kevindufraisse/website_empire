@@ -132,7 +132,7 @@ export const FORMATS: Format[] = [
     networks: REELS,
     titleFr: 'Montage automatique',
     titleEn: 'Automatic edit',
-    descFr: 'Vous parlez, c\'est tout. Les images, les B-roll, les zooms et les sous-titres se posent seuls sur ce que vous dites.',
+    descFr: 'Tu parles, c\'est tout. Les images, les B-roll, les zooms et les sous-titres se posent seuls sur ce que tu dis.',
     descEn: 'You talk, that\'s it. Images, B-roll, zooms and captions land on their own, following what you say.',
     tagFr: 'Le format qui se monte tout seul',
     tagEn: 'The format that edits itself',
@@ -167,7 +167,7 @@ export const FORMATS: Format[] = [
     networks: ['youtube', 'spotify', 'linkedin'],
     titleFr: 'Format long',
     titleEn: 'Long form',
-    descFr: 'Interview, podcast ou tier list de 20 à 60 min. On vous pose les questions, on découpe en reels, posts et newsletters pour le mois.',
+    descFr: 'Interview, podcast ou tier list de 20 à 60 min. On te pose les questions, on découpe en reels, posts et newsletters pour le mois.',
     descEn: 'Interview, podcast or tier list, 20 to 60 min. We ask the questions and cut it into reels, posts and newsletters for the month.',
     tagFr: 'Le format qui nourrit tout le reste',
     tagEn: 'The format that feeds everything else',
@@ -178,7 +178,7 @@ export const FORMATS: Format[] = [
     networks: ['linkedin', 'instagram'],
     titleFr: 'Carrousel',
     titleEn: 'Carousel',
-    descFr: 'Une idée de vos vidéos devient 8 slides à votre charte. Le format le plus sauvegardé sur LinkedIn.',
+    descFr: 'Une idée de tes vidéos devient 8 slides à ta charte. Le format le plus sauvegardé sur LinkedIn.',
     descEn: 'One idea from your videos becomes 8 branded slides. The most-saved format on LinkedIn.',
     tagFr: 'Le format qui se sauvegarde',
     tagEn: 'The format people save',
@@ -240,7 +240,7 @@ function LongCard({ fr }: { fr: boolean }) {
       <div className="mt-3 flex items-start gap-2.5">
         <img src="/founders/kevin.jpg" alt="" className="h-8 w-8 shrink-0 rounded-full object-cover" loading="lazy" />
         <div className="min-w-0">
-          <p className="text-[13px] font-semibold leading-snug text-white">{fr ? 'MANIPULATION ? Comment Respire vous vend du rêve' : 'MANIPULATION? How Respire sells you a dream'}</p>
+          <p className="text-[13px] font-semibold leading-snug text-white">{fr ? 'MANIPULATION ? Comment Respire te vend du rêve' : 'MANIPULATION? How Respire sells you a dream'}</p>
           <p className="mt-0.5 text-[11px] text-neutral-500">Kevin Dufraisse · {fr ? 'il y a 2 jours' : '2 days ago'}</p>
         </div>
       </div>
@@ -284,7 +284,7 @@ function CarouselCard({ fr }: { fr: boolean }) {
         ))}
       </div>
       <p className="mt-3 text-center text-[11px] text-neutral-500">
-        {fr ? 'Glissez pour lire · à votre charte' : 'Swipe to read · your brand colours'}
+        {fr ? 'Glisse pour lire · à ta charte' : 'Swipe to read · your brand colours'}
       </p>
     </div>
   )
@@ -415,7 +415,7 @@ export default function FormatsShowcaseSection() {
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-neutral-400 md:text-lg">
             {fr
-              ? 'Tier list, réaction, citation, fausse FAQ, podcast : on imbrique le sujet dans le format, pour le bon réseau. L\'équipe le fusionne dans la plateforme. Vous dites les choses dans la langue des réseaux.'
+              ? 'Tier list, réaction, citation, fausse FAQ, podcast : on imbrique le sujet dans le format, pour le bon réseau. L\'équipe le fusionne dans la plateforme. Tu dis les choses dans la langue des réseaux.'
               : 'Tier list, reaction, quote, fake FAQ, podcast: we drop the topic into the format, for the right network. The team merges it in the platform. You say things in social media language.'}
           </p>
           {/* Les sept réseaux + la newsletter, en icônes : « multi-diffusé »

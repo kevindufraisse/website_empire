@@ -124,15 +124,15 @@ export default function EmpireApplyForm() {
     e.preventDefault()
     setError('')
     if (!firstName.trim() || !lastName.trim() || !email.trim() || !phone.trim() || !intent) {
-      setError(fr ? 'Remplissez tous les champs.' : 'Fill in all fields.')
+      setError(fr ? 'Remplis tous les champs.' : 'Fill in all fields.')
       return
     }
     if (intent === 'unsure' && !teamSize) {
-      setError(fr ? 'Indiquez la taille de votre équipe.' : 'Tell us your team size.')
+      setError(fr ? 'Indique la taille de ton équipe.' : 'Tell us your team size.')
       return
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
-      setError(fr ? 'Entrez un email valide.' : 'Enter a valid email.')
+      setError(fr ? 'Entre un email valide.' : 'Enter a valid email.')
       return
     }
     setLoading(true)
@@ -154,7 +154,7 @@ export default function EmpireApplyForm() {
       if (!res.ok) throw new Error('fail')
       router.push('/thank-you?from=waitlist')
     } catch {
-      setError(fr ? 'Une erreur est survenue. Réessayez.' : 'Something went wrong. Try again.')
+      setError(fr ? 'Une erreur est survenue. Réessaie.' : 'Something went wrong. Try again.')
       setLoading(false)
     }
   }
@@ -182,18 +182,18 @@ export default function EmpireApplyForm() {
           >
             <div className="text-center">
               <h2 className="text-xl font-bold text-white sm:text-2xl">
-                {fr ? 'Merci pour votre intérêt pour Empire.' : 'Thanks for your interest in Empire.'}
+                {fr ? 'Merci pour ton intérêt pour Empire.' : 'Thanks for your interest in Empire.'}
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-neutral-400">
                 {fr
-                  ? 'On accueille personnellement nos futurs partenaires, pour qu’ils aient toutes les réponses à leurs questions avant de souscrire. Un membre de l’équipe vous contacte dans les prochaines 15 minutes. (On pourra aussi organiser un appel si vous le souhaitez.)'
+                  ? 'On accueille personnellement nos futurs partenaires, pour qu’ils aient toutes les réponses à leurs questions avant de souscrire. Un membre de l’équipe te contacte dans les prochaines 15 minutes. (On pourra aussi organiser un appel si tu le souhaites.)'
                   : 'We personally welcome our future partners, so they have every answer before they subscribe. A team member will contact you in the next 15 minutes. (We can also set up a call if you’d like.)'}
               </p>
             </div>
 
             <fieldset>
               <legend className="mb-3 block text-center text-sm font-semibold text-white">
-                {fr ? 'Qu’est-ce que vous voulez faire ?' : 'What do you want to do?'}
+                {fr ? 'Qu’est-ce que tu veux faire ?' : 'What do you want to do?'}
               </legend>
               <div className="space-y-2.5">
                 {INTENTS.map((option) => (
@@ -228,18 +228,18 @@ export default function EmpireApplyForm() {
 
             <div className="text-center">
               <h2 className="text-xl font-bold text-white sm:text-2xl">
-                {fr ? 'Pour vous orienter' : 'To point you the right way'}
+                {fr ? 'Pour t\'orienter' : 'To point you the right way'}
               </h2>
               <p className="mt-2 text-sm text-neutral-400">
                 {fr
-                  ? 'Pour estimer ce qui vous correspond.'
+                  ? 'Pour estimer ce qui te correspond.'
                   : 'So we can estimate the right fit.'}
               </p>
             </div>
 
             <fieldset>
               <legend className="mb-2.5 block text-sm font-semibold text-white">
-                {fr ? 'Combien de personnes dans votre équipe ?' : 'How many people are on your team?'}
+                {fr ? 'Combien de personnes dans ton équipe ?' : 'How many people are on your team?'}
               </legend>
               <div className="space-y-2">
                 {TEAM_SIZES.map((option) => (
@@ -275,11 +275,11 @@ export default function EmpireApplyForm() {
 
             <div className="text-center">
               <h2 className="text-xl font-bold text-white sm:text-2xl">
-                {fr ? 'On vous recontacte' : 'We’ll get back to you'}
+                {fr ? 'On te recontacte' : 'We’ll get back to you'}
               </h2>
               <p className="mt-2 text-sm text-neutral-400">
                 {fr
-                  ? 'Prénom, nom, email et téléphone. Un membre vous contacte dans les prochaines 15 minutes.'
+                  ? 'Prénom, nom, email et téléphone. Un membre te contacte dans les prochaines 15 minutes.'
                   : 'First name, last name, email and phone. Someone will contact you in the next 15 minutes.'}
               </p>
             </div>
@@ -327,7 +327,7 @@ export default function EmpireApplyForm() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className={inputClass}
-                placeholder={fr ? 'votre@email.com' : 'you@email.com'}
+                placeholder={fr ? 'ton@email.com' : 'you@email.com'}
               />
             </div>
 
@@ -373,7 +373,7 @@ export default function EmpireApplyForm() {
             </button>
             <p className="text-center text-[12px] text-neutral-500">
               {fr
-                ? 'Échange personnalisé · appel uniquement si vous le souhaitez'
+                ? 'Échange personnalisé · appel uniquement si tu le souhaites'
                 : 'Personal conversation · call only if you want one'}
             </p>
           </motion.form>

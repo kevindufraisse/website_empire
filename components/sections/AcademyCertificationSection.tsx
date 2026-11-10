@@ -40,7 +40,7 @@ export default function AcademyCertificationSection() {
       title: fr ? 'Certifié Empire' : 'Empire Certified',
       subtitle: fr ? 'Programme complété' : 'Program completed',
       criteria: fr
-        ? 'Vous avez suivi le bootcamp et relevé les défis quotidiens.'
+        ? 'Tu as suivi le bootcamp et relevé les défis quotidiens.'
         : 'You completed the bootcamp and took on the daily challenges.',
       perks: fr
         ? [
@@ -70,7 +70,7 @@ export default function AcademyCertificationSection() {
       title: fr ? 'Certifié Expert' : 'Expert Certified',
       subtitle: fr ? 'Résultats significatifs démontrés' : 'Significant results demonstrated',
       criteria: fr
-        ? 'Vous avez généré des vues significatives sur le mois écoulé et démontré une maîtrise des formats viraux.'
+        ? 'Tu as généré des vues significatives sur le mois écoulé et démontré une maîtrise des formats viraux.'
         : 'You generated significant views over the past month and demonstrated mastery of viral formats.',
       perks: fr
         ? [
@@ -102,13 +102,13 @@ export default function AcademyCertificationSection() {
       title: fr ? 'Certifié Elite' : 'Elite Certified',
       subtitle: fr ? 'Résultats clients prouvés' : 'Proven client results',
       criteria: fr
-        ? 'Vous avez démontré des résultats viraux reproductibles et prouvé votre valeur sur des missions clients réelles.'
+        ? 'Tu as démontré des résultats viraux reproductibles et prouvé ta valeur sur des missions clients réelles.'
         : 'You demonstrated reproducible viral results and proved your value on real client projects.',
       perks: fr
         ? [
             'Certification Elite officielle',
             'Badge LinkedIn "Certifié Elite Empire"',
-            'Travailler avec vos propres clients',
+            'Travailler avec tes propres clients',
             'Accès au réseau partenaires Empire',
           ]
         : [
@@ -131,12 +131,12 @@ export default function AcademyCertificationSection() {
             <div className="text-center mb-6">
               <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">{fr ? 'Preuve de compétence' : 'Proof of skill'}</p>
               <h2 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
-                {fr ? 'Vous ne recevez pas votre certification parce que vous avez regardé la formation.' : 'You don\'t get certified because you watched the course.'}{' '}
-                <span className="text-academy">{fr ? 'Vous la gagnez grâce à vos résultats.' : 'You earn it through results.'}</span>
+                {fr ? 'Tu ne reçois pas ta certification parce que tu as regardé la formation.' : 'You don\'t get certified because you watched the course.'}{' '}
+                <span className="text-academy">{fr ? 'Tu la gagnes grâce à tes résultats.' : 'You earn it through results.'}</span>
               </h2>
               <p className="text-neutral-400 text-base md:text-lg max-w-2xl mx-auto">
                 {fr
-                  ? 'Compétence d\'abord. Résultats ensuite. La certification prouve ce que vous avez fait - pas ce que vous avez consommé.'
+                  ? 'Compétence d\'abord. Résultats ensuite. La certification prouve ce que tu as fait - pas ce que tu as consommé.'
                   : 'Skill first. Results next. Certification proves what you did - not what you consumed.'}
               </p>
             </div>

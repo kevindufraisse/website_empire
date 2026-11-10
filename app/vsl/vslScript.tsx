@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 
-// Version écrite de la VSL (le live « Regardez cette vidéo et vous ferez
+// Version écrite de la VSL (le live « Regarde cette vidéo et tu feras
 // 10 000 000 de vues par mois », AKfoDblGUNs). Fidèle au transcript : mêmes
 // idées, mêmes chiffres, mêmes moments de CTA (après les formats ~44 min,
 // après la démo du système ~1h08, et la fin). Rien d'inventé : chaque chiffre

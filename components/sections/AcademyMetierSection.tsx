@@ -47,12 +47,12 @@ export default function AcademyMetierSection() {
             </p>
             <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight max-w-2xl mx-auto">
               {fr
-                ? 'Vous n\'apprenez pas à faire des posts. Vous apprenez un métier.'
+                ? 'Tu n\'apprends pas à faire des posts. Tu apprends un métier.'
                 : 'You\'re not learning to make posts. You\'re learning a craft.'}
             </h2>
             <p className="mt-4 text-neutral-400 max-w-xl mx-auto">
               {fr
-                ? 'En 21 jours, voici ce que vous saurez faire.'
+                ? 'En 21 jours, voici ce que tu sauras faire.'
                 : 'In 21 days, here\'s what you\'ll be able to do.'}
             </p>
           </div>

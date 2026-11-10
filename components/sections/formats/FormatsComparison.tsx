@@ -40,7 +40,7 @@ export default function FormatsComparison() {
     },
     {
       name: lang === 'fr' ? 'Bulletpoint' : 'Bulletpoint',
-      prep: lang === 'fr' ? 'Vos notes' : 'Your notes',
+      prep: lang === 'fr' ? 'Tes notes' : 'Your notes',
       duration: '20 min',
       outputs: '30+',
       badge: lang === 'fr' ? 'Meilleur ROI' : 'Best ROI',
@@ -76,7 +76,7 @@ export default function FormatsComparison() {
             </h2>
             <p className="text-neutral-400">
               {lang === 'fr' 
-                ? 'Choisissez selon votre style et le temps disponible'
+                ? 'Choisis selon ton style et le temps disponible'
                 : 'Choose based on your style and available time'}
             </p>
           </div>
@@ -143,7 +143,7 @@ export default function FormatsComparison() {
 
           <p className="text-center text-sm text-neutral-400 mt-6">
             {lang === 'fr' 
-              ? '👇 Scrollez pour voir chaque format en détail'
+              ? '👇 Scrolle pour voir chaque format en détail'
               : '👇 Scroll to see each format in detail'}
           </p>
         </FadeInBlock>

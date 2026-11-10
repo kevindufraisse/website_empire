@@ -18,7 +18,7 @@
   const choice=root.querySelector('.v60-choice'); if(!choice)return;
   choice.querySelectorAll('[data-v60-choice]').forEach(b=>b.setAttribute('aria-pressed',String(value===b.dataset.v60Choice)));
   choice.querySelectorAll('[data-profile]').forEach(n=>n.classList.toggle('is-selected',value===n.dataset.profile));
-  const text=value==='left'?'Vous avez vu comment je travaille : chercher une solution, annoncer un délai, livrer. Mon histoire donne des raisons concrètes de me faire confiance.':value==='right'?'C’est votre choix. Vous pouvez aussi demander à ce concurrent de montrer ses projets et sa façon de travailler.':'Deux offres similaires. Mais une façon de travailler que vous connaissez déjà.';
+  const text=value==='left'?'Tu as vu comment je travaille : chercher une solution, annoncer un délai, livrer. Mon histoire donne des raisons concrètes de me faire confiance.':value==='right'?'C’est ton choix. Tu peux aussi demander à ce concurrent de montrer ses projets et sa façon de travailler.':'Deux offres similaires. Mais une façon de travailler que tu connais déjà.';
   setText(choice.querySelector('.v60-choice-answer'),text);
  }
  root.addEventListener('click',e=>{const b=e.target.closest('[data-v60-choice]');if(b){manualChoice=true;choose(b.dataset.v60Choice);track('academy_story_choice',{profile:b.dataset.v60Choice})}});
@@ -61,8 +61,8 @@
    const phase=all?3:Math.min(3,Math.floor(local*4));production.dataset.flowPhase=String(phase);
    production.querySelectorAll('[data-flow-step]').forEach((card,i)=>{const visible=all||i===phase;card.classList.toggle('is-current',visible);card.inert=!visible;if(visible)card.removeAttribute('aria-hidden');else card.setAttribute('aria-hidden','true')});
    production.querySelectorAll('.v70-flow-steps li').forEach((n,i)=>{if(!all&&i===phase)n.setAttribute('aria-current','step');else n.removeAttribute('aria-current')});
-   const words=[['Elle raconte son expérience.','« Juste un petit ajout… »','Le point de départ, ce sont ses mots et son expérience.'],['Vous faites ressortir la leçon.','Poser les limites dès le départ.','Vous choisissez avec elle une idée utile à ses futurs clients.'],['Empire prépare le contenu.','Son expérience devient un post.','Un brouillon à relire et à ajuster avec votre cliente.'],['Vous relisez ensemble.','Le contenu est prêt à publier.','Son expérience devient un contenu qui montre sa façon de travailler.']];
-   if(all){changeHeading(production,'De sa phrase brute','à sa publication.');setText(production.querySelector('.v60-caption'),'Vous choisissez l’angle, Empire prépare le contenu, puis vous relisez avec votre cliente avant publication.');}else{changeHeading(production,words[phase][0],words[phase][1]);setText(production.querySelector('.v60-caption'),words[phase][2]);}
+   const words=[['Elle raconte son expérience.','« Juste un petit ajout… »','Le point de départ, ce sont ses mots et son expérience.'],['Tu fais ressortir la leçon.','Poser les limites dès le départ.','Tu choisis avec elle une idée utile à ses futurs clients.'],['Empire prépare le contenu.','Son expérience devient un post.','Un brouillon à relire et à ajuster avec ta cliente.'],['Tu relis ensemble.','Le contenu est prêt à publier.','Son expérience devient un contenu qui montre sa façon de travailler.']];
+   if(all){changeHeading(production,'De sa phrase brute','à sa publication.');setText(production.querySelector('.v60-caption'),'Tu choisis l’angle, Empire prépare le contenu, puis tu relis avec ta cliente avant publication.');}else{changeHeading(production,words[phase][0],words[phase][1]);setText(production.querySelector('.v60-caption'),words[phase][2]);}
   }
  }
  function measure(){

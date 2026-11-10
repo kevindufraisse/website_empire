@@ -21,11 +21,11 @@ export default function SecretFormatsGate({ staticMode = false }: { staticMode?:
       <div className={s.secretCopy}>
         <span className={s.reserved}><LockKeyhole size={14}/>Réservé à l’application</span>
         <h2 id="secret-formats-title">Les autres formats restent secrets.</h2>
-        <p>{requested ? 'Retrouvez tous les formats directement dans Empire.' : 'Comprenez les mécaniques de ces formats dans la masterclass gratuite. Les autres formats se découvrent dans l’application.'}</p>
+        <p>{requested ? 'Retrouve tous les formats directement dans Empire.' : 'Comprends les mécaniques de ces formats dans la masterclass gratuite. Les autres formats se découvrent dans l’application.'}</p>
       </div>
       <div className={s.secretAction}>
         {requested === null ? <div className={s.placeholder} aria-busy="true"/> : requested ? <>
-          <p className={s.confirmation} role={justRequested ? 'status' : undefined}>{justRequested ? 'Votre demande de masterclass est enregistrée.' : 'Votre masterclass a déjà été demandée.'}</p>
+          <p className={s.confirmation} role={justRequested ? 'status' : undefined}>{justRequested ? 'Ta demande de masterclass est enregistrée.' : 'Ta masterclass a déjà été demandée.'}</p>
           <button className={s.trial} onClick={() => startFreeTrial()}>Tester gratuitement<ArrowRight size={18}/></button>
           <TrialReassurance fr stacked className="mt-2.5"/>
         </> : <><div className={s.secretThumbnail}><MasterclassThumbnail/></div><MasterclassForm idPrefix="secret" onReady={confirmed}/></>}

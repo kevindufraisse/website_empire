@@ -1,9 +1,9 @@
 import PaygClient from './PaygClient'
 
 export const metadata = {
-  title: 'Recrutez votre équipe contenu | Empire Internet (Beta)',
+  title: 'Recrute ton équipe contenu | Empire Internet (Beta)',
   description:
-    'On crée vos contenus LinkedIn, Instagram, TikTok, YouTube pour vous. 8 mois de R&D sur la viralité. Économisez +10 000€/mois vs une équipe interne.',
+    'On crée tes contenus LinkedIn, Instagram, TikTok, YouTube pour toi. 8 mois de R&D sur la viralité. Économise +10 000€/mois vs une équipe interne.',
   robots: 'noindex, nofollow',
 }
 

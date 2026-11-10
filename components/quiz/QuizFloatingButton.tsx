@@ -37,7 +37,7 @@ export default function QuizFloatingButton() {
           ? 'Terminer'
           : 'Finish'
         : lang === 'fr'
-          ? 'Quel créateur êtes-vous ?'
+          ? 'Quel créateur es-tu ?'
           : 'What creator are you?'
 
   return (

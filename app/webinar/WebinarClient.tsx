@@ -486,7 +486,7 @@ function HeroSection() {
 
             {/* H1 - result-driven */}
             <h1 className="text-[1.75rem] sm:text-[2.2rem] lg:text-[2.8rem] font-extrabold leading-[1.12] mb-7 max-w-[520px]">
-              Comment créer une armée de fans qui achètent <span className="text-empire">TOUS</span> vos produits
+              Comment créer une armée de fans qui achètent <span className="text-empire">TOUS</span> tes produits
             </h1>
 
             {/* Bullets */}

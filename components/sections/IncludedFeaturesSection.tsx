@@ -292,7 +292,7 @@ function InboxArt({ fr }: { fr: boolean }) {
         </span>
         <div className="min-w-0">
           <div className="rounded-2xl rounded-tl-md bg-white/[0.07] px-3 py-2 text-[12px] leading-snug text-neutral-100">
-            {fr ? 'Vous prenez encore des clients ce mois-ci ?' : 'Are you still taking clients this month?'}
+            {fr ? 'Tu prends encore des clients ce mois-ci ?' : 'Are you still taking clients this month?'}
           </div>
           <p className="mt-1 flex items-center gap-1 pl-1 text-[10px] text-neutral-500"><Send className="h-3 w-3" />{fr ? 'Message privé · il y a 12 min' : 'DM · 12 min ago'}</p>
         </div>
@@ -373,7 +373,7 @@ function CommunityArt({ fr }: { fr: boolean }) {
           <span className="relative inline-flex h-2 w-2 rounded-full bg-red-500" />
         </span>
         <Radio className="h-3.5 w-3.5 text-neutral-300" />
-        <span className="text-[11px] font-semibold text-white">{fr ? 'Live lundi 14 h · relecture de vos contenus' : 'Live Monday 2pm · your content reviewed'}</span>
+        <span className="text-[11px] font-semibold text-white">{fr ? 'Live lundi 14 h · relecture de tes contenus' : 'Live Monday 2pm · your content reviewed'}</span>
       </div>
     </div>
   )
@@ -425,7 +425,7 @@ export default function IncludedFeaturesSection() {
             <div className="grid w-full gap-6 sm:grid-cols-2 sm:items-center">
               <div>
                 <p className={kicker}><Link2 className="mr-1.5 inline h-3.5 w-3.5" />{fr ? 'Tracking des clients' : 'Client tracking'}</p>
-                <p className={title}>{fr ? 'Vous savez quel contenu a amené quel client.' : 'You know which content brought which client.'}</p>
+                <p className={title}>{fr ? 'Tu sais quel contenu a amené quel client.' : 'You know which content brought which client.'}</p>
                 <p className={desc}>
                   {fr
                     ? 'Chaque lien est tracké jusqu\'au rendez-vous. Pas « j\'ai fait des vues » : « ce reel a pris trois rendez-vous ».'
@@ -446,15 +446,15 @@ export default function IncludedFeaturesSection() {
           {/* Veille */}
           <motion.div {...appear(0.25)} className={`${card} md:col-span-2`}>
             <p className={kicker}><Newspaper className="mr-1.5 inline h-3.5 w-3.5" />{fr ? 'Veille quotidienne' : 'Daily brief'}</p>
-            <p className={title}>{fr ? 'Chaque matin, les sujets qui montent dans votre niche.' : 'Every morning, the topics rising in your niche.'}</p>
-            <p className={desc}>{fr ? 'Avec l\'angle et l\'accroche déjà écrits. Vous n\'avez plus qu\'à prendre position.' : 'With the angle and the hook already written. You just take a stance.'}</p>
+            <p className={title}>{fr ? 'Chaque matin, les sujets qui montent dans ta niche.' : 'Every morning, the topics rising in your niche.'}</p>
+            <p className={desc}>{fr ? 'Avec l\'angle et l\'accroche déjà écrits. Tu n\'as plus qu\'à prendre position.' : 'With the angle and the hook already written. You just take a stance.'}</p>
             <BriefArt fr={fr} />
           </motion.div>
 
           {/* Republication */}
           <motion.div {...appear(0.3)} className={`${card} md:col-span-2`}>
             <p className={kicker}><Repeat2 className="mr-1.5 inline h-3.5 w-3.5" />{fr ? 'Republication automatique' : 'Automatic republishing'}</p>
-            <p className={title}>{fr ? 'Vos meilleurs posts repartent tout seuls.' : 'Your best posts go out again on their own.'}</p>
+            <p className={title}>{fr ? 'Tes meilleurs posts repartent tout seuls.' : 'Your best posts go out again on their own.'}</p>
             <p className={desc}>{fr ? 'Un contenu qui a marché est reprogrammé quelques semaines plus tard. Rien de ce qui a pris ne dort.' : 'A piece that worked is rescheduled a few weeks later. Nothing that took off sits idle.'}</p>
             <RepostArt fr={fr} />
           </motion.div>
@@ -462,18 +462,18 @@ export default function IncludedFeaturesSection() {
           {/* Boîte de réception */}
           <motion.div {...appear(0.35)} className={`${card} md:col-span-2`}>
             <p className={kicker}><Inbox className="mr-1.5 inline h-3.5 w-3.5" />{fr ? 'Une seule boîte de réception' : 'One inbox'}</p>
-            <p className={title}>{fr ? 'Commentaires et DM de tous vos réseaux, au même endroit.' : 'Comments and DMs from all your networks, in one place.'}</p>
-            <p className={desc}>{fr ? 'Instagram, Facebook, Threads, YouTube… Vous répondez d\'ici, en public ou en privé.' : 'Instagram, Facebook, Threads, YouTube… You reply from here, publicly or privately.'}</p>
+            <p className={title}>{fr ? 'Commentaires et DM de tous tes réseaux, au même endroit.' : 'Comments and DMs from all your networks, in one place.'}</p>
+            <p className={desc}>{fr ? 'Instagram, Facebook, Threads, YouTube… Tu réponds d\'ici, en public ou en privé.' : 'Instagram, Facebook, Threads, YouTube… You reply from here, publicly or privately.'}</p>
             <InboxArt fr={fr} />
           </motion.div>
 
           {/* Intégrations */}
           <motion.div {...appear(0.38)} className={`${card} md:col-span-6`}>
             <p className={kicker}><Link2 className="mr-1.5 inline h-3.5 w-3.5" />{fr ? 'Intégrations' : 'Integrations'}</p>
-            <p className={title}>{fr ? 'Connecté à vos outils. Les leads arrivent directement.' : 'Connected to your tools. Leads arrive directly.'}</p>
+            <p className={title}>{fr ? 'Connecté à tes outils. Les leads arrivent directement.' : 'Connected to your tools. Leads arrive directly.'}</p>
             <p className={desc}>
               {fr
-                ? 'Agendas, formulaires, paiements, communauté : tout est relié au tracking. Un lead qui clique depuis un post arrive chez vous avec le nom du post.'
+                ? 'Agendas, formulaires, paiements, communauté : tout est relié au tracking. Un lead qui clique depuis un post arrive chez toi avec le nom du post.'
                 : 'Calendars, forms, payments, community: everything is wired into the tracking. A lead clicking from a post reaches you with the name of the post.'}
             </p>
             {/* 8 logos, deux rangées de quatre : `grid` plutôt que `flex-wrap`,
@@ -503,15 +503,15 @@ export default function IncludedFeaturesSection() {
           {/* API : multi-diffusion */}
           <motion.div {...appear(0.4)} className={`${card} md:col-span-3`}>
             <p className={kicker}><Code2 className="mr-1.5 inline h-3.5 w-3.5" />{fr ? 'API · multi-comptes' : 'API · multi-account'}</p>
-            <p className={title}>{fr ? 'Plusieurs comptes ? Vous créez une fois, ça part partout.' : 'Several accounts? Create once, it goes out everywhere.'}</p>
-            <p className={desc}>{fr ? 'Reliez tous vos comptes. Chaque contenu part sur chacun d\'eux, sur les 7 réseaux.' : 'Connect all your accounts. Each piece goes out on every one of them, across the 7 networks.'}</p>
+            <p className={title}>{fr ? 'Plusieurs comptes ? Tu crées une fois, ça part partout.' : 'Several accounts? Create once, it goes out everywhere.'}</p>
+            <p className={desc}>{fr ? 'Relie tous tes comptes. Chaque contenu part sur chacun d\'eux, sur les 7 réseaux.' : 'Connect all your accounts. Each piece goes out on every one of them, across the 7 networks.'}</p>
             <BroadcastArt fr={fr} />
           </motion.div>
 
           {/* Liens Telegram */}
           <motion.div {...appear(0.42)} className={`${card} md:col-span-3`}>
             <p className={kicker}><Send className="mr-1.5 inline h-3.5 w-3.5" />{fr ? 'Liens Telegram' : 'Telegram links'}</p>
-            <p className={title}>{fr ? 'Vous envoyez des liens, le bot reconnaît le format et confirme.' : 'You send links, the bot recognizes the format and confirms it.'}</p>
+            <p className={title}>{fr ? 'Tu envoies des liens, le bot reconnaît le format et confirme.' : 'You send links, the bot recognizes the format and confirms it.'}</p>
             <p className={desc}>
               {fr
                 ? 'Instagram, TikTok, YouTube Shorts : chaque lien est détecté, validé, puis envoyé en traitement sans doublons.'
@@ -524,7 +524,7 @@ export default function IncludedFeaturesSection() {
           <motion.div {...appear(0.45)} className={`${card} md:col-span-3`}>
             <p className={kicker}><BarChart3 className="mr-1.5 inline h-3.5 w-3.5" />{fr ? 'Rapport hebdo' : 'Weekly report'}</p>
             <p className={title}>{fr ? 'Vues, abonnés, leads - format par format.' : 'Views, followers, leads - format by format.'}</p>
-            <p className={desc}>{fr ? 'Chaque semaine, ce qui a marché chez vous et ce qu\'on arrête. Une équipe relit chaque écrit avant qu\'il sorte.' : 'Every week, what worked for you and what we stop. A team proofreads every written piece before it goes out.'}</p>
+            <p className={desc}>{fr ? 'Chaque semaine, ce qui a marché chez toi et ce qu\'on arrête. Une équipe relit chaque écrit avant qu\'il sorte.' : 'Every week, what worked for you and what we stop. A team proofreads every written piece before it goes out.'}</p>
             <ReportArt fr={fr} />
           </motion.div>
 
@@ -532,7 +532,7 @@ export default function IncludedFeaturesSection() {
           <motion.div {...appear(0.45)} className={`${card} md:col-span-3`}>
             <p className={kicker}><Users className="mr-1.5 inline h-3.5 w-3.5" />{fr ? 'Communauté & lives' : 'Community & lives'}</p>
             <p className={title}>{fr ? 'Un live par semaine avec Kevin, et les autres membres à côté.' : 'A live session every week with Kevin, and the other members next to you.'}</p>
-            <p className={desc}>{fr ? 'Vos contenus relus en direct, les replays, et des gens qui publient autant que vous. Dès le palier Growth.' : 'Your content reviewed live, the replays, and people who publish as much as you do. From the Growth tier.'}</p>
+            <p className={desc}>{fr ? 'Tes contenus relus en direct, les replays, et des gens qui publient autant que toi. Dès le palier Growth.' : 'Your content reviewed live, the replays, and people who publish as much as you do. From the Growth tier.'}</p>
             <CommunityArt fr={fr} />
           </motion.div>
         </div>

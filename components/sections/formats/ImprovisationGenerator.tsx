@@ -10,7 +10,7 @@ export default function ImprovisationGenerator({ lang }: ImprovisationGeneratorP
   const t = {
     fr: {
       title: 'Générateur de Plan Improvisation',
-      subtitle: 'IA crée votre structure de vidéo en 2 étapes',
+      subtitle: 'IA crée ta structure de vidéo en 2 étapes',
     },
     en: {
       title: 'Improvisation Plan Generator',
@@ -40,13 +40,13 @@ export default function ImprovisationGenerator({ lang }: ImprovisationGeneratorP
           <div className="flex items-start gap-3">
             <CheckCircle2 className="text-empire flex-shrink-0 mt-1" size={20} />
             <span className="text-neutral-200">
-              {lang === 'fr' ? 'Répondez par texte ou vocalement' : 'Answer via text or voice'}
+              {lang === 'fr' ? 'Réponds par texte ou vocalement' : 'Answer via text or voice'}
             </span>
           </div>
           <div className="flex items-start gap-3">
             <CheckCircle2 className="text-empire flex-shrink-0 mt-1" size={20} />
             <span className="text-neutral-200">
-              {lang === 'fr' ? 'Obtenez mindmap + fiche tournage' : 'Get mindmap + shooting guide'}
+              {lang === 'fr' ? 'Obtiens mindmap + fiche tournage' : 'Get mindmap + shooting guide'}
             </span>
           </div>
         </div>

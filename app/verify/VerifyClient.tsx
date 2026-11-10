@@ -178,7 +178,7 @@ export default function VerifyClient() {
               Vérifier une certification
             </h1>
             <p className="text-white/50 text-lg">
-              Entrez le code unique pour vérifier l&apos;authenticité d&apos;une certification Empire Internet
+              Entre le code unique pour vérifier l&apos;authenticité d&apos;une certification Empire Internet
             </p>
           </motion.div>
 
@@ -240,7 +240,7 @@ export default function VerifyClient() {
                 <XCircle className="w-12 h-12 text-red-400 mx-auto mb-3" />
                 <h2 className="text-xl font-bold text-white mb-1">Code invalide</h2>
                 <p className="text-white/50">
-                  Ce code de certification n&apos;existe pas. Vérifiez qu&apos;il est correctement saisi.
+                  Ce code de certification n&apos;existe pas. Vérifie qu&apos;il est correctement saisi.
                 </p>
               </motion.div>
             )}

@@ -42,17 +42,17 @@ export default function DecouverteClient() {
   }
 
   const headline = autopilot
-    ? 'Déléguez 100% de votre présence en ligne -'
-    : 'Attirez des clients -'
+    ? 'Délègue 100% de ta présence en ligne -'
+    : 'Attire des clients -'
   const headlineAccent = autopilot
     ? 'un expert dédié prend le contrôle.'
-    : 'sans écrire ni monter votre contenu.'
+    : 'sans écrire ni monter ton contenu.'
   const subtitle = autopilot
-    ? 'Zéro interview, zéro contact. Votre expert trouve vos sujets, écrit dans votre voix, publie pour vous.'
+    ? 'Zéro interview, zéro contact. Ton expert trouve tes sujets, écrit dans ta voix, publie pour toi.'
     : '1 h de parole par semaine → posts, Reels, newsletters sur 7 réseaux.'
   const formTitle = autopilot
-    ? 'Postulez au mode Autopilot'
-    : 'Réservez votre appel gratuit'
+    ? 'Postule au mode Autopilot'
+    : 'Réserve ton appel gratuit'
 
   return (
     <main className="min-h-screen bg-black text-white overflow-x-hidden">

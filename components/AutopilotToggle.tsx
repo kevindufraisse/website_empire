@@ -14,8 +14,8 @@ export default function AutopilotToggle() {
     ? fr ? 'Mode Autopilot' : 'Autopilot Mode'
     : fr ? 'Pas le temps ?' : 'No time?'
   const sublabel = autopilot
-    ? fr ? 'On fait tout pour vous' : 'We do it all for you'
-    : fr ? 'Activez Autopilot' : 'Activate Autopilot'
+    ? fr ? 'On fait tout pour toi' : 'We do it all for you'
+    : fr ? 'Active Autopilot' : 'Activate Autopilot'
 
   return (
     <button

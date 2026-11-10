@@ -46,11 +46,11 @@ export default function AcademyRegisteredClient() {
             <CheckCircle2 className="h-7 w-7 text-academy" />
           </div>
           <h1 className="mt-5 text-3xl font-semibold tracking-tight sm:text-4xl">
-            {fr ? 'Votre place est réservée.' : 'Your spot is booked.'}
+            {fr ? 'Ta place est réservée.' : 'Your spot is booked.'}
           </h1>
           <p className="mt-3 text-[15px] leading-relaxed text-neutral-400">
             {fr
-              ? 'Vous recevez aussi le lien de la session par email.'
+              ? 'Tu reçois aussi le lien de la session par email.'
               : 'You’ll also get the session link by email.'}
           </p>
 

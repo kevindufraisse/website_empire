@@ -56,10 +56,10 @@ export default function CommunityStickyBar() {
   const content = {
     fr: {
       badge: '🎁 Offre Spéciale',
-      title: 'Rejoignez +700 entrepreneurs',
+      title: 'Rejoins +700 entrepreneurs',
       cta: 'Accéder gratuitement',
       modalTitle: 'Accès Communauté Empire',
-      modalSubtitle: 'Rejoignez +700 entrepreneurs et récupérez :',
+      modalSubtitle: 'Rejoins +700 entrepreneurs et récupère :',
       benefit1: 'Templates N8N',
       benefit1Desc: 'Automatisations prêtes à l\'emploi',
       benefit2: 'Prompts de contenu',

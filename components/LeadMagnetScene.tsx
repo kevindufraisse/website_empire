@@ -41,19 +41,19 @@ export default function LeadMagnetScene({ staticMode = false }: { p?: MotionValu
           <p>L’original à gauche. Le clone de Kevin à droite.<br className={s.desktopBreak}/> Le script traduit, avec ses propres visuels et sous-titres.</p>
         </header>
         <div className={scroll.comparisonReveal}><LeadMagnetComparison staticMode={still}/></div>
-        {!still && <div className={scroll.progress} aria-hidden="true"><span>Continuez à scroller</span><div><motion.i style={{ scaleX: compareP }}/></div></div>}
+        {!still && <div className={scroll.progress} aria-hidden="true"><span>Continue à scroller</span><div><motion.i style={{ scaleX: compareP }}/></div></div>}
       </div>
     </div>
     <section ref={messages} id="formula-lead-messages" className={scroll.messages} data-scroll-discovery="instagram" data-static={still} data-lead-message-story aria-labelledby="lead-messages-title">
       <div className={`${scroll.sticky} ${scroll.messageSticky} ${formats.withRail}`} data-scroll-stage>
         <FormatRail active={5} floating/>
         <header className={`${s.heading} ${scroll.heading}`}>
-          <h2 id="lead-messages-title">Ils commentent.<br/><em>Vous répondez automatiquement.</em></h2>
-          <p>Associez un mot-clé à votre ressource.<br/>Le commentaire déclenche l’envoi du lien en privé.</p>
+          <h2 id="lead-messages-title">Ils commentent.<br/><em>Tu réponds automatiquement.</em></h2>
+          <p>Associe un mot-clé à ta ressource.<br/>Le commentaire déclenche l’envoi du lien en privé.</p>
         </header>
         <div className={`${s.messagePair} ${scroll.messagePair}`}>
           <motion.article className={`${s.commentCard} ${scroll.commentCard}`} data-lead-comment style={{ '--comment-opacity': still ? 1 : commentMobile } as MotionStyle}>
-            <div className={s.commentHeader}><MessageCircle size={18}/><b>Sous votre Reel</b></div>
+            <div className={s.commentHeader}><MessageCircle size={18}/><b>Sous ton Reel</b></div>
             <div className={s.reelContext}><img src={LEAD_RESULT_POSTER} alt="Aperçu du Reel de Kevin"/><div><b>kevin.dufraisse</b><p>Commente « <strong>CLAUDE</strong> »</p></div></div>
             <motion.div className={s.comment} data-scroll-reveal="comment" style={still ? {} : { opacity: commentOpacity, y: commentY }}><span className={s.alexAvatar} aria-hidden="true">A</span><div><b>alex</b><p>CLAUDE 🙌</p><small>À l’instant · Répondre</small></div><Heart size={15} aria-hidden="true"/></motion.div>
             <motion.div className={s.reply} data-scroll-reveal="reply" style={{ opacity: still ? 1 : replyOpacity }}><img src={AVATAR} alt=""/><div><b>kevin.dufraisse</b><p>Je te l’ai envoyé en privé 👋</p><small>Réponse automatique · exemple</small></div></motion.div>
@@ -63,7 +63,7 @@ export default function LeadMagnetScene({ staticMode = false }: { p?: MotionValu
             <header className={s.dmHeader}><ArrowLeft size={19} aria-hidden="true"/><img src={AVATAR} alt=""/><div><b>kevin.dufraisse <ChevronDown size={12} aria-hidden="true"/></b><small>Kevin Dufraisse</small></div><Phone size={17} aria-hidden="true"/><Video size={18} aria-hidden="true"/></header>
             <div className={s.dmBody}>
               <small className={s.today}>Aujourd’hui</small>
-              <div className={s.commentContext}><img src={LEAD_RESULT_POSTER} alt=""/><span>Vous avez commenté ce Reel.<b>CLAUDE 🙌</b></span></div>
+              <div className={s.commentContext}><img src={LEAD_RESULT_POSTER} alt=""/><span>Tu as commenté ce Reel.<b>CLAUDE 🙌</b></span></div>
               <motion.div className={s.incomingRow} data-scroll-reveal="dm" style={{ opacity: still ? 1 : incomingOpacity }}><img src={AVATAR} alt=""/><div className={s.incoming}><p>Merci pour ton commentaire ! 👋</p><p>Voici la ressource sur Claude dont je parle dans la vidéo.</p></div></motion.div>
               <motion.div className={s.resource} data-lead-resource style={{ opacity: still ? 1 : resourceOpacity }}><div><FileText size={29} aria-hidden="true"/><b>La ressource de la vidéo<small>Pour aller plus loin avec Claude</small></b></div><span>Ouvrir la ressource <ArrowRight size={14} aria-hidden="true"/></span></motion.div>
               <motion.p className={s.sent} style={{ opacity: still ? 1 : sentOpacity }}><Check size={14}/>Réponse envoyée automatiquement</motion.p>
@@ -72,7 +72,7 @@ export default function LeadMagnetScene({ staticMode = false }: { p?: MotionValu
           </motion.article>
         </div>
         <p className={`${s.note} ${scroll.note}`}>Extraits réels · commentaire, message et ressource illustrés. Aucun message envoyé depuis cette page.</p>
-        {!still && <div className={scroll.progress} aria-hidden="true"><span>Continuez à scroller</span><div><motion.i style={{ scaleX: messageP }}/></div></div>}
+        {!still && <div className={scroll.progress} aria-hidden="true"><span>Continue à scroller</span><div><motion.i style={{ scaleX: messageP }}/></div></div>}
       </div>
     </section>
   </section>

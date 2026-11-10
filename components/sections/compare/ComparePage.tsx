@@ -282,7 +282,7 @@ export default function ComparePage(props: ComparePageProps) {
       <section className="w-full pb-24 pt-8">
         <div className="container max-w-3xl text-center">
           <h2 className="mb-4 text-3xl font-extrabold md:text-4xl">Le bon message, dans le bon format, partout</h2>
-          <p className="mb-8 text-neutral-300">Créez vos premiers contenus avec 7 jours gratuits et 500 crédits.</p>
+          <p className="mb-8 text-neutral-300">Crée tes premiers contenus avec 7 jours gratuits et 500 crédits.</p>
           <OnboardingLink className="inline-block rounded-lg bg-empire px-8 py-3.5 font-semibold text-black transition hover:opacity-90">
             Tester 7 jours gratuitement
           </OnboardingLink>

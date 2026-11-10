@@ -48,7 +48,7 @@ export default function EmpireProblemSection() {
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight">
             {fr ? (
               <>
-                Votre expertise n&apos;est pas le problème.{' '}
+                Ton expertise n&apos;est pas le problème.{' '}
                 <span className="text-empire">Sa distribution l&apos;est.</span>
               </>
             ) : (
@@ -60,7 +60,7 @@ export default function EmpireProblemSection() {
           </h2>
 
           <p className="mt-6 text-lg text-neutral-300">
-            {fr ? 'Vous savez quoi dire.' : 'You know what to say.'}
+            {fr ? 'Tu sais quoi dire.' : 'You know what to say.'}
           </p>
 
           <p className="mt-4 text-neutral-400">
@@ -86,13 +86,13 @@ export default function EmpireProblemSection() {
 
           <p className="mt-8 text-base md:text-lg text-white font-medium max-w-xl mx-auto">
             {fr
-              ? 'Résultat : vous êtes excellent dans votre domaine, mais invisible en ligne.'
+              ? 'Résultat : tu es excellent dans ton domaine, mais invisible en ligne.'
               : 'Result: you\'re excellent at what you do, but invisible online.'}
           </p>
 
           <p className="mt-10 text-xl md:text-2xl font-bold text-empire">
             {fr
-              ? 'Empire transforme votre expertise en présence médiatique.'
+              ? 'Empire transforme ton expertise en présence médiatique.'
               : 'Empire turns your expertise into media presence.'}
           </p>
         </motion.div>

@@ -20,7 +20,7 @@ function CallbackForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!form.phone && !form.email) {
-      setError('Saisissez au moins votre téléphone ou votre email.')
+      setError('Saisis au moins ton téléphone ou ton email.')
       return
     }
     setLoading(true)
@@ -34,7 +34,7 @@ function CallbackForm() {
       if (!res.ok) throw new Error()
       setSuccess(true)
     } catch {
-      setError('Une erreur est survenue. Réessayez.')
+      setError('Une erreur est survenue. Réessaie.')
     } finally {
       setLoading(false)
     }
@@ -52,7 +52,7 @@ function CallbackForm() {
         </div>
         <p className="text-xl font-black text-white">C'est bon !</p>
         <p className="text-neutral-400 text-sm max-w-xs">
-          On vous appelle dans les <span className="text-white font-semibold">24h</span> pour faire le point et voir si on peut vous aider.
+          On t'appelle dans les <span className="text-white font-semibold">24h</span> pour faire le point et voir si on peut t'aider.
         </p>
       </motion.div>
     )
@@ -64,7 +64,7 @@ function CallbackForm() {
         <div className="flex-1">
           <input
             type="text"
-            placeholder="Votre prénom"
+            placeholder="Ton prénom"
             value={form.first_name}
             onChange={e => setForm(p => ({ ...p, first_name: e.target.value }))}
             className="w-full px-4 py-3.5 rounded-xl bg-white/[0.12] border border-white/20 text-white placeholder:text-neutral-400 text-sm focus:outline-none focus:border-empire/60 transition-colors"
@@ -73,7 +73,7 @@ function CallbackForm() {
         <div className="flex-1">
           <input
             type="tel"
-            placeholder="Votre 06 / 07"
+            placeholder="Ton 06 / 07"
             value={form.phone}
             onChange={e => setForm(p => ({ ...p, phone: e.target.value }))}
             className="w-full px-4 py-3.5 rounded-xl bg-white/[0.12] border border-white/20 text-white placeholder:text-neutral-400 text-sm focus:outline-none focus:border-empire/60 transition-colors"
@@ -82,7 +82,7 @@ function CallbackForm() {
       </div>
       <input
         type="email"
-        placeholder="Votre email (pour recevoir la confirmation)"
+        placeholder="Ton email (pour recevoir la confirmation)"
         value={form.email}
         onChange={e => setForm(p => ({ ...p, email: e.target.value }))}
         className="w-full px-4 py-3.5 rounded-xl bg-white/[0.12] border border-white/20 text-white placeholder:text-neutral-400 text-sm focus:outline-none focus:border-empire/60 transition-colors"
@@ -97,7 +97,7 @@ function CallbackForm() {
         {loading ? 'Envoi…' : 'Je veux être rappelé →'}
       </button>
       <p className="text-[11px] text-neutral-400 text-center">
-        On ne revend pas vos données · Rappel sous 24h · Aucun engagement
+        On ne revend pas tes données · Rappel sous 24h · Aucun engagement
       </p>
     </form>
   )
@@ -140,7 +140,7 @@ export default function YoutubePageClient() {
         >
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-empire/10 border border-empire/30 mb-5">
             <span className="w-1.5 h-1.5 rounded-full bg-empire animate-pulse" />
-            <span className="text-xs font-bold text-empire tracking-widest uppercase">Vous venez de regarder notre vidéo</span>
+            <span className="text-xs font-bold text-empire tracking-widest uppercase">Tu viens de regarder notre vidéo</span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight mb-4">
@@ -149,7 +149,7 @@ export default function YoutubePageClient() {
             <span className="text-empire">c'est un appel.</span>
           </h1>
           <p className="text-neutral-400 text-base max-w-md mx-auto">
-            En 15 minutes, on voit ensemble si et comment on peut vous aider à atteindre{' '}
+            En 15 minutes, on voit ensemble si et comment on peut t'aider à atteindre{' '}
             <span className="text-white font-semibold">3 000€/mois en 4h/semaine.</span>
           </p>
         </motion.div>
@@ -182,7 +182,7 @@ export default function YoutubePageClient() {
             </div>
             <div>
               <p className="text-white font-bold text-sm leading-tight">Être rappelé par Kevin ou Marc</p>
-              <p className="text-neutral-400 text-[11px]">On vous appelle dans les 24h - à l'heure qui vous arrange</p>
+              <p className="text-neutral-400 text-[11px]">On t'appelle dans les 24h - à l'heure qui t'arrange</p>
             </div>
           </div>
           <CallbackForm />
@@ -223,9 +223,9 @@ export default function YoutubePageClient() {
         >
           <p className="text-xs font-bold text-neutral-400 uppercase tracking-widest text-center mb-4">Ce qui se passe après</p>
           {[
-            { n: '01', t: 'On vous appelle', d: '15 minutes. On écoute, on comprend où vous en êtes.' },
-            { n: '02', t: 'On voit si c\'est fait pour vous', d: 'Pas un pitch. Une vraie conversation.' },
-            { n: '03', t: 'On vous dit quoi faire', d: 'Admis dans le bootcamp - ou une autre direction si c\'est mieux pour vous.' },
+            { n: '01', t: 'On t\'appelle', d: '15 minutes. On écoute, on comprend où tu en es.' },
+            { n: '02', t: 'On voit si c\'est fait pour toi', d: 'Pas un pitch. Une vraie conversation.' },
+            { n: '03', t: 'On te dit quoi faire', d: 'Admis dans le bootcamp - ou une autre direction si c\'est mieux pour toi.' },
           ].map((s, i) => (
             <div key={i} className="flex gap-4 items-start">
               <div className="w-7 h-7 rounded-full bg-empire/10 border border-empire/30 flex items-center justify-center flex-shrink-0 text-[11px] font-black text-empire">

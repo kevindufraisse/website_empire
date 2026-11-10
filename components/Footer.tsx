@@ -111,7 +111,7 @@ export default function Footer() {
                     </a>
                   )}
                   <a href="/quiz" className="text-sm text-neutral-400 hover:text-empire transition-colors">
-                    {lang === 'fr' ? 'Quiz : quel créateur êtes-vous ?' : 'Quiz: what creator are you?'}
+                    {lang === 'fr' ? 'Quiz : quel créateur es-tu ?' : 'Quiz: what creator are you?'}
                   </a>
                   <a href={postitJoinUrl('footer')} className="text-sm text-neutral-400 hover:text-empire transition-colors">
                     {lang === 'fr' ? 'Live gratuit : Post it like it’s hot (lundi 14h)' : 'Free live: Post it like it’s hot (Mon 2 pm)'}
@@ -192,7 +192,7 @@ function MetaDisclaimer({ fr }: { fr: boolean }) {
       </p>
       <p>
         {fr
-          ? 'Vos résultats peuvent varier. Les témoignages et exemples présentés ne garantissent pas que vous obtiendrez des résultats identiques ou similaires.'
+          ? 'Tes résultats peuvent varier. Les témoignages et exemples présentés ne garantissent pas que tu obtiendras des résultats identiques ou similaires.'
           : 'Your results may vary. The testimonials and examples shown do not guarantee that you will get the same or similar results.'}
       </p>
     </div>

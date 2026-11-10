@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 export const metadata = {
   title: 'Candidature - Empire Academy',
-  description: 'Vérifiez si vous êtes éligible à Empire Academy. 21 jours pour maîtriser la viralité. Formulaire de 2 min.',
+  description: 'Vérifie si tu es éligible à Empire Academy. 21 jours pour maîtriser la viralité. Formulaire de 2 min.',
 }
 
 const founders = [
@@ -51,16 +51,16 @@ export default function CandidaturePage() {
             </h1>
             <p className="text-neutral-400 text-base leading-relaxed mb-8">
               Empire Academy n'est pas pour tout le monde - c'est voulu.
-              21 jours intensifs pour maîtriser la viralité et obtenir votre certification.
+              21 jours intensifs pour maîtriser la viralité et obtenir ta certification.
               On sélectionne les profils qui s'impliquent vraiment.
             </p>
 
             {/* What happens */}
             <div className="space-y-4 mb-8">
               {[
-                { num: '01', text: 'Vous remplissez le formulaire', sub: 'Environ 2 minutes.' },
-                { num: '02', text: 'On analyse votre profil', sub: 'Sous 24h ouvrées.' },
-                { num: '03', text: 'On vous répond', sub: 'Admis ou pas - honnêtement.' },
+                { num: '01', text: 'Tu remplis le formulaire', sub: 'Environ 2 minutes.' },
+                { num: '02', text: 'On analyse ton profil', sub: 'Sous 24h ouvrées.' },
+                { num: '03', text: 'On te répond', sub: 'Admis ou pas - honnêtement.' },
               ].map(s => (
                 <div key={s.num} className="flex items-start gap-4">
                   <div className="w-7 h-7 rounded-full bg-academy/10 border border-academy/30 flex items-center justify-center flex-shrink-0 text-xs font-black text-academy">

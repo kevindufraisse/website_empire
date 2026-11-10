@@ -62,8 +62,8 @@ export default function CallbackFormModal({ isOpen, onClose }: CallbackFormModal
 
   const t = {
     fr: {
-      title: 'Réservez votre appel',
-      subtitle: 'Laissez vos coordonnées puis choisissez un créneau',
+      title: 'Réserve ton appel',
+      subtitle: 'Laisse tes coordonnées puis choisis un créneau',
       firstName: 'Prénom',
       email: 'Email',
       phone: 'Téléphone',
@@ -72,10 +72,10 @@ export default function CallbackFormModal({ isOpen, onClose }: CallbackFormModal
       budget2: '+ 5 000€',
       noBudget: 'Pas de budget',
       submit: 'Valider et choisir un créneau',
-      successTitle: 'Choisissez votre créneau',
+      successTitle: 'Choisis ton créneau',
       successText: '',
       cancelledTitle: 'Pas de souci',
-      cancelledText: 'N\'hésitez pas à revenir quand vous serez prêt.',
+      cancelledText: 'N\'hésite pas à revenir quand tu seras prêt.',
       close: 'Fermer',
     },
     en: {

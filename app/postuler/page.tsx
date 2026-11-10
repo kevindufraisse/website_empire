@@ -4,7 +4,7 @@ import EmpireApplyForm from '@/components/EmpireApplyForm'
 
 export const metadata: Metadata = {
   title: 'Parler à l’équipe - Empire Internet',
-  description: 'Échangez avec notre équipe pour trouver l’offre Empire la plus adaptée à votre profil.',
+  description: 'Échange avec notre équipe pour trouver l’offre Empire la plus adaptée à ton profil.',
   robots: { index: false, follow: false },
 }
 

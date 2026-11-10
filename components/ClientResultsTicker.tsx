@@ -51,9 +51,9 @@ const AUTOPILOT_RESULTS = [
   },
   {
     stat: '0 min',
-    unit: 'de votre temps',
+    unit: 'de ton temps',
     context: 'investi dans le contenu',
-    detail: 'Notre équipe s\'occupe de tout pour vous',
+    detail: 'Notre équipe s\'occupe de tout pour toi',
   },
   {
     stat: '3,2M',
@@ -64,7 +64,7 @@ const AUTOPILOT_RESULTS = [
   {
     stat: '24/7',
     unit: 'production active',
-    context: 'sur tous vos canaux',
+    context: 'sur tous tes canaux',
     detail: 'Équipe dédiée · Stratégie + création + publication',
   },
 ]
@@ -97,7 +97,7 @@ export default function ClientResultsTicker() {
   return (
     <div className="rounded-xl border border-white/8 bg-white/[0.02] p-4 overflow-hidden">
       <p className="text-[10px] text-neutral-400 uppercase tracking-widest font-bold mb-3">
-        {autopilot ? 'Autopilot · Notre réseau en action' : 'Le saviez-vous · Résultats clients'}
+        {autopilot ? 'Autopilot · Notre réseau en action' : 'Le savais-tu · Résultats clients'}
       </p>
       <div
         className="transition-all duration-400"

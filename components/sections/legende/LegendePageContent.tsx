@@ -28,8 +28,8 @@ function Hero() {
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] tracking-tight">
             {fr ? (
               <>
-                Vous dirigez votre entreprise.{' '}
-                <span className="text-autopilot">Nous dirigeons votre image.</span>
+                Tu diriges ton entreprise.{' '}
+                <span className="text-autopilot">Nous dirigeons ton image.</span>
               </>
             ) : (
               <>
@@ -40,11 +40,11 @@ function Hero() {
           </h1>
           <p className="mt-5 text-lg text-neutral-300 max-w-2xl mx-auto leading-relaxed">
             {fr
-              ? 'Une conversation par mois suffit. Notre équipe transforme vos idées en contenus, les publie sur vos réseaux et construit une audience qui vous apporte des opportunités.'
+              ? 'Une conversation par mois suffit. Notre équipe transforme tes idées en contenus, les publie sur tes réseaux et construit une audience qui t\'apporte des opportunités.'
               : 'One conversation a month is enough. Our team turns your ideas into content, publishes on your networks and builds an audience that brings opportunities.'}
           </p>
           <p className="mt-3 text-sm font-medium text-neutral-400">
-            {fr ? 'Vous restez CEO. Nous nous occupons du reste.' : 'You stay CEO. We handle the rest.'}
+            {fr ? 'Tu restes CEO. Nous nous occupons du reste.' : 'You stay CEO. We handle the rest.'}
           </p>
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
             <a
@@ -85,7 +85,7 @@ function OfferIncluded() {
   const pillars = fr
     ? [
         {
-          title: 'Kevin pilote votre marque',
+          title: 'Kevin pilote ta marque',
           desc: 'Stratégie, angles, direction éditoriale. C\'est lui (ou un expert senior) qui porte le système.',
           faces: [
             { src: '/founders/kevin.jpg', alt: 'Kevin Dufraisse' },
@@ -93,8 +93,8 @@ function OfferIncluded() {
           items: ['Stratégie', 'Sessions', 'Accompagnement', 'Optimisation'],
         },
         {
-          title: 'Une équipe exécute pour vous',
-          desc: 'Production, publication, distribution, reporting. Vous ne touchez à rien au quotidien.',
+          title: 'Une équipe exécute pour toi',
+          desc: 'Production, publication, distribution, reporting. Tu ne touches à rien au quotidien.',
           faces: [
             { src: '/founders/kevin.jpg', alt: 'Kevin' },
             { src: '/founders/marc.jpg', alt: 'Marc' },
@@ -149,11 +149,11 @@ function OfferIncluded() {
               {fr ? 'Légende · Opéré par Kevin' : 'Légende · Operated by Kevin'}
             </p>
             <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight">
-              {fr ? 'Kevin gère votre marque.' : 'Kevin manages your brand.'}
+              {fr ? 'Kevin gère ta marque.' : 'Kevin manages your brand.'}
             </h2>
             <p className="mt-4 text-neutral-400 leading-relaxed max-w-lg mx-auto">
               {fr
-                ? 'Pas un abonnement SaaS. Kevin et son équipe portent votre image de A à Z. Vous, une conversation par mois.'
+                ? 'Pas un abonnement SaaS. Kevin et son équipe portent ton image de A à Z. Toi, une conversation par mois.'
                 : 'Not a SaaS subscription. Kevin and his team carry your brand end to end. You: one conversation a month.'}
             </p>
             <p className="mt-3 text-sm text-neutral-500">
@@ -219,7 +219,7 @@ function OfferIncluded() {
               className="mt-5 inline-flex items-center gap-2 rounded-full border border-autopilot/40 bg-autopilot/10 px-5 py-2.5 text-sm font-semibold text-autopilot hover:bg-autopilot/20 transition-colors"
             >
               <span className="text-autopilot">✦</span>
-              {fr ? 'Pas sûr ? Quelle offre pour vous ?' : 'Not sure? Which offer for you?'}
+              {fr ? 'Pas sûr ? Quelle offre pour toi ?' : 'Not sure? Which offer for you?'}
             </button>
           </div>
         </Reveal>

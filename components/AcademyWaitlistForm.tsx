@@ -349,7 +349,7 @@ export default function AcademyWaitlistForm({
         setErrorMessage(
           data?.error ||
             (fr
-              ? 'Une erreur est survenue. Réessayez dans un instant.'
+              ? 'Une erreur est survenue. Réessaie dans un instant.'
               : 'Something went wrong. Please try again.'),
         )
         return
@@ -368,7 +368,7 @@ export default function AcademyWaitlistForm({
     } catch {
       setErrorMessage(
         fr
-          ? 'Une erreur est survenue. Réessayez dans un instant.'
+          ? 'Une erreur est survenue. Réessaie dans un instant.'
           : 'Something went wrong. Please try again.',
       )
     } finally {
@@ -388,12 +388,12 @@ export default function AcademyWaitlistForm({
         </div>
         <p className="text-lg font-bold text-white">
           {position !== null
-            ? (fr ? `Vous êtes n°${position} dans la file.` : `You're #${position} in the queue.`)
-            : (fr ? 'Vous êtes sur la liste.' : "You're on the list.")}
+            ? (fr ? `Tu es n°${position} dans la file.` : `You're #${position} in the queue.`)
+            : (fr ? 'Tu es sur la liste.' : "You're on the list.")}
         </p>
         <p className="mt-2 text-sm text-neutral-400">
           {fr
-            ? 'On lit chaque candidature. On vous écrit dès que les inscriptions de la prochaine promo ouvrent.'
+            ? 'On lit chaque candidature. On t\'écrit dès que les inscriptions de la prochaine promo ouvrent.'
             : "We read every application. We'll write you as soon as the next cohort opens."}
         </p>
       </motion.div>
@@ -422,12 +422,12 @@ export default function AcademyWaitlistForm({
             className="space-y-3"
           >
             <p className="text-xs font-medium text-neutral-400">
-              {fr ? 'Vos coordonnées' : 'Your details'}
+              {fr ? 'Tes coordonnées' : 'Your details'}
             </p>
 
             <input
               type="text"
-              placeholder={fr ? 'Votre prénom *' : 'Your first name *'}
+              placeholder={fr ? 'Ton prénom *' : 'Your first name *'}
               value={form.firstName}
               onChange={(e) => setField('firstName', e.target.value)}
               autoComplete="given-name"
@@ -435,7 +435,7 @@ export default function AcademyWaitlistForm({
             />
             <input
               type="email"
-              placeholder={fr ? 'Votre email *' : 'Your email *'}
+              placeholder={fr ? 'Ton email *' : 'Your email *'}
               value={form.email}
               onChange={(e) => setField('email', e.target.value)}
               autoComplete="email"
@@ -541,7 +541,7 @@ export default function AcademyWaitlistForm({
 
             <div>
               <p className="mb-1.5 text-xs font-medium text-neutral-400">
-                {fr ? 'Votre situation *' : 'Your situation *'}
+                {fr ? 'Ta situation *' : 'Your situation *'}
               </p>
               <div className="grid grid-cols-1 gap-1.5">
                 {SITUATIONS.map((s) => (
@@ -565,7 +565,7 @@ export default function AcademyWaitlistForm({
 
             <div>
               <p className="mb-1.5 text-xs font-medium text-neutral-400">
-                {fr ? 'Vous créez déjà du contenu ? *' : 'Do you already create content? *'}
+                {fr ? 'Tu crées déjà du contenu ? *' : 'Do you already create content? *'}
               </p>
               <div className="grid grid-cols-1 gap-1.5 sm:grid-cols-3">
                 {CONTENT_LEVELS.map((c) => (

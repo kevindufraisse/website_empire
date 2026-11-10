@@ -20,9 +20,9 @@ export default function AcademyDefinitionSection() {
 
   const notList = fr
     ? [
-        'Vous n\'êtes pas community manager.',
-        'Vous n\'êtes pas simple copywriter.',
-        'Vous n\'êtes pas monteur vidéo.',
+        'Tu n\'es pas community manager.',
+        'Tu n\'es pas simple copywriter.',
+        'Tu n\'es pas monteur vidéo.',
       ]
     : [
         'You\'re not a community manager.',
@@ -70,7 +70,7 @@ export default function AcademyDefinitionSection() {
           </ul>
           <p className="text-center text-lg font-semibold text-academy">
             {fr
-              ? 'Vous êtes la personne qui construit le système de contenu.'
+              ? 'Tu es la personne qui construit le système de contenu.'
               : 'You\'re the person who builds the content system.'}
           </p>
         </FadeIn>

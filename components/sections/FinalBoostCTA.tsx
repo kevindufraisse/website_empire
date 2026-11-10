@@ -41,7 +41,7 @@ export default function FinalBoostCTA() {
                   {t.finalCTA.title}
                 </h2>
                 <p className="text-lg text-neutral-300 mb-6">
-                  {lang === 'fr' ? 'Vos idées, vos contenus, votre calendrier : prenez Empire en main dès aujourd’hui.' : 'Your ideas, your content, your calendar: get started with Empire today.'}
+                  {lang === 'fr' ? 'Tes idées, tes contenus, ton calendrier : prends Empire en main dès aujourd’hui.' : 'Your ideas, your content, your calendar: get started with Empire today.'}
                 </p>
 
                 <EmpireSalesCta source="final" />

@@ -15,15 +15,15 @@ export default function AcademyHowItWorksSection() {
         },
         {
           title: 'Formation 21 jours',
-          desc: 'Un défi par jour. Vous publiez avec la méthode Empire. 15 min/jour.',
+          desc: 'Un défi par jour. Tu publies avec la méthode Empire. 15 min/jour.',
         },
         {
           title: 'Certification Empire',
-          desc: 'Bronze, Argent ou Or selon vos résultats. Badge LinkedIn officiel.',
+          desc: 'Bronze, Argent ou Or selon tes résultats. Badge LinkedIn officiel.',
         },
         {
           title: 'Missions partenaires',
-          desc: 'Nouveaux clients proposés. Vous choisissez les sujets + live. Empire produit.',
+          desc: 'Nouveaux clients proposés. Tu choisis les sujets + live. Empire produit.',
         },
       ]
     : [

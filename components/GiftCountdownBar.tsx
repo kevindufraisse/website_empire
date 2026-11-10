@@ -29,7 +29,7 @@ function getGifts(lang: 'en' | 'fr') {
       title: fr ? 'Trouver les Reels viraux' : 'Find viral Reels',
       subtitle: fr ? "d'un compte Instagram" : 'from any Instagram account',
       description: fr
-        ? "Identifiez instantanément les réels les plus viraux de n'importe quel compte Instagram."
+        ? "Identifie instantanément les réels les plus viraux de n'importe quel compte Instagram."
         : "Instantly identify the most viral Reels from any Instagram account.",
       badge: fr ? 'Méthode Adley Kinsmann' : 'Adley Kinsmann method',
       free: true,
@@ -45,7 +45,7 @@ function getGifts(lang: 'en' | 'fr') {
       title: fr ? 'Résumer des vidéos YouTube' : 'Summarize YouTube videos',
       subtitle: fr ? "avec l'IA" : 'with AI',
       description: fr
-        ? "Transformez n'importe quelle vidéo YouTube en résumé actionnable en quelques secondes."
+        ? "Transforme n'importe quelle vidéo YouTube en résumé actionnable en quelques secondes."
         : "Turn any YouTube video into an actionable summary in seconds.",
       badge: null as string | null,
       free: true,
@@ -59,9 +59,9 @@ function getGifts(lang: 'en' | 'fr') {
       bgColor: 'bg-white/5',
       textColor: 'text-empire',
       title: fr ? 'Auto-commenter sur LinkedIn' : 'Auto-comment on LinkedIn',
-      subtitle: fr ? 'vos posts automatiquement' : 'your posts automatically',
+      subtitle: fr ? 'tes posts automatiquement' : 'your posts automatically',
       description: fr
-        ? "Commentez automatiquement les posts de votre réseau pour booster votre visibilité LinkedIn."
+        ? "Commente automatiquement les posts de ton réseau pour booster ta visibilité LinkedIn."
         : "Automatically comment on your network's posts to boost your LinkedIn visibility.",
       badge: fr ? 'Méthode Empire Internet' : 'Empire Internet method',
       free: true,
@@ -204,7 +204,7 @@ export default function GiftCountdownModal() {
                     {fr ? 'Du contenu se débloque' : 'Content is unlocking'}
                   </h2>
                   <p className="text-neutral-400 text-sm sm:text-base max-w-md mx-auto mb-8">
-                    {fr ? 'Restez sur la page pour accéder à des ressources exclusives.' : 'Stay on the page to access exclusive resources.'}
+                    {fr ? 'Reste sur la page pour accéder à des ressources exclusives.' : 'Stay on the page to access exclusive resources.'}
                   </p>
 
                   <div className="space-y-4 max-w-sm mx-auto mb-8">
@@ -242,10 +242,10 @@ export default function GiftCountdownModal() {
                     <Sparkles className="text-empire" size={16} />
                   </motion.div>
                   <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-2">
-                    {fr ? `Vos ${GIFT_COUNT} ressources offertes` : `Your ${GIFT_COUNT} free resources`}
+                    {fr ? `Tes ${GIFT_COUNT} ressources offertes` : `Your ${GIFT_COUNT} free resources`}
                   </h2>
                   <p className="text-neutral-400 text-sm sm:text-base max-w-lg mx-auto">
-                    {fr ? 'Des outils utilisés par les plus gros créateurs. Récupérez-les avant de partir.' : 'Tools used by the world\'s top creators. Grab them before you leave.'}
+                    {fr ? 'Des outils utilisés par les plus gros créateurs. Récupère-les avant de partir.' : 'Tools used by the world\'s top creators. Grab them before you leave.'}
                   </p>
                 </div>
 
@@ -315,7 +315,7 @@ export default function GiftCountdownModal() {
                     {fr ? 'Continuer à naviguer' : 'Continue browsing'}
                   </button>
                   <p className="text-[11px] text-neutral-500">
-                    {fr ? 'Vous pourrez revenir à vos ressources depuis le header' : 'You can come back to your resources from the header'}
+                    {fr ? 'Tu pourras revenir à tes ressources depuis le header' : 'You can come back to your resources from the header'}
                   </p>
                 </div>
               </>

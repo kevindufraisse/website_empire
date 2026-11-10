@@ -15,7 +15,7 @@
   const choice=root.querySelector('.v60-choice'); if(!choice)return;
   choice.querySelectorAll('[data-v60-choice]').forEach(b=>b.setAttribute('aria-pressed',String(value===b.dataset.v60Choice)));
   choice.querySelectorAll('[data-profile]').forEach(n=>n.classList.toggle('is-selected',value===n.dataset.profile));
-  const text=value==='left'?'Vous m’avez vu chercher une solution, annoncer un délai et le tenir. Ces actes racontés donnent des raisons de me faire confiance. Vos clients ont aussi des expériences à raconter.':value==='right'?'Vous préférez mon concurrent. C’est possible aussi. Connaître une histoire apporte du contexte ; cela ne décide pas à votre place.':'Deux offres identiques. Faites défiler pour voir ce que le récit apporte au choix.';
+  const text=value==='left'?'Tu m’as vu chercher une solution, annoncer un délai et le tenir. Ces actes racontés donnent des raisons de me faire confiance. Tes clients ont aussi des expériences à raconter.':value==='right'?'Tu préfères mon concurrent. C’est possible aussi. Connaître une histoire apporte du contexte ; cela ne décide pas à ta place.':'Deux offres identiques. Fais défiler pour voir ce que le récit apporte au choix.';
   const answer=choice.querySelector('.v60-choice-answer');if(answer.textContent!==text)answer.textContent=text;
  }
  root.addEventListener('click',e=>{const b=e.target.closest('[data-v60-choice]');if(b){manualChoice=true;choose(b.dataset.v60Choice);track('academy_story_choice',{profile:b.dataset.v60Choice})}});

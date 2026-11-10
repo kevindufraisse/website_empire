@@ -9,5 +9,5 @@ export const IDEA_TIMELINE = [
  {at:.168,name:'Reel Instagram concurrent',kind:'instagram'},
  {at:.194,name:'Post LinkedIn concurrent',kind:'linkedin'},
  {at:.220,name:'Vidéo YouTube concurrente',kind:'youtube'},
- {at:.246,name:'L’actualité de votre marché',kind:'news'},
+ {at:.246,name:'L’actualité de ton marché',kind:'news'},
 ] as const

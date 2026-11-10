@@ -14,7 +14,7 @@ export default function AcademyTwoPathsSection() {
   const jobPoints = fr
     ? [
         'Les entrepreneurs ont besoin d’être visibles - ils n’ont pas le temps de produire',
-        'Vous les aidez à choisir quoi dire et vous êtes présent pendant le live',
+        'Tu les aides à choisir quoi dire et tu es présent pendant le live',
         'Empire propose les sujets, écrit, monte, publie et track',
         'Pas besoin d’inventer les sujets ni de monter une équipe de prod',
       ]
@@ -27,7 +27,7 @@ export default function AcademyTwoPathsSection() {
 
   const opportunity = fr
     ? [
-        { value: '~500€', hint: 'pour ~4 h / mois / client (plus si vous voulez)' },
+        { value: '~500€', hint: 'pour ~4 h / mois / client (plus si tu veux)' },
         { value: '4h', hint: 'de travail par mois et par client, une fois lancé' },
         { value: '+3 000€', hint: '/ mois avec 6 clients (~500€ × 6)' },
         { value: 'Gratuit', hint: 'nouveaux clients proposés - sans frais d’apport' },
@@ -54,7 +54,7 @@ export default function AcademyTwoPathsSection() {
             </h2>
             <p className="mx-auto max-w-2xl text-base leading-relaxed text-neutral-400 md:text-lg">
               {fr
-                ? 'Pas un job salarié. Une activité où vous facturez chaque mois - avec Empire qui fait la prod lourde. Les nouveaux clients peuvent vous être proposés gratuitement.'
+                ? 'Pas un job salarié. Une activité où tu factures chaque mois - avec Empire qui fait la prod lourde. Les nouveaux clients peuvent t\'être proposés gratuitement.'
                 : 'Not a salaried job. A business you bill every month - with Empire doing the heavy production. New clients can be proposed to you for free.'}
             </p>
           </div>
@@ -94,7 +94,7 @@ export default function AcademyTwoPathsSection() {
 
           <p className="mx-auto mt-10 max-w-lg text-center text-[13px] leading-relaxed text-neutral-500">
             {fr
-              ? 'Après la formation + certification : vous pouvez rejoindre Empire Partners. On propose les clients. Vous choisissez et êtes au live. Empire produit.'
+              ? 'Après la formation + certification : tu peux rejoindre Empire Partners. On propose les clients. Tu choisis et tu es au live. Empire produit.'
               : 'After training + certification: you can join Empire Partners. We propose clients. You choose and show up on the live. Empire produces.'}
           </p>
 

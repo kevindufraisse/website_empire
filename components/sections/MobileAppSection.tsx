@@ -35,15 +35,15 @@ export default function MobileAppSection() {
       en: ['Every format, from the phone', 'Tier list, reaction, quote, podcast, interview: everything is shot in the app, framing and instructions on screen.'],
     },
     {
-      fr: ['20 minutes à une heure par semaine', 'Une action en déclenche une autre. Vous parlez une fois, le reste suit.'],
+      fr: ['20 minutes à une heure par semaine', 'Une action en déclenche une autre. Tu parles une fois, le reste suit.'],
       en: ['20 minutes to an hour a week', 'One action triggers the next. You talk once, the rest follows.'],
     },
     {
-      fr: ['Sans montrer votre visage', 'Le mode dictée : vous parlez, sans caméra. Une note vocale Telegram marche aussi.'],
+      fr: ['Sans montrer ton visage', 'Le mode dictée : tu parles, sans caméra. Une note vocale Telegram marche aussi.'],
       en: ['Without showing your face', 'Dictation mode: you talk, no camera. A Telegram voice note works too.'],
     },
     {
-      fr: ['Tout est prêt quand vous rouvrez l\'app', 'Monté, écrit, relu par un humain. Il reste un bouton : publier.'],
+      fr: ['Tout est prêt quand tu rouvres l\'app', 'Monté, écrit, relu par un humain. Il reste un bouton : publier.'],
       en: ['Everything is ready when you reopen the app', 'Edited, written, proofread by a human. One button left: publish.'],
     },
   ]
@@ -127,7 +127,7 @@ export default function MobileAppSection() {
             </h2>
             <p className="mt-3 text-base leading-relaxed text-neutral-400 md:text-lg">
               {fr
-                ? 'Au déjeuner, dans la rue, entre deux rendez-vous. Vous parlez une fois. Le reste part en cascade : un vocal, un post, un reel, une vidéo longue, 7 réseaux.'
+                ? 'Au déjeuner, dans la rue, entre deux rendez-vous. Tu parles une fois. Le reste part en cascade : un vocal, un post, un reel, une vidéo longue, 7 réseaux.'
                 : 'Over lunch, in the street, between two meetings. You talk once. The rest follows: a voice memo, a post, a reel, a long video, 7 networks.'}
             </p>
             {/* Liste numérotée, filets fins : pas de pictos. */}

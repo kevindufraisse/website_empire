@@ -48,12 +48,12 @@ export default function JoinUsClient() {
 
   const headline = autopilot
     ? (fr ? 'Kevin Dufraisse ou un expert en viralité' : 'Kevin Dufraisse or a virality expert')
-    : (fr ? 'Attirez des clients -' : 'Attract clients -')
+    : (fr ? 'Attire des clients -' : 'Attract clients -')
   const headlineAccent = autopilot
-    ? (fr ? 'crée votre marque de A à Z.' : 'builds your brand from A to Z.')
-    : (fr ? 'sans écrire ni monter votre contenu.' : 'without writing or editing your content.')
+    ? (fr ? 'crée ta marque de A à Z.' : 'builds your brand from A to Z.')
+    : (fr ? 'sans écrire ni monter ton contenu.' : 'without writing or editing your content.')
   const subtitle = autopilot
-    ? (fr ? 'Vous ne vous occupez de rien. On trouve vos sujets, on écrit dans votre voix, on produit et on publie. 10 places disponibles.' : 'You don\'t lift a finger. We find your topics, write in your voice, produce and publish. 10 spots available.')
+    ? (fr ? 'Tu ne t\'occupes de rien. On trouve tes sujets, on écrit dans ta voix, on produit et on publie. 10 places disponibles.' : 'You don\'t lift a finger. We find your topics, write in your voice, produce and publish. 10 spots available.')
     : (fr ? '1 h de parole par semaine → posts, Reels, newsletters sur 7 réseaux.' : '1 hour of talking per week → posts, Reels, newsletters across 7 platforms.')
 
   return (
@@ -125,13 +125,13 @@ export default function JoinUsClient() {
               <div className="mb-5">
                 <h2 className="text-lg font-bold text-white">
                   {autopilot
-                    ? (fr ? 'Vérifiez votre éligibilité' : 'Check your eligibility')
-                    : (fr ? 'Réservez votre appel gratuit' : 'Book your free call')}
+                    ? (fr ? 'Vérifie ton éligibilité' : 'Check your eligibility')
+                    : (fr ? 'Réserve ton appel gratuit' : 'Book your free call')}
                 </h2>
                 <p className="text-xs text-neutral-400 mt-1">
                   {autopilot
-                    ? (fr ? '30 secondes - on revient vers vous sous 24h.' : '30 seconds - we get back to you within 24h.')
-                    : (fr ? '30 secondes - choisissez ensuite votre créneau.' : '30 seconds - then pick your slot.')}
+                    ? (fr ? '30 secondes - on revient vers toi sous 24h.' : '30 seconds - we get back to you within 24h.')
+                    : (fr ? '30 secondes - choisis ensuite ton créneau.' : '30 seconds - then pick your slot.')}
                 </p>
               </div>
               <YtLeadForm eventName="organic_lead_form" />

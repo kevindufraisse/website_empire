@@ -57,14 +57,14 @@ export default function EmpireWhatsIncludedSection() {
         >
           <div className="text-center max-w-2xl mx-auto mb-10 md:mb-12">
             <p className="text-sm font-semibold uppercase tracking-widest text-empire mb-3">
-              {fr ? 'Ce que vous achetez' : 'What you buy'}
+              {fr ? 'Ce que tu achètes' : 'What you buy'}
             </p>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight">
               {fr ? 'Qu\'est-ce que j\'achète exactement ?' : 'What exactly am I buying?'}
             </h2>
             <p className="mt-4 text-neutral-400">
               {fr
-                ? 'Tout ce qu\'il faut pour ne plus gérer votre contenu seul.'
+                ? 'Tout ce qu\'il faut pour ne plus gérer ton contenu seul.'
                 : 'Everything you need to stop managing content alone.'}
             </p>
           </div>

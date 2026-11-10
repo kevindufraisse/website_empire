@@ -21,7 +21,7 @@ export default function WhyEmpireCompact() {
         { stat: '+10 000', label: 'posts testés avant de figer les formats' },
         { stat: '+20 000€', label: 'investis en formation algorithmes' },
         { stat: 'En continu', label: 'nouveaux formats détectés et intégrés chaque mois' },
-        { stat: '20 min/semaine', label: 'c\u2019est tout ce qu\u2019on vous demande' },
+        { stat: '20 min/semaine', label: 'c\u2019est tout ce qu\u2019on te demande' },
       ]
     : [
         { stat: '1 year', label: 'of development for the cascade system' },
@@ -76,11 +76,11 @@ export default function WhyEmpireCompact() {
 
             <p className="mt-4 text-[12px] leading-relaxed text-neutral-500">
               <span className="font-semibold text-neutral-300">
-                {fr ? 'Votre équipe dédiée : ' : 'Your dedicated team: '}
+                {fr ? 'Ton équipe dédiée : ' : 'Your dedicated team: '}
               </span>
               {team}.{' '}
               {fr
-                ? 'Déjà formée, déjà rodée - elle travaille sur votre marque dès le premier jour.'
+                ? 'Déjà formée, déjà rodée - elle travaille sur ta marque dès le premier jour.'
                 : 'Already trained, already battle-tested - working on your brand from day one.'}
             </p>
           </motion.div>

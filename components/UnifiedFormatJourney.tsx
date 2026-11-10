@@ -32,7 +32,7 @@ export default function UnifiedFormatJourney({ renderShort }: {
   const sync = (p: number) => { setPhase(phaseAt(p)); setKind(kindAt(p)) }
   useEffect(() => { sync(progress.get()) }, [progress])
   useMotionValueEvent(progress, 'change', sync)
-  const title = phase === 'comparison' ? 'Le même script. De l’anglais au français.' : phase === 'instagram' ? 'Ils commentent. Vous répondez automatiquement.' : phase === 'long' ? 'Le même sujet, aussi en vidéo YouTube.' : 'Nous mettons votre idée dans le bon format.'
+  const title = phase === 'comparison' ? 'Le même script. De l’anglais au français.' : phase === 'instagram' ? 'Ils commentent. Tu réponds automatiquement.' : phase === 'long' ? 'Le même sujet, aussi en vidéo YouTube.' : 'Nous mettons ton idée dans le bon format.'
   const active = phase === 'short' ? kind : phase === 'long' ? 6 : 5
   return <section ref={ref} className={`${base.story} ${refinement.story} ${s.story}`} data-story="formula" data-unified-formats data-journey-phase={phase} data-step="format" aria-label="Sept formats à découvrir au scroll">
     {ANCHORS.map(([id, p]) => <span key={id} id={`formula-${id}`} className={s.anchor} style={{ top: `calc(${p * 100}% - ${p * 100}svh)` }}/>) }
@@ -46,11 +46,11 @@ export default function UnifiedFormatJourney({ renderShort }: {
         <section className={`${s.pane} ${s.instagram}`} data-journey-pane="instagram" aria-hidden={phase !== 'instagram'}><LeadMagnetConversation p={messageP}/></section>
         <section className={`${s.pane} ${s.long}`} data-journey-pane="long" data-scene="formats" data-format="5" aria-hidden={phase !== 'long'}>
           <div className={s.longScreen} data-format-preview="long"><LongVideoFormat p={longP}/></div>
-          <div className={s.longCopy}><h3>Plus de place pour<br/>votre point de vue.</h3><p>Réaction, classement ou réponse client : développez votre sujet, sans changer de parcours.</p></div>
+          <div className={s.longCopy}><h3>Plus de place pour<br/>ton point de vue.</h3><p>Réaction, classement ou réponse client : développe ton sujet, sans changer de parcours.</p></div>
         </section>
         <div className={s.rail} data-unified-rail><FormatRail active={active}/></div>
       </div>
-      <div className={s.cue}><span>Continuez à scroller</span><div><motion.i style={{ scaleX: progress }}/></div><small>Démonstration illustrée</small></div>
+      <div className={s.cue}><span>Continue à scroller</span><div><motion.i style={{ scaleX: progress }}/></div><small>Démonstration illustrée</small></div>
     </div>
   </section>
 }

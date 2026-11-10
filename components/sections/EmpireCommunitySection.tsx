@@ -18,11 +18,11 @@ const MEMBERS = [
 
 // person 4 = Kevin
 const MESSAGES = [
-  { person: 0, text: 'Ce post a fait 1 M de vues. Vous devriez tester ce format 👀', detail: 'Qui a déjà essayé une tier list dans sa niche ?', reactions: '🔥 8   🙌 5' },
-  { person: 1, text: 'J’ai utilisé Empire pour décliner cette vidéo. Ça m’a ramené 10 leads.', detail: 'Vous gardez la même accroche sur LinkedIn ?', reactions: '🎉 12   👏 6' },
+  { person: 0, text: 'Ce post a fait 1 M de vues. Tu devrais tester ce format 👀', detail: 'Qui a déjà essayé une tier list dans sa niche ?', reactions: '🔥 8   🙌 5' },
+  { person: 1, text: 'J’ai utilisé Empire pour décliner cette vidéo. Ça m’a ramené 10 leads.', detail: 'Tu gardes la même accroche sur LinkedIn ?', reactions: '🎉 12   👏 6' },
   { person: 2, text: 'Garde le même angle, mais adapte l’accroche au réseau.', detail: 'Sur LinkedIn, pars du problème de ton client. En vidéo, montre le résultat dès la première seconde. Teste deux entrées.', reactions: '💡 9   ✅ 4' },
   { person: 3, text: 'On pourrait ajouter le clonage à partir d’un Reel ?', detail: 'J’aimerais reprendre un format avec mon visage et ma voix.', reactions: '👀 7' },
-  { person: 4, text: 'Oui, je vous montre le parcours dans le live.', detail: 'Partagez aussi le post que vous voulez retravailler : on regarde vos comptes ensemble.', reactions: '🙌 11' },
+  { person: 4, text: 'Oui, je te montre le parcours dans le live.', detail: 'Partage aussi le post que tu veux retravailler : on regarde tes comptes ensemble.', reactions: '🙌 11' },
   { person: 2, text: 'Un conseil avant de republier : regarde aussi la rétention et les clics.', detail: 'Les vues attirent l’attention. Les bons sujets font venir les bonnes personnes.', reactions: '✅ 8' },
 ]
 
@@ -74,7 +74,7 @@ function ThreadMessage({ p, index, reduced }: { p: MotionValue<number>; index: n
             <img src="/formats/tierlist.webp" alt="Exemple de Reel partagé dans la communauté" />
             <span>
               <b>La tier list qui ouvre la discussion</b>
-              <small>Format à tester dans votre activité</small>
+              <small>Format à tester dans ton activité</small>
               <i><Eye size={12} />1 M de vues · exemple</i>
             </span>
           </div>
@@ -127,13 +127,13 @@ export default function EmpireCommunitySection() {
             <div>
 
               <h2>
-                {live ? 'Vos comptes. Vos questions.' : 'Posez vos questions.'}
+                {live ? 'Tes comptes. Tes questions.' : 'Pose tes questions.'}
                 <br />
-                <em>{live ? 'Notre live hebdomadaire.' : 'Nos experts vous répondent.'}</em>
+                <em>{live ? 'Notre live hebdomadaire.' : 'Nos experts te répondent.'}</em>
               </h2>
               <p>{live
-                ? 'Chaque semaine, posez vos questions et échangez avec nos experts sur vos contenus et votre stratégie.'
-                : 'Rejoignez notre live hebdomadaire pour faire analyser vos contenus et préparer vos prochains tests.'}</p>
+                ? 'Chaque semaine, pose tes questions et échange avec nos experts sur tes contenus et ta stratégie.'
+                : 'Rejoins notre live hebdomadaire pour faire analyser tes contenus et préparer tes prochains tests.'}</p>
             </div>
             <a className={s.hostCredit} href="/community/kevin-favikon.webp" target="_blank" rel="noreferrer" aria-label="Voir le classement Favikon de Kevin Dufraisse">
               <img src="/community/kevin-favikon.webp" alt="Kevin Dufraisse classé numéro 1 Growth et Lead Generation France par Favikon, février 2025" />
@@ -159,12 +159,12 @@ export default function EmpireCommunitySection() {
                 <span className={s.sidebarIntro}><Users size={13} />Créateurs, consultants, entrepreneurs</span>
                 <small>CANAUX</small>
                 <div><Hash />bienvenue</div>
-                <div className={live ? '' : s.selectedChannel}><Hash />vos-contenus <i /></div>
+                <div className={live ? '' : s.selectedChannel}><Hash />tes-contenus <i /></div>
                 <div><Hash />conseils-viralité</div>
                 <div><Hash />idées-produit</div>
                 <div className={live ? s.selectedChannel : ''}><Headphones />lives-hebdo</div>
                 <small>LE LIVE DE LA SEMAINE</small>
-                <div className={s.liveInChannel}><Headphones /><span>Analyse de vos comptes<small>Avec Kevin Dufraisse</small></span></div>
+                <div className={s.liveInChannel}><Headphones /><span>Analyse de tes comptes<small>Avec Kevin Dufraisse</small></span></div>
                 <div className={s.memberStack}>
                   <img src={KEVIN} alt="" />
                   {[0, 1, 2, 3].map((i) => <Member key={i} index={i} small />)}
@@ -174,7 +174,7 @@ export default function EmpireCommunitySection() {
 
               <div className={s.channel}>
                 <header>
-                  <div>{live ? <Headphones size={18} /> : <Hash size={18} />}<b>{live ? 'live · analyse de vos comptes' : 'vos-contenus'}</b></div>
+                  <div>{live ? <Headphones size={18} /> : <Hash size={18} />}<b>{live ? 'live · analyse de tes comptes' : 'tes-contenus'}</b></div>
                   <span className={s.exampleLabel}>Illustration · échanges et live de la communauté</span>
                 </header>
                 <div className={s.channelStage}>
@@ -186,7 +186,7 @@ export default function EmpireCommunitySection() {
                       </motion.div>
                     </div>
                     <div className={s.composer}>
-                      <span>Partagez votre post, une question, une idée…</span>
+                      <span>Partage ton post, une question, une idée…</span>
                       <div><Plus size={14} /><Smile size={14} /><span><Send size={13} /></span></div>
                     </div>
                   </motion.div>
@@ -196,7 +196,7 @@ export default function EmpireCommunitySection() {
                       <img src={KEVIN} alt="" />
                       <div>
                         <b>Kevin Dufraisse <span>Hôte</span></b>
-                        <p>On prend vos questions et on regarde vos comptes ensemble.</p>
+                        <p>On prend tes questions et on regarde tes comptes ensemble.</p>
                       </div>
                     </div>
                     <div className={s.huddle}>
@@ -239,7 +239,7 @@ export default function EmpireCommunitySection() {
               <button type="button" onClick={() => setForced(0.45)} aria-pressed={!live}>01 · Les échanges</button>
               <button type="button" onClick={() => setForced(0.88)} aria-pressed={live}>02 · Le live</button>
             </div>
-            <span><ArrowDown size={11} />Continuez à scroller</span>
+            <span><ArrowDown size={11} />Continue à scroller</span>
           </div>
           <p className={s.ambition}>Notre ambition : réunir la plus grande communauté mondiale d’experts en viralité.</p>
         </div>

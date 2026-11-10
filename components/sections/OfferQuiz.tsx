@@ -38,72 +38,72 @@ type Question = {
 
 const QUESTIONS: Question[] = [
   {
-    fr: 'Qu\u2019est-ce que vous voulez obtenir ?',
+    fr: 'Qu\u2019est-ce que tu veux obtenir ?',
     en: 'What do you want to get?',
     answers: [
       {
         fr: 'Un nouveau métier et un revenu',
         en: 'A new career and an income',
         offer: 'academy',
-        reasonFr: 'Vous cherchez une compétence qui devient un revenu.',
+        reasonFr: 'Tu cherches une compétence qui devient un revenu.',
         reasonEn: 'You want a skill that turns into income.',
       },
       {
         fr: 'Des clients pour mon activité',
         en: 'Clients for my business',
         offer: 'empire',
-        reasonFr: 'Votre objectif est d\u2019attirer des clients, pas de faire des vues.',
+        reasonFr: 'Ton objectif est d\u2019attirer des clients, pas de faire des vues.',
         reasonEn: 'Your goal is to attract clients, not just views.',
       },
       {
         fr: 'Une réputation, sans y passer de temps',
         en: 'A reputation, without spending time on it',
         offer: 'legende',
-        reasonFr: 'Vous voulez une réputation sans y consacrer de temps.',
+        reasonFr: 'Tu veux une réputation sans y consacrer de temps.',
         reasonEn: 'You want a reputation without spending time on it.',
       },
     ],
   },
   {
-    fr: 'Où en êtes-vous aujourd\u2019hui ?',
+    fr: 'Où en es-tu aujourd\u2019hui ?',
     en: 'Where are you today?',
     answers: [
       {
         fr: 'Je pars de zéro ou je me reconvertis',
         en: 'I\u2019m starting from zero or changing careers',
         offer: 'academy',
-        reasonFr: 'Vous partez de zéro : l\u2019Academy ne demande aucun projet préalable.',
+        reasonFr: 'Tu pars de zéro : l\u2019Academy ne demande aucun projet préalable.',
         reasonEn: 'You\u2019re starting from zero: the Academy requires no existing project.',
       },
       {
         fr: 'J\u2019ai une activité qui manque de visibilité',
         en: 'I have a business that lacks visibility',
         offer: 'empire',
-        reasonFr: 'Vous avez déjà une activité à faire connaître.',
+        reasonFr: 'Tu as déjà une activité à faire connaître.',
         reasonEn: 'You already have a business to make visible.',
       },
       {
         fr: 'Je dirige une entreprise qui tourne déjà',
         en: 'I run a company that already works',
         offer: 'legende',
-        reasonFr: 'Votre entreprise tourne déjà : votre temps vaut plus cher que la production.',
+        reasonFr: 'Ton entreprise tourne déjà : ton temps vaut plus cher que la production.',
         reasonEn: 'Your company already works: your time is worth more than production.',
       },
     ],
   },
   {
-    fr: 'Combien de temps pouvez-vous y consacrer ?',
+    fr: 'Combien de temps peux-tu y consacrer ?',
     en: 'How much time can you dedicate?',
     answers: [
       {
         fr: '5h et plus par semaine - je veux apprendre à le faire',
         en: '5h+ per week - I want to learn how to do it',
         offer: 'academy',
-        reasonFr: 'Vous avez le temps et l\u2019envie d\u2019apprendre le métier vous-même.',
+        reasonFr: 'Tu as le temps et l\u2019envie d\u2019apprendre le métier toi-même.',
         reasonEn: 'You have the time and the drive to learn the craft yourself.',
       },
       {
-        fr: 'Environ 1h par semaine - je parle, vous produisez',
+        fr: 'Environ 1h par semaine - je parle, tu produis',
         en: 'About 1h per week - I talk, you produce',
         offer: 'empire',
         reasonFr: '1h par semaine, c\u2019est exactement le format Empire.',
@@ -119,34 +119,34 @@ const QUESTIONS: Question[] = [
     ],
   },
   {
-    fr: 'Face caméra, vous vous situez où ?',
+    fr: 'Face caméra, tu te situes où ?',
     en: 'On camera, where do you stand?',
     answers: [
       {
         fr: 'Je veux apprendre à bien le faire',
         en: 'I want to learn to do it well',
         offer: 'academy',
-        reasonFr: 'Vous voulez maîtriser la caméra, pas seulement l\u2019utiliser.',
+        reasonFr: 'Tu veux maîtriser la caméra, pas seulement l\u2019utiliser.',
         reasonEn: 'You want to master the camera, not just use it.',
       },
       {
         fr: 'Je le fais volontiers si on gère le reste',
         en: 'Happy to do it if you handle the rest',
         offer: 'empire',
-        reasonFr: 'Vous acceptez d\u2019être devant la caméra si la production est prise en charge.',
+        reasonFr: 'Tu acceptes d\u2019être devant la caméra si la production est prise en charge.',
         reasonEn: 'You\u2019re fine on camera as long as production is handled.',
       },
       {
         fr: 'Le moins possible',
         en: 'As little as possible',
         offer: 'legende',
-        reasonFr: 'Vous voulez apparaître le moins possible : tout est délégué.',
+        reasonFr: 'Tu veux apparaître le moins possible : tout est délégué.',
         reasonEn: 'You want minimal exposure: everything is delegated.',
       },
     ],
   },
   {
-    fr: 'Votre audience aujourd\u2019hui ?',
+    fr: 'Ton audience aujourd\u2019hui ?',
     en: 'Your audience today?',
     answers: [
       {
@@ -160,23 +160,23 @@ const QUESTIONS: Question[] = [
         fr: 'Entre 500 et 10 000 abonnés',
         en: 'Between 500 and 10,000 followers',
         offer: 'empire',
-        reasonFr: 'Votre audience existe déjà : il faut du volume régulier pour la convertir.',
+        reasonFr: 'Ton audience existe déjà : il faut du volume régulier pour la convertir.',
         reasonEn: 'Your audience already exists: consistent volume will convert it.',
       },
       {
         fr: 'Plus de 10 000, ou une marque déjà connue',
         en: 'Over 10,000, or an established brand',
         offer: 'legende',
-        reasonFr: 'À votre niveau d\u2019audience, l\u2019enjeu est la qualité d\u2019exécution, pas l\u2019apprentissage.',
+        reasonFr: 'À ton niveau d\u2019audience, l\u2019enjeu est la qualité d\u2019exécution, pas l\u2019apprentissage.',
         reasonEn: 'At your audience level, the stakes are execution quality, not learning.',
       },
     ],
   },
   {
-    fr: 'À quel rythme voulez-vous publier ?',
+    fr: 'À quel rythme veux-tu publier ?',
     en: 'How often do you want to publish?',
     optional: true,
-    optionalHintFr: 'Optionnel - sert à suggérer un pack Empire si c\u2019est l\u2019offre pour vous.',
+    optionalHintFr: 'Optionnel - sert à suggérer un pack Empire si c\u2019est l\u2019offre pour toi.',
     optionalHintEn: 'Optional - used to suggest an Empire pack if that\'s your offer.',
     answers: [
       {
@@ -197,7 +197,7 @@ const QUESTIONS: Question[] = [
     ],
   },
   {
-    fr: 'Vous savez déjà quoi dire ?',
+    fr: 'Tu sais déjà quoi dire ?',
     en: 'Do you already know what to say?',
     optional: true,
     optionalHintFr: 'Optionnel - coaching disponible en add-on sur Empire.',
@@ -220,7 +220,7 @@ const QUESTIONS: Question[] = [
     ],
   },
   {
-    fr: 'Vous êtes seul ou en équipe ?',
+    fr: 'Tu es seul ou en équipe ?',
     en: 'Are you solo or in a team?',
     optional: true,
     optionalHintFr: 'Optionnel - places supplémentaires possibles sur Empire.',
@@ -269,9 +269,9 @@ const RESULTS: Record<OfferId, {
     icon: GraduationCap,
     labelFr: 'Academy',
     labelEn: 'Academy',
-    titleFr: 'Devenez Head of Viralité en 21 jours.',
+    titleFr: 'Deviens Head of Viralité en 21 jours.',
     titleEn: 'Become Head of Virality in 21 days.',
-    descFr: 'Apprenez le métier, obtenez votre certification, et gagnez vos premiers 3 000€/mois. Même sans projet à vous. 20 places sur sélection.',
+    descFr: 'Apprends le métier, obtiens ta certification, et gagne tes premiers 3 000€/mois. Même sans projet à toi. 20 places sur sélection.',
     descEn: 'Learn the craft, get certified, and earn your first €3,000/month. Even without your own project. 20 spots, by selection.',
     ctaFr: 'Découvrir l\u2019Academy',
     ctaEn: 'Discover the Academy',
@@ -281,9 +281,9 @@ const RESULTS: Record<OfferId, {
     icon: Sparkles,
     labelFr: 'Empire',
     labelEn: 'Empire',
-    titleFr: 'Parlez 1 heure. Nous créons un mois de contenus.',
+    titleFr: 'Parle 1 heure. Nous créons un mois de contenus.',
     titleEn: 'Talk for 1 hour. We create a month of content.',
-    descFr: 'Parlez 1 heure. Nous créons un mois de contenus. Testez Empire gratuitement pendant 7 jours.',
+    descFr: 'Parle 1 heure. Nous créons un mois de contenus. Teste Empire gratuitement pendant 7 jours.',
     descEn: 'Talk for 1 hour. We create a month of content. Try Empire free for 7 days.',
     ctaFr: 'Tester 7 jours gratuitement',
     ctaEn: 'Start my 7-day free trial',
@@ -293,9 +293,9 @@ const RESULTS: Record<OfferId, {
     icon: Crown,
     labelFr: 'Légende',
     labelEn: 'Legend',
-    titleFr: 'Vous dirigez votre entreprise. Nous dirigeons votre image.',
+    titleFr: 'Tu diriges ton entreprise. Nous dirigeons ton image.',
     titleEn: 'You run your business. We run your image.',
-    descFr: 'Vous dirigez votre entreprise. Nous dirigeons votre image. 10 places, sur sélection.',
+    descFr: 'Tu diriges ton entreprise. Nous dirigeons ton image. 10 places, sur sélection.',
     descEn: 'You run your business. We run your image. 10 spots, application only.',
     ctaFr: 'Candidater',
     ctaEn: 'Apply',
@@ -320,16 +320,16 @@ const ADDONS: Record<AddonId, {
     labelEn: '4h coaching with a virality expert',
     priceFr: 'proposé après candidature',
     priceEn: 'offered after you apply',
-    descFr: 'Vous avez dit que trouver vos sujets vous bloque. Un expert prépare vos angles et votre ligne éditoriale - vous n\u2019avez plus qu\u2019à parler.',
+    descFr: 'Tu as dit que trouver tes sujets te bloque. Un expert prépare tes angles et ta ligne éditoriale - tu n\u2019as plus qu\u2019à parler.',
     descEn: 'You said finding topics blocks you. An expert prepares your angles and editorial line - all you do is talk.',
   },
   seats: {
     icon: Users,
-    labelFr: 'Places supplémentaires pour votre équipe',
+    labelFr: 'Places supplémentaires pour ton équipe',
     labelEn: 'Additional seats for your team',
     priceFr: 'selon la taille de l\u2019équipe',
     priceEn: 'based on team size',
-    descFr: 'Vous avez plusieurs personnes à faire publier. Le prix par place baisse dès 3 places, et tout le monde publie depuis la même plateforme.',
+    descFr: 'Tu as plusieurs personnes à faire publier. Le prix par place baisse dès 3 places, et tout le monde publie depuis la même plateforme.',
     descEn: 'You have several people to get publishing. Price per seat drops from 3 seats up, and everyone publishes from the same platform.',
   },
 }
@@ -344,7 +344,7 @@ function computeResult(picked: Answer[]): OfferId {
 }
 
 /**
- * Quiz "Quelle offre est faite pour vous ?" - monté globalement dans le layout.
+ * Quiz "Quelle offre est faite pour toi ?" - monté globalement dans le layout.
  * S'ouvre uniquement sur l'événement `open-offer-quiz`, donc sur une intention
  * explicite : demander de choisir entre trois abonnements payants n'a de sens que
  * si le visiteur l'a demandé. L'exit intent appartient au quiz créateur, qui
@@ -448,7 +448,7 @@ export function OfferQuizGlobal({ fr }: { fr: boolean }) {
           <div className="flex items-center justify-between border-b border-white/10 px-5 py-4 sm:px-8">
             <div className="flex items-center gap-3">
               <p className="text-sm font-bold text-white">
-                {fr ? 'Quelle offre est faite pour vous ?' : 'Which offer is right for you?'}
+                {fr ? 'Quelle offre est faite pour toi ?' : 'Which offer is right for you?'}
               </p>
               {!result && (
                 <div className="hidden sm:flex items-center gap-1.5">
@@ -485,7 +485,7 @@ export function OfferQuizGlobal({ fr }: { fr: boolean }) {
                   >
                     <span className={`inline-flex items-center gap-1.5 rounded-full border px-4 py-1.5 text-xs font-bold uppercase tracking-wider ${COLOR_CLASSES[result].badge}`}>
                       <res.icon size={14} />
-                      {fr ? `Recommandé pour vous : ${res.labelFr}` : `Recommended for you: ${res.labelEn}`}
+                      {fr ? `Recommandé pour toi : ${res.labelFr}` : `Recommended for you: ${res.labelEn}`}
                     </span>
                     <h2 className="mt-6 text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight text-white">
                       {fr ? res.titleFr : res.titleEn}
@@ -497,7 +497,7 @@ export function OfferQuizGlobal({ fr }: { fr: boolean }) {
                     {reasons.length > 0 && (
                       <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.03] p-5 text-left sm:p-6">
                         <p className="text-xs font-bold uppercase tracking-widest text-neutral-500">
-                          {fr ? `Pourquoi ${res.labelFr} d\u2019après vos réponses` : `Why ${res.labelEn}, based on your answers`}
+                          {fr ? `Pourquoi ${res.labelFr} d\u2019après tes réponses` : `Why ${res.labelEn}, based on your answers`}
                         </p>
                         <ul className="mt-4 space-y-2.5">
                           {reasons.map((r, i) => (
@@ -513,7 +513,7 @@ export function OfferQuizGlobal({ fr }: { fr: boolean }) {
                     {isEmpire && (
                       <div className="mt-4 rounded-2xl border border-empire/25 bg-empire/[0.06] p-5 text-left sm:p-6">
                         <p className="text-xs font-bold uppercase tracking-widest text-neutral-500">
-                          {fr ? 'Niveau suggéré (validé si vous êtes pris)' : 'Suggested level (confirmed if you\'re selected)'}
+                          {fr ? 'Niveau suggéré (validé si tu es pris)' : 'Suggested level (confirmed if you\'re selected)'}
                         </p>
                         <p className="mt-3 text-lg font-extrabold text-white">
                           {fr ? PLAN_LABELS[planId].fr : PLAN_LABELS[planId].en}
@@ -525,7 +525,7 @@ export function OfferQuizGlobal({ fr }: { fr: boolean }) {
                         </p>
                         <p className="mt-1.5 text-[13px] text-neutral-400 leading-relaxed">
                           {fr
-                            ? `${plan.rhythmFr}${seats > 1 ? ', par personne' : ''}, publiés sur vos 7 plateformes. Accès sur liste d’attente, profils les plus motivés.`
+                            ? `${plan.rhythmFr}${seats > 1 ? ', par personne' : ''}, publiés sur tes 7 plateformes. Accès sur liste d’attente, profils les plus motivés.`
                             : `${plan.rhythmEn}${seats > 1 ? ', per person' : ''}, published across your 7 platforms. Waitlist access - most motivated profiles.`}
                         </p>
                       </div>

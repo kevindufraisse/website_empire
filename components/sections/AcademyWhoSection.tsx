@@ -81,13 +81,13 @@ export default function AcademyWhoSection() {
               </p>
               <p className="text-base md:text-lg">
                 {fr
-                  ? <>Aujourd&#39;hui on produit du contenu viral pour des entrepreneurs et des marques - 10M+ vues par mois. Ce bootcamp, c&#39;est notre méthode exacte. Pas une théorie.{' '}<span className="text-academy font-semibold">Vous apprenez ce qu&#39;on fait nous, cette semaine, pour nos clients.</span></>
+                  ? <>Aujourd&#39;hui on produit du contenu viral pour des entrepreneurs et des marques - 10M+ vues par mois. Ce bootcamp, c&#39;est notre méthode exacte. Pas une théorie.{' '}<span className="text-academy font-semibold">Tu apprends ce qu&#39;on fait nous, cette semaine, pour nos clients.</span></>
                   : <>Today we produce viral content for entrepreneurs and brands - 10M+ views per month. This bootcamp is our exact method. Not theory.{' '}<span className="text-academy font-semibold">You learn what we do ourselves, this week, for our clients.</span></>
                 }
               </p>
               <p className="text-base md:text-lg text-neutral-400">
                 {fr
-                  ? "Et à la sortie, vous ne repartez pas avec une attestation de présence : votre certification dépend de vos vrais chiffres."
+                  ? "Et à la sortie, tu ne repars pas avec une attestation de présence : ta certification dépend de tes vrais chiffres."
                   : "And you don't leave with an attendance certificate: your certification depends on your real numbers."}
               </p>
             </div>

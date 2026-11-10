@@ -27,17 +27,17 @@ export default function AcademySelectionSection() {
   const fr = lang === 'fr'
 
   const criteria = [
-    { ok: true,  text: fr ? "Vous voulez créer un revenu en ligne sans dépendre d'un patron ou d'un algorithme existant" : 'You want to build online income without depending on a boss or an existing algorithm' },
-    { ok: true,  text: fr ? "Vous êtes prêt à créer du contenu chaque jour pendant 21 jours, même si c'est inconfortable" : "You're ready to create content every day for 21 days, even if it's uncomfortable" },
-    { ok: true,  text: fr ? "Vous partez de zéro - pas d'audience, pas d'expérience, c'est exactement le profil qu'on veut" : "You're starting from scratch - no audience, no experience, that's exactly the profile we want" },
-    { ok: false, text: fr ? 'Vous avez déjà une grosse audience et un système de contenu qui tourne' : 'You already have a large audience and a running content system' },
-    { ok: false, text: fr ? 'Vous cherchez une formation à regarder sans rien appliquer' : "You're looking for a course to watch without applying anything" },
+    { ok: true,  text: fr ? "Tu veux créer un revenu en ligne sans dépendre d'un patron ou d'un algorithme existant" : 'You want to build online income without depending on a boss or an existing algorithm' },
+    { ok: true,  text: fr ? "Tu es prêt à créer du contenu chaque jour pendant 21 jours, même si c'est inconfortable" : "You're ready to create content every day for 21 days, even if it's uncomfortable" },
+    { ok: true,  text: fr ? "Tu pars de zéro - pas d'audience, pas d'expérience, c'est exactement le profil qu'on veut" : "You're starting from scratch - no audience, no experience, that's exactly the profile we want" },
+    { ok: false, text: fr ? 'Tu as déjà une grosse audience et un système de contenu qui tourne' : 'You already have a large audience and a running content system' },
+    { ok: false, text: fr ? 'Tu cherches une formation à regarder sans rien appliquer' : "You're looking for a course to watch without applying anything" },
   ]
 
   const steps = [
-    { num: '01', title: fr ? 'Vous candidatez' : 'You apply', desc: fr ? '1 minute. Prénom, email, tel, LinkedIn + 2 questions. Vous prenez votre place dans la file.' : '1 minute. Name, email, phone, LinkedIn + 2 questions. You take your spot in the queue.' },
+    { num: '01', title: fr ? 'Tu candidates' : 'You apply', desc: fr ? '1 minute. Prénom, email, tel, LinkedIn + 2 questions. Tu prends ta place dans la file.' : '1 minute. Name, email, phone, LinkedIn + 2 questions. You take your spot in the queue.' },
     { num: '02', title: fr ? 'On lit chaque candidature' : 'We read every application', desc: fr ? 'Kevin et Marc gardent les 20 profils les plus motivés pour la prochaine promo.' : 'Kevin and Marc keep the 20 most motivated profiles for the next cohort.' },
-    { num: '03', title: fr ? 'Vous rejoignez la promotion' : 'You join the cohort', desc: fr ? "Admis ou pas, on vous répond. Si c'est non, on vous dit pourquoi et ce qu'on conseille à la place." : "Accepted or not, we answer you. If it's a no, we tell you why and what we recommend instead." },
+    { num: '03', title: fr ? 'Tu rejoins la promotion' : 'You join the cohort', desc: fr ? "Admis ou pas, on te répond. Si c'est non, on te dit pourquoi et ce qu'on conseille à la place." : "Accepted or not, we answer you. If it's a no, we tell you why and what we recommend instead." },
   ]
 
   return (

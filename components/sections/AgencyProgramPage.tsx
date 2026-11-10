@@ -43,23 +43,23 @@ export default function AgencyProgramPage() {
     ? [
         {
           q: 'Mes clients doivent-ils acheter leur propre abonnement Empire ?',
-          a: `Oui. Chaque client possède son espace et ses crédits de production, à partir de ${clientStarterPrice} € par mois. Cet abonnement est facturé séparément de vos honoraires d’accompagnement.`,
+          a: `Oui. Chaque client possède son espace et ses crédits de production, à partir de ${clientStarterPrice} € par mois. Cet abonnement est facturé séparément de tes honoraires d’accompagnement.`,
         },
         {
           q: 'Dois-je recruter un copywriter ou un monteur ?',
-          a: 'Non. Empire prend en charge la rédaction, le montage, la programmation et le suivi de la production. Votre agence conserve la stratégie, la relation et les validations.',
+          a: 'Non. Empire prend en charge la rédaction, le montage, la programmation et le suivi de la production. Ton agence conserve la stratégie, la relation et les validations.',
         },
         {
           q: 'Puis-je utiliser Empire en marque blanche ?',
-          a: 'Vous restez l’interlocuteur principal et pouvez intégrer Empire dans votre processus. Les modalités exactes de présentation au client sont expliquées pendant la porte ouverte.',
+          a: 'Tu restes l’interlocuteur principal et peux intégrer Empire dans ton processus. Les modalités exactes de présentation au client sont expliquées pendant la porte ouverte.',
         },
         {
           q: 'Les 4 heures par mois et les honoraires sont-ils garantis ?',
-          a: 'Non. Ce sont des repères indicatifs une fois le système maîtrisé. Le temps et les honoraires réels dépendent de votre offre, de votre équipe et de chaque mission.',
+          a: 'Non. Ce sont des repères indicatifs une fois le système maîtrisé. Le temps et les honoraires réels dépendent de ton offre, de ton équipe et de chaque mission.',
         },
         {
           q: 'Empire fournit-il des clients à mon agence ?',
-          a: 'Le programme ne garantit aucune mission. Des opportunités peuvent être proposées selon les besoins du réseau, mais la page est conçue d’abord pour déployer l’offre auprès de votre portefeuille et de vos prospects.',
+          a: 'Le programme ne garantit aucune mission. Des opportunités peuvent être proposées selon les besoins du réseau, mais la page est conçue d’abord pour déployer l’offre auprès de ton portefeuille et de tes prospects.',
         },
       ]
     : [
@@ -98,7 +98,7 @@ export default function AgencyProgramPage() {
         <div className="container relative z-10">
           <div className="mx-auto max-w-[44rem] text-center">
             <nav
-              aria-label={fr ? 'Choisissez votre parcours' : 'Choose your path'}
+              aria-label={fr ? 'Choisis ton parcours' : 'Choose your path'}
               className="mx-auto mb-5 inline-flex rounded-full border border-white/[0.08] bg-white/[0.025] p-0.5"
             >
               <Link
@@ -127,12 +127,12 @@ export default function AgencyProgramPage() {
 
             <h1 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl md:text-[2.75rem] md:leading-[1.15]">
               {fr
-                ? 'Ajoutez le personal branding à votre agence. Sans recruter une équipe de production.'
+                ? 'Ajoute le personal branding à ton agence. Sans recruter une équipe de production.'
                 : 'Add personal branding to your agency. Without hiring a production team.'}
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-[17px] leading-[1.55] text-neutral-300">
               {fr
-                ? 'Vous gardez la stratégie, la relation et les validations. Empire propose les sujets, rédige, monte, programme et mesure pour chaque client.'
+                ? 'Tu gardes la stratégie, la relation et les validations. Empire propose les sujets, rédige, monte, programme et mesure pour chaque client.'
                 : 'You keep strategy, relationships and approvals. Empire suggests topics, writes, edits, schedules and measures for every client.'}
             </p>
             <AcademyPlatformLogos fr={fr} />
@@ -253,7 +253,7 @@ export default function AgencyProgramPage() {
             </h2>
             <p className="mt-5 max-w-3xl text-[16px] leading-relaxed text-neutral-400">
               {fr
-                ? 'Plus le portefeuille grandit, plus votre équipe passe du temps à chercher les idées, relancer les clients, rédiger, monter, valider et programmer.'
+                ? 'Plus le portefeuille grandit, plus ton équipe passe du temps à chercher les idées, relancer les clients, rédiger, monter, valider et programmer.'
                 : 'As the portfolio grows, your team spends more time finding ideas, chasing clients, writing, editing, approving and scheduling.'}
             </p>
 
@@ -322,7 +322,7 @@ export default function AgencyProgramPage() {
                     ? [
                         'Un espace et un calendrier séparés par client.',
                         'La rédaction, le montage et la programmation pris en charge.',
-                        'Votre équipe reste concentrée sur la stratégie et la relation.',
+                        'Ton équipe reste concentrée sur la stratégie et la relation.',
                       ]
                     : [
                         'A separate workspace and calendar for each client.',
@@ -348,20 +348,20 @@ export default function AgencyProgramPage() {
             <SectionLabel>{fr ? 'Ce qui change' : 'What changes'}</SectionLabel>
             <h2 className="mt-4 max-w-3xl text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
               {fr
-                ? 'Vendez le pilotage. Pas les heures de montage.'
+                ? 'Vends le pilotage. Pas les heures de montage.'
                 : 'Sell leadership. Not editing hours.'}
             </h2>
             <p className="mt-5 max-w-3xl text-[16px] leading-relaxed text-neutral-400">
               {fr
-                ? 'Votre valeur reste humaine : comprendre le client, choisir les priorités et faire avancer sa présence. La production lourde passe dans Empire.'
+                ? 'Ta valeur reste humaine : comprendre le client, choisir les priorités et faire avancer sa présence. La production lourde passe dans Empire.'
                 : 'Your value stays human: understand the client, choose priorities and move their presence forward. Heavy production runs through Empire.'}
             </p>
             <div className="mt-10 grid gap-4 md:grid-cols-3">
               {(fr
                 ? [
-                    ['Plus de capacité', 'Ajoutez des clients sans reconstruire une équipe de rédaction et de montage.'],
+                    ['Plus de capacité', 'Ajoute des clients sans reconstruire une équipe de rédaction et de montage.'],
                     ['Moins de coordination', 'Un parcours commun remplace les briefs, fichiers et validations dispersés.'],
-                    ['Une offre plus solide', 'La régularité, le suivi et les décisions deviennent votre valeur récurrente.'],
+                    ['Une offre plus solide', 'La régularité, le suivi et les décisions deviennent ta valeur récurrente.'],
                   ]
                 : [
                     ['More capacity', 'Add clients without rebuilding a writing and editing team.'],
@@ -390,7 +390,7 @@ export default function AgencyProgramPage() {
             </h2>
             <p className="mt-5 max-w-3xl text-[16px] leading-relaxed text-neutral-400">
               {fr
-                ? 'Vous pilotez les décisions. Le client partage son expertise. Empire transforme la conversation en contenus adaptés à LinkedIn, Instagram, TikTok, YouTube, X, Threads et Facebook, prêts à valider et à publier.'
+                ? 'Tu pilotes les décisions. Le client partage son expertise. Empire transforme la conversation en contenus adaptés à LinkedIn, Instagram, TikTok, YouTube, X, Threads et Facebook, prêts à valider et à publier.'
                 : 'You steer decisions. The client shares expertise. Empire turns the conversation into content adapted for LinkedIn, Instagram, TikTok, YouTube, X, Threads and Facebook, ready to approve and publish.'}
             </p>
             <AcademyProductDemo fr={fr} />
@@ -410,10 +410,10 @@ export default function AgencyProgramPage() {
             <div className="mt-10 grid gap-3 sm:grid-cols-2">
               {(fr
                 ? [
-                    ['01', 'Sélectionnez les sujets adaptés au client.'],
-                    ['02', 'Envoyez son lien pour recueillir son expertise.'],
-                    ['03', 'Validez les textes, vidéos et priorités avec lui.'],
-                    ['04', 'Retrouvez les contenus, le calendrier et les performances dans son espace.'],
+                    ['01', 'Sélectionne les sujets adaptés au client.'],
+                    ['02', 'Envoie son lien pour recueillir son expertise.'],
+                    ['03', 'Valide les textes, vidéos et priorités avec lui.'],
+                    ['04', 'Retrouve les contenus, le calendrier et les performances dans son espace.'],
                   ]
                 : [
                     ['01', 'Select topics adapted to the client.'],
@@ -439,7 +439,7 @@ export default function AgencyProgramPage() {
               <SectionLabel>{fr ? 'Capacité et rentabilité' : 'Capacity and economics'}</SectionLabel>
               <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
                 {fr
-                  ? 'Que peut représenter cette offre dans votre portefeuille ?'
+                  ? 'Que peut représenter cette offre dans ton portefeuille ?'
                   : 'What could this offer represent across your portfolio?'}
               </h2>
             </div>
@@ -517,9 +517,9 @@ export default function AgencyProgramPage() {
             <div className="mt-10 grid gap-4 md:grid-cols-3">
               {(fr
                 ? [
-                    ['Semaine 1', 'Construisez l’offre, choisissez un client pilote et créez une première démonstration.'],
-                    ['Semaine 2', 'Apprenez les hooks, formats et mécaniques de viralité, puis adaptez-les à chaque réseau.'],
-                    ['Semaine 3', 'Organisez l’onboarding et déployez l’offre auprès du portefeuille ou en marque blanche.'],
+                    ['Semaine 1', 'Construis l’offre, choisis un client pilote et crée une première démonstration.'],
+                    ['Semaine 2', 'Apprends les hooks, formats et mécaniques de viralité, puis adapte-les à chaque réseau.'],
+                    ['Semaine 3', 'Organise l’onboarding et déploie l’offre auprès du portefeuille ou en marque blanche.'],
                   ]
                 : [
                     ['Week 1', 'Build the offer, choose a pilot client and create a first demonstration.'],
@@ -535,7 +535,7 @@ export default function AgencyProgramPage() {
             </div>
             <p className="mt-6 max-w-3xl text-[13px] leading-relaxed text-neutral-600">
               {fr
-                ? 'Le délai de déploiement et les ventes dépendent de votre portefeuille, de votre positionnement et de votre exécution.'
+                ? 'Le délai de déploiement et les ventes dépendent de ton portefeuille, de ton positionnement et de ton exécution.'
                 : 'Deployment time and sales depend on your portfolio, positioning and execution.'}
             </p>
           </div>
@@ -566,7 +566,7 @@ export default function AgencyProgramPage() {
             <div>
               <SectionLabel>{fr ? 'Démonstration agence' : 'Agency demonstration'}</SectionLabel>
               <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
-                {fr ? 'Découvrez le parcours complet en démonstration.' : 'See the complete workflow in the demonstration.'}
+                {fr ? 'Découvre le parcours complet en démonstration.' : 'See the complete workflow in the demonstration.'}
               </h2>
               <div className="mt-6 flex items-center gap-4">
                 <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full ring-2 ring-academy/40">
@@ -581,7 +581,7 @@ export default function AgencyProgramPage() {
               </div>
               <p className="mt-5 text-[16px] leading-relaxed text-neutral-400">
                 {fr
-                  ? 'Dans cette présentation enregistrée, nous vous montrons comment organiser un client, recueillir son expertise, produire ses contenus et suivre l’économie de l’offre. Replay immédiat ou session au choix, avec un horaire affiché dans votre fuseau.'
+                  ? 'Dans cette présentation enregistrée, nous te montrons comment organiser un client, recueillir son expertise, produire ses contenus et suivre l’économie de l’offre. Replay immédiat ou session au choix, avec un horaire affiché dans ton fuseau.'
                   : 'This recorded presentation shows how to organize a client, capture expertise, produce content and understand the offer economics. Watch the replay immediately or choose a session shown in your time zone.'}
               </p>
             </div>
@@ -593,9 +593,9 @@ export default function AgencyProgramPage() {
                 {(fr
                   ? [
                       'Démonstration réelle du parcours client.',
-                      'Répartition précise entre votre agence et Empire.',
+                      'Répartition précise entre ton agence et Empire.',
                       'Temps, crédits, honoraires et abonnement client.',
-                      'Pour vos questions, répondez à l’email de confirmation.',
+                      'Pour tes questions, réponds à l’email de confirmation.',
                     ]
                   : [
                       'Real demonstration of the client workflow.',
@@ -624,7 +624,7 @@ export default function AgencyProgramPage() {
             <SectionLabel>{fr ? 'Le programme partenaire' : 'The partner program'}</SectionLabel>
             <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
               {fr
-                ? 'Déployez l’offre avec la méthode, les crédits et la communauté.'
+                ? 'Déploie l’offre avec la méthode, les crédits et la communauté.'
                 : 'Deploy the offer with the method, credits and community.'}
             </h2>
             <p className="mt-5 text-[16px] leading-relaxed text-neutral-400">

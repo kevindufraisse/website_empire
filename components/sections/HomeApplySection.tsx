@@ -13,9 +13,9 @@ export default function HomeApplySection() {
     <section id="rejoindre" className="bg-black py-20 md:py-28">
       <div className="container mx-auto max-w-6xl">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-xs font-bold uppercase tracking-widest text-empire">{fr ? 'Choisissez votre rythme' : 'Choose your pace'}</p>
-          <h2 className="mt-4 text-3xl font-extrabold text-white sm:text-4xl">{fr ? 'Une présence régulière. Une offre adaptée à votre activité.' : 'A consistent presence. A plan that fits your business.'}</h2>
-          <p className="mt-4 text-neutral-400">{fr ? 'Idées, création de contenus et publication sur vos 7 réseaux.' : 'Ideas, content creation and publishing across 7 networks.'}</p>
+          <p className="text-xs font-bold uppercase tracking-widest text-empire">{fr ? 'Choisis ton rythme' : 'Choose your pace'}</p>
+          <h2 className="mt-4 text-3xl font-extrabold text-white sm:text-4xl">{fr ? 'Une présence régulière. Une offre adaptée à ton activité.' : 'A consistent presence. A plan that fits your business.'}</h2>
+          <p className="mt-4 text-neutral-400">{fr ? 'Idées, création de contenus et publication sur tes 7 réseaux.' : 'Ideas, content creation and publishing across 7 networks.'}</p>
         </div>
         <div className="mt-8">
           <EmpireSalesCta source="home-offers" />

@@ -46,7 +46,7 @@ export default function TierNav({ instance = 'main' }: { instance?: string }) {
       id: 'autopilot',
       href: '/legende',
       label: 'Légende',
-      sublabel: fr ? 'Confiez-nous le système' : 'Hand us the system',
+      sublabel: fr ? 'Confie-nous le système' : 'Hand us the system',
       color: '#d4a574',
     },
   ]

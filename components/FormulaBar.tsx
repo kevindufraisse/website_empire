@@ -53,7 +53,7 @@ export const FORMULA_TERMS: Term[] = [
     anchor: 'formula-message',
     fr: 'Message',
     en: 'Message',
-    hintFr: 'Telegram, veille concurrents, sujets viraux. Vous cliquez.',
+    hintFr: 'Telegram, veille concurrents, sujets viraux. Tu cliques.',
     hintEn: 'Telegram, competitor watch, viral topics. You click.',
   },
   {
@@ -85,7 +85,7 @@ export const FORMULA_TERMS: Term[] = [
     anchor: 'formula-cost',
     fr: 'Coût',
     en: 'Cost',
-    hintFr: 'Le prix d\'une équipe, divisé par 100. Vous pouvez payer à l\'usage.',
+    hintFr: 'Le prix d\'une équipe, divisé par 100. Tu peux payer à l\'usage.',
     hintEn: 'The price of a team, divided by 100. You can pay for what you use.',
   },
 ]

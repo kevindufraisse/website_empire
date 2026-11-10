@@ -41,7 +41,7 @@ export default function CookiePreferences({ onChange }: { onChange?: (consent: C
     {open && (
       <section
         role="dialog"
-        aria-label="Vos choix de cookies"
+        aria-label="Tes choix de cookies"
         style={{ position: 'fixed', left: 0, right: 0, bottom: 0, zIndex: 9999, padding: '0 10px calc(10px + env(safe-area-inset-bottom, 0px))', pointerEvents: 'none' }}
       >
         <div style={{ pointerEvents: 'auto', maxWidth: 520, margin: '0 auto', background: '#171717', color: '#fff', border: '1px solid #2e2e2e', borderRadius: 14, padding: '10px 12px', boxShadow: '0 8px 30px #0008', fontSize: 12.5, lineHeight: 1.4 }}>

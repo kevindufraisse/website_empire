@@ -28,11 +28,11 @@ export default function AcademyPricingSection() {
 
   const features = fr
     ? [
-        '21 défis quotidiens - un par jour, vous postez, vous voyez ce qui marche',
+        '21 défis quotidiens - un par jour, tu postes, tu vois ce qui marche',
         '6 masterclass lives - psychologie virale, LinkedIn, Instagram, YouTube, IA & automatisation funnel, monétisation 3K€/mois',
-        'Pod LinkedIn - le groupe engage sur vos posts, vos stats décollent',
-        'Certification officielle - Bronze, Argent ou Or selon vos résultats, ajoutable sur LinkedIn',
-        'Accès à Empire Alpha - l\'outil où vous produisez vos posts et vos Shorts en parlant 15 min',
+        'Pod LinkedIn - le groupe engage sur tes posts, tes stats décollent',
+        'Certification officielle - Bronze, Argent ou Or selon tes résultats, ajoutable sur LinkedIn',
+        'Accès à Empire Alpha - l\'outil où tu produis tes posts et tes Shorts en parlant 15 min',
         'Replays, défis et groupe alumni à vie',
         'Premier client garanti après 3 mois*',
       ]
@@ -63,7 +63,7 @@ export default function AcademyPricingSection() {
     },
     {
       label: fr ? 'Recruter une agence' : 'Hire an agency',
-      sub: fr ? 'On produit pour vous' : 'They produce for you',
+      sub: fr ? 'On produit pour toi' : 'They produce for you',
       price: '2-5K€/mois',
       detail: fr ? 'Sans forcément comprendre le système' : 'Without necessarily learning the system',
       dim: true,
@@ -92,7 +92,7 @@ export default function AcademyPricingSection() {
               </h2>
               <p className="text-neutral-400 max-w-xl mx-auto">
                 {fr
-                  ? `21 jours pour apprendre la méthode, obtenir votre certification et accéder au réseau Empire. ${ACADEMY_ENTRY_PRICE}\u202F€ pour cette promotion.`
+                  ? `21 jours pour apprendre la méthode, obtenir ta certification et accéder au réseau Empire. ${ACADEMY_ENTRY_PRICE}\u202F€ pour cette promotion.`
                   : `21 days to learn the method, get certified and join the Empire network. €${ACADEMY_ENTRY_PRICE} for this cohort.`}
               </p>
             </div>
@@ -107,7 +107,7 @@ export default function AcademyPricingSection() {
 
                 {/* Left - features */}
                 <div>
-                  <p className="text-xs font-bold text-neutral-400 tracking-widest uppercase mb-5">{fr ? 'Ce que vous obtenez' : 'What you get'}</p>
+                  <p className="text-xs font-bold text-neutral-400 tracking-widest uppercase mb-5">{fr ? 'Ce que tu obtiens' : 'What you get'}</p>
                   <div className="space-y-3.5">
                     {features.map((feature, i) => (
                       <motion.div
@@ -195,13 +195,13 @@ export default function AcademyPricingSection() {
                     <p className="text-[11px] text-neutral-400 leading-relaxed">
                       <span className="font-semibold text-neutral-200">{fr ? 'En option :' : 'Optional:'}</span>{' '}
                       {fr
-                        ? "faire produire vos contenus par notre équipe, via un abonnement Empire. Le bootcamp vous apprend à les créer vous-même - sur la voie partenaire, la production des missions clients est prise en charge."
+                        ? "faire produire tes contenus par notre équipe, via un abonnement Empire. Le bootcamp t'apprend à les créer toi-même - sur la voie partenaire, la production des missions clients est prise en charge."
                         : "have our team produce your content, through an Empire subscription. The bootcamp teaches you to create it yourself - on the partner path, production for client missions is covered."}
                     </p>
                   </div>
                   <p className="mt-3 text-[10px] text-neutral-600 text-center leading-relaxed">
                     {fr
-                      ? "*Premier client garanti : réservé au chemin Empire (option 2). Si vous suivez la méthode et que vous n'avez pas de client après 3 mois, on continue avec vous gratuitement jusqu'à ce que ça arrive."
+                      ? "*Premier client garanti : réservé au chemin Empire (option 2). Si tu suis la méthode et que tu n'as pas de client après 3 mois, on continue avec toi gratuitement jusqu'à ce que ça arrive."
                       : "*First client guaranteed: reserved for the Empire path (option 2). If you follow the method and don't have a client after 3 months, we continue with you for free until it happens."}
                   </p>
                 </div>

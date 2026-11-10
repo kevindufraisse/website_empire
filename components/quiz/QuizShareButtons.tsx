@@ -49,7 +49,7 @@ export default function QuizShareButtons({ archetype, score }: Props) {
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     } catch {
-      window.prompt(lang === 'fr' ? 'Copiez ce lien :' : 'Copy this link:', url)
+      window.prompt(lang === 'fr' ? 'Copie ce lien :' : 'Copy this link:', url)
     }
   }
 
@@ -57,12 +57,12 @@ export default function QuizShareButtons({ archetype, score }: Props) {
     <div className="rounded-2xl p-5 sm:p-6 bg-white/[0.03] border border-white/10 mt-6">
       <p className="text-[11px] uppercase tracking-[0.2em] text-empire font-bold mb-2">
         {lang === 'fr'
-          ? 'Vous connaissez quelqu\u2019un qui a besoin de ce test ?'
+          ? 'Tu connais quelqu\u2019un qui a besoin de ce test ?'
           : 'Know someone who needs this quiz?'}
       </p>
       <p className="text-sm text-neutral-300 mb-4 leading-relaxed">
         {lang === 'fr'
-          ? 'Partagez votre archétype et invitez-le à découvrir le sien.'
+          ? 'Partage ton archétype et invite-le à découvrir le sien.'
           : 'Share your archetype and invite them to discover theirs.'}
       </p>
       <div className="flex flex-wrap gap-2">

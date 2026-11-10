@@ -33,17 +33,17 @@ export default function AcademyGuaranteeSection() {
             </p>
             <h2 className="text-2xl md:text-4xl font-bold text-white leading-tight mb-4">
               {fr
-                ? 'Vous ne repartez pas seulement avec une formation.'
+                ? 'Tu ne repars pas seulement avec une formation.'
                 : 'You don\'t leave with just a course.'}
             </h2>
             <p className="text-neutral-300 text-base md:text-lg leading-relaxed mb-4 max-w-xl mx-auto">
               {fr
-                ? 'Nous restons avec vous jusqu\'à votre première mission.'
+                ? 'Nous restons avec toi jusqu\'à ta première mission.'
                 : 'We stay with you until your first mission.'}
             </p>
             <p className="text-sm text-neutral-400 leading-relaxed max-w-xl mx-auto mb-6">
               {fr
-                ? 'Si vous suivez le programme et n\'avez toujours pas de client après 3 mois, nous continuons à vous accompagner gratuitement jusqu\'à ce que vous en obteniez un.'
+                ? 'Si tu suis le programme et n\'aie toujours pas de client après 3 mois, nous continuons à t\'accompagner gratuitement jusqu\'à ce que tu en obtiennes un.'
                 : 'If you follow the program and still have no client after 3 months, we keep supporting you for free until you get one.'}
             </p>
             <p className="text-[11px] text-neutral-500 leading-relaxed max-w-lg mx-auto">

@@ -11,11 +11,11 @@ export default function AcademyPainSection() {
 
   const pains = fr
     ? [
-        'Vous savez que les entreprises ont besoin de contenu, mais vous ne savez pas comment le produire efficacement.',
-        'Vous passez des heures sur un post sans comprendre pourquoi il fonctionne ou non.',
-        'Vous voyez des créateurs exploser et vous aimeriez comprendre la mécanique derrière leurs résultats.',
-        'Vous voulez une compétence monétisable, sans devoir créer une audience énorme avant de gagner de l\'argent.',
-        'Vous avez envie de vous lancer dans le contenu mais vous ne savez pas comment trouver vos premières missions.',
+        'Tu sais que les entreprises ont besoin de contenu, mais tu ne sais pas comment le produire efficacement.',
+        'Tu passes des heures sur un post sans comprendre pourquoi il fonctionne ou non.',
+        'Tu vois des créateurs exploser et tu aimerais comprendre la mécanique derrière leurs résultats.',
+        'Tu veux une compétence monétisable, sans devoir créer une audience énorme avant de gagner de l\'argent.',
+        'Tu as envie de te lancer dans le contenu mais tu ne sais pas comment trouver tes premières missions.',
       ]
     : [
         'You know companies need content, but you don\'t know how to produce it efficiently.',
@@ -45,12 +45,12 @@ export default function AcademyPainSection() {
             className="text-2xl md:text-3xl font-bold text-white leading-tight mb-8"
           >
             {fr
-              ? 'Vous avez compris que le contenu est devenu une compétence. Mais vous ne savez pas encore en faire un métier.'
+              ? 'Tu as compris que le contenu est devenu une compétence. Mais tu ne sais pas encore en faire un métier.'
               : 'You know content has become a skill. You just don\'t know how to turn it into a career yet.'}
           </motion.h2>
 
           <p className="text-sm text-neutral-500 mb-5 text-left">
-            {fr ? 'Vous êtes peut-être ici :' : 'You might be here:'}
+            {fr ? 'Tu es peut-être ici :' : 'You might be here:'}
           </p>
 
           <div className="space-y-3">
@@ -74,7 +74,7 @@ export default function AcademyPainSection() {
             transition={{ duration: 0.5, delay: 0.55 }}
             className="mt-8 text-base md:text-lg text-white font-semibold"
           >
-            {fr ? 'Academy existe pour vous apprendre exactement ça.' : 'Academy exists to teach you exactly that.'}
+            {fr ? 'Academy existe pour t\'apprendre exactement ça.' : 'Academy exists to teach you exactly that.'}
           </motion.p>
         </div>
       </div>

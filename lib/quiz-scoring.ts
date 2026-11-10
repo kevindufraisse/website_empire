@@ -139,7 +139,7 @@ export function computeQuizResult(answers: QuizAnswers): QuizResult {
   //
   // Note: On ne recommande JAMAIS Autopilot publiquement.
   // Les profils "premium" (CA élevé + budget + urgence) reçoivent Copilot
-  // avec une mention "vous pouvez aussi tout déléguer si vous préférez".
+  // avec une mention "tu peux aussi tout déléguer si tu préfères".
   // ───────────────────────────────────────────────────────────────────────────
 
   let recommendedOffer: RecommendedOffer

@@ -114,7 +114,7 @@ export default function FormatsList() {
   const { t, lang } = useLanguage()
   
   const getOutputs = (type: 'long' | 'short' | 'longWithVideo') => {
-    const outputsTitle = lang === 'fr' ? 'Par session vous obtenez :' : 'You get per session:'
+    const outputsTitle = lang === 'fr' ? 'Par session tu obtiens :' : 'You get per session:'
     
     if (type === 'longWithVideo') {
       return {
@@ -184,7 +184,7 @@ export default function FormatsList() {
       ],
       outputs: getOutputs('long'),
       extraInfo: lang === 'fr'
-        ? 'Donnez-nous des transcripts YouTube ou liens Instagram viraux, l\'IA réécrit le contenu pour surfer sur les tendances'
+        ? 'Donne-nous des transcripts YouTube ou liens Instagram viraux, l\'IA réécrit le contenu pour surfer sur les tendances'
         : 'Give us YouTube transcripts or viral Instagram links, AI rewrites the content to ride the trends',
       useCase: {
         title: lang === 'fr' ? 'Parfait pour :' : 'Perfect for:',
@@ -205,7 +205,7 @@ export default function FormatsList() {
       ],
       outputs: getOutputs('short'),
       extraInfo: lang === 'fr'
-        ? 'Donnez un lien reel/vidéo virale, l\'IA réécrit le script, vous le lisez, on monte tout automatiquement'
+        ? 'Donne un lien reel/vidéo virale, l\'IA réécrit le script, tu le lis, on monte tout automatiquement'
         : 'Give a reel/viral video link, AI rewrites the script, you read it, we edit everything automatically',
       useCase: {
         title: lang === 'fr' ? 'Parfait pour :' : 'Perfect for:',
@@ -225,7 +225,7 @@ export default function FormatsList() {
       ],
       outputs: getOutputs('short'),
       extraInfo: lang === 'fr'
-        ? 'Donnez un lien reel/vidéo, l\'IA réécrit le script à votre façon, vous lisez, on monte'
+        ? 'Donne un lien reel/vidéo, l\'IA réécrit le script à ta façon, tu lis, on monte'
         : 'Give a reel/video link, AI rewrites script your way, you read it, we edit',
       useCase: {
         title: lang === 'fr' ? 'Parfait pour :' : 'Perfect for:',
@@ -246,7 +246,7 @@ export default function FormatsList() {
       ],
       outputs: getOutputs('long'),
       extraInfo: lang === 'fr'
-        ? 'On vous envoie un script mot pour mot optimisé. Vous le lisez naturellement. On transforme en 5 à 40 contenus par semaine selon votre pack.'
+        ? 'On t\'envoie un script mot pour mot optimisé. Tu le lis naturellement. On transforme en 5 à 40 contenus par semaine selon ton pack.'
         : 'We send you an optimized word-for-word script. You read it naturally. We turn it into 5 to 40 pieces per week depending on your pack.',
       useCase: {
         title: lang === 'fr' ? 'Parfait pour :' : 'Perfect for:',

@@ -36,7 +36,7 @@ export default function AcademyHeroSection() {
           </div>
 
           <h1 className="mb-5 text-3xl font-extrabold leading-tight sm:text-4xl md:text-5xl lg:text-6xl">
-            {fr ? 'Devenez ' : 'Become '}
+            {fr ? 'Deviens ' : 'Become '}
             <span className="text-academy">{fr ? 'Head of Viralité' : 'Head of Virality'}</span>
             {fr ? ' en 21 jours.' : ' in 21 days.'}
           </h1>
@@ -44,12 +44,12 @@ export default function AcademyHeroSection() {
           <div className="mx-auto mb-6 max-w-2xl space-y-3">
             <p className="text-lg leading-relaxed text-neutral-200 sm:text-xl">
               {fr
-                ? "Apprenez à transformer l'expertise d'une marque en contenus qui attirent l'attention - puis faites de cette compétence votre nouveau métier."
+                ? "Apprends à transformer l'expertise d'une marque en contenus qui attirent l'attention - puis fais de cette compétence ton nouveau métier."
                 : "Learn to turn a brand's expertise into content that earns attention - then make that skill your new craft."}
             </p>
             <p className="text-sm leading-relaxed text-neutral-400 sm:text-base">
               {fr
-                ? '21 jours pour apprendre la méthode, obtenir votre certification et décrocher vos premières missions. Même sans avoir votre propre projet.'
+                ? '21 jours pour apprendre la méthode, obtenir ta certification et décrocher tes premières missions. Même sans avoir ton propre projet.'
                 : '21 days to learn the method, earn your certification and land your first missions. Even without your own project.'}
             </p>
           </div>
@@ -71,7 +71,7 @@ export default function AcademyHeroSection() {
 
           <p className="text-[11px] text-neutral-500">
             {fr
-              ? 'Découvrez le modèle partenariat avant de candidater'
+              ? 'Découvre le modèle partenariat avant de candidater'
               : 'See the partnership model before you apply'}
           </p>
         </div>

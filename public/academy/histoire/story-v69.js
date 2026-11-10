@@ -15,7 +15,7 @@
   const choice=root.querySelector('.v60-choice'); if(!choice)return;
   choice.querySelectorAll('[data-v60-choice]').forEach(b=>b.setAttribute('aria-pressed',String(value===b.dataset.v60Choice)));
   choice.querySelectorAll('[data-profile]').forEach(n=>n.classList.toggle('is-selected',value===n.dataset.profile));
-  const text=value==='left'?'Vous avez vu comment je travaille : chercher une solution, annoncer un délai, livrer. Mon histoire donne des raisons concrètes de me faire confiance.':value==='right'?'C’est votre choix. Vous pouvez aussi demander à ce concurrent de montrer ses projets et sa façon de travailler.':'Deux offres similaires. Mais une façon de travailler que vous connaissez déjà.';
+  const text=value==='left'?'Tu as vu comment je travaille : chercher une solution, annoncer un délai, livrer. Mon histoire donne des raisons concrètes de me faire confiance.':value==='right'?'C’est ton choix. Tu peux aussi demander à ce concurrent de montrer ses projets et sa façon de travailler.':'Deux offres similaires. Mais une façon de travailler que tu connais déjà.';
   const answer=choice.querySelector('.v60-choice-answer');if(answer.textContent!==text)answer.textContent=text;
  }
  root.addEventListener('click',e=>{const b=e.target.closest('[data-v60-choice]');if(b){manualChoice=true;choose(b.dataset.v60Choice);track('academy_story_choice',{profile:b.dataset.v60Choice})}});

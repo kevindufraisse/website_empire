@@ -27,23 +27,23 @@ export default function ContentMachineSection() {
   const services: { icon: React.ComponentType<{ size?: number; className?: string }>; title: string; desc: string; option?: boolean }[] = [
     {
       icon: Scissors,
-      title: fr ? 'On découpe vos enregistrements' : 'We cut your recordings',
+      title: fr ? 'On découpe tes enregistrements' : 'We cut your recordings',
       desc: fr
-        ? 'Vos enregistrements caméra sont découpés en clips viraux, prêts à publier.'
+        ? 'Tes enregistrements caméra sont découpés en clips viraux, prêts à publier.'
         : 'Your camera recordings are cut into viral clips, ready to publish.',
     },
     {
       icon: Film,
-      title: fr ? 'On monte vos Reels' : 'We edit your Reels',
+      title: fr ? 'On monte tes Reels' : 'We edit your Reels',
       desc: fr
         ? "Montage pro avec hooks, sous-titres et transitions qui captent l'attention."
         : 'Pro editing with hooks, subtitles and transitions that grab attention.',
     },
     {
       icon: PenLine,
-      title: fr ? 'On écrit vos posts & newsletters' : 'We write your posts & newsletters',
+      title: fr ? 'On écrit tes posts & newsletters' : 'We write your posts & newsletters',
       desc: fr
-        ? 'Posts LinkedIn, newsletters… rédigés avec votre voix, votre style. On trouve les sujets viraux pour vous.'
+        ? 'Posts LinkedIn, newsletters… rédigés avec ta voix, ton style. On trouve les sujets viraux pour toi.'
         : 'LinkedIn posts, newsletters… written in your voice, your style. We find viral topics for you.',
     },
     {
@@ -57,14 +57,14 @@ export default function ContentMachineSection() {
       icon: Bot,
       title: 'Cerveau Empire',
       desc: fr
-        ? 'Nos agents IA trouvent les sujets les plus viraux pour votre niche. Le format le plus simple pour créer du contenu.'
+        ? 'Nos agents IA trouvent les sujets les plus viraux pour ta niche. Le format le plus simple pour créer du contenu.'
         : 'Our AI agents find the most viral topics for your niche. The simplest format to create content.',
     },
     {
       icon: GraduationCap,
-      title: fr ? 'Apprenez la viralité' : 'Learn virality',
+      title: fr ? 'Apprends la viralité' : 'Learn virality',
       desc: fr
-        ? 'Bootcamp avec un coach dédié. Il comprend votre business et vous forme aux formats qui performent dans votre niche.'
+        ? 'Bootcamp avec un coach dédié. Il comprend ton business et te forme aux formats qui performent dans ta niche.'
         : 'Bootcamp with a dedicated coach. They understand your business and train you on the formats that perform in your niche.',
       option: true,
     },
@@ -78,7 +78,7 @@ export default function ContentMachineSection() {
           <FadeIn>
             <div className="text-center mb-12 md:mb-16">
               <h2 className="text-3xl md:text-5xl font-bold mb-3">
-                {fr ? 'Tout ce qu\'on fait à votre place' : 'Everything we do for you'}
+                {fr ? 'Tout ce qu\'on fait à ta place' : 'Everything we do for you'}
               </h2>
               <p className="text-lg md:text-xl text-neutral-400">
                 {fr

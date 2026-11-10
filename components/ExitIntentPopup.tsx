@@ -172,7 +172,7 @@ export function ExitIntentPopup() {
             <p className="text-xs text-empire font-bold uppercase tracking-widest mb-3">🎁 Gratuit</p>
             <h3 className="text-lg sm:text-xl font-bold text-white leading-tight mb-2">
               {lang === 'fr'
-                ? 'Rejoignez +700 entrepreneurs'
+                ? 'Rejoins +700 entrepreneurs'
                 : 'Join 700+ entrepreneurs'}
             </h3>
             <div className="flex items-center justify-center gap-3 mb-4">

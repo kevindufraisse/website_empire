@@ -44,7 +44,7 @@ export function MultiAccountBroadcast({p,reel}:{p:Progress;reel:ReactNode}){
  const total=useTransform(p,v=>fmt(ACCOUNTS.reduce((sum,a,i)=>sum+a.views*clamp((v-(.832+i*.006)-.012)/.012),0)))
  return <motion.div className={s.broadcastScene} style={{opacity}}>
   <div className={s.constellation}><Routes p={p}/><Routes p={p} mobile/>
-   <div className={s.broadcastSource}><div className={s.sourceReel}>{reel}<span><Play size={11} fill="currentColor"/>Votre Reel</span></div><small>UNE VIDÉO DANS EMPIRE</small></div>
+   <div className={s.broadcastSource}><div className={s.sourceReel}>{reel}<span><Play size={11} fill="currentColor"/>Ton Reel</span></div><small>UNE VIDÉO DANS EMPIRE</small></div>
    {ACCOUNTS.map((a,i)=><Account key={a.handle} p={p} index={i}/>)}
   </div>
  </motion.div>

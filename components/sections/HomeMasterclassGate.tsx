@@ -87,16 +87,16 @@ export function MasterclassForm({ onReady, reminder = false, idPrefix }: {
   return <div ref={frame} className={stable.formFrame} data-masterclass-form={suffix} style={reservedHeight ? { minHeight: reservedHeight } : undefined}>
     {complete ? <div className={stable.receipt} role="status" aria-live="polite">
       <Check size={22}/><div>
-        <b>{status === 'preview' ? 'Demande simulée dans cet aperçu.' : fr ? 'Votre demande de masterclass est enregistrée.' : 'Your masterclass request is recorded.'}</b>
-        <p>{status === 'preview' ? 'Aucun email n’est envoyé depuis cet aperçu.' : fr ? 'Vous pouvez continuer à découvrir Empire à votre rythme.' : 'You can continue exploring Empire at your own pace.'}</p>
+        <b>{status === 'preview' ? 'Demande simulée dans cet aperçu.' : fr ? 'Ta demande de masterclass est enregistrée.' : 'Your masterclass request is recorded.'}</b>
+        <p>{status === 'preview' ? 'Aucun email n’est envoyé depuis cet aperçu.' : fr ? 'Tu peux continuer à découvrir Empire à ton rythme.' : 'You can continue exploring Empire at your own pace.'}</p>
       </div>
     </div> : <form onSubmit={submit} className={s.form} aria-label={fr ? 'Recevoir la masterclass' : 'Get the masterclass'}>
-      <label htmlFor={`masterclass-email-${suffix}`}>{fr ? 'Recevez la vidéo dans votre boîte mail' : 'Get the video in your inbox'}</label>
-      <div className={s.field}><Mail size={18}/><input id={`masterclass-email-${suffix}`} type="email" autoComplete="email" inputMode="email" required maxLength={254} value={email} onChange={e => { setEmail(e.target.value); if (status === 'error') setStatus('idle') }} placeholder="vous@entreprise.com" aria-invalid={status === 'error' && invalid} aria-describedby={`masterclass-note-${suffix}`} disabled={status === 'loading'}/></div>
+      <label htmlFor={`masterclass-email-${suffix}`}>{fr ? 'Reçois la vidéo dans ta boîte mail' : 'Get the video in your inbox'}</label>
+      <div className={s.field}><Mail size={18}/><input id={`masterclass-email-${suffix}`} type="email" autoComplete="email" inputMode="email" required maxLength={254} value={email} onChange={e => { setEmail(e.target.value); if (status === 'error') setStatus('idle') }} placeholder="toi@entreprise.com" aria-invalid={status === 'error' && invalid} aria-describedby={`masterclass-note-${suffix}`} disabled={status === 'loading'}/></div>
       <div className={s.honeypot} aria-hidden><label htmlFor={`masterclass-company-${suffix}`}>Company</label><input id={`masterclass-company-${suffix}`} name="company" value={company} onChange={e => setCompany(e.target.value)} tabIndex={-1} autoComplete="off"/></div>
       <button type="submit" disabled={status === 'loading'}>{status === 'loading' ? (fr ? 'Enregistrement…' : 'Registering…') : (fr ? 'Recevoir la masterclass gratuite' : 'Get the free masterclass')}<ArrowRight size={17}/></button>
-      <small id={`masterclass-note-${suffix}`}>{PREVIEW ? 'Aperçu du formulaire · envoi d’email désactivé.' : fr ? '1 h 26 de vidéo. À regarder quand vous voulez.' : '1h26 of video. Watch whenever you like.'}</small>
-      {status === 'error' && <p role="alert" className={s.error}>{invalid ? (fr ? 'Vérifiez votre adresse email.' : 'Check your email address.') : (fr ? 'L’envoi n’a pas abouti. Votre saisie est conservée : réessayez ou continuez la découverte.' : 'The request failed. Your entry is kept: retry or continue exploring.')}</p>}
+      <small id={`masterclass-note-${suffix}`}>{PREVIEW ? 'Aperçu du formulaire · envoi d’email désactivé.' : fr ? '1 h 26 de vidéo. À regarder quand tu veux.' : '1h26 of video. Watch whenever you like.'}</small>
+      {status === 'error' && <p role="alert" className={s.error}>{invalid ? (fr ? 'Vérifie ton adresse email.' : 'Check your email address.') : (fr ? 'L’envoi n’a pas abouti. Ta saisie est conservée : réessaie ou continue la découverte.' : 'The request failed. Your entry is kept: retry or continue exploring.')}</p>}
     </form>}
   </div>
 }
@@ -111,7 +111,7 @@ export function MasterclassReminder() {
   const [submittedHere, setSubmittedHere] = useState(false)
   // Do not remove the section while the person is reading its confirmation.
   if (requested !== false && !submittedHere) return null
-  return <section className={s.reminder} aria-labelledby="masterclass-reminder-title"><div className={s.reminderVisual}><MasterclassThumbnail/></div><div className={s.reminderCopy}><small>MASTERCLASS GRATUITE</small><h2 id="masterclass-reminder-title">Comprendre la méthode,<br/>à votre rythme.</h2><p>La formule, expliquée par Kevin en 1 h 26.<br/>Recevez la vidéo et regardez-la quand vous voulez.</p><MasterclassForm reminder onReady={() => setSubmittedHere(true)}/></div></section>
+  return <section className={s.reminder} aria-labelledby="masterclass-reminder-title"><div className={s.reminderVisual}><MasterclassThumbnail/></div><div className={s.reminderCopy}><small>MASTERCLASS GRATUITE</small><h2 id="masterclass-reminder-title">Comprendre la méthode,<br/>à ton rythme.</h2><p>La formule, expliquée par Kevin en 1 h 26.<br/>Reçois la vidéo et regarde-la quand tu veux.</p><MasterclassForm reminder onReady={() => setSubmittedHere(true)}/></div></section>
 }
 
 export default function HomeMasterclassGate({ children }: { children: ReactNode }) {
@@ -120,7 +120,7 @@ export default function HomeMasterclassGate({ children }: { children: ReactNode 
   // No timed scroll, lock, blur, spring transition or disappearing overlay.
   // Only this explicit link navigates to the demo; ordinary scrolling always works.
   return <><section className={s.section} aria-labelledby="masterclass-title" id="home-masterclass"><div className={s.card}>
-    <div className={s.visual}><MasterclassThumbnail/><p>Comprendre la formule.<br/><em>Savoir l’appliquer à votre activité.</em></p></div>
-    <div className={s.copy}><small>MASTERCLASS GRATUITE · FACULTATIVE</small><h2 id="masterclass-title">Comprenez ce qui fait<br/>fonctionner vos contenus.</h2><p>Pourquoi certains contenus sont vus, et comment appliquer ces mécaniques à vos propres sujets. Kevin vous montre la méthode dans la masterclass.</p><MasterclassForm/><a href="#formula-message" className={s.skip} onClick={() => trackAmplitude('home_masterclass_continue_clicked')}>Continuer la découverte<ArrowDown size={16}/></a></div>
+    <div className={s.visual}><MasterclassThumbnail/><p>Comprendre la formule.<br/><em>Savoir l’appliquer à ton activité.</em></p></div>
+    <div className={s.copy}><small>MASTERCLASS GRATUITE · FACULTATIVE</small><h2 id="masterclass-title">Comprends ce qui fait<br/>fonctionner tes contenus.</h2><p>Pourquoi certains contenus sont vus, et comment appliquer ces mécaniques à tes propres sujets. Kevin te montre la méthode dans la masterclass.</p><MasterclassForm/><a href="#formula-message" className={s.skip} onClick={() => trackAmplitude('home_masterclass_continue_clicked')}>Continuer la découverte<ArrowDown size={16}/></a></div>
   </div></section><div className={s.discovery} data-discovery-unlocked="true">{children}</div></>
 }

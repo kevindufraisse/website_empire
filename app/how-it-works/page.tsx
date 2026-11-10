@@ -9,7 +9,7 @@ import FinalBoostCTA from '@/components/sections/FinalBoostCTA'
 
 export const metadata = {
   title: 'Comment ça marche - Empire Internet',
-  description: '1 h de parole par semaine, publié sur 7 réseaux. Voici comment Empire transforme votre voix en présence.',
+  description: '1 h de parole par semaine, publié sur 7 réseaux. Voici comment Empire transforme ta voix en présence.',
   robots: { index: false, follow: false },
 }
 

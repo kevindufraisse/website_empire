@@ -30,39 +30,39 @@ export default function AcademyFAQSection() {
     ? [
         {
           q: "Concrètement, comment ça marche ?",
-          a: "21 jours, un défi par jour. Vous apprenez les mécaniques de la viralité en masterclass live, vous publiez le jour même et vous voyez ce qui marche sur vos vrais chiffres. À la fin, vous passez la certification Empire - Bronze, Argent ou Or selon vos résultats. Vous repartez avec un métier, pas avec un dossier de templates.",
+          a: "21 jours, un défi par jour. Tu apprends les mécaniques de la viralité en masterclass live, tu publies le jour même et tu vois ce qui marche sur tes vrais chiffres. À la fin, tu passes la certification Empire - Bronze, Argent ou Or selon tes résultats. Tu repars avec un métier, pas avec un dossier de templates.",
         },
         {
           q: "C'est quoi la différence avec les autres bootcamps LinkedIn ?",
-          a: "Les autres vous vendent une formation et vous laissent seul avec. Ici, la formation est le début : certification sur vos vrais résultats, et voie partenaire Empire avec clients proposés. Vous facturez ~500€ / mois / client pour ~4h (choisir les sujets + être au live) - Empire propose les sujets et produit. C'est le seul bootcamp qui débouche sur un revenu, pas juste sur une attestation.",
+          a: "Les autres te vendent une formation et te laissent seul avec. Ici, la formation est le début : certification sur tes vrais résultats, et voie partenaire Empire avec clients proposés. Tu factures ~500€ / mois / client pour ~4h (choisir les sujets + être au live) - Empire propose les sujets et produit. C'est le seul bootcamp qui débouche sur un revenu, pas juste sur une attestation.",
         },
         {
           q: 'Combien ça coûte ?',
-          a: '497 €, paiement unique, sur sélection. Avant de candidater : venez aux portes ouvertes (gratuit, jeudi 11h Paris, 45 min) pour comprendre le modèle.',
+          a: '497 €, paiement unique, sur sélection. Avant de candidater : viens aux portes ouvertes (gratuit, jeudi 11h Paris, 45 min) pour comprendre le modèle.',
         },
         {
           q: "J'ai pas de projet, c'est pour moi ?",
-          a: "C'est même le cas le plus fréquent. Sans projet à vous, voie partenaire Empire : nouveaux clients proposés gratuitement, ~500€ / mois / client pour ~4h de travail. Empire propose les sujets et produit - vous choisissez et êtes présent au live. Objectif : ~3 000€/mois avec 6 clients. Le bootcamp est fait pour démarrer de zéro.",
+          a: "C'est même le cas le plus fréquent. Sans projet à toi, voie partenaire Empire : nouveaux clients proposés gratuitement, ~500€ / mois / client pour ~4h de travail. Empire propose les sujets et produit - tu choisis et tu es présent au live. Objectif : ~3 000€/mois avec 6 clients. Le bootcamp est fait pour démarrer de zéro.",
         },
         {
           q: 'Ça marche pour mon secteur ?',
-          a: "Si vous vendez un savoir-faire, c'est fait pour vous. Freelances, dirigeants, coachs, consultants, formateurs, fondateurs SaaS, e-commerçants. La méthode est universelle : on adapte les angles à votre niche.",
+          a: "Si tu vends un savoir-faire, c'est fait pour toi. Freelances, dirigeants, coachs, consultants, formateurs, fondateurs SaaS, e-commerçants. La méthode est universelle : on adapte les angles à ta niche.",
         },
         {
           q: 'Ça prend combien de temps par jour ?',
-          a: "Comptez 15 minutes pour publier votre contenu du jour, plus les masterclass live. Moins de 2h par semaine au total. Le reste du temps, vous faites les défis et vous absorbez les mécaniques.",
+          a: "Compte 15 minutes pour publier ton contenu du jour, plus les masterclass live. Moins de 2h par semaine au total. Le reste du temps, tu fais les défis et tu absorbes les mécaniques.",
         },
         {
           q: "Et si je ne veux pas écrire mes contenus moi-même ?",
-          a: "C'est une option, pas le cœur du bootcamp. Le programme vous apprend à créer vous-même - c'est ce qui fait la valeur de la certification. Si vous préférez déléguer la production ensuite, vous ajoutez un abonnement Empire et notre équipe s'en occupe. Sur la voie partenaire, la production des missions clients est prise en charge d'office.",
+          a: "C'est une option, pas le cœur du bootcamp. Le programme t'apprend à créer toi-même - c'est ce qui fait la valeur de la certification. Si tu préfères déléguer la production ensuite, tu ajoutes un abonnement Empire et notre équipe s'en occupe. Sur la voie partenaire, la production des missions clients est prise en charge d'office.",
         },
         {
           q: "C'est garanti ?",
-          a: "Personne ne devrait vous garantir des résultats. Ce qui est garanti : on se réserve le droit de refuser des inscriptions si le profil n'est pas adapté (remboursement intégral sous 48h). Et vous repartez avec la certification et les compétences, quoi qu'il arrive.",
+          a: "Personne ne devrait te garantir des résultats. Ce qui est garanti : on se réserve le droit de refuser des inscriptions si le profil n'est pas adapté (remboursement intégral sous 48h). Et tu repars avec la certification et les compétences, quoi qu'il arrive.",
         },
         {
           q: "Après les 21 jours, j'ai encore accès à quoi ?",
-          a: "Les replays, les défis et le groupe alumni sont accessibles à vie, et votre certification reste sur votre profil LinkedIn. Si vous devenez partenaire Empire, on continue de produire le contenu de vos missions clients.",
+          a: "Les replays, les défis et le groupe alumni sont accessibles à vie, et ta certification reste sur ton profil LinkedIn. Si tu deviens partenaire Empire, on continue de produire le contenu de tes missions clients.",
         },
       ]
     : [
@@ -113,7 +113,7 @@ export default function AcademyFAQSection() {
             <div className="text-center mb-16">
               <p className="text-sm text-neutral-400 mb-3 tracking-widest uppercase">FAQ</p>
               <h2 className="text-3xl md:text-5xl font-bold leading-tight">
-                {fr ? 'Toutes vos questions.' : 'All your questions.'}{' '}
+                {fr ? 'Toutes tes questions.' : 'All your questions.'}{' '}
                 <span className="text-academy">{fr ? 'Réponses honnêtes.' : 'Honest answers.'}</span>
               </h2>
             </div>

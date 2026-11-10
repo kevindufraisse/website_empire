@@ -16,28 +16,28 @@ window.makeAcademyContinuation=({show,move,el,ease,lerp,caption,jump})=>{
  [0.255,'','Les gros podcasts francophones l’invitent <br><em>pour en parler.</em>','',''],
  [0.335,'','Puis l’IA arrive. <br><em>Des métiers entiers commencent à disparaître.</em>','',''],
  [0.425,'','Écrire, monter une vidéo, coder un site : <br><em>l’IA le fait en quelques secondes.</em>','',''],
- [0.445,'','Si vous êtes rédacteur, monteur, graphiste ou community manager, <br><em>votre téléphone pourrait bien arrêter de sonner, lui aussi.</em>','',''],
- [0.465,'','Deux personnes vous proposent de faire votre site. <br><em>Vous choisissez qui ?</em>','',''],
- [0.535,'','Il y a de grandes chances que vous ayez choisi le B. <br><em>Parce que derrière, il y a quelqu’un. Une histoire.</em>','',''],
+ [0.445,'','Si tu es rédacteur, monteur, graphiste ou community manager, <br><em>ton téléphone pourrait bien arrêter de sonner, lui aussi.</em>','',''],
+ [0.465,'','Deux personnes te proposent de faire ton site. <br><em>Tu choisis qui ?</em>','',''],
+ [0.535,'','Il y a de grandes chances que tu aies choisi le B. <br><em>Parce que derrière, il y a quelqu’un. Une histoire.</em>','',''],
  [0.555,'','Ça, l’IA ne sait pas le faire : <br><em>avoir vécu quelque chose.</em>','',''],
  [0.58,'','Le métier de Content Operator, c’est ça : <br><em>aider des entrepreneurs à raconter leur histoire.</em>','',''],
  [0.615,'','Quand tout le monde publie avec l’IA, <br><em>les gens choisissent ceux qu’ils connaissent.</em>','',''],
  [0.67,'','Et pour ces entrepreneurs, <br><em>ça se voit dans les résultats.</em>','',''],
  [0.73,'','Avant, pour publier tous les jours, il fallait une équipe à plus de 10 000 € par mois. <br><em>Aujourd’hui, il y a Empire.</em>','',''],
- [0.79,'','Une entrepreneuse veut publier, mais elle n’a pas le temps. <br><em>Elle vous appelle.</em>','',''],
- [0.825,'','Vous lui posez des questions sur son parcours. <br><em>Ses réponses deviennent ses sujets.</em>','',''],
- [0.865,'','Vous lui envoyez un lien vers son espace Empire. <br><em>Elle y enregistre ses réponses.</em>','',''],
+ [0.79,'','Une entrepreneuse veut publier, mais elle n’a pas le temps. <br><em>Elle t’appelle.</em>','',''],
+ [0.825,'','Tu lui poses des questions sur son parcours. <br><em>Ses réponses deviennent ses sujets.</em>','',''],
+ [0.865,'','Tu lui envoies un lien vers son espace Empire. <br><em>Elle y enregistre ses réponses.</em>','',''],
  [0.89,'','Empire transforme chaque réponse <br><em>en vidéo, en post ou en Reel.</em>','',''],
- [0.93,'','Vous relisez. <br><em>Vous validez.</em>','',''],
+ [0.93,'','Tu relis. <br><em>Tu valides.</em>','',''],
  [0.955,'','Les contenus partent dans son calendrier. <br><em>Elle, elle retourne à son travail.</em>','',''],
- [0.975,'','Elle vous paie chaque mois pour ça. <br><em>Et le mois suivant, vous recommencez.</em>','','']
+ [0.975,'','Elle te paie chaque mois pour ça. <br><em>Et le mois suivant, tu recommences.</em>','','']
  ];
  let featureKey='',clientNumber=1,selection='',approved=false,currentT=0;
  const feature=(key,html)=>{el('stage').dataset.feature=key;el('stage').classList.toggle('feature-mode',!!key);el('story-feature').hidden=!key;if(key&&key!==featureKey){el('story-feature').innerHTML=html;featureKey=key;}};
  const activate=(id,fn)=>{el(id).addEventListener('click',fn);el(id).addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();fn();}});};
  activate('a33-accept',()=>jump(.26+.74*.832));
  activate('a33-pass',()=>{clientNumber=clientNumber%3+1;el('a33-client-name').textContent='Entrepreneuse '+clientNumber;});
- el('story-feature').addEventListener('click',e=>{const approve=e.target.closest('[data-approve]');if(approve){approved=true;featureKey='';feature('board-review-true',panels.board('review',true));el('scene-note').textContent='Les quatre contenus sont validés. Faites défiler pour les voir dans le calendrier.';}});
+ el('story-feature').addEventListener('click',e=>{const approve=e.target.closest('[data-approve]');if(approve){approved=true;featureKey='';feature('board-review-true',panels.board('review',true));el('scene-note').textContent='Les quatre contenus sont validés. Fais défiler pour les voir dans le calendrier.';}});
  const note=copy=>el('scene-note').textContent=copy;
  return {points:lines.map(l=>l[0]),paint(t){
   currentT=t;el('stage').classList.toggle('night',(t>=.105&&t<.145)||(t>=.335&&t<.465));el('story-feature').classList.remove('panic');pieces.forEach(id=>show(id,0));feature('',null);
@@ -59,17 +59,17 @@ window.makeAcademyContinuation=({show,move,el,ease,lerp,caption,jump})=>{
   else if(t<.352){window.scenePhoto('/academy/histoire/assets/ia-bureaux.webp',ease(t,.335,.342));}
   else if(t<.425){const n=Math.min(4,Math.floor((t-.352)/.0146));feature('jobs-news-'+n,panels.newspaper(data.studies[n],n,5));note('Cinq études : des missions, des emplois ou des intentions, selon la source.');}
   else if(t<.465){feature('ai',panels.ai);el('story-feature').style.setProperty('--phase',ease(t,.427,.46));note('L’exécution devient plus accessible. La question du choix reste entière.');}
-  else if(t<.535){const pick=t>=.5?'story':'';feature('choice-'+pick,panels.choice(pick));note('Choisissez une approche. Il n’y a pas de bonne réponse imposée.');}
+  else if(t<.535){const pick=t>=.5?'story':'';feature('choice-'+pick,panels.choice(pick));note('Choisis une approche. Il n’y a pas de bonne réponse imposée.');}
   else if(t<.58){feature('revelation',panels.revelation);el('story-feature').style.setProperty('--phase',ease(t,.537,.575));note('Mon point de vue : une histoire sincère peut renforcer le lien et la confiance.');}
   else if(t<.615){feature('operator',panels.operator);note('Créer une légende : révéler un parcours, sans inventer une vie.');}
   else if(t<.67){const n=t<.6425?0:1;feature('trust-news-'+n,panels.newspaper(data.contentStudies[n],n,2,true));note('Ce que disent les enquêtes sur le contenu, le réseau et la confiance.');}
   else if(t<.73){const n=t<.70?0:1;feature('cases-'+n,panels.cases(data,n));}
   else if(t<.79){feature('team-cost',panels.teamCost);el('story-feature').style.setProperty('--phase',ease(t,.73,.76));
   }else if(t<.825){put('a34-studio',0,0,1,.35);put('a33-phone');note('Scénario de mission : accepter l’appel ou passer.');}
-  else if(t<.865){put('a34-studio',0,0,1,.2);put('a33-call');note('« Pourquoi avez-vous créé votre activité ? Qu’avez-vous appris sur le terrain ? »');}
+  else if(t<.865){put('a34-studio',0,0,1,.2);put('a33-call');note('« Pourquoi as-tu créé ton activité ? Qu’as-tu appris sur le terrain ? »');}
   else if(t<.89){feature('link',panels.link);note('Le lien donne accès à son espace de création.');}
   else if(t<.93){feature('board-create',panels.board('create',false));el('story-feature').style.setProperty('--phase',ease(t,.89,.925));note('Les sujets deviennent quatre contenus, adaptés à leur réseau et à leur format.');}
-  else if(t<.955){feature('board-review-'+approved,panels.board('review',approved));el('story-feature').style.setProperty('--phase',1);note(approved?'Les quatre contenus sont validés. Faites défiler pour voir leur calendrier.':'Vérifiez les contenus, puis cliquez sur « Valider les 4 contenus ».');}
+  else if(t<.955){feature('board-review-'+approved,panels.board('review',approved));el('story-feature').style.setProperty('--phase',1);note(approved?'Les quatre contenus sont validés. Fais défiler pour voir leur calendrier.':'Vérifie les contenus, puis clique sur « Valider les 4 contenus ».');}
   else if(t<.975){feature('board-calendar',panels.board('calendar',true));el('story-feature').style.setProperty('--phase',1);note('Après validation, les contenus sont programmés. Suite illustrative de la mission.');}
   else{put('a34-studio',0,0,1,.3);actor('adult',310,710,.88);actor('client',940,710,.84);put('a33-receipt',625,465,.95);const m=Math.min(3,Math.floor(ease(t,.977,.998)*4));el('a33-receipt').querySelectorAll('.receipt-month').forEach((n,i)=>n.classList.toggle('on',i<=m));note('« Merci ! » · 500 € : exemple d’honoraires mensuels, avant frais et charges.');}
   if(t>=.825)el('session-time').textContent=String(Math.round(lerp(0,45,ease(t,.825,.975)))).padStart(2,'0')+':00';

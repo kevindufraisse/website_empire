@@ -4,8 +4,8 @@ export const frComplete = {
   // BENTO GRID CARDS
   bentoGrid: {
     voiceContent: {
-      name: 'Votre voix → Vos meilleurs contenus',
-      description: 'Nous transformons votre voix en contenu marketing qui convertit.',
+      name: 'Ta voix → Tes meilleurs contenus',
+      description: 'Nous transformons ta voix en contenu marketing qui convertit.',
     },
     contentReady: {
       name: 'Contenu Prêt',
@@ -13,7 +13,7 @@ export const frComplete = {
     },
     multiPlatform: {
       name: 'Distribution Multi-Plateformes',
-      description: 'Une interview se transforme automatiquement en contenu pour tous vos canaux.',
+      description: 'Une interview se transforme automatiquement en contenu pour tous tes canaux.',
     },
     calendar: {
       name: 'Calendrier de Publication',
@@ -23,11 +23,11 @@ export const frComplete = {
 
   // FEATURE DETAILS (9 transformations)
   featureDetails: {
-    title: 'Votre Voix → <span class="text-empire">Vos Meilleurs Contenus</span>',
-    subtitle: 'Nous transformons votre interview de 15 minutes en contenu pour chaque plateforme',
+    title: 'Ta Voix → <span class="text-empire">Tes Meilleurs Contenus</span>',
+    subtitle: 'Nous transformons ton interview de 15 minutes en contenu pour chaque plateforme',
     linkedinPost: {
       title: 'Post LinkedIn',
-      description: 'Votre interview de 15 minutes devient un post de leadership qui vous positionne comme expert.',
+      description: 'Ton interview de 15 minutes devient un post de leadership qui te positionne comme expert.',
     },
     newsletter: {
       title: 'Newsletter',
@@ -39,7 +39,7 @@ export const frComplete = {
     },
     youtubeShort: {
       title: 'Short YouTube',
-      description: 'Vos meilleurs moments en vidéos percutantes de 60 secondes.',
+      description: 'Tes meilleurs moments en vidéos percutantes de 60 secondes.',
     },
     twitterThread: {
       title: 'Thread Twitter',
@@ -72,7 +72,7 @@ export const frComplete = {
         'Workflows N8N & Make inclus',
         'Accès API avec documentation',
       ],
-      description: 'Publiez sur plusieurs comptes sur toutes les plateformes simultanément. Plus, traduction automatique avec workflows N8N et Make pré-construits.',
+      description: 'Publie sur plusieurs comptes sur toutes les plateformes simultanément. Plus, traduction automatique avec workflows N8N et Make pré-construits.',
     },
     bonus2: {
       features: [
@@ -81,7 +81,7 @@ export const frComplete = {
         'Qualification et scoring des leads',
         'Transfert quand prêt à closer',
       ],
-      description: 'Un agent IA qui lance des conversations avec vos prospects idéaux sur LinkedIn et gère la qualification initiale automatiquement.',
+      description: 'Un agent IA qui lance des conversations avec tes prospects idéaux sur LinkedIn et gère la qualification initiale automatiquement.',
     },
   },
 
@@ -89,7 +89,7 @@ export const frComplete = {
   faqItems: [
     {
       question: 'Comment je commence ?',
-      answer: 'Réservez un rendez-vous one-to-one pour tout découvrir et choisir le plan qui vous convient. Votre premier contenu est prêt 24h après votre interview.',
+      answer: 'Réserve un rendez-vous one-to-one pour tout découvrir et choisir le plan qui te convient. Ton premier contenu est prêt 24h après ton interview.',
     },
     {
       question: 'Combien de temps dois-je investir ?',
@@ -97,27 +97,27 @@ export const frComplete = {
     },
     {
       question: 'Et si le contenu ne sonne pas comme moi ?',
-      answer: 'Nous entraînons des prompts IA personnalisés sur votre ton, voix et style uniques. De plus, un vrai humain révise et peaufine chaque pièce avant publication. Si quelque chose sonne faux, on le révise jusqu\'à ce que ce soit parfait.',
+      answer: 'Nous entraînons des prompts IA personnalisés sur ta voix et ton style uniques. De plus, un vrai humain révise et peaufine chaque pièce avant publication. Si quelque chose sonne faux, on le révise jusqu\'à ce que ce soit parfait.',
     },
     {
       question: 'Combien de temps avant de voir des résultats ?',
-      answer: 'Votre premier lot de contenu est prêt dans les 7 jours suivant votre première interview. La plupart des clients voient leur premier pic d\'engagement en 2 semaines, et une croissance significative au bout de 2-3 mois.',
+      answer: 'Ton premier lot de contenu est prêt dans les 7 jours suivant ta première interview. La plupart des clients voient leur premier pic d\'engagement en 2 semaines, et une croissance significative au bout de 2-3 mois.',
     },
     {
       question: 'Qu\'est-ce qui rend ceci différent d\'une agence de contenu ?',
-      answer: 'Vitesse, coût et qualité. Les agences coûtent €5-15K/mois, prennent des semaines à livrer, et ratent souvent votre voix. Nous livrons 30+ pièces en 7 jours pour €1K/mois, avec contrôle qualité humain sur tout.',
+      answer: 'Vitesse, coût et qualité. Les agences coûtent €5-15K/mois, prennent des semaines à livrer, et ratent souvent ta voix. Nous livrons 30+ pièces en 7 jours pour €1K/mois, avec contrôle qualité humain sur tout.',
     },
     {
       question: 'Puis-je annuler à tout moment ?',
-      answer: 'Oui. Pas de contrat long terme. Vous pouvez annuler avec préavis de 30 jours. Mais la plupart des clients restent car ils voient les résultats et adorent récupérer leur temps.',
+      answer: 'Oui. Pas de contrat long terme. Tu peux annuler avec préavis de 30 jours. Mais la plupart des clients restent car ils voient les résultats et adorent récupérer leur temps.',
     },
     {
       question: 'Pourquoi pas d\'essai gratuit ou garantie satisfait ou remboursé ?',
-      answer: 'Nous avons une vraie équipe qui travaille sur votre contenu dès le jour 1 - rédacteurs, éditeurs, spécialistes QA. Un essai gratuit signifierait qu\'ils travaillent gratuitement, ce qui n\'est pas durable. À la place, nous offrons un paiement hebdomadaire (testez 1 semaine) et annulation à tout moment. Vous voyez la qualité immédiatement sans engagement long terme.',
+      answer: 'Nous avons une vraie équipe qui travaille sur ton contenu dès le jour 1 - rédacteurs, éditeurs, spécialistes QA. Un essai gratuit signifierait qu\'ils travaillent gratuitement, ce qui n\'est pas durable. À la place, nous offrons un paiement hebdomadaire (teste 1 semaine) et annulation à tout moment. Tu vois la qualité immédiatement sans engagement long terme.',
     },
     {
       question: 'Sur quelles plateformes publiez-vous ?',
-      answer: 'Nous couvrons toutes les plateformes principales : LinkedIn, YouTube, Instagram, Twitter/X, Threads, et newsletters email. Vous pouvez choisir sur lesquelles vous concentrer.',
+      answer: 'Nous couvrons toutes les plateformes principales : LinkedIn, YouTube, Instagram, Twitter/X, Threads, et newsletters email. Tu peux choisir sur lesquelles te concentrer.',
     },
     {
       question: 'Pourquoi si peu de témoignages ?',
@@ -125,15 +125,15 @@ export const frComplete = {
     },
     {
       question: 'Ai-je besoin d\'être devant la caméra ou d\'avoir du matériel vidéo ?',
-      answer: 'Pas de caméra nécessaire pour l\'interview. Nous enregistrons l\'audio et créons du contenu vidéo avec du b-roll, des images stock et du montage professionnel. Vous avez juste besoin de parler.',
+      answer: 'Pas de caméra nécessaire pour l\'interview. Nous enregistrons l\'audio et créons du contenu vidéo avec du b-roll, des images stock et du montage professionnel. Tu as juste besoin de parler.',
     },
     {
       question: 'Écrivez-vous dans d\'autres langues que l\'anglais ?',
-      answer: 'Oui ! Avec le bonus API, vous obtenez la traduction automatique en 10+ langues incluant français, espagnol, allemand, et plus. Parfait pour étendre votre portée internationale.',
+      answer: 'Oui ! Avec le bonus API, tu obtiens la traduction automatique en 10+ langues incluant français, espagnol, allemand, et plus. Parfait pour étendre ta portée internationale.',
     },
     {
       question: 'L\'AI Setter est-il inclus ou en supplément ?',
-      answer: 'Il est inclus en tant que bonus (valeur €800/mois). L\'IA engage des prospects sur LinkedIn, qualifie les leads, et vous les transfère quand ils sont prêts à parler.',
+      answer: 'Il est inclus en tant que bonus (valeur €800/mois). L\'IA engage des prospects sur LinkedIn, qualifie les leads, et te les transfère quand ils sont prêts à parler.',
     },
   ],
 

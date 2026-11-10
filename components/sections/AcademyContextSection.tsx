@@ -71,7 +71,7 @@ export default function AcademyContextSection() {
                   {fr ? 'Métiers en cours de destruction' : 'Jobs being destroyed'}
                 </p>
                 <p className="text-neutral-400 text-xs mb-4">
-                  {fr ? 'Pendant que vous lisez ces lignes.' : 'While you read these lines.'}
+                  {fr ? 'Pendant que tu lis ces lignes.' : 'While you read these lines.'}
                 </p>
                 <div className="space-y-2">
                   {deadJobs.map((item, i) => (
@@ -106,7 +106,7 @@ export default function AcademyContextSection() {
                     </div>
                     <p className="text-xl font-black text-white mb-4 leading-snug">
                       {fr
-                        ? <>L&apos;IA peut générer du contenu à l&apos;infini. Elle ne peut pas décider pourquoi <em>vous</em> vous vous arrêtez, regardez, partagez.</>
+                        ? <>L&apos;IA peut générer du contenu à l&apos;infini. Elle ne peut pas décider pourquoi <em>toi</em> tu t'arrêtes, regardes, partages.</>
                         : <>AI can generate infinite content. It cannot decide why <em>you</em> stop, watch, and share.</>}
                     </p>
                     <p className="text-neutral-300 text-sm leading-relaxed">

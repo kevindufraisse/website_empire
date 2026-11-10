@@ -14,7 +14,7 @@ export default function CallbackButton({ className = '', variant = 'default' }: 
   const [isOpen, setIsOpen] = useState(false)
   const { lang } = useLanguage()
 
-  const label = lang === 'fr' ? 'On vous rappelle' : 'We call you back'
+  const label = lang === 'fr' ? 'On te rappelle' : 'We call you back'
 
   return (
     <>

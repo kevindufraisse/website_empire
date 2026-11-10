@@ -17,7 +17,7 @@ export default function IdeaSources({p}:{p:MotionValue<number>}){
  useMotionValueEvent(p,'change',v=>setActive(IDEA_TIMELINE.filter(item=>v>=item.at).length-1))
  const marketOpacity=useTransform(p,[.164,.172],[0,1])
  return <aside className={s.sources} data-market={active>=6}>
-  <div className={s.share}><small>VOTRE BOÎTE À IDÉES</small><h3>Partagez ce qui <br/><em>vous inspire.</em></h3><div className={s.inputs}>{IDEA_TIMELINE.slice(0,6).map((item,i)=><Source p={p} index={i} active={active} key={item.name}/>)}</div><p>Envoyé dans le chat.<br/>Retrouvé dans Empire.</p></div>
-  <motion.div className={s.market} style={{opacity:marketOpacity}}><Plus size={20}/><div><h4>Nous analysons aussi <br/>vos concurrents.</h4><div className={s.signals}>{IDEA_TIMELINE.slice(6).map((item,i)=><Source p={p} index={i+6} active={active} key={item.name}/>)}</div></div></motion.div>
+  <div className={s.share}><small>TA BOÎTE À IDÉES</small><h3>Partage ce qui <br/><em>t'inspire.</em></h3><div className={s.inputs}>{IDEA_TIMELINE.slice(0,6).map((item,i)=><Source p={p} index={i} active={active} key={item.name}/>)}</div><p>Envoyé dans le chat.<br/>Retrouvé dans Empire.</p></div>
+  <motion.div className={s.market} style={{opacity:marketOpacity}}><Plus size={20}/><div><h4>Nous analysons aussi <br/>tes concurrents.</h4><div className={s.signals}>{IDEA_TIMELINE.slice(6).map((item,i)=><Source p={p} index={i+6} active={active} key={item.name}/>)}</div></div></motion.div>
  </aside>
 }

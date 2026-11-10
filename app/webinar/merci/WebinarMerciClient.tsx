@@ -21,7 +21,7 @@ const CALENDAR_LINKS = {
 }
 
 const WEBINAR_BULLETS = [
-  'Comment créer une armée de fans qui achètent TOUS vos produits',
+  'Comment créer une armée de fans qui achètent TOUS tes produits',
   'Pourquoi il n\'a jamais été aussi simple d\'appliquer ces méthodes en 2026',
   'Pourquoi ces méthodes sont restées secrètes aussi longtemps',
   'Le mécanisme psychologique qui transforme un visiteur en fan (et en client)',

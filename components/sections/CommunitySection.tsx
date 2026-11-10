@@ -66,7 +66,7 @@ export default function CommunitySection() {
       icon: MessageSquare,
       title: fr ? 'La communauté privée Slack' : 'The private Slack community',
       desc: fr
-        ? 'Des fondateurs et des créateurs qui publient déjà. Une accroche à tester, un post qui ne décolle pas, un angle qui vous gêne : vous avez un avis dans l\'heure au lieu de tourner en rond pendant une semaine.'
+        ? 'Des fondateurs et des créateurs qui publient déjà. Une accroche à tester, un post qui ne décolle pas, un angle qui te gêne : tu as un avis dans l\'heure au lieu de tourner en rond pendant une semaine.'
         : 'Founders and creators who already publish. A hook to test, a post that flopped, an angle you\'re unsure about: you get an opinion within the hour instead of circling for a week.',
       badge: fr ? 'DÈS INTERMÉDIAIRE' : 'FROM INTERMEDIATE',
     },
@@ -75,7 +75,7 @@ export default function CommunitySection() {
       icon: GraduationCap,
       title: fr ? 'La masterclass Empire' : 'The Empire masterclass',
       desc: fr
-        ? 'Bien utiliser l\'outil pour votre marque, en replays. Vous rattrapez ce que vous avez manqué et vous formez votre équipe avec.'
+        ? 'Bien utiliser l\'outil pour ta marque, en replays. Tu rattrapes ce que tu as manqué et tu formes ton équipe avec.'
         : 'Using the tool for your brand, on replay. Catch up on what you missed and train your team with it.',
       badge: fr ? 'DÈS INTERMÉDIAIRE' : 'FROM INTERMEDIATE',
     },
@@ -84,7 +84,7 @@ export default function CommunitySection() {
       icon: Compass,
       title: fr ? 'La revue stratégique mensuelle' : 'Monthly strategy review',
       desc: fr
-        ? 'Un expert reprend vos chiffres du mois en vidéo Loom : ce qui a marché, ce qu\'il faut arrêter, et les deux ou trois choses à changer le mois suivant.'
+        ? 'Un expert reprend tes chiffres du mois en vidéo Loom : ce qui a marché, ce qu\'il faut arrêter, et les deux ou trois choses à changer le mois suivant.'
         : 'An expert walks through your month\'s numbers on Loom: what worked, what to stop, and the two or three things to change next month.',
       badge: fr ? 'DÈS EXPERT' : 'FROM EXPERT',
     },
@@ -105,14 +105,14 @@ export default function CommunitySection() {
               </div>
               <h2 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
                 {fr ? (
-                  <>Vous n'installez pas ce système <span className="text-empire">tout seul</span></>
+                  <>Tu n'installes pas ce système <span className="text-empire">tout seul</span></>
                 ) : (
                   <>You don't install this system <span className="text-empire">on your own</span></>
                 )}
               </h2>
               <p className="text-base md:text-lg text-neutral-400 max-w-2xl mx-auto">
                 {fr
-                  ? 'La production, notre équipe s\'en charge. Le reste - vos questions, vos doutes, vos chiffres - se règle chaque semaine avec nos experts et les autres membres.'
+                  ? 'La production, notre équipe s\'en charge. Le reste - tes questions, tes doutes, tes chiffres - se règle chaque semaine avec nos experts et les autres membres.'
                   : 'Our team handles production. Everything else - your questions, your doubts, your numbers - gets sorted every week with our experts and the other members.'}
               </p>
             </div>
@@ -164,15 +164,15 @@ export default function CommunitySection() {
                 </h3>
                 <p className="text-sm text-neutral-400 leading-relaxed">
                   {fr
-                    ? 'Ce n\'est pas un cours. Vous arrivez avec vos questions et Kevin ou l\'un de nos experts est en face de vous, en direct.'
+                    ? 'Ce n\'est pas un cours. Tu arrives avec tes questions et Kevin ou l\'un de nos experts est en face de toi, en direct.'
                     : 'It\'s not a lecture. You show up with your questions and Kevin or one of our experts is live in front of you.'}
                 </p>
                 <ul className="mt-4 space-y-2">
                   {(fr
                     ? [
-                        'Vos questions traitées à chaud',
-                        'Vos contenus de la semaine décortiqués',
-                        'Vos prochains angles trouvés ensemble',
+                        'Tes questions traitées à chaud',
+                        'Tes contenus de la semaine décortiqués',
+                        'Tes prochains angles trouvés ensemble',
                       ]
                     : [
                         'Your questions answered on the spot',

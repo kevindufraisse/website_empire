@@ -15,7 +15,7 @@ function calc() {
   $('#f-clients').textContent = clients + (clients > 1 ? ' clients' : ' client');
   $('#f-rate').textContent = eur(rate);
   $('#f-total').textContent = eur(clients * rate);
-  const you = $('.f-you'); you.style.flex = String(rate); you.textContent = 'Vous · ' + eur(rate);
+  const you = $('.f-you'); you.style.flex = String(rate); you.textContent = 'Toi · ' + eur(rate);
 }
 if (hours) { hours.addEventListener('input', calc); $$('input[name=lvl]').forEach(n => n.addEventListener('change', calc)); calc(); }
 

@@ -105,7 +105,7 @@ export function CalModal({ lead, countryCode, informal = false, onClose }: { lea
             <p className="text-xs text-neutral-400">
               {informal
                 ? (fr ? 'Choisis ton créneau. Tes infos sont déjà remplies.' : 'Pick a time. Your details are already filled in.')
-                : 'Choisissez votre créneau - vos infos sont pré-remplies.'}
+                : 'Choisis ton créneau - tes infos sont pré-remplies.'}
             </p>
           </div>
           <button
@@ -227,7 +227,7 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
         {!prefilledLead && <>
         <input
           type="text"
-          placeholder="Votre prénom *"
+          placeholder="Ton prénom *"
           value={form.firstName}
           onChange={(e) => { setForm({ ...form, firstName: e.target.value }); setErrors({ ...errors, firstName: false }) }}
           className={`w-full px-4 py-3.5 rounded-xl bg-white/[0.06] border text-white placeholder:text-neutral-400 focus:outline-none focus:ring-1 ${accent.ring} transition-all text-sm ${errors.firstName ? 'border-red-500' : `border-white/40 ${accent.border}`}`}
@@ -235,7 +235,7 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
 
         <input
           type="email"
-          placeholder="Votre email *"
+          placeholder="Ton email *"
           value={form.email}
           onChange={(e) => { setForm({ ...form, email: e.target.value }); setErrors({ ...errors, email: false }) }}
           autoComplete="email"
@@ -274,7 +274,7 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
           </div>
           <input
             type="tel"
-            placeholder="Votre téléphone *"
+            placeholder="Ton téléphone *"
             value={form.phone}
             onChange={(e) => { setForm({ ...form, phone: e.target.value }); setErrors({ ...errors, phone: false }) }}
             autoComplete="tel"
@@ -304,7 +304,7 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
         {autopilot ? (
           <p className="mt-3 text-xs text-neutral-400 text-center">
             {lang === 'fr'
-              ? '10 places disponibles · On revient vers vous sous 24h'
+              ? '10 places disponibles · On revient vers toi sous 24h'
               : '10 spots available · We get back to you within 24h'}
           </p>
         ) : (

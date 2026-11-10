@@ -50,9 +50,9 @@ export default function VoiceToContentAnimation() {
   const topics: Topic[] = fr
     ? [
         { source: 'voice', nameFr: 'Vocal Telegram', nameEn: '', textFr: 'Signer un client à 10K sans pub.\nLe vocal est déjà un sujet.', textEn: '' },
-        { source: 'link', nameFr: 'Lien envoyé', nameEn: '', textFr: 'Le reel que vous avez collé.\nLe sujet est prêt, il reste à cliquer.', textEn: '' },
-        { source: 'video', nameFr: 'Vidéo', nameEn: '', textFr: 'La vidéo que vous avez envoyée.\nRangée avec le reste, prête à sortir.', textEn: '' },
-        { source: 'competitor', nameFr: 'Concurrent', nameEn: '', textFr: 'Ce qu’ils ont posté la semaine dernière.\nVous pouvez répondre, ou passer.', textEn: '' },
+        { source: 'link', nameFr: 'Lien envoyé', nameEn: '', textFr: 'Le reel que tu as collé.\nLe sujet est prêt, il reste à cliquer.', textEn: '' },
+        { source: 'video', nameFr: 'Vidéo', nameEn: '', textFr: 'La vidéo que tu as envoyée.\nRangée avec le reste, prête à sortir.', textEn: '' },
+        { source: 'competitor', nameFr: 'Concurrent', nameEn: '', textFr: 'Ce qu’ils ont posté la semaine dernière.\nTu peux répondre, ou passer.', textEn: '' },
         { source: 'viral', nameFr: 'Sujet viral', nameEn: '', textFr: 'Ce qui fait des vues en ce moment.\nYouTube, Instagram, TikTok.', textEn: '' },
       ]
     : [
