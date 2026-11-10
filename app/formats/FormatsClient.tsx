@@ -5,6 +5,7 @@ import { ArrowRight } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { FORMATS, FormatScreen, KIND_LABEL, NetworkRow, type Format } from '@/components/sections/FormatsShowcaseSection'
 import { startFreeTrial, TRIAL_CREDITS } from '@/lib/startTrial'
+import { TrialReassurance } from '@/components/ui/cta'
 import { trackAmplitude } from '@/lib/amplitude'
 
 /**
@@ -100,6 +101,7 @@ export default function FormatsClient() {
             {opening ? (fr ? 'Ouverture…' : 'Opening…') : (fr ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial')}
             <ArrowRight className="h-4 w-4" />
           </button>
+          <TrialReassurance fr={fr} className="mt-2.5" />
           <p className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-neutral-500">
             <a href="/tarifs" className="text-neutral-300 underline decoration-white/20 underline-offset-4 hover:text-white">
               {fr ? 'Voir les tarifs' : 'See pricing'}

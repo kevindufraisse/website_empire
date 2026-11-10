@@ -100,9 +100,10 @@ const ROWS: Row[] = [
     fr: 'ou newsletters, jusqu’à', en: 'or newsletters, up to',
     cells: { starter: String(PLAN_DELIVERABLES.starter.newsletters), growth: String(PLAN_DELIVERABLES.growth.newsletters), scale: String(PLAN_DELIVERABLES.scale.newsletters) },
   },
-  { fr: 'Un appel de démarrage en 1-1 (30 min), avec Kevin ou l’équipe', en: 'A 1-1 kickoff call (30 min), with Kevin or the team', cells: FROM_GROWTH },
   { fr: 'Réponse prioritaire sous 4 h', en: 'Priority reply within 4h', cells: FROM_GROWTH },
   { fr: 'Un point stratégie chaque mois (retours par Loom)', en: 'A strategy review every month (Loom feedback)', cells: { starter: false, growth: false, scale: true } },
+  // Offert dans toutes les formules depuis le 10 novembre 2026 (Kevin).
+  { fr: 'Un onboarding 1-1 offert (30 min), avec Kevin ou l’équipe', en: 'A free 1-1 onboarding (30 min), with Kevin or the team', cells: ALL, group: 'features' },
   { fr: 'Chaque reel vérifié par l’équipe', en: 'Every reel checked by the team', cells: ALL, group: 'features' },
   { fr: 'Publication sur 7 réseaux, sans supplément', en: 'Publishing to 7 networks, no extra cost', cells: ALL, group: 'features' },
   { fr: 'Des idées prêtes à filmer chaque semaine', en: 'Ready-to-film ideas every week', cells: ALL, group: 'features' },
@@ -142,6 +143,7 @@ const IN_EVERY_PLAN = [
   { fr: 'Chaque reel vérifié par l’équipe', en: 'Every reel checked by the team' },
   { fr: 'Publication sur 7 réseaux : LinkedIn, Instagram, TikTok, YouTube, X, Threads, Facebook', en: 'Publishing to 7 networks: LinkedIn, Instagram, TikTok, YouTube, X, Threads, Facebook' },
   { fr: 'Tu changes la répartition quand tu veux', en: 'You change the mix whenever you want' },
+  { fr: 'Un onboarding 1-1 offert (30 min), avec Kevin ou l’équipe', en: 'A free 1-1 onboarding (30 min), with Kevin or the team' },
 ]
 
 const NEXT_STEPS = [
@@ -665,8 +667,8 @@ export default function TarifsClient() {
               </p>
               <p className="mt-4 text-sm leading-relaxed text-neutral-300">
                 {fr
-                  ? 'Les idées, les formats, l’écriture, le montage, la vérification de chaque reel et la publication, plus l’appel de démarrage en 1-1, le live, le Slack et la masterclass Empire.'
-                  : 'Ideas, formats, writing, editing, every reel checked and publishing, plus the 1-1 kickoff call, the live, the Slack and the Empire masterclass.'}
+                  ? 'Les idées, les formats, l’écriture, le montage, la vérification de chaque reel et la publication, plus l’onboarding 1-1 offert, le live, le Slack et la masterclass Empire.'
+                  : 'Ideas, formats, writing, editing, every reel checked and publishing, plus the free 1-1 onboarding, the live, the Slack and the Empire masterclass.'}
               </p>
             </div>
           </div>

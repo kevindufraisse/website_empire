@@ -15,6 +15,17 @@ export const TRIAL_URL = `https://app.empire-internet.com/onboarding?plan=${TRIA
 export const TRIAL_TERMS_FR = `7 jours gratuits avec ${TRIAL_CREDITS} crédits. L’abonnement démarre au 8e jour, ou dès que tu dépasses les ${TRIAL_CREDITS} crédits. Annule avant : 0 €.`
 export const TRIAL_TERMS_EN = `7 days free with ${TRIAL_CREDITS} credits. Your plan starts on day 8, or as soon as you go past ${TRIAL_CREDITS} credits. Cancel before: €0.`
 
+/**
+ * La ligne de réassurance, juste sous chaque bouton d'essai du site (comme
+ * Claude, Intercom, Semrush). Aucun rappel par email avant prélèvement : n'en
+ * promets jamais. Avec le Bootcamp coché sur /tarifs, le Bootcamp est payé
+ * aujourd'hui : on dit alors « Essai gratuit sur ta formule ».
+ */
+export const TRIAL_REASSURANCE_FR = '0\u00a0€ aujourd’hui · Onboarding 1-1 offert · Annulable depuis l’app'
+export const TRIAL_REASSURANCE_EN = '€0 today · Free 1-1 onboarding · Cancel from the app'
+export const TRIAL_REASSURANCE_BOOTCAMP_FR = 'Essai gratuit sur ta formule · Onboarding 1-1 offert · Annulable depuis l’app'
+export const TRIAL_REASSURANCE_BOOTCAMP_EN = 'Free trial on your plan · Free 1-1 onboarding · Cancel from the app'
+
 export type TrialOption = 'bootcamp' | 'expert'
 
 /**

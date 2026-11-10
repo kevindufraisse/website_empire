@@ -5,9 +5,9 @@ import { useAutopilot } from '@/contexts/AutopilotContext'
 import EmpireSalesCta from '@/components/EmpireSalesCta'
 
 const COPY = {
-  formats: { fr: 'Choisissez votre premier format. Empire prépare le reste.', en: 'Choose your first format. Empire prepares the rest.' },
-  proof: { fr: 'À votre tour de créer vos premiers contenus.', en: 'Your turn to create your first content.' },
-  time: { fr: 'Vos prochains contenus commencent avec une idée.', en: 'Your next content starts with an idea.' },
+  formats: { fr: 'Choisis ton premier format. Empire prépare le reste.', en: 'Choose your first format. Empire prepares the rest.' },
+  proof: { fr: 'À ton tour de créer tes premiers contenus.', en: 'Your turn to create your first content.' },
+  time: { fr: 'Tes prochains contenus commencent avec une idée.', en: 'Your next content starts with an idea.' },
 }
 
 export default function HomeTrialPrompt({ moment }: { moment: keyof typeof COPY }) {

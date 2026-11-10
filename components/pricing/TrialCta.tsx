@@ -7,6 +7,7 @@ import { contentsFor } from '@/lib/plans'
 import { ORDER_CTA } from '@/lib/orderStyles'
 import { nbsp, rich } from './typo'
 import type { TrialCart } from './useTrialCart'
+import { TrialReassurance } from '@/components/ui/cta'
 
 /**
  * Le bouton d'essai de /tarifs et ce qui l'entoure : la ligne d'essai (une
@@ -37,13 +38,7 @@ export function CardTrialButton({ cart }: { cart: TrialCart }) {
           </>
         )}
       </button>
-      {!liveDeal && (
-        <p className="mt-2.5 text-center text-[13px] text-neutral-400">
-          {cart.bootcamp
-            ? (fr ? nbsp('Essai gratuit sur ta formule · annulable depuis l’app') : 'Free trial on your plan · cancel from the app')
-            : (fr ? nbsp('0 € aujourd’hui · annulable depuis l’app') : '€0 today · cancel from the app')}
-        </p>
-      )}
+      {!liveDeal && <TrialReassurance fr={fr} bootcamp={cart.bootcamp} stacked className="mt-2.5" />}
     </div>
   )
 }
@@ -108,7 +103,15 @@ export default function TrialCta({ cart, withTrialLine = false, withCall = false
           </>
         )}
       </button>
-      <p className="mx-auto mt-3 max-w-md text-center text-[13px] leading-relaxed text-neutral-400">{fr ? rich(nbsp(text)) : text}</p>
+      {liveDeal ? (
+        <p className="mx-auto mt-3 max-w-md text-center text-[13px] leading-relaxed text-neutral-400">{fr ? rich(nbsp(text)) : text}</p>
+      ) : (
+        <>
+          {/* La ligne courte juste sous le bouton, la règle complète plus petite dessous. */}
+          <TrialReassurance fr={fr} bootcamp={bootcamp} stacked={bootcamp} className="mt-2.5" />
+          <p className="mx-auto mt-2 max-w-md text-center text-xs leading-relaxed text-neutral-500">{fr ? rich(nbsp(text)) : text}</p>
+        </>
+      )}
       {withCall && <CallLink className="mt-3" />}
     </div>
   )

@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import OnboardingLink from '@/components/OnboardingLink'
+import { CTA_PRIMARY, CTA_SECONDARY, CtaPair } from '@/components/ui/cta'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function MissionClient() {
@@ -39,20 +40,20 @@ export default function MissionClient() {
           {founder.storyTagline}
         </p>
 
-        <div className="mt-12 flex flex-col gap-3 sm:flex-row">
-          <OnboardingLink
-
-            className="inline-flex items-center justify-center gap-2 rounded-xl bg-empire px-6 py-3.5 text-sm font-bold text-black transition hover:brightness-110"
-          >
-            {fr ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial'}
-          </OnboardingLink>
-          <a
-            href="/tarifs"
-            className="inline-flex items-center justify-center rounded-xl border border-white/15 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-white/5"
-          >
-            {fr ? 'Voir les tarifs' : 'See pricing'}
-          </a>
-        </div>
+        <CtaPair
+          fr={fr}
+          className="mt-12 !mx-0"
+          primary={
+            <OnboardingLink className={CTA_PRIMARY}>
+              {fr ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial'}
+            </OnboardingLink>
+          }
+          secondary={
+            <a href="/tarifs" className={CTA_SECONDARY}>
+              {fr ? 'Voir les tarifs' : 'See pricing'}
+            </a>
+          }
+        />
       </article>
     </main>
   )

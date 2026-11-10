@@ -323,7 +323,7 @@ export default function FormulaBar() {
               trackAmplitude('formula_bar_trial_clicked')
               startFreeTrial()
             }}
-            className="flex min-h-0 items-center justify-center gap-1 whitespace-nowrap rounded-lg bg-empire px-3 py-1.5 text-[11px] font-bold text-black transition hover:brightness-110 sm:text-xs"
+            className="flex min-h-[32px] items-center justify-center gap-1 whitespace-nowrap rounded-lg border-[1.5px] border-empire bg-empire px-3 py-1 text-[11px] font-bold text-black transition hover:brightness-110 sm:min-w-[150px] sm:text-xs"
           >
             {fr ? 'Tester gratuitement' : 'Try it free'}
             <span aria-hidden>→</span>
@@ -332,7 +332,7 @@ export default function FormulaBar() {
             href="/demo"
             data-cta="sticky-demo"
             onClick={() => trackAmplitude('empire_demo_clicked', { source: 'formula_bar' })}
-            className="hidden min-h-0 items-center justify-center whitespace-nowrap rounded-lg border border-white/25 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-white/10 sm:flex"
+            className="hidden min-h-[32px] min-w-[150px] items-center justify-center whitespace-nowrap rounded-lg border-[1.5px] border-white/60 bg-[#0a0a0a] px-3 py-1 text-xs font-bold text-white transition hover:border-white hover:bg-[#151515] sm:flex"
           >
             {fr ? 'Demander une démo' : 'Request a demo'}
           </a>

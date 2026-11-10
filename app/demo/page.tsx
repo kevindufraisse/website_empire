@@ -7,6 +7,7 @@ import { storeVideoEmail } from '@/components/VideoEmailGate'
 import { flushAmplitude, trackAmplitude } from '@/lib/amplitude'
 import { startFreeTrial, TRIAL_TERMS_EN, TRIAL_TERMS_FR } from '@/lib/startTrial'
 import DemoBookingForm from './DemoBookingForm'
+import { TrialReassurance } from '@/components/ui/cta'
 import { badge, card, fieldError, input, label, primaryButton, secondaryButton } from './ui'
 import styles from './demo.module.css'
 
@@ -231,17 +232,19 @@ export default function DemoPage() {
 
             <div className={`${card} mt-4 flex flex-col items-center p-5 text-center sm:mt-6 sm:p-8 lg:mt-0 lg:p-6`}>
               <p className="text-balance text-lg font-bold leading-snug text-white sm:text-xl">{fr ? 'Essaie Empire sur ton propre contenu.' : 'Try Empire on your own content.'}</p>
-              <button type="button" onClick={trial} disabled={trialLoading} className={`${primaryButton} mt-4 w-full sm:w-auto sm:px-12 lg:w-full lg:px-5`}>
+              <button type="button" onClick={trial} disabled={trialLoading} className={`${primaryButton} mt-4 w-full sm:max-w-[360px] lg:max-w-none lg:px-3 lg:text-[15px]`}>
                 {trialLoading ? (fr ? 'Ouverture…' : 'Opening…') : (fr ? 'Tester gratuitement' : 'Try it for free')}
                 {!trialLoading && arrow}
               </button>
-              <p className="mt-3 max-w-md text-balance text-sm leading-relaxed text-neutral-400">{keepUnits(fr ? TRIAL_TERMS_FR : TRIAL_TERMS_EN)}</p>
+              <TrialReassurance fr={fr} stacked className="mt-2.5" />
+              {/* La règle complète, plus petite, sous la ligne courte. */}
+              <p className="mt-2 max-w-md text-balance text-xs leading-relaxed text-neutral-500">{keepUnits(fr ? TRIAL_TERMS_FR : TRIAL_TERMS_EN)}</p>
               <a href="/tarifs" className="mt-3 inline-flex min-h-[44px] items-center text-sm font-semibold text-white underline underline-offset-4 transition-colors hover:text-empire">
                 {fr ? 'Voir les tarifs' : 'See pricing'}
               </a>
               <div className="mt-3 flex w-full flex-col items-center gap-3 border-t border-white/10 pt-5">
                 <p className="text-sm text-neutral-400">{fr ? 'Tu préfères en parler d’abord ?' : 'Prefer to talk first?'}</p>
-                <button type="button" onClick={book} className={`${secondaryButton} w-full sm:w-auto lg:w-full`}>
+                <button type="button" onClick={book} className={`${secondaryButton} w-full whitespace-nowrap sm:max-w-[360px] lg:max-w-none lg:px-3 lg:text-[15px]`}>
                   <Calendar size={18} className="shrink-0" aria-hidden />
                   {fr ? 'Parler à un expert Empire' : 'Talk to an Empire expert'}
                 </button>

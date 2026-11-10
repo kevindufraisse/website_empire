@@ -9,6 +9,7 @@ import FloatingSocialReactions from '@/components/FloatingSocialReactions'
 import { trackAmplitude } from '@/lib/amplitude'
 import { startFreeTrial } from '@/lib/startTrial'
 import { FormulaHeroStatic } from '@/components/FormulaBar'
+import { CTA_PRIMARY, CTA_SECONDARY, CtaPair } from '@/components/ui/cta'
 // Même jeu de portraits que `/vsl` et `FormatsShowcaseSection` (public/creators).
 const HERO_CREATORS = [
   { name: 'Alex Hormozi', img: '/creators/hormozi.jpg' },
@@ -30,8 +31,8 @@ export default function HeroSection() {
   }, [])
 
   const heroBadge = autopilot ? t.autopilot.hero.targetAudience : t.hero.targetAudience
-  const heroTitle = autopilot ? t.autopilot.hero.title : (lang === 'fr' ? 'L’avantage injuste pour développer votre marque personnelle.' : 'The unfair advantage for growing your personal brand.')
-  const heroTitleH2 = autopilot ? null : (lang === 'fr' ? 'Soyez vus, achetés et recommandés grâce à votre contenu en 1h par semaine.' : 'Get seen, chosen and recommended through your content in one hour a week.')
+  const heroTitle = autopilot ? t.autopilot.hero.title : (lang === 'fr' ? 'L’avantage injuste pour développer ta marque personnelle.' : 'The unfair advantage for growing your personal brand.')
+  const heroTitleH2 = autopilot ? null : (lang === 'fr' ? 'Sois vu, acheté et recommandé grâce à ton contenu en 1 h par semaine.' : 'Get seen, chosen and recommended through your content in one hour a week.')
   const heroTitleNote = null
   // Hors autopilot, la formule (résultat net, termes floutés) prend la place
   // du paragraphe, avec une phrase qui invite à la découvrir en descendant. Voir `FormulaBar` et le slot `formula-hero-slot`.
@@ -155,7 +156,7 @@ export default function HeroSection() {
               >
                 <span className="max-w-[230px] text-[11px] italic leading-snug text-neutral-300 sm:max-w-[260px] sm:text-xs">
                   {lang === 'fr'
-                    ? 'Dans 30 jours, tout votre marché vous aura vu, grâce à cette formule'
+                    ? 'Dans 30 jours, tout ton marché t’aura vu, grâce à cette formule'
                     : 'In 30 days, your whole market will have seen you, thanks to this formula'}
                 </span>
                 <svg width="34" height="34" viewBox="0 0 34 34" fill="none" className="mt-1.5 text-empire">
@@ -207,55 +208,30 @@ export default function HeroSection() {
                   <span className="text-[11px] font-semibold opacity-70">{t.autopilot.hero.ctaReassurance}</span>
                 </a>
               ) : (
-                /* L’essai est l’action principale ; la démo en second choix. */
-                <div className="flex w-full flex-col items-center gap-2 sm:w-auto">
-                  {warm ? (
-                    <button
-                      type="button"
-                      onClick={onTrial}
-                      disabled={trialLoading}
-                      className="group flex w-full flex-col items-center justify-center gap-0.5 rounded-xl bg-empire px-8 py-3.5 sm:px-12 sm:py-4 text-black shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.35)] transition-all hover:scale-[1.02] sm:w-auto"
-                    >
-                      <span className="flex items-center gap-2 text-base font-bold sm:text-lg">
-                        {trialLoading
-                          ? (lang === 'fr' ? 'Ouverture…' : 'Opening…')
-                          : (lang === 'fr' ? 'Tester gratuitement' : 'Try for free')}
-                        <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
-                      </span>
-                      <span className="text-[11px] font-semibold opacity-70">
-                        {lang === 'fr' ? '7 jours · 500 crédits · annulable en 1 clic' : '7 days · 500 credits · cancel in 1 click'}
-                      </span>
+                /* L’essai est l’action principale, la démo le second choix :
+                   même hauteur, même largeur, contour blanc bien visible. Le
+                   trafic chaud (lien setter, parrainage) n'a que l'essai. */
+                <CtaPair
+                  fr={lang === 'fr'}
+                  reassuranceClassName="mx-auto w-fit rounded-lg bg-[#0a0a0a] px-3 py-0.5"
+                  primary={
+                    <button type="button" onClick={onTrial} disabled={trialLoading} className={CTA_PRIMARY}>
+                      {trialLoading
+                        ? (lang === 'fr' ? 'Ouverture…' : 'Opening…')
+                        : (lang === 'fr' ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial')}
+                      <span aria-hidden className="inline-block transition-transform group-hover:translate-x-1">→</span>
                     </button>
-                  ) : (
-                    <>
-                      <button
-                        type="button"
-                        onClick={onTrial}
-                        disabled={trialLoading}
-                        className="group flex w-full flex-col items-center justify-center gap-0.5 rounded-xl bg-empire px-8 py-3.5 sm:px-12 sm:py-4 text-black shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.35)] transition-all hover:scale-[1.02] sm:w-auto"
-                      >
-                        <span className="flex items-center gap-2 text-base font-bold sm:text-lg">
-                          {trialLoading
-                            ? (lang === 'fr' ? 'Ouverture…' : 'Opening…')
-                            : (lang === 'fr' ? 'Tester gratuitement' : 'Try for free')}
-                          <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
-                        </span>
-                        <span className="text-[11px] font-semibold opacity-70">
-                          {lang === 'fr' ? '7 jours · 500 crédits · annulable en 1 clic' : '7 days · 500 credits · cancel in 1 click'}
-                        </span>
-                      </button>
-                      <a
-                        href="/demo"
-                        onClick={() => trackAmplitude('empire_demo_clicked', { source: 'home-hero' })}
-                        // Fond opaque (même rendu sur le noir du hero) : les réactions
-                        // qui montent derrière ne passent plus à travers le texte.
-                        className="inline-flex items-center gap-2 rounded-xl border border-white/25 bg-[#0a0a0a] px-6 py-2.5 text-sm font-semibold text-white transition hover:border-white/40 hover:bg-[#151515]"
-                      >
-                        {lang === 'fr' ? 'Demander une démo' : 'Request a demo'}
-                      </a>
-                    </>
+                  }
+                  secondary={!warm && (
+                    <a
+                      href="/demo"
+                      onClick={() => trackAmplitude('empire_demo_clicked', { source: 'home-hero' })}
+                      className={CTA_SECONDARY}
+                    >
+                      {lang === 'fr' ? 'Demander une démo' : 'Request a demo'}
+                    </a>
                   )}
-                </div>
+                />
               )}
             </div>
             {/* Preuve alignée sur la promesse : la promesse est « les formats
@@ -281,7 +257,7 @@ export default function HeroSection() {
                 </div>
                 <span className="text-[11px] sm:text-xs text-neutral-300 text-left leading-snug">
                   {lang === 'fr'
-                    ? <>Ils utilisent cette formule. <span className="text-neutral-500">Prête à utiliser pour vous.</span></>
+                    ? <>Ils utilisent cette formule. <span className="text-neutral-500">Prête à utiliser pour toi.</span></>
                     : <>They use this formula. <span className="text-neutral-500">Ready for you.</span></>}
                 </span>
               </div>
@@ -365,7 +341,7 @@ function ScrollDownArrow({ lang }: { lang: string }) {
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="-mt-2 opacity-50"><path d="M6 9l6 6 6-6" /></svg>
             </motion.span>
             <span className="text-xs font-semibold text-white">
-              {lang === 'fr' ? 'Scrollez pour découvrir la formule' : 'Scroll to discover the formula'}
+              {lang === 'fr' ? 'Scrolle pour découvrir la formule' : 'Scroll to discover the formula'}
             </span>
           </span>
         </motion.button>

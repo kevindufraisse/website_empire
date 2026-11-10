@@ -10,6 +10,8 @@ import { partnerPayHref } from '@/lib/partner-festival-pricing'
 import JoinPartnersLabel from '@/components/JoinPartnersLabel'
 import { postitJoinUrl } from '@/lib/postit'
 import { openCookiePreferences } from '@/lib/marketingConsent'
+import { trackAmplitude } from '@/lib/amplitude'
+import { CTA_PRIMARY, CTA_SECONDARY, TrialReassurance } from '@/components/ui/cta'
 
 export default function Footer() {
   const { t, lang } = useLanguage()
@@ -122,18 +124,26 @@ export default function Footer() {
 
           {/* CTA */}
           <div className="flex flex-col items-center md:items-end">
-            {!isPartnersPage && !isVslPage && !autopilot && (
+            {!isPartnersPage && !isVslPage && !autopilot && isAcademyPage && (
               <OnboardingLink
-                href={isAcademyPage ? partnerPayHref() : undefined}
-                className={`inline-flex flex-col items-start rounded-xl px-6 py-3.5 text-left font-bold text-black transition hover:brightness-110 ${isAcademyPage ? 'bg-academy' : 'bg-empire'}`}
+                href={partnerPayHref()}
+                className="inline-flex flex-col items-start rounded-xl bg-academy px-6 py-3.5 text-left font-bold text-black transition hover:brightness-110"
               >
-                <span>{isAcademyPage
-                  ? <JoinPartnersLabel fr={lang === 'fr'} />
-                  : (lang === 'fr' ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial')}</span>
-                <span className="mt-1 text-[10px] font-semibold opacity-70">{isAcademyPage
-                  ? (lang === 'fr' ? 'Paiement unique · Accès immédiat' : 'One-time payment · Instant access')
-                  : (lang === 'fr' ? '500 crédits inclus dans l’essai' : '500 credits included in your trial')}</span>
+                <span><JoinPartnersLabel fr={lang === 'fr'} /></span>
+                <span className="mt-1 text-[10px] font-semibold opacity-70">{lang === 'fr' ? 'Paiement unique · Accès immédiat' : 'One-time payment · Instant access'}</span>
               </OnboardingLink>
+            )}
+            {/* Essai + démo, même gabarit que le reste du site (components/ui/cta). */}
+            {!isPartnersPage && !isVslPage && !autopilot && !isAcademyPage && (
+              <div className="flex w-full max-w-[280px] flex-col gap-3">
+                <OnboardingLink className={`${CTA_PRIMARY} !px-4 !text-[15px]`}>
+                  {lang === 'fr' ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial'}
+                </OnboardingLink>
+                <TrialReassurance fr={lang === 'fr'} stacked className="-mt-1 !text-xs" />
+                <a href="/demo" onClick={() => trackAmplitude('empire_demo_clicked', { source: 'footer' })} className={`${CTA_SECONDARY} !px-4 !text-[15px]`}>
+                  {lang === 'fr' ? 'Demander une démo' : 'Request a demo'}
+                </a>
+              </div>
             )}
           </div>
         </div>

@@ -2,6 +2,7 @@
 import { useRef, useState } from 'react'
 import { ArrowDown, ArrowRight, LockKeyhole } from 'lucide-react'
 import { startFreeTrial } from '@/lib/startTrial'
+import { TrialReassurance } from './ui/cta'
 import { MasterclassForm, MasterclassThumbnail, useMasterclassRequested } from './sections/HomeMasterclassGate'
 import s from './StableHomeJourney.module.css'
 
@@ -26,6 +27,7 @@ export default function SecretFormatsGate({ staticMode = false }: { staticMode?:
         {requested === null ? <div className={s.placeholder} aria-busy="true"/> : requested ? <>
           <p className={s.confirmation} role={justRequested ? 'status' : undefined}>{justRequested ? 'Votre demande de masterclass est enregistrée.' : 'Votre masterclass a déjà été demandée.'}</p>
           <button className={s.trial} onClick={() => startFreeTrial()}>Tester gratuitement<ArrowRight size={18}/></button>
+          <TrialReassurance fr stacked className="mt-2.5"/>
         </> : <><div className={s.secretThumbnail}><MasterclassThumbnail/></div><MasterclassForm idPrefix="secret" onReady={confirmed}/></>}
       </div>
     </div>

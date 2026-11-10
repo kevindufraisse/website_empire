@@ -3,23 +3,28 @@
 import { useLanguage } from '@/contexts/LanguageContext'
 import { startFreeTrial } from '@/lib/startTrial'
 import { trackAmplitude } from '@/lib/amplitude'
+import { CTA_PRIMARY, CTA_SECONDARY, CtaPair } from '@/components/ui/cta'
 
 export default function EmpireSalesCta({ source, showDemo = true }: { source: string; showDemo?: boolean }) {
   const { lang } = useLanguage()
   const fr = lang === 'fr'
   return (
-    <div className="mx-auto w-full max-w-2xl text-center">
-      <div className="flex flex-col justify-center gap-3 sm:flex-row">
+    <CtaPair
+      fr={fr}
+      className="text-center"
+      primary={
         <button type="button" onClick={() => {
           trackAmplitude('empire_trial_clicked', { source })
           startFreeTrial()
-        }} className="inline-flex min-h-12 items-center justify-center rounded-xl bg-empire px-7 py-3.5 text-base font-bold text-black shadow-[0_0_24px_rgb(var(--empire-rgb)_/_0.2)] transition hover:brightness-110">
-          {fr ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial'} <span className="ml-2" aria-hidden>→</span>
+        }} className={CTA_PRIMARY}>
+          {fr ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial'} <span className="transition-transform group-hover:translate-x-1" aria-hidden>→</span>
         </button>
-        {showDemo && <a href="/demo" onClick={() => trackAmplitude('empire_demo_clicked', { source })} className="inline-flex min-h-12 items-center justify-center rounded-xl border border-white/25 px-6 py-3.5 text-base font-semibold text-white transition hover:bg-white/5">
+      }
+      secondary={showDemo && (
+        <a href="/demo" onClick={() => trackAmplitude('empire_demo_clicked', { source })} className={CTA_SECONDARY}>
           {fr ? 'Demander une démo' : 'Request a demo'}
-        </a>}
-      </div>
-    </div>
+        </a>
+      )}
+    />
   )
 }

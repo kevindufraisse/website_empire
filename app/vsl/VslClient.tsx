@@ -5,8 +5,9 @@ import Script from 'next/script'
 import { Play, Pause, Volume2, VolumeX, Maximize, Check, ArrowRight, ChevronDown } from 'lucide-react'
 import { trackAmplitude } from '@/lib/amplitude'
 import { startFreeTrial, TRIAL_TERMS_FR } from '@/lib/startTrial'
+import { CTA_PRIMARY, CTA_SECONDARY, CtaPair } from '@/components/ui/cta'
 import VideoEmailGate, { adoptEmailFromUrl, storedVideoEmail } from '@/components/VideoEmailGate'
-import { AudioPlayerCard, TextVersionSection, ExitFormatsPopup, useExitIntent } from '@/components/ListenReadFormats'
+import { AudioPlayerCard, TextVersionSection, ExitFormatsPopup } from '@/components/ListenReadFormats'
 import { SCRIPT_SECTIONS, READ_MINUTES } from './vslScript'
 
 const VIDEO_ID = 'AKfoDblGUNs'
@@ -68,7 +69,7 @@ const FAQ = [
   },
   {
     q: 'Je préfère en parler avant',
-    a: 'Réserve un appel : on regarde ta situation et on te dit si Empire est fait pour toi, sans engagement. Pour une question rapide, écris-nous sur WhatsApp (bulle en bas à droite).',
+    a: 'Réserve un appel : on regarde ta situation et on te dit si Empire est fait pour toi, sans engagement. Pour une question rapide, écris à kevin@empire-internet.com.',
   },
 ]
 
@@ -448,26 +449,26 @@ function Ctas({ location }: { location: string }) {
 
   return (
     <div className="w-full max-w-xl mx-auto">
-      <div className="flex flex-col sm:flex-row gap-3">
-        <button
-          type="button"
-          onClick={startTrial}
-          disabled={loading}
-          className="flex-1 inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-empire px-7 py-3.5 text-base font-bold text-black shadow-[0_0_24px_rgb(var(--empire-rgb)_/_0.2)] transition hover:brightness-110 disabled:opacity-60"
-        >
-          {loading ? 'Ouverture…' : 'Commencer gratuitement'}
-          {!loading && <ArrowRight className="w-5 h-5" />}
-        </button>
-        {/* Le même bouton que « Demander une démo » du site (EmpireSalesCta). */}
-        <a
-          href="/demo"
-          onClick={() => trackAmplitude('empire_demo_clicked', { source: `vsl_${location}` })}
-          className="flex-1 inline-flex min-h-12 items-center justify-center rounded-xl border border-white/25 px-6 py-3.5 text-base font-semibold text-white transition hover:bg-white/5"
-        >
-          Demander une démo
-        </a>
-      </div>
-      <p className="mt-4 text-center text-sm text-neutral-400">{TRIAL_TERMS_FR}</p>
+      <CtaPair
+        fr
+        primary={
+          <button type="button" onClick={startTrial} disabled={loading} className={CTA_PRIMARY}>
+            {loading ? 'Ouverture…' : 'Commencer gratuitement'}
+            {!loading && <ArrowRight className="w-5 h-5" />}
+          </button>
+        }
+        secondary={
+          <a
+            href="/demo"
+            onClick={() => trackAmplitude('empire_demo_clicked', { source: `vsl_${location}` })}
+            className={CTA_SECONDARY}
+          >
+            Demander une démo
+          </a>
+        }
+      />
+      {/* La règle complète, plus petite, sous la ligne courte. */}
+      <p className="mt-3 text-balance text-center text-xs leading-relaxed text-neutral-500">{TRIAL_TERMS_FR.replace(/(\d+e?) (?=jours?|crédits|€)/g, '$1\u00a0').replace(/ :/g, '\u00a0:')}</p>
     </div>
   )
 }
@@ -533,16 +534,13 @@ export default function VslClient() {
     reveal(kind)
   }
 
-  // « Pas le temps ? Lis-la ou écoute-la » : en exit popup, jamais pendant
-  // que la vidéo joue, une fois par session.
-  useExitIntent({
-    enabled: !popupOpen && !textOpen && !audioOpen && !videoPlaying,
-    sessionKey: 'empire_vsl_exit_v1',
-    onTrigger: () => {
-      setPopupOpen(true)
-      trackAmplitude('vsl_exit_popup_shown')
-    },
-  })
+  // « Pas le temps ? Lis-la ou écoute-la » : la carte s'ouvre seulement au
+  // clic sur le lien sous les boutons. Plus d'ouverture automatique en exit
+  // intent (10 novembre 2026, Kevin : les popups détournent des boutons).
+  const openFormats = () => {
+    setPopupOpen(true)
+    trackAmplitude('vsl_formats_link_clicked')
+  }
 
   const closePopup = () => {
     setPopupOpen(false)
@@ -560,7 +558,7 @@ export default function VslClient() {
       <section className="relative pt-24 pb-10 md:pb-16">
         <div className="container max-w-4xl mx-auto px-4">
           <h1 className="text-center text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-6">
-            Dans 30 jours, tout votre marché vous connaîtra après avoir regardé <span className="text-empire">cette vidéo</span>&nbsp;:
+            Dans 30 jours, tout ton marché te connaîtra après avoir regardé <span className="text-empire">cette vidéo</span>&nbsp;:
           </h1>
 
           {/* Largeur bornée par la hauteur d'écran : les boutons et la ligne
@@ -600,6 +598,15 @@ export default function VslClient() {
               </span>
             </div>
           </div>
+
+          {!textOpen && !audioOpen && (
+            <p className="mt-4 text-center text-sm text-neutral-400">
+              Pas le temps de tout regarder ?{' '}
+              <button type="button" onClick={openFormats} className="inline-flex min-h-11 items-center font-semibold text-white underline decoration-white/30 underline-offset-4 hover:decoration-white">
+                Lis-la ou écoute-la
+              </button>
+            </p>
+          )}
         </div>
       </section>
 
