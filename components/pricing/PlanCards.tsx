@@ -269,7 +269,7 @@ export default function PlanCards({ location, period, onPeriodChange, chosen, on
                 <ul className="hidden space-y-2.5 border-t border-white/10 pt-5 lg:block">
                   <li className="flex items-start gap-2.5 text-sm leading-snug text-neutral-200">
                     <Check className="mt-0.5 h-4 w-4 shrink-0 text-empire" strokeWidth={2.5} />
-                    <span>{fr ? nbsp(`${mix.reels} reels et ${mix.posts} posts par mois, répartition au choix`) : `${mix.reels} reels and ${mix.posts} posts a month, split as you like`}</span>
+                    <span>{fr ? nbsp('Tes idées, ton montage, tes miniatures et ta publication sur 7 réseaux') : 'Your ideas, editing, thumbnails and publishing to 7 networks'}</span>
                   </li>
                   {CARD_EXTRAS[plan.id].map((l) => (
                     <li key={l.fr} className="flex items-start gap-2.5 text-sm leading-snug text-neutral-200">

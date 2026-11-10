@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { ArrowRight, Check, Minus } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { FREELANCE_MODE, FREELANCE_PRICES, PLAN_LABELS, freelanceMonthly, type PlanId } from '@/lib/plans'
+import { FREELANCE_MODE, FREELANCE_PRICES, PLAN_LABELS, freelanceMonthly, planMix, type PlanId } from '@/lib/plans'
 import { freelanceAmount } from './freelanceCopy'
 import glass from './pricing.module.css'
 import { nbsp } from './typo'
@@ -11,22 +11,41 @@ import { nbsp } from './typo'
 /**
  * « Empire contre… » : une alternative à la fois (pastilles), deux colonnes
  * par ligne, sans défilement horizontal sur téléphone. Les valeurs sont des
- * faits : le total freelance est celui du reçu (même calcul, même mode), le
- * prix agence est un prix public, et rien n'est inventé en heures.
+ * faits : le total freelance est celui du reçu (même calcul, même mode), les
+ * prix d'agence sont des prix publics, et les heures « toi seul » sont une
+ * estimation sourcée (montage 40 min à 3 h par reel), dite comme telle.
  */
+
+// Estimation du temps « toi seul », par contenu. Montage : 42 min en moyenne
+// selon une enquête Epidemic Sound reprise par voxbooster.com, 2 à 3 h selon
+// cutlab.io. Écriture d'un post : 15 min à 1 h (estimation, pas d'étude).
+const DIY_HOURS = { reel: [0.7, 3], post: [0.25, 1] } as const
+function diyWeekly(plan: PlanId): [number, number] {
+  const m = planMix(plan)
+  const lo = (m.reels * DIY_HOURS.reel[0] + m.posts * DIY_HOURS.post[0]) / 4.33
+  const hi = (m.reels * DIY_HOURS.reel[1] + m.posts * DIY_HOURS.post[1]) / 4.33
+  return [Math.max(1, Math.round(lo)), Math.round(hi)]
+}
+// Avec ChatGPT pour écrire, il reste au moins le montage.
+function editingWeekly(plan: PlanId): [number, number] {
+  const m = planMix(plan)
+  return [Math.max(1, Math.round((m.reels * DIY_HOURS.reel[0]) / 4.33)), Math.round((m.reels * DIY_HOURS.reel[1]) / 4.33)]
+}
 
 type Alt = 'freelance' | 'agency' | 'diy' | 'chatgpt'
 type Cell = { fr: string; en: string; noteFr?: string; noteEn?: string; ok?: boolean }
-type RowId = 'price' | 'time' | 'editing' | 'publishing' | 'tracking'
+type RowId = 'volume' | 'price' | 'time' | 'commitment' | 'editing' | 'publishing' | 'tracking'
 
 const ROW_LABELS: Record<RowId, { fr: string; en: string }> = {
+  volume: { fr: 'Chaque mois', en: 'Every month' },
+  commitment: { fr: 'Engagement', en: 'Commitment' },
   price: { fr: 'Prix par mois', en: 'Price per month' },
   time: { fr: 'Ton temps', en: 'Your time' },
   editing: { fr: 'Montage vidéo', en: 'Video editing' },
   publishing: { fr: 'Publication sur 7 réseaux', en: 'Publishing to 7 networks' },
   tracking: { fr: 'Suivi des clients', en: 'Client tracking' },
 }
-const ROW_ORDER: RowId[] = ['price', 'time', 'editing', 'publishing', 'tracking']
+const ROW_ORDER: RowId[] = ['volume', 'price', 'time', 'commitment', 'editing', 'publishing', 'tracking']
 
 const ALTS: { id: Alt; chipFr: string; chipEn: string; colFr: string; colEn: string }[] = [
   { id: 'freelance', chipFr: 'Des freelances', chipEn: 'Freelancers', colFr: 'Freelances', colEn: 'Freelancers' },
@@ -35,7 +54,9 @@ const ALTS: { id: Alt; chipFr: string; chipEn: string; colFr: string; colEn: str
   { id: 'chatgpt', chipFr: 'ChatGPT', chipEn: 'ChatGPT', colFr: 'ChatGPT', colEn: 'ChatGPT' },
 ]
 
-function altCells(alt: Alt, freelance: string, freelanceEn: string): Record<RowId, Cell> {
+function altCells(alt: Alt, freelance: string, freelanceEn: string, plan: PlanId): Record<RowId, Cell> {
+  const [lo, hi] = diyWeekly(plan)
+  const [elo, ehi] = editingWeekly(plan)
   const reel = FREELANCE_PRICES.reel[FREELANCE_MODE]
   const cm = FREELANCE_PRICES.communityManager[FREELANCE_MODE]
   const moyen = FREELANCE_MODE === 'moyen'
@@ -43,31 +64,39 @@ function altCells(alt: Alt, freelance: string, freelanceEn: string): Record<RowI
     case 'freelance':
       return {
         price: { fr: freelance, en: freelanceEn, noteFr: moyen ? 'Même volume, au prix moyen d’un freelance' : 'Même volume, au bas des tarifs', noteEn: moyen ? 'Same volume, at an average freelancer’s price' : 'Same volume, at the low end of rates' },
-        time: { fr: 'Tu trouves les sujets, tu briefes et tu coordonnes', en: 'You find the topics, brief everyone and coordinate' },
+        volume: { fr: 'Le même volume, avec 3 prestataires', en: 'The same volume, with 3 contractors' },
+        time: { fr: 'Tu trouves les sujets, tu briefes un monteur, un rédacteur et un community manager, et tu valides', en: 'You find the topics, brief an editor, a writer and a community manager, and approve' },
+        commitment: { fr: 'Selon chaque prestataire', en: 'Depends on each contractor' },
         editing: { fr: `Oui, chez un monteur : ${moyen ? '≈ ' : 'dès '}${reel} € le reel`, en: `Yes, with an editor: ${moyen ? '≈ ' : 'from '}€${reel} a reel`, ok: true },
         publishing: { fr: `Un community manager, ${cm} €/mois : 2 réseaux dans un forfait standard`, en: `A community manager, €${cm}/mo: 2 networks in a standard plan` },
         tracking: { fr: 'Un outil de liens trackés en plus, à brancher toi-même', en: 'An extra tracked-links tool, to set up yourself' },
       }
     case 'agency':
       return {
-        price: { fr: 'À partir de 600 €/mois pour 4 posts LinkedIn', en: 'From €600/mo for 4 LinkedIn posts', noteFr: 'Prix public d’une agence de ghostwriting LinkedIn (kodomedia.fr, novembre 2026)', noteEn: 'Public price of a LinkedIn ghostwriting agency (kodomedia.fr, November 2026)' },
-        time: { fr: 'Tu briefes l’agence et tu valides', en: 'You brief the agency and approve' },
+        volume: { fr: '4 à 20 posts LinkedIn, sans vidéo', en: '4 to 20 LinkedIn posts, no video' },
+        price: { fr: '600 à 3 000 €/mois', en: '€600 to €3,000/mo', noteFr: 'Prix publics, novembre 2026 : 600 € pour 4 posts (Kodo), 1 200 € pour 4 posts (E. Petiau), 3 000 € HT pour 20 posts (Linker)', noteEn: 'Public prices, November 2026: €600 for 4 posts (Kodo), €1,200 for 4 posts (E. Petiau), €3,000 excl. VAT for 20 posts (Linker)' },
+        time: { fr: 'Tu passes des entretiens avec l’agence et tu valides chaque post', en: 'You do interviews with the agency and approve each post' },
+        commitment: { fr: '4 à 6 mois minimum chez certaines', en: '4 to 6 months minimum at some', noteFr: 'E. Petiau : 4 mois minimum ; Linker : 6 mois renouvelables', noteEn: 'E. Petiau: 4 months minimum; Linker: 6 months renewable' },
         editing: { fr: 'Pas dans ce prix', en: 'Not in that price', ok: false },
         publishing: { fr: 'LinkedIn seulement, dans ce prix', en: 'LinkedIn only, in that price', ok: false },
         tracking: { fr: 'Pas dans ce prix', en: 'Not in that price', ok: false },
       }
     case 'diy':
       return {
-        price: { fr: '0 € de prestataire', en: '€0 in contractors' },
-        time: { fr: 'Tu écris, tu montes et tu publies toi-même', en: 'You write, edit and publish yourself' },
+        volume: { fr: 'Ce que tu arrives à tenir', en: 'Whatever you can keep up with' },
+        price: { fr: '0 € de prestataire', en: '€0 in contractors', noteFr: 'Plus les outils de montage et de planification', noteEn: 'Plus editing and scheduling tools' },
+        time: { fr: `≈ ${lo} à ${hi} h par semaine pour le même volume`, en: `≈ ${lo} to ${hi} hours a week for the same volume`, noteFr: 'Estimation : montage 40 min à 3 h par reel, écriture 15 min à 1 h par post', noteEn: 'Estimate: editing 40 min to 3 h per reel, writing 15 min to 1 h per post' },
+        commitment: { fr: 'Aucun, sauf envers toi-même', en: 'None, except to yourself' },
         editing: { fr: 'C’est toi qui montes', en: 'You edit it', ok: false },
         publishing: { fr: 'Tu publies réseau par réseau', en: 'You publish network by network', ok: false },
         tracking: { fr: 'À mettre en place toi-même', en: 'Up to you to set up', ok: false },
       }
     case 'chatgpt':
       return {
+        volume: { fr: 'Des textes, à reprendre et à publier', en: 'Texts, to rework and publish' },
         price: { fr: 'Gratuit, ou ton abonnement ChatGPT', en: 'Free, or your ChatGPT plan' },
-        time: { fr: 'Écrit un texte. Le reste, c’est toi.', en: 'Writes a text. The rest is on you.' },
+        time: { fr: `Écrit un texte. Le reste, c’est toi : ≈ ${elo} à ${ehi} h de montage par semaine, plus la publication`, en: `Writes a text. The rest is on you: ≈ ${elo} to ${ehi} hours of editing a week, plus publishing`, noteFr: 'Estimation : montage 40 min à 3 h par reel ; tu publies sur chaque réseau toi-même', noteEn: 'Estimate: editing 40 min to 3 h per reel; you publish on each network yourself' },
+        commitment: { fr: 'Aucun', en: 'None' },
         editing: { fr: 'Ne monte pas la vidéo', en: 'Doesn’t edit the video', ok: false },
         publishing: { fr: 'Ne publie pas', en: 'Doesn’t publish', ok: false },
         tracking: { fr: 'Ne te dit pas quel contenu t’amène des clients', en: 'Doesn’t tell you which content brings clients', ok: false },
@@ -84,10 +113,13 @@ export default function OfferVersus({ plan, price }: { plan: PlanId; price: numb
   const freelance = freelanceMonthly(plan)
   const label = PLAN_LABELS[plan][fr ? 'fr' : 'en']
   const current = ALTS.find((a) => a.id === alt)!
-  const cells = altCells(alt, freelanceAmount(freelance, true), freelanceAmount(freelance, false))
+  const cells = altCells(alt, freelanceAmount(freelance, true), freelanceAmount(freelance, false), plan)
+  const mix = planMix(plan)
 
   const empire: Record<RowId, Cell> = {
+    volume: { fr: `Par exemple ${mix.reels} reels et ${mix.posts} posts, sur 7 réseaux`, en: `For example ${mix.reels} reels and ${mix.posts} posts, on 7 networks`, noteFr: 'Tu changes la répartition quand tu veux', noteEn: 'Change the split whenever you like' },
     price: { fr: `${price} €/mois`, en: `€${price}/mo`, noteFr: `Formule ${label}`, noteEn: `${label} plan` },
+    commitment: { fr: 'Aucun en mensuel', en: 'None on monthly', noteFr: 'Essai 7 jours, annulable depuis l’app', noteEn: '7-day trial, cancel from the app' },
     time: { fr: '1 h par semaine : tu filmes ou tu dictes', en: '1 hour a week: you film or dictate' },
     editing: { fr: 'Inclus, chaque reel vérifié par l’équipe', en: 'Included, every reel checked by the team', ok: true },
     publishing: { fr: 'Incluse, sans supplément', en: 'Included, no extra cost', ok: true },
@@ -141,6 +173,7 @@ export default function OfferVersus({ plan, price }: { plan: PlanId; price: numb
       </div>
 
       <p className="mt-5 text-center text-sm">
+        <span className="mb-3 block text-xs leading-relaxed text-neutral-500">{fr ? nbsp('Heures : estimation. Montage d’un reel : 42 min en moyenne selon une enquête Epidemic Sound (reprise par voxbooster.com), 2 à 3 h selon cutlab.io. Écriture d’un post : 15 min à 1 h, sans étude publiée. Prix d’agence : pages publiques de Kodo, Emmanuelle Petiau et Linker, novembre 2026.') : 'Hours: estimate. Editing a reel: 42 min on average per an Epidemic Sound survey (quoted by voxbooster.com), 2 to 3 h per cutlab.io. Writing a post: 15 min to 1 h, no published study. Agency prices: public pages of Kodo, Emmanuelle Petiau and Linker, November 2026.'}</span>
         <a href="/comparatif" className="inline-flex min-h-11 items-center gap-1.5 font-semibold text-white underline decoration-white/30 underline-offset-4 hover:decoration-white">
           {fr ? 'Le comparatif détaillé' : 'The detailed comparison'}
           <ArrowRight className="h-4 w-4" />
