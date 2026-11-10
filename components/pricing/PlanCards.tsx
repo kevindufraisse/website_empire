@@ -1,5 +1,7 @@
 'use client'
 
+import type React from 'react'
+
 import glass from './pricing.module.css'
 import { Check, Linkedin, Mail, Video } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
@@ -73,6 +75,8 @@ const EXTRAS: Record<PlanId, { title: { fr: string; en: string }; lines: { fr: s
 }
 
 type Props = {
+  /** Téléphone : le bouton d'essai dans la carte choisie, sous le prix (comme Claude, Intercom, Semrush). */
+  cta?: React.ReactNode
   /** Envoyé avec `pricing_page_plan_chosen`. */
   location: string
   period: BillingId
@@ -83,7 +87,7 @@ type Props = {
   live?: LiveWindow | null
 }
 
-export default function PlanCards({ location, period, onPeriodChange, chosen, onChoose, live = null }: Props) {
+export default function PlanCards({ location, period, onPeriodChange, chosen, onChoose, live = null, cta }: Props) {
   const { lang } = useLanguage()
   const fr = lang === 'fr'
   const locale = fr ? 'fr-FR' : 'en-US'
@@ -244,6 +248,8 @@ export default function PlanCards({ location, period, onPeriodChange, chosen, on
                     )}
                   </div>
                 )}
+
+                {cta && isSelected && <div className="lg:hidden" onClick={(e) => e.stopPropagation()}>{cta}</div>}
 
                 <div className="space-y-2.5 border-t border-white/10 pt-5">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-neutral-400">{fr ? 'Chaque mois, au choix, jusqu’à' : 'Every month, your pick, up to'}</p>

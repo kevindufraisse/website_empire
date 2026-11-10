@@ -22,6 +22,32 @@ export function trialContents(fr: boolean): string {
     : `up to ${c.reels} reels, or ${c.posts} LinkedIn posts, or ${c.newsletters} newsletters`
 }
 
+/** Le bouton d'essai compact, dans la carte de la formule (téléphone). */
+export function CardTrialButton({ cart }: { cart: TrialCart }) {
+  const { lang } = useLanguage()
+  const fr = lang === 'fr'
+  const { liveDeal, opening, checkout } = cart
+  return (
+    <div>
+      <button type="button" data-trial-cta onClick={checkout} disabled={opening} className={`!min-h-[52px] !text-base ${ORDER_CTA}`}>
+        {opening ? (fr ? 'Ouverture…' : 'Opening…') : (
+          <>
+            {liveDeal ? (fr ? 'Continuer' : 'Continue') : (fr ? 'Démarrer mon essai gratuit' : 'Start my free trial')}
+            <ArrowRight className="h-[18px] w-[18px]" strokeWidth={2.5} />
+          </>
+        )}
+      </button>
+      {!liveDeal && (
+        <p className="mt-2.5 text-center text-[13px] text-neutral-400">
+          {cart.bootcamp
+            ? (fr ? nbsp(`7 jours gratuits sur ta formule · ${TRIAL_CREDITS} crédits`) : `7 days free on your plan · ${TRIAL_CREDITS} credits`)
+            : (fr ? nbsp(`7 jours gratuits · 0 € aujourd’hui · ${TRIAL_CREDITS} crédits`) : `7 days free · €0 today · ${TRIAL_CREDITS} credits`)}
+        </p>
+      )}
+    </div>
+  )
+}
+
 export function CallLink({ className = '' }: { className?: string }) {
   const { lang } = useLanguage()
   const fr = lang === 'fr'

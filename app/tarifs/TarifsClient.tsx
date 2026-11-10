@@ -11,7 +11,7 @@ import TeamCards from '@/components/pricing/TeamCards'
 import OptionsPanel from '@/components/pricing/OptionsPanel'
 import PressRow from '@/components/pricing/PressRow'
 import StickyTrialBar from '@/components/pricing/StickyTrialBar'
-import TrialCta, { trialContents } from '@/components/pricing/TrialCta'
+import TrialCta, { CardTrialButton, trialContents } from '@/components/pricing/TrialCta'
 import { useTrialCart } from '@/components/pricing/useTrialCart'
 import { nbsp, rich } from '@/components/pricing/typo'
 import glass from '@/components/pricing/pricing.module.css'
@@ -423,7 +423,7 @@ export default function TarifsClient() {
         {solo ? (
           <>
             <section className="mx-auto mt-7 max-w-5xl md:mt-12" aria-label={fr ? 'Formules' : 'Plans'}>
-              <PlanCards location="cards" period={period} onPeriodChange={setPeriod} chosen={chosenPlan} onChoose={setChosenPlan} live={live} />
+              <PlanCards location="cards" period={period} onPeriodChange={setPeriod} chosen={chosenPlan} onChoose={setChosenPlan} live={live} cta={<CardTrialButton cart={cart} />} />
               <TrialCta cart={cart} withTrialLine withCall className="mx-auto mt-6 max-w-md md:mt-8" />
             </section>
 
