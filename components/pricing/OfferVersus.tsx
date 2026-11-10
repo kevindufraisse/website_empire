@@ -57,6 +57,8 @@ const ALTS: { id: Alt; chipFr: string; chipEn: string; colFr: string; colEn: str
 function altCells(alt: Alt, freelance: string, freelanceEn: string, plan: PlanId): Record<RowId, Cell> {
   const [lo, hi] = diyWeekly(plan)
   const [elo, ehi] = editingWeekly(plan)
+  const m = planMix(plan)
+  const agencyTotal = Math.round((m.posts * 150 + m.reels * 150) / 100) * 100
   const reel = FREELANCE_PRICES.reel[FREELANCE_MODE]
   const cm = FREELANCE_PRICES.communityManager[FREELANCE_MODE]
   const moyen = FREELANCE_MODE === 'moyen'
@@ -73,13 +75,13 @@ function altCells(alt: Alt, freelance: string, freelanceEn: string, plan: PlanId
       }
     case 'agency':
       return {
-        volume: { fr: '4 à 20 posts LinkedIn, sans vidéo', en: '4 to 20 LinkedIn posts, no video' },
-        price: { fr: '600 à 3 000 €/mois', en: '€600 to €3,000/mo', noteFr: 'Prix publics, novembre 2026 : 600 € pour 4 posts (Kodo), 1 200 € pour 4 posts (E. Petiau), 3 000 € HT pour 20 posts (Linker)', noteEn: 'Public prices, November 2026: €600 for 4 posts (Kodo), €1,200 for 4 posts (E. Petiau), €3,000 excl. VAT for 20 posts (Linker)' },
+        volume: { fr: 'Le même volume, avec une agence LinkedIn et une agence vidéo', en: 'The same volume, with a LinkedIn agency and a video agency' },
+        price: { fr: `≈ ${agencyTotal.toLocaleString('fr-FR')} €/mois pour le même volume`, en: `≈ €${agencyTotal.toLocaleString('en-US')}/mo for the same volume`, noteFr: `${m.posts} posts × 150 € (prix par post chez Kodo et Linker) + ${m.reels} reels × 150 € (bas du prix agence pour une vidéo courte, 150 à 400 €, cutlab.io). Seule, une agence LinkedIn démarre à 600 € pour 4 posts, sans vidéo.`, noteEn: `${m.posts} posts × €150 (per-post price at Kodo and Linker) + ${m.reels} reels × €150 (low end of agency price for a short video, €150–400, cutlab.io). On its own, a LinkedIn agency starts at €600 for 4 posts, no video.` },
         time: { fr: 'Tu passes des entretiens avec l’agence et tu valides chaque post', en: 'You do interviews with the agency and approve each post' },
         commitment: { fr: '4 à 6 mois minimum chez certaines', en: '4 to 6 months minimum at some', noteFr: 'E. Petiau : 4 mois minimum ; Linker : 6 mois renouvelables', noteEn: 'E. Petiau: 4 months minimum; Linker: 6 months renewable' },
-        editing: { fr: 'Pas dans ce prix', en: 'Not in that price', ok: false },
-        publishing: { fr: 'LinkedIn seulement, dans ce prix', en: 'LinkedIn only, in that price', ok: false },
-        tracking: { fr: 'Pas dans ce prix', en: 'Not in that price', ok: false },
+        editing: { fr: 'Oui, chez une deuxième agence', en: 'Yes, at a second agency', ok: true },
+        publishing: { fr: 'Souvent LinkedIn seulement : les autres réseaux en plus', en: 'Often LinkedIn only: other networks cost extra', ok: false },
+        tracking: { fr: 'Rarement inclus', en: 'Rarely included', ok: false },
       }
     case 'diy':
       return {
@@ -173,7 +175,7 @@ export default function OfferVersus({ plan, price }: { plan: PlanId; price: numb
       </div>
 
       <p className="mt-5 text-center text-sm">
-        <span className="mb-3 block text-xs leading-relaxed text-neutral-500">{fr ? nbsp('Heures : estimation. Montage d’un reel : 42 min en moyenne selon une enquête Epidemic Sound (reprise par voxbooster.com), 2 à 3 h selon cutlab.io. Écriture d’un post : 15 min à 1 h, sans étude publiée. Prix d’agence : pages publiques de Kodo, Emmanuelle Petiau et Linker, novembre 2026.') : 'Hours: estimate. Editing a reel: 42 min on average per an Epidemic Sound survey (quoted by voxbooster.com), 2 to 3 h per cutlab.io. Writing a post: 15 min to 1 h, no published study. Agency prices: public pages of Kodo, Emmanuelle Petiau and Linker, November 2026.'}</span>
+        <span className="mb-3 block text-xs leading-relaxed text-neutral-500">{fr ? nbsp('Heures : estimation. Montage d’un reel : 42 min en moyenne selon une enquête Epidemic Sound (reprise par voxbooster.com), 2 à 3 h selon cutlab.io. Écriture d’un post : 15 min à 1 h, sans étude publiée. Prix d’agence : pages publiques de Kodo et Linker (environ 150 € le post), et fourchette agence vidéo de cutlab.io (150 à 400 € la vidéo courte), novembre 2026.') : 'Hours: estimate. Editing a reel: 42 min on average per an Epidemic Sound survey (quoted by voxbooster.com), 2 to 3 h per cutlab.io. Writing a post: 15 min to 1 h, no published study. Agency prices: public pages of Kodo and Linker (about €150 a post), and cutlab.io’s video agency range (€150–400 per short video), November 2026.'}</span>
         <a href="/comparatif" className="inline-flex min-h-11 items-center gap-1.5 font-semibold text-white underline decoration-white/30 underline-offset-4 hover:decoration-white">
           {fr ? 'Le comparatif détaillé' : 'The detailed comparison'}
           <ArrowRight className="h-4 w-4" />
