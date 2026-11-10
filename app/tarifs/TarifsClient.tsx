@@ -407,8 +407,8 @@ export default function TarifsClient() {
                   <Image src="/founders/kevin.jpg" alt="" width={44} height={44} className="h-11 w-11 shrink-0 rounded-full object-cover ring-1 ring-white/20" />
                   <p className="text-[14px] leading-snug text-neutral-200">
                     {tr(
-                      'La méthode de Kevin Dufraisse, classé n° 1 en France par Favikon, catégorie growth et lead gen sur LinkedIn (février 2025).',
-                      'The method of Kevin Dufraisse, ranked #1 in France by Favikon, growth and lead gen category on LinkedIn (February 2025).',
+                      'La méthode de Kevin Dufraisse : n° 1 en France en growth et lead gen, et 55ᵉ créateur LinkedIn en France (Favikon, février 2025).',
+                      'The method of Kevin Dufraisse: #1 in France for growth and lead gen, and #55 LinkedIn creator in France (Favikon, February 2025).',
                     )}{' '}
                     <a href={FAVIKON_RANKING} target="_blank" rel="noreferrer" className={`whitespace-nowrap font-semibold text-white ${LINK}`}>
                       {fr ? 'Voir le classement' : 'See the ranking'}
