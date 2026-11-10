@@ -93,7 +93,7 @@ const ROWS: Row[] = [
     cells: { starter: String(PLAN_DELIVERABLES.starter.reels), growth: String(PLAN_DELIVERABLES.growth.reels), scale: String(PLAN_DELIVERABLES.scale.reels) },
   },
   {
-    fr: 'ou posts LinkedIn, jusqu’à', en: 'or LinkedIn posts, up to',
+    fr: 'ou posts (LinkedIn, X, Threads…), jusqu’à', en: 'or posts (LinkedIn, X, Threads…), up to',
     cells: { starter: String(PLAN_DELIVERABLES.starter.posts), growth: String(PLAN_DELIVERABLES.growth.posts), scale: String(PLAN_DELIVERABLES.scale.posts) },
   },
   {

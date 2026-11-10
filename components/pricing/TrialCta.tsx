@@ -15,12 +15,12 @@ import { TrialReassurance } from '@/components/ui/cta'
  * le lien vers l'appel. Même `checkout` partout (`useTrialCart`).
  */
 
-/** « de quoi faire jusqu'à 2 reels, ou 5 posts LinkedIn, ou 4 newsletters », calculé sur les coûts en crédits. */
+/** « de quoi faire jusqu'à 5 contenus » (tout en posts), calculé sur les coûts en crédits. */
 export function trialContents(fr: boolean): string {
   const c = contentsFor(TRIAL_CREDITS)
   return fr
-    ? `jusqu’à ${c.reels} reels, ou ${c.posts} posts LinkedIn, ou ${c.newsletters} newsletters`
-    : `up to ${c.reels} reels, or ${c.posts} LinkedIn posts, or ${c.newsletters} newsletters`
+    ? `jusqu’à ${c.posts} contenus`
+    : `up to ${c.posts} pieces of content`
 }
 
 /** Le bouton d'essai compact, dans la carte de la formule (téléphone). */
@@ -78,8 +78,8 @@ export default function TrialCta({ cart, withTrialLine = false, withCall = false
       ? `Aujourd’hui : ${bootcampEuros} € pour le Bootcamp Academy, 0 € pour ta formule. À l’étape suivante, tu ajoutes une carte ou un IBAN. Le premier prélèvement de ta formule part le 8ᵉ jour, ou avant si tu dépasses les ${TRIAL_CREDITS} crédits.`
       : `Today: €${bootcampEuros} for the Academy bootcamp, €0 for your plan. On the next step, you add a card or an IBAN. The first charge for your plan is taken on day 8, or earlier if you go past ${TRIAL_CREDITS} credits.`)
     : (fr
-      ? `0 € aujourd’hui pour ta formule. À l’étape suivante, tu ajoutes une carte ou un IBAN. Le premier prélèvement part le 8ᵉ jour, ou avant si tu dépasses les ${TRIAL_CREDITS} crédits.`
-      : `€0 today for your plan. On the next step, you add a card or an IBAN. The first charge is taken on day 8, or earlier if you go past ${TRIAL_CREDITS} credits.`)
+      ? `À l’étape suivante, tu ajoutes une carte ou un IBAN. Le premier prélèvement part le 8ᵉ jour, ou avant si tu dépasses les ${TRIAL_CREDITS} crédits.`
+      : `On the next step, you add a card or an IBAN. The first charge is taken on day 8, or earlier if you go past ${TRIAL_CREDITS} credits.`)
   const cancel = fr
     ? `Si tu annules l’essai depuis l’app avant le premier prélèvement, ta formule ne te coûte rien.${monthly ? ' Ensuite, tu arrêtes quand tu veux.' : ''}`
     : `If you cancel the trial from the app before the first charge, your plan costs you nothing.${monthly ? ' After that, you stop whenever you want.' : ''}`
