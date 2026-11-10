@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 
 export const metadata = {
   title: 'La démo d’Empire | Empire Internet',
-  description: 'Découvre Empire à ton rythme avec la démo enregistrée, ou réserve une démonstration personnelle avec Kevin Dufraisse.',
+  description: 'Découvre Empire en vidéo : une démo de 24 min. Ensuite, teste 7 jours gratuitement ou prends rendez-vous avec un expert Empire.',
 }
 
 export default function DemoLayout({ children }: { children: ReactNode }) {

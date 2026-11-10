@@ -19,7 +19,7 @@ import { CtaReassurance } from '@/components/ui/cta-reassurance'
 
 const CAL_LINK = 'team/empire-internet/audit-empire'
 
-const COUNTRIES = [
+export const COUNTRIES = [
   { code: '+33', flag: '🇫🇷', name: 'France' },
   { code: '+32', flag: '🇧🇪', name: 'Belgique' },
   { code: '+41', flag: '🇨🇭', name: 'Suisse' },
@@ -42,7 +42,11 @@ interface Lead {
 }
 
 // ── Cal.com full-screen modal ─────────────────────────────────────────────────
-function CalModal({ lead, countryCode, onClose }: { lead: Lead; countryCode: string; onClose: () => void }) {
+// `informal` : tutoiement et langue de la page (/demo). Sans lui, rien ne change
+// pour /join-us et /decouverte.
+export function CalModal({ lead, countryCode, informal = false, onClose }: { lead: Lead; countryCode: string; informal?: boolean; onClose: () => void }) {
+  const { lang } = useLanguage()
+  const fr = lang === 'fr'
   const calInitialized = useRef(false)
   const fullPhone = `${countryCode}${lead.phone}`
 
@@ -94,13 +98,20 @@ function CalModal({ lead, countryCode, onClose }: { lead: Lead; countryCode: str
         <div className="flex items-center justify-between px-5 py-4 border-b border-white/8">
           <div>
             <p className="text-sm font-semibold text-white">
-              C'est noté, {lead.firstName} 👋
+              {informal
+                ? (fr ? `C’est noté, ${lead.firstName}.` : `Got it, ${lead.firstName}.`)
+                : <>C'est noté, {lead.firstName} 👋</>}
             </p>
-            <p className="text-xs text-neutral-400">Choisissez votre créneau - vos infos sont pré-remplies.</p>
+            <p className="text-xs text-neutral-400">
+              {informal
+                ? (fr ? 'Choisis ton créneau. Tes infos sont déjà remplies.' : 'Pick a time. Your details are already filled in.')
+                : 'Choisissez votre créneau - vos infos sont pré-remplies.'}
+            </p>
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-neutral-400 hover:text-white hover:border-white/20 transition-all"
+            aria-label={fr ? 'Fermer' : 'Close'}
+            className={`${informal ? 'h-11 w-11 shrink-0' : 'w-8 h-8'} rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-neutral-400 hover:text-white hover:border-white/20 transition-all`}
           >
             <X size={16} />
           </button>

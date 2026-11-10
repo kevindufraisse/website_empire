@@ -25,7 +25,7 @@ export default function Footer() {
   const isVslPage = pathname === '/vsl'
   const isCandidaturePage = pathname === '/candidature' || pathname === '/decouverte' || pathname === '/join-us' || pathname === '/postuler' || pathname?.startsWith('/hire-our-team')
 
-  if (pathname === '/live' || pathname === '/tarifs' || pathname === '/demo') return null
+  if (pathname === '/live' || pathname === '/tarifs') return null
 
   if (isCandidaturePage || pathname === '/academy/merci' || pathname === '/thank-you' || pathname === '/webinar' || pathname === '/webinar/merci' || pathname === '/live') return null
 
@@ -34,6 +34,28 @@ export default function Footer() {
     return (
       <footer className="w-full bg-black px-4 pb-[calc(6rem+env(safe-area-inset-bottom))] pt-6">
         <MetaDisclaimer fr={lang === 'fr'} />
+      </footer>
+    )
+  }
+
+  // /demo : un pied de page court. Les liens légaux et les cookies restent, les
+  // autres liens feraient quitter la vidéo. Ils passent à la ligne proprement
+  // sur un petit téléphone.
+  if (pathname === '/demo') {
+    const legalLink = 'inline-flex min-h-[44px] items-center px-2 hover:text-empire transition-colors'
+    return (
+      <footer className="w-full border-t border-white/10 bg-black px-4 pb-[calc(1.5rem+env(safe-area-inset-bottom))] pt-6 text-center text-sm text-neutral-400">
+        <nav className="flex flex-col items-center sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-2">
+          <a href="/terms" className={legalLink}>{t.footer.termsOfUse}</a>
+          <a href="/privacy" className={legalLink}>{t.footer.privacyPolicy}</a>
+          <a href="/data-deletion" className={legalLink}>{lang === 'fr' ? 'Suppression des données' : 'Data deletion'}</a>
+          {!signedIn && (
+            <button type="button" onClick={openCookiePreferences} className={`${legalLink} cursor-pointer appearance-none border-0 bg-transparent py-0 font-inherit text-inherit`}>
+              Cookies
+            </button>
+          )}
+        </nav>
+        <p className="mt-2 text-xs text-neutral-400">© {new Date().getFullYear()} Empire Internet. {lang === 'fr' ? 'Tous droits réservés.' : 'All rights reserved.'}</p>
       </footer>
     )
   }

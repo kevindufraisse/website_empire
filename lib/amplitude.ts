@@ -47,6 +47,19 @@ export function trackAmplitude(name: string, props?: Record<string, unknown>) {
   amplitude.track(name, props)
 }
 
+/**
+ * Envoie tout de suite les événements en attente. À appeler juste avant de
+ * quitter le site : sinon le changement de page coupe l'envoi et l'événement
+ * du clic est perdu. N'attend jamais plus de `timeoutMs`.
+ */
+export function flushAmplitude(timeoutMs = 800): Promise<void> {
+  if (!analyticsAllowed() || !initialized) return Promise.resolve()
+  return Promise.race([
+    amplitude.flush().promise.then(() => undefined, () => undefined),
+    new Promise<void>((resolve) => setTimeout(resolve, timeoutMs)),
+  ])
+}
+
 export function getAmplitudeDeviceId(): string | undefined {
   if (!analyticsAllowed() || !initialized) return undefined
   return amplitude.getDeviceId()
