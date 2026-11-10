@@ -367,18 +367,34 @@ export default function TarifsClient() {
             <span aria-hidden className="flex h-7 w-7 items-center justify-center rounded-lg bg-empire text-[15px] font-black leading-none text-black">E</span>
             <span className="text-base font-bold tracking-tight text-white">Empire Internet</span>
           </a>
-          <a
-            href={loginHref}
-            onClick={() => trackAmplitude('header_login_clicked', { path: pathname })}
-            className="flex min-h-11 items-center px-1 text-sm font-medium text-neutral-300 hover:text-white"
-          >
-            {fr ? 'Se connecter' : 'Log in'}
-          </a>
+          <div className="flex items-center gap-3">
+            <a
+              href={loginHref}
+              onClick={() => trackAmplitude('header_login_clicked', { path: pathname })}
+              className="flex min-h-11 items-center px-1 text-sm font-medium text-neutral-300 hover:text-white"
+            >
+              {fr ? 'Se connecter' : 'Log in'}
+            </a>
+            {/* Ordinateur : les cartes remplissent le premier écran et le bouton
+                d'essai est dessous ; celui-ci le garde visible dès l'arrivée
+                (même bouton et même événement que l'en-tête du site). Sur
+                téléphone, le bouton est déjà dans la carte, sous le prix. */}
+            {solo && !cart.liveDeal && (
+              <button
+                type="button"
+                onClick={() => { trackAmplitude('header_trial_clicked', { path: pathname }); cart.checkout() }}
+                disabled={cart.opening}
+                className="hidden cursor-pointer rounded-lg bg-empire px-4 py-2 text-sm font-semibold text-black transition hover:brightness-110 disabled:opacity-60 lg:inline-flex"
+              >
+                {cart.opening ? (fr ? 'Ouverture…' : 'Opening…') : (fr ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial')}
+              </button>
+            )}
+          </div>
         </div>
       </div>
 
       <div className="mx-auto max-w-6xl px-4">
-        <header className="mx-auto max-w-2xl pt-8 text-center md:pt-14">
+        <header className="mx-auto max-w-2xl pt-6 text-center md:pt-14">
           <h1 className="text-[30px] font-bold leading-[1.12] tracking-tight text-white [text-wrap:balance] md:text-5xl md:leading-[1.08]">{h1}</h1>
           <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-neutral-300 [text-wrap:pretty] md:text-lg">
             {tr(
@@ -386,7 +402,7 @@ export default function TarifsClient() {
               'You film or dictate 1 hour a week. Empire prepares the ideas, writes, edits and publishes to your networks.',
             )}
           </p>
-          <p className="mx-auto mt-6 flex max-w-md items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] py-2.5 pl-2.5 pr-4 text-left text-[13px] leading-snug text-neutral-300 md:max-w-lg">
+          <p className="mx-auto mt-5 flex max-w-md items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] py-2.5 pl-2.5 pr-4 text-left text-[13px] leading-snug text-neutral-300 md:max-w-lg">
             <Image src="/founders/kevin.jpg" alt="" width={40} height={40} className="h-10 w-10 shrink-0 rounded-full object-cover ring-1 ring-white/20" />
             <span>
               {tr(
@@ -422,7 +438,7 @@ export default function TarifsClient() {
 
         {solo ? (
           <>
-            <section className="mx-auto mt-7 max-w-5xl md:mt-12" aria-label={fr ? 'Formules' : 'Plans'}>
+            <section className="mx-auto mt-6 max-w-5xl md:mt-12" aria-label={fr ? 'Formules' : 'Plans'}>
               <PlanCards location="cards" period={period} onPeriodChange={setPeriod} chosen={chosenPlan} onChoose={setChosenPlan} live={live} cta={<CardTrialButton cart={cart} />} />
               <TrialCta cart={cart} withTrialLine withCall className="mx-auto mt-6 max-w-md md:mt-8" />
             </section>

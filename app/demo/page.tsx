@@ -196,7 +196,7 @@ export default function DemoPage() {
         )}
 
         {step === 'watch' && (
-          <section aria-labelledby="watch-heading" className="mx-auto max-w-[880px]">
+          <section aria-labelledby="watch-heading" className="mx-auto max-w-[880px] lg:max-w-none">
             <header className="mb-5 text-center md:mb-7">
               {videoBadge}
               <h1 id="watch-heading" ref={headingRef} tabIndex={-1} className="mt-3 text-balance text-2xl font-extrabold leading-[1.15] text-white outline-none sm:text-3xl md:text-4xl">
@@ -206,6 +206,10 @@ export default function DemoPage() {
               </h1>
             </header>
 
+            {/* Ordinateur : la vidéo à gauche, l'essai et le rendez-vous à
+                droite, tous deux visibles sans faire défiler (1280 × 720 compris). */}
+            <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_300px] lg:items-start lg:gap-6">
+            <div>
             {/* Bord à bord sur téléphone. La bordure est sur le cadre extérieur,
                 pour que le lecteur reste en 16:9 exact. */}
             <div className="-mx-4 overflow-hidden border-y border-white/10 bg-[#111] sm:mx-0 sm:rounded-2xl sm:border">
@@ -223,10 +227,11 @@ export default function DemoPage() {
                 {!fr && ' · Video in French'}
               </p>
             </div>
+            </div>
 
-            <div className={`${card} mt-4 flex flex-col items-center p-5 text-center sm:mt-6 sm:p-8`}>
+            <div className={`${card} mt-4 flex flex-col items-center p-5 text-center sm:mt-6 sm:p-8 lg:mt-0 lg:p-6`}>
               <p className="text-balance text-lg font-bold leading-snug text-white sm:text-xl">{fr ? 'Essaie Empire sur ton propre contenu.' : 'Try Empire on your own content.'}</p>
-              <button type="button" onClick={trial} disabled={trialLoading} className={`${primaryButton} mt-4 w-full sm:w-auto sm:px-12`}>
+              <button type="button" onClick={trial} disabled={trialLoading} className={`${primaryButton} mt-4 w-full sm:w-auto sm:px-12 lg:w-full lg:px-5`}>
                 {trialLoading ? (fr ? 'Ouverture…' : 'Opening…') : (fr ? 'Tester gratuitement' : 'Try it for free')}
                 {!trialLoading && arrow}
               </button>
@@ -236,11 +241,12 @@ export default function DemoPage() {
               </a>
               <div className="mt-3 flex w-full flex-col items-center gap-3 border-t border-white/10 pt-5">
                 <p className="text-sm text-neutral-400">{fr ? 'Tu préfères en parler d’abord ?' : 'Prefer to talk first?'}</p>
-                <button type="button" onClick={book} className={`${secondaryButton} w-full sm:w-auto`}>
+                <button type="button" onClick={book} className={`${secondaryButton} w-full sm:w-auto lg:w-full`}>
                   <Calendar size={18} className="shrink-0" aria-hidden />
                   {fr ? 'Parler à un expert Empire' : 'Talk to an Empire expert'}
                 </button>
               </div>
+            </div>
             </div>
 
             <div className="mt-6 flex justify-center">{creatorsBand}</div>

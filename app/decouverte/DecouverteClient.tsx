@@ -73,10 +73,10 @@ export default function DecouverteClient() {
           </div>
         </div>
 
-        <div className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 py-8 md:py-14 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+        <div className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 pt-6 pb-8 sm:pt-8 md:py-14 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
 
           <div className="lg:sticky lg:top-8">
-            <h1 className="text-3xl sm:text-4xl font-extrabold leading-tight mb-4">
+            <h1 className="text-[27px] min-[380px]:text-3xl sm:text-4xl font-extrabold leading-tight mb-4">
               {headline}{' '}
               <span className={accent.heroSpan}>{headlineAccent}</span>
             </h1>

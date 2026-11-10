@@ -26,6 +26,14 @@ const clock = (sec: number) => {
 // Les boutons de l'offre n'apparaissent qu'après 10 min de vidéo
 // réellement regardées (avancer dans la barre ne compte pas).
 const WATCHED_KEY = 'empire_vsl_watched_v1'
+// Mêmes portraits locaux que le hero de la home et /demo (public/creators).
+const VSL_CREATORS = [
+  { name: 'Alex Hormozi', img: '/creators/hormozi.jpg' },
+  { name: 'Matt Gray', img: '/creators/gray.jpg' },
+  { name: 'Ali Abdaal', img: '/creators/abdaal.webp' },
+  { name: 'Justin Welsh', img: '/creators/welsh.webp' },
+  { name: 'Dan Koe', img: '/creators/koe.webp' },
+]
 const WHAT_YOU_GET = [
   {
     title: 'Des idées prêtes à filmer',
@@ -549,14 +557,16 @@ export default function VslClient() {
       />
       <div className="absolute inset-x-0 top-0 h-[600px] bg-[radial-gradient(ellipse_80%_60%_at_50%_0%,rgb(var(--empire-rgb)_/_0.10),transparent)] pointer-events-none" />
 
-      <section className="relative pt-24 md:pt-28 pb-12 md:pb-16">
+      <section className="relative pt-24 pb-10 md:pb-16">
         <div className="container max-w-4xl mx-auto px-4">
           <h1 className="text-center text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-6">
             Dans 30 jours, tout votre marché vous connaîtra après avoir regardé <span className="text-empire">cette vidéo</span>&nbsp;:
           </h1>
 
-          {/* Largeur bornée par la hauteur d'écran : les boutons restent au-dessus de la ligne de flottaison. */}
-          <div className="mx-auto w-full max-w-[max(18rem,calc((100svh-24rem)*16/9))]">
+          {/* Largeur bornée par la hauteur d'écran : les boutons et la ligne
+              d'essai restent au-dessus de la ligne de flottaison (ordinateur
+              1280 × 720 compris). */}
+          <div className="mx-auto w-full max-w-[max(18rem,calc((100svh-24rem)*16/9))] md:max-w-[max(18rem,calc((100svh-27rem)*16/9))]">
             <VideoPlayer onPlayingChange={setVideoPlaying} onWatched={setWatched} />
           </div>
 
@@ -575,6 +585,20 @@ export default function VslClient() {
 
           <div className="mt-6">
             <Ctas location="top" />
+          </div>
+
+          {/* Preuve sous les boutons : même pastille que la home et /demo. */}
+          <div className="mt-6 flex justify-center">
+            <div className="flex max-w-full items-center gap-3 rounded-full border border-white/10 bg-white/5 px-3.5 py-2 pl-2 sm:gap-4">
+              <div className="flex shrink-0 -space-x-2">
+                {VSL_CREATORS.map((c) => (
+                  <img key={c.name} src={c.img} alt={c.name} title={c.name} width={40} height={40} loading="lazy" className="h-9 w-9 rounded-full border-2 border-black bg-neutral-800 object-cover sm:h-10 sm:w-10" />
+                ))}
+              </div>
+              <span className="text-left text-[11px] leading-snug text-neutral-300 sm:text-xs">
+                Ils utilisent cette formule. <span className="text-neutral-500">Prête à utiliser pour toi.</span>
+              </span>
+            </div>
           </div>
         </div>
       </section>

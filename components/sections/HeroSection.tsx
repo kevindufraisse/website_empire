@@ -92,7 +92,7 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 0 }}
               transition={{ duration: 0.4, ease: 'easeOut' }}
-              className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-[1.15]"
+              className="text-[27px] min-[380px]:text-3xl sm:text-4xl md:text-5xl font-extrabold leading-[1.15]"
               dangerouslySetInnerHTML={{ __html: heroTitle.replace(/<br\/>/g, '<br>') }}
             />
           </AnimatePresence>
@@ -186,6 +186,7 @@ export default function HeroSection() {
 
           {/* CTA centered + Vu sur below */}
           <motion.div
+            id="hero-cta-block"
             initial={mounted ? { opacity: 0, y: 10 } : false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
@@ -246,7 +247,9 @@ export default function HeroSection() {
                       <a
                         href="/demo"
                         onClick={() => trackAmplitude('empire_demo_clicked', { source: 'home-hero' })}
-                        className="inline-flex items-center gap-2 rounded-xl border border-white/25 px-6 py-2.5 text-sm font-semibold text-white transition hover:border-white/40 hover:bg-white/[0.06]"
+                        // Fond opaque (même rendu sur le noir du hero) : les réactions
+                        // qui montent derrière ne passent plus à travers le texte.
+                        className="inline-flex items-center gap-2 rounded-xl border border-white/25 bg-[#0a0a0a] px-6 py-2.5 text-sm font-semibold text-white transition hover:border-white/40 hover:bg-[#151515]"
                       >
                         {lang === 'fr' ? 'Demander une démo' : 'Request a demo'}
                       </a>
@@ -261,7 +264,7 @@ export default function HeroSection() {
                 dans la section fondateur plus bas. Fichiers locaux, jamais de
                 hotlink : un avatar cassé dans le hero est le pire endroit. */}
             <div className="mt-1 flex flex-col items-center gap-3">
-              <div className="flex max-w-full items-center gap-3 sm:gap-4 px-3.5 py-2 pl-2 rounded-full bg-white/5 border border-white/10">
+              <div className="flex max-w-full items-center gap-3 sm:gap-4 px-3.5 py-2 pl-2 rounded-full bg-[#0d0d0d] border border-white/10">
                 <div className="flex shrink-0 -space-x-2">
                   {HERO_CREATORS.map((c) => (
                     <img
@@ -315,8 +318,13 @@ function ScrollDownArrow({ lang }: { lang: string }) {
   useEffect(() => {
     const slot = document.getElementById('formula-hero-slot')
     const onScroll = () => {
+      // Jamais par-dessus les boutons du hero ni la preuve qui les suit
+      // (petits téléphones, ordinateur 1280 × 720) : la pastille se cache.
+      const block = document.getElementById('hero-cta-block')?.getBoundingClientRect()
+      const pillTop = window.innerHeight - (window.innerWidth >= 640 ? 32 : 16) - 56
+      const coversHero = Boolean(block && block.bottom > pillTop && block.top < window.innerHeight)
       if (slot) {
-        setVisible(slot.getBoundingClientRect().top > 96)
+        setVisible(slot.getBoundingClientRect().top > 96 && !coversHero)
       } else {
         const main = document.querySelector('main')
         const scrolled = main ? -main.getBoundingClientRect().top : 0
@@ -325,9 +333,11 @@ function ScrollDownArrow({ lang }: { lang: string }) {
     }
     const t = setTimeout(onScroll, 600)
     document.addEventListener('scroll', onScroll, { passive: true, capture: true })
+    window.addEventListener('resize', onScroll)
     return () => {
       clearTimeout(t)
       document.removeEventListener('scroll', onScroll, { capture: true })
+      window.removeEventListener('resize', onScroll)
     }
   }, [])
 

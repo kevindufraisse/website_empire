@@ -75,7 +75,8 @@ export default function JoinUsClient() {
               >
                 {fr ? 'Réserver →' : 'Book →'}
               </a>
-              <div className="flex items-center gap-1.5 text-[11px] sm:text-xs text-neutral-400 min-w-0">
+              {/* Sous 380 px, le texte serait coupé (« Appel gratuit dispon… ») : le lien Réserver suffit. */}
+              <div className="hidden min-[380px]:flex items-center gap-1.5 text-[11px] sm:text-xs text-neutral-400 min-w-0">
                 <span className={`w-1.5 h-1.5 rounded-full ${accent.bg} animate-pulse shrink-0`} />
                 <span className="truncate">{fr ? 'Appel gratuit disponible' : 'Free call available'}</span>
               </div>
@@ -83,10 +84,10 @@ export default function JoinUsClient() {
           </div>
         </div>
 
-        <div className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 py-8 md:py-14 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+        <div className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 pt-6 pb-8 sm:pt-8 md:py-14 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
 
           <div className="lg:sticky lg:top-8 order-2 lg:order-1">
-            <h1 className="text-3xl sm:text-4xl font-extrabold leading-tight mb-4">
+            <h1 className="text-[27px] min-[380px]:text-3xl sm:text-4xl font-extrabold leading-tight mb-4">
               {headline}{' '}
               <span className={accent.heroSpan}>{headlineAccent}</span>
             </h1>
