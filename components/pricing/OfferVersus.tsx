@@ -45,7 +45,7 @@ const ROW_LABELS: Record<RowId, { fr: string; en: string }> = {
   publishing: { fr: 'Publication sur 7 réseaux', en: 'Publishing to 7 networks' },
   tracking: { fr: 'Suivi des clients', en: 'Client tracking' },
 }
-const ROW_ORDER: RowId[] = ['volume', 'price', 'time', 'commitment', 'editing', 'publishing', 'tracking']
+const ROW_ORDER: RowId[] = ['price', 'time', 'commitment', 'editing', 'publishing', 'tracking']
 
 const ALTS: { id: Alt; chipFr: string; chipEn: string; colFr: string; colEn: string }[] = [
   { id: 'freelance', chipFr: 'Des freelances', chipEn: 'Freelancers', colFr: 'Freelances', colEn: 'Freelancers' },
