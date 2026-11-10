@@ -7,7 +7,6 @@ import { Check, Linkedin, Mail, Video } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import {
   BILLING_PERIODS,
-  CONTENT_CREDITS,
   PLANS,
   PLAN_DELIVERABLES,
   PLAN_LABELS,
@@ -34,25 +33,13 @@ const RHYTHM_TU: Record<PlanId, string> = {
   scale: 'Tu publies 2 fois par jour',
 }
 
-// Un mois type, vérifié sur les crédits de la formule (`lib/plans.ts`).
-// Starter : 4 × 195 + 8 × 85 + 2 × 115 = 1 690 crédits sur 2 200.
-// Growth : la moitié des crédits en reels, l'autre en posts (16 et 38).
-// Scale : pas d'exemple publié, la ligne s'arrête à « Tu peux mélanger ».
-const STARTER_MIX = { reels: 4, posts: 8, newsletters: 2 }
-const growthHalf = (PLANS.find((p) => p.id === 'growth')?.credits ?? 0) / 2
-const GROWTH_MIX = { reels: Math.floor(growthHalf / CONTENT_CREDITS.reel), posts: Math.floor(growthHalf / CONTENT_CREDITS.post) }
-
-const MIX: Record<PlanId, { fr: string; en: string }> = {
-  starter: {
-    fr: `Tu peux mélanger. Exemple : ${STARTER_MIX.reels} reels, ${STARTER_MIX.posts} posts et ${STARTER_MIX.newsletters} newsletters dans le mois.`,
-    en: `You can mix. Example: ${STARTER_MIX.reels} reels, ${STARTER_MIX.posts} posts and ${STARTER_MIX.newsletters} newsletters in the month.`,
-  },
-  growth: {
-    fr: `Tu peux mélanger. Exemple : ${GROWTH_MIX.reels} reels et ${GROWTH_MIX.posts} posts dans le mois.`,
-    en: `You can mix. Example: ${GROWTH_MIX.reels} reels and ${GROWTH_MIX.posts} posts in the month.`,
-  },
-  scale: { fr: 'Tu peux mélanger.', en: 'You can mix.' },
-}
+// Ce qu'Empire fait pour chaque formule : repris des lignes du tableau comparatif de /tarifs.
+const DOES: { fr: string; en: string }[] = [
+  { fr: 'Chaque matin, les sujets qui montent dans ta niche', en: 'Every morning, the topics rising in your niche' },
+  { fr: 'Des idées prêtes à filmer chaque semaine', en: 'Ready-to-film ideas every week' },
+  { fr: 'Écriture, montage, sous-titres et miniatures', en: 'Writing, editing, captions and thumbnails' },
+  { fr: 'Publication sur 7 réseaux, et un rapport chaque semaine', en: 'Publishing to 7 networks, and a weekly report' },
+]
 
 const EXTRAS: Record<PlanId, { title: { fr: string; en: string }; lines: { fr: string; en: string }[] } | null> = {
   starter: null,
@@ -115,7 +102,7 @@ export default function PlanCards({ location, period, onPeriodChange, chosen, on
           role="tab"
           aria-selected={p.id === period}
           onClick={() => onPeriodChange(p.id)}
-          className={`flex min-w-0 flex-1 flex-col items-center justify-center gap-0.5 whitespace-nowrap text-[13px] font-semibold leading-tight lg:flex-row lg:gap-1.5 ${ORDER_SEGMENT}`}
+          className={`flex min-w-0 flex-1 flex-col items-center justify-center gap-0.5 whitespace-nowrap text-[13px] font-semibold leading-tight ${ORDER_SEGMENT}`}
         >
           <span>{fr ? p.labelFr : p.labelEn}</span>
           {p.discount > 0 && <span className="text-xs font-semibold text-empire">{saving(p)}</span>}
@@ -269,9 +256,19 @@ export default function PlanCards({ location, period, onPeriodChange, chosen, on
                       </span>
                     </p>
                   ))}
-                  <p className="!mt-4 rounded-xl bg-white/[0.05] px-3.5 py-3 text-[13px] leading-relaxed text-neutral-300">
-                    {fr ? nbsp(MIX[plan.id].fr) : MIX[plan.id].en}
-                  </p>
+                  {/* Ce qu'Empire fait autour de chaque contenu (repris du tableau comparatif). */}
+                  <div className="!mt-4 rounded-xl bg-white/[0.05] px-3.5 py-3.5">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-neutral-400">{fr ? 'Empire s’occupe de tout' : 'Empire handles everything'}</p>
+                    <ul className="mt-2.5 space-y-2 text-[13px] leading-snug text-neutral-200">
+                      {DOES.map((d) => (
+                        <li key={d.fr} className="flex gap-2.5">
+                          <Check className="mt-[3px] h-3.5 w-3.5 shrink-0 text-empire" strokeWidth={3} />
+                          <span>{fr ? nbsp(d.fr) : d.en}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <p className="mt-3 text-[12px] text-neutral-400">{fr ? nbsp('Tu mélanges les formats comme tu veux, chaque mois.') : 'Mix the formats as you like, every month.'}</p>
+                  </div>
                 </div>
 
                 {extras && (
