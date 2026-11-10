@@ -40,8 +40,8 @@ export function CardTrialButton({ cart }: { cart: TrialCart }) {
       {!liveDeal && (
         <p className="mt-2.5 text-center text-[13px] text-neutral-400">
           {cart.bootcamp
-            ? (fr ? nbsp(`7 jours gratuits sur ta formule · ${TRIAL_CREDITS} crédits`) : `7 days free on your plan · ${TRIAL_CREDITS} credits`)
-            : (fr ? nbsp(`7 jours gratuits · 0 € aujourd’hui · ${TRIAL_CREDITS} crédits`) : `7 days free · €0 today · ${TRIAL_CREDITS} credits`)}
+            ? (fr ? nbsp('Essai gratuit sur ta formule · annulable depuis l’app') : 'Free trial on your plan · cancel from the app')
+            : (fr ? nbsp('0 € aujourd’hui · annulable depuis l’app') : '€0 today · cancel from the app')}
         </p>
       )}
     </div>

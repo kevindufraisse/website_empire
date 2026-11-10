@@ -99,6 +99,8 @@ export default function PlanCards({ location, period, onPeriodChange, chosen, on
   // Offre du live : seuls Growth et Scale sont concernés, Starter est masqué.
   const plans = live ? PLANS.filter((p) => isLivePlan(p.id)) : PLANS
   const percent = (d: number) => (fr ? `−${Math.round(d * 100)} %` : `-${Math.round(d * 100)}%`)
+  // Annuel : −18 % ≈ 2 mois sur 12, dit en mois plutôt qu'en pourcentage.
+  const saving = (b: { discount: number; months: number }) => (b.months === 12 ? (fr ? '2 mois offerts' : '2 months free') : percent(b.discount))
 
   const choose = (plan: PlanId) => {
     onChoose(plan)
@@ -117,7 +119,7 @@ export default function PlanCards({ location, period, onPeriodChange, chosen, on
           className={`flex min-w-0 flex-1 flex-col items-center justify-center gap-0.5 whitespace-nowrap text-[13px] font-semibold leading-tight lg:flex-row lg:gap-1.5 ${ORDER_SEGMENT}`}
         >
           <span>{fr ? p.labelFr : p.labelEn}</span>
-          {p.discount > 0 && <span className="text-xs font-semibold text-empire">{percent(p.discount)}</span>}
+          {p.discount > 0 && <span className="text-xs font-semibold text-empire">{saving(p)}</span>}
         </button>
       ))}
     </div>
@@ -238,7 +240,7 @@ export default function PlanCards({ location, period, onPeriodChange, chosen, on
                     </div>
                     {discount > 0 && (
                       <p className="mt-2.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-neutral-400">
-                        <span className={`!text-xs ${ORDER_TAG}`}>{percent(discount)}</span>
+                        <span className={`!text-xs ${ORDER_TAG}`}>{saving(billing)}</span>
                         <span>
                           {fr
                             ? nbsp(`Facturé ${total} € ${billing.months === 12 ? 'une fois par an' : `tous les ${billing.months} mois`}`)

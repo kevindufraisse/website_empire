@@ -212,8 +212,8 @@ const FAQ: FaqItem[] = [
   {
     q: { fr: 'Trimestriel ou annuel, c’est prélevé comment ?', en: 'How are quarterly and yearly billed?' },
     a: {
-      fr: `En une fois pour la période : tous les 3 mois en trimestriel (−12 %), une fois par an en annuel (−18 %). Même essai qu’au mois : 7 jours et ${TRIAL_CREDITS} crédits offerts, le premier prélèvement part le 8ᵉ jour, ou avant si tu dépasses les ${TRIAL_CREDITS} crédits.`,
-      en: `Once per period: every 3 months on quarterly (−12%), once a year on yearly (−18%). Same trial as monthly: 7 days and ${TRIAL_CREDITS} free credits, the first charge is taken on day 8, or earlier if you go past ${TRIAL_CREDITS} credits.`,
+      fr: `En une fois pour la période : tous les 3 mois en trimestriel (−12 %), une fois par an en annuel (2 mois offerts). Même essai qu’au mois : 7 jours et ${TRIAL_CREDITS} crédits offerts, le premier prélèvement part le 8ᵉ jour, ou avant si tu dépasses les ${TRIAL_CREDITS} crédits.`,
+      en: `Once per period: every 3 months on quarterly (−12%), once a year on yearly (2 months free). Same trial as monthly: 7 days and ${TRIAL_CREDITS} free credits, the first charge is taken on day 8, or earlier if you go past ${TRIAL_CREDITS} credits.`,
     },
   },
   {
