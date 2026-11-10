@@ -99,8 +99,8 @@ export default function PlanCards({ location, period, onPeriodChange, chosen, on
   // Offre du live : seuls Growth et Scale sont concernés, Starter est masqué.
   const plans = live ? PLANS.filter((p) => isLivePlan(p.id)) : PLANS
   const percent = (d: number) => (fr ? `−${Math.round(d * 100)} %` : `-${Math.round(d * 100)}%`)
-  // Annuel : −18 % ≈ 2 mois sur 12, dit en mois plutôt qu'en pourcentage.
-  const saving = (b: { discount: number; months: number }) => (b.months === 12 ? (fr ? '2 mois offerts' : '2 months free') : percent(b.discount))
+  // Annuel −18 % ≈ 2 mois sur 12 ; trimestriel −12 % ≈ 11 jours sur 91 (arrondi en dessous : 10). Dit en temps plutôt qu'en pourcentage.
+  const saving = (b: { discount: number; months: number }) => (b.months === 12 ? (fr ? '2 mois offerts' : '2 months free') : b.months === 3 ? (fr ? '10 jours offerts' : '10 days free') : percent(b.discount))
 
   const choose = (plan: PlanId) => {
     onChoose(plan)
