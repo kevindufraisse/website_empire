@@ -66,7 +66,7 @@ function altCells(alt: Alt, freelance: string, freelanceEn: string, plan: PlanId
     case 'freelance':
       return {
         price: { fr: freelance, en: freelanceEn, noteFr: moyen ? 'Même volume, au prix moyen d’un freelance' : 'Même volume, au bas des tarifs', noteEn: moyen ? 'Same volume, at an average freelancer’s price' : 'Same volume, at the low end of rates' },
-        volume: { fr: 'Le même volume, avec 3 prestataires', en: 'The same volume, with 3 contractors' },
+        volume: { fr: 'Le même volume de contenus, avec 3 prestataires', en: 'The same content volume, with 3 contractors' },
         time: { fr: 'Tu trouves les sujets, tu briefes un monteur, un rédacteur et un community manager, et tu valides', en: 'You find the topics, brief an editor, a writer and a community manager, and approve' },
         commitment: { fr: 'Selon chaque prestataire', en: 'Depends on each contractor' },
         editing: { fr: `Oui, chez un monteur : ${moyen ? '≈ ' : 'dès '}${reel} € le reel`, en: `Yes, with an editor: ${moyen ? '≈ ' : 'from '}€${reel} a reel`, ok: true },
@@ -75,8 +75,8 @@ function altCells(alt: Alt, freelance: string, freelanceEn: string, plan: PlanId
       }
     case 'agency':
       return {
-        volume: { fr: 'Le même volume, avec une agence LinkedIn et une agence vidéo', en: 'The same volume, with a LinkedIn agency and a video agency' },
-        price: { fr: `≈ ${agencyTotal.toLocaleString('fr-FR')} €/mois pour le même volume`, en: `≈ €${agencyTotal.toLocaleString('en-US')}/mo for the same volume`, noteFr: `${m.posts} posts × 150 € (prix par post chez Kodo et Linker) + ${m.reels} reels × 150 € (bas du prix agence pour une vidéo courte, 150 à 400 €, cutlab.io). Seule, une agence LinkedIn démarre à 600 € pour 4 posts, sans vidéo.`, noteEn: `${m.posts} posts × €150 (per-post price at Kodo and Linker) + ${m.reels} reels × €150 (low end of agency price for a short video, €150–400, cutlab.io). On its own, a LinkedIn agency starts at €600 for 4 posts, no video.` },
+        volume: { fr: 'Le même volume de contenus, avec une agence LinkedIn et une agence vidéo', en: 'The same content volume, with a LinkedIn agency and a video agency' },
+        price: { fr: `≈ ${agencyTotal.toLocaleString('fr-FR')} €/mois pour le même volume`, en: `≈ €${agencyTotal.toLocaleString('en-US')}/mo for the same volume`, noteFr: `${m.posts} posts × 150 € (prix par post chez Kodo et Linker) + ${m.reels} vidéos courtes × 150 € (bas du prix agence, 150 à 400 €, cutlab.io). Seule, une agence LinkedIn démarre à 600 € pour 4 posts, sans vidéo.`, noteEn: `${m.posts} posts × €150 (per-post price at Kodo and Linker) + ${m.reels} short videos × €150 (low end of agency price, €150–400, cutlab.io). On its own, a LinkedIn agency starts at €600 for 4 posts, no video.` },
         time: { fr: 'Tu passes des entretiens avec l’agence et tu valides chaque post', en: 'You do interviews with the agency and approve each post' },
         commitment: { fr: '4 à 6 mois minimum chez certaines', en: '4 to 6 months minimum at some', noteFr: 'E. Petiau : 4 mois minimum ; Linker : 6 mois renouvelables', noteEn: 'E. Petiau: 4 months minimum; Linker: 6 months renewable' },
         editing: { fr: 'Oui, chez une deuxième agence', en: 'Yes, at a second agency', ok: true },
@@ -87,7 +87,7 @@ function altCells(alt: Alt, freelance: string, freelanceEn: string, plan: PlanId
       return {
         volume: { fr: 'Ce que tu arrives à tenir', en: 'Whatever you can keep up with' },
         price: { fr: '0 € de prestataire', en: '€0 in contractors', noteFr: 'Plus les outils de montage et de planification', noteEn: 'Plus editing and scheduling tools' },
-        time: { fr: `≈ ${lo} à ${hi} h par semaine pour le même volume`, en: `≈ ${lo} to ${hi} hours a week for the same volume`, noteFr: 'Estimation : montage 40 min à 3 h par reel, écriture 15 min à 1 h par post', noteEn: 'Estimate: editing 40 min to 3 h per reel, writing 15 min to 1 h per post' },
+        time: { fr: `≈ ${lo} à ${hi} h par semaine pour le même volume`, en: `≈ ${lo} to ${hi} hours a week for the same volume`, noteFr: 'Estimation : montage 40 min à 3 h par vidéo, écriture 15 min à 1 h par texte', noteEn: 'Estimate: editing 40 min to 3 h per video, writing 15 min to 1 h per text' },
         commitment: { fr: 'Aucun, sauf envers toi-même', en: 'None, except to yourself' },
         editing: { fr: 'C’est toi qui montes', en: 'You edit it', ok: false },
         publishing: { fr: 'Tu publies réseau par réseau', en: 'You publish network by network', ok: false },
@@ -97,7 +97,7 @@ function altCells(alt: Alt, freelance: string, freelanceEn: string, plan: PlanId
       return {
         volume: { fr: 'Des textes, à reprendre et à publier', en: 'Texts, to rework and publish' },
         price: { fr: 'Gratuit, ou ton abonnement ChatGPT', en: 'Free, or your ChatGPT plan' },
-        time: { fr: `Écrit un texte. Le reste, c’est toi : ≈ ${elo} à ${ehi} h de montage par semaine, plus la publication`, en: `Writes a text. The rest is on you: ≈ ${elo} to ${ehi} hours of editing a week, plus publishing`, noteFr: 'Estimation : montage 40 min à 3 h par reel ; tu publies sur chaque réseau toi-même', noteEn: 'Estimate: editing 40 min to 3 h per reel; you publish on each network yourself' },
+        time: { fr: `Écrit un texte. Le reste, c’est toi : ≈ ${elo} à ${ehi} h de montage par semaine, plus la publication`, en: `Writes a text. The rest is on you: ≈ ${elo} to ${ehi} hours of editing a week, plus publishing`, noteFr: 'Estimation : montage 40 min à 3 h par vidéo ; tu publies sur chaque réseau toi-même', noteEn: 'Estimate: editing 40 min to 3 h per video; you publish on each network yourself' },
         commitment: { fr: 'Aucun', en: 'None' },
         editing: { fr: 'Ne monte pas la vidéo', en: 'Doesn’t edit the video', ok: false },
         publishing: { fr: 'Ne publie pas', en: 'Doesn’t publish', ok: false },
@@ -118,8 +118,9 @@ export default function OfferVersus({ plan, price }: { plan: PlanId; price: numb
   const cells = altCells(alt, freelanceAmount(freelance, true), freelanceAmount(freelance, false), plan)
   const mix = planMix(plan)
 
+  const empireTotal = mix.reels + mix.posts
   const empire: Record<RowId, Cell> = {
-    volume: { fr: `Par exemple ${mix.reels} reels et ${mix.posts} posts, sur 7 réseaux`, en: `For example ${mix.reels} reels and ${mix.posts} posts, on 7 networks`, noteFr: 'Tu changes la répartition quand tu veux', noteEn: 'Change the split whenever you like' },
+    volume: { fr: `Jusqu’à ${empireTotal} contenus par mois (LinkedIn, Instagram, YouTube, TikTok, Threads, X, Facebook)`, en: `Up to ${empireTotal} pieces of content a month (LinkedIn, Instagram, YouTube, TikTok, Threads, X, Facebook)`, noteFr: 'Vidéos et textes mélangés, tu changes la répartition quand tu veux', noteEn: 'Videos and texts mixed, change the split whenever you like' },
     price: { fr: `${price} €/mois`, en: `€${price}/mo`, noteFr: `Formule ${label}`, noteEn: `${label} plan` },
     commitment: { fr: 'Aucun en mensuel', en: 'None on monthly', noteFr: 'Essai 7 jours, annulable depuis l’app', noteEn: '7-day trial, cancel from the app' },
     time: { fr: '1 h par semaine : tu filmes ou tu dictes', en: '1 hour a week: you film or dictate' },
