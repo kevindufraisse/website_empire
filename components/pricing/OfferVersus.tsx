@@ -120,7 +120,7 @@ export default function OfferVersus({ plan, price }: { plan: PlanId; price: numb
 
   const empireTotal = mix.reels + mix.posts
   const empire: Record<RowId, Cell> = {
-    volume: { fr: `Jusqu’à ${empireTotal} contenus par mois (LinkedIn, Instagram, YouTube, TikTok, Threads, X, Facebook)`, en: `Up to ${empireTotal} pieces of content a month (LinkedIn, Instagram, YouTube, TikTok, Threads, X, Facebook)`, noteFr: 'Vidéos et textes mélangés, tu changes la répartition quand tu veux', noteEn: 'Videos and texts mixed, change the split whenever you like' },
+    volume: { fr: `Jusqu’à ${empireTotal} contenus par mois (LinkedIn, Instagram, YouTube, TikTok, Threads, X, Facebook) + ta newsletter`, en: `Up to ${empireTotal} pieces of content a month (LinkedIn, Instagram, YouTube, TikTok, Threads, X, Facebook) + your newsletter`, noteFr: 'Vidéos, posts ou newsletters : tu changes la répartition quand tu veux', noteEn: 'Videos, posts or newsletters: change the split whenever you like' },
     price: { fr: `${price} €/mois`, en: `€${price}/mo`, noteFr: `Formule ${label}`, noteEn: `${label} plan` },
     commitment: { fr: 'Aucun en mensuel', en: 'None on monthly', noteFr: 'Essai 7 jours, annulable depuis l’app', noteEn: '7-day trial, cancel from the app' },
     time: { fr: '1 h par semaine : tu filmes ou tu dictes', en: '1 hour a week: you film or dictate' },
