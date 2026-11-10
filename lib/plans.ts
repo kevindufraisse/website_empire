@@ -66,6 +66,17 @@ export const PLAN_DELIVERABLES: Record<PlanId, { reels: number; posts: number; n
     }]),
   ) as Record<PlanId, { reels: number; posts: number; newsletters: number }>
 
+// Ce qu'un nombre de crédits permet, format par format (« jusqu'à 2 reels OU
+// 5 posts OU 4 newsletters » pour les 500 crédits de l'essai). Valeur
+// d'affichage dérivée de CONTENT_CREDITS, jamais saisie à la main.
+export function contentsFor(credits: number): { reels: number; posts: number; newsletters: number } {
+  return {
+    reels: Math.floor(credits / CONTENT_CREDITS.reel),
+    posts: Math.floor(credits / CONTENT_CREDITS.post),
+    newsletters: Math.floor(credits / CONTENT_CREDITS.newsletter),
+  }
+}
+
 // Recharge à la consommation de l'app (`src/lib/payg.ts`, `payg_25`).
 export const PAYG_RECHARGE = { euros: 25, credits: 200 }
 

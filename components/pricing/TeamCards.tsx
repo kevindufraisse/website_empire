@@ -114,7 +114,7 @@ export default function TeamCards({ period, onPeriodChange }: { period: BillingI
             className={`min-w-0 flex-1 whitespace-nowrap text-xs font-semibold ${ORDER_SEGMENT}`}
           >
             {fr ? p.labelFr : p.labelEn}
-            {p.discount > 0 && <span className="ml-1 text-[11px] text-neutral-300">-{Math.round(p.discount * 100)}%</span>}
+            {p.discount > 0 && <span className="ml-1 text-xs text-neutral-300">{fr ? `−${Math.round(p.discount * 100)} %` : `−${Math.round(p.discount * 100)}%`}</span>}
           </button>
         ))}
       </div>
@@ -127,7 +127,7 @@ export default function TeamCards({ period, onPeriodChange }: { period: BillingI
                 <p className="text-base font-semibold text-white">{fr ? 'Équipe' : 'Team'}</p>
                 <p className="text-sm text-neutral-300">{fr ? `De 2 à ${MAX_SELF_SERVE_SEATS} comptes` : `2 to ${MAX_SELF_SERVE_SEATS} accounts`}</p>
               </div>
-              {volume > 0 && <span className={ORDER_TAG}>-{Math.round(volume * 100)}%</span>}
+              {volume > 0 && <span className={ORDER_TAG}>{fr ? `−${Math.round(volume * 100)} %` : `−${Math.round(volume * 100)}%`}</span>}
             </div>
 
             <div className="space-y-2">
@@ -174,8 +174,8 @@ export default function TeamCards({ period, onPeriodChange }: { period: BillingI
 
             <div className="space-y-1">
               <div className="flex flex-wrap items-baseline gap-2">
-                {perSeat < base && <span className={`text-xl ${ORDER_STRUCK}`}>{base}€</span>}
-                <span className={`text-[2.75rem] ${ORDER_PRICE}`}>{perSeat}€</span>
+                {perSeat < base && <span className={`text-xl ${ORDER_STRUCK}`}>{fr ? `${base} €` : `€${base}`}</span>}
+                <span className={`text-[2.75rem] ${ORDER_PRICE}`}>{fr ? `${perSeat} €` : `€${perSeat}`}</span>
                 <span className="text-sm text-neutral-300">{fr ? `par place ${perMonth}` : `per seat ${perMonth}`}</span>
               </div>
               <p className="pt-1.5 text-xs text-neutral-300">
@@ -184,7 +184,7 @@ export default function TeamCards({ period, onPeriodChange }: { period: BillingI
                   : `${seats} seats: €${(perSeat * seats).toLocaleString(locale)}${perMonth}${months > 1 ? `, billed €${(perSeat * seats * months).toLocaleString(locale)} every ${months} months` : ''}`}
               </p>
               <p className="text-xs text-neutral-300">
-                {fr ? '-10 % dès 3 places, -15 % dès 5, -20 % dès 10' : '-10% from 3 seats, -15% from 5, -20% from 10'}
+                {fr ? '−10 % dès 3 places, −15 % dès 5, −20 % dès 10' : '−10% from 3 seats, −15% from 5, −20% from 10'}
                 {billingOnly < base ? (fr ? ', en plus de la remise de durée.' : ', on top of the billing discount.') : '.'}
               </p>
             </div>
