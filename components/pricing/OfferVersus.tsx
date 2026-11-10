@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { ArrowRight, Check, Minus } from 'lucide-react'
+import { ArrowRight, Check, ChevronDown, Minus } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { FREELANCE_MODE, FREELANCE_PRICES, PLAN_LABELS, freelanceMonthly, planMix, type PlanId } from '@/lib/plans'
 import { freelanceAmount } from './freelanceCopy'
@@ -174,13 +174,19 @@ export default function OfferVersus({ plan, price }: { plan: PlanId; price: numb
         ))}
       </div>
 
-      <p className="mt-5 text-center text-sm">
-        <span className="mb-3 block text-xs leading-relaxed text-neutral-500">{fr ? nbsp('Heures : estimation. Montage d’un reel : 42 min en moyenne selon une enquête Epidemic Sound (reprise par voxbooster.com), 2 à 3 h selon cutlab.io. Écriture d’un post : 15 min à 1 h, sans étude publiée. Prix d’agence : pages publiques de Kodo et Linker (environ 150 € le post), et fourchette agence vidéo de cutlab.io (150 à 400 € la vidéo courte), novembre 2026.') : 'Hours: estimate. Editing a reel: 42 min on average per an Epidemic Sound survey (quoted by voxbooster.com), 2 to 3 h per cutlab.io. Writing a post: 15 min to 1 h, no published study. Agency prices: public pages of Kodo and Linker (about €150 a post), and cutlab.io’s video agency range (€150–400 per short video), November 2026.'}</span>
+      <div className="mt-5 text-center text-sm">
+        <details className="group mx-auto mb-4 max-w-xl text-left">
+          <summary className="inline-flex cursor-pointer items-center gap-1 text-xs font-semibold text-neutral-400 underline decoration-white/15 decoration-dotted underline-offset-[3px] hover:text-white hover:decoration-white/40">
+            {fr ? 'Sources' : 'Sources'}
+            <ChevronDown className="h-3 w-3 transition group-open:rotate-180" />
+          </summary>
+          <p className="mt-2 text-xs leading-relaxed text-neutral-500">{fr ? nbsp('Heures : estimation. Montage d’un reel : 42 min en moyenne selon une enquête Epidemic Sound (reprise par voxbooster.com), 2 à 3 h selon cutlab.io. Écriture d’un post : 15 min à 1 h, sans étude publiée. Prix d’agence : pages publiques de Kodo et Linker (environ 150 € le post), et fourchette agence vidéo de cutlab.io (150 à 400 € la vidéo courte), novembre 2026.') : 'Hours: estimate. Editing a reel: 42 min on average per an Epidemic Sound survey (quoted by voxbooster.com), 2 to 3 h per cutlab.io. Writing a post: 15 min to 1 h, no published study. Agency prices: public pages of Kodo and Linker (about €150 a post), and cutlab.io’s video agency range (€150–400 per short video), November 2026.'}</p>
+        </details>
         <a href="/comparatif" className="inline-flex min-h-11 items-center gap-1.5 font-semibold text-white underline decoration-white/30 underline-offset-4 hover:decoration-white">
           {fr ? 'Le comparatif détaillé' : 'The detailed comparison'}
           <ArrowRight className="h-4 w-4" />
         </a>
-      </p>
+      </div>
     </div>
   )
 }

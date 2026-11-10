@@ -424,12 +424,20 @@ export default function TarifsClient() {
               </div>
             </section>
 
-            {/* 3. Le reçu de la formule choisie. */}
+            {/* 3. Empire contre… (remonté : la valeur vs le prix, juste après la méthode). */}
+            <section className={SECTION}>
+              <SectionTitle eyebrow={fr ? 'Comparer' : 'Compare'} title={fr ? 'Empire contre…' : 'Empire versus…'} />
+              <div className="mt-7">
+                <OfferVersus plan={chosenPlan} price={cart.perMonth} />
+              </div>
+            </section>
+
+            {/* 4. Le reçu de la formule choisie. */}
             <section id="recu" className={`scroll-mt-6 ${SECTION}`}>
               <OfferReceipt cart={cart} onChoose={chooseFromReceipt} live={live} />
             </section>
 
-            {/* 4. Les bonus. */}
+            {/* 5. Les bonus. */}
             <section className={SECTION}>
               <SectionTitle
                 eyebrow={fr ? 'Tes bonus' : 'Your bonuses'}
@@ -440,7 +448,7 @@ export default function TarifsClient() {
               </div>
             </section>
 
-            {/* 5. L'essai sans risque (pas avec l'offre du live : elle est payée le premier jour). */}
+            {/* 6. L'essai sans risque (pas avec l'offre du live : elle est payée le premier jour). */}
             {trial && (
               <section className={`mx-auto max-w-5xl p-5 sm:p-8 ${glass.panel} ${glass.featured} ${glass.plan} ${SECTION}`}>
                 <p className={EYEBROW}>{fr ? 'Essai sans risque' : 'Risk-free trial'}</p>
@@ -463,14 +471,6 @@ export default function TarifsClient() {
                 </ul>
               </section>
             )}
-
-            {/* 6. Empire contre… */}
-            <section className={SECTION}>
-              <SectionTitle eyebrow={fr ? 'Comparer' : 'Compare'} title={fr ? 'Empire contre…' : 'Empire versus…'} />
-              <div className="mt-7">
-                <OfferVersus plan={chosenPlan} price={cart.perMonth} />
-              </div>
-            </section>
 
             {/* 7. Le récapitulatif, avec les options. */}
             <section className={`scroll-mt-6 ${SECTION}`} id="recapitulatif">
