@@ -115,7 +115,7 @@ const ROWS: Row[] = [
   { fr: 'Intégrations Cal.com, Calendly, Tally, ManyChat, Systeme.io, Stripe…', en: 'Cal.com, Calendly, Tally, ManyChat, Systeme.io, Stripe… integrations', cells: ALL, group: 'features' },
   { fr: 'Plusieurs comptes, un seul envoi', en: 'Several accounts, one send', cells: ALL, group: 'features' },
   { fr: 'Rapport hebdo : vues, abonnés et leads par format', en: 'Weekly report: views, followers and leads per format', cells: ALL, group: 'features' },
-  { fr: 'Un live réservé aux clients chaque semaine', en: 'A clients-only live every week', cells: FROM_GROWTH, group: 'bonus' },
+  { fr: 'Le live de Kevin chaque lundi à 14 h', en: 'Kevin’s live every Monday at 2 pm (Paris)', cells: FROM_GROWTH, group: 'bonus' },
   { fr: 'La communauté privée sur Slack', en: 'The private Slack community', cells: FROM_GROWTH, group: 'bonus' },
   { fr: 'La masterclass Empire en replay', en: 'The Empire masterclass replays', cells: FROM_GROWTH, group: 'bonus' },
 ]

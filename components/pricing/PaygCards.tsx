@@ -176,7 +176,7 @@ export default function PaygCards() {
               const scale = PLANS.find((p) => p.id === 'scale')!
               const save = Math.round((1 - (scale.price / scale.credits) / (base.euros / base.credits)) * 100)
               return fr
-                ? `Tu publies souvent ? Avec un abonnement, le crédit coûte jusqu’à ${save} % de moins, avec le live chaque semaine et les replays.`
+                ? `Tu publies souvent ? Avec un abonnement, le crédit coûte jusqu’à ${save} % de moins, avec le live du lundi et les replays.`
                 : `Posting often? With a plan, a credit costs up to ${save}% less, with the weekly live and the replays.`
             })()}
           </p>

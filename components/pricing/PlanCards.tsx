@@ -59,7 +59,7 @@ const EXTRAS: Record<PlanId, { title: { fr: string; en: string }; lines: { fr: s
     lines: [
       { fr: 'Un appel de démarrage en 1-1 (30 min), avec Kevin ou l’équipe', en: 'A 1-1 kickoff call (30 min), with Kevin or the team' },
       { fr: 'Réponse prioritaire sous 4 h', en: 'Priority reply within 4h' },
-      { fr: 'Un live réservé aux clients chaque semaine', en: 'A clients-only live every week' },
+      { fr: 'Le live de Kevin chaque lundi à 14 h', en: 'Kevin’s live every Monday at 2 pm (Paris)' },
       { fr: 'La communauté privée sur Slack', en: 'The private Slack community' },
       { fr: 'La masterclass Empire en replay', en: 'The Empire masterclass replays' },
     ],
