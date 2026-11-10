@@ -50,7 +50,7 @@ function altCells(alt: Alt, freelance: string, freelanceEn: string): Record<RowI
       }
     case 'agency':
       return {
-        price: { fr: 'À partir de 600 €/mois pour 4 posts LinkedIn', en: 'From €600/mo for 4 LinkedIn posts', noteFr: 'Prix publics d’agences françaises, 2026', noteEn: 'Public prices of French agencies, 2026' },
+        price: { fr: 'À partir de 600 €/mois pour 4 posts LinkedIn', en: 'From €600/mo for 4 LinkedIn posts', noteFr: 'Prix public d’une agence de ghostwriting LinkedIn (kodomedia.fr, novembre 2026)', noteEn: 'Public price of a LinkedIn ghostwriting agency (kodomedia.fr, November 2026)' },
         time: { fr: 'Tu briefes l’agence et tu valides', en: 'You brief the agency and approve' },
         editing: { fr: 'Pas dans ce prix', en: 'Not in that price', ok: false },
         publishing: { fr: 'LinkedIn seulement, dans ce prix', en: 'LinkedIn only, in that price', ok: false },

@@ -9,8 +9,7 @@ import { nbsp } from './typo'
 /**
  * « Tes bonus » : quatre cartes nommées, sans valeur en euros (ils n'ont pas
  * de prix de marché). Même matrice qu'avant : l'onboarding dans toutes les
- * formules ; le live du lundi, le Slack et la masterclass à partir de Growth.
- * Le live est public : on dit « le live du lundi », sans parler d'exclusivité.
+ * formules, comme le live du lundi (il est public) ; le Slack et la masterclass à partir de Growth.
  */
 
 const BONUSES: { titleFr: string; titleEn: string; lineFr: string; lineEn: string; plans: PlanId[] }[] = [
@@ -26,7 +25,7 @@ const BONUSES: { titleFr: string; titleEn: string; lineFr: string; lineEn: strin
     titleEn: 'Kevin’s live, every Monday at 2 pm (Paris)',
     lineFr: 'Pour savoir quoi filmer cette semaine.',
     lineEn: 'To know what to film this week.',
-    plans: ['growth', 'scale'],
+    plans: ['starter', 'growth', 'scale'],
   },
   {
     titleFr: 'La communauté privée sur Slack',
