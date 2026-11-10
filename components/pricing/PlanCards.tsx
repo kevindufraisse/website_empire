@@ -3,65 +3,71 @@
 import type React from 'react'
 
 import glass from './pricing.module.css'
-import { Check, FileText, Mail, Video } from 'lucide-react'
+import { Check } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import {
   BILLING_PERIODS,
   PLANS,
-  PLAN_DELIVERABLES,
   PLAN_LABELS,
   finalPrice,
+  freelanceMonthly,
+  planMix,
   type BillingId,
   type PlanId,
 } from '@/lib/plans'
 import { trackAmplitude } from '@/lib/amplitude'
 import { LIVE_OFFER, isLivePlan, useCountdown, type LiveWindow } from '@/lib/liveOffer'
-import { ORDER_PRICE, ORDER_SEGMENT, ORDER_SEGMENTS, ORDER_STRUCK, ORDER_TAG } from '@/lib/orderStyles'
+import { ORDER_CTA_SECONDARY, ORDER_PRICE, ORDER_SEGMENT, ORDER_SEGMENTS, ORDER_STRUCK, ORDER_TAG } from '@/lib/orderStyles'
+import { freelanceAmount, freelanceCardLead } from './freelanceCopy'
 import { nbsp } from './typo'
 
 /**
- * Les formules de /tarifs, dites en contenus par mois (plus en crédits).
- * Sur téléphone : trois tuiles de prix, puis la carte de la formule choisie
- * avec son sélecteur de période. Sur ordinateur : un sélecteur de période et
- * les trois cartes côte à côte. La carte choisit la formule ; le bouton
- * d'achat est sous les cartes (`TrialCta`).
+ * Le choix de la formule en haut de /tarifs (offre « Grand Slam », novembre
+ * 2026). Téléphone : trois pastilles (nom, rythme, prix), la période, puis la
+ * carte de la formule choisie : prix, le même travail chez des freelances,
+ * bouton d'essai. Ordinateur : la période, puis les trois cartes côte à côte,
+ * chacune avec ses deux lignes ; le bouton d'essai est dans la carte choisie,
+ * les autres la choisissent.
+ *
+ * Pas de prix barré pour la comparaison freelance : c'est une comparaison
+ * étiquetée (« Le même travail chez des freelances : plus de … »), pas une
+ * réduction.
  */
 
-const RHYTHM_TU: Record<PlanId, string> = {
-  starter: 'Tu publies tous les 2 jours',
-  growth: 'Tu publies tous les jours',
-  scale: 'Tu publies 2 fois par jour',
+export const RHYTHM_SHORT: Record<PlanId, { fr: string; en: string }> = {
+  starter: { fr: 'tous les 2 jours', en: 'every other day' },
+  growth: { fr: 'tous les jours', en: 'every day' },
+  scale: { fr: '2 fois par jour', en: 'twice a day' },
 }
 
-// Ce qu'Empire fait pour chaque formule : repris des lignes du tableau comparatif de /tarifs.
-const DOES: { fr: string; en: string }[] = [
-  { fr: 'Chaque matin, les sujets qui montent dans ta niche', en: 'Every morning, the topics rising in your niche' },
-  { fr: 'Des idées prêtes à filmer chaque semaine', en: 'Ready-to-film ideas every week' },
-  { fr: 'Écriture, montage, sous-titres et miniatures', en: 'Writing, editing, captions and thumbnails' },
-  { fr: 'Publication sur 7 réseaux, et un rapport chaque semaine', en: 'Publishing to 7 networks, and a weekly report' },
-]
+export const RHYTHM_TU: Record<PlanId, { fr: string; en: string }> = {
+  starter: { fr: 'Tu publies tous les 2 jours', en: 'You publish every other day' },
+  growth: { fr: 'Tu publies tous les jours', en: 'You publish every day' },
+  scale: { fr: 'Tu publies 2 fois par jour', en: 'You publish twice a day' },
+}
 
-const EXTRAS: Record<PlanId, { title: { fr: string; en: string }; lines: { fr: string; en: string }[] } | null> = {
-  starter: null,
-  growth: {
-    title: { fr: 'En plus', en: 'Also included' },
-    lines: [
-      { fr: 'Réponse prioritaire sous 4 h', en: 'Priority reply within 4h' },
-      { fr: 'Le live de Kevin chaque lundi à 14 h', en: 'Kevin’s live every Monday at 2 pm (Paris)' },
-      { fr: 'La communauté privée sur Slack', en: 'The private Slack community' },
-      { fr: 'La masterclass Empire en replay', en: 'The Empire masterclass replays' },
-    ],
-  },
-  scale: {
-    title: { fr: 'Tout Growth, plus', en: 'Everything in Growth, plus' },
-    lines: [
-      { fr: 'Un point stratégie chaque mois (retours par Loom)', en: 'A strategy review every month (Loom feedback)' },
-    ],
-  },
+// Ce qui change d'une formule à l'autre (ordinateur, sous le bouton). Même
+// matrice que le reçu : réponse prioritaire et bonus à partir de Growth, point
+// stratégie en Scale.
+const CARD_EXTRAS: Record<PlanId, { fr: string; en: string }[]> = {
+  starter: [
+    { fr: 'Publication sur 7 réseaux', en: 'Publishing to 7 networks' },
+    { fr: 'Onboarding 1-1 offert', en: 'Free 1-1 onboarding' },
+  ],
+  growth: [
+    { fr: 'Publication sur 7 réseaux', en: 'Publishing to 7 networks' },
+    { fr: 'Onboarding 1-1 offert', en: 'Free 1-1 onboarding' },
+    { fr: 'Réponse prioritaire sous 4 h', en: 'Priority reply within 4h' },
+    { fr: 'Le live, le Slack et la masterclass', en: 'The live, the Slack and the masterclass' },
+  ],
+  scale: [
+    { fr: 'Tout Growth', en: 'Everything in Growth' },
+    { fr: 'Un point stratégie chaque mois', en: 'A strategy review every month' },
+  ],
 }
 
 type Props = {
-  /** Téléphone : le bouton d'essai dans la carte choisie, sous le prix (comme Claude, Intercom, Semrush). */
+  /** Le bouton d'essai, dans la carte choisie, sous la bande freelance. */
   cta?: React.ReactNode
   /** Envoyé avec `pricing_page_plan_chosen`. */
   location: string
@@ -71,9 +77,11 @@ type Props = {
   onChoose: (plan: PlanId) => void
   /** Arrivé par le lien du live : Growth et Scale à -300 €/mois pendant 3 mois (mensuel seulement). */
   live?: LiveWindow | null
+  /** L'ancre du reçu détaillé (« Le détail »). */
+  detailHref?: string
 }
 
-export default function PlanCards({ location, period, onPeriodChange, chosen, onChoose, live = null, cta }: Props) {
+export default function PlanCards({ location, period, onPeriodChange, chosen, onChoose, live = null, cta, detailHref = '#recu' }: Props) {
   const { lang } = useLanguage()
   const fr = lang === 'fr'
   const locale = fr ? 'fr-FR' : 'en-US'
@@ -82,42 +90,29 @@ export default function PlanCards({ location, period, onPeriodChange, chosen, on
   const discount = billing.discount
   const perMonth = fr ? '/mois' : '/mo'
   const countdown = useCountdown(live?.endsAt)
+  const euros = (n: number) => (fr ? `${n.toLocaleString(locale)}\u00a0€` : `€${n.toLocaleString(locale)}`)
   // Offre du live : seuls Growth et Scale sont concernés, Starter est masqué.
   const plans = live ? PLANS.filter((p) => isLivePlan(p.id)) : PLANS
-  const percent = (d: number) => (fr ? `−${Math.round(d * 100)} %` : `-${Math.round(d * 100)}%`)
+  const percent = (d: number) => (fr ? `−${Math.round(d * 100)} %` : `-${Math.round(d * 100)}%`)
   // Annuel −18 % ≈ 2 mois sur 12 ; trimestriel −12 % ≈ 11 jours sur 91 (arrondi en dessous : 10). Dit en temps plutôt qu'en pourcentage.
   const saving = (b: { discount: number; months: number }) => (b.months === 12 ? (fr ? '2 mois offerts' : '2 months free') : b.months === 3 ? (fr ? '10 jours offerts' : '10 days free') : percent(b.discount))
+  const priceOf = (id: PlanId) => {
+    const p = PLANS.find((x) => x.id === id)!
+    return live && period === 'monthly' && isLivePlan(id) ? LIVE_OFFER.plans[id].monthly : finalPrice(p.price, period, 1)
+  }
 
   const choose = (plan: PlanId) => {
     onChoose(plan)
     trackAmplitude('pricing_page_plan_chosen', { plan, billing_period: period, location })
   }
 
-  const periodTabs = (className: string) => (
-    <div className={`grid-flow-col auto-cols-fr items-center ${ORDER_SEGMENTS} ${className}`} role="tablist" aria-label={fr ? 'Période de facturation' : 'Billing period'}>
-      {BILLING_PERIODS.map((p) => (
-        <button
-          key={p.id}
-          type="button"
-          role="tab"
-          aria-selected={p.id === period}
-          onClick={() => onPeriodChange(p.id)}
-          className={`flex min-w-0 flex-1 flex-col items-center justify-center gap-0.5 whitespace-nowrap text-[13px] font-semibold leading-tight ${ORDER_SEGMENT}`}
-        >
-          <span>{fr ? p.labelFr : p.labelEn}</span>
-          {p.discount > 0 && <span className="text-xs font-semibold text-empire">{saving(p)}</span>}
-        </button>
-      ))}
-    </div>
-  )
-
   return (
     <div>
-      {/* Téléphone : les trois prix d'abord, visibles sans faire défiler. */}
+      {/* Téléphone : les trois formules d'abord, avec leur rythme et leur prix. */}
       <div className={`grid gap-2 lg:hidden ${plans.length === 2 ? 'grid-cols-2' : 'grid-cols-3'}`} role="radiogroup" aria-label={fr ? 'Formule' : 'Plan'}>
         {plans.map((p) => {
           const active = p.id === selected
-          const price = live && period === 'monthly' && isLivePlan(p.id) ? LIVE_OFFER.plans[p.id].monthly : finalPrice(p.price, period, 1)
+          const price = priceOf(p.id)
           return (
             <button
               key={p.id}
@@ -125,25 +120,40 @@ export default function PlanCards({ location, period, onPeriodChange, chosen, on
               role="radio"
               aria-checked={active}
               onClick={() => onChoose(p.id)}
-              className={`relative flex min-h-[68px] cursor-pointer flex-col items-start justify-center gap-0.5 px-3 py-3 text-left ${glass.planOption}`}
+              className={`relative flex min-h-[78px] cursor-pointer flex-col items-start justify-center px-2 py-2.5 text-left min-[380px]:px-3 ${glass.planOption}`}
             >
               {p.highlighted && (
                 <span className={`absolute -top-2.5 right-2 whitespace-nowrap px-2 py-0.5 text-[11px] font-bold leading-tight ${glass.limeTag}`}>
                   {fr ? 'Populaire' : 'Popular'}
                 </span>
               )}
-              <span className={`text-[13px] font-semibold leading-tight ${active ? 'text-white' : 'text-neutral-300'}`}>{PLAN_LABELS[p.id][fr ? 'fr' : 'en']}</span>
-              <span className="whitespace-nowrap leading-tight tabular-nums text-white">
-                <span className="text-[17px] font-bold">{fr ? `${price} €` : `€${price}`}</span>
-                <span className="text-xs text-neutral-400">{perMonth}</span>
+              <span className={`text-[13px] font-semibold leading-tight ${active ? 'text-white' : 'text-neutral-200'}`}>{PLAN_LABELS[p.id][fr ? 'fr' : 'en']}</span>
+              <span className="mt-0.5 whitespace-nowrap text-[11px] leading-tight text-neutral-400 min-[380px]:text-[11.5px]">{fr ? nbsp(RHYTHM_SHORT[p.id].fr) : RHYTHM_SHORT[p.id].en}</span>
+              <span className="mt-1.5 whitespace-nowrap leading-tight tabular-nums text-white">
+                <span className="text-[17px] font-bold">{euros(price)}</span>
+                <span className="text-[11.5px] text-neutral-400">{perMonth}</span>
               </span>
             </button>
           )
         })}
       </div>
 
-      {/* Ordinateur : un seul sélecteur de période au-dessus des trois cartes. */}
-      {periodTabs('mx-auto hidden max-w-md lg:grid')}
+      {/* La période : sous les pastilles sur téléphone, au-dessus des cartes sur ordinateur. */}
+      <div className={`mt-3 grid grid-flow-col auto-cols-fr items-center lg:mx-auto lg:mt-0 lg:max-w-md ${ORDER_SEGMENTS}`} role="tablist" aria-label={fr ? 'Période de facturation' : 'Billing period'}>
+        {BILLING_PERIODS.map((p) => (
+          <button
+            key={p.id}
+            type="button"
+            role="tab"
+            aria-selected={p.id === period}
+            onClick={() => onPeriodChange(p.id)}
+            className={`flex min-w-0 flex-1 flex-col items-center justify-center gap-0.5 whitespace-nowrap text-[13px] font-semibold leading-tight ${ORDER_SEGMENT}`}
+          >
+            <span>{fr ? p.labelFr : p.labelEn}</span>
+            {p.discount > 0 && <span className="text-xs font-semibold text-empire">{saving(p)}</span>}
+          </button>
+        ))}
+      </div>
 
       {live && period !== 'monthly' && (
         <p className="mt-4 text-center text-xs text-neutral-300">
@@ -160,11 +170,11 @@ export default function PlanCards({ location, period, onPeriodChange, chosen, on
         {plans.map((plan) => {
           const isSelected = plan.id === selected
           const liveDeal = live && period === 'monthly' && isLivePlan(plan.id) ? LIVE_OFFER.plans[plan.id] : null
-          const price = liveDeal ? liveDeal.monthly : finalPrice(plan.price, period, 1)
+          const price = priceOf(plan.id)
           const total = (price * billing.months).toLocaleString(locale)
-          const d = PLAN_DELIVERABLES[plan.id]
-          const extras = EXTRAS[plan.id]
           const label = PLAN_LABELS[plan.id][fr ? 'fr' : 'en']
+          const freelance = freelanceMonthly(plan.id)
+          const mix = planMix(plan.id)
           return (
             <div key={plan.id} className={isSelected ? '' : 'hidden lg:block'}>
               {/* La carte entière choisit la formule (clic) ; son en-tête est le
@@ -172,12 +182,13 @@ export default function PlanCards({ location, period, onPeriodChange, chosen, on
               <div
                 data-selected={isSelected}
                 onClick={() => choose(plan.id)}
-                className={`flex h-full flex-col gap-5 p-5 sm:p-6 lg:cursor-pointer ${glass.panel} ${glass.plan} ${glass.planCard}`}
+                className={`flex h-full flex-col gap-3 p-5 sm:p-6 lg:cursor-pointer lg:gap-4 lg:p-5 xl:p-6 ${glass.panel} ${glass.plan} ${glass.planCard}`}
               >
-                <button type="button" role="radio" aria-checked={isSelected} className="flex w-full cursor-pointer items-start justify-between gap-3 text-left">
-                  <span className="min-w-0">
+                <button type="button" role="radio" aria-checked={isSelected} className="flex w-full cursor-pointer items-center justify-between gap-3 text-left lg:items-start">
+                  {/* Téléphone : nom et rythme sur une ligne (les pastilles du dessus les montrent déjà). */}
+                  <span className="flex min-w-0 flex-1 flex-wrap items-baseline justify-between gap-x-3 lg:block">
                     <span className="block text-xl font-bold leading-tight text-white">{label}</span>
-                    <span className="mt-1 block text-sm text-neutral-300">{fr ? RHYTHM_TU[plan.id] : plan.rhythmEn.replace('You post', 'You publish')}</span>
+                    <span className="block text-sm text-neutral-300 lg:mt-1">{fr ? nbsp(RHYTHM_TU[plan.id].fr) : RHYTHM_TU[plan.id].en}</span>
                   </span>
                   <span className="flex shrink-0 items-center gap-2">
                     {plan.highlighted && <span className={`hidden whitespace-nowrap px-2.5 py-1 text-xs font-bold lg:inline-block ${glass.limeTag}`}>{fr ? 'Populaire' : 'Popular'}</span>}
@@ -186,13 +197,6 @@ export default function PlanCards({ location, period, onPeriodChange, chosen, on
                     </span>
                   </span>
                 </button>
-
-                {/* Téléphone : la période se règle dans la carte, au-dessus du prix,
-                    pour que le sélecteur ne bouge pas sous le doigt quand le prix
-                    barré et la ligne de facturation apparaissent. */}
-                <div className="lg:hidden" onClick={(e) => e.stopPropagation()}>
-                  {periodTabs('grid')}
-                </div>
 
                 {liveDeal ? (
                   // Présentation reprise d'ElevenLabs : pastille de fin,
@@ -220,8 +224,8 @@ export default function PlanCards({ location, period, onPeriodChange, chosen, on
                 ) : (
                   <div>
                     <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                      {discount > 0 && <span className={`text-lg ${ORDER_STRUCK}`}>{fr ? `${plan.price} €` : `€${plan.price}`}</span>}
-                      <span className={`text-[2.75rem] !font-bold ${ORDER_PRICE}`}>{fr ? `${price} €` : `€${price}`}</span>
+                      {discount > 0 && <span className={`text-lg ${ORDER_STRUCK}`}>{euros(plan.price)}</span>}
+                      <span className={`text-[2.75rem] !font-bold ${ORDER_PRICE}`}>{euros(price)}</span>
                       <span className="text-sm text-neutral-300">{perMonth}</span>
                     </div>
                     {discount > 0 && (
@@ -237,50 +241,43 @@ export default function PlanCards({ location, period, onPeriodChange, chosen, on
                   </div>
                 )}
 
-                {cta && isSelected && <div className="lg:hidden" onClick={(e) => e.stopPropagation()}>{cta}</div>}
-
-                <div className="space-y-2.5 border-t border-white/10 pt-5">
-                  {/* « jusqu'à » = tout en posts (le format le moins cher) ; un reel compte plus. */}
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-neutral-400">{fr ? 'Chaque mois' : 'Every month'}</p>
-                  <p className="flex items-baseline gap-2 text-white">
-                    <span className="text-[15px] font-semibold text-neutral-300">{fr ? 'jusqu’à' : 'up to'}</span>
-                    <span className="text-[1.75rem] font-bold leading-none tabular-nums">{d.posts}</span>
-                    <span className="text-[15px] font-semibold">{fr ? 'contenus' : 'pieces of content'}</span>
+                {/* Sous le prix, deux lignes calmes (revue de Kevin) : le même travail
+                    au prix freelance du reçu (`freelanceMonthly`, mode de
+                    `lib/plans.ts`), puis le retour possible. Pas de prix barré ni de
+                    pastille d'économie : c'est une comparaison. */}
+                <div className="space-y-1.5 lg:border-t lg:border-white/10 lg:pt-4">
+                  <p className="text-[13.5px] leading-snug text-neutral-300 lg:text-[13px]">
+                    {freelanceCardLead(fr)}
+                    <a href={detailHref} className="whitespace-nowrap text-neutral-100 underline decoration-white/20 decoration-dotted underline-offset-[3px] hover:decoration-white/60">
+                      {freelanceAmount(freelance, fr)}
+                    </a>
                   </p>
-                  <p className="flex items-center gap-1.5 text-[13px] leading-snug text-neutral-400">
-                    <FileText className="h-3.5 w-3.5 shrink-0 text-empire" />
-                    <Video className="h-3.5 w-3.5 shrink-0 text-empire" />
-                    <Mail className="h-3.5 w-3.5 shrink-0 text-empire" />
-                    <span>{fr ? nbsp('Posts, reels montés, newsletters : un reel compte plus qu’un post') : 'Posts, edited reels, newsletters: a reel counts more than a post'}</span>
+                  <p className="text-[12.5px] leading-snug text-neutral-400">
+                    {fr ? nbsp('Un seul client venu de ton contenu peut suffire à rembourser ton mois.') : 'A single client from your content can be enough to pay for your month.'}
                   </p>
-                  {/* Ce qu'Empire fait autour de chaque contenu (repris du tableau comparatif). */}
-                  <div className="!mt-4 rounded-xl bg-white/[0.05] px-3.5 py-3.5">
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-neutral-400">{fr ? 'Empire s’occupe de tout' : 'Empire handles everything'}</p>
-                    <ul className="mt-2.5 space-y-2 text-[13px] leading-snug text-neutral-200">
-                      {DOES.map((d) => (
-                        <li key={d.fr} className="flex gap-2.5">
-                          <Check className="mt-[3px] h-3.5 w-3.5 shrink-0 text-empire" strokeWidth={3} />
-                          <span>{fr ? nbsp(d.fr) : d.en}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <p className="mt-3 text-[12px] text-neutral-400">{fr ? nbsp('Tu mélanges les formats comme tu veux, chaque mois.') : 'Mix the formats as you like, every month.'}</p>
-                  </div>
                 </div>
 
-                {extras && (
-                  <div className="border-t border-white/10 pt-5">
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-neutral-400">{fr ? extras.title.fr : extras.title.en}</p>
-                    <ul className="mt-3 space-y-2.5">
-                      {extras.lines.map((l) => (
-                        <li key={l.fr} className="flex items-start gap-2.5 text-sm leading-snug text-neutral-200">
-                          <Check className="mt-0.5 h-4 w-4 shrink-0 text-empire" strokeWidth={2.5} />
-                          <span>{fr ? nbsp(l.fr) : l.en}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
+                <div className="lg:min-h-[104px]" onClick={(e) => { if (isSelected) e.stopPropagation() }}>
+                  {isSelected ? cta : (
+                    <button type="button" tabIndex={-1} aria-hidden className={`hidden !min-h-[52px] lg:inline-flex ${ORDER_CTA_SECONDARY}`}>
+                      {fr ? `Choisir ${label}` : `Choose ${label}`}
+                    </button>
+                  )}
+                </div>
+
+                {/* Ordinateur : ce qui change d'une formule à l'autre. */}
+                <ul className="hidden space-y-2.5 border-t border-white/10 pt-5 lg:block">
+                  <li className="flex items-start gap-2.5 text-sm leading-snug text-neutral-200">
+                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-empire" strokeWidth={2.5} />
+                    <span>{fr ? nbsp(`${mix.reels} reels et ${mix.posts} posts par mois, répartition au choix`) : `${mix.reels} reels and ${mix.posts} posts a month, split as you like`}</span>
+                  </li>
+                  {CARD_EXTRAS[plan.id].map((l) => (
+                    <li key={l.fr} className="flex items-start gap-2.5 text-sm leading-snug text-neutral-200">
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-empire" strokeWidth={2.5} />
+                      <span>{fr ? nbsp(l.fr) : l.en}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           )

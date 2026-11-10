@@ -12,6 +12,8 @@ export function nbsp(text: string): string {
     .replace(/n° /g, 'n° ')
     .replace(/(\d) (?=\d{3}\b)/g, '$1 ')
     .replace(/(\d) (?=(?:h|min|s|crédits|jours|mois|reels|posts|newsletters|réseaux|vidéos|millions|étapes|places)\b)/g, '$1 ')
+    .replace(/(\d)ᵉ (?=jour|mois)/g, '$1ᵉ ')
+    .replace(/ le (?=\dᵉ)/g, ' le ')
 }
 
 /** « 8ᵉ » rendu avec un vrai exposant (la police n'a pas toujours le caractère). */

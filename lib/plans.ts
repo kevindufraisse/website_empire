@@ -66,6 +66,134 @@ export const PLAN_DELIVERABLES: Record<PlanId, { reels: number; posts: number; n
     }]),
   ) as Record<PlanId, { reels: number; posts: number; newsletters: number }>
 
+// Le mélange montré sur /tarifs (le reçu, la bande « Chez des freelances »,
+// « Empire contre… ») : la moitié des crédits du mois en reels, l'autre moitié
+// en posts. Growth : 16 reels + 38 posts. C'est un exemple ; le client change
+// la répartition quand il veut.
+export function planMix(id: PlanId): { reels: number; posts: number; newsletters: number } {
+  const plan = getPlan(id)
+  const half = plan.credits / 2
+  return {
+    reels: Math.floor(half / CONTENT_CREDITS.reel),
+    posts: Math.floor(half / CONTENT_CREDITS.post),
+    // Avec tous les crédits en newsletters (jamais ajouté au total).
+    newsletters: Math.floor(plan.credits / CONTENT_CREDITS.newsletter),
+  }
+}
+
+// Ce que coûterait le même travail chez des freelances, affiché sur /tarifs
+// (cartes, reçu, « Empire contre… »). Un seul objet de prix, avec deux modes :
+//  - 'moyen' (par défaut, choix de Kevin le 10 novembre 2026) : le milieu des
+//    fourchettes publiées, total arrondi à la centaine (« ≈ 8 300 €/mois ») ;
+//  - 'bas' : le bas des fourchettes, total arrondi à la centaine inférieure
+//    (« plus de 5 600 €/mois »).
+// Les sources et leurs dates sont dans FREELANCE_SOURCES, juste dessous.
+export type FreelanceMode = 'moyen' | 'bas'
+export const FREELANCE_MODE: FreelanceMode = 'moyen'
+
+/** Cours BCE du 9 novembre 2026 : 1 € = 1,1193 $ (outils vendus en dollars). */
+export const USD_PER_EUR = 1.1193
+
+export type ReplacedTool = { name: string; fr: string; en: string; eur?: number; usd?: number }
+
+export const FREELANCE_PRICES = {
+  /** Reel monté, sous-titres inclus (Le Cut : 50 à 120 €). */
+  reel: { bas: 50, moyen: 85 },
+  /** Post écrit dans ta voix (Copylinker, rédacteur confirmé : 100 à 200 €). */
+  post: { bas: 100, moyen: 150 },
+  /** Miniature, une par reel (ComeUp : à partir de 15 €). */
+  thumbnail: { bas: 15, moyen: 15 },
+  /** Publication, commentaires et DM, par mois : community manager « standard »,
+   *  sans la vidéo, pour ne pas compter les reels deux fois (mission-freelances :
+   *  500 à 900 € HT/mois). */
+  communityManager: { bas: 500, moyen: 700 },
+  /** Newsletter (Digitiz : 60 à 150 €) : échange possible, jamais ajouté au total. */
+  newsletter: { low: 60, high: 150 },
+  /** Les outils que l'abonné ne paie plus, au prix mensuel des éditeurs. */
+  tools: [
+    { name: 'Metricool Starter', fr: 'planification et stats', en: 'scheduling and stats', eur: 20 },
+    { name: 'Dub Business', fr: 'liens trackés', en: 'tracked links', usd: 90 },
+    { name: 'BuzzSumo Content Creation', fr: 'veille de niche', en: 'niche monitoring', usd: 239 },
+  ] as ReplacedTool[],
+}
+
+/** Prix d'un outil en euros : le prix en euros de l'éditeur, sinon ses dollars convertis. */
+export function toolEuros(tool: ReplacedTool): number {
+  return tool.eur ?? Math.round((tool.usd ?? 0) / USD_PER_EUR)
+}
+
+export const TOOLS_EUROS = FREELANCE_PRICES.tools.reduce((sum, t) => sum + toolEuros(t), 0)
+
+/** Le détail ligne par ligne et le total affiché pour une formule. */
+export function freelanceValue(id: PlanId, mode: FreelanceMode = FREELANCE_MODE) {
+  const mix = planMix(id)
+  const p = FREELANCE_PRICES
+  const reels = mix.reels * p.reel[mode]
+  const posts = mix.posts * p.post[mode]
+  const thumbnails = mix.reels * p.thumbnail[mode]
+  const communityManager = p.communityManager[mode]
+  const tools = TOOLS_EUROS
+  const total = reels + posts + thumbnails + communityManager + tools
+  const shown = mode === 'moyen' ? Math.round(total / 100) * 100 : Math.floor(total / 100) * 100
+  return { mode, mix, reels, posts, thumbnails, communityManager, tools, total, shown }
+}
+
+/** Le chiffre affiché partout (Growth, mode moyen : ≈ 8 300 €/mois). */
+export function freelanceMonthly(id: PlanId, mode: FreelanceMode = FREELANCE_MODE): number {
+  return freelanceValue(id, mode).shown
+}
+
+export const FREELANCE_SOURCES: { name: string; href: string; fr: string; en: string }[] = [
+  {
+    name: 'Le Cut',
+    href: 'https://www.lecut.fr/blog/tarifs-monteur-video-freelance',
+    fr: 'tarifs monteur vidéo freelance, mai–juin 2026 : reel simple 50 à 120 €',
+    en: 'freelance video editor rates, May–June 2026: simple reel €50 to €120',
+  },
+  {
+    name: 'Copylinker',
+    href: 'https://copylinker.fr/tarif-ghostwriter-linkedin/',
+    fr: 'tarif ghostwriter LinkedIn, novembre 2026 : rédacteur confirmé 100 à 200 € le post',
+    en: 'LinkedIn ghostwriter rates, November 2026: experienced writer €100 to €200 per post',
+  },
+  {
+    name: 'ComeUp',
+    href: 'https://comeup.com/fr/projects/creer-mes-miniatures-youtube',
+    fr: 'miniatures YouTube, consulté en novembre 2026 : à partir de 15 € la miniature',
+    en: 'YouTube thumbnails, checked November 2026: from €15 a thumbnail',
+  },
+  {
+    name: 'mission-freelances',
+    href: 'https://www.mission-freelances.fr/blog/barometre/tjm-freelance-communication-2026/',
+    fr: 'baromètre communication 2026 (mis à jour en juillet 2026) : community manager, gestion standard (2 réseaux, 2 à 3 posts par semaine, sans vidéo) 500 à 900 € HT par mois',
+    en: '2026 communication barometer (updated July 2026): community manager, standard plan (2 networks, 2 to 3 posts a week, no video) €500 to €900 excl. VAT a month',
+  },
+  {
+    name: 'Metricool',
+    href: 'https://metricool.com/pricing/',
+    fr: 'tarifs, consulté en novembre 2026 : Starter 20 € par mois en mensuel',
+    en: 'pricing, checked November 2026: Starter €20 a month, billed monthly',
+  },
+  {
+    name: 'Dub',
+    href: 'https://dub.co/pricing/links',
+    fr: 'tarifs, consulté en novembre 2026 : Business 90 $ par mois en mensuel (81 $ à l’année), suivi des conversions inclus',
+    en: 'pricing, checked November 2026: Business $90 a month billed monthly ($81 yearly), conversion tracking included',
+  },
+  {
+    name: 'BuzzSumo',
+    href: 'https://buzzsumo.com/pricing',
+    fr: 'tarifs, consulté en novembre 2026 : Content Creation 199 $ par mois à l’année, « save $478/yr », soit 239 $ par mois en mensuel',
+    en: 'pricing, checked November 2026: Content Creation $199 a month billed yearly, “save $478/yr”, i.e. $239 a month billed monthly',
+  },
+  {
+    name: 'Digitiz',
+    href: 'https://digitiz.fr/blog/tarifs-redaction-web/',
+    fr: 'tarifs rédaction web, juin 2026 : newsletter 60 à 150 € HT',
+    en: 'web copywriting rates, June 2026: newsletter €60 to €150 excl. VAT',
+  },
+]
+
 // Ce qu'un nombre de crédits permet, format par format (« jusqu'à 2 reels OU
 // 5 posts OU 4 newsletters » pour les 500 crédits de l'essai). Valeur
 // d'affichage dérivée de CONTENT_CREDITS, jamais saisie à la main.
