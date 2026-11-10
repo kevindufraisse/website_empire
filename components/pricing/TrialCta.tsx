@@ -15,12 +15,12 @@ import { TrialReassurance } from '@/components/ui/cta'
  * le lien vers l'appel. Même `checkout` partout (`useTrialCart`).
  */
 
-/** « de quoi faire 2 à 5 contenus », du tout-reels au tout-posts, calculé sur les coûts en crédits. */
+/** « de quoi faire jusqu'à 5 contenus » (tout en posts), calculé sur les coûts en crédits. */
 export function trialContents(fr: boolean): string {
   const c = contentsFor(TRIAL_CREDITS)
   return fr
-    ? `${c.reels} à ${c.posts} contenus (reels, posts ou newsletters)`
-    : `${c.reels} to ${c.posts} pieces of content (reels, posts or newsletters)`
+    ? `jusqu’à ${c.posts} contenus`
+    : `up to ${c.posts} pieces of content`
 }
 
 /** Le bouton d'essai compact, dans la carte de la formule (téléphone). */

@@ -3,7 +3,7 @@
 import type React from 'react'
 
 import glass from './pricing.module.css'
-import { Check, Linkedin, Mail, Video } from 'lucide-react'
+import { Check, FileText, Mail, Video } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import {
   BILLING_PERIODS,
@@ -240,17 +240,18 @@ export default function PlanCards({ location, period, onPeriodChange, chosen, on
                 {cta && isSelected && <div className="lg:hidden" onClick={(e) => e.stopPropagation()}>{cta}</div>}
 
                 <div className="space-y-2.5 border-t border-white/10 pt-5">
-                  {/* Un seul chiffre : de « que des reels » (le plus cher) à « que des posts » (le moins cher). */}
+                  {/* « jusqu'à » = tout en posts (le format le moins cher) ; un reel compte plus. */}
                   <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-neutral-400">{fr ? 'Chaque mois' : 'Every month'}</p>
                   <p className="flex items-baseline gap-2 text-white">
-                    <span className="text-[1.75rem] font-bold leading-none tabular-nums">{fr ? nbsp(`${d.reels} à ${d.posts}`) : `${d.reels} to ${d.posts}`}</span>
+                    <span className="text-[15px] font-semibold text-neutral-300">{fr ? 'jusqu’à' : 'up to'}</span>
+                    <span className="text-[1.75rem] font-bold leading-none tabular-nums">{d.posts}</span>
                     <span className="text-[15px] font-semibold">{fr ? 'contenus' : 'pieces of content'}</span>
                   </p>
                   <p className="flex items-center gap-1.5 text-[13px] leading-snug text-neutral-400">
+                    <FileText className="h-3.5 w-3.5 shrink-0 text-empire" />
                     <Video className="h-3.5 w-3.5 shrink-0 text-empire" />
-                    <Linkedin className="h-3.5 w-3.5 shrink-0 text-empire" />
                     <Mail className="h-3.5 w-3.5 shrink-0 text-empire" />
-                    <span>{fr ? nbsp('Reels montés, posts LinkedIn ou newsletters, selon ton mix') : 'Edited reels, LinkedIn posts or newsletters, your mix'}</span>
+                    <span>{fr ? nbsp('Posts, reels montés, newsletters : un reel compte plus qu’un post') : 'Posts, edited reels, newsletters: a reel counts more than a post'}</span>
                   </p>
                   {/* Ce qu'Empire fait autour de chaque contenu (repris du tableau comparatif). */}
                   <div className="!mt-4 rounded-xl bg-white/[0.05] px-3.5 py-3.5">
