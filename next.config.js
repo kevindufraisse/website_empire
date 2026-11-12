@@ -7,11 +7,9 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react', 'framer-motion'],
   },
-  // Histoire Empire Academy (récit animé au scroll) : page statique dans
-  // public/academy/histoire. La page Empire Partners en 7 séquences
-  // (PartnerProgramPage) reste sur /academy/ancienne, non référencée.
+  // Candidature Head of Content : formation gratuite, sur sélection.
   async rewrites() {
-    return { beforeFiles: [{ source: '/academy', destination: '/academy/histoire/index.html' }] }
+    return { beforeFiles: [{ source: '/academy', destination: '/academy/head-of-content/index.html' }] }
   },
   async redirects() {
     return [
