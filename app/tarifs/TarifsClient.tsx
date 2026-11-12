@@ -11,7 +11,6 @@ import TeamCards from '@/components/pricing/TeamCards'
 import OptionsPanel from '@/components/pricing/OptionsPanel'
 import OfferReceipt from '@/components/pricing/OfferReceipt'
 import OfferBonuses from '@/components/pricing/OfferBonuses'
-import OfferVersus from '@/components/pricing/OfferVersus'
 import PressRow from '@/components/pricing/PressRow'
 import StickyTrialBar from '@/components/pricing/StickyTrialBar'
 import TrialCta, { CallLink, CardTrialButton, trialContents } from '@/components/pricing/TrialCta'
@@ -30,7 +29,7 @@ import { postitJoinUrl } from '@/lib/postit'
  * de la formule (prix, bande « Chez des freelances », bouton d'essai) ; la
  * méthode Empire (les chiffres de la page d'accueil, Favikon, la vérification
  * des reels) ; le reçu de la formule choisie ; les bonus ; l'essai sans
- * risque ; « Empire contre… » ; le récapitulatif avec les options (bootcamp,
+ * risque ; le récapitulatif avec les options (bootcamp,
  * expert) ; les avis ; la presse ; ce qui se passe après le bouton ; la FAQ ;
  * un dernier bouton, le lien équipe et le pied de page.
  *
@@ -421,14 +420,6 @@ export default function TarifsClient() {
                   </span>
                   <p className="text-[14px] leading-snug text-neutral-200">{fr ? nbsp('Chaque reel est vérifié par l’équipe avant publication.') : 'Every reel is checked by the team before it goes out.'}</p>
                 </div>
-              </div>
-            </section>
-
-            {/* 3. Empire contre… (remonté : la valeur vs le prix, juste après la méthode). */}
-            <section className={SECTION}>
-              <SectionTitle eyebrow={fr ? 'Comparer' : 'Compare'} title={fr ? 'Empire contre…' : 'Empire versus…'} />
-              <div className="mt-7">
-                <OfferVersus plan={chosenPlan} price={cart.perMonth} />
               </div>
             </section>
 

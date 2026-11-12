@@ -66,8 +66,8 @@ export const PLAN_DELIVERABLES: Record<PlanId, { reels: number; posts: number; n
     }]),
   ) as Record<PlanId, { reels: number; posts: number; newsletters: number }>
 
-// Le mélange montré sur /tarifs (le reçu, la bande « Chez des freelances »,
-// « Empire contre… ») : la moitié des crédits du mois en reels, l'autre moitié
+// Le mélange montré sur /tarifs (le reçu, la bande « Chez des freelances ») :
+// la moitié des crédits du mois en reels, l'autre moitié
 // en posts. Growth : 16 reels + 38 posts. C'est un exemple ; le client change
 // la répartition quand il veut.
 export function planMix(id: PlanId): { reels: number; posts: number; newsletters: number } {
@@ -82,7 +82,7 @@ export function planMix(id: PlanId): { reels: number; posts: number; newsletters
 }
 
 // Ce que coûterait le même travail chez des freelances, affiché sur /tarifs
-// (cartes, reçu, « Empire contre… »). Un seul objet de prix, avec deux modes :
+// (cartes, reçu). Un seul objet de prix, avec deux modes :
 //  - 'moyen' (par défaut, choix de Kevin le 10 novembre 2026) : le milieu des
 //    fourchettes publiées, total arrondi à la centaine (« ≈ 8 300 €/mois ») ;
 //  - 'bas' : le bas des fourchettes, total arrondi à la centaine inférieure

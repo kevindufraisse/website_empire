@@ -3,7 +3,7 @@ import { FREELANCE_MODE, type FreelanceMode } from '@/lib/plans'
 /**
  * Les mots autour du chiffre freelance, selon le mode de `lib/plans.ts` :
  * « ≈ 8 300 €/mois » au prix moyen, « plus de 5 600 €/mois » au bas des
- * fourchettes. Mêmes mots dans les cartes, le reçu et « Empire contre… ».
+ * fourchettes. Mêmes mots dans les cartes et le reçu.
  */
 
 export function freelanceAmount(n: number, fr: boolean, mode: FreelanceMode = FREELANCE_MODE): string {
