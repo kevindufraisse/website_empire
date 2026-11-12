@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { postitJoinUrl } from '@/lib/postit'
 import { partnerPayHref } from '@/lib/partner-festival-pricing'
 import JoinPartnersLabel from '@/components/JoinPartnersLabel'
+import { BlackFridayPill } from '@/components/BlackFridayBanner'
 import { startFreeTrial } from '@/lib/startTrial'
 import { trackAmplitude } from '@/lib/amplitude'
 
@@ -122,11 +123,14 @@ export default function Header() {
     <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/20 bg-black/95 backdrop-blur-md">
       <nav className="mx-auto max-w-7xl px-4 py-3">
         <div className="flex min-w-0 items-center justify-between gap-3">
-          <a href="/" className="group flex shrink-0 items-center gap-2">
-            <span className="text-lg font-bold text-white transition-colors group-hover:text-empire md:text-xl">
-              Empire
-            </span>
-          </a>
+          <div className="flex min-w-0 items-center gap-2.5">
+            <a href="/" className="group flex shrink-0 items-center gap-2">
+              <span className="text-lg font-bold text-white transition-colors group-hover:text-empire md:text-xl">
+                Empire
+              </span>
+            </a>
+            {!isAcademyPage && !isPartnersPage && <BlackFridayPill />}
+          </div>
 
           <div className="hidden items-center gap-1 lg:flex">
             {doors.map((d) => (

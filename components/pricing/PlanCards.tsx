@@ -17,6 +17,7 @@ import {
 } from '@/lib/plans'
 import { trackAmplitude } from '@/lib/amplitude'
 import { LIVE_OFFER, isLivePlan, useCountdown, type LiveWindow } from '@/lib/liveOffer'
+import { BLACK_FRIDAY, blackFridayBase, formatBlackFridayLeft, useBlackFriday } from '@/lib/blackFriday'
 import { ORDER_CTA_SECONDARY, ORDER_PRICE, ORDER_SEGMENT, ORDER_SEGMENTS, ORDER_STRUCK, ORDER_TAG } from '@/lib/orderStyles'
 import { freelanceAmount, freelanceCardLead } from './freelanceCopy'
 import { nbsp } from './typo'
@@ -96,9 +97,13 @@ export default function PlanCards({ location, period, onPeriodChange, chosen, on
   const percent = (d: number) => (fr ? `−${Math.round(d * 100)} %` : `-${Math.round(d * 100)}%`)
   // Annuel −18 % ≈ 2 mois sur 12 ; trimestriel −12 % ≈ 11 jours sur 91 (arrondi en dessous : 10). Dit en temps plutôt qu'en pourcentage.
   const saving = (b: { discount: number; months: number }) => (b.months === 12 ? (fr ? '2 mois offerts' : '2 months free') : b.months === 3 ? (fr ? '10 jours offerts' : '10 days free') : percent(b.discount))
+  // Black Friday (lib/blackFriday.ts) : Scale au prix de Growth pendant 12
+  // mois, sur toutes les périodes ; prioritaire sur l'offre du live (3 mois).
+  const bf = useBlackFriday()
+  const isBf = (id: PlanId) => bf.active && id === BLACK_FRIDAY.plan
   const priceOf = (id: PlanId) => {
     const p = PLANS.find((x) => x.id === id)!
-    return live && period === 'monthly' && isLivePlan(id) ? LIVE_OFFER.plans[id].monthly : finalPrice(p.price, period, 1)
+    return live && period === 'monthly' && isLivePlan(id) && !isBf(id) ? LIVE_OFFER.plans[id].monthly : finalPrice(blackFridayBase(id, p.price, bf.active), period, 1)
   }
 
   const choose = (plan: PlanId) => {
@@ -122,9 +127,9 @@ export default function PlanCards({ location, period, onPeriodChange, chosen, on
               onClick={() => onChoose(p.id)}
               className={`relative flex min-h-[78px] cursor-pointer flex-col items-start justify-center px-2 py-2.5 text-left min-[380px]:px-3 ${glass.planOption}`}
             >
-              {p.highlighted && (
+              {(isBf(p.id) || p.highlighted) && (
                 <span className={`absolute -top-2.5 right-2 whitespace-nowrap px-2 py-0.5 text-[11px] font-bold leading-tight ${glass.limeTag}`}>
-                  {fr ? 'Populaire' : 'Popular'}
+                  {isBf(p.id) ? 'Black Friday' : fr ? 'Populaire' : 'Popular'}
                 </span>
               )}
               <span className={`text-[13px] font-semibold leading-tight ${active ? 'text-white' : 'text-neutral-200'}`}>{PLAN_LABELS[p.id][fr ? 'fr' : 'en']}</span>
@@ -169,7 +174,8 @@ export default function PlanCards({ location, period, onPeriodChange, chosen, on
       <div className={`mx-auto mt-3 grid gap-4 lg:mt-6 lg:items-stretch ${plans.length === 2 ? 'max-w-3xl lg:grid-cols-2' : 'lg:grid-cols-3'}`}>
         {plans.map((plan) => {
           const isSelected = plan.id === selected
-          const liveDeal = live && period === 'monthly' && isLivePlan(plan.id) ? LIVE_OFFER.plans[plan.id] : null
+          const liveDeal = live && period === 'monthly' && isLivePlan(plan.id) && !isBf(plan.id) ? LIVE_OFFER.plans[plan.id] : null
+          const fullPrice = finalPrice(plan.price, period, 1)
           const price = priceOf(plan.id)
           const total = (price * billing.months).toLocaleString(locale)
           const label = PLAN_LABELS[plan.id][fr ? 'fr' : 'en']
@@ -191,7 +197,7 @@ export default function PlanCards({ location, period, onPeriodChange, chosen, on
                     <span className="block text-sm text-neutral-300 lg:mt-1">{fr ? nbsp(RHYTHM_TU[plan.id].fr) : RHYTHM_TU[plan.id].en}</span>
                   </span>
                   <span className="flex shrink-0 items-center gap-2">
-                    {plan.highlighted && <span className={`hidden whitespace-nowrap px-2.5 py-1 text-xs font-bold lg:inline-block ${glass.limeTag}`}>{fr ? 'Populaire' : 'Popular'}</span>}
+                    {plan.highlighted && !isBf(plan.id) && <span className={`hidden whitespace-nowrap px-2.5 py-1 text-xs font-bold lg:inline-block ${glass.limeTag}`}>{fr ? 'Populaire' : 'Popular'}</span>}
                     <span aria-hidden className={`hidden h-5 w-5 items-center justify-center rounded-full border lg:flex ${isSelected ? 'border-empire bg-empire text-black' : 'border-white/30'}`}>
                       {isSelected && <Check className="h-3.5 w-3.5" strokeWidth={3} />}
                     </span>
@@ -220,6 +226,32 @@ export default function PlanCards({ location, period, onPeriodChange, chosen, on
                     <p className="text-xs text-neutral-400">
                       {fr ? `Puis ${liveDeal.listMonthly} €/mois` : `Then €${liveDeal.listMonthly}/mo`}
                     </p>
+                  </div>
+                ) : isBf(plan.id) ? (
+                  // Black Friday : pastille avec la fin, prix normal de la
+                  // période barré, puis le prix payé pendant 12 mois.
+                  <div className="space-y-1.5">
+                    <span className="inline-flex rounded-full bg-[#DAFC68] px-2.5 py-0.5 text-[11px] font-semibold tabular-nums text-black">
+                      {'Black Friday'}
+                      {bf.left !== null && (fr ? ` · fin dans ${formatBlackFridayLeft(bf.left, true)}` : ` · ends in ${formatBlackFridayLeft(bf.left, false)}`)}
+                    </span>
+                    <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                      <span className={`text-lg ${ORDER_STRUCK}`}>{euros(fullPrice)}</span>
+                      <span className={`text-[2.75rem] !font-bold ${ORDER_PRICE}`}>{euros(price)}</span>
+                      <span className="text-sm text-neutral-300">{perMonth}</span>
+                    </div>
+                    <p className="text-xs text-neutral-300">
+                      {fr
+                        ? nbsp(`Le prix de Growth pendant ${BLACK_FRIDAY.durationMonths} mois, puis ${euros(fullPrice)}/mois`)
+                        : `Growth's price for ${BLACK_FRIDAY.durationMonths} months, then ${euros(fullPrice)}/mo`}
+                    </p>
+                    {discount > 0 && (
+                      <p className="text-xs text-neutral-400">
+                        {fr
+                          ? nbsp(`Facturé ${total} € ${billing.months === 12 ? 'une fois par an' : `tous les ${billing.months} mois`}`)
+                          : `Billed €${total} ${billing.months === 12 ? 'once a year' : `every ${billing.months} months`}`}
+                      </p>
+                    )}
                   </div>
                 ) : (
                   <div>

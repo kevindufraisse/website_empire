@@ -1,6 +1,8 @@
 'use client'
 
 import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { BlackFridayStrip } from '@/components/BlackFridayBanner'
+import { useBlackFriday } from '@/lib/blackFriday'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { ArrowLeft, ArrowRight, ArrowUpRight, CalendarCheck, ChevronDown, ShieldCheck, Undo2, Wallet } from 'lucide-react'
@@ -228,6 +230,11 @@ export default function TarifsClient() {
     setPeriod('monthly')
     setChosenPlan('scale')
   }, [live])
+  // Black Friday : Scale choisi d'office, c'est la formule en promo.
+  const blackFriday = useBlackFriday().active
+  useEffect(() => {
+    if (blackFriday) setChosenPlan('scale')
+  }, [blackFriday])
 
   useEffect(() => {
     const sync = () => {
@@ -352,6 +359,8 @@ export default function TarifsClient() {
         {liveOffer.status === 'need_email' && liveOffer.error && (
           <p className="mt-2 text-center text-xs text-neutral-300">{fr ? 'Cet email n’a pas l’air valide.' : 'This email does not look valid.'}</p>
         )}
+
+        {solo && <BlackFridayStrip className="mt-5 md:mt-8" />}
 
         {solo ? (
           <>

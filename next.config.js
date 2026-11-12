@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  // Heure du build, lue par lib/blackFriday.ts pour que serveur et navigateur
+  // fassent le même premier rendu (promo à date de fin).
+  env: { NEXT_PUBLIC_BUILD_TIME: String(Date.now()) },
   experimental: {
     optimizePackageImports: ['lucide-react', 'framer-motion'],
   },

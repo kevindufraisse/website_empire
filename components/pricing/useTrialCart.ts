@@ -7,6 +7,7 @@ import { BILLING_PERIODS, PLANS, finalPrice, type BillingId, type PlanId } from 
 import { startFreeTrial, type TrialOption } from '@/lib/startTrial'
 import { trackAmplitude } from '@/lib/amplitude'
 import { LIVE_OFFER, isLivePlan, liveCheckoutUrl, type LiveWindow } from '@/lib/liveOffer'
+import { BLACK_FRIDAY, blackFridayBase, useBlackFriday } from '@/lib/blackFriday'
 
 /**
  * L'état d'achat de /tarifs, partagé par tous les boutons de la page (sous la
@@ -53,8 +54,12 @@ export function useTrialCart(plan: PlanId, period: BillingId, live: LiveWindow |
   const billing = BILLING_PERIODS.find((b) => b.id === period)!
   // Offre du live : Growth / Scale en mensuel, premier mois prélevé
   // aujourd'hui par la page de l'app, sans essai ni options.
-  const liveDeal = live && period === 'monthly' && isLivePlan(plan) ? LIVE_OFFER.plans[plan] : null
-  const perMonth = liveDeal ? liveDeal.monthly : finalPrice(planInfo.price, period, 1)
+  // Black Friday : Scale à 499 € pendant 12 mois, mieux que l'offre du live
+  // (3 mois) ; le prix est appliqué par l'app (promo `scale499`) à l'essai.
+  const bf = useBlackFriday()
+  const blackFriday = bf.active && plan === BLACK_FRIDAY.plan
+  const liveDeal = live && period === 'monthly' && isLivePlan(plan) && !blackFriday ? LIVE_OFFER.plans[plan] : null
+  const perMonth = liveDeal ? liveDeal.monthly : finalPrice(blackFridayBase(plan, planInfo.price, bf.active), period, 1)
   const cycleTotal = perMonth * billing.months
   const today = liveDeal ? liveDeal.monthly : bootcamp ? bootcampEuros : 0
 
@@ -79,7 +84,7 @@ export function useTrialCart(plan: PlanId, period: BillingId, live: LiveWindow |
   }
 
   return {
-    plan, period, billing, liveDeal,
+    plan, period, billing, liveDeal, blackFriday,
     bootcamp, expert, opening, full, spotsLine, bootcampEuros,
     perMonth, cycleTotal, today,
     toggle, checkout,
