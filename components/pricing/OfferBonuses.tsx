@@ -16,8 +16,8 @@ const BONUSES: { titleFr: string; titleEn: string; lineFr: string; lineEn: strin
   {
     titleFr: 'Ton onboarding 1-1 offert',
     titleEn: 'Your free 1-1 onboarding',
-    lineFr: '30 min avec Kevin ou l’équipe, après ton premier paiement réussi, pour lancer tes premiers contenus.',
-    lineEn: '30 min with Kevin or the team, after your first successful payment, to launch your first content.',
+    lineFr: '30 min avec Kevin pour lancer tes premiers contenus.',
+    lineEn: '30 min with Kevin to launch your first content.',
     plans: ['starter', 'growth', 'scale'],
   },
   {
