@@ -174,7 +174,7 @@ export const en = {
       },
       lives: {
         question: 'What happens during the lives?',
-        answer: 'Every week, 1 hour on Zoom with our experts and community (from Growth). We review your content and numbers, find your next angles, you ask questions. Not a course - your weekly editorial board.',
+        answer: 'The group masterclass is free every Monday at 2 pm, Paris time, from your trial and in every plan. Ask questions, review your content and prepare your next tests. Find the session in your Academy space.',
       },
     },
   },
@@ -564,7 +564,7 @@ export const en = {
     },
     {
       question: 'How is this different from an agency?',
-      answer: 'An agency = €5–15K/month, weeks to deliver, often generic voice. Empire = ~1h/week from you, production + publishing. Lives and community from Growth.',
+      answer: 'An agency = €5–15K/month, weeks to deliver, often generic voice. Empire = ~1h/week from you, production + publishing. Free Monday masterclasses in every plan. Private Slack community from Growth.',
     },
     {
       question: 'Can I cancel?',

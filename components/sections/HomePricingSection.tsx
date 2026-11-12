@@ -209,8 +209,8 @@ export default function HomePricingSection() {
           </h2>
           <p className="mt-4 text-neutral-400">
             {fr
-              ? 'Même système, trois volumes. Lives et communauté dès Growth.'
-              : 'Same system, three volumes. Lives and community from Growth.'}
+              ? 'Même système, trois volumes. Masterclasses du lundi offertes. Communauté privée Slack dès Growth.'
+              : 'Same system, three volumes. Free Monday masterclasses. Private Slack community from Growth.'}
           </p>
 
           {/* Promo flash */}

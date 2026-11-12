@@ -297,7 +297,7 @@ export const fr: Translations = {
       },
       lives: {
         question: 'Que se passe-t-il pendant les lives ?',
-        answer: 'Chaque semaine, 1 h sur Zoom avec nos experts et la communauté (dès Growth). On analyse tes contenus et tes chiffres, on trouve tes prochains angles, tu poses tes questions. Ce n\'est pas un cours : c\'est ton comité éditorial hebdomadaire.',
+        answer: 'La masterclass collective est offerte chaque lundi à 14 h, heure de Paris, dès ton essai et dans toutes les formules. Tu poses tes questions, tu fais le point sur tes contenus et tu prépares tes prochains tests. Retrouve le rendez-vous depuis ton espace Academy.',
       },
     },
   },
@@ -687,7 +687,7 @@ export const fr: Translations = {
     },
     {
       question: 'Quelle différence avec une agence ?',
-      answer: 'Une agence = 5–15 K€/mois, semaines à livrer, voix souvent générique. Empire = ~1 h/semaine de ton côté, production + publication. Lives et communauté dès Growth.',
+      answer: 'Une agence = 5–15 K€/mois, semaines à livrer, voix souvent générique. Empire = ~1 h/semaine de ton côté, production + publication. Masterclasses du lundi offertes dans toutes les formules. Communauté privée Slack dès Growth.',
     },
     {
       question: 'Puis-je annuler ?',

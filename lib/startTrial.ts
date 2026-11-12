@@ -2,8 +2,9 @@ import { withAmplitudeDeviceId } from '@/lib/amplitude'
 
 // Essai gratuit Empire depuis le site : 7 jours, 500 crédits, sur toutes les
 // formules et toutes les périodes (mensuel, trimestriel, annuel).
-// L'abonnement démarre au 8e jour, ou dès le premier crédit au-delà des 500. On envoie sur /onboarding (inscription) avec
-// l'intent essai : après le compte, l'app ouvre le checkout sur /pricing.
+// L'abonnement démarre au 8e jour, ou dès le premier crédit au-delà des 500.
+// Sans formule choisie : préparation guidée, compte, puis choix de formule.
+// Avec une formule explicite : inscription puis checkout direct sur /pricing.
 // Ne jamais pointer /pricing directement — c'est derrière le login et un
 // prospect qui veut payer atterrissait sur « se connecter ».
 export const TRIAL_PLAN = 'growth'
