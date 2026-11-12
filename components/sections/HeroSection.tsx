@@ -218,7 +218,7 @@ export default function HeroSection() {
                     <button type="button" onClick={onTrial} disabled={trialLoading} className={CTA_PRIMARY}>
                       {trialLoading
                         ? (lang === 'fr' ? 'Ouverture…' : 'Opening…')
-                        : (lang === 'fr' ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial')}
+                        : (lang === 'fr' ? 'Commencer gratuitement' : 'Get started for free')}
                       <span aria-hidden className="inline-block transition-transform group-hover:translate-x-1">→</span>
                     </button>
                   }

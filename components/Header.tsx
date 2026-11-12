@@ -115,7 +115,7 @@ export default function Header() {
       onClick={onTrial}
       className="cursor-pointer rounded-lg bg-empire px-4 py-2 text-sm font-semibold text-black transition hover:brightness-110"
     >
-      {fr ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial'}
+      {fr ? 'Commencer gratuitement' : 'Get started for free'}
     </button>
   )
 

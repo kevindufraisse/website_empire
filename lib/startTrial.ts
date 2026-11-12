@@ -9,7 +9,7 @@ import { withAmplitudeDeviceId } from '@/lib/amplitude'
 export const TRIAL_PLAN = 'growth'
 export const TRIAL_BILLING = 'monthly'
 export const TRIAL_CREDITS = 500
-export const TRIAL_URL = `https://app.empire-internet.com/onboarding?plan=${TRIAL_PLAN}&intent=trial&billing=${TRIAL_BILLING}`
+export const TRIAL_URL = 'https://app.empire-internet.com/onboarding?flow=guided'
 
 /** La promesse de l'essai, mot pour mot partout sur le site. */
 export const TRIAL_TERMS_FR = `7 jours gratuits avec ${TRIAL_CREDITS} crédits. L’abonnement démarre au 8e jour, ou dès que tu dépasses les ${TRIAL_CREDITS} crédits. Annule avant : 0 €.`
@@ -38,7 +38,13 @@ export async function startFreeTrial(
   billing: 'monthly' | 'quarterly' | 'yearly' = TRIAL_BILLING,
   options: TrialOption[] = [],
 ): Promise<void> {
-  const url = new URL(TRIAL_URL)
+  // A homepage visitor prepares their workspace before choosing a plan.
+  // An explicit selection from /tarifs keeps the existing direct checkout.
+  if (arguments.length === 0) {
+    window.location.href = withAmplitudeDeviceId(TRIAL_URL)
+    return
+  }
+  const url = new URL('https://app.empire-internet.com/onboarding')
   url.searchParams.set('plan', plan)
   url.searchParams.set('intent', 'trial')
   url.searchParams.set('billing', billing)

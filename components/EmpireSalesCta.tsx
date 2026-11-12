@@ -17,7 +17,7 @@ export default function EmpireSalesCta({ source, showDemo = true }: { source: st
           trackAmplitude('empire_trial_clicked', { source })
           startFreeTrial()
         }} className={CTA_PRIMARY}>
-          {fr ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial'} <span className="transition-transform group-hover:translate-x-1" aria-hidden>→</span>
+          {fr ? 'Commencer gratuitement' : 'Get started for free'} <span className="transition-transform group-hover:translate-x-1" aria-hidden>→</span>
         </button>
       }
       secondary={showDemo && (

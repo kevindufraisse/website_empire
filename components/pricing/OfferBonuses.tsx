@@ -14,17 +14,17 @@ import { nbsp } from './typo'
 
 const BONUSES: { titleFr: string; titleEn: string; lineFr: string; lineEn: string; plans: PlanId[] }[] = [
   {
-    titleFr: 'Ton onboarding 1-1 de démarrage',
-    titleEn: 'Your 1-1 kickoff onboarding',
-    lineFr: '30 min avec Kevin ou l’équipe, pour lancer tes premiers contenus.',
-    lineEn: '30 min with Kevin or the team, to launch your first pieces of content.',
+    titleFr: 'Ton onboarding 1-1 offert',
+    titleEn: 'Your free 1-1 onboarding',
+    lineFr: '30 min avec Kevin ou l’équipe, après ton premier paiement réussi, pour lancer tes premiers contenus.',
+    lineEn: '30 min with Kevin or the team, after your first successful payment, to launch your first content.',
     plans: ['starter', 'growth', 'scale'],
   },
   {
-    titleFr: 'Le live de Kevin, chaque lundi à 14 h',
-    titleEn: 'Kevin’s live, every Monday at 2 pm (Paris)',
-    lineFr: 'Pour savoir quoi filmer cette semaine.',
-    lineEn: 'To know what to film this week.',
+    titleFr: 'La masterclass collective offerte, chaque lundi à 14 h',
+    titleEn: 'Free group masterclass, every Monday at 2 pm (Paris)',
+    lineFr: 'Heure de Paris. Accessible dès ton essai, depuis ton espace Academy.',
+    lineEn: 'Paris time. Available from your trial, in your Academy space.',
     plans: ['starter', 'growth', 'scale'],
   },
   {
