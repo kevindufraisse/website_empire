@@ -1,11 +1,20 @@
 import { createHash } from 'node:crypto'
 
-export const SITUATIONS: Record<string, string> = { employee: 'Salarié / en reconversion', freelance: 'Freelance / consultant', business: 'Entrepreneur / agence', student: 'Étudiant', other: 'Autre situation' }
+export const SITUATIONS: Record<string, string> = { cdi: 'Salarié en CDI', cdd: 'Salarié en CDD / intérim', freelance: 'Freelance / consultant', business: 'Entrepreneur / dirigeant d’agence', student: 'Étudiant / alternant', jobseeking: 'En recherche d’emploi / reconversion', other: 'Autre situation' }
 export const EXPERIENCES: Record<string, string> = { starting: 'Pas encore, prêt à me lancer', occasionally: 'Contenu occasionnel pour moi', regularly: 'Contenu régulier pour moi', clients: 'Contenu pour des clients' }
+// Keep the original intake valid for people with the previous page still open.
 export const AVAILABILITIES: Record<string, string> = { under3: 'Moins de 3 h / semaine', '3to5': '3 à 5 h / semaine', '5to10': '5 à 10 h / semaine', over10: 'Plus de 10 h / semaine' }
+export const MONTHLY_HOURS: Record<string, string> = { under10: 'Moins de 10 h / mois', '10to20': '10 à 20 h / mois', '20to40': '20 à 40 h / mois', '40to80': '40 à 80 h / mois', over80: 'Plus de 80 h / mois' }
+export const CURRENT_INCOMES: Record<string, string> = { none: 'Aucun revenu actuellement', under1000: 'Moins de 1 000 €', '1000to2000': '1 000 à 1 999 €', '2000to3000': '2 000 à 2 999 €', '3000to5000': '3 000 à 4 999 €', over5000: '5 000 € ou plus', private: 'Préfère en parler lors de l’échange' }
+export const INCOME_GOALS: Record<string, string> = { under1000: 'Un complément de moins de 1 000 €', '1000to3000': '1 000 à 3 000 €', '3000to5000': '3 000 à 5 000 €', over5000: 'Plus de 5 000 €', exploring: 'Objectif encore à définir' }
+export const NETWORKS: Record<string, string> = { instagram: 'Instagram', tiktok: 'TikTok', linkedin: 'LinkedIn', youtube: 'YouTube', facebook: 'Facebook', x: 'X / Twitter', other: 'Un autre réseau', none: 'Aucun pour l’instant' }
+export const STRENGTHS: Record<string, string> = { writing: 'À l’écrit : posts, textes, scripts', speaking: 'À l’oral : échanges, interviews, audio', video: 'En vidéo : parler face caméra', versatile: 'À l’aise dans plusieurs formats', learning: 'Points forts à découvrir' }
+export const START_DATES: Record<string, string> = { now: 'Dès maintenant', thismonth: 'Dans le mois', later: 'Dans 1 à 3 mois' }
+type Qualification = { monthlyHours: string; currentIncome: string; incomeGoal: string; networks: string[]; strength: string; favoriteCreator: string; startWhen: string }
 export type Candidate = {
   submissionId: string; firstName: string; lastName: string; email: string; phone: string
   situation: string; experience: string; availability: string; project: string; profileUrl: string; consent: true
+  qualification?: Qualification
 }
 type Validation = { candidate: Candidate } | { error: string; field?: string } | { honeypot: true }
 const text = (v: unknown) => typeof v === 'string' ? v.trim() : ''
@@ -22,6 +31,8 @@ export function validateCandidate(input: unknown): Validation {
   if (!input || typeof input !== 'object' || Array.isArray(input)) return { error: 'Candidature invalide.' }
   const b = input as Record<string, unknown>
   if (text(b.company)) return { honeypot: true }
+  const expanded = b.applicationVersion === 2
+  if (b.applicationVersion !== undefined && !expanded) return { error: 'Recharge la page pour accéder au formulaire de candidature à jour.' }
   const firstName = text(b.firstName), lastName = text(b.lastName), email = text(b.email).toLowerCase()
   if (firstName.length < 1 || firstName.length > 60) return { error: 'Indique ton prénom.', field: 'firstName' }
   if (lastName.length < 1 || lastName.length > 80) return { error: 'Indique ton nom.', field: 'lastName' }
@@ -29,11 +40,21 @@ export function validateCandidate(input: unknown): Validation {
   const phone = normalizeCandidatePhone(text(b.phone))
   if (!phone) return { error: 'Vérifie ton téléphone. Hors France, ajoute l’indicatif du pays (par exemple +32).', field: 'phone' }
   const situation = text(b.situation), experience = text(b.experience), availability = text(b.availability)
-  if (!Object.prototype.hasOwnProperty.call(SITUATIONS, situation)) return { error: 'Choisis ta situation.', field: 'situation' }
+  if (!Object.prototype.hasOwnProperty.call(SITUATIONS, situation) && !(situation === 'employee' && !expanded)) return { error: 'Choisis ta situation.', field: 'situation' }
   if (!Object.prototype.hasOwnProperty.call(EXPERIENCES, experience)) return { error: 'Indique ton expérience en contenu.', field: 'experience' }
-  if (!Object.prototype.hasOwnProperty.call(AVAILABILITIES, availability)) return { error: 'Indique ton temps disponible.', field: 'availability' }
+  if (!expanded && !Object.prototype.hasOwnProperty.call(AVAILABILITIES, availability)) return { error: 'Indique ton temps disponible.', field: 'availability' }
   const project = text(b.project)
-  if (project.length < 30 || project.length > 1000) return { error: 'Présente ton projet en 30 à 1 000 caractères.', field: 'project' }
+  if (project.length < (expanded ? 60 : 30) || project.length > (expanded ? 1200 : 1000)) return { error: expanded ? 'Présente ta motivation en 60 à 1 200 caractères.' : 'Présente ton projet en 30 à 1 000 caractères.', field: 'project' }
+  let qualification: Qualification | undefined
+  if (expanded) {
+    for (const [field, choices] of Object.entries({ monthlyHours: MONTHLY_HOURS, currentIncome: CURRENT_INCOMES, incomeGoal: INCOME_GOALS, strength: STRENGTHS, startWhen: START_DATES })) {
+      if (!Object.prototype.hasOwnProperty.call(choices, text(b[field]))) return { error: 'Sélectionne une réponse à cette question.', field }
+    }
+    if (!Array.isArray(b.networks) || !b.networks.length || b.networks.length > 7 || b.networks.some(n => typeof n !== 'string' || !Object.prototype.hasOwnProperty.call(NETWORKS, n)) || new Set(b.networks).size !== b.networks.length || (b.networks.includes('none') && b.networks.length > 1)) return { error: 'Choisis les réseaux où tu as publié, ou « Aucun pour l’instant ».', field: 'networks' }
+    const favoriteCreator = text(b.favoriteCreator)
+    if (favoriteCreator.length < 20 || favoriteCreator.length > 600) return { error: 'Présente ton créateur préféré et ce qui te plaît chez lui en 20 à 600 caractères.', field: 'favoriteCreator' }
+    qualification = { monthlyHours: text(b.monthlyHours), currentIncome: text(b.currentIncome), incomeGoal: text(b.incomeGoal), networks: [...b.networks].sort() as string[], strength: text(b.strength), favoriteCreator, startWhen: text(b.startWhen) }
+  }
   let profileUrl = text(b.profileUrl)
   if (profileUrl) {
     try {
@@ -46,24 +67,34 @@ export function validateCandidate(input: unknown): Validation {
   if (b.consent !== true) return { error: 'Confirme que l’équipe peut te contacter au sujet de ta candidature.', field: 'consent' }
   const submissionId = text(b.submissionId)
   if (!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(submissionId)) return { error: 'Recharge la page puis réessaie.' }
-  return { candidate: { submissionId, firstName, lastName, email, phone, situation, experience, availability, project, profileUrl, consent: true } }
+  return { candidate: { submissionId, firstName, lastName, email, phone, situation, experience, availability: expanded ? '' : availability, project, profileUrl, consent: true, ...(qualification ? { qualification } : {}) } }
 }
+const situationLabel = (c: Candidate) => SITUATIONS[c.situation] || 'Salarié / en reconversion'
+const networkSummary = (q: Qualification) => `${q.networks.includes('none') ? 0 : q.networks.length} — ${q.networks.map(n => NETWORKS[n]).join(', ')}`
 export function candidateSummary(c: Candidate): string {
+  const q = c.qualification
   return [
     'CANDIDATURE HEAD OF CONTENT — Formation gratuite sur sélection', `${c.firstName} ${c.lastName}`, `Email : ${c.email}`, `Téléphone : ${c.phone}`,
-    `Situation : ${SITUATIONS[c.situation]}`, `Expérience : ${EXPERIENCES[c.experience]}`, `Disponibilité : ${AVAILABILITIES[c.availability]}`, `Projet : ${c.project}`,
+    `Situation : ${situationLabel(c)}`, `Expérience : ${EXPERIENCES[c.experience]}`,
+    ...(q ? [`Disponibilité mensuelle : ${MONTHLY_HOURS[q.monthlyHours]}`, `Revenus personnels nets actuels / mois : ${CURRENT_INCOMES[q.currentIncome]}`, `Objectif de CA mensuel à 6 mois : ${INCOME_GOALS[q.incomeGoal]}`, `Réseaux déjà utilisés (${networkSummary(q)})`, `Aisance : ${STRENGTHS[q.strength]}`, `Créateur préféré et pourquoi : ${q.favoriteCreator}`, `Démarrage : ${START_DATES[q.startWhen]}`] : [`Disponibilité : ${AVAILABILITIES[c.availability]}`, 'Ancien formulaire : les questions supplémentaires n’étaient pas encore affichées.']),
+    `Motivation : ${c.project}`,
     c.profileUrl ? `Profil : ${c.profileUrl}` : 'Profil : non renseigné', 'Consentement au recontact : oui', 'À recontacter sous 48 h si sélectionné.', `Référence : ${c.submissionId}`,
   ].join('\n')
 }
 export function candidateSlackPayload(c: Candidate, channel: string) {
+  const q = c.qualification
   const section = (value: string) => ({ type: 'section', text: { type: 'plain_text', text: value, emoji: false } })
   return {
     channel, client_msg_id: c.submissionId, text: candidateSummary(c), mrkdwn: false, unfurl_links: false, unfurl_media: false,
     blocks: [
       { type: 'header', text: { type: 'plain_text', text: 'Nouvelle candidature · Head of Content' } },
       section(`${c.firstName} ${c.lastName}\n${c.email}\n${c.phone}`),
-      section(`Situation\n${SITUATIONS[c.situation]}\n\nExpérience en contenu\n${EXPERIENCES[c.experience]}\n\nTemps disponible\n${AVAILABILITIES[c.availability]}`),
-      section(`Son projet\n${c.project}`), ...(c.profileUrl ? [section(`Profil / exemple de contenu\n${c.profileUrl}`)] : []),
+      ...(q ? [
+        section(`Situation\n${situationLabel(c)}\n\nTemps disponible\n${MONTHLY_HOURS[q.monthlyHours]}\n\nRevenus personnels nets actuels / mois\n${CURRENT_INCOMES[q.currentIncome]}\n\nObjectif de CA mensuel à 6 mois\n${INCOME_GOALS[q.incomeGoal]}`),
+        section(`Expérience en contenu\n${EXPERIENCES[c.experience]}\n\nRéseaux déjà utilisés (${networkSummary(q)})\n\nAisance\n${STRENGTHS[q.strength]}\n\nPeut commencer\n${START_DATES[q.startWhen]}`),
+        section(`Créateur préféré et pourquoi\n${q.favoriteCreator}`),
+      ] : [section(`Situation\n${situationLabel(c)}\n\nExpérience en contenu\n${EXPERIENCES[c.experience]}\n\nTemps disponible\n${AVAILABILITIES[c.availability]}\n\nAncien formulaire : questions supplémentaires non affichées.`)]),
+      section(`Pourquoi sélectionner ce profil\n${c.project}`), ...(c.profileUrl ? [section(`Profil / exemple de contenu\n${c.profileUrl}`)] : []),
       { type: 'actions', elements: [{ type: 'button', text: { type: 'plain_text', text: 'Contacter sur WhatsApp' }, url: `https://wa.me/${c.phone.slice(1)}` }] },
       { type: 'context', elements: [{ type: 'plain_text', text: `Formation gratuite · Recontact accepté · Sous 48 h si sélectionné\nRéf. ${c.submissionId}` }] },
     ],

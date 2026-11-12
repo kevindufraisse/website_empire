@@ -15,6 +15,7 @@ function load(file, mocks = {}, globals = {}) {
 }
 const core = load('lib/head-of-content.ts')
 const candidate = () => ({ submissionId: randomUUID(), firstName: 'Test', lastName: 'Candidature', email: 'test@example.com', phone: '06 00 00 00 00', situation: 'freelance', experience: 'starting', availability: '5to10', project: 'Je souhaite aider des entrepreneurs à produire du contenu et à développer leur activité.', profileUrl: '', consent: true, company: '' })
+const expandedCandidate = () => ({ ...candidate(), applicationVersion: 2, situation: 'cdi', availability: undefined, monthlyHours: '20to40', currentIncome: '2000to3000', incomeGoal: '3000to5000', networks: ['linkedin', 'instagram'], strength: 'writing', favoriteCreator: 'Je suis ce créateur pour sa pédagogie et ses exemples concrets, que je peux appliquer.', startWhen: 'thismonth' })
 let checks = 0
 function ok(value, message) { assert.ok(value, message); checks++ }
 async function run() {
@@ -26,6 +27,22 @@ async function run() {
   }
   ok(core.validateCandidate({ company: 'bot' }).honeypot === true, 'Honeypot detected')
   ok(core.validateCandidate({ ...candidate(), email: 'TEST@EXAMPLE.COM', profileUrl: 'linkedin.com/in/test' }).candidate?.profileUrl === 'https://linkedin.com/in/test', 'Optional profile normalized')
+  const expanded = core.validateCandidate(expandedCandidate())
+  ok(expanded.candidate?.qualification?.monthlyHours === '20to40', 'Expanded intake accepts monthly hours without legacy weekly availability')
+  ok(core.validateCandidate({ ...candidate(), situation: 'employee' }).candidate?.situation === 'employee', 'Already-open legacy form still works')
+  for (const field of ['monthlyHours', 'currentIncome', 'incomeGoal', 'strength', 'startWhen']) {
+    ok(Boolean(core.validateCandidate({ ...expandedCandidate(), [field]: '' }).error), `Expanded intake requires ${field}`)
+    ok(Boolean(core.validateCandidate({ ...expandedCandidate(), [field]: '__proto__' }).error), `Reject invalid ${field}`)
+  }
+  for (const networks of [[], ['none', 'instagram'], ['instagram', 'instagram'], ['unknown'], 'instagram', [42], ['__proto__']]) ok(Boolean(core.validateCandidate({ ...expandedCandidate(), networks }).error), 'Invalid network selection rejected')
+  ok(core.validateCandidate({ ...expandedCandidate(), networks: ['none'], currentIncome: 'private', strength: 'learning' }).candidate?.qualification?.networks[0] === 'none', 'Beginners and undisclosed income are accepted without automatic exclusion')
+  ok(core.validateCandidate({ ...expandedCandidate(), networks: ['instagram', 'tiktok', 'linkedin', 'youtube', 'facebook', 'x', 'other'] }).candidate?.qualification?.networks.length === 7, 'All published networks can be selected')
+  for (const [field, value] of [['favoriteCreator', 'Short'], ['favoriteCreator', 'a'.repeat(601)], ['project', 'a'.repeat(59)], ['project', 'a'.repeat(1201)], ['applicationVersion', 3]]) ok(Boolean(core.validateCandidate({ ...expandedCandidate(), [field]: value }).error), `Reject malformed expanded ${field}`)
+  const expandedSummary = core.candidateSummary(expanded.candidate)
+  for (const value of ['Salarié en CDI', '20 à 40 h / mois', '2 000 à 2 999', '3 000 à 5 000', '2 — Instagram, LinkedIn', 'À l’écrit', 'pédagogie', 'Dans le mois']) ok(expandedSummary.includes(value), `Full qualification retained: ${value}`)
+  const expandedSlack = core.candidateSlackPayload(expanded.candidate, 'C0123456789')
+  ok(expandedSlack.blocks.filter(b => b.type === 'section').every(b => b.text.type === 'plain_text' && b.text.text.length < 3000), 'Complete Slack application stays within provider block limits')
+  ok(JSON.stringify(expandedSlack.blocks).includes('pédagogie') && JSON.stringify(expandedSlack.blocks).includes('2 000 à 2 999'), 'Income and creator answer visible in Slack blocks')
   const c = valid.candidate
   const payload = core.candidateSlackPayload({ ...c, project: '<!channel> <script>unsafe</script>' }, 'C0123456789')
   ok(payload.blocks[3].text.type === 'plain_text' && payload.mrkdwn === false, 'Candidate cannot inject Slack markup')
@@ -76,6 +93,9 @@ async function run() {
   const before = calls
   ok((await route.POST(request(form))).body.success === true && calls === before && crmCalls === 1, 'Client retry does not duplicate CRM or Slack')
   ok((await route.POST(request({ ...form, lastName: 'Changed' }))).status === 409, 'Altered retry rejected')
+  ok((await route.POST(request(expandedCandidate()))).body.success === true, 'Expanded application delivered through real route with mocked transport')
+  await Promise.all(tasks)
+  ok(submitted.text.includes('20 à 40 h / mois') && submitted.text.includes('2 — Instagram, LinkedIn') && submitted.text.includes('pédagogie') && crmCalls === 2, 'All new answers reach Slack and CRM')
   console.log(`${checks} Head of Content checks passed (offline).`)
 }
 run().catch(error => { console.error(error); process.exit(1) })
