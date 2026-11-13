@@ -7,7 +7,7 @@ import { useAutopilot } from '@/contexts/AutopilotContext'
 import { SocialIcons } from '@/components/ui/social-icons'
 import FloatingSocialReactions from '@/components/FloatingSocialReactions'
 import { trackAmplitude } from '@/lib/amplitude'
-import { startFreeTrial } from '@/lib/startTrial'
+import { startFreeTrial, TRIAL_URL } from '@/lib/startTrial'
 import { FormulaHeroStatic } from '@/components/FormulaBar'
 import { CTA_PRIMARY, CTA_SECONDARY, CtaPair } from '@/components/ui/cta'
 // Même jeu de portraits que `/vsl` et `FormatsShowcaseSection` (public/creators).
@@ -38,7 +38,6 @@ export default function HeroSection() {
   // du paragraphe, avec une phrase qui invite à la découvrir en descendant. Voir `FormulaBar` et le slot `formula-hero-slot`.
   const heroSubtitle = autopilot ? t.autopilot.hero.subtitle : null
   const heroCta = autopilot ? t.autopilot.hero.cta1 : t.hero.cta1
-  const [trialLoading, setTrialLoading] = useState(false)
   // Trafic chaud (setter WhatsApp, lien parrainage, email) : le visiteur arrive
   // déjà convaincu, on lui propose l'essai directement au lieu du workshop.
   const [warm, setWarm] = useState(false)
@@ -50,9 +49,9 @@ export default function HeroSection() {
       setWarm(false)
     }
   }, [])
-  const onTrial = async () => {
-    if (trialLoading) return
-    setTrialLoading(true)
+  const onTrial = async (event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+    event.preventDefault()
     trackAmplitude('home_hero_trial_clicked')
     await startFreeTrial()
   }
@@ -215,12 +214,10 @@ export default function HeroSection() {
                   fr={lang === 'fr'}
                   reassuranceClassName="mx-auto w-fit rounded-lg bg-[#0a0a0a] px-3 py-0.5"
                   primary={
-                    <button type="button" onClick={onTrial} disabled={trialLoading} className={CTA_PRIMARY}>
-                      {trialLoading
-                        ? (lang === 'fr' ? 'Ouverture…' : 'Opening…')
-                        : (lang === 'fr' ? 'Commencer gratuitement' : 'Get started for free')}
+                    <a href={TRIAL_URL} onClick={onTrial} className={CTA_PRIMARY}>
+                      {lang === 'fr' ? 'Commencer gratuitement' : 'Get started for free'}
                       <span aria-hidden className="inline-block transition-transform group-hover:translate-x-1">→</span>
-                    </button>
+                    </a>
                   }
                   secondary={!warm && (
                     <a

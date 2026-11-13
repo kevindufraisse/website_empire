@@ -7,15 +7,13 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { postitJoinUrl } from '@/lib/postit'
 import { partnerPayHref } from '@/lib/partner-festival-pricing'
 import JoinPartnersLabel from '@/components/JoinPartnersLabel'
-import { BlackFridayPill } from '@/components/BlackFridayBanner'
-import { startFreeTrial } from '@/lib/startTrial'
+import { startFreeTrial, TRIAL_URL } from '@/lib/startTrial'
 import { trackAmplitude } from '@/lib/amplitude'
 
 /**
- * Deux portes et un prix : Empire (publier pour son business), Devenir
- * partenaire (en faire son métier), Tarifs. Le workshop en direct et la présentation enregistrée sont
- * rangés dans un menu où chacun dit ce qu'il est. Un seul bouton à droite :
- * l’essai gratuit, ou l’achat du bootcamp sur les pages Academy.
+ * L’entrée Empire prépare l’espace avant de présenter les formules.
+ * Les liens de tarifs restent hors du menu, sur ordinateur et téléphone.
+ * Les pages Academy conservent leur propre bouton.
  */
 export default function Header() {
   const { lang } = useLanguage()
@@ -56,7 +54,6 @@ export default function Header() {
   }
 
   const doors = [
-    { href: '/tarifs', label: fr ? 'Tarifs' : 'Pricing', active: pathname === '/tarifs' },
     { href: '/academy', label: fr ? 'Devenir partenaire' : 'Become a partner', active: isAcademyPage },
   ]
 
@@ -72,7 +69,9 @@ export default function Header() {
     { href: 'https://join.empire-internet.com/3-templates-linkedin', name: fr ? 'Copie-colle mes 3 templates' : 'Copy-paste my 3 templates', when: fr ? 'Gratuit' : 'Free', what: fr ? 'les plus viraux sur LinkedIn' : 'most viral on LinkedIn' },
   ]
 
-  const onTrial = () => {
+  const onTrial = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+    event.preventDefault()
     trackAmplitude('header_trial_clicked', { path: pathname })
     setIsMenuOpen(false)
     startFreeTrial()
@@ -114,13 +113,13 @@ export default function Header() {
       <JoinPartnersLabel fr={fr} />
     </a>
   ) : (
-    <button
-      type="button"
+    <a
+      href={TRIAL_URL}
       onClick={onTrial}
-      className="cursor-pointer rounded-lg bg-empire px-4 py-2 text-sm font-semibold text-black transition hover:brightness-110"
+      className="inline-flex items-center justify-center cursor-pointer rounded-lg bg-empire px-4 py-2 text-sm font-semibold text-black transition hover:brightness-110"
     >
       {fr ? 'Commencer gratuitement' : 'Get started for free'}
-    </button>
+    </a>
   )
 
   return (
@@ -133,7 +132,6 @@ export default function Header() {
                 Empire
               </span>
             </a>
-            {!isAcademyPage && !isPartnersPage && <BlackFridayPill />}
           </div>
 
           <div className="hidden items-center gap-1 lg:flex">
