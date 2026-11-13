@@ -19,6 +19,15 @@ const expandedCandidate = () => ({ ...candidate(), applicationVersion: 2, situat
 let checks = 0
 function ok(value, message) { assert.ok(value, message); checks++ }
 async function run() {
+  const short = { ...candidate(), applicationVersion: 3, experience: undefined, currentIncome: '2000to3000', networks: ['linkedin'], strength: 'writing', favoriteCreator: 'Alex', consent: undefined }
+  const shortResult = core.validateCandidate(short)
+  ok(Boolean(shortResult.candidate?.intake), 'Eight-question intake accepted')
+  for (const field of ['availability','currentIncome','strength','favoriteCreator','situation']) ok(Boolean(core.validateCandidate({...short, [field]: ''}).error), `Short intake requires ${field}`)
+  const shortSummary = core.candidateSummary(shortResult.candidate)
+  for (const value of ['5 à 10 h / semaine','2 000 à 2 999','LinkedIn','Alex',short.project]) ok(shortSummary.includes(value), `Short intake answer retained: ${value}`)
+  ok(!shortSummary.includes('undefined') && !shortSummary.includes('Expérience'), 'No invented old answers')
+  const shortSlack = core.candidateSlackPayload(shortResult.candidate, 'C0CFYMGCXL3')
+  ok(JSON.stringify(shortSlack).includes('https://wa.me/33600000000'), 'Direct WhatsApp action retained')
   const valid = core.validateCandidate(candidate())
   ok(valid.candidate?.phone === '+33600000000', 'French phone normalized')
   for (const [input, expected] of [['+33 (0)6 00 00 00 00', '+33600000000'], ['0032 470 00 00 00', '+32470000000'], ['+39 06 12345678', '+390612345678'], ['letters0600000000', null], ['++33600000000', null]]) ok(core.normalizeCandidatePhone(input) === expected, `Phone ${input}`)

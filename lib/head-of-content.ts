@@ -14,6 +14,7 @@ type Qualification = { monthlyHours: string; currentIncome: string; incomeGoal: 
 export type Candidate = {
   submissionId: string; firstName: string; lastName: string; email: string; phone: string
   situation: string; experience: string; availability: string; project: string; profileUrl: string; consent: true
+  intake?: { currentIncome: string; networks: string[]; strength: string; favoriteCreator: string }
   qualification?: Qualification
 }
 type Validation = { candidate: Candidate } | { error: string; field?: string } | { honeypot: true }
@@ -31,6 +32,17 @@ export function validateCandidate(input: unknown): Validation {
   if (!input || typeof input !== 'object' || Array.isArray(input)) return { error: 'Candidature invalide.' }
   const b = input as Record<string, unknown>
   if (text(b.company)) return { honeypot: true }
+  if (b.applicationVersion === 3) {
+    const base = validateCandidate({ ...b, applicationVersion: undefined, experience: 'starting', consent: true, profileUrl: '' })
+    if (!('candidate' in base)) return base
+    if (!['cdi', 'freelance', 'student', 'business', 'jobseeking'].includes(text(b.situation))) return { error: 'Choisis ta situation.', field: 'situation' }
+    if (!Object.prototype.hasOwnProperty.call(CURRENT_INCOMES, text(b.currentIncome))) return { error: 'Choisis ton revenu actuel.', field: 'currentIncome' }
+    if (!['writing', 'speaking', 'video'].includes(text(b.strength))) return { error: 'Choisis ton aisance.', field: 'strength' }
+    if (!Array.isArray(b.networks) || !b.networks.length || b.networks.length > 7 || b.networks.some(n => typeof n !== 'string' || !Object.prototype.hasOwnProperty.call(NETWORKS, n)) || new Set(b.networks).size !== b.networks.length || (b.networks.includes('none') && b.networks.length > 1)) return { error: 'Choisis tes réseaux.', field: 'networks' }
+    const favoriteCreator = text(b.favoriteCreator)
+    if (!favoriteCreator || favoriteCreator.length > 600) return { error: 'Indique ton créateur préféré.', field: 'favoriteCreator' }
+    return { candidate: { ...base.candidate, experience: '', intake: { currentIncome: text(b.currentIncome), networks: b.networks as string[], strength: text(b.strength), favoriteCreator } } }
+  }
   const expanded = b.applicationVersion === 2
   if (b.applicationVersion !== undefined && !expanded) return { error: 'Recharge la page pour accéder au formulaire de candidature à jour.' }
   const firstName = text(b.firstName), lastName = text(b.lastName), email = text(b.email).toLowerCase()
@@ -72,6 +84,13 @@ export function validateCandidate(input: unknown): Validation {
 const situationLabel = (c: Candidate) => SITUATIONS[c.situation] || 'Salarié / en reconversion'
 const networkSummary = (q: Qualification) => `${q.networks.includes('none') ? 0 : q.networks.length} — ${q.networks.map(n => NETWORKS[n]).join(', ')}`
 export function candidateSummary(c: Candidate): string {
+  if (c.intake) return [
+    'CANDIDATURE HEAD OF CONTENT', `${c.firstName} ${c.lastName}`, `Email : ${c.email}`, `WhatsApp : ${c.phone}`,
+    `Situation : ${situationLabel(c)}`, `Revenu mensuel actuel : ${CURRENT_INCOMES[c.intake.currentIncome]}`,
+    `Disponibilité hebdomadaire : ${AVAILABILITIES[c.availability]}`, `Réseaux : ${c.intake.networks.map(n => NETWORKS[n]).join(', ')}`,
+    `Aisance : ${STRENGTHS[c.intake.strength]}`, `Créateur admiré : ${c.intake.favoriteCreator}`, `Motivation : ${c.project}`,
+    'Réponse sous 48h sur WhatsApp.', `Référence : ${c.submissionId}`,
+  ].join('\n')
   const q = c.qualification
   return [
     'CANDIDATURE HEAD OF CONTENT — Formation gratuite sur sélection', `${c.firstName} ${c.lastName}`, `Email : ${c.email}`, `Téléphone : ${c.phone}`,
@@ -82,6 +101,14 @@ export function candidateSummary(c: Candidate): string {
   ].join('\n')
 }
 export function candidateSlackPayload(c: Candidate, channel: string) {
+  if (c.intake) {
+    const summary = candidateSummary(c)
+    return { channel, client_msg_id: c.submissionId, text: summary, mrkdwn: false, unfurl_links: false, unfurl_media: false, blocks: [
+      { type: 'header', text: { type: 'plain_text', text: 'Nouvelle candidature · Head of Content' } },
+      ...summary.split('\n').map(line => ({ type: 'section', text: { type: 'plain_text', text: line, emoji: false } })),
+      { type: 'actions', elements: [{ type: 'button', text: { type: 'plain_text', text: 'Contacter sur WhatsApp' }, url: `https://wa.me/${c.phone.slice(1)}` }] },
+    ] }
+  }
   const q = c.qualification
   const section = (value: string) => ({ type: 'section', text: { type: 'plain_text', text: value, emoji: false } })
   return {

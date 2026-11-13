@@ -32,7 +32,7 @@ assert.equal((html.match(/<video /g) || []).length, 5, 'Five verified bootcamp a
 for (const name of ['Amélie Faligot', 'Sébastien Min', 'Marc Dufraisse', 'Frère de Kevin']) assert.ok(html.includes(name), name)
 for (const name of ['Olivier', 'Julien', 'Sophie', 'Emmanuelle', 'Gaidig']) assert.ok(!html.includes(name), `Excluded software customer: ${name}`)
 assert.ok(!/[↗→←]/.test(html), 'No arrows on the intake or application CTA')
-for (const name of ['firstName', 'lastName', 'email', 'phone', 'situation', 'monthlyHours', 'currentIncome', 'incomeGoal', 'experience', 'networks', 'strength', 'profileUrl', 'favoriteCreator', 'project', 'startWhen', 'consent', 'company']) assert.ok(html.includes(`name="${name}"`), `Application field retained: ${name}`)
+for (const name of ['firstName', 'lastName', 'email', 'phone', 'situation', 'availability', 'currentIncome', 'networks', 'strength', 'favoriteCreator', 'project', 'company']) assert.ok(html.includes(`name="${name}"`), `Application field retained: ${name}`)
 assert.equal((html.match(/<fieldset/g) || []).length, 4)
 assert.equal((html.match(/<fieldset[^>]*hidden=""[^>]*disabled=""/g) || []).length, 3, 'Only the first step is initially enabled')
 assert.ok(html.includes('<dialog') && html.includes('Candidature Head of Content'), 'Application lives in a native modal')

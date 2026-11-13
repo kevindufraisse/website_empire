@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import { CTA_PRIMARY } from '@/components/ui/cta'
 import ApplicationModal from './ApplicationModal'
-import styles from './academy.module.css'
 
 export const metadata: Metadata = {
   title: 'Deviens Head of Content | Empire Academy',
@@ -22,31 +21,31 @@ const testimonials = [
 
 export default function AcademyPage() {
   return (
-    <main lang="fr" className={styles.page}>
-      <section className="container academy-hero">
-        <div>
-          <p className="mb-4 text-sm font-semibold text-empire">Formation gratuite · Sur sélection · 10 places par mois</p>
-          <h1 className="text-[30px] font-extrabold leading-[1.15] sm:text-4xl md:text-5xl">Deviens Head of Content.<br /><span className="text-empire">Vise 3 000 €/mois.</span></h1>
-          <p className="mt-4 text-2xl font-semibold leading-snug text-white">Avec environ 6 h d’accompagnement par semaine.</p>
-          <p className="mt-5 max-w-xl text-lg leading-relaxed text-neutral-300">Apprends la viralité et utilise Empire pour créer les contenus d’entrepreneurs. Développe ta propre activité en les accompagnant chaque mois.</p>
-          <div className="academy-numbers">
-            <div><strong className="block text-2xl">6 clients</strong><span className="text-sm text-neutral-300">Entrepreneurs accompagnés.</span></div>
-            <div><strong className="block text-2xl">500 €/mois</strong><span className="text-sm text-neutral-300">Facturés à chaque client.</span></div>
-            <div><strong className="block text-2xl">4 h/client</strong><span className="text-sm text-neutral-300">D’accompagnement par mois, en moyenne dans ce scénario.</span></div>
-          </div>
-          <p className="mb-5 text-xs leading-relaxed text-neutral-400">Objectif : 3 000 € de chiffre d’affaires avant charges, pour 24 h d’accompagnement sur 4 semaines. Formation, prospection et gestion en plus. Résultats et temps réel variables.</p>
-          <div className="max-w-[320px]"><a href="#candidature" className={CTA_PRIMARY}>Candidater</a></div>
-          <p className="mt-3 text-xs text-neutral-400">L’équipe te contacte sous 48 h si ton profil est retenu.</p>
-          <details className="mt-4 text-xs leading-relaxed text-neutral-400"><summary className="cursor-pointer underline underline-offset-4">Sources et repères</summary><p className="mt-2">Ce scénario suppose six clients à 500 € par mois et environ quatre heures d’accompagnement par client et par mois. Il ne garantit ni clientèle, ni revenu, ni durée de travail. Les six heures hebdomadaires excluent la formation, la prospection et la gestion.</p><p className="mt-2"><a href="https://www.iab.com/insights/2025-Creator-economy-ad-spend-strategy-report/" target="_blank" rel="noopener noreferrer" className="underline">IAB, Creator Economy Ad Spend &amp; Strategy Report 2025</a> : 44 milliards de dollars de dépenses publicitaires prévus dans la creator economy américaine en 2026, après environ 37 milliards prévus en 2025 (+26 % sur un an). Il s’agit des investissements publicitaires auprès des créateurs aux États-Unis, pas de la taille totale du marché mondial, des recherches d’emploi ou des recrutements de Head of Content.</p><p className="mt-2">Hormozi : montant affiché dans la story et le formulaire transmis, pour un poste exigeant à temps plein, sans activité parallèle. Date limite affichée : 9 novembre. Exemple de recrutement, sans partenariat avec Empire ni promesse de salaire à l’issue de la formation.</p></details>
+    <main lang="fr">
+      <section className="container pb-10 pt-24 text-center md:pt-28">
+        <p className="mb-5 text-xs font-semibold tracking-widest text-empire">SUR SÉLECTION UNIQUEMENT — 10 PLACES PAR MOIS</p>
+        <h1 className="mx-auto max-w-4xl text-3xl font-extrabold leading-tight sm:text-4xl md:text-5xl">Vise 3 000 €+ par mois avec 6h d’accompagnement par semaine en devenant Head of Content.</h1>
+        <p className="mx-auto mt-5 max-w-3xl text-lg leading-relaxed text-neutral-300">On t'apprend la viralité et le système Empire gratuitement pour générer des millions de vues pour des entrepreneurs (avocats, médecins, dirigeants) et encaisser des récurrences tous les mois.</p>
+        <div className="mx-auto mt-7 max-w-sm"><a href="#candidature" className={CTA_PRIMARY}>Candidater maintenant</a></div>
+        <p className="mt-3 text-sm text-neutral-400">Formation 100% offerte. Sélection sur dossier. Réponse sous 48h sur WhatsApp.</p>
+      </section>
+      <section className="container py-8">
+        <div className="grid gap-4 md:grid-cols-3">
+          {[
+            ['3 000 €+ / mois', 'Objectif de CA avec 6 clients ou plus. Scénario de 6h d’accompagnement par semaine grâce au système Empire.'],
+            ['+26 %', 'Croissance prévue des budgets publicitaires créateurs aux États-Unis en 2025 (IAB).'],
+            ['44 Milliards $', 'Dépenses publicitaires prévues dans la Creator Economy américaine en 2026 (IAB).'],
+          ].map(([number, label]) => <div key={number} className="rounded-xl border border-white/10 bg-[#111] p-6 text-center"><strong className="text-3xl font-bold text-empire">{number}</strong><p className="mt-3 text-sm leading-relaxed text-neutral-300">{label}</p></div>)}
         </div>
-        <figure className="academy-proof">
-          <a href="/academy/hormozi-head-of-content.png" target="_blank" rel="noopener noreferrer" aria-label="Ouvrir la story complète d’Alex Hormozi"><Image src="/academy/hormozi-head-of-content.png" alt="Alex Hormozi recrute un Head of Content, rémunération annoncée de 150 à 300 k$ plus performance" width={1290} height={2796} priority className="academy-portrait" sizes="(min-width: 700px) 360px, 100vw" /></a>
-          <figcaption className="mt-2 text-center text-xs text-neutral-400">Exemple de recrutement à temps plein chez Hormozi · Offre distincte de la formation Empire · Agrandir</figcaption>
+        <a href="https://www.iab.com/insights/2025-Creator-economy-ad-spend-strategy-report/" target="_blank" rel="noopener noreferrer" className="mt-3 block text-center text-xs text-neutral-400 underline">Source : IAB · Creator Economy Ad Spend &amp; Strategy Report</a>
+        <figure className="mx-auto mt-8 max-w-[430px]">
+          <Image src="/academy/hormozi-head-of-content.png" alt="Annonce originale d’Alex Hormozi : Head of Content, 150 000 à 300 000 dollars plus performance" width={1290} height={2796} priority className="h-auto w-full rounded-xl object-contain" sizes="(max-width: 480px) 100vw, 430px" />
+          <figcaption className="mt-3 text-center text-sm text-neutral-300">Même Alex Hormozi recrute ce profil : son annonce affiche 150 000 à 300 000 $ + performance.</figcaption>
         </figure>
       </section>
       <ApplicationModal />
       <section className="container py-8 md:py-10" aria-labelledby="testimonials-title">
-        <h2 id="testimonials-title" className="mb-6 text-center text-2xl font-bold text-white md:text-3xl">Ils se sont formés avec Empire.</h2>
+        <h2 id="testimonials-title" className="mb-6 text-center text-2xl font-bold text-white md:text-3xl">Ils ont rejoint le programme</h2>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {testimonials.map(person => (
             <figure key={person.id}>
@@ -62,8 +61,8 @@ export default function AcademyPage() {
             { name: 'Caroline', text: 'Mon premier succès : 18K d’impressions. Le maximum jusqu’à présent était 2K !' },
           ].map(person => <figure key={person.name} className="rounded-xl border border-white/10 bg-[#111] p-5"><blockquote className="text-sm leading-relaxed text-neutral-200">« {person.text} »</blockquote><figcaption className="mt-5 text-sm font-semibold text-white">{person.name}<span className="mt-1 block text-xs font-normal text-neutral-400">Participant au bootcamp Empire</span></figcaption></figure>)}
         </div>
-        <p className="mt-4 text-center text-xs text-neutral-500">Retours sur les programmes Empire. Résultats individuels, sans garantie de résultats similaires.</p>
-        <div className="mx-auto mt-7 max-w-[320px]"><a href="#candidature" className={CTA_PRIMARY}>Candidater à la formation gratuite</a></div>
+
+
       </section>
     </main>
   )
