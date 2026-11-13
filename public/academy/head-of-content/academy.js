@@ -5,12 +5,12 @@
   const error = document.getElementById('form-error');
   const next = document.getElementById('next');
   const back = document.getElementById('back');
-  const titles = ['Présente-toi.', 'Ton point de départ.', 'Ton rapport au contenu.', 'À toi de nous convaincre.'];
+  const titles = ['Ouvre ton dossier.', 'Ton engagement.', 'Ton regard sur le contenu.', 'Défends ta candidature.'];
   const introductions = [
-    '10 places par mois. Prends quelques minutes pour nous montrer qui tu es et ce que tu veux construire.',
-    'Ta situation aujourd’hui, ton temps disponible et ce que tu veux développer.',
-    'Pas besoin d’être déjà expert. On veut comprendre ton expérience et tes points forts.',
-    'On cherche des personnes prêtes à apprendre et à pratiquer. Raconte-nous ce qui te motive.',
+    'Quatre étapes pour présenter ton profil. Chaque réponse compte dans notre sélection.',
+    'Un projet sérieux commence par du temps disponible et un objectif clair.',
+    'Ton expérience, tes points forts et ta façon de regarder ce qui fonctionne.',
+    'Dix profils seront retenus ce mois-ci. Montre-nous pourquoi le tien doit en faire partie.',
   ];
   const lastStep = steps.length - 1;
   let step = 0, busy = false;
@@ -26,7 +26,10 @@
     document.getElementById('step-count').textContent = `0${step + 1} / 0${steps.length}`;
     document.getElementById('progress-bar').style.width = `${((step + 1) / steps.length) * 100}%`;
     next.textContent = step === lastStep ? 'Déposer ma candidature ↗' : 'Continuer →';
-    if (focus) steps[step].querySelector('input,select,textarea')?.focus({ preventScroll: true });
+    if (focus) {
+      steps[step].querySelector('input,select,textarea')?.focus({ preventScroll: true });
+      document.getElementById('candidature').scrollIntoView({ block: 'start' });
+    }
   }
   function readValues() {
     // Disabled fieldsets retain values but FormData would omit them.
