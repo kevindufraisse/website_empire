@@ -22,12 +22,14 @@ const testimonials = [
 export default function AcademyPage() {
   return (
     <main lang="fr">
-      <section className="container pb-10 pt-24 text-center md:pt-28">
+      <section className="pb-6 pt-20 text-center md:pb-8 md:pt-24">
+        <div className="container">
         <p className="mb-5 text-xs font-semibold tracking-widest text-empire">SUR SÉLECTION UNIQUEMENT — 10 PLACES PAR MOIS</p>
         <h1 className="mx-auto max-w-4xl text-3xl font-extrabold leading-tight sm:text-4xl md:text-5xl">Vise 3 000 €+ par mois avec 6h d’accompagnement par semaine en devenant Head of Content.</h1>
         <p className="mx-auto mt-5 max-w-3xl text-lg leading-relaxed text-neutral-300">On t'apprend la viralité et le système Empire gratuitement pour générer des millions de vues pour des entrepreneurs (avocats, médecins, dirigeants) et encaisser des récurrences tous les mois.</p>
         <div className="mx-auto mt-7 max-w-sm"><a href="#candidature" className={CTA_PRIMARY}>Candidater maintenant</a></div>
         <p className="mt-3 text-sm text-neutral-400">Formation 100% offerte. Sélection sur dossier. Réponse sous 48h sur WhatsApp.</p>
+        </div>
       </section>
       <section className="container py-8">
         <div className="grid gap-4 md:grid-cols-3">
