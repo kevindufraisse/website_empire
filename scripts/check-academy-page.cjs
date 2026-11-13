@@ -28,9 +28,9 @@ function load(filename) {
 }
 const page = load(path.join(root, 'app/academy/page.tsx'))
 const html = renderToStaticMarkup(createElement(page.default))
-assert.equal((html.match(/<video /g) || []).length, 3, 'Only the bootcamp and partner videos remain')
+assert.equal((html.match(/<video /g) || []).length, 5, 'Five verified bootcamp and partner videos remain')
 for (const name of ['Amélie Faligot', 'Sébastien Min', 'Marc Dufraisse', 'Frère de Kevin']) assert.ok(html.includes(name), name)
-for (const name of ['Olivier', 'Julien', 'Sophie', 'Emmanuelle', 'Gaidig', 'Léa Marie']) assert.ok(!html.includes(name), `Excluded software customer: ${name}`)
+for (const name of ['Olivier', 'Julien', 'Sophie', 'Emmanuelle', 'Gaidig']) assert.ok(!html.includes(name), `Excluded software customer: ${name}`)
 assert.ok(!/[↗→←]/.test(html), 'No arrows on the intake or application CTA')
 for (const name of ['firstName', 'lastName', 'email', 'phone', 'situation', 'monthlyHours', 'currentIncome', 'incomeGoal', 'experience', 'networks', 'strength', 'profileUrl', 'favoriteCreator', 'project', 'startWhen', 'consent', 'company']) assert.ok(html.includes(`name="${name}"`), `Application field retained: ${name}`)
 assert.equal((html.match(/<fieldset/g) || []).length, 4)
@@ -40,3 +40,5 @@ assert.ok(html.includes('id="candidature"') && html.includes('type="submit"'))
 assert.ok(html.includes('bg-empire') && html.includes('shadow-['), 'The real shared site button is rendered')
 assert.ok(!html.includes('head-of-content/academy.css') && !html.includes('head-of-content/academy.js'), 'No legacy microsite assets')
 console.log('Academy native page: testimonials, shared CTA, all intake fields and initial steps verified (offline).')
+
+assert.ok(!html.includes('8k3Y2wvixY3wN02apY6lo2SQvWcwZDSZhC02LiCGthvFo'), 'Old software testimonial excluded')
