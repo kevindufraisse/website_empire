@@ -20,7 +20,7 @@ const testimonials = [
 export default function AcademyPage() {
   return (
     <main lang="fr">
-      <section className="container grid items-center gap-8 pb-8 pt-24 lg:grid-cols-[1fr_280px] lg:gap-12">
+      <section className="container grid items-center gap-8 pb-8 pt-24 md:grid-cols-[1fr_220px] lg:grid-cols-[1fr_280px] lg:gap-12">
         <div>
           <p className="mb-4 text-sm font-semibold text-empire">Formation gratuite · Sur sélection · 10 places par mois</p>
           <h1 className="text-[30px] font-extrabold leading-[1.15] sm:text-4xl md:text-5xl">Deviens Head of Content.<br /><span className="text-empire">Fais de la visibilité ton métier.</span></h1>
@@ -34,7 +34,7 @@ export default function AcademyPage() {
           <p className="mt-3 text-xs text-neutral-400">L’équipe te contacte sous 48 h si ton profil est retenu.</p>
           <details className="mt-4 text-xs leading-relaxed text-neutral-400"><summary className="cursor-pointer underline underline-offset-4">Sources et repères de rémunération</summary><p className="mt-2">3 000 € est un scénario de chiffre d’affaires avant charges et frais, sans garantie de clients ni de revenu. Le temps dépend des missions, de la prospection et de la gestion.</p><p className="mt-2"><a href="https://www.apec.fr/tous-nos-metiers/communication-creation/brand-content-manager.html" target="_blank" rel="noopener noreferrer" className="underline">Apec, consultée le 13 novembre 2026</a> : 41 000 € brut/an en moyenne, fixe et variable compris, pour le Brand Content Manager, métier voisin. Ce n’est pas une moyenne spécifique aux Head of Content.</p><p className="mt-2">Hormozi : montant affiché dans la story et le formulaire transmis, pour un poste exigeant à temps plein, sans activité parallèle. Date limite affichée : 9 novembre. Exemple de recrutement, sans partenariat avec Empire ni promesse de salaire à l’issue de la formation.</p></details>
         </div>
-        <figure className="mx-auto w-full max-w-[240px] lg:max-w-[280px]">
+        <figure className="mx-auto w-full max-w-[180px] md:max-w-[220px] lg:max-w-[280px]">
           <Image src="/academy/hormozi-head-of-content.png" alt="Alex Hormozi recrute un Head of Content, rémunération annoncée de 150 à 300 k$ plus performance" width={1290} height={2796} priority className="h-auto w-full rounded-xl border border-white/10" sizes="280px" />
           <figcaption className="mt-2 text-center text-xs text-neutral-400">Alex Hormozi recrute son Head of Content.</figcaption>
         </figure>
