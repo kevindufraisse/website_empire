@@ -44,7 +44,6 @@ export default function AcademyPage() {
                   </a>
                 ))}
               </div>
-              <a href="#testimonials-title" className="mt-4 inline-block text-xs text-neutral-600 underline underline-offset-4 lg:mt-10">Les visages du Bootcamp Empire</a>
             </div>
           </div>
         </div>
@@ -63,7 +62,7 @@ export default function AcademyPage() {
                   ['44 Milliards $', 'Dépenses publicitaires prévues dans la Creator Economy américaine en 2026 (IAB).'],
                 ].map(([number, label]) => <div key={number} className="py-5 first:pt-0"><strong className="text-3xl font-semibold tracking-tight">{number}</strong><p className="mt-2 max-w-md text-sm leading-relaxed text-neutral-600">{label}</p></div>)}
               </div>
-              <a href="https://www.iab.com/insights/2025-Creator-economy-ad-spend-strategy-report/" target="_blank" rel="noopener noreferrer" className="mt-4 inline-block text-xs leading-relaxed text-neutral-500 underline underline-offset-4">Source : IAB · Creator Economy Ad Spend &amp; Strategy Report</a>
+              <p className="mt-4 text-xs leading-relaxed text-neutral-500">IAB · Creator Economy Ad Spend &amp; Strategy Report</p>
             </div>
             <figure className="mx-auto w-full max-w-[380px]">
               <div className="relative rounded-[44px] border-[3px] border-neutral-400 bg-neutral-950 px-2 pb-4 pt-8 shadow-xl">
@@ -80,7 +79,7 @@ export default function AcademyPage() {
               <p className="text-sm font-semibold text-neutral-600">Le travail change</p>
               <p className="mt-3 text-4xl font-semibold tracking-tight">92 millions</p>
               <p className="mt-3 text-sm leading-relaxed text-neutral-700">d’emplois pourraient être supprimés d’ici 2030, et 170 millions créés, sous l’effet des grandes transformations économiques et technologiques.</p>
-              <a className="mt-3 inline-block text-xs text-neutral-600 underline underline-offset-4" href="https://www.weforum.org/publications/the-future-of-jobs-report-2025/" target="_blank" rel="noopener noreferrer">Projection mondiale · World Economic Forum, 2025</a>
+              <p className="mt-3 text-xs text-neutral-600">Projection mondiale · World Economic Forum, 2025</p>
             </div>
             <div>
               <h3 className="text-2xl font-bold leading-tight sm:text-3xl">L’IA produit. Tu pilotes.</h3>
@@ -108,10 +107,10 @@ export default function AcademyPage() {
           </div>
           <div className="mt-5 grid gap-4 sm:grid-cols-3">
             {[
-              { name: 'Evelyne', text: 'En seulement 21 jours, j’ai franchi le cap des 100 000 vues et des 1 050 abonnés.' },
-              { name: 'Tristan', text: 'J’ai démarré il y a 50 jours et je suis à près d’1 million d’impressions.' },
-              { name: 'Caroline', text: 'Mon premier succès : 18K d’impressions. Le maximum jusqu’à présent était 2K !' },
-            ].map(person => <figure key={person.name} className="flex flex-col justify-between rounded-2xl bg-[#f7f7f2] p-6"><blockquote className="text-base leading-relaxed text-neutral-800">« {person.text} »</blockquote><figcaption className="mt-6 text-sm font-semibold">{person.name}<span className="mt-1 block text-xs font-normal text-neutral-600">Participant au bootcamp Empire</span></figcaption></figure>)}
+              { name: 'Evelyne', photo: '/case-studies/evelyne-guitard.jpg', text: 'En seulement 21 jours, j’ai franchi le cap des 100 000 vues et des 1 050 abonnés.' },
+              { name: 'Tristan', photo: '/case-studies/tristan-de-vasselot.jpg', text: 'J’ai démarré il y a 50 jours et je suis à près d’1 million d’impressions.' },
+              { name: 'Caroline', photo: '/case-studies/caroline-blivet.jpg', text: 'Mon premier succès : 18K d’impressions. Le maximum jusqu’à présent était 2K !' },
+            ].map(person => <figure key={person.name} className="flex flex-col justify-between rounded-2xl bg-[#f7f7f2] p-6"><blockquote className="text-base leading-relaxed text-neutral-800">« {person.text} »</blockquote><figcaption className="mt-6 flex items-center gap-4 text-sm font-semibold"><Image src={person.photo} alt={person.name} width={80} height={80} className="h-20 w-20 shrink-0 rounded-xl object-cover" sizes="80px" /><span>{person.name}<span className="mt-1 block text-xs font-normal text-neutral-600">Participant au bootcamp Empire</span></span></figcaption></figure>)}
           </div>
           <div className="mt-10 border-t border-neutral-200 pt-8 text-center">
             <p className="text-2xl font-semibold">À toi de rejoindre le programme.</p>
