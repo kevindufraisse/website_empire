@@ -35,6 +35,7 @@ assert.ok(!/[↗→←]/.test(html), 'No arrows on the intake or application CTA
 for (const name of ['firstName', 'lastName', 'email', 'phone', 'situation', 'monthlyHours', 'currentIncome', 'incomeGoal', 'experience', 'networks', 'strength', 'profileUrl', 'favoriteCreator', 'project', 'startWhen', 'consent', 'company']) assert.ok(html.includes(`name="${name}"`), `Application field retained: ${name}`)
 assert.equal((html.match(/<fieldset/g) || []).length, 4)
 assert.equal((html.match(/<fieldset[^>]*hidden=""[^>]*disabled=""/g) || []).length, 3, 'Only the first step is initially enabled')
+assert.ok(html.includes('<dialog') && html.includes('Candidature Head of Content'), 'Application lives in a native modal')
 assert.ok(html.includes('id="candidature"') && html.includes('type="submit"'))
 assert.ok(html.includes('bg-empire') && html.includes('shadow-['), 'The real shared site button is rendered')
 assert.ok(!html.includes('head-of-content/academy.css') && !html.includes('head-of-content/academy.js'), 'No legacy microsite assets')
