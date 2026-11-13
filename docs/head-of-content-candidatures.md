@@ -6,7 +6,9 @@ Le formulaire en quatre étapes envoie les coordonnées, dix réponses de qualif
 
 Le positionnement est l’apprentissage de la viralité et du système Empire pour développer sa propre activité de Head of Content. **10 places par mois**, quota d’admissions communiqué par Kevin le 12 novembre 2026 ; aucune fausse jauge de places restantes ni fermeture automatique des candidatures. L’équipe décide des admissions. La version précédente du formulaire reste acceptée pour les onglets déjà ouverts ; ces candidatures sont signalées comme anciennes dans Slack et Folk, sans inventer les réponses aux nouvelles questions.
 
-Trois témoignages vidéo existants sont repris de `components/pricing/CustomerReviews.tsx` : Amélie Faligot et Sébastien Min (bootcamp), Marc Dufraisse (programme partenaire, frère de Kevin indiqué). Leur contexte reste affiché ; ils ne sont pas présentés comme d’anciens élèves de cette nouvelle sélection gratuite.
+Neuf témoignages existants sont repris de `components/pricing/CustomerReviews.tsx` : sept vidéos (Amélie Faligot et Sébastien Min pour le bootcamp ; Marc Dufraisse pour le programme partenaire, frère de Kevin indiqué ; Olivier Sarezinski, Sophie Guibaud, Julien Guyard et Léa Marie pour le système Empire) et les avis écrits, mot pour mot, d’Emmanuelle J. et Gaidig D. Leur contexte reste affiché ; ils ne sont pas présentés comme d’anciens élèves de cette nouvelle sélection gratuite.
+
+Le 13 novembre, Kevin demande des montants explicites et un positionnement plus sélectif. Le titre devient « Vise 3 000 à 5 000 €/mois », immédiatement qualifié comme chiffre d’affaires. Trois calculs illustratifs : 3 × 500 = 1 500 €, 3 × 1 000 = 3 000 €, 5 × 1 000 = 5 000 €. Les bases de 500 et 1 000 € par client sont déjà utilisées dans `app/partenaire/partnerScript.tsx`, section `calcul` ; ce ne sont ni des tarifs garantis ni une moyenne de résultats. Le bloc indique explicitement avant charges, impôts et frais d’outils, clients à signer soi-même et tarifs à négocier. Aucun chiffre n’est attribué aux témoins. L’admission reste une décision de l’équipe, sans score automatique fondé sur le revenu actuel.
 
 Configuration serveur Vercel :
 

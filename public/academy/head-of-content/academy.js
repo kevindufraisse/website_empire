@@ -7,10 +7,10 @@
   const back = document.getElementById('back');
   const titles = ['Ouvre ton dossier.', 'Ton engagement.', 'Ton regard sur le contenu.', 'Défends ta candidature.'];
   const introductions = [
-    'Quatre étapes pour présenter ton profil. Chaque réponse compte dans notre sélection.',
+    'Dix places à attribuer. Quatre étapes pour démontrer le sérieux de ton projet. Soigne tes réponses.',
     'Un projet sérieux commence par du temps disponible et un objectif clair.',
     'Ton expérience, tes points forts et ta façon de regarder ce qui fonctionne.',
-    'Dix profils seront retenus ce mois-ci. Montre-nous pourquoi le tien doit en faire partie.',
+    'Dix admissions ce mois-ci. Un projet précis et un engagement concret feront la différence. Défends ta place.',
   ];
   const lastStep = steps.length - 1;
   let step = 0, busy = false;
