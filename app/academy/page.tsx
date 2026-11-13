@@ -66,9 +66,27 @@ export default function AcademyPage() {
               <a href="https://www.iab.com/insights/2025-Creator-economy-ad-spend-strategy-report/" target="_blank" rel="noopener noreferrer" className="mt-4 inline-block text-xs leading-relaxed text-neutral-500 underline underline-offset-4">Source : IAB · Creator Economy Ad Spend &amp; Strategy Report</a>
             </div>
             <figure className="mx-auto w-full max-w-[380px]">
-              <Image src="/academy/hormozi-head-of-content.png" alt="Annonce originale d’Alex Hormozi : Head of Content, 150 000 à 300 000 dollars plus performance" width={1290} height={2796} className="h-auto w-full rounded-xl object-contain" sizes="(max-width: 480px) 85vw, 380px" />
+              <div className="relative rounded-[44px] border-[3px] border-neutral-400 bg-neutral-950 px-2 pb-4 pt-8 shadow-xl">
+                <div aria-hidden="true" className="absolute left-1/2 top-3 h-3 w-20 -translate-x-1/2 rounded-full bg-black ring-1 ring-white/10" />
+                <span aria-hidden="true" className="absolute -left-[5px] top-28 h-12 w-[3px] rounded-l bg-neutral-400" />
+                <span aria-hidden="true" className="absolute -right-[5px] top-36 h-16 w-[3px] rounded-r bg-neutral-400" />
+              <Image src="/academy/hormozi-head-of-content.png" alt="Annonce originale d’Alex Hormozi : Head of Content, 150 000 à 300 000 dollars plus performance" width={1290} height={2796} priority className="h-auto w-full rounded-xl object-contain" sizes="(max-width: 480px) 85vw, 380px" />
+              </div>
               <figcaption className="mt-3 text-sm leading-relaxed text-neutral-600">Même Alex Hormozi recrute ce profil : son annonce affiche 150 000 à 300 000 $ + performance.</figcaption>
             </figure>
+          </div>
+          <div className="mt-6 grid gap-6 rounded-2xl bg-[#eaf0d5] p-6 sm:p-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-12">
+            <div>
+              <p className="text-sm font-semibold text-neutral-600">Le travail change</p>
+              <p className="mt-3 text-4xl font-semibold tracking-tight">92 millions</p>
+              <p className="mt-3 text-sm leading-relaxed text-neutral-700">d’emplois pourraient être supprimés d’ici 2030, et 170 millions créés, sous l’effet des grandes transformations économiques et technologiques.</p>
+              <a className="mt-3 inline-block text-xs text-neutral-600 underline underline-offset-4" href="https://www.weforum.org/publications/the-future-of-jobs-report-2025/" target="_blank" rel="noopener noreferrer">Projection mondiale · World Economic Forum, 2025</a>
+            </div>
+            <div>
+              <h3 className="text-2xl font-bold leading-tight sm:text-3xl">L’IA produit. Tu pilotes.</h3>
+              <p className="mt-4 text-base leading-relaxed text-neutral-700">Comprendre un entrepreneur, choisir ses angles, porter sa voix et décider quoi publier : c’est le rôle du Head of Content. Avec Empire, tu apprends à utiliser l’IA et à garder la main sur la stratégie, la relation client et les décisions éditoriales.</p>
+              <div className="mt-6 max-w-sm"><a href="#candidature" className={CTA_PRIMARY}>Candidater maintenant</a></div>
+            </div>
           </div>
         </div>
       </section>
@@ -78,7 +96,7 @@ export default function AcademyPage() {
         <div className="container">
           <div className="mb-8 flex flex-wrap items-end justify-between gap-5">
             <div><p className="mb-3 text-sm font-semibold text-neutral-500">Bootcamp &amp; Academy</p><h2 id="testimonials-title" className="scroll-mt-24 text-3xl font-bold sm:text-4xl">Ils ont rejoint le programme</h2></div>
-            <a href="#candidature" className="text-sm font-semibold underline decoration-neutral-300 underline-offset-4 hover:decoration-neutral-950">Candidater maintenant</a>
+            <a href="#candidature" className={`${CTA_PRIMARY} !h-auto !w-auto`}>Candidater maintenant</a>
           </div>
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {testimonials.map(person => (
@@ -94,6 +112,11 @@ export default function AcademyPage() {
               { name: 'Tristan', text: 'J’ai démarré il y a 50 jours et je suis à près d’1 million d’impressions.' },
               { name: 'Caroline', text: 'Mon premier succès : 18K d’impressions. Le maximum jusqu’à présent était 2K !' },
             ].map(person => <figure key={person.name} className="flex flex-col justify-between rounded-2xl bg-[#f7f7f2] p-6"><blockquote className="text-base leading-relaxed text-neutral-800">« {person.text} »</blockquote><figcaption className="mt-6 text-sm font-semibold">{person.name}<span className="mt-1 block text-xs font-normal text-neutral-600">Participant au bootcamp Empire</span></figcaption></figure>)}
+          </div>
+          <div className="mt-10 border-t border-neutral-200 pt-8 text-center">
+            <p className="text-2xl font-semibold">À toi de rejoindre le programme.</p>
+            <div className="mx-auto mt-5 max-w-sm"><a href="#candidature" className={CTA_PRIMARY}>Candidater maintenant</a></div>
+            <p className="mt-3 text-xs text-neutral-600">Formation offerte · 10 places par mois · Réponse sous 48h</p>
           </div>
         </div>
       </section>
