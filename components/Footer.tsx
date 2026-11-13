@@ -40,10 +40,10 @@ export default function Footer() {
     )
   }
 
-  // /demo : un pied de page court. Les liens légaux et les cookies restent, les
+  // /demo et /academy : un pied de page court. Les liens légaux et les cookies restent, les
   // autres liens feraient quitter la vidéo. Ils passent à la ligne proprement
   // sur un petit téléphone.
-  if (pathname === '/demo') {
+  if (pathname === '/demo' || pathname === '/academy') {
     const legalLink = 'inline-flex min-h-[44px] items-center px-2 hover:text-empire transition-colors'
     return (
       <footer className="w-full border-t border-white/10 bg-black px-4 pb-[calc(1.5rem+env(safe-area-inset-bottom))] pt-6 text-center text-sm text-neutral-400">

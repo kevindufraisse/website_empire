@@ -15,4 +15,5 @@ jobs:
           cache: npm
       - run: npm ci --no-audit --no-fund
       - run: npm run test:tracking
+      - run: npm run test:head-of-content
       - run: npx tsc --noEmit --incremental false

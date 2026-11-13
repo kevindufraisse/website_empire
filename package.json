@@ -7,7 +7,7 @@
     "start": "next start",
     "lint": "next lint || true",
     "test:tracking": "node scripts/check-meta-purchase.cjs && node scripts/check-meta-browser.cjs && node scripts/check-meta-matching.cjs && node scripts/check-consent.cjs",
-    "test:head-of-content": "node scripts/check-head-of-content.cjs"
+    "test:head-of-content": "node scripts/check-head-of-content.cjs && node scripts/check-academy-page.cjs"
   },
   "dependencies": {
     "@amplitude/analytics-browser": "^2.44.5",

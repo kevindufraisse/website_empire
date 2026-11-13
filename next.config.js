@@ -7,12 +7,9 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react', 'framer-motion'],
   },
-  // Candidature Head of Content : formation gratuite, sur sélection.
-  async rewrites() {
-    return { beforeFiles: [{ source: '/academy', destination: '/academy/head-of-content/index.html' }] }
-  },
   async redirects() {
     return [
+      { source: '/academy/head-of-content/index.html', destination: '/academy', permanent: false },
       { source: '/cgv', destination: '/terms', permanent: true },
       // La page histoire est devenue /academy (3 novembre 2026).
       { source: '/academy/histoire', destination: '/academy', permanent: false },
