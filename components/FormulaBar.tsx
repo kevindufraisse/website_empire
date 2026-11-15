@@ -329,12 +329,12 @@ export default function FormulaBar() {
             <span aria-hidden>→</span>
           </button>
           <a
-            href="/demo"
-            data-cta="sticky-demo"
-            onClick={() => trackAmplitude('empire_demo_clicked', { source: 'formula_bar' })}
+            href="/join-us"
+            data-cta="sticky-call"
+            onClick={() => trackAmplitude('empire_call_clicked', { source: 'formula_bar' })}
             className="hidden min-h-[32px] min-w-[150px] items-center justify-center whitespace-nowrap rounded-lg border-[1.5px] border-white/60 bg-[#0a0a0a] px-3 py-1 text-xs font-bold text-white transition hover:border-white hover:bg-[#151515] sm:flex"
           >
-            {fr ? 'Demander une démo' : 'Request a demo'}
+            {fr ? 'Réserver un appel' : 'Book a call'}
           </a>
           </div>
         )}

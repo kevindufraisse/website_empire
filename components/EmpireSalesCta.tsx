@@ -21,8 +21,8 @@ export default function EmpireSalesCta({ source, showDemo = true }: { source: st
         </button>
       }
       secondary={showDemo && (
-        <a href="/demo" onClick={() => trackAmplitude('empire_demo_clicked', { source })} className={CTA_SECONDARY}>
-          {fr ? 'Demander une démo' : 'Request a demo'}
+        <a href="/join-us" onClick={() => trackAmplitude('empire_call_clicked', { source })} className={CTA_SECONDARY}>
+          {fr ? 'Réserver un appel' : 'Book a call'}
         </a>
       )}
     />

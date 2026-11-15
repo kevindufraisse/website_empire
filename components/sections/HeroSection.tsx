@@ -221,11 +221,11 @@ export default function HeroSection() {
                   }
                   secondary={!warm && (
                     <a
-                      href="/demo"
-                      onClick={() => trackAmplitude('empire_demo_clicked', { source: 'home-hero' })}
+                      href="/join-us"
+                      onClick={() => trackAmplitude('empire_call_clicked', { source: 'home-hero' })}
                       className={CTA_SECONDARY}
                     >
-                      {lang === 'fr' ? 'Demander une démo' : 'Request a demo'}
+                      {lang === 'fr' ? 'Réserver un appel' : 'Book a call'}
                     </a>
                   )}
                 />

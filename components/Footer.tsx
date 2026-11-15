@@ -140,8 +140,8 @@ export default function Footer() {
                   {lang === 'fr' ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial'}
                 </OnboardingLink>
                 <TrialReassurance fr={lang === 'fr'} stacked className="-mt-1 !text-xs" />
-                <a href="/demo" onClick={() => trackAmplitude('empire_demo_clicked', { source: 'footer' })} className={`${CTA_SECONDARY} !px-4 !text-[15px]`}>
-                  {lang === 'fr' ? 'Demander une démo' : 'Request a demo'}
+                <a href="/join-us" onClick={() => trackAmplitude('empire_call_clicked', { source: 'footer' })} className={`${CTA_SECONDARY} !px-4 !text-[15px]`}>
+                  {lang === 'fr' ? 'Réserver un appel' : 'Book a call'}
                 </a>
               </div>
             )}
