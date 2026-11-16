@@ -49,7 +49,7 @@ try{
    assert.equal(await ideas.locator('button').count(),0,'The chat must never require previous/next buttons')
    assert.equal(await messages.locator('button').count(),0,'Messages must be discovered by scrolling')
    assert(await page.evaluate(()=>{const ids=['#formula-ideas','[data-story="formula"]','#formula-lead-magnet','#formula-youtube','#formula-secret'];return ids.slice(1).every((id,i)=>!!(document.querySelector(ids[i]).compareDocumentPosition(document.querySelector(id))&4))}),'Keep lead magnet before YouTube and the conditional form')
-   assert((await ideas.locator('#ideas-title').innerText()).includes('partagez-la'))
+   assert((await ideas.locator('#ideas-title').innerText()).includes('Dicte-la en vocal.'))
 
    const travel=await ideas.evaluate(el=>el.offsetHeight-innerHeight)
    assert(travel/7>=viewport.height*1.15,'Each exchange needs at least 1.15 viewport heights of scrolling')
@@ -61,7 +61,7 @@ try{
     await fits(page,exchange.locator('[data-idea-outgoing]'),`${name} outgoing ${i}`)
     await fits(page,exchange.locator('[data-idea-reply]'),`${name} reply ${i}`)
     const heading=ideas.locator('#ideas-title')
-    assert((await heading.innerText()).includes(i===6?'publient vos concurrents.':'partagez-la.'),'The competitor headline replaces the idea headline only during watch')
+    assert((await heading.innerText()).includes(['Dicte-la en vocal.', 'Écris-la sur Telegram.', 'Envoie une capture d’écran.', 'Partage-le pour y réagir.', 'Envoie le lien.', 'Donne ton point de vue.', 'vos concurrents, automatiquement.'][i]), 'The headline matches the active example')
     const phone=await ideas.locator('[data-idea-example]').evaluate(el=>el.parentElement.getBoundingClientRect().toJSON())
     assert(phone.width<=280&&phone.width/phone.height<.60,'Keep the phone slim and portrait')
     if([3,4,5].includes(i)){const link=exchange.locator('[data-idea-source]');assert(await link.locator('svg').count()>0);assert((await link.innerText()).includes(['instagram.com/reel/','youtube.com/shorts/','linkedin.com/posts/'][i===3?0:i===4?1:2]))}

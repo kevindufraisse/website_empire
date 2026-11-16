@@ -10,13 +10,13 @@ import v from './IdeaSourcePreview.module.css'
 import { SocialIcons } from './ui/social-icons'
 
 const EXAMPLES = [
-  { name: 'Un vocal', kind: 'voice', text: 'Comment choisir les bons créateurs business à suivre ? Ça dépend de ce qu’on veut apprendre.', reply: 'Vocal transcrit. Ton idée est enregistrée dans Empire.', format: 'Réponse en vidéo' },
-  { name: 'Une idée', kind: 'note', text: 'Faisons une tier list des créateurs business français. Je veux expliquer qui suivre selon son objectif.', reply: 'Idée enregistrée. On prépare ton classement.', format: 'Tier list' },
-  { name: 'Une capture d’écran', kind: 'capture', text: 'J’aimerais parler de la réalité de l’entrepreneuriat.', reply: 'Capture reçue. Sujet enregistré : persévérer quand on entreprend.', format: 'Point de vue' },
-  { name: 'Un Reel Instagram', kind: 'reel', text: 'Je veux réagir avec mon expérience.', reply: 'Reel reçu. L’extrait accompagnera ta réaction.', format: 'Réaction' },
-  { name: 'Un lien YouTube', kind: 'youtube', text: 'Je veux répondre aux questions que cette vidéo soulève.', reply: 'Vidéo enregistrée. Ses idées sont prêtes à développer.', format: 'Réponse en vidéo' },
-  { name: 'Un post LinkedIn', kind: 'linkedin', text: 'Je veux donner mon avis sur ce post.', reply: 'Post reçu. Ton sujet et ton angle sont enregistrés.', format: 'Point de vue' },
-  { name: 'Tes concurrents', kind: 'watch', text: 'Les idées des comptes que tu suis arrivent aussi ici.', reply: 'Retrouve les sujets à adapter à ton activité dans Empire.', format: 'À développer avec ton angle' },
+  { heading: ['Une idée en tête ?', 'Dicte-la en vocal.'], kind: 'voice', text: 'Comment choisir les bons créateurs business à suivre ? Ça dépend de ce qu’on veut apprendre.', reply: 'Vocal transcrit. Ton idée est enregistrée dans Empire.', format: 'Réponse en vidéo' },
+  { heading: ['Une idée de classement ?', 'Écris-la sur Telegram.'], kind: 'note', text: 'Faisons une tier list des créateurs business français. Je veux expliquer qui suivre selon son objectif.', reply: 'Idée enregistrée. On prépare ton classement.', format: 'Tier list' },
+  { heading: ['Une image à commenter ?', 'Envoie une capture d’écran.'], kind: 'capture', text: 'J’aimerais parler de la réalité de l’entrepreneuriat.', reply: 'Capture reçue. Sujet enregistré : persévérer quand on entreprend.', format: 'Point de vue' },
+  { heading: ['Un Reel Instagram t’inspire ?', 'Partage-le pour y réagir.'], kind: 'reel', text: 'Je veux réagir avec mon expérience.', reply: 'Reel reçu. L’extrait accompagnera ta réaction.', format: 'Réaction' },
+  { heading: ['Une vidéo YouTube à creuser ?', 'Envoie le lien.'], kind: 'youtube', text: 'Je veux répondre aux questions que cette vidéo soulève.', reply: 'Vidéo enregistrée. Ses idées sont prêtes à développer.', format: 'Réponse en vidéo' },
+  { heading: ['Un post LinkedIn te fait réagir ?', 'Donne ton point de vue.'], kind: 'linkedin', text: 'Je veux donner mon avis sur ce post.', reply: 'Post reçu. Ton sujet et ton angle sont enregistrés.', format: 'Point de vue' },
+  { heading: ['Et on espionne aussi ce que font', 'vos concurrents, automatiquement.'], kind: 'watch', text: 'Les idées des comptes que tu suis arrivent aussi ici.', reply: 'Retrouve les sujets à adapter à ton activité dans Empire.', format: 'À développer avec ton angle' },
 ] as const
 
 const SOURCE_LINKS = {
@@ -48,7 +48,7 @@ function Exchange({ index, progress, active, still }: { index: number; progress:
   // The remaining 72% of each segment is a full reading hold. No timers and
   // no wheel/touch handlers: only the page's native scroll controls the story.
   return <div className={scroll.exchange} data-idea-layer={index} aria-hidden={!still && !active}>
-    {still && item.kind==='watch' && <h3 className={v.staticHeading}><Radar size={18}/>Ou inspire-toi de ce que publient tes concurrents.</h3>}
+    {still && <h3 className={v.staticHeading}>{item.kind === 'watch' && <Radar size={18} aria-hidden="true"/>}{item.heading.join(' ')}</h3>}
     <small className={s.chatDay}>Aujourd’hui</small>
     <motion.div className={s.outgoing} data-idea-outgoing style={still ? {} : { opacity: outgoing, y: outgoingY }}>
       {item.kind === 'voice' && <div className={s.voice}><Mic size={17}/><span aria-hidden="true">{[12,22,30,16,25,36,17,27,13,34,20,28,16,35,23,13,28,18].map((height,i)=><i key={i} style={{height}}/>)}</span><b>0:18</b></div>}
@@ -68,9 +68,16 @@ export default function IdeaMessagesStory() {
   const { scrollYProgress } = useScroll({ target: root, offset: ['start start', 'end end'] })
   const [index, setIndex] = useState(0)
   useMotionValueEvent(scrollYProgress, 'change', value => setIndex(Math.min(EXAMPLES.length - 1, Math.max(0, Math.floor(value * EXAMPLES.length)))))
+  const example = EXAMPLES[index]
+  const [lead, emphasis] = still ? ['Partage tes idées', 'sur Telegram.'] : example.heading
   return <section ref={root} id="formula-ideas" className={`${s.ideas} ${scroll.ideas} ${v.ideas}`} data-story="messages" data-scroll-discovery="ideas" data-static={still} aria-labelledby="ideas-title">
     <div className={scroll.sticky} data-scroll-stage>
-      <header className={`${s.heading} ${scroll.heading} ${v.heading}`} data-ideas-heading={index===6&&!still?'competitors':'idea'}><h2 id="ideas-title">{index===6&&!still?<><Radar className={v.headingIcon} aria-hidden="true"/>Ou inspire-toi de ce que<br/><em>publient tes concurrents.</em></>:<>Dès que tu as une idée,<br/><em>partage-la.</em></>}</h2></header>
+      <header className={`${s.heading} ${scroll.heading} ${v.heading}`} data-ideas-heading={still ? 'overview' : example.kind}>
+        <h2 id="ideas-title">
+          {!still && example.kind === 'watch' && <Radar className={v.headingIcon} aria-hidden="true"/>}
+          {lead}<br/><em>{emphasis}</em>
+        </h2>
+      </header>
       <div className={`${s.ideaPhone} ${scroll.ideaPhone}`}>
         <div className={s.phoneStatus} aria-hidden="true"><b>9:41</b><i/><span><Signal size={12}/><BatteryFull size={18}/></span></div>
         <header className={s.chatHeader}><ChevronLeft size={20} aria-hidden="true"/><span className={s.empireAvatar}>E</span><div><b>Empire</b><small>Ton assistant contenu</small></div><Video size={19} aria-hidden="true"/></header>
