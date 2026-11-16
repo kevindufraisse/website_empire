@@ -15,13 +15,14 @@ function load(file, overrides = {}, globals = {}) {
     URL, AbortSignal, Error, console: { error() {} }, ...globals }, { filename: file })
   return module.exports
 }
-const delivery = load('lib/head-of-content.ts')
+const delivery = load('lib/head-of-content.ts', { './candidate-phone': load('lib/candidate-phone.ts') })
 const legende = load('lib/legende.ts')
+const intake = load('lib/legende-intake.ts', { './candidate-phone': load('lib/candidate-phone.ts'), './legende': legende })
 const env = { ACADEMY_SLACK_BOT_TOKEN: 'offline', ACADEMY_SLACK_CHANNEL: 'C0123456789' }
 const sent = []
 let slackOk = true
 const route = load('app/api/legende/apply/route.ts', {
-  '@/lib/head-of-content': delivery, '@/lib/legende': legende,
+  '@/lib/head-of-content': delivery, '@/lib/legende': legende, '@/lib/legende-intake': intake,
   'next/server': { NextResponse: Response },
 }, { process: { env }, fetch: async (url, options) => {
   assert.equal(url, 'https://slack.com/api/chat.postMessage')
@@ -77,6 +78,43 @@ async function run() {
   assert.equal((await post(retry)).status, 503)
   slackOk = true
   assert.equal((await post(retry)).status, 200)
+  const application = (overrides = {}) => ({
+    ...annual(), version: 2, action: 'apply', phone: '06 12 34 56 78', scope: 'employer',
+    company: 'Entreprise exemple', goal: 'Décrocher dix démonstrations', obstacle: 'Nous publions rarement',
+    tried: 'Des vidéos en interne', timing: 'now', decision: 'sponsor', ...overrides,
+  })
+  for (const scope of ['owner','employer']) {
+    const lead = application({ scope })
+    assert.deepEqual(await (await post(lead)).json(), { success: true, kind: 'legende' })
+    const summary = JSON.stringify(sent.at(-1))
+    for (const field of ['+33612345678', lead.company, lead.goal, lead.obstacle, lead.tried, '300 000', 'Appel proposé', 'Dans le mois', 'la personne qui décide']) assert.ok(summary.includes(field), field)
+    for (const [revenueBand, outcome] of [[100_000,'alternative'],['unknown','review']]) {
+      const result = await (await post(application({ scope, revenueBand, kind: 'legende' }))).json()
+      assert.deepEqual(result, { success: true, kind: outcome })
+    }
+  }
+  const personal = application({ scope: 'personal', company: '', decision: '', revenueBand: undefined })
+  assert.deepEqual(await (await post(personal)).json(), { success: true, kind: 'review' })
+  assert.ok(!JSON.stringify(sent.at(-1)).includes('CA HT'))
+  assert.ok(JSON.stringify(sent.at(-1)).includes('À examiner pour un rappel'))
+  const below = application({ revenueBand: 0 })
+  assert.deepEqual(await (await post(below)).json(), { success: true, kind: 'alternative' })
+  assert.ok(!JSON.stringify(sent.at(-1)).includes('Séance à 500 € demandée'))
+  env.BETTER_CALL_KEVIN_BOOKING_URL = 'https://example.org/paid-session'
+  const optIn = { ...below, submissionId: randomUUID(), action: 'consultation' }
+  const before = sent.length
+  await Promise.all([post(optIn), post(optIn)])
+  assert.equal(sent.length, before + 1)
+  assert.deepEqual(await (await post(optIn)).json(), { success: true, kind: 'consultation', bookingUrl: env.BETTER_CALL_KEVIN_BOOKING_URL })
+  for (const bad of [{ phone: '' }, { phone: 'abc' }, { revenueBand: null }, { revenueBand: '' },
+    { goal: '' }, { tried: '' }, { obstacle: '' }, { decision: 'other' }, { scope: 'invalid' }, { timing: '' }, { action: 'consultation' }]) {
+    assert.equal((await post(application(bad))).status, 400, JSON.stringify(bad))
+  }
+  slackOk = false
+  const request = application()
+  assert.equal((await post(request)).status, 503)
+  slackOk = true
+  assert.deepEqual(await (await post(request)).json(), { success: true, kind: 'legende' })
   delete env.ACADEMY_SLACK_BOT_TOKEN
   assert.equal((await post(annual())).status, 503)
   console.log('Légende: all revenue bands, qualification boundaries, Slack receipts, retries and duplicate submissions verified offline.')
