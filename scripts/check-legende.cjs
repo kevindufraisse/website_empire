@@ -37,7 +37,7 @@ function post(fields, headers = {}) {
   request.nextUrl = new URL(request.url)
   return route.POST(request)
 }
-const annual = () => ({ submissionId: randomUUID(), kind: 'legende', revenueBand: 500_000, name: 'Exemple',
+const annual = () => ({ submissionId: randomUUID(), kind: 'legende', revenueBand: 300_000, name: 'Exemple',
   email: 'Exemple@example.org', project: 'Mon projet de contenu', website: '' })
 
 async function run() {
@@ -48,10 +48,12 @@ async function run() {
   assert.equal(sent.length, 1)
   assert.equal(sent[0].channel, env.ACADEMY_SLACK_CHANNEL)
   const text = JSON.stringify(sent[0].blocks)
-  for (const value of ['Légende', 'CA HT déclaré', 'De 500 000 € à moins de 1 million d’euros', 'exemple@example.org', a.project]) assert.ok(text.includes(value))
+  for (const value of ['Légende', 'CA HT déclaré', 'De 300 000 € à moins de 500 000 €', 'exemple@example.org', a.project]) assert.ok(text.includes(value))
   assert.equal((await post({ ...a, project: 'Autre projet' })).status, 409)
-  assert.equal((await post({ ...annual(), revenueBand: 1_000_000 })).status, 200)
-  for (const revenueBand of [0, 100_000, 300_000]) {
+  for (const revenueBand of [500_000, 1_000_000]) {
+    assert.equal((await post({ ...annual(), revenueBand })).status, 200)
+  }
+  for (const revenueBand of [0, 100_000]) {
     assert.equal((await post({ ...annual(), revenueBand })).status, 400)
     const response = await post({ ...annual(), revenueBand, kind: 'consultation', channel: 'CLIENT-SUPPLIED' })
     assert.deepEqual(await response.json(), { success: true, kind: 'consultation', bookingUrl: env.BETTER_CALL_KEVIN_BOOKING_URL })

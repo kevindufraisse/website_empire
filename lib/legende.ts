@@ -10,7 +10,7 @@ export type RevenueBand = typeof revenueBands[number]
 export type RequestKind = 'legende' | 'consultation'
 
 export function requestKind(band: RevenueBand): RequestKind {
-  return band.minimum >= 500_000 ? 'legende' : 'consultation'
+  return band.minimum >= 300_000 ? 'legende' : 'consultation'
 }
 
 type Application = {
