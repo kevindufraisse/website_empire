@@ -16,7 +16,7 @@ const EXAMPLES = [
   { heading: ['Un Reel Instagram t’inspire ?', 'Partage-le pour y réagir.'], kind: 'reel', text: 'Je veux réagir avec mon expérience.', reply: 'Reel reçu. L’extrait accompagnera ta réaction.', format: 'Réaction' },
   { heading: ['Une vidéo YouTube à creuser ?', 'Envoie le lien.'], kind: 'youtube', text: 'Je veux répondre aux questions que cette vidéo soulève.', reply: 'Vidéo enregistrée. Ses idées sont prêtes à développer.', format: 'Réponse en vidéo' },
   { heading: ['Un post LinkedIn te fait réagir ?', 'Donne ton point de vue.'], kind: 'linkedin', text: 'Je veux donner mon avis sur ce post.', reply: 'Post reçu. Ton sujet et ton angle sont enregistrés.', format: 'Point de vue' },
-  { heading: ['Et on espionne aussi ce que font', 'vos concurrents, automatiquement.'], kind: 'watch', text: 'Les idées des comptes que tu suis arrivent aussi ici.', reply: 'Retrouve les sujets à adapter à ton activité dans Empire.', format: 'À développer avec ton angle' },
+  { heading: ['Et on espionne aussi', 'ce que font vos concurrents, automatiquement.'], kind: 'watch', text: 'Les idées des comptes que tu suis arrivent aussi ici.', reply: 'Retrouve les sujets à adapter à ton activité dans Empire.', format: 'À développer avec ton angle' },
 ] as const
 
 const SOURCE_LINKS = {

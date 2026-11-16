@@ -29,7 +29,7 @@ export async function checkContentComparison(page) {
   const normal = value => value.replace(/\s/g, '')
   assert((await section.locator('[data-comparison-basket]').innerText()).includes('4 vidéos courtes + 8 posts + 2 newsletters'))
   assert(normal(await cell('monthly', 'tools').innerText()).includes('155–253€'), 'Tool stack total must be the sum of the listed public prices')
-  assert((await cell('monthly', 'tools').innerText()).includes('Sans compter votre temps'))
+  assert((await cell('monthly', 'tools').innerText()).includes('Sans compter ton temps'))
   assert(normal(await cell('monthly', 'freelance').innerText()).includes('4540–7040€'), 'Five trades are needed to match the scope')
   assert(normal(await cell('monthly', 'freelance').innerText()).includes('dès1129€'), 'Production-only floor stays visible but labelled')
   assert(normal(await cell('monthly', 'agency').innerText()).includes('2500–7000€'))
