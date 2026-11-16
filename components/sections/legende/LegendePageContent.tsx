@@ -50,7 +50,7 @@ const copy = {
 const fieldClass = 'mt-2 block w-full rounded-lg border border-white/20 bg-black px-4 py-3 text-white focus:border-autopilot focus:outline-none focus:ring-1 focus:ring-autopilot'
 const buttonClass = 'inline-flex items-center justify-center gap-2 rounded-lg bg-autopilot px-5 py-3 font-semibold text-black hover:brightness-110 focus-visible:outline focus-visible:outline-offset-4 focus-visible:outline-autopilot disabled:opacity-60'
 
-export default function LegendePageContent({ loomId }: { loomId?: string }) {
+export default function LegendePageContent() {
   const { lang } = useLanguage()
   const t = copy[lang]
   const [ready, setReady] = useState(false)
@@ -99,7 +99,7 @@ export default function LegendePageContent({ loomId }: { loomId?: string }) {
         <p className="mt-5 max-w-xl text-base leading-relaxed text-neutral-300 sm:text-lg">{t.intro}</p>
       </header>
 
-      {loomId && <LoomEmbed id={loomId} title={t.video} className="mt-7" />}
+      <LoomEmbed id="031aba6220874a0d838ac246ce538a88" title={t.video} className="mt-7" />
 
       <section className="mt-9 border-t border-white/15 pt-8">
         {receipt ? (

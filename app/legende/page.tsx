@@ -7,6 +7,5 @@ export const metadata: Metadata = {
 }
 
 export default function LegendePage() {
-  const id = process.env.LEGENDE_LOOM_ID?.trim()
-  return <LegendePageContent loomId={id && /^[a-f0-9]{32}$/i.test(id) ? id : undefined} />
+  return <LegendePageContent />
 }
