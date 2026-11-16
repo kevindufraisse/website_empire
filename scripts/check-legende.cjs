@@ -17,7 +17,7 @@ function load(file, overrides = {}, globals = {}) {
 }
 const delivery = load('lib/head-of-content.ts', { './candidate-phone': load('lib/candidate-phone.ts') })
 const legende = load('lib/legende.ts')
-const intake = load('lib/legende-intake.ts', { './candidate-phone': load('lib/candidate-phone.ts'), './legende': legende })
+const intake = load('lib/legende-intake.ts', { './legende-phone': load('lib/legende-phone.ts'), './candidate-phone': load('lib/candidate-phone.ts'), './legende': legende })
 const env = { ACADEMY_SLACK_BOT_TOKEN: 'offline', ACADEMY_SLACK_CHANNEL: 'C0123456789' }
 const sent = []
 let slackOk = true
@@ -93,6 +93,17 @@ async function run() {
       assert.deepEqual(result, { success: true, kind: outcome })
     }
   }
+  for (const [phoneCountry, phone, expected] of [
+    ['FR','06 12 34 56 78','+33612345678'], ['PT','912 345 678','+351912345678'],
+    ['IT','02 3661 8300','+390236618300'], ['CA','(416) 555-0123','+14165550123'],
+    ['CI','07 07 12 34 56','+2250707123456'], ['BE','0033 6 12 34 56 78','+33612345678'],
+  ]) {
+    assert.equal((await post(application({ phoneCountry, phone }))).status, 200)
+    assert.ok(JSON.stringify(sent.at(-1).blocks).includes(expected), expected)
+  }
+  for (const phone of ['', '12', '01 23 45 67 89 01 23 45 67 89', 'tél 06 12 34 56 78'])
+    assert.equal((await post(application({ phoneCountry: 'FR', phone }))).status, 400)
+  assert.equal((await post(application({ phoneCountry: 'ZZ' }))).status, 400)
   const personal = application({ scope: 'personal', company: '', decision: '', revenueBand: undefined })
   assert.deepEqual(await (await post(personal)).json(), { success: true, kind: 'review' })
   assert.ok(!JSON.stringify(sent.at(-1)).includes('CA HT'))

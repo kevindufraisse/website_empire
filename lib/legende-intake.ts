@@ -1,3 +1,4 @@
+import { countryPhone } from './legende-phone'
 import { normalizeCandidatePhone } from './candidate-phone'
 import { revenueBands, requestKind, type RevenueBand, scopes, timings, decisions } from './legende'
 
@@ -9,7 +10,8 @@ export type Outcome = 'legende' | 'review' | 'alternative' | 'consultation'
 export function readIntake(data: Record<string, unknown>) {
   if (text(data.website)) return 'bot'
   const submissionId = text(data.submissionId)
-  const name = text(data.name), email = text(data.email).toLowerCase(), phone = normalizeCandidatePhone(text(data.phone))
+  const name = text(data.name), email = text(data.email).toLowerCase()
+  const phone = data.phoneCountry === undefined ? normalizeCandidatePhone(text(data.phone)) : countryPhone(text(data.phone), data.phoneCountry)?.number
   const goal = text(data.goal), obstacle = text(data.obstacle), tried = text(data.tried)
   const { scope, timing, decision, action } = data
   if (!/^[\da-f]{8}-[\da-f]{4}-4[\da-f]{3}-[89ab][\da-f]{3}-[\da-f]{12}$/i.test(submissionId)) return null

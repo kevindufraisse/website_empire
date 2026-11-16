@@ -2,11 +2,14 @@
 
 import { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from 'react'
 import dynamic from 'next/dynamic'
-import { ArrowRight, Check } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Check } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import LoomEmbed from '@/components/LoomEmbed'
 import { decisions, revenueBands, scopes, timings } from '@/lib/legende'
-import { normalizeCandidatePhone } from '@/lib/candidate-phone'
+import { countryPhone } from '@/lib/legende-phone'
+import type { CountryCode } from 'libphonenumber-js/min'
+import LegendePhoneField from './LegendePhoneField'
+import styles from './legende-form.module.css'
 import type { Outcome } from '@/lib/legende-intake'
 
 const CalModal = dynamic(() => import('@/components/YtLeadForm').then(m => m.CalModal), { ssr: false })
@@ -14,13 +17,14 @@ const CalModal = dynamic(() => import('@/components/YtLeadForm').then(m => m.Cal
 const copy = {
   fr: {
     intro: 'Tu veux déléguer ton contenu ? Avec Légende, Kevin et son équipe prennent en charge la stratégie, la production et la publication.',
-    video: 'Kevin présente l’accompagnement Légende', steps: ['Ton projet', 'Pour en parler', 'Ta candidature'],
-    scope: 'Pour qui veux-tu développer du contenu ?', select: 'Choisir une réponse',
+    video: 'Kevin présente l’accompagnement Légende', steps: ['Projet', 'Expérience', 'Contact', 'Envoi'],
+    headings: ['Ton projet de contenu', 'Ce que tu as déjà essayé', 'Comment te joindre ?', 'Finaliser ta candidature'],
+    examples: { goal: 'Ex. : obtenir cinq demandes de devis par mois.', obstacle: 'Ex. : je sais quoi dire, mais filmer me prend trop de temps.', tried: 'Qu’as-tu testé ? Si tu démarres, tu peux simplement le préciser.' },
+    scope: 'Pour qui veux-tu développer du contenu ?',
     goal: 'Dans six mois, quel résultat concret aimerais-tu obtenir avec ton contenu ?',
     obstacle: 'Qu’est-ce qui t’empêche d’y arriver aujourd’hui ?',
     tried: 'Qu’as-tu déjà essayé et qu’est-ce que ça a donné ?',
-    name: 'Ton nom', email: 'Ton e-mail', phone: 'Ton numéro de téléphone',
-    phoneHint: 'Hors de France, ajoute l’indicatif de ton pays.', phoneError: 'Vérifie ton numéro et son indicatif.',
+    name: 'Ton nom', email: 'Ton e-mail',
     timing: 'Quand aimerais-tu démarrer ?', decision: 'Qui prend la décision pour cet accompagnement ?',
     company: 'Nom de l’entreprise', revenue: 'Quel chiffre d’affaires HT cette entreprise a-t-elle réalisé sur les 12 derniers mois ?',
     unknown: 'Je ne connais pas ce chiffre', price: 'Légende coûte 4 000 € par mois sur 12 mois, soit 48 000 € sur l’année.',
@@ -36,12 +40,13 @@ const copy = {
   },
   en: {
     intro: 'Want to hand over content production? With Légende, Kevin and his team handle strategy, production and publishing.',
-    video: 'Kevin introduces the Légende programme', steps: ['Your project', 'Getting in touch', 'Your application'],
-    scope: 'Who are you looking to create content for?', select: 'Choose an answer',
+    video: 'Kevin introduces the Légende programme', steps: ['Project', 'Experience', 'Contact', 'Submit'],
+    headings: ['Your content project', 'What you’ve tried', 'How can we reach you?', 'Finish your application'],
+    examples: { goal: 'For example, five qualified enquiries a month.', obstacle: 'For example, I have ideas but filming takes too long.', tried: 'What did you try? If you’re just starting, say so.' },
+    scope: 'Who are you looking to create content for?',
     goal: 'Six months from now, what specific result would you like your content to deliver?',
     obstacle: 'What is keeping you from getting there today?', tried: 'What have you already tried, and how did it work out?',
-    name: 'Your name', email: 'Your email', phone: 'Your phone number',
-    phoneHint: 'Outside France, include your country calling code.', phoneError: 'Check your phone number and country calling code.',
+    name: 'Your name', email: 'Your email',
     timing: 'When would you like to start?', decision: 'Who decides whether to go ahead?',
     company: 'Company name', revenue: 'What was this company’s revenue, excluding tax, over the last 12 months?',
     unknown: 'I don’t know this figure', price: 'Légende costs €4,000 a month for 12 months, or €48,000 for the year.',
@@ -56,8 +61,8 @@ const copy = {
     limit: 'Several requests have already been sent. Please try again in 15 minutes.',
   },
 }
-const fieldClass = 'mt-2 block w-full rounded-lg border border-white/20 bg-black px-4 py-3 text-white focus:border-autopilot focus:outline-none focus:ring-1 focus:ring-autopilot'
-const buttonClass = 'inline-flex items-center justify-center gap-2 rounded-lg bg-autopilot px-5 py-3 font-semibold text-black hover:brightness-110 focus-visible:outline focus-visible:outline-offset-4 focus-visible:outline-autopilot disabled:opacity-60'
+const fieldClass = styles.field
+const buttonClass = styles.primary
 const empty = { scope: '', goal: '', obstacle: '', tried: '', timing: '', name: '', email: '', phone: '', company: '', decision: '', revenueBand: '', website: '' }
 
 export default function LegendePageContent() {
@@ -65,6 +70,9 @@ export default function LegendePageContent() {
   const t = copy[lang]
   const [step, setStep] = useState(0)
   const [answers, setAnswers] = useState(empty)
+  const [country, setCountry] = useState<CountryCode>('FR')
+  const [invalidPhone, setInvalidPhone] = useState(false)
+  const phone = countryPhone(answers.phone, country)
   const [ready, setReady] = useState(false)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<'error' | 'limit'>()
@@ -80,20 +88,39 @@ export default function LegendePageContent() {
     if (hasStarted.current) section.current?.focus()
   }, [step, receipt])
 
+  function change(key: keyof typeof empty, value: string) {
+    setAnswers(previous => ({ ...previous, ...(key === 'scope' && value !== previous.scope ? { company: '', revenueBand: '', decision: '' } : {}), [key]: value }))
+    setError(undefined)
+  }
+
   function bind(key: keyof typeof empty) {
-    return { name: key, value: answers[key], onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-      const value = event.target.value
+    return { name: key, value: answers[key], onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       event.target.setCustomValidity('')
-      setAnswers(previous => ({ ...previous, ...(key === 'scope' && value !== previous.scope ? { company: '', revenueBand: '', decision: '' } : {}), [key]: value }))
-      setError(undefined)
+      change(key, event.target.value)
     } }
   }
 
-  function select(key: 'scope' | 'timing' | 'decision', label: string, options: Record<string, { fr: string; en: string }>) {
-    return <label className="block">{label}<select className={fieldClass} required {...bind(key)}>
-      <option value="" disabled>{t.select}</option>
-      {Object.entries(options).map(([value, text]) => <option key={value} value={value}>{text[lang]}</option>)}
-    </select></label>
+  function choices(key: 'scope' | 'timing' | 'decision' | 'revenueBand', label: string, options: { value: string; label: string }[]) {
+    return <fieldset>
+      <legend>{label}</legend>
+      <div className={styles.choices + (key === 'revenueBand' ? ' ' + styles.compact : '')}>
+        {options.map(option => <label key={option.value} className={styles.option}>
+          <input type="radio" name={key} value={option.value} required checked={answers[key] === option.value}
+            onChange={() => change(key, option.value)} />
+          <span>{option.label}</span>
+        </label>)}
+      </div>
+    </fieldset>
+  }
+
+  function localized(options: Record<string, { fr: string; en: string }>) {
+    return Object.entries(options).map(([value, label]) => ({ value, label: label[lang] }))
+  }
+
+  function question(key: 'goal' | 'obstacle' | 'tried') {
+    return <label className="block">{t[key]}
+      <textarea rows={2} required maxLength={800} placeholder={t.examples[key]} className={fieldClass} {...bind(key)} />
+    </label>
   }
 
   async function send(action: 'apply' | 'consultation') {
@@ -101,7 +128,7 @@ export default function LegendePageContent() {
     inFlight.current = true
     setError(undefined)
     setBusy(true)
-    const fields = { ...answers, version: 2, action, phone: normalizeCandidatePhone(answers.phone),
+    const fields = { ...answers, version: 2, action, phone: phone?.number, phoneCountry: country,
       company: personal ? undefined : answers.company, decision: personal ? undefined : answers.decision,
       revenueBand: personal ? undefined : answers.revenueBand === 'unknown' ? 'unknown' : Number(answers.revenueBand) }
     try {
@@ -123,13 +150,19 @@ export default function LegendePageContent() {
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     hasStarted.current = true
-    if (step === 1 && !normalizeCandidatePhone(answers.phone)) {
+    if (step === 2 && !phone) {
       const input = event.currentTarget.elements.namedItem('phone') as HTMLInputElement
-      input.setCustomValidity(t.phoneError)
-      input.reportValidity()
+      setInvalidPhone(true)
+      input.focus()
       return
     }
-    if (step < 2) setStep(step + 1)
+    const blank = Array.from(event.currentTarget.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('textarea[required], input[required]:not([type=radio])')).find(field => !field.value.trim())
+    if (blank) {
+      blank.setCustomValidity(lang === 'fr' ? 'Précise ta réponse pour continuer.' : 'Enter your answer to continue.')
+      blank.reportValidity()
+      return
+    }
+    if (step < 3) setStep(step + 1)
     else void send('apply')
   }
 
@@ -141,60 +174,62 @@ export default function LegendePageContent() {
     </header>
     <LoomEmbed id="031aba6220874a0d838ac246ce538a88" title={t.video} className="mt-7" />
 
-    <section ref={section} tabIndex={-1} aria-labelledby="legende-heading" className="mt-9 scroll-mt-20 border-t border-white/15 pt-8 outline-none">
+    <section ref={section} tabIndex={-1} aria-labelledby="legende-heading" className={styles.panel}>
       {receipt ? <div>
         <Check aria-hidden className="mb-3 text-autopilot" />
         <h2 id="legende-heading" className="text-2xl font-semibold">{receipt.kind === 'consultation' ? t.requested : receipt.kind === 'alternative' ? 'Better Call Kevin' : t.received}</h2>
         <p className="my-4 max-w-xl leading-relaxed text-neutral-300">{{
-          legende: t.call, review: t.review + ' ' + answers.phone + '.', alternative: t.alternative, consultation: t.followup,
+          legende: t.call, review: t.review + ' ' + (phone?.formatInternational() || answers.phone) + '.', alternative: t.alternative, consultation: t.followup,
         }[receipt.kind]}</p>
         {receipt.kind === 'legende' && <>
           <a href="https://cal.com/team/empire-internet/audit-empire" className={buttonClass} onClick={event => {
             if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
             event.preventDefault(); setCalendar(true)
           }}>{t.book}<ArrowRight aria-hidden size={17} /></a>
-          {calendar && <CalModal informal countryCode="" lead={{ firstName: answers.name, email: answers.email, phone: normalizeCandidatePhone(answers.phone)! }} onClose={() => setCalendar(false)} />}
+          {calendar && <CalModal informal countryCode="" lead={{ firstName: answers.name, email: answers.email, phone: phone!.number }} onClose={() => setCalendar(false)} />}
         </>}
         {receipt.kind === 'alternative' && <button type="button" disabled={busy} className={buttonClass} onClick={() => void send('consultation')}>{busy ? t.busy : t.consult}</button>}
         {receipt.kind === 'consultation' && receipt.bookingUrl && <a href={receipt.bookingUrl} className={buttonClass}>{t.paidBook}</a>}
       </div> : <form onSubmit={submit}>
-        <p className="mb-2 text-sm text-autopilot">{lang === 'fr' ? 'Étape' : 'Step'} {step + 1}/3</p>
-        <h2 id="legende-heading" className="mb-6 text-2xl font-semibold">{t.steps[step]}</h2>
-        <fieldset disabled={!ready || busy} className="space-y-5">
+        <nav aria-label={lang === 'fr' ? 'Étapes de la candidature' : 'Application steps'} className={styles.steps}>
+          {t.steps.map((label, i) => <button key={i} type="button" disabled={busy || i >= step} aria-current={i === step ? 'step' : undefined}
+            onClick={() => { setError(undefined); setStep(i) }}>{label}</button>)}
+        </nav>
+        <h2 id="legende-heading" className={styles.stepTitle}>{t.headings[step]}</h2>
+        <fieldset disabled={!ready || busy} className={styles.fields}>
           {step === 0 && <>
-            {select('scope', t.scope, scopes)}
-            {(['goal', 'obstacle', 'tried'] as const).map(key => <label key={key} className="block">{t[key]}
-              <textarea rows={2} required maxLength={800} className={fieldClass} {...bind(key)} />
-            </label>)}
+            {choices('scope', t.scope, localized(scopes))}
+            {question('goal')}
           </>}
           {step === 1 && <>
+            {question('obstacle')}
+            {question('tried')}
+          </>}
+          {step === 2 && <>
             <div className="grid gap-5 sm:grid-cols-2">
               <label>{t.name}<input required maxLength={100} autoComplete="name" className={fieldClass} {...bind('name')} /></label>
               <label>{t.email}<input required type="email" maxLength={254} autoComplete="email" className={fieldClass} {...bind('email')} /></label>
             </div>
-            <label className="block">{t.phone}
-              <input required type="tel" autoComplete="tel" maxLength={32} aria-describedby="legende-tel-hint" className={fieldClass} {...bind('phone')} />
-              <span id="legende-tel-hint" className="mt-1 block text-sm text-neutral-400">{t.phoneHint}</span>
-            </label>
-            {select('timing', t.timing, timings)}
+            <LegendePhoneField lang={lang} country={country} value={answers.phone} invalid={invalidPhone} onInvalid={() => setInvalidPhone(true)}
+              onChange={(iso, raw) => { setCountry(iso); setInvalidPhone(false); change('phone', raw) }} />
+            {choices('timing', t.timing, localized(timings))}
           </>}
-          {step === 2 && <>
-            <p className="text-neutral-300">{t.price}</p>
+          {step === 3 && <>
+            <div className={styles.summary}>
+              <strong>{answers.name}</strong><span>{answers.email} · {phone?.formatInternational()}</span>
+            </div>
             {!personal && <>
               <label className="block">{t.company}<input required autoComplete="organization" maxLength={140} className={fieldClass} {...bind('company')} /></label>
-              {select('decision', t.decision, decisions)}
-              <label className="block">{t.revenue}<select required className={fieldClass} {...bind('revenueBand')}>
-                <option value="" disabled>{t.select}</option>
-                {revenueBands.map(band => <option key={band.minimum} value={band.minimum}>{band[lang]}</option>)}
-                <option value="unknown">{t.unknown}</option>
-              </select></label>
+              {choices('decision', t.decision, localized(decisions))}
+              {choices('revenueBand', t.revenue, [...revenueBands.map(band => ({ value: String(band.minimum), label: band[lang] })), { value: 'unknown', label: t.unknown }])}
             </>}
+            <p className="text-neutral-300">{t.price}</p>
             <p className="text-sm text-neutral-400">{t.note} <a className="underline" href="/privacy">{t.privacy}</a></p>
           </>}
           <label aria-hidden="true" className="hidden">Website<input tabIndex={-1} autoComplete="off" {...bind('website')} /></label>
-          <div className="flex flex-wrap items-center gap-5">
-            <button type="submit" className={buttonClass}>{busy ? t.busy : step === 2 ? t.send : t.next}<ArrowRight aria-hidden size={17} /></button>
-            {step > 0 && <button type="button" className="py-2 text-neutral-300 underline" onClick={() => { setError(undefined); setStep(step - 1) }}>{t.back}</button>}
+          <div className={styles.actions}>
+            {step > 0 && <button type="button" className={styles.back} onClick={() => { setError(undefined); setStep(step - 1) }}><ArrowLeft aria-hidden size={16} />{t.back}</button>}
+            <button type="submit" className={buttonClass}>{busy ? t.busy : step === 3 ? t.send : t.next}<ArrowRight aria-hidden size={17} /></button>
           </div>
         </fieldset>
       </form>}
