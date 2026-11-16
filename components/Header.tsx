@@ -56,6 +56,9 @@ export default function Header() {
   const doors = [
     { href: '/academy', label: fr ? 'Devenir partenaire' : 'Become a partner', active: isAcademyPage },
   ]
+  if (pathname === '/') {
+    doors.push({ href: '/legende', label: fr ? 'Travailler avec Kevin' : 'Work with Kevin', active: false })
+  }
 
   const lives = [
     { href: '/vsl', name: fr ? 'Workshop Empire' : 'Empire workshop', when: fr ? <><span className="line-through text-neutral-500">2 500 €</span> <span className="font-semibold text-empire">0 € aujourd’hui</span></> : <><span className="line-through text-neutral-500">€2,500</span> <span className="font-semibold text-empire">€0 today</span></>, what: fr ? 'La méthode Empire expliquée pas à pas. Accès par email.' : 'The Empire method, step by step. Email access.' },

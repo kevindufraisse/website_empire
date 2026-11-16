@@ -22,6 +22,7 @@ export default function HomeApplySection() {
         </div>
         <div className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-3 text-sm font-semibold text-white">
           <a href="/tarifs" className="underline underline-offset-4">{fr ? 'Voir les offres et les tarifs' : 'View plans and pricing'}</a>
+          <a href="/legende" className="underline underline-offset-4">{fr ? 'Travailler avec Kevin' : 'Work with Kevin'}</a>
         </div>
       </div>
     </section>
