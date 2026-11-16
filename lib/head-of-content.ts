@@ -1,3 +1,5 @@
+import { normalizeCandidatePhone } from './candidate-phone'
+export { normalizeCandidatePhone } from './candidate-phone'
 import { createHash } from 'node:crypto'
 
 export const SITUATIONS: Record<string, string> = { cdi: 'Salarié en CDI', cdd: 'Salarié en CDD / intérim', freelance: 'Freelance / consultant', business: 'Entrepreneur / dirigeant d’agence', student: 'Étudiant / alternant', jobseeking: 'En recherche d’emploi / reconversion', other: 'Autre situation' }
@@ -20,14 +22,6 @@ export type Candidate = {
 type Validation = { candidate: Candidate } | { error: string; field?: string } | { honeypot: true }
 const text = (v: unknown) => typeof v === 'string' ? v.trim() : ''
 
-export function normalizeCandidatePhone(raw: string): string | null {
-  if (/[^\d\s+().-]/.test(raw)) return null
-  let phone = raw.replace(/[\s().-]/g, '')
-  if (phone.startsWith('00')) phone = '+' + phone.slice(2)
-  if (/^0\d{9}$/.test(phone)) phone = '+33' + phone.slice(1)
-  if (/^\+330\d{9}$/.test(phone)) phone = '+33' + phone.slice(4)
-  return /^\+[1-9]\d{7,14}$/.test(phone) ? phone : null
-}
 export function validateCandidate(input: unknown): Validation {
   if (!input || typeof input !== 'object' || Array.isArray(input)) return { error: 'Candidature invalide.' }
   const b = input as Record<string, unknown>

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { allowCandidateRequest, deliverCandidateOnce } from '@/lib/head-of-content'
 import { legendeSlackMessage, readApplication } from '@/lib/legende'
+import { intakeSlackMessage, readIntake } from '@/lib/legende-intake'
 
 export const runtime = 'nodejs'
 export const maxDuration = 30
@@ -19,7 +20,9 @@ export async function POST(req: NextRequest) {
     data = JSON.parse(raw)
   } catch { return error(400) }
 
-  const application = readApplication(data)
+  const body = data && typeof data === 'object' && !Array.isArray(data) ? data as Record<string, unknown> : null
+  if (body?.version !== undefined && body.version !== 2) return error(400)
+  const application = body?.version === 2 ? readIntake(body) : readApplication(data)
   if (!application) return error(400)
   if (application === 'bot') return NextResponse.json({ success: true })
   const token = process.env.ACADEMY_SLACK_BOT_TOKEN
@@ -36,7 +39,7 @@ export async function POST(req: NextRequest) {
       const res = await fetch('https://slack.com/api/chat.postMessage', {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify(legendeSlackMessage(application, channel)),
+        body: JSON.stringify('phone' in application ? intakeSlackMessage(application, channel) : legendeSlackMessage(application, channel)),
         signal: AbortSignal.timeout(12000),
       })
       if (!res.ok || (await res.json()).ok !== true) throw new Error('delivery_failed')

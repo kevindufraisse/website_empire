@@ -13,7 +13,7 @@ function load(file, mocks = {}, globals = {}) {
   new vm.Script(code, { filename: file }).runInContext(context)
   return module.exports
 }
-const core = load('lib/head-of-content.ts')
+const core = load('lib/head-of-content.ts', { './candidate-phone': load('lib/candidate-phone.ts') })
 const candidate = () => ({ submissionId: randomUUID(), firstName: 'Test', lastName: 'Candidature', email: 'test@example.com', phone: '06 00 00 00 00', situation: 'freelance', experience: 'starting', availability: '5to10', project: 'Je souhaite aider des entrepreneurs à produire du contenu et à développer leur activité.', profileUrl: '', consent: true, company: '' })
 const expandedCandidate = () => ({ ...candidate(), applicationVersion: 2, situation: 'cdi', availability: undefined, monthlyHours: '20to40', currentIncome: '2000to3000', incomeGoal: '3000to5000', networks: ['linkedin', 'instagram'], strength: 'writing', favoriteCreator: 'Je suis ce créateur pour sa pédagogie et ses exemples concrets, que je peux appliquer.', startWhen: 'thismonth' })
 let checks = 0

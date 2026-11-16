@@ -55,3 +55,21 @@ export function legendeSlackMessage(application: Application, channel: string) {
     ],
   }
 }
+
+export const scopes = {
+  owner: { fr: 'Pour mon entreprise ou mon activité indépendante', en: 'For my business or freelance practice' },
+  employer: { fr: 'Pour mon employeur', en: 'For my employer' },
+  personal: { fr: 'Pour moi, à titre personnel', en: 'For myself, as a personal project' },
+}
+
+export const timings = {
+  now: { fr: 'Dans le mois', en: 'Within a month' },
+  quarter: { fr: 'Dans les trois prochains mois', en: 'Within the next three months' },
+  later: { fr: 'Plus tard, je me renseigne', en: 'Later, I’m exploring' },
+}
+
+export const decisions = {
+  me: { fr: 'Je décide', en: 'I make the decision' },
+  shared: { fr: 'Je décide avec une autre personne', en: 'I share the decision' },
+  sponsor: { fr: 'Je présente le projet à la personne qui décide', en: 'I present the project to the decision-maker' },
+}
