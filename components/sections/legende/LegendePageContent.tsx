@@ -1,241 +1,160 @@
 'use client'
 
-import { Check, ArrowRight } from 'lucide-react'
+import { FormEvent, useEffect, useRef, useState } from 'react'
+import { ArrowRight, Check } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
-import HowItWorksAccordion from '@/components/sections/HowItWorksAccordion'
-import FounderSection from '@/components/sections/FounderSection'
-import FAQSection from '@/components/sections/FAQSection'
-import { Reveal } from '@/components/Reveal'
+import LoomEmbed from '@/components/LoomEmbed'
+import { revenueBands, requestKind, type RevenueBand, type RequestKind } from '@/lib/legende'
 
-const CLIENT_LOGOS = [
-  { name: 'Ippon Technologies', src: '/logos/ippon.png' },
-  { name: 'Socratiz', src: '/logos/presse-agence.png' },
-  { name: 'The Sanctuary Group', src: '/logos/sanctuary.png' },
-]
-
-function Hero() {
-  const { lang } = useLanguage()
-  const fr = lang === 'fr'
-
-  return (
-    <section className="relative w-full pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(212,165,116,0.12),transparent)]" />
-      <div className="container relative z-10">
-        <div className="max-w-3xl mx-auto text-center">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-autopilot mb-4">
-            {fr ? 'Pour les CEO qui veulent déléguer' : 'For CEOs who want to delegate'}
-          </p>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] tracking-tight">
-            {fr ? (
-              <>
-                Tu diriges ton entreprise.{' '}
-                <span className="text-autopilot">Nous dirigeons ton image.</span>
-              </>
-            ) : (
-              <>
-                You run your company.{' '}
-                <span className="text-autopilot">We run your image.</span>
-              </>
-            )}
-          </h1>
-          <p className="mt-5 text-lg text-neutral-300 max-w-2xl mx-auto leading-relaxed">
-            {fr
-              ? 'Une conversation par mois suffit. Notre équipe transforme tes idées en contenus, les publie sur tes réseaux et construit une audience qui t\'apporte des opportunités.'
-              : 'One conversation a month is enough. Our team turns your ideas into content, publishes on your networks and builds an audience that brings opportunities.'}
-          </p>
-          <p className="mt-3 text-sm font-medium text-neutral-400">
-            {fr ? 'Tu restes CEO. Nous nous occupons du reste.' : 'You stay CEO. We handle the rest.'}
-          </p>
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
-            <a
-              href="/join-us?offer=legende"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold bg-autopilot text-black hover:scale-105 transition-all shadow-[0_0_30px_rgba(212,165,116,0.35)]"
-            >
-              {fr ? 'Réserver un appel' : 'Book a call'}
-              <ArrowRight className="w-4 h-4" />
-            </a>
-            <a
-              href="#offer"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-semibold border border-white/15 text-neutral-200 hover:border-autopilot/40 hover:text-white transition-colors"
-            >
-              {fr ? 'Voir ce qui est inclus' : 'See what\'s included'}
-            </a>
-          </div>
-          <div className="mt-12 flex items-center justify-center gap-8 md:gap-12 flex-wrap">
-            {CLIENT_LOGOS.map((l) => (
-              <img
-                key={l.name}
-                src={l.src}
-                alt={l.name}
-                className="h-8 md:h-10 w-auto object-contain brightness-0 invert opacity-55"
-                loading="lazy"
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  )
+const copy = {
+  fr: {
+    intro: 'Tu veux déléguer ton contenu ? Avec Légende, Kevin et son équipe prennent en charge la stratégie, la production et la publication.',
+    price: 'L’accompagnement Légende coûte 4 000 € par mois pendant 12 mois, soit 48 000 € sur l’année.',
+    video: 'Kevin présente l’accompagnement Légende',
+    question: 'Quel chiffre d’affaires HT ton entreprise a-t-elle réalisé sur les 12 derniers mois ?',
+    alternative: 'Pour un besoin ponctuel, réserve 30 minutes de conseil individuel avec Kevin à 500 €. Tu viens avec une question précise sur ton contenu.',
+    interest: 'Cette séance m’intéresse', dossier: 'Ta candidature', enquiry: 'Ta demande de conseil',
+    name: 'Ton nom', email: 'Ton e-mail',
+    project: 'Quelle est ton activité et que veux-tu obtenir avec ton contenu ?',
+    topic: 'Quelle question veux-tu travailler avec Kevin ?',
+    submit: 'Envoyer ma candidature', consult: 'Demander la séance à 500 €', busy: 'Envoi en cours…',
+    note: 'L’équipe te répondra à cette adresse au sujet de ta demande.', privacy: 'Confidentialité',
+    received: 'Candidature reçue', followup: 'Kevin et son équipe vont lire ton projet. S’il correspond à l’accompagnement Légende, ils te proposeront un échange par e-mail.',
+    requested: 'Demande de conseil reçue', emailBooking: 'L’équipe te recontactera par e-mail pour organiser ta séance de 30 minutes à 500 €.',
+    booking: 'Tu peux maintenant réserver ta séance de 30 minutes à 500 €.', book: 'Réserver ma séance',
+    error: 'L’envoi a échoué. Tes réponses sont conservées. Tu peux réessayer.',
+    invalid: 'Vérifie ton nom, ton e-mail et ta réponse avant de réessayer.',
+    limit: 'Plusieurs demandes ont déjà été envoyées. Réessaie dans 15 minutes.',
+  },
+  en: {
+    intro: 'Want to hand over content production? With Légende, Kevin and his team handle strategy, production and publishing.',
+    price: 'Légende costs €4,000 a month for 12 months, or €48,000 for the year.',
+    video: 'Kevin introduces the Légende programme',
+    question: 'What was your company’s revenue, excluding tax, over the last 12 months?',
+    alternative: 'For a specific question about your content, you can book a 30-minute one-to-one consultation with Kevin for €500.',
+    interest: 'I’m interested in this session', dossier: 'Your application', enquiry: 'Your consultation request',
+    name: 'Your name', email: 'Your email',
+    project: 'What does your business do, and what do you want your content to achieve?',
+    topic: 'What question would you like to work through with Kevin?',
+    submit: 'Send my application', consult: 'Request the €500 session', busy: 'Sending…',
+    note: 'The team will reply to this address about your request.', privacy: 'Privacy',
+    received: 'Application received', followup: 'Kevin and his team will review your project. If Légende fits your needs, they’ll email you to arrange a conversation.',
+    requested: 'Consultation request received', emailBooking: 'The team will email you to arrange your 30-minute, €500 session.',
+    booking: 'You can now book your 30-minute, €500 session.', book: 'Book my session',
+    error: 'We couldn’t confirm delivery. Your answers are still here. Please try again.',
+    invalid: 'Check your name, email and response before trying again.',
+    limit: 'Several requests have already been sent. Please try again in 15 minutes.',
+  },
 }
 
-function OfferIncluded() {
+const fieldClass = 'mt-2 block w-full rounded-lg border border-white/20 bg-black px-4 py-3 text-white focus:border-autopilot focus:outline-none focus:ring-1 focus:ring-autopilot'
+const buttonClass = 'inline-flex items-center justify-center gap-2 rounded-lg bg-autopilot px-5 py-3 font-semibold text-black hover:brightness-110 focus-visible:outline focus-visible:outline-offset-4 focus-visible:outline-autopilot disabled:opacity-60'
+
+export default function LegendePageContent() {
   const { lang } = useLanguage()
-  const fr = lang === 'fr'
+  const t = copy[lang]
+  const [ready, setReady] = useState(false)
+  useEffect(() => setReady(true), [])
+  const [revenueBand, setRevenueBand] = useState<RevenueBand>()
+  const [interested, setInterested] = useState(false)
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState<'error' | 'invalid' | 'limit'>()
+  const [receipt, setReceipt] = useState<{ kind: RequestKind; bookingUrl?: string }>()
+  const lastRequest = useRef({ values: '', id: '' })
+  const kind = revenueBand && requestKind(revenueBand)
 
-  const pillars = fr
-    ? [
-        {
-          title: 'Kevin pilote ta marque',
-          desc: 'Stratégie, angles, direction éditoriale. C\'est lui (ou un expert senior) qui porte le système.',
-          faces: [
-            { src: '/founders/kevin.jpg', alt: 'Kevin Dufraisse' },
-          ],
-          items: ['Stratégie', 'Sessions', 'Accompagnement', 'Optimisation'],
-        },
-        {
-          title: 'Une équipe exécute pour toi',
-          desc: 'Production, publication, distribution, reporting. Tu ne touches à rien au quotidien.',
-          faces: [
-            { src: '/founders/kevin.jpg', alt: 'Kevin' },
-            { src: '/founders/marc.jpg', alt: 'Marc' },
-          ],
-          items: ['Production', 'Publication', 'Distribution', 'Reporting', 'Conversion'],
-          extraFace: '+3',
-        },
-      ]
-    : [
-        {
-          title: 'Kevin runs your brand',
-          desc: 'Strategy, angles, editorial direction. He (or a senior expert) owns the system.',
-          faces: [
-            { src: '/founders/kevin.jpg', alt: 'Kevin Dufraisse' },
-          ],
-          items: ['Strategy', 'Sessions', 'Support', 'Optimization'],
-        },
-        {
-          title: 'A team executes for you',
-          desc: 'Production, publishing, distribution, reporting. You don\'t touch day-to-day ops.',
-          faces: [
-            { src: '/founders/kevin.jpg', alt: 'Kevin' },
-            { src: '/founders/marc.jpg', alt: 'Marc' },
-          ],
-          items: ['Production', 'Publishing', 'Distribution', 'Reporting', 'Conversion'],
-          extraFace: '+3',
-        },
-      ]
-
-  const openOfferQuiz = () => {
-    window.dispatchEvent(new Event('open-offer-quiz'))
+  async function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    if (!revenueBand || !kind || (kind === 'consultation' && !interested) || busy) return
+    const data = new FormData(event.currentTarget)
+    const fields = { name: data.get('name'), email: data.get('email'), project: data.get('project'), website: data.get('website'), revenueBand: revenueBand.minimum, kind }
+    const values = JSON.stringify(fields)
+    setError(undefined)
+    setBusy(true)
+    try {
+      if (lastRequest.current.values !== values) lastRequest.current = { values, id: crypto.randomUUID() }
+      const response = await fetch('/api/legende/apply', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...fields, submissionId: lastRequest.current.id }),
+      })
+      if (!response.ok) {
+        setError(response.status === 429 ? 'limit' : response.status === 400 ? 'invalid' : 'error')
+        return
+      }
+      const result = await response.json()
+      if (result.success !== true || result.kind !== kind) throw new Error('delivery_failed')
+      setReceipt({ kind: result.kind, bookingUrl: result.bookingUrl })
+    } catch {
+      setError('error')
+    } finally {
+      setBusy(false)
+    }
   }
 
   return (
-    <section id="offer" className="relative w-full py-16 md:py-24 bg-[#0a0a0a]">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_40%_at_50%_0%,rgba(212,165,116,0.08),transparent)]" />
-      <div className="container relative z-10">
-        <Reveal>
-          <div className="max-w-2xl mx-auto text-center mb-12">
-            <div className="flex justify-center mb-5">
-              <div className="relative">
-                <div className="absolute -inset-2 rounded-full bg-autopilot/20 blur-md" />
-                <img
-                  src="/founders/kevin.jpg"
-                  alt="Kevin Dufraisse"
-                  className="relative w-20 h-20 md:w-24 md:h-24 rounded-full object-cover object-top border-2 border-autopilot shadow-[0_0_40px_rgba(212,165,116,0.35)]"
-                  loading="lazy"
-                />
-              </div>
-            </div>
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-autopilot mb-3">
-              {fr ? 'Légende · Opéré par Kevin' : 'Légende · Operated by Kevin'}
-            </p>
-            <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight">
-              {fr ? 'Kevin gère ta marque.' : 'Kevin manages your brand.'}
-            </h2>
-            <p className="mt-4 text-neutral-400 leading-relaxed max-w-lg mx-auto">
-              {fr
-                ? 'Pas un abonnement SaaS. Kevin et son équipe portent ton image de A à Z. Toi, une conversation par mois.'
-                : 'Not a SaaS subscription. Kevin and his team carry your brand end to end. You: one conversation a month.'}
-            </p>
-            <p className="mt-3 text-sm text-neutral-500">
-              {fr
-                ? 'L\'appel mensuel : Kevin ou un expert en viralité.'
-                : 'The monthly call: Kevin or a virality expert.'}
-            </p>
-          </div>
-        </Reveal>
+    <main lang={lang} className="mx-auto max-w-3xl px-5 pb-16 pt-28 text-white sm:px-8 md:pt-32">
+      <header>
+        <p className="text-sm font-semibold text-autopilot">Légende</p>
+        <h1 className="mt-2 text-5xl font-bold tracking-tight sm:text-6xl">Work with Kevin</h1>
+        <p className="mt-5 max-w-xl text-base leading-relaxed text-neutral-300 sm:text-lg">{t.intro}</p>
+      </header>
 
-        <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-5">
-          {pillars.map((pillar, i) => (
-            <Reveal key={pillar.title} delay={0.06 + i * 0.08}>
-              <div className="h-full rounded-2xl border border-autopilot/25 bg-gradient-to-br from-autopilot/10 to-white/[0.02] p-6 md:p-7">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="flex -space-x-2">
-                    {pillar.faces.map((f) => (
-                      <img
-                        key={f.alt}
-                        src={f.src}
-                        alt={f.alt}
-                        className="w-11 h-11 rounded-full object-cover object-top border-2 border-autopilot ring-2 ring-black"
-                        loading="lazy"
-                      />
-                    ))}
-                    {'extraFace' in pillar && pillar.extraFace && (
-                      <div className="w-11 h-11 rounded-full border-2 border-autopilot bg-autopilot/20 text-autopilot text-xs font-bold flex items-center justify-center ring-2 ring-black">
-                        {pillar.extraFace}
-                      </div>
-                    )}
-                  </div>
+      <LoomEmbed id="031aba6220874a0d838ac246ce538a88" title={t.video} className="mt-7" />
+
+      <section className="mt-9 border-t border-white/15 pt-8">
+        {receipt ? (
+          <div role="status">
+            <Check aria-hidden className="mb-3 text-autopilot" />
+            <h2 className="text-2xl font-semibold">{receipt.kind === 'legende' ? t.received : t.requested}</h2>
+            <p className="mt-3 max-w-xl leading-relaxed text-neutral-300">
+              {receipt.kind === 'legende' ? t.followup : receipt.bookingUrl ? t.booking : t.emailBooking}
+            </p>
+            {receipt.kind === 'consultation' && receipt.bookingUrl && <a href={receipt.bookingUrl} className={buttonClass + ' mt-5'}>{t.book}<ArrowRight size={17} /></a>}
+          </div>
+        ) : (
+          <form onSubmit={submit}>
+            <fieldset disabled={!ready || busy}>
+              <legend className="text-xl font-semibold tracking-tight sm:text-2xl">{t.question}</legend>
+              <div className="mt-5 space-y-2">
+                {revenueBands.map(band => (
+                  <label key={band.minimum} className={`flex cursor-pointer items-start gap-3 rounded-lg border px-4 py-3 ${revenueBand === band ? 'border-autopilot bg-autopilot/10' : 'border-white/20 hover:border-white/40'}`}>
+                    <input type="radio" name="revenueBand" value={band.minimum} required checked={revenueBand === band}
+                      className="mt-1 accent-autopilot"
+                      onChange={() => { setRevenueBand(band); setInterested(false); setError(undefined) }} />
+                    <span>{band[lang]}</span>
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+
+            {kind === 'consultation' && (
+              <div className="mt-7 rounded-xl border border-autopilot/40 p-5">
+                <h2 className="text-xl font-bold">Better Call Kevin</h2>
+                <p className="mb-4 mt-2 leading-relaxed text-neutral-300">{t.alternative}</p>
+                {!interested && <button type="button" className={buttonClass} onClick={() => setInterested(true)}>{t.interest}<ArrowRight size={17} /></button>}
+              </div>
+            )}
+
+            {(kind === 'legende' || interested) && (
+              <fieldset key={kind} disabled={busy} className="mt-8 space-y-5">
+                <legend className="text-xl font-semibold">{kind === 'legende' ? t.dossier : t.enquiry}</legend>
+                {kind === 'legende' && <p className="text-neutral-300">{t.price}</p>}
+                <div className="grid gap-5 sm:grid-cols-2">
+                  <label>{t.name}<input className={fieldClass} name="name" autoComplete="name" required maxLength={100} /></label>
+                  <label>{t.email}<input className={fieldClass} name="email" type="email" autoComplete="email" required maxLength={254} /></label>
                 </div>
-                <h3 className="text-lg font-bold text-white mb-2">{pillar.title}</h3>
-                <p className="text-sm text-neutral-400 leading-relaxed mb-5">{pillar.desc}</p>
-                <ul className="flex flex-wrap gap-2">
-                  {pillar.items.map((item) => (
-                    <li
-                      key={item}
-                      className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-medium text-neutral-200"
-                    >
-                      <Check className="w-3 h-3 text-autopilot shrink-0" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-
-        <Reveal delay={0.2}>
-          <div className="mt-10 text-center">
-            <a
-              href="/join-us?offer=legende"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold bg-autopilot text-black hover:scale-105 transition-all shadow-[0_0_30px_rgba(212,165,116,0.3)]"
-            >
-              {fr ? 'Réserver un appel' : 'Book a call'}
-              <ArrowRight className="w-4 h-4" />
-            </a>
-            <button
-              type="button"
-              onClick={openOfferQuiz}
-              className="mt-5 inline-flex items-center gap-2 rounded-full border border-autopilot/40 bg-autopilot/10 px-5 py-2.5 text-sm font-semibold text-autopilot hover:bg-autopilot/20 transition-colors"
-            >
-              <span className="text-autopilot">✦</span>
-              {fr ? 'Pas sûr ? Quelle offre pour toi ?' : 'Not sure? Which offer for you?'}
-            </button>
-          </div>
-        </Reveal>
-      </div>
-    </section>
-  )
-}
-
-export default function LegendePageContent() {
-  return (
-    <main className="relative">
-      <Hero />
-      <HowItWorksAccordion />
-      <OfferIncluded />
-      <FounderSection />
-      <FAQSection variant="home" />
+                <label className="block">{kind === 'legende' ? t.project : t.topic}
+                  <textarea className={fieldClass} name="project" rows={3} required maxLength={1200} />
+                </label>
+                <label aria-hidden="true" className="hidden">Website<input name="website" tabIndex={-1} autoComplete="off" /></label>
+                <p className="text-sm text-neutral-400">{t.note} <a className="underline" href="/privacy">{t.privacy}</a></p>
+                {error && <p role="alert" className="text-sm text-red-300">{t[error]}</p>}
+                <button type="submit" disabled={busy} className={buttonClass}>{busy ? t.busy : kind === 'legende' ? t.submit : t.consult}<ArrowRight aria-hidden size={17} /></button>
+              </fieldset>
+            )}
+          </form>
+        )}
+      </section>
     </main>
   )
 }

@@ -2,9 +2,8 @@ import type { Metadata } from 'next'
 import LegendePageContent from '@/components/sections/legende/LegendePageContent'
 
 export const metadata: Metadata = {
-  title: 'Légende - Ton équipe média dédiée | Empire Internet',
-  description:
-    'Tu diriges ton entreprise. Nous dirigeons ton image. Une équipe dédiée pour la stratégie, la production et la publication. 10 places, sur sélection.',
+  title: 'Légende · Work with Kevin | Empire Internet',
+  description: 'Délègue ta stratégie de contenu et ta production à Kevin et à son équipe. Découvre l’accompagnement Légende et dépose ta candidature.',
 }
 
 export default function LegendePage() {
