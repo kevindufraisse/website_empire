@@ -11,7 +11,7 @@ export default function ClientWrappers() {
   const { lang } = useLanguage()
   const pathname = usePathname()
   // Free application flow: no paid-offer or workshop popups over the dossier.
-  if (pathname === '/academy') return null
+  if (pathname === '/academy' || pathname === '/legende') return null
   return (
     <>
       <GlobalLumaCalendar />

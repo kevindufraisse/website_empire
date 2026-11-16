@@ -141,7 +141,7 @@ export function allowCandidateRequest(ip: string, now = Date.now()): boolean {
   attempts.set(key, { at: item?.at ?? now, count: (item?.count ?? 0) + 1 })
   return true
 }
-export async function deliverCandidateOnce(c: Candidate, deliver: () => Promise<void>): Promise<void> {
+export async function deliverCandidateOnce(c: { submissionId: string }, deliver: () => Promise<void>): Promise<void> {
   const now = Date.now(), fingerprint = hash(JSON.stringify(c))
   for (const [key, item] of sent) if (now - item.at > 60 * 60000) sent.delete(key)
   const previous = sent.get(c.submissionId)

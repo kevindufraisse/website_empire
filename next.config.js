@@ -9,6 +9,7 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      { source: '/join-us', has: [{ type: 'query', key: 'offer', value: 'legende' }], destination: '/legende', permanent: false },
       { source: '/academy/head-of-content/index.html', destination: '/academy', permanent: false },
       { source: '/cgv', destination: '/terms', permanent: true },
       // La page histoire est devenue /academy (3 novembre 2026).
