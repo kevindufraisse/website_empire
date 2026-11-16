@@ -4,15 +4,14 @@ import { FormEvent, useEffect, useRef, useState } from 'react'
 import { ArrowRight, Check } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import LoomEmbed from '@/components/LoomEmbed'
-import { budgetAnswers, requestKind, type BudgetAnswer, type RequestKind } from '@/lib/legende'
+import { revenueBands, requestKind, type RevenueBand, type RequestKind } from '@/lib/legende'
 
 const copy = {
   fr: {
     intro: 'Tu veux déléguer ton contenu ? Avec Légende, Kevin et son équipe prennent en charge la stratégie, la production et la publication.',
-    price: '4 000 € par mois pendant 12 mois, soit 48 000 € sur l’année.',
+    price: 'L’accompagnement Légende coûte 4 000 € par mois pendant 12 mois, soit 48 000 € sur l’année.',
     video: 'Kevin présente l’accompagnement Légende',
-    question: 'Peux-tu consacrer ce budget à ton contenu pendant un an ?',
-    answers: { annual: 'Oui, je peux engager 4 000 € par mois pendant 12 mois.', 'below-budget': 'Mon budget est inférieur à 4 000 € par mois.', 'shorter-term': 'Je préfère un engagement plus court.' },
+    question: 'Quel chiffre d’affaires HT ton entreprise a-t-elle réalisé sur les 12 derniers mois ?',
     alternative: 'Pour un besoin ponctuel, réserve 30 minutes de conseil individuel avec Kevin à 500 €. Tu viens avec une question précise sur ton contenu.',
     interest: 'Cette séance m’intéresse', dossier: 'Ta candidature', enquiry: 'Ta demande de conseil',
     name: 'Ton nom', email: 'Ton e-mail',
@@ -29,10 +28,9 @@ const copy = {
   },
   en: {
     intro: 'Want to hand over content production? With Légende, Kevin and his team handle strategy, production and publishing.',
-    price: '€4,000 a month for 12 months, or €48,000 for the year.',
+    price: 'Légende costs €4,000 a month for 12 months, or €48,000 for the year.',
     video: 'Kevin introduces the Légende programme',
-    question: 'Can you commit this budget to content for a year?',
-    answers: { annual: 'Yes, I can commit €4,000 a month for 12 months.', 'below-budget': 'My budget is below €4,000 a month.', 'shorter-term': 'I prefer a shorter commitment.' },
+    question: 'What was your company’s revenue, excluding tax, over the last 12 months?',
     alternative: 'For a specific question about your content, you can book a 30-minute one-to-one consultation with Kevin for €500.',
     interest: 'I’m interested in this session', dossier: 'Your application', enquiry: 'Your consultation request',
     name: 'Your name', email: 'Your email',
@@ -57,19 +55,19 @@ export default function LegendePageContent({ loomId }: { loomId?: string }) {
   const t = copy[lang]
   const [ready, setReady] = useState(false)
   useEffect(() => setReady(true), [])
-  const [budget, setBudget] = useState<BudgetAnswer>()
+  const [revenueBand, setRevenueBand] = useState<RevenueBand>()
   const [interested, setInterested] = useState(false)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<'error' | 'invalid' | 'limit'>()
   const [receipt, setReceipt] = useState<{ kind: RequestKind; bookingUrl?: string }>()
   const lastRequest = useRef({ values: '', id: '' })
-  const kind = budget && requestKind(budget)
+  const kind = revenueBand && requestKind(revenueBand)
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    if (!kind || (kind === 'consultation' && !interested) || busy) return
+    if (!revenueBand || !kind || (kind === 'consultation' && !interested) || busy) return
     const data = new FormData(event.currentTarget)
-    const fields = { name: data.get('name'), email: data.get('email'), project: data.get('project'), website: data.get('website'), budget, kind }
+    const fields = { name: data.get('name'), email: data.get('email'), project: data.get('project'), website: data.get('website'), revenueBand: revenueBand.minimum, kind }
     const values = JSON.stringify(fields)
     setError(undefined)
     setBusy(true)
@@ -117,14 +115,13 @@ export default function LegendePageContent({ loomId }: { loomId?: string }) {
           <form onSubmit={submit}>
             <fieldset disabled={!ready || busy}>
               <legend className="text-xl font-semibold tracking-tight sm:text-2xl">{t.question}</legend>
-              <p id="legende-budget" className="mb-5 mt-2 text-neutral-300">{t.price}</p>
-              <div className="space-y-2">
-                {budgetAnswers.map(answer => (
-                  <label key={answer} className={`flex cursor-pointer items-start gap-3 rounded-lg border px-4 py-3 ${budget === answer ? 'border-autopilot bg-autopilot/10' : 'border-white/20 hover:border-white/40'}`}>
-                    <input type="radio" name="budget" value={answer} required checked={budget === answer}
-                      aria-describedby="legende-budget" className="mt-1 accent-autopilot"
-                      onChange={() => { setBudget(answer); setInterested(false); setError(undefined) }} />
-                    <span>{t.answers[answer]}</span>
+              <div className="mt-5 space-y-2">
+                {revenueBands.map(band => (
+                  <label key={band.minimum} className={`flex cursor-pointer items-start gap-3 rounded-lg border px-4 py-3 ${revenueBand === band ? 'border-autopilot bg-autopilot/10' : 'border-white/20 hover:border-white/40'}`}>
+                    <input type="radio" name="revenueBand" value={band.minimum} required checked={revenueBand === band}
+                      className="mt-1 accent-autopilot"
+                      onChange={() => { setRevenueBand(band); setInterested(false); setError(undefined) }} />
+                    <span>{band[lang]}</span>
                   </label>
                 ))}
               </div>
@@ -141,6 +138,7 @@ export default function LegendePageContent({ loomId }: { loomId?: string }) {
             {(kind === 'legende' || interested) && (
               <fieldset key={kind} disabled={busy} className="mt-8 space-y-5">
                 <legend className="text-xl font-semibold">{kind === 'legende' ? t.dossier : t.enquiry}</legend>
+                {kind === 'legende' && <p className="text-neutral-300">{t.price}</p>}
                 <div className="grid gap-5 sm:grid-cols-2">
                   <label>{t.name}<input className={fieldClass} name="name" autoComplete="name" required maxLength={100} /></label>
                   <label>{t.email}<input className={fieldClass} name="email" type="email" autoComplete="email" required maxLength={254} /></label>

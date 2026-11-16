@@ -37,7 +37,7 @@ function post(fields, headers = {}) {
   request.nextUrl = new URL(request.url)
   return route.POST(request)
 }
-const annual = () => ({ submissionId: randomUUID(), kind: 'legende', budget: 'annual', name: 'Exemple',
+const annual = () => ({ submissionId: randomUUID(), kind: 'legende', revenueBand: 500_000, name: 'Exemple',
   email: 'Exemple@example.org', project: 'Mon projet de contenu', website: '' })
 
 async function run() {
@@ -48,21 +48,24 @@ async function run() {
   assert.equal(sent.length, 1)
   assert.equal(sent[0].channel, env.ACADEMY_SLACK_CHANNEL)
   const text = JSON.stringify(sent[0].blocks)
-  for (const value of ['Légende', '48 000 €', 'exemple@example.org', a.project]) assert.ok(text.includes(value))
+  for (const value of ['Légende', 'CA HT déclaré', 'De 500 000 € à moins de 1 million d’euros', 'exemple@example.org', a.project]) assert.ok(text.includes(value))
   assert.equal((await post({ ...a, project: 'Autre projet' })).status, 409)
-  for (const budget of ['below-budget', 'shorter-term']) {
-    assert.equal((await post({ ...annual(), budget })).status, 400)
-    const response = await post({ ...annual(), budget, kind: 'consultation', channel: 'CLIENT-SUPPLIED' })
+  assert.equal((await post({ ...annual(), revenueBand: 1_000_000 })).status, 200)
+  for (const revenueBand of [0, 100_000, 300_000]) {
+    assert.equal((await post({ ...annual(), revenueBand })).status, 400)
+    const response = await post({ ...annual(), revenueBand, kind: 'consultation', channel: 'CLIENT-SUPPLIED' })
     assert.deepEqual(await response.json(), { success: true, kind: 'consultation', bookingUrl: env.BETTER_CALL_KEVIN_BOOKING_URL })
     const message = sent.at(-1)
     assert.equal(message.channel, env.ACADEMY_SLACK_CHANNEL)
-    assert.ok(JSON.stringify(message.blocks).includes('30 minutes à 500 €'))
+    const summary = JSON.stringify(message.blocks)
+    assert.ok(summary.includes('30 minutes à 500 €'))
+    assert.ok(summary.includes(legende.revenueBands.find(band => band.minimum === revenueBand).fr))
   }
   delete env.BETTER_CALL_KEVIN_BOOKING_URL
-  const consultation = () => ({ ...annual(), kind: 'consultation', budget: 'below-budget' })
+  const consultation = () => ({ ...annual(), kind: 'consultation', revenueBand: 0 })
   assert.deepEqual(await (await post(consultation())).json(), { success: true, kind: 'consultation' })
   const count = sent.length
-  for (const fields of [{ budget: 'unknown' }, { kind: 'consultation' }, { email: 'bad' }, { submissionId: 'bad' }, { project: '' }])
+  for (const fields of [{ revenueBand: undefined, budget: 'annual' }, { revenueBand: null }, { revenueBand: '500000' }, { revenueBand: 123456 }, { revenueBand: false }, { kind: 'consultation' }, { email: 'bad' }, { submissionId: 'bad' }, { project: '' }])
     assert.equal((await post({ ...annual(), ...fields })).status, 400)
   assert.equal((await post(annual(), { origin: 'https://elsewhere.example' })).status, 403)
   assert.equal((await post({ website: 'bot' })).status, 200)
@@ -74,6 +77,6 @@ async function run() {
   assert.equal((await post(retry)).status, 200)
   delete env.ACADEMY_SLACK_BOT_TOKEN
   assert.equal((await post(annual())).status, 503)
-  console.log('Légende: annual review, both consultation paths, Slack receipts, retries and duplicate submissions verified offline.')
+  console.log('Légende: all revenue bands, qualification boundaries, Slack receipts, retries and duplicate submissions verified offline.')
 }
 run().catch(err => { console.error(err); process.exitCode = 1 })
