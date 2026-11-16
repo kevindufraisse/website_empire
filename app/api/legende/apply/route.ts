@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
   if (body?.version !== undefined && body.version !== 2) return error(400)
   const application = body?.version === 2 ? readIntake(body) : readApplication(data)
   if (!application) return error(400)
-  if (application === 'bot') return NextResponse.json({ success: true })
+  if (application === 'bot') return NextResponse.json(body?.version === 2 ? { success: true, kind: 'review' } : { success: true })
   const token = process.env.ACADEMY_SLACK_BOT_TOKEN
   const channel = process.env.LEGENDE_SLACK_CHANNEL || process.env.ACADEMY_SLACK_CHANNEL
   if (!token || !channel || !/^[CG][A-Z0-9]{8,}$/.test(channel)) {
