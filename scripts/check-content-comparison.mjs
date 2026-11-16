@@ -70,7 +70,7 @@ export async function checkContentComparison(page) {
   assert.equal(await table.locator('[data-comparison-detail]:visible').count(), 0)
   assert.equal(await cell('advanced', 'empire').locator('[data-status=conditional]').count(), 1, 'Advanced formats are not unconditionally included in the monthly basket')
   assert((await section.locator('#comparison-format-note').innerText()).includes('ne sont pas ajoutés'))
-  assert((await cell('distribution', 'tools').innerText()).includes('Vous programmez et répondez'))
+  assert((await cell('distribution', 'tools').innerText()).includes('Tu programmes et réponds'))
   assert((await cell('distribution', 'freelance').innerText()).includes('Community manager'))
   assert((await cell('distribution', 'agency').innerText()).includes('1 réseau vidéo + LinkedIn'), 'Agency distribution stays scoped to the contract')
   assert((await cell('distribution', 'empire').innerText()).includes('7 réseaux'))
