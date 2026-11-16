@@ -56,7 +56,7 @@ export function intakeSlackMessage(a: Intake, channel: string) {
     [scopes[a.scope].fr, a.company, a.decisionLabel].filter(Boolean).join('\n'),
     'Objectif\n' + a.goal,
     'Blocage actuel\n' + a.obstacle,
-    'Déjà essayé et résultat\n' + a.tried,
+    'Ce qu’il a déjà construit\n' + a.tried,
     'Démarrage souhaité\n' + timings[a.timing].fr,
     ...(a.scope === 'personal' ? [] : ['CA HT sur les 12 derniers mois\n' + (a.revenueBand?.fr ?? 'Inconnu')]),
   ]
