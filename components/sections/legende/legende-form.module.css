@@ -123,3 +123,7 @@
 .methodName { font-family: var(--font-serif), Georgia, 'Times New Roman', serif; font-size: 30px; line-height: 1; color: #f5f1ec; }
 .triangleLabel { font-family: var(--font-serif), Georgia, serif; font-size: 28px; fill: #f5f1ec; }
 .triangleCenter { font-family: var(--font-serif), Georgia, serif; font-size: 30px; font-style: italic; fill: #d4a574; }
+.plan { position: relative; display: flex; flex-direction: column; border: 1px solid rgb(255 255 255 / .1); border-radius: 20px; background: rgb(255 255 255 / .025); padding: 28px 24px 24px; }
+.planFeatured { border-color: rgb(212 165 116 / .55); background: linear-gradient(180deg, rgb(212 165 116 / .1), rgb(212 165 116 / .02)); box-shadow: 0 30px 80px rgb(212 165 116 / .08); }
+.planTag { position: absolute; top: -12px; left: 24px; border-radius: 999px; background: #d4a574; color: #17110b; padding: 4px 11px; font-size: 12px; font-weight: 650; }
+.planPrice { font-family: var(--font-serif), Georgia, 'Times New Roman', serif; font-size: clamp(30px, 3.4vw, 40px); line-height: 1; color: #fff; white-space: nowrap; }
