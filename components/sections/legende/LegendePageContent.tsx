@@ -89,6 +89,22 @@ const fieldClass = styles.field
 const buttonClass = styles.primary
 const empty = { scope: '', goal: '', obstacle: '', tried: '', timing: '', name: '', email: '', phone: '', company: '', decision: '', revenueBand: '', website: '' }
 
+function Earbuds({ label }: { label: string }) {
+  return <svg role="img" aria-label={label} viewBox="0 0 64 64" className="h-[1em] w-[1em] shrink-0">
+    <defs>
+      <linearGradient id="earbud-shell" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stopColor="#ffffff" /><stop offset="1" stopColor="#c9ccd1" />
+      </linearGradient>
+    </defs>
+    {[{ x: 4, flip: false }, { x: 34, flip: true }].map(({ x, flip }) => <g key={x} transform={flip ? `translate(${x + 26} 0) scale(-1 1)` : `translate(${x} 0)`}>
+      <ellipse cx="11" cy="17" rx="10" ry="11" fill="url(#earbud-shell)" />
+      <ellipse cx="7.5" cy="15" rx="4" ry="4.5" fill="#2b2d31" />
+      <rect x="15" y="21" width="7" height="34" rx="3.5" fill="url(#earbud-shell)" />
+      <rect x="15.5" y="50" width="6" height="4" rx="2" fill="#9ea2a8" />
+    </g>)}
+  </svg>
+}
+
 export default function LegendePageContent() {
   const { lang } = useLanguage()
   const t = copy[lang]
@@ -195,7 +211,7 @@ export default function LegendePageContent() {
       <p className="text-sm text-neutral-400">Légende · {t.badge.toLowerCase()}</p>
       <h1 className="mt-6 font-bold tracking-[-.03em]">
         <span className="flex items-center justify-center gap-3 text-[52px] leading-none sm:gap-5 sm:text-[88px]">
-          {t.title[0]}<span className="text-neutral-600">+</span><span role="img" aria-label={t.earbuds}>🎧</span><span className="text-neutral-600">+</span><span role="img" aria-label={t.phone}>📱</span>
+          {t.title[0]}<span className="text-neutral-600">+</span><Earbuds label={t.earbuds} /><span className="text-neutral-600">+</span><span role="img" aria-label={t.phone}>📱</span>
         </span>
         <span className="mt-5 block text-balance text-[30px] leading-[1.1] text-autopilot sm:text-[48px]">{t.title[1]}</span>
       </h1>
