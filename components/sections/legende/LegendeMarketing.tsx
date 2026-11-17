@@ -20,7 +20,7 @@ const CLIENT_LOGOS = [
   { name: 'The Sanctuary Group', src: '/logos/sanctuary.png' },
 ]
 
-type Plan = { name: string; tagline: string; price: string; per: string; note: string; items: string[]; cta: string; href: 'trial' | 'apply'; featured?: string }
+type Plan = { name: string; tagline: string; price: string; per: string; note: string; items: string[]; cta: string; href: 'trial' | 'kevin' | 'hoc'; featured?: string }
 
 const copy = {
   fr: {
@@ -53,9 +53,9 @@ const copy = {
       { name: 'Empire', tagline: 'Tu fais toi-même', price: 'dès 199 €', per: '/mois', note: 'Sans engagement',
         items: ['Les sujets et les formats de la semaine dans l’app', 'Tu filmes, l’app monte et publie sur 7 réseaux', 'Un live chaque lundi avec Kevin'], cta: 'Commencer', href: 'trial' },
       { name: 'Avec un Head of Content', tagline: 'On fait pour toi, tu choisis', price: '1 000 – 3 000 €', per: '/mois', note: 'Sur candidature · 12 mois',
-        items: ['Un Head of Content formé par Kevin t’interviewe chaque semaine', 'L’équipe écrit et monte tes posts, reels, vidéos et newsletter', 'Tu choisis dans ton calendrier Empire ce qui part', 'Publication sur 7 réseaux et contacts récupérés'], cta: 'Candidater', href: 'apply' },
+        items: ['Un Head of Content formé par Kevin t’interviewe chaque semaine', 'L’équipe écrit et monte tes posts, reels, vidéos et newsletter', 'Tu choisis dans ton calendrier Empire ce qui part', 'Publication sur 7 réseaux et contacts récupérés'], cta: 'Candidater', href: 'hoc' },
       { name: 'Avec Kevin', tagline: 'On fait tout pour toi', price: '4 500 €', per: '/mois', note: 'Sur candidature · 12 mois', featured: `${PLACES_LEFT} places restantes sur ${PLACES_TOTAL}`,
-        items: ['4 interviews par mois avec Kevin, 1 h maximum chacune', 'Tes sujets préparés chaque semaine à partir de ton marché et de tes concurrents', 'Posts LinkedIn, reels, vidéos YouTube longues et newsletter, écrits et montés par l’équipe', 'Publication chaque jour sur 7 réseaux, et tes meilleurs posts republiés', 'Liens suivis et réponses automatiques en DM Instagram pour récupérer tes contacts', 'Ton offre et ton tunnel de vente retravaillés avec Kevin', 'L’app Empire au complet et le live du lundi'], cta: 'Candidater', href: 'apply' },
+        items: ['4 interviews par mois avec Kevin, 1 h maximum chacune', 'Tes sujets préparés chaque semaine à partir de ton marché et de tes concurrents', 'Posts LinkedIn, reels, vidéos YouTube longues et newsletter, écrits et montés par l’équipe', 'Publication chaque jour sur 7 réseaux, et tes meilleurs posts republiés', 'Liens suivis et réponses automatiques en DM Instagram pour récupérer tes contacts', 'Ton offre et ton tunnel de vente retravaillés avec Kevin', 'L’app Empire au complet et le live du lundi'], cta: 'Candidater', href: 'kevin' },
     ] as Plan[],
     clientsLabel: 'Ils nous ont confié leur image',
     selectTitle: `${PLACES_TOTAL} places par an avec Kevin. On dit non à la plupart des candidatures.`,
@@ -93,9 +93,9 @@ const copy = {
       { name: 'Empire', tagline: 'You do it yourself', price: 'from €199', per: '/month', note: 'Cancel anytime',
         items: ['This week’s topics and formats in the app', 'You film, the app edits and publishes on 7 networks', 'A live session with Kevin every Monday'], cta: 'Start', href: 'trial' },
       { name: 'With a Head of Content', tagline: 'Done for you, you choose', price: '€1,000 – €3,000', per: '/month', note: 'By application · 12 months',
-        items: ['A Head of Content trained by Kevin interviews you every week', 'The team writes and edits your posts, reels, videos and newsletter', 'You pick in your Empire calendar what goes out', 'Published on 7 networks, contacts captured'], cta: 'Apply', href: 'apply' },
+        items: ['A Head of Content trained by Kevin interviews you every week', 'The team writes and edits your posts, reels, videos and newsletter', 'You pick in your Empire calendar what goes out', 'Published on 7 networks, contacts captured'], cta: 'Apply', href: 'hoc' },
       { name: 'With Kevin', tagline: 'We do everything for you', price: '€4,500', per: '/month', note: 'By application · 12 months', featured: `${PLACES_LEFT} spots left out of ${PLACES_TOTAL}`,
-        items: ['4 interviews a month with Kevin, 1 hour max each', 'Your topics prepared every week from your market and competitors', 'LinkedIn posts, reels, long YouTube videos and newsletter, written and edited by the team', 'Published every day on 7 networks, your best posts republished', 'Tracked links and automatic Instagram DM replies to capture your contacts', 'Your offer and sales funnel reworked with Kevin', 'The full Empire app and the Monday live'], cta: 'Apply', href: 'apply' },
+        items: ['4 interviews a month with Kevin, 1 hour max each', 'Your topics prepared every week from your market and competitors', 'LinkedIn posts, reels, long YouTube videos and newsletter, written and edited by the team', 'Published every day on 7 networks, your best posts republished', 'Tracked links and automatic Instagram DM replies to capture your contacts', 'Your offer and sales funnel reworked with Kevin', 'The full Empire app and the Monday live'], cta: 'Apply', href: 'kevin' },
     ] as Plan[],
     clientsLabel: 'They trusted us with their image',
     selectTitle: `${PLACES_TOTAL} spots a year with Kevin. We turn down most applications.`,
@@ -111,11 +111,11 @@ function Label({ children }: { children: string }) {
 
 /** Un iPhone en appel vidéo : Kevin plein écran, toi en vignette, la question en cours. */
 function InterviewPhone({ l, still }: { l: typeof copy.fr.phone; still: boolean }) {
-  return <div className={styles.phone} aria-hidden>
+  return <div className={styles.iphone} aria-hidden>
     {/* eslint-disable-next-line @next/next/no-img-element */}
     <img src={INTERVIEW_PHOTO} alt="" className="absolute inset-0 h-full w-full object-cover object-[38%_center]" />
     <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-transparent to-black/75" />
-    <div className={styles.phoneIsland} />
+    <div className={styles.iphoneIsland} />
     <div className="absolute inset-x-4 top-12 flex items-center justify-between text-[11px] font-semibold text-white">
       <span className="flex items-center gap-1.5 rounded-full bg-black/45 px-2.5 py-1 backdrop-blur">
         <span className={`h-1.5 w-1.5 rounded-full bg-red-500 ${still ? '' : 'animate-pulse'}`} />{l.live} · 42:10
@@ -150,7 +150,7 @@ function Triangle({ labels, center }: { labels: string[]; center: string }) {
   </div>
 }
 
-export default function LegendeMarketing({ lang }: { lang: 'fr' | 'en' }) {
+export default function LegendeMarketing({ lang, onApply }: { lang: 'fr' | 'en'; onApply: (plan?: 'kevin' | 'hoc') => void }) {
   const t = copy[lang]
   const still = usePrefersReducedMotion()
   return <>
@@ -161,7 +161,7 @@ export default function LegendeMarketing({ lang }: { lang: 'fr' | 'en' }) {
         <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-neutral-300">{t.intro}</p>
         <p className="mt-3 text-[15px] font-semibold text-white">{t.zero}</p>
         <div className="mt-7 flex flex-wrap items-center gap-3">
-          <a href="#candidature" className={styles.pill}>{t.apply}<ArrowRight aria-hidden size={15} /></a>
+          <button type="button" onClick={() => onApply()} className={styles.pill}>{t.apply}<ArrowRight aria-hidden size={15} /></button>
           <a href="#tarifs" className={styles.ghost}>{t.seePrices}</a>
         </div>
         <a href={INTRO_URL} target="_blank" rel="noopener" className="mt-4 inline-block text-[14px] text-neutral-400 underline underline-offset-4 hover:text-white">{t.advisory}</a>
@@ -236,7 +236,9 @@ export default function LegendeMarketing({ lang }: { lang: 'fr' | 'en' }) {
                 <Check aria-hidden size={16} className="mt-0.5 shrink-0 text-autopilot" />{item}
               </li>)}
             </ul>
-            <a href={plan.href === 'trial' ? TRIAL_URL : '#candidature'} className={`mt-6 ${plan.href === 'trial' ? styles.ghost : styles.pill} justify-center`}>{plan.cta}</a>
+            {plan.href === 'trial'
+              ? <a href={TRIAL_URL} className={`mt-6 ${styles.ghost} justify-center`}>{plan.cta}</a>
+              : <button type="button" onClick={() => onApply(plan.href as 'kevin' | 'hoc')} className={`mt-6 ${styles.pill} justify-center`}>{plan.cta}</button>}
           </div>)}
         </div>
         <p className="mt-4 text-[13px] text-neutral-500">{t.plansNote}</p>
