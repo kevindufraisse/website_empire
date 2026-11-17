@@ -17,11 +17,11 @@ const CalModal = dynamic(() => import('@/components/YtLeadForm').then(m => m.Cal
 const copy = {
   fr: {
     badge: 'Sur candidature uniquement',
-    title: ['Toi + des écouteurs + un téléphone', '= des milliers de leads par an.'],
+    title: ['Toi', '= des milliers de leads par an.'], earbuds: 'des écouteurs', phone: 'un téléphone',
     intro: 'Et des centaines de milliers d’euros en plus sur ton chiffre d’affaires. Kevin t’explique tout dans la vidéo.',
     apply: 'Déposer ma candidature', applyNote: 'Chaque candidature est lue personnellement',
     video: 'Regarde la vidéo de Kevin',
-    processTitle: 'Comment travailler avec Kevin',
+    processTitle: 'Comment ça marche',
     process: [
       ['Tu candidates', 'Présente ton entreprise, tes résultats et tes ambitions.'],
       ['Kevin étudie ton dossier', 'Chaque candidature est lue, une par une.'],
@@ -51,11 +51,11 @@ const copy = {
   },
   en: {
     badge: 'Application only',
-    title: ['You + earbuds + a phone', '= thousands of leads a year.'],
+    title: ['You', '= thousands of leads a year.'], earbuds: 'earbuds', phone: 'a phone',
     intro: 'And hundreds of thousands in extra revenue. Kevin explains everything in the video.',
     apply: 'Apply now', applyNote: 'Every application is read personally',
     video: 'Watch Kevin’s video',
-    processTitle: 'How to work with Kevin',
+    processTitle: 'How it works',
     process: [
       ['You apply', 'Tell us about your business, your results and your ambitions.'],
       ['Kevin reviews it', 'Every application is read, one by one.'],
@@ -191,16 +191,17 @@ export default function LegendePageContent() {
   }
 
   return <main lang={lang} className="pb-20 pt-24 text-white md:pt-32">
-    <header className="mx-auto max-w-4xl px-5 text-center sm:px-8">
-      <p className="inline-flex items-center gap-2 rounded-full border border-autopilot/30 bg-autopilot/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[.16em] text-autopilot">
-        Légende · {t.badge}
-      </p>
-      <h1 className="mt-6 text-balance text-[34px] font-bold leading-[1.06] tracking-[-.035em] sm:text-[52px]">
-        <span className="sm:whitespace-nowrap">{t.title[0]}</span><br /><span className="text-autopilot">{t.title[1]}</span>
+    <header className="mx-auto max-w-3xl px-5 text-center sm:px-8">
+      <p className="text-sm text-neutral-400">Légende · {t.badge.toLowerCase()}</p>
+      <h1 className="mt-6 font-bold tracking-[-.03em]">
+        <span className="flex items-center justify-center gap-3 text-[52px] leading-none sm:gap-5 sm:text-[88px]">
+          {t.title[0]}<span className="text-neutral-600">+</span><span role="img" aria-label={t.earbuds}>🎧</span><span className="text-neutral-600">+</span><span role="img" aria-label={t.phone}>📱</span>
+        </span>
+        <span className="mt-5 block text-balance text-[30px] leading-[1.1] text-autopilot sm:text-[48px]">{t.title[1]}</span>
       </h1>
-      <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-neutral-300 sm:text-lg">{t.intro}</p>
+      <p className="mx-auto mt-6 max-w-lg text-base leading-relaxed text-neutral-300 sm:text-lg">{t.intro}</p>
     </header>
-    <div className="mx-auto mt-10 max-w-4xl px-5 sm:px-8">
+    <div className="mx-auto mt-10 max-w-3xl px-5 sm:px-8">
       <LoomEmbed facade id="031aba6220874a0d838ac246ce538a88" title={t.video} />
       <div className="mt-8 flex flex-col items-center gap-3">
         <a href="#candidature" className={buttonClass + ' ' + styles.heroCta}>{t.apply}<ArrowDown aria-hidden size={17} /></a>
@@ -208,13 +209,12 @@ export default function LegendePageContent() {
       </div>
     </div>
 
-    <div className="mx-auto mt-24 max-w-4xl px-5 sm:px-8">
-      <h2 className={styles.sectionTitle + ' text-center'}>{t.processTitle}</h2>
-      <ol className="mt-8 grid gap-6 md:grid-cols-3">
-        {t.process.map(([title, body], i) => <li key={title} className="border-t border-white/15 pt-5">
-          <span className="text-sm font-semibold tabular-nums text-autopilot">0{i + 1}</span>
-          <h3 className="mt-2 text-lg font-semibold">{title}</h3>
-          <p className="mt-1 text-[15px] leading-relaxed text-neutral-400">{body}</p>
+    <div className="mx-auto mt-20 max-w-xl px-5 sm:px-8">
+      <h2 className="text-xl font-semibold">{t.processTitle}</h2>
+      <ol className="mt-4 space-y-3 text-[17px] leading-relaxed text-neutral-300">
+        {t.process.map(([title, body], i) => <li key={title} className="flex gap-3">
+          <span className="text-neutral-500">{i + 1}.</span>
+          <span><strong className="font-semibold text-white">{title}.</strong> {body}</span>
         </li>)}
       </ol>
     </div>

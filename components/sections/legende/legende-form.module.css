@@ -11,7 +11,7 @@
   outline: none;
 }
 .formHead { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 16px; font-size: 13px; font-weight: 600; letter-spacing: .02em; color: #aaa5a0; }
-.formHead span:first-child { color: var(--gold); text-transform: uppercase; letter-spacing: .12em; font-size: 12px; }
+.formHead span:first-child { color: white; font-size: 15px; letter-spacing: 0; }
 .steps { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 7px; margin-bottom: 30px; }
 .steps button {
   display: flex; align-items: center; gap: 8px; min-height: 44px; width: 100%; padding: 0 0 10px; text-align: left;
