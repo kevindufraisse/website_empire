@@ -102,3 +102,5 @@
 .faq[open] summary span { transform: rotate(45deg); }
 .faq p { padding: 0 0 20px; max-width: 640px; color: #bdb7b0; line-height: 1.6; }
 .wordmark { margin: 8px 0 -0.18em; text-align: center; font-size: clamp(72px, 21vw, 300px); font-weight: 800; letter-spacing: -.06em; line-height: .8; color: rgb(212 165 116 / .1); user-select: none; }
+.statement { font-size: clamp(30px, 4.4vw, 48px); font-weight: 700; letter-spacing: -.04em; line-height: 1.05; }
+.fact { width: 4.3em; flex-shrink: 0; font-size: clamp(28px, 3.4vw, 40px); font-weight: 700; letter-spacing: -.04em; color: #d4a574; font-variant-numeric: tabular-nums; }

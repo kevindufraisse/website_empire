@@ -17,15 +17,18 @@ const CalModal = dynamic(() => import('@/components/YtLeadForm').then(m => m.Cal
 const copy = {
   fr: {
     badge: 'Sur candidature uniquement', studio: 'Personal branding studio',
-    title: ['Toi', '= des milliers de', 'leads', 'par an.'], earbuds: 'des écouteurs', phone: 'un téléphone',
-    intro: 'On construit des réputations. Du positionnement à la publication, chaque décision est pensée pour te rendre mémorable, crédible et impossible à ignorer. Kevin et son équipe créent ton contenu sur tous les réseaux. Toi, tu parles.',
+    title: ['Ton nom, partout,', 'tous les jours.'],
+    intro: 'Légende est le studio de personal branding de Kevin. On crée tes sujets, on publie pour toi chaque jour sur 7 réseaux et on produit tes vidéos YouTube longues. Toi, tu parles.',
+    philosophyLabel: 'Notre philosophie', philosophy: 'On construit des réputations.',
+    philosophyText: 'Chaque décision, du sujet à la publication, est pensée pour te rendre mémorable, crédible et impossible à ignorer.',
+    facts: [['7', 'réseaux, chaque jour'], ['1+', 'publication par jour et par réseau'], ['YouTube', 'vidéos longues produites pour toi']] as [string, string][],
     apply: 'Candidater', applyNote: 'Chaque candidature est lue personnellement', watch: 'Regarder la vidéo',
     video: 'Regarde la vidéo de Kevin',
     servicesLabel: 'Le studio', servicesTitle: 'Ce qu’on construit pour toi',
     services: [
-      ['Positionnement', ['Angle', 'Message', 'Récit']],
-      ['Création sur tous les réseaux', ['LinkedIn', 'Instagram', 'TikTok', 'YouTube']],
-      ['Publication', ['Calendrier', 'Formats', 'Rythme']],
+      ['Sujets et positionnement', ['Angles', 'Sujets créés pour toi', 'Ligne éditoriale']],
+      ['Publication quotidienne', ['LinkedIn', 'Instagram', 'TikTok', 'YouTube', 'Facebook', 'X', 'Threads']],
+      ['Vidéos YouTube longues', ['Sujets', 'Structure', 'Montage']],
       ['Acquisition', ['Leads', 'Rendez-vous', 'Clients']],
     ] as [string, string[]][],
     processLabel: 'Le process', processTitle: 'Comment on construit ton influence',
@@ -34,7 +37,7 @@ const copy = {
     faq: [
       ['Pour qui est Légende ?', 'Pour les dirigeants, fondateurs et experts qui veulent que leur nom travaille pour leur entreprise, sans y passer leurs semaines.'],
       ['Combien de temps ça me prend ?', 'Environ une heure par mois. Tu parles, on s’occupe de la stratégie, de la création et de la publication.'],
-      ['Sur quels réseaux ?', 'LinkedIn, Instagram, TikTok et YouTube, selon là où se trouvent tes clients.'],
+      ['Qu’est-ce que vous publiez pour moi ?', 'Au moins une publication par jour sur 7 réseaux (LinkedIn, Instagram, TikTok, YouTube, Facebook, X et Threads), et des vidéos YouTube longues. Les sujets, on les crée pour toi.'],
       ['Combien ça coûte ?', 'On en parle pendant l’appel, si ton profil est retenu. L’accompagnement dure douze mois.'],
     ] as [string, string][],
     formLabel: 'Candidature',
@@ -68,15 +71,18 @@ const copy = {
   },
   en: {
     badge: 'Application only', studio: 'Personal branding studio',
-    title: ['You', '= thousands of', 'leads', 'a year.'], earbuds: 'earbuds', phone: 'a phone',
-    intro: 'We build reputations. From positioning to publishing, every decision is made to make you memorable, trusted and impossible to ignore. Kevin and his team create your content on every network. You just talk.',
+    title: ['Your name, everywhere,', 'every day.'],
+    intro: 'Légende is Kevin’s personal branding studio. We create your topics, publish for you every day on 7 networks and produce your long-form YouTube videos. You just talk.',
+    philosophyLabel: 'Our philosophy', philosophy: 'We build reputations.',
+    philosophyText: 'Every decision, from topic to publishing, is made to make you memorable, trusted and impossible to ignore.',
+    facts: [['7', 'networks, every day'], ['1+', 'post a day on each network'], ['YouTube', 'long-form videos produced for you']] as [string, string][],
     apply: 'Apply', applyNote: 'Every application is read personally', watch: 'Watch the video',
     video: 'Watch Kevin’s video',
     servicesLabel: 'The studio', servicesTitle: 'What we build for you',
     services: [
-      ['Positioning', ['Angle', 'Message', 'Story']],
-      ['Content on every network', ['LinkedIn', 'Instagram', 'TikTok', 'YouTube']],
-      ['Publishing', ['Calendar', 'Formats', 'Cadence']],
+      ['Topics and positioning', ['Angles', 'Topics created for you', 'Editorial line']],
+      ['Daily publishing', ['LinkedIn', 'Instagram', 'TikTok', 'YouTube', 'Facebook', 'X', 'Threads']],
+      ['Long-form YouTube videos', ['Topics', 'Structure', 'Editing']],
       ['Acquisition', ['Leads', 'Meetings', 'Clients']],
     ] as [string, string[]][],
     processLabel: 'The process', processTitle: 'How we build your influence',
@@ -85,7 +91,7 @@ const copy = {
     faq: [
       ['Who is Légende for?', 'For leaders, founders and experts who want their name to work for their business, without spending their weeks on it.'],
       ['How much of my time does it take?', 'About one hour a month. You talk; we handle strategy, creation and publishing.'],
-      ['Which networks?', 'LinkedIn, Instagram, TikTok and YouTube, depending on where your clients are.'],
+      ['What do you publish for me?', 'At least one post a day on 7 networks (LinkedIn, Instagram, TikTok, YouTube, Facebook, X and Threads), plus long-form YouTube videos. We create the topics for you.'],
       ['How much does it cost?', 'We discuss it on the call, if your profile is shortlisted. The programme runs for twelve months.'],
     ] as [string, string][],
     formLabel: 'Application',
@@ -122,22 +128,6 @@ const uuid = () => typeof crypto.randomUUID === 'function' ? crypto.randomUUID()
 const fieldClass = styles.field
 const buttonClass = styles.primary
 const empty = { scope: '', goal: '', obstacle: '', tried: '', timing: '', name: '', email: '', phone: '', company: '', decision: '', revenueBand: '', budget: '', website: '' }
-
-function Earbuds({ label }: { label: string }) {
-  return <svg role="img" aria-label={label} viewBox="0 0 64 64" className="h-[1em] w-[1em] shrink-0">
-    <defs>
-      <linearGradient id="earbud-shell" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0" stopColor="#ffffff" /><stop offset="1" stopColor="#d9d6cf" />
-      </linearGradient>
-    </defs>
-    {[{ x: 4, flip: false }, { x: 34, flip: true }].map(({ x, flip }) => <g key={x} transform={flip ? `translate(${x + 26} 0) scale(-1 1)` : `translate(${x} 0)`}>
-      <ellipse cx="11" cy="17" rx="10" ry="11" fill="url(#earbud-shell)" stroke="#b7b0a2" strokeWidth="1" />
-      <ellipse cx="7.5" cy="15" rx="4" ry="4.5" fill="#2b2d31" />
-      <rect x="15" y="21" width="7" height="34" rx="3.5" fill="url(#earbud-shell)" stroke="#b7b0a2" strokeWidth="1" />
-      <rect x="15.5" y="50" width="6" height="4" rx="2" fill="#9ea2a8" />
-    </g>)}
-  </svg>
-}
 
 export default function LegendePageContent() {
   const { lang } = useLanguage()
@@ -243,12 +233,7 @@ export default function LegendePageContent() {
   return <main lang={lang} className={styles.page}>
     <header className="mx-auto max-w-5xl px-5 pt-16 sm:px-8 md:pt-24">
       <p className={styles.label}><span className="h-1.5 w-1.5 rounded-full bg-autopilot" aria-hidden />Légende · {t.studio} · {t.badge.toLowerCase()}</p>
-      <h1 className={styles.display}>
-        <span className="flex flex-wrap items-center gap-x-4 gap-y-1">
-          {t.title[0]}<span className="text-neutral-600">+</span><Earbuds label={t.earbuds} /><span className="text-neutral-600">+</span><span role="img" aria-label={t.phone}>📱</span>
-        </span>
-        <span className="block">{t.title[1]} <em>{t.title[2]}</em> {t.title[3]}</span>
-      </h1>
+      <h1 className={styles.display}>{t.title[0]} <em>{t.title[1]}</em></h1>
       <div className="mt-8 grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
         <p className="max-w-xl text-[17px] leading-relaxed text-neutral-300">{t.intro}</p>
         <div className="flex flex-wrap items-center gap-3">
@@ -262,6 +247,21 @@ export default function LegendePageContent() {
       <LoomEmbed facade id="031aba6220874a0d838ac246ce538a88" title={t.video} />
       <p className="mt-3 text-[13px] text-neutral-500">{t.applyNote}</p>
     </div>
+
+    <section className="mx-auto mt-24 max-w-5xl px-5 sm:px-8" aria-labelledby="legende-philosophy">
+      <p className={styles.label}><span className="h-1.5 w-1.5 rounded-full bg-autopilot" aria-hidden />{t.philosophyLabel}</p>
+      <div className="mt-6 grid gap-10 border-t border-white/10 pt-8 md:grid-cols-[1.1fr_1fr] md:gap-16">
+        <div>
+          <h2 id="legende-philosophy" className={styles.statement}>{t.philosophy}</h2>
+          <p className="mt-4 max-w-md text-[17px] leading-relaxed text-neutral-300">{t.philosophyText}</p>
+        </div>
+        <dl className="divide-y divide-white/10 border-y border-white/10">
+          {t.facts.map(([value, label]) => <div key={label} className="flex items-baseline gap-5 py-4">
+            <dt className={styles.fact}>{value}</dt><dd className="text-[15px] text-neutral-400">{label}</dd>
+          </div>)}
+        </dl>
+      </div>
+    </section>
 
     <section className="mx-auto mt-24 max-w-5xl px-5 sm:px-8" aria-labelledby="legende-services">
       <p className={styles.label}><span className="h-1.5 w-1.5 rounded-full bg-autopilot" aria-hidden />{t.servicesLabel}</p>
