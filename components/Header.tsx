@@ -53,12 +53,11 @@ export default function Header() {
     )
   }
 
+  // « Devenir partenaire » n'est plus dans le header : il ferme l'accueil et la page one-to-one.
   const doors = [
-    { href: '/academy', label: fr ? 'Devenir partenaire' : 'Become a partner', active: isAcademyPage },
+    { href: '/demo', label: fr ? 'Demander une démo' : 'Book a demo', active: pathname === '/demo' },
+    { href: '/legende', label: fr ? 'Travailler en one-to-one' : 'Work one-on-one', active: pathname === '/legende' },
   ]
-  if (pathname === '/') {
-    doors.push({ href: '/legende', label: fr ? 'Travailler avec Kevin' : 'Work with Kevin', active: false })
-  }
 
   const lives = [
     { href: '/vsl', name: fr ? 'Workshop Empire' : 'Empire workshop', when: fr ? <><span className="line-through text-neutral-500">2 500 €</span> <span className="font-semibold text-empire">0 € aujourd’hui</span></> : <><span className="line-through text-neutral-500">€2,500</span> <span className="font-semibold text-empire">€0 today</span></>, what: fr ? 'La méthode Empire expliquée pas à pas. Accès par email.' : 'The Empire method, step by step. Email access.' },

@@ -2,9 +2,11 @@
 
 import { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from 'react'
 import dynamic from 'next/dynamic'
-import { ArrowDown, ArrowLeft, ArrowRight, Check } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Check } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import LoomEmbed from '@/components/LoomEmbed'
+import PartnerFinalCta from '@/components/sections/PartnerFinalCta'
+import { TRIAL_URL } from '@/lib/startTrial'
 import { budgets, decisions, revenueBands, scopes, timings } from '@/lib/legende'
 import { countryPhone } from '@/lib/legende-phone'
 import type { CountryCode } from 'libphonenumber-js/min'
@@ -16,30 +18,34 @@ const CalModal = dynamic(() => import('@/components/YtLeadForm').then(m => m.Cal
 
 const copy = {
   fr: {
-    badge: 'Sur candidature uniquement', studio: 'Personal branding studio',
-    title: ['Ton nom, partout,', 'tous les jours.'],
-    intro: 'Légende est le studio de personal branding de Kevin. On crée tes sujets, on publie pour toi chaque jour sur 7 réseaux et on produit tes vidéos YouTube longues. Toi, tu parles.',
-    philosophyLabel: 'Notre philosophie', philosophy: 'On construit des réputations.',
-    philosophyText: 'Chaque décision, du sujet à la publication, est pensée pour te rendre mémorable, crédible et impossible à ignorer.',
-    facts: [['7', 'réseaux, chaque jour'], ['1+', 'publication par jour et par réseau'], ['YouTube', 'vidéos longues produites pour toi']] as [string, string][],
-    apply: 'Candidater', applyNote: 'Chaque candidature est lue personnellement', watch: 'Regarder la vidéo',
+    badge: 'Sur candidature', studio: 'Travailler en one-to-one',
+    who: 'Avec Kevin ou un Head of Content Empire',
+    title: ['1 heure par semaine.', 'On fait tout le reste.'],
+    intro: 'Tu travailles en direct avec Kevin ou un Head of Content Empire. On prépare tes sujets, tu parles une heure, et ton contenu sort chaque jour sur 7 réseaux. Une offre premium, sur candidature.',
+    apply: 'Candidater', applyNote: 'Chaque candidature est lue personnellement', solo: 'Continuer seul, gratuitement',
     video: 'Regarde la vidéo de Kevin',
-    servicesLabel: 'Le studio', servicesTitle: 'Ce qu’on construit pour toi',
-    services: [
-      ['Sujets et positionnement', ['Angles', 'Sujets créés pour toi', 'Ligne éditoriale']],
-      ['Publication quotidienne', ['LinkedIn', 'Instagram', 'TikTok', 'YouTube', 'Facebook', 'X', 'Threads']],
-      ['Vidéos YouTube longues', ['Sujets', 'Structure', 'Montage']],
-      ['Acquisition', ['Leads', 'Rendez-vous', 'Clients']],
-    ] as [string, string[]][],
-    processLabel: 'Le process', processTitle: 'Comment on construit ton influence',
-    ready: 'Prêt à construire quelque chose qui mérite d’être suivi ?',
+    philosophyLabel: 'Notre philosophie', philosophy: 'On construit des réputations.',
+    philosophyText: 'Ton temps est ce qu’il y a de plus cher. On le réduit à une heure par semaine, et on transforme cette heure en une présence quotidienne qui t’apporte des clients.',
+    facts: [['1 h', 'par semaine, ton seul temps passé'], ['7', 'réseaux, chaque jour'], ['1:1', 'avec Kevin ou un Head of Content']] as [string, string][],
+    weekLabel: 'Ta semaine avec nous', weekTitle: 'Tu parles. On s’occupe du reste.',
+    week: [
+      ['On prépare tes sujets', 'Tu arrives au rendez-vous, les sujets de la semaine sont prêts, choisis pour ton marché.'],
+      ['Tu parles, en live', 'De 30 minutes à 1 heure avec Kevin ou ton Head of Content. Tu réponds, on enregistre.'],
+      ['On publie à ta place', 'Chaque jour sur 7 réseaux, plus tes vidéos YouTube longues.'],
+      ['On récupère tes leads', 'On installe les automatisations qui récupèrent les e-mails de ceux qui réagissent à ton contenu.'],
+      ['On t’aide à vendre', 'Si tu en as besoin, on te conseille sur ton offre et tes tarifs.'],
+    ] as [string, string][],
+    processLabel: 'Candidater', processTitle: 'Comment rejoindre le one-to-one',
+    ready: 'Tu penses être éligible ?',
     faqLabel: 'Questions', faqTitle: 'Questions fréquentes',
     faq: [
-      ['Pour qui est Légende ?', 'Pour les dirigeants, fondateurs et experts qui veulent que leur nom travaille pour leur entreprise, sans y passer leurs semaines.'],
-      ['Combien de temps ça me prend ?', 'Environ une heure par mois. Tu parles, on s’occupe de la stratégie, de la création et de la publication.'],
-      ['Qu’est-ce que vous publiez pour moi ?', 'Au moins une publication par jour sur 7 réseaux (LinkedIn, Instagram, TikTok, YouTube, Facebook, X et Threads), et des vidéos YouTube longues. Les sujets, on les crée pour toi.'],
-      ['Combien ça coûte ?', 'On en parle pendant l’appel, si ton profil est retenu. L’accompagnement dure douze mois.'],
+      ['Pour qui est le one-to-one ?', 'Pour les dirigeants, fondateurs et experts qui veulent que leur nom leur apporte des clients, sans y passer leurs semaines.'],
+      ['Combien de temps ça me prend ?', 'Une heure par semaine, en live avec Kevin ou ton Head of Content. Le reste, on s’en occupe.'],
+      ['Avec qui je travaille ?', 'Avec Kevin directement, ou avec un Head of Content Empire formé par Kevin, selon les places disponibles.'],
+      ['Qu’est-ce que vous publiez pour moi ?', 'Au moins une publication par jour sur 7 réseaux (LinkedIn, Instagram, TikTok, YouTube, Facebook, X et Threads), et des vidéos YouTube longues. Les sujets, on les crée pour toi.'],
+      ['Combien ça coûte ?', 'On en parle pendant l’appel, si ton profil est retenu. L’accompagnement dure douze mois.'],
     ] as [string, string][],
+    notReady: 'Pas encore prêt pour le one-to-one ? Commence seul avec Empire.',
     formLabel: 'Candidature',
     process: [
       ['Tu candidates', 'Présente ton entreprise, tes résultats et tes ambitions.'],
@@ -70,30 +76,34 @@ const copy = {
     limit: 'Plusieurs demandes ont déjà été envoyées. Réessaie dans 15 minutes.',
   },
   en: {
-    badge: 'Application only', studio: 'Personal branding studio',
-    title: ['Your name, everywhere,', 'every day.'],
-    intro: 'Légende is Kevin’s personal branding studio. We create your topics, publish for you every day on 7 networks and produce your long-form YouTube videos. You just talk.',
-    philosophyLabel: 'Our philosophy', philosophy: 'We build reputations.',
-    philosophyText: 'Every decision, from topic to publishing, is made to make you memorable, trusted and impossible to ignore.',
-    facts: [['7', 'networks, every day'], ['1+', 'post a day on each network'], ['YouTube', 'long-form videos produced for you']] as [string, string][],
-    apply: 'Apply', applyNote: 'Every application is read personally', watch: 'Watch the video',
+    badge: 'Application only', studio: 'Work one-on-one',
+    who: 'With Kevin or an Empire Head of Content',
+    title: ['1 hour a week.', 'We do everything else.'],
+    intro: 'You work directly with Kevin or an Empire Head of Content. We prepare your topics, you talk for an hour, and your content goes out every day on 7 networks. A premium offer, by application.',
+    apply: 'Apply', applyNote: 'Every application is read personally', solo: 'Continue on your own, free',
     video: 'Watch Kevin’s video',
-    servicesLabel: 'The studio', servicesTitle: 'What we build for you',
-    services: [
-      ['Topics and positioning', ['Angles', 'Topics created for you', 'Editorial line']],
-      ['Daily publishing', ['LinkedIn', 'Instagram', 'TikTok', 'YouTube', 'Facebook', 'X', 'Threads']],
-      ['Long-form YouTube videos', ['Topics', 'Structure', 'Editing']],
-      ['Acquisition', ['Leads', 'Meetings', 'Clients']],
-    ] as [string, string[]][],
-    processLabel: 'The process', processTitle: 'How we build your influence',
-    ready: 'Ready to build something worth following?',
+    philosophyLabel: 'Our philosophy', philosophy: 'We build reputations.',
+    philosophyText: 'Your time is your most expensive asset. We cut it down to one hour a week and turn that hour into a daily presence that brings you clients.',
+    facts: [['1 h', 'a week, your only time spent'], ['7', 'networks, every day'], ['1:1', 'with Kevin or a Head of Content']] as [string, string][],
+    weekLabel: 'Your week with us', weekTitle: 'You talk. We handle the rest.',
+    week: [
+      ['We prepare your topics', 'You show up to the session with the week’s topics ready, picked for your market.'],
+      ['You talk, live', '30 minutes to an hour with Kevin or your Head of Content. You answer, we record.'],
+      ['We publish for you', 'Every day on 7 networks, plus your long-form YouTube videos.'],
+      ['We capture your leads', 'We set up the automations that collect the emails of people who react to your content.'],
+      ['We help you sell', 'If you need it, we advise you on your offer and your pricing.'],
+    ] as [string, string][],
+    processLabel: 'Apply', processTitle: 'How to join the one-on-one',
+    ready: 'Think you’re eligible?',
     faqLabel: 'Questions', faqTitle: 'Frequently asked questions',
     faq: [
-      ['Who is Légende for?', 'For leaders, founders and experts who want their name to work for their business, without spending their weeks on it.'],
-      ['How much of my time does it take?', 'About one hour a month. You talk; we handle strategy, creation and publishing.'],
+      ['Who is the one-on-one for?', 'For leaders, founders and experts who want their name to bring them clients, without spending their weeks on it.'],
+      ['How much of my time does it take?', 'One hour a week, live with Kevin or your Head of Content. We handle the rest.'],
+      ['Who will I work with?', 'With Kevin directly, or with an Empire Head of Content trained by Kevin, depending on availability.'],
       ['What do you publish for me?', 'At least one post a day on 7 networks (LinkedIn, Instagram, TikTok, YouTube, Facebook, X and Threads), plus long-form YouTube videos. We create the topics for you.'],
       ['How much does it cost?', 'We discuss it on the call, if your profile is shortlisted. The programme runs for twelve months.'],
     ] as [string, string][],
+    notReady: 'Not ready for one-on-one yet? Start on your own with Empire.',
     formLabel: 'Application',
     process: [
       ['You apply', 'Tell us about your business, your results and your ambitions.'],
@@ -238,14 +248,14 @@ export default function LegendePageContent() {
         <p className="max-w-xl text-[17px] leading-relaxed text-neutral-300">{t.intro}</p>
         <div className="flex flex-wrap items-center gap-3">
           <a href="#candidature" className={styles.pill}>{t.apply}<ArrowRight aria-hidden size={15} /></a>
-          <a href="#video" className={styles.ghost}>{t.watch}<ArrowDown aria-hidden size={15} /></a>
+          <a href={TRIAL_URL} className={styles.ghost}>{t.solo}</a>
         </div>
       </div>
     </header>
 
     <div id="video" className="mx-auto mt-14 max-w-5xl scroll-mt-20 px-5 sm:px-8">
       <LoomEmbed facade id="031aba6220874a0d838ac246ce538a88" title={t.video} />
-      <p className="mt-3 text-[13px] text-neutral-500">{t.applyNote}</p>
+      <p className="mt-3 text-[13px] text-neutral-500">{t.who} · {t.applyNote}</p>
     </div>
 
     <section className="mx-auto mt-24 max-w-5xl px-5 sm:px-8" aria-labelledby="legende-philosophy">
@@ -263,22 +273,23 @@ export default function LegendePageContent() {
       </div>
     </section>
 
-    <section className="mx-auto mt-24 max-w-5xl px-5 sm:px-8" aria-labelledby="legende-services">
-      <p className={styles.label}><span className="h-1.5 w-1.5 rounded-full bg-autopilot" aria-hidden />{t.servicesLabel}</p>
-      <h2 id="legende-services" className={styles.sectionTitle}>{t.servicesTitle}</h2>
-      <ul className="mt-8 border-t border-[white/10">
-        {t.services.map(([name, tags]) => <li key={name} className="flex flex-col gap-3 border-b border-[white/10 py-5 sm:flex-row sm:items-center sm:justify-between">
-          <span className={styles.serviceName}>{name}</span>
-          <span className="flex flex-wrap gap-1.5">{tags.map(tag => <span key={tag} className={styles.tag}>{tag}</span>)}</span>
+    <section className="mx-auto mt-24 max-w-5xl px-5 sm:px-8" aria-labelledby="legende-week">
+      <p className={styles.label}><span className="h-1.5 w-1.5 rounded-full bg-autopilot" aria-hidden />{t.weekLabel}</p>
+      <h2 id="legende-week" className={styles.sectionTitle}>{t.weekTitle}</h2>
+      <ol className="mt-8 border-t border-white/10">
+        {t.week.map(([title, body], i) => <li key={title} className="grid gap-2 border-b border-white/10 py-5 sm:grid-cols-[3rem_minmax(0,16rem)_1fr] sm:items-baseline sm:gap-6">
+          <span className={styles.number}>0{i + 1}</span>
+          <span className={styles.serviceName}>{title}</span>
+          <span className="text-[15px] leading-relaxed text-neutral-400">{body}</span>
         </li>)}
-      </ul>
+      </ol>
     </section>
 
     <section className="mx-auto mt-24 max-w-5xl px-5 sm:px-8" aria-labelledby="legende-process">
       <p className={styles.label}><span className="h-1.5 w-1.5 rounded-full bg-autopilot" aria-hidden />{t.processLabel}</p>
       <h2 id="legende-process" className={styles.sectionTitle}>{t.processTitle}</h2>
       <ol className="mt-8 grid gap-8 md:grid-cols-3">
-        {t.process.map(([title, body], i) => <li key={title} className="border-t border-[white/10 pt-5">
+        {t.process.map(([title, body], i) => <li key={title} className="border-t border-white/10 pt-5">
           <span className={styles.number}>0{i + 1}</span>
           <h3 className="mt-3 text-[16px] font-semibold">{title}</h3>
           <p className="mt-1 text-[15px] leading-relaxed text-neutral-400">{body}</p>
@@ -370,8 +381,10 @@ export default function LegendePageContent() {
       </form>}
       {error && <p role="alert" className="mt-4 text-sm text-red-300">{t[error]}</p>}
     </section>
+    <p className="mt-5 text-center text-sm text-neutral-400">{t.notReady} <a href={TRIAL_URL} className="font-semibold text-white underline underline-offset-4">{t.solo}</a></p>
     </div>
-    <footer className="mt-28 overflow-hidden px-5 sm:px-8">
+    <div className="mt-24"><PartnerFinalCta /></div>
+    <footer className="mt-10 overflow-hidden px-5 sm:px-8">
       <div className="mx-auto flex max-w-5xl justify-between border-t border-[white/10 py-4 text-[12px] text-neutral-500">
         <span>© Empire Internet</span><a href="/privacy" className="underline">{t.privacy}</a>
       </div>
