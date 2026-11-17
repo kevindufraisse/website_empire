@@ -16,12 +16,28 @@ const CalModal = dynamic(() => import('@/components/YtLeadForm').then(m => m.Cal
 
 const copy = {
   fr: {
-    badge: 'Sur candidature uniquement',
-    title: ['Toi', '= des milliers de leads par an.'], earbuds: 'des écouteurs', phone: 'un téléphone',
-    intro: 'Et des centaines de milliers d’euros en plus sur ton chiffre d’affaires. Kevin t’explique tout dans la vidéo.',
-    apply: 'Déposer ma candidature', applyNote: 'Chaque candidature est lue personnellement',
+    badge: 'Sur candidature uniquement', studio: 'Personal branding studio',
+    title: ['Toi', '= des milliers de', 'leads', 'par an.'], earbuds: 'des écouteurs', phone: 'un téléphone',
+    intro: 'On construit des réputations. Du positionnement à la publication, chaque décision est pensée pour te rendre mémorable, crédible et impossible à ignorer. Kevin et son équipe créent ton contenu sur tous les réseaux. Toi, tu parles.',
+    apply: 'Candidater', applyNote: 'Chaque candidature est lue personnellement', watch: 'Regarder la vidéo',
     video: 'Regarde la vidéo de Kevin',
-    processTitle: 'Comment ça marche',
+    servicesLabel: 'Le studio', servicesTitle: 'Ce qu’on construit pour toi',
+    services: [
+      ['Positionnement', ['Angle', 'Message', 'Récit']],
+      ['Création sur tous les réseaux', ['LinkedIn', 'Instagram', 'TikTok', 'YouTube']],
+      ['Publication', ['Calendrier', 'Formats', 'Rythme']],
+      ['Acquisition', ['Leads', 'Rendez-vous', 'Clients']],
+    ] as [string, string[]][],
+    processLabel: 'Le process', processTitle: 'Comment on construit ton influence',
+    ready: 'Prêt à construire quelque chose qui mérite d’être suivi ?',
+    faqLabel: 'Questions', faqTitle: 'Questions fréquentes',
+    faq: [
+      ['Pour qui est Légende ?', 'Pour les dirigeants, fondateurs et experts qui veulent que leur nom travaille pour leur entreprise, sans y passer leurs semaines.'],
+      ['Combien de temps ça me prend ?', 'Environ une heure par mois. Tu parles, on s’occupe de la stratégie, de la création et de la publication.'],
+      ['Sur quels réseaux ?', 'LinkedIn, Instagram, TikTok et YouTube, selon là où se trouvent tes clients.'],
+      ['Combien ça coûte ?', 'On en parle pendant l’appel, si ton profil est retenu. L’accompagnement dure douze mois.'],
+    ] as [string, string][],
+    formLabel: 'Candidature',
     process: [
       ['Tu candidates', 'Présente ton entreprise, tes résultats et tes ambitions.'],
       ['Kevin étudie ton dossier', 'Chaque candidature est lue, une par une.'],
@@ -50,12 +66,28 @@ const copy = {
     limit: 'Plusieurs demandes ont déjà été envoyées. Réessaie dans 15 minutes.',
   },
   en: {
-    badge: 'Application only',
-    title: ['You', '= thousands of leads a year.'], earbuds: 'earbuds', phone: 'a phone',
-    intro: 'And hundreds of thousands in extra revenue. Kevin explains everything in the video.',
-    apply: 'Apply now', applyNote: 'Every application is read personally',
+    badge: 'Application only', studio: 'Personal branding studio',
+    title: ['You', '= thousands of', 'leads', 'a year.'], earbuds: 'earbuds', phone: 'a phone',
+    intro: 'We build reputations. From positioning to publishing, every decision is made to make you memorable, trusted and impossible to ignore. Kevin and his team create your content on every network. You just talk.',
+    apply: 'Apply', applyNote: 'Every application is read personally', watch: 'Watch the video',
     video: 'Watch Kevin’s video',
-    processTitle: 'How it works',
+    servicesLabel: 'The studio', servicesTitle: 'What we build for you',
+    services: [
+      ['Positioning', ['Angle', 'Message', 'Story']],
+      ['Content on every network', ['LinkedIn', 'Instagram', 'TikTok', 'YouTube']],
+      ['Publishing', ['Calendar', 'Formats', 'Cadence']],
+      ['Acquisition', ['Leads', 'Meetings', 'Clients']],
+    ] as [string, string[]][],
+    processLabel: 'The process', processTitle: 'How we build your influence',
+    ready: 'Ready to build something worth following?',
+    faqLabel: 'Questions', faqTitle: 'Frequently asked questions',
+    faq: [
+      ['Who is Légende for?', 'For leaders, founders and experts who want their name to work for their business, without spending their weeks on it.'],
+      ['How much of my time does it take?', 'About one hour a month. You talk; we handle strategy, creation and publishing.'],
+      ['Which networks?', 'LinkedIn, Instagram, TikTok and YouTube, depending on where your clients are.'],
+      ['How much does it cost?', 'We discuss it on the call, if your profile is shortlisted. The programme runs for twelve months.'],
+    ] as [string, string][],
+    formLabel: 'Application',
     process: [
       ['You apply', 'Tell us about your business, your results and your ambitions.'],
       ['Kevin reviews it', 'Every application is read, one by one.'],
@@ -93,13 +125,13 @@ function Earbuds({ label }: { label: string }) {
   return <svg role="img" aria-label={label} viewBox="0 0 64 64" className="h-[1em] w-[1em] shrink-0">
     <defs>
       <linearGradient id="earbud-shell" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0" stopColor="#ffffff" /><stop offset="1" stopColor="#c9ccd1" />
+        <stop offset="0" stopColor="#ffffff" /><stop offset="1" stopColor="#d9d6cf" />
       </linearGradient>
     </defs>
     {[{ x: 4, flip: false }, { x: 34, flip: true }].map(({ x, flip }) => <g key={x} transform={flip ? `translate(${x + 26} 0) scale(-1 1)` : `translate(${x} 0)`}>
-      <ellipse cx="11" cy="17" rx="10" ry="11" fill="url(#earbud-shell)" />
+      <ellipse cx="11" cy="17" rx="10" ry="11" fill="url(#earbud-shell)" stroke="#b7b0a2" strokeWidth="1" />
       <ellipse cx="7.5" cy="15" rx="4" ry="4.5" fill="#2b2d31" />
-      <rect x="15" y="21" width="7" height="34" rx="3.5" fill="url(#earbud-shell)" />
+      <rect x="15" y="21" width="7" height="34" rx="3.5" fill="url(#earbud-shell)" stroke="#b7b0a2" strokeWidth="1" />
       <rect x="15.5" y="50" width="6" height="4" rx="2" fill="#9ea2a8" />
     </g>)}
   </svg>
@@ -206,36 +238,69 @@ export default function LegendePageContent() {
     else void send('apply')
   }
 
-  return <main lang={lang} className="pb-20 pt-24 text-white md:pt-32">
-    <header className="mx-auto max-w-3xl px-5 text-center sm:px-8">
-      <p className="text-sm text-neutral-400">Légende · {t.badge.toLowerCase()}</p>
-      <h1 className="mt-6 font-bold tracking-[-.03em]">
-        <span className="flex items-center justify-center gap-3 text-[52px] leading-none sm:gap-5 sm:text-[88px]">
+  return <main lang={lang} className={styles.page}>
+    <header className="mx-auto max-w-5xl px-5 pt-16 sm:px-8 md:pt-24">
+      <p className={styles.label}><span className="h-1.5 w-1.5 rounded-full bg-autopilot" aria-hidden />Légende · {t.studio} · {t.badge.toLowerCase()}</p>
+      <h1 className={styles.display}>
+        <span className="flex flex-wrap items-center gap-x-4 gap-y-1">
           {t.title[0]}<span className="text-neutral-600">+</span><Earbuds label={t.earbuds} /><span className="text-neutral-600">+</span><span role="img" aria-label={t.phone}>📱</span>
         </span>
-        <span className="mt-5 block text-balance text-[30px] leading-[1.1] text-autopilot sm:text-[48px]">{t.title[1]}</span>
+        <span className="block">{t.title[1]} <em>{t.title[2]}</em> {t.title[3]}</span>
       </h1>
-      <p className="mx-auto mt-6 max-w-lg text-base leading-relaxed text-neutral-300 sm:text-lg">{t.intro}</p>
-    </header>
-    <div className="mx-auto mt-10 max-w-3xl px-5 sm:px-8">
-      <LoomEmbed facade id="031aba6220874a0d838ac246ce538a88" title={t.video} />
-      <div className="mt-8 flex flex-col items-center gap-3">
-        <a href="#candidature" className={buttonClass + ' ' + styles.heroCta}>{t.apply}<ArrowDown aria-hidden size={17} /></a>
-        <span className="text-sm text-neutral-500">{t.applyNote}</span>
+      <div className="mt-8 grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
+        <p className="max-w-xl text-[17px] leading-relaxed text-neutral-300">{t.intro}</p>
+        <div className="flex flex-wrap items-center gap-3">
+          <a href="#candidature" className={styles.pill}>{t.apply}<ArrowRight aria-hidden size={15} /></a>
+          <a href="#video" className={styles.ghost}>{t.watch}<ArrowDown aria-hidden size={15} /></a>
+        </div>
       </div>
+    </header>
+
+    <div id="video" className="mx-auto mt-14 max-w-5xl scroll-mt-20 px-5 sm:px-8">
+      <LoomEmbed facade id="031aba6220874a0d838ac246ce538a88" title={t.video} />
+      <p className="mt-3 text-[13px] text-neutral-500">{t.applyNote}</p>
     </div>
 
-    <div className="mx-auto mt-20 max-w-xl px-5 sm:px-8">
-      <h2 className="text-xl font-semibold">{t.processTitle}</h2>
-      <ol className="mt-4 space-y-3 text-[17px] leading-relaxed text-neutral-300">
-        {t.process.map(([title, body], i) => <li key={title} className="flex gap-3">
-          <span className="text-neutral-500">{i + 1}.</span>
-          <span><strong className="font-semibold text-white">{title}.</strong> {body}</span>
+    <section className="mx-auto mt-24 max-w-5xl px-5 sm:px-8" aria-labelledby="legende-services">
+      <p className={styles.label}><span className="h-1.5 w-1.5 rounded-full bg-autopilot" aria-hidden />{t.servicesLabel}</p>
+      <h2 id="legende-services" className={styles.sectionTitle}>{t.servicesTitle}</h2>
+      <ul className="mt-8 border-t border-[white/10">
+        {t.services.map(([name, tags]) => <li key={name} className="flex flex-col gap-3 border-b border-[white/10 py-5 sm:flex-row sm:items-center sm:justify-between">
+          <span className={styles.serviceName}>{name}</span>
+          <span className="flex flex-wrap gap-1.5">{tags.map(tag => <span key={tag} className={styles.tag}>{tag}</span>)}</span>
+        </li>)}
+      </ul>
+    </section>
+
+    <section className="mx-auto mt-24 max-w-5xl px-5 sm:px-8" aria-labelledby="legende-process">
+      <p className={styles.label}><span className="h-1.5 w-1.5 rounded-full bg-autopilot" aria-hidden />{t.processLabel}</p>
+      <h2 id="legende-process" className={styles.sectionTitle}>{t.processTitle}</h2>
+      <ol className="mt-8 grid gap-8 md:grid-cols-3">
+        {t.process.map(([title, body], i) => <li key={title} className="border-t border-[white/10 pt-5">
+          <span className={styles.number}>0{i + 1}</span>
+          <h3 className="mt-3 text-[16px] font-semibold">{title}</h3>
+          <p className="mt-1 text-[15px] leading-relaxed text-neutral-400">{body}</p>
         </li>)}
       </ol>
-    </div>
+      <div className="mt-12 flex flex-col gap-4 border-y border-white/10 py-6 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-lg font-semibold">{t.ready}</p>
+        <a href="#candidature" className={styles.pill}>{t.apply}<ArrowRight aria-hidden size={15} /></a>
+      </div>
+    </section>
 
-    <div id="candidature" className="mx-auto mt-20 max-w-3xl scroll-mt-24 px-5 sm:px-8">
+    <section className="mx-auto mt-24 max-w-5xl px-5 sm:px-8" aria-labelledby="legende-faq">
+      <p className={styles.label}><span className="h-1.5 w-1.5 rounded-full bg-autopilot" aria-hidden />{t.faqLabel}</p>
+      <h2 id="legende-faq" className={styles.sectionTitle}>{t.faqTitle}</h2>
+      <div className="mt-8 border-t border-white/10">
+        {t.faq.map(([q, a]) => <details key={q} className={styles.faq}>
+          <summary>{q}<span aria-hidden>+</span></summary>
+          <p>{a}</p>
+        </details>)}
+      </div>
+    </section>
+
+    <div id="candidature" className="mx-auto mt-24 max-w-3xl scroll-mt-20 px-5 sm:px-8">
+    <p className={styles.label}><span className="h-1.5 w-1.5 rounded-full bg-autopilot" aria-hidden />{t.formLabel}</p>
     <section ref={section} tabIndex={-1} aria-labelledby="legende-heading" className={styles.panel}>
       {receipt ? <div>
         <span className={styles.successIcon}><Check aria-hidden size={22} strokeWidth={2.5} /></span>
@@ -291,7 +356,7 @@ export default function LegendePageContent() {
               {choices('decision', t.decision, localized(decisions))}
               {choices('revenueBand', t.revenue, [...revenueBands.map(band => ({ value: String(band.minimum), label: band[lang].replace(/(\d) (?=\d|€|million)/g, '$1\u00a0') })), { value: 'unknown', label: t.unknown }])}
             </>}
-            <p className="text-sm text-neutral-400">{t.note} <a className="underline" href="/privacy">{t.privacy}</a></p>
+            <p className="text-sm text-neutral-500">{t.note} <a className="underline" href="/privacy">{t.privacy}</a></p>
           </>}
           <label aria-hidden="true" className={styles.trap}>Website<input tabIndex={-1} autoComplete="off" {...bind('website')} /></label>
           <div className={styles.actions}>
@@ -303,5 +368,11 @@ export default function LegendePageContent() {
       {error && <p role="alert" className="mt-4 text-sm text-red-300">{t[error]}</p>}
     </section>
     </div>
+    <footer className="mt-28 overflow-hidden px-5 sm:px-8">
+      <div className="mx-auto flex max-w-5xl justify-between border-t border-[white/10 py-4 text-[12px] text-neutral-500">
+        <span>© Empire Internet</span><a href="/privacy" className="underline">{t.privacy}</a>
+      </div>
+      <p aria-hidden="true" className={styles.wordmark}>Légende</p>
+    </footer>
   </main>
 }
