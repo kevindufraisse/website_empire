@@ -18,26 +18,32 @@ function load(file, overrides = {}, globals = {}) {
 const delivery = load('lib/head-of-content.ts', { './candidate-phone': load('lib/candidate-phone.ts') })
 const legende = load('lib/legende.ts')
 const intake = load('lib/legende-intake.ts', { './legende-phone': load('lib/legende-phone.ts'), './candidate-phone': load('lib/candidate-phone.ts'), './legende': legende })
+const flow = load('lib/legende-flow.ts', { './legende-phone': load('lib/legende-phone.ts'), './legende': legende })
 const env = { ACADEMY_SLACK_BOT_TOKEN: 'offline', ACADEMY_SLACK_CHANNEL: 'C0123456789' }
 const sent = []
 let slackOk = true
 const route = load('app/api/legende/apply/route.ts', {
-  '@/lib/head-of-content': delivery, '@/lib/legende': legende, '@/lib/legende-intake': intake,
+  '@/lib/head-of-content': delivery, '@/lib/legende': legende, '@/lib/legende-intake': intake, '@/lib/legende-flow': flow,
   'next/server': { NextResponse: Response },
-}, { process: { env }, fetch: async (url, options) => {
+}, { process: { env }, fetch: slackFetch })
+const contactRoute = load('app/api/legende/contact/route.ts', {
+  '@/lib/head-of-content': delivery, '@/lib/legende-flow': flow, 'next/server': { NextResponse: Response },
+}, { process: { env }, fetch: slackFetch })
+async function slackFetch(url, options) {
   assert.equal(url, 'https://slack.com/api/chat.postMessage')
   sent.push(JSON.parse(options.body))
   return Response.json({ ok: slackOk })
-} })
+}
 const origin = 'https://www.empire-internet.com'
-function post(fields, headers = {}) {
-  const request = new Request(origin + '/api/legende/apply', { method: 'POST',
+function post(fields, headers = {}, path = '/api/legende/apply') {
+  const request = new Request(origin + path, { method: 'POST',
     headers: { origin, 'content-type': 'application/json', 'x-forwarded-for': randomUUID(), ...headers },
     body: JSON.stringify(fields),
   })
   request.nextUrl = new URL(request.url)
-  return route.POST(request)
+  return (path.endsWith('/contact') ? contactRoute : route).POST(request)
 }
+const contact = (fields, headers) => post(fields, headers, '/api/legende/contact')
 const annual = () => ({ submissionId: randomUUID(), kind: 'legende', revenueBand: 300_000, name: 'Exemple',
   email: 'Exemple@example.org', project: 'Mon projet de contenu', website: '' })
 
@@ -133,8 +139,36 @@ async function run() {
   assert.equal((await post(request)).status, 503)
   slackOk = true
   assert.deepEqual(await (await post(request)).json(), { success: true, kind: 'legende' })
+
+  // Fenêtre en 3 étapes (version 3) : coordonnées d'abord, puis le projet décide de la suite.
+  const person = (overrides = {}) => ({ submissionId: randomUUID(), firstName: 'Léa', lastName: 'Martin', email: 'Lea@example.org',
+    phone: '06 12 34 56 78', phoneCountry: 'FR', website: '', ...overrides })
+  const step1 = person({ plan: 'kevin' })
+  const twice = await Promise.all([contact(step1), contact(step1)])
+  for (const r of twice) assert.deepEqual(await r.json(), { success: true })
+  const contactMessage = JSON.stringify(sent.at(-1))
+  for (const value of ['Nouveau contact', 'Léa Martin', '+33612345678', 'lea@example.org', 'Avec Kevin', 'à rappeler']) assert.ok(contactMessage.includes(value), value)
+  assert.equal(sent.filter(m => JSON.stringify(m).includes('Nouveau contact')).length, 1, 'un seul message pour deux envois du même contact')
+  assert.deepEqual(await (await contact(person())).json(), { success: true }, 'le plan est facultatif à l’étape 1')
+  for (const bad of [{ firstName: '' }, { lastName: 'x'.repeat(61) }, { phone: '12' }, { email: 'pas-un-email' }, { submissionId: 'x' }, { plan: 'gold' }])
+    assert.equal((await contact(person(bad))).status, 400, JSON.stringify(bad))
+  const countBefore = sent.length
+  assert.equal((await contact(person({ website: 'bot' }))).status, 200)
+  assert.equal(sent.length, countBefore, 'un robot ne poste rien')
+  const step2 = (overrides = {}) => ({ version: 3, ...person(), plan: 'kevin', timing: 'now', revenueBand: 300_000, company: 'Cabinet RH, 12 salariés', ...overrides })
+  for (const [revenueBand, kind, title] of [[300_000, 'legende', 'calendrier proposé'], [1_000_000, 'legende', 'calendrier proposé'],
+    [100_000, 'alternative', 'orienté vers Intro'], ['unknown', 'review', 'à rappeler']]) {
+    assert.deepEqual(await (await post(step2({ revenueBand }))).json(), { success: true, kind }, String(revenueBand))
+    const summary = JSON.stringify(sent.at(-1))
+    for (const value of [title, 'Avec Kevin', 'Dans le mois', 'Cabinet RH']) assert.ok(summary.includes(value), value)
+  }
+  assert.ok(JSON.stringify((await post(step2({ plan: 'hoc' })), sent.at(-1))).includes('Head of Content'))
+  for (const bad of [{ plan: 'gold' }, { plan: undefined }, { timing: 'soon' }, { revenueBand: 123 }, { revenueBand: '300000' }, { phone: '' }, { company: 'x'.repeat(201) }])
+    assert.equal((await post(step2(bad))).status, 400, JSON.stringify(bad))
+  assert.deepEqual(await (await post(step2({ website: 'bot' }))).json(), { success: true, kind: 'review' })
   delete env.ACADEMY_SLACK_BOT_TOKEN
   assert.equal((await post(annual())).status, 503)
-  console.log('Légende: all revenue bands, qualification boundaries, Slack receipts, retries and duplicate submissions verified offline.')
+  assert.equal((await contact(person())).status, 503)
+  console.log('Légende: all revenue bands, qualification boundaries, Slack receipts, retries, duplicate submissions and the 3-step window verified offline.')
 }
 run().catch(err => { console.error(err); process.exitCode = 1 })
