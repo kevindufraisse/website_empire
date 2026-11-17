@@ -16,9 +16,11 @@ interface Props {
   title?: string
   /** Show a lightweight play button and only load Loom once clicked. */
   facade?: boolean
+  /** Image shown behind the play button (a frame of the video), instead of the plain gradient. */
+  poster?: string
 }
 
-export default function LoomEmbed({ id = VSL_LOOM_ID, className = '', title, facade }: Props) {
+export default function LoomEmbed({ id = VSL_LOOM_ID, className = '', title, facade, poster }: Props) {
   const [playing, setPlaying] = useState(!facade)
   const src =
     `https://www.loom.com/embed/${id}` +
@@ -32,6 +34,9 @@ export default function LoomEmbed({ id = VSL_LOOM_ID, className = '', title, fac
       className={`group relative block w-full overflow-hidden rounded-2xl border border-white/15 bg-[radial-gradient(120%_90%_at_50%_0%,rgba(212,165,116,.28),rgba(20,18,16,.9)_55%,#0b0a09)] text-left shadow-2xl ${className}`}
       style={{ aspectRatio: '16 / 9' }}
     >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      {poster && <img src={poster} alt="" className="absolute inset-0 h-full w-full object-cover" />}
+      {poster && <span className="absolute inset-0 bg-black/25" aria-hidden />}
       <span className="absolute inset-0 grid place-items-center">
         <span className="grid h-16 w-16 place-items-center rounded-full bg-autopilot text-[#17110b] shadow-[0_0_0_10px_rgba(212,165,116,.15)] transition-transform group-hover:scale-105 sm:h-20 sm:w-20">
           <Play aria-hidden className="ml-1 h-7 w-7 fill-current" />

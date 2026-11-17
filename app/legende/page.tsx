@@ -6,7 +6,7 @@ const serif = Instrument_Serif({ subsets: ['latin'], weight: '400', style: ['nor
 
 export const metadata: Metadata = {
   title: 'Travailler en 1-to-1 avec Kevin | Empire Internet',
-  description: 'Travailler en 1-to-1 avec Kevin : il t’interviewe une heure par semaine, maximum, en live depuis ton iPhone, et une équipe fait tout le reste. 4 497 € par mois, 10 places par an, sur candidature.',
+  description: 'Done for you. Tu parles 1 heure par semaine, on écrit, on monte et on publie ton contenu chaque jour sur 7 réseaux. Avec Kevin à 4 500 € par mois (7 places sur 10), ou avec un Head of Content de 1 000 à 3 000 € par mois. Sur candidature.',
 }
 
 export default function LegendePage() {
