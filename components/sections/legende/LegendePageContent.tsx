@@ -18,12 +18,16 @@ import type { Outcome } from '@/lib/legende-intake'
 
 const CalModal = dynamic(() => import('@/components/YtLeadForm').then(m => m.CalModal), { ssr: false })
 
+// Places du 1-to-1 avec Kevin : à mettre à jour à chaque client signé.
+const PLACES_TOTAL = 10
+const PLACES_LEFT = 7
+
 const copy = {
   fr: {
-    badge: 'Sur candidature uniquement', studio: 'Travailler en 1-to-1',
-    who: 'Kevin ou un Head of Content qu’il a formé t’interviewe, une équipe fait le reste',
+    badge: `Sur candidature · ${PLACES_LEFT} places restantes sur ${PLACES_TOTAL}`, studio: 'Travailler en 1-to-1',
+    who: 'Kevin t’interviewe, une équipe fait le reste',
     title: ['Ton nom,', 'la référence', 'de ton marché.'],
-    intro: 'On t’interviewe une heure par semaine, maximum. Derrière toi, une équipe fait tout le reste : tes sujets, ton contenu publié chaque jour sur 7 réseaux, les contacts qu’il t’apporte.',
+    intro: 'Kevin t’interviewe une heure par semaine, maximum. Derrière toi, une équipe fait tout le reste : tes sujets, ton contenu publié chaque jour sur 7 réseaux, les contacts qu’il t’apporte.',
     apply: 'Candidater', applyNote: 'Chaque candidature est lue personnellement', solo: 'Continuer seul, gratuitement',
     advisory: 'Réserver une session avec Kevin', heroStat: ['700M+', 'vues générées pour nos clients'],
     manifesto: ['Tu as mis des années à devenir le meilleur dans ton métier.', 'On fait en sorte que ton marché le sache.'],
@@ -38,18 +42,16 @@ const copy = {
     methodStats: [['1 an', 'de R&D'], ['10 000+', 'posts testés'], ['1 h', 'par semaine, maximum']] as [string, string][],
     video: 'Regarde la vidéo de Kevin',
     plansLabel: 'Tarifs', plansTitle: ['Fait pour toi,', 'ou avec toi.'],
-    plansText: 'Deux accompagnements sur candidature, pour douze mois. Ou l’abonnement, si tu préfères tout faire toi-même.',
+    plansText: 'Un seul accompagnement fait pour toi, avec Kevin, limité à 10 dirigeants par an. Ou l’abonnement, si tu préfères tout faire toi-même.',
     plans: [
       { name: 'Seul, avec Kevin en live', price: 'dès 199 €', per: 'par mois', note: 'Abonnement Empire, sans engagement',
         items: ['Tu filmes et tu publies avec l’app', 'Les formats et les sujets de la semaine', 'Un live chaque semaine avec Kevin'], cta: 'Commencer seul', href: 'trial' },
-      { name: 'Head of Content', price: '1 000 – 4 000 €', per: 'par mois', note: 'Fait pour toi, sur candidature',
-        items: ['Un Head of Content formé par Kevin t’interviewe chaque semaine', 'Ton contenu publié chaque jour sur 7 réseaux', 'Tes leads récupérés automatiquement'], cta: 'Candidater', href: 'apply' },
-      { name: 'Experts', price: '4 000 € +', per: 'par mois', note: 'Fait pour toi, avec Kevin', featured: 'Pour faire grimper ton CA',
-        items: ['Tout le Head of Content, avec Kevin et ses experts', 'Ton offre retravaillée pour vendre plus cher', 'Ton tunnel de vente et nos recommandations pour augmenter ton chiffre d’affaires'], cta: 'Candidater', href: 'apply' },
+      { name: 'En 1-to-1 avec Kevin', price: '4 497 €', per: 'par mois', note: 'Fait pour toi, sur candidature, pour douze mois', featured: `${PLACES_LEFT} places restantes sur ${PLACES_TOTAL}`,
+        items: ['Kevin t’interviewe chaque semaine, une heure maximum', 'Ton contenu publié chaque jour sur 7 réseaux', 'Tes leads récupérés automatiquement', 'Ton offre et ton tunnel de vente retravaillés pour faire grimper ton chiffre d’affaires'], cta: 'Candidater', href: 'apply' },
     ],
     proofLabel: 'Ils nous ont confié leur image',
     facts: [['#1', 'Lead Generation France'], ['#55', 'LinkedIn Influence France']] as [string, string][],
-    selectLabel: 'Sélection', selectTitle: 'On dit non à la plupart des candidatures.',
+    selectLabel: 'Sélection', selectTitle: '10 places par an. On dit non à la plupart des candidatures.',
     selectText: 'Ton contenu porte ton nom, et le nôtre. On ne prend que les dirigeants avec qui on sait aller loin.',
     fitTitle: 'On travaille avec toi si', notFitTitle: 'Ce n’est pas pour toi si',
     fit: ['Ton entreprise fait au moins 300 000 € de chiffre d’affaires par an.', 'Tu as un avis tranché sur ton métier, et l’envie de le dire.', 'Tu peux bloquer une heure par semaine, pendant douze mois.'],
@@ -57,7 +59,7 @@ const copy = {
     weekLabel: 'Ta semaine avec nous', weekTitle: 'Tu parles. On s’occupe du reste.',
     week: [
       ['On prépare tes sujets', 'Tu arrives au rendez-vous, les sujets de la semaine sont prêts, choisis pour ton marché.'],
-      ['On t’interviewe, en live', 'Kevin ou ton Head of Content, une heure maximum, depuis ton iPhone avec des écouteurs. Tu réponds, on enregistre. Pas de studio, pas de tournage.'],
+      ['Kevin t’interviewe, en live', 'Une heure maximum, depuis ton iPhone avec des écouteurs. Tu réponds, on enregistre. Pas de studio, pas de tournage.'],
       ['On publie à ta place', 'Chaque jour sur 7 réseaux, plus tes vidéos YouTube longues.'],
       ['On récupère tes leads', 'On installe les automatisations qui récupèrent les e-mails de ceux qui réagissent à ton contenu.'],
       ['On t’aide à vendre', 'Si tu en as besoin, on te conseille sur ton offre et tes tarifs.'],
@@ -68,10 +70,10 @@ const copy = {
     faq: [
       ['Pour qui est le 1-to-1 ?', 'Pour les dirigeants, fondateurs et experts d’une entreprise qui fait au moins 300 000 € de chiffre d’affaires par an, et qui veulent que leur nom leur apporte des clients sans y passer leurs semaines.'],
       ['Combien de temps ça me prend ?', 'Une heure par semaine, maximum : ton interview. Le reste, on s’en occupe.'],
-      ['Avec qui je travaille ?', 'Avec un Head of Content formé par Kevin, ou avec Kevin et ses experts sur l’accompagnement Experts. Derrière, l’équipe Empire produit, publie et suit tes résultats.'],
+      ['Avec qui je travaille ?', 'Avec Kevin : c’est lui qui t’interviewe chaque semaine et qui travaille ton offre. Derrière, l’équipe Empire produit, publie et suit tes résultats. C’est pour ça qu’il ne prend que 10 dirigeants par an.'],
       ['Vous tournez en studio ?', 'Non, et c’est voulu. Tes vidéos sont des lives filmés à l’iPhone avec des écouteurs. On l’a testé sur des milliers de posts : ce format performe bien mieux qu’une production de studio.'],
       ['Qu’est-ce que vous publiez pour moi ?', 'Au moins une publication par jour sur 7 réseaux (LinkedIn, Instagram, TikTok, YouTube, Facebook, X et Threads), et des vidéos YouTube longues. Les sujets, on les crée pour toi.'],
-      ['Combien ça coûte ?', 'De 1 000 à 4 000 € par mois avec un Head of Content, 4 000 € et plus avec Kevin et ses experts. Le tarif exact dépend de ton volume : on te le donne pendant l’appel, avant tout engagement. L’accompagnement dure douze mois.'],
+      ['Combien ça coûte ?', '4 497 € par mois, pendant douze mois. L’accompagnement est sur candidature et limité à 10 dirigeants par an : il reste ' + PLACES_LEFT + ' places.'],
       ['Et si je veux d’abord un avis de Kevin ?', 'Tu peux réserver une session de conseil avec lui sur Intro, sans candidature. Vous travaillez directement sur ton blocage.'],
       ['Pourquoi pas simplement l’abonnement Empire ?', 'Si tu veux garder la main et que 20 minutes par semaine te vont, l’abonnement suffit, et il coûte bien moins cher. Le 1-to-1, c’est quand tu ne veux plus t’en occuper du tout.'],
     ] as [string, string][],
@@ -106,10 +108,10 @@ const copy = {
     limit: 'Plusieurs demandes ont déjà été envoyées. Réessaie dans 15 minutes.',
   },
   en: {
-    badge: 'By application only', studio: 'Work 1-to-1',
-    who: 'Kevin or a Head of Content he trained interviews you, a team does the rest',
+    badge: `By application · ${PLACES_LEFT} spots left out of ${PLACES_TOTAL}`, studio: 'Work 1-to-1',
+    who: 'Kevin interviews you, a team does the rest',
     title: ['Your name,', 'the reference', 'in your market.'],
-    intro: 'We interview you one hour a week, at most. Behind you, a team does everything else: your topics, your content published every day on 7 networks, the contacts it brings you.',
+    intro: 'Kevin interviews you one hour a week, at most. Behind you, a team does everything else: your topics, your content published every day on 7 networks, the contacts it brings you.',
     apply: 'Apply', applyNote: 'Every application is read personally', solo: 'Continue on your own, free',
     advisory: 'Book a session with Kevin', heroStat: ['700M+', 'views generated for our clients'],
     manifesto: ['You spent years becoming the best at what you do.', 'We make sure your market knows it.'],
@@ -124,18 +126,16 @@ const copy = {
     methodStats: [['1 year', 'of R&D'], ['10,000+', 'posts tested'], ['1 h', 'a week, at most']] as [string, string][],
     video: 'Watch Kevin’s video',
     plansLabel: 'Pricing', plansTitle: ['Done for you,', 'or with you.'],
-    plansText: 'Two programmes by application, for twelve months. Or the subscription, if you’d rather do it all yourself.',
+    plansText: 'One done-for-you programme, with Kevin, limited to 10 leaders a year. Or the subscription, if you’d rather do it all yourself.',
     plans: [
       { name: 'On your own, with Kevin live', price: 'from €199', per: 'a month', note: 'Empire subscription, cancel anytime',
         items: ['You film and publish with the app', 'This week’s formats and topics', 'A live session with Kevin every week'], cta: 'Start on your own', href: 'trial' },
-      { name: 'Head of Content', price: '€1,000 – €4,000', per: 'a month', note: 'Done for you, by application',
-        items: ['A Head of Content trained by Kevin interviews you every week', 'Your content published every day on 7 networks', 'Your leads captured automatically'], cta: 'Apply', href: 'apply' },
-      { name: 'Experts', price: '€4,000 +', per: 'a month', note: 'Done for you, with Kevin', featured: 'To grow your revenue',
-        items: ['Everything in Head of Content, with Kevin and his experts', 'Your offer reworked to sell at a higher price', 'Your sales funnel and our recommendations to grow your revenue'], cta: 'Apply', href: 'apply' },
+      { name: '1-to-1 with Kevin', price: '€4,497', per: 'a month', note: 'Done for you, by application, for twelve months', featured: `${PLACES_LEFT} spots left out of ${PLACES_TOTAL}`,
+        items: ['Kevin interviews you every week, one hour at most', 'Your content published every day on 7 networks', 'Your leads captured automatically', 'Your offer and sales funnel reworked to grow your revenue'], cta: 'Apply', href: 'apply' },
     ],
     proofLabel: 'They trusted us with their image',
     facts: [['#1', 'Lead Generation France'], ['#55', 'LinkedIn Influence France']] as [string, string][],
-    selectLabel: 'Selection', selectTitle: 'We turn down most applications.',
+    selectLabel: 'Selection', selectTitle: '10 spots a year. We turn down most applications.',
     selectText: 'Your content carries your name, and ours. We only take on leaders we know we can go far with.',
     fitTitle: 'We work with you if', notFitTitle: 'It’s not for you if',
     fit: ['Your company makes at least €300,000 in revenue a year.', 'You have strong opinions about your field, and want to share them.', 'You can block one hour a week, for twelve months.'],
@@ -143,7 +143,7 @@ const copy = {
     weekLabel: 'Your week with us', weekTitle: 'You talk. We handle the rest.',
     week: [
       ['We prepare your topics', 'You show up to the session with the week’s topics ready, picked for your market.'],
-      ['We interview you, live', 'Kevin or your Head of Content, one hour at most, from your iPhone with earphones. You answer, we record. No studio, no shoot.'],
+      ['Kevin interviews you, live', 'One hour at most, from your iPhone with earphones. You answer, we record. No studio, no shoot.'],
       ['We publish for you', 'Every day on 7 networks, plus your long-form YouTube videos.'],
       ['We capture your leads', 'We set up the automations that collect the emails of people who react to your content.'],
       ['We help you sell', 'If you need it, we advise you on your offer and your pricing.'],
@@ -154,10 +154,10 @@ const copy = {
     faq: [
       ['Who is 1-to-1 for?', 'For leaders, founders and experts whose company makes at least €300,000 in revenue a year, and who want their name to bring them clients without spending their weeks on it.'],
       ['How much of my time does it take?', 'One hour a week, at most: your interview. We handle the rest.'],
-      ['Who will I work with?', 'With a Head of Content trained by Kevin, or with Kevin and his experts on the Experts plan. Behind them, the Empire team produces, publishes and tracks your results.'],
+      ['Who will I work with?', 'With Kevin: he interviews you every week and works on your offer. Behind him, the Empire team produces, publishes and tracks your results. That’s why he only takes on 10 leaders a year.'],
       ['Do you shoot in a studio?', 'No, on purpose. Your videos are live streams shot on an iPhone with earphones. We tested it on thousands of posts: this format performs far better than a studio production.'],
       ['What do you publish for me?', 'At least one post a day on 7 networks (LinkedIn, Instagram, TikTok, YouTube, Facebook, X and Threads), plus long-form YouTube videos. We create the topics for you.'],
-      ['How much does it cost?', '€1,000 to €4,000 a month with a Head of Content, €4,000 and up with Kevin and his experts. The exact price depends on your volume: we give it to you on the call, before any commitment. The programme runs for twelve months.'],
+      ['How much does it cost?', '€4,497 a month, for twelve months. It’s by application and limited to 10 leaders a year: ' + PLACES_LEFT + ' spots are left.'],
       ['What if I want Kevin’s advice first?', 'You can book an advisory session with him on Intro, no application needed. You work directly on what’s blocking you.'],
       ['Why not just the Empire subscription?', 'If you want to stay hands-on and 20 minutes a week works for you, the subscription is enough, and it costs far less. 1-to-1 is for when you don’t want to deal with it at all.'],
     ] as [string, string][],
@@ -349,7 +349,7 @@ export default function LegendePageContent() {
       <p className={styles.label}><span className="h-1.5 w-1.5 rounded-full bg-autopilot" aria-hidden />{t.plansLabel}</p>
       <h2 id="legende-plans" className={styles.statement}>{t.plansTitle[0]} <em className="italic text-autopilot">{t.plansTitle[1]}</em></h2>
       <p className="mt-4 max-w-xl text-[17px] leading-relaxed text-neutral-300">{t.plansText}</p>
-      <div className="mt-10 grid gap-4 md:grid-cols-3">
+      <div className="mt-10 grid gap-4 md:grid-cols-2">
         {t.plans.map(plan => <div key={plan.name} className={`${styles.plan} ${'featured' in plan ? styles.planFeatured : ''}`}>
           {'featured' in plan && <span className={styles.planTag}>{plan.featured}</span>}
           <h3 className="text-[15px] font-semibold text-neutral-200">{plan.name}</h3>
