@@ -87,7 +87,7 @@ const copy = {
     privacy: 'Confidentialité', next: 'Continuer', back: 'Retour', send: 'Envoyer ma candidature', busy: 'Envoi en cours…',
     received: 'Ta candidature est retenue', call: 'Ton profil correspond à ce que Kevin recherche. Choisis un créneau de 45 minutes pour en parler avec l’équipe.', book: 'Réserver mon appel',
     review: 'Kevin et son équipe vont lire tes réponses. Si un échange est pertinent, ils pourront te rappeler au',
-    alternative: 'Pour ton projet, Kevin te propose une séance de conseil individuelle de 30 minutes à 500 €. Tu peux y travailler le blocage que tu viens de décrire.',
+    alternative: 'Pour ton projet, le plus utile est une session de conseil avec Kevin. Tu la réserves directement sur Intro, et vous travaillez ensemble sur le blocage que tu viens de décrire.', alternativeTitle: 'Une session avec Kevin',
     consult: 'Demander la séance à 500 €', requested: 'Demande de séance reçue',
     followup: 'L’équipe te recontactera pour organiser tes 30 minutes avec Kevin.', paidBook: 'Réserver ma séance à 500 €',
     error: 'L’envoi a échoué. Tes réponses sont conservées. Tu peux réessayer.',
@@ -161,7 +161,7 @@ const copy = {
     privacy: 'Privacy', next: 'Continue', back: 'Back', send: 'Submit my application', busy: 'Sending…',
     received: 'Your application is shortlisted', call: 'Your profile matches what Kevin is looking for. Pick a 45-minute slot to talk it through with the team.', book: 'Book my call',
     review: 'Kevin and his team will review your answers. If a call would be helpful, they can reach you at',
-    alternative: 'For your project, Kevin offers a 30-minute one-to-one consultation for €500. You can focus on the obstacle you just described.',
+    alternative: 'For your project, the most useful step is an advisory session with Kevin. You book it directly on Intro and work together on the obstacle you just described.', alternativeTitle: 'A session with Kevin',
     consult: 'Request the €500 session', requested: 'Consultation request received',
     followup: 'The team will get in touch to arrange your 30 minutes with Kevin.', paidBook: 'Book my €500 session',
     error: 'We couldn’t confirm delivery. Your answers are still here. Please try again.',
@@ -410,7 +410,7 @@ export default function LegendePageContent() {
     <section ref={section} tabIndex={-1} aria-labelledby="legende-heading" className={styles.panel}>
       {receipt ? <div>
         <span className={styles.successIcon}><Check aria-hidden size={22} strokeWidth={2.5} /></span>
-        <h2 id="legende-heading" className="text-2xl font-semibold">{receipt.kind === 'consultation' ? t.requested : receipt.kind === 'alternative' ? 'Better Call Kevin' : t.received}</h2>
+        <h2 id="legende-heading" className="text-2xl font-semibold">{receipt.kind === 'consultation' ? t.requested : receipt.kind === 'alternative' ? t.alternativeTitle : t.received}</h2>
         <p className="my-4 max-w-xl leading-relaxed text-neutral-300">{{
           legende: t.call, review: t.review + ' ' + (phone?.formatInternational() || answers.phone) + '.', alternative: t.alternative, consultation: t.followup,
         }[receipt.kind]}</p>
@@ -421,7 +421,7 @@ export default function LegendePageContent() {
           }}>{t.book}<ArrowRight aria-hidden size={17} /></a>
           {calendar && <CalModal informal countryCode="" lead={{ firstName: answers.name, email: answers.email, phone: phone!.number }} onClose={() => setCalendar(false)} />}
         </>}
-        {receipt.kind === 'alternative' && <button type="button" disabled={busy} className={buttonClass} onClick={() => void send('consultation')}>{busy ? t.busy : t.consult}</button>}
+        {receipt.kind === 'alternative' && <a href={INTRO_URL} target="_blank" rel="noopener" className={buttonClass}>{t.advisory}<ArrowRight aria-hidden size={17} /></a>}
         {receipt.kind === 'consultation' && receipt.bookingUrl && <a href={receipt.bookingUrl} className={buttonClass}>{t.paidBook}</a>}
       </div> : <form onSubmit={submit}>
         <div className={styles.formHead}>
