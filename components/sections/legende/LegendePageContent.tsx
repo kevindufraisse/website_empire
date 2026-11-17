@@ -20,12 +20,20 @@ const CalModal = dynamic(() => import('@/components/YtLeadForm').then(m => m.Cal
 const copy = {
   fr: {
     badge: 'Sur candidature uniquement', studio: 'Travailler en 1-to-1',
-    who: 'Avec Kevin ou un Head of Content formé par Kevin',
+    who: 'Kevin t’interviewe, une équipe fait le reste',
     title: ['Ton nom,', 'la référence', 'de ton marché.'],
-    intro: 'Tu parles une heure par semaine. On fait tout le reste : tes sujets, ton contenu publié chaque jour sur 7 réseaux, les contacts qu’il t’apporte.',
+    intro: 'Kevin t’interviewe une heure par semaine, maximum. Derrière toi, une équipe fait tout le reste : tes sujets, ton contenu publié chaque jour sur 7 réseaux, les contacts qu’il t’apporte.',
     apply: 'Candidater', applyNote: 'Chaque candidature est lue personnellement', solo: 'Continuer seul, gratuitement',
     advisory: 'Réserver une session avec Kevin', heroStat: ['700M+', 'vues générées pour nos clients'],
     manifesto: ['Tu as mis des années à devenir le meilleur dans ton métier.', 'On fait en sorte que ton marché le sache.'],
+    methodLabel: 'La méthode Empire', methodTitle: ['Comme une armée de freelances', 'qui travaille pour toi.'],
+    methodText: 'Un an de R&D, plus de 10 000 posts testés. On sait ce qui fait des vues et ce qui fait des clients. Notre méthode tient en une formule.',
+    method: [
+      ['Message', 'Ce que toi seul peux dire. On le sort de toi en interview, tu n’as rien à préparer.'],
+      ['Format', 'Les formats qui font des vues cette semaine. Tes vidéos sont des lives filmés à l’iPhone avec des écouteurs : c’est ce qui performe le mieux, bien mieux qu’un studio.'],
+      ['Diffusion', 'Chaque jour sur 7 réseaux, et des liens qui transforment ton audience en contacts.'],
+    ] as [string, string][],
+    methodStats: [['1 an', 'de R&D'], ['10 000+', 'posts testés'], ['1 h', 'par semaine, maximum']] as [string, string][],
     video: 'Regarde la vidéo de Kevin',
     proofLabel: 'Ils nous ont confié leur image',
     facts: [['#1', 'Lead Generation France'], ['#55', 'LinkedIn Influence France']] as [string, string][],
@@ -33,11 +41,11 @@ const copy = {
     selectText: 'Ton contenu porte ton nom, et le nôtre. On ne prend que les dirigeants avec qui on sait aller loin.',
     fitTitle: 'On travaille avec toi si', notFitTitle: 'Ce n’est pas pour toi si',
     fit: ['Ton entreprise fait au moins 300 000 € de chiffre d’affaires par an.', 'Tu as un avis tranché sur ton métier, et l’envie de le dire.', 'Tu peux bloquer une heure par semaine, pendant douze mois.'],
-    notFit: ['Tu cherches l’option la moins chère : l’abonnement Empire est fait pour ça.', 'Tu n’as pas encore d’offre à vendre.', 'Tu attends des résultats en deux semaines.'],
+    notFit: ['Tu veux une production en studio : chez nous, tout se filme à l’iPhone, en live.', 'Tu cherches l’option la moins chère : l’abonnement Empire est fait pour ça.', 'Tu n’as pas encore d’offre à vendre.', 'Tu attends des résultats en deux semaines.'],
     weekLabel: 'Ta semaine avec nous', weekTitle: 'Tu parles. On s’occupe du reste.',
     week: [
       ['On prépare tes sujets', 'Tu arrives au rendez-vous, les sujets de la semaine sont prêts, choisis pour ton marché.'],
-      ['Tu parles, en live', 'De 30 minutes à 1 heure avec Kevin ou ton Head of Content. Tu réponds, on enregistre.'],
+      ['Kevin t’interviewe, en live', 'Une heure maximum, depuis ton iPhone avec des écouteurs. Tu réponds, on enregistre. Pas de studio, pas de tournage.'],
       ['On publie à ta place', 'Chaque jour sur 7 réseaux, plus tes vidéos YouTube longues.'],
       ['On récupère tes leads', 'On installe les automatisations qui récupèrent les e-mails de ceux qui réagissent à ton contenu.'],
       ['On t’aide à vendre', 'Si tu en as besoin, on te conseille sur ton offre et tes tarifs.'],
@@ -47,8 +55,9 @@ const copy = {
     faqLabel: 'Questions', faqTitle: 'Questions fréquentes',
     faq: [
       ['Pour qui est le 1-to-1 ?', 'Pour les dirigeants, fondateurs et experts d’une entreprise qui fait au moins 300 000 € de chiffre d’affaires par an, et qui veulent que leur nom leur apporte des clients sans y passer leurs semaines.'],
-      ['Combien de temps ça me prend ?', 'Une heure par semaine, en live avec Kevin ou ton Head of Content. Le reste, on s’en occupe.'],
-      ['Avec qui je travaille ?', 'Avec Kevin directement, ou avec un Head of Content Empire formé par Kevin, selon les places disponibles.'],
+      ['Combien de temps ça me prend ?', 'Une heure par semaine, maximum : l’interview avec Kevin. Le reste, on s’en occupe.'],
+      ['Avec qui je travaille ?', 'Avec Kevin : c’est lui qui t’interviewe chaque semaine. Derrière, l’équipe Empire produit, publie et suit tes résultats.'],
+      ['Vous tournez en studio ?', 'Non, et c’est voulu. Tes vidéos sont des lives filmés à l’iPhone avec des écouteurs. On l’a testé sur des milliers de posts : ce format performe bien mieux qu’une production de studio.'],
       ['Qu’est-ce que vous publiez pour moi ?', 'Au moins une publication par jour sur 7 réseaux (LinkedIn, Instagram, TikTok, YouTube, Facebook, X et Threads), et des vidéos YouTube longues. Les sujets, on les crée pour toi.'],
       ['Combien ça coûte ?', 'Le tarif dépend de ton volume et de ton marché. On te le donne pendant l’appel, avant tout engagement, si ton profil est retenu. L’accompagnement dure douze mois.'],
       ['Et si je veux d’abord un avis de Kevin ?', 'Tu peux réserver une session de conseil avec lui sur Intro, sans candidature. Vous travaillez directement sur ton blocage.'],
@@ -86,12 +95,20 @@ const copy = {
   },
   en: {
     badge: 'By application only', studio: 'Work 1-to-1',
-    who: 'With Kevin or a Head of Content trained by Kevin',
+    who: 'Kevin interviews you, a team does the rest',
     title: ['Your name,', 'the reference', 'in your market.'],
-    intro: 'You talk one hour a week. We do everything else: your topics, your content published every day on 7 networks, the contacts it brings you.',
+    intro: 'Kevin interviews you one hour a week, at most. Behind you, a team does everything else: your topics, your content published every day on 7 networks, the contacts it brings you.',
     apply: 'Apply', applyNote: 'Every application is read personally', solo: 'Continue on your own, free',
     advisory: 'Book a session with Kevin', heroStat: ['700M+', 'views generated for our clients'],
     manifesto: ['You spent years becoming the best at what you do.', 'We make sure your market knows it.'],
+    methodLabel: 'The Empire method', methodTitle: ['Like an army of freelancers', 'working for you.'],
+    methodText: 'One year of R&D, over 10,000 posts tested. We know what gets views and what gets clients. Our method fits in one formula.',
+    method: [
+      ['Message', 'What only you can say. We draw it out of you in an interview, you have nothing to prepare.'],
+      ['Format', 'The formats getting views this week. Your videos are live streams shot on an iPhone with earphones: that’s what performs best, far better than a studio.'],
+      ['Distribution', 'Every day on 7 networks, with links that turn your audience into contacts.'],
+    ] as [string, string][],
+    methodStats: [['1 year', 'of R&D'], ['10,000+', 'posts tested'], ['1 h', 'a week, at most']] as [string, string][],
     video: 'Watch Kevin’s video',
     proofLabel: 'They trusted us with their image',
     facts: [['#1', 'Lead Generation France'], ['#55', 'LinkedIn Influence France']] as [string, string][],
@@ -99,11 +116,11 @@ const copy = {
     selectText: 'Your content carries your name, and ours. We only take on leaders we know we can go far with.',
     fitTitle: 'We work with you if', notFitTitle: 'It’s not for you if',
     fit: ['Your company makes at least €300,000 in revenue a year.', 'You have strong opinions about your field, and want to share them.', 'You can block one hour a week, for twelve months.'],
-    notFit: ['You’re looking for the cheapest option: the Empire subscription is built for that.', 'You don’t have an offer to sell yet.', 'You expect results in two weeks.'],
+    notFit: ['You want a studio production: here, everything is shot live on an iPhone.', 'You’re looking for the cheapest option: the Empire subscription is built for that.', 'You don’t have an offer to sell yet.', 'You expect results in two weeks.'],
     weekLabel: 'Your week with us', weekTitle: 'You talk. We handle the rest.',
     week: [
       ['We prepare your topics', 'You show up to the session with the week’s topics ready, picked for your market.'],
-      ['You talk, live', '30 minutes to an hour with Kevin or your Head of Content. You answer, we record.'],
+      ['Kevin interviews you, live', 'One hour at most, from your iPhone with earphones. You answer, we record. No studio, no shoot.'],
       ['We publish for you', 'Every day on 7 networks, plus your long-form YouTube videos.'],
       ['We capture your leads', 'We set up the automations that collect the emails of people who react to your content.'],
       ['We help you sell', 'If you need it, we advise you on your offer and your pricing.'],
@@ -113,8 +130,9 @@ const copy = {
     faqLabel: 'Questions', faqTitle: 'Frequently asked questions',
     faq: [
       ['Who is 1-to-1 for?', 'For leaders, founders and experts whose company makes at least €300,000 in revenue a year, and who want their name to bring them clients without spending their weeks on it.'],
-      ['How much of my time does it take?', 'One hour a week, live with Kevin or your Head of Content. We handle the rest.'],
-      ['Who will I work with?', 'With Kevin directly, or with an Empire Head of Content trained by Kevin, depending on availability.'],
+      ['How much of my time does it take?', 'One hour a week, at most: the interview with Kevin. We handle the rest.'],
+      ['Who will I work with?', 'With Kevin: he interviews you every week. Behind him, the Empire team produces, publishes and tracks your results.'],
+      ['Do you shoot in a studio?', 'No, on purpose. Your videos are live streams shot on an iPhone with earphones. We tested it on thousands of posts: this format performs far better than a studio production.'],
       ['What do you publish for me?', 'At least one post a day on 7 networks (LinkedIn, Instagram, TikTok, YouTube, Facebook, X and Threads), plus long-form YouTube videos. We create the topics for you.'],
       ['How much does it cost?', 'The price depends on your volume and your market. We give it to you on the call, before any commitment, if your profile is shortlisted. The programme runs for twelve months.'],
       ['What if I want Kevin’s advice first?', 'You can book an advisory session with him on Intro, no application needed. You work directly on what’s blocking you.'],
@@ -288,6 +306,28 @@ export default function LegendePageContent() {
     <section className="mx-auto mt-28 max-w-4xl px-5 text-center sm:px-8" aria-label={t.manifesto.join(' ')}>
       <Reveal>
         <p className={styles.manifesto}>{t.manifesto[0]} <em>{t.manifesto[1]}</em></p>
+      </Reveal>
+    </section>
+
+    <section className="mx-auto mt-24 max-w-5xl px-5 sm:px-8" aria-labelledby="legende-method">
+      <Reveal>
+      <p className={styles.label}><span className="h-1.5 w-1.5 rounded-full bg-autopilot" aria-hidden />{t.methodLabel}</p>
+      <h2 id="legende-method" className={styles.statement}>{t.methodTitle[0]} <em className="italic text-autopilot">{t.methodTitle[1]}</em></h2>
+      <p className="mt-4 max-w-xl text-[17px] leading-relaxed text-neutral-300">{t.methodText}</p>
+      <ol className="mt-10 grid gap-4 md:grid-cols-[1fr_auto_1fr_auto_1fr] md:items-stretch">
+        {t.method.map(([name, body], i) => <li key={name} className="contents">
+          {i > 0 && <span aria-hidden className={styles.times}>×</span>}
+          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+            <h3 className={styles.methodName}>{name}</h3>
+            <p className="mt-3 text-[15px] leading-relaxed text-neutral-400">{body}</p>
+          </div>
+        </li>)}
+      </ol>
+      <dl className="mt-10 grid grid-cols-3 gap-4 border-y border-white/10 py-6 text-center">
+        {t.methodStats.map(([value, label]) => <div key={label}>
+          <dt className={styles.heroStat}>{value}</dt><dd className="mt-2 text-[13px] text-neutral-400">{label}</dd>
+        </div>)}
+      </dl>
       </Reveal>
     </section>
 

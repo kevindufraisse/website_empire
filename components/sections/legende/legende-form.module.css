@@ -120,3 +120,6 @@
 .leadRow { display: flex; align-items: center; gap: 12px; border: 1px solid rgb(255 255 255 / .08); border-radius: 14px; background: rgb(255 255 255 / .03); padding: 12px; animation: legende-pop .5s both cubic-bezier(.22, 1, .36, 1); }
 @keyframes legende-pop { from { opacity: 0; transform: translateY(10px) scale(.97); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .waveLive, .networkTile, .leadRow { animation: none; } }
+.methodName { font-family: var(--font-serif), Georgia, 'Times New Roman', serif; font-size: 32px; line-height: 1; color: #d4a574; }
+.times { display: grid; place-items: center; font-family: var(--font-serif), Georgia, serif; font-size: 34px; color: rgb(212 165 116 / .6); }
+@media (max-width: 767px) { .times { font-size: 26px; } }
