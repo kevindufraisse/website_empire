@@ -55,7 +55,7 @@ export default function Header() {
 
   // « Devenir partenaire » n'est plus dans le header : il ferme l'accueil et la page one-to-one.
   const doors = [
-    { href: '/legende', label: fr ? 'Travailler en one-to-one' : 'Work one-on-one', active: pathname === '/legende' },
+    { href: '/legende', label: fr ? 'Travailler en 1-to-1' : 'Work 1-to-1', active: pathname === '/legende' },
   ]
 
   const lives = [
