@@ -55,7 +55,6 @@ export default function Header() {
 
   // « Devenir partenaire » n'est plus dans le header : il ferme l'accueil et la page one-to-one.
   const doors = [
-    { href: '/demo', label: fr ? 'Demander une démo' : 'Book a demo', active: pathname === '/demo' },
     { href: '/legende', label: fr ? 'Travailler en one-to-one' : 'Work one-on-one', active: pathname === '/legende' },
   ]
 

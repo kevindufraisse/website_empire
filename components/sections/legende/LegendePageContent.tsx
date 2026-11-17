@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowRight, Check } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import LoomEmbed from '@/components/LoomEmbed'
 import PartnerFinalCta from '@/components/sections/PartnerFinalCta'
+import LegendeWeekScroll, { Reveal } from './LegendeWeekScroll'
 import { TRIAL_URL } from '@/lib/startTrial'
 import { budgets, decisions, revenueBands, scopes, timings } from '@/lib/legende'
 import { countryPhone } from '@/lib/legende-phone'
@@ -254,11 +255,14 @@ export default function LegendePageContent() {
     </header>
 
     <div id="video" className="mx-auto mt-14 max-w-5xl scroll-mt-20 px-5 sm:px-8">
-      <LoomEmbed facade id="031aba6220874a0d838ac246ce538a88" title={t.video} />
-      <p className="mt-3 text-[13px] text-neutral-500">{t.who} · {t.applyNote}</p>
+      <Reveal delay={.1}>
+        <LoomEmbed facade id="031aba6220874a0d838ac246ce538a88" title={t.video} />
+        <p className="mt-3 text-[13px] text-neutral-500">{t.who} · {t.applyNote}</p>
+      </Reveal>
     </div>
 
     <section className="mx-auto mt-24 max-w-5xl px-5 sm:px-8" aria-labelledby="legende-philosophy">
+      <Reveal>
       <p className={styles.label}><span className="h-1.5 w-1.5 rounded-full bg-autopilot" aria-hidden />{t.philosophyLabel}</p>
       <div className="mt-6 grid gap-10 border-t border-white/10 pt-8 md:grid-cols-[1.1fr_1fr] md:gap-16">
         <div>
@@ -271,21 +275,17 @@ export default function LegendePageContent() {
           </div>)}
         </dl>
       </div>
+      </Reveal>
     </section>
 
     <section className="mx-auto mt-24 max-w-5xl px-5 sm:px-8" aria-labelledby="legende-week">
       <p className={styles.label}><span className="h-1.5 w-1.5 rounded-full bg-autopilot" aria-hidden />{t.weekLabel}</p>
       <h2 id="legende-week" className={styles.sectionTitle}>{t.weekTitle}</h2>
-      <ol className="mt-8 border-t border-white/10">
-        {t.week.map(([title, body], i) => <li key={title} className="grid gap-2 border-b border-white/10 py-5 sm:grid-cols-[3rem_minmax(0,16rem)_1fr] sm:items-baseline sm:gap-6">
-          <span className={styles.number}>0{i + 1}</span>
-          <span className={styles.serviceName}>{title}</span>
-          <span className="text-[15px] leading-relaxed text-neutral-400">{body}</span>
-        </li>)}
-      </ol>
+      <LegendeWeekScroll lang={lang} steps={t.week} />
     </section>
 
     <section className="mx-auto mt-24 max-w-5xl px-5 sm:px-8" aria-labelledby="legende-process">
+      <Reveal>
       <p className={styles.label}><span className="h-1.5 w-1.5 rounded-full bg-autopilot" aria-hidden />{t.processLabel}</p>
       <h2 id="legende-process" className={styles.sectionTitle}>{t.processTitle}</h2>
       <ol className="mt-8 grid gap-8 md:grid-cols-3">
@@ -299,9 +299,11 @@ export default function LegendePageContent() {
         <p className="text-lg font-semibold">{t.ready}</p>
         <a href="#candidature" className={styles.pill}>{t.apply}<ArrowRight aria-hidden size={15} /></a>
       </div>
+      </Reveal>
     </section>
 
     <section className="mx-auto mt-24 max-w-5xl px-5 sm:px-8" aria-labelledby="legende-faq">
+      <Reveal>
       <p className={styles.label}><span className="h-1.5 w-1.5 rounded-full bg-autopilot" aria-hidden />{t.faqLabel}</p>
       <h2 id="legende-faq" className={styles.sectionTitle}>{t.faqTitle}</h2>
       <div className="mt-8 border-t border-white/10">
@@ -310,6 +312,7 @@ export default function LegendePageContent() {
           <p>{a}</p>
         </details>)}
       </div>
+      </Reveal>
     </section>
 
     <div id="candidature" className="mx-auto mt-24 max-w-3xl scroll-mt-20 px-5 sm:px-8">

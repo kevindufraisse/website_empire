@@ -90,6 +90,9 @@ export default function Footer() {
               <a href="/academy" className="text-sm text-neutral-400 hover:text-empire transition-colors">
                 {lang === 'fr' ? 'Programme partenaire' : 'Partner program'}
               </a>
+              <a href="/demo" className="text-sm text-neutral-400 hover:text-empire transition-colors">
+                {lang === 'fr' ? 'Demander une démo' : 'Book a demo'}
+              </a>
               <a href="/mission" className="text-sm text-neutral-400 hover:text-empire transition-colors">
                 {lang === 'fr' ? 'Ma mission' : 'My mission'}
               </a>
