@@ -19,15 +19,21 @@ const CalModal = dynamic(() => import('@/components/YtLeadForm').then(m => m.Cal
 
 const copy = {
   fr: {
-    badge: 'Sur candidature', studio: 'Travailler en one-to-one',
-    who: 'Avec Kevin ou un Head of Content Empire',
-    title: ['1 heure par semaine.', 'On fait tout le reste.'],
-    intro: 'Tu travailles en direct avec Kevin ou un Head of Content Empire. On prépare tes sujets, tu parles une heure, et ton contenu sort chaque jour sur 7 réseaux. Une offre premium, sur candidature.',
+    badge: 'Sur candidature uniquement', studio: 'Travailler en 1-to-1',
+    who: 'Avec Kevin ou un Head of Content formé par Kevin',
+    title: ['Ton nom,', 'la référence', 'de ton marché.'],
+    intro: 'Tu parles une heure par semaine. On fait tout le reste : tes sujets, ton contenu publié chaque jour sur 7 réseaux, les contacts qu’il t’apporte.',
     apply: 'Candidater', applyNote: 'Chaque candidature est lue personnellement', solo: 'Continuer seul, gratuitement',
+    advisory: 'Réserver une session avec Kevin', heroStat: ['700M+', 'vues générées pour nos clients'],
+    manifesto: ['Tu as mis des années à devenir le meilleur dans ton métier.', 'On fait en sorte que ton marché le sache.'],
     video: 'Regarde la vidéo de Kevin',
-    philosophyLabel: 'Notre philosophie', philosophy: 'On construit des réputations.',
-    philosophyText: 'Ton temps est ce qu’il y a de plus cher. On le réduit à une heure par semaine, et on transforme cette heure en une présence quotidienne qui t’apporte des clients.',
-    facts: [['1 h', 'par semaine, ton seul temps passé'], ['7', 'réseaux, chaque jour'], ['1:1', 'avec Kevin ou un Head of Content']] as [string, string][],
+    proofLabel: 'Ils nous ont confié leur image',
+    facts: [['#1', 'Lead Generation France'], ['#55', 'LinkedIn Influence France']] as [string, string][],
+    selectLabel: 'Sélection', selectTitle: 'On dit non à la plupart des candidatures.',
+    selectText: 'Ton contenu porte ton nom, et le nôtre. On ne prend que les dirigeants avec qui on sait aller loin.',
+    fitTitle: 'On travaille avec toi si', notFitTitle: 'Ce n’est pas pour toi si',
+    fit: ['Ton entreprise fait au moins 300 000 € de chiffre d’affaires par an.', 'Tu as un avis tranché sur ton métier, et l’envie de le dire.', 'Tu peux bloquer une heure par semaine, pendant douze mois.'],
+    notFit: ['Tu cherches l’option la moins chère : l’abonnement Empire est fait pour ça.', 'Tu n’as pas encore d’offre à vendre.', 'Tu attends des résultats en deux semaines.'],
     weekLabel: 'Ta semaine avec nous', weekTitle: 'Tu parles. On s’occupe du reste.',
     week: [
       ['On prépare tes sujets', 'Tu arrives au rendez-vous, les sujets de la semaine sont prêts, choisis pour ton marché.'],
@@ -36,17 +42,19 @@ const copy = {
       ['On récupère tes leads', 'On installe les automatisations qui récupèrent les e-mails de ceux qui réagissent à ton contenu.'],
       ['On t’aide à vendre', 'Si tu en as besoin, on te conseille sur ton offre et tes tarifs.'],
     ] as [string, string][],
-    processLabel: 'Candidater', processTitle: 'Comment rejoindre le one-to-one',
+    processLabel: 'Candidater', processTitle: 'Comment rejoindre le 1-to-1',
     ready: 'Tu penses être éligible ?',
     faqLabel: 'Questions', faqTitle: 'Questions fréquentes',
     faq: [
-      ['Pour qui est le one-to-one ?', 'Pour les dirigeants, fondateurs et experts qui veulent que leur nom leur apporte des clients, sans y passer leurs semaines.'],
+      ['Pour qui est le 1-to-1 ?', 'Pour les dirigeants, fondateurs et experts d’une entreprise qui fait au moins 300 000 € de chiffre d’affaires par an, et qui veulent que leur nom leur apporte des clients sans y passer leurs semaines.'],
       ['Combien de temps ça me prend ?', 'Une heure par semaine, en live avec Kevin ou ton Head of Content. Le reste, on s’en occupe.'],
       ['Avec qui je travaille ?', 'Avec Kevin directement, ou avec un Head of Content Empire formé par Kevin, selon les places disponibles.'],
       ['Qu’est-ce que vous publiez pour moi ?', 'Au moins une publication par jour sur 7 réseaux (LinkedIn, Instagram, TikTok, YouTube, Facebook, X et Threads), et des vidéos YouTube longues. Les sujets, on les crée pour toi.'],
-      ['Combien ça coûte ?', 'On en parle pendant l’appel, si ton profil est retenu. L’accompagnement dure douze mois.'],
+      ['Combien ça coûte ?', 'Le tarif dépend de ton volume et de ton marché. On te le donne pendant l’appel, avant tout engagement, si ton profil est retenu. L’accompagnement dure douze mois.'],
+      ['Et si je veux d’abord un avis de Kevin ?', 'Tu peux réserver une session de conseil avec lui sur Intro, sans candidature. Vous travaillez directement sur ton blocage.'],
+      ['Pourquoi pas simplement l’abonnement Empire ?', 'Si tu veux garder la main et que 20 minutes par semaine te vont, l’abonnement suffit, et il coûte bien moins cher. Le 1-to-1, c’est quand tu ne veux plus t’en occuper du tout.'],
     ] as [string, string][],
-    notReady: 'Pas encore prêt pour le one-to-one ? Commence seul avec Empire.',
+    notReady: 'Tu préfères garder la main ? Commence seul avec Empire.',
     formLabel: 'Candidature',
     process: [
       ['Tu candidates', 'Présente ton entreprise, tes résultats et tes ambitions.'],
@@ -77,15 +85,21 @@ const copy = {
     limit: 'Plusieurs demandes ont déjà été envoyées. Réessaie dans 15 minutes.',
   },
   en: {
-    badge: 'Application only', studio: 'Work one-on-one',
-    who: 'With Kevin or an Empire Head of Content',
-    title: ['1 hour a week.', 'We do everything else.'],
-    intro: 'You work directly with Kevin or an Empire Head of Content. We prepare your topics, you talk for an hour, and your content goes out every day on 7 networks. A premium offer, by application.',
+    badge: 'By application only', studio: 'Work 1-to-1',
+    who: 'With Kevin or a Head of Content trained by Kevin',
+    title: ['Your name,', 'the reference', 'in your market.'],
+    intro: 'You talk one hour a week. We do everything else: your topics, your content published every day on 7 networks, the contacts it brings you.',
     apply: 'Apply', applyNote: 'Every application is read personally', solo: 'Continue on your own, free',
+    advisory: 'Book a session with Kevin', heroStat: ['700M+', 'views generated for our clients'],
+    manifesto: ['You spent years becoming the best at what you do.', 'We make sure your market knows it.'],
     video: 'Watch Kevin’s video',
-    philosophyLabel: 'Our philosophy', philosophy: 'We build reputations.',
-    philosophyText: 'Your time is your most expensive asset. We cut it down to one hour a week and turn that hour into a daily presence that brings you clients.',
-    facts: [['1 h', 'a week, your only time spent'], ['7', 'networks, every day'], ['1:1', 'with Kevin or a Head of Content']] as [string, string][],
+    proofLabel: 'They trusted us with their image',
+    facts: [['#1', 'Lead Generation France'], ['#55', 'LinkedIn Influence France']] as [string, string][],
+    selectLabel: 'Selection', selectTitle: 'We turn down most applications.',
+    selectText: 'Your content carries your name, and ours. We only take on leaders we know we can go far with.',
+    fitTitle: 'We work with you if', notFitTitle: 'It’s not for you if',
+    fit: ['Your company makes at least €300,000 in revenue a year.', 'You have strong opinions about your field, and want to share them.', 'You can block one hour a week, for twelve months.'],
+    notFit: ['You’re looking for the cheapest option: the Empire subscription is built for that.', 'You don’t have an offer to sell yet.', 'You expect results in two weeks.'],
     weekLabel: 'Your week with us', weekTitle: 'You talk. We handle the rest.',
     week: [
       ['We prepare your topics', 'You show up to the session with the week’s topics ready, picked for your market.'],
@@ -94,17 +108,19 @@ const copy = {
       ['We capture your leads', 'We set up the automations that collect the emails of people who react to your content.'],
       ['We help you sell', 'If you need it, we advise you on your offer and your pricing.'],
     ] as [string, string][],
-    processLabel: 'Apply', processTitle: 'How to join the one-on-one',
+    processLabel: 'Apply', processTitle: 'How to join 1-to-1',
     ready: 'Think you’re eligible?',
     faqLabel: 'Questions', faqTitle: 'Frequently asked questions',
     faq: [
-      ['Who is the one-on-one for?', 'For leaders, founders and experts who want their name to bring them clients, without spending their weeks on it.'],
+      ['Who is 1-to-1 for?', 'For leaders, founders and experts whose company makes at least €300,000 in revenue a year, and who want their name to bring them clients without spending their weeks on it.'],
       ['How much of my time does it take?', 'One hour a week, live with Kevin or your Head of Content. We handle the rest.'],
       ['Who will I work with?', 'With Kevin directly, or with an Empire Head of Content trained by Kevin, depending on availability.'],
       ['What do you publish for me?', 'At least one post a day on 7 networks (LinkedIn, Instagram, TikTok, YouTube, Facebook, X and Threads), plus long-form YouTube videos. We create the topics for you.'],
-      ['How much does it cost?', 'We discuss it on the call, if your profile is shortlisted. The programme runs for twelve months.'],
+      ['How much does it cost?', 'The price depends on your volume and your market. We give it to you on the call, before any commitment, if your profile is shortlisted. The programme runs for twelve months.'],
+      ['What if I want Kevin’s advice first?', 'You can book an advisory session with him on Intro, no application needed. You work directly on what’s blocking you.'],
+      ['Why not just the Empire subscription?', 'If you want to stay hands-on and 20 minutes a week works for you, the subscription is enough, and it costs far less. 1-to-1 is for when you don’t want to deal with it at all.'],
     ] as [string, string][],
-    notReady: 'Not ready for one-on-one yet? Start on your own with Empire.',
+    notReady: 'Prefer to stay hands-on? Start on your own with Empire.',
     formLabel: 'Application',
     process: [
       ['You apply', 'Tell us about your business, your results and your ambitions.'],
@@ -134,6 +150,12 @@ const copy = {
     limit: 'Several requests have already been sent. Please try again in 15 minutes.',
   },
 }
+const INTRO_URL = 'https://intro.co/kevindufraisse?source=intro'
+const CLIENT_LOGOS = [
+  { name: 'Ippon Technologies', src: '/logos/ippon.png' },
+  { name: 'Socratiz', src: '/logos/presse-agence.png' },
+  { name: 'The Sanctuary Group', src: '/logos/sanctuary.png' },
+]
 const uuid = () => typeof crypto.randomUUID === 'function' ? crypto.randomUUID()
   : '10000000-1000-4000-8000-100000000000'.replace(/[018]/g, c => (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16))
 const fieldClass = styles.field
@@ -242,16 +264,18 @@ export default function LegendePageContent() {
   }
 
   return <main lang={lang} className={styles.page}>
-    <header className="mx-auto max-w-5xl px-5 pt-16 sm:px-8 md:pt-24">
-      <p className={styles.label}><span className="h-1.5 w-1.5 rounded-full bg-autopilot" aria-hidden />Légende · {t.studio} · {t.badge.toLowerCase()}</p>
-      <h1 className={styles.display}>{t.title[0]} <em>{t.title[1]}</em></h1>
-      <div className="mt-8 grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
-        <p className="max-w-xl text-[17px] leading-relaxed text-neutral-300">{t.intro}</p>
-        <div className="flex flex-wrap items-center gap-3">
-          <a href="#candidature" className={styles.pill}>{t.apply}<ArrowRight aria-hidden size={15} /></a>
-          <a href={TRIAL_URL} className={styles.ghost}>{t.solo}</a>
-        </div>
+    <header className="mx-auto max-w-5xl px-5 pt-16 text-center sm:px-8 md:pt-24">
+      <p className={styles.badge}>{t.badge}</p>
+      <h1 className={styles.display}>{t.title[0]} <em>{t.title[1]}</em><br className="hidden sm:block" /> {t.title[2]}</h1>
+      <p className="mx-auto mt-7 max-w-xl text-[17px] leading-relaxed text-neutral-300">{t.intro}</p>
+      <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
+        <a href="#candidature" className={styles.pill}>{t.apply}<ArrowRight aria-hidden size={15} /></a>
+        <a href={INTRO_URL} target="_blank" rel="noopener" className={styles.ghost}>{t.advisory}</a>
       </div>
+      <p className="mt-10 flex items-baseline justify-center gap-3">
+        <span className={styles.heroStat}>{t.heroStat[0]}</span>
+        <span className="max-w-[9rem] text-left text-[13px] leading-snug text-neutral-400">{t.heroStat[1]}</span>
+      </p>
     </header>
 
     <div id="video" className="mx-auto mt-14 max-w-5xl scroll-mt-20 px-5 sm:px-8">
@@ -261,19 +285,45 @@ export default function LegendePageContent() {
       </Reveal>
     </div>
 
-    <section className="mx-auto mt-24 max-w-5xl px-5 sm:px-8" aria-labelledby="legende-philosophy">
+    <section className="mx-auto mt-28 max-w-4xl px-5 text-center sm:px-8" aria-label={t.manifesto.join(' ')}>
       <Reveal>
-      <p className={styles.label}><span className="h-1.5 w-1.5 rounded-full bg-autopilot" aria-hidden />{t.philosophyLabel}</p>
-      <div className="mt-6 grid gap-10 border-t border-white/10 pt-8 md:grid-cols-[1.1fr_1fr] md:gap-16">
-        <div>
-          <h2 id="legende-philosophy" className={styles.statement}>{t.philosophy}</h2>
-          <p className="mt-4 max-w-md text-[17px] leading-relaxed text-neutral-300">{t.philosophyText}</p>
-        </div>
+        <p className={styles.manifesto}>{t.manifesto[0]} <em>{t.manifesto[1]}</em></p>
+      </Reveal>
+    </section>
+
+    <section className="mx-auto mt-24 max-w-5xl px-5 sm:px-8" aria-label={t.proofLabel}>
+      <Reveal>
+      <p className={styles.label}><span className="h-1.5 w-1.5 rounded-full bg-autopilot" aria-hidden />{t.proofLabel}</p>
+      <div className="mt-6 grid gap-10 border-t border-white/10 pt-8 md:grid-cols-[1.1fr_1fr] md:items-center md:gap-16">
+        <ul className="flex flex-wrap items-center gap-x-10 gap-y-6">
+          {CLIENT_LOGOS.map(logo => <li key={logo.name}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={logo.src} alt={logo.name} loading="lazy" className="h-9 w-auto object-contain opacity-70 brightness-0 invert" />
+          </li>)}
+        </ul>
         <dl className="divide-y divide-white/10 border-y border-white/10">
           {t.facts.map(([value, label]) => <div key={label} className="flex items-baseline gap-5 py-4">
             <dt className={styles.fact}>{value}</dt><dd className="text-[15px] text-neutral-400">{label}</dd>
           </div>)}
         </dl>
+      </div>
+      </Reveal>
+    </section>
+
+    <section className="mx-auto mt-24 max-w-5xl px-5 sm:px-8" aria-labelledby="legende-select">
+      <Reveal>
+      <p className={styles.label}><span className="h-1.5 w-1.5 rounded-full bg-autopilot" aria-hidden />{t.selectLabel}</p>
+      <h2 id="legende-select" className={styles.statement}>{t.selectTitle}</h2>
+      <p className="mt-4 max-w-xl text-[17px] leading-relaxed text-neutral-300">{t.selectText}</p>
+      <div className="mt-10 grid gap-10 border-t border-white/10 pt-8 md:grid-cols-2 md:gap-16">
+        {([[t.fitTitle, t.fit, true], [t.notFitTitle, t.notFit, false]] as [string, string[], boolean][]).map(([title, items, yes]) => <div key={title}>
+          <h3 className="text-[16px] font-semibold">{title}</h3>
+          <ul className="mt-4 space-y-3">
+            {items.map(item => <li key={item} className="flex gap-3 text-[15px] leading-relaxed text-neutral-300">
+              <span aria-hidden className={yes ? 'text-autopilot' : 'text-neutral-500'}>{yes ? '✓' : '×'}</span>{item}
+            </li>)}
+          </ul>
+        </div>)}
       </div>
       </Reveal>
     </section>
@@ -385,13 +435,14 @@ export default function LegendePageContent() {
       {error && <p role="alert" className="mt-4 text-sm text-red-300">{t[error]}</p>}
     </section>
     <p className="mt-5 text-center text-sm text-neutral-400">{t.notReady} <a href={TRIAL_URL} className="font-semibold text-white underline underline-offset-4">{t.solo}</a></p>
+    <p className="mt-2 text-center text-sm text-neutral-400"><a href={INTRO_URL} target="_blank" rel="noopener" className="font-semibold text-white underline underline-offset-4">{t.advisory}</a></p>
     </div>
     <div className="mt-24"><PartnerFinalCta /></div>
     <footer className="mt-10 overflow-hidden px-5 sm:px-8">
       <div className="mx-auto flex max-w-5xl justify-between border-t border-[white/10 py-4 text-[12px] text-neutral-500">
         <span>© Empire Internet</span><a href="/privacy" className="underline">{t.privacy}</a>
       </div>
-      <p aria-hidden="true" className={styles.wordmark}>Légende</p>
+      <p aria-hidden="true" className={styles.wordmark}>1-to-1</p>
     </footer>
   </main>
 }

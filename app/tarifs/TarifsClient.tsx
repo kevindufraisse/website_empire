@@ -374,7 +374,7 @@ export default function TarifsClient() {
             <section className={`mx-auto mt-8 max-w-5xl p-5 sm:p-7 lg:max-w-6xl ${glass.panel}`} aria-labelledby="one-to-one-titre">
               <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
                 <div className="max-w-2xl">
-                  <p className={EYEBROW}>{fr ? 'Travailler en one-to-one' : 'Work one-on-one'}</p>
+                  <p className={EYEBROW}>{fr ? 'Travailler en 1-to-1' : 'Work 1-to-1'}</p>
                   <h2 id="one-to-one-titre" className={`mt-2 ${H3}`}>{fr ? 'Avec Kevin ou un Head of Content Empire.' : 'With Kevin or an Empire Head of Content.'}</h2>
                   <p className="mt-2 text-[15px] leading-relaxed text-neutral-300">
                     {fr ? '1 h par semaine en live : on prépare tes sujets, tu parles, on publie à ta place et on installe les automatisations qui récupèrent tes leads.' : '1 hour a week, live: we prepare your topics, you talk, we publish for you and set up the automations that capture your leads.'}
