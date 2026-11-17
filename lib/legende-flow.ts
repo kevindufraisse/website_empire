@@ -32,8 +32,8 @@ export function readContact(data: Record<string, unknown>) {
   const submissionId = text(data.submissionId)
   const person = readPerson(data)
   if (!UUID.test(submissionId) || !person) return null
-  const plan = has(plans, data.plan) ? data.plan : undefined
-  return { submissionId, ...person, plan }
+  if (data.plan !== undefined && !has(plans, data.plan)) return null
+  return { submissionId, ...person, plan: data.plan }
 }
 
 /** Étapes 1 + 2 : la candidature complète, qui décide si on propose le calendrier. */

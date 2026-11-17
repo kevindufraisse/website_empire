@@ -131,3 +131,4 @@
 .iphoneIsland { position: absolute; top: 10px; left: 50%; width: 92px; height: 26px; transform: translateX(-50%); border-radius: 999px; background: #000; }
 .proofValue { font-family: var(--font-serif), Georgia, serif; font-size: 30px; line-height: 1; color: #d4a574; }
 .step { border: 1px solid rgb(255 255 255 / .1); border-radius: 18px; background: rgb(255 255 255 / .025); padding: 22px; }
+.resultValue { font-family: var(--font-serif), Georgia, serif; font-size: 24px; line-height: 1.1; color: #d4a574; }

@@ -25,43 +25,50 @@ type Plan = { name: string; tagline: string; price: string; per: string; note: s
 const copy = {
   fr: {
     badge: `Done for you · ${PLACES_LEFT} places restantes sur ${PLACES_TOTAL}`,
-    title: ['Tu parles 1 heure par semaine.', 'On publie pour toi tous les jours.'],
-    intro: 'Kevin t’interviewe en visio, depuis ton iPhone, avec tes écouteurs. Avec cette heure, l’équipe écrit tes posts LinkedIn, monte tes reels et tes vidéos YouTube, rédige ta newsletter, publie chaque jour sur 7 réseaux et récupère les contacts que ça t’apporte.',
-    zero: 'Tu ne tournes rien. Tu n’écris rien. Tu ne publies rien.',
-    apply: 'Candidater', seePrices: 'Voir les tarifs', advisory: 'Ou réserve d’abord une session de conseil avec Kevin',
+    title: ['Vous parlez une heure par semaine.', 'Nous publions pour vous tous les jours.'],
+    intro: 'Kevin vous interviewe en visio, depuis votre iPhone, avec vos écouteurs. De cette heure, l’équipe tire vos posts LinkedIn, vos reels, vos vidéos YouTube et votre newsletter, les publie chaque jour sur 7 réseaux et récupère les contacts qu’ils vous apportent.',
+    zero: 'Vous ne tournez rien. Vous n’écrivez rien. Vous ne publiez rien.',
+    apply: 'Candidater', seePrices: 'Voir les tarifs', advisory: 'Ou réservez d’abord une session de conseil avec Kevin',
     proof: [['700M+', 'vues générées pour nos clients'], ['#1', 'Lead Generation France'], ['#55', 'LinkedIn Influence France']] as [string, string][],
-    phone: { live: 'Interview', week: 'Semaine 12', question: 'Question 3 sur 8', topic: 'Pourquoi tes clients trouvent ton prix trop cher', you: 'Toi' },
-    video: 'Kevin t’explique tout en 16 minutes',
-    howLabel: 'Chaque semaine', howTitle: 'Voilà ce qui se passe.',
+    phone: { live: 'Interview', week: 'Semaine 12', question: 'Question 3 sur 8', topic: 'Pourquoi vos clients trouvent votre prix trop cher', you: 'Vous' },
+    video: 'Kevin vous explique tout en 16 minutes',
+    howLabel: 'Chaque semaine', howTitle: 'Vous parlez. Nous faisons le reste.',
     how: [
-      ['On prépare tes sujets', 'On regarde ce qui marche dans ton marché et chez tes concurrents. Tu reçois les sujets de la semaine avant l’interview.'],
-      ['Kevin t’interviewe, 1 h maximum', 'En visio, depuis ton iPhone, avec des écouteurs. Pas de studio, pas de texte à apprendre. Tu réponds, c’est tout.'],
-      ['L’équipe produit tout', 'Posts LinkedIn, reels, vidéos YouTube longues, newsletter. Écrits et montés à partir de tes mots.'],
-      ['On publie et on récupère tes contacts', 'Au moins une publication par jour sur 7 réseaux. Chaque post a son lien suivi, chaque contact arrive dans ton espace Empire.'],
+      ['Nous préparons vos sujets', 'Nous regardons ce qui marche dans votre marché et chez vos concurrents. Vous recevez les sujets de la semaine avant l’interview.'],
+      ['Kevin vous interviewe, 1 h maximum', 'En visio, depuis votre iPhone, avec des écouteurs. Pas de studio, pas de texte à apprendre. Vous répondez, c’est tout.'],
+      ['L’équipe produit tout', 'Posts LinkedIn, reels, vidéos YouTube longues, newsletter. Écrits et montés à partir de vos mots.'],
+      ['Nous publions et récupérons vos contacts', 'Au moins une publication par jour sur 7 réseaux. Chaque post a son lien suivi, chaque contact arrive dans votre espace Empire.'],
     ] as [string, string][],
-    methodLabel: 'La méthode Empire', methodTitle: ['Offre, Visibilité, Confiance.', 'Les ventes au milieu.'],
-    methodText: 'Un an de R&D et plus de 10 000 posts testés nous ont appris une chose : des vues sans ventes ne servent à rien. On travaille les trois côtés en même temps.',
+    resultsLabel: 'Résultats', resultsTitle: 'Ils sont devenus la référence de leur marché.',
+    results: [
+      { name: 'Evelyne Guitard', role: 'Formatrice', result: '0 → 100 000 vues', detail: 'en 21 jours', photo: '/case-studies/evelyne-guitard.jpg' },
+      { name: 'Deborah Guillotin', role: 'MyES France', result: '0 → 10 000 abonnés', detail: 'en moins d’un mois', photo: '/case-studies/deborah-guillotin.png' },
+      { name: 'Marguerite Demoures', role: 'Stratégie LinkedIn', result: 'Pipeline commercial ×2', detail: 'en un mois', photo: '/case-studies/marguerite-demoures.png' },
+      { name: 'Olivier Sarezinski', role: 'Gérant associé', result: 'Plusieurs freelances → 1 h', detail: 'par semaine', photo: '/case-studies/olivier-sarezinski.jpg' },
+    ],
+    methodLabel: 'La méthode Empire', methodTitle: ['Offre, Visibilité, Confiance.', 'Les ventes au centre.'],
+    methodText: 'Un an de R&D et plus de 10 000 posts testés nous ont appris une chose : des vues sans ventes ne servent à rien. Nous travaillons les trois côtés en même temps.',
     methodCenter: 'Ventes',
     method: [
-      ['Offre', 'On revoit ton offre pour qu’elle se vende à tous les profils de clients, pas seulement à ceux qui te connaissent déjà.'],
-      ['Visibilité', 'Tout ton marché te voit, chaque jour, sur 7 réseaux, avec les formats qui font des vues cette semaine.'],
-      ['Confiance', 'Tes prospects ont vu tes vidéos avant de t’appeler. Ils arrivent convaincus, tu vends sans décrocher le téléphone.'],
+      ['Offre', 'Nous revoyons votre offre pour qu’elle se vende à tous les profils de clients, pas seulement à ceux qui vous connaissent déjà.'],
+      ['Visibilité', 'Tout votre marché vous voit, chaque jour, sur 7 réseaux, avec les formats qui font des vues cette semaine.'],
+      ['Confiance', 'Vos prospects ont vu vos vidéos avant de vous appeler. Ils arrivent convaincus. Vous vendez sans décrocher le téléphone.'],
     ] as [string, string][],
     plansLabel: 'Tarifs', plansTitle: 'Trois façons de travailler avec nous.',
-    plansNote: 'Les deux offres faites pour toi sont sur candidature, pour douze mois, réservées aux entreprises qui font au moins 300 000 € de chiffre d’affaires par an.',
+    plansNote: 'Les deux offres faites pour vous sont sur candidature, pour douze mois, réservées aux entreprises qui réalisent au moins 300 000 € de chiffre d’affaires par an.',
     plans: [
-      { name: 'Empire', tagline: 'Tu fais toi-même', price: 'dès 199 €', per: '/mois', note: 'Sans engagement',
-        items: ['Les sujets et les formats de la semaine dans l’app', 'Tu filmes, l’app monte et publie sur 7 réseaux', 'Un live chaque lundi avec Kevin'], cta: 'Commencer', href: 'trial' },
-      { name: 'Avec un Head of Content', tagline: 'On fait pour toi, tu choisis', price: '1 000 – 3 000 €', per: '/mois', note: 'Sur candidature · 12 mois',
-        items: ['Un Head of Content formé par Kevin t’interviewe chaque semaine', 'L’équipe écrit et monte tes posts, reels, vidéos et newsletter', 'Tu choisis dans ton calendrier Empire ce qui part', 'Publication sur 7 réseaux et contacts récupérés'], cta: 'Candidater', href: 'hoc' },
-      { name: 'Avec Kevin', tagline: 'On fait tout pour toi', price: '4 500 €', per: '/mois', note: 'Sur candidature · 12 mois', featured: `${PLACES_LEFT} places restantes sur ${PLACES_TOTAL}`,
-        items: ['4 interviews par mois avec Kevin, 1 h maximum chacune', 'Tes sujets préparés chaque semaine à partir de ton marché et de tes concurrents', 'Posts LinkedIn, reels, vidéos YouTube longues et newsletter, écrits et montés par l’équipe', 'Publication chaque jour sur 7 réseaux, et tes meilleurs posts republiés', 'Liens suivis et réponses automatiques en DM Instagram pour récupérer tes contacts', 'Ton offre et ton tunnel de vente retravaillés avec Kevin', 'L’app Empire au complet et le live du lundi'], cta: 'Candidater', href: 'kevin' },
+      { name: 'Empire', tagline: 'Vous faites vous-même', price: 'dès 199 €', per: '/mois', note: 'Sans engagement',
+        items: ['Les sujets et les formats de la semaine dans l’app', 'Vous filmez, l’app monte et publie sur 7 réseaux', 'Un live chaque lundi avec Kevin'], cta: 'Commencer', href: 'trial' },
+      { name: 'Avec un Head of Content', tagline: 'Nous faisons pour vous, vous choisissez', price: '1 000 – 3 000 €', per: '/mois', note: 'Sur candidature · 12 mois',
+        items: ['Un Head of Content formé par Kevin vous interviewe chaque semaine', 'L’équipe écrit et monte vos posts, reels, vidéos et newsletter', 'Vous choisissez dans votre calendrier Empire ce qui part', 'Publication sur 7 réseaux et contacts récupérés'], cta: 'Candidater', href: 'hoc' },
+      { name: 'Avec Kevin', tagline: 'Nous faisons tout pour vous', price: '4 500 €', per: '/mois', note: 'Sur candidature · 12 mois', featured: `${PLACES_LEFT} places restantes sur ${PLACES_TOTAL}`,
+        items: ['4 interviews par mois avec Kevin, 1 h maximum chacune', 'Vos sujets préparés chaque semaine à partir de votre marché et de vos concurrents', 'Posts LinkedIn, reels, vidéos YouTube longues et newsletter, écrits et montés par l’équipe', 'Publication chaque jour sur 7 réseaux, et vos meilleurs posts republiés', 'Liens suivis et réponses automatiques en DM Instagram pour récupérer vos contacts', 'Votre offre et votre tunnel de vente retravaillés avec Kevin', 'L’app Empire au complet et le live du lundi'], cta: 'Candidater', href: 'kevin' },
     ] as Plan[],
     clientsLabel: 'Ils nous ont confié leur image',
-    selectTitle: `${PLACES_TOTAL} places par an avec Kevin. On dit non à la plupart des candidatures.`,
-    fitTitle: 'C’est pour toi si', notFitTitle: 'Ce n’est pas pour toi si',
-    fit: ['Ton entreprise fait au moins 300 000 € de chiffre d’affaires par an.', 'Tu as un avis tranché sur ton métier, et l’envie de le dire.', 'Tu peux bloquer une heure par semaine, pendant douze mois.'],
-    notFit: ['Tu veux une production en studio. Ici, tout se filme à l’iPhone.', 'Tu cherches l’option la moins chère : prends l’abonnement Empire.', 'Tu n’as pas encore d’offre à vendre.', 'Tu attends des résultats en deux semaines.'],
+    selectTitle: `${PLACES_TOTAL} places par an avec Kevin. Nous refusons la plupart des candidatures.`,
+    fitTitle: 'C’est pour vous si', notFitTitle: 'Ce n’est pas pour vous si',
+    fit: ['Votre entreprise réalise au moins 300 000 € de chiffre d’affaires par an.', 'Vous avez un avis tranché sur votre métier, et l’envie de le dire.', 'Vous pouvez bloquer une heure par semaine, pendant douze mois.'],
+    notFit: ['Vous voulez une production en studio. Ici, tout se filme à l’iPhone.', 'Vous cherchez l’option la moins chère : prenez l’abonnement Empire.', 'Vous n’avez pas encore d’offre à vendre.', 'Vous attendez des résultats en deux semaines.'],
   },
   en: {
     badge: `Done for you · ${PLACES_LEFT} spots left out of ${PLACES_TOTAL}`,
@@ -79,6 +86,13 @@ const copy = {
       ['The team produces everything', 'LinkedIn posts, reels, long YouTube videos, newsletter. Written and edited from your own words.'],
       ['We publish and capture your contacts', 'At least one post a day on 7 networks. Every post has a tracked link, every contact lands in your Empire space.'],
     ] as [string, string][],
+    resultsLabel: 'Results', resultsTitle: 'They became the reference in their market.',
+    results: [
+      { name: 'Evelyne Guitard', role: 'Trainer', result: '0 → 100,000 views', detail: 'in 21 days', photo: '/case-studies/evelyne-guitard.jpg' },
+      { name: 'Deborah Guillotin', role: 'MyES France', result: '0 → 10,000 followers', detail: 'in under a month', photo: '/case-studies/deborah-guillotin.png' },
+      { name: 'Marguerite Demoures', role: 'LinkedIn strategy', result: 'Sales pipeline ×2', detail: 'in one month', photo: '/case-studies/marguerite-demoures.png' },
+      { name: 'Olivier Sarezinski', role: 'Managing partner', result: 'Several freelancers → 1 h', detail: 'a week', photo: '/case-studies/olivier-sarezinski.jpg' },
+    ],
     methodLabel: 'The Empire method', methodTitle: ['Offer, Visibility, Trust.', 'Sales in the middle.'],
     methodText: 'One year of R&D and over 10,000 posts tested taught us one thing: views without sales are useless. We work on all three sides at once.',
     methodCenter: 'Sales',
@@ -200,6 +214,25 @@ export default function LegendeMarketing({ lang, onApply }: { lang: 'fr' | 'en';
             <p className="mt-2 text-[15px] leading-relaxed text-neutral-400">{body}</p>
           </li>)}
         </ol>
+      </Reveal>
+    </section>
+
+    <section className="mx-auto mt-16 max-w-6xl px-5 sm:px-8 md:mt-20" aria-labelledby="legende-results">
+      <Reveal>
+        <Label>{t.resultsLabel}</Label>
+        <h2 id="legende-results" className={styles.sectionTitle}>{t.resultsTitle}</h2>
+        <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {t.results.map(r => <li key={r.name} className={styles.step + ' flex items-center gap-4 lg:block'}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={r.photo} alt="" loading="lazy" className="h-14 w-14 shrink-0 rounded-full object-cover object-top ring-2 ring-autopilot/60 lg:mb-4" />
+            <div>
+              <p className={styles.resultValue}>{r.result}</p>
+              <p className="text-[14px] text-neutral-400">{r.detail}</p>
+              <p className="mt-2 text-[14px] font-semibold text-white">{r.name}</p>
+              <p className="text-[13px] text-neutral-500">{r.role}</p>
+            </div>
+          </li>)}
+        </ul>
       </Reveal>
     </section>
 
