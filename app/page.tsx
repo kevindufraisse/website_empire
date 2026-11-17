@@ -1,3 +1,4 @@
+import PartnerFinalCta from '@/components/sections/PartnerFinalCta'
 import dynamic from 'next/dynamic'
 import './home-flat.css'
 import HeroSection from '@/components/sections/HeroSection'
@@ -39,6 +40,7 @@ export default function Page() {
         <MasterclassReminder />
         <FAQSection variant="home" />
         <FinalBoostCTA />
+        <PartnerFinalCta />
       </HomeMasterclassGate>
     </main>
   )

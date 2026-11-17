@@ -104,6 +104,13 @@ async function run() {
   for (const phone of ['', '12', '01 23 45 67 89 01 23 45 67 89', 'tél 06 12 34 56 78'])
     assert.equal((await post(application({ phoneCountry: 'FR', phone }))).status, 400)
   assert.equal((await post(application({ phoneCountry: 'ZZ' }))).status, 400)
+  // Budget : informatif, transmis à Slack, ne change jamais le résultat ; absent accepté (anciens formulaires).
+  for (const [budget, label] of [['3to5k', 'De 3 000 € à 5 000 € par mois'], ['under1k', 'Moins de 1 000 € par mois']]) {
+    assert.deepEqual(await (await post(application({ budget }))).json(), { success: true, kind: 'legende' })
+    assert.ok(JSON.stringify(sent.at(-1)).includes('Prêt à investir pour régler son contenu') && JSON.stringify(sent.at(-1)).includes(label), label)
+  }
+  for (const budget of ['lots', '', 5000]) assert.equal((await post(application({ budget }))).status, 400, String(budget))
+  assert.ok(!JSON.stringify((await post(application()), sent.at(-1))).includes('Prêt à investir'))
   const personal = application({ scope: 'personal', company: '', decision: '', revenueBand: undefined })
   assert.deepEqual(await (await post(personal)).json(), { success: true, kind: 'review' })
   assert.ok(!JSON.stringify(sent.at(-1)).includes('CA HT'))

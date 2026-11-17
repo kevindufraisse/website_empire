@@ -5,7 +5,7 @@ import { CTA_PRIMARY } from '@/components/ui/cta'
 import glass from '@/components/pricing/pricing.module.css'
 
 type Control = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-const titles = ['Tes coordonnées', 'Ta situation', 'Ton expérience', 'Ton projet']
+const titles = ['Qui es-tu ?', 'Ta situation', 'Ton expérience', 'Ton dossier']
 
 export default function ApplicationForm() {
   const formRef = useRef<HTMLFormElement>(null)
@@ -105,8 +105,8 @@ export default function ApplicationForm() {
     <section ref={sectionRef} id="candidature" aria-labelledby="form-title" className={`${glass.panel} scroll-mt-24 p-5 sm:p-6`}>
       {submitted !== null ? (
         <div ref={confirmationRef} tabIndex={-1} className="outline-none">
-          <h2 id="form-title" className="text-2xl font-bold text-white">Candidature envoyée.</h2>
-          <p className="mt-4 text-sm leading-relaxed text-neutral-300">Notre équipe étudie ton profil et te répond sous 48h sur WhatsApp.</p>
+          <h2 id="form-title" className="text-2xl font-bold text-white">Dossier reçu.</h2>
+          <p className="mt-4 text-sm leading-relaxed text-neutral-300">Kevin lit chaque dossier personnellement. Si ton profil est retenu, on te contacte sur WhatsApp sous 48h pour fixer ton appel de qualification.</p>
           <div className="mt-6 border-t border-white/10 pt-6">
             <h3 className="text-lg font-semibold text-white">Inscris-toi aux Portes Ouvertes</h3>
             <p className="my-4 text-sm text-neutral-400">En attendant la réponse de notre équipe.</p>
@@ -146,12 +146,12 @@ export default function ApplicationForm() {
             <fieldset data-step="3" hidden={step !== 3} disabled={step !== 3 || busy}>
               <legend className="sr-only">Ta motivation</legend>
               <div className="field"><label htmlFor="favoriteCreator">Quel est le créateur de contenu que tu admires le plus aujourd’hui ?</label><textarea id="favoriteCreator" name="favoriteCreator" rows={3} required minLength={1} maxLength={600} placeholder="Son nom ou son compte." aria-describedby="creator-help"></textarea><span className="help" id="creator-help"></span></div>
-              <div className="field"><label htmlFor="project">Pourquoi doit-on te sélectionner toi parmi les 10 places de ce mois-ci ?</label><textarea id="project" name="project" rows={4} required minLength={30} maxLength={1000} placeholder="Quel projet veux-tu construire ? Pour quels entrepreneurs ? Quel temps as-tu réservé pour pratiquer ? Donne-nous des raisons concrètes de te retenir." aria-describedby="project-help"></textarea><span className="help" id="project-help">Une réponse personnelle et concrète. 30 à 1 000 caractères.</span></div>
+              <div className="field"><label htmlFor="project">Pourquoi Kevin devrait-il valider ton dossier parmi les 10 places de ce mois-ci ?</label><textarea id="project" name="project" rows={4} required minLength={30} maxLength={1000} placeholder="Ce que tu as déjà accompli, les entrepreneurs que tu veux accompagner, pourquoi tu es prêt à investir dans cette reconversion. Convaincs-nous." aria-describedby="project-help"></textarea><span className="help" id="project-help">Ne sois pas modeste. 30 à 1 000 caractères.</span></div>
             </fieldset>
             {error && <p role="alert" className="my-4 rounded-lg border border-red-400/30 bg-red-400/10 p-3 text-sm text-red-200">{error}</p>}
             <div className="mt-5 flex items-center gap-4">
               {step > 0 && <button type="button" disabled={busy} onClick={() => moveTo(step - 1)} className="min-h-11 text-sm text-neutral-300 disabled:opacity-50">Retour</button>}
-              <button type="submit" disabled={busy} className={CTA_PRIMARY}>{busy ? 'Envoi en cours…' : step === 3 ? 'Envoyer ma candidature' : 'Continuer'}</button>
+              <button type="submit" disabled={busy} className={CTA_PRIMARY}>{busy ? 'Envoi en cours…' : step === 3 ? 'Envoyer mon dossier' : 'Continuer'}</button>
             </div>
             <p className="mt-4 text-center text-xs leading-relaxed text-neutral-400">En envoyant ta candidature, tu acceptes d’être recontacté par Empire sur WhatsApp sous 48h.</p>
           </form>

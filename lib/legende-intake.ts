@@ -1,6 +1,6 @@
 import { countryPhone } from './legende-phone'
 import { normalizeCandidatePhone } from './candidate-phone'
-import { revenueBands, requestKind, type RevenueBand, scopes, timings, decisions } from './legende'
+import { revenueBands, requestKind, type RevenueBand, scopes, timings, decisions, budgets } from './legende'
 
 const text = (v: unknown) => typeof v === 'string' ? v.trim() : ''
 const has = <T extends object>(options: T, key: unknown): key is Extract<keyof T, string> =>
@@ -13,11 +13,13 @@ export function readIntake(data: Record<string, unknown>) {
   const name = text(data.name), email = text(data.email).toLowerCase()
   const phone = data.phoneCountry === undefined ? normalizeCandidatePhone(text(data.phone)) : countryPhone(text(data.phone), data.phoneCountry)?.number
   const goal = text(data.goal), obstacle = text(data.obstacle), tried = text(data.tried)
-  const { scope, timing, decision, action } = data
+  const { scope, timing, decision, action, budget } = data
   if (!/^[\da-f]{8}-[\da-f]{4}-4[\da-f]{3}-[89ab][\da-f]{3}-[\da-f]{12}$/i.test(submissionId)) return null
   if (!name || name.length > 100 || /[\r\n]/.test(name) || !phone || email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return null
   if (![goal, obstacle, tried].every(s => s.length > 0 && s.length <= 800)) return null
   if (!has(scopes, scope) || !has(timings, timing) || (action !== 'apply' && action !== 'consultation')) return null
+  // Optional for forms loaded before the question existed; informative only, it never changes the outcome.
+  if (budget !== undefined && !has(budgets, budget)) return null
 
   let revenueBand: RevenueBand | undefined
   let decisionLabel: string | undefined
@@ -37,7 +39,7 @@ export function readIntake(data: Record<string, unknown>) {
     if (kind !== 'alternative') return null
     kind = 'consultation'
   }
-  return { submissionId, name, email, phone, scope, goal, obstacle, tried, timing, company, decisionLabel, revenueBand, kind }
+  return { submissionId, name, email, phone, scope, goal, obstacle, tried, timing, company, decisionLabel, revenueBand, budgetLabel: budget === undefined ? undefined : budgets[budget].fr, kind }
 }
 
 type Intake = Exclude<ReturnType<typeof readIntake>, null | 'bot'>
@@ -56,8 +58,9 @@ export function intakeSlackMessage(a: Intake, channel: string) {
     [scopes[a.scope].fr, a.company, a.decisionLabel].filter(Boolean).join('\n'),
     'Objectif\n' + a.goal,
     'Blocage actuel\n' + a.obstacle,
-    'Déjà essayé et résultat\n' + a.tried,
+    'Ce qu’il a déjà construit\n' + a.tried,
     'Démarrage souhaité\n' + timings[a.timing].fr,
+    ...(a.budgetLabel ? ['Prêt à investir pour régler son contenu\n' + a.budgetLabel] : []),
     ...(a.scope === 'personal' ? [] : ['CA HT sur les 12 derniers mois\n' + (a.revenueBand?.fr ?? 'Inconnu')]),
   ]
   return { channel, client_msg_id: a.submissionId, text: title, mrkdwn: false, unfurl_links: false, unfurl_media: false,

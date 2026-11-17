@@ -3,8 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Check, ChevronDown, Search, X } from 'lucide-react'
-import { getCountries, getCountryCallingCode, getExampleNumber, type CountryCode } from 'libphonenumber-js/min'
-import examples from 'libphonenumber-js/examples.mobile.json'
+import { getCountries, getCountryCallingCode, getExampleNumber, type CountryCode, type Examples } from 'libphonenumber-js/min'
 import { countryPhone } from '@/lib/legende-phone'
 import styles from './legende-form.module.css'
 
@@ -28,6 +27,8 @@ export default function LegendePhoneField({ lang, country, value, invalid, onInv
   const input = useRef<HTMLInputElement>(null)
   const list = useRef<HTMLDivElement>(null)
   const dialog = useRef<HTMLDialogElement>(null)
+  const [examples, setExamples] = useState<Examples>()
+  useEffect(() => { import('libphonenumber-js/examples.mobile.json').then(m => setExamples(m.default as Examples)) }, [])
   useEffect(() => {
     if (open && dialog.current && !dialog.current.open) {
       dialog.current.showModal()
@@ -47,7 +48,7 @@ export default function LegendePhoneField({ lang, country, value, invalid, onInv
   const selected = countries.find(row => row.iso === country)!
   const term = simplify(query)
   const filtered = countries.filter(row => row.search.includes(term) || row.iso.toLowerCase() === term || row.dial.startsWith(term.startsWith('+') ? term : '+' + term))
-  const example = getExampleNumber(country, examples)?.formatNational()
+  const example = examples && getExampleNumber(country, examples)?.formatNational()
 
   function update(iso: CountryCode, number: string) {
     input.current?.setCustomValidity('')

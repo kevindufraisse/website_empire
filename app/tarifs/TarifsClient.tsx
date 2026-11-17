@@ -370,6 +370,23 @@ export default function TarifsClient() {
               <CallLink className="mt-4 md:mt-6" />
             </section>
 
+            {/* Accompagnement premium : on postule, pas de prix affiché. */}
+            <section className={`mx-auto mt-8 max-w-5xl p-5 sm:p-7 lg:max-w-6xl ${glass.panel}`} aria-labelledby="one-to-one-titre">
+              <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+                <div className="max-w-2xl">
+                  <p className={EYEBROW}>{fr ? 'Travailler en one-to-one' : 'Work one-on-one'}</p>
+                  <h2 id="one-to-one-titre" className={`mt-2 ${H3}`}>{fr ? 'Avec Kevin ou un Head of Content Empire.' : 'With Kevin or an Empire Head of Content.'}</h2>
+                  <p className="mt-2 text-[15px] leading-relaxed text-neutral-300">
+                    {fr ? '1 h par semaine en live : on prépare tes sujets, tu parles, on publie à ta place et on installe les automatisations qui récupèrent tes leads.' : '1 hour a week, live: we prepare your topics, you talk, we publish for you and set up the automations that capture your leads.'}
+                  </p>
+                  <p className="mt-2 text-xs text-neutral-400">{fr ? 'Sur candidature · Selon les places disponibles' : 'By application · Subject to availability'}</p>
+                </div>
+                <a href="/legende#candidature" className="inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-xl border border-white/25 px-6 text-sm font-semibold text-white transition hover:border-white/50">
+                  {fr ? 'Candidater' : 'Apply'}<ArrowRight className="h-4 w-4" aria-hidden />
+                </a>
+              </div>
+            </section>
+
             {/* 2. La méthode : d'où viennent les formats. */}
             <section className={SECTION} aria-labelledby="methode-titre">
               <div className="mx-auto max-w-2xl text-center">
