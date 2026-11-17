@@ -68,6 +68,14 @@ export const timings = {
   later: { fr: 'Plus tard, je me renseigne', en: 'Later, I’m exploring' },
 }
 
+export const budgets = {
+  under1k: { fr: 'Moins de 1 000 € par mois', en: 'Under €1,000 a month' },
+  '1to3k': { fr: 'De 1 000 € à 3 000 € par mois', en: '€1,000 to €3,000 a month' },
+  '3to5k': { fr: 'De 3 000 € à 5 000 € par mois', en: '€3,000 to €5,000 a month' },
+  '5to10k': { fr: 'De 5 000 € à 10 000 € par mois', en: '€5,000 to €10,000 a month' },
+  over10k: { fr: 'Plus de 10 000 € par mois', en: 'Over €10,000 a month' },
+}
+
 export const decisions = {
   me: { fr: 'Je décide', en: 'I make the decision' },
   shared: { fr: 'Je décide avec une autre personne', en: 'I share the decision' },

@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic'
 import { ArrowDown, ArrowLeft, ArrowRight, Check } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import LoomEmbed from '@/components/LoomEmbed'
-import { decisions, revenueBands, scopes, timings } from '@/lib/legende'
+import { budgets, decisions, revenueBands, scopes, timings } from '@/lib/legende'
 import { countryPhone } from '@/lib/legende-phone'
 import type { CountryCode } from 'libphonenumber-js/min'
 import LegendePhoneField from './LegendePhoneField'
@@ -55,6 +55,7 @@ const copy = {
     timing: 'Quand aimerais-tu démarrer ?', decision: 'Qui prend la décision pour cet accompagnement ?',
     company: 'Nom de l’entreprise', revenue: 'Quel chiffre d’affaires HT cette entreprise a-t-elle réalisé sur les 12 derniers mois ?',
     unknown: 'Je ne connais pas ce chiffre',
+    budget: 'Combien es-tu prêt à investir pour régler définitivement ton problème de contenu ?',
     note: 'En envoyant ta candidature, tu acceptes que l’équipe Empire te recontacte au sujet de ton projet.',
     privacy: 'Confidentialité', next: 'Continuer', back: 'Retour', send: 'Envoyer ma candidature', busy: 'Envoi en cours…',
     received: 'Ta candidature est retenue', call: 'Ton profil correspond à ce que Kevin recherche. Choisis un créneau de 45 minutes pour en parler avec l’équipe.', book: 'Réserver mon appel',
@@ -104,6 +105,7 @@ const copy = {
     timing: 'When would you like to start?', decision: 'Who decides whether to go ahead?',
     company: 'Company name', revenue: 'What was this company’s revenue, excluding tax, over the last 12 months?',
     unknown: 'I don’t know this figure',
+    budget: 'How much are you ready to invest to solve your content problem for good?',
     note: 'By submitting your application, you agree that the Empire team may contact you about your project.',
     privacy: 'Privacy', next: 'Continue', back: 'Back', send: 'Submit my application', busy: 'Sending…',
     received: 'Your application is shortlisted', call: 'Your profile matches what Kevin is looking for. Pick a 45-minute slot to talk it through with the team.', book: 'Book my call',
@@ -119,7 +121,7 @@ const uuid = () => typeof crypto.randomUUID === 'function' ? crypto.randomUUID()
   : '10000000-1000-4000-8000-100000000000'.replace(/[018]/g, c => (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16))
 const fieldClass = styles.field
 const buttonClass = styles.primary
-const empty = { scope: '', goal: '', obstacle: '', tried: '', timing: '', name: '', email: '', phone: '', company: '', decision: '', revenueBand: '', website: '' }
+const empty = { scope: '', goal: '', obstacle: '', tried: '', timing: '', name: '', email: '', phone: '', company: '', decision: '', revenueBand: '', budget: '', website: '' }
 
 function Earbuds({ label }: { label: string }) {
   return <svg role="img" aria-label={label} viewBox="0 0 64 64" className="h-[1em] w-[1em] shrink-0">
@@ -172,10 +174,10 @@ export default function LegendePageContent() {
     } }
   }
 
-  function choices(key: 'scope' | 'timing' | 'decision' | 'revenueBand', label: string, options: { value: string; label: string }[]) {
+  function choices(key: 'scope' | 'timing' | 'decision' | 'revenueBand' | 'budget', label: string, options: { value: string; label: string }[]) {
     return <fieldset>
       <legend>{label}</legend>
-      <div className={styles.choices + (key === 'revenueBand' ? ' ' + styles.compact : '')}>
+      <div className={styles.choices + (key === 'revenueBand' || key === 'budget' ? ' ' + styles.compact : '')}>
         {options.map(option => <label key={option.value} className={styles.option}>
           <input type="radio" name={key} value={option.value} required checked={answers[key] === option.value}
             onChange={() => change(key, option.value)} />
@@ -356,6 +358,7 @@ export default function LegendePageContent() {
               {choices('decision', t.decision, localized(decisions))}
               {choices('revenueBand', t.revenue, [...revenueBands.map(band => ({ value: String(band.minimum), label: band[lang].replace(/(\d) (?=\d|€|million)/g, '$1\u00a0') })), { value: 'unknown', label: t.unknown }])}
             </>}
+            {choices('budget', t.budget, localized(budgets).map(o => ({ ...o, label: o.label.replace(/(\d) (?=\d|€)/g, '$1\u00a0') })))}
             <p className="text-sm text-neutral-500">{t.note} <a className="underline" href="/privacy">{t.privacy}</a></p>
           </>}
           <label aria-hidden="true" className={styles.trap}>Website<input tabIndex={-1} autoComplete="off" {...bind('website')} /></label>
