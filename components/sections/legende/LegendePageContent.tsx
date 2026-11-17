@@ -27,11 +27,12 @@ const copy = {
     advisory: 'Réserver une session avec Kevin', heroStat: ['700M+', 'vues générées pour nos clients'],
     manifesto: ['Tu as mis des années à devenir le meilleur dans ton métier.', 'On fait en sorte que ton marché le sache.'],
     methodLabel: 'La méthode Empire', methodTitle: ['Comme une armée de freelances', 'qui travaille pour toi.'],
-    methodText: 'Un an de R&D, plus de 10 000 posts testés. On sait ce qui fait des vues et ce qui fait des clients. Notre méthode tient en une formule.',
+    methodText: 'Un an de R&D, plus de 10 000 posts testés. Ta présence en ligne ne sert à rien si elle ne fait pas vendre. Alors notre méthode part de tes ventes, et tient en trois côtés.',
+    methodTriangle: 'Le triangle Empire',
     method: [
-      ['Message', 'Ce que toi seul peux dire. On le sort de toi en interview, tu n’as rien à préparer.'],
-      ['Format', 'Les formats qui font des vues cette semaine. Tes vidéos sont des lives filmés à l’iPhone avec des écouteurs : c’est ce qui performe le mieux, bien mieux qu’un studio.'],
-      ['Diffusion', 'Chaque jour sur 7 réseaux, et des liens qui transforment ton audience en contacts.'],
+      ['Offre', 'Une offre qui vend à tout type de clients. On la travaille avec toi avant de publier quoi que ce soit.'],
+      ['Visibilité', 'Être vu et reconnu par tout ton marché. Chaque jour sur 7 réseaux, avec les formats qui font des vues, en live depuis ton iPhone.'],
+      ['Confiance', 'Augmenter tes ventes sans décrocher le téléphone. Ton contenu répond aux doutes avant l’appel, et tes prospects arrivent déjà convaincus.'],
     ] as [string, string][],
     methodStats: [['1 an', 'de R&D'], ['10 000+', 'posts testés'], ['1 h', 'par semaine, maximum']] as [string, string][],
     video: 'Regarde la vidéo de Kevin',
@@ -102,11 +103,12 @@ const copy = {
     advisory: 'Book a session with Kevin', heroStat: ['700M+', 'views generated for our clients'],
     manifesto: ['You spent years becoming the best at what you do.', 'We make sure your market knows it.'],
     methodLabel: 'The Empire method', methodTitle: ['Like an army of freelancers', 'working for you.'],
-    methodText: 'One year of R&D, over 10,000 posts tested. We know what gets views and what gets clients. Our method fits in one formula.',
+    methodText: 'One year of R&D, over 10,000 posts tested. Being online is useless if it doesn’t sell. So our method starts from your sales, and has three sides.',
+    methodTriangle: 'The Empire triangle',
     method: [
-      ['Message', 'What only you can say. We draw it out of you in an interview, you have nothing to prepare.'],
-      ['Format', 'The formats getting views this week. Your videos are live streams shot on an iPhone with earphones: that’s what performs best, far better than a studio.'],
-      ['Distribution', 'Every day on 7 networks, with links that turn your audience into contacts.'],
+      ['Offer', 'An offer that sells to every kind of client. We work on it with you before publishing anything.'],
+      ['Visibility', 'Being seen and recognised by your whole market. Every day on 7 networks, with the formats that get views, live from your iPhone.'],
+      ['Trust', 'Growing your sales without picking up the phone. Your content answers doubts before the call, and prospects arrive already convinced.'],
     ] as [string, string][],
     methodStats: [['1 year', 'of R&D'], ['10,000+', 'posts tested'], ['1 h', 'a week, at most']] as [string, string][],
     video: 'Watch Kevin’s video',
@@ -314,15 +316,28 @@ export default function LegendePageContent() {
       <p className={styles.label}><span className="h-1.5 w-1.5 rounded-full bg-autopilot" aria-hidden />{t.methodLabel}</p>
       <h2 id="legende-method" className={styles.statement}>{t.methodTitle[0]} <em className="italic text-autopilot">{t.methodTitle[1]}</em></h2>
       <p className="mt-4 max-w-xl text-[17px] leading-relaxed text-neutral-300">{t.methodText}</p>
-      <ol className="mt-10 grid gap-4 md:grid-cols-[1fr_auto_1fr_auto_1fr] md:items-stretch">
-        {t.method.map(([name, body], i) => <li key={name} className="contents">
-          {i > 0 && <span aria-hidden className={styles.times}>×</span>}
-          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
-            <h3 className={styles.methodName}>{name}</h3>
-            <p className="mt-3 text-[15px] leading-relaxed text-neutral-400">{body}</p>
-          </div>
-        </li>)}
-      </ol>
+      <div className="mt-12 grid items-center gap-10 md:grid-cols-[1fr_1.1fr] md:gap-16">
+        <figure className="mx-auto w-full max-w-[400px]" aria-label={t.methodTriangle}>
+          <svg viewBox="0 0 400 360" className="w-full overflow-visible" role="img" aria-hidden>
+            <polygon points="200,40 360,316 40,316" fill="rgba(212,165,116,.06)" stroke="#d4a574" strokeWidth="1.5" />
+            <text x="200" y="215" textAnchor="middle" className={styles.triangleCenter}>{lang === 'fr' ? 'Ventes' : 'Sales'}</text>
+            {[[200, 40], [360, 316], [40, 316]].map(([x, y], i) => <g key={i}>
+              <circle cx={x} cy={y} r="7" fill="#d4a574" />
+              <text x={x} y={i === 0 ? y - 20 : y + 34} textAnchor={i === 1 ? 'end' : i === 2 ? 'start' : 'middle'} dx={i === 1 ? 14 : i === 2 ? -14 : 0} className={styles.triangleLabel}>{t.method[i][0]}</text>
+            </g>)}
+          </svg>
+          <figcaption className="mt-4 text-center text-[13px] uppercase tracking-[0.14em] text-neutral-500">{t.methodTriangle}</figcaption>
+        </figure>
+        <ol className="divide-y divide-white/10 border-y border-white/10">
+          {t.method.map(([name, body], i) => <li key={name} className="flex gap-5 py-6">
+            <span className={styles.number}>0{i + 1}</span>
+            <div>
+              <h3 className={styles.methodName}>{name}</h3>
+              <p className="mt-2 text-[15px] leading-relaxed text-neutral-400">{body}</p>
+            </div>
+          </li>)}
+        </ol>
+      </div>
       <dl className="mt-10 grid grid-cols-3 gap-4 border-y border-white/10 py-6 text-center">
         {t.methodStats.map(([value, label]) => <div key={label}>
           <dt className={styles.heroStat}>{value}</dt><dd className="mt-2 text-[13px] text-neutral-400">{label}</dd>
