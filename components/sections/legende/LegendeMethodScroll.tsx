@@ -80,7 +80,7 @@ export default function LegendeMethodScroll({ label, title, text, items, center 
         <polygon points={PTS.map(pt => pt.join(',')).join(' ')} fill="rgba(212,165,116,.07)" stroke="#d4a574" strokeWidth="2" strokeLinejoin="round" />
         {PTS.map(([x, y], i) => <g key={i}><circle cx={x} cy={y} r="8" fill="#d4a574" />
           <text x={x} y={i === 0 ? y - 24 : y + 42} textAnchor={i === 1 ? 'end' : i === 2 ? 'start' : 'middle'} dx={i === 1 ? 18 : i === 2 ? -18 : 0} className={styles.triangleLabel}>{items[i][0]}</text></g>)}
-        <text x="200" y="222" textAnchor="middle" className={styles.triangleCenter}>{center}</text>
+        <text x="200" y="262" textAnchor="middle" className={styles.triangleCenter}>{center}</text>
       </svg>
       <ol className="divide-y divide-white/10 border-y border-white/10">
         {items.map(([name, body]) => <li key={name} className="py-5"><h3 className={styles.methodName}>{name}</h3><p className={styles.methodBody}>{body}</p></li>)}
@@ -104,7 +104,7 @@ export default function LegendeMethodScroll({ label, title, text, items, center 
           <motion.circle cx="200" cy="222" r="120" fill="url(#legende-glow)" style={{ opacity: glow, scale: glowScale, transformOrigin: '200px 222px' }} />
           {EDGES.map(([a, b], i) => <Edge key={i} p={p} phase={PHASE[i]} from={PTS[a]} to={PTS[b]} />)}
           {PTS.map((pt, i) => <Vertex key={i} p={p} at={PHASE[i][0]} point={pt} label={items[i][0]} index={i} />)}
-          <motion.text x="200" y="232" textAnchor="middle" className={styles.triangleCenterBig} style={{ opacity: word, filter: wordBlur }}>{center}</motion.text>
+          <motion.text x="200" y="266" textAnchor="middle" className={styles.triangleCenterBig} style={{ opacity: word, filter: wordBlur }}>{center}</motion.text>
         </svg>
 
         <div className={styles.methodPanel}>
