@@ -9,7 +9,6 @@ import { getEmpParam } from '@/hooks/useCalLink'
 import { revenueBands, timings } from '@/lib/legende'
 import { plans, type FlowOutcome, type PlanId } from '@/lib/legende-flow'
 import { countryPhone } from '@/lib/legende-phone'
-import { TRIAL_URL } from '@/lib/startTrial'
 import LegendePhoneField from './LegendePhoneField'
 import { INTRO_URL } from './LegendeMarketing'
 import styles from './legende-form.module.css'
@@ -34,7 +33,7 @@ const copy = {
     altTitle: (n: string) => `Merci, ${n}. Choisissez votre créneau.`,
     altText: 'Un appel de 45 minutes avec l’équipe pour voir si le 1-to-1 a du sens à votre stade, et sinon par où commencer. Vos informations sont déjà remplies.',
     altMore: 'Vous préférez avancer tout de suite, sans appel ?',
-    altIntro: 'Une session de conseil avec Kevin, sur Intro', altEmpire: 'L’abonnement Empire, dès 199 € par mois',
+    altIntro: 'Une session de conseil avec Kevin, sur Intro',
     privacy: 'En continuant, vous acceptez que l’équipe Empire vous recontacte au sujet de votre projet.',
   },
   en: {
@@ -53,7 +52,7 @@ const copy = {
     altTitle: (n: string) => `Thank you, ${n}. Pick a slot.`,
     altText: 'A 45-minute call with the team to see whether 1-to-1 makes sense at your stage, and if not, where to start. Your details are already filled in.',
     altMore: 'Prefer to move forward right now, without a call?',
-    altIntro: 'An advisory session with Kevin, on Intro', altEmpire: 'The Empire subscription, from €199 a month',
+    altIntro: 'An advisory session with Kevin, on Intro',
     privacy: 'By continuing, you agree that the Empire team may contact you about your project.',
   },
 }
@@ -196,7 +195,6 @@ export default function LegendeApplyModal({ lang, initialPlan, onClose }: { lang
               <p className="text-[14px] text-neutral-400">{t.altMore}</p>
               <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-[14px] font-semibold">
                 <a href={INTRO_URL} target="_blank" rel="noopener" className="inline-flex items-center gap-1.5 text-white underline underline-offset-4 hover:text-[#f1c99c]">{t.altIntro}<ArrowRight aria-hidden size={14} /></a>
-                <a href={TRIAL_URL} className="inline-flex items-center gap-1.5 text-white underline underline-offset-4 hover:text-[#f1c99c]">{t.altEmpire}<ArrowRight aria-hidden size={14} /></a>
               </div>
             </div>}
           </div>}
