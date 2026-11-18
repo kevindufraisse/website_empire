@@ -48,7 +48,7 @@ function Exchange({ index, progress, active, still }: { index: number; progress:
   // The remaining 72% of each segment is a full reading hold. No timers and
   // no wheel/touch handlers: only the page's native scroll controls the story.
   return <div className={scroll.exchange} data-idea-layer={index} aria-hidden={!still && !active}>
-    {still && <h3 className={v.staticHeading}>{item.kind === 'watch' && <Radar size={18} aria-hidden="true"/>}{item.heading.join(' ')}</h3>}
+    {still && <h3 className={v.staticHeading}>{item.heading.join(' ')}</h3>}
     <small className={s.chatDay}>Aujourd’hui</small>
     <motion.div className={s.outgoing} data-idea-outgoing style={still ? {} : { opacity: outgoing, y: outgoingY }}>
       {item.kind === 'voice' && <div className={s.voice}><Mic size={17}/><span aria-hidden="true">{[12,22,30,16,25,36,17,27,13,34,20,28,16,35,23,13,28,18].map((height,i)=><i key={i} style={{height}}/>)}</span><b>0:18</b></div>}
@@ -74,7 +74,6 @@ export default function IdeaMessagesStory() {
     <div className={scroll.sticky} data-scroll-stage>
       <header className={`${s.heading} ${scroll.heading} ${v.heading}`} data-ideas-heading={still ? 'overview' : example.kind}>
         <h2 id="ideas-title">
-          {!still && example.kind === 'watch' && <Radar className={v.headingIcon} aria-hidden="true"/>}
           {lead}<br/><em>{emphasis}</em>
         </h2>
       </header>
