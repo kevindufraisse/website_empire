@@ -76,7 +76,7 @@ export function contactSlackMessage(c: Contact, channel: string) {
 const flowTitles: Record<FlowOutcome, string> = {
   legende: '1-to-1 · Candidature retenue, calendrier proposé',
   review: '1-to-1 · CA inconnu, à rappeler',
-  alternative: '1-to-1 · Sous 300 000 € de CA, orienté vers Intro',
+  alternative: '1-to-1 · Sous 300 000 € de CA, calendrier proposé quand même (Intro et Empire en option)',
 }
 
 export function flowSlackMessage(a: FlowApplication, channel: string) {

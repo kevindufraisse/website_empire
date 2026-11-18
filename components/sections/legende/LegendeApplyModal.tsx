@@ -31,8 +31,9 @@ const copy = {
     error: 'L’envoi a échoué. Vos réponses sont conservées, réessayez.', limit: 'Trop de tentatives. Réessayez dans 15 minutes.',
     bookTitle: (n: string) => `C’est bon, ${n}. Choisissez votre créneau.`, bookText: 'Un appel de 45 minutes avec l’équipe. Vos informations sont déjà remplies.',
     reviewTitle: 'Bien reçu.', reviewText: (p: string) => `Kevin et l’équipe lisent votre candidature et vous rappellent au ${p} si un échange a du sens.`,
-    altTitle: 'Le 1-to-1 n’est pas encore le bon format pour vous.',
-    altText: 'Il est pensé pour les entreprises à partir de 300 000 € de chiffre d’affaires. Deux options plus adaptées :',
+    altTitle: (n: string) => `Merci, ${n}. Choisissez votre créneau.`,
+    altText: 'Un appel de 45 minutes avec l’équipe pour voir si le 1-to-1 a du sens à votre stade, et sinon par où commencer. Vos informations sont déjà remplies.',
+    altMore: 'Vous préférez avancer tout de suite, sans appel ?',
     altIntro: 'Une session de conseil avec Kevin, sur Intro', altEmpire: 'L’abonnement Empire, dès 199 € par mois',
     privacy: 'En continuant, vous acceptez que l’équipe Empire vous recontacte au sujet de votre projet.',
   },
@@ -49,8 +50,9 @@ const copy = {
     error: 'Sending failed. Your answers are kept, try again.', limit: 'Too many attempts. Try again in 15 minutes.',
     bookTitle: (n: string) => `You’re in, ${n}. Pick a slot.`, bookText: 'A 45-minute call with the team. Your details are already filled in.',
     reviewTitle: 'Got it.', reviewText: (p: string) => `Kevin and the team will read your application and call you on ${p} if a conversation makes sense.`,
-    altTitle: '1-to-1 isn’t the right fit yet.',
-    altText: 'It’s built for companies making at least €300,000 in revenue. Two better options:',
+    altTitle: (n: string) => `Thank you, ${n}. Pick a slot.`,
+    altText: 'A 45-minute call with the team to see whether 1-to-1 makes sense at your stage, and if not, where to start. Your details are already filled in.',
+    altMore: 'Prefer to move forward right now, without a call?',
     altIntro: 'An advisory session with Kevin, on Intro', altEmpire: 'The Empire subscription, from €199 a month',
     privacy: 'By continuing, you agree that the Empire team may contact you about your project.',
   },
@@ -87,7 +89,7 @@ export default function LegendeApplyModal({ lang, initialPlan, onClose }: { lang
   }, [onClose])
   useEffect(() => { panel.current?.querySelector<HTMLElement>('input:not([type=hidden]), button[type=submit]')?.focus() }, [step, outcome])
   useEffect(() => {
-    if (outcome !== 'legende') return
+    if (outcome !== 'legende' && outcome !== 'alternative') return
     void getCalApi({}).then(cal => cal('ui', { theme: 'dark', layout: 'month_view', cssVarsPerTheme: { light: { 'cal-brand': '#d4a574' }, dark: { 'cal-brand': '#d4a574' } } }))
   }, [outcome])
 
@@ -137,7 +139,7 @@ export default function LegendeApplyModal({ lang, initialPlan, onClose }: { lang
   return createPortal(
     <div className="fixed inset-0 z-[300] flex items-end justify-center bg-black/80 backdrop-blur-sm sm:items-center sm:p-4" onClick={onClose}>
       <div ref={panel} role="dialog" aria-modal="true" aria-labelledby="apply-title" lang={lang} onClick={e => e.stopPropagation()}
-        className={`flex max-h-[94dvh] w-full flex-col overflow-hidden rounded-t-2xl border border-white/10 bg-[#121110] text-white sm:rounded-2xl ${outcome === 'legende' ? 'sm:max-w-4xl' : 'sm:max-w-xl'}`}>
+        className={`flex max-h-[94dvh] w-full flex-col overflow-hidden rounded-t-2xl border border-white/10 bg-[#121110] text-white sm:rounded-2xl ${outcome === 'legende' || outcome === 'alternative' ? 'sm:max-w-4xl' : 'sm:max-w-xl'}`}>
         <div className="flex items-center gap-3 border-b border-white/10 px-5 py-3.5">
           <ol className="flex flex-1 items-center gap-2 text-[12.5px] font-semibold">
             {t.steps.map((label, i) => <li key={label} className={`flex items-center gap-1.5 ${i === step ? 'text-[#f1c99c]' : i < step ? 'text-neutral-300' : 'text-neutral-500'}`}>
@@ -181,13 +183,22 @@ export default function LegendeApplyModal({ lang, initialPlan, onClose }: { lang
             </div>
           </form>}
 
-          {step === 2 && outcome === 'legende' && <div>
-            <h2 id="apply-title" className="text-[22px] font-semibold tracking-tight">{t.bookTitle(form.firstName.trim())}</h2>
-            <p className="mt-1 text-[15px] text-neutral-400">{t.bookText}</p>
+          {/* Sous 300 000 € de CA, le calendrier est proposé quand même : la personne a vu les prix et veut parler.
+              Intro et Empire ne viennent qu'après, en option, jamais à la place du rendez-vous. */}
+          {step === 2 && (outcome === 'legende' || outcome === 'alternative') && <div>
+            <h2 id="apply-title" className="text-[22px] font-semibold tracking-tight">{(outcome === 'legende' ? t.bookTitle : t.altTitle)(form.firstName.trim())}</h2>
+            <p className="mt-1 text-[15px] text-neutral-400">{outcome === 'legende' ? t.bookText : t.altText}</p>
             <div className="mt-4 min-h-[560px]">
               <Cal calLink={calLink} style={{ width: '100%', height: '100%', minHeight: 560 }}
                 config={{ layout: 'month_view', theme: 'dark', name: `${form.firstName.trim()} ${form.lastName.trim()}`, email: form.email.trim(), smsReminderNumber: phone?.number ?? '' }} />
             </div>
+            {outcome === 'alternative' && <div className="mt-6 border-t border-white/10 pt-5">
+              <p className="text-[14px] text-neutral-400">{t.altMore}</p>
+              <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-[14px] font-semibold">
+                <a href={INTRO_URL} target="_blank" rel="noopener" className="inline-flex items-center gap-1.5 text-white underline underline-offset-4 hover:text-[#f1c99c]">{t.altIntro}<ArrowRight aria-hidden size={14} /></a>
+                <a href={TRIAL_URL} className="inline-flex items-center gap-1.5 text-white underline underline-offset-4 hover:text-[#f1c99c]">{t.altEmpire}<ArrowRight aria-hidden size={14} /></a>
+              </div>
+            </div>}
           </div>}
 
           {step === 2 && outcome === 'review' && <div>
@@ -196,14 +207,6 @@ export default function LegendeApplyModal({ lang, initialPlan, onClose }: { lang
             <p className="mt-2 text-[15px] leading-relaxed text-neutral-300">{t.reviewText(phone?.formatInternational() ?? form.phone)}</p>
           </div>}
 
-          {step === 2 && outcome === 'alternative' && <div>
-            <h2 id="apply-title" className="text-[22px] font-semibold tracking-tight">{t.altTitle}</h2>
-            <p className="mt-2 text-[15px] leading-relaxed text-neutral-300">{t.altText}</p>
-            <div className="mt-5 grid gap-3">
-              <a href={INTRO_URL} target="_blank" rel="noopener" className={styles.primary + ' !ml-0 justify-between'}>{t.altIntro}<ArrowRight aria-hidden size={17} /></a>
-              <a href={TRIAL_URL} className={styles.ghost + ' justify-between'}>{t.altEmpire}<ArrowRight aria-hidden size={17} /></a>
-            </div>
-          </div>}
         </div>
       </div>
     </div>,

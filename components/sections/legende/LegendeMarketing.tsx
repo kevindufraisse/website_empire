@@ -1,10 +1,10 @@
 'use client'
 
 import { ArrowRight, Check } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useScroll, useSpring, useTransform, type MotionValue } from 'framer-motion'
 import LoomEmbed from '@/components/LoomEmbed'
 import { TRIAL_URL } from '@/lib/startTrial'
-import { useReveal } from '@/hooks/useReveal'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 import { Reveal } from './LegendeWeekScroll'
 import styles from './legende-form.module.css'
@@ -14,6 +14,7 @@ export const PLACES_TOTAL = 10
 export const PLACES_LEFT = 7
 export const INTRO_URL = 'https://intro.co/kevindufraisse?source=intro'
 const INTERVIEW_PHOTO = '/legende/kevin-interview.jpg'
+const CLIENT_PHOTO = '/case-studies/tristan-de-vasselot.jpg'
 const CLIENT_LOGOS = [
   { name: 'Ippon Technologies', src: '/logos/ippon.png' },
   { name: 'Socratiz', src: '/logos/presse-agence.png' },
@@ -30,7 +31,7 @@ const copy = {
     zero: 'Vous ne tournez rien. Vous n’écrivez rien. Vous ne publiez rien.',
     apply: 'Candidater', seePrices: 'Voir les tarifs', advisory: 'Ou réservez d’abord une session de conseil avec Kevin',
     proof: [['700M+', 'vues générées pour nos clients'], ['#1', 'Lead Generation France'], ['#55', 'LinkedIn Influence France']] as [string, string][],
-    phone: { live: 'Interview', week: 'Semaine 12', question: 'Question 3 sur 8', topic: 'Pourquoi vos clients trouvent votre prix trop cher', you: 'Vous' },
+    phone: { live: 'Interview', week: 'Semaine 12', question: 'Question 3 sur 8', topic: 'Pourquoi vos clients trouvent votre prix trop cher', kevin: 'Kevin', you: 'Vous', yourPhone: 'Votre iPhone', yourEarbuds: 'Vos écouteurs, rien d’autre.' },
     video: 'Kevin vous explique tout en 16 minutes',
     howLabel: 'Chaque semaine', howTitle: 'Vous parlez. Nous faisons le reste.',
     how: [
@@ -77,7 +78,7 @@ const copy = {
     zero: 'You don’t film anything. You don’t write anything. You don’t publish anything.',
     apply: 'Apply', seePrices: 'See pricing', advisory: 'Or book an advisory session with Kevin first',
     proof: [['700M+', 'views generated for our clients'], ['#1', 'Lead Generation France'], ['#55', 'LinkedIn Influence France']] as [string, string][],
-    phone: { live: 'Interview', week: 'Week 12', question: 'Question 3 of 8', topic: 'Why your clients think your price is too high', you: 'You' },
+    phone: { live: 'Interview', week: 'Week 12', question: 'Question 3 of 8', topic: 'Why your clients think your price is too high', kevin: 'Kevin', you: 'You', yourPhone: 'Your iPhone', yourEarbuds: 'Your earphones. Nothing else.' },
     video: 'Kevin explains everything in 16 minutes',
     howLabel: 'Every week', howTitle: 'Here’s what happens.',
     how: [
@@ -123,43 +124,77 @@ function Label({ children }: { children: string }) {
   return <p className={styles.label}><span className="h-1.5 w-1.5 rounded-full bg-autopilot" aria-hidden />{children}</p>
 }
 
-/** Un iPhone en appel vidéo : Kevin plein écran, toi en vignette, la question en cours. */
+/** Barres de voix : quelqu'un parle. */
+function Voice({ still, active }: { still: boolean; active: boolean }) {
+  return <span className={styles.voice + (active ? ' ' + styles.voiceOn : '') + (still ? ' ' + styles.voiceStill : '')} aria-hidden>
+    {[0, 1, 2, 3].map(i => <i key={i} style={{ animationDelay: `${i * .13}s` }} />)}
+  </span>
+}
+
+/**
+ * L'interview telle qu'elle se passe : un appel vidéo à deux sur un iPhone. Kevin en haut, qui pose la question ;
+ * le client en bas, qui répond. Autour, deux flèches disent tout le matériel qu'il faut : le téléphone et des écouteurs.
+ */
 function InterviewPhone({ l, still }: { l: typeof copy.fr.phone; still: boolean }) {
-  return <div className={styles.iphone} aria-hidden>
-    {/* eslint-disable-next-line @next/next/no-img-element */}
-    <img src={INTERVIEW_PHOTO} alt="" className="absolute inset-0 h-full w-full object-cover object-[38%_center]" />
-    <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-transparent to-black/75" />
-    <div className={styles.iphoneIsland} />
-    <div className="absolute inset-x-4 top-12 flex items-center justify-between text-[11px] font-semibold text-white">
-      <span className="flex items-center gap-1.5 rounded-full bg-black/45 px-2.5 py-1 backdrop-blur">
-        <span className={`h-1.5 w-1.5 rounded-full bg-red-500 ${still ? '' : 'animate-pulse'}`} />{l.live} · 42:10
-      </span>
-      <span className="rounded-full bg-black/45 px-2.5 py-1 backdrop-blur">{l.week}</span>
-    </div>
-    <div className="absolute right-4 top-[5.5rem] grid h-24 w-[4.5rem] place-items-center rounded-xl border border-white/25 bg-neutral-800/90 text-[11px] font-semibold text-neutral-300">{l.you}</div>
-    <div className="absolute inset-x-4 bottom-6 rounded-2xl bg-black/55 p-3.5 backdrop-blur-md">
-      <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-autopilot">{l.question}</p>
-      <p className="mt-1 text-[13px] font-medium leading-snug text-white">{l.topic}</p>
+  return <div className={styles.phoneScene} aria-hidden>
+    <p className={styles.callout + ' ' + styles.calloutPhone}>{l.yourPhone}<CalloutArrow flip /></p>
+    <p className={styles.callout + ' ' + styles.calloutEarbuds}>{l.yourEarbuds}<CalloutArrow /></p>
+    <div className={styles.iphone}>
+      <div className={styles.iphoneIsland} />
+      <div className={styles.tile + ' ' + styles.tileSpeaking}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={INTERVIEW_PHOTO} alt="" className="absolute inset-0 h-full w-full object-cover object-[40%_30%] saturate-[1.08] contrast-[1.04]" />
+        <div className="absolute inset-x-3 top-11 flex items-center justify-between text-[11px] font-semibold text-white">
+          <span className={styles.tileName + ' !static'}><Voice still={still} active />{l.kevin}</span>
+          <span className="flex items-center gap-1.5 whitespace-nowrap rounded-full bg-black/50 px-2.5 py-1 backdrop-blur">
+            <span className={`h-1.5 w-1.5 rounded-full bg-red-500 ${still ? '' : 'animate-pulse'}`} />{l.live} · 42:10
+          </span>
+        </div>
+      </div>
+      <div className={styles.tile}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={CLIENT_PHOTO} alt="" className="absolute inset-0 h-full w-full object-cover object-[50%_12%] saturate-[1.05]" />
+        <span className={styles.tileName}><Voice still={still} active={false} />{l.you}</span>
+      </div>
+      <div className={styles.questionCard}>
+        <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-autopilot">{l.question}</p>
+        <p className="mt-1 text-[13px] font-medium leading-snug text-white">{l.topic}</p>
+      </div>
     </div>
   </div>
 }
 
-/** Le triangle se trace une fois quand il arrive à l'écran, sans bloquer le défilement. */
+function CalloutArrow({ flip = false }: { flip?: boolean }) {
+  return <svg viewBox="0 0 60 44" className={styles.calloutArrow + (flip ? ' ' + styles.calloutArrowFlip : '')} fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M3 4c6 22 24 34 52 36" /><path d="M46 32l9 8-10 3" />
+  </svg>
+}
+
+/**
+ * Le triangle se trace au rythme du défilement : le trait suit la molette depuis le moment où la section
+ * entre par le bas jusqu'à ce qu'elle soit au centre de l'écran, puis les sommets et le mot du centre
+ * apparaissent. Rien n'est collant, la page défile normalement ; remonter le redessine à l'envers.
+ */
 function Triangle({ labels, center }: { labels: string[]; center: string }) {
-  const [ref, inView] = useReveal('-80px')
+  const ref = useRef<HTMLDivElement>(null)
   const still = usePrefersReducedMotion()
-  const on = still || inView
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 95%', 'center 45%'] })
+  const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 28, mass: .4 })
+  const trace = useTransform(progress, [0, .7], [0, 1])
+  const fill = useTransform(progress, [.55, .85], [0, 1])
+  const dots = [useTransform(progress, [.3, .45], [0, 1]), useTransform(progress, [.5, .65], [0, 1]), useTransform(progress, [.7, .85], [0, 1])]
+  const word = useTransform(progress, [.78, 1], [0, 1])
   const pts: [number, number][] = [[200, 40], [360, 316], [40, 316]]
+  const motionStyle = (value: MotionValue<number>, key: 'pathLength' | 'scale' | 'opacity') => still ? undefined : { [key]: value }
   return <div ref={ref} className="mx-auto w-full max-w-[300px]">
     <svg viewBox="-30 0 460 370" className="w-full overflow-visible" aria-hidden>
       <motion.polygon points={pts.map(p => p.join(',')).join(' ')} fill="rgba(212,165,116,.07)" stroke="#d4a574" strokeWidth="2" strokeLinejoin="round"
-        initial={still ? false : { pathLength: 0, opacity: 0 }} animate={on ? { pathLength: 1, opacity: 1 } : {}} transition={{ duration: 1.1, ease: [.22, 1, .36, 1] }} />
+        style={still ? undefined : { pathLength: trace, fillOpacity: fill }} />
       {pts.map(([x, y], i) => <g key={i}>
-        <motion.circle cx={x} cy={y} r="8" fill="#d4a574" initial={still ? false : { scale: 0 }} animate={on ? { scale: 1 } : {}}
-          style={{ transformOrigin: `${x}px ${y}px` }} transition={{ delay: .35 + i * .2, duration: .4 }} />
+        <motion.circle cx={x} cy={y} r="8" fill="#d4a574" style={{ transformOrigin: `${x}px ${y}px`, ...motionStyle(dots[i], 'scale') }} />
         <text x={x} y={i === 0 ? y - 22 : y + 40} textAnchor={i === 1 ? 'end' : i === 2 ? 'start' : 'middle'} dx={i === 1 ? 18 : i === 2 ? -18 : 0} className={styles.triangleLabel}>{labels[i]}</text>
       </g>)}
-      <motion.text x="200" y="222" textAnchor="middle" className={styles.triangleCenter} initial={still ? false : { opacity: 0 }} animate={on ? { opacity: 1 } : {}} transition={{ delay: 1, duration: .5 }}>{center}</motion.text>
+      <motion.text x="200" y="222" textAnchor="middle" className={styles.triangleCenter} style={motionStyle(word, 'opacity')}>{center}</motion.text>
     </svg>
   </div>
 }
