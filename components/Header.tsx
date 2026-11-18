@@ -19,7 +19,8 @@ type MenuKey = 'resources'
 type NavLink = { key: string; href: string; label: string; external?: boolean }
 
 /**
- * En-tête du site, dans cet ordre (Kevin, 18 novembre 2026) : logo E,
+ * En-tête du site, dans cet ordre (Kevin, 18 novembre 2026) : « Empire » en
+ * texte (pas de logo E),
  * « Travailler en 1-to-1 » (la page /legende, qui a aussi ce header),
  * « Devenir affilié », « Contenus gratuits » (menu), puis « Se connecter » et
  * un seul bouton. Pas de menu Produit ni de prix (ni lien Tarifs, ni prix
@@ -57,7 +58,6 @@ export default function Header() {
       <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/20 bg-black/95 backdrop-blur-md">
         <nav className="max-w-7xl mx-auto px-4 py-3.5">
           <a href="/" className="group flex w-fit shrink-0 items-center gap-2" aria-label="Empire">
-            <span aria-hidden="true" className="grid h-7 w-7 place-items-center rounded-lg bg-empire text-[15px] font-black text-black">E</span>
             <span className="text-lg font-bold tracking-tight text-white md:text-xl">Empire</span>
           </a>
         </nav>
@@ -150,7 +150,6 @@ export default function Header() {
       <nav className="mx-auto max-w-7xl px-4 py-3" aria-label={fr ? 'Navigation principale' : 'Main navigation'}>
         <div className="flex min-w-0 items-center justify-between gap-3">
           <a href="/" className="group flex shrink-0 items-center gap-2" aria-label="Empire">
-            <span aria-hidden="true" className="grid h-7 w-7 place-items-center rounded-lg bg-empire text-[15px] font-black text-black">E</span>
             <span className="text-lg font-bold tracking-tight text-white md:text-xl">Empire</span>
           </a>
 
