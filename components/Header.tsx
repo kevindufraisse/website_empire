@@ -10,27 +10,39 @@ import JoinPartnersLabel from '@/components/JoinPartnersLabel'
 import { startFreeTrial, TRIAL_URL } from '@/lib/startTrial'
 import { trackAmplitude } from '@/lib/amplitude'
 
+// Programme d'affiliation : un second compte Instagram qui publie les reels
+// d'Empire, 15 % du premier paiement de chaque client venu du lien en bio.
+const AFFILIATE_URL = 'https://app.empire-internet.com/affiliate/join/434a8db1'
+
+type MenuItem = { href: string; name: string; what: string; external?: boolean }
+type MenuKey = 'resources'
+type NavLink = { key: string; href: string; label: string; external?: boolean }
+
 /**
- * L’entrée Empire prépare l’espace avant de présenter les formules.
- * Les liens de tarifs restent hors du menu, sur ordinateur et téléphone.
- * Les pages Academy conservent leur propre bouton.
+ * En-tête du site : logo, « Contenus gratuits » (menu), « Travailler en
+ * 1-to-1 » (la page /legende), « Devenir affilié », puis « Se connecter » et
+ * un seul bouton. Pas de menu Produit ni de prix (ni lien Tarifs, ni prix
+ * barré) ; la page /tarifs reste joignable directement. Les pages Academy
+ * gardent leur propre bouton.
  */
 export default function Header() {
   const { lang } = useLanguage()
   const fr = lang === 'fr'
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [livesOpen, setLivesOpen] = useState(false)
-  const livesRef = useRef<HTMLDivElement>(null)
+  const [openMenu, setOpenMenu] = useState<MenuKey | null>(null)
+  const navRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
 
   useEffect(() => {
-    if (!livesOpen) return
+    if (!openMenu) return
     const close = (e: MouseEvent) => {
-      if (!livesRef.current?.contains(e.target as Node)) setLivesOpen(false)
+      if (!navRef.current?.contains(e.target as Node)) setOpenMenu(null)
     }
+    const escape = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpenMenu(null) }
     document.addEventListener('mousedown', close)
-    return () => document.removeEventListener('mousedown', close)
-  }, [livesOpen])
+    document.addEventListener('keydown', escape)
+    return () => { document.removeEventListener('mousedown', close); document.removeEventListener('keydown', escape) }
+  }, [openMenu])
 
   const isCandidaturePage = pathname === '/candidature' || pathname === '/decouverte' || pathname === '/join-us' || pathname === '/postuler' || pathname?.startsWith('/hire-our-team')
   const isPartnersPage = pathname === '/partners'
@@ -53,22 +65,32 @@ export default function Header() {
     )
   }
 
-  // « Devenir partenaire » n'est plus dans le header : il ferme l'accueil et la page one-to-one.
-  const doors = [
-    { href: '/legende', label: fr ? 'Travailler en 1-to-1' : 'Work 1-to-1', active: pathname === '/legende' },
+  const menus: { key: MenuKey; label: string; active: boolean; items: MenuItem[] }[] = [
+    {
+      key: 'resources', label: fr ? 'Contenus gratuits' : 'Free content', active: false, items: [
+        { href: '/vsl', name: fr ? 'Masterclass Empire' : 'Empire masterclass', what: fr ? 'La méthode expliquée pas à pas, 1 h 26. Gratuit.' : 'The method, step by step, 1h26. Free.' },
+        { href: postitJoinUrl('header'), name: 'Post it like it’s hot', what: fr ? 'En direct le lundi à 14 h : on trouve ton prochain contenu viral.' : 'Live on Mondays at 2pm: we find your next viral piece.', external: true },
+        { href: 'https://join.empire-internet.com/instagram-scrapper', name: fr ? 'Trouver les Reels viraux' : 'Find viral Reels', what: fr ? 'D’un compte Instagram. Gratuit.' : 'From any Instagram account. Free.', external: true },
+        { href: 'https://join.empire-internet.com/3-templates-linkedin', name: fr ? 'Mes 3 templates LinkedIn' : 'My 3 LinkedIn templates', what: fr ? 'Les plus viraux, à copier-coller. Gratuit.' : 'The most viral ones, copy-paste. Free.', external: true },
+      ],
+    },
   ]
 
-  const lives = [
-    { href: '/vsl', name: fr ? 'Workshop Empire' : 'Empire workshop', when: fr ? <><span className="line-through text-neutral-500">2 500 €</span> <span className="font-semibold text-empire">0 € aujourd’hui</span></> : <><span className="line-through text-neutral-500">€2,500</span> <span className="font-semibold text-empire">€0 today</span></>, what: fr ? 'La méthode Empire expliquée pas à pas. Accès par email.' : 'The Empire method, step by step. Email access.' },
-    {
-      href: postitJoinUrl('header'),
-      name: 'Post it like it’s hot',
-      when: fr ? 'Lundi · 14h Paris' : 'Monday · 2pm Paris',
-      what: fr ? 'On trouve ton prochain contenu viral, en direct, sur ton business.' : 'We find your next viral piece, live, on your business.',
-    },
-    { href: 'https://join.empire-internet.com/instagram-scrapper', name: fr ? 'Trouver les Reels viraux' : 'Find viral Reels', when: fr ? 'Gratuit' : 'Free', what: fr ? 'd’un compte Instagram' : 'from any Instagram account' },
-    { href: 'https://join.empire-internet.com/3-templates-linkedin', name: fr ? 'Copie-colle mes 3 templates' : 'Copy-paste my 3 templates', when: fr ? 'Gratuit' : 'Free', what: fr ? 'les plus viraux sur LinkedIn' : 'most viral on LinkedIn' },
+  const links: NavLink[] = [
+    { key: 'one-to-one', href: '/legende', label: fr ? 'Travailler en 1-to-1' : 'Work 1-to-1' },
+    { key: 'affiliate', href: AFFILIATE_URL, label: fr ? 'Devenir affilié' : 'Become an affiliate', external: true },
   ]
+
+  const onMenuItem = (menu: MenuKey, item: MenuItem) => {
+    trackAmplitude('header_menu_clicked', { menu, item: item.name, path: pathname })
+    setOpenMenu(null)
+    setIsMenuOpen(false)
+  }
+  const onLink = (link: NavLink) => {
+    trackAmplitude('header_menu_clicked', { menu: link.key, item: link.label, path: pathname })
+    setOpenMenu(null)
+    setIsMenuOpen(false)
+  }
 
   const onTrial = (event: React.MouseEvent<HTMLAnchorElement>) => {
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
@@ -124,59 +146,57 @@ export default function Header() {
   )
 
   return (
-    <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/20 bg-black/95 backdrop-blur-md">
-      <nav className="mx-auto max-w-7xl px-4 py-3">
+    <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/10 bg-black/90 backdrop-blur-md">
+      <nav className="mx-auto max-w-7xl px-4 py-3" aria-label={fr ? 'Navigation principale' : 'Main navigation'}>
         <div className="flex min-w-0 items-center justify-between gap-3">
-          <div className="flex min-w-0 items-center gap-2.5">
-            <a href="/" className="group flex shrink-0 items-center gap-2">
-              <span className="text-lg font-bold text-white transition-colors group-hover:text-empire md:text-xl">
-                Empire
-              </span>
-            </a>
-          </div>
+          <a href="/" className="group flex shrink-0 items-center gap-2" aria-label="Empire">
+            <span aria-hidden="true" className="grid h-7 w-7 place-items-center rounded-lg bg-empire text-[15px] font-black text-black">E</span>
+            <span className="text-lg font-bold tracking-tight text-white md:text-xl">Empire</span>
+          </a>
 
-          <div className="hidden items-center gap-1 lg:flex">
-            {doors.map((d) => (
+          <div ref={navRef} className="hidden items-center gap-1 lg:flex">
+            {menus.map((m) => (
+              <div key={m.key} className="relative">
+                <button
+                  type="button"
+                  onClick={() => setOpenMenu((o) => (o === m.key ? null : m.key))}
+                  aria-expanded={openMenu === m.key}
+                  aria-haspopup="true"
+                  className={`flex cursor-pointer items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium transition ${m.active || openMenu === m.key ? 'bg-white/[0.07] text-white' : 'text-neutral-300 hover:bg-white/[0.04] hover:text-white'}`}
+                >
+                  {m.label}
+                  <ChevronDown className={`h-4 w-4 transition-transform ${openMenu === m.key ? 'rotate-180' : ''}`} />
+                </button>
+                {openMenu === m.key && (
+                  <div className="absolute left-1/2 top-full mt-2 w-[340px] -translate-x-1/2 rounded-xl border border-white/10 bg-[#0d0d0d] p-2 shadow-2xl" role="menu">
+                    {m.items.map((item) => (
+                      <a
+                        key={item.name}
+                        href={item.href}
+                        role="menuitem"
+                        {...(item.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                        onClick={() => onMenuItem(m.key, item)}
+                        className="block rounded-lg px-3 py-2.5 transition hover:bg-white/[0.05]"
+                      >
+                        <span className="block text-sm font-semibold text-white">{item.name}</span>
+                        <span className="mt-0.5 block text-[12px] leading-snug text-neutral-400">{item.what}</span>
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+            {links.map((l) => (
               <a
-                key={d.href}
-                href={d.href}
-                className={`rounded-lg px-3 py-2 text-sm font-medium transition ${d.active ? 'bg-white/[0.07] text-white' : 'text-neutral-300 hover:bg-white/[0.04] hover:text-white'}`}
+                key={l.key}
+                href={l.href}
+                {...(l.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                onClick={() => onLink(l)}
+                className="rounded-lg px-3 py-2 text-sm font-medium text-neutral-300 transition hover:bg-white/[0.04] hover:text-white"
               >
-                {d.label}
+                {l.label}
               </a>
             ))}
-            <div ref={livesRef} className="relative">
-              <button
-                type="button"
-                onClick={() => setLivesOpen((o) => !o)}
-                aria-expanded={livesOpen}
-                className="flex cursor-pointer items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-neutral-300 transition hover:bg-white/[0.04] hover:text-white"
-              >
-                {fr ? 'Ressources gratuites' : 'Free resources'}
-                <ChevronDown className={`h-4 w-4 transition-transform ${livesOpen ? 'rotate-180' : ''}`} />
-              </button>
-              {livesOpen && (
-                <div className="absolute left-1/2 top-full mt-2 w-80 -translate-x-1/2 rounded-xl border border-white/10 bg-[#0d0d0d] p-2 shadow-2xl">
-                  {lives.map((l) => (
-                    <a
-                      key={l.name}
-                      href={l.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => setLivesOpen(false)}
-                      className="block rounded-lg px-3 py-2.5 transition hover:bg-white/[0.05]"
-                    >
-                      <span className="flex items-center gap-2 text-sm font-semibold text-white">
-                        {l.name}
-                        <span className="ml-auto text-[11px] font-normal text-neutral-500">{l.when}</span>
-                      </span>
-                      <span className="mt-0.5 block pl-3.5 text-[12px] leading-snug text-neutral-400">{l.what}</span>
-                    </a>
-                  ))}
-                  <p className="px-3 pb-1 pt-2 text-[11px] text-neutral-600">{fr ? 'Gratuit · horaires précisés à l’inscription' : 'Free · times shown at registration'}</p>
-                </div>
-              )}
-            </div>
           </div>
 
           <div className="flex min-w-0 items-center justify-end gap-2">
@@ -208,35 +228,34 @@ export default function Header() {
             transition={{ duration: 0.2 }}
             className="border-t border-white/10 bg-black/98 lg:hidden"
           >
-            <div className="space-y-1 px-4 py-5">
-              {doors.map((d) => (
+            <div className="max-h-[calc(100svh-64px)] space-y-1 overflow-y-auto px-4 py-5">
+              {links.map((l) => (
                 <a
-                  key={d.href}
-                  href={d.href}
-                  onClick={() => setIsMenuOpen(false)}
-                  className={`block rounded-lg px-3 py-3 text-base font-semibold ${d.active ? 'bg-white/[0.07] text-white' : 'text-neutral-200'}`}
+                  key={l.key}
+                  href={l.href}
+                  {...(l.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                  onClick={() => onLink(l)}
+                  className="block rounded-lg px-3 py-3 text-base font-semibold text-white"
                 >
-                  {d.label}
+                  {l.label}
                 </a>
               ))}
-              <p className="px-3 pb-1 pt-4 text-[10px] font-semibold uppercase tracking-[0.16em] text-neutral-600">
-                {fr ? 'Ressources gratuites' : 'Free resources'}
-              </p>
-              {lives.map((l) => (
-                <a
-                  key={l.name}
-                  href={l.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="block rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3"
-                >
-                  <span className="flex items-center gap-2 text-sm font-semibold text-white">
-                    {l.name}
-                    <span className="ml-auto text-[11px] font-normal text-neutral-500">{l.when}</span>
-                  </span>
-                  <span className="mt-1 block text-[12px] text-neutral-400">{l.what}</span>
-                </a>
+              {menus.map((m) => (
+                <div key={m.key} className="pb-2">
+                  <p className="px-3 pb-1 pt-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-neutral-600">{m.label}</p>
+                  {m.items.map((item) => (
+                    <a
+                      key={item.name}
+                      href={item.href}
+                      {...(item.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                      onClick={() => onMenuItem(m.key, item)}
+                      className="block rounded-lg px-3 py-2.5"
+                    >
+                      <span className="block text-[15px] font-semibold text-white">{item.name}</span>
+                      <span className="mt-0.5 block text-[12px] leading-snug text-neutral-400">{item.what}</span>
+                    </a>
+                  ))}
+                </div>
               ))}
               <a
                 href={loginHref}
