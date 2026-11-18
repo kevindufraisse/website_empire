@@ -100,6 +100,10 @@ export default function Header() {
     startFreeTrial()
   }
 
+  // Sur la page Légende, le header suit les marges de la page (max-w-6xl) : le
+  // logo et le bouton s'alignent sur le titre et sur le téléphone.
+  const navWidth = pathname === '/legende' ? 'max-w-6xl px-5 sm:px-8' : 'max-w-7xl px-4'
+
   const loginHref = `https://app.empire-internet.com/login${fr ? '?lang=fr' : ''}`
   const onLogin = () => {
     trackAmplitude('header_login_clicked', { path: pathname })
@@ -147,7 +151,7 @@ export default function Header() {
 
   return (
     <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/10 bg-black/90 backdrop-blur-md">
-      <nav className="mx-auto max-w-7xl px-4 py-3" aria-label={fr ? 'Navigation principale' : 'Main navigation'}>
+      <nav className={`mx-auto py-3 ${navWidth}`} aria-label={fr ? 'Navigation principale' : 'Main navigation'}>
         <div className="flex min-w-0 items-center justify-between gap-3">
           <a href="/" className="group flex shrink-0 items-center gap-2" aria-label="Empire">
             <span className="text-lg font-bold tracking-tight text-white md:text-xl">Empire</span>
