@@ -85,7 +85,7 @@
 .successIcon { display: grid; place-content: center; width: 44px; height: 44px; margin-bottom: 16px; border-radius: 50%; background: rgb(212 165 116 / .15); color: #d4a574; }
 .page { padding-top: 88px; padding-bottom: 0; color: #fff; }
 .label { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: #a8a29a; }
-.display { margin-top: 20px; font-family: var(--font-serif), Georgia, 'Times New Roman', serif; font-size: clamp(42px, 6vw, 76px); line-height: 1; font-weight: 400; letter-spacing: -.025em; }
+.display { margin-top: 16px; font-family: var(--font-serif), Georgia, 'Times New Roman', serif; font-size: clamp(40px, 5.2vw, 66px); line-height: 1; font-weight: 400; letter-spacing: -.025em; }
 .display em { font-style: italic; color: #d4a574; }
 .badge { display: inline-block; border: 1px solid rgb(212 165 116 / .35); border-radius: 999px; background: rgb(212 165 116 / .08); padding: 6px 14px; font-size: 12.5px; font-weight: 600; letter-spacing: .04em; color: #e7c49c; }
 .heroStat { font-family: var(--font-serif), Georgia, serif; font-size: clamp(38px, 5vw, 52px); line-height: 1; color: #fff; }
@@ -128,8 +128,8 @@
 .planTag { position: absolute; top: -12px; left: 24px; border-radius: 999px; background: #d4a574; color: #17110b; padding: 4px 11px; font-size: 12px; font-weight: 650; }
 .planPrice { font-family: var(--font-serif), Georgia, 'Times New Roman', serif; font-size: clamp(30px, 3.4vw, 40px); line-height: 1; color: #fff; white-space: nowrap; }
 /* La scène d'interview : l'iPhone, et autour deux légendes fléchées. Sur petit écran les légendes passent au-dessus. */
-.phoneScene { position: relative; justify-self: center; padding: 56px 0 0; }
-.iphone { position: relative; display: flex; flex-direction: column; gap: 3px; width: min(300px, 62vw); aspect-ratio: 9 / 19.5; overflow: hidden; border: 10px solid #1c1b1a; border-radius: 46px; background: #000; box-shadow: 0 0 0 1px rgb(255 255 255 / .12), 0 40px 90px rgb(0 0 0 / .6), 0 0 80px rgb(212 165 116 / .12); }
+.phoneScene { --phone-w: min(272px, 62vw); position: relative; justify-self: center; padding: 48px 0 0; }
+.iphone { position: relative; display: flex; flex-direction: column; gap: 3px; width: var(--phone-w); aspect-ratio: 9 / 19.5; overflow: hidden; border: 10px solid #1c1b1a; border-radius: 46px; background: #000; box-shadow: 0 0 0 1px rgb(255 255 255 / .12), 0 40px 90px rgb(0 0 0 / .6), 0 0 80px rgb(212 165 116 / .12); }
 .tile { position: relative; flex: 1; overflow: hidden; background: #111; }
 .tileSpeaking { box-shadow: inset 0 0 0 2px #d4a574; }
 .tileName { position: absolute; left: 12px; bottom: 12px; display: inline-flex; align-items: center; gap: 7px; padding: 5px 10px 5px 8px; border-radius: 999px; background: rgb(0 0 0 / .55); backdrop-filter: blur(8px); font-size: 11px; font-weight: 600; color: #fff; }
@@ -142,8 +142,8 @@
 .callout { position: absolute; z-index: 2; display: flex; flex-direction: column; gap: 2px; font-family: var(--font-serif), Georgia, serif; font-style: italic; font-size: 19px; line-height: 1.1; color: #d4a574; white-space: nowrap; pointer-events: none; }
 .calloutArrow { width: 44px; height: 32px; color: #d4a574; opacity: .9; }
 .calloutArrowFlip { transform: scaleX(-1); align-self: flex-end; }
-.calloutPhone { top: 0; right: calc(50% - min(150px, 31vw) - 8px); align-items: flex-end; text-align: right; }
-.calloutEarbuds { top: 128px; left: calc(50% + min(150px, 31vw) + 4px); flex-direction: column-reverse; max-width: 150px; white-space: normal; }
+.calloutPhone { top: 0; right: calc(50% - var(--phone-w) / 2 - 8px); align-items: flex-end; text-align: right; }
+.calloutEarbuds { top: 118px; left: calc(50% + var(--phone-w) / 2 + 4px); flex-direction: column-reverse; max-width: 150px; white-space: normal; }
 .calloutEarbuds .calloutArrow { transform: scaleX(-1); align-self: flex-start; }
 @media (max-width: 767px) {
   .phoneScene { padding-top: 48px; }
@@ -157,3 +157,25 @@
 .proofValue { font-family: var(--font-serif), Georgia, serif; font-size: 30px; line-height: 1; color: #d4a574; }
 .step { border: 1px solid rgb(255 255 255 / .1); border-radius: 18px; background: rgb(255 255 255 / .025); padding: 22px; }
 .resultValue { font-family: var(--font-serif), Georgia, serif; font-size: 24px; line-height: 1.1; color: #d4a574; }
+
+/* La méthode, racontée au défilement : quatre écrans de haut, l'intérieur reste collé sous l'en-tête. */
+.methodStory { position: relative; height: 420svh; }
+.methodPin { position: sticky; top: 64px; height: calc(100svh - 64px); min-height: 560px; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; padding: 0 20px; }
+.methodHead { text-align: center; transform-origin: 50% 0; will-change: transform, filter, opacity; }
+.methodTitle { margin-top: 14px; font-family: var(--font-serif), Georgia, 'Times New Roman', serif; font-size: clamp(34px, 5vw, 64px); line-height: 1.02; letter-spacing: -.02em; color: #f5f1ec; }
+.methodTitle em { font-style: italic; color: #d4a574; }
+.methodStage { display: grid; width: 100%; max-width: 980px; grid-template-columns: minmax(0, 1fr); align-items: center; gap: 20px; margin-top: 8px; }
+.methodSvg { width: min(100%, 300px); margin: 0 auto; overflow: visible; }
+.methodPanel { position: relative; min-height: 170px; }
+.methodSlide { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; text-align: center; will-change: transform, filter, opacity; }
+.methodBody { margin-top: 12px; font-size: 15px; line-height: 1.6; color: #b8b2aa; }
+.triangleCenterBig { font-family: var(--font-serif), Georgia, serif; font-size: 44px; font-style: italic; fill: #f1c99c; }
+.methodMarks { display: flex; gap: 22px; margin-top: 28px; font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #d4a574; }
+@media (min-width: 768px) {
+  .methodStage { grid-template-columns: 380px minmax(0, 1fr); gap: 56px; margin-top: 16px; }
+  .methodSvg { width: 100%; }
+  .methodPanel { min-height: 220px; }
+  .methodSlide { text-align: left; }
+  .methodBody { font-size: 17px; }
+  .methodMarks { margin-top: 36px; }
+}

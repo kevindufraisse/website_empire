@@ -1,12 +1,11 @@
 'use client'
 
 import { ArrowRight, Check } from 'lucide-react'
-import { useRef } from 'react'
-import { motion, useScroll, useSpring, useTransform, type MotionValue } from 'framer-motion'
 import LoomEmbed from '@/components/LoomEmbed'
 import { TRIAL_URL } from '@/lib/startTrial'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 import { Reveal } from './LegendeWeekScroll'
+import LegendeMethodScroll from './LegendeMethodScroll'
 import styles from './legende-form.module.css'
 
 // Places avec Kevin : à mettre à jour à chaque client signé (et dans le prompt du setter WhatsApp).
@@ -170,46 +169,17 @@ function CalloutArrow({ flip = false }: { flip?: boolean }) {
   </svg>
 }
 
-/**
- * Le triangle se trace au rythme du défilement : le trait suit la molette depuis le moment où la section
- * entre par le bas jusqu'à ce qu'elle soit au centre de l'écran, puis les sommets et le mot du centre
- * apparaissent. Rien n'est collant, la page défile normalement ; remonter le redessine à l'envers.
- */
-function Triangle({ labels, center }: { labels: string[]; center: string }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const still = usePrefersReducedMotion()
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 95%', 'center 45%'] })
-  const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 28, mass: .4 })
-  const trace = useTransform(progress, [0, .7], [0, 1])
-  const fill = useTransform(progress, [.55, .85], [0, 1])
-  const dots = [useTransform(progress, [.3, .45], [0, 1]), useTransform(progress, [.5, .65], [0, 1]), useTransform(progress, [.7, .85], [0, 1])]
-  const word = useTransform(progress, [.78, 1], [0, 1])
-  const pts: [number, number][] = [[200, 40], [360, 316], [40, 316]]
-  const motionStyle = (value: MotionValue<number>, key: 'pathLength' | 'scale' | 'opacity') => still ? undefined : { [key]: value }
-  return <div ref={ref} className="mx-auto w-full max-w-[300px]">
-    <svg viewBox="-30 0 460 370" className="w-full overflow-visible" aria-hidden>
-      <motion.polygon points={pts.map(p => p.join(',')).join(' ')} fill="rgba(212,165,116,.07)" stroke="#d4a574" strokeWidth="2" strokeLinejoin="round"
-        style={still ? undefined : { pathLength: trace, fillOpacity: fill }} />
-      {pts.map(([x, y], i) => <g key={i}>
-        <motion.circle cx={x} cy={y} r="8" fill="#d4a574" style={{ transformOrigin: `${x}px ${y}px`, ...motionStyle(dots[i], 'scale') }} />
-        <text x={x} y={i === 0 ? y - 22 : y + 40} textAnchor={i === 1 ? 'end' : i === 2 ? 'start' : 'middle'} dx={i === 1 ? 18 : i === 2 ? -18 : 0} className={styles.triangleLabel}>{labels[i]}</text>
-      </g>)}
-      <motion.text x="200" y="222" textAnchor="middle" className={styles.triangleCenter} style={motionStyle(word, 'opacity')}>{center}</motion.text>
-    </svg>
-  </div>
-}
-
 export default function LegendeMarketing({ lang, onApply }: { lang: 'fr' | 'en'; onApply: (plan?: 'kevin' | 'hoc') => void }) {
   const t = copy[lang]
   const still = usePrefersReducedMotion()
   return <>
-    <header className="mx-auto grid max-w-6xl items-center gap-10 px-5 pt-10 sm:px-8 md:grid-cols-[1.25fr_1fr] md:pt-16">
+    <header className="mx-auto grid max-w-6xl items-center gap-8 px-5 pt-6 sm:px-8 md:grid-cols-[1.25fr_1fr] md:pt-6">
       <div>
         <p className={styles.badge}>{t.badge}</p>
         <h1 className={styles.display}>{t.title[0]} <em>{t.title[1]}</em></h1>
-        <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-neutral-300">{t.intro}</p>
+        <p className="mt-5 max-w-xl text-[16px] leading-relaxed text-neutral-300">{t.intro}</p>
         <p className="mt-3 text-[15px] font-semibold text-white">{t.zero}</p>
-        <div className="mt-7 flex flex-wrap items-center gap-3">
+        <div className="mt-6 flex flex-wrap items-center gap-3">
           <button type="button" onClick={() => onApply()} className={styles.pill}>{t.apply}<ArrowRight aria-hidden size={15} /></button>
           <a href="#tarifs" className={styles.ghost}>{t.seePrices}</a>
         </div>
@@ -271,22 +241,7 @@ export default function LegendeMarketing({ lang, onApply }: { lang: 'fr' | 'en';
       </Reveal>
     </section>
 
-    <section className="mx-auto mt-16 max-w-6xl px-5 sm:px-8 md:mt-20" aria-labelledby="legende-method">
-      <Reveal>
-        <Label>{t.methodLabel}</Label>
-        <h2 id="legende-method" className={styles.sectionTitle}>{t.methodTitle[0]} <em className="italic text-autopilot">{t.methodTitle[1]}</em></h2>
-        <p className="mt-3 max-w-2xl text-[16px] leading-relaxed text-neutral-300">{t.methodText}</p>
-        <div className="mt-8 grid items-center gap-8 md:grid-cols-[300px_1fr] md:gap-14">
-          <Triangle labels={t.method.map(([name]) => name)} center={t.methodCenter} />
-          <ol className="divide-y divide-white/10 border-y border-white/10">
-            {t.method.map(([name, body]) => <li key={name} className="py-5">
-              <h3 className={styles.methodName}>{name}</h3>
-              <p className="mt-2 text-[15px] leading-relaxed text-neutral-400">{body}</p>
-            </li>)}
-          </ol>
-        </div>
-      </Reveal>
-    </section>
+    <LegendeMethodScroll label={t.methodLabel} title={t.methodTitle as [string, string]} text={t.methodText} items={t.method} center={t.methodCenter} />
 
     <section id="tarifs" className="mx-auto mt-16 max-w-6xl scroll-mt-20 px-5 sm:px-8 md:mt-20" aria-labelledby="legende-plans">
       <Reveal>
