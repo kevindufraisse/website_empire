@@ -14,7 +14,8 @@ export const PLACES_TOTAL = 10
 export const PLACES_LEFT = 7
 export const INTRO_URL = 'https://intro.co/kevindufraisse?source=intro'
 const INTERVIEW_PHOTO = '/legende/kevin-interview.jpg'
-const CLIENT_PHOTO = '/case-studies/tristan-de-vasselot.jpg'
+/** Client fictif, image générée (fal, Flux) : jamais le visage d'un vrai client ici. */
+const CLIENT_PHOTO = '/legende/client-interview.jpg'
 const CLIENT_LOGOS = [
   { name: 'Ippon Technologies', src: '/logos/ippon.png' },
   { name: 'Socratiz', src: '/logos/presse-agence.png' },
@@ -153,7 +154,7 @@ function InterviewPhone({ l, still }: { l: typeof copy.fr.phone; still: boolean 
       </div>
       <div className={styles.tile}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={CLIENT_PHOTO} alt="" className="absolute inset-0 h-full w-full object-cover object-[50%_12%] saturate-[1.05]" />
+        <img src={CLIENT_PHOTO} alt="" className="absolute inset-0 h-full w-full object-cover object-[50%_35%]" />
         <span className={styles.tileName}><Voice still={still} active={false} />{l.you}</span>
       </div>
       <div className={styles.questionCard}>
