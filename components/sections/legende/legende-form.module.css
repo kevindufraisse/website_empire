@@ -127,7 +127,32 @@
 .planFeatured { border-color: rgb(212 165 116 / .55); background: linear-gradient(180deg, rgb(212 165 116 / .1), rgb(212 165 116 / .02)); box-shadow: 0 30px 80px rgb(212 165 116 / .08); }
 .planTag { position: absolute; top: -12px; left: 24px; border-radius: 999px; background: #d4a574; color: #17110b; padding: 4px 11px; font-size: 12px; font-weight: 650; }
 .planPrice { font-family: var(--font-serif), Georgia, 'Times New Roman', serif; font-size: clamp(30px, 3.4vw, 40px); line-height: 1; color: #fff; white-space: nowrap; }
-.iphone { position: relative; justify-self: center; width: min(300px, 62vw); aspect-ratio: 9 / 19.5; overflow: hidden; border: 10px solid #1c1b1a; border-radius: 46px; background: #000; box-shadow: 0 0 0 1px rgb(255 255 255 / .12), 0 40px 90px rgb(0 0 0 / .6), 0 0 80px rgb(212 165 116 / .12); }
+/* La scène d'interview : l'iPhone, et autour deux légendes fléchées. Sur petit écran les légendes passent au-dessus. */
+.phoneScene { position: relative; justify-self: center; padding: 56px 0 0; }
+.iphone { position: relative; display: flex; flex-direction: column; gap: 3px; width: min(300px, 62vw); aspect-ratio: 9 / 19.5; overflow: hidden; border: 10px solid #1c1b1a; border-radius: 46px; background: #000; box-shadow: 0 0 0 1px rgb(255 255 255 / .12), 0 40px 90px rgb(0 0 0 / .6), 0 0 80px rgb(212 165 116 / .12); }
+.tile { position: relative; flex: 1; overflow: hidden; background: #111; }
+.tileSpeaking { box-shadow: inset 0 0 0 2px #d4a574; }
+.tileName { position: absolute; left: 12px; bottom: 12px; display: inline-flex; align-items: center; gap: 7px; padding: 5px 10px 5px 8px; border-radius: 999px; background: rgb(0 0 0 / .55); backdrop-filter: blur(8px); font-size: 11px; font-weight: 600; color: #fff; }
+.questionCard { position: absolute; left: 14px; right: 14px; top: 50%; transform: translateY(-50%); padding: 12px 14px; border-radius: 16px; border: 1px solid rgb(255 255 255 / .12); background: rgb(12 11 10 / .9); backdrop-filter: blur(12px); box-shadow: 0 12px 40px rgb(0 0 0 / .5); }
+.voice { display: inline-flex; align-items: flex-end; gap: 2px; height: 12px; }
+.voice i { display: block; width: 2.5px; height: 4px; border-radius: 2px; background: rgb(255 255 255 / .45); }
+.voiceOn i { background: #d4a574; animation: voice .9s ease-in-out infinite; }
+.voiceStill i { animation: none; height: 8px; }
+@keyframes voice { 0%, 100% { height: 4px } 50% { height: 12px } }
+.callout { position: absolute; z-index: 2; display: flex; flex-direction: column; gap: 2px; font-family: var(--font-serif), Georgia, serif; font-style: italic; font-size: 19px; line-height: 1.1; color: #d4a574; white-space: nowrap; pointer-events: none; }
+.calloutArrow { width: 44px; height: 32px; color: #d4a574; opacity: .9; }
+.calloutArrowFlip { transform: scaleX(-1); align-self: flex-end; }
+.calloutPhone { top: 0; right: calc(50% - min(150px, 31vw) - 8px); align-items: flex-end; text-align: right; }
+.calloutEarbuds { top: 128px; left: calc(50% + min(150px, 31vw) + 4px); flex-direction: column-reverse; max-width: 150px; white-space: normal; }
+.calloutEarbuds .calloutArrow { transform: scaleX(-1); align-self: flex-start; }
+@media (max-width: 767px) {
+  .phoneScene { padding-top: 48px; }
+  .calloutPhone { right: auto; left: 0; align-items: flex-start; text-align: left; }
+  .calloutPhone .calloutArrowFlip { transform: none; align-self: flex-start; }
+  .calloutEarbuds { top: 0; left: auto; right: 0; flex-direction: column; align-items: flex-end; text-align: right; }
+  .calloutEarbuds .calloutArrow { align-self: flex-end; }
+  .callout { font-size: 16px; }
+}
 .iphoneIsland { position: absolute; top: 10px; left: 50%; width: 92px; height: 26px; transform: translateX(-50%); border-radius: 999px; background: #000; }
 .proofValue { font-family: var(--font-serif), Georgia, serif; font-size: 30px; line-height: 1; color: #d4a574; }
 .step { border: 1px solid rgb(255 255 255 / .1); border-radius: 18px; background: rgb(255 255 255 / .025); padding: 22px; }

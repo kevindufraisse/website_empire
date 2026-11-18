@@ -157,7 +157,7 @@ async function run() {
   assert.equal(sent.length, countBefore, 'un robot ne poste rien')
   const step2 = (overrides = {}) => ({ version: 3, ...person(), plan: 'kevin', timing: 'now', revenueBand: 300_000, company: 'Cabinet RH, 12 salariés', ...overrides })
   for (const [revenueBand, kind, title] of [[300_000, 'legende', 'calendrier proposé'], [1_000_000, 'legende', 'calendrier proposé'],
-    [100_000, 'alternative', 'orienté vers Intro'], ['unknown', 'review', 'à rappeler']]) {
+    [100_000, 'alternative', 'Sous 300 000 € de CA, calendrier proposé'], ['unknown', 'review', 'à rappeler']]) {
     assert.deepEqual(await (await post(step2({ revenueBand }))).json(), { success: true, kind }, String(revenueBand))
     const summary = JSON.stringify(sent.at(-1))
     for (const value of [title, 'Avec Kevin', 'Dans le mois', 'Cabinet RH']) assert.ok(summary.includes(value), value)
