@@ -174,7 +174,9 @@ export default function LegendeMarketing({ lang, onApply }: { lang: 'fr' | 'en';
   const t = copy[lang]
   const still = usePrefersReducedMotion()
   return <>
-    <header className="mx-auto grid max-w-6xl items-center gap-8 px-5 pt-6 sm:px-8 md:grid-cols-[1.25fr_1fr] md:pt-6">
+    {/* Sur ordinateur, le héros remplit le premier écran et se centre dedans : rien ne dépasse de la ligne de
+        flottaison, la bande des preuves commence juste en dessous. */}
+    <header className="mx-auto grid max-w-6xl items-center gap-8 px-5 pt-6 sm:px-8 md:min-h-[calc(100svh-88px)] md:grid-cols-[1.25fr_1fr] md:content-center md:pb-10 md:pt-4">
       <div>
         <p className={styles.badge}>{t.badge}</p>
         <h1 className={styles.display}>{t.title[0]} <em>{t.title[1]}</em></h1>
