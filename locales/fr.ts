@@ -437,7 +437,7 @@ export const fr: Translations = {
   common: {
     startNow: 'Commencer gratuitement',
     watchDemo: 'Commencer gratuitement',
-    ctaReassurance: 'Sur sélection',
+    ctaReassurance: '',
     /** Sous-ligne très courte : header, sticky, bannière (évite un bouton énorme) */
     ctaReassuranceCompact: 'Sans engagement',
     learnMore: 'En savoir plus',
