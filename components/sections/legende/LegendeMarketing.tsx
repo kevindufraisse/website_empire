@@ -40,13 +40,6 @@ const copy = {
       ['L’équipe produit tout', 'Posts LinkedIn, reels, vidéos YouTube longues, newsletter. Écrits et montés à partir de vos mots.'],
       ['Nous publions et récupérons vos contacts', 'Au moins une publication par jour sur 7 réseaux. Chaque post a son lien suivi, chaque contact arrive dans votre espace Empire.'],
     ] as [string, string][],
-    resultsLabel: 'Résultats', resultsTitle: 'Ils sont devenus la référence de leur marché.',
-    results: [
-      { name: 'Evelyne Guitard', role: 'Formatrice', result: '0 → 100 000 vues', detail: 'en 21 jours', photo: '/case-studies/evelyne-guitard.jpg' },
-      { name: 'Deborah Guillotin', role: 'MyES France', result: '0 → 10 000 abonnés', detail: 'en moins d’un mois', photo: '/case-studies/deborah-guillotin.png' },
-      { name: 'Marguerite Demoures', role: 'Stratégie LinkedIn', result: 'Pipeline commercial ×2', detail: 'en un mois', photo: '/case-studies/marguerite-demoures.png' },
-      { name: 'Olivier Sarezinski', role: 'Gérant associé', result: 'Plusieurs freelances → 1 h', detail: 'par semaine', photo: '/case-studies/olivier-sarezinski.jpg' },
-    ],
     methodLabel: 'La méthode Empire', methodTitle: ['Offre, Visibilité, Confiance.', 'Et le marché vient à vous.'],
     methodText: 'Quand les trois côtés tiennent, tout change de prix dans votre entreprise : les clients arrivent déjà convaincus, vous facturez plus cher, les bons candidats postulent sans annonce, les partenaires et les investisseurs vous écrivent. Un an de R&D et plus de 10 000 posts testés pour en arriver là.',
     methodCenter: 'On vient à vous',
@@ -87,13 +80,6 @@ const copy = {
       ['The team produces everything', 'LinkedIn posts, reels, long YouTube videos, newsletter. Written and edited from your own words.'],
       ['We publish and capture your contacts', 'At least one post a day on 7 networks. Every post has a tracked link, every contact lands in your Empire space.'],
     ] as [string, string][],
-    resultsLabel: 'Results', resultsTitle: 'They became the reference in their market.',
-    results: [
-      { name: 'Evelyne Guitard', role: 'Trainer', result: '0 → 100,000 views', detail: 'in 21 days', photo: '/case-studies/evelyne-guitard.jpg' },
-      { name: 'Deborah Guillotin', role: 'MyES France', result: '0 → 10,000 followers', detail: 'in under a month', photo: '/case-studies/deborah-guillotin.png' },
-      { name: 'Marguerite Demoures', role: 'LinkedIn strategy', result: 'Sales pipeline ×2', detail: 'in one month', photo: '/case-studies/marguerite-demoures.png' },
-      { name: 'Olivier Sarezinski', role: 'Managing partner', result: 'Several freelancers → 1 h', detail: 'a week', photo: '/case-studies/olivier-sarezinski.jpg' },
-    ],
     methodLabel: 'The Empire method', methodTitle: ['Offer, Visibility, Trust.', 'And the market comes to you.'],
     methodText: 'When all three sides hold, everything in your company changes price: clients arrive already convinced, you charge more, the right candidates apply without a job ad, partners and investors write to you. One year of R&D and over 10,000 posts tested to get there.',
     methodCenter: 'They come to you',
@@ -220,25 +206,6 @@ export default function LegendeMarketing({ lang, onApply }: { lang: 'fr' | 'en';
             <p className="mt-2 text-[15px] leading-relaxed text-neutral-400">{body}</p>
           </li>)}
         </ol>
-      </Reveal>
-    </section>
-
-    <section className="mx-auto mt-16 max-w-6xl px-5 sm:px-8 md:mt-20" aria-labelledby="legende-results">
-      <Reveal>
-        <Label>{t.resultsLabel}</Label>
-        <h2 id="legende-results" className={styles.sectionTitle}>{t.resultsTitle}</h2>
-        <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {t.results.map(r => <li key={r.name} className={styles.step + ' flex items-center gap-4 lg:block'}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={r.photo} alt="" loading="lazy" className="h-14 w-14 shrink-0 rounded-full object-cover object-top ring-2 ring-autopilot/60 lg:mb-4" />
-            <div>
-              <p className={styles.resultValue}>{r.result}</p>
-              <p className="text-[14px] text-neutral-400">{r.detail}</p>
-              <p className="mt-2 text-[14px] font-semibold text-white">{r.name}</p>
-              <p className="text-[13px] text-neutral-500">{r.role}</p>
-            </div>
-          </li>)}
-        </ul>
       </Reveal>
     </section>
 
