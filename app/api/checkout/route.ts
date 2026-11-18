@@ -1,5 +1,18 @@
 import { NextResponse } from 'next/server'
+import { cookies } from 'next/headers'
 import Stripe from 'stripe'
+
+// Empire ID du clic graab.me (programme affiliés), posé en cookie par
+// captureAttribution() : il part dans la metadata Stripe pour que la vente
+// soit attribuée à l'affilié. Forme seulement ; l'app vérifie que le clic existe.
+function empireClickMetadata(): Record<string, string> {
+  try {
+    const value = cookies().get('empire_emp')?.value ?? ''
+    return /^EMP_[A-Za-z0-9_-]{4,150}$/.test(value) ? { emp: value } : {}
+  } catch {
+    return {}
+  }
+}
 
 // Pay-first flow (used by /final-offer): the visitor pays before creating an
 // account. The Stripe session carries NO workspace_id, so the app's
@@ -165,6 +178,7 @@ export async function POST(request: Request) {
     }
 
     const checkoutType = isWebinarOffer ? 'paid' : 'trial'
+    const empMeta = empireClickMetadata()
     const session = await stripe.checkout.sessions.create({
       mode: 'subscription',
       line_items: lineItems,
@@ -173,7 +187,7 @@ export async function POST(request: Request) {
         // Offre webinar : paiement immédiat, pas d'essai
         ...(isWebinarOffer ? {} : { trial_period_days: 7 }),
         // No workspace_id yet: the claim step adds it after signup
-        metadata: { pack, checkout_type: checkoutType, source: 'marketing_site', ...(promoDiscounts ? { promo_id: body.promoId! } : {}) },
+        metadata: { pack, checkout_type: checkoutType, source: 'marketing_site', ...empMeta, ...(promoDiscounts ? { promo_id: body.promoId! } : {}) },
       },
       metadata: {
         pack,
@@ -181,6 +195,7 @@ export async function POST(request: Request) {
         checkout_type: checkoutType,
         source: 'marketing_site',
         formations: body.coaching ? 'coaching' : '',
+        ...empMeta,
         ...(promoDiscounts ? { promo_id: body.promoId! } : {}),
       },
       success_url: `${APP_URL}/onboarding?claim_session={CHECKOUT_SESSION_ID}${ampParam}`,

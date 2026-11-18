@@ -53,9 +53,22 @@ export function readAttribution(): Attribution {
   return attr
 }
 
+// Empire ID du clic graab.me (`?emp=EMP_…`, programme affiliés) : cookie à part,
+// partagé avec l'app, hors consentement marketing (identifiant first-party, pas
+// un signal publicitaire). L'app le rattache à l'inscription et au paiement.
+const EMP_COOKIE = 'empire_emp'
+const EMP_RX = /^EMP_[A-Za-z0-9_-]{4,150}$/
+
+export function readEmpireClick(): string | undefined {
+  const value = readCookie(EMP_COOKIE)
+  return value && EMP_RX.test(value) ? value : undefined
+}
+
 /** À chaque arrivée : fbclid → _fbc (format Meta), _fbp et utm_* dans `empire_attr`. */
 export function captureAttribution() {
   const params = new URLSearchParams(location.search)
+  const emp = params.get('emp')
+  if (emp && EMP_RX.test(emp)) writeCookie(EMP_COOKIE, emp, ATTR_DAYS)
   const attr = readAttribution()
 
   const fbclid = params.get('fbclid')
