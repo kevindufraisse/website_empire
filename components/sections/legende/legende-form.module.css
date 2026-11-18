@@ -143,16 +143,39 @@
 .calloutArrow { width: 44px; height: 32px; color: #d4a574; opacity: .9; }
 .calloutArrowFlip { transform: scaleX(-1); align-self: flex-end; }
 .calloutPhone { top: 0; right: calc(50% - var(--phone-w) / 2 - 8px); align-items: flex-end; text-align: right; }
-.calloutEarbuds { top: 118px; left: calc(50% + var(--phone-w) / 2 + 4px); flex-direction: column-reverse; max-width: 150px; white-space: normal; }
-.calloutEarbuds .calloutArrow { transform: scaleX(-1); align-self: flex-start; }
+/* La flèche des écouteurs tombe sur l'écouteur du client. Sa position suit la photo (object-cover, 50% 35%) : l'écouteur
+   est à 85,5 % de la largeur et 46 % de la hauteur de la tuile du bas, ce qui donne, dans le repère de la scène
+   (largeur = --phone-w, cadre de 10 px, 48 px au-dessus) : x = .855w − 7 px, y = 1,581w + 44 px. */
+.phoneScene { --ear-x: calc(var(--phone-w) * .855 - 7px); --ear-y: calc(var(--phone-w) * 1.581 + 44px); }
+.calloutEarbuds { top: calc(var(--ear-y) - 34px); left: calc(var(--phone-w) + 16px); width: 132px; white-space: normal; transform: translateY(-100%); }
+.earbudArrow { position: absolute; z-index: 2; left: calc(var(--ear-x) + 3px); top: calc(var(--ear-y) - 33px); width: calc(var(--phone-w) - var(--ear-x) + 22px); height: 34px; color: #d4a574; pointer-events: none; filter: drop-shadow(0 1px 2px rgb(0 0 0 / .8)); }
+.earbudMark { position: absolute; left: 85.5%; top: 46%; width: 22px; height: 22px; transform: translate(-50%, -50%); border-radius: 999px; border: 1.5px solid #d4a574; box-shadow: 0 0 0 3px rgb(212 165 116 / .2); }
+.earbudPulse { animation: earbud 2.4s ease-in-out infinite; }
+@keyframes earbud { 0%, 100% { box-shadow: 0 0 0 3px rgb(212 165 116 / .2) } 50% { box-shadow: 0 0 0 7px rgb(212 165 116 / .08) } }
 @media (max-width: 767px) {
   .phoneScene { padding-top: 48px; }
   .calloutPhone { right: auto; left: 0; align-items: flex-start; text-align: left; }
   .calloutPhone .calloutArrowFlip { transform: none; align-self: flex-start; }
-  .calloutEarbuds { top: 0; left: auto; right: 0; flex-direction: column; align-items: flex-end; text-align: right; }
-  .calloutEarbuds .calloutArrow { align-self: flex-end; }
   .callout { font-size: 16px; }
 }
+/* Sous 1200 px il n'y a plus la place à côté du téléphone : la légende passe sous l'écouteur, sur la photo, et la flèche remonte. */
+@media (max-width: 1199px) {
+  .calloutEarbuds { top: calc(var(--ear-y) + 62px); left: auto; right: 16px; width: auto; transform: none; text-align: right; text-shadow: 0 1px 3px rgb(0 0 0 / .95), 0 0 12px rgb(0 0 0 / .8); }
+  .calloutTail { display: none; }
+  .earbudArrow { left: calc(var(--ear-x) - 2px); top: calc(var(--ear-y) + 4px); width: 26px; height: 56px; transform: scaleY(-1); }
+}
+/* Barre de l'app Empire en haut de l'écran : on doit comprendre qu'on est dans Empire, pas dans un appel FaceTime. */
+.appBar { position: absolute; z-index: 1; top: 44px; left: 12px; right: 12px; display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 11px; color: #fff; }
+.appBrand { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.appBrand b { font-weight: 700; }
+.appBrand > span:last-child { color: rgb(255 255 255 / .7); font-weight: 500; }
+.appMark { display: grid; place-items: center; width: 20px; height: 20px; border-radius: 6px; background: #d4a574; color: #17110b; font-size: 11px; font-weight: 800; }
+.appRec { display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; background: rgb(0 0 0 / .5); padding: 3px 8px; font-weight: 600; font-variant-numeric: tabular-nums; backdrop-filter: blur(8px); }
+.appRec i { display: block; width: 6px; height: 6px; border-radius: 999px; background: #ef4444; }
+.appFormats { position: absolute; z-index: 1; top: 74px; left: 12px; right: 12px; display: flex; gap: 5px; overflow: hidden; }
+.appFormats span { flex-shrink: 0; border-radius: 999px; border: 1px solid rgb(255 255 255 / .18); background: rgb(0 0 0 / .45); padding: 3px 8px; font-size: 10px; font-weight: 600; color: rgb(255 255 255 / .8); backdrop-filter: blur(8px); }
+.appFormats .appFormatOn { border-color: #d4a574; background: #d4a574; color: #17110b; }
+.tileShade { position: absolute; inset: 0 0 auto; height: 120px; background: linear-gradient(180deg, rgb(0 0 0 / .65), transparent); }
 .iphoneIsland { position: absolute; top: 10px; left: 50%; width: 92px; height: 26px; transform: translateX(-50%); border-radius: 999px; background: #000; }
 .proofValue { font-family: var(--font-serif), Georgia, serif; font-size: 30px; line-height: 1; color: #d4a574; }
 .step { border: 1px solid rgb(255 255 255 / .1); border-radius: 18px; background: rgb(255 255 255 / .025); padding: 22px; }
