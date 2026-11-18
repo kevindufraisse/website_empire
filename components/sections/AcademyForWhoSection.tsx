@@ -64,7 +64,7 @@ export default function AcademyForWhoSection() {
                 {fr ? 'Ce bootcamp est' : 'This bootcamp is'} <span className="text-academy">{fr ? 'sélectif.' : 'selective.'}</span>
               </h2>
               <p className="text-sm text-neutral-400 max-w-md mx-auto">
-                {fr ? 'Sur sélection : tu postules en réservant ta place et on confirme si tu fais partie des sélectionnés.' : "By application only: reserve your spot and we confirm if you're selected."}
+                {fr ? 'Tu postules en réservant ta place et on confirme si tu fais partie des sélectionnés.' : "By application only: reserve your spot and we confirm if you're selected."}
               </p>
             </div>
           </FadeInBlock>

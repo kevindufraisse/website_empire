@@ -500,8 +500,8 @@ export default function AcademyWaitlistForm({
 
             <p className="text-center text-[11px] text-neutral-500">
               {fr
-                ? '20 places · Sur sélection · Réponse après lecture'
-                : '20 spots · By selection · Reply after review'}
+                ? '20 places · Réponse après lecture'
+                : '20 spots · Reply after review'}
             </p>
           </motion.form>
         ) : (

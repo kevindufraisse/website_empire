@@ -16,7 +16,7 @@ export default function PartnerFinalCta() {
             {fr ? 'Tu préfères en faire ton métier ?' : 'Would you rather make it your job?'}
           </h2>
           <p className="mt-3 text-neutral-400">
-            {fr ? 'Empire forme des Head of Content pour accompagner des entrepreneurs. Sur sélection.' : 'Empire trains Heads of Content to work with entrepreneurs. By selection.'}
+            {fr ? 'Empire forme des Head of Content pour accompagner des entrepreneurs.' : 'Empire trains Heads of Content to work with entrepreneurs.'}
           </p>
         </div>
         <a href="/academy" className="inline-flex min-h-12 shrink-0 items-center gap-2 rounded-full border border-white/20 px-6 text-sm font-semibold text-white transition hover:border-white/40">
