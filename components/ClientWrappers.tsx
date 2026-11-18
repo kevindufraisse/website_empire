@@ -3,6 +3,7 @@
 import { GlobalLumaCalendar } from '@/components/GlobalLumaCalendar'
 import GiftCountdownModal from '@/components/GiftCountdownBar'
 import ViralPostsOverlay from '@/components/ViralPostsOverlay'
+import DemoPopup from '@/components/DemoPopup'
 import { OfferQuizGlobal } from '@/components/sections/OfferQuiz'
 import { usePathname } from 'next/navigation'
 import { useLanguage } from '@/contexts/LanguageContext'
@@ -17,6 +18,7 @@ export default function ClientWrappers() {
       <GlobalLumaCalendar />
       <GiftCountdownModal />
       <ViralPostsOverlay />
+      <DemoPopup />
       <OfferQuizGlobal fr={lang === 'fr'} />
     </>
   )

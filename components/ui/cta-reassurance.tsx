@@ -17,6 +17,8 @@ export function CtaReassurance({ className = '', align = 'center' }: CtaReassura
         ? 'text-right max-w-[14rem] ml-auto'
         : 'text-center max-w-md mx-auto'
 
+  if (!t.common.ctaReassurance) return null
+
   return (
     <p className={`text-xs text-neutral-400 leading-relaxed ${alignClass} ${className}`}>
       {t.common.ctaReassurance}
