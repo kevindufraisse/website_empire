@@ -215,7 +215,7 @@ export default function HeroSection() {
                   reassuranceClassName="mx-auto w-fit rounded-lg bg-[#0a0a0a] px-3 py-0.5"
                   primary={
                     <a href={TRIAL_URL} onClick={onTrial} className={CTA_PRIMARY}>
-                      {lang === 'fr' ? 'Commencer gratuitement' : 'Get started for free'}
+                      {lang === 'fr' ? 'Essai gratuit 7 jours' : '7-day free trial'}
                       <span aria-hidden className="inline-block transition-transform group-hover:translate-x-1">→</span>
                     </a>
                   }

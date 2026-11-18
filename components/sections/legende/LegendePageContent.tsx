@@ -18,7 +18,7 @@ const copy = {
       ['Pour qui est-ce ?', 'Pour les dirigeants, fondateurs et experts d’une entreprise qui réalise au moins 300 000 € de chiffre d’affaires par an, qui ont des choses à dire et pas le temps de les publier.'],
       ['Combien de temps cela me prend-il ?', 'Une heure par semaine, maximum : votre interview. Le reste, nous nous en occupons.'],
       ['Avec qui vais-je travailler ?', 'Avec Kevin, sur l’offre à 4 500 € : c’est lui qui vous interviewe 4 fois par mois et qui retravaille votre offre. Avec un Head of Content formé par Kevin, sur l’offre de 1 000 à 3 000 €. Dans les deux cas, l’équipe Empire produit, publie et suit vos résultats.'],
-      ['Tournez-vous en studio ?', 'Non, et c’est voulu. Vos vidéos sont des lives filmés à l’iPhone avec des écouteurs. Nous l’avons testé sur des milliers de posts : ce format performe bien mieux qu’une production de studio.'],
+      ['Pourquoi pas un tournage en studio, avec un vrai montage ?', 'Parce que ça marche moins bien. Nous l’avons testé sur des milliers de posts : les vidéos de studio, avec un décor et un montage sophistiqué, font moins de vues que des lives filmés à l’iPhone avec des écouteurs. En 2027, c’est l’authenticité qui gagne sur les réseaux sociaux, et peu de dirigeants l’ont encore compris. Profitez-en : c’est maintenant ou jamais.'],
       ['Que publiez-vous pour moi ?', 'Au moins une publication par jour sur 7 réseaux (LinkedIn, Instagram, TikTok, YouTube, Facebook, X et Threads), et des vidéos YouTube longues. Les sujets, nous les créons pour vous.'],
       ['Combien cela coûte-t-il ?', '4 500 € par mois avec Kevin, de 1 000 à 3 000 € par mois avec un Head of Content selon votre volume, pendant douze mois. Avec Kevin, il reste ' + PLACES_LEFT + ' places sur 10 cette année.'],
       ['Et si je veux d’abord un avis de Kevin ?', 'Réservez une session de conseil avec lui sur Intro, sans candidature. Vous travaillez directement sur votre blocage.'],
@@ -26,7 +26,7 @@ const copy = {
     ] as [string, string][],
     applyLabel: 'Candidature', applyTitle: 'Deux minutes pour candidater.',
     applyText: 'Vos coordonnées, trois questions sur votre entreprise. Si votre profil correspond, vous choisissez votre créneau dans la foulée.',
-    apply: 'Candidater', notReady: 'Vous préférez garder la main ?', solo: 'Commencez seul avec Empire', privacy: 'Confidentialité',
+    apply: 'Candidater · 2 min', notReady: 'Vous préférez garder la main ?', solo: 'Commencez seul avec Empire', privacy: 'Confidentialité', terms: 'Conditions générales',
   },
   en: {
     faqLabel: 'Questions', faqTitle: 'Frequently asked questions',
@@ -34,7 +34,7 @@ const copy = {
       ['Who is it for?', 'For leaders, founders and experts whose company makes at least €300,000 in revenue a year, who have things to say and no time to publish them.'],
       ['How much of my time does it take?', 'One hour a week, at most: your interview. We handle the rest.'],
       ['Who will I work with?', 'With Kevin on the €4,500 plan: he interviews you 4 times a month and reworks your offer. With a Head of Content trained by Kevin on the €1,000 to €3,000 plan. Either way, the Empire team produces, publishes and tracks your results.'],
-      ['Do you shoot in a studio?', 'No, on purpose. Your videos are live streams shot on an iPhone with earphones. We tested it on thousands of posts: this format performs far better than a studio production.'],
+      ['Why not a studio shoot, with proper editing?', 'Because it works worse. We tested it on thousands of posts: studio videos, with a set and sophisticated editing, get fewer views than live streams shot on an iPhone with earphones. In 2027, authenticity wins on social media, and few leaders have figured it out yet. Make the most of it: it’s now or never.'],
       ['What do you publish for me?', 'At least one post a day on 7 networks (LinkedIn, Instagram, TikTok, YouTube, Facebook, X and Threads), plus long-form YouTube videos. We create the topics for you.'],
       ['How much does it cost?', '€4,500 a month with Kevin, €1,000 to €3,000 a month with a Head of Content depending on your volume, for twelve months. With Kevin, ' + PLACES_LEFT + ' of 10 spots are left this year.'],
       ['What if I want Kevin’s advice first?', 'You can book an advisory session with him on Intro, no application needed. You work directly on what’s blocking you.'],
@@ -42,7 +42,7 @@ const copy = {
     ] as [string, string][],
     applyLabel: 'Application', applyTitle: 'Two minutes to apply.',
     applyText: 'Your details and three questions about your company. If your profile fits, you pick a slot right away.',
-    apply: 'Apply', notReady: 'Prefer to stay hands-on?', solo: 'Start on your own with Empire', privacy: 'Privacy',
+    apply: 'Apply · 2 min', notReady: 'Prefer to stay hands-on?', solo: 'Start on your own with Empire', privacy: 'Privacy', terms: 'Terms',
   },
 }
 
@@ -73,7 +73,7 @@ export default function LegendePageContent() {
         <p className={styles.label}><span className="h-1.5 w-1.5 rounded-full bg-autopilot" aria-hidden />{t.applyLabel}</p>
         <h2 id="legende-apply" className={styles.sectionTitle}>{t.applyTitle}</h2>
         <p className="mx-auto mt-3 max-w-lg text-[16px] leading-relaxed text-neutral-300">{t.applyText}</p>
-        <button type="button" onClick={() => apply()} className={styles.pill + ' mt-6'}>{t.apply}<ArrowRight aria-hidden size={15} /></button>
+        <button type="button" onClick={() => apply()} className={styles.pill + ' mt-6'}><span className="text-balance">{t.apply}</span><ArrowRight aria-hidden size={15} /></button>
       </div>
       <p className="mt-5 text-center text-sm text-neutral-400">{t.notReady} <a href={TRIAL_URL} className="font-semibold text-white underline underline-offset-4">{t.solo}</a></p>
     </section>
@@ -81,7 +81,7 @@ export default function LegendePageContent() {
     <div className="mt-16 md:mt-20"><PartnerFinalCta /></div>
     <footer className="mt-10 overflow-hidden px-5 sm:px-8">
       <div className="mx-auto flex max-w-5xl justify-between border-t border-white/10 py-4 text-[12px] text-neutral-500">
-        <span>© Empire Internet</span><a href="/privacy" className="underline">{t.privacy}</a>
+        <span>© Empire Internet</span><span className="flex gap-4"><a href="/terms" className="underline">{t.terms}</a><a href="/privacy" className="underline">{t.privacy}</a></span>
       </div>
       <p aria-hidden="true" className={styles.wordmark}>1-to-1</p>
     </footer>

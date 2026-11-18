@@ -25,13 +25,15 @@ type Plan = { name: string; tagline: string; price: string; per: string; note: s
 
 const copy = {
   fr: {
-    badge: `Done for you · ${PLACES_LEFT} places restantes sur ${PLACES_TOTAL}`,
-    title: ['Vous parlez une heure par semaine.', 'Nous publions pour vous tous les jours.'],
-    intro: 'Kevin vous interviewe en visio, depuis votre iPhone, avec vos écouteurs. De cette heure, l’équipe tire vos posts LinkedIn, vos reels, vos vidéos YouTube et votre newsletter, les publie chaque jour sur 7 réseaux et récupère les contacts qu’ils vous apportent.',
-    zero: 'Vous ne tournez rien. Vous n’écrivez rien. Vous ne publiez rien.',
-    apply: 'Candidater', seePrices: 'Voir les tarifs', advisory: 'Ou réservez d’abord une session de conseil avec Kevin',
+    badge: 'Le studio de personal branding des dirigeants influents',
+    title: ['Vous parlez une heure par semaine.', 'Nous publions pour vous tous les jours, sur 7 réseaux sociaux.'],
+    intro: 'Kevin vous interviewe dans l’app Empire. L’équipe en tire vos posts LinkedIn, vos reels, vos vidéos YouTube et votre newsletter.',
+    places: `${PLACES_LEFT} places restantes sur ${PLACES_TOTAL} avec Kevin`,
+    // Les trois objections, de la plus fréquente à la moins fréquente : le temps, la caméra, ce que ça rapporte.
+    objections: ['Une heure par semaine, maximum.', 'Pas de studio : votre iPhone et vos écouteurs.', 'Les contacts de chaque post, récupérés pour vous.'],
+    apply: 'Candidater · 2 min', seePrices: 'Voir les tarifs', advisory: 'Ou réservez d’abord une session de conseil avec Kevin',
     proof: [['700M+', 'vues générées pour nos clients'], ['#1', 'Lead Generation France'], ['#55', 'LinkedIn Influence France']] as [string, string][],
-    phone: { live: 'Interview', week: 'Semaine 12', question: 'Question 3 sur 8', topic: 'Pourquoi vos clients trouvent votre prix trop cher', kevin: 'Kevin', you: 'Vous', yourPhone: 'Votre iPhone', yourEarbuds: 'Vos écouteurs, rien d’autre.' },
+    phone: { app: 'Empire', live: 'Interview', formats: ['Interview', 'Tier list', 'Réaction', 'FAQ'], question: 'Question 3 sur 8', topic: 'Pourquoi vos clients trouvent votre prix trop cher', kevin: 'Kevin', you: 'Vous', yourPhone: 'Votre iPhone, l’app Empire', yourEarbuds: ['Vos écouteurs', ', rien d’autre.'] },
     video: 'Kevin vous explique tout en 16 minutes',
     howLabel: 'Chaque semaine', howTitle: 'Vous parlez. Nous faisons le reste.',
     how: [
@@ -65,13 +67,14 @@ const copy = {
     notFit: ['Vous voulez une production en studio. Ici, tout se filme à l’iPhone.', 'Vous cherchez l’option la moins chère : prenez l’abonnement Empire.', 'Vous n’avez pas encore d’offre à vendre.', 'Vous attendez des résultats en deux semaines.'],
   },
   en: {
-    badge: `Done for you · ${PLACES_LEFT} spots left out of ${PLACES_TOTAL}`,
-    title: ['You talk 1 hour a week.', 'We publish for you every day.'],
-    intro: 'Kevin interviews you on a video call, from your iPhone, with your earphones. From that hour, the team writes your LinkedIn posts, edits your reels and YouTube videos, drafts your newsletter, publishes every day on 7 networks and captures the contacts it brings you.',
-    zero: 'You don’t film anything. You don’t write anything. You don’t publish anything.',
-    apply: 'Apply', seePrices: 'See pricing', advisory: 'Or book an advisory session with Kevin first',
+    badge: 'The personal branding studio for influential leaders',
+    title: ['You talk one hour a week.', 'We publish for you every day, on 7 social networks.'],
+    intro: 'Kevin interviews you in the Empire app. The team turns it into your LinkedIn posts, reels, YouTube videos and newsletter.',
+    places: `${PLACES_LEFT} of ${PLACES_TOTAL} spots left with Kevin`,
+    objections: ['One hour a week, at most.', 'No studio: your iPhone and your earphones.', 'The contacts from every post, captured for you.'],
+    apply: 'Apply · 2 min', seePrices: 'See pricing', advisory: 'Or book an advisory session with Kevin first',
     proof: [['700M+', 'views generated for our clients'], ['#1', 'Lead Generation France'], ['#55', 'LinkedIn Influence France']] as [string, string][],
-    phone: { live: 'Interview', week: 'Week 12', question: 'Question 3 of 8', topic: 'Why your clients think your price is too high', kevin: 'Kevin', you: 'You', yourPhone: 'Your iPhone', yourEarbuds: 'Your earphones. Nothing else.' },
+    phone: { app: 'Empire', live: 'Interview', formats: ['Interview', 'Tier list', 'Reaction', 'FAQ'], question: 'Question 3 of 8', topic: 'Why your clients think your price is too high', kevin: 'Kevin', you: 'You', yourPhone: 'Your iPhone, the Empire app', yourEarbuds: ['Your earphones', '. Nothing else.'] },
     video: 'Kevin explains everything in 16 minutes',
     howLabel: 'Every week', howTitle: 'Here’s what happens.',
     how: [
@@ -118,36 +121,47 @@ function Voice({ still, active }: { still: boolean; active: boolean }) {
 }
 
 /**
- * L'interview telle qu'elle se passe : un appel vidéo à deux sur un iPhone. Kevin en haut, qui pose la question ;
- * le client en bas, qui répond. Autour, deux flèches disent tout le matériel qu'il faut : le téléphone et des écouteurs.
+ * L'interview telle qu'elle se passe : un appel vidéo à deux dans l'app Empire, sur un iPhone. La barre du haut
+ * (logo E, « Empire · Interview », les formats) dit qu'on est dans l'app et pas dans FaceTime ; Kevin en haut pose
+ * la question, le client en bas répond. Autour, deux flèches disent tout le matériel qu'il faut : le téléphone, et
+ * des écouteurs - la flèche des écouteurs tombe sur l'écouteur du client (repère `.earbudMark`, posé en % de la photo).
  */
 function InterviewPhone({ l, still }: { l: typeof copy.fr.phone; still: boolean }) {
   return <div className={styles.phoneScene} aria-hidden>
     <p className={styles.callout + ' ' + styles.calloutPhone}>{l.yourPhone}<CalloutArrow flip /></p>
-    <p className={styles.callout + ' ' + styles.calloutEarbuds}>{l.yourEarbuds}<CalloutArrow /></p>
+    <p className={styles.callout + ' ' + styles.calloutEarbuds}><span>{l.yourEarbuds[0]}<span className={styles.calloutTail}>{l.yourEarbuds[1]}</span></span></p>
+    <EarbudArrow />
     <div className={styles.iphone}>
       <div className={styles.iphoneIsland} />
+      <div className={styles.appBar}>
+        <span className={styles.appBrand}><span className={styles.appMark}>E</span><b>{l.app}</b><span>· {l.live}</span></span>
+        <span className={styles.appRec}><i className={still ? '' : 'animate-pulse'} />42:10</span>
+      </div>
+      <div className={styles.appFormats}>{l.formats.map((f, i) => <span key={f} className={i === 0 ? styles.appFormatOn : ''}>{f}</span>)}</div>
       <div className={styles.tile + ' ' + styles.tileSpeaking}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={INTERVIEW_PHOTO} alt="" className="absolute inset-0 h-full w-full object-cover object-[40%_30%] saturate-[1.08] contrast-[1.04]" />
-        <div className="absolute inset-x-3 top-11 flex items-center justify-between text-[11px] font-semibold text-white">
-          <span className={styles.tileName + ' !static'}><Voice still={still} active />{l.kevin}</span>
-          <span className="flex items-center gap-1.5 whitespace-nowrap rounded-full bg-black/50 px-2.5 py-1 backdrop-blur">
-            <span className={`h-1.5 w-1.5 rounded-full bg-red-500 ${still ? '' : 'animate-pulse'}`} />{l.live} · 42:10
-          </span>
-        </div>
+        <div className={styles.tileShade} />
       </div>
       <div className={styles.tile}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={CLIENT_PHOTO} alt="" className="absolute inset-0 h-full w-full object-cover object-[50%_35%]" />
+        <span className={styles.earbudMark + (still ? '' : ' ' + styles.earbudPulse)} />
         <span className={styles.tileName}><Voice still={still} active={false} />{l.you}</span>
       </div>
       <div className={styles.questionCard}>
-        <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-autopilot">{l.question}</p>
+        <p className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-autopilot"><Voice still={still} active />{l.kevin} · {l.question}</p>
         <p className="mt-1 text-[13px] font-medium leading-snug text-white">{l.topic}</p>
       </div>
     </div>
   </div>
+}
+
+/** Flèche des écouteurs : part de la légende, à droite du téléphone, et pointe sur l'écouteur du client. */
+function EarbudArrow() {
+  return <svg viewBox="0 0 64 40" preserveAspectRatio="none" className={styles.earbudArrow} fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M62 3C48 6 26 14 5 34" /><path d="M5 25l0 9 9 -1" />
+  </svg>
 }
 
 function CalloutArrow({ flip = false }: { flip?: boolean }) {
@@ -160,15 +174,20 @@ export default function LegendeMarketing({ lang, onApply }: { lang: 'fr' | 'en';
   const t = copy[lang]
   const still = usePrefersReducedMotion()
   return <>
-    <header className="mx-auto grid max-w-6xl items-center gap-8 px-5 pt-6 sm:px-8 md:grid-cols-[1.25fr_1fr] md:pt-6">
+    {/* Sur ordinateur, le héros remplit le premier écran et se centre dedans : rien ne dépasse de la ligne de
+        flottaison, la bande des preuves commence juste en dessous. */}
+    <header className="mx-auto grid max-w-6xl items-center gap-8 px-5 pt-6 sm:px-8 md:min-h-[calc(100svh-88px)] md:grid-cols-[1.25fr_1fr] md:content-center md:pb-10 md:pt-4">
       <div>
         <p className={styles.badge}>{t.badge}</p>
         <h1 className={styles.display}>{t.title[0]} <em>{t.title[1]}</em></h1>
         <p className="mt-5 max-w-xl text-[16px] leading-relaxed text-neutral-300">{t.intro}</p>
-        <p className="mt-3 text-[15px] font-semibold text-white">{t.zero}</p>
+        <ul className="mt-4 space-y-2">
+          {t.objections.map(item => <li key={item} className="flex gap-2.5 text-[15px] leading-snug text-white"><Check aria-hidden size={17} className="mt-0.5 shrink-0 text-autopilot" />{item}</li>)}
+        </ul>
         <div className="mt-6 flex flex-wrap items-center gap-3">
-          <button type="button" onClick={() => onApply()} className={styles.pill}>{t.apply}<ArrowRight aria-hidden size={15} /></button>
+          <button type="button" onClick={() => onApply()} className={styles.pill}><span className="text-balance">{t.apply}</span><ArrowRight aria-hidden size={15} /></button>
           <a href="#tarifs" className={styles.ghost}>{t.seePrices}</a>
+          <span className="text-[13px] text-neutral-400">{t.places}</span>
         </div>
         <a href={INTRO_URL} target="_blank" rel="noopener" className="mt-4 inline-block text-[14px] text-neutral-400 underline underline-offset-4 hover:text-white">{t.advisory}</a>
       </div>
@@ -192,7 +211,9 @@ export default function LegendeMarketing({ lang, onApply }: { lang: 'fr' | 'en';
     </section>
 
     <div id="video" className="mx-auto mt-12 max-w-4xl scroll-mt-20 px-5 sm:px-8">
-      <LoomEmbed facade poster={INTERVIEW_PHOTO} id="031aba6220874a0d838ac246ce538a88" title={t.video} />
+      <p className="mb-3 text-[14px] text-neutral-400">{t.video}</p>
+      {/* L'aperçu de Loom tel quel (Kevin, 18 novembre 2026) : pas d'image ni de bouton maison par-dessus. */}
+      <LoomEmbed id="031aba6220874a0d838ac246ce538a88" title={t.video} />
     </div>
 
     <section className="mx-auto mt-16 max-w-6xl px-5 sm:px-8 md:mt-20" aria-labelledby="legende-how">
