@@ -31,7 +31,7 @@ const copy = {
     places: `${PLACES_LEFT} places restantes sur ${PLACES_TOTAL} avec Kevin`,
     // Les trois objections, de la plus fréquente à la moins fréquente : le temps, la caméra, ce que ça rapporte.
     objections: ['Une heure par semaine, maximum.', 'Pas de studio : votre iPhone et vos écouteurs.', 'Les contacts de chaque post, récupérés pour vous.'],
-    apply: 'Candidater · 2 min', seePrices: 'Voir les tarifs', advisory: 'Ou réservez d’abord une session de conseil avec Kevin',
+    apply: 'Candidater · 2 min', seePrices: 'Voir les offres', advisory: 'Ou réservez d’abord une session de conseil avec Kevin',
     proof: [['700M+', 'vues générées pour nos clients'], ['#1', 'Lead Generation France'], ['#55', 'LinkedIn Influence France']] as [string, string][],
     phone: { app: 'Empire', live: 'Interview', formats: ['Interview', 'Tier list', 'Réaction', 'FAQ'], question: 'Question 3 sur 8', topic: 'Pourquoi vos clients trouvent votre prix trop cher', kevin: 'Kevin', you: 'Vous', yourPhone: 'Votre iPhone, l’app Empire', yourEarbuds: ['Vos écouteurs', ', rien d’autre.'] },
     video: 'Kevin vous explique tout en 16 minutes',
@@ -50,20 +50,18 @@ const copy = {
       ['Visibilité', 'Tout votre marché vous voit, chaque jour, sur 7 réseaux, avec les formats qui font des vues cette semaine.'],
       ['Confiance', 'Vos prospects, vos candidats et vos partenaires ont vu vos vidéos avant de vous écrire. Ils arrivent convaincus, vous n’avez plus à vous présenter.'],
     ] as [string, string][],
-    plansLabel: 'Tarifs', plansTitle: 'Trois façons de travailler avec nous.',
-    plansNote: 'Les deux offres faites pour vous sont sur candidature, pour douze mois, réservées aux entreprises qui réalisent au moins 300 000 € de chiffre d’affaires par an.',
+    plansLabel: 'Les offres', plansTitle: 'Deux façons de travailler avec nous.',
+    plansNote: 'Les deux offres faites pour vous sont sur candidature, pour douze mois.',
     plans: [
-      { name: 'Empire', tagline: 'Vous faites vous-même', price: 'dès 199 €', per: '/mois', note: 'Sans engagement',
-        items: ['Les sujets et les formats de la semaine dans l’app', 'Vous filmez, l’app monte et publie sur 7 réseaux', 'Un live chaque lundi avec Kevin'], cta: 'Commencer', href: 'trial' },
-      { name: 'Avec un Head of Content', tagline: 'Nous faisons pour vous, vous choisissez', price: '1 000 – 3 000 €', per: '/mois', note: 'Sur candidature · 12 mois',
+      { name: 'Avec un Head of Content', tagline: 'Nous faisons pour vous, vous choisissez', price: '', per: '', note: 'Sur candidature · 12 mois',
         items: ['Un Head of Content formé par Kevin vous interviewe chaque semaine', 'L’équipe écrit et monte vos posts, reels, vidéos et newsletter', 'Vous choisissez dans votre calendrier Empire ce qui part', 'Publication sur 7 réseaux et contacts récupérés'], cta: 'Candidater', href: 'hoc' },
-      { name: 'Avec Kevin', tagline: 'Nous faisons tout pour vous', price: '4 500 €', per: '/mois', note: 'Sur candidature · 12 mois', featured: `${PLACES_LEFT} places restantes sur ${PLACES_TOTAL}`,
+      { name: 'Avec Kevin', tagline: 'Nous faisons tout pour vous', price: '', per: '', note: 'Sur candidature · 12 mois', featured: `${PLACES_LEFT} places restantes sur ${PLACES_TOTAL}`,
         items: ['4 interviews par mois avec Kevin, 1 h maximum chacune', 'Vos sujets préparés chaque semaine à partir de votre marché et de vos concurrents', 'Posts LinkedIn, reels, vidéos YouTube longues et newsletter, écrits et montés par l’équipe', 'Publication chaque jour sur 7 réseaux, et vos meilleurs posts republiés', 'Liens suivis et réponses automatiques en DM Instagram pour récupérer vos contacts', 'Votre offre et votre tunnel de vente retravaillés avec Kevin', 'L’app Empire au complet et le live du lundi'], cta: 'Candidater', href: 'kevin' },
     ] as Plan[],
     clientsLabel: 'Ils nous ont confié leur image',
     selectTitle: `${PLACES_TOTAL} places par an avec Kevin. Nous refusons la plupart des candidatures.`,
     fitTitle: 'C’est pour vous si', notFitTitle: 'Ce n’est pas pour vous si',
-    fit: ['Votre entreprise réalise au moins 300 000 € de chiffre d’affaires par an.', 'Vous avez un avis tranché sur votre métier, et l’envie de le dire.', 'Vous pouvez bloquer une heure par semaine, pendant douze mois.'],
+    fit: ['Vous avez un avis tranché sur votre métier, et l’envie de le dire.', 'Vous pouvez bloquer une heure par semaine, pendant douze mois.'],
     notFit: ['Vous voulez une production en studio. Ici, tout se filme à l’iPhone.', 'Vous cherchez l’option la moins chère : prenez l’abonnement Empire.', 'Vous n’avez pas encore d’offre à vendre.', 'Vous attendez des résultats en deux semaines.'],
   },
   en: {
@@ -72,7 +70,7 @@ const copy = {
     intro: 'Kevin interviews you in the Empire app. The team turns it into your LinkedIn posts, reels, YouTube videos and newsletter.',
     places: `${PLACES_LEFT} of ${PLACES_TOTAL} spots left with Kevin`,
     objections: ['One hour a week, at most.', 'No studio: your iPhone and your earphones.', 'The contacts from every post, captured for you.'],
-    apply: 'Apply · 2 min', seePrices: 'See pricing', advisory: 'Or book an advisory session with Kevin first',
+    apply: 'Apply · 2 min', seePrices: 'See the offers', advisory: 'Or book an advisory session with Kevin first',
     proof: [['700M+', 'views generated for our clients'], ['#1', 'Lead Generation France'], ['#55', 'LinkedIn Influence France']] as [string, string][],
     phone: { app: 'Empire', live: 'Interview', formats: ['Interview', 'Tier list', 'Reaction', 'FAQ'], question: 'Question 3 of 8', topic: 'Why your clients think your price is too high', kevin: 'Kevin', you: 'You', yourPhone: 'Your iPhone, the Empire app', yourEarbuds: ['Your earphones', '. Nothing else.'] },
     video: 'Kevin explains everything in 16 minutes',
@@ -91,20 +89,18 @@ const copy = {
       ['Visibility', 'Your whole market sees you, every day, on 7 networks, with the formats getting views this week.'],
       ['Trust', 'Your prospects, candidates and partners have watched your videos before they write. They arrive convinced, you no longer have to introduce yourself.'],
     ] as [string, string][],
-    plansLabel: 'Pricing', plansTitle: 'Three ways to work with us.',
-    plansNote: 'Both done-for-you options are by application, for twelve months, for companies making at least €300,000 in revenue a year.',
+    plansLabel: 'Our offers', plansTitle: 'Two ways to work with us.',
+    plansNote: 'Both done-for-you options are by application, for twelve months.',
     plans: [
-      { name: 'Empire', tagline: 'You do it yourself', price: 'from €199', per: '/month', note: 'Cancel anytime',
-        items: ['This week’s topics and formats in the app', 'You film, the app edits and publishes on 7 networks', 'A live session with Kevin every Monday'], cta: 'Start', href: 'trial' },
-      { name: 'With a Head of Content', tagline: 'Done for you, you choose', price: '€1,000 – €3,000', per: '/month', note: 'By application · 12 months',
+      { name: 'With a Head of Content', tagline: 'Done for you, you choose', price: '', per: '', note: 'By application · 12 months',
         items: ['A Head of Content trained by Kevin interviews you every week', 'The team writes and edits your posts, reels, videos and newsletter', 'You pick in your Empire calendar what goes out', 'Published on 7 networks, contacts captured'], cta: 'Apply', href: 'hoc' },
-      { name: 'With Kevin', tagline: 'We do everything for you', price: '€4,500', per: '/month', note: 'By application · 12 months', featured: `${PLACES_LEFT} spots left out of ${PLACES_TOTAL}`,
+      { name: 'With Kevin', tagline: 'We do everything for you', price: '', per: '', note: 'By application · 12 months', featured: `${PLACES_LEFT} spots left out of ${PLACES_TOTAL}`,
         items: ['4 interviews a month with Kevin, 1 hour max each', 'Your topics prepared every week from your market and competitors', 'LinkedIn posts, reels, long YouTube videos and newsletter, written and edited by the team', 'Published every day on 7 networks, your best posts republished', 'Tracked links and automatic Instagram DM replies to capture your contacts', 'Your offer and sales funnel reworked with Kevin', 'The full Empire app and the Monday live'], cta: 'Apply', href: 'kevin' },
     ] as Plan[],
     clientsLabel: 'They trusted us with their image',
     selectTitle: `${PLACES_TOTAL} spots a year with Kevin. We turn down most applications.`,
     fitTitle: 'It’s for you if', notFitTitle: 'It’s not for you if',
-    fit: ['Your company makes at least €300,000 in revenue a year.', 'You have strong opinions about your field, and want to share them.', 'You can block one hour a week, for twelve months.'],
+    fit: ['You have strong opinions about your field, and want to share them.', 'You can block one hour a week, for twelve months.'],
     notFit: ['You want a studio production. Here, everything is shot on an iPhone.', 'You’re looking for the cheapest option: take the Empire subscription.', 'You don’t have an offer to sell yet.', 'You expect results in two weeks.'],
   },
 }
@@ -241,7 +237,7 @@ export default function LegendeMarketing({ lang, onApply }: { lang: 'fr' | 'en';
             {plan.featured && <span className={styles.planTag}>{plan.featured}</span>}
             <h3 className="text-[17px] font-semibold text-white">{plan.name}</h3>
             <p className="text-[14px] text-autopilot">{plan.tagline}</p>
-            <p className="mt-4"><span className={styles.planPrice}>{plan.price}</span><span className="text-[14px] text-neutral-400">{plan.per}</span></p>
+            {plan.price && <p className="mt-4"><span className={styles.planPrice}>{plan.price}</span><span className="text-[14px] text-neutral-400">{plan.per}</span></p>}
             <p className="mt-1 text-[13px] text-neutral-500">{plan.note}</p>
             <ul className="mt-5 flex-1 space-y-2.5">
               {plan.items.map(item => <li key={item} className="flex gap-2.5 text-[14.5px] leading-snug text-neutral-300">
