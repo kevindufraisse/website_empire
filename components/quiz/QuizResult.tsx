@@ -91,7 +91,7 @@ const OFFERS: Record<RecommendedOffer, OfferCopy> = {
       label: 'Découvrir Empire Academy →',
       href: '/academy',
     },
-    reassurance: '20 places · Sur sélection',
+    reassurance: '20 places',
   },
   autopilot: {
     kicker: 'Recommandé pour ton profil',
@@ -120,7 +120,7 @@ const OFFERS: Record<RecommendedOffer, OfferCopy> = {
       'Communauté privée + sessions live + accès à vie',
     ],
     cta: { label: 'Découvrir Empire Academy →', href: '/academy' },
-    reassurance: '20 places · Sur sélection',
+    reassurance: '20 places',
   },
 }
 
@@ -159,7 +159,7 @@ const OFFERS_EN: Record<RecommendedOffer, OfferCopy> = {
       label: 'Discover Empire Academy →',
       href: '/academy',
     },
-    reassurance: '20 spots · By selection',
+    reassurance: '20 spots',
   },
   autopilot: {
     kicker: 'Recommended for your profile',
@@ -188,7 +188,7 @@ const OFFERS_EN: Record<RecommendedOffer, OfferCopy> = {
       'Private community + live sessions + lifetime access',
     ],
     cta: { label: 'Discover Empire Academy →', href: '/academy' },
-    reassurance: '20 spots · By selection',
+    reassurance: '20 spots',
   },
 }
 

@@ -48,7 +48,6 @@ export default function AcademySelectionSection() {
 
           <FadeInBlock>
             <div className="text-center mb-12">
-              <p className="text-xs font-bold text-academy tracking-widest uppercase mb-3">{fr ? 'Sur sélection' : 'By selection'}</p>
               <h2 className="text-2xl md:text-4xl font-bold text-white leading-tight mb-3">
                 {fr ? 'On ne sélectionne que 20 personnes.' : 'We only select 20 people.'}{' '}
                 <span className="text-neutral-400">{fr ? 'Voici comment.' : "Here's how."}</span>
@@ -116,7 +115,7 @@ export default function AcademySelectionSection() {
               >
                 {fr ? 'Candidater à la prochaine promotion →' : 'Apply to the next cohort →'}
               </AcademyWaitlistCta>
-              <p className="text-xs text-neutral-400 mt-2">{fr ? `1 minute · 20 places · Sur sélection · ${ACADEMY_ENTRY_PRICE}€` : `1 minute · 20 spots · By selection · €${ACADEMY_ENTRY_PRICE}`}</p>
+              <p className="text-xs text-neutral-400 mt-2">{fr ? `1 minute · 20 places · ${ACADEMY_ENTRY_PRICE}€` : `1 minute · 20 spots · €${ACADEMY_ENTRY_PRICE}`}</p>
             </div>
           </FadeInBlock>
 

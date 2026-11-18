@@ -12,7 +12,7 @@ export default function CandidatureBadge() {
       <span className="text-xs font-bold text-academy tracking-widest uppercase">
         {appCount !== null
           ? `${appCount} candidatures · ${MAX_SELECTED} admis`
-          : `Sur sélection · ${MAX_SELECTED} admis`}
+          : `${MAX_SELECTED} admis`}
       </span>
     </div>
   )
