@@ -422,7 +422,7 @@ export function FormulaHeroStatic({ fr }: { fr: boolean }) {
       <div className="relative">
         <div className="relative overflow-hidden rounded-2xl border border-white/15 bg-black/90 shadow-[0_16px_50px_-16px_rgba(0,0,0,0.9)]">
           <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.12),rgba(255,255,255,0)_45%)]" />
-          <div className="relative flex items-center gap-2.5 px-4 py-2.5 text-base sm:gap-3.5 sm:px-6 sm:py-3 sm:text-base md:gap-5 md:px-9 md:py-5 md:text-2xl lg:gap-6 lg:px-11 lg:py-7 lg:text-[30px]">
+          <div className="relative flex items-center gap-2.5 px-4 py-2.5 text-xs sm:gap-3.5 sm:px-6 sm:py-3 sm:text-base md:gap-5 md:px-9 md:py-5 md:text-2xl">
             <div className="flex flex-col items-center leading-none">
               <div className="flex items-center whitespace-nowrap">
                 <Blur id="message" /><Op>×</Op><Blur id="format" /><Op>×</Op><Blur id="diffusion" />
