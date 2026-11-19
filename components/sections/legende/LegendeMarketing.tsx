@@ -26,11 +26,11 @@ type Plan = { name: string; tagline: string; price: string; per: string; note: s
 const copy = {
   fr: {
     badge: 'Le studio de personal branding des dirigeants influents',
-    title: ['Une heure par semaine.', 'Tout votre marché vous voit, chaque jour.'],
-    intro: 'Kevin vous interviewe dans l’app Empire. L’équipe en tire vos posts LinkedIn, vos reels, vos vidéos YouTube et votre newsletter.',
+    title: ['Devenez une légende.', 'Et soyez payé pour ça.'],
+    intro: 'Travaillez avec les meilleurs content strategists francophones — et bientôt du monde. Kevin Dufraisse, #55 à l’influence LinkedIn en France, et des stratèges qui font au minimum 1 M de vues par mois.',
     places: `${PLACES_LEFT} places restantes sur ${PLACES_TOTAL} avec Kevin`,
     // Les trois objections, de la plus fréquente à la moins fréquente : le temps, la caméra, ce que ça rapporte.
-    objections: ['Une heure par semaine, maximum.', 'Pas de studio : votre iPhone et vos écouteurs.', 'Les contacts de chaque post, récupérés pour vous.'],
+    objections: ['L’offre qui rentabilise votre visibilité, selon votre objectif : vendre, recruter, être visible. Ce que les agences de contenu ne font pas.', 'Une heure par semaine : votre iPhone et vos écouteurs.', 'Les contacts de chaque post, récupérés pour vous.'],
     apply: 'Candidater · 2 min', seePrices: 'Voir l’offre', advisory: 'Ou réservez d’abord une session de conseil avec Kevin',
     proof: [['700M+', 'vues générées pour nos clients'], ['#1', 'Lead Generation France'], ['#55', 'LinkedIn Influence France']] as [string, string][],
     phone: { app: 'Empire', live: 'Interview', formats: ['Interview', 'Tier list', 'Réaction', 'FAQ'], question: 'Question 3 sur 8', topic: 'Pourquoi vos clients trouvent votre prix trop cher', kevin: 'Kevin', you: 'Vous', yourPhone: 'Votre iPhone, l’app Empire', yourEarbuds: ['Vos écouteurs', ', rien d’autre.'] },
@@ -68,10 +68,10 @@ const copy = {
   },
   en: {
     badge: 'The personal branding studio for influential leaders',
-    title: ['One hour a week.', 'Your whole market sees you, every day.'],
-    intro: 'Kevin interviews you in the Empire app. The team turns it into your LinkedIn posts, reels, YouTube videos and newsletter.',
+    title: ['Become a legend.', 'And get paid for it.'],
+    intro: 'Work with the best French-speaking content strategists — and soon the world’s. Kevin Dufraisse, ranked #55 for LinkedIn influence in France, and strategists doing at least 1M views a month.',
     places: `${PLACES_LEFT} of ${PLACES_TOTAL} spots left with Kevin`,
-    objections: ['One hour a week, at most.', 'No studio: your iPhone and your earphones.', 'The contacts from every post, captured for you.'],
+    objections: ['The offer that makes your visibility pay, built for your goal: selling, recruiting, being seen. What content agencies don’t do.', 'One hour a week: your iPhone and your earbuds.', 'The contacts from every post, captured for you.'],
     apply: 'Apply · 2 min', seePrices: 'See the offer', advisory: 'Or book an advisory session with Kevin first',
     proof: [['700M+', 'views generated for our clients'], ['#1', 'Lead Generation France'], ['#55', 'LinkedIn Influence France']] as [string, string][],
     phone: { app: 'Empire', live: 'Interview', formats: ['Interview', 'Tier list', 'Reaction', 'FAQ'], question: 'Question 3 of 8', topic: 'Why your clients think your price is too high', kevin: 'Kevin', you: 'You', yourPhone: 'Your iPhone, the Empire app', yourEarbuds: ['Your earphones', '. Nothing else.'] },

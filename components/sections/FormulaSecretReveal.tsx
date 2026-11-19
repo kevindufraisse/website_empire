@@ -58,7 +58,7 @@ export default function FormulaSecretReveal() {
       id="formula-reveal"
       data-formula-reveal
       aria-label={fr ? 'La formule' : 'The formula'}
-      className="relative flex w-full flex-col items-center overflow-hidden bg-black px-4 py-20 sm:py-24"
+      className="relative flex min-h-svh w-full flex-col items-center justify-center overflow-hidden bg-black px-4 py-20"
     >
       {/* Halo discret, plus marqué une fois la formule révélée */}
       <div
