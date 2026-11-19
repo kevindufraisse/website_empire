@@ -48,9 +48,12 @@ jobs:
         run: |
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm install --prefix "$RUNNER_TEMP/empire-browser" --no-package-lock playwright@1.56.1
           ln -s "$RUNNER_TEMP/empire-browser/node_modules/playwright" node_modules/playwright
-          # Google Chrome pour le H.264 (le Chromium embarqué n'a pas le codec).
-          # Le .deb vient de dl.google.com, pas des miroirs Ubuntu.
-          "$RUNNER_TEMP/empire-browser/node_modules/.bin/playwright" install chrome
+          # Google Chrome pour le H.264 (le Chromium embarqué n'a pas le
+          # codec). Le .deb vient de dl.google.com et s'extrait par dpkg -x :
+          # `playwright install chrome` repasserait par apt, en panne ce jour.
+          curl -fsSL -o /tmp/chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          dpkg -x /tmp/chrome.deb /
+          /opt/google/chrome/chrome --version
       - run: node scripts/check-leadmagnet-demo.mjs
       - run: node scripts/check-homepage-story.mjs
       - uses: actions/upload-artifact@v4
