@@ -5,8 +5,9 @@ export async function checkContentComparison(page) {
   const section = page.locator('#home-comparison')
   // `content-visibility: auto` (home-flat.css) rend l'innerText vide tant que
   // la section n'a jamais été affichée : on l'amène à l'écran avant de lire.
-  // Toute lecture d'innerText dans ces smokes doit faire pareil.
-  await section.scrollIntoViewIfNeeded()
+  // Toute lecture d'innerText dans ces smokes doit faire pareil, en défilant
+  // vers LA SECTION (un élément du contenu masqué n'a pas de boîte en WebKit).
+  await section.evaluate(el => el.scrollIntoView({ behavior: 'instant', block: 'start' }))
   await page.waitForFunction(() => /\S/.test(document.querySelector('[data-comparison-takeaway]')?.innerText || ''))
   assert((await section.locator('[data-comparison-takeaway]').innerText()).includes('Le travail de 5 métiers.'))
   const cards = section.locator('[data-comparison-card]')
