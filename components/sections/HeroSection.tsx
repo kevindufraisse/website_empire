@@ -218,8 +218,8 @@ export default function HeroSection() {
                   </div>
                   <span className="text-[11px] sm:text-xs text-neutral-300 text-left leading-snug">
                     {lang === 'fr'
-                      ? <>Ils utilisent déjà Empire. <span className="text-neutral-500">Prêt à l’emploi pour toi.</span></>
-                      : <>They already use Empire. <span className="text-neutral-500">Ready for you.</span></>}
+                      ? <>Ils utilisent déjà le système Empire. <span className="text-neutral-500">Prêt à l’emploi pour toi.</span></>
+                      : <>They already use the Empire system. <span className="text-neutral-500">Ready for you.</span></>}
                   </span>
                 </div>
                 {!autopilot && (
