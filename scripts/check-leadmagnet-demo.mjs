@@ -50,8 +50,10 @@ try{
    assert.equal(await messages.locator('button').count(),0,'Messages must be discovered by scrolling')
    assert(await page.evaluate(()=>{const ids=['#formula-ideas','[data-story="formula"]','#formula-lead-magnet','#formula-youtube','#formula-secret'];return ids.slice(1).every((id,i)=>!!(document.querySelector(ids[i]).compareDocumentPosition(document.querySelector(id))&4))}),'Keep lead magnet before YouTube and the conditional form')
    // `content-visibility: auto` vide l'innerText d'une section jamais
-   // affichée : on l'amène à l'écran avant de la lire (`at` rescrolle ensuite).
+   // affichée, et le rendu n'arrive qu'à la frame suivante : on l'amène à
+   // l'écran puis on attend son texte (`at` rescrolle ensuite).
    await ideas.locator('#ideas-title').scrollIntoViewIfNeeded()
+   await page.waitForFunction(()=>/\S/.test(document.querySelector('#ideas-title')?.innerText||''))
    assert((await ideas.locator('#ideas-title').innerText()).includes('Dicte-la en vocal.'))
 
    const travel=await ideas.evaluate(el=>el.offsetHeight-innerHeight)
@@ -166,10 +168,12 @@ try{
    await page.locator('#comparison-details').evaluate(el=>{el.open=true})
    assert.equal(await page.locator('#home-comparison').getByRole('table').count(),1)
    await page.locator('#comparison-details').evaluate(el=>{el.open=false})
-   // Même piège `content-visibility` : amener chaque section à l'écran avant innerText.
+   // Même piège `content-visibility` : à l'écran, puis attendre le texte.
    await page.locator('#formula-compare-title').scrollIntoViewIfNeeded()
+   await page.waitForFunction(()=>/\S/.test(document.querySelector('#formula-compare-title')?.innerText||''))
    assert((await page.locator('#formula-compare-title').innerText()).includes('Ce qui est inclus.'))
    await page.locator('#empire-integrations').scrollIntoViewIfNeeded()
+   await page.waitForFunction(()=>/\S/.test(document.querySelector('#empire-integrations')?.innerText||''))
    assert((await page.locator('#empire-integrations').innerText()).includes('revenus attribués'))
    if(name==='desktop'||name==='mobile-small'){
     const compare=page.locator('#home-comparison')
