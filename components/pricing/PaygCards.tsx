@@ -28,8 +28,8 @@ import {
  */
 
 const INCLUDED = {
-  fr: ['Publication sur 7 réseaux et communauté Slack', 'Chaque action affiche son prix avant de partir', 'Les crédits n’expirent jamais', 'Recharge automatique et plafond mensuel au choix'],
-  en: ['Publishing to 7 networks and the Slack community', 'Every action shows its price before it runs', 'Credits never expire', 'Auto top-up and a monthly cap you choose'],
+  fr: ['Publication sur 7 réseaux et groupe WhatsApp privé', 'Chaque action affiche son prix avant de partir', 'Les crédits n’expirent jamais', 'Recharge automatique et plafond mensuel au choix'],
+  en: ['Publishing to 7 networks and the private WhatsApp group', 'Every action shows its price before it runs', 'Credits never expire', 'Auto top-up and a monthly cap you choose'],
 }
 
 // Comment ça marche, repris de /join/empire (PAYG_STEPS), en version

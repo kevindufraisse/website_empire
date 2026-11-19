@@ -61,7 +61,7 @@ const FAQ = [
   },
   {
     q: 'Ça me prend combien de temps ?',
-    a: 'Environ 20 minutes par semaine : tu choisis tes idées, tu donnes ton avis ou tu filmes une prise. Le texte, le montage et la publication sont faits pour toi.',
+    a: 'Environ 1 heure par semaine : tu choisis tes idées, tu donnes ton avis ou tu filmes une prise. Le texte, le montage et la publication sont faits pour toi.',
   },
   {
     q: 'Je dois passer devant la caméra ?',

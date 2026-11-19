@@ -36,7 +36,7 @@ const PLAN_BASE_FEATURES: PlanFeature[] = [
 const SUPPORT: PlanFeature = { fr: 'Support prioritaire sous 4h', en: 'Priority support within 4h' }
 const REPLAYS: PlanFeature = { fr: 'Masterclass Empire : bien utiliser l’outil pour ta marque (replays)', en: 'Empire masterclass: using the tool for your brand (replays)' }
 const LIVES: PlanFeature = { fr: 'Lives hebdomadaires avec nos experts', en: 'Weekly lives with our experts' }
-const COMMUNITY: PlanFeature = { fr: 'Communauté privée Slack', en: 'Private Slack community' }
+const COMMUNITY: PlanFeature = { fr: 'Groupe WhatsApp privé', en: 'Private WhatsApp group' }
 const REVIEW: PlanFeature = { fr: 'Revue stratégique mensuelle (retours Loom)', en: 'Monthly strategy review (Loom feedback)' }
 
 // What actually changes from one pack to the next. `on: false` renders as excluded.

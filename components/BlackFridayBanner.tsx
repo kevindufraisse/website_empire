@@ -2,7 +2,7 @@
 
 import { useLanguage } from '@/contexts/LanguageContext'
 import { trackAmplitude } from '@/lib/amplitude'
-import { BLACK_FRIDAY, formatBlackFridayLeft, useBlackFriday } from '@/lib/blackFriday'
+import { BLACK_FRIDAY, formatBlackFridayLeft, useBlackFriday, useBlackFridayDuration, blackFridayDurationLabel } from '@/lib/blackFriday'
 
 /**
  * Black Friday 2026 (lib/blackFriday.ts). Deux formes :
@@ -34,15 +34,16 @@ export function BlackFridayStrip({ className = '' }: { className?: string }) {
   const fr = lang === 'fr'
   const { active, left } = useBlackFriday()
   if (!active) return null
-  const { promoMonthly, baseMonthly, durationMonths } = BLACK_FRIDAY
+  const { promoMonthly, baseMonthly } = BLACK_FRIDAY
+  const durationLabel = blackFridayDurationLabel(useBlackFridayDuration(), fr)
   return (
     <div className={`mx-auto max-w-3xl rounded-2xl border border-[#DAFC68]/40 bg-black px-4 py-3 text-center sm:px-6 ${className}`}>
       <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#DAFC68]">Black Friday</p>
       <p className="mt-1 text-[15px] font-semibold leading-snug text-white sm:text-base">
         {fr ? (
-          <>Scale au prix de Growth&nbsp;: <span className="text-neutral-400 line-through decoration-neutral-500">{baseMonthly}&nbsp;€</span> {promoMonthly}&nbsp;€/mois pendant {durationMonths}&nbsp;mois</>
+          <>Scale au prix de Growth&nbsp;: <span className="text-neutral-400 line-through decoration-neutral-500">{baseMonthly}&nbsp;€</span> {promoMonthly}&nbsp;€/mois{durationLabel ? ` ${durationLabel}` : ''}</>
         ) : (
-          <>Scale at Growth&apos;s price: <span className="text-neutral-400 line-through decoration-neutral-500">€{baseMonthly}</span> €{promoMonthly}/mo for {durationMonths} months</>
+          <>Scale at Growth&apos;s price: <span className="text-neutral-400 line-through decoration-neutral-500">€{baseMonthly}</span> €{promoMonthly}/mo{durationLabel ? ` ${durationLabel}` : ''}</>
         )}
       </p>
       <p className="mt-1 text-xs text-neutral-400">

@@ -17,7 +17,7 @@ import {
 } from '@/lib/plans'
 import { trackAmplitude } from '@/lib/amplitude'
 import { LIVE_OFFER, isLivePlan, useCountdown, type LiveWindow } from '@/lib/liveOffer'
-import { BLACK_FRIDAY, blackFridayBase, formatBlackFridayLeft, useBlackFriday } from '@/lib/blackFriday'
+import { BLACK_FRIDAY, blackFridayBase, formatBlackFridayLeft, useBlackFriday, useBlackFridayDuration } from '@/lib/blackFriday'
 import { ORDER_CTA_SECONDARY, ORDER_PRICE, ORDER_SEGMENT, ORDER_SEGMENTS, ORDER_STRUCK, ORDER_TAG } from '@/lib/orderStyles'
 import { freelanceAmount, freelanceCardLead } from './freelanceCopy'
 import { nbsp } from './typo'
@@ -59,7 +59,7 @@ const CARD_EXTRAS: Record<PlanId, { fr: string; en: string }[]> = {
     { fr: 'Publication sur 7 réseaux', en: 'Publishing to 7 networks' },
     { fr: 'Onboarding 1-1 offert', en: 'Free 1-1 onboarding' },
     { fr: 'Réponse prioritaire sous 4 h', en: 'Priority reply within 4h' },
-    { fr: 'Le live, le Slack et la masterclass', en: 'The live, the Slack and the masterclass' },
+    { fr: 'Le live, le groupe WhatsApp et la masterclass', en: 'The live, the WhatsApp group and the masterclass' },
   ],
   scale: [
     { fr: 'Tout Growth', en: 'Everything in Growth' },
@@ -100,6 +100,7 @@ export default function PlanCards({ location, period, onPeriodChange, chosen, on
   // Black Friday (lib/blackFriday.ts) : Scale au prix de Growth pendant 12
   // mois, sur toutes les périodes ; prioritaire sur l'offre du live (3 mois).
   const bf = useBlackFriday()
+  const bfMonths = useBlackFridayDuration()
   const isBf = (id: PlanId) => bf.active && id === BLACK_FRIDAY.plan
   const priceOf = (id: PlanId) => {
     const p = PLANS.find((x) => x.id === id)!
@@ -241,9 +242,13 @@ export default function PlanCards({ location, period, onPeriodChange, chosen, on
                       <span className="text-sm text-neutral-300">{perMonth}</span>
                     </div>
                     <p className="text-xs text-neutral-300">
-                      {fr
-                        ? nbsp(`Le prix de Growth pendant ${BLACK_FRIDAY.durationMonths} mois, puis ${euros(fullPrice)}/mois`)
-                        : `Growth's price for ${BLACK_FRIDAY.durationMonths} months, then ${euros(fullPrice)}/mo`}
+                      {bfMonths === undefined
+                        ? (fr ? 'Le prix de Growth' : "Growth's price")
+                        : bfMonths === null
+                          ? (fr ? nbsp('Le prix de Growth, à vie') : "Growth's price, for life")
+                          : fr
+                            ? nbsp(`Le prix de Growth pendant ${bfMonths} mois, puis ${euros(fullPrice)}/mois`)
+                            : `Growth's price for ${bfMonths} months, then ${euros(fullPrice)}/mo`}
                     </p>
                     {discount > 0 && (
                       <p className="text-xs text-neutral-400">

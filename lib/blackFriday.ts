@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { fetchFlashPromo } from '@/lib/flash-promo'
 import type { PlanId } from '@/lib/plans'
 
 /**
@@ -73,4 +74,30 @@ export function useBlackFriday(): { active: boolean; left: number | null } {
   }, [])
 
   return { active, left }
+}
+
+/** La durée réelle de la promo, lue en base via promo-status : Kevin la change
+ * sans redéploiement (null = à vie ; un nombre = pendant N mois). `undefined`
+ * tant qu'on ne sait pas (premier rendu, réseau en panne) : on n'affiche
+ * alors aucune durée plutôt qu'une durée fausse. Une seule requête partagée. */
+let durationPromise: Promise<number | null | undefined> | null = null
+export function useBlackFridayDuration(): number | null | undefined {
+  const [months, setMonths] = useState<number | null | undefined>(undefined)
+  useEffect(() => {
+    durationPromise ||= fetchFlashPromo().then(
+      st => (st && st.promo && 'durationMonths' in st.promo ? (st.promo.durationMonths ?? null) : undefined),
+      () => undefined,
+    )
+    let on = true
+    durationPromise.then(v => { if (on) setMonths(v) })
+    return () => { on = false }
+  }, [])
+  return months
+}
+
+/** « pendant 12 mois » / « à vie », ou '' tant que la durée n'est pas connue. */
+export function blackFridayDurationLabel(months: number | null | undefined, fr: boolean): string {
+  if (months === undefined) return ''
+  if (months === null) return fr ? 'à vie' : 'for life'
+  return fr ? `pendant ${months} mois` : `for ${months} months`
 }

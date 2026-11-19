@@ -196,8 +196,8 @@ function ThankYouContent() {
                   <span className="w-7 h-7 rounded-lg bg-empire/20 flex items-center justify-center text-empire font-bold text-sm shrink-0">1</span>
                   <p className="text-sm text-neutral-300">
                     {fr
-                      ? 'Tu parles 20 minutes par semaine depuis l\'app : interview guidée, face caméra ou dictée sans caméra.'
-                      : 'You talk 20 minutes a week from the app: guided interview, on camera or dictation without a camera.'}
+                      ? 'Tu parles 1 heure par semaine depuis l\'app : interview guidée, face caméra ou dictée sans caméra.'
+                      : 'You talk 1 hour a week from the app: guided interview, on camera or dictation without a camera.'}
                   </p>
                 </div>
                 <div className="flex items-start gap-3">

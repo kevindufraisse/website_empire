@@ -4,7 +4,7 @@ import ComparePage from '@/components/sections/compare/ComparePage'
 export const metadata: Metadata = {
   title: 'Empire vs freelances : ghostwriter, monteur, community manager (comparatif 2026)',
   description:
-    'Un ghostwriter, un monteur et un community manager coûtent 5 000 €+ par mois et attendent ton brief. Empire te donne le message, le format et la diffusion pour 20 minutes à 1 heure par semaine.',
+    'Un ghostwriter, un monteur et un community manager coûtent 5 000 €+ par mois et attendent ton brief. Empire te donne le message, le format et la diffusion pour 1 heure par semaine.',
   alternates: { canonical: '/empire-vs-freelance' },
   openGraph: { title: 'Empire vs des freelances', description: 'Message × Format × Diffusion : le comparatif terme par terme.' },
 }

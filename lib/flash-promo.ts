@@ -48,7 +48,7 @@ export function getBrowserFingerprint(): string {
 export interface FlashPromoStatus {
   deadline: string
   expired: boolean
-  promo: { plan: string; promoMonthly: number; baseMonthly: number }
+  promo: { plan: string; promoMonthly: number; baseMonthly: number; durationMonths?: number | null }
 }
 
 export async function fetchFlashPromo(): Promise<FlashPromoStatus | null> {
