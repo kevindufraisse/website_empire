@@ -4,7 +4,7 @@ import ComparePage from '@/components/sections/compare/ComparePage'
 export const metadata: Metadata = {
   title: 'Alternative à MagicPost : Empire vs MagicPost (comparatif 2026)',
   description:
-    'MagicPost t’aide à écrire des posts LinkedIn. Empire te donne le message, le format qui se regarde et la diffusion sur 7 réseaux, pour 20 minutes à 1 heure par semaine. Comparatif terme par terme.',
+    'MagicPost t’aide à écrire des posts LinkedIn. Empire te donne le message, le format qui se regarde et la diffusion sur 7 réseaux, pour 1 heure par semaine. Comparatif terme par terme.',
   alternates: { canonical: '/alternative-magicpost' },
   openGraph: { title: 'Empire vs MagicPost', description: 'Message × Format × Diffusion : le comparatif terme par terme.' },
 }
@@ -15,7 +15,7 @@ export default function AlternativeMagicPostPage() {
     <ComparePage
       slug="alternative-magicpost"
       competitor="MagicPost"
-      verdict="MagicPost t'aide à écrire des posts LinkedIn. Empire te donne le bon message, le format qui se regarde et la diffusion sur 7 réseaux, pour 20 minutes à 1 heure par semaine."
+      verdict="MagicPost t'aide à écrire des posts LinkedIn. Empire te donne le bon message, le format qui se regarde et la diffusion sur 7 réseaux, pour 1 heure par semaine."
       rows={[
         { term: 'message', other: 'Une bibliothèque de 2M+ posts LinkedIn et un générateur d’idées et d’accroches. Tu cherches ton sujet, puis tu écris.' },
         { term: 'format', other: 'Post texte, carrousel et visuel IA. Pas de vidéo.' },

@@ -671,7 +671,7 @@ export const fr: Translations = {
   faqItems: [
     {
       question: 'Combien de temps dois-je investir ?',
-      answer: '20 minutes par semaine - une heure fait le mois. Tu parles en promenant le chien, en voiture, en marchant - on a testé plus de 100 façons, on en a gardé 5. On gère le reste : sujets, production, adaptation, publication.',
+      answer: '1 heure par semaine, pas plus. Tu parles en promenant le chien, en voiture, en marchant - on a testé plus de 100 façons, on en a gardé 5. On gère le reste : sujets, production, adaptation, publication.',
     },
     {
       question: 'Et si le contenu ne me ressemble pas ?',
@@ -687,7 +687,7 @@ export const fr: Translations = {
     },
     {
       question: 'Quelle différence avec une agence ?',
-      answer: 'Une agence = 5–15 K€/mois, semaines à livrer, voix souvent générique. Empire = ~1 h/semaine de ton côté, production + publication. Masterclasses du lundi offertes dans toutes les formules. Communauté privée Slack dès Growth.',
+      answer: 'Une agence = 5–15 K€/mois, semaines à livrer, voix souvent générique. Empire = ~1 h/semaine de ton côté, production + publication. Masterclasses du lundi offertes dans toutes les formules. Groupe WhatsApp privé dès Growth.',
     },
     {
       question: 'Puis-je annuler ?',
@@ -969,7 +969,7 @@ export const fr: Translations = {
       'J’ai toujours eu des obsessions longues : le piano appris seul à 6 ans, la guitare aussi. La dernière : comment n’importe qui peut être visible sur les réseaux. J’ai d’abord misé sur le podcast. Ça marchait, mais seulement sur LinkedIn. Alors j’ai cherché un an, nuit et jour.',
       'Ce que j’ai compris : on ne vend pas un produit, on installe une croyance. Une pub de voiture ne montre jamais le moteur, elle montre la liberté. Et un podcast ne marche que si on te connaît déjà. Ce qui fait voir un message, c’est le format.',
     ],
-    bio: 'Plus de 3 M€ générés en ligne avec du contenu et du copywriting. Un an à décortiquer les meilleurs créateurs du monde pour comprendre ce qui rend un contenu viral. Puis j\'ai transformé ces mécaniques en un système que n\'importe qui peut faire tourner en 20 minutes par semaine - à commencer par moi : plus d\'un million de vues par mois sur mes comptes avec ce système.',
+    bio: 'Plus de 3 M€ générés en ligne avec du contenu et du copywriting. Un an à décortiquer les meilleurs créateurs du monde pour comprendre ce qui rend un contenu viral. Puis j\'ai transformé ces mécaniques en un système que n\'importe qui peut faire tourner en 1 heure par semaine - à commencer par moi : plus d\'un million de vues par mois sur mes comptes avec ce système.',
     bioLegende: 'Chez The Family, je devais rendre chaque entrepreneur inoubliable du jour au lendemain - trouver les bons angles, générer des milliers de rendez-vous, transformer des histoires ordinaires en légendes. Je crée les légendes de mes amis et entrepreneurs célèbres depuis des années. Puis j\'ai cloné ces méthodes dans un système que tout le monde peut utiliser.',
     tagline: '→ Empire est le système que j\'aurais voulu avoir quand j\'ai commencé.',
     storyTagline: 'Empire, c’est cette obsession : ton message dans un format qui se regarde, sur tous les réseaux.',

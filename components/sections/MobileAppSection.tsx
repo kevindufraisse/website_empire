@@ -35,8 +35,8 @@ export default function MobileAppSection() {
       en: ['Every format, from the phone', 'Tier list, reaction, quote, podcast, interview: everything is shot in the app, framing and instructions on screen.'],
     },
     {
-      fr: ['20 minutes à une heure par semaine', 'Une action en déclenche une autre. Tu parles une fois, le reste suit.'],
-      en: ['20 minutes to an hour a week', 'One action triggers the next. You talk once, the rest follows.'],
+      fr: ['1 heure par semaine', 'Une action en déclenche une autre. Tu parles une fois, le reste suit.'],
+      en: ['1 hour a week', 'One action triggers the next. You talk once, the rest follows.'],
     },
     {
       fr: ['Sans montrer ton visage', 'Le mode dictée : tu parles, sans caméra. Une note vocale Telegram marche aussi.'],
@@ -123,7 +123,7 @@ export default function MobileAppSection() {
               {fr ? 'Étape 4 · Temps' : 'Step 4 · Time'}
             </p>
             <h2 className="text-3xl font-extrabold leading-[1.15] text-white md:text-4xl">
-              {fr ? '20 minutes à une heure par semaine.' : '20 minutes to an hour a week.'}
+              {fr ? '1 heure par semaine.' : '1 hour a week.'}
             </h2>
             <p className="mt-3 text-base leading-relaxed text-neutral-400 md:text-lg">
               {fr

@@ -548,7 +548,7 @@ export const en = {
   faqItems: [
     {
       question: 'How much time do I need to invest?',
-      answer: '20 minutes a week - one hour covers the month. You talk while walking the dog, in the car, on a stroll - we tested over 100 ways, we kept 5. We handle the rest: topics, production, adaptation, publishing.',
+      answer: '1 hour a week, no more. You talk while walking the dog, in the car, on a stroll - we tested over 100 ways, we kept 5. We handle the rest: topics, production, adaptation, publishing.',
     },
     {
       question: 'What if the content doesn\'t sound like me?',
@@ -564,7 +564,7 @@ export const en = {
     },
     {
       question: 'How is this different from an agency?',
-      answer: 'An agency = €5–15K/month, weeks to deliver, often generic voice. Empire = ~1h/week from you, production + publishing. Free Monday masterclasses in every plan. Private Slack community from Growth.',
+      answer: 'An agency = €5–15K/month, weeks to deliver, often generic voice. Empire = ~1h/week from you, production + publishing. Free Monday masterclasses in every plan. Private WhatsApp group from Growth.',
     },
     {
       question: 'Can I cancel?',
@@ -967,7 +967,7 @@ export const en = {
       'I’ve always had long obsessions: piano, self-taught at 6, guitar too. The latest: how anyone can be visible on social media. I bet on podcasts first. It worked, but only on LinkedIn. So I searched for a year, day and night.',
       'What I understood: you don’t sell a product, you install a belief. A car ad never shows the engine, it shows freedom. And a podcast only works if people already know you. What gets a message seen is the format.',
     ],
-    bio: 'Over €3M generated online with content and copywriting. One year dissecting the world\'s best creators to understand what makes content go viral. Then I turned those mechanics into a system anyone can run in 20 minutes a week - starting with me: over a million views a month on my accounts with this system.',
+    bio: 'Over €3M generated online with content and copywriting. One year dissecting the world\'s best creators to understand what makes content go viral. Then I turned those mechanics into a system anyone can run in 1 hour a week - starting with me: over a million views a month on my accounts with this system.',
     bioLegende: 'At The Family, I had to make every entrepreneur unforgettable overnight - find the right angles, generate thousands of meetings, turn ordinary stories into legends. I\'ve been building the legends of my friends and famous entrepreneurs for years. Then I cloned those methods into a system anyone can use.',
     tagline: '→ Empire is the system I wish I had when I started.',
     storyTagline: 'Empire is that obsession: your message in a format people watch, on every network.',

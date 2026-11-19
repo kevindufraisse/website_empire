@@ -16,7 +16,7 @@ export default function AlternativeTaplioPage() {
     <ComparePage
       slug="alternative-taplio"
       competitor="Taplio"
-      verdict="Taplio t'aide à écrire, programmer et prospecter sur LinkedIn. Empire te donne le bon message, le format vidéo qui se regarde et la diffusion sur 7 réseaux, pour 20 minutes à 1 heure par semaine."
+      verdict="Taplio t'aide à écrire, programmer et prospecter sur LinkedIn. Empire te donne le bon message, le format vidéo qui se regarde et la diffusion sur 7 réseaux, pour 1 heure par semaine."
       rows={[
         { term: 'message', other: 'Inspiration et écriture IA de posts LinkedIn, à partir du plan Growth (le plan Starter n’a pas d’IA).' },
         { term: 'format', other: 'Post texte et carrousel. Pas de vidéo.' },

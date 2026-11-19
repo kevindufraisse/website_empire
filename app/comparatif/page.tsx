@@ -6,7 +6,7 @@ import { COMPARISONS } from '@/components/sections/compare/comparisons'
 export const metadata: Metadata = {
   title: 'Empire comparé : MagicPost, Taplio, Opus Clip, freelances, agences, ChatGPT',
   description:
-    'Chaque solution couvre une partie de la formule de la visibilité. Empire couvre le message, le format et la diffusion sur 7 réseaux, pour 20 minutes à 1 heure par semaine.',
+    'Chaque solution couvre une partie de la formule de la visibilité. Empire couvre le message, le format et la diffusion sur 7 réseaux, pour 1 heure par semaine.',
   alternates: { canonical: '/comparatif' },
 }
 
