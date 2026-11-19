@@ -9,7 +9,7 @@ import { nbsp } from './typo'
 /**
  * « Tes bonus » : quatre cartes nommées, sans valeur en euros (ils n'ont pas
  * de prix de marché). Même matrice qu'avant : l'onboarding dans toutes les
- * formules, comme le live du lundi (il est public) ; le Slack et la masterclass à partir de Growth.
+ * formules, comme le live du lundi (il est public) ; le groupe WhatsApp et la masterclass à partir de Growth.
  */
 
 const BONUSES: { titleFr: string; titleEn: string; lineFr: string; lineEn: string; plans: PlanId[] }[] = [
@@ -28,8 +28,8 @@ const BONUSES: { titleFr: string; titleEn: string; lineFr: string; lineEn: strin
     plans: ['starter', 'growth', 'scale'],
   },
   {
-    titleFr: 'La communauté privée sur Slack',
-    titleEn: 'The private Slack community',
+    titleFr: 'Le groupe WhatsApp privé',
+    titleEn: 'The private WhatsApp group',
     lineFr: 'Pour ne jamais rester bloqué.',
     lineEn: 'So you never stay stuck.',
     plans: ['growth', 'scale'],

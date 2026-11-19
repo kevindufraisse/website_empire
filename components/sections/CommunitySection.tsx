@@ -64,7 +64,7 @@ export default function CommunitySection() {
     {
       key: 'community',
       icon: MessageSquare,
-      title: fr ? 'La communauté privée Slack' : 'The private Slack community',
+      title: fr ? 'Le groupe WhatsApp privé' : 'The private WhatsApp group',
       desc: fr
         ? 'Des fondateurs et des créateurs qui publient déjà. Une accroche à tester, un post qui ne décolle pas, un angle qui te gêne : tu as un avis dans l\'heure au lieu de tourner en rond pendant une semaine.'
         : 'Founders and creators who already publish. A hook to test, a post that flopped, an angle you\'re unsure about: you get an opinion within the hour instead of circling for a week.',

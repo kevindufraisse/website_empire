@@ -185,7 +185,7 @@ export default function CreatorQuizExitIntent() {
                       </span>
                       <div>
                         <p className="text-[11px] font-bold uppercase tracking-wider text-empire">
-                          {fr ? 'Communauté privée Slack' : 'Private Slack community'}
+                          {fr ? 'Groupe WhatsApp privé' : 'Private WhatsApp group'}
                         </p>
                         <h2 className="mt-0.5 text-lg font-extrabold leading-snug text-white pr-6">
                           {fr
