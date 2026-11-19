@@ -294,7 +294,7 @@ function DistributionStory() {
   const [multi, setMulti] = useState(false), [calendar, setCalendar] = useState(false)
   useMotionValueEvent(sequenceP, 'change', v => { setMulti(v >= .82 && v < .92); setCalendar(v >= .92) })
   const title = multi ? 'Publie la même vidéo sur plusieurs comptes, instantanément.' : calendar ? 'Republie la même publication, encore et encore.' : 'Nous adaptons ton message à chaque format et le diffusons sur tous tes réseaux.'
-  return <section ref={ref} className={`${s.story} ${r.story} ${stable.distribution} ${metrics.distribution}`} data-story="distribution" data-step={multi ? 'multi-accounts' : calendar ? 'republication' : 'diffusion'} aria-label="La diffusion de tes contenus">
+  return <section ref={ref} className={`${s.story} ${r.story} ${stable.distribution} ${metrics.distribution}`} data-story="distribution" data-formula-term="diffusion" data-step={multi ? 'multi-accounts' : calendar ? 'republication' : 'diffusion'} aria-label="La diffusion de tes contenus">
     <span id="formula-diffusion" className={s.anchor} style={{ top: 'calc(7.407407% - 7.407407svh)' }}/>
     <div data-viewport-stage className={s.sticky}>
       <div className={`${s.headline} ${r.headline}`} data-story-title><h2>{title}</h2></div>

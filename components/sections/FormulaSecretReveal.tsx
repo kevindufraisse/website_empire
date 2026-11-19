@@ -1,45 +1,48 @@
 'use client'
 
-import { useRef, useState } from 'react'
-import { motion, useScroll, useMotionValueEvent } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
+import { FORMULA_TERMS, FORMULA_RESULT } from './formulaTerms'
 
 /**
- * La formule, en secret : les cinq termes se révèlent un par un au scroll
- * (section sticky, ~2,4 écrans de course), le tampon SECRET tombe à la fin.
- * Elle se découvre ici, elle ne s'étale plus dans le hero ni en bloc statique.
- * Reduced motion : tout est révélé d'emblée, sans course de scroll.
+ * La formule assemblée, en fin de parcours : chaque terme a été découvert
+ * dans la section qui le démontre (pilule FormulaProgressPill), ici tout
+ * se révèle en cascade et le tampon SECRET tombe.
+ * Reduced motion : tout est révélé d'emblée.
  */
-const TERMS = [
-  { fr: 'Message', en: 'Message' },
-  { fr: 'Format', en: 'Format' },
-  { fr: 'Diffusion', en: 'Distribution' },
-  { fr: 'Temps', en: 'Time' },
-  { fr: 'Coût', en: 'Cost' },
-]
-// Seuils de révélation de chaque terme sur la course, puis du résultat.
-const STEPS = [0.14, 0.3, 0.46, 0.62, 0.76]
-const RESULT_AT = 0.88
-
 export default function FormulaSecretReveal() {
   const { lang } = useLanguage()
   const fr = lang === 'fr'
   const still = usePrefersReducedMotion()
   const ref = useRef<HTMLElement>(null)
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] })
-  const [p, setP] = useState(0)
-  useMotionValueEvent(scrollYProgress, 'change', v => setP(v))
+  const [count, setCount] = useState(0)
 
-  const revealed = still ? TERMS.length : STEPS.filter(s => p >= s).length
-  const done = still || p >= RESULT_AT
-  const label = (i: number) => (fr ? TERMS[i].fr : TERMS[i].en)
+  // Révélation en cascade à l'entrée dans l'écran, une seule fois.
+  useEffect(() => {
+    if (still) { setCount(FORMULA_TERMS.length + 1); return }
+    const el = ref.current
+    if (!el || typeof IntersectionObserver === 'undefined') { setCount(FORMULA_TERMS.length + 1); return }
+    let timers: ReturnType<typeof setTimeout>[] = []
+    const io = new IntersectionObserver(entries => {
+      if (!entries.some(e => e.isIntersecting)) return
+      io.disconnect()
+      for (let i = 1; i <= FORMULA_TERMS.length + 1; i++) {
+        timers.push(setTimeout(() => setCount(i), 350 + i * 320))
+      }
+    }, { threshold: 0.4 })
+    io.observe(el)
+    return () => { io.disconnect(); timers.forEach(clearTimeout) }
+  }, [still])
+
+  const done = count > FORMULA_TERMS.length
+  const label = (i: number) => (fr ? FORMULA_TERMS[i].fr : FORMULA_TERMS[i].en)
 
   const Term = ({ i }: { i: number }) => (
     <span
       className={[
         'rounded-md px-1 font-extrabold tracking-tight transition-all duration-700 ease-out',
-        i < revealed ? 'text-white blur-0 opacity-100' : 'text-white blur-[9px] opacity-40 select-none',
+        i < count ? 'text-white blur-0 opacity-100' : 'text-white blur-[9px] opacity-40 select-none',
       ].join(' ')}
     >
       {label(i)}
@@ -55,73 +58,56 @@ export default function FormulaSecretReveal() {
       id="formula-reveal"
       data-formula-reveal
       aria-label={fr ? 'La formule' : 'The formula'}
-      className="relative w-full bg-black"
-      style={still ? undefined : { height: '240svh' }}
+      className="relative flex w-full flex-col items-center overflow-hidden bg-black px-4 py-20 sm:py-24"
     >
-      <div className={(still ? 'relative ' : 'sticky top-0 ') + 'flex h-svh min-h-[560px] w-full flex-col items-center justify-center overflow-hidden px-4'}>
-        {/* Halo discret, plus marqué une fois la formule révélée */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 transition-opacity duration-1000"
-          style={{ opacity: done ? 1 : 0.35, background: 'radial-gradient(ellipse 65% 45% at 50% 52%, rgb(var(--empire-rgb) / 0.09), transparent)' }}
-        />
+      {/* Halo discret, plus marqué une fois la formule révélée */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 transition-opacity duration-1000"
+        style={{ opacity: done ? 1 : 0.35, background: 'radial-gradient(ellipse 65% 45% at 50% 52%, rgb(var(--empire-rgb) / 0.09), transparent)' }}
+      />
 
-        <p className="relative mb-7 flex items-center gap-2.5 text-[11px] font-bold uppercase tracking-[0.22em] text-neutral-500">
-          <span className="h-1.5 w-1.5 rounded-full bg-empire" aria-hidden />
-          {fr ? 'La formule' : 'The formula'}
-        </p>
+      <p className="relative mb-7 flex items-center gap-2.5 text-[11px] font-bold uppercase tracking-[0.22em] text-neutral-500">
+        <span className="h-1.5 w-1.5 rounded-full bg-empire" aria-hidden />
+        {fr ? 'La formule, au complet' : 'The formula, in full'}
+      </p>
 
-        <div className="relative">
-          <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-black/85 px-6 py-6 shadow-[0_30px_90px_-24px_rgba(0,0,0,0.95)] sm:px-12 sm:py-9">
-            <div aria-hidden className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.1),rgba(255,255,255,0)_45%)]" />
-            <div className="relative flex flex-col items-center leading-none text-xl min-[420px]:text-2xl sm:text-4xl md:text-5xl">
-              <div className="flex items-center whitespace-nowrap">
-                <Term i={0} /><Op>×</Op><Term i={1} /><Op>×</Op><Term i={2} />
-              </div>
-              <div className="my-3 h-px w-full bg-white/25 sm:my-4" />
-              <div className="flex items-center whitespace-nowrap">
-                <Term i={3} /><Op>+</Op><Term i={4} />
-              </div>
+      <div className="relative">
+        <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-black/85 px-6 py-6 shadow-[0_30px_90px_-24px_rgba(0,0,0,0.95)] sm:px-12 sm:py-9">
+          <div aria-hidden className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.1),rgba(255,255,255,0)_45%)]" />
+          <div className="relative flex flex-col items-center leading-none text-xl min-[420px]:text-2xl sm:text-4xl md:text-5xl">
+            <div className="flex items-center whitespace-nowrap">
+              <Term i={0} /><Op>×</Op><Term i={1} /><Op>×</Op><Term i={2} />
             </div>
-            {/* Progression de la révélation */}
-            {!still && (
-              <div aria-hidden className="absolute inset-x-0 bottom-0 h-[2px] bg-white/10">
-                <motion.div className="h-full bg-empire" initial={false} animate={{ scaleX: Math.min(1, p / RESULT_AT) }} style={{ transformOrigin: 'left' }} transition={{ duration: 0.4, ease: 'easeOut' }} />
-              </div>
-            )}
+            <div className="my-3 h-px w-full bg-white/25 sm:my-4" />
+            <div className="flex items-center whitespace-nowrap">
+              <Term i={3} /><Op>+</Op><Term i={4} />
+            </div>
           </div>
-
-          {/* Tampon SECRET, qui tombe une fois tout révélé */}
-          <span
-            aria-hidden
-            className={[
-              'pointer-events-none absolute -right-3 -top-4 -rotate-[10deg] select-none rounded-[3px] border-[2.5px] border-red-500 px-2 py-0.5 font-mono text-[11px] font-black uppercase tracking-[0.22em] text-red-500 shadow-[0_0_18px_-4px_rgba(239,68,68,0.55)] transition-all duration-700 sm:-right-5 sm:text-sm',
-              done ? 'opacity-0 blur-[3px]' : 'opacity-100',
-            ].join(' ')}
-          >
-            Secret
-          </span>
         </div>
 
-        {/* Le résultat, une fois la formule entière à l'écran */}
-        <div className={'relative mt-7 flex flex-col items-center text-center transition-all duration-700 ' + (done ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-0')}>
-          <p className="text-xl font-extrabold tracking-tight text-white sm:text-3xl">
-            = {fr ? 'Visibilité' : 'Visibility'} <span className="text-empire">→ {fr ? 'Clients' : 'Clients'}</span>
-          </p>
-          <p className="mt-3 max-w-md text-sm leading-relaxed text-neutral-400">
-            {fr ? 'Il ne manque que ton message : la suite de la page montre chaque terme en action.' : 'Only your message is missing: the rest of the page shows each term in action.'}
-          </p>
-        </div>
+        {/* Tampon SECRET, qui tombe une fois tout révélé */}
+        <span
+          aria-hidden
+          className={[
+            'pointer-events-none absolute -right-3 -top-4 -rotate-[10deg] select-none rounded-[3px] border-[2.5px] border-red-500 px-2 py-0.5 font-mono text-[11px] font-black uppercase tracking-[0.22em] text-red-500 shadow-[0_0_18px_-4px_rgba(239,68,68,0.55)] transition-all duration-700 sm:-right-5 sm:text-sm',
+            done ? 'opacity-0 blur-[3px]' : 'opacity-100',
+          ].join(' ')}
+        >
+          Secret
+        </span>
+      </div>
 
-        {/* Indice tant que la révélation n'est pas finie */}
-        {!still && (
-          <div className={'absolute bottom-6 left-1/2 flex -translate-x-1/2 flex-col items-center gap-1 text-[11px] font-semibold text-neutral-400 transition-opacity duration-500 ' + (done ? 'opacity-0' : 'opacity-100')} aria-hidden>
-            <motion.span animate={{ y: [0, 4, 0] }} transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }} className="text-empire">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6 6-6" /></svg>
-            </motion.span>
-            {fr ? 'Scrolle pour révéler' : 'Scroll to reveal'}
-          </div>
-        )}
+      {/* Le résultat, une fois la formule entière à l'écran */}
+      <div className={'relative mt-7 flex flex-col items-center text-center transition-all duration-700 ' + (done ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-0')}>
+        <p className="text-xl font-extrabold tracking-tight text-white sm:text-3xl">
+          = <span className="text-empire">{fr ? FORMULA_RESULT.fr : FORMULA_RESULT.en}</span>
+        </p>
+        <p className="mt-3 max-w-md text-sm leading-relaxed text-neutral-400">
+          {fr
+            ? 'Tu viens de la voir en action, terme par terme. Il ne manque que ton message.'
+            : 'You just saw it in action, term by term. Only your message is missing.'}
+        </p>
       </div>
     </section>
   )
