@@ -256,7 +256,7 @@ function ScrollCue({ lang }: { lang: string }) {
   return (
     <button
       type="button"
-      onClick={() => document.getElementById('formula-message')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+      onClick={() => (document.getElementById('formula-reveal') ?? document.getElementById('formula-message'))?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
       className="relative z-10 mx-auto mt-6 flex flex-col items-center gap-1 text-xs font-semibold text-neutral-300 transition-colors hover:text-white"
     >
       <motion.span

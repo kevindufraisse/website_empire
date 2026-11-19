@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic'
 import './home-flat.css'
 import HeroSection from '@/components/sections/HeroSection'
 import TopCreatorsSection from '@/components/sections/TopCreatorsSection'
+import FormulaSecretReveal from '@/components/sections/FormulaSecretReveal'
 import HomeApplySection from '@/components/sections/HomeApplySection'
 import FeaturedInSection from '@/components/FeaturedInSection'
 import HomeMasterclassGate, { MasterclassReminder } from '@/components/sections/HomeMasterclassGate'
@@ -25,6 +26,7 @@ export default function Page() {
         <div className="container mx-auto max-w-5xl px-4"><FeaturedInSection /></div>
       </section>
       <TopCreatorsSection />
+      <FormulaSecretReveal />
       <HomeMasterclassGate>
         {/* The demo ends with the app and Claude. Keep the proof sequence uninterrupted. */}
         <div id="formula-message" data-home-section="demo"><HomeDemoSection /></div>
