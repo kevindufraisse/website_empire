@@ -37,7 +37,8 @@ try{
   assert(!/preventDefault|setTimeout|setInterval|scrollIntoView|scrollTo\(/.test(source),`${path}: no forced navigation`)
  }
  for(let i=0;i<160;i++){try{if((await fetch(base)).ok)break}catch{}if(i===159)throw Error('Server not ready');await delay(750)}
- const chrome=await chromium.launch({channel:'chrome'}),safari=await webkit.launch();browsers.push(chrome,safari)
+ // Chrome de la machine si présent (runner GitHub), sinon le Chromium embarqué (image Docker Playwright).
+ const chrome=await chromium.launch({channel:'chrome'}).catch(()=>chromium.launch()),safari=await webkit.launch();browsers.push(chrome,safari)
  for(const [name,viewport,browser] of [['desktop',{width:1440,height:1000},chrome],['laptop',{width:1280,height:720},chrome],['mobile',{width:390,height:844},chrome],['mobile-small',{width:375,height:667},chrome],['webkit-mobile',{width:390,height:844},safari]]){
   const context=await contextFor(browser,viewport),page=await context.newPage(),errors=[]
   page.on('pageerror',e=>errors.push(e.message))
