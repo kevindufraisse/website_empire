@@ -35,7 +35,7 @@ concurrency:
 jobs:
   homepage:
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 20
     env:
       NEXT_TELEMETRY_DISABLED: '1'
       NEXT_PUBLIC_SITE_PREVIEW: '0'
@@ -48,7 +48,7 @@ jobs:
           cache: npm
       - run: npm ci
       - name: Install isolated browser test dependencies
-        timeout-minutes: 4
+        timeout-minutes: 8
         run: |
           # Avoid the slow Azure mirror; retain Ubuntu's official archive/security fallbacks.
           # https://github.com/actions/runner-images/issues/14823
