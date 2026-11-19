@@ -34,7 +34,7 @@ export default function UnifiedFormatJourney({ renderShort }: {
   useMotionValueEvent(progress, 'change', sync)
   const title = phase === 'comparison' ? 'Le même script. De l’anglais au français.' : phase === 'instagram' ? 'Ils commentent. Tu réponds automatiquement.' : phase === 'long' ? 'Le même sujet, aussi en vidéo YouTube.' : 'Nous mettons ton idée dans le bon format.'
   const active = phase === 'short' ? kind : phase === 'long' ? 6 : 5
-  return <section ref={ref} className={`${base.story} ${refinement.story} ${s.story}`} data-story="formula" data-unified-formats data-journey-phase={phase} data-step="format" aria-label="Sept formats à découvrir au scroll">
+  return <section ref={ref} className={`${base.story} ${refinement.story} ${s.story}`} data-story="formula" data-unified-formats data-formula-term="format" data-journey-phase={phase} data-step="format" aria-label="Sept formats à découvrir au scroll">
     {ANCHORS.map(([id, p]) => <span key={id} id={`formula-${id}`} className={s.anchor} style={{ top: `calc(${p * 100}% - ${p * 100}svh)` }}/>) }
     <div className={s.sticky} data-viewport-stage data-format-viewport>
       <header className={s.heading} data-story-title><h2>{title}</h2></header>

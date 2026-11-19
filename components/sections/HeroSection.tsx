@@ -2,6 +2,7 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
+import { FORMULA_TERMS } from './formulaTerms'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import { SocialIcons } from '@/components/ui/social-icons'
@@ -55,7 +56,7 @@ export default function HeroSection() {
   }
 
   return (
-    <section className="relative flex w-full flex-col overflow-hidden border-b border-white/10 bg-gradient-to-b from-black via-transparent to-[#0f0f0f] pb-10 pt-24 md:pb-12 md:pt-28 lg:min-h-[calc(100svh-64px)] lg:pb-14">
+    <section className="relative flex w-full flex-col overflow-hidden border-b border-white/10 bg-gradient-to-b from-black via-transparent to-[#0f0f0f] pb-6 pt-16 md:pb-8 md:pt-20 lg:min-h-[calc(100svh-170px)] lg:pb-6">
       <div className="container flex flex-1 flex-col">
         <RetroGrid />
         <div className={`absolute inset-0 transition-opacity duration-500 ${autopilot ? 'opacity-0' : 'opacity-100'} bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgb(var(--empire-rgb)_/_0.15),transparent)]`} />
@@ -122,7 +123,7 @@ export default function HeroSection() {
                 initial={mounted ? { opacity: 0 } : false}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="mt-5 flex items-center justify-center gap-2"
+                className="mt-4 flex items-center justify-center gap-2"
               >
                 <span className="text-[11px] text-neutral-500">{lang === 'fr' ? 'Adapté pour' : 'Adapted for'}</span>
                 <div className="flex items-center gap-3 text-neutral-400 [&_path]:fill-current [&_circle]:fill-current">
@@ -154,7 +155,7 @@ export default function HeroSection() {
               initial={mounted ? { opacity: 0, y: 10 } : false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.6 }}
-              className="mt-8 flex flex-col items-center gap-6 lg:mt-7"
+              className="mt-7 flex flex-col items-center gap-5 lg:mt-6"
             >
               <div className="w-full flex justify-center px-1">
                 {autopilot ? (
@@ -256,8 +257,8 @@ function ScrollCue({ lang }: { lang: string }) {
   return (
     <button
       type="button"
-      onClick={() => document.getElementById('formula-message')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-      className="relative z-10 mx-auto mt-6 flex flex-col items-center gap-1 text-xs font-semibold text-neutral-300 transition-colors hover:text-white"
+      onClick={() => (document.getElementById('home-creators') ?? document.getElementById('formula-message'))?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+      className="relative z-10 mx-auto mt-4 flex flex-col items-center gap-1 text-xs font-semibold text-neutral-300 transition-colors hover:text-white"
     >
       <motion.span
         aria-hidden
@@ -268,7 +269,15 @@ function ScrollCue({ lang }: { lang: string }) {
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6 6-6" /></svg>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="-mt-2 opacity-50"><path d="M6 9l6 6 6-6" /></svg>
       </motion.span>
-      <span>{lang === 'fr' ? 'Scrolle pour découvrir' : 'Scroll to discover'}</span>
+      <span className="flex items-center gap-1 rounded-full border border-white/10 bg-black/60 px-3 py-1" aria-hidden>
+        {FORMULA_TERMS.map((t, i) => (
+          <span key={t.key} className="flex items-center">
+            {i > 0 && <span className="px-0.5 text-[8px] text-neutral-600">{i === 3 ? '/' : i === 4 ? '+' : '×'}</span>}
+            <span className="select-none text-[10px] font-bold tracking-tight text-white opacity-35 blur-[4px]">{lang === 'fr' ? t.fr : t.en}</span>
+          </span>
+        ))}
+      </span>
+      <span>{lang === 'fr' ? 'Il existe une formule. Scrolle pour la révéler.' : 'There is a formula. Scroll to reveal it.'}</span>
     </button>
   )
 }
