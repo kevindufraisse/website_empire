@@ -47,3 +47,12 @@ body:has(.home-flat) [data-mobile-menu]{max-height:calc(var(--empire-viewport-he
   font-size: clamp(1.5rem, 5vw, 2.25rem) !important;
   line-height: 1.2 !important;
 }
+
+/* Fluidité du scroll : les sections hors écran ne sont ni mises en page ni
+   peintes. Mesuré en ligne (CPU x4, scroll sur 35 % de la page) : images
+   > 50 ms de 36 à 6 sur 750. Le parcours collant en est exclu : son suivi du
+   scroll dépend de sa hauteur réelle. */
+.home-flat section:not([data-unified-formats]):not(:has([data-unified-formats])) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}
