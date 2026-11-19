@@ -3,6 +3,11 @@ import assert from 'node:assert/strict'
 export async function checkContentComparison(page) {
   await page.locator('#formula-secret[data-requested=false], #formula-secret[data-requested=true]').waitFor({ state: 'attached' })
   const section = page.locator('#home-comparison')
+  // `content-visibility: auto` (home-flat.css) rend l'innerText vide tant que
+  // la section n'a jamais été affichée : on l'amène à l'écran avant de lire.
+  // Toute lecture d'innerText dans ces smokes doit faire pareil.
+  await section.scrollIntoViewIfNeeded()
+  await page.waitForFunction(() => /\S/.test(document.querySelector('[data-comparison-takeaway]')?.innerText || ''))
   assert((await section.locator('[data-comparison-takeaway]').innerText()).includes('Le travail de 5 métiers.'))
   const cards = section.locator('[data-comparison-card]')
   assert.deepEqual(await cards.evaluateAll(nodes => nodes.map(n => n.dataset.comparisonCard)), ['tools', 'freelance', 'agency', 'empire'])
