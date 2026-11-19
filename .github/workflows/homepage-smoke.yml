@@ -35,7 +35,7 @@ concurrency:
 jobs:
   homepage:
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 20
     env:
       NEXT_TELEMETRY_DISABLED: '1'
       NEXT_PUBLIC_SITE_PREVIEW: '0'
@@ -48,12 +48,14 @@ jobs:
           cache: npm
       - run: npm ci
       - name: Install isolated browser test dependencies
-        timeout-minutes: 4
+        timeout-minutes: 10
         run: |
           # Avoid the slow Azure mirror; retain Ubuntu's official archive/security fallbacks.
           # https://github.com/actions/runner-images/issues/14823
           if [ -f /etc/apt/apt-mirrors.txt ]; then
-            sudo sed -i '/azure\.archive\.ubuntu\.com/d' /etc/apt/apt-mirrors.txt
+            # Les miroirs Azure et EC2 régionaux s'effondrent régulièrement :
+            # on force l'archive officielle.
+            printf 'http://archive.ubuntu.com/ubuntu/\tpriority:1\n' | sudo tee /etc/apt/apt-mirrors.txt >/dev/null
           fi
           printf 'Acquire::http::Timeout "25";\nAcquire::https::Timeout "25";\nAcquire::Retries "1";\n' | sudo tee /etc/apt/apt.conf.d/99-empire-ci-timeouts >/dev/null
           npm install --prefix "$RUNNER_TEMP/empire-browser" --no-package-lock playwright@1.56.1
