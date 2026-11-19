@@ -1,5 +1,4 @@
 'use client'
-import EmpireSalesCta from '@/components/EmpireSalesCta'
 
 import { motion, useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
@@ -244,7 +243,6 @@ export default function CaseStudiesSection() {
           {/* CTA */}
           <FadeInBlock delay={0.5}>
             <div className="mt-12 text-center">
-<EmpireSalesCta source="case-studies" />
             </div>
           </FadeInBlock>
         </div>

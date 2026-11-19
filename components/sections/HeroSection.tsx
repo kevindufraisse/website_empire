@@ -55,7 +55,7 @@ export default function HeroSection() {
   }
 
   return (
-    <section className="relative flex w-full flex-col overflow-hidden border-b border-white/10 bg-gradient-to-b from-black via-transparent to-[#0f0f0f] pb-6 pt-20 md:pb-8 md:pt-24 lg:min-h-[calc(100svh-130px)] lg:pb-0">
+    <section className="relative flex w-full flex-col overflow-hidden border-b border-white/10 bg-gradient-to-b from-black via-transparent to-[#0f0f0f] pb-10 pt-24 md:pb-12 md:pt-28 lg:min-h-[calc(100svh-64px)] lg:pb-14">
       <div className="container flex flex-1 flex-col">
         <RetroGrid />
         <div className={`absolute inset-0 transition-opacity duration-500 ${autopilot ? 'opacity-0' : 'opacity-100'} bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgb(var(--empire-rgb)_/_0.15),transparent)]`} />
