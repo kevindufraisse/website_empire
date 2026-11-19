@@ -189,7 +189,7 @@ export default function HeroSection() {
                         onClick={() => trackAmplitude('empire_call_clicked', { source: 'home-hero' })}
                         className={CTA_SECONDARY}
                       >
-                        {lang === 'fr' ? 'Réserver un appel' : 'Book a call'}
+                        {lang === 'fr' ? 'Demander une démo' : 'Request a demo'}
                       </a>
                     )}
                   />

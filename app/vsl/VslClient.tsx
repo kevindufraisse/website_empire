@@ -69,7 +69,7 @@ const FAQ = [
   },
   {
     q: 'Je préfère en parler avant',
-    a: 'Réserve un appel : on regarde ta situation et on te dit si Empire est fait pour toi, sans engagement. Pour une question rapide, écris à kevin@empire-internet.com.',
+    a: 'Demande une démo : on regarde ta situation et on te dit si Empire est fait pour toi, sans engagement. Pour une question rapide, écris à kevin@empire-internet.com.',
   },
 ]
 

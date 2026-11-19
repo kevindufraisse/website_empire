@@ -144,7 +144,7 @@ export default function Footer() {
                 </OnboardingLink>
                 <TrialReassurance fr={lang === 'fr'} stacked className="-mt-1 !text-xs" />
                 <a href="/join-us" onClick={() => trackAmplitude('empire_call_clicked', { source: 'footer' })} className={`${CTA_SECONDARY} !px-4 !text-[15px]`}>
-                  {lang === 'fr' ? 'Réserver un appel' : 'Book a call'}
+                  {lang === 'fr' ? 'Demander une démo' : 'Request a demo'}
                 </a>
               </div>
             )}

@@ -532,7 +532,7 @@ function LegendConversionVisual() {
           <p className="text-[9px] text-neutral-500">ton@email.com</p>
         </div>
         <div className="mt-1.5 rounded-md bg-autopilot px-2 py-1.5 text-center text-[9px] font-bold text-black">
-          {fr ? 'Réserver un appel' : 'Book a call'}
+          {fr ? 'Demander une démo' : 'Request a demo'}
         </div>
       </div>
       <div className="flex flex-col gap-1.5">

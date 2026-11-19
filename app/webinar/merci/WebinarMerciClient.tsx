@@ -383,7 +383,7 @@ export default function WebinarMerciClient() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-red-600 text-xs font-bold hover:underline"
               >
-                Réserver un appel <ArrowRight size={12} />
+                Demander une démo <ArrowRight size={12} />
               </a>
             </div>
 

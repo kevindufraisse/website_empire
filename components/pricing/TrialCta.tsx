@@ -50,7 +50,7 @@ export function CallLink({ className = '' }: { className?: string }) {
     <p className={`text-center text-sm leading-relaxed text-neutral-400 ${className}`}>
       {fr ? nbsp('Tu veux en parler avant ? ') : 'Want to talk first? '}
       <a href="/decouverte" className="inline-flex min-h-11 items-center font-semibold text-white underline decoration-white/30 underline-offset-4 hover:decoration-white">
-        {fr ? nbsp('Réserver un appel gratuit de 15 min') : 'Book a free 15-min call'}
+        {fr ? nbsp('Demander une démo gratuite de 15 min') : 'Request a free 15-min demo'}
       </a>
     </p>
   )

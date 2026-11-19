@@ -70,10 +70,10 @@ const OFFERS: Record<RecommendedOffer, OfferCopy> = {
       'Accès à la communauté privée Empire',
     ],
     cta: {
-      label: 'Réserver un appel découverte →',
+      label: 'Demander une démo →',
       href: '/',
     },
-    reassurance: 'Appel gratuit · On te dit si on peut t\'aider',
+    reassurance: 'Démo gratuite · On te dit si on peut t\'aider',
   },
   academy: {
     kicker: 'Recommandé pour ton profil',
@@ -105,7 +105,7 @@ const OFFERS: Record<RecommendedOffer, OfferCopy> = {
       'Calendrier éditorial 4 semaines',
       'Communauté privée Empire',
     ],
-    cta: { label: 'Réserver un appel découverte →', href: '/' },
+    cta: { label: 'Demander une démo →', href: '/' },
     reassurance: 'Appel gratuit',
   },
   nurture: {
