@@ -53,7 +53,7 @@ const copy = {
     plansLabel: 'Les offres', plansTitle: 'Deux façons de travailler avec nous.',
     plansNote: 'Les deux offres faites pour vous sont sur candidature, pour douze mois.',
     plans: [
-      { name: 'Avec un Head of Content', tagline: 'Nous faisons pour vous, vous choisissez', price: '', per: '', note: 'Sur candidature · 12 mois',
+      { name: 'Avec un Head of Content', tagline: 'Nous faisons pour vous, vous choisissez', price: '', per: '', note: 'Sur candidature · 12 mois · Places limitées',
         items: ['Un Head of Content formé par Kevin vous interviewe chaque semaine', 'L’équipe écrit et monte vos posts, reels, vidéos et newsletter', 'Vous choisissez dans votre calendrier Empire ce qui part', 'Publication sur 7 réseaux et contacts récupérés'], cta: 'Candidater', href: 'hoc' },
       { name: 'Avec Kevin', tagline: 'Nous faisons tout pour vous', price: '', per: '', note: 'Sur candidature · 12 mois', featured: `${PLACES_LEFT} places restantes sur ${PLACES_TOTAL}`,
         items: ['4 interviews par mois avec Kevin, 1 h maximum chacune', 'Vos sujets préparés chaque semaine à partir de votre marché et de vos concurrents', 'Posts LinkedIn, reels, vidéos YouTube longues et newsletter, écrits et montés par l’équipe', 'Publication chaque jour sur 7 réseaux, et vos meilleurs posts republiés', 'Liens suivis et réponses automatiques en DM Instagram pour récupérer vos contacts', 'Votre offre et votre tunnel de vente retravaillés avec Kevin', 'L’app Empire au complet et le live du lundi'], cta: 'Candidater', href: 'kevin' },
@@ -92,7 +92,7 @@ const copy = {
     plansLabel: 'Our offers', plansTitle: 'Two ways to work with us.',
     plansNote: 'Both done-for-you options are by application, for twelve months.',
     plans: [
-      { name: 'With a Head of Content', tagline: 'Done for you, you choose', price: '', per: '', note: 'By application · 12 months',
+      { name: 'With a Head of Content', tagline: 'Done for you, you choose', price: '', per: '', note: 'By application · 12 months · Limited spots',
         items: ['A Head of Content trained by Kevin interviews you every week', 'The team writes and edits your posts, reels, videos and newsletter', 'You pick in your Empire calendar what goes out', 'Published on 7 networks, contacts captured'], cta: 'Apply', href: 'hoc' },
       { name: 'With Kevin', tagline: 'We do everything for you', price: '', per: '', note: 'By application · 12 months', featured: `${PLACES_LEFT} spots left out of ${PLACES_TOTAL}`,
         items: ['4 interviews a month with Kevin, 1 hour max each', 'Your topics prepared every week from your market and competitors', 'LinkedIn posts, reels, long YouTube videos and newsletter, written and edited by the team', 'Published every day on 7 networks, your best posts republished', 'Tracked links and automatic Instagram DM replies to capture your contacts', 'Your offer and sales funnel reworked with Kevin', 'The full Empire app and the Monday live'], cta: 'Apply', href: 'kevin' },
@@ -232,7 +232,7 @@ export default function LegendeMarketing({ lang, onApply }: { lang: 'fr' | 'en';
       <Reveal>
         <Label>{t.plansLabel}</Label>
         <h2 id="legende-plans" className={styles.sectionTitle}>{t.plansTitle}</h2>
-        <div className="mt-8 grid gap-4 lg:grid-cols-3">
+        <div className="mx-auto mt-8 grid max-w-3xl gap-4 sm:grid-cols-2">
           {t.plans.map(plan => <div key={plan.name} className={`${styles.plan} ${plan.featured ? styles.planFeatured : ''}`}>
             {plan.featured && <span className={styles.planTag}>{plan.featured}</span>}
             <h3 className="text-[17px] font-semibold text-white">{plan.name}</h3>
