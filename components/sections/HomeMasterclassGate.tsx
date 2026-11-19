@@ -88,7 +88,7 @@ export function MasterclassForm({ onReady, reminder = false, idPrefix }: {
     {complete ? <div className={stable.receipt} role="status" aria-live="polite">
       <Check size={22}/><div>
         <b>{status === 'preview' ? 'Demande simulée dans cet aperçu.' : fr ? 'Ta demande de masterclass est enregistrée.' : 'Your masterclass request is recorded.'}</b>
-        <p>{status === 'preview' ? 'Aucun email n’est envoyé depuis cet aperçu.' : fr ? 'Tu peux continuer à découvrir Empire à ton rythme.' : 'You can continue exploring Empire at your own pace.'}</p>
+        <p>{status === 'preview' ? 'Aucun email n’est envoyé depuis cet aperçu.' : fr ? 'Règle n°1 : ce qu’il y a dedans, tu le gardes pour toi.' : 'Rule #1: what’s inside stays with you.'}</p>
       </div>
     </div> : <form onSubmit={submit} className={s.form} aria-label={fr ? 'Recevoir la masterclass' : 'Get the masterclass'}>
       <label htmlFor={`masterclass-email-${suffix}`}>{fr ? 'Reçois la vidéo dans ta boîte mail' : 'Get the video in your inbox'}</label>

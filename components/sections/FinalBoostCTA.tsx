@@ -23,7 +23,7 @@ function FadeInBlock({ children, delay = 0 }: { children: React.ReactNode; delay
 }
 
 export default function FinalBoostCTA() {
-  const { t, lang } = useLanguage()
+  const { lang } = useLanguage()
   const { autopilot } = useAutopilot()
 
   if (autopilot) return null
@@ -38,7 +38,9 @@ export default function FinalBoostCTA() {
 
               <div className="relative z-10">
                 <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
-                  {t.finalCTA.title}
+                  {lang === 'fr'
+                    ? <>Tu vas adorer être détesté.<br /><span className="text-neutral-400">(Par tes concurrents.)</span></>
+                    : <>You’re going to love being hated.<br /><span className="text-neutral-400">(By your competitors.)</span></>}
                 </h2>
                 <p className="text-lg text-neutral-300 mb-6">
                   {lang === 'fr' ? 'Tes idées, tes contenus, ton calendrier : prends Empire en main dès aujourd’hui.' : 'Your ideas, your content, your calendar: get started with Empire today.'}
