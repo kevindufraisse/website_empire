@@ -2,7 +2,7 @@ import Script from 'next/script'
 import JoinUsClient from './JoinUsClient'
 
 export const metadata = {
-  title: 'Réserver un appel - Empire Internet',
+  title: 'Demander une démo - Empire Internet',
   description: "15 min pour voir si notre système de contenu s'adapte à ton activité. Gratuit, sans engagement.",
 }
 

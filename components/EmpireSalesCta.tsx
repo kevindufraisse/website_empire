@@ -22,7 +22,7 @@ export default function EmpireSalesCta({ source, showDemo = true }: { source: st
       }
       secondary={showDemo && (
         <a href="/join-us" onClick={() => trackAmplitude('empire_call_clicked', { source })} className={CTA_SECONDARY}>
-          {fr ? 'Réserver un appel' : 'Book a call'}
+          {fr ? 'Demander une démo' : 'Request a demo'}
         </a>
       )}
     />

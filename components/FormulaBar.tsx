@@ -334,7 +334,7 @@ export default function FormulaBar() {
             onClick={() => trackAmplitude('empire_call_clicked', { source: 'formula_bar' })}
             className="hidden min-h-[32px] min-w-[150px] items-center justify-center whitespace-nowrap rounded-lg border-[1.5px] border-white/60 bg-[#0a0a0a] px-3 py-1 text-xs font-bold text-white transition hover:border-white hover:bg-[#151515] sm:flex"
           >
-            {fr ? 'Réserver un appel' : 'Book a call'}
+            {fr ? 'Demander une démo' : 'Request a demo'}
           </a>
           </div>
         )}
