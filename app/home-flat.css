@@ -52,7 +52,14 @@ body:has(.home-flat) [data-mobile-menu]{max-height:calc(var(--empire-viewport-he
    peintes. Mesuré en ligne (CPU x4, scroll sur 35 % de la page) : images
    > 50 ms de 36 à 6 sur 750. Le parcours collant en est exclu : son suivi du
    scroll dépend de sa hauteur réelle. */
-.home-flat section:not([data-unified-formats]):not(:has([data-unified-formats])) {
+.home-flat section:where(:not([data-unified-formats]):not(:has([data-unified-formats]))) {
   content-visibility: auto;
   contain-intrinsic-size: auto 900px;
+}
+
+/* L'intérieur du parcours collant reste rendu en continu : ses volets sont
+   des <section> superposées dans un cadre sticky, et les masquer cassait les
+   vidéos du comparatif en WebKit. */
+.home-flat [data-unified-formats] section {
+  content-visibility: visible;
 }
