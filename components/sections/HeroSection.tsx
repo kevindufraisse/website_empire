@@ -8,7 +8,6 @@ import { SocialIcons } from '@/components/ui/social-icons'
 import FloatingSocialReactions from '@/components/FloatingSocialReactions'
 import { trackAmplitude } from '@/lib/amplitude'
 import { startFreeTrial, TRIAL_URL } from '@/lib/startTrial'
-import { FormulaHeroStatic } from '@/components/FormulaBar'
 import { CTA_PRIMARY, CTA_SECONDARY, CtaPair } from '@/components/ui/cta'
 // Même jeu de portraits que `/vsl` et `FormatsShowcaseSection` (public/creators).
 const HERO_CREATORS = [
@@ -34,8 +33,7 @@ export default function HeroSection() {
   const heroTitle = autopilot ? t.autopilot.hero.title : (lang === 'fr' ? 'L’avantage injuste pour développer ta marque personnelle.' : 'The unfair advantage for growing your personal brand.')
   const heroTitleH2 = autopilot ? null : (lang === 'fr' ? 'Sois vu, acheté et recommandé grâce à ton contenu en 1 h par semaine.' : 'Get seen, chosen and recommended through your content in one hour a week.')
   const heroTitleNote = null
-  // Hors autopilot, la formule (résultat net, termes floutés) prend la place
-  // du paragraphe, avec une phrase qui invite à la découvrir en descendant. Voir `FormulaBar` et le slot `formula-hero-slot`.
+  // La formule n'est plus dans le hero : `FormulaBar` n'apparaît qu'au scroll (pilule flottante).
   const heroSubtitle = autopilot ? t.autopilot.hero.subtitle : null
   const heroCta = autopilot ? t.autopilot.hero.cta1 : t.hero.cta1
   // Trafic chaud (setter WhatsApp, lien parrainage, email) : le visiteur arrive
@@ -65,7 +63,7 @@ export default function HeroSection() {
         {!autopilot && <FloatingSocialReactions />}
 
         <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-1 flex-col items-center justify-center gap-8 lg:flex-row lg:gap-12">
-          <div className="flex w-full flex-col items-center text-center lg:w-[56%] lg:shrink-0">
+          <div className="flex w-full max-w-3xl flex-col items-center text-center">
 
             {/* Sans libellé, la pastille bordée resterait visible et vide. */}
             {heroBadge && (
@@ -220,8 +218,8 @@ export default function HeroSection() {
                   </div>
                   <span className="text-[11px] sm:text-xs text-neutral-300 text-left leading-snug">
                     {lang === 'fr'
-                      ? <>Ils utilisent cette formule. <span className="text-neutral-500">Prête à utiliser pour toi.</span></>
-                      : <>They use this formula. <span className="text-neutral-500">Ready for you.</span></>}
+                      ? <>Ils utilisent déjà Empire. <span className="text-neutral-500">Prêt à l’emploi pour toi.</span></>
+                      : <>They already use Empire. <span className="text-neutral-500">Ready for you.</span></>}
                   </span>
                 </div>
                 {!autopilot && (
@@ -247,42 +245,6 @@ export default function HeroSection() {
             {/* L'animation voix → contenus vit désormais dans la section
                 « Message » (HomeDemoSection), à la place de la vidéo. */}
           </div>
-
-          {/* La formule : `FormulaBar` se rend ici (portal) tant qu'on est
-              dans le hero, puis file en bas de l'écran au scroll et allume le
-              terme de chaque section. La hauteur est réservée pour que le hero
-              ne saute pas quand elle part. */}
-          {!autopilot && (
-            <div className="flex w-full flex-col items-center pt-14 sm:pt-12 lg:w-[44%] lg:pt-0">
-              <div className="relative mx-auto w-fit max-w-full">
-                {/* Annotation manuscrite en coin haut-gauche : le tampon SECRET
-                    occupe le coin droit, le texte + la flèche vivent à gauche. */}
-                <motion.div
-                  initial={mounted ? { opacity: 0 } : false}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.6, delay: 0.3 }}
-                  className="pointer-events-none absolute -top-12 left-0 z-10 flex items-start gap-1 sm:-left-24 sm:-top-6 lg:-left-6 lg:-top-12"
-                >
-                  <span className="max-w-[230px] text-[11px] italic leading-snug text-neutral-300 sm:max-w-[260px] sm:text-xs">
-                    {lang === 'fr'
-                      ? 'Dans 30 jours, tout ton marché t’aura vu, grâce à cette formule'
-                      : 'In 30 days, your whole market will have seen you, thanks to this formula'}
-                  </span>
-                  <svg width="34" height="34" viewBox="0 0 34 34" fill="none" className="mt-1.5 text-empire">
-                    <path d="M4 4 C14 6, 24 12, 27 26" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" fill="none" strokeDasharray="3 3" />
-                    <path d="M21.5 23 L27.5 27.5 L30 21" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-                  </svg>
-                </motion.div>
-
-                <div
-                  id="formula-hero-slot"
-                  className="group flex min-h-[80px] items-start justify-center sm:min-h-[100px]"
-                >
-                  <FormulaHeroStatic fr={lang === 'fr'} />
-                </div>
-              </div>
-            </div>
-          )}
         </div>
 
       </div>
@@ -306,7 +268,7 @@ function ScrollCue({ lang }: { lang: string }) {
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6 6-6" /></svg>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="-mt-2 opacity-50"><path d="M6 9l6 6 6-6" /></svg>
       </motion.span>
-      <span>{lang === 'fr' ? 'Scrolle pour découvrir la formule' : 'Scroll to discover the formula'}</span>
+      <span>{lang === 'fr' ? 'Scrolle pour découvrir' : 'Scroll to discover'}</span>
     </button>
   )
 }
