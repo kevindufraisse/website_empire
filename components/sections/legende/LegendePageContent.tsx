@@ -81,7 +81,6 @@ export default function LegendePageContent() {
       <div className="mx-auto flex max-w-5xl justify-between border-t border-white/10 py-4 text-[12px] text-neutral-500">
         <span>© Empire Internet</span><span className="flex gap-4"><a href="/terms" className="underline">{t.terms}</a><a href="/privacy" className="underline">{t.privacy}</a></span>
       </div>
-      <p aria-hidden="true" className={styles.wordmark}>1-to-1</p>
     </footer>
 
     {applying && <LegendeApplyModal lang={lang} initialPlan={applying.plan} onClose={() => setApplying(null)} />}

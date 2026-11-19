@@ -13,10 +13,10 @@ export default function PartnerFinalCta() {
         <div className="max-w-xl">
           <p className="text-xs font-semibold uppercase tracking-[.14em] text-neutral-500">{fr ? 'Devenir partenaire' : 'Become a partner'}</p>
           <h2 id="partner-final-title" className="mt-3 text-2xl font-bold tracking-tight text-white sm:text-3xl">
-            {fr ? 'Tu préfères en faire ton métier ?' : 'Would you rather make it your job?'}
+            {fr ? 'Tu veux en faire ton métier ?' : 'Want to make it your job?'}
           </h2>
           <p className="mt-3 text-neutral-400">
-            {fr ? 'Empire forme des Head of Content pour accompagner des entrepreneurs.' : 'Empire trains Heads of Content to work with entrepreneurs.'}
+            {fr ? 'Sois formé au Head of Content par Empire et deviens partenaire.' : 'Get trained as a Head of Content by Empire and become a partner.'}
           </p>
         </div>
         <a href="/academy" className="inline-flex min-h-12 shrink-0 items-center gap-2 rounded-full border border-white/20 px-6 text-sm font-semibold text-white transition hover:border-white/40">

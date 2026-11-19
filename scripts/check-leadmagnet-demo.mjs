@@ -1,4 +1,3 @@
-import { checkContentComparison } from './check-content-comparison.mjs'
 import assert from 'node:assert/strict'
 import {spawn} from 'node:child_process'
 import {mkdir,writeFile,readFile} from 'node:fs/promises'
@@ -38,7 +37,8 @@ try{
   assert(!/preventDefault|setTimeout|setInterval|scrollIntoView|scrollTo\(/.test(source),`${path}: no forced navigation`)
  }
  for(let i=0;i<160;i++){try{if((await fetch(base)).ok)break}catch{}if(i===159)throw Error('Server not ready');await delay(750)}
- const chrome=await chromium.launch({channel:'chrome'}),safari=await webkit.launch();browsers.push(chrome,safari)
+ // Chrome de la machine si présent (runner GitHub), sinon le Chromium embarqué (image Docker Playwright).
+ const chrome=await chromium.launch({channel:'chrome'}).catch(()=>chromium.launch()),safari=await webkit.launch();browsers.push(chrome,safari)
  for(const [name,viewport,browser] of [['desktop',{width:1440,height:1000},chrome],['laptop',{width:1280,height:720},chrome],['mobile',{width:390,height:844},chrome],['mobile-small',{width:375,height:667},chrome],['webkit-mobile',{width:390,height:844},safari]]){
   const context=await contextFor(browser,viewport),page=await context.newPage(),errors=[]
   page.on('pageerror',e=>errors.push(e.message))
@@ -165,21 +165,10 @@ try{
    await fits(page,team.locator('[data-team-core]'),`${name} Empire team core`)
    await fits(page,team.locator('[data-team-summary]'),`${name} team result`)
    await page.screenshot({path:`${out}/${name}-team-merged.png`})
-   assert.equal(await page.locator('#home-comparison [data-comparison-card]').count(),4,'Four summary cards precede the detailed table')
-   await page.locator('#comparison-details').evaluate(el=>{el.open=true})
-   assert.equal(await page.locator('#home-comparison').getByRole('table').count(),1)
-   await page.locator('#comparison-details').evaluate(el=>{el.open=false})
-   // Même piège `content-visibility` : amener LA SECTION à l'écran (le titre
-   // n'a pas de boîte tant qu'elle est masquée), attendre le texte, lire.
-   await page.locator('#home-comparison').evaluate(el=>el.scrollIntoView({behavior:'instant',block:'start'}))
-   await page.waitForFunction(()=>/\S/.test(document.querySelector('#formula-compare-title')?.innerText||''))
-   assert((await page.locator('#formula-compare-title').innerText()).includes('Ce qui est inclus.'))
    await page.locator('#empire-integrations').evaluate(el=>el.scrollIntoView({behavior:'instant',block:'start'}))
    await page.waitForFunction(()=>/\S/.test(document.querySelector('#empire-integrations')?.innerText||''))
    assert((await page.locator('#empire-integrations').innerText()).includes('revenus attribués'))
    if(name==='desktop'||name==='mobile-small'){
-    const compare=page.locator('#home-comparison')
-    await compare.screenshot({path:`${out}/${name}-clear-comparison.png`})
     await at(page,'#empire-integrations',.90)
     await page.screenshot({path:`${out}/${name}-revenues.png`})
     await at(page,'#empire-community',.84)
@@ -215,19 +204,6 @@ try{
    assert.equal(await counter.getAttribute('data-complete'),'true')
    await fits(page,counter,`${name} cumulative counter`)
    await page.screenshot({path:`${out}/${name}-cumulative-views.png`})
-   await at(page,'#home-comparison',.65)
-   const matrix=page.locator('#home-comparison')
-   await page.locator('#comparison-details').evaluate(el=>{el.open=true})
-   assert.equal(await matrix.locator('[data-comparison-axis]').count(),3)
-   assert.deepEqual(await matrix.locator('[data-comparison-option]').evaluateAll(nodes=>nodes.map(n=>n.dataset.comparisonOption)),['tools','freelance','agency','empire'])
-   assert.equal(await matrix.getByRole('table').count(),1)
-   assert.equal(await matrix.locator('[data-comparison-price]').getAttribute('data-comparison-price'),'199')
-   for(const row of await matrix.locator('[data-comparison-axis]').all())assert(await opacity(row)>.99)
-   await page.locator('#comparison-details').evaluate(el=>{el.open=false})
-   await checkContentComparison(page)
-   await matrix.locator('[data-comparison-axis=money]').scrollIntoViewIfNeeded()
-   await page.screenshot({path:`${out}/${name}-comparison-matrix.png`})
-
    reports.push({name,result:'passed',scrollDrivenChat:true,noNavigationArrows:true,readingHolds:true,instagramProgressiveReveal:true,bothClipsVisibleTogether:true,realPlayback:true,leadBeforeYouTube:true,youTubeScrollReversible:true,sevenFormatRail:true,teamConverges:true})
   }catch(error){await page.screenshot({path:`${out}/${name}-failure.png`}).catch(()=>{});reports.push({name,result:'failed',error:String(error),stack:error.stack,errors,media:await page.locator('[data-lead-comparison] video').evaluateAll(vs=>vs.map(v=>({time:v.currentTime,paused:v.paused,seeking:v.seeking,ready:v.readyState,ended:v.ended,buffered:Array.from({length:v.buffered.length},(_,i)=>[v.buffered.start(i),v.buffered.end(i)])}))).catch(()=>[])})}
   finally{await context.close()}
@@ -247,7 +223,6 @@ try{
  assert.equal(await page.locator('[data-unified-formats]').count(),0)
  assert.equal(await page.locator('[data-story="team"]').getAttribute('data-static'),'true')
  for(const price of await page.locator('[data-team-role-cost]').allTextContents())assert(!/^0\s*€/.test(price),'Static role budgets must not retain the animated zero value')
- await checkContentComparison(page)
  assert.deepEqual(reducedErrors,[], 'Reduced motion must hydrate without replacing the page')
  reports.push({name:'reduced-motion',result:'passed',allMessagesInNormalFlow:true});await context.close()
  assert.equal(reports.filter(r=>r.result==='failed').length,0,'Inspect scroll discovery screenshots and report')

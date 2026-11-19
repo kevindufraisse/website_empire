@@ -131,7 +131,7 @@ try {
     })
     try {
       await open(page)
-      assert.deepEqual(await page.locator('[data-home-section]').evaluateAll(nodes => nodes.map(n => n.dataset.homeSection)), ['demo', 'community', 'tracking', 'testimonials', 'results', 'trial', 'cost', 'comparison', 'apply'])
+      assert.deepEqual(await page.locator('[data-home-section]').evaluateAll(nodes => nodes.map(n => n.dataset.homeSection)), ['demo', 'community', 'tracking', 'testimonials', 'results', 'trial', 'cost', 'apply'])
       assert.equal(await page.locator('[data-story="formula"] nav').count(), 0)
       assert.equal(await page.locator('[data-discovery-gate="true"], [data-locked="true"]').count(), 0)
       const secret = page.locator('#formula-secret')

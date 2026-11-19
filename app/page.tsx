@@ -9,8 +9,6 @@ import HomeMasterclassGate, { MasterclassReminder } from '@/components/sections/
 import HomeTrialPrompt from '@/components/sections/HomeTrialPrompt'
 import CompactIntegrations from '@/components/sections/CompactIntegrations'
 import EmpireCommunitySection from '@/components/sections/EmpireCommunitySection'
-import FormulaSection from '@/components/sections/FormulaSection'
-import FormulaCompareSection from '@/components/sections/FormulaCompareSection'
 
 const HomeDemoSection = dynamic(() => import('@/components/sections/HomeDemoSection'))
 const CaseStudiesSection = dynamic(() => import('@/components/sections/CaseStudiesSection'))
@@ -27,7 +25,6 @@ export default function Page() {
         <div className="container mx-auto max-w-5xl px-4"><FeaturedInSection /></div>
       </section>
       <TopCreatorsSection />
-      <FormulaSection />
       <HomeMasterclassGate>
         {/* The demo ends with the app and Claude. Keep the proof sequence uninterrupted. */}
         <div id="formula-message" data-home-section="demo"><HomeDemoSection /></div>
@@ -37,7 +34,6 @@ export default function Page() {
         <div data-home-section="results"><CaseStudiesSection /></div>
         <div data-home-section="trial"><HomeTrialPrompt moment="proof" /></div>
         <div id="formula-cost" data-home-section="cost"><QuickWinsSection /></div>
-        <div data-home-section="comparison"><FormulaCompareSection /></div>
         <div id="formula-apply" className="scroll-mt-20" data-home-section="apply"><HomeApplySection /></div>
         <MasterclassReminder />
         <FAQSection variant="home" />
