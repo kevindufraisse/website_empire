@@ -21,12 +21,12 @@ const CLIENT_LOGOS = [
   { name: 'The Sanctuary Group', src: '/logos/sanctuary.png' },
 ]
 
-type Plan = { name: string; tagline: string; price: string; per: string; note: string; items: string[]; cta: string; href: 'trial' | 'kevin' | 'hoc'; featured?: string }
+type Plan = { name: string; tagline: string; price: string; per: string; note: string; items: string[]; cta: string; href: 'trial' | 'kevin' | 'hoc'; featured?: string; limited?: boolean }
 
 const copy = {
   fr: {
     badge: 'Le studio de personal branding des dirigeants influents',
-    title: ['Vous parlez une heure par semaine.', 'Nous publions pour vous tous les jours, sur 7 réseaux sociaux.'],
+    title: ['Une heure par semaine.', 'Tout votre marché vous voit, chaque jour.'],
     intro: 'Kevin vous interviewe dans l’app Empire. L’équipe en tire vos posts LinkedIn, vos reels, vos vidéos YouTube et votre newsletter.',
     places: `${PLACES_LEFT} places restantes sur ${PLACES_TOTAL} avec Kevin`,
     // Les trois objections, de la plus fréquente à la moins fréquente : le temps, la caméra, ce que ça rapporte.
@@ -51,9 +51,13 @@ const copy = {
       ['Confiance', 'Vos prospects, vos candidats et vos partenaires ont vu vos vidéos avant de vous écrire. Ils arrivent convaincus, vous n’avez plus à vous présenter.'],
     ] as [string, string][],
     plansLabel: 'Les offres', plansTitle: 'Deux façons de travailler avec nous.',
+    growthLabel: 'Ce que les agences de contenu ne font pas',
+    growthIntro: 'Les deux offres travaillent votre croissance, pas seulement vos vues :',
+    growthItems: ['Optimisation de vos tunnels de vente', 'Pricing de vos offres', 'Lead generation : les contacts de chaque post, récupérés', 'Techniques de prospection', 'Visibilité quotidienne sur 7 réseaux', 'Republication de vos meilleurs posts'],
+    plansIncluded: '+ tout le programme de croissance ci-dessus',
     plansNote: 'Les deux offres faites pour vous sont sur candidature, pour douze mois.',
     plans: [
-      { name: 'Avec un Head of Content', tagline: 'Nous faisons pour vous, vous choisissez', price: '', per: '', note: 'Sur candidature · 12 mois · Places limitées',
+      { name: 'Avec un Head of Content', tagline: 'Nous faisons pour vous, vous choisissez', price: '', per: '', limited: true, note: 'Sur candidature · 12 mois',
         items: ['Un Head of Content formé par Kevin vous interviewe chaque semaine', 'L’équipe écrit et monte vos posts, reels, vidéos et newsletter', 'Vous choisissez dans votre calendrier Empire ce qui part', 'Publication sur 7 réseaux et contacts récupérés'], cta: 'Candidater', href: 'hoc' },
       { name: 'Avec Kevin', tagline: 'Nous faisons tout pour vous', price: '', per: '', note: 'Sur candidature · 12 mois', featured: `${PLACES_LEFT} places restantes sur ${PLACES_TOTAL}`,
         items: ['4 interviews par mois avec Kevin, 1 h maximum chacune', 'Vos sujets préparés chaque semaine à partir de votre marché et de vos concurrents', 'Posts LinkedIn, reels, vidéos YouTube longues et newsletter, écrits et montés par l’équipe', 'Publication chaque jour sur 7 réseaux, et vos meilleurs posts republiés', 'Liens suivis et réponses automatiques en DM Instagram pour récupérer vos contacts', 'Votre offre et votre tunnel de vente retravaillés avec Kevin', 'L’app Empire au complet et le live du lundi'], cta: 'Candidater', href: 'kevin' },
@@ -66,7 +70,7 @@ const copy = {
   },
   en: {
     badge: 'The personal branding studio for influential leaders',
-    title: ['You talk one hour a week.', 'We publish for you every day, on 7 social networks.'],
+    title: ['One hour a week.', 'Your whole market sees you, every day.'],
     intro: 'Kevin interviews you in the Empire app. The team turns it into your LinkedIn posts, reels, YouTube videos and newsletter.',
     places: `${PLACES_LEFT} of ${PLACES_TOTAL} spots left with Kevin`,
     objections: ['One hour a week, at most.', 'No studio: your iPhone and your earphones.', 'The contacts from every post, captured for you.'],
@@ -90,9 +94,13 @@ const copy = {
       ['Trust', 'Your prospects, candidates and partners have watched your videos before they write. They arrive convinced, you no longer have to introduce yourself.'],
     ] as [string, string][],
     plansLabel: 'Our offers', plansTitle: 'Two ways to work with us.',
+    growthLabel: 'What content agencies don\u2019t do',
+    growthIntro: 'Both offers work on your growth, not just your views:',
+    growthItems: ['Sales funnel optimisation', 'Pricing of your offers', 'Lead generation: every post\u2019s contacts, captured', 'Prospecting techniques', 'Daily visibility on 7 networks', 'Republishing of your best posts'],
+    plansIncluded: '+ the whole growth program above',
     plansNote: 'Both done-for-you options are by application, for twelve months.',
     plans: [
-      { name: 'With a Head of Content', tagline: 'Done for you, you choose', price: '', per: '', note: 'By application · 12 months · Limited spots',
+      { name: 'With a Head of Content', tagline: 'Done for you, you choose', price: '', per: '', limited: true, note: 'By application · 12 months',
         items: ['A Head of Content trained by Kevin interviews you every week', 'The team writes and edits your posts, reels, videos and newsletter', 'You pick in your Empire calendar what goes out', 'Published on 7 networks, contacts captured'], cta: 'Apply', href: 'hoc' },
       { name: 'With Kevin', tagline: 'We do everything for you', price: '', per: '', note: 'By application · 12 months', featured: `${PLACES_LEFT} spots left out of ${PLACES_TOTAL}`,
         items: ['4 interviews a month with Kevin, 1 hour max each', 'Your topics prepared every week from your market and competitors', 'LinkedIn posts, reels, long YouTube videos and newsletter, written and edited by the team', 'Published every day on 7 networks, your best posts republished', 'Tracked links and automatic Instagram DM replies to capture your contacts', 'Your offer and sales funnel reworked with Kevin', 'The full Empire app and the Monday live'], cta: 'Apply', href: 'kevin' },
@@ -232,9 +240,20 @@ export default function LegendeMarketing({ lang, onApply }: { lang: 'fr' | 'en';
       <Reveal>
         <Label>{t.plansLabel}</Label>
         <h2 id="legende-plans" className={styles.sectionTitle}>{t.plansTitle}</h2>
-        <div className="mx-auto mt-8 grid max-w-3xl gap-4 sm:grid-cols-2">
+        {/* Le socle commun des deux offres : la croissance, pas seulement les vues. */}
+        <div className="mx-auto mt-8 max-w-3xl rounded-2xl border border-white/10 bg-white/[0.02] p-6 sm:p-7">
+          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#e7c49c]">{t.growthLabel}</p>
+          <p className="mt-2 text-[14.5px] text-neutral-300">{t.growthIntro}</p>
+          <ul className="mt-4 grid gap-x-8 gap-y-2.5 sm:grid-cols-2">
+            {t.growthItems.map(item => <li key={item} className="flex gap-2.5 text-[14.5px] leading-snug text-white">
+              <Check aria-hidden size={16} className="mt-0.5 shrink-0 text-autopilot" />{item}
+            </li>)}
+          </ul>
+        </div>
+        <div className="mx-auto mt-6 grid max-w-3xl gap-4 sm:grid-cols-2">
           {t.plans.map(plan => <div key={plan.name} className={`${styles.plan} ${plan.featured ? styles.planFeatured : ''}`}>
             {plan.featured && <span className={styles.planTag}>{plan.featured}</span>}
+            {plan.limited && !plan.featured && <span className={styles.planTagGhost}>{lang === 'fr' ? 'Places limitées' : 'Limited spots'}</span>}
             <h3 className="text-[17px] font-semibold text-white">{plan.name}</h3>
             <p className="text-[14px] text-autopilot">{plan.tagline}</p>
             {plan.price && <p className="mt-4"><span className={styles.planPrice}>{plan.price}</span><span className="text-[14px] text-neutral-400">{plan.per}</span></p>}
@@ -243,6 +262,7 @@ export default function LegendeMarketing({ lang, onApply }: { lang: 'fr' | 'en';
               {plan.items.map(item => <li key={item} className="flex gap-2.5 text-[14.5px] leading-snug text-neutral-300">
                 <Check aria-hidden size={16} className="mt-0.5 shrink-0 text-autopilot" />{item}
               </li>)}
+              <li className="flex gap-2.5 text-[14.5px] font-semibold leading-snug text-[#e7c49c]">{t.plansIncluded}</li>
             </ul>
             {plan.href === 'trial'
               ? <a href={TRIAL_URL} className={`mt-6 ${styles.ghost} justify-center`}>{plan.cta}</a>

@@ -85,7 +85,7 @@
 .successIcon { display: grid; place-content: center; width: 44px; height: 44px; margin-bottom: 16px; border-radius: 50%; background: rgb(212 165 116 / .15); color: #d4a574; }
 .page { padding-top: 88px; padding-bottom: 0; color: #fff; }
 .label { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: #a8a29a; }
-.display { margin-top: 16px; font-family: var(--font-serif), Georgia, 'Times New Roman', serif; font-size: clamp(40px, 5.2vw, 66px); line-height: 1; font-weight: 400; letter-spacing: -.025em; }
+.display { margin-top: 16px; font-family: var(--font-serif), Georgia, 'Times New Roman', serif; font-size: clamp(32px, 4vw, 50px); line-height: 1.04; font-weight: 400; letter-spacing: -.025em; }
 .display em { font-style: italic; color: #d4a574; }
 .badge { display: inline-block; border: 1px solid rgb(212 165 116 / .35); border-radius: 999px; background: rgb(212 165 116 / .08); padding: 6px 14px; font-size: 12.5px; font-weight: 600; letter-spacing: .04em; color: #e7c49c; }
 .heroStat { font-family: var(--font-serif), Georgia, serif; font-size: clamp(38px, 5vw, 52px); line-height: 1; color: #fff; }
@@ -95,7 +95,7 @@
 .pill:hover { background: #e4b885; }
 .ghost { display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 0 18px; border-radius: 999px; border: 1px solid rgb(255 255 255 / .18); color: #e7e2dc; font-size: 15px; font-weight: 550; }
 .ghost:hover { border-color: rgb(255 255 255 / .4); }
-.sectionTitle { margin-top: 10px; font-family: var(--font-serif), Georgia, 'Times New Roman', serif; font-size: clamp(32px, 4.6vw, 48px); font-weight: 400; letter-spacing: -.02em; line-height: 1.08; }
+.sectionTitle { margin-top: 10px; font-family: var(--font-serif), Georgia, 'Times New Roman', serif; font-size: clamp(26px, 3.4vw, 38px); font-weight: 400; letter-spacing: -.02em; line-height: 1.08; }
 .serviceName { font-size: clamp(22px, 3vw, 30px); font-weight: 600; letter-spacing: -.03em; }
 .tag { border: 1px solid rgb(255 255 255 / .14); border-radius: 999px; padding: 4px 11px; font-size: 12.5px; color: #cfc9c2; }
 .number { font-size: 14px; font-weight: 700; color: #d4a574; font-variant-numeric: tabular-nums; }
@@ -126,6 +126,7 @@
 .plan { position: relative; display: flex; flex-direction: column; border: 1px solid rgb(255 255 255 / .1); border-radius: 20px; background: rgb(255 255 255 / .025); padding: 28px 24px 24px; }
 .planFeatured { border-color: rgb(212 165 116 / .55); background: linear-gradient(180deg, rgb(212 165 116 / .1), rgb(212 165 116 / .02)); box-shadow: 0 30px 80px rgb(212 165 116 / .08); }
 .planTag { position: absolute; top: -12px; left: 24px; border-radius: 999px; background: #d4a574; color: #17110b; padding: 4px 11px; font-size: 12px; font-weight: 650; }
+.planTagGhost { position: absolute; top: -12px; left: 24px; border-radius: 999px; background: #121212; border: 1px solid rgb(212 165 116 / .5); color: #e7c49c; padding: 3px 11px; font-size: 12px; font-weight: 650; }
 .planPrice { font-family: var(--font-serif), Georgia, 'Times New Roman', serif; font-size: clamp(30px, 3.4vw, 40px); line-height: 1; color: #fff; white-space: nowrap; }
 /* La scène d'interview : l'iPhone, et autour deux légendes fléchées. Sur petit écran les légendes passent au-dessus. */
 .phoneScene { --phone-w: min(272px, 62vw); position: relative; justify-self: center; padding: 48px 0 0; }
