@@ -2,7 +2,6 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
-import { FORMULA_TERMS } from './formulaTerms'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import { SocialIcons } from '@/components/ui/social-icons'
@@ -269,14 +268,6 @@ function ScrollCue({ lang }: { lang: string }) {
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6 6-6" /></svg>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="-mt-2 opacity-50"><path d="M6 9l6 6 6-6" /></svg>
       </motion.span>
-      <span className="flex items-center gap-1 rounded-full border border-white/10 bg-black/60 px-3 py-1" aria-hidden>
-        {FORMULA_TERMS.map((t, i) => (
-          <span key={t.key} className="flex items-center">
-            {i > 0 && <span className="px-0.5 text-[8px] text-neutral-600">{i === 3 ? '/' : i === 4 ? '+' : '×'}</span>}
-            <span className="select-none text-[10px] font-bold tracking-tight text-white opacity-35 blur-[4px]">{lang === 'fr' ? t.fr : t.en}</span>
-          </span>
-        ))}
-      </span>
       <span>{lang === 'fr' ? 'Il existe une formule. Scrolle pour la révéler.' : 'There is a formula. Scroll to reveal it.'}</span>
     </button>
   )
