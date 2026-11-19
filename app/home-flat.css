@@ -40,3 +40,10 @@ body:has(.home-flat) [data-mobile-menu]{max-height:calc(var(--empire-viewport-he
  .home-flat [data-story="formula"] [data-scene="formats"]>div:nth-child(2){display:block}
  .home-flat [data-story="formula"] [data-scene="formats"]>div:last-child{display:none}
 }
+
+/* Lisibilité : les titres de section de l'accueil étaient trop gros (jusqu'à
+   56 px). Plafond commun, pour que tout reste proportionné. */
+.home-flat > :not(:first-child) h2 {
+  font-size: clamp(1.5rem, 5vw, 2.25rem) !important;
+  line-height: 1.2 !important;
+}

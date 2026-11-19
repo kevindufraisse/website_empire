@@ -90,7 +90,7 @@ export default function HeroSection() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 0 }}
                 transition={{ duration: 0.4, ease: 'easeOut' }}
-                className="text-[27px] min-[380px]:text-3xl sm:text-4xl md:text-5xl font-extrabold leading-[1.15]"
+                className="text-[26px] min-[380px]:text-[28px] sm:text-4xl lg:text-[2.6rem] font-extrabold leading-[1.15]"
                 dangerouslySetInnerHTML={{ __html: heroTitle.replace(/<br\/>/g, '<br>') }}
               />
             </AnimatePresence>
@@ -100,7 +100,7 @@ export default function HeroSection() {
                 initial={mounted ? { opacity: 0, y: 8 } : false}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.1 }}
-                className="mt-4 text-xl sm:text-2xl md:text-3xl font-semibold leading-snug text-neutral-300 max-w-3xl mx-auto text-balance"
+                className="mt-4 text-lg sm:text-xl md:text-2xl font-semibold leading-snug text-neutral-300 max-w-3xl mx-auto text-balance"
                 dangerouslySetInnerHTML={{ __html: heroTitleH2.replace(/<br\/>/g, '<br>') }}
               />
             )}
