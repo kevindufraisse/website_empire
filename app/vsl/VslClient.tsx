@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Script from 'next/script'
-import { Play, Pause, Volume2, VolumeX, Maximize, Check, ArrowRight, ChevronDown } from 'lucide-react'
+import { Play, Pause, Volume2, VolumeX, Maximize, Check, ArrowRight, ChevronDown, RotateCcw } from 'lucide-react'
 import { trackAmplitude } from '@/lib/amplitude'
 import { startFreeTrial, TRIAL_TERMS_FR } from '@/lib/startTrial'
 import { CTA_PRIMARY, CTA_SECONDARY, CtaPair } from '@/components/ui/cta'
@@ -213,6 +213,15 @@ function VideoPlayer({
     trackAmplitude('vsl_speed_changed', { speed: next })
   }
 
+  const seekBack = () => {
+    const v = videoRef.current
+    if (!v) return
+    const to = Math.max(0, v.currentTime - 10)
+    v.currentTime = to
+    lastTimeRef.current = to
+    writeStore(TIME_KEY, String(Math.floor(to)))
+  }
+
   const toggleMute = () => {
     const v = videoRef.current
     if (!v) return
@@ -273,14 +282,27 @@ function VideoPlayer({
               dans la vidéo au lieu de regarder ce qu'il lui reste. La reprise
               là où on s'était arrêté continue de marcher en coulisses. */}
           <div className="flex items-center justify-between gap-2">
-            <button
-              type="button"
-              onClick={togglePlay}
-              aria-label={isPlaying ? 'Pause' : 'Lecture'}
-              className="mr-auto flex items-center justify-center w-9 h-9 rounded-full text-white hover:bg-white/10"
-            >
-              {isPlaying ? <Pause className="w-5 h-5" fill="currentColor" /> : <Play className="w-5 h-5" fill="currentColor" />}
-            </button>
+            <div className="mr-auto flex items-center gap-1">
+              <button
+                type="button"
+                onClick={togglePlay}
+                aria-label={isPlaying ? 'Pause' : 'Lecture'}
+                className="flex items-center justify-center w-9 h-9 rounded-full text-white hover:bg-white/10"
+              >
+                {isPlaying ? <Pause className="w-5 h-5" fill="currentColor" /> : <Play className="w-5 h-5" fill="currentColor" />}
+              </button>
+              {/* On peut revenir en arrière (revoir un passage), jamais avancer :
+                  le lecteur reste sans barre ni saut vers l'avant. */}
+              <button
+                type="button"
+                onClick={seekBack}
+                aria-label="Revenir 10 secondes en arrière"
+                className="relative flex items-center justify-center w-9 h-9 rounded-full text-white hover:bg-white/10"
+              >
+                <RotateCcw className="w-5 h-5" />
+                <span className="absolute text-[8px] font-bold leading-none mt-px">10</span>
+              </button>
+            </div>
             <div className="flex items-center gap-1">
               <div className="relative">
                 <button

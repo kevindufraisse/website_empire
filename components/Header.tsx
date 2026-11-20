@@ -68,7 +68,7 @@ export default function Header() {
   const menus: { key: MenuKey; label: string; active: boolean; items: MenuItem[] }[] = [
     {
       key: 'resources', label: fr ? 'Contenus gratuits' : 'Free content', active: false, items: [
-        { href: '/vsl', name: fr ? 'Masterclass Empire' : 'Empire masterclass', what: fr ? 'La méthode expliquée pas à pas, 1 h 26. Gratuit.' : 'The method, step by step, 1h26. Free.' },
+        { href: '/vsl', name: fr ? 'Masterclass Empire' : 'Empire masterclass', what: fr ? 'La méthode expliquée pas à pas, 30 min. Gratuit.' : 'The method, step by step, 30 min. Free.' },
         { href: postitJoinUrl('header'), name: 'Post it like it’s hot', what: fr ? 'En direct le lundi à 14 h : on trouve ton prochain contenu viral.' : 'Live on Mondays at 2pm: we find your next viral piece.', external: true },
         { href: 'https://join.empire-internet.com/instagram-scrapper', name: fr ? 'Trouver les Reels viraux' : 'Find viral Reels', what: fr ? 'D’un compte Instagram. Gratuit.' : 'From any Instagram account. Free.', external: true },
         { href: 'https://join.empire-internet.com/3-templates-linkedin', name: fr ? 'Mes 3 templates LinkedIn' : 'My 3 LinkedIn templates', what: fr ? 'Les plus viraux, à copier-coller. Gratuit.' : 'The most viral ones, copy-paste. Free.', external: true },

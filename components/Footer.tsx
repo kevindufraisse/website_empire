@@ -110,7 +110,7 @@ export default function Footer() {
                 <div className="flex flex-col gap-2 items-center md:items-start">
                   {!isVslPage && (
                     <a href="/vsl" className="text-sm text-neutral-400 hover:text-empire transition-colors">
-                      {lang === 'fr' ? 'Workshop gratuit : la formule du million de vues (1 h 26)' : 'Free workshop: the million-views formula (1h26)'}
+                      {lang === 'fr' ? 'Workshop gratuit : la formule du million de vues (30 min)' : 'Free workshop: the million-views formula (30 min)'}
                     </a>
                   )}
                   <a href="/quiz" className="text-sm text-neutral-400 hover:text-empire transition-colors">
