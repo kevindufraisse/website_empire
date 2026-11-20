@@ -31,7 +31,7 @@ export default function HeroSection() {
 
   const heroBadge = autopilot ? t.autopilot.hero.targetAudience : t.hero.targetAudience
   const heroTitle = autopilot ? t.autopilot.hero.title : (lang === 'fr' ? 'L’avantage injuste pour développer ta marque personnelle.' : 'The unfair advantage for growing your personal brand.')
-  const heroTitleH2 = autopilot ? null : (lang === 'fr' ? 'Sois vu, acheté et recommandé grâce à ton contenu en 1 h par semaine.' : 'Get seen, chosen and recommended through your content in one hour a week.')
+  const heroTitleH2 = autopilot ? null : (lang === 'fr' ? 'Sois vu, acheté et recommandé grâce à une omniprésence sur tous les réseaux sociaux, en 1 h par semaine.' : 'Get seen, chosen and recommended through omnipresence on every social network, in one hour a week.')
   const heroTitleNote = null
   // La formule n'est plus dans le hero : `FormulaBar` n'apparaît qu'au scroll (pilule flottante).
   const heroSubtitle = autopilot ? t.autopilot.hero.subtitle : null
@@ -55,7 +55,7 @@ export default function HeroSection() {
   }
 
   return (
-    <section className="relative flex w-full flex-col overflow-hidden border-b border-white/10 bg-gradient-to-b from-black via-transparent to-[#0f0f0f] pb-6 pt-16 md:pb-8 md:pt-20 lg:min-h-[calc(100svh-300px)] lg:pb-8">
+    <section className="relative flex w-full flex-col overflow-hidden border-b border-white/10 bg-gradient-to-b from-black via-transparent to-[#0f0f0f] pb-6 pt-16 md:pb-8 md:pt-20 lg:min-h-[calc(100svh-180px)] lg:pb-10">
       <div className="container flex flex-1 flex-col">
         <RetroGrid />
         <div className={`absolute inset-0 transition-opacity duration-500 ${autopilot ? 'opacity-0' : 'opacity-100'} bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgb(var(--empire-rgb)_/_0.15),transparent)]`} />
@@ -122,7 +122,7 @@ export default function HeroSection() {
                 initial={mounted ? { opacity: 0 } : false}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="mt-4 lg:mt-5 flex items-center justify-center gap-2"
+                className="mt-4 lg:mt-6 flex items-center justify-center gap-2"
               >
                 <span className="text-[11px] text-neutral-500">{lang === 'fr' ? 'Adapté pour' : 'Adapted for'}</span>
                 <div className="flex items-center gap-3 text-neutral-400 [&_path]:fill-current [&_circle]:fill-current">
@@ -154,7 +154,7 @@ export default function HeroSection() {
               initial={mounted ? { opacity: 0, y: 10 } : false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.6 }}
-              className="mt-7 flex flex-col items-center gap-5 lg:gap-4"
+              className="mt-7 flex flex-col items-center gap-5 lg:mt-8 lg:gap-5"
             >
               <div className="w-full flex justify-center px-1">
                 {autopilot ? (
@@ -200,7 +200,7 @@ export default function HeroSection() {
                   réplique les formats, pas la pastille du fondateur - elle vit
                   dans la section fondateur plus bas. Fichiers locaux, jamais de
                   hotlink : un avatar cassé dans le hero est le pire endroit. */}
-              <div className="mt-1 lg:mt-2 flex flex-col items-center gap-3">
+              <div className="mt-1 lg:mt-3 flex flex-col items-center gap-3">
                 <div className="flex max-w-full items-center gap-3 sm:gap-4 px-3.5 py-2 pl-2 rounded-full bg-[#0d0d0d] border border-white/10">
                   <div className="flex shrink-0 -space-x-2">
                     {HERO_CREATORS.map((c) => (
@@ -218,22 +218,10 @@ export default function HeroSection() {
                   </div>
                   <span className="text-[11px] sm:text-xs text-neutral-300 text-left leading-snug">
                     {lang === 'fr'
-                      ? <>Ils utilisent déjà le système Empire. <span className="text-neutral-500">Prêt à l’emploi pour toi.</span></>
-                      : <>They already use the Empire system. <span className="text-neutral-500">Ready for you.</span></>}
+                      ? <>Inspiré du système <span className="text-neutral-500">des meilleurs créateurs du monde.</span></>
+                      : <>Inspired by the system <span className="text-neutral-500">of the world’s best creators.</span></>}
                   </span>
                 </div>
-                {!autopilot && (
-                  <div className="flex flex-wrap items-center justify-center gap-2 text-[11px] font-semibold text-neutral-400 sm:gap-2.5 sm:text-xs">
-                    {(lang === 'fr'
-                      ? ['1 an de R&D', '10 000+ posts testés', '10M de vues par mois']
-                      : ['1 year of R&D', '10,000+ posts tested', '10M views a month']
-                    ).map((item) => (
-                      <span key={item} className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-0.5">
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-                )}
               </div>
             </motion.div>
 
@@ -257,18 +245,18 @@ function ScrollCue({ lang }: { lang: string }) {
     <button
       type="button"
       onClick={() => (document.getElementById('home-creators') ?? document.getElementById('formula-message'))?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-      className="relative z-10 mx-auto mt-4 lg:mt-6 flex flex-col items-center gap-1 text-xs font-semibold text-neutral-300 transition-colors hover:text-white"
+      className="relative z-10 mx-auto mt-4 lg:mt-8 flex flex-col items-center gap-1 text-xs font-semibold text-neutral-300 transition-colors hover:text-white"
     >
       <motion.span
         aria-hidden
-        animate={{ y: [0, 5, 0] }}
-        transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+        animate={{ y: [0, 7, 0] }}
+        transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
         className="flex flex-col items-center text-empire drop-shadow-[0_0_10px_rgb(var(--empire-rgb)_/_0.8)]"
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6 6-6" /></svg>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="-mt-2 opacity-50"><path d="M6 9l6 6 6-6" /></svg>
       </motion.span>
-      <span>{lang === 'fr' ? 'Il existe une formule. Scrolle pour la révéler.' : 'There is a formula. Scroll to reveal it.'}</span>
+      <span className="sr-only">{lang === 'fr' ? 'Découvrir la suite' : 'See more'}</span>
     </button>
   )
 }

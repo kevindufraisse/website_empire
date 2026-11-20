@@ -3,7 +3,6 @@ import dynamic from 'next/dynamic'
 import './home-flat.css'
 import HeroSection from '@/components/sections/HeroSection'
 import TopCreatorsSection from '@/components/sections/TopCreatorsSection'
-import FormulaProgressPill from '@/components/sections/FormulaProgressPill'
 import FormulaSecretReveal from '@/components/sections/FormulaSecretReveal'
 import HomeApplySection from '@/components/sections/HomeApplySection'
 import FeaturedInSection from '@/components/FeaturedInSection'
@@ -23,7 +22,6 @@ export default function Page() {
   return (
     <main className="relative home-flat">
       <HeroSection />
-      <FormulaProgressPill />
       <section className="w-full bg-black py-4 sm:py-5">
         <div className="container mx-auto max-w-5xl px-4"><FeaturedInSection /></div>
       </section>
