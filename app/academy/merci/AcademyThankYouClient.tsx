@@ -6,7 +6,6 @@ import { ArrowRight, CheckCircle2, Share2 } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 // Les trois accès d'un membre (29 octobre 2026).
-const SLACK_INVITE_URL = 'https://join.slack.com/t/empire-community/shared_invite/zt-48r5is0lz-MiYTUfVBYgNymUbb56h_6g'
 const MONDAY_LIVE_URL = 'https://join.empire-internet.com/masterclass-empire-internet'
 const APP_URL = 'https://app.empire-internet.com'
 
@@ -84,12 +83,12 @@ export default function AcademyThankYouClient() {
             {(fr
               ? [
                   { href: APP_URL, t: 'Ouvre l’app Empire', d: 'Connecte-toi avec l’email du paiement : le bootcamp t’y attend.' },
-                  { href: SLACK_INVITE_URL, t: 'Rejoins le Slack', d: 'La communauté Empire Partners, pour avancer et poser tes questions.' },
+                  { href: 'https://app.empire-internet.com/academy', t: 'Rejoins le groupe WhatsApp privé', d: 'La communauté Empire Partners, pour avancer et poser tes questions. Le lien d\u2019invitation t\u2019attend dans ton espace Empire.' },
                   { href: MONDAY_LIVE_URL, t: 'Inscris-toi au live du lundi', d: 'Un live chaque lundi à 14 h.' },
                 ]
               : [
                   { href: APP_URL, t: 'Open the Empire app', d: 'Sign in with your payment email: the bootcamp is waiting for you.' },
-                  { href: SLACK_INVITE_URL, t: 'Join the Slack', d: 'The Empire Partners community, to move forward and ask your questions.' },
+                  { href: 'https://app.empire-internet.com/academy', t: 'Join the private WhatsApp group', d: 'The Empire Partners community, to move forward and ask your questions. The invite link is waiting in your Empire space.' },
                   { href: MONDAY_LIVE_URL, t: 'Register for the Monday live', d: 'A live every Monday at 2 pm.' },
                 ]
             ).map((a, i) => (
