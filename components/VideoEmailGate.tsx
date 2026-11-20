@@ -31,16 +31,25 @@ export function storeVideoEmail(email: string) {
  */
 export function adoptEmailFromUrl(funnel: VideoFunnel): boolean {
   const fromUrl = (new URLSearchParams(window.location.search).get('email') || '').trim().toLowerCase()
-  if (!storedVideoEmail() && EMAIL_RE.test(fromUrl)) {
-    storeVideoEmail(fromUrl)
-    fetch('/api/vsl-email', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: fromUrl, funnel }),
-    }).catch(() => {})
+  const stored = storedVideoEmail()
+  const email = EMAIL_RE.test(fromUrl) ? fromUrl : stored
+  if (!email || !EMAIL_RE.test(email)) return false
+
+  // Unlocking is shared across videos, but each funnel needs its own CRM tag.
+  // Re-send on navigation so an existing Empire viewer also enters Academy.
+  // Systeme.io tag assignment is idempotent; do not persist a client-side
+  // "synced" flag because this endpoint acknowledges before the CRM finishes.
+  storeVideoEmail(email)
+  fetch('/api/vsl-email', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, funnel }),
+    keepalive: true,
+  }).catch(() => {})
+  if (EMAIL_RE.test(fromUrl) && fromUrl !== stored) {
     trackAmplitude('vsl_email_submitted', { source: 'url', funnel })
   }
-  return Boolean(storedVideoEmail())
+  return true
 }
 
 /** Formulaire posé sur la vignette : l'email part dans Systeme.io avant la lecture. */
