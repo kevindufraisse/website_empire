@@ -55,7 +55,7 @@ export default function HeroSection() {
   }
 
   return (
-    <section className="relative flex w-full flex-col overflow-hidden border-b border-white/10 bg-gradient-to-b from-black via-transparent to-[#0f0f0f] pb-6 pt-16 md:pb-8 md:pt-20 lg:min-h-[calc(100svh-170px)] lg:pb-10">
+    <section className="relative flex w-full flex-col overflow-hidden border-b border-white/10 bg-gradient-to-b from-black via-transparent to-[#0f0f0f] pb-6 pt-16 md:pb-8 md:pt-20 lg:min-h-[calc(100svh-300px)] lg:pb-8">
       <div className="container flex flex-1 flex-col">
         <RetroGrid />
         <div className={`absolute inset-0 transition-opacity duration-500 ${autopilot ? 'opacity-0' : 'opacity-100'} bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgb(var(--empire-rgb)_/_0.15),transparent)]`} />
@@ -100,7 +100,7 @@ export default function HeroSection() {
                 initial={mounted ? { opacity: 0, y: 8 } : false}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.1 }}
-                className="mt-4 lg:mt-6 text-lg sm:text-xl md:text-2xl font-semibold leading-snug text-neutral-300 max-w-3xl mx-auto text-balance"
+                className="mt-4 lg:mt-5 text-lg sm:text-xl md:text-2xl lg:text-xl font-semibold leading-snug text-neutral-300 max-w-3xl mx-auto text-balance"
                 dangerouslySetInnerHTML={{ __html: heroTitleH2.replace(/<br\/>/g, '<br>') }}
               />
             )}
@@ -110,7 +110,7 @@ export default function HeroSection() {
                 initial={mounted ? { opacity: 0, y: 8 } : false}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.1 }}
-                className="mt-3 lg:mt-5 text-lg sm:text-xl md:text-2xl font-medium text-neutral-300 max-w-2xl mx-auto text-balance"
+                className="mt-3 lg:mt-4 text-lg sm:text-xl md:text-2xl lg:text-xl font-medium text-neutral-300 max-w-2xl mx-auto text-balance"
               >
                 {heroTitleNote}
               </motion.p>
@@ -122,7 +122,7 @@ export default function HeroSection() {
                 initial={mounted ? { opacity: 0 } : false}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="mt-4 lg:mt-7 flex items-center justify-center gap-2"
+                className="mt-4 lg:mt-5 flex items-center justify-center gap-2"
               >
                 <span className="text-[11px] text-neutral-500">{lang === 'fr' ? 'Adapté pour' : 'Adapted for'}</span>
                 <div className="flex items-center gap-3 text-neutral-400 [&_path]:fill-current [&_circle]:fill-current">
@@ -143,7 +143,7 @@ export default function HeroSection() {
                 initial={mounted ? { opacity: 0, y: 10 } : false}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.25 }}
-                className="mt-5 lg:mt-7 text-[15px] sm:text-base text-neutral-300 max-w-2xl mx-auto leading-relaxed"
+                className="mt-5 text-[15px] sm:text-base text-neutral-300 max-w-2xl mx-auto leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: heroSubtitle }}
               />
             )}
@@ -154,7 +154,7 @@ export default function HeroSection() {
               initial={mounted ? { opacity: 0, y: 10 } : false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.6 }}
-              className="mt-7 flex flex-col items-center gap-5 lg:mt-10 lg:gap-6"
+              className="mt-7 flex flex-col items-center gap-5 lg:gap-4"
             >
               <div className="w-full flex justify-center px-1">
                 {autopilot ? (
@@ -200,7 +200,7 @@ export default function HeroSection() {
                   réplique les formats, pas la pastille du fondateur - elle vit
                   dans la section fondateur plus bas. Fichiers locaux, jamais de
                   hotlink : un avatar cassé dans le hero est le pire endroit. */}
-              <div className="mt-1 lg:mt-3 flex flex-col items-center gap-3">
+              <div className="mt-1 lg:mt-2 flex flex-col items-center gap-3">
                 <div className="flex max-w-full items-center gap-3 sm:gap-4 px-3.5 py-2 pl-2 rounded-full bg-[#0d0d0d] border border-white/10">
                   <div className="flex shrink-0 -space-x-2">
                     {HERO_CREATORS.map((c) => (
@@ -257,7 +257,7 @@ function ScrollCue({ lang }: { lang: string }) {
     <button
       type="button"
       onClick={() => (document.getElementById('home-creators') ?? document.getElementById('formula-message'))?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-      className="relative z-10 mx-auto mt-4 lg:mt-9 flex flex-col items-center gap-1 text-xs font-semibold text-neutral-300 transition-colors hover:text-white"
+      className="relative z-10 mx-auto mt-4 lg:mt-6 flex flex-col items-center gap-1 text-xs font-semibold text-neutral-300 transition-colors hover:text-white"
     >
       <motion.span
         aria-hidden
