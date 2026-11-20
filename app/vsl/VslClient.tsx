@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Script from 'next/script'
-import { Play, Pause, Volume2, VolumeX, Maximize, Check, ArrowRight, ChevronDown } from 'lucide-react'
+import { Play, Pause, Volume2, VolumeX, Maximize, Minimize, Check, ArrowRight, ChevronDown, RotateCcw } from 'lucide-react'
 import { trackAmplitude } from '@/lib/amplitude'
 import { startFreeTrial, TRIAL_TERMS_FR } from '@/lib/startTrial'
 import { CTA_PRIMARY, CTA_SECONDARY, CtaPair } from '@/components/ui/cta'
@@ -127,7 +127,9 @@ function VideoPlayer({
   const [speed, setSpeed] = useState(DEFAULT_SPEED)
   const [speedOpen, setSpeedOpen] = useState(false)
   const [muted, setMuted] = useState(false)
-  const [canFullscreen, setCanFullscreen] = useState(false)
+  // iPhone Safari n'a pas l'API Fullscreen sur un élément : on retombe
+  // alors sur un faux plein écran CSS, qui garde nos commandes (pas de barre).
+  const [pseudoFull, setPseudoFull] = useState(false)
   const [current, setCurrent] = useState(0)
   const [duration, setDuration] = useState(0)
 
@@ -135,7 +137,6 @@ function VideoPlayer({
     unlockedRef.current = adoptEmailFromUrl('empire')
     watchedRef.current = Number(readStore(WATCHED_KEY)) || 0
     setStartAt(Number(readStore(TIME_KEY)) || 0)
-    setCanFullscreen(Boolean(document.fullscreenEnabled))
   }, [])
 
   useEffect(() => {
@@ -213,6 +214,15 @@ function VideoPlayer({
     trackAmplitude('vsl_speed_changed', { speed: next })
   }
 
+  const seekBack = () => {
+    const v = videoRef.current
+    if (!v) return
+    const to = Math.max(0, v.currentTime - 10)
+    v.currentTime = to
+    lastTimeRef.current = to
+    writeStore(TIME_KEY, String(Math.floor(to)))
+  }
+
   const toggleMute = () => {
     const v = videoRef.current
     if (!v) return
@@ -223,9 +233,30 @@ function VideoPlayer({
   const toggleFullscreen = () => {
     const el = containerRef.current
     if (!el) return
-    if (document.fullscreenElement) document.exitFullscreen().catch(() => {})
-    else el.requestFullscreen?.().catch(() => {})
+    if (document.fullscreenElement) {
+      document.exitFullscreen().catch(() => {})
+      return
+    }
+    if (pseudoFull) {
+      setPseudoFull(false)
+      return
+    }
+    if (typeof el.requestFullscreen === 'function') {
+      el.requestFullscreen().catch(() => setPseudoFull(true))
+    } else {
+      setPseudoFull(true)
+    }
   }
+
+  // En faux plein écran, la page derrière ne défile pas.
+  useEffect(() => {
+    if (!pseudoFull) return
+    const previous = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = previous
+    }
+  }, [pseudoFull])
 
   const unlock = () => {
     unlockedRef.current = true
@@ -237,7 +268,9 @@ function VideoPlayer({
   return (
     <div
       ref={containerRef}
-      className="relative w-full aspect-video rounded-2xl overflow-hidden border border-white/10 bg-black shadow-[0_0_60px_-12px_rgb(var(--empire-rgb)_/_0.25)]"
+      className={pseudoFull
+        ? 'fixed inset-0 z-[100] w-auto bg-black overflow-hidden'
+        : 'relative w-full aspect-video rounded-2xl overflow-hidden border border-white/10 bg-black shadow-[0_0_60px_-12px_rgb(var(--empire-rgb)_/_0.25)]'}
     >
       {started ? (
         <>
@@ -273,14 +306,27 @@ function VideoPlayer({
               dans la vidéo au lieu de regarder ce qu'il lui reste. La reprise
               là où on s'était arrêté continue de marcher en coulisses. */}
           <div className="flex items-center justify-between gap-2">
-            <button
-              type="button"
-              onClick={togglePlay}
-              aria-label={isPlaying ? 'Pause' : 'Lecture'}
-              className="mr-auto flex items-center justify-center w-9 h-9 rounded-full text-white hover:bg-white/10"
-            >
-              {isPlaying ? <Pause className="w-5 h-5" fill="currentColor" /> : <Play className="w-5 h-5" fill="currentColor" />}
-            </button>
+            <div className="mr-auto flex items-center gap-1">
+              <button
+                type="button"
+                onClick={togglePlay}
+                aria-label={isPlaying ? 'Pause' : 'Lecture'}
+                className="flex items-center justify-center w-9 h-9 rounded-full text-white hover:bg-white/10"
+              >
+                {isPlaying ? <Pause className="w-5 h-5" fill="currentColor" /> : <Play className="w-5 h-5" fill="currentColor" />}
+              </button>
+              {/* On peut revenir en arrière (revoir un passage), jamais avancer :
+                  le lecteur reste sans barre ni saut vers l'avant. */}
+              <button
+                type="button"
+                onClick={seekBack}
+                aria-label="Revenir 10 secondes en arrière"
+                className="relative flex items-center justify-center w-9 h-9 rounded-full text-white hover:bg-white/10"
+              >
+                <RotateCcw className="w-5 h-5" />
+                <span className="absolute text-[8px] font-bold leading-none mt-px">10</span>
+              </button>
+            </div>
             <div className="flex items-center gap-1">
               <div className="relative">
                 <button
@@ -315,16 +361,14 @@ function VideoPlayer({
               >
                 {muted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
               </button>
-              {canFullscreen && (
-                <button
-                  type="button"
-                  onClick={toggleFullscreen}
-                  aria-label="Plein écran"
-                  className="flex items-center justify-center w-9 h-9 rounded-full text-white hover:bg-white/10"
-                >
-                  <Maximize className="w-5 h-5" />
-                </button>
-              )}
+              <button
+                type="button"
+                onClick={toggleFullscreen}
+                aria-label={pseudoFull ? 'Quitter le plein écran' : 'Plein écran'}
+                className="flex items-center justify-center w-9 h-9 rounded-full text-white hover:bg-white/10"
+              >
+                {pseudoFull ? <Minimize className="w-5 h-5" /> : <Maximize className="w-5 h-5" />}
+              </button>
             </div>
           </div>
           </div>

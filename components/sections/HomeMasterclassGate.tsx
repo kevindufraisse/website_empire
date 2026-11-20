@@ -95,7 +95,7 @@ export function MasterclassForm({ onReady, reminder = false, idPrefix }: {
       <div className={s.field}><Mail size={18}/><input id={`masterclass-email-${suffix}`} type="email" autoComplete="email" inputMode="email" required maxLength={254} value={email} onChange={e => { setEmail(e.target.value); if (status === 'error') setStatus('idle') }} placeholder="toi@entreprise.com" aria-invalid={status === 'error' && invalid} aria-describedby={`masterclass-note-${suffix}`} disabled={status === 'loading'}/></div>
       <div className={s.honeypot} aria-hidden><label htmlFor={`masterclass-company-${suffix}`}>Company</label><input id={`masterclass-company-${suffix}`} name="company" value={company} onChange={e => setCompany(e.target.value)} tabIndex={-1} autoComplete="off"/></div>
       <button type="submit" disabled={status === 'loading'}>{status === 'loading' ? (fr ? 'Enregistrement…' : 'Registering…') : (fr ? 'Recevoir la masterclass gratuite' : 'Get the free masterclass')}<ArrowRight size={17}/></button>
-      <small id={`masterclass-note-${suffix}`}>{PREVIEW ? 'Aperçu du formulaire · envoi d’email désactivé.' : fr ? '1 h 26 de vidéo. À regarder quand tu veux.' : '1h26 of video. Watch whenever you like.'}</small>
+      <small id={`masterclass-note-${suffix}`}>{PREVIEW ? 'Aperçu du formulaire · envoi d’email désactivé.' : fr ? '30 minutes de vidéo. À regarder quand tu veux.' : '30 minutes of video. Watch whenever you like.'}</small>
       {status === 'error' && <p role="alert" className={s.error}>{invalid ? (fr ? 'Vérifie ton adresse email.' : 'Check your email address.') : (fr ? 'L’envoi n’a pas abouti. Ta saisie est conservée : réessaie ou continue la découverte.' : 'The request failed. Your entry is kept: retry or continue exploring.')}</p>}
     </form>}
   </div>
@@ -103,7 +103,7 @@ export function MasterclassForm({ onReady, reminder = false, idPrefix }: {
 
 export function MasterclassThumbnail() {
   const [unavailable, setUnavailable] = useState(false)
-  return <div className={s.thumbnail}>{unavailable ? <div className={s.thumbnailFallback}><img src="/founders/kevin.jpg" alt="Kevin Dufraisse"/><div><span>LA MASTERCLASS EMPIRE</span><b>La formule<br/>pour être vu.</b><small>Avec Kevin Dufraisse</small></div></div> : <img src="https://i.ytimg.com/vi/AKfoDblGUNs/maxresdefault.jpg" alt="La masterclass de Kevin Dufraisse : comprendre la formule Empire" width={1280} height={720} onError={() => setUnavailable(true)} ref={node => { if (node?.complete && !node.naturalWidth) setUnavailable(true) }} loading="lazy"/>}<span>MASTERCLASS · 1 H 26</span></div>
+  return <div className={s.thumbnail}>{unavailable ? <div className={s.thumbnailFallback}><img src="/founders/kevin.jpg" alt="Kevin Dufraisse"/><div><span>LA MASTERCLASS EMPIRE</span><b>La formule<br/>pour être vu.</b><small>Avec Kevin Dufraisse</small></div></div> : <img src="https://aaaaktbefgvyokfrzrmb.supabase.co/storage/v1/object/public/user-files/public-assets/vsl/v2/poster.jpg" alt="La masterclass de Kevin Dufraisse : comprendre la formule Empire" width={1280} height={720} onError={() => setUnavailable(true)} ref={node => { if (node?.complete && !node.naturalWidth) setUnavailable(true) }} loading="lazy"/>}<span>MASTERCLASS · 30 MIN</span></div>
 }
 
 export function MasterclassReminder() {
@@ -111,7 +111,7 @@ export function MasterclassReminder() {
   const [submittedHere, setSubmittedHere] = useState(false)
   // Do not remove the section while the person is reading its confirmation.
   if (requested !== false && !submittedHere) return null
-  return <section className={s.reminder} aria-labelledby="masterclass-reminder-title"><div className={s.reminderVisual}><MasterclassThumbnail/></div><div className={s.reminderCopy}><small>MASTERCLASS GRATUITE</small><h2 id="masterclass-reminder-title">Comprendre la méthode,<br/>à ton rythme.</h2><p>La formule, expliquée par Kevin en 1 h 26.<br/>Reçois la vidéo et regarde-la quand tu veux.</p><MasterclassForm reminder onReady={() => setSubmittedHere(true)}/></div></section>
+  return <section className={s.reminder} aria-labelledby="masterclass-reminder-title"><div className={s.reminderVisual}><MasterclassThumbnail/></div><div className={s.reminderCopy}><small>MASTERCLASS GRATUITE</small><h2 id="masterclass-reminder-title">Comprendre la méthode,<br/>à ton rythme.</h2><p>La formule, expliquée par Kevin en 30 minutes.<br/>Reçois la vidéo et regarde-la quand tu veux.</p><MasterclassForm reminder onReady={() => setSubmittedHere(true)}/></div></section>
 }
 
 export default function HomeMasterclassGate({ children }: { children: ReactNode }) {
