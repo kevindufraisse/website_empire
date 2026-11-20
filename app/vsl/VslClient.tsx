@@ -10,10 +10,19 @@ import VideoEmailGate, { adoptEmailFromUrl, storedVideoEmail } from '@/component
 import { AudioPlayerCard, TextVersionSection, ExitFormatsPopup } from '@/components/ListenReadFormats'
 import { SCRIPT_SECTIONS, READ_MINUTES } from './vslScript'
 
-const VIDEO_ID = 'AKfoDblGUNs'
-const VIDEO_TITLE = 'Le système de personnalisation des entrepreneurs à 7 chiffres par an, expliqué'
+// La VSL « L'équation de la visibilité avec l'IA » (29 min 30), hébergée sur
+// le bucket public comme l'audio : le lecteur maison garde tout (porte email,
+// reprise, suivi du temps regardé) sans le moindre habillage YouTube ou Loom.
+const VIDEO_URL =
+  'https://aaaaktbefgvyokfrzrmb.supabase.co/storage/v1/object/public/user-files/public-assets/vsl/v2/equation-visibilite.mp4'
+const POSTER_URL =
+  'https://aaaaktbefgvyokfrzrmb.supabase.co/storage/v1/object/public/user-files/public-assets/vsl/v2/poster.jpg'
+const VIDEO_TITLE = 'L\u2019équation de la visibilité avec l\u2019IA'
 const PROGRESS_MARKS = [25, 50, 75, 95]
-const SPEEDS = [1, 1.25, 1.5, 1.75, 2]
+// Lecture en accéléré par défaut (choix de Kevin, 20 novembre 2026) : la vidéo
+// de 29 min 30 se regarde en ~24 min 30. Le spectateur peut toujours changer.
+const DEFAULT_SPEED = 1.2
+const SPEEDS = [1, 1.2, 1.5, 1.75, 2]
 const speedLabel = (v: number) => `${String(v).replace('.', ',')}x`
 const clock = (sec: number) => {
   const t = Math.max(0, Math.floor(sec))
@@ -73,13 +82,6 @@ const FAQ = [
   },
 ]
 
-declare global {
-  interface Window {
-    YT?: any
-    onYouTubeIframeAPIReady?: () => void
-  }
-}
-
 // L'email est demandé avant la lecture (choix de Kevin, 17 octobre 2026).
 // La même porte email vaut pour les trois formats : vidéo, texte, audio.
 const TIME_KEY = 'empire_vsl_time_v1'
@@ -89,7 +91,7 @@ const TEXT_POS_KEY = 'empire_vsl_text_pos_v1'
 // L'audio de la VSL (extrait de la vidéo, 64 kbit/s mono), hébergé sur le
 // bucket public `user-files` comme les autres assets publics d'Empire.
 const AUDIO_URL =
-  'https://aaaaktbefgvyokfrzrmb.supabase.co/storage/v1/object/public/user-files/public-assets/vsl/v1/vsl-live-2026-audio.mp3'
+  'https://aaaaktbefgvyokfrzrmb.supabase.co/storage/v1/object/public/user-files/public-assets/vsl/v2/equation-visibilite-audio.mp3'
 
 function readStore(key: string): string | null {
   try {
@@ -115,7 +117,7 @@ function VideoPlayer({
   onWatched?: (seconds: number) => void
 }) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const playerRef = useRef<any>(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
   const sentRef = useRef<Set<number>>(new Set())
   const lastTimeRef = useRef<number | null>(null)
   const watchedRef = useRef(0)
@@ -126,7 +128,7 @@ function VideoPlayer({
   const [started, setStarted] = useState(false)
   const [startAt, setStartAt] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
-  const [speed, setSpeed] = useState(1)
+  const [speed, setSpeed] = useState(DEFAULT_SPEED)
   const [speedOpen, setSpeedOpen] = useState(false)
   const [muted, setMuted] = useState(false)
   const [canFullscreen, setCanFullscreen] = useState(false)
@@ -144,67 +146,49 @@ function VideoPlayer({
     onPlayingChange?.(isPlaying)
   }, [isPlaying, onPlayingChange])
 
-  useEffect(() => {
-    if (!started) return
-    let timer: ReturnType<typeof setInterval> | undefined
+  const onLoadedMetadata = () => {
+    const v = videoRef.current
+    if (!v) return
+    setDuration(v.duration || 0)
+    if (startAt > 0 && startAt < (v.duration || Infinity) - 5) v.currentTime = startAt
+    v.playbackRate = speed
+    void v.play().catch(() => {})
+  }
 
-    const attach = () => {
-      if (!window.YT?.Player || playerRef.current) return
-      playerRef.current = new window.YT.Player('vsl-player', {
-        events: {
-          onStateChange: (e: any) => {
-            const S = window.YT.PlayerState
-            setIsPlaying(e.data === S.PLAYING)
-            if (e.data === S.ENDED) {
-              trackAmplitude('vsl_video_progress', { percent: 100 })
-              // Vue jusqu'au bout : la prochaine visite repart du début.
-              writeStore(TIME_KEY, '0')
-            }
-          },
-        },
-      })
-      timer = setInterval(() => {
-        const p = playerRef.current
-        if (!p?.getCurrentTime) return
-        const t = p.getCurrentTime()
-        const duration = p.getDuration?.() || 0
-        // Temps regardé : seulement l'avance normale de la lecture, jamais un saut.
-        const prev = lastTimeRef.current
-        lastTimeRef.current = t
-        if (prev !== null && p.getPlayerState?.() === window.YT?.PlayerState?.PLAYING) {
-          const delta = t - prev
-          if (delta > 0 && delta < 3) {
-            watchedRef.current += delta
-            writeStore(WATCHED_KEY, String(Math.floor(watchedRef.current)))
-            onWatchedRef.current?.(watchedRef.current)
-          }
-        }
-        setCurrent(t)
-        if (duration) setDuration(duration)
-        if (t > 0 && p.getPlayerState?.() !== window.YT?.PlayerState?.ENDED) writeStore(TIME_KEY, String(Math.floor(t)))
-        if (!duration) return
-        const pct = (t / duration) * 100
-        for (const mark of PROGRESS_MARKS) {
-          if (pct >= mark && !sentRef.current.has(mark)) {
-            sentRef.current.add(mark)
-            trackAmplitude('vsl_video_progress', { percent: mark })
-          }
-        }
-      }, 500)
-    }
-
-    if (window.YT?.Player) attach()
-    else {
-      const previous = window.onYouTubeIframeAPIReady
-      window.onYouTubeIframeAPIReady = () => {
-        previous?.()
-        attach()
+  const onTimeUpdate = () => {
+    const v = videoRef.current
+    if (!v) return
+    const t = v.currentTime
+    // Temps regardé : seulement l'avance normale de la lecture, jamais un saut.
+    const prev = lastTimeRef.current
+    lastTimeRef.current = t
+    if (prev !== null && !v.paused) {
+      const delta = t - prev
+      if (delta > 0 && delta < 3) {
+        watchedRef.current += delta
+        writeStore(WATCHED_KEY, String(Math.floor(watchedRef.current)))
+        onWatchedRef.current?.(watchedRef.current)
       }
     }
-    return () => {
-      if (timer) clearInterval(timer)
+    setCurrent(t)
+    if (v.duration) setDuration(v.duration)
+    if (t > 0 && !v.ended) writeStore(TIME_KEY, String(Math.floor(t)))
+    if (!v.duration) return
+    const pct = (t / v.duration) * 100
+    for (const mark of PROGRESS_MARKS) {
+      if (pct >= mark && !sentRef.current.has(mark)) {
+        sentRef.current.add(mark)
+        trackAmplitude('vsl_video_progress', { percent: mark })
+      }
     }
-  }, [started])
+  }
+
+  const onEnded = () => {
+    setIsPlaying(false)
+    trackAmplitude('vsl_video_progress', { percent: 100 })
+    // Vue jusqu'au bout : la prochaine visite repart du début.
+    writeStore(TIME_KEY, '0')
+  }
 
   const start = () => {
     // L'email a pu être donné après le montage, via la porte texte ou audio.
@@ -219,35 +203,35 @@ function VideoPlayer({
   }
 
   const togglePlay = () => {
-    const p = playerRef.current
-    if (!p?.getPlayerState) return
-    if (p.getPlayerState() === window.YT.PlayerState.PLAYING) p.pauseVideo()
-    else p.playVideo()
+    const v = videoRef.current
+    if (!v) return
+    if (v.paused) void v.play().catch(() => {})
+    else v.pause()
   }
 
   const chooseSpeed = (next: number) => {
-    playerRef.current?.setPlaybackRate?.(next)
+    const v = videoRef.current
+    if (v) v.playbackRate = next
     setSpeed(next)
     setSpeedOpen(false)
     trackAmplitude('vsl_speed_changed', { speed: next })
   }
 
   const toggleMute = () => {
-    const p = playerRef.current
-    if (!p?.mute) return
-    if (muted) p.unMute()
-    else p.mute()
+    const v = videoRef.current
+    if (!v) return
+    v.muted = !muted
     setMuted(!muted)
   }
 
   // Barre de progression : on avance ou on recule où on veut.
   const seekFromPointer = (clientX: number, target: HTMLElement) => {
-    const p = playerRef.current
-    if (!p?.seekTo || !duration) return
+    const v = videoRef.current
+    if (!v || !duration) return
     const rect = target.getBoundingClientRect()
     const ratio = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width))
     const to = ratio * duration
-    p.seekTo(to, true)
+    v.currentTime = to
     setCurrent(to)
     writeStore(TIME_KEY, String(Math.floor(to)))
   }
@@ -266,19 +250,6 @@ function VideoPlayer({
     trackAmplitude('vsl_video_played', startAt > 0 ? { resumed_at: startAt } : undefined)
   }
 
-  const embedParams = new URLSearchParams({
-    autoplay: '1',
-    controls: '0',
-    disablekb: '1',
-    fs: '0',
-    rel: '0',
-    modestbranding: '1',
-    iv_load_policy: '3',
-    playsinline: '1',
-    enablejsapi: '1',
-    start: String(Math.floor(startAt)),
-  })
-
   return (
     <div
       ref={containerRef}
@@ -286,17 +257,20 @@ function VideoPlayer({
     >
       {started ? (
         <>
-          <Script src="https://www.youtube.com/iframe_api" strategy="afterInteractive" />
-          <iframe
-            id="vsl-player"
-            // Plus haute que le cadre : la vidéo garde sa taille, le titre et
-            // la chaîne YouTube tombent dans la bande noire, hors du cadre.
-            className="absolute inset-x-0 top-[-30%] w-full h-[160%] pointer-events-none"
-            src={`https://www.youtube-nocookie.com/embed/${VIDEO_ID}?${embedParams.toString()}`}
-            title={VIDEO_TITLE}
-            allow="autoplay; encrypted-media; picture-in-picture"
+          <video
+            ref={videoRef}
+            src={VIDEO_URL}
+            poster={POSTER_URL}
+            playsInline
+            preload="auto"
+            onLoadedMetadata={onLoadedMetadata}
+            onTimeUpdate={onTimeUpdate}
+            onPlay={() => setIsPlaying(true)}
+            onPause={() => setIsPlaying(false)}
+            onEnded={onEnded}
+            className="pointer-events-none absolute inset-0 h-full w-full bg-black object-contain"
           />
-          {/* Couche cliquable : pas d'accès aux commandes YouTube (avance, titre, suggestions). */}
+          {/* Couche cliquable : nos commandes, rien d'autre. */}
           <button
             type="button"
             onClick={togglePlay}
@@ -326,13 +300,13 @@ function VideoPlayer({
               if (e.buttons) seekFromPointer(e.clientX, e.currentTarget)
             }}
             onKeyDown={(e) => {
-              const p = playerRef.current
-              if (!p?.seekTo || !duration) return
+              const v = videoRef.current
+              if (!v || !duration) return
               const step = e.key === 'ArrowRight' ? 10 : e.key === 'ArrowLeft' ? -10 : 0
               if (!step) return
               e.preventDefault()
               const to = Math.min(duration, Math.max(0, current + step))
-              p.seekTo(to, true)
+              v.currentTime = to
               setCurrent(to)
             }}
             className="group/seek relative mb-1 flex h-5 cursor-pointer touch-none items-center"
@@ -408,7 +382,7 @@ function VideoPlayer({
           className="group absolute inset-0 w-full h-full"
         >
           <img
-            src={`https://i.ytimg.com/vi/${VIDEO_ID}/maxresdefault.jpg`}
+            src={POSTER_URL}
             alt={VIDEO_TITLE}
             className="absolute inset-0 w-full h-full object-cover"
           />
@@ -576,7 +550,7 @@ export default function VslClient() {
                 storageKey={AUDIO_TIME_KEY}
                 eventPrefix="vsl_audio"
                 accent="empire"
-                fallbackDuration="1:26:42"
+                fallbackDuration="29:30"
               />
             </div>
           )}
