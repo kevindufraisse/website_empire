@@ -10,4 +10,4 @@
 @media(max-width:700px){.squeezeVeil{height:330px;gap:10px}.pullHandle{width:54px;height:54px;margin-bottom:13px}.squeezeVeil>b{font-size:21px}.squeezeVeil>span{font-size:11px}.reminder{grid-template-columns:1fr;padding:20px;gap:25px}.reminderVisual{width:100%;max-width:400px;margin:auto}.reminder h2{font-size:27px}.reminderVisual .thumbnailFallback b{font-size:27px}.reminderCopy .form{margin-top:20px}}
 .thumbnail{container-type:inline-size}.thumbnailFallback b,.reminderVisual .thumbnailFallback b{font-size:clamp(20px,8cqw,38px)}
 
-.playOverlay{position:absolute;inset:0;display:grid;place-items:center;background:radial-gradient(ellipse 60% 60% at 50% 50%,#0005,transparent)}.playOverlay>svg{box-sizing:content-box;padding:17px 15px 17px 19px;border-radius:50%;background:#dafc68;color:#151515;box-shadow:0 8px 30px #000a}
+.playOverlay{position:absolute;inset:0;display:grid;place-items:center}.playOverlay>svg{box-sizing:content-box;padding:17px 15px 17px 19px;border-radius:50%;background:#dafc68;color:#151515;box-shadow:0 8px 30px #000a}
