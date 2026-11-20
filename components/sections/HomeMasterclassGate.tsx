@@ -121,6 +121,6 @@ export default function HomeMasterclassGate({ children }: { children: ReactNode 
   // Only this explicit link navigates to the demo; ordinary scrolling always works.
   return <><section className={s.section} aria-labelledby="masterclass-title" id="home-masterclass"><div className={s.card}>
     <div className={s.visual}><MasterclassThumbnail/><p>Comprendre la formule.<br/><em>Savoir l’appliquer à ton activité.</em></p></div>
-    <div className={s.copy}><small>MASTERCLASS GRATUITE · FACULTATIVE</small><h2 id="masterclass-title">Comprends ce qui fait<br/>fonctionner tes contenus.</h2><p>Pourquoi certains contenus sont vus, et comment appliquer ces mécaniques à tes propres sujets. Kevin te montre la méthode dans la masterclass.</p><MasterclassForm/><a href="#formula-message" className={s.skip} onClick={() => trackAmplitude('home_masterclass_continue_clicked')}>Continuer la découverte<ArrowDown size={16}/></a></div>
+    <div className={s.copy}><small>MASTERCLASS GRATUITE · FACULTATIVE</small><h2 id="masterclass-title">D’invisible à omniprésent :<br/>la formule en 5 étapes.</h2><p>Pourquoi certains contenus sont vus, et comment appliquer ces mécaniques à tes propres sujets. Kevin te montre la méthode dans la masterclass.</p><MasterclassForm/><a href="#formula-message" className={s.skip} onClick={() => trackAmplitude('home_masterclass_continue_clicked')}>Continuer la découverte<ArrowDown size={16}/></a></div>
   </div></section><div className={s.discovery} data-discovery-unlocked="true">{children}</div></>
 }
