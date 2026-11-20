@@ -82,8 +82,8 @@ export default function FormulaSecretReveal() {
         </p>
         <p className="mt-3 max-w-md text-sm leading-relaxed text-neutral-400">
           {fr
-            ? 'Tu viens de la voir en action, terme par terme. Il ne manque que ton message.'
-            : 'You just saw it in action, term by term. Only your message is missing.'}
+            ? 'La suite de la page te la montre en action, terme par terme. Il ne manque que ton message.'
+            : 'The rest of the page shows it in action, term by term. Only your message is missing.'}
         </p>
       </div>
     </div>

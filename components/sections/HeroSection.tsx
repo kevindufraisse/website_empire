@@ -9,6 +9,7 @@ import FloatingSocialReactions from '@/components/FloatingSocialReactions'
 import { trackAmplitude } from '@/lib/amplitude'
 import { startFreeTrial, TRIAL_URL } from '@/lib/startTrial'
 import { CTA_PRIMARY, CTA_SECONDARY, CtaPair } from '@/components/ui/cta'
+import { FORMULA_TERMS } from './formulaTerms'
 // Même jeu de portraits que `/vsl` et `FormatsShowcaseSection` (public/creators).
 const HERO_CREATORS = [
   { name: 'Alex Hormozi', img: '/creators/hormozi.jpg' },
@@ -33,7 +34,7 @@ export default function HeroSection() {
   const heroTitle = autopilot ? t.autopilot.hero.title : (lang === 'fr' ? 'L’avantage injuste pour développer ta marque personnelle.' : 'The unfair advantage for growing your personal brand.')
   const heroTitleH2 = autopilot ? null : (lang === 'fr' ? 'Sois vu, acheté et recommandé grâce à ton contenu en 1 h par semaine.' : 'Get seen, chosen and recommended through your content in one hour a week.')
   const heroTitleNote = null
-  // La formule n'est plus dans le hero : `FormulaBar` n'apparaît qu'au scroll (pilule flottante).
+
   const heroSubtitle = autopilot ? t.autopilot.hero.subtitle : null
   const heroCta = autopilot ? t.autopilot.hero.cta1 : t.hero.cta1
   // Trafic chaud (setter WhatsApp, lien parrainage, email) : le visiteur arrive
@@ -135,6 +136,55 @@ export default function HeroSection() {
                   <SocialIcons.facebook />
                 </div>
               </motion.div>
+            )}
+
+            {/* La formule, floutée et tamponnée SECRET : le teaser du moment
+                « Règle n°1 » qui suit les logos presse. Un tap y descend. */}
+            {!autopilot && (
+              <div className="relative mx-auto mt-14 w-fit max-w-full sm:mt-12">
+                <motion.div
+                  initial={mounted ? { opacity: 0 } : false}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                  className="pointer-events-none absolute -top-12 left-0 z-10 flex items-start gap-1 sm:-left-24 sm:-top-6"
+                >
+                  <span className="max-w-[230px] text-[11px] italic leading-snug text-neutral-300 sm:max-w-[260px] sm:text-xs">
+                    {lang === 'fr'
+                      ? 'Dans 30 jours, tout ton marché t’aura vu, grâce à cette formule'
+                      : 'In 30 days, your whole market will have seen you, thanks to this formula'}
+                  </span>
+                  <svg width="34" height="34" viewBox="0 0 34 34" fill="none" className="mt-1.5 text-empire" aria-hidden>
+                    <path d="M4 4 C14 6, 24 12, 27 26" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" fill="none" strokeDasharray="3 3" />
+                    <path d="M21.5 23 L27.5 27.5 L30 21" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                  </svg>
+                </motion.div>
+
+                <motion.button
+                  type="button"
+                  initial={mounted ? { opacity: 0, y: 10 } : false}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.25 }}
+                  onClick={() => document.getElementById('formula-reveal')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+                  aria-label={lang === 'fr' ? 'Découvrir la formule' : 'Reveal the formula'}
+                  className="group relative block rounded-2xl border border-white/12 bg-black/80 px-6 py-4 transition-colors hover:border-white/25 sm:px-9 sm:py-5"
+                >
+                  <span className="relative flex flex-col items-center leading-none text-lg font-extrabold sm:text-2xl">
+                    <span className="flex items-center whitespace-nowrap">
+                      <HeroBlurTerm i={0} /><HeroOp>×</HeroOp><HeroBlurTerm i={1} /><HeroOp>×</HeroOp><HeroBlurTerm i={2} />
+                    </span>
+                    <span className="my-2 block h-px w-full bg-white/20 sm:my-2.5" />
+                    <span className="flex items-center whitespace-nowrap">
+                      <HeroBlurTerm i={3} /><HeroOp>+</HeroOp><HeroBlurTerm i={4} />
+                    </span>
+                  </span>
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute -right-3 -top-3 -rotate-[10deg] select-none rounded-[3px] border-2 border-red-500 px-1.5 py-0.5 font-mono text-[9px] font-black uppercase tracking-[0.2em] text-red-500 shadow-[0_0_14px_-4px_rgba(239,68,68,0.55)] sm:text-[11px]"
+                  >
+                    Secret
+                  </span>
+                </motion.button>
+              </div>
             )}
 
             {/* Subtitle */}
@@ -256,7 +306,7 @@ function ScrollCue({ lang }: { lang: string }) {
   return (
     <button
       type="button"
-      onClick={() => (document.getElementById('home-creators') ?? document.getElementById('formula-message'))?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+      onClick={() => (document.getElementById('formula-reveal') ?? document.getElementById('home-creators'))?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
       className="relative z-10 mx-auto mt-4 flex flex-col items-center gap-1 text-xs font-semibold text-neutral-300 transition-colors hover:text-white"
     >
       <motion.span
@@ -271,4 +321,17 @@ function ScrollCue({ lang }: { lang: string }) {
       <span>{lang === 'fr' ? 'Il existe une formule. Scrolle pour la révéler.' : 'There is a formula. Scroll to reveal it.'}</span>
     </button>
   )
+}
+
+function HeroBlurTerm({ i }: { i: number }) {
+  // Le libellé reste français dans le teaser : il est flouté, illisible exprès.
+  return (
+    <span className="select-none px-1 text-white opacity-45 blur-[5px]" aria-hidden>
+      {FORMULA_TERMS[i].fr}
+    </span>
+  )
+}
+
+function HeroOp({ children }: { children: string }) {
+  return <span className="px-0.5 text-[0.6em] font-medium text-neutral-500">{children}</span>
 }
