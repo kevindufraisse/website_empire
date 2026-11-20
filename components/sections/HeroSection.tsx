@@ -31,7 +31,7 @@ export default function HeroSection() {
 
   const heroBadge = autopilot ? t.autopilot.hero.targetAudience : t.hero.targetAudience
   const heroTitle = autopilot ? t.autopilot.hero.title : (lang === 'fr' ? 'L’avantage injuste pour développer ta marque personnelle.' : 'The unfair advantage for growing your personal brand.')
-  const heroTitleH2 = autopilot ? null : (lang === 'fr' ? 'Sois vu, acheté et recommandé grâce à ton contenu en 1 h par semaine.' : 'Get seen, chosen and recommended through your content in one hour a week.')
+  const heroTitleH2 = autopilot ? null : (lang === 'fr' ? 'Sois vu, acheté et recommandé grâce à une omniprésence sur tous les réseaux sociaux, en 1 h par semaine.' : 'Get seen, chosen and recommended through omnipresence on every social network, in one hour a week.')
   const heroTitleNote = null
   // La formule n'est plus dans le hero : `FormulaBar` n'apparaît qu'au scroll (pilule flottante).
   const heroSubtitle = autopilot ? t.autopilot.hero.subtitle : null
@@ -218,22 +218,10 @@ export default function HeroSection() {
                   </div>
                   <span className="text-[11px] sm:text-xs text-neutral-300 text-left leading-snug">
                     {lang === 'fr'
-                      ? <>Ils utilisent déjà le système Empire. <span className="text-neutral-500">Prêt à l’emploi pour toi.</span></>
-                      : <>They already use the Empire system. <span className="text-neutral-500">Ready for you.</span></>}
+                      ? <>Inspiré du système <span className="text-neutral-500">des meilleurs créateurs du monde.</span></>
+                      : <>Inspired by the system <span className="text-neutral-500">of the world’s best creators.</span></>}
                   </span>
                 </div>
-                {!autopilot && (
-                  <div className="flex flex-wrap items-center justify-center gap-2 text-[11px] font-semibold text-neutral-400 sm:gap-2.5 sm:text-xs">
-                    {(lang === 'fr'
-                      ? ['1 an de R&D', '10 000+ posts testés', '10M de vues par mois']
-                      : ['1 year of R&D', '10,000+ posts tested', '10M views a month']
-                    ).map((item) => (
-                      <span key={item} className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-0.5">
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-                )}
               </div>
             </motion.div>
 
@@ -261,14 +249,14 @@ function ScrollCue({ lang }: { lang: string }) {
     >
       <motion.span
         aria-hidden
-        animate={{ y: [0, 5, 0] }}
-        transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+        animate={{ y: [0, 7, 0] }}
+        transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
         className="flex flex-col items-center text-empire drop-shadow-[0_0_10px_rgb(var(--empire-rgb)_/_0.8)]"
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6 6-6" /></svg>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="-mt-2 opacity-50"><path d="M6 9l6 6 6-6" /></svg>
       </motion.span>
-      <span>{lang === 'fr' ? 'Il existe une formule. On te la donne dans la masterclass.' : 'There is a formula. We give it to you in the masterclass.'}</span>
+      <span className="sr-only">{lang === 'fr' ? 'Découvrir la suite' : 'See more'}</span>
     </button>
   )
 }

@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react'
-import { ArrowDown, ArrowRight, Check, Mail } from 'lucide-react'
+import { ArrowDown, ArrowRight, Check, Mail, Play } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import { storeVideoEmail } from '@/components/VideoEmailGate'
@@ -103,7 +103,7 @@ export function MasterclassForm({ onReady, reminder = false, idPrefix }: {
 
 export function MasterclassThumbnail() {
   const [unavailable, setUnavailable] = useState(false)
-  return <div className={s.thumbnail}>{unavailable ? <div className={s.thumbnailFallback}><img src="/founders/kevin.jpg" alt="Kevin Dufraisse"/><div><span>LA MASTERCLASS EMPIRE</span><b>La formule<br/>pour être vu.</b><small>Avec Kevin Dufraisse</small></div></div> : <img src="https://aaaaktbefgvyokfrzrmb.supabase.co/storage/v1/object/public/user-files/public-assets/vsl/v2/poster.jpg" alt="La masterclass de Kevin Dufraisse : comprendre la formule Empire" width={1280} height={720} onError={() => setUnavailable(true)} ref={node => { if (node?.complete && !node.naturalWidth) setUnavailable(true) }} loading="lazy"/>}<span>MASTERCLASS · 30 MIN</span></div>
+  return <div className={s.thumbnail}>{unavailable ? <div className={s.thumbnailFallback}><img src="/founders/kevin.jpg" alt="Kevin Dufraisse"/><div><span>LA MASTERCLASS EMPIRE</span><b>La formule<br/>pour être vu.</b><small>Avec Kevin Dufraisse</small></div></div> : <img src="https://aaaaktbefgvyokfrzrmb.supabase.co/storage/v1/object/public/user-files/public-assets/vsl/v2/poster.jpg" alt="La masterclass de Kevin Dufraisse : comprendre la formule Empire" width={1280} height={720} onError={() => setUnavailable(true)} ref={node => { if (node?.complete && !node.naturalWidth) setUnavailable(true) }} loading="lazy"/>}<span>MASTERCLASS · 30 MIN</span><span className={s.playOverlay} aria-hidden><Play size={22} fill="currentColor"/></span></div>
 }
 
 export function MasterclassReminder() {
