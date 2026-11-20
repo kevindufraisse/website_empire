@@ -24,10 +24,6 @@ const PROGRESS_MARKS = [25, 50, 75, 95]
 const DEFAULT_SPEED = 1.2
 const SPEEDS = [1, 1.2, 1.5, 1.75, 2]
 const speedLabel = (v: number) => `${String(v).replace('.', ',')}x`
-const clock = (sec: number) => {
-  const t = Math.max(0, Math.floor(sec))
-  return `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`
-}
 
 // L'offre du live (app, /join/internet?offer=live) : 300 € de moins par mois
 // pendant 3 mois, sur Growth ou Scale, pendant 72 h à partir de la première
@@ -224,18 +220,6 @@ function VideoPlayer({
     setMuted(!muted)
   }
 
-  // Barre de progression : on avance ou on recule où on veut.
-  const seekFromPointer = (clientX: number, target: HTMLElement) => {
-    const v = videoRef.current
-    if (!v || !duration) return
-    const rect = target.getBoundingClientRect()
-    const ratio = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width))
-    const to = ratio * duration
-    v.currentTime = to
-    setCurrent(to)
-    writeStore(TIME_KEY, String(Math.floor(to)))
-  }
-
   const toggleFullscreen = () => {
     const el = containerRef.current
     if (!el) return
@@ -285,46 +269,18 @@ function VideoPlayer({
             )}
           </button>
           <div className="absolute bottom-0 inset-x-0 z-10 px-3 pb-2 pt-6 bg-gradient-to-t from-black/80 to-transparent">
-          <div
-            role="slider"
-            tabIndex={0}
-            aria-label="Avancer dans la vidéo"
-            aria-valuemin={0}
-            aria-valuemax={Math.floor(duration)}
-            aria-valuenow={Math.floor(current)}
-            onPointerDown={(e) => {
-              e.currentTarget.setPointerCapture(e.pointerId)
-              seekFromPointer(e.clientX, e.currentTarget)
-            }}
-            onPointerMove={(e) => {
-              if (e.buttons) seekFromPointer(e.clientX, e.currentTarget)
-            }}
-            onKeyDown={(e) => {
-              const v = videoRef.current
-              if (!v || !duration) return
-              const step = e.key === 'ArrowRight' ? 10 : e.key === 'ArrowLeft' ? -10 : 0
-              if (!step) return
-              e.preventDefault()
-              const to = Math.min(duration, Math.max(0, current + step))
-              v.currentTime = to
-              setCurrent(to)
-            }}
-            className="group/seek relative mb-1 flex h-5 cursor-pointer touch-none items-center"
-          >
-            <div className="h-1.5 w-full rounded-full bg-white/25 group-hover/seek:h-2 transition-all">
-              <div className="h-full rounded-full bg-empire" style={{ width: `${duration ? (current / duration) * 100 : 0}%` }} />
-            </div>
-          </div>
+          {/* Pas de barre de progression ni de durée : le spectateur reste
+              dans la vidéo au lieu de regarder ce qu'il lui reste. La reprise
+              là où on s'était arrêté continue de marcher en coulisses. */}
           <div className="flex items-center justify-between gap-2">
             <button
               type="button"
               onClick={togglePlay}
               aria-label={isPlaying ? 'Pause' : 'Lecture'}
-              className="flex items-center justify-center w-9 h-9 rounded-full text-white hover:bg-white/10"
+              className="mr-auto flex items-center justify-center w-9 h-9 rounded-full text-white hover:bg-white/10"
             >
               {isPlaying ? <Pause className="w-5 h-5" fill="currentColor" /> : <Play className="w-5 h-5" fill="currentColor" />}
             </button>
-            <span className="mr-auto text-xs tabular-nums text-white/80">{clock(current)}{duration ? ` / ${clock(duration)}` : ''}</span>
             <div className="flex items-center gap-1">
               <div className="relative">
                 <button
