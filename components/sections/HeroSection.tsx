@@ -31,7 +31,7 @@ export default function HeroSection() {
 
   const heroBadge = autopilot ? t.autopilot.hero.targetAudience : t.hero.targetAudience
   const heroTitle = autopilot ? t.autopilot.hero.title : (lang === 'fr' ? 'L’avantage injuste pour développer ta marque personnelle.' : 'The unfair advantage for growing your personal brand.')
-  const heroTitleH2 = autopilot ? null : (lang === 'fr' ? 'Sois vu, acheté et recommandé grâce à une omniprésence sur tous les réseaux sociaux, en 1 h par semaine.' : 'Get seen, chosen and recommended through omnipresence on every social network, in one hour a week.')
+  const heroTitleH2 = autopilot ? null : (lang === 'fr' ? 'Crée du contenu qui fait des vues, attire des prospects et les fait acheter, en 1 h par semaine.' : 'Create content that gets views, attracts prospects and makes them buy, in one hour a week.')
   const heroTitleNote = null
   // La formule n'est plus dans le hero : `FormulaBar` n'apparaît qu'au scroll (pilule flottante).
   const heroSubtitle = autopilot ? t.autopilot.hero.subtitle : null
