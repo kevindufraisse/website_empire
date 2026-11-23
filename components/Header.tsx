@@ -121,7 +121,7 @@ export default function Header() {
             </a>
             {/* Promo saisonnière, comme « -43 % with code THANKSGIVING » : pas sur
                 les pages d'offre (Academy, partenaires, candidature). */}
-            {!isAcademyPage && !isPartnersPage && !isCandidaturePage && <SeasonalPromoPill location="header" />}
+            {!isAcademyPage && !isPartnersPage && !isCandidaturePage && <SeasonalPromoPill />}
           </div>
 
           <div className="hidden items-center gap-1 lg:flex">

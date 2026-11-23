@@ -3,14 +3,17 @@
 import { useEffect, useState } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { trackAmplitude } from '@/lib/amplitude'
+import { startFreeTrial } from '@/lib/startTrial'
 import { fetchSeasonalPromo, seasonalPromoText, type SeasonalPromo } from '@/lib/seasonal-promo'
 
 /**
- * Pastille de la promo saisonnière en cours (« -38 % sur Scale · Black Friday 🖤 »).
- * Lue dans la table promotions : rien en cours, rien affiché. Jamais sur
- * /join/empire ni sur les liens d'offre uniques (offre du live, partenaire…).
+ * Pastille de la promo saisonnière en cours, façon CodeFast (« -43% off with
+ * code THANKSGIVING 🦃 ») : fond crème, bord brun, occasion en capitales.
+ * Lue dans la table promotions : rien en cours, rien affiché. Un clic lance
+ * l'essai sur la formule en promo (la remise est appliquée au paiement).
+ * Pas de lien vers /tarifs : la page n'est pas mise en avant (23 novembre 2026).
  */
-export default function SeasonalPromoPill({ location, className = '' }: { location: 'header' | 'tarifs'; className?: string }) {
+export default function SeasonalPromoPill({ className = '' }: { className?: string }) {
   const { lang } = useLanguage()
   const fr = lang === 'fr'
   const [promo, setPromo] = useState<SeasonalPromo | null>(null)
@@ -22,38 +25,22 @@ export default function SeasonalPromoPill({ location, className = '' }: { locati
   }, [])
 
   if (!promo) return null
-  const { lead, occasion } = seasonalPromoText(promo, fr)
-  const plan = promo.plan.charAt(0).toUpperCase() + promo.plan.slice(1)
-  const title = fr
-    ? `${promo.label} : ${plan} à ${promo.promoMonthly} €/mois au lieu de ${promo.baseMonthly} €${promo.durationMonths ? ` pendant ${promo.durationMonths} mois` : ''}`
-    : `${promo.label}: €${promo.promoMonthly}/mo instead of €${promo.baseMonthly}${promo.durationMonths ? ` for ${promo.durationMonths} months` : ''}`
-
-  // Sur /tarifs, les cartes gardent le prix catalogue : la pastille dit le prix
-  // réellement payé (le paiement applique la remise, essai compris).
-  if (location === 'tarifs') {
-    return (
-      <p
-        data-seasonal-promo={promo.id}
-        className={`mx-auto inline-flex flex-col items-center justify-center rounded-2xl border border-empire/50 bg-empire/10 px-4 py-2 text-sm text-white sm:flex-row sm:gap-x-1.5 sm:rounded-full sm:py-1.5 ${className}`}
-      >
-        <span className="font-bold text-empire">{occasion}</span>
-        <span className="hidden sm:inline">·</span>
-        <span>{title.replace(/^[^:]+:\s*/, '')}</span>
-      </p>
-    )
-  }
+  const { lead, title } = seasonalPromoText(promo, fr)
 
   return (
-    <a
-      href="/tarifs"
+    <button
+      type="button"
       title={title}
       data-seasonal-promo={promo.id}
-      onClick={() => trackAmplitude('seasonal_promo_clicked', { promo_id: promo.id, location })}
-      className={`inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border border-empire/50 bg-empire/10 px-3 py-1 text-xs font-medium text-white transition hover:bg-empire/20 xl:text-sm ${className}`}
+      onClick={() => {
+        trackAmplitude('seasonal_promo_clicked', { promo_id: promo.id })
+        void startFreeTrial(promo.plan)
+      }}
+      className={`inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border border-[#8B4A1C] bg-[#FDF6E3] px-3 py-1 text-xs text-[#5A2E0E] transition hover:bg-[#F8EBCB] xl:px-4 xl:text-sm ${className}`}
     >
       <span>{lead}</span>
-      <span className="hidden font-bold text-empire xl:inline">· {occasion}</span>
-      <span className="xl:hidden">{promo.emoji || ''}</span>
-    </a>
+      <span className="hidden font-mono font-bold uppercase tracking-tight xl:inline">{promo.label}</span>
+      {promo.emoji && <span aria-hidden>{promo.emoji}</span>}
+    </button>
   )
 }
