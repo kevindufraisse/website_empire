@@ -4,6 +4,7 @@ import { Fragment, useEffect, useState } from 'react'
 import Image from 'next/image'
 import { ArrowRight, Check, ChevronDown, Minus } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
+import SeasonalPromoPill from '@/components/SeasonalPromoPill'
 import FeaturedInSection from '@/components/FeaturedInSection'
 import CustomerReviews from '@/components/pricing/CustomerReviews'
 import PlanCards from '@/components/pricing/PlanCards'
@@ -331,6 +332,8 @@ export default function TarifsClient() {
     <main className={`min-h-screen overflow-x-hidden pb-16 pt-10 text-white md:pt-14 ${glass.page}`}>
       <div className="mx-auto max-w-5xl px-4">
         <header className="mx-auto max-w-2xl space-y-3 text-center">
+          {/* Promo saisonnière (table promotions) ; jamais sous l'offre du live. */}
+          {liveOffer.status === 'off' && <SeasonalPromoPill location="tarifs" />}
           <h1 className="text-3xl font-bold tracking-tight text-white">
             {fr ? 'Publie tous les jours, sans écrire ni monter' : 'Post every day, without writing or editing'}
           </h1>
