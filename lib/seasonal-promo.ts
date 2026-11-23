@@ -1,36 +1,51 @@
-// Promo saisonnière - même calendrier et mêmes remises que l'app
-// (empire-tracking src/lib/seasonalPromo.ts) et que le bandeau EvergreenPromo.
-// Le prix payé reste le prix catalogue : la promo sert à l'affichage
-// (prix barré "avant remise") pour rester cohérent avec le bandeau -X%.
+// Promo saisonnière (Black Friday, Noël, soldes d'été…), lue dans la table
+// `promotions` de l'app par l'edge function promo-status (`current: true`).
+// Remplace l'ancien calendrier codé en dur (août 2026), qui affichait un prix
+// barré sans remise réelle : ici, la pastille ne montre que la promo que le
+// paiement applique vraiment (Scale à 499 € au lieu de 799 €…).
+// Rien en cours = rien affiché. Une occasion s'active depuis /admin/promos.
+
+import { PROMO_STATUS_URL } from '@/lib/flash-promo'
 
 export interface SeasonalPromo {
-  code: string
-  discount: number
+  id: string
+  label: string
+  emoji: string | null
+  plan: 'starter' | 'growth' | 'scale'
+  promoMonthly: number
+  baseMonthly: number
+  durationMonths: number | null
+  endsAt: string
 }
 
-const SEASONS: { code: string; discount: number; from: [number, number]; to: [number, number] }[] = [
-  { code: 'SUMMER', discount: 0.3, from: [6, 21], to: [8, 31] },
-  { code: 'RENTREE', discount: 0.25, from: [9, 1], to: [10, 15] },
-  { code: 'BFRIDAY', discount: 0.4, from: [11, 15], to: [12, 3] },
-  { code: 'NOEL', discount: 0.3, from: [12, 4], to: [1, 10] },
-  { code: 'NEWYEAR', discount: 0.25, from: [1, 11], to: [3, 19] },
-  { code: 'SPRING', discount: 0.25, from: [3, 20], to: [6, 20] },
-]
+let cached: Promise<SeasonalPromo | null> | null = null
 
-const mmdd = (m: number, d: number) => m * 100 + d
-
-export function getCurrentSeasonalPromo(now: Date = new Date()): SeasonalPromo {
-  const today = mmdd(now.getMonth() + 1, now.getDate())
-  for (const s of SEASONS) {
-    const from = mmdd(...s.from)
-    const to = mmdd(...s.to)
-    const inRange = from <= to ? today >= from && today <= to : today >= from || today <= to
-    if (inRange) return { code: s.code, discount: s.discount }
+export function fetchSeasonalPromo(): Promise<SeasonalPromo | null> {
+  if (!cached) {
+    cached = fetch(PROMO_STATUS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ current: true, channel: 'website' }),
+    })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        const p = data?.promo
+        if (!p || !Number.isFinite(p.promoMonthly) || !Number.isFinite(p.baseMonthly)) return null
+        if (Date.parse(p.endsAt) <= Date.now()) return null
+        return p as SeasonalPromo
+      })
+      .catch(() => null)
   }
-  return { code: 'SPRING', discount: 0.25 }
+  return cached
 }
 
-/** Prix "avant remise" cohérent avec la remise de saison (ex. 199 / 0.7 → 284) */
-export function getAnchorPrice(realPrice: number, promo: SeasonalPromo): number {
-  return Math.round(realPrice / (1 - promo.discount))
+const PLAN_NAME: Record<SeasonalPromo['plan'], string> = { starter: 'Starter', growth: 'Growth', scale: 'Scale' }
+
+export function seasonalPromoText(p: SeasonalPromo, fr: boolean): { lead: string; occasion: string } {
+  const pct = Math.round((1 - p.promoMonthly / p.baseMonthly) * 100)
+  const plan = PLAN_NAME[p.plan]
+  return {
+    lead: fr ? `-${pct} % sur ${plan}` : `-${pct}% on ${plan}`,
+    occasion: `${p.label}${p.emoji ? ` ${p.emoji}` : ''}`,
+  }
 }
