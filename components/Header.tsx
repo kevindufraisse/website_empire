@@ -147,7 +147,7 @@ export default function Header() {
     <a
       href="/join-us"
       onClick={() => { trackAmplitude('empire_call_clicked', { source: 'header', path: pathname }); setIsMenuOpen(false) }}
-      className="inline-flex items-center justify-center cursor-pointer rounded-lg bg-empire px-4 py-2 text-sm font-semibold text-black transition hover:brightness-110"
+      className="inline-flex whitespace-nowrap items-center justify-center cursor-pointer rounded-lg bg-empire px-4 py-2 text-sm font-semibold text-black transition hover:brightness-110"
     >
       {fr ? 'Réserver une démo' : 'Book a demo'}
     </a>
