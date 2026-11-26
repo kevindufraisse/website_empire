@@ -7,8 +7,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { postitJoinUrl } from '@/lib/postit'
 import { partnerPayHref } from '@/lib/partner-festival-pricing'
 import JoinPartnersLabel from '@/components/JoinPartnersLabel'
-import { startFreeTrial, TRIAL_URL } from '@/lib/startTrial'
 import { trackAmplitude } from '@/lib/amplitude'
+import SeasonalPromoPill from '@/components/SeasonalPromoPill'
 
 // Programme d'affiliation : un second compte Instagram qui publie les reels
 // d'Empire, 15 % du premier paiement de chaque client venu du lien en bio.
@@ -78,9 +78,6 @@ export default function Header() {
 
   const links: NavLink[] = [
     { key: 'one-to-one', href: '/legende', label: fr ? 'Travailler en 1-to-1' : 'Work 1-to-1' },
-    // La démo est le bouton plein (choix de Kevin, 25 novembre 2026) ; l'essai
-    // reste un lien du menu.
-    { key: 'trial', href: TRIAL_URL, label: fr ? 'Commencer gratuitement' : 'Get started for free' },
     { key: 'affiliate', href: AFFILIATE_URL, label: fr ? 'Devenir affilié' : 'Become an affiliate', external: true },
   ]
 
@@ -89,19 +86,10 @@ export default function Header() {
     setOpenMenu(null)
     setIsMenuOpen(false)
   }
-  const onLink = (link: NavLink, event?: React.MouseEvent<HTMLAnchorElement>) => {
-    if (link.key === 'trial' && event) { onTrial(event); return }
+  const onLink = (link: NavLink) => {
     trackAmplitude('header_menu_clicked', { menu: link.key, item: link.label, path: pathname })
     setOpenMenu(null)
     setIsMenuOpen(false)
-  }
-
-  const onTrial = (event: React.MouseEvent<HTMLAnchorElement>) => {
-    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
-    event.preventDefault()
-    trackAmplitude('header_trial_clicked', { path: pathname })
-    setIsMenuOpen(false)
-    startFreeTrial()
   }
 
   // Sur la page Légende, le header suit les marges de la page (max-w-6xl) : le
@@ -157,9 +145,16 @@ export default function Header() {
     <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/10 bg-black/90 backdrop-blur-md">
       <nav className={`mx-auto py-3 ${navWidth}`} aria-label={fr ? 'Navigation principale' : 'Main navigation'}>
         <div className="flex min-w-0 items-center justify-between gap-3">
-          <a href="/" className="group flex shrink-0 items-center gap-2" aria-label="Empire">
-            <span className="text-lg font-bold tracking-tight text-white md:text-xl">Empire</span>
-          </a>
+          <div className="flex min-w-0 items-center gap-3">
+            <a href="/" className="group flex shrink-0 items-center gap-2" aria-label="Empire">
+              <span className="text-lg font-bold tracking-tight text-white md:text-xl">Empire</span>
+            </a>
+            {/* Pastille de la promo en cours (Black Friday), lue dans la table
+                promotions : rien en cours = rien affiché. Pas sur les pages
+                Academy / partenaires. Le header n'a plus de lien d'essai
+                (choix de Kevin, 26 novembre 2026) : la démo est le seul bouton. */}
+            {!isAcademyPage && !isPartnersPage && <SeasonalPromoPill />}
+          </div>
 
           <div ref={navRef} className="hidden items-center gap-1 lg:flex">
             {links.map((l) => (
@@ -168,7 +163,7 @@ export default function Header() {
                 href={l.href}
                 aria-current={pathname === l.href ? 'page' : undefined}
                 {...(l.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                onClick={(e) => onLink(l, e)}
+                onClick={() => onLink(l)}
                 className={`whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium transition ${pathname === l.href ? 'bg-white/[0.07] text-white' : 'text-neutral-300 hover:bg-white/[0.04] hover:text-white'}`}
               >
                 {l.label}
@@ -242,7 +237,7 @@ export default function Header() {
                   key={l.key}
                   href={l.href}
                   {...(l.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                  onClick={(e) => onLink(l, e)}
+                  onClick={() => onLink(l)}
                   className="block rounded-lg px-3 py-3 text-base font-semibold text-white"
                 >
                   {l.label}
