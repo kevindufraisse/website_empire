@@ -105,7 +105,7 @@ export function CalModal({ lead, countryCode, informal = false, onClose }: { lea
             <p className="text-xs text-neutral-400">
               {informal
                 ? (fr ? 'Choisis ton créneau. Tes infos sont déjà remplies.' : 'Pick a time. Your details are already filled in.')
-                : 'Choisis ton créneau - tes infos sont pré-remplies.'}
+                : 'Étape 2 sur 2 · Choisis ton créneau, tes infos sont pré-remplies.'}
             </p>
           </div>
           <button
@@ -205,6 +205,7 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
           emp: getEmpParam() || undefined,
           offer: autopilot ? 'legende' : 'empire',
           budget: 'call',
+          page: window.location.pathname,
         }),
       })
     } catch { /* best-effort */ }
@@ -297,7 +298,7 @@ export default function YtLeadForm({ eventName = 'ads_conversion_book_appointmen
             )
             : autopilot
               ? (lang === 'fr' ? 'Vérifier mon éligibilité →' : 'Check my eligibility →')
-              : (lang === 'fr' ? 'Valider et planifier un RDV →' : 'Submit and book a call →')
+              : (lang === 'fr' ? 'Continuer : choisir mon créneau →' : 'Continue: pick my slot →')
           }
         </button>
 

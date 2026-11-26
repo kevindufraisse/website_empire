@@ -78,6 +78,9 @@ export default function Header() {
 
   const links: NavLink[] = [
     { key: 'one-to-one', href: '/legende', label: fr ? 'Travailler en 1-to-1' : 'Work 1-to-1' },
+    // La démo est le bouton plein (choix de Kevin, 25 novembre 2026) ; l'essai
+    // reste un lien du menu.
+    { key: 'trial', href: TRIAL_URL, label: fr ? 'Commencer gratuitement' : 'Get started for free' },
     { key: 'affiliate', href: AFFILIATE_URL, label: fr ? 'Devenir affilié' : 'Become an affiliate', external: true },
   ]
 
@@ -86,7 +89,8 @@ export default function Header() {
     setOpenMenu(null)
     setIsMenuOpen(false)
   }
-  const onLink = (link: NavLink) => {
+  const onLink = (link: NavLink, event?: React.MouseEvent<HTMLAnchorElement>) => {
+    if (link.key === 'trial' && event) { onTrial(event); return }
     trackAmplitude('header_menu_clicked', { menu: link.key, item: link.label, path: pathname })
     setOpenMenu(null)
     setIsMenuOpen(false)
@@ -141,11 +145,11 @@ export default function Header() {
     </a>
   ) : (
     <a
-      href={TRIAL_URL}
-      onClick={onTrial}
+      href="/join-us"
+      onClick={() => { trackAmplitude('empire_call_clicked', { source: 'header', path: pathname }); setIsMenuOpen(false) }}
       className="inline-flex items-center justify-center cursor-pointer rounded-lg bg-empire px-4 py-2 text-sm font-semibold text-black transition hover:brightness-110"
     >
-      {fr ? 'Commencer gratuitement' : 'Get started for free'}
+      {fr ? 'Réserver une démo' : 'Book a demo'}
     </a>
   )
 
@@ -164,8 +168,8 @@ export default function Header() {
                 href={l.href}
                 aria-current={pathname === l.href ? 'page' : undefined}
                 {...(l.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                onClick={() => onLink(l)}
-                className={`rounded-lg px-3 py-2 text-sm font-medium transition ${pathname === l.href ? 'bg-white/[0.07] text-white' : 'text-neutral-300 hover:bg-white/[0.04] hover:text-white'}`}
+                onClick={(e) => onLink(l, e)}
+                className={`whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium transition ${pathname === l.href ? 'bg-white/[0.07] text-white' : 'text-neutral-300 hover:bg-white/[0.04] hover:text-white'}`}
               >
                 {l.label}
               </a>
@@ -238,7 +242,7 @@ export default function Header() {
                   key={l.key}
                   href={l.href}
                   {...(l.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                  onClick={() => onLink(l)}
+                  onClick={(e) => onLink(l, e)}
                   className="block rounded-lg px-3 py-3 text-base font-semibold text-white"
                 >
                   {l.label}

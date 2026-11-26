@@ -42,16 +42,17 @@ export default function MissionClient() {
 
         <CtaPair
           fr={fr}
+          demoFirst
           className="mt-12 !mx-0"
           primary={
-            <OnboardingLink className={CTA_PRIMARY}>
-              {fr ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial'}
-            </OnboardingLink>
+            <a href="/join-us" className={CTA_PRIMARY}>
+              {fr ? 'Réserver ma démo' : 'Book my demo'}
+            </a>
           }
           secondary={
-            <a href="/tarifs" className={CTA_SECONDARY}>
-              {fr ? 'Voir les tarifs' : 'See pricing'}
-            </a>
+            <OnboardingLink className={CTA_SECONDARY}>
+              {fr ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial'}
+            </OnboardingLink>
           }
         />
       </article>

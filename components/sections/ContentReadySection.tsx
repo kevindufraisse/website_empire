@@ -295,7 +295,6 @@ export default function ContentReadySection() {
           <div className="mt-12">
             <InlineCTA
               title={t.contentReady.cta}
-              primaryText={t.contentReady.ctaButton}
               variant="minimal"
             />
           </div>

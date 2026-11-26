@@ -97,7 +97,10 @@ export default function ComparePage(props: ComparePageProps) {
           <h1 className="mb-5 text-4xl font-extrabold leading-tight md:text-6xl">{title || `Empire vs ${competitor}`}</h1>
           <p className="mx-auto mb-8 max-w-2xl text-lg text-neutral-300 md:text-xl">{verdict}</p>
           <div className="mb-10 flex flex-wrap items-center justify-center gap-3">
-            <OnboardingLink className="rounded-lg bg-empire px-6 py-3 font-semibold text-black transition hover:opacity-90">
+            <a href="/join-us" className="rounded-lg bg-empire px-6 py-3 font-semibold text-black transition hover:opacity-90">
+              Réserver ma démo
+            </a>
+            <OnboardingLink className="rounded-lg border border-white/40 px-6 py-3 font-semibold text-white transition hover:border-white">
               Tester 7 jours gratuitement
             </OnboardingLink>
             <a href="#formule" className="rounded-lg border border-white/15 px-6 py-3 font-semibold text-white transition hover:border-white/30">
@@ -283,9 +286,14 @@ export default function ComparePage(props: ComparePageProps) {
         <div className="container max-w-3xl text-center">
           <h2 className="mb-4 text-3xl font-extrabold md:text-4xl">Le bon message, dans le bon format, partout</h2>
           <p className="mb-8 text-neutral-300">Crée tes premiers contenus avec 7 jours gratuits et 500 crédits.</p>
-          <OnboardingLink className="inline-block rounded-lg bg-empire px-8 py-3.5 font-semibold text-black transition hover:opacity-90">
-            Tester 7 jours gratuitement
-          </OnboardingLink>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <a href="/join-us" className="inline-block rounded-lg bg-empire px-8 py-3.5 font-semibold text-black transition hover:opacity-90">
+              Réserver ma démo
+            </a>
+            <OnboardingLink className="inline-block rounded-lg border border-white/40 px-8 py-3.5 font-semibold text-white transition hover:border-white">
+              Tester 7 jours gratuitement
+            </OnboardingLink>
+          </div>
         </div>
       </section>
     </main>

@@ -27,7 +27,7 @@ export default function FormatsClient() {
     if (opening) return
     setOpening(true)
     trackAmplitude('formats_page_trial_clicked', { location })
-    await startFreeTrial('growth')
+    await startFreeTrial()
   }
 
   return (
@@ -92,15 +92,25 @@ export default function FormatsClient() {
               ? `7 jours ou ${TRIAL_CREDITS} crédits gratuits sur la formule Growth. Annule avant : 0 €.`
               : `7 days or ${TRIAL_CREDITS} credits free on the Growth plan. Cancel before: €0.`}
           </p>
-          <button
-            type="button"
-            onClick={() => startTrial('footer')}
-            disabled={opening}
-            className="mt-6 inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-xl bg-white px-6 text-sm font-semibold text-black transition hover:bg-neutral-200 disabled:opacity-60"
-          >
-            {opening ? (fr ? 'Ouverture…' : 'Opening…') : (fr ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial')}
-            <ArrowRight className="h-4 w-4" />
-          </button>
+          {/* Démo en principal, essai gratuit à côté (choix de Kevin, 25 novembre 2026). */}
+          <div className="mt-6 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
+            <a
+              href="/join-us"
+              onClick={() => trackAmplitude('empire_call_clicked', { source: 'formats-footer' })}
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-empire px-6 text-sm font-semibold text-black transition hover:brightness-110"
+            >
+              {fr ? 'Réserver ma démo' : 'Book my demo'}
+              <ArrowRight className="h-4 w-4" />
+            </a>
+            <button
+              type="button"
+              onClick={() => startTrial('footer')}
+              disabled={opening}
+              className="inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-xl border-[1.5px] border-white/60 bg-[#0a0a0a] px-6 text-sm font-semibold text-white transition hover:border-white disabled:opacity-60"
+            >
+              {opening ? (fr ? 'Ouverture…' : 'Opening…') : (fr ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial')}
+            </button>
+          </div>
           <TrialReassurance fr={fr} className="mt-2.5" />
           <p className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-neutral-500">
             <a href="/tarifs" className="text-neutral-300 underline decoration-white/20 underline-offset-4 hover:text-white">

@@ -51,6 +51,32 @@ export function TrialReassurance({ fr, bootcamp = false, stacked = false, classN
 }
 
 /**
+ * Sous « Réserver ma démo » : ce qui se passe pendant le call. Choix de Kevin
+ * (25 novembre 2026) : la démo passe devant l'essai seul, on installe Empire
+ * ensemble pendant l'appel.
+ */
+export function DemoReassurance({ fr, className = '' }: { fr: boolean; className?: string }) {
+  const parts = fr
+    ? ['30 min en visio', 'On installe Empire ensemble', 'Gratuit']
+    : ['30 min video call', 'We set up Empire together', 'Free']
+  return (
+    <p className={`text-center text-[13px] leading-relaxed text-neutral-300 ${className}`}>
+      {parts.map((part, i) => {
+        const dot = <span aria-hidden className="text-neutral-500">{' · '}</span>
+        const last = i === parts.length - 1
+        return (
+          <span key={part}>
+            {i > 0 && !last && dot}
+            {last && <><br className="sm:hidden" /><span className="hidden sm:inline">{dot}</span></>}
+            <span className="whitespace-nowrap">{part}</span>
+          </span>
+        )
+      })}
+    </p>
+  )
+}
+
+/**
  * Le duo essai + démo. Téléphone : empilés, pleine largeur, même hauteur, la
  * ligne de réassurance juste sous l'essai. Dès 640 px : côte à côte, même
  * largeur, la ligne centrée dessous.
@@ -61,6 +87,7 @@ export function CtaPair({
   secondary,
   className = '',
   reassuranceClassName = '',
+  demoFirst = false,
 }: {
   fr: boolean
   primary: React.ReactNode
@@ -68,11 +95,16 @@ export function CtaPair({
   className?: string
   /** Ex. un fond opaque dans le hero, où des réactions montent derrière. */
   reassuranceClassName?: string
+  /** Le bouton principal est la démo : la ligne de réassurance parle du call, pas de l'essai. */
+  demoFirst?: boolean
 }) {
+  const reassuranceClass = `order-2 -mt-1 ${secondary ? 'sm:order-3 sm:col-span-2 sm:mt-0' : ''} ${reassuranceClassName}`
   return (
     <div className={`mx-auto grid w-full gap-3 ${secondary ? 'max-w-[640px] sm:grid-cols-2' : 'max-w-[400px]'} ${className}`}>
       <div className="order-1">{primary}</div>
-      <TrialReassurance fr={fr} className={`order-2 -mt-1 ${secondary ? 'sm:order-3 sm:col-span-2 sm:mt-0' : ''} ${reassuranceClassName}`} />
+      {demoFirst
+        ? <DemoReassurance fr={fr} className={reassuranceClass} />
+        : <TrialReassurance fr={fr} className={reassuranceClass} />}
       {secondary && <div className="order-3 sm:order-2">{secondary}</div>}
     </div>
   )

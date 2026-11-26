@@ -2,8 +2,8 @@ import Script from 'next/script'
 import JoinUsClient from './JoinUsClient'
 
 export const metadata = {
-  title: 'Demander une démo - Empire Internet',
-  description: "15 min pour voir si notre système de contenu s'adapte à ton activité. Gratuit, sans engagement.",
+  title: 'Réserver une démo - Empire Internet',
+  description: "30 min en visio : on regarde ton activité et on installe Empire avec toi. Gratuit, sans engagement.",
 }
 
 export default function JoinUsPage() {

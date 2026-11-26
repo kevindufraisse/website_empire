@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import YtLeadForm from '@/components/YtLeadForm'
 import { useAutopilot } from '@/contexts/AutopilotContext'
 import { useLanguage } from '@/contexts/LanguageContext'
@@ -22,6 +23,80 @@ const AVATARS = [
   'https://i.pravatar.cc/48?img=44',
   'https://i.pravatar.cc/48?img=55',
 ]
+
+type Accent = { text: string; bg: string; bgSoft10: string }
+
+/**
+ * Les deux étapes, comme les pages de réservation des SaaS (iClose, Calendly) :
+ * on voit avant de remplir que le calendrier vient juste après.
+ */
+function BookingSteps({ fr, accent }: { fr: boolean; accent: Accent }) {
+  const steps = [
+    { n: 1, label: fr ? 'Tes infos' : 'Your details', hint: fr ? '30 secondes' : '30 seconds', active: true },
+    { n: 2, label: fr ? 'Ton créneau' : 'Your slot', hint: fr ? 'dans le calendrier' : 'in the calendar', active: false },
+  ]
+  return (
+    <ol className="mb-5 flex items-center gap-2" aria-label={fr ? 'Étapes' : 'Steps'}>
+      {steps.map((s, i) => (
+        <li key={s.n} className="flex flex-1 items-center gap-2 min-w-0">
+          <span
+            className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold ${s.active ? `${accent.bg} text-black` : 'border border-white/25 text-neutral-400'}`}
+            aria-current={s.active ? 'step' : undefined}
+          >
+            {s.n}
+          </span>
+          <span className="min-w-0 leading-tight">
+            <span className={`block text-[13px] font-semibold ${s.active ? 'text-white' : 'text-neutral-400'}`}>{s.label}</span>
+            <span className="block text-[11px] text-neutral-500 truncate">{s.hint}</span>
+          </span>
+          {i < steps.length - 1 && <span aria-hidden className="ml-auto h-px flex-1 min-w-4 bg-white/15" />}
+        </li>
+      ))}
+    </ol>
+  )
+}
+
+/**
+ * Aperçu flouté du calendrier (étape 2). Aucun créneau réel n'est affiché :
+ * les vrais créneaux viennent de Cal.com une fois les infos envoyées.
+ */
+function CalendarPreview({ fr, accent }: { fr: boolean; accent: Accent }) {
+  const [days, setDays] = useState<{ dow: string; day: number }[]>([])
+  useEffect(() => {
+    const out: { dow: string; day: number }[] = []
+    const d = new Date()
+    while (out.length < 5) {
+      d.setDate(d.getDate() + 1)
+      if (d.getDay() === 0 || d.getDay() === 6) continue
+      out.push({ dow: d.toLocaleDateString(fr ? 'fr-FR' : 'en-US', { weekday: 'short' }).replace('.', ''), day: d.getDate() })
+    }
+    setDays(out)
+  }, [fr])
+  if (days.length === 0) return null
+  return (
+    <div className="relative mt-4 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-4" aria-hidden>
+      <p className="mb-3 text-[11px] font-semibold uppercase tracking-widest text-neutral-500">
+        {fr ? 'Étape 2 · Ton créneau' : 'Step 2 · Your slot'}
+      </p>
+      <div className="grid grid-cols-5 gap-2 select-none blur-[2px]">
+        {days.map((d) => (
+          <div key={`${d.dow}-${d.day}`} className="flex flex-col items-center gap-1.5">
+            <span className="text-[10px] uppercase text-neutral-500">{d.dow}</span>
+            <span className="text-sm font-bold text-neutral-300">{d.day}</span>
+            {[0, 1, 2].map((k) => (
+              <span key={k} className={`h-6 w-full rounded-md border border-white/10 ${k === 1 ? accent.bgSoft10 : 'bg-white/[0.04]'}`} />
+            ))}
+          </div>
+        ))}
+      </div>
+      <div className="absolute inset-x-0 bottom-0 top-9 flex items-center justify-center">
+        <span className="rounded-full border border-white/15 bg-black/80 px-3 py-1.5 text-xs font-semibold text-white">
+          {fr ? 'S’ouvre après tes infos' : 'Opens after your details'}
+        </span>
+      </div>
+    </div>
+  )
+}
 
 export default function JoinUsClient() {
   const { autopilot } = useAutopilot()
@@ -48,13 +123,13 @@ export default function JoinUsClient() {
 
   const headline = autopilot
     ? (fr ? 'Kevin Dufraisse ou un expert en viralité' : 'Kevin Dufraisse or a virality expert')
-    : (fr ? 'Attire des clients -' : 'Attract clients -')
+    : (fr ? 'On installe Empire avec toi :' : 'We set up Empire with you:')
   const headlineAccent = autopilot
     ? (fr ? 'crée ta marque de A à Z.' : 'builds your brand from A to Z.')
-    : (fr ? 'sans écrire ni monter ton contenu.' : 'without writing or editing your content.')
+    : (fr ? '30 minutes, en visio.' : '30 minutes, on video.')
   const subtitle = autopilot
     ? (fr ? 'Tu ne t\'occupes de rien. On trouve tes sujets, on écrit dans ta voix, on produit et on publie. 10 places disponibles.' : 'You don\'t lift a finger. We find your topics, write in your voice, produce and publish. 10 spots available.')
-    : (fr ? '1 h de parole par semaine → posts, Reels, newsletters sur 7 réseaux.' : '1 hour of talking per week → posts, Reels, newsletters across 7 platforms.')
+    : (fr ? 'On regarde ton activité, on règle ton compte et tes réseaux, et tu repars en sachant quoi filmer cette semaine.' : 'We look at your business, set up your account and networks, and you leave knowing what to film this week.')
 
   return (
     <main className="min-h-screen bg-black text-white overflow-x-hidden">
@@ -126,16 +201,18 @@ export default function JoinUsClient() {
                 <h2 className="text-lg font-bold text-white">
                   {autopilot
                     ? (fr ? 'Vérifie ton éligibilité' : 'Check your eligibility')
-                    : (fr ? 'Réserve ton appel gratuit' : 'Book your free call')}
+                    : (fr ? 'Réserve ta démo' : 'Book your demo')}
                 </h2>
                 <p className="text-xs text-neutral-400 mt-1">
                   {autopilot
                     ? (fr ? '30 secondes - on revient vers toi sous 24h.' : '30 seconds - we get back to you within 24h.')
-                    : (fr ? '30 secondes - choisis ensuite ton créneau.' : '30 seconds - then pick your slot.')}
+                    : (fr ? '30 min en visio avec Kevin ou un expert. On installe Empire ensemble.' : '30 min video call with Kevin or an expert. We set up Empire together.')}
                 </p>
               </div>
+              {!autopilot && <BookingSteps fr={fr} accent={accent} />}
               <YtLeadForm eventName="organic_lead_form" />
             </div>
+            {!autopilot && <CalendarPreview fr={fr} accent={accent} />}
 
             <div className="flex items-center justify-center gap-3 mt-3">
               <div className="flex -space-x-2">

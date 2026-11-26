@@ -171,28 +171,43 @@ export default function HeroSection() {
                     <span className="text-[11px] font-semibold opacity-70">{t.autopilot.hero.ctaReassurance}</span>
                   </a>
                 ) : (
-                  /* L’essai est l’action principale, la démo le second choix :
-                     même hauteur, même largeur, contour blanc bien visible. Le
-                     trafic chaud (lien setter, parrainage) n'a que l'essai. */
-                  <CtaPair
-                    fr={lang === 'fr'}
-                    reassuranceClassName="mx-auto w-fit rounded-lg bg-[#0a0a0a] px-3 py-0.5"
-                    primary={
-                      <a href={TRIAL_URL} onClick={onTrial} className={CTA_PRIMARY}>
-                        {lang === 'fr' ? 'Essai gratuit 7 jours' : '7-day free trial'}
-                        <span aria-hidden className="inline-block transition-transform group-hover:translate-x-1">→</span>
-                      </a>
-                    }
-                    secondary={!warm && (
-                      <a
-                        href="/join-us"
-                        onClick={() => trackAmplitude('empire_call_clicked', { source: 'home-hero' })}
-                        className={CTA_SECONDARY}
-                      >
-                        {lang === 'fr' ? 'Demander une démo' : 'Request a demo'}
-                      </a>
-                    )}
-                  />
+                  /* Choix de Kevin (25 novembre 2026) : la démo est l’action
+                     principale (il close mieux en call et installe Empire avec
+                     le client), l’essai le second choix. Le trafic chaud
+                     (lien setter, parrainage) garde l’essai seul. */
+                  warm ? (
+                    <CtaPair
+                      fr={lang === 'fr'}
+                      reassuranceClassName="mx-auto w-fit rounded-lg bg-[#0a0a0a] px-3 py-0.5"
+                      primary={
+                        <a href={TRIAL_URL} onClick={onTrial} className={CTA_PRIMARY}>
+                          {lang === 'fr' ? 'Essai gratuit 7 jours' : '7-day free trial'}
+                          <span aria-hidden className="inline-block transition-transform group-hover:translate-x-1">→</span>
+                        </a>
+                      }
+                    />
+                  ) : (
+                    <CtaPair
+                      fr={lang === 'fr'}
+                      demoFirst
+                      reassuranceClassName="mx-auto w-fit rounded-lg bg-[#0a0a0a] px-3 py-0.5"
+                      primary={
+                        <a
+                          href="/join-us"
+                          onClick={() => trackAmplitude('empire_call_clicked', { source: 'home-hero' })}
+                          className={CTA_PRIMARY}
+                        >
+                          {lang === 'fr' ? 'Réserver ma démo' : 'Book my demo'}
+                          <span aria-hidden className="inline-block transition-transform group-hover:translate-x-1">→</span>
+                        </a>
+                      }
+                      secondary={
+                        <a href={TRIAL_URL} onClick={onTrial} className={CTA_SECONDARY}>
+                          {lang === 'fr' ? 'Essai gratuit 7 jours' : '7-day free trial'}
+                        </a>
+                      }
+                    />
+                  )
                 )}
               </div>
               {/* Preuve alignée sur la promesse : la promesse est « les formats

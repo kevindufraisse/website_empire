@@ -319,7 +319,6 @@ export default function CalendarSection() {
               <InlineCTA
                 title={t.calendar.cta}
                 description={t.calendar.ctaDesc}
-                primaryText={t.common.startNow}
                 secondaryText={t.common.watchDemo}
               />
             </div>

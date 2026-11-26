@@ -136,16 +136,16 @@ export default function Footer() {
                 <span className="mt-1 text-[10px] font-semibold opacity-70">{lang === 'fr' ? 'Paiement unique · Accès immédiat' : 'One-time payment · Instant access'}</span>
               </OnboardingLink>
             )}
-            {/* Essai + démo, même gabarit que le reste du site (components/ui/cta). */}
+            {/* Démo d'abord, essai ensuite (choix de Kevin, 25 novembre 2026). */}
             {!isPartnersPage && !isVslPage && !autopilot && !isAcademyPage && (
               <div className="flex w-full max-w-[280px] flex-col gap-3">
-                <OnboardingLink className={`${CTA_PRIMARY} !px-4 !text-[15px]`}>
+                <a href="/join-us" onClick={() => trackAmplitude('empire_call_clicked', { source: 'footer' })} className={`${CTA_PRIMARY} !px-4 !text-[15px]`}>
+                  {lang === 'fr' ? 'Réserver ma démo' : 'Book my demo'}
+                </a>
+                <OnboardingLink className={`${CTA_SECONDARY} !px-4 !text-[15px]`}>
                   {lang === 'fr' ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial'}
                 </OnboardingLink>
                 <TrialReassurance fr={lang === 'fr'} stacked className="-mt-1 !text-xs" />
-                <a href="/join-us" onClick={() => trackAmplitude('empire_call_clicked', { source: 'footer' })} className={`${CTA_SECONDARY} !px-4 !text-[15px]`}>
-                  {lang === 'fr' ? 'Demander une démo' : 'Request a demo'}
-                </a>
               </div>
             )}
           </div>

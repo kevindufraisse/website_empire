@@ -425,20 +425,21 @@ function Ctas({ location }: { location: string }) {
     <div className="w-full max-w-xl mx-auto">
       <CtaPair
         fr
+        demoFirst
         primary={
-          <button type="button" onClick={startTrial} disabled={loading} className={CTA_PRIMARY}>
-            {loading ? 'Ouverture…' : 'Commencer gratuitement'}
-            {!loading && <ArrowRight className="w-5 h-5" />}
-          </button>
+          <a
+            href="/join-us"
+            onClick={() => trackAmplitude('empire_call_clicked', { source: `vsl_${location}` })}
+            className={CTA_PRIMARY}
+          >
+            Réserver ma démo
+            <ArrowRight className="w-5 h-5" />
+          </a>
         }
         secondary={
-          <a
-            href="/demo"
-            onClick={() => trackAmplitude('empire_demo_clicked', { source: `vsl_${location}` })}
-            className={CTA_SECONDARY}
-          >
-            Demander une démo
-          </a>
+          <button type="button" onClick={startTrial} disabled={loading} className={CTA_SECONDARY}>
+            {loading ? 'Ouverture…' : 'Commencer gratuitement'}
+          </button>
         }
       />
       {/* La règle complète, plus petite, sous la ligne courte. */}

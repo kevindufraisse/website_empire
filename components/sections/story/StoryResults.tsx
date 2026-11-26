@@ -115,11 +115,14 @@ export default function StoryResults() {
                 <p className="text-empire font-semibold text-xl mb-8 drop-shadow-[0_0_10px_rgb(var(--empire-rgb)_/_0.5)]">
                   {t.story.results.finalWelcome}
                 </p>
-                <OnboardingLink
-                  className="inline-block px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.5)] hover:shadow-[0_0_40px_rgb(var(--empire-rgb)_/_0.7)]"
-                >
-                  {lang === 'fr' ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial'}
-                </OnboardingLink>
+                <div className="flex flex-wrap items-center justify-center gap-3">
+                  <a href="/join-us" className="inline-block px-8 py-4 bg-empire text-black font-bold rounded-xl hover:scale-105 transition-all shadow-[0_0_30px_rgb(var(--empire-rgb)_/_0.5)] hover:shadow-[0_0_40px_rgb(var(--empire-rgb)_/_0.7)]">
+                    {lang === 'fr' ? 'Réserver ma démo' : 'Book my demo'}
+                  </a>
+                  <OnboardingLink className="inline-block px-8 py-4 border border-white/40 text-white font-bold rounded-xl hover:border-white transition-all">
+                    {lang === 'fr' ? 'Tester 7 jours gratuitement' : 'Start my 7-day free trial'}
+                  </OnboardingLink>
+                </div>
                 <CtaReassurance className="mt-4 px-2" />
               </div>
             </div>

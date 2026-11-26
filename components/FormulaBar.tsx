@@ -316,6 +316,15 @@ export default function FormulaBar() {
         {/* Essai (et démo dès la tablette) à droite de la formule, sur une seule ligne. */}
         {!docked && (
           <div className="mr-1.5 flex items-center gap-1.5 sm:mr-2">
+          <a
+            href="/join-us"
+            data-cta="sticky-call"
+            onClick={() => trackAmplitude('empire_call_clicked', { source: 'formula_bar' })}
+            className="flex min-h-[32px] items-center justify-center gap-1 whitespace-nowrap rounded-lg border-[1.5px] border-empire bg-empire px-3 py-1 text-[11px] font-bold text-black transition hover:brightness-110 sm:min-w-[150px] sm:text-xs"
+          >
+            {fr ? 'Réserver une démo' : 'Book a demo'}
+            <span aria-hidden>→</span>
+          </a>
           <button
             type="button"
             data-cta="sticky-trial"
@@ -323,19 +332,10 @@ export default function FormulaBar() {
               trackAmplitude('formula_bar_trial_clicked')
               startFreeTrial()
             }}
-            className="flex min-h-[32px] items-center justify-center gap-1 whitespace-nowrap rounded-lg border-[1.5px] border-empire bg-empire px-3 py-1 text-[11px] font-bold text-black transition hover:brightness-110 sm:min-w-[150px] sm:text-xs"
-          >
-            {fr ? 'Tester gratuitement' : 'Try it free'}
-            <span aria-hidden>→</span>
-          </button>
-          <a
-            href="/join-us"
-            data-cta="sticky-call"
-            onClick={() => trackAmplitude('empire_call_clicked', { source: 'formula_bar' })}
             className="hidden min-h-[32px] min-w-[150px] items-center justify-center whitespace-nowrap rounded-lg border-[1.5px] border-white/60 bg-[#0a0a0a] px-3 py-1 text-xs font-bold text-white transition hover:border-white hover:bg-[#151515] sm:flex"
           >
-            {fr ? 'Demander une démo' : 'Request a demo'}
-          </a>
+            {fr ? 'Tester gratuitement' : 'Try it free'}
+          </button>
           </div>
         )}
       </div>
