@@ -9,9 +9,9 @@ const APP_URL = 'https://app.empire-internet.com'
 
 const PLAN_CONFIG: Record<string, Record<string, { envKey: string; credits: number }>> = {
   starter: {
-    monthly: { envKey: 'STRIPE_PRICE_CREDIT_STARTER_MONTHLY', credits: 2200 },
-    quarterly: { envKey: 'STRIPE_PRICE_CREDIT_STARTER_QUARTERLY', credits: 2200 },
-    yearly: { envKey: 'STRIPE_PRICE_CREDIT_STARTER_YEARLY', credits: 2200 },
+    monthly: { envKey: 'STRIPE_PRICE_CREDIT_STARTER_MONTHLY', credits: 3500 },
+    quarterly: { envKey: 'STRIPE_PRICE_CREDIT_STARTER_QUARTERLY', credits: 3500 },
+    yearly: { envKey: 'STRIPE_PRICE_CREDIT_STARTER_YEARLY', credits: 3500 },
   },
   growth: {
     monthly: { envKey: 'STRIPE_PRICE_CREDIT_GROWTH_MONTHLY', credits: 6600 },

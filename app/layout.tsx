@@ -36,6 +36,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} ${caveat.variable}`} suppressHydrationWarning>
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" />
         {/* Tier from URL before first paint (no localStorage - it caused gold flashes on Empire). */}
         <script dangerouslySetInnerHTML={{
           __html: `(function(){try{var p=location.pathname;var q=location.search||'';var legende=p==='/legende'||((p==='/join-us'||p==='/decouverte')&&q.indexOf('offer=legende')!==-1);var t=p==='/candidature'?'academy':(legende?'autopilot':'copilot');var r=document.documentElement;r.setAttribute('data-autopilot',legende?'true':'false');r.setAttribute('data-tier',t);try{localStorage.removeItem('empire-autopilot')}catch(e){}}catch(e){}})();`

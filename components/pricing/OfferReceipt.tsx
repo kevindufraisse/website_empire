@@ -13,7 +13,8 @@ import {
   toolEuros,
   type PlanId,
 } from '@/lib/plans'
-import { LIVE_OFFER, isLivePlan, type LiveWindow } from '@/lib/liveOffer'
+import { LIVE_OFFER, type LiveWindow } from '@/lib/liveOffer'
+import { BLACK_FRIDAY, useBlackFriday } from '@/lib/blackFriday'
 import { ORDER_SEGMENT, ORDER_SEGMENTS } from '@/lib/orderStyles'
 import glass from './pricing.module.css'
 import { CardTrialButton } from './TrialCta'
@@ -63,8 +64,12 @@ export default function OfferReceipt({ cart, onChoose, live = null }: Props) {
   const v = freelanceValue(plan, mode)
   const { mix } = v
   const p = FREELANCE_PRICES
+  const bfActive = useBlackFriday().active
+  const clubPlanId: PlanId = bfActive ? BLACK_FRIDAY.plan : 'growth'
   const label = PLAN_LABELS[plan][fr ? 'fr' : 'en']
-  const plans = live ? PLANS.filter((x) => isLivePlan(x.id)) : PLANS
+  const plans = live
+    ? PLANS.filter((x) => x.id === clubPlanId)
+    : PLANS.filter((x) => x.id === 'starter' || x.id === clubPlanId)
   const times = (n: number, unit: number) => (fr ? `${n} × ${unit} €` : `${n} × €${unit}`)
   const perMonthWord = fr ? 'par mois' : 'per month'
 

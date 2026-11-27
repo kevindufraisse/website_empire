@@ -5,7 +5,7 @@ import { supabaseAdmin } from '@/lib/supabase'
 // Mirror this in app/pay-as-you-go/PaygClient.tsx (PAYG_TIERS).
 // "credits: -1" means unlimited (Empire Illimité tier).
 const TIER_PACKS: Record<string, { price: number; credits: number }> = {
-  starter: { price: 199, credits: 2200 },
+  starter: { price: 199, credits: 3500 },
   growth: { price: 499, credits: 6000 },
   scale: { price: 799, credits: 10400 },
   illimite: { price: 999, credits: -1 },

@@ -61,7 +61,9 @@ export function useTrialCart(plan: PlanId, period: BillingId, live: LiveWindow |
   const liveDeal = live && period === 'monthly' && isLivePlan(plan) && !blackFriday ? LIVE_OFFER.plans[plan] : null
   const perMonth = liveDeal ? liveDeal.monthly : finalPrice(blackFridayBase(plan, planInfo.price, bf.active), period, 1)
   const cycleTotal = perMonth * billing.months
-  const today = liveDeal ? liveDeal.monthly : bootcamp ? bootcampEuros : 0
+  // Empire Club inclut déjà l'Academy : le Bootcamp payant à part ne concerne qu'Empire Solo.
+  const effectiveBootcamp = bootcamp && plan === 'starter'
+  const today = liveDeal ? liveDeal.monthly : effectiveBootcamp ? bootcampEuros : 0
 
   const toggle = (which: TrialOption) => {
     const next = which === 'bootcamp' ? !bootcamp : !expert
@@ -78,14 +80,14 @@ export function useTrialCart(plan: PlanId, period: BillingId, live: LiveWindow |
       window.location.href = liveCheckoutUrl(live.email, plan)
       return
     }
-    const options: TrialOption[] = [...(bootcamp ? ['bootcamp' as const] : []), ...(expert ? ['expert' as const] : [])]
+    const options: TrialOption[] = [...(effectiveBootcamp ? ['bootcamp' as const] : []), ...(expert ? ['expert' as const] : [])]
     trackAmplitude('pricing_page_plan_clicked', { plan, billing_period: period, location: 'cart', options: options.join(',') })
     await startFreeTrial(plan, period, options)
   }
 
   return {
     plan, period, billing, liveDeal, blackFriday,
-    bootcamp, expert, opening, full, spotsLine, bootcampEuros,
+    bootcamp: effectiveBootcamp, expert, opening, full, spotsLine, bootcampEuros,
     perMonth, cycleTotal, today,
     toggle, checkout,
   }

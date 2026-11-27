@@ -86,13 +86,13 @@ export default function OptionsPanel({ cart }: { cart: TrialCart }) {
       ) : (
         <div className="space-y-3">
           <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-neutral-400">{fr ? 'Options' : 'Add-ons'}</p>
-          {optionRow(
+          {plan === 'starter' && optionRow(
             'bootcamp', bootcamp, <GraduationCap className="h-4 w-4 text-empire" />,
             fr ? 'Bootcamp Academy' : 'Academy bootcamp',
             fr ? `+${bootcampEuros} €` : `+€${bootcampEuros}`,
             fr
-              ? nbsp('En une fois, prélevés aujourd’hui. 21 vidéos pour apprendre la méthode Empire.')
-              : 'One-time payment, charged today. 21 videos to learn the Empire method.',
+              ? nbsp('En une fois, prélevés aujourd’hui. 21 vidéos pour apprendre la méthode Empire (déjà inclus dans Empire Club).')
+              : 'One-time payment, charged today. 21 videos to learn the Empire method (already included in Empire Club).',
           )}
           {optionRow(
             'expert', expert, <UserRound className="h-4 w-4 text-empire" />,

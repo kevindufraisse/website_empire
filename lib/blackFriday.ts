@@ -20,10 +20,10 @@ import type { PlanId } from '@/lib/plans'
  */
 export const BLACK_FRIDAY = {
   plan: 'scale' as PlanId,
-  /** Le prix de Growth. */
+  /** Le prix d'Empire Club. */
   promoMonthly: 499,
   baseMonthly: 799,
-  durationMonths: 12,
+  durationMonths: null as number | null,
   endsAt: Date.parse('2026-11-30T23:59:59+01:00'),
 } as const
 
@@ -97,7 +97,6 @@ export function useBlackFridayDuration(): number | null | undefined {
 
 /** « pendant 12 mois » / « à vie », ou '' tant que la durée n'est pas connue. */
 export function blackFridayDurationLabel(months: number | null | undefined, fr: boolean): string {
-  if (months === undefined) return ''
-  if (months === null) return fr ? 'à vie' : 'for life'
+  if (months === undefined || months === null) return fr ? 'à vie' : 'for life'
   return fr ? `pendant ${months} mois` : `for ${months} months`
 }
