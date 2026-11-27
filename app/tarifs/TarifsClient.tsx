@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useRef, useState, type ReactNode } from 'react'
-import { BlackFridayStrip } from '@/components/BlackFridayBanner'
 import { useBlackFriday } from '@/lib/blackFriday'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
@@ -229,10 +228,13 @@ export default function TarifsClient() {
     setPeriod('monthly')
     setChosenPlan('scale')
   }, [live])
-  // Black Friday : Scale choisi d'office, c'est la formule en promo.
+  // Black Friday : Empire Club route sur Scale (×2 à 499 €). Passé endsAt, il retombe seul sur Growth.
   const blackFriday = useBlackFriday().active
   useEffect(() => {
-    if (blackFriday) setChosenPlan('scale')
+    setChosenPlan((prev) => {
+      if (prev === 'starter') return 'starter'
+      return blackFriday ? 'scale' : 'growth'
+    })
   }, [blackFriday])
 
   useEffect(() => {
@@ -319,20 +321,27 @@ export default function TarifsClient() {
       </div>
 
       <div className="mx-auto max-w-6xl px-4">
-        <header className="mx-auto max-w-3xl pt-6 text-center md:pt-14">
+        <header className="mx-auto max-w-3xl pt-6 text-center md:pt-10" style={{ fontFamily: '"Plus Jakarta Sans", var(--font-inter), Inter, -apple-system, sans-serif' }}>
           <p className={EYEBROW}>{fr ? HERO_COPY.eyebrow.fr : HERO_COPY.eyebrow.en}</p>
-          <h1 className="mt-3 text-[28px] font-bold leading-[1.12] tracking-tight text-white [text-wrap:balance] md:text-5xl md:leading-[1.08]">{h1}</h1>
-          <p className="mx-auto mt-3 max-w-xl text-[15px] leading-normal text-neutral-300 [text-wrap:pretty] md:mt-4 md:text-lg md:leading-relaxed">
+          <h1 className="mt-2.5 text-[28px] font-bold leading-[1.08] tracking-[-0.03em] text-white [text-wrap:balance] md:text-[46px]">
+            {fr ? (
+              <>
+                {nbsp('Ta présence sur 7 réseaux, en autonomie ou ')}
+                <em className="font-normal italic text-empire" style={{ fontFamily: '"Instrument Serif", Georgia, serif', fontSize: '1.12em' }}>
+                  dans le Club.
+                </em>
+              </>
+            ) : (
+              <>
+                Your presence on 7 networks, solo or{' '}
+                <em className="font-normal italic text-empire" style={{ fontFamily: '"Instrument Serif", Georgia, serif', fontSize: '1.12em' }}>
+                  in the Club.
+                </em>
+              </>
+            )}
+          </h1>
+          <p className="mx-auto mt-3 max-w-xl text-[15px] leading-normal text-neutral-300 [text-wrap:pretty] md:text-[16.5px] md:leading-relaxed">
             {fr ? nbsp(HERO_COPY.sub.fr) : HERO_COPY.sub.en}
-          </p>
-          {/* Une seule ligne de preuve ; le détail est plus bas (« Tu ne pars pas de zéro »). */}
-          <p className="mt-2.5 text-[13px] leading-snug text-neutral-400 md:mt-3">
-            {HERO_COPY.proof[fr ? 'fr' : 'en'].map((part, i) => (
-              <span key={part}>
-                {i > 0 && <><br className="sm:hidden" /><span aria-hidden className="hidden text-neutral-600 sm:inline">{' · '}</span></>}
-                <span className="whitespace-nowrap">{fr ? nbsp(part) : part}</span>
-              </span>
-            ))}
           </p>
         </header>
 
@@ -359,12 +368,10 @@ export default function TarifsClient() {
           <p className="mt-2 text-center text-xs text-neutral-300">{fr ? 'Cet email n’a pas l’air valide.' : 'This email does not look valid.'}</p>
         )}
 
-        {solo && <BlackFridayStrip className="mt-5 md:mt-8" />}
-
         {solo ? (
           <>
             {/* 1. Le choix de la formule et sa carte. */}
-            <section className="mx-auto mt-5 max-w-5xl md:mt-10 lg:max-w-6xl" aria-label={fr ? 'Formules' : 'Plans'}>
+            <section className="mx-auto mt-5 max-w-5xl md:mt-7 lg:max-w-6xl" aria-label={fr ? 'Formules' : 'Plans'}>
               <PlanCards location="cards" period={period} onPeriodChange={setPeriod} chosen={chosenPlan} onChoose={setChosenPlan} live={live} cta={<CardTrialButton cart={cart} />} />
               <CallLink className="mt-4 md:mt-6" />
             </section>
@@ -454,11 +461,11 @@ export default function TarifsClient() {
               <OfferReceipt cart={cart} onChoose={chooseFromReceipt} live={live} />
             </section>
 
-            {/* 5. Les bonus. */}
+            {/* 5. Les piliers Empire Club. */}
             <section className={SECTION}>
               <SectionTitle
-                eyebrow={fr ? 'Tes bonus' : 'Your bonuses'}
-                title={fr ? 'Pour démarrer vite et tenir le rythme.' : 'To start fast and keep the pace.'}
+                eyebrow={fr ? 'Dans Empire Club' : 'Inside Empire Club'}
+                title={fr ? 'Les 4 piliers pour lancer vite et tenir le rythme.' : 'The 4 pillars to launch fast and keep the pace.'}
               />
               <div className="mt-8">
                 <OfferBonuses plan={chosenPlan} />

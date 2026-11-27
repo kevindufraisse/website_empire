@@ -2,43 +2,43 @@
 
 import { Check } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { PLANS, type PlanId } from '@/lib/plans'
+import type { PlanId } from '@/lib/plans'
 import glass from './pricing.module.css'
 import { nbsp } from './typo'
 
 /**
- * « Tes bonus » : quatre cartes nommées, sans valeur en euros (ils n'ont pas
- * de prix de marché). Même matrice qu'avant : l'onboarding dans toutes les
- * formules, comme le live du lundi (il est public) ; le groupe WhatsApp et la masterclass à partir de Growth.
+ * « Les 4 piliers d'Empire Club » : Onboarding 1-to-1 avec Kevin, coachings
+ * live du lundi, groupe WhatsApp privé et Empire Academy. Empire Solo (199 €)
+ * est 100 % autonome (vidéos courtes intégrées).
  */
 
 const BONUSES: { titleFr: string; titleEn: string; lineFr: string; lineEn: string; plans: PlanId[] }[] = [
   {
-    titleFr: 'Ton onboarding 1-1 offert',
-    titleEn: 'Your free 1-1 onboarding',
-    lineFr: '30 min avec Kevin pour lancer tes premiers contenus.',
-    lineEn: '30 min with Kevin to launch your first content.',
-    plans: ['starter', 'growth', 'scale'],
-  },
-  {
-    titleFr: 'La masterclass collective offerte, chaque lundi à 14 h',
-    titleEn: 'Free group masterclass, every Monday at 2 pm (Paris)',
-    lineFr: 'Heure de Paris. Accessible dès ton essai, depuis ton espace Academy.',
-    lineEn: 'Paris time. Available from your trial, in your Academy space.',
-    plans: ['starter', 'growth', 'scale'],
-  },
-  {
-    titleFr: 'Le groupe WhatsApp privé',
-    titleEn: 'The private WhatsApp group',
-    lineFr: 'Pour ne jamais rester bloqué.',
-    lineEn: 'So you never stay stuck.',
+    titleFr: 'Onboarding 1-to-1 (30 min avec Kevin)',
+    titleEn: '1-to-1 Onboarding (30 min with Kevin)',
+    lineFr: 'En tête-à-tête avec Kevin pour caler ton positionnement, ton offre et lancer tes premiers contenus.',
+    lineEn: 'One-on-one with Kevin to lock in your positioning, your offer and launch your first content.',
     plans: ['growth', 'scale'],
   },
   {
-    titleFr: 'La masterclass Empire en replay',
-    titleEn: 'The Empire masterclass replays',
-    lineFr: 'Pour comprendre la méthode, à ton rythme.',
-    lineEn: 'To learn the method, at your own pace.',
+    titleFr: 'Coachings live privés chaque lundi à 14 h',
+    titleEn: 'Private live coaching every Monday at 2pm (Paris)',
+    lineFr: '4 h par mois en direct avec Kevin pour corriger tes hooks, tes posts et ton tunnel.',
+    lineEn: '4h a month live with Kevin to sharpen your hooks, your posts and your funnel.',
+    plans: ['growth', 'scale'],
+  },
+  {
+    titleFr: 'Le groupe WhatsApp privé Empire Club',
+    titleEn: 'The private Empire Club WhatsApp group',
+    lineFr: 'Le cercle des entrepreneurs actifs sur Empire + accès direct à Kevin au quotidien.',
+    lineEn: 'The circle of active Empire founders + daily direct access to Kevin.',
+    plans: ['growth', 'scale'],
+  },
+  {
+    titleFr: 'Empire Academy intégrale (Bootcamp 21 jours + Replays)',
+    titleEn: 'Full Empire Academy (21-day Bootcamp + Replays)',
+    lineFr: 'Accès complet au bootcamp, aux formations et aux playbooks pour maîtriser la méthode.',
+    lineEn: 'Full access to the bootcamp, trainings and playbooks to master the method.',
     plans: ['growth', 'scale'],
   },
 ]
@@ -50,14 +50,13 @@ export default function OfferBonuses({ plan }: { plan: PlanId }) {
     <ul className="mx-auto grid max-w-5xl gap-3 md:grid-cols-2 md:gap-4">
       {BONUSES.map((b, i) => {
         const mine = b.plans.includes(plan)
-        const all = b.plans.length === PLANS.length
         return (
           <li key={b.titleFr} className={`p-5 sm:p-6 ${glass.panel}`}>
             <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
-              <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-empire">{`Bonus ${i + 1}`}</p>
+              <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-empire">{`Pilier ${i + 1}`}</p>
               <span className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-xs font-medium ${mine ? 'border-white/20 text-neutral-100' : 'border-white/10 text-neutral-500'}`}>
                 {mine && <Check className="h-3 w-3 text-empire" strokeWidth={3} />}
-                {all ? (fr ? 'Toutes les formules' : 'Every plan') : (fr ? 'Growth et Scale' : 'Growth and Scale')}
+                {'Empire Club'}
               </span>
             </div>
             <p className="mt-2.5 text-[17px] font-semibold leading-snug text-white">{fr ? nbsp(b.titleFr) : b.titleEn}</p>

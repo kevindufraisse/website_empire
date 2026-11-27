@@ -20,33 +20,33 @@ export type Plan = {
 }
 
 export const PLAN_LABELS: Record<PlanId, { fr: string; en: string }> = {
-  starter: { fr: 'Starter', en: 'Starter' },
-  growth: { fr: 'Growth', en: 'Growth' },
-  scale: { fr: 'Scale', en: 'Scale' },
+  starter: { fr: 'Empire Solo', en: 'Empire Solo' },
+  growth: { fr: 'Empire Club', en: 'Empire Club' },
+  scale: { fr: 'Empire Club · ×2', en: 'Empire Club · ×2' },
 }
 
 export const PLANS: Plan[] = [
   {
     id: 'starter',
     price: 199,
-    credits: 2200,
-    rhythmFr: 'Tu postes tous les 2 jours',
-    rhythmEn: 'You post every other day',
+    credits: 3500,
+    rhythmFr: '1 contenu par jour · 100 % autonome',
+    rhythmEn: '1 post a day · 100% self-serve',
   },
   {
     id: 'growth',
     price: 499,
     credits: 6600,
-    rhythmFr: 'Tu postes tous les jours',
-    rhythmEn: 'You post every day',
+    rhythmFr: 'Tous les jours + Kevin & le Club',
+    rhythmEn: 'Every day + Kevin & the Club',
     highlighted: true,
   },
   {
     id: 'scale',
     price: 799,
     credits: 12000,
-    rhythmFr: 'Tu postes 2 fois par jour',
-    rhythmEn: 'You post twice a day',
+    rhythmFr: '2 fois par jour + Kevin & le Club',
+    rhythmEn: 'Twice a day + Kevin & the Club',
   },
 ]
 

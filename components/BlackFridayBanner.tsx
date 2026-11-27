@@ -24,7 +24,7 @@ export function BlackFridayPill({ className = '' }: { className?: string }) {
       className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-black px-2.5 py-1 text-[11px] font-bold leading-none text-white ring-1 ring-[#DAFC68]/70 transition hover:ring-[#DAFC68] sm:text-xs ${className}`}
     >
       <span className="text-[#DAFC68]">Black Friday</span>
-      <span className="hidden sm:inline">{fr ? `· Scale à ${BLACK_FRIDAY.promoMonthly} €` : `· Scale at €${BLACK_FRIDAY.promoMonthly}`}</span>
+      <span className="hidden sm:inline">{fr ? `· Club ×2 à ${BLACK_FRIDAY.promoMonthly} €` : `· 2× Club at €${BLACK_FRIDAY.promoMonthly}`}</span>
     </a>
   )
 }
@@ -41,13 +41,13 @@ export function BlackFridayStrip({ className = '' }: { className?: string }) {
       <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#DAFC68]">Black Friday</p>
       <p className="mt-1 text-[15px] font-semibold leading-snug text-white sm:text-base">
         {fr ? (
-          <>Scale au prix de Growth&nbsp;: <span className="text-neutral-400 line-through decoration-neutral-500">{baseMonthly}&nbsp;€</span> {promoMonthly}&nbsp;€/mois{durationLabel ? ` ${durationLabel}` : ''}</>
+          <>Empire Club doublé au même prix&nbsp;: <span className="text-neutral-400 line-through decoration-neutral-500">{baseMonthly}&nbsp;€</span> {promoMonthly}&nbsp;€/mois{durationLabel ? ` ${durationLabel}` : ''}</>
         ) : (
-          <>Scale at Growth&apos;s price: <span className="text-neutral-400 line-through decoration-neutral-500">€{baseMonthly}</span> €{promoMonthly}/mo{durationLabel ? ` ${durationLabel}` : ''}</>
+          <>2× Empire Club at the same price: <span className="text-neutral-400 line-through decoration-neutral-500">€{baseMonthly}</span> €{promoMonthly}/mo{durationLabel ? ` ${durationLabel}` : ''}</>
         )}
       </p>
       <p className="mt-1 text-xs text-neutral-400">
-        {fr ? 'Tu publies 2 fois par jour au lieu d’une. ' : 'You publish twice a day instead of once. '}
+        {fr ? '2 contenus par jour (×2 à vie) + Empire Academy offerte (497 €). ' : '2 posts a day (2× for life) + Empire Academy included (€497). '}
         {left !== null && (
           <span className="whitespace-nowrap">
             {fr ? 'Fin dans ' : 'Ends in '}
